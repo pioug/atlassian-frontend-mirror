@@ -262,4 +262,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Show less',
 		description: '"Show less" text',
 	},
+	help_panel_search_back: {
+		id: 'helpPanel.search.back',
+		defaultMessage: 'Back',
+		description: '',
+	},
 });

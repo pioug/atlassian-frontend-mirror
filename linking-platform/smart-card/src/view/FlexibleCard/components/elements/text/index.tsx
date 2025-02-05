@@ -12,9 +12,21 @@ import { getFormattedMessage } from '../../utils';
 import TextOld from './TextOld';
 import { type TextProps } from './types';
 
-const baseStyle = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const baseStyleOld = css({
 	color: token('color.text.subtlest', '#626F86'),
 	font: token('font.body.UNSAFE_small'),
+	whiteSpace: 'normal',
+	display: '-webkit-box',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	wordBreak: 'break-word',
+	WebkitBoxOrient: 'vertical',
+});
+
+const baseStyle = css({
+	color: token('color.text.subtle'),
+	font: token('font.body.small'),
 	whiteSpace: 'normal',
 	display: '-webkit-box',
 	overflow: 'hidden',
@@ -53,7 +65,7 @@ const TextNew = ({
 	return (
 		<span
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={[baseStyle, dynamicCss]}
+			css={[fg('platform-linking-visual-refresh-v1') ? baseStyle : baseStyleOld, dynamicCss]}
 			data-separator
 			data-smart-element={name}
 			data-smart-element-text

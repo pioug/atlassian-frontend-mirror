@@ -13,8 +13,8 @@ const styles = [
 
 const level = 5;
 
-const createTestCases = (importSource: string) =>
-	styles.flatMap((createStyle) => [
+const createTestCases = (importSource: string) => [
+	...styles.flatMap((createStyle) => [
 		{
 			code: `
           import { css } from '${importSource}';
@@ -23,15 +23,7 @@ const createTestCases = (importSource: string) =>
         `,
 			errors: [],
 		},
-		{
-			// name: 'should also fail for renamed imports',
-			code: `
-          import { css as css2 } from '${importSource}';
 
-          export const animation = css2\`\`;
-        `,
-			errors: [{ messageId: 'unexpected' }],
-		},
 		{
 			code: `
           import { css } from '${importSource}';
@@ -711,38 +703,6 @@ const createTestCases = (importSource: string) =>
 			errors: [],
 		},
 		{
-			code: `
-          import { css, styled } from '${importSource}';
-
-          const buttonStyle = css\`
-            display: flex;
-            align-items: center;
-            justify-content: center;\`;
-
-          export const Component = styled.button(buttonStyle);
-        `,
-			errors: [],
-		},
-		{
-			code: `
-          import { css, styled } from '${importSource}';
-
-          export const Foo = styled.div\`
-            color: black;
-            \${({ isXEnabled }) => isXEnabled ? css\`width: 100px\` : undefined }\`
-          `,
-			errors: [],
-		},
-		{
-			code: `
-          import { css, styled } from '${importSource}';
-
-          const Button = styled.div({ color: 'red' });
-          export const Component = styled(Button)(css({ width: '100px' }));
-          `,
-			errors: [],
-		},
-		{
 			// name: 'should not parse package imports not defined in importSources',
 			code: `
           import { css } from '@emotion/react';
@@ -777,9 +737,51 @@ const createTestCases = (importSource: string) =>
 			options: [{ importSources: ['@emotion/react'] }],
 			errors: [{ messageId: 'unexpected' }],
 		},
-	]);
+	]),
+	{
+		code: `
+	  import { css, styled } from '${importSource}';
+
+	  const buttonStyle = css\`
+		display: flex;
+		align-items: center;
+		justify-content: center;\`;
+
+	  export const Component = styled.button(buttonStyle);
+	`,
+		errors: [],
+	},
+	{
+		code: `
+	  import { css, styled } from '${importSource}';
+
+	  export const Foo = styled.div\`
+		color: black;
+		\${({ isXEnabled }) => isXEnabled ? css\`width: 100px\` : undefined }\`
+	  `,
+		errors: [],
+	},
+	{
+		code: `
+	  import { css, styled } from '${importSource}';
+
+	  const Button = styled.div({ color: 'red' });
+	  export const Component = styled(Button)(css({ width: '100px' }));
+	  `,
+		errors: [],
+	},
+	{
+		// name: 'should also fail for renamed imports',
+		code: `
+	  import { css as css2 } from '${importSource}';
+
+	  export const animation = css2\`\`;
+	`,
+		errors: [{ messageId: 'unexpected' }],
+	},
+];
 
 tester.run('no-exported-css', rule, {
-	valid: [...createTestCases('@compiled/react').filter(({ errors }) => !errors.length)],
+	valid: createTestCases('@compiled/react').filter(({ errors }) => !errors.length),
 	invalid: createTestCases('@compiled/react').filter(({ errors }) => errors.length),
 });

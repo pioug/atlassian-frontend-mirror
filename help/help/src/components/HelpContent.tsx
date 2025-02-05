@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import HelpLayout from '@atlaskit/help-layout';
+
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { HIDE_CONTENT_DELAY } from './constants';
@@ -15,8 +16,9 @@ import ArticleComponent from './Article';
 import WhatsNewButton from './WhatsNew/WhatsNewButton';
 import WhatsNewResults from './WhatsNew/WhatsNewResults';
 import HelpContentButton from './HelpContentButton';
+import BackButton from './BackButton';
 import type { Props as HelpContentButtonProps } from './HelpContentButton';
-import { HelpBodyContainer, HelpBody, Home } from './styled';
+import { HelpBodyContainer, HelpBody, Home, HomeAi, HelpBodyAi } from './styled';
 import { HelpFooter } from './styled';
 
 interface HelpContentInterface {
@@ -49,7 +51,7 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
 
 	useEffect(() => {
 		let handler: ReturnType<typeof setTimeout>;
-		if (isOverlayVisible) {
+		if (isOverlayVisible && !isAiEnabled) {
 			handler = setTimeout(() => {
 				setIsOverlayFullyVisible(isOverlayVisible);
 			}, HIDE_CONTENT_DELAY);
@@ -62,16 +64,38 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
 				clearTimeout(handler);
 			}
 		};
-	}, [isOverlayVisible]);
+	}, [isOverlayVisible, isAiEnabled]);
 
-	return (
+	return isAiEnabled ? (
+		<HelpLayout onCloseButtonClick={onClose} isAiEnabled={true}>
+			<HelpBodyContainer>
+				<HelpBodyAi>
+					<BackButton onClick={handleOnBackButtonClick} isVisible={canNavigateBack} />
+					{onSearch && <SearchInput isAiEnabled={true} />}
+					<SearchResults isAiEnabled={true} />
+					<ArticleComponent isAiEnabled={true} />
+					<HomeAi isOverlayFullyVisible={isOverlayFullyVisible} isOverlayVisible={isOverlayVisible}>
+						{homeContent}
+						{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
+							<WhatsNewButton productName={productName} />
+						)}
+						{homeOptions &&
+							homeOptions.map((defaultOption: HelpContentButtonProps) => {
+								return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
+							})}
+					</HomeAi>
+				</HelpBodyAi>
+				<WhatsNewResults />
+				{footer && <HelpFooter data-testid="inside-footer">{footer}</HelpFooter>}
+			</HelpBodyContainer>
+		</HelpLayout>
+	) : (
 		<HelpLayout
 			onBackButtonClick={handleOnBackButtonClick}
 			onCloseButtonClick={onClose}
 			isBackbuttonVisible={canNavigateBack}
-			footer={!isAiEnabled ? footer : undefined}
+			footer={footer}
 			headerContent={onSearch && <SearchInput />}
-			isAiEnabled={isAiEnabled}
 		>
 			<HelpBodyContainer>
 				<HelpBody>
@@ -89,7 +113,6 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
 					</Home>
 				</HelpBody>
 				<WhatsNewResults />
-				{isAiEnabled && footer && <HelpFooter data-testid="inside-footer">{footer}</HelpFooter>}
 			</HelpBodyContainer>
 		</HelpLayout>
 	);

@@ -29,6 +29,10 @@ import {
 	createPlugin as createTrackNCSInitializationPlugin,
 	trackNCSInitializationPluginKey,
 } from './pm-plugins/track-ncs-initialization';
+import {
+	createPlugin as createTrackReconnectionConflictPlugin,
+	trackLastRemoteConflictPluginKey,
+} from './pm-plugins/track-reconnection-conflict';
 import { track } from './pm-plugins/track-steps';
 import { getAvatarColor } from './pm-plugins/utils';
 import type { ProviderBuilder, ProviderCallback } from './types';
@@ -105,12 +109,14 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					},
 					activeParticipants: undefined,
 					sessionId: undefined,
+					lastReconnectionConflictMetadata: undefined,
 				};
 			}
 
 			const collabPluginState = mainPluginKey.getState(state);
 			const metadata = trackNCSInitializationPluginKey.getState(state);
 			const lastOrganicChangeState = trackLastOrganicChangePluginKey.getState(state);
+			const lastRemoteConflict = trackLastRemoteConflictPluginKey.getState(state);
 
 			return {
 				activeParticipants: collabPluginState?.activeParticipants,
@@ -126,6 +132,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					lastRemoteOrganicBodyChangeAt:
 						lastOrganicChangeState?.lastRemoteOrganicBodyChangeAt || null,
 				},
+				lastReconnectionConflictMetadata: lastRemoteConflict,
 			};
 		},
 		actions: {
@@ -236,6 +243,13 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				name: 'collabTrackLastOrganicChangePlugin',
 				plugin: createLastOrganicChangePlugin,
 			});
+
+			if (fg('platform_editor_offline_conflict_resolution')) {
+				plugins.push({
+					name: 'trackLastRemoteConflictPlugin',
+					plugin: createTrackReconnectionConflictPlugin,
+				});
+			}
 
 			return plugins;
 		},

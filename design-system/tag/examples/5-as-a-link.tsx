@@ -1,7 +1,6 @@
 import React, { Fragment, type HTMLAttributes } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { styled } from '@compiled/react';
 
 import Link from '@atlaskit/link';
 import { SimpleTag as Tag } from '@atlaskit/tag';

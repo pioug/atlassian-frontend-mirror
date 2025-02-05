@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bacf70c4f4cda24ee7278c574ff73a12>>
+ * @codegen <<SignedSource::1f8c75cb592edbc7ccb124c7e831e475>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
-import type { Linter } from 'eslint';
+import type { ESLint } from 'eslint';
 
 export default {
 	plugins: ['@atlaskit/design-system'],
@@ -42,4 +42,4 @@ export default {
 		'@atlaskit/design-system/use-tag-group-label': 'warn',
 		'@atlaskit/design-system/use-visually-hidden': 'error',
 	},
-} satisfies Linter.Config;
+} satisfies ESLint.ConfigData;

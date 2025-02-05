@@ -146,7 +146,239 @@ const adfDocument = {
 				isNumberColumnEnabled: false,
 				layout: 'default',
 				localId: '99f50f46-c7b6-466c-aa8f-5483e215997a',
+				width: 800,
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+				localId: '99f50f46-c7b6-466c-aa8f-5483e215997a',
 				width: 760,
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+				localId: '99f50f46-c7b6-466c-aa8f-5483e215997a',
+				width: 600,
 			},
 			content: [
 				{
@@ -266,8 +498,97 @@ const adfDocument = {
 					},
 					content: [
 						{
-							type: 'paragraph',
-							content: [],
+							type: 'table',
+							attrs: {
+								isNumberColumnEnabled: false,
+								layout: 'default',
+								localId: '160e0e64-2d41-4bf2-92e8-b35e8e946b4a',
+								width: 760,
+							},
+							content: [
+								{
+									type: 'tableRow',
+									content: [
+										{
+											type: 'tableHeader',
+											attrs: {
+												colwidth: [75],
+											},
+											content: [
+												{
+													type: 'paragraph',
+													content: [],
+												},
+											],
+										},
+										{
+											type: 'tableHeader',
+											attrs: {
+												colwidth: [75],
+											},
+											content: [
+												{
+													type: 'paragraph',
+													content: [],
+												},
+											],
+										},
+										{
+											type: 'tableHeader',
+											attrs: {
+												colwidth: [460],
+											},
+											content: [
+												{
+													type: 'paragraph',
+													content: [],
+												},
+											],
+										},
+									],
+								},
+								{
+									type: 'tableRow',
+									content: [
+										{
+											type: 'tableCell',
+											attrs: {
+												colwidth: [75],
+											},
+											content: [
+												{
+													type: 'paragraph',
+													content: [],
+												},
+											],
+										},
+										{
+											type: 'tableCell',
+											attrs: {
+												colwidth: [75],
+											},
+											content: [
+												{
+													type: 'paragraph',
+													content: [],
+												},
+											],
+										},
+										{
+											type: 'tableCell',
+											attrs: {
+												colwidth: [460],
+											},
+											content: [
+												{
+													type: 'paragraph',
+													content: [],
+												},
+											],
+										},
+									],
+								},
+							],
 						},
 					],
 				},
@@ -419,6 +740,9 @@ export default function SSRTableBasic() {
 			}}
 			experiments={{
 				platform_editor_exp_lazy_node_views: true,
+			}}
+			featureFlags={{
+				platform_editor_table_layout_shift_fix: true,
 			}}
 		/>
 	);

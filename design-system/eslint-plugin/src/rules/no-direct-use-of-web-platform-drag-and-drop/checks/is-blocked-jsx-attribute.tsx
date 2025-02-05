@@ -2,7 +2,8 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '../../utils/context-compat';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
 import { blockedJSXAttributeLookup } from '../shared/blocked';
 

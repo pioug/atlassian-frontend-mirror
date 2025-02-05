@@ -1,4 +1,8 @@
+import { print } from 'graphql';
+import gql from 'graphql-tag';
+
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	ApiClientResponse,
@@ -50,8 +54,38 @@ export const modifyResponse = (response: ApiClientResponse): ProfileCardClientDa
 	};
 };
 
-export const buildAggUserQuery = (userId: string) => ({
-	query: `query user($userId: ID!) {
+const aggUserQuery = gql`
+	query user($userId: ID!) {
+		user(accountId: $userId) {
+			id
+			name
+			picture
+			accountStatus
+			__typename
+			... on AtlassianAccountUser {
+				email
+				nickname
+				zoneinfo
+				extendedProfile {
+					jobTitle
+					organization
+					location
+					closedDate
+					inactiveDate
+				}
+			}
+			... on CustomerUser {
+				email
+				zoneinfo
+			}
+			... on AppUser {
+				appType
+			}
+		}
+	}
+`;
+
+const aggUserQueryString = `query user($userId: ID!) {
 		user(accountId: $userId) {
 			id
 			name
@@ -78,7 +112,10 @@ export const buildAggUserQuery = (userId: string) => ({
       			appType
     		}
 		}
-	}`,
+	}`;
+
+export const buildAggUserQuery = (userId: string) => ({
+	query: fg('platform_agg_user_query_doc_change') ? print(aggUserQuery) : aggUserQueryString,
 	variables: {
 		userId,
 	},

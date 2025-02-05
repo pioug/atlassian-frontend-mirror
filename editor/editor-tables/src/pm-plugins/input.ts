@@ -7,10 +7,11 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CellSelection } from '../cell-selection';
 import type { Axis, CommandWithView, Direction, Dispatch } from '../types';
-import { tableNodeTypes } from '../utils';
+import { findTableClosestToPos, tableNodeTypes } from '../utils';
 import { cellAround, nextCell } from '../utils/cells';
 import { inSameTable } from '../utils/tables';
 
@@ -246,13 +247,24 @@ export function handleMouseDown(
 
 	function move(event: Event): void {
 		const anchor = tableEditingKey.getState(view.state);
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
+		const currDOMCell = domInCell(view, event.target as HTMLElement);
+		const isCurrCellInsideNestedTable = isInsideNestedTable(view, event as MouseEvent);
+		const isStartCellInsideNestedTable = isInsideNestedTable(view, startEvent);
+		const isBothCellsInSameTable = isCurrCellInsideNestedTable === isStartCellInsideNestedTable;
 		let $moveAnchor;
+
+		const oldIfStatement = currDOMCell !== startDOMCell;
+		const newIfStatement = currDOMCell !== startDOMCell && isBothCellsInSameTable;
+		const checkCellsAreDifferent = fg('platform_editor_cell_selection_with_nested_tables')
+			? newIfStatement
+			: oldIfStatement;
+
 		if (anchor != null) {
 			// Continuing an existing cross-cell selection
 			$moveAnchor = view.state.doc.resolve(anchor);
 			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		} else if (domInCell(view, event.target as HTMLElement) !== startDOMCell) {
+		} else if (checkCellsAreDifferent) {
 			// Moving out of the initial cell -- start a new cell selection
 			$moveAnchor = cellUnderMouse(view, startEvent);
 			if (!$moveAnchor) {
@@ -319,4 +331,22 @@ function cellUnderMouse(view: EditorView, event: MouseEvent): ResolvedPos | null
 		return null;
 	}
 	return cellAround(view.state.doc.resolve(mousePos.pos));
+}
+
+function isInsideNestedTable(view: EditorView, event: MouseEvent): boolean {
+	const mousePos = view.posAtCoords({
+		left: event.clientX,
+		top: event.clientY,
+	});
+	if (!mousePos) {
+		return false;
+	}
+	const pos = view.state.doc.resolve(mousePos.pos);
+	const table = findTableClosestToPos(pos);
+	if (!table) {
+		return false;
+	}
+	const parent = view.state.doc.resolve(table.pos).parent;
+	const nodeTypes = view.state.schema.nodes;
+	return [nodeTypes.tableHeader, nodeTypes.tableCell].includes(parent.type);
 }

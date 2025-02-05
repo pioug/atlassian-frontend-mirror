@@ -5,13 +5,10 @@
 
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import { cssVar } from '../../../constants';
 
 interface BeforeProps {
 	elemBefore?: ReactNode;
@@ -32,14 +29,14 @@ const beforeElementStylesOld = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `var(${cssVar.borderRadius})`,
+	borderRadius: 'var(--ds-br)',
 	insetBlockStart: token('space.0', '0px'),
 });
 
 const Before = ({ elemBefore }: BeforeProps) =>
 	elemBefore ? (
 		<span
-			css={fg('platform-component-visual-refresh') ? beforeElementStyles : beforeElementStylesOld}
+			css={[fg('platform-component-visual-refresh') ? beforeElementStyles : beforeElementStylesOld]}
 		>
 			{elemBefore}
 		</span>

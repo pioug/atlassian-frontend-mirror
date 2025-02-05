@@ -14,9 +14,24 @@ import { messages } from '../../../../../messages';
 import DateTimeOld from './DateTimeOld';
 import { type DateTimeProps, type DateTimeType } from './types';
 
-const styles = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const stylesOld = css({
 	color: token('color.text.subtlest', '#626F86'),
 	font: token('font.body.UNSAFE_small'),
+	display: '-webkit-box',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	wordBreak: 'break-word',
+	WebkitLineClamp: 1,
+	WebkitBoxOrient: 'vertical',
+	'@supports not (-webkit-line-clamp: 1)': {
+		maxHeight: 'calc(1 * 1rem)',
+	},
+});
+
+const styles = css({
+	color: token('color.text.subtle'),
+	font: token('font.body.small'),
 	display: '-webkit-box',
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
@@ -85,7 +100,7 @@ const DateTimeNew = ({
 
 	return (
 		<span
-			css={[styles]}
+			css={[fg('platform-linking-visual-refresh-v1') ? styles : stylesOld]}
 			data-separator
 			data-smart-element={name}
 			data-smart-element-date-time

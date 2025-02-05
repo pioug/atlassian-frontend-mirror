@@ -7,7 +7,8 @@ import {
 	isNodeOfType,
 } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '../utils/context-compat';
+import { getDeclaredVariables, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { createLintRule } from '../utils/create-rule';
 import { isCssInJsObjectNode, isCssInJsTemplateNode } from '../utils/is-node';
 
@@ -58,7 +59,7 @@ const rule = createLintRule({
 					return;
 				}
 
-				context.getDeclaredVariables(visuallyHiddenOrAssistive).forEach((someNode) => {
+				getDeclaredVariables(context, visuallyHiddenOrAssistive).forEach((someNode) => {
 					someNode.references
 						.map((innerNode) => innerNode.identifier as Rule.Node)
 						.forEach((idNode) => {

@@ -26,14 +26,14 @@ interface AvatarImageProps {
 }
 
 const avatarDefaultIconStyles = css({
-	display: 'block',
+	display: 'flex',
 	width: '100%',
 	height: '100%',
 	backgroundColor: token('color.icon.subtle', N90),
 });
 
 const avatarDefaultIconVisualRefreshStyles = css({
-	display: 'block',
+	display: 'flex',
 	width: '100%',
 	height: '100%',
 	backgroundColor: token('color.background.accent.gray.subtler'),
@@ -44,8 +44,6 @@ const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
 		return {
 			...styles,
 			[key]: css({
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				lineHeight: 0,
 				// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'& svg': {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

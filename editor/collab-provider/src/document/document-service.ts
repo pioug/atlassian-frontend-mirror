@@ -178,6 +178,7 @@ export class DocumentService implements DocumentServiceInterface {
 							...reconnectionMetadata,
 							remoteStepsLength: steps?.length ?? 0,
 						});
+						this.notifyReconnectionConflict(steps);
 					}
 				},
 				getState: this.getState,
@@ -233,6 +234,26 @@ export class DocumentService implements DocumentServiceInterface {
 
 		return this.getVersionFromCollabState(state, 'collab-provider: getCurrentPmVersion');
 	};
+
+	/**
+	 * In the event we reconnect check if we have existing unconfirmed steps and if so
+	 * notify the editor that we have a potential conflict to resolve on the frontend.
+	 *
+	 * @param data remote steps payload
+	 */
+	private notifyReconnectionConflict(steps: StepsPayload['steps']) {
+		if (!fg('platform_editor_offline_conflict_resolution')) {
+			return;
+		}
+		const state = this.getState?.();
+		const unconfirmedSteps = state ? getCollabState(state)?.unconfirmed : undefined;
+		if (steps.length > 0 && state && unconfirmedSteps && unconfirmedSteps.length > 0) {
+			// In the future we can determine the type of conflict
+			this.providerEmitCallback('data:conflict', {
+				offlineDoc: state.doc,
+			});
+		}
+	}
 
 	private processQueue() {
 		if (this.stepQueue.isPaused()) {

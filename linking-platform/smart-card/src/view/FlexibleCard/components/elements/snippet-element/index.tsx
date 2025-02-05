@@ -17,8 +17,17 @@ import SnippetElementOld from './SnippetElementOld';
 
 const SNIPPET_DEFAULT_MAX_LINES = 3;
 
-const snippetBaseStyle = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const snippetBaseStyleOld = css({
 	color: token('color.text', '#172B4D'),
+	WebkitUserSelect: 'text',
+	MozUserSelect: 'text',
+	MsUserSelect: 'text',
+	userSelect: 'text',
+});
+
+const snippetBaseStyle = css({
+	color: token('color.text'),
 	WebkitUserSelect: 'text',
 	MozUserSelect: 'text',
 	MsUserSelect: 'text',
@@ -37,7 +46,7 @@ const SnippetElementNew = ({
 		<Text
 			content={overrideContent ?? context?.snippet}
 			maxLines={maxLines}
-			css={snippetBaseStyle}
+			css={[fg('platform-linking-visual-refresh-v1') ? snippetBaseStyle : snippetBaseStyleOld]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 			{...props}

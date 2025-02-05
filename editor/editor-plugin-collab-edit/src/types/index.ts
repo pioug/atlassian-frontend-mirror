@@ -1,6 +1,7 @@
 import type {
 	CollabEditOptions,
 	CollabEditProvider,
+	CollabEventConflictPayload,
 	CollabParticipant,
 	SyncUpErrorFunction,
 } from '@atlaskit/editor-common/collab';
@@ -55,4 +56,5 @@ export type CollabEditPluginSharedState = {
 	initialised: CollabInitializedMetadata & LastOrganicChangeMetadata;
 	activeParticipants: ReadOnlyParticipants | undefined;
 	sessionId: string | undefined;
+	lastReconnectionConflictMetadata: CollabEventConflictPayload | undefined;
 };

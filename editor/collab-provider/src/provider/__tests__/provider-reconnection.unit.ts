@@ -6,10 +6,13 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 
 import { catchupv2 } from '../../document/catchupv2';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 replaceRaf();
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
+
+jest.mock('../commit-step');
 
 jest.mock('../../channel', () => {
 	const events = new Map<string, (...args: any) => {}>();
@@ -335,5 +338,145 @@ describe('reconnection analytics', () => {
 			tags: ['editor'],
 		});
 		provider.destroy();
+	});
+
+	ffTest.on('platform_editor_offline_conflict_resolution', '', () => {
+		const editorState: any = {
+			config: {
+				pluginsByKey: {
+					collab$: {
+						spec: {
+							config: {
+								clientID: clientId,
+							},
+						},
+					},
+				},
+			},
+			plugins: [
+				{
+					key: 'collab$',
+					spec: {
+						config: {
+							clientID: clientId,
+						},
+					},
+				},
+			],
+			collab$: {
+				unconfirmed: [{ step: { type: 'fakeStep' } }],
+				spec: {
+					config: {
+						clientID: clientId,
+					},
+				},
+			},
+			collab: {
+				steps: [{ type: 'fakeStep' }],
+				origins: [],
+				version: 0,
+			},
+			doc: Node.fromJSON(defaultSchema, {
+				type: 'doc',
+				content: [
+					{
+						type: 'paragraph',
+						content: [
+							{ type: 'text', text: 'Hello, World!' },
+							{
+								// Add a node that looks different in ADF
+								type: 'text',
+								marks: [
+									{
+										type: 'typeAheadQuery',
+										attrs: {
+											trigger: '/',
+										},
+									},
+								],
+								text: '/',
+							},
+						],
+					},
+				],
+			}),
+		};
+
+		it('should notify editor of potential conflict after being disconnected', () => {
+			const fakeAnalyticsWebClient = {
+				sendOperationalEvent: jest.fn(),
+				sendScreenEvent: jest.fn(),
+				sendTrackEvent: jest.fn(),
+				sendUIEvent: jest.fn(),
+			};
+			const provider = createSocketIOCollabProvider({
+				...testProviderConfig,
+				analyticsClient: fakeAnalyticsWebClient,
+			});
+			// @ts-expect-error
+			const emitterCallback = jest.spyOn(provider.documentService as any, 'providerEmitCallback');
+			(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
+				onCatchupComplete([{ step: 'remoteStep' }, { step: 'remoteStep' }, { step: 'remoteStep' }]);
+				return Promise.resolve();
+			});
+			provider.initialize(() => editorState);
+
+			jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+			channel.emit('disconnect', {
+				reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+			});
+
+			channel.emit('connected', {
+				sid: 'pweq3Q7NOPY4y88QAGyr',
+				initialized: true,
+			});
+
+			(requestAnimationFrame as any).step();
+
+			expect(emitterCallback).toHaveBeenCalledWith('data:conflict', {
+				offlineDoc: expect.any(Object),
+			});
+
+			provider.destroy();
+		});
+
+		it('should not notify after being disconnected if there are no remote steps', () => {
+			const fakeAnalyticsWebClient = {
+				sendOperationalEvent: jest.fn(),
+				sendScreenEvent: jest.fn(),
+				sendTrackEvent: jest.fn(),
+				sendUIEvent: jest.fn(),
+			};
+			const provider = createSocketIOCollabProvider({
+				...testProviderConfig,
+				analyticsClient: fakeAnalyticsWebClient,
+			});
+			// @ts-expect-error
+			const emitterCallback = jest.spyOn(provider.documentService as any, 'providerEmitCallback');
+			(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
+				onCatchupComplete([]);
+				return Promise.resolve();
+			});
+			provider.initialize(() => editorState);
+
+			jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+			channel.emit('disconnect', {
+				reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+			});
+
+			channel.emit('connected', {
+				sid: 'pweq3Q7NOPY4y88QAGyr',
+				initialized: true,
+			});
+
+			(requestAnimationFrame as any).step();
+
+			expect(emitterCallback).not.toHaveBeenCalledWith('data:conflict', {
+				offlineDoc: expect.any(Object),
+			});
+
+			provider.destroy();
+			emitterCallback.mockClear();
+		});
 	});
 });

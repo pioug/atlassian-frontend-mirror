@@ -24,6 +24,22 @@ export const SearchResultsContainer = styled.div({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const SearchResultsContainerAi = styled.div({
+	position: 'absolute',
+	height: `calc(100% - ${token('space.800', '60px')})`,
+	width: '100%',
+	top: token('space.800', '60px'),
+	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	flex: 1,
+	flexDirection: 'column',
+	boxSizing: 'border-box',
+	overflowX: 'hidden',
+	overflowY: 'auto',
+	zIndex: 10,
+	padding: `0 ${token('space.200', '16px')}`,
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchResultsList = styled.div({
 	paddingTop: token('space.300', '24px'),
 	position: 'relative',

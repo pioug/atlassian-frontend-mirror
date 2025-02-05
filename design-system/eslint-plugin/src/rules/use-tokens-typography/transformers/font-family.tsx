@@ -2,6 +2,8 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, Property } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { Root } from '../../../ast-nodes';
 import { getNodeSource } from '../../utils/get-node-source';
 import { isDecendantOfStyleBlock, isDecendantOfType } from '../../utils/is-node';
@@ -44,7 +46,7 @@ export const FontFamily = {
 
 		const isFontFamilyProperty =
 			isNodeOfType(node.key, 'Identifier') && node.key.name === 'fontFamily';
-		const valueNodeSource = getNodeSource(context.sourceCode, node.value);
+		const valueNodeSource = getNodeSource(getSourceCode(context), node.value);
 		if (isFontFamilyProperty && valueNodeSource.match(/(font\.family.|inherit)/)) {
 			return false;
 		}
@@ -73,7 +75,7 @@ export const FontFamily = {
 			fixes.push(fontWeightValueFix);
 
 			// Add import if it doesn't exist
-			const body = context.sourceCode.ast.body;
+			const body = getSourceCode(context).ast.body;
 			const tokensImportDeclarations = Root.findImportsByModule(body, '@atlaskit/tokens');
 
 			// If there is more than one `@atlaskit/tokens` import, then it becomes difficult to determine which import to transform

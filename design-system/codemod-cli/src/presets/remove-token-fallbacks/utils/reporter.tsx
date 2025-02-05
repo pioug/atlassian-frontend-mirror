@@ -39,6 +39,17 @@ export async function clearFolder(reportFolder: string) {
 	}
 }
 
+async function saveFilePaths(reportFolder: string, files: Set<string>) {
+	const filesTxtPath = path.join(reportFolder, 'files.txt');
+	await fs.writeFile(
+		filesTxtPath,
+		Array.from(files)
+			.map((filePath) => `"${filePath}"`)
+			.join(' '),
+		'utf-8',
+	);
+}
+
 export async function combineReports(reportFolder: string) {
 	console.log('Combining reports in folder:', reportFolder);
 	const files = await fs.readdir(reportFolder);
@@ -46,11 +57,15 @@ export async function combineReports(reportFolder: string) {
 	let totalNotReplaced = 0;
 	const combinedReplacements = [];
 	const combinedNonReplacements = [];
-
+	const affectedPaths = new Set<string>();
 	for (const file of files) {
 		const filePath = path.join(reportFolder, file);
 		if (file.endsWith('_success.csv')) {
 			const replacements = await readCsv(filePath);
+			const codeFilePaths = replacements.map((x) => x.split(',')[2]);
+			for (const codeFilePath of codeFilePaths) {
+				affectedPaths.add(codeFilePath);
+			}
 			totalReplaced += replacements.length;
 			combinedReplacements.push(...replacements);
 		} else if (file.endsWith('_failed.csv')) {
@@ -104,6 +119,8 @@ export async function combineReports(reportFolder: string) {
 		[header, ...sortedNonReplacements].join('\n'),
 		'utf-8',
 	);
+	// Extract unique file paths
+	await saveFilePaths(reportFolder, affectedPaths);
 }
 
 function prepareCsvData(items: ReplacementDetail[]): string[] {

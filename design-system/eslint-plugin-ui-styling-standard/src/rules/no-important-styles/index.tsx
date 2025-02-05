@@ -1,9 +1,10 @@
 import esquery from 'esquery';
-
 import type { Property } from 'estree';
 
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { hasStyleObjectArguments } from '@atlaskit/eslint-utils/is-supported-import';
 import { importSources } from '@atlaskit/eslint-utils/schema';
+
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
 
 export const rule = createLintRuleWithTypedConfig({
@@ -29,7 +30,7 @@ export const rule = createLintRuleWithTypedConfig({
 	create(context, { importSources }) {
 		return {
 			CallExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (!hasStyleObjectArguments(node.callee, references, importSources)) {
 					return;

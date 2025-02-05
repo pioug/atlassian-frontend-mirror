@@ -1,8 +1,9 @@
 import type { Property } from 'estree';
-import cssSelectorParser, { type Selector, isNesting, isPseudo } from 'postcss-selector-parser';
+import cssSelectorParser, { isNesting, isPseudo, type Selector } from 'postcss-selector-parser';
 
-import { walkStyleProperties } from '@atlaskit/eslint-utils/walk-style-properties';
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { importSources } from '@atlaskit/eslint-utils/schema';
+import { walkStyleProperties } from '@atlaskit/eslint-utils/walk-style-properties';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
 
@@ -59,7 +60,7 @@ export const rule = createLintRuleWithTypedConfig({
 	create(context, { importSources }) {
 		return {
 			CallExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				walkStyleProperties(node, references, importSources, ({ key, value }) => {
 					if (value.type !== 'ObjectExpression') {

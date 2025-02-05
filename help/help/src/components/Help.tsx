@@ -44,11 +44,11 @@ export class Help extends React.PureComponent<Props> {
 							<RelatedArticlesContextProvider {...rest.relatedArticles}>
 								<SearchContextProvider {...rest.search}>
 									<WhatsNewArticleProvider {...rest.whatsNew}>
-										<NavigationContextProvider {...rest.navigation}>
-											<AiContextProvider {...rest.ai}>
+										<AiContextProvider {...rest.ai}>
+											<NavigationContextProvider {...rest.navigation}>
 												<HelpContent footer={footer} />
-											</AiContextProvider>
-										</NavigationContextProvider>
+											</NavigationContextProvider>
+										</AiContextProvider>
 									</WhatsNewArticleProvider>
 								</SearchContextProvider>
 							</RelatedArticlesContextProvider>

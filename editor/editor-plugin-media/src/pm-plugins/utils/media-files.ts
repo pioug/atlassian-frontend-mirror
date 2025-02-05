@@ -227,7 +227,6 @@ export const insertMediaGroupNode =
 		mediaStates: MediaState[],
 		collection: string,
 		inputMethod?: InputMethodInsertMedia,
-		isNestingInQuoteSupported?: boolean,
 		insertMediaVia?: InsertMediaVia,
 	): void => {
 		const { state, dispatch } = view;
@@ -255,20 +254,6 @@ export const insertMediaGroupNode =
 			parent.type === schema.nodes.mediaGroup
 				? mediaNodes // If parent is a mediaGroup do not wrap items again.
 				: [schema.nodes.mediaGroup.createChecked({}, mediaNodes)];
-
-		/** we only allow the insertion of media groups inside a blockquote if nesting in quotes is supported */
-		const grandParentNode = state.selection.$from.node(-1);
-		const grandParentNodeType = grandParentNode?.type.name;
-
-		if (grandParentNodeType === 'blockquote' && !isNestingInQuoteSupported) {
-			const grandparentEndPos = state.selection.$from.start(-1) + grandParentNode.nodeSize - 1;
-			safeInsert(content[0], grandparentEndPos)(tr).scrollIntoView();
-			editorAnalyticsAPI?.attachAnalyticsEvent(
-				getInsertMediaGroupAnalytics(mediaStates, inputMethod),
-			)(tr);
-			dispatch(tr);
-			return;
-		}
 
 		if (shouldSplit) {
 			content = withParagraph ? content.concat(paragraph.create()) : content;

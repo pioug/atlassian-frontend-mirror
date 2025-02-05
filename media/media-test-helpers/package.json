@@ -26,7 +26,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/checkbox": "^15.3.0",
 		"@atlaskit/icon": "^23.6.0",
 		"@atlaskit/locale": "^2.8.0",

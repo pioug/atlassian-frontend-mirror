@@ -93,7 +93,8 @@ const iconSizeStyleMap = cssMap({
 	},
 });
 
-const stackItemIconStyles = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const stackItemIconStylesOld = css({
 	display: 'inline-block',
 	paddingTop: token('space.025'),
 	paddingRight: token('space.025'),
@@ -101,8 +102,12 @@ const stackItemIconStyles = css({
 	paddingLeft: token('space.025'),
 });
 
-const newStackItemIconStyles = css({
+const stackItemIconStylesCompiled = css({
 	display: 'inline-block',
+});
+
+const stackItemIconStyles = css({
+	display: 'inline-flex',
 });
 
 const iconStyleMap = cssMap({
@@ -120,7 +125,7 @@ const ActionIconNew = ({ size, testId, icon, isDisabled, asStackItemIcon }: Acti
 			<span
 				css={[
 					iconStyleMap[isDisabled ? 'true' : 'false'],
-					asStackItemIcon && stackItemIconStyles,
+					asStackItemIcon && stackItemIconStylesOld,
 					asStackItemIcon && iconSizeStyleMap['20px'],
 					!asStackItemIcon && iconSizeStyleMap[getIconWidth(size)],
 				]}
@@ -133,7 +138,12 @@ const ActionIconNew = ({ size, testId, icon, isDisabled, asStackItemIcon }: Acti
 
 	return (
 		<span
-			css={[iconStyleMap[isDisabled ? 'true' : 'false'], newStackItemIconStyles]}
+			css={[
+				iconStyleMap[isDisabled ? 'true' : 'false'],
+				fg('platform-linking-visual-refresh-v1')
+					? stackItemIconStyles
+					: stackItemIconStylesCompiled,
+			]}
 			data-testid={`${testId}-icon`}
 		>
 			{icon}

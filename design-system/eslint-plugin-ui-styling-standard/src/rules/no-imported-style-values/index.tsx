@@ -13,6 +13,7 @@ import {
 	getAllowedFunctionCalls,
 	isAllowListedVariable,
 } from '@atlaskit/eslint-utils/allowed-function-calls';
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 import {
 	getImportSources,
@@ -63,7 +64,7 @@ const isIdentifierImported = (
 ): boolean => {
 	const variable = findVariable({
 		identifier: identifier,
-		sourceCode: context.getSourceCode(),
+		sourceCode: getSourceCode(context),
 	});
 	if (!variable) {
 		return false;
@@ -168,13 +169,13 @@ export const rule = createLintRule({
 				return false;
 			}
 
-			return isCxFunction(identifier, context.getScope().references, importSources);
+			return isCxFunction(identifier, getScope(context, identifier).references, importSources);
 		};
 
 		return {
 			// Checking css/cssMap/keyframes/styled/xcss calls
 			CallExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (!hasStyleObjectArguments(node.callee, references, importSources)) {
 					return;

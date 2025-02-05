@@ -1,8 +1,14 @@
+import { outdent } from 'outdent';
+
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
 
 import { tester } from '../../__tests__/utils/_tester';
 import { type Tests } from '../../__tests__/utils/_types';
 import rule from '../../ensure-design-token-usage';
+
+const isESLintV9 = (tester as unknown as { linter: { version: string } }).linter.version.startsWith(
+	'9',
+);
 
 const colorTests: Tests = {
 	valid: [
@@ -63,8 +69,8 @@ const colorTests: Tests = {
 		},
 		{
 			code: `
-				<IconTile appearance="red" />
-			`,
+                <IconTile appearance="red" />
+            `,
 		},
 		{
 			code: `
@@ -406,7 +412,17 @@ const colorTests: Tests = {
 		},
 		{
 			code: `css\`\${text};\``,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css\`\${token('')};\``,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `
@@ -414,19 +430,46 @@ const colorTests: Tests = {
             box-shadow: 0px 1px 1px #161A1D32;
           \`
         `,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+				},
+			],
 		},
 		{
-			code: `
+			code: outdent`
           css({
             boxShadow: '0px 1px 1px #161A1D32',
           })
         `,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: outdent`
+                              css({
+                                boxShadow: token(''),
+                              })`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `css({ color: 'red' })`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `css({ color: token('') })`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `
@@ -488,97 +531,337 @@ const colorTests: Tests = {
             backgroundColor: background(),
           });
         `,
-			errors: [{ messageId: 'hardCodedColor' }],
-		},
-		{
-			code: `
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `
           css({
-            color: colors.B100,
-            color: P100,
+            backgroundColor: token(''),
           });
         `,
-			errors: [{ messageId: 'hardCodedColor' }, { messageId: 'hardCodedColor' }],
+						},
+					],
+				},
+			],
 		},
 		{
-			code: `
-            css({
-              color: 'red',
-              color: 'orange',
-            });
-          `,
-			errors: [{ messageId: 'hardCodedColor' }, { messageId: 'hardCodedColor' }],
-		},
-		{
-			code: `
-            css({
-              color: 'hsl(30, 100%, 50%, 0.6)',
-              color: 'hsla(30, 100%, 50%, 0.6)',
-            });
-          `,
-			errors: [{ messageId: 'hardCodedColor' }, { messageId: 'hardCodedColor' }],
-		},
-		{
-			code: `
-            css({
-              color: 'rgb(0, 0, 0)',
-              color: 'rgba(0, 0, 0, 0.5)',
-            });
-          `,
-			errors: [{ messageId: 'hardCodedColor' }, { messageId: 'hardCodedColor' }],
-		},
-		{
-			code: `
-            css({
-              color: '#ccc',
-              color: '#cccaaa',
-              color: '#cccaaaff'
-            })
-          `,
+			code: `css({
+  color: colors.B100,
+  color: P100,
+});`,
 			errors: [
-				{ messageId: 'hardCodedColor' },
-				{ messageId: 'hardCodedColor' },
-				{ messageId: 'hardCodedColor' },
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: token(''),
+  color: P100,
+});`,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: colors.B100,
+  color: token(''),
+});`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `css({
+  color: 'red',
+  color: 'orange',
+});`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: token(''),
+  color: 'orange',
+});`,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: 'red',
+  color: token(''),
+});`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `css({
+  color: 'hsl(30, 100%, 50%, 0.6)',
+  color: 'hsla(30, 100%, 50%, 0.6)',
+});`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: token(''),
+  color: 'hsla(30, 100%, 50%, 0.6)',
+});`,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: 'hsl(30, 100%, 50%, 0.6)',
+  color: token(''),
+});`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `css({
+  color: 'rgb(0, 0, 0)',
+  color: 'rgba(0, 0, 0, 0.5)',
+});`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: token(''),
+  color: 'rgba(0, 0, 0, 0.5)',
+});`,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: 'rgb(0, 0, 0)',
+  color: token(''),
+});`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `css({
+  color: '#ccc',
+  color: '#cccaaa',
+  color: '#cccaaaff'
+})`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: token(''),
+  color: '#cccaaa',
+  color: '#cccaaaff'
+})`,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: '#ccc',
+  color: token(''),
+  color: '#cccaaaff'
+})`,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({
+  color: '#ccc',
+  color: '#cccaaa',
+  color: token('')
+})`,
+						},
+					],
+				},
 			],
 		},
 		{
 			code: `css({ [CURRENT_SURFACE_CSS_VAR]: '#cccaaa' })`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({ [CURRENT_SURFACE_CSS_VAR]: token('') })`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `css({ '${CURRENT_SURFACE_CSS_VAR}': '#cccaaa' })`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({ '${CURRENT_SURFACE_CSS_VAR}': token('') })`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `css({ boxShadow: '0 0 0 2px white' })`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `css({ boxShadow: token('') })`,
+						},
+					],
+				},
+			],
 		},
 		{
-			code: `<div color="red">Hello</div>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			code: `<div color={"red"}>Hello</div>`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<div color={token('')}>Hello</div>`,
+						},
+					],
+				},
+			],
 		},
 		{
-			code: `<Icon fill="rgb(255, 171, 0)">Hello</Icon>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			code: `<Icon fill={"rgb(255, 171, 0)"}>Hello</Icon>`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<Icon fill={token('')}>Hello</Icon>`,
+						},
+					],
+				},
+			],
 		},
 		{
-			code: `<Icon stroke="1px solid rgb(255, 171, 0)">Hello</Icon>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			code: `<Icon stroke={"1px solid rgb(255, 171, 0)"}>Hello</Icon>`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<Icon stroke={token('')}>Hello</Icon>`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `<Icon fill={B400}>Hello</Icon>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<Icon fill={token('')}>Hello</Icon>`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `<Icon css={{ color: B400 }}>Hello</Icon>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<Icon css={{ color: token('') }}>Hello</Icon>`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `<Icon css={css({ color: B400 })}>Hello</Icon>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<Icon css={css({ color: token('') })}>Hello</Icon>`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `<Icon css={css\`color: \${B400}\`}>Hello</Icon>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<Icon css={css\`color: \${token('')}\`}>Hello</Icon>`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `<Icon css={css\`color: #eee;\`}>Hello</Icon>`,
@@ -586,53 +869,157 @@ const colorTests: Tests = {
 		},
 		{
 			code: `<Icon fill={colors.B400}>Hello</Icon>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: 'Convert to token',
+							output: `<Icon fill={token('')}>Hello</Icon>`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `const myStyles = { color: 'red' };`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `const myStyles = { color: token('') };`,
+						},
+					],
+				},
+			],
 		},
 		// TODO: Fails typescripteslinttester for some reason???
 		{
 			code: `const options: CSSProperties = { color: 'red' };`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `const options: CSSProperties = { color: token('') };`,
+						},
+					],
+				},
+			],
 		},
 		{
 			code: `const options: CSSObject = { color: 'red' };`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `const options: CSSObject = { color: token('') };`,
+						},
+					],
+				},
+			],
 		},
-		{
-			code: `css({
-        boxSizing: 'border-box',
-        width: '100%',
-        padding: \`\${token('space.075', '6px')} \${token('space.075', '6px')}\`,
+		// this only runs in eslint v8 because eslint v9 requires tests to always define suggestions, and
+		// i had an issue with the parser not being able to parse the JSX in the suggestion for some reason?
+		...(isESLintV9
+			? []
+			: [
+					{
+						code: outdent`
+                    import Component, { Box, Text } from '@atlassian/jira-primitives';
 
-        border: \`2px solid \${N40}\`,
-        borderRadius: '3px',
-        cursor: 'inherit',
-        fontSize: '24px',
-        fontWeight: 500,
-        outline: 'none',
-        ':focus': {
-          border: \`2px solid \${B100}\`,
-        },
-      })
-      `,
-			errors: [{ messageId: 'hardCodedColor' }, { messageId: 'hardCodedColor' }],
-		},
+                    <div>
+                        <Component overrideBg="color.background.accent.yellow.subtle"></Component>
+                        <Box backgroundColor="color.background.accent.yellow.subtle"></Box>
+                        <Text color="color.text.accent.yellow"></Text>
+                    </div>
+                    `,
+						errors: [
+							{ messageId: 'hardCodedColor' },
+							{ messageId: 'hardCodedColor' },
+							{ messageId: 'hardCodedColor' },
+						],
+					},
+				]),
 		{
-			code: `
-          import Component, { Box, Text } from '@atlassian/jira-primitives';
-					<div>
-						<Component overrideBg="color.background.accent.yellow.subtle"></Component>
-						<Box backgroundColor="color.background.accent.yellow.subtle"></Box>
-						<Text color="color.text.accent.yellow"></Text>
-					</div>
+			code: outdent`
+                /** @jsx jsx */
+                import Component, { Box, Text } from '@atlassian/jira-primitives';
+
+                const Comp = () => (
+                    <div>
+                        <Component overrideBg={"color.background.accent.yellow.subtle"}></Component>
+                        <Box backgroundColor={"color.background.accent.yellow.subtle"}></Box>
+                        <Text color={"color.text.accent.yellow"}></Text>
+                    </div>
+                );
         `,
 			errors: [
-				{ messageId: 'hardCodedColor' },
-				{ messageId: 'hardCodedColor' },
-				{ messageId: 'hardCodedColor' },
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: outdent`
+                        /** @jsx jsx */
+                        import Component, { Box, Text } from '@atlassian/jira-primitives';
+
+                        const Comp = () => (
+                            <div>
+                                <Component overrideBg={token('')}></Component>
+                                <Box backgroundColor={"color.background.accent.yellow.subtle"}></Box>
+                                <Text color={"color.text.accent.yellow"}></Text>
+                            </div>
+                        );
+                    `,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: outdent`
+                        /** @jsx jsx */
+                        import Component, { Box, Text } from '@atlassian/jira-primitives';
+
+                        const Comp = () => (
+                            <div>
+                                <Component overrideBg={"color.background.accent.yellow.subtle"}></Component>
+                                <Box backgroundColor={token('')}></Box>
+                                <Text color={"color.text.accent.yellow"}></Text>
+                            </div>
+                        );
+                    `,
+						},
+					],
+				},
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: outdent`
+                        /** @jsx jsx */
+                        import Component, { Box, Text } from '@atlassian/jira-primitives';
+
+                        const Comp = () => (
+                            <div>
+                                <Component overrideBg={"color.background.accent.yellow.subtle"}></Component>
+                                <Box backgroundColor={"color.background.accent.yellow.subtle"}></Box>
+                                <Text color={token('')}></Text>
+                            </div>
+                        );
+                    `,
+						},
+					],
+				},
 			],
 		},
 	],
@@ -644,7 +1031,6 @@ const colorSuggestionTests: Tests = {
 		// Using config -> shouldEnforceFallbacks: false
 		{
 			code: `css({ backgroundColor: 'red' })`,
-			output: `css({ backgroundColor: 'red' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -659,7 +1045,6 @@ const colorSuggestionTests: Tests = {
 		},
 		{
 			code: `css({ backgroundColor: 'rgb(123,123,123)' })`,
-			output: `css({ backgroundColor: 'rgb(123,123,123)' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -674,7 +1059,6 @@ const colorSuggestionTests: Tests = {
 		},
 		{
 			code: `css({ backgroundColor: '#423234' })`,
-			output: `css({ backgroundColor: '#423234' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -689,7 +1073,6 @@ const colorSuggestionTests: Tests = {
 		},
 		{
 			code: `css({ backgroundColor: background() })`,
-			output: `css({ backgroundColor: background() })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -704,7 +1087,6 @@ const colorSuggestionTests: Tests = {
 		},
 		{
 			code: `css({ backgroundColor: DN100 })`,
-			output: `css({ backgroundColor: DN100 })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -719,7 +1101,6 @@ const colorSuggestionTests: Tests = {
 		},
 		{
 			code: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
-			output: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -736,7 +1117,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `css({ backgroundColor: 'red' })`,
-			output: `css({ backgroundColor: 'red' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -752,7 +1132,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `css({ backgroundColor: 'rgb(123,123,123)' })`,
-			output: `css({ backgroundColor: 'rgb(123,123,123)' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -768,7 +1147,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `css({ backgroundColor: '#423234' })`,
-			output: `css({ backgroundColor: '#423234' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -784,7 +1162,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `css({ backgroundColor: background() })`,
-			output: `css({ backgroundColor: background() })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -800,7 +1177,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `css({ backgroundColor: DN100 })`,
-			output: `css({ backgroundColor: DN100 })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -816,7 +1192,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
-			output: `css({ boxShadow: '0px 1px 1px #161A1D32' })`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -832,7 +1207,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `<Star primaryColor="rgb(255, 171, 0)" />`,
-			output: `<Star primaryColor="rgb(255, 171, 0)" />`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -848,7 +1222,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `<Star primaryColor={Y500} />`,
-			output: `<Star primaryColor={Y500} />`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -864,7 +1237,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `<Star primaryColor={color.Y500} />`,
-			output: `<Star primaryColor={color.Y500} />`,
 			errors: [
 				{
 					messageId: 'hardCodedColor',
@@ -880,9 +1252,6 @@ const colorSuggestionTests: Tests = {
 		{
 			options: [{ shouldEnforceFallbacks: true }],
 			code: `export const Highlight = (props) => (
-  <div style={{ borderLeftColor: highlights[props.color] }} />
-);`,
-			output: `export const Highlight = (props) => (
   <div style={{ borderLeftColor: highlights[props.color] }} />
 );`,
 			errors: [
@@ -910,19 +1279,11 @@ const colorExceptionTests: Tests = {
 		},
 		{
 			options: [{ exceptions: ['P100'] }],
-			code: `css({ color: P100 });`,
+			code: `/* with exception */ css({ color: P100 });`,
 		},
 		{
 			options: [{ exceptions: ['dangerouslyGetComputedToken'] }],
 			code: `css({ color: dangerouslyGetComputedToken('foo') });`,
-		},
-		{
-			options: [{ exceptions: ['P100'] }],
-			code: `css({ color: P100 });`,
-		},
-		{
-			options: [{ exceptions: ['P100'] }],
-			code: `css({ color: P100 });`,
 		},
 		{
 			options: [{ exceptions: ['red'] }],
@@ -941,17 +1302,58 @@ const colorExceptionTests: Tests = {
 		{
 			options: [{ exceptions: [] }],
 			code: `css({ color: P100 });`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `css({ color: token('') });`,
+						},
+					],
+				},
+			],
 		},
-		{
-			options: [{ exceptions: ['red', 'gold'] }],
-			code: `<div color="blue"></div>`,
-			errors: [{ messageId: 'hardCodedColor' }],
-		},
+		// this only runs in eslint v8 because eslint v9 requires tests to always define suggestions, and
+		// i had an issue with the parser not being able to parse the JSX in the suggestion for some reason?
+		...(isESLintV9
+			? []
+			: [
+					{
+						options: [{ exceptions: ['red', 'gold'] }],
+						code: `<div color="blue"></div>;`,
+						errors: [{ messageId: 'hardCodedColor' }],
+					},
+				]),
 		{
 			options: [{ exceptions: [] }],
 			code: `<div color={blue}></div>`,
-			errors: [{ messageId: 'hardCodedColor' }],
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `<div color={token('')}></div>`,
+						},
+					],
+				},
+			],
+		},
+		{
+			options: [{ exceptions: [] }],
+			code: `<div color={"blue"}></div>`,
+			errors: [
+				{
+					messageId: 'hardCodedColor',
+					suggestions: [
+						{
+							desc: `Convert to token`,
+							output: `<div color={token('')}></div>`,
+						},
+					],
+				},
+			],
 		},
 	],
 };

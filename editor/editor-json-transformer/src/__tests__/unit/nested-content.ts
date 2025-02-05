@@ -90,11 +90,6 @@ describe('JSONTransformer - Nested content', () => {
 			const document = doc(blockquote(code_block()('This is a codeblock in a blockquote.')));
 			const { editorView } = createEditor({
 				doc: document,
-				editorProps: {
-					featureFlags: {
-						'nest-media-and-codeblock-in-quote': true,
-					},
-				},
 			});
 
 			expect(toJSON(editorView.state.doc)).toEqual({
@@ -146,9 +141,6 @@ describe('JSONTransformer - Nested content', () => {
 					media: {
 						allowMediaSingle: true,
 						allowCaptions: true,
-					},
-					featureFlags: {
-						'nest-media-and-codeblock-in-quote': true,
 					},
 				},
 			});
@@ -212,9 +204,6 @@ describe('JSONTransformer - Nested content', () => {
 				editorProps: {
 					media: {
 						allowMediaGroup: true,
-					},
-					featureFlags: {
-						'nest-media-and-codeblock-in-quote': true,
 					},
 				},
 			});

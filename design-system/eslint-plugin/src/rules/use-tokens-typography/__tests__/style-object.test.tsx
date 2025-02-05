@@ -432,19 +432,36 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
+						import { token } from '@atlaskit/tokens';
+						const styles = css({
+							font: token('font.body'),
+						fontWeight: token('font.weight.medium'),
+							':hover': {
+								fontSize: '14px',
+								fontWeight: 500,
+							}
+						})`,
+						},
+					],
+				},
+				{
+					messageId: 'noRawTypographyValues',
+					suggestions: [
+						{
+							desc: `Convert to font token`,
+							output: outdent`
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body'),
-								fontWeight: token('font.weight.medium'),
+									fontSize: '14px',
+									fontWeight: 500,
 									':hover': {
-										fontSize: '14px',
-										fontWeight: 500,
+										font: token('font.body'),
+								fontWeight: token('font.weight.medium'),
 									}
 								})`,
 						},
 					],
 				},
-				{ messageId: 'noRawTypographyValues' },
 			],
 		},
 		// nested object, fontSize match, fontWeight conversion

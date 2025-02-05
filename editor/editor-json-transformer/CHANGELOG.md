@@ -1,5 +1,14 @@
 # @atlaskit/editor-json-transformer
 
+## 8.22.2
+
+### Patch Changes
+
+- [#107782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107782)
+  [`cccc7a8347929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cccc7a8347929) -
+  [ux] ED-26378 Remove editor_nest_media_and_codeblock_in_quotes_jira and
+  nestMediaAndCodeblockInQuote
+
 ## 8.22.1
 
 ### Patch Changes

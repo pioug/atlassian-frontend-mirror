@@ -2,8 +2,9 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement, type VariableDeclarator } from 'eslint-codemod-utils';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import * as ast from '../../../../ast-nodes';
-import { getScope, getSourceCode } from '../../../utils/context-compat';
 import { type RuleConfig } from '../../config';
 import { isValidCssPropertiesToTransform } from '../../utils';
 import { validateStyles } from '../../utils/validate-styles';

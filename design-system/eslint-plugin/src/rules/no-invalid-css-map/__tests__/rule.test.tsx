@@ -181,26 +181,6 @@ typescriptEslintTester.run(
       `,
 			},
 			{
-				name: 'css map not declared at the top-most scope, variant 1',
-				errors: [
-					{
-						messageId: 'mustBeTopLevelScope',
-					},
-				],
-				code: outdent`
-        import React from 'react';
-        import { cssMap } from '@compiled/react';
-
-        const Foo = () => {
-          const bar = cssMap({
-            danger: {
-              color: 'red',
-            },
-          });
-        };
-      `,
-			},
-			{
 				name: 'css map not declared at the top-most scope, variant 2',
 				errors: [
 					{
@@ -661,7 +641,7 @@ typescriptEslintTester.run(
       `,
 			},
 			{
-				name: 'css map declared within an arrow function',
+				name: 'css map declared within an arrow function / css map not declared at the top-most scope, variant 1',
 				errors: [
 					{
 						messageId: 'mustBeTopLevelScope',

@@ -10,7 +10,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaInsertPlugin } from './mediaInsertPluginType';
 import { closeMediaInsertPicker, showMediaInsertPopup } from './pm-plugins/actions';
@@ -20,10 +19,6 @@ import type { InsertExternalMediaSingle, InsertFile, InsertMediaSingle } from '.
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
 
 export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
-	const isNestingInQuoteSupported =
-		api?.featureFlags?.sharedState.currentState()?.nestMediaAndCodeblockInQuote ||
-		fg('editor_nest_media_and_codeblock_in_quotes_jira');
-
 	return {
 		name: 'mediaInsert',
 
@@ -86,7 +81,6 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 						editorView,
 						node,
 						inputMethod,
-						isNestingInQuoteSupported,
 						INSERT_MEDIA_VIA.EXTERNAL_UPLOAD,
 					) ?? false
 				);
@@ -105,7 +99,6 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 						editorView,
 						node,
 						inputMethod,
-						isNestingInQuoteSupported,
 						INSERT_MEDIA_VIA.EXTERNAL_URL,
 					) ?? false
 				);

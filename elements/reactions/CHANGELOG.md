@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 24.6.0
+
+### Minor Changes
+
+- [#108823](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108823)
+  [`2789da849cf6c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2789da849cf6c) -
+  [ux] Add reactions dialog entrypoint into ReactionSummaryView primarily for live pages
+
 ## 24.5.1
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
-import { getConfig } from './config';
+import { getConfig, PATTERNS } from './config';
 import { RestrictedCapitalisation, RestrictedProperty, WrappedTokenValue } from './linters';
 
 const typescriptErrorMessage =
@@ -15,6 +15,26 @@ const rule = createLintRule({
 		type: 'problem',
 		fixable: 'code',
 		hasSuggestions: false,
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					failSilently: {
+						type: 'boolean',
+					},
+					patterns: {
+						maxLength: PATTERNS.length,
+						type: 'array',
+						items: {
+							type: 'string',
+							enum: PATTERNS,
+						},
+						uniqueItems: true,
+					},
+				},
+				additionalProperties: false,
+			},
+		],
 		docs: {
 			description:
 				'Prohibits use of unsafe styling properties in xcss. Please use Text/Heading primitives instead.',

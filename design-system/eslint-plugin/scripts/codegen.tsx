@@ -7,10 +7,14 @@ import { Legacy } from '@eslint/eslintrc';
 import type { Linter } from 'eslint';
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
+// @ts-expect-error - platform needs to change module resolution
+import tsxApi from 'tsx/cjs/api';
 
 import format from '@af/formatting/sync';
 import type { LintRule } from '@atlaskit/eslint-utils/create-rule';
 import { createSignedArtifact } from '@atlassian/codegen';
+
+const tsx = tsxApi as typeof import('tsx/dist/cjs/api/index.mjs');
 
 const { naming }: { naming: ESLintRCNaming } = Legacy;
 
@@ -89,12 +93,12 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
 	}, {});
 
 	const legacyCode = outdent`
-	import type { Linter } from 'eslint';
+	import type { ESLint } from 'eslint';
 
     export default {
       plugins: [ '${pluginName}' ],
       rules: ${JSON.stringify(ruleConfig, null, 2)}
-    } satisfies Linter.Config;
+    } satisfies ESLint.ConfigData;
   `;
 
 	const flatCode = outdent`
@@ -306,7 +310,8 @@ async function generate() {
 		const dirname = filename.replace(extname(filename), '');
 		const filenameWithExt = filename.endsWith('.tsx') ? filename : join(filename, 'index.tsx');
 
-		const rule: LintRule = (await import(join(rulesDir, filenameWithExt))).default;
+		// we need to use require with tsx so it can resolve imports (e.g. for the patterns in the schema)
+		const rule: LintRule = tsx.require(join(rulesDir, filenameWithExt), __dirname).default;
 
 		const foundRule = {
 			module: rule,

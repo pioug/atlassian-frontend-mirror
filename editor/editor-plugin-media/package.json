@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "1.44.12",
+	"version": "1.44.13",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,8 +39,8 @@
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/analytics-namespaced-context": "^6.13.0",
 		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/button": "^20.4.0",
-		"@atlaskit/editor-common": "^99.7.0",
+		"@atlaskit/button": "^20.5.0",
+		"@atlaskit/editor-common": "^99.8.0",
 		"@atlaskit/editor-palette": "1.7.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-plugin-annotation": "1.27.1",
@@ -71,7 +71,7 @@
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/textfield": "^6.8.0",
 		"@atlaskit/theme": "^14.1.0",
-		"@atlaskit/tmp-editor-statsig": "^2.41.0",
+		"@atlaskit/tmp-editor-statsig": "^2.42.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@babel/runtime": "^7.0.0",
@@ -141,9 +141,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_media_interaction_improvements": {
-			"type": "boolean"
-		},
-		"editor_nest_media_and_codeblock_in_quotes_jira": {
 			"type": "boolean"
 		},
 		"platform_editor_typography_ugc": {

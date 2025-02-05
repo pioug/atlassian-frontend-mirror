@@ -7,13 +7,12 @@ import type { Rule } from 'eslint';
 import esquery from 'esquery';
 import type { JSONSchema4 } from 'json-schema';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import {
 	getImportSources,
 	isEmotion,
 	type SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
-
-import { getScope, getSourceCode } from '../context-compat';
 
 import { generate } from './generate';
 import { getTaggedTemplateExpressionOffset } from './get-tagged-template-expression-offset';

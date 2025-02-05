@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "4.2.1",
+	"version": "4.2.2",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^99.7.0",
+		"@atlaskit/editor-common": "^99.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
@@ -50,7 +50,7 @@
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/theme": "^14.1.0",
-		"@atlaskit/tmp-editor-statsig": "^2.41.0",
+		"@atlaskit/tmp-editor-statsig": "^2.42.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
@@ -109,9 +109,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"editor_nest_media_and_codeblock_in_quotes_jira": {
-			"type": "boolean"
-		},
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
 		},

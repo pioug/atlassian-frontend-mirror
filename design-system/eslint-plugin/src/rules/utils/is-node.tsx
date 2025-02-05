@@ -9,11 +9,10 @@ import {
 	type TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { isXcss } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { Root } from '../../ast-nodes';
-
-import { getSourceCode } from './context-compat';
 
 export const isDecendantOfGlobalToken = (node: EslintNode): boolean => {
 	if (

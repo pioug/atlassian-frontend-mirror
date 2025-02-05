@@ -63,7 +63,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/blanket": "^14.1.0",
-		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/icon": "^23.6.0",
 		"@atlaskit/layering": "^1.1.0",

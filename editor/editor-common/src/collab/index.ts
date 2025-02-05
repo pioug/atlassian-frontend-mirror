@@ -8,6 +8,7 @@ import {
 	type OverrideDocumentStepJSON as OverrideDocumentStep,
 } from '@atlaskit/adf-schema/steps';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -537,6 +538,11 @@ export type UserPermitType = {
 
 export type CollabPermissionEventPayload = UserPermitType;
 
+// This will be extended in follow-up PRs
+export interface CollabEventConflictPayload {
+	offlineDoc: PMNode;
+}
+
 export interface CollabEvents {
 	/**
 	 * Experimental Only: Teammate Presence (Confluence Land and Onboarding)
@@ -569,6 +575,7 @@ export interface CollabEvents {
 	permission: CollabPermissionEventPayload;
 	'commit-status': CollabCommitStatusEventPayload;
 	'namespace-lock:check': CollabNamespaceLockCheckPayload;
+	'data:conflict': CollabEventConflictPayload;
 }
 
 export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;

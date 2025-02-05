@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 5.0.5
+
+### Patch Changes
+
+- [#107782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107782)
+  [`bc422d0adbbb5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc422d0adbbb5) -
+  [ux] ED-26378 remove editor_nest_media_and_codeblock_in_quotes_jira
+- [#107782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107782)
+  [`cccc7a8347929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cccc7a8347929) -
+  [ux] ED-26378 Remove editor_nest_media_and_codeblock_in_quotes_jira and
+  nestMediaAndCodeblockInQuote
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

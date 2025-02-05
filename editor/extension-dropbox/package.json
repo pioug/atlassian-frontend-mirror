@@ -49,8 +49,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "^19.18.0",
-		"@atlaskit/button": "^20.4.0",
-		"@atlaskit/editor-common": "^99.7.0",
+		"@atlaskit/button": "^20.5.0",
+		"@atlaskit/editor-common": "^99.8.0",
 		"@atlaskit/heading": "4.1.0",
 		"@atlaskit/icon": "^23.6.0",
 		"@atlaskit/modal-dialog": "^12.20.0",

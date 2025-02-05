@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "2.21.10",
+	"version": "2.21.12",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^99.7.0",
+		"@atlaskit/editor-common": "^99.8.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.3.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.4.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.2.0",
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/theme": "^14.1.0",
-		"@atlaskit/tmp-editor-statsig": "^2.41.0",
+		"@atlaskit/tmp-editor-statsig": "^2.42.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@babel/runtime": "^7.0.0",
@@ -143,6 +143,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_dnd_handle_highlight_fix_firefox": {
+			"type": "boolean"
+		},
+		"platform_editor_advanced_layouts_accessibility": {
 			"type": "boolean"
 		}
 	}

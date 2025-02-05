@@ -109,6 +109,11 @@ const rule: Rule.RuleModule = {
 				'Ensure feature flags/gates and experiments are inlined so that they can be statically analyzable.',
 			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/inline-usage/README.md',
 		},
+		schema: [
+			{
+				enum: ['ssOnly'],
+			},
+		],
 		messages: {
 			inlineUsage:
 				'Do not export or wrap feature flags/gates and experiments usages. Inline calls at the callsite to ensure it is statically analyzable.',

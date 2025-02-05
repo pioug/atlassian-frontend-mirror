@@ -56,11 +56,18 @@ const iconStyles = css({
 		verticalAlign: 'middle',
 	},
 });
-// ${getIconSizeStyles('1rem')}
 
-const labelStyles = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const labelStylesOld = css({
 	color: token('color.text.subtlest', '#626F86'),
 	font: token('font.body.UNSAFE_small'),
+	paddingLeft: token('space.025', '0.125rem'),
+	verticalAlign: 'middle',
+});
+
+const labelStyles = css({
+	color: token('color.text.subtle'),
+	font: token('font.body.small'),
 	paddingLeft: token('space.025', '0.125rem'),
 	verticalAlign: 'middle',
 });
@@ -143,7 +150,10 @@ const BadgeNew = ({
 			className={className}
 		>
 			{!hideIcon && <span css={iconStyles}>{badgeIcon}</span>}
-			<span css={labelStyles} data-testid={`${testId}-label`}>
+			<span
+				css={[fg('platform-linking-visual-refresh-v1') ? labelStyles : labelStylesOld]}
+				data-testid={`${testId}-label`}
+			>
 				{formattedMessageOrLabel}
 			</span>
 		</span>

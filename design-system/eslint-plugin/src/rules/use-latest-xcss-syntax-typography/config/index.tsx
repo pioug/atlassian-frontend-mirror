@@ -1,4 +1,9 @@
-type Pattern = 'restricted-property' | 'wrapped-token-value' | 'restricted-capitalisation';
+export const PATTERNS = [
+	'restricted-property',
+	'wrapped-token-value',
+	'restricted-capitalisation',
+] as const;
+type Pattern = (typeof PATTERNS)[number];
 
 export interface RuleConfig {
 	failSilently: boolean;
@@ -7,7 +12,7 @@ export interface RuleConfig {
 
 const defaults: RuleConfig = {
 	failSilently: false,
-	patterns: ['restricted-property', 'wrapped-token-value', 'restricted-capitalisation'],
+	patterns: [...PATTERNS],
 };
 
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {

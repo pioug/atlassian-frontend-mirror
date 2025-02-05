@@ -435,10 +435,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		const { state } = this.view;
 		const editorAnalyticsAPI = this.pluginInjectionApi?.analytics?.actions;
 
-		const isNestingInQuoteSupported =
-			this.pluginInjectionApi?.featureFlags?.sharedState.currentState()
-				?.nestMediaAndCodeblockInQuote || fg('editor_nest_media_and_codeblock_in_quotes_jira');
-
 		const mediaStateWithContext: MediaState = {
 			...mediaState,
 			contextId: this.contextIdentifierProvider
@@ -493,7 +489,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					widthPluginState,
 					editorAnalyticsAPI,
 					this.onNodeInserted,
-					isNestingInQuoteSupported,
 					insertMediaVia,
 				);
 				break;
@@ -503,7 +498,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					[mediaStateWithContext],
 					collection,
 					this.getInputMethod(pickerType),
-					isNestingInQuoteSupported,
 					insertMediaVia,
 				);
 				break;

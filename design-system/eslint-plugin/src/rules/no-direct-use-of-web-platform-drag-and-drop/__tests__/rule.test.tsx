@@ -16,7 +16,7 @@ tester.run('no-direct-use-of-web-platform-drag-and-drop', rule, {
 			.map((element) => {
 				return someAllowedJSXAttributes.map((attribute) => ({
 					name: `Allowing JSXAttribute on <${element}>: ${attribute}`,
-					code: `<div ${attribute}={() => console.log('${attribute}')}>hi</div>`,
+					code: `<${element} ${attribute}={() => console.log('${attribute}')}>hi</${element}>`,
 				}));
 			})
 			.flat(),
@@ -117,7 +117,7 @@ tester.run('no-direct-use-of-web-platform-drag-and-drop', rule, {
 			.map((element) => {
 				return blockedJSXAttributes.map((attribute) => ({
 					name: `Blocked JSXAttribute on <${element}>: ${attribute}`,
-					code: `<div ${attribute}={() => console.log('${attribute}')}>hi</div>`,
+					code: `<${element} ${attribute}={() => console.log('${attribute}')}>hi</${element}>`,
 					errors: [{ messageId: 'usePragmaticDnd' }],
 				}));
 			})

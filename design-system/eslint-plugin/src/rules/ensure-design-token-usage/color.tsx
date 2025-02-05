@@ -186,29 +186,34 @@ export const lintJSXLiteralForColor = (
 		return;
 	}
 
-	if (!isNodeOfType(node.parent, 'JSXAttribute')) {
+	// Changed this condition to properly handle both direct literals and expression containers
+	const parent = isNodeOfType(node.parent, 'JSXExpressionContainer')
+		? node.parent.parent
+		: node.parent;
+
+	if (!isNodeOfType(parent, 'JSXAttribute')) {
 		return;
 	}
 
-	if (!isNodeOfType(node.parent.name, 'JSXIdentifier')) {
-		return;
-	}
-
-	if (isDecendantOfSvgElement(node.parent)) {
+	if (isDecendantOfSvgElement(parent)) {
 		return;
 	}
 
 	// Box backgroundColor prop accepts token names directly - don't lint against this
-	if (isDecendantOfPrimitive(node.parent, context)) {
+	if (isDecendantOfPrimitive(parent, context)) {
 		return;
 	}
 
-	if (['alt', 'src', 'label', 'key', 'appearance'].includes(node.parent.name.name)) {
+	if (
+		['alt', 'src', 'label', 'key', 'appearance'].includes(
+			typeof parent.name.name === 'string' ? parent.name.name : parent.name.name.name,
+		)
+	) {
 		return;
 	}
 
 	const isException = getIsException(config.exceptions);
-	if (isException(node.parent)) {
+	if (isException(parent)) {
 		return;
 	}
 
@@ -305,7 +310,11 @@ export const getTokenSuggestion = (
 			shouldReturnSuggestion:
 				!isDecendantOfGlobalToken(node) && config.shouldEnforceFallbacks === false,
 			desc: `Convert to token`,
-			fix: (fixer: Rule.RuleFixer) => fixer.replaceText(node, `token('')`),
+			fix: (fixer: Rule.RuleFixer) =>
+				fixer.replaceText(
+					isNodeOfType(node.parent, 'MemberExpression') ? node.parent : node,
+					`token('')`,
+				),
 		},
 		{
 			shouldReturnSuggestion:
@@ -313,7 +322,7 @@ export const getTokenSuggestion = (
 			desc: `Convert to token with fallback`,
 			fix: (fixer: Rule.RuleFixer) =>
 				fixer.replaceText(
-					node,
+					isNodeOfType(node.parent, 'MemberExpression') ? node.parent : node,
 					isNodeOfType(node.parent, 'JSXAttribute')
 						? `{token('', ${reference})}`
 						: `token('', ${reference})`,

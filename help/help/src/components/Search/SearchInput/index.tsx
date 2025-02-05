@@ -23,12 +23,15 @@ import { REQUEST_STATE } from '../../../model/Requests';
 
 import { useSearchContext } from '../../contexts/searchContext';
 import { messages } from '../../../messages';
+import { VIEW } from '../../constants';
 
 import {
 	SearchInputContainer,
+	SearchInputContainerAi,
 	SearchIconContainer,
 	CloseButtonAndSpinnerContainer,
 } from './styled';
+import { useNavigationContext } from '../../contexts/navigationContext';
 
 const ANALYTICS_CONTEXT_DATA = {
 	componentName: 'searchInput',
@@ -43,7 +46,15 @@ const buttonStyles = css({
 	height: `${gridSize() * 3}px`,
 });
 
-export const SearchInput: React.FC<WrappedComponentProps> = ({ intl: { formatMessage } }) => {
+interface SearchInputProps extends WrappedComponentProps {
+	isAiEnabled?: boolean;
+}
+
+export const SearchInput: React.FC<SearchInputProps> = ({
+	intl: { formatMessage },
+	isAiEnabled = false,
+}) => {
+	const { view } = useNavigationContext();
 	const { searchValue, searchState, onSearch, onSearchInputChanged, onSearchInputCleared } =
 		useSearchContext();
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -97,7 +108,45 @@ export const SearchInput: React.FC<WrappedComponentProps> = ({ intl: { formatMes
 		inputRef.current.value = searchValue;
 	}
 
-	return (
+	if (view === VIEW.ARTICLE || view === VIEW.WHATS_NEW_ARTICLE) {
+		return null;
+	}
+
+	return isAiEnabled ? (
+		<SearchInputContainerAi>
+			<Textfield
+				title="Help articles search input"
+				autoComplete="off"
+				ref={inputRef}
+				name="help-search-input"
+				elemBeforeInput={
+					<SearchIconContainer>
+						<SearchIcon LEGACY_margin="0 2px" color="currentColor" spacing="spacious" label="" />
+					</SearchIconContainer>
+				}
+				elemAfterInput={
+					<CloseButtonAndSpinnerContainer>
+						{searchState === REQUEST_STATE.loading && <Spinner size="small" />}
+						{searchValue !== '' && (
+							<Button
+								css={buttonStyles}
+								appearance="subtle"
+								onClick={handleOnClearButtonClick}
+								spacing="none"
+								aria-label="Clear field"
+							>
+								<EditorCloseIcon color="currentColor" spacing="spacious" label="" />
+							</Button>
+						)}
+					</CloseButtonAndSpinnerContainer>
+				}
+				placeholder={formatMessage(messages.help_search_placeholder)}
+				onChange={handleOnInputChange}
+				onKeyPress={handleOnKeyPress}
+				value={searchValue}
+			/>
+		</SearchInputContainerAi>
+	) : (
 		<SearchInputContainer>
 			<Textfield
 				title="Help articles search input"
@@ -134,7 +183,7 @@ export const SearchInput: React.FC<WrappedComponentProps> = ({ intl: { formatMes
 	);
 };
 
-const SearchInputWithContext: React.FC<WrappedComponentProps> = (props) => {
+const SearchInputWithContext: React.FC<SearchInputProps> = (props) => {
 	return (
 		<AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
 			<SearchInput {...props} />

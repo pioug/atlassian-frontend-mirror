@@ -44,7 +44,9 @@ describe('<Content />', () => {
 			render(<Content href="/somewhere" text="text" />);
 			const content = screen.getByText('text');
 
-			expect(content).toHaveStyleDeclaration('text-decoration', 'none');
+			expect(content).toHaveCompiledCss({
+				textDecorationLine: 'none',
+			});
 		});
 	});
 });

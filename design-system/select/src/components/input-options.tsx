@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
 import { type IconProps } from '@atlaskit/icon';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import RadioIcon from '@atlaskit/icon/glyph/radio';
@@ -153,7 +154,7 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 	const { styles, classes } = getPrimitiveStyles({ getStyles, ...rest });
 
 	const isVoiceOver =
-		(/iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === 'MacIntel') && // temporary check for now
+		isAppleDevice() &&
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		fg('design_system_select-a11y-improvement');
 

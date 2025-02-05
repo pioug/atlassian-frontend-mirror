@@ -510,7 +510,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
 	{
 		filename: 'invalid-interpolated-property.tsx',
 		code: `
-      import { css } from '@emotion/react';
+      import { css } from '${importName}';
       export const InsertMarker = (cssString?: string) => css\`
         .\${ClassName.CONTROLS_INSERT_MARKER} {
           \${Marker()};

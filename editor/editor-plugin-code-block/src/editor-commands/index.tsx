@@ -182,15 +182,9 @@ export const resetShouldIgnoreFollowingMutations: Command = (state, dispatch) =>
  * if there is text selected it will wrap the current selection if not it will
  * append the codeblock to the end of the document.
  */
-export function createInsertCodeBlockTransaction({
-	state,
-	isNestingInQuoteSupported,
-}: {
-	state: EditorState;
-	isNestingInQuoteSupported?: boolean;
-}) {
+export function createInsertCodeBlockTransaction({ state }: { state: EditorState }) {
 	let { tr } = state;
-	const { from, $from } = state.selection;
+	const { from } = state.selection;
 	const { codeBlock } = state.schema.nodes;
 	const grandParentNode = state.selection.$from.node(-1);
 	const grandParentNodeType = grandParentNode?.type;
@@ -209,11 +203,7 @@ export function createInsertCodeBlockTransaction({
 		}) && contentAllowedInCodeBlock(state);
 
 	if (canInsertCodeBlock) {
-		tr = transformToCodeBlockAction(state, from, undefined, isNestingInQuoteSupported);
-	} else if (!isNestingInQuoteSupported && grandParentNodeType?.name === 'blockquote') {
-		/** we only allow the insertion of a codeblock inside a blockquote if nesting in quotes is supported */
-		const grandparentEndPos = $from.start(-1) + grandParentNode.nodeSize - 1;
-		safeInsert(codeBlock.createAndFill() as PMNode, grandparentEndPos)(tr).scrollIntoView();
+		tr = transformToCodeBlockAction(state, from, undefined);
 	} else {
 		safeInsert(codeBlock.createAndFill() as PMNode)(tr).scrollIntoView();
 	}
@@ -224,7 +214,6 @@ export function createInsertCodeBlockTransaction({
 export function insertCodeBlockWithAnalytics(
 	inputMethod: INPUT_METHOD,
 	analyticsAPI?: EditorAnalyticsAPI,
-	isNestingInQuoteSupported?: boolean,
 ): Command {
 	return withAnalytics(analyticsAPI, {
 		action: ACTION.INSERTED,
@@ -233,7 +222,7 @@ export function insertCodeBlockWithAnalytics(
 		attributes: { inputMethod: inputMethod as INPUT_METHOD.TOOLBAR },
 		eventType: EVENT_TYPE.TRACK,
 	})(function (state: EditorState, dispatch) {
-		const tr = createInsertCodeBlockTransaction({ state, isNestingInQuoteSupported });
+		const tr = createInsertCodeBlockTransaction({ state });
 		if (dispatch) {
 			dispatch(tr);
 		}

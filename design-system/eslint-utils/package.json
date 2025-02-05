@@ -38,7 +38,8 @@
 		"./is-supported-import": "./src/is-supported-import.tsx",
 		"./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
 		"./schema": "./src/schema.tsx",
-		"./walk-style-properties": "./src/walk-style-properties.tsx"
+		"./walk-style-properties": "./src/walk-style-properties.tsx",
+		"./context-compat": "./src/context-compat.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -49,7 +50,8 @@
 		"./is-supported-import": "./src/is-supported-import.tsx",
 		"./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
 		"./schema": "./src/schema.tsx",
-		"./walk-style-properties": "./src/walk-style-properties.tsx"
+		"./walk-style-properties": "./src/walk-style-properties.tsx",
+		"./context-compat": "./src/context-compat.tsx"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

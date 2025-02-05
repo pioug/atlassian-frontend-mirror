@@ -16,6 +16,20 @@ export const SearchInputContainer = styled.div({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const SearchInputContainerAi = styled.div({
+	width: `calc(100% - ${token('space.300', '24px')} - ${token('space.300', '24px')})`,
+	height: token('space.400', '32px'),
+	marginLeft: token('space.300', '24px'),
+	marginRight: token('space.300', '24px'),
+	marginTop: token('space.200', '14px'),
+	marginBottom: token('space.200', '14px'),
+	order: 0,
+	flex: '0 1 auto',
+	alignSelf: 'auto',
+	boxSizing: 'border-box',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchIconContainer = styled.div({
 	width: token('space.300', '24px'),
 	height: token('space.300', '24px'),

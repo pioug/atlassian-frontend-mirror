@@ -25,7 +25,7 @@ typescriptEslintTester.run(
 				name: 'Basic valid test for keyframes',
 				code: `
           import { css } from '@compiled/react';
-          const styles = css({});
+          const styles = keyframes({});
         `,
 			},
 			{

@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 22.0.2
+
+### Patch Changes
+
+- [#108339](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108339)
+  [`b629c99c2cb05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b629c99c2cb05) -
+  Updated gql query to use gql tags
+
 ## 22.0.1
 
 ### Patch Changes

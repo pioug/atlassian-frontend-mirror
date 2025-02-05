@@ -2,6 +2,7 @@ import type { Rule, Scope } from 'eslint';
 import { closestOfType } from 'eslint-codemod-utils';
 import type * as ESTree from 'eslint-codemod-utils';
 
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 
 export function isSafeUsage({
@@ -22,7 +23,7 @@ export function isSafeUsage({
 	if (importName === 'css') {
 		const css = findVariable({
 			identifier: specifier.local,
-			sourceCode: context.getSourceCode(),
+			sourceCode: getSourceCode(context),
 		});
 		return css !== null && isSafeCss(css);
 	}
@@ -30,7 +31,7 @@ export function isSafeUsage({
 	if (importName === 'keyframes') {
 		const keyframes = findVariable({
 			identifier: specifier.local,
-			sourceCode: context.getSourceCode(),
+			sourceCode: getSourceCode(context),
 		});
 		return keyframes !== null && isSafeKeyframes(keyframes);
 	}

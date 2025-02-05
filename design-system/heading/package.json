@@ -46,7 +46,7 @@
 		"@af/formatting": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/ssr": "*",
 		"@atlassian/codegen": "^0.1.0",

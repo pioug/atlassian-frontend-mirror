@@ -15,9 +15,9 @@ import {
 	type TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
-import { getScope, getSourceCode } from '../utils/context-compat';
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
 import { isColorCssPropertyName, isCurrentSurfaceCustomPropertyName } from '../utils/is-color';
 

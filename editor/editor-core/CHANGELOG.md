@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 203.14.3
+
+### Patch Changes
+
+- [#110015](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110015)
+  [`92048a44fc3f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92048a44fc3f6) -
+  fix table layout shift issue
+- Updated dependencies
+
+## 203.14.2
+
+### Patch Changes
+
+- [#109021](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109021)
+  [`9d47259416236`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d47259416236) -
+  [ux] ED-26101 Update drag column tooltips
+
 ## 203.14.1
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 
+import { getScope, getSourceCode } from '../context-compat';
 import { getImportSources, type SupportedNameChecker } from '../is-supported-import';
 
 import { checkIfSupportedExport } from './check-if-supported-export';
@@ -25,14 +26,14 @@ export const createNoExportedRule =
 	(context) => {
 		const importSources = getImportSources(context);
 
-		const { text } = context.getSourceCode();
+		const { text } = getSourceCode(context);
 		if (importSources.every((importSource: string) => !text.includes(importSource))) {
 			return {};
 		}
 
 		return {
 			CallExpression: function (node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (isUsage.every((func) => !func(node.callee, references, importSources))) {
 					return;
@@ -49,7 +50,7 @@ export const createNoExportedRule =
 				});
 			},
 			TaggedTemplateExpression: function (node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (isUsage.every((func) => !func(node.tag, references, importSources))) {
 					return;

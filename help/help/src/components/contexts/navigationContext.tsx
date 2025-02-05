@@ -14,6 +14,7 @@ import { useWhatsNewArticleContext } from './whatsNewArticleContext';
 import { useHomeContext } from './homeContext';
 import { useSearchContext } from './searchContext';
 import { useHeaderContext } from './headerContext';
+import { useAiContext } from './aiAgentContext';
 
 type ViewType = keyof typeof VIEW;
 
@@ -259,6 +260,7 @@ export const NavigationContextProvider = ({
 	const { onSearch, isSearchResultVisible, searchValue, searchResult } = useSearchContext();
 	const { onCloseButtonClick } = useHeaderContext();
 	const { articleId: propsArticleId, history: propsHistory } = navigationData;
+	const { isAiEnabled } = useAiContext();
 
 	const [
 		{ articleId: currentArticleId, history: currentHistory, view: currentView },
@@ -289,7 +291,8 @@ export const NavigationContextProvider = ({
 		 */
 		if (
 			(currentHistory.length === 1 && !isDefaultContentDefined) ||
-			(currentView === VIEW.WHATS_NEW && !isDefaultContentDefined)
+			(currentView === VIEW.WHATS_NEW && !isDefaultContentDefined) ||
+			(isAiEnabled && currentView === VIEW.SEARCH)
 		) {
 			return false;
 		}
@@ -298,7 +301,7 @@ export const NavigationContextProvider = ({
 		 * if an overlay is visible return true to display the back buton
 		 */
 		return isOverlayVisible;
-	}, [currentHistory.length, isDefaultContentDefined, isOverlayVisible, currentView]);
+	}, [currentHistory.length, isDefaultContentDefined, isOverlayVisible, currentView, isAiEnabled]);
 
 	const fetchArticleData = useCallback(
 		async (historyItem: HistoryItem) => {

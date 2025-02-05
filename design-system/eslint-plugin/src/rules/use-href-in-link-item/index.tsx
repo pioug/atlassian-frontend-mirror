@@ -7,7 +7,8 @@ import {
 	type JSXAttribute,
 } from 'eslint-codemod-utils';
 
-import { getScope } from '../utils/context-compat';
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
+
 import { createLintRule } from '../utils/create-rule';
 import { getImportName } from '../utils/get-import-name';
 import type { Fix } from '../utils/types';

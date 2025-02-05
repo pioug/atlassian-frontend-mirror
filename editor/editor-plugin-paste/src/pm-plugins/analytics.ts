@@ -474,7 +474,6 @@ export const handleRichTextWithAnalytics = (
 	event: ClipboardEvent,
 	slice: Slice,
 	pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
-	isNestingMediaOrCodeblockSupported: boolean,
 ): Command =>
 	injectAnalyticsPayloadBeforeCommand(pluginInjectionApi?.analytics?.actions)(
 		createPasteAnalyticsPayloadBySelection(
@@ -485,13 +484,7 @@ export const handleRichTextWithAnalytics = (
 			},
 			pluginInjectionApi,
 		),
-	)(
-		handleRichText(
-			slice,
-			pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr,
-			isNestingMediaOrCodeblockSupported,
-		),
-	);
+	)(handleRichText(slice, pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr));
 
 const injectAnalyticsPayloadBeforeCommand =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>

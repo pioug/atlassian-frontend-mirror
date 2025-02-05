@@ -1,5 +1,23 @@
 # @atlaskit/editor-tables
 
+## 2.8.6
+
+### Patch Changes
+
+- [#109121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109121)
+  [`6d2a8d349742b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d2a8d349742b) -
+  [ux] [ED-25650] This PR is aligning keyboard behaviour for nested tables and parent tables by
+  fixing a bug where pressing Tab sometimes incorrectly selects the drag handle and gets stuck.
+
+## 2.8.5
+
+### Patch Changes
+
+- [#109026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109026)
+  [`05e5c3f595ae0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/05e5c3f595ae0) -
+  [ux] [ED-26076] Fixed bug where selecting from parent cell to nested table cell caused a cell
+  selection instead of a partial text selection.
+
 ## 2.8.4
 
 ### Patch Changes

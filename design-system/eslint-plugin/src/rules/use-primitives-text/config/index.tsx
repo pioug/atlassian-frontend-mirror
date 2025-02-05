@@ -1,12 +1,15 @@
-type Pattern =
+export const PATTERNS = [
 	// <p>text</p>
-	| 'paragraph-elements'
+	'paragraph-elements',
 	// <span>text</span>
-	| 'span-elements'
+	'span-elements',
 	// <strong>text</strong>
-	| 'strong-elements'
+	'strong-elements',
 	// <em>text</em>
-	| 'emphasis-elements';
+	'emphasis-elements',
+];
+
+type Pattern = (typeof PATTERNS)[number];
 
 export interface RuleConfig {
 	failSilently: boolean;

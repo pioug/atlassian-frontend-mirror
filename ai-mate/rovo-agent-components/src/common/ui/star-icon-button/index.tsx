@@ -51,6 +51,7 @@ export const StarIconButton = ({
 					LEGACY_size="medium"
 					spacing="spacious"
 					label={formatMessage(messages.clickToFavouriteLabel)}
+					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- suppressed after fixing the eslint rule, as this wasn't reported before
 					color={'var(--ds-text-accent-gray)'}
 				/>
 			)}

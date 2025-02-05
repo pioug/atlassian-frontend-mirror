@@ -677,21 +677,37 @@ const createImportFix = ({
 	const useMigrationPath = legacyImportNode && importPath;
 	const useFinalPath = migrationImportNode && !shouldUseMigrationPath && importPath;
 
+	const programNode = legacyImportNode && findProgramNode(legacyImportNode);
+
 	if (useMigrationPath) {
-		fixes.push(
-			newIconName
-				? fixer.insertTextBefore(legacyImportNode, `import ${newIconName} from '${importPath}';\n`)
-				: fixer.replaceText(legacyImportNode.source, `'${literal(importPath)}'`),
-		);
+		if (newIconName) {
+			const isExisting = programNode
+				? alreadyHasImportedLocalName(programNode, newIconName, importPath)
+				: false;
+			if (!isExisting) {
+				fixes.push(
+					fixer.insertTextBefore(legacyImportNode, `import ${newIconName} from '${importPath}';\n`),
+				);
+			}
+		} else {
+			fixes.push(fixer.replaceText(legacyImportNode.source, `'${literal(importPath)}'`));
+		}
 	} else if (useFinalPath) {
-		fixes.push(
-			newIconName
-				? fixer.insertTextBefore(
+		if (newIconName) {
+			const isExisting = programNode
+				? alreadyHasImportedLocalName(programNode, newIconName, importPath)
+				: false;
+			if (!isExisting) {
+				fixes.push(
+					fixer.insertTextBefore(
 						migrationImportNode,
 						`import ${newIconName} from '${importPath}';\n`,
-					)
-				: fixer.replaceText(migrationImportNode.source, `'${literal(importPath)}'`),
-		);
+					),
+				);
+			}
+		} else {
+			fixes.push(fixer.replaceText(migrationImportNode.source, `'${literal(importPath)}'`));
+		}
 	}
 
 	return fixes;
@@ -1037,3 +1053,25 @@ export const throwAutoErrors = ({
 		});
 	}
 };
+
+function findProgramNode(node: any) {
+	while (node && node.parent) {
+		if (node.parent.type === 'Program') {
+			return node.parent;
+		}
+		node = node.parent;
+	}
+	return null;
+}
+
+function alreadyHasImportedLocalName(programNode: any, localName: string, importPath: string) {
+	if (!programNode?.body) {
+		return false;
+	}
+	return programNode.body.some((stmt: any) => {
+		if (stmt.type === 'ImportDeclaration' && stmt.source.value === importPath) {
+			return stmt.specifiers.some((s: any) => s.local.name === localName);
+		}
+		return false;
+	});
+}

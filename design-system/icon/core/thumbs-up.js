@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59c3191814edc53ca26a1bcd8330d3e2>>
+ * @codegen <<SignedSource::30c4fb9cb42ea10e984afa7d8dbf41ea>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ThumbsUpIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.007 6.76c1.586-.69 3.176-2.117 3.176-4.233 0-1.057 4.202-1.586 2.086 3.702 1.058-.475 4.981-1.747 4.981.897 0 3.173-.25 6.346-4.48 6.346-2.454 0-3.561 0-5.537-1.267m0 0A1.25 1.25 0 0 1 4 13.251H2c-.69 0-1.25-.56-1.25-1.25v-4.5c0-.69.56-1.25 1.25-1.25h2c.69 0 1.25.56 1.25 1.25v4.5q0 .105-.017.204Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.75 14.25H2c-.69 0-1.25-.56-1.25-1.25V8.5c0-.69.56-1.25 1.25-1.25h2.75m0 7v-7m0 7h7.121c.82 0 1.546-.533 1.79-1.316l1.328-4.25A1.875 1.875 0 0 0 13.2 6.25H9.75V3.075c0-.365-.16-.712-.437-.95l-.117-.1a1.25 1.25 0 0 0-1.923.372L4.75 7.25"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ThumbsUpIcon.displayName = 'ThumbsUpIcon';

@@ -1,3136 +1,4671 @@
 import { type IconMetadata } from '@af/icon-build-process';
 const metadata: IconMetadata = {
-	'ai-agent': {
-		keywords: ['Rovo', 'AI', 'chat agent', 'ai'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for Rovo Agent.',
-	},
-	'ai-chat': {
-		keywords: ['Rovo', 'AI', 'chat agent', 'ai'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for Rovo Chat.',
-	},
-	add: {
-		keywords: ['create', 'plus', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for creating and adding an object.',
-	},
-	alert: {
-		keywords: ['alert', 'event', 'operations'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for alerts in JSM and Compass.',
-	},
-	api: {
-		keywords: ['application programming interface', 'api', 'operations'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Enterprise Operations Center',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing Application Programming Interfaces (APIs).',
-	},
-	app: {
-		keywords: ['add-on', 'add on', 'plugin', 'external app', 'third-party app'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for marketplace apps and integrations across products.',
-	},
-	'app-switcher': {
-		keywords: ['application switcher', 'change product', 'switch product', 'product switcher'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for app switcher in global product navigation.',
-	},
-	'app-switcher-legacy': {
-		keywords: ['application switcher', 'change product', 'switch product', 'product switcher'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for the legacy app switcher in global product navigation.',
-	},
-	apps: {
-		keywords: ['third-party', 'applications'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for adding or viewing apps.',
-	},
-	assets: {
-		keywords: ['assets', 'CMDB', 'configuration management database'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Assets',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for JSM Assets.',
-	},
-	'atlassian-intelligence': {
-		keywords: ['AI'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for Atlassian Intelligence products or experiences.',
-	},
-	attachment: {
-		keywords: ['paperclip', 'attach'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for attaching files to issues or other objects.',
-	},
-	audio: {
-		keywords: ['music', 'musical note'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: '📦 @atlaskit/icon/core/audio',
-	},
-	automation: {
-		keywords: ['lightningbolt', 'automation rule'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved to represent an Automation.',
-	},
-	backlog: {
-		keywords: ['rows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for backlogs in Jira.',
-	},
-	board: {
-		keywords: ['columns', 'active sprint'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for boards in Jira.',
-	},
-	boards: {
-		keywords: [],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved as the icon to represent multiple boards.',
-	},
-	border: {
-		keywords: ['border', 'image border', 'content border', 'editor', 'confluence'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for toggling the visibility of a border on an object.',
-	},
-	'border-weight-medium': {
-		keywords: ['border', 'weight', 'stroke', 'medium', 'thickness', 'confluence', 'editor'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for representing medium border stroke widths.',
-	},
-	'border-weight-thick': {
-		keywords: ['border', 'weight', 'thickness', 'stroke', 'thick', 'confluence', 'editor'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for representing thick border stroke widths.',
-	},
-	'border-weight-thin': {
-		keywords: ['border', 'weight', 'thickness', 'stroke', 'confluence', 'editor'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for representing thin border stroke widths.',
-	},
-	branch: {
-		keywords: ['git branch', 'bitbucket branch', 'branches', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for branches in Bitbucket and Jira.',
-	},
-	changes: {
-		keywords: ['jira status', 'horizontal arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for changes in Jira.',
-	},
-	'chat-widget': {
-		keywords: ['chat', 'widget', 'virtual service agent', 'vsa'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'JSM',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing a chat widget triggered by a floating action button.',
-	},
-	'child-issues': {
-		keywords: [],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for child issues in Jira.',
-	},
-	close: {
-		keywords: ['cross', 'x'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for closing an element.',
-	},
-	'collapse-horizontal': {
-		keywords: ['collapse', 'width', 'horizontal arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for contracting or reducing the width of an element to its smallest size.',
-	},
-	'collapse-vertical': {
-		keywords: ['collapse', 'height', 'vertical arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.',
-	},
-	comment: {
-		keywords: ['speech bubble'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for comments on objects.',
-	},
-	'comment-add': {
-		keywords: ['speech bubble', 'plus'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for adding a comment to an object.',
-	},
-	commit: {
-		keywords: ['git commit', 'bitbucket commit'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for commits in Jira or Bitbucket.',
-	},
-	component: {
-		keywords: ['lego', 'brick', 'block'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for components in Jira and Compass.',
-	},
-	'content-align-center': {
-		keywords: ['content', 'media', 'image', 'alignment', 'centre'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for center aligning media and content.',
-	},
-	'content-align-left': {
-		keywords: ['content', 'media', 'image', 'alignment', 'left'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for left aligning media and content.',
-	},
-	'content-align-right': {
-		keywords: ['content', 'media', 'image', 'alignment', 'right'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for right aligning media and content.',
-	},
-	'content-width-narrow': {
-		keywords: ['content', 'media', 'image', 'width', 'fixed', 'narrow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for setting media and content to a narrow width.',
-	},
-	'content-width-wide': {
-		keywords: ['content', 'media', 'image', 'width', 'fixed', 'wide'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for setting media and content to a wide width.',
-	},
-	'content-wrap-left': {
-		keywords: ['content', 'media', 'image', 'alignment', 'left', 'inline', 'wrap'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for left aligning media and content with wrapping enabled.',
-	},
-	'content-wrap-right': {
-		keywords: ['content', 'media', 'image', 'alignment', 'right', 'inline', 'wrap'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for right aligning media and content with wrapping enabled.',
-	},
-	copy: {
-		keywords: ['copy', 'object'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for copying data such as text, code or other objects.',
-	},
-	dashboard: {
-		keywords: ['activity', 'view'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for dashboards in Jira.',
-	},
-	database: {
-		keywords: ['spreadsheet', 'table', 'data', 'cells'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for databases in Confluence.',
-	},
-	decision: {
-		keywords: ['fork', 'diagonal arrow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for decisions.',
-	},
-	defect: {
-		keywords: ['square', 'broken', 'defect', 'fragile', 'cracked'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for Defect Jira issue type.',
-	},
-	delete: {
-		keywords: ['trash', 'bin', 'remove'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for removing or deleting an object.',
-	},
-	department: {
-		keywords: ['organization', 'organisation', 'org chart', 'hierarchy'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for departments, reporting lines, or other tree chart representations.',
-	},
-	discovery: {
-		keywords: ['discovery', 'note', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for representing discovery. Used for Note info panel variant in Editor.',
-	},
-	download: {
-		keywords: ['down arrow', 'file download'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for file downloads.',
-	},
-	'drag-handle': {
-		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for draggable elements.',
-	},
-	edit: {
-		keywords: ['pencil', 'pencil on page'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for editing objects.',
-	},
-	'edit-bulk': {
-		keywords: ['edit', 'pencil', 'multiple', 'bulk', 'change'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for editing multiple objects in bulk.',
-	},
-	email: {
-		keywords: ['envelope', 'message'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for when an email-related things.',
-	},
-	emoji: {
-		keywords: ['smiley face', 'emoticon'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Single purpose - Reserved for Editor as a category for Emoji's.",
-	},
-	'emoji-add': {
-		keywords: ['smiley face', 'emoticon', 'plus'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for adding an emoji reaction.',
-	},
-	'emoji-casual': {
-		keywords: ['emoij', 'casual', 'sunglasses', 'chill', 'relaxed'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing a casual or relaxed tone or sentiment.',
-	},
-	'emoji-neutral': {
-		keywords: ['emoji', 'neutral', 'ambivalent'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing a neutral tone or sentiment.',
-	},
-	'emoji-remove': {
-		keywords: ['emoji', 'remove', 'strikethrough'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for removing emoji.',
-	},
-	epic: {
-		keywords: ['lightning bolt', 'jira status', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for epics in Jira.',
-	},
-	error: {
-		keywords: ['filled', 'status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for when there is an error.',
-	},
-	'expand-horizontal': {
-		keywords: ['expand', 'width', 'horizontal arrows', 'maximum width', 'stretch', 'fit'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for expanding an element to its maximum width.',
-	},
-	'expand-vertical': {
-		keywords: ['expand', 'height', 'vertical arrows', 'maximum height', 'stretch', 'fit'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for expanding an element to its maximum height.',
-	},
-	feed: {
-		keywords: ['feed', 'updates', 'release notes', "what's new"],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for update feeds in Atlassian Home.',
-	},
-	feedback: {
-		keywords: ['diagonal arrow', 'chat bubble', 'survey', 'critique'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Known uses: customer feedback.',
-	},
-	filter: {
-		keywords: ['funnel', 'refine'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for filterting data or objects.',
-	},
-	'folder-closed': {
-		keywords: ['directory'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for folders in Confluence.',
-	},
-	'folder-open': {
-		keywords: ['directory'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for open folders in Confluence.',
-	},
-	'fullscreen-enter': {
-		keywords: ['full screen'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for full screen videos or objects.',
-	},
-	'fullscreen-exit': {
-		keywords: ['un-full screen', 'un-fullscreen'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for return screen videos or objects.',
-	},
-	goal: {
-		keywords: ['target'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for goals in Atlas.',
-	},
-	'grow-diagonal': {
-		keywords: ['grow', 'width and height', 'diagonal arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently.',
-	},
-	'grow-horizontal': {
-		keywords: ['grow', 'width', 'horizontal arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for increasing the width of an element.',
-	},
-	'grow-vertical': {
-		keywords: ['grow', 'height', 'vertical arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for increasing the height of an element.',
-	},
-	highlight: {
-		keywords: ['highlight', 'highlighter', 'stabilo', 'pen'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for highlight text tool in Confluence Editor.',
-	},
-	home: {
-		keywords: ['house', 'building'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage.',
-	},
-	'image-fullscreen': {
-		keywords: ['image', 'fullscreen', 'enlarge'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for viewing an image in a fullscreen view or modal.',
-	},
-	'image-inline': {
-		keywords: ['image', 'layout', 'inline'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing inline images in Editor.',
-	},
-	'image-scaled': {
-		keywords: ['image', 'layout', 'scaled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing scaled images in layouts akin to display block.',
-	},
-	incident: {
-		keywords: ['witches hat', 'traffic cone', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for incidents in Jira.',
-	},
-	information: {
-		keywords: ['info', 'filled', 'tip'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Known uses: information state in section messages or inline messages.',
-	},
-	issue: {
-		keywords: ['single issue', 'jira status', 'check mark', 'tick'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for issues in Jira.',
-	},
-	issues: {
-		keywords: ['multiple issues', 'check mark', 'tick'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for multiple issues in Jira.',
-	},
-	'key-result': {
-		keywords: ['target', 'bullseye', 'key result', 'arrow', 'bow', 'archery', 'OKR'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Atlas',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing key results.',
-	},
-	'layout-one-column': {
-		keywords: ['layout', 'column', '1 col'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for single column layout option in Confluence Editor',
-	},
-	'layout-three-columns': {
-		keywords: ['layout', 'columns', '3 col', '3 cols'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for 3 column layout option in Confluence Editor.',
-	},
-	'layout-three-columns-sidebars': {
-		keywords: ['layout', 'columns', '3 col', '3 cols', 'sidebars', 'asides'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor.',
-	},
-	'layout-two-columns': {
-		keywords: ['layout', 'columns', '2 col', '2 cols'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for 2 column layout option in Confluence Editor.',
-	},
-	'layout-two-columns-sidebar-left': {
-		keywords: ['layout', 'columns', '2 col', '2 cols', 'sidebar', 'aside'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.',
-	},
-	'layout-two-columns-sidebar-right': {
-		keywords: ['layout', 'columns', '2 col', '2 cols', 'sidebar', 'aside'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for 2 column layout with right sidebar option in Confluence Editor.',
-	},
-	library: {
-		keywords: ['library', 'drawer', 'drawers', 'filing cabinet'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for library view in Atlassian Home.',
-	},
-	link: {
-		keywords: ['url', 'hyperlink', 'website', 'www', 'http', ''],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for links, urls, or copy link.',
-	},
-	'link-broken': {
-		keywords: [
-			'unlink',
-			'remove link',
-			'break link',
-			'url',
-			'hyperlink',
-			'website',
-			'www',
-			'https',
-		],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for removing a link.',
-	},
-	'link-external': {
-		keywords: [
-			'new tab',
-			'new window',
-			'open in',
-			'url',
-			'hyperlink',
-			'www',
-			'http',
-			'https',
-			'website',
-			'external',
-			'shortcut',
-			'diagonal arrow',
-			'offsite',
-		],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for links that open up a new tab.',
-	},
-	'log-in': {
-		keywords: ['sign in', 'enter', 'account'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for log in.',
-	},
-	'log-out': {
-		keywords: ['sign out', 'exit', 'account'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for log out.',
-	},
-	markdown: {
-		keywords: ['markdown', 'md', 'markup'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing the Markdown markup language.',
-	},
-	marketplace: {
-		keywords: ['app store', 'storefront', 'stand', 'third-party developer'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for Atlassian Marketplace.',
-	},
-	maximize: {
-		keywords: ['diagonal', 'resize', 'enlarge'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
-	},
-	mention: {
-		keywords: ['at symbol', '@', 'tag', 'username'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Single purpose - Reserved for user mentions.',
-	},
-	menu: {
-		keywords: ['menu', 'top navigation', '3 lines', 'hamburger'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for accessing the menu in global product navigation.',
-	},
-	'merge-failure': {
-		keywords: ['git merge', 'bitbucket merge', 'merge fail', 'cross', 'x'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for branches in Bitbucket and Jira that have failed to merge.',
-	},
-	'merge-success': {
-		keywords: ['git merge', 'bitbucket merge', 'merge success', 'check mark'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged.',
-	},
-	minimize: {
-		keywords: ['minimize', 'dock'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport.',
-	},
-	node: {
-		keywords: ['page', 'dot', 'page tree', 'navigation'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for a non-expandable item in a page tree.',
-	},
-	note: {
-		keywords: ['note', 'post-it', 'sticky'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for notes.',
-	},
-	notification: {
-		keywords: ['bell', 'alert'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for notifications within global product navigation and within product screens.',
-	},
-	'notification-muted': {
-		keywords: ['bell', 'alert', 'notification', 'mute'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for muting or disabling notifications.',
-	},
-	objective: {
-		keywords: ['target', 'bullseye', 'objective'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for objectives.',
-	},
-	'on-call': {
-		keywords: ['phone', 'on-call', 'support'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for representing on-call across Atlassian products.',
-	},
-	operations: {
-		keywords: ['incident management', 'alerting', 'opsgenie', 'it operations', 'it ops', 'radar'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for IT Operations.',
-	},
-	page: {
-		keywords: ['single page', 'feed', 'document', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for pages in Confluence.',
-	},
-	pages: {
-		keywords: ['multiple pages', 'feeds', 'documents'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for multipe pages in Confluence.',
-	},
-	'people-group': {
-		keywords: ['users', 'customers', 'people'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Known uses: representing a group or collection of people or users.',
-	},
-	person: {
-		keywords: ['user', 'customer'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Known uses: representing a person or user, owner, contributor.',
-	},
-	'person-add': {
-		keywords: ['user', 'customer', 'plus'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for adding a user to an object.',
-	},
-	'person-added': {
-		keywords: ['user', 'customer', 'check', 'tick'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for a user added to an object.',
-	},
-	'person-avatar': {
-		keywords: ['user', 'customer'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for user avatar.',
-	},
-	'person-offboard': {
-		keywords: ['user', 'customer', 'right arrow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: '📦 @atlaskit/icon/core/person-offboard',
-	},
-	'person-remove': {
-		keywords: ['person', 'remove', 'delete', 'unfollow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for removing and unfollowing people and teammates.',
-	},
-	'person-warning': {
-		keywords: ['person', 'warning', 'alert'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for showing a warning related to a person or teammate.',
-	},
-	premium: {
-		keywords: ['AI', 'sparkles', 'stars', 'new', 'feature'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for premium features.',
-	},
-	'presenter-mode': {
-		keywords: ['pointer', 'cursor', 'presentation', 'present'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for presenter mode in Confluence.',
-	},
-	'priority-blocker': {
-		keywords: ['blocked', 'showstopper', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for blocker issue priority.',
-	},
-	'priority-critical': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for critial issue priority.',
-	},
-	'priority-high': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for high issue priority.',
-	},
-	'priority-highest': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for highest issue priority.',
-	},
-	'priority-low': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for low issue priority.',
-	},
-	'priority-lowest': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for lowest issue priority.',
-	},
-	'priority-major': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for major issue priority.',
-	},
-	'priority-medium': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for medium issue priority.',
-	},
-	'priority-minor': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for minor issue priority.',
-	},
-	'priority-trivial': {
-		keywords: ['issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for trivial issue priority.',
-	},
-	problem: {
-		keywords: ['stop', 'issue', 'priority', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for problem issue priority.',
-	},
-	project: {
-		keywords: ['rocket', 'rocketship', 'spaceship'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for projects in Jira.',
-	},
-	'project-status': {
-		keywords: ['status', 'traffic lights'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Atlassian Home',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing project status in Atlassian Home.',
-	},
-	'pull-request': {
-		keywords: ['git pull request', 'bitbucket pull request', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for pull requests.',
-	},
-	'radio-checked': {
-		keywords: ['radio', 'input type', 'selected'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for the selected state of radio controls.',
-	},
-	'radio-unchecked': {
-		keywords: ['radio', 'input type', 'unselected'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for the unselected state of radio controls.',
-	},
-	redo: {
-		keywords: ['editor', 'redo', 'backwards'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for redo in Editor.',
-	},
-	refresh: {
-		keywords: ['diagonal', 'resize', 'arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for expanding a object or panel.',
-	},
-	release: {
-		keywords: ['ship', 'boat'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for releases in Jira.',
-	},
-	retry: {
-		keywords: ['try again', ''],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for retry.',
-	},
-	roadmap: {
-		keywords: [],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for roadmaps in Jira or Trello.',
-	},
-	scorecard: {
-		keywords: ['tick', 'check', 'circle', 'unfinished'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for Scorecard in Analytics.',
-	},
-	search: {
-		keywords: ['magnifying glass'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for searching objects.',
-	},
-	send: {
-		keywords: ['submit', 'paper airplane', 'paper aeroplane'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Single purpose - Reserved for sending messages in Rovo Chat.',
-	},
-	settings: {
-		keywords: ['system preferences', 'gear', 'cog'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for any object or user settings.',
-	},
-	shapes: {
-		keywords: ['objects', 'whiteboard', 'asset', 'graphic'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for shapes in Whiteboards.',
-	},
-	share: {
-		keywords: ['share', 'access'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for sharing an object.',
-	},
-	shortcut: {
-		keywords: ['addshortcut', 'square', 'plus'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for shortcuts in Jira.',
-	},
-	'show-more-horizontal': {
-		keywords: ['ellipses', 'three dots', 'meatball', 'more actions'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for more action menus.',
-	},
-	'show-more-vertical': {
-		keywords: ['three dots', 'kebab', 'more actions'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for more action menus, traditionally on mobile.',
-	},
-	'shrink-diagonal': {
-		keywords: ['resize', 'diagonal arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.',
-	},
-	'shrink-horizontal': {
-		keywords: ['contract', 'width', 'horizontal arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
-	},
-	'shrink-vertical': {
-		keywords: ['contract', 'height', 'vertical arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for contracting or reducing the height of an element.',
-	},
-	'sidebar-collapse': {
-		keywords: ['navigation', 'close sidebar'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Single purpose - Reserved for collapsing the navigation sidebar.',
-	},
-	'sidebar-expand': {
-		keywords: ['navigation', 'open sidebar'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Single purpose - Reserved for expanding the navigation sidebar.',
-	},
-	'sidebar-left': {
-		keywords: ['sidebar', 'detail view', 'left rail', 'drawer'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for opening a sidebar to the left of the viewport edge.',
-	},
-	'sidebar-right': {
-		keywords: ['sidebar', 'detail view', 'right rail', 'drawer'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for opening a sidebar to the right of the viewport edge.',
-	},
-	'smart-link': {
-		keywords: ['smart link'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Linking platform',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing Smart links.',
-	},
-	'smart-link-card': {
-		keywords: ['smart link', 'url', 'card', 'link preview'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Linking platform',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing Smart link preview cards.',
-	},
-	'smart-link-embed': {
-		keywords: ['smart link', 'url', 'embed'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Linking platform',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing Smart link embeds.',
-	},
-	'smart-link-inline': {
-		keywords: ['smart link', 'url', 'inline'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Linking platform',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing inline Smart link lozenges.',
-	},
-	'smart-link-list': {
-		keywords: ['smart link', 'url', 'embed', 'list', 'table', 'linked search results'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Linking platform',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing Smart link embedded link lists.',
-	},
-	snippet: {
-		keywords: ['scissors', 'cut'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for snippets in Bitbucket.',
-	},
-	'sort-ascending': {
-		keywords: ['data', 'sort', 'up'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for sorting data.',
-	},
-	'sort-descending': {
-		keywords: ['data', 'sort', 'down'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for sorting data.',
-	},
-	spreadsheet: {
-		keywords: ['table', 'cells', 'data'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for spreadsheets.',
-	},
-	sprint: {
-		keywords: ['loop', 'iterate'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for sprints in Jira.',
-	},
-	'star-starred': {
-		keywords: ['favourite', 'star', 'starred', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for starred or favourited objects.',
-	},
-	'star-unstarred': {
-		keywords: ['favourite', 'star'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for starring or favoriting objects.',
-	},
-	'status-verified': {
-		keywords: ['verified badge', 'status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing verified content.',
-	},
-	story: {
-		keywords: ['bookmark', 'issue', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Single purpose - Reserved for stories in Jira.',
-	},
-	subtasks: {
-		keywords: ['issue', 'todo', 'checklist', 'jira status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for subtasks in Jira.',
-	},
-	success: {
-		keywords: ['tick', 'completed', 'success', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single-purpose - Reserved for success section messages and form validation messages.',
-	},
-	summarize: {
-		keywords: ['summarize', 'summarise', 'quote', 'quotes'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Atlassian Intelligence',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for summarizing content with Atlassian Intelligence.',
-	},
-	support: {
-		keywords: ['support', 'help', 'life raft', 'life ring', 'lifebuoy', 'life preserver'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing help support.',
-	},
-	'table-cell-clear': {
-		keywords: ['table', 'cell', 'clear', 'empty'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for clearing the contents of table cells.',
-	},
-	'table-cell-merge': {
-		keywords: ['table', 'cell', 'merge', 'combine', 'join'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for merging table cells.',
-	},
-	'table-cell-split': {
-		keywords: ['table', 'cell', 'split', 'divide', 'separate'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for splitting joined table cells.',
-	},
-	'table-column-add-left': {
-		keywords: ['table', 'column', 'add', 'plus', 'left', 'before'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for adding a table column to the left of the selected column.',
-	},
-	'table-column-add-right': {
-		keywords: ['table', 'column', 'add', 'right', 'after'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for adding a table column to the right of the selected column.',
-	},
-	'table-column-delete': {
-		keywords: ['table', 'column', 'delete', 'remove', 'x'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for deleting a table column.',
-	},
-	'table-column-move-left': {
-		keywords: ['table', 'column', 'move', 'left', 'arrow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for moving a table column to the left of its current location.',
-	},
-	'table-column-move-right': {
-		keywords: ['table', 'column', 'move', 'right', 'arrow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for moving a table column to the right of its current location.',
-	},
-	'table-columns-distribute': {
-		keywords: ['table', 'columns', 'distribute', 'even', 'equidistant'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for distributing the width of table columns evenly.',
-	},
-	'table-row-add-above': {
-		keywords: ['table', 'row', 'add', 'plus', 'above', 'up'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for adding a table row above the selected row.',
-	},
-	'table-row-add-below': {
-		keywords: ['table', 'row', 'add', 'plus', 'below', 'down'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for adding a table row below the selected row.',
-	},
-	'table-row-delete': {
-		keywords: ['table', 'row', 'delete', 'remove', 'x'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for deleting a table row.',
-	},
-	'table-row-move-down': {
-		keywords: ['table', 'row', 'move', 'down', 'arrow', 'after'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for moving a table row below its current location.',
-	},
-	'table-row-move-up': {
-		keywords: ['table', 'row', 'move', 'up', 'arrow', 'above'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for moving a table row above its current location.',
-	},
-	tag: {
-		keywords: ['label', 'topic'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for tags in Atlas.',
-	},
-	target: {
-		keywords: ['target', 'bullseye'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for targets.',
-	},
-	task: {
-		keywords: ['single task', 'todo', 'list', 'check mark', 'tick'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for tasks in Jira.',
-	},
-	'task-in-progress': {
-		keywords: ['calendar', 'task', 'status', 'in progress'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'JSM Calendar',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for in progress task status. Used in JSM Calendar view.',
-	},
-	'task-to-do': {
-		keywords: ['calendar', 'task', 'to-do', 'todo', 'status'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'JSM Calendar',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for to-do task status. Used in JSM Calendar view.',
-	},
-	tasks: {
-		keywords: ['multiple tasks', 'todo', 'list', 'check mark', 'tick'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for multiple tasks in Jira.',
-	},
-	teams: {
-		keywords: ['infinite love', 'people', 'persons', 'customers', 'users'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for teams in Atlassian.',
-	},
-	text: {
-		keywords: ['character', 'font', 'letter', 'type', 'typography', 'text'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for representing text objects.',
-	},
-	'text-bold': {
-		keywords: ['text', 'type', 'bold', 'font'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for bolding text.',
-	},
-	'text-indent-left': {
-		keywords: ['text', 'outdent', 'left', 'arrow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for shifting the indent of text content left.',
-	},
-	'text-indent-right': {
-		keywords: ['text', 'indent', 'right', 'arrow'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for shifting the indent of text content right.',
-	},
-	'text-italic': {
-		keywords: ['text', 'type', 'italic', 'font'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for italicizing text.',
-	},
-	'text-shorten': {
-		keywords: ['text', 'shorten', 'abbreviate', 'condense', 'AI'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Atlassian Intelligence',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for shortening text content with Atlassian Intelligence.',
-	},
-	'text-spellcheck': {
-		keywords: ['text', 'spelling', 'typo', 'spellcheck'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for spellchecking.',
-	},
-	'text-style': {
-		keywords: ['characters', 'font', 'letters', 'type', 'typography'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Editor',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for text styles in Editor.',
-	},
-	'text-wrap': {
-		keywords: ['text', 'wrap', 'line wrap'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for wrapping text so it spans multiple lines.',
-	},
-	theme: {
-		keywords: ['theme', 'light mode', 'dark mode', 'theme switcher'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for representing themes and theme switching.',
-	},
-	timeline: {
-		keywords: ['gantt', 'calendar'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for timelines in Jira or Trello.',
-	},
-	transition: {
-		keywords: ['connector', 'movement'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for transitions in Analytics.',
-	},
-	translate: {
-		keywords: ['translate', 'language', 'i18n', 'internationalization', 'internationalisation'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for representing language translations.',
-	},
-	undo: {
-		keywords: ['backward', 'mistake', 'correct'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for undo in Editor.',
-	},
-	upload: {
-		keywords: ['stream', 'file'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for upload in Editor.',
-	},
-	video: {
-		keywords: ['media', 'movie'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for representing video content across Atlassian and Loom.',
-	},
-	'video-next': {
-		keywords: ['skip', 'next', 'media', 'forward'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for next video in Media.',
-	},
-	'video-next-overlay': {
-		keywords: ['skip', 'next', 'media', 'forward', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for next video when icon is overlayed on Media.',
-	},
-	'video-pause': {
-		keywords: ['media', 'video'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for pause video in Media.',
-	},
-	'video-pause-overlay': {
-		keywords: ['media', 'video', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for pause video when icon is overlayed on Media.',
-	},
-	'video-play': {
-		keywords: ['media', 'video'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for play video in Media.',
-	},
-	'video-play-overlay': {
-		keywords: ['media', 'video', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for play video when icon is overlayed on Media.',
-	},
-	'video-previous': {
-		keywords: ['media', 'video', 'back', 'previous'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for previous video in Media.',
-	},
-	'video-previous-overlay': {
-		keywords: ['media', 'video', 'back', 'previous', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for previous video when icon is overlayed on Media.',
-	},
-	'video-skip-backward-fifteen': {
-		keywords: ['video', 'media', 'skip', 'backwards', '15', 'seconds'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for skipping video content backward by 15 seconds.',
-	},
-	'video-skip-backward-ten': {
-		keywords: ['video', 'media', 'skip', 'backwards', '10', 'seconds'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for skipping video content backwards by 10 seconds.',
-	},
-	'video-skip-forward-fifteen': {
-		keywords: ['video', 'media', 'skip', 'forward', '15', 'seconds'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for skipping video content forward by 15 seconds.',
-	},
-	'video-skip-forward-ten': {
-		keywords: ['video', 'media', 'skip', 'forward', '10', 'seconds'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Reserved for skipping video content forward by 10 seconds.',
-	},
-	'video-stop': {
-		keywords: ['video', 'stop'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for stopping video content.',
-	},
-	'video-stop-overlay': {
-		keywords: ['video', 'stop', 'overlay', 'inverse'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Reserved for stopping video content. Use on dark or translucent backgrounds.',
-	},
-	warning: {
-		keywords: ['alert', 'danger', 'triangle', 'filled'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for warning system status.',
-	},
-	whiteboard: {
-		keywords: ['shapes', 'canvas'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for whiteboards in Confluence.',
-	},
-	'zoom-in': {
-		keywords: ['magnify', 'magnifying glass'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for zooming in of an object or view.',
-	},
-	'zoom-out': {
-		keywords: ['minify', 'magnifying glass'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for zooming out of an object or view.',
-	},
-	'align-center': {
-		keywords: ['alignment', 'text', 'content'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: align text center, align center.',
-	},
-	'align-left': {
-		keywords: ['alignment', 'text', 'content', 'summary'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: align text left, align content left, summary.',
-	},
-	'align-right': {
-		keywords: ['alignment', 'text', 'content'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: align text right, align content right.',
-	},
-	'angle-brackets': {
-		keywords: ['code', '<>', '</>', 'syntax', 'jira status'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: code or source code in Bitbucket and Jira.',
-	},
-	'archive-box': {
-		keywords: ['file box'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: archiving pages, storage.',
-	},
-	'arrow-down': {
-		keywords: ['down', 'bottom', 'sorting'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Know uses: sorting table headers or Bitbucket code difference.',
-	},
-	'arrow-down-left': {
-		keywords: ['diagonal arrow', 'down', 'left', 'south west'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Adding content from Rovo Chat into Editor.',
-	},
-	'arrow-down-right': {
-		keywords: ['diagonal arrow', 'down', 'right', 'south east'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: TBC',
-	},
-	'arrow-left': {
-		keywords: ['back', 'previous'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: back to previous screen, previous slide.',
-	},
-	'arrow-right': {
-		keywords: ['forward', 'next', 'link'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: link to nested menu item, a linked menu item, next slide.',
-	},
-	'arrow-up': {
-		keywords: ['improvement', 'jira status'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: back to top.',
-	},
-	'arrow-up-left': {
-		keywords: ['diagonal arrow', 'up', 'right', 'north east'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: TBC',
-	},
-	'arrow-up-right': {
-		keywords: ['open', 'diagonal arrow'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose',
-	},
-	basketball: {
-		keywords: ['ball', 'sports', 'basketball'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Sport emoji category.',
-	},
-	'book-with-bookmark': {
-		keywords: ['knowledge base', 'article'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info.',
-	},
-	briefcase: {
-		keywords: ['suitcase', 'toolbox', 'operations', 'business'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: Job title in Atlas, Operations in JSM.',
-	},
-	bug: {
-		keywords: ['bug report', 'test'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
-	},
-	calendar: {
-		keywords: ['date', 'month', 'day', 'year', 'jira status'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: date metadata, date input field, calendar view, jira status.',
-	},
-	camera: {
-		keywords: [],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: upload photo in Trello, photos.',
-	},
-	'calendar-plus': {
-		keywords: ['calendar', 'add', 'plus', 'schedule'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Auto-scheduling in Jira Plans. Scheduled dates.',
-	},
-	capture: {
-		keywords: [],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: '📦 @atlaskit/icon/core/capture',
-	},
-	cash: {
-		keywords: ['currency', 'money', 'cash', 'dollar', 'bill'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known usages: 'Sales' Jira issue type.",
-	},
-	card: {
-		keywords: ['card'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Representing cards in Trello. Toggling card detail in Jira.',
-	},
-	'chart-bar': {
-		keywords: ['graph', 'bar', 'analytics', 'report'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: Reports in JSM, Space Analytics in Confluence, and other graph charts.',
-	},
-	'chart-matrix': {
-		keywords: ['dot chart', 'graph', 'matrix', ''],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts.',
-	},
-	'chart-pie': {
-		keywords: ['segment', 'chart', 'graph', 'pie'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: pie charts.',
-	},
-	'chart-trend': {
-		keywords: ['reports', 'graph', 'impact effort', ''],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: charts, reports in Jira, and sprint insights.',
-	},
-	'check-circle': {
-		keywords: ['tick', 'yes', 'completed', 'filled'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: completed items, productivity emoji category. Completed task issue status in JSM Calendar view.',
-	},
-	'check-mark': {
-		keywords: ['tick'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: table cells, checkboxes.',
-	},
-	'checkbox-checked': {
-		keywords: ['filled', 'checked', 'select all'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
-	},
-	'checkbox-indeterminate': {
-		keywords: ['filled', 'mixed'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
-	},
-	'checkbox-unchecked': {
-		keywords: ['unchecked'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
-	},
-	clock: {
-		keywords: ['time', 'recent', 'history'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: recent, time input, sprint time remaining. Overdue task issue status in JSM Calendar view.',
-	},
-	clipboard: {
-		keywords: ['clipboard', 'paste'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Pasting content from clipboard.',
-	},
-	'cloud-arrow-up': {
-		keywords: ['deployments', 'up arrow'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: deployments in Jira.',
-	},
-	compass: {
-		keywords: ['template'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: templates.',
-	},
-	'credit-card': {
-		keywords: ['payment', 'invoice'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: billing in Admin, invoices in PPC, payments.',
-	},
-	'cross-circle': {
-		keywords: ['x', 'exit', 'clear', 'no', 'filled'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: clear text field, error status.',
-	},
-	customize: {
-		keywords: ['customise', 'configure', 'modify', 'preferences', 'settings', 'sliders'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: customize sidebar, customize view, settings.',
-	},
-	'curly-brackets': {
-		keywords: ['curly brackets', 'braces', 'smart value'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Represents Smart values in Proforma.',
-	},
-	'data-flow': {
-		keywords: ['relationship', 'data', 'flow chart'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Database schema in Jira.',
-	},
-	'device-mobile': {
-		keywords: ['iphone', 'mobile phone', 'cell phone'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: call, contact us.',
-	},
-	'data-number': {
-		keywords: ['numbers', '123', 'proforma', 'datatype'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Representing number datatype fields in Proforma and databases.',
-	},
-	'data-string': {
-		keywords: ['string', 'letters', 'abc', 'proforma', 'datatype'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Representing string datatype fields in Proforma and databases.',
-	},
-	devices: {
-		keywords: ['devices', 'assets', 'laptop', 'phone', 'hardware'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known usages: 'Asset' Jira issue type.",
-	},
-	'eye-open': {
-		keywords: ['watch', 'visible', 'visbility', 'permissions'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.',
-	},
-	'eye-open-filled': {
-		keywords: ['watching', 'visible', 'visbility', 'permissions', 'filled'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: watched pages in Confluence.',
-	},
-	'eye-open-strikethrough': {
-		keywords: ['unwatch', 'invisible', 'visibility', 'permissions'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas.',
-	},
-	field: {
-		keywords: ['field', 'form', 'input', 'label'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence.',
-	},
-	file: {
-		keywords: ['document', 'file', 'paper'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			"Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead.",
-	},
-	'field-alert': {
-		keywords: ['field', 'alert', 'warning', 'change'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Changed field values in Automation.',
-	},
-	'field-checkbox-group': {
-		keywords: ['form', 'field', 'input type', 'checkbox', 'multi-select', 'options'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Checkbox group field type in Proforma.',
-	},
-	'field-dropdown': {
-		keywords: ['form', 'field', 'select', 'dropdown'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Dropdown field type in Proforma.',
-	},
-	'field-radio-group': {
-		keywords: ['form', 'field', 'input type', 'radio', 'single-select', 'options'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Radio group field type in Proforma.',
-	},
-	files: {
-		keywords: ['documents', 'files', 'papers'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			"Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated 'Pages' icon instead.",
-	},
-	flag: {
-		keywords: ['important', 'emoji category'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: flags in Editor, feature flags.',
-	},
-	'flag-filled': {
-		keywords: ['flag', 'important', 'filled'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: active feature flags.',
-	},
-	flask: {
-		keywords: ['labs', 'test', 'erlenmeyer flask', 'beaker'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: labs in Jira.',
-	},
-	globe: {
-		keywords: ['world'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation.',
-	},
-	form: {
-		keywords: ['form', 'fields'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: Represents forms across Atlassian products, including Proforma.',
-	},
-	glasses: {
-		keywords: ['glasses', 'knowledge', 'learning', 'spectacles', 'education'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Known uses: Changing tone of written content to Educational with Atlassian Intelligence.',
-	},
-	grid: {
-		keywords: ['view all content', 'tile view', 'layout', 'grid', 'tiles'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: spaces in Confluence, and grid view, all content in Confluence.',
-	},
-	hashtag: {
-		keywords: ['tag', 'topic', 'pound'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: topics in Atlas, tags.',
-	},
-	headphones: {
-		keywords: ['audio', 'music'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: music, audio.',
-	},
-	heart: {
-		keywords: ['like', 'love', 'emoji category'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: emoji symbols in Editor.',
-	},
-	image: {
-		keywords: ['picture', 'asset'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: images, image upload.',
-	},
-	inbox: {
-		keywords: ['document tray', 'work', 'letter', 'post'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail.",
-	},
-	lightbulb: {
-		keywords: ['idea', 'initiative', 'tip', 'learnings'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Known uses: learnings in Atlas.',
-	},
-	'list-bulleted': {
-		keywords: ['bullets', 'unordered list'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: bulleted lists, view all.',
-	},
-	'list-checklist': {
-		keywords: ['list', 'check mark', 'to-do', 'requirements'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known usages: 'Requirement' Jira issue type.",
-	},
-	'list-numbered': {
-		keywords: ['list', 'numbers'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Numbered list in Confluence Editor.',
-	},
-	'lobby-bell': {
-		keywords: ['ding', 'risks'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: risks in Atlas.',
-	},
-	location: {
-		keywords: ['map', 'pin', 'address'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: location in Atlas.',
-	},
-	'lock-locked': {
-		keywords: [
-			'permissions',
-			'no access',
-			'restricted',
-			'security',
-			'secure',
-			'forbidden',
-			'authentication',
-		],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: secure password in textfields, locked page in Confluence.',
-	},
-	'lock-unlocked': {
-		keywords: ['open permissions', 'unrestricted access', 'security', 'insecure', 'authentication'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: unlocked page in Confluence.',
-	},
-	'magic-wand': {
-		keywords: ['magic', 'wand', 'suggestion'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose',
-	},
-	megaphone: {
-		keywords: ['announcement', 'bullhorn', 'feedback', 'news'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: feedback in products.',
-	},
-	microphone: {
-		keywords: ['mic', 'mic on', 'voice', 'speak'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: record sounds in Trello.',
-	},
-	minus: {
-		keywords: ['rule', 'horizontal line', 'divider', 'minus', 'subtract'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: horizontal rule in Editor.',
-	},
-	'minus-square': {
-		keywords: ['square', 'minus', 'subtract'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known usages: 'Remove feature' Jira issue status.",
-	},
-	'office-building': {
-		keywords: ['organization', 'organisation', 'business'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: office in Atlas, company.',
-	},
-	'paint-bucket': {
-		keywords: ['paint', 'bucket', 'fill', 'background', 'customize'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Customize fill color.',
-	},
-	'paint-palette': {
-		keywords: ['background', 'customize'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Customize.',
-	},
-	pen: {
-		keywords: ['pen tool', 'nib', 'fountain pen', 'design'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known usages: 'Design task' Jira issue type.",
-	},
-	phone: {
-		keywords: ['call', 'dial out'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: call us, phone number input.',
-	},
-	pin: {
-		keywords: ['push pin', 'thumbtack', 'tack'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: pinning Jira issue fields.',
-	},
-	'pin-filled': {
-		keywords: ['push pin', 'thumbtack', 'tack', 'filled'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: pinned Jira issue fields.',
-	},
-	'plus-square': {
-		keywords: ['square', 'plus', 'add'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known usages: 'New feature' Jira issue status.",
-	},
-	'power-plug': {
-		keywords: ['plug-in', 'add-on', 'socket'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: plugins, add ons.',
-	},
-	printer: {
-		keywords: ['print'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: print page, print-friendly view.',
-	},
-	'projection-screen': {
-		keywords: ['present', 'presentation', 'projector screen', 'keynote'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Intended usages: Presentation mode.',
-	},
-	pulse: {
-		keywords: ['pulse', 'wave', 'heartbeat', 'health'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Known uses: work health in Atlassian Home.',
-	},
-	'question-circle': {
-		keywords: ['help', 'answers', 'faq', 'jira status'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: help, tip.',
-	},
-	'quotation-mark': {
-		keywords: ['quote', 'testimonial', 'blockquote', 'jira status'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: blockquote, comment, testimonial, blogs in Confluence.',
-	},
-	scales: {
-		keywords: ['scales', 'rule', 'law'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Customer rating in Jira.',
-	},
-	screen: {
-		keywords: ['display', 'monitor', 'desktop'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: assets in Jira.',
-	},
-	'screen-plus': {
-		keywords: ['screen', 'display', 'monitor', 'plus', 'add'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: TBC',
-	},
-	shield: {
-		keywords: ['security', 'secure', 'safety', 'defence', 'protection', 'guard'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)',
-	},
-	'shield-strikethrough': {
-		keywords: [
-			'️security',
-			'secure',
-			'safety',
-			'defence',
-			'protection',
-			'guard',
-			'strikethrough',
-			'classification',
-		],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Enterprise Trust',
-		type: 'core',
-		status: 'published',
-		usage: 'Known uses: No classification in Enterprise Trust',
-	},
-	stopwatch: {
-		keywords: ['timer'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: timer in Confluence Whiteboards.',
-	},
-	'takeout-food': {
-		keywords: ['takeaway', 'takeout', 'food', 'burger', 'drink'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Food emoji category.',
-	},
-	'thumbs-down': {
-		keywords: ['vote', 'downvote', 'dislike', 'feedback', 'hand'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: voting, feedback in AI.',
-	},
-	'thumbs-up': {
-		keywords: ['vote', 'upvote', 'like', 'feedback', 'hand'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known uses: voting options in Jira, like.',
-	},
-	tools: {
-		keywords: ['tools', 'wrench', 'spanner', 'screwdriver'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: "Multi purpose - Known usages: 'Service request' Jira issue type.",
-	},
-	tree: {
-		keywords: ['tree', 'nature'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Nature emoji category.',
-	},
-	'vehicle-car': {
-		keywords: ['car', 'transportation', 'vehicle'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Multi purpose - Known usages: Transport emoji category.',
-	},
-	'volume-high': {
-		keywords: ['louder', 'volume up'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: '📦 @atlaskit/icon/core/volume-high',
-	},
-	'volume-low': {
-		keywords: ['quiter', 'volume down'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: '📦 @atlaskit/icon/core/volume-low',
-	},
-	'volume-muted': {
-		keywords: ['volume off', 'no volume'],
-		categorization: 'multi-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: '📦 @atlaskit/icon/core/volume-muted',
-	},
+  "ai-agent": {
+    "keywords": [
+      "Rovo",
+      "AI",
+      "chat agent",
+      "ai"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for Rovo Agent."
+  },
+  "ai-chat": {
+    "keywords": [
+      "Rovo",
+      "AI",
+      "chat agent",
+      "ai"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for Rovo Chat."
+  },
+  "add": {
+    "keywords": [
+      "create",
+      "plus",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for creating and adding an object."
+  },
+  "alert": {
+    "keywords": [
+      "alert",
+      "event",
+      "operations"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for alerts in JSM and Compass."
+  },
+  "api": {
+    "keywords": [
+      "application programming interface",
+      "api",
+      "operations"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Enterprise Operations Center",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing Application Programming Interfaces (APIs)."
+  },
+  "app": {
+    "keywords": [
+      "add-on",
+      "add on",
+      "plugin",
+      "external app",
+      "third-party app"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for marketplace apps and integrations across products."
+  },
+  "app-switcher": {
+    "keywords": [
+      "application switcher",
+      "change product",
+      "switch product",
+      "product switcher"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for app switcher in global product navigation."
+  },
+  "app-switcher-legacy": {
+    "keywords": [
+      "application switcher",
+      "change product",
+      "switch product",
+      "product switcher"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for the legacy app switcher in global product navigation."
+  },
+  "apps": {
+    "keywords": [
+      "third-party",
+      "applications"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for adding or viewing apps."
+  },
+  "assets": {
+    "keywords": [
+      "assets",
+      "CMDB",
+      "configuration management database"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Assets",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for JSM Assets."
+  },
+  "atlassian-intelligence": {
+    "keywords": [
+      "AI"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for Atlassian Intelligence products or experiences."
+  },
+  "attachment": {
+    "keywords": [
+      "paperclip",
+      "attach"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for attaching files to issues or other objects."
+  },
+  "audio": {
+    "keywords": [
+      "music",
+      "musical note"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "📦 @atlaskit/icon/core/audio"
+  },
+  "automation": {
+    "keywords": [
+      "lightningbolt",
+      "automation rule"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved to represent an Automation."
+  },
+  "backlog": {
+    "keywords": [
+      "rows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for backlogs in Jira."
+  },
+  "board": {
+    "keywords": [
+      "columns",
+      "active sprint"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for boards in Jira."
+  },
+  "boards": {
+    "keywords": [],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved as the icon to represent multiple boards."
+  },
+  "border": {
+    "keywords": [
+      "border",
+      "image border",
+      "content border",
+      "editor",
+      "confluence"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for toggling the visibility of a border on an object."
+  },
+  "border-weight-medium": {
+    "keywords": [
+      "border",
+      "weight",
+      "stroke",
+      "medium",
+      "thickness",
+      "confluence",
+      "editor"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for representing medium border stroke widths."
+  },
+  "border-weight-thick": {
+    "keywords": [
+      "border",
+      "weight",
+      "thickness",
+      "stroke",
+      "thick",
+      "confluence",
+      "editor"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for representing thick border stroke widths."
+  },
+  "border-weight-thin": {
+    "keywords": [
+      "border",
+      "weight",
+      "thickness",
+      "stroke",
+      "confluence",
+      "editor"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for representing thin border stroke widths."
+  },
+  "branch": {
+    "keywords": [
+      "git branch",
+      "bitbucket branch",
+      "branches",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for branches in Bitbucket and Jira."
+  },
+  "changes": {
+    "keywords": [
+      "jira status",
+      "horizontal arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for changes in Jira."
+  },
+  "chat-widget": {
+    "keywords": [
+      "chat",
+      "widget",
+      "virtual service agent",
+      "vsa"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "JSM",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing a chat widget triggered by a floating action button."
+  },
+  "child-issues": {
+    "keywords": [],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for child issues in Jira."
+  },
+  "close": {
+    "keywords": [
+      "cross",
+      "x"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for closing an element."
+  },
+  "collapse-horizontal": {
+    "keywords": [
+      "collapse",
+      "width",
+      "horizontal arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for contracting or reducing the width of an element to its smallest size."
+  },
+  "collapse-vertical": {
+    "keywords": [
+      "collapse",
+      "height",
+      "vertical arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for contracting or reducing the height of an element to its smallest size."
+  },
+  "comment": {
+    "keywords": [
+      "speech bubble"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for comments on objects."
+  },
+  "comment-add": {
+    "keywords": [
+      "speech bubble",
+      "plus"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for adding a comment to an object."
+  },
+  "commit": {
+    "keywords": [
+      "git commit",
+      "bitbucket commit"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for commits in Jira or Bitbucket."
+  },
+  "component": {
+    "keywords": [
+      "lego",
+      "brick",
+      "block"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for components in Jira and Compass."
+  },
+  "content-align-center": {
+    "keywords": [
+      "content",
+      "media",
+      "image",
+      "alignment",
+      "centre"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for center aligning media and content."
+  },
+  "content-align-left": {
+    "keywords": [
+      "content",
+      "media",
+      "image",
+      "alignment",
+      "left"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for left aligning media and content."
+  },
+  "content-align-right": {
+    "keywords": [
+      "content",
+      "media",
+      "image",
+      "alignment",
+      "right"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for right aligning media and content."
+  },
+  "content-width-narrow": {
+    "keywords": [
+      "content",
+      "media",
+      "image",
+      "width",
+      "fixed",
+      "narrow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for setting media and content to a narrow width."
+  },
+  "content-width-wide": {
+    "keywords": [
+      "content",
+      "media",
+      "image",
+      "width",
+      "fixed",
+      "wide"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for setting media and content to a wide width."
+  },
+  "content-wrap-left": {
+    "keywords": [
+      "content",
+      "media",
+      "image",
+      "alignment",
+      "left",
+      "inline",
+      "wrap"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for left aligning media and content with wrapping enabled."
+  },
+  "content-wrap-right": {
+    "keywords": [
+      "content",
+      "media",
+      "image",
+      "alignment",
+      "right",
+      "inline",
+      "wrap"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for right aligning media and content with wrapping enabled."
+  },
+  "copy": {
+    "keywords": [
+      "copy",
+      "object"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for copying data such as text, code or other objects."
+  },
+  "dashboard": {
+    "keywords": [
+      "activity",
+      "view"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for dashboards in Jira."
+  },
+  "database": {
+    "keywords": [
+      "spreadsheet",
+      "table",
+      "data",
+      "cells"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for databases in Confluence."
+  },
+  "decision": {
+    "keywords": [
+      "fork",
+      "diagonal arrow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for decisions."
+  },
+  "defect": {
+    "keywords": [
+      "square",
+      "broken",
+      "defect",
+      "fragile",
+      "cracked"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for Defect Jira issue type."
+  },
+  "delete": {
+    "keywords": [
+      "trash",
+      "bin",
+      "remove"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for removing or deleting an object."
+  },
+  "department": {
+    "keywords": [
+      "organization",
+      "organisation",
+      "org chart",
+      "hierarchy"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for departments, reporting lines, or other tree chart representations."
+  },
+  "discovery": {
+    "keywords": [
+      "discovery",
+      "note",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for representing discovery. Used for Note info panel variant in Editor."
+  },
+  "download": {
+    "keywords": [
+      "down arrow",
+      "file download"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for file downloads."
+  },
+  "drag-handle": {
+    "keywords": [
+      "drag handler",
+      "drag dots",
+      "reorder",
+      "move"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for draggable elements."
+  },
+  "edit": {
+    "keywords": [
+      "pencil",
+      "pencil on page"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for editing objects."
+  },
+  "edit-bulk": {
+    "keywords": [
+      "edit",
+      "pencil",
+      "multiple",
+      "bulk",
+      "change"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for editing multiple objects in bulk."
+  },
+  "email": {
+    "keywords": [
+      "envelope",
+      "message"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for when an email-related things."
+  },
+  "emoji": {
+    "keywords": [
+      "smiley face",
+      "emoticon"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for Editor as a category for Emoji's."
+  },
+  "emoji-add": {
+    "keywords": [
+      "smiley face",
+      "emoticon",
+      "plus"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for adding an emoji reaction."
+  },
+  "emoji-casual": {
+    "keywords": [
+      "emoij",
+      "casual",
+      "sunglasses",
+      "chill",
+      "relaxed"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing a casual or relaxed tone or sentiment."
+  },
+  "emoji-neutral": {
+    "keywords": [
+      "emoji",
+      "neutral",
+      "ambivalent"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing a neutral tone or sentiment."
+  },
+  "emoji-remove": {
+    "keywords": [
+      "emoji",
+      "remove",
+      "strikethrough"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for removing emoji."
+  },
+  "epic": {
+    "keywords": [
+      "lightning bolt",
+      "jira status",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for epics in Jira."
+  },
+  "error": {
+    "keywords": [
+      "filled",
+      "status",
+      "danger",
+      "exclamation",
+      "!",
+      "stop"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for when there is an error."
+  },
+  "expand-horizontal": {
+    "keywords": [
+      "expand",
+      "width",
+      "horizontal arrows",
+      "maximum width",
+      "stretch",
+      "fit"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for expanding an element to its maximum width."
+  },
+  "expand-vertical": {
+    "keywords": [
+      "expand",
+      "height",
+      "vertical arrows",
+      "maximum height",
+      "stretch",
+      "fit"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for expanding an element to its maximum height."
+  },
+  "feed": {
+    "keywords": [
+      "feed",
+      "updates",
+      "release notes",
+      "what's new"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for update feeds in Atlassian Home."
+  },
+  "feedback": {
+    "keywords": [
+      "diagonal arrow",
+      "chat bubble",
+      "survey",
+      "critique"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Known uses: customer feedback."
+  },
+  "filter": {
+    "keywords": [
+      "funnel",
+      "refine"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for filterting data or objects."
+  },
+  "folder-closed": {
+    "keywords": [
+      "directory"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for folders in Confluence."
+  },
+  "folder-open": {
+    "keywords": [
+      "directory"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for open folders in Confluence."
+  },
+  "fullscreen-enter": {
+    "keywords": [
+      "full screen"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for full screen videos or objects."
+  },
+  "fullscreen-exit": {
+    "keywords": [
+      "un-full screen",
+      "un-fullscreen"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for return screen videos or objects."
+  },
+  "goal": {
+    "keywords": [
+      "target"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for goals in Atlas."
+  },
+  "grow-diagonal": {
+    "keywords": [
+      "grow",
+      "width and height",
+      "diagonal arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently."
+  },
+  "grow-horizontal": {
+    "keywords": [
+      "grow",
+      "width",
+      "horizontal arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for increasing the width of an element."
+  },
+  "grow-vertical": {
+    "keywords": [
+      "grow",
+      "height",
+      "vertical arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for increasing the height of an element."
+  },
+  "highlight": {
+    "keywords": [
+      "highlight",
+      "highlighter",
+      "stabilo",
+      "pen"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for highlight text tool in Confluence Editor."
+  },
+  "home": {
+    "keywords": [
+      "house",
+      "building"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage."
+  },
+  "image-fullscreen": {
+    "keywords": [
+      "image",
+      "fullscreen",
+      "enlarge"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for viewing an image in a fullscreen view or modal."
+  },
+  "image-inline": {
+    "keywords": [
+      "image",
+      "layout",
+      "inline"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing inline images in Editor."
+  },
+  "image-scaled": {
+    "keywords": [
+      "image",
+      "layout",
+      "scaled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing scaled images in layouts akin to display block."
+  },
+  "incident": {
+    "keywords": [
+      "witches hat",
+      "traffic cone",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for incidents in Jira."
+  },
+  "information": {
+    "keywords": [
+      "info",
+      "filled",
+      "tip"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Known uses: information state in section messages or inline messages."
+  },
+  "issue": {
+    "keywords": [
+      "single issue",
+      "jira status",
+      "check mark",
+      "tick"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for issues in Jira."
+  },
+  "issues": {
+    "keywords": [
+      "multiple issues",
+      "check mark",
+      "tick"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for multiple issues in Jira."
+  },
+  "key-result": {
+    "keywords": [
+      "target",
+      "bullseye",
+      "key result",
+      "arrow",
+      "bow",
+      "archery",
+      "OKR"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Atlas",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing key results."
+  },
+  "layout-one-column": {
+    "keywords": [
+      "layout",
+      "column",
+      "1 col"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for single column layout option in Confluence Editor"
+  },
+  "layout-three-columns": {
+    "keywords": [
+      "layout",
+      "columns",
+      "3 col",
+      "3 cols"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for 3 column layout option in Confluence Editor."
+  },
+  "layout-three-columns-sidebars": {
+    "keywords": [
+      "layout",
+      "columns",
+      "3 col",
+      "3 cols",
+      "sidebars",
+      "asides"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor."
+  },
+  "layout-two-columns": {
+    "keywords": [
+      "layout",
+      "columns",
+      "2 col",
+      "2 cols"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for 2 column layout option in Confluence Editor."
+  },
+  "layout-two-columns-sidebar-left": {
+    "keywords": [
+      "layout",
+      "columns",
+      "2 col",
+      "2 cols",
+      "sidebar",
+      "aside"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor."
+  },
+  "layout-two-columns-sidebar-right": {
+    "keywords": [
+      "layout",
+      "columns",
+      "2 col",
+      "2 cols",
+      "sidebar",
+      "aside"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for 2 column layout with right sidebar option in Confluence Editor."
+  },
+  "library": {
+    "keywords": [
+      "library",
+      "drawer",
+      "drawers",
+      "filing cabinet"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for library view in Atlassian Home."
+  },
+  "link": {
+    "keywords": [
+      "url",
+      "hyperlink",
+      "website",
+      "www",
+      "http",
+      ""
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for links, urls, or copy link."
+  },
+  "link-broken": {
+    "keywords": [
+      "unlink",
+      "remove link",
+      "break link",
+      "url",
+      "hyperlink",
+      "website",
+      "www",
+      "https"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for removing a link."
+  },
+  "link-external": {
+    "keywords": [
+      "new tab",
+      "new window",
+      "open in",
+      "url",
+      "hyperlink",
+      "www",
+      "http",
+      "https",
+      "website",
+      "external",
+      "shortcut",
+      "diagonal arrow",
+      "offsite"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for links that open up a new tab."
+  },
+  "log-in": {
+    "keywords": [
+      "sign in",
+      "enter",
+      "account"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for log in."
+  },
+  "log-out": {
+    "keywords": [
+      "sign out",
+      "exit",
+      "account"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for log out."
+  },
+  "markdown": {
+    "keywords": [
+      "markdown",
+      "md",
+      "markup"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing the Markdown markup language."
+  },
+  "marketplace": {
+    "keywords": [
+      "app store",
+      "storefront",
+      "stand",
+      "third-party developer"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for Atlassian Marketplace."
+  },
+  "maximize": {
+    "keywords": [
+      "diagonal",
+      "resize",
+      "enlarge"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size."
+  },
+  "mention": {
+    "keywords": [
+      "at symbol",
+      "@",
+      "tag",
+      "username"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for user mentions."
+  },
+  "menu": {
+    "keywords": [
+      "menu",
+      "top navigation",
+      "3 lines",
+      "hamburger"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for accessing the menu in global product navigation."
+  },
+  "merge-failure": {
+    "keywords": [
+      "git merge",
+      "bitbucket merge",
+      "merge fail",
+      "cross",
+      "x"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for branches in Bitbucket and Jira that have failed to merge."
+  },
+  "merge-success": {
+    "keywords": [
+      "git merge",
+      "bitbucket merge",
+      "merge success",
+      "check mark"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged."
+  },
+  "minimize": {
+    "keywords": [
+      "minimize",
+      "dock"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport."
+  },
+  "node": {
+    "keywords": [
+      "page",
+      "dot",
+      "page tree",
+      "navigation"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for a non-expandable item in a page tree."
+  },
+  "note": {
+    "keywords": [
+      "note",
+      "post-it",
+      "sticky"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for notes."
+  },
+  "notification": {
+    "keywords": [
+      "bell",
+      "alert"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for notifications within global product navigation and within product screens."
+  },
+  "notification-muted": {
+    "keywords": [
+      "bell",
+      "alert",
+      "notification",
+      "mute"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for muting or disabling notifications."
+  },
+  "objective": {
+    "keywords": [
+      "target",
+      "bullseye",
+      "objective"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for objectives."
+  },
+  "on-call": {
+    "keywords": [
+      "phone",
+      "on-call",
+      "support"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for representing on-call across Atlassian products."
+  },
+  "operations": {
+    "keywords": [
+      "incident management",
+      "alerting",
+      "opsgenie",
+      "it operations",
+      "it ops",
+      "radar"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for IT Operations."
+  },
+  "page": {
+    "keywords": [
+      "single page",
+      "feed",
+      "document",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for pages in Confluence."
+  },
+  "pages": {
+    "keywords": [
+      "multiple pages",
+      "feeds",
+      "documents"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for multipe pages in Confluence."
+  },
+  "people-group": {
+    "keywords": [
+      "users",
+      "customers",
+      "people"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Known uses: representing a group or collection of people or users."
+  },
+  "person": {
+    "keywords": [
+      "user",
+      "customer"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Known uses: representing a person or user, owner, contributor."
+  },
+  "person-add": {
+    "keywords": [
+      "user",
+      "customer",
+      "plus"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for adding a user to an object."
+  },
+  "person-added": {
+    "keywords": [
+      "user",
+      "customer",
+      "check",
+      "tick"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for a user added to an object."
+  },
+  "person-avatar": {
+    "keywords": [
+      "user",
+      "customer"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for user avatar."
+  },
+  "person-offboard": {
+    "keywords": [
+      "user",
+      "customer",
+      "right arrow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "📦 @atlaskit/icon/core/person-offboard"
+  },
+  "person-remove": {
+    "keywords": [
+      "person",
+      "remove",
+      "delete",
+      "unfollow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for removing and unfollowing people and teammates."
+  },
+  "person-warning": {
+    "keywords": [
+      "person",
+      "warning",
+      "alert"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for showing a warning related to a person or teammate."
+  },
+  "premium": {
+    "keywords": [
+      "AI",
+      "sparkles",
+      "stars",
+      "new",
+      "feature"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for premium features."
+  },
+  "presenter-mode": {
+    "keywords": [
+      "pointer",
+      "cursor",
+      "presentation",
+      "present"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for presenter mode in Confluence."
+  },
+  "priority-blocker": {
+    "keywords": [
+      "blocked",
+      "showstopper",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for blocker issue priority."
+  },
+  "priority-critical": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for critial issue priority."
+  },
+  "priority-high": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for high issue priority."
+  },
+  "priority-highest": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for highest issue priority."
+  },
+  "priority-low": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for low issue priority."
+  },
+  "priority-lowest": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for lowest issue priority."
+  },
+  "priority-major": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for major issue priority."
+  },
+  "priority-medium": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for medium issue priority."
+  },
+  "priority-minor": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for minor issue priority."
+  },
+  "priority-trivial": {
+    "keywords": [
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for trivial issue priority."
+  },
+  "problem": {
+    "keywords": [
+      "stop",
+      "issue",
+      "priority",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for problem issue priority."
+  },
+  "project": {
+    "keywords": [
+      "rocket",
+      "rocketship",
+      "spaceship"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for projects in Jira."
+  },
+  "project-status": {
+    "keywords": [
+      "status",
+      "traffic lights"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Atlassian Home",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing project status in Atlassian Home."
+  },
+  "pull-request": {
+    "keywords": [
+      "git pull request",
+      "bitbucket pull request",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for pull requests."
+  },
+  "radio-checked": {
+    "keywords": [
+      "radio",
+      "input type",
+      "selected"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for the selected state of radio controls."
+  },
+  "radio-unchecked": {
+    "keywords": [
+      "radio",
+      "input type",
+      "unselected"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for the unselected state of radio controls."
+  },
+  "redo": {
+    "keywords": [
+      "editor",
+      "redo",
+      "backwards"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for redo in Editor."
+  },
+  "refresh": {
+    "keywords": [
+      "diagonal",
+      "resize",
+      "arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for expanding a object or panel."
+  },
+  "release": {
+    "keywords": [
+      "ship",
+      "boat"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for releases in Jira."
+  },
+  "retry": {
+    "keywords": [
+      "try again",
+      ""
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for retry."
+  },
+  "roadmap": {
+    "keywords": [],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for roadmaps in Jira or Trello."
+  },
+  "scorecard": {
+    "keywords": [
+      "tick",
+      "check",
+      "circle",
+      "unfinished"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for Scorecard in Analytics."
+  },
+  "search": {
+    "keywords": [
+      "magnifying glass"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for searching objects."
+  },
+  "send": {
+    "keywords": [
+      "submit",
+      "paper airplane",
+      "paper aeroplane"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for sending messages in Rovo Chat."
+  },
+  "settings": {
+    "keywords": [
+      "system preferences",
+      "gear",
+      "cog"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for any object or user settings."
+  },
+  "shapes": {
+    "keywords": [
+      "objects",
+      "whiteboard",
+      "asset",
+      "graphic"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for shapes in Whiteboards."
+  },
+  "share": {
+    "keywords": [
+      "share",
+      "access"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for sharing an object."
+  },
+  "shortcut": {
+    "keywords": [
+      "addshortcut",
+      "square",
+      "plus"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for shortcuts in Jira."
+  },
+  "show-more-horizontal": {
+    "keywords": [
+      "ellipses",
+      "three dots",
+      "meatball",
+      "more actions"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for more action menus."
+  },
+  "show-more-vertical": {
+    "keywords": [
+      "three dots",
+      "kebab",
+      "more actions"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for more action menus, traditionally on mobile."
+  },
+  "shrink-diagonal": {
+    "keywords": [
+      "resize",
+      "diagonal arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects."
+  },
+  "shrink-horizontal": {
+    "keywords": [
+      "contract",
+      "width",
+      "horizontal arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for contracting or reducing the width of an element."
+  },
+  "shrink-vertical": {
+    "keywords": [
+      "contract",
+      "height",
+      "vertical arrows"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for contracting or reducing the height of an element."
+  },
+  "sidebar-collapse": {
+    "keywords": [
+      "navigation",
+      "close sidebar"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for collapsing the navigation sidebar."
+  },
+  "sidebar-expand": {
+    "keywords": [
+      "navigation",
+      "open sidebar"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for expanding the navigation sidebar."
+  },
+  "sidebar-left": {
+    "keywords": [
+      "sidebar",
+      "detail view",
+      "left rail",
+      "drawer"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for opening a sidebar to the left of the viewport edge."
+  },
+  "sidebar-right": {
+    "keywords": [
+      "sidebar",
+      "detail view",
+      "right rail",
+      "drawer"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for opening a sidebar to the right of the viewport edge."
+  },
+  "smart-link": {
+    "keywords": [
+      "smart link"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Linking platform",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing Smart links."
+  },
+  "smart-link-card": {
+    "keywords": [
+      "smart link",
+      "url",
+      "card",
+      "link preview"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Linking platform",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing Smart link preview cards."
+  },
+  "smart-link-embed": {
+    "keywords": [
+      "smart link",
+      "url",
+      "embed"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Linking platform",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing Smart link embeds."
+  },
+  "smart-link-inline": {
+    "keywords": [
+      "smart link",
+      "url",
+      "inline"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Linking platform",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing inline Smart link lozenges."
+  },
+  "smart-link-list": {
+    "keywords": [
+      "smart link",
+      "url",
+      "embed",
+      "list",
+      "table",
+      "linked search results"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Linking platform",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing Smart link embedded link lists."
+  },
+  "snippet": {
+    "keywords": [
+      "scissors",
+      "cut"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for snippets in Bitbucket."
+  },
+  "sort-ascending": {
+    "keywords": [
+      "data",
+      "sort",
+      "up"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for sorting data."
+  },
+  "sort-descending": {
+    "keywords": [
+      "data",
+      "sort",
+      "down"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for sorting data."
+  },
+  "spreadsheet": {
+    "keywords": [
+      "table",
+      "cells",
+      "data"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for spreadsheets."
+  },
+  "sprint": {
+    "keywords": [
+      "loop",
+      "iterate"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for sprints in Jira."
+  },
+  "star-starred": {
+    "keywords": [
+      "favourite",
+      "star",
+      "starred",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for starred or favourited objects."
+  },
+  "star-unstarred": {
+    "keywords": [
+      "favourite",
+      "star"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for starring or favoriting objects."
+  },
+  "status-verified": {
+    "keywords": [
+      "verified badge",
+      "status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing verified content."
+  },
+  "story": {
+    "keywords": [
+      "bookmark",
+      "issue",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for stories in Jira."
+  },
+  "subtasks": {
+    "keywords": [
+      "issue",
+      "todo",
+      "checklist",
+      "jira status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for subtasks in Jira."
+  },
+  "success": {
+    "keywords": [
+      "tick",
+      "completed",
+      "success",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single-purpose - Reserved for success section messages and form validation messages."
+  },
+  "summarize": {
+    "keywords": [
+      "summarize",
+      "summarise",
+      "quote",
+      "quotes"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Atlassian Intelligence",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for summarizing content with Atlassian Intelligence."
+  },
+  "support": {
+    "keywords": [
+      "support",
+      "help",
+      "life raft",
+      "life ring",
+      "lifebuoy",
+      "life preserver"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing help support."
+  },
+  "table-cell-clear": {
+    "keywords": [
+      "table",
+      "cell",
+      "clear",
+      "empty"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for clearing the contents of table cells."
+  },
+  "table-cell-merge": {
+    "keywords": [
+      "table",
+      "cell",
+      "merge",
+      "combine",
+      "join"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for merging table cells."
+  },
+  "table-cell-split": {
+    "keywords": [
+      "table",
+      "cell",
+      "split",
+      "divide",
+      "separate"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for splitting joined table cells."
+  },
+  "table-column-add-left": {
+    "keywords": [
+      "table",
+      "column",
+      "add",
+      "plus",
+      "left",
+      "before"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for adding a table column to the left of the selected column."
+  },
+  "table-column-add-right": {
+    "keywords": [
+      "table",
+      "column",
+      "add",
+      "right",
+      "after"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for adding a table column to the right of the selected column."
+  },
+  "table-column-delete": {
+    "keywords": [
+      "table",
+      "column",
+      "delete",
+      "remove",
+      "x"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for deleting a table column."
+  },
+  "table-column-move-left": {
+    "keywords": [
+      "table",
+      "column",
+      "move",
+      "left",
+      "arrow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for moving a table column to the left of its current location."
+  },
+  "table-column-move-right": {
+    "keywords": [
+      "table",
+      "column",
+      "move",
+      "right",
+      "arrow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for moving a table column to the right of its current location."
+  },
+  "table-columns-distribute": {
+    "keywords": [
+      "table",
+      "columns",
+      "distribute",
+      "even",
+      "equidistant"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for distributing the width of table columns evenly."
+  },
+  "table-row-add-above": {
+    "keywords": [
+      "table",
+      "row",
+      "add",
+      "plus",
+      "above",
+      "up"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for adding a table row above the selected row."
+  },
+  "table-row-add-below": {
+    "keywords": [
+      "table",
+      "row",
+      "add",
+      "plus",
+      "below",
+      "down"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for adding a table row below the selected row."
+  },
+  "table-row-delete": {
+    "keywords": [
+      "table",
+      "row",
+      "delete",
+      "remove",
+      "x"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for deleting a table row."
+  },
+  "table-row-move-down": {
+    "keywords": [
+      "table",
+      "row",
+      "move",
+      "down",
+      "arrow",
+      "after"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for moving a table row below its current location."
+  },
+  "table-row-move-up": {
+    "keywords": [
+      "table",
+      "row",
+      "move",
+      "up",
+      "arrow",
+      "above"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for moving a table row above its current location."
+  },
+  "tag": {
+    "keywords": [
+      "label",
+      "topic"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for tags in Atlas."
+  },
+  "target": {
+    "keywords": [
+      "target",
+      "bullseye"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for targets."
+  },
+  "task": {
+    "keywords": [
+      "single task",
+      "todo",
+      "list",
+      "check mark",
+      "tick"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for tasks in Jira."
+  },
+  "task-in-progress": {
+    "keywords": [
+      "calendar",
+      "task",
+      "status",
+      "in progress"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "JSM Calendar",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for in progress task status. Used in JSM Calendar view."
+  },
+  "task-to-do": {
+    "keywords": [
+      "calendar",
+      "task",
+      "to-do",
+      "todo",
+      "status"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "JSM Calendar",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for to-do task status. Used in JSM Calendar view."
+  },
+  "tasks": {
+    "keywords": [
+      "multiple tasks",
+      "todo",
+      "list",
+      "check mark",
+      "tick"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for multiple tasks in Jira."
+  },
+  "teams": {
+    "keywords": [
+      "infinite love",
+      "people",
+      "persons",
+      "customers",
+      "users"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for teams in Atlassian."
+  },
+  "text": {
+    "keywords": [
+      "character",
+      "font",
+      "letter",
+      "type",
+      "typography",
+      "text"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for representing text objects."
+  },
+  "text-bold": {
+    "keywords": [
+      "text",
+      "type",
+      "bold",
+      "font"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for bolding text."
+  },
+  "text-heading": {
+    "keywords": [
+      "text",
+      "heading",
+      "H",
+      "editor",
+      "text style"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for representing heading styles",
+    "slackChannel": "#icon-contributions"
+  },
+  "text-indent-left": {
+    "keywords": [
+      "text",
+      "outdent",
+      "left",
+      "arrow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for shifting the indent of text content left."
+  },
+  "text-indent-right": {
+    "keywords": [
+      "text",
+      "indent",
+      "right",
+      "arrow"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for shifting the indent of text content right."
+  },
+  "text-italic": {
+    "keywords": [
+      "text",
+      "type",
+      "italic",
+      "font"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for italicizing text."
+  },
+  "text-shorten": {
+    "keywords": [
+      "text",
+      "shorten",
+      "abbreviate",
+      "condense",
+      "AI"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Atlassian Intelligence",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for shortening text content with Atlassian Intelligence."
+  },
+  "text-spellcheck": {
+    "keywords": [
+      "text",
+      "spelling",
+      "typo",
+      "spellcheck"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for spellchecking."
+  },
+  "text-strikethrough": {
+    "keywords": [
+      "text",
+      "strikethrough",
+      "editor",
+      "cross out"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for strikethrough text tool",
+    "slackChannel": "#icon-contributions"
+  },
+  "text-style": {
+    "keywords": [
+      "characters",
+      "font",
+      "letters",
+      "type",
+      "typography"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Editor",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for text styles in Editor."
+  },
+  "text-underline": {
+    "keywords": [
+      "text",
+      "underline",
+      "U",
+      "editor"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for underlined text tool",
+    "slackChannel": "#icon-contributions"
+  },
+  "text-wrap": {
+    "keywords": [
+      "text",
+      "wrap",
+      "line wrap"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for wrapping text so it spans multiple lines."
+  },
+  "theme": {
+    "keywords": [
+      "theme",
+      "light mode",
+      "dark mode",
+      "theme switcher"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for representing themes and theme switching."
+  },
+  "timeline": {
+    "keywords": [
+      "gantt",
+      "calendar"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for timelines in Jira or Trello."
+  },
+  "transition": {
+    "keywords": [
+      "connector",
+      "movement"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for transitions in Analytics."
+  },
+  "translate": {
+    "keywords": [
+      "translate",
+      "language",
+      "i18n",
+      "internationalization",
+      "internationalisation"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for representing language translations."
+  },
+  "undo": {
+    "keywords": [
+      "backward",
+      "mistake",
+      "correct"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for undo in Editor."
+  },
+  "upload": {
+    "keywords": [
+      "stream",
+      "file"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for upload in Editor."
+  },
+  "video": {
+    "keywords": [
+      "media",
+      "movie"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for representing video content across Atlassian and Loom."
+  },
+  "video-next": {
+    "keywords": [
+      "skip",
+      "next",
+      "media",
+      "forward"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for next video in Media."
+  },
+  "video-next-overlay": {
+    "keywords": [
+      "skip",
+      "next",
+      "media",
+      "forward",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for next video when icon is overlayed on Media."
+  },
+  "video-pause": {
+    "keywords": [
+      "media",
+      "video"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for pause video in Media."
+  },
+  "video-pause-overlay": {
+    "keywords": [
+      "media",
+      "video",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for pause video when icon is overlayed on Media."
+  },
+  "video-play": {
+    "keywords": [
+      "media",
+      "video"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for play video in Media."
+  },
+  "video-play-overlay": {
+    "keywords": [
+      "media",
+      "video",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for play video when icon is overlayed on Media."
+  },
+  "video-previous": {
+    "keywords": [
+      "media",
+      "video",
+      "back",
+      "previous"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for previous video in Media."
+  },
+  "video-previous-overlay": {
+    "keywords": [
+      "media",
+      "video",
+      "back",
+      "previous",
+      "filled"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for previous video when icon is overlayed on Media."
+  },
+  "video-skip-backward-fifteen": {
+    "keywords": [
+      "video",
+      "media",
+      "skip",
+      "backwards",
+      "15",
+      "seconds"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for skipping video content backward by 15 seconds."
+  },
+  "video-skip-backward-ten": {
+    "keywords": [
+      "video",
+      "media",
+      "skip",
+      "backwards",
+      "10",
+      "seconds"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for skipping video content backwards by 10 seconds."
+  },
+  "video-skip-forward-fifteen": {
+    "keywords": [
+      "video",
+      "media",
+      "skip",
+      "forward",
+      "15",
+      "seconds"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for skipping video content forward by 15 seconds."
+  },
+  "video-skip-forward-ten": {
+    "keywords": [
+      "video",
+      "media",
+      "skip",
+      "forward",
+      "10",
+      "seconds"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Reserved for skipping video content forward by 10 seconds."
+  },
+  "video-stop": {
+    "keywords": [
+      "video",
+      "stop"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for stopping video content."
+  },
+  "video-stop-overlay": {
+    "keywords": [
+      "video",
+      "stop",
+      "overlay",
+      "inverse"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Reserved for stopping video content. Use on dark or translucent backgrounds."
+  },
+  "warning": {
+    "keywords": [
+      "alert",
+      "triangle",
+      "filled",
+      "exclamation",
+      "!",
+      "warning"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Single purpose - Reserved for warning system status."
+  },
+  "whiteboard": {
+    "keywords": [
+      "shapes",
+      "canvas"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for whiteboards in Confluence."
+  },
+  "zoom-in": {
+    "keywords": [
+      "magnify",
+      "magnifying glass"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for zooming in of an object or view."
+  },
+  "zoom-out": {
+    "keywords": [
+      "minify",
+      "magnifying glass"
+    ],
+    "categorization": "single-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Reserved for zooming out of an object or view."
+  },
+  "align-center": {
+    "keywords": [
+      "alignment",
+      "text",
+      "content"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: align text center, align center."
+  },
+  "align-left": {
+    "keywords": [
+      "alignment",
+      "text",
+      "content",
+      "summary"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: align text left, align content left, summary."
+  },
+  "align-right": {
+    "keywords": [
+      "alignment",
+      "text",
+      "content"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: align text right, align content right."
+  },
+  "angle-brackets": {
+    "keywords": [
+      "code",
+      "<>",
+      "</>",
+      "syntax",
+      "jira status"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: code or source code in Bitbucket and Jira."
+  },
+  "archive-box": {
+    "keywords": [
+      "file box"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: archiving pages, storage."
+  },
+  "arrow-down": {
+    "keywords": [
+      "down",
+      "bottom",
+      "sorting"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Know uses: sorting table headers or Bitbucket code difference."
+  },
+  "arrow-down-left": {
+    "keywords": [
+      "diagonal arrow",
+      "down",
+      "left",
+      "south west"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Adding content from Rovo Chat into Editor."
+  },
+  "arrow-down-right": {
+    "keywords": [
+      "diagonal arrow",
+      "down",
+      "right",
+      "south east"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: TBC"
+  },
+  "arrow-left": {
+    "keywords": [
+      "back",
+      "previous"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: back to previous screen, previous slide."
+  },
+  "arrow-right": {
+    "keywords": [
+      "forward",
+      "next",
+      "link"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: link to nested menu item, a linked menu item, next slide."
+  },
+  "arrow-up": {
+    "keywords": [
+      "improvement",
+      "jira status"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: back to top."
+  },
+  "arrow-up-left": {
+    "keywords": [
+      "diagonal arrow",
+      "up",
+      "right",
+      "north east"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: TBC"
+  },
+  "arrow-up-right": {
+    "keywords": [
+      "open",
+      "diagonal arrow"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose"
+  },
+  "basketball": {
+    "keywords": [
+      "ball",
+      "sports",
+      "basketball"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Sport emoji category."
+  },
+  "book-with-bookmark": {
+    "keywords": [
+      "knowledge base",
+      "article"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info."
+  },
+  "briefcase": {
+    "keywords": [
+      "suitcase",
+      "toolbox",
+      "operations",
+      "business"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: Job title in Atlas, Operations in JSM."
+  },
+  "bug": {
+    "keywords": [
+      "bug report",
+      "test"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: Request types in JSM, bugs in Jira."
+  },
+  "calendar": {
+    "keywords": [
+      "date",
+      "month",
+      "day",
+      "year",
+      "jira status"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: date metadata, date input field, calendar view, jira status."
+  },
+  "camera": {
+    "keywords": [],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: upload photo in Trello, photos."
+  },
+  "calendar-plus": {
+    "keywords": [
+      "calendar",
+      "add",
+      "plus",
+      "schedule"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Auto-scheduling in Jira Plans. Scheduled dates."
+  },
+  "capture": {
+    "keywords": [],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "📦 @atlaskit/icon/core/capture"
+  },
+  "cash": {
+    "keywords": [
+      "currency",
+      "money",
+      "cash",
+      "dollar",
+      "bill"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: 'Sales' Jira issue type."
+  },
+  "card": {
+    "keywords": [
+      "card"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Representing cards in Trello. Toggling card detail in Jira."
+  },
+  "chart-bar": {
+    "keywords": [
+      "graph",
+      "bar",
+      "analytics",
+      "report"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: Reports in JSM, Space Analytics in Confluence, and other graph charts."
+  },
+  "chart-matrix": {
+    "keywords": [
+      "dot chart",
+      "graph",
+      "matrix",
+      ""
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts."
+  },
+  "chart-pie": {
+    "keywords": [
+      "segment",
+      "chart",
+      "graph",
+      "pie"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: pie charts."
+  },
+  "chart-trend": {
+    "keywords": [
+      "reports",
+      "graph",
+      "impact effort",
+      ""
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: charts, reports in Jira, and sprint insights."
+  },
+  "check-circle": {
+    "keywords": [
+      "tick",
+      "yes",
+      "completed",
+      "filled"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: completed items, productivity emoji category. Completed task issue status in JSM Calendar view."
+  },
+  "check-mark": {
+    "keywords": [
+      "tick"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: table cells, checkboxes."
+  },
+  "checkbox-checked": {
+    "keywords": [
+      "filled",
+      "checked",
+      "select all"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component."
+  },
+  "checkbox-indeterminate": {
+    "keywords": [
+      "filled",
+      "mixed"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component."
+  },
+  "checkbox-unchecked": {
+    "keywords": [
+      "unchecked"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component."
+  },
+  "clock": {
+    "keywords": [
+      "time",
+      "recent",
+      "history"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: recent, time input, sprint time remaining. Overdue task issue status in JSM Calendar view."
+  },
+  "clipboard": {
+    "keywords": [
+      "clipboard",
+      "paste"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Pasting content from clipboard."
+  },
+  "cloud-arrow-up": {
+    "keywords": [
+      "deployments",
+      "up arrow"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Multi purpose - Known uses: deployments in Jira."
+  },
+  "compass": {
+    "keywords": [
+      "template"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: templates."
+  },
+  "credit-card": {
+    "keywords": [
+      "payment",
+      "invoice"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: billing in Admin, invoices in PPC, payments."
+  },
+  "cross-circle": {
+    "keywords": [
+      "x",
+      "exit",
+      "clear",
+      "no",
+      "filled"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: clear text field, error status."
+  },
+  "customize": {
+    "keywords": [
+      "customise",
+      "configure",
+      "modify",
+      "preferences",
+      "settings",
+      "sliders"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: customize sidebar, customize view, settings."
+  },
+  "curly-brackets": {
+    "keywords": [
+      "curly brackets",
+      "braces",
+      "smart value"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Represents Smart values in Proforma."
+  },
+  "data-flow": {
+    "keywords": [
+      "relationship",
+      "data",
+      "flow chart"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Database schema in Jira."
+  },
+  "device-mobile": {
+    "keywords": [
+      "iphone",
+      "mobile phone",
+      "cell phone"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: call, contact us."
+  },
+  "data-number": {
+    "keywords": [
+      "numbers",
+      "123",
+      "proforma",
+      "datatype"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Representing number datatype fields in Proforma and databases."
+  },
+  "data-string": {
+    "keywords": [
+      "string",
+      "letters",
+      "abc",
+      "proforma",
+      "datatype"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Representing string datatype fields in Proforma and databases."
+  },
+  "devices": {
+    "keywords": [
+      "devices",
+      "assets",
+      "laptop",
+      "phone",
+      "hardware"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: 'Asset' Jira issue type."
+  },
+  "exclamation-square": {
+    "keywords": [
+      "!",
+      "exclaimation",
+      "exclaim",
+      "issue type",
+      "square"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Known uses: Exclamation Jira issue type",
+    "slackChannel": "#icon-contributions"
+  },
+  "eye-open": {
+    "keywords": [
+      "watch",
+      "visible",
+      "visbility",
+      "permissions"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas."
+  },
+  "eye-open-filled": {
+    "keywords": [
+      "watching",
+      "visible",
+      "visbility",
+      "permissions",
+      "filled"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: watched pages in Confluence."
+  },
+  "eye-open-strikethrough": {
+    "keywords": [
+      "unwatch",
+      "invisible",
+      "visibility",
+      "permissions"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas."
+  },
+  "field": {
+    "keywords": [
+      "field",
+      "form",
+      "input",
+      "label"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence."
+  },
+  "file": {
+    "keywords": [
+      "document",
+      "file",
+      "paper"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead."
+  },
+  "field-alert": {
+    "keywords": [
+      "field",
+      "alert",
+      "warning",
+      "change"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Changed field values in Automation."
+  },
+  "field-checkbox-group": {
+    "keywords": [
+      "form",
+      "field",
+      "input type",
+      "checkbox",
+      "multi-select",
+      "options"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Checkbox group field type in Proforma."
+  },
+  "field-dropdown": {
+    "keywords": [
+      "form",
+      "field",
+      "select",
+      "dropdown"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Dropdown field type in Proforma."
+  },
+  "field-radio-group": {
+    "keywords": [
+      "form",
+      "field",
+      "input type",
+      "radio",
+      "single-select",
+      "options"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Radio group field type in Proforma."
+  },
+  "files": {
+    "keywords": [
+      "documents",
+      "files",
+      "papers"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated 'Pages' icon instead."
+  },
+  "flag": {
+    "keywords": [
+      "important",
+      "emoji category"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: flags in Editor, feature flags."
+  },
+  "flag-filled": {
+    "keywords": [
+      "flag",
+      "important",
+      "filled"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: active feature flags."
+  },
+  "flask": {
+    "keywords": [
+      "labs",
+      "test",
+      "erlenmeyer flask",
+      "beaker"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: labs in Jira."
+  },
+  "globe": {
+    "keywords": [
+      "world"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation."
+  },
+  "form": {
+    "keywords": [
+      "form",
+      "fields"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Represents forms across Atlassian products, including Proforma."
+  },
+  "glasses": {
+    "keywords": [
+      "glasses",
+      "knowledge",
+      "learning",
+      "spectacles",
+      "education"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: Changing tone of written content to Educational with Atlassian Intelligence."
+  },
+  "grid": {
+    "keywords": [
+      "view all content",
+      "tile view",
+      "layout",
+      "grid",
+      "tiles"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: spaces in Confluence, and grid view, all content in Confluence."
+  },
+  "hashtag": {
+    "keywords": [
+      "tag",
+      "topic",
+      "pound"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: topics in Atlas, tags."
+  },
+  "headphones": {
+    "keywords": [
+      "audio",
+      "music"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: music, audio."
+  },
+  "heart": {
+    "keywords": [
+      "like",
+      "love",
+      "emoji category"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: emoji symbols in Editor."
+  },
+  "image": {
+    "keywords": [
+      "picture",
+      "asset"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: images, image upload."
+  },
+  "inbox": {
+    "keywords": [
+      "document tray",
+      "work",
+      "letter",
+      "post"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail."
+  },
+  "information-circle": {
+    "keywords": [
+      "information",
+      "circle",
+      "info"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.",
+    "slackChannel": "#icon-contributions"
+  },
+  "lightbulb": {
+    "keywords": [
+      "idea",
+      "initiative",
+      "tip",
+      "learnings"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Known uses: learnings in Atlas."
+  },
+  "list-bulleted": {
+    "keywords": [
+      "bullets",
+      "unordered list"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: bulleted lists, view all."
+  },
+  "list-checklist": {
+    "keywords": [
+      "list",
+      "check mark",
+      "to-do",
+      "requirements"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: 'Requirement' Jira issue type."
+  },
+  "list-numbered": {
+    "keywords": [
+      "list",
+      "numbers"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Numbered list in Confluence Editor."
+  },
+  "lobby-bell": {
+    "keywords": [
+      "ding",
+      "risks"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: risks in Atlas."
+  },
+  "location": {
+    "keywords": [
+      "map",
+      "pin",
+      "address"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: location in Atlas."
+  },
+  "lock-locked": {
+    "keywords": [
+      "permissions",
+      "no access",
+      "restricted",
+      "security",
+      "secure",
+      "forbidden",
+      "authentication"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: secure password in textfields, locked page in Confluence."
+  },
+  "lock-unlocked": {
+    "keywords": [
+      "open permissions",
+      "unrestricted access",
+      "security",
+      "insecure",
+      "authentication"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: unlocked page in Confluence."
+  },
+  "magic-wand": {
+    "keywords": [
+      "magic",
+      "wand",
+      "suggestion"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose"
+  },
+  "megaphone": {
+    "keywords": [
+      "announcement",
+      "bullhorn",
+      "feedback",
+      "news"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: feedback in products."
+  },
+  "microphone": {
+    "keywords": [
+      "mic",
+      "mic on",
+      "voice",
+      "speak"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: record sounds in Trello."
+  },
+  "minus": {
+    "keywords": [
+      "rule",
+      "horizontal line",
+      "divider",
+      "minus",
+      "subtract"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Multi purpose - Known uses: horizontal rule in Editor."
+  },
+  "minus-square": {
+    "keywords": [
+      "square",
+      "minus",
+      "subtract"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: 'Remove feature' Jira issue status."
+  },
+  "office-building": {
+    "keywords": [
+      "organization",
+      "organisation",
+      "business"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: office in Atlas, company."
+  },
+  "paint-bucket": {
+    "keywords": [
+      "paint",
+      "bucket",
+      "fill",
+      "background",
+      "customize"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Customize fill color."
+  },
+  "paint-palette": {
+    "keywords": [
+      "background",
+      "customize"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Customize."
+  },
+  "pen": {
+    "keywords": [
+      "pen tool",
+      "nib",
+      "fountain pen",
+      "design"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: 'Design task' Jira issue type."
+  },
+  "phone": {
+    "keywords": [
+      "call",
+      "dial out"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: call us, phone number input."
+  },
+  "pin": {
+    "keywords": [
+      "push pin",
+      "thumbtack",
+      "tack"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: pinning Jira issue fields."
+  },
+  "pin-filled": {
+    "keywords": [
+      "push pin",
+      "thumbtack",
+      "tack",
+      "filled"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: pinned Jira issue fields."
+  },
+  "plus-square": {
+    "keywords": [
+      "square",
+      "plus",
+      "add"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: 'New feature' Jira issue status."
+  },
+  "power-plug": {
+    "keywords": [
+      "plug-in",
+      "add-on",
+      "socket"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: plugins, add ons."
+  },
+  "printer": {
+    "keywords": [
+      "print"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: print page, print-friendly view."
+  },
+  "projection-screen": {
+    "keywords": [
+      "present",
+      "presentation",
+      "projector screen",
+      "keynote"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Intended usages: Presentation mode."
+  },
+  "pulse": {
+    "keywords": [
+      "pulse",
+      "wave",
+      "heartbeat",
+      "health"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Single purpose - Known uses: work health in Atlassian Home."
+  },
+  "question-circle": {
+    "keywords": [
+      "help",
+      "answers",
+      "faq",
+      "jira status"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: help, tip."
+  },
+  "quotation-mark": {
+    "keywords": [
+      "quote",
+      "testimonial",
+      "blockquote",
+      "jira status"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: blockquote, comment, testimonial, blogs in Confluence."
+  },
+  "scales": {
+    "keywords": [
+      "scales",
+      "rule",
+      "law"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Customer rating in Jira."
+  },
+  "screen": {
+    "keywords": [
+      "display",
+      "monitor",
+      "desktop"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: assets in Jira."
+  },
+  "screen-plus": {
+    "keywords": [
+      "screen",
+      "display",
+      "monitor",
+      "plus",
+      "add"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: TBC"
+  },
+  "shield": {
+    "keywords": [
+      "security",
+      "secure",
+      "safety",
+      "defence",
+      "protection",
+      "guard"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)"
+  },
+  "shield-strikethrough": {
+    "keywords": [
+      "️security",
+      "secure",
+      "safety",
+      "defence",
+      "protection",
+      "guard",
+      "strikethrough",
+      "classification"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Enterprise Trust",
+    "type": "core",
+    "status": "published",
+    "usage": "Known uses: No classification in Enterprise Trust"
+  },
+  "stopwatch": {
+    "keywords": [
+      "timer"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known uses: timer in Confluence Whiteboards."
+  },
+  "takeout-food": {
+    "keywords": [
+      "takeaway",
+      "takeout",
+      "food",
+      "burger",
+      "drink"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Food emoji category."
+  },
+  "thumbs-down": {
+    "keywords": [
+      "vote",
+      "downvote",
+      "dislike",
+      "feedback",
+      "hand"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Multi purpose - Known uses: voting, feedback in AI."
+  },
+  "thumbs-up": {
+    "keywords": [
+      "vote",
+      "upvote",
+      "like",
+      "feedback",
+      "hand"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "Multi purpose - Known uses: voting options in Jira, like."
+  },
+  "tools": {
+    "keywords": [
+      "tools",
+      "wrench",
+      "spanner",
+      "screwdriver"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: 'Service request' Jira issue type."
+  },
+  "tree": {
+    "keywords": [
+      "tree",
+      "nature"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Nature emoji category."
+  },
+  "vehicle-car": {
+    "keywords": [
+      "car",
+      "transportation",
+      "vehicle"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "published",
+    "usage": "Multi purpose - Known usages: Transport emoji category."
+  },
+  "volume-high": {
+    "keywords": [
+      "louder",
+      "volume up"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "📦 @atlaskit/icon/core/volume-high"
+  },
+  "volume-low": {
+    "keywords": [
+      "quiter",
+      "volume down"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "📦 @atlaskit/icon/core/volume-low"
+  },
+  "volume-muted": {
+    "keywords": [
+      "volume off",
+      "no volume"
+    ],
+    "categorization": "multi-purpose",
+    "location": "@atlaskit/icon",
+    "team": "Design System Team",
+    "type": "core",
+    "status": "ready-to-publish",
+    "usage": "📦 @atlaskit/icon/core/volume-muted"
+  }
 };
 
 export default metadata;

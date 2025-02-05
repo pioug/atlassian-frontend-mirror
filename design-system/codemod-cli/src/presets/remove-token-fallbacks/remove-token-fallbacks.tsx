@@ -1,17 +1,22 @@
 /* eslint-disable no-console */
+import { exec } from 'child_process';
+import fs from 'fs/promises';
 import path from 'path';
+import { promisify } from 'util';
 
 import { hasImportDeclaration } from '@hypermod/utils';
 import { findRoot } from '@manypkg/find-root';
 import chalk from 'chalk';
-import type { API, FileInfo } from 'jscodeshift';
+import type { API, ASTPath, FileInfo, VariableDeclarator } from 'jscodeshift';
 
 import { RemoveTokenFallbackOptions, TransformationDetails } from './types';
 import { getTokenMap } from './utils/all-tokens';
 import { getTeamInfo } from './utils/get-team-info';
 import { removeUnusedImports } from './utils/remove-unused-imports';
+import { removeUnusedVariables } from './utils/remove-unused-variables';
 import { clearFolder, combineReports, writeReports } from './utils/reporter';
 import { TokenProcessor } from './utils/token-processor';
+const execAsync = promisify(exec);
 
 /**
  * Transforms the source code of a file by removing fallback values from the @atlaskit/tokens/token functions.
@@ -78,8 +83,13 @@ export default async function transformer(
 		});
 	const results = await Promise.all(transformPromises);
 
+	const unusedVars: ASTPath<VariableDeclarator>[] = [];
+
 	if (results.some((result) => result.fallbackRemoved)) {
 		const allImports = results.flatMap((result) => result.resolvedImportDeclaration ?? []);
+		const allVars = results.flatMap((result) => result.resolvedLocalVarDeclaration ?? []);
+		unusedVars.push(...allVars);
+
 		if (allImports.length) {
 			if (options.verbose) {
 				console.log(
@@ -91,6 +101,8 @@ export default async function transformer(
 			removeUnusedImports(allImports, j);
 		}
 	}
+
+	removeUnusedVariables(unusedVars, j);
 
 	if (options.reportFolder) {
 		await writeReports(details, options.reportFolder);
@@ -121,9 +133,28 @@ export async function beforeAll(options: RemoveTokenFallbackOptions): Promise<vo
 
 /**
  * Function executed after all transformations to combine individual file reports into a comprehensive transformation report.
+ * It also applies prettier to the affected files.
  */
 export async function afterAll(options: RemoveTokenFallbackOptions): Promise<void> {
 	if (options.reportFolder) {
 		await combineReports(options.reportFolder);
+	}
+
+	if (options.reportFolder && !options.dry) {
+		try {
+			const filesTxtPath = path.join(options.reportFolder, 'files.txt');
+			const fileContent = await fs.readFile(filesTxtPath, 'utf-8');
+			if (fileContent.length > 0) {
+				console.log(`Running prettier on files: ${chalk.magenta(fileContent)}`);
+				await execAsync(`yarn prettier --write ${fileContent}`);
+				console.log(chalk.green(`Prettier was run successfully`));
+			}
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				console.error(chalk.red(`Unexpected error running Prettier: ${error.message}`));
+			} else {
+				console.error(chalk.red('An unknown error occurred while running Prettier.'));
+			}
+		}
 	}
 }

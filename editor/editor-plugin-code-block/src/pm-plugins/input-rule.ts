@@ -16,16 +16,8 @@ import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirro
 
 import { isConvertableToCodeBlock, transformToCodeBlockAction } from './transform-to-code-block';
 
-export function createCodeBlockInputRule(
-	schema: Schema,
-	editorAnalyticsAPI?: EditorAnalyticsAPI,
-	isNestingInQuoteSupported?: boolean,
-) {
-	const rules: Array<InputRuleWrapper> = getCodeBlockRules(
-		editorAnalyticsAPI,
-		schema,
-		isNestingInQuoteSupported,
-	);
+export function createCodeBlockInputRule(schema: Schema, editorAnalyticsAPI?: EditorAnalyticsAPI) {
+	const rules: Array<InputRuleWrapper> = getCodeBlockRules(editorAnalyticsAPI, schema);
 	return new SafePlugin(
 		createPlugin('code-block-input-rule', rules, {
 			isBlockNodeRule: true,
@@ -42,7 +34,6 @@ export function createCodeBlockInputRule(
 function getCodeBlockRules(
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	schema: Schema,
-	isNestingInQuoteSupported?: boolean,
 ): InputRuleWrapper[] {
 	const ruleAnalytics = inputRuleWithAnalytics(
 		{
@@ -71,7 +62,7 @@ function getCodeBlockRules(
 		}
 
 		if (isConvertableToCodeBlock(state)) {
-			return transformToCodeBlockAction(state, start, attributes, isNestingInQuoteSupported);
+			return transformToCodeBlockAction(state, start, attributes);
 		}
 
 		const tr = state.tr;

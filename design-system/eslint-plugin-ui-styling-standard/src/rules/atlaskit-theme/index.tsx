@@ -1,5 +1,6 @@
 import type { Rule, Scope } from 'eslint';
 
+import { getAncestors, getScope } from '@atlaskit/eslint-utils/context-compat';
 import { getImportSources, isCompiled } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
@@ -88,8 +89,8 @@ export const rule = createLintRule({
 
 		return {
 			'CallExpression Identifier': (node: Rule.Node): void => {
-				const { references } = context.getScope();
-				const ancestors = context.getAncestors();
+				const { references } = getScope(context, node);
+				const ancestors = getAncestors(context, node);
 
 				// Check if ancestor node is a call expression to Compiled
 				if (
@@ -109,8 +110,8 @@ export const rule = createLintRule({
 			},
 
 			'TaggedTemplateExpression Identifier': (node: Rule.Node): void => {
-				const { references } = context.getScope();
-				const ancestors = context.getAncestors();
+				const { references } = getScope(context, node);
+				const ancestors = getAncestors(context, node);
 
 				// Check if ancestor node is a tagged template expression to Compiled
 				if (

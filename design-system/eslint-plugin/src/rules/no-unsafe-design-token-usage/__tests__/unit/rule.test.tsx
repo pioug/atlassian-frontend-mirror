@@ -57,9 +57,6 @@ tester.run('no-unsafe-design-token-usage', rule, {
 			code: `token('elevation.shadow.raised')`,
 		},
 		{
-			code: `const background = 'hey';`,
-		},
-		{
 			code: `import { e100 } from 'lib';`,
 		},
 		{
@@ -118,9 +115,6 @@ tester.run('no-unsafe-design-token-usage', rule, {
 		},
 		{
 			code: `const background = 'hey';`,
-		},
-		{
-			code: `import { e100 } from 'lib';`,
 		},
 		{
 			code: `css({background:'none'})`,

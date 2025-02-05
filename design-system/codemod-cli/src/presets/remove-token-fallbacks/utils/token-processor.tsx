@@ -15,12 +15,14 @@ import type {
 	MemberExpression,
 	StringLiteral,
 	TemplateLiteral,
+	VariableDeclarator,
 } from 'jscodeshift';
 
 import {
 	FallbackResolveResult,
 	RemoveTokenFallbackOptions,
 	TeamInfo,
+	TokenProcessingResult,
 	TransformationDetails,
 } from '../types';
 
@@ -61,10 +63,7 @@ export class TokenProcessor {
 
 	async processAndLogSingleToken(
 		callPath: ASTPath<CallExpression>,
-	): Promise<{
-		fallbackRemoved: boolean;
-		resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
-	}> {
+	): Promise<TokenProcessingResult> {
 		const line = callPath.node.loc?.start.line;
 		const { shouldLog, ...rest } = await this.processSingleToken(callPath);
 		if (this.options.silent || !shouldLog) {
@@ -93,20 +92,26 @@ export class TokenProcessor {
 
 	private async processSingleToken(
 		callPath: ASTPath<CallExpression>,
-	): Promise<{
-		shouldLog: boolean;
-		fallbackRemoved: boolean;
-		resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
-	}> {
+	): Promise<TokenProcessingResult & { shouldLog: boolean }> {
 		const args = callPath.node.arguments;
 		const line = callPath.node.loc?.start.line;
 		if (args.length < 2) {
 			this.logVerbose(chalk.yellow('Skipped token call without fallback'));
-			return { shouldLog: false, fallbackRemoved: false, resolvedImportDeclaration: undefined };
+			return {
+				shouldLog: false,
+				fallbackRemoved: false,
+				resolvedImportDeclaration: undefined,
+				resolvedLocalVarDeclaration: undefined,
+			};
 		}
 		const tokenKey = this.getTokenKey(args[0] as StringLiteral);
 		if (!tokenKey) {
-			return { shouldLog: true, fallbackRemoved: false, resolvedImportDeclaration: undefined };
+			return {
+				shouldLog: true,
+				fallbackRemoved: false,
+				resolvedImportDeclaration: undefined,
+				resolvedLocalVarDeclaration: undefined,
+			};
 		}
 		const isSkipped =
 			tokenKey.startsWith('elevation.shadow') ||
@@ -116,8 +121,18 @@ export class TokenProcessor {
 		this.logVerbose(
 			`Token value from tokenMap: ${chalk.magenta(tokenValue)} for key: ${chalk.yellow(tokenKey)}`,
 		);
-		const { rawFallbackValue, fallbackValue, resolvedImportDeclaration } = isSkipped
-			? { rawFallbackValue: 'N/A', fallbackValue: undefined, resolvedImportDeclaration: undefined }
+		const {
+			rawFallbackValue,
+			fallbackValue,
+			resolvedImportDeclaration,
+			resolvedLocalVarDeclaration,
+		} = isSkipped
+			? {
+					rawFallbackValue: 'N/A',
+					fallbackValue: undefined,
+					resolvedImportDeclaration: undefined,
+					resolvedLocalVarDeclaration: undefined,
+				}
 			: await this.getFallbackValue(args[1]);
 		const {
 			difference,
@@ -140,6 +155,8 @@ export class TokenProcessor {
 		};
 		let fallbackRemoved = false;
 		let importDeclaration: ASTPath<ImportDeclaration> | undefined;
+		let localVarDeclaration: ASTPath<VariableDeclarator> | undefined;
+
 		if (areEqual || isAcceptableDifference || this.options.forceUpdate) {
 			this.log(
 				chalk.green(
@@ -152,6 +169,7 @@ export class TokenProcessor {
 			this.details.replaced.push(logData);
 			fallbackRemoved = true;
 			importDeclaration = resolvedImportDeclaration;
+			localVarDeclaration = resolvedLocalVarDeclaration;
 		} else {
 			const message =
 				normalizedFallbackValue === undefined
@@ -166,7 +184,12 @@ export class TokenProcessor {
 		this.log(
 			`Token: ${chalk.yellow(tokenKey)}, Raw fallback: ${chalk.yellow(rawFallbackValue)}, Resolved token value: ${tokenLogValue}, Resolved fallback value: ${fallbackLogValue}`,
 		);
-		return { shouldLog: true, fallbackRemoved, resolvedImportDeclaration: importDeclaration };
+		return {
+			shouldLog: true,
+			fallbackRemoved,
+			resolvedImportDeclaration: importDeclaration,
+			resolvedLocalVarDeclaration: localVarDeclaration,
+		};
 	}
 
 	private getTokenKey(arg: Expression): string | undefined {
@@ -191,14 +214,24 @@ export class TokenProcessor {
 			case 'TemplateLiteral':
 				return this.processFallbackAsTemplateLiteral(fallbackValueNode as TemplateLiteral);
 			default:
-				return { fallbackValue: undefined, rawFallbackValue: '' };
+				return {
+					fallbackValue: undefined,
+					rawFallbackValue: '',
+					resolvedImportDeclaration: undefined,
+					resolvedLocalVarDeclaration: undefined,
+				};
 		}
 	}
 
 	private processFallbackAsStringLiteral(fallbackValueNode: StringLiteral): FallbackResolveResult {
 		const fallbackValue = fallbackValueNode.value;
 		this.logVerbose(`Fallback value is a literal: ${chalk.yellow(fallbackValue)}`);
-		return { fallbackValue, rawFallbackValue: fallbackValue };
+		return {
+			fallbackValue,
+			rawFallbackValue: fallbackValue,
+			resolvedImportDeclaration: undefined,
+			resolvedLocalVarDeclaration: undefined,
+		};
 	}
 
 	private async processFallbackAsIdentifier(
@@ -220,11 +253,13 @@ export class TokenProcessor {
 			.at(0);
 
 		let resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
+		let resolvedLocalVarDeclaration: ASTPath<VariableDeclarator> | undefined;
 
 		if (localVarDeclaration.size()) {
 			const init = localVarDeclaration.get().value.init;
 			if (init.type === 'Literal' || init.type === 'StringLiteral') {
 				fallbackValue = init.value;
+				resolvedLocalVarDeclaration = localVarDeclaration.paths()[0];
 				this.logVerbose(
 					`Resolved fallback value from local variable: ${chalk.yellow(fallbackValue)} for identifier: ${variableNameForLog}`,
 				);
@@ -257,7 +292,12 @@ export class TokenProcessor {
 				);
 			}
 		}
-		return { rawFallbackValue: variableName, fallbackValue, resolvedImportDeclaration };
+		return {
+			rawFallbackValue: variableName,
+			fallbackValue,
+			resolvedImportDeclaration,
+			resolvedLocalVarDeclaration,
+		};
 	}
 
 	private async processFallbackAsMemberExpression(
@@ -281,7 +321,12 @@ export class TokenProcessor {
 			this.logError(
 				`Could not determine object and property names from member expression: ${chalk.yellow(fallbackValueNode)}`,
 			);
-			return { rawFallbackValue: '', fallbackValue };
+			return {
+				rawFallbackValue: '',
+				fallbackValue,
+				resolvedImportDeclaration: undefined,
+				resolvedLocalVarDeclaration: undefined,
+			};
 		}
 		const rawFallbackValue = `${objectName}.${propertyName}`;
 
@@ -314,7 +359,12 @@ export class TokenProcessor {
 				`Could not find import for member expression: ${chalk.yellow(rawFallbackValue)}`,
 			);
 		}
-		return { rawFallbackValue, fallbackValue, resolvedImportDeclaration };
+		return {
+			rawFallbackValue,
+			fallbackValue,
+			resolvedImportDeclaration,
+			resolvedLocalVarDeclaration: undefined,
+		};
 	}
 
 	private async processFallbackAsTemplateLiteral(
@@ -327,15 +377,23 @@ export class TokenProcessor {
 		if (expressions.length !== 1 || quasis.length !== 2) {
 			this.logError(`Unsupported template literal structure`);
 
-			return { rawFallbackValue, fallbackValue };
+			return {
+				rawFallbackValue,
+				fallbackValue,
+				resolvedImportDeclaration: undefined,
+				resolvedLocalVarDeclaration: undefined,
+			};
 		}
 		let exprValue: string | undefined;
 		const expression = expressions[0];
 		let resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
+		let resolvedLocalVarDeclaration: ASTPath<VariableDeclarator> | undefined;
+
 		if (expression.type === 'Identifier') {
 			const result = await this.processFallbackAsIdentifier(expression);
 			exprValue = result.fallbackValue;
 			resolvedImportDeclaration = result.resolvedImportDeclaration;
+			resolvedLocalVarDeclaration = result.resolvedLocalVarDeclaration;
 		} else if (expression.type === 'MemberExpression') {
 			const result = await this.processFallbackAsMemberExpression(expression);
 			exprValue = result.fallbackValue;
@@ -349,7 +407,12 @@ export class TokenProcessor {
 				`Resolved fallback value from template literal: ${chalk.yellow(fallbackValue)}`,
 			);
 		}
-		return { rawFallbackValue, fallbackValue, resolvedImportDeclaration };
+		return {
+			rawFallbackValue,
+			fallbackValue,
+			resolvedImportDeclaration,
+			resolvedLocalVarDeclaration,
+		};
 	}
 
 	private tryResolveModulePath(moduleName: string): string | null {

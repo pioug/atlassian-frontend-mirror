@@ -6,6 +6,8 @@ import {
 	JSCodeshift,
 } from 'jscodeshift';
 
+import { WithStart } from '../types';
+
 export function removeUnusedImports(
 	importDeclarations: ASTPath<ImportDeclaration>[],
 	j: JSCodeshift,
@@ -26,8 +28,7 @@ export function removeUnusedImports(
 					.find(j.Identifier, { name: varName })
 					.filter((p) => {
 						if (
-							(p.value as { start?: number }).start ===
-							(importSpecifier.value.local as { start?: number })?.start
+							(p.value as WithStart).start === (importSpecifier.value.local as WithStart)?.start
 						) {
 							return false;
 						}

@@ -11,6 +11,7 @@ import type {
 	ObjectExpression,
 } from 'estree-jsx';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { isEmotion, isStyledComponents } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
@@ -202,7 +203,7 @@ const lintArguments = (context: Rule.RuleContext, args: CallExpression['argument
 					ESTraverse.traverse(property.value, {
 						enter: function (node, _parent) {
 							if (node.type === 'ArrowFunctionExpression') {
-								const propNames = parseArrowFunctionExpression(node, context.getSourceCode());
+								const propNames = parseArrowFunctionExpression(node, getSourceCode(context));
 
 								if (!propNames) {
 									// We've encountered a CSS value we don't recognise, skip.
@@ -237,7 +238,7 @@ const lintArguments = (context: Rule.RuleContext, args: CallExpression['argument
 				node: argument,
 				messageId: 'unsupported-prop-syntax',
 				fix(fixer) {
-					const sourceCode = context.getSourceCode();
+					const sourceCode = getSourceCode(context);
 					return fixPropsObjectUsages(
 						fixer,
 						sourceCode,
@@ -374,7 +375,7 @@ export const rule = createLintRule({
 	create(context) {
 		return {
 			CallExpression: (node: CallExpression) => {
-				const references = context.getScope().references;
+				const { references } = getScope(context, node);
 
 				// Rule should ignore .attrs() calls
 				if (

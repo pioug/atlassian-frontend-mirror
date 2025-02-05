@@ -106,18 +106,6 @@ export function canMoveNodeToIndex(
 	}
 
 	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
-	if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {
-		if (
-			parentNodeType === 'blockquote' &&
-			(activeNodeType === 'mediaGroup' ||
-				activeNodeType === 'mediaSingle' ||
-				activeNodeType === 'codeBlock')
-		) {
-			return false;
-		}
-	}
-
-	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
 	if (editorExperiment('nested-expand-in-expand', false)) {
 		if (
 			parentNodeType === 'expand' &&

@@ -251,24 +251,6 @@ describe('no-legacy-icons', () => {
 				],
 			},
 			{
-				name: 'Basic, auto-migratable medium size icon',
-				code: `
-				import AddIcon from '@atlaskit/icon/glyph/add';
-
-				<AddIcon label="" size="medium" />
-				`,
-				output: `
-				import AddIcon from '@atlaskit/icon/core/migration/add';
-
-				<AddIcon label="" LEGACY_size="medium" spacing="spacious" />
-				`,
-				errors: [
-					{
-						messageId: 'noLegacyIconsAutoMigration',
-					},
-				],
-			},
-			{
 				name: 'Upcoming Icons small size',
 				code: `
 				// Icon Tile usage
@@ -350,13 +332,9 @@ describe('no-legacy-icons', () => {
 			},
 			{
 				name: 'Renamed icon by reference',
-				code: `
-				import AddIcon from '@atlaskit/icon/glyph/add';
-
-				const DefaultIcon1 = AddIcon;
-
-				<DefaultIcon1 label="" />
-				`,
+				code: `import AddIcon from '@atlaskit/icon/glyph/add';
+const DefaultIcon1 = AddIcon;
+<DefaultIcon1 label="" />`,
 				errors: [
 					{
 						messageId: 'noLegacyIconsManualMigration',
@@ -372,6 +350,15 @@ describe('no-legacy-icons', () => {
 					},
 					{
 						messageId: 'noLegacyIconsAutoMigration',
+						suggestions: [
+							{
+								desc: 'Rename icon import, import from the new package, and update props.',
+								output: `import AddIconNew from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
+const DefaultIcon1 = AddIcon;
+<AddIconNew spacing="spacious" label="" />`,
+							},
+						],
 					},
 				],
 			},

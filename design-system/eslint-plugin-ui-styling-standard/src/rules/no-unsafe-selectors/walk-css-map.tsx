@@ -7,6 +7,8 @@
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 type CssMapVisitorArgs =
 	| {
 			type: 'variant' | 'declaration' | 'ruleset' | 'selectors';
@@ -26,7 +28,7 @@ export function walkCssMap({
 	importSources: string[];
 	visitor: CssMapVisitor;
 }) {
-	const program = context.getSourceCode().ast;
+	const program = getSourceCode(context).ast;
 
 	const importDeclaration = program.body.find(
 		(node): node is ESTree.ImportDeclaration =>
@@ -41,7 +43,7 @@ export function walkCssMap({
 		return;
 	}
 
-	const [variable] = context.getSourceCode().scopeManager.getDeclaredVariables(specifier);
+	const [variable] = getSourceCode(context).scopeManager.getDeclaredVariables(specifier);
 
 	if (!variable) {
 		return;

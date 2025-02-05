@@ -2,6 +2,7 @@ import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 import cssSelectorParser from 'postcss-selector-parser';
 
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { isXcss } from '@atlaskit/eslint-utils/is-supported-import';
 import { importSources } from '@atlaskit/eslint-utils/schema';
 import { walkStyleProperties } from '@atlaskit/eslint-utils/walk-style-properties';
@@ -102,7 +103,7 @@ const rule = createLintRuleWithTypedConfig({
 				});
 			},
 			CallExpression(node: ESTree.CallExpression) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				const isXcssCall = isXcss(node, references, config.importSources);
 

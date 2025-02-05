@@ -40,14 +40,16 @@ export default (): JSX.Element => {
 		[setData],
 	);
 
+	const handleOnResolve = React.useCallback(() => {
+		throw new Error('Unexpected error');
+	}, []);
+
 	return (
 		<SmartCardProvider>
 			<Card
 				onError={handleError}
 				fallbackComponent={FallbackComponent}
-				onResolve={() => {
-					throw new Error('Unexpected error');
-				}}
+				onResolve={handleOnResolve}
 				url="https://www.atlassian.com/"
 				appearance="block"
 			/>

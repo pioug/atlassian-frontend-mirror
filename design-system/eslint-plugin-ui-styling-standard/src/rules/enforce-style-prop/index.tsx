@@ -6,6 +6,7 @@ import {
 	getAllowedFunctionCalls,
 	isAllowListedVariable,
 } from '@atlaskit/eslint-utils/allowed-function-calls';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 
 import { createLintRule } from '../utils/create-rule';
@@ -15,7 +16,7 @@ type IdentifierWithParent = Scope.Reference['identifier'] & Rule.NodeParentExten
 
 const isParameter = (context: Rule.RuleContext, identifier: Identifier): boolean => {
 	const definitions = findVariable({
-		sourceCode: context.getSourceCode(),
+		sourceCode: getSourceCode(context),
 		identifier: identifier,
 	})?.defs;
 	if (!definitions || !definitions.length) {
@@ -28,7 +29,7 @@ const isParameter = (context: Rule.RuleContext, identifier: Identifier): boolean
 
 const isIdentifierAllowed = (context: Rule.RuleContext, identifier: Identifier): boolean => {
 	const variable = findVariable({
-		sourceCode: context.getSourceCode(),
+		sourceCode: getSourceCode(context),
 		identifier: identifier,
 	});
 
@@ -93,7 +94,7 @@ function isPropertyValueAllowed(property: ObjProperty, context: Rule.RuleContext
 		property.value.callee.type === 'Identifier'
 	) {
 		const variable = findVariable({
-			sourceCode: context.getSourceCode(),
+			sourceCode: getSourceCode(context),
 			identifier: property.value.callee,
 		});
 		// Anything returned by getAllowedFunctionCalls should be used in css prop instead
@@ -112,7 +113,7 @@ function isPropertyValueAllowed(property: ObjProperty, context: Rule.RuleContext
 		property.value.object.type === 'Identifier'
 	) {
 		const definitions = findVariable({
-			sourceCode: context.getSourceCode(),
+			sourceCode: getSourceCode(context),
 			identifier: property.value.object,
 		})?.defs;
 		if (!definitions || !definitions.length) {
@@ -187,7 +188,7 @@ export const rule = createLintRule({
 					 * ```
 					 */
 					const variable = findVariable({
-						sourceCode: context.getSourceCode(),
+						sourceCode: getSourceCode(context),
 						identifier: node.expression,
 					});
 

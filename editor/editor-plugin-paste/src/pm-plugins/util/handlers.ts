@@ -54,7 +54,6 @@ import {
 	startTrackingPastedMacroPositions,
 	stopTrackingPastedMacroPositions,
 } from '../../editor-commands/commands';
-import { isInsideBlockQuote } from '../main';
 import { getPluginState as getPastePluginState } from '../plugin-factory';
 
 import {
@@ -1252,10 +1251,9 @@ export function flattenNestedListInSlice(slice: Slice) {
 export function handleRichText(
 	slice: Slice,
 	queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
-	isNestingMediaOrCodeblockSupported?: boolean,
 ): Command {
 	return (state, dispatch) => {
-		const { blockquote, codeBlock, heading, paragraph, panel } = state.schema.nodes;
+		const { codeBlock, heading, paragraph, panel } = state.schema.nodes;
 		const { selection, schema } = state;
 		const firstChildOfSlice = slice.content?.firstChild;
 		const lastChildOfSlice = slice.content?.lastChild;
@@ -1294,26 +1292,8 @@ export function handleRichText(
 		const isTargetPanelEmpty =
 			panelParentOverCurrentSelection && panelParentOverCurrentSelection.node?.content.size === 2;
 
-		let sliceContainsCodeblockOrMedia = false;
-		const codeBlockAndMediaNodes = ['codeBlock', 'mediaSingle', 'mediaGroup'];
-		slice.content.forEach((child) => {
-			if (codeBlockAndMediaNodes.includes(child.type.name)) {
-				sliceContainsCodeblockOrMedia = true;
-			}
-		});
-		const blockquoteNode = findParentNodeOfType(blockquote)(tr.selection);
-
 		if (!isSliceContentTaskListNodes && (isSliceContentListNodes || isTargetPanelEmpty)) {
 			insertSliceForLists({ tr, slice, schema });
-		} else if (
-			// If nesting media or codeblock in blockquote is not supported
-			// we want to insert slice after the blockquote.
-			isInsideBlockQuote(state) &&
-			sliceContainsCodeblockOrMedia &&
-			!isNestingMediaOrCodeblockSupported &&
-			blockquoteNode
-		) {
-			tr = safeInsert(slice.content, blockquoteNode.start + blockquoteNode.node.nodeSize - 1)(tr);
 		} else if (noNeedForSafeInsert) {
 			if (
 				firstChildOfSlice?.type?.name === 'blockquote' &&

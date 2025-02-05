@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 34.10.2
+
+### Patch Changes
+
+- [#109758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109758)
+  [`1a1900f9bf95b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a1900f9bf95b) -
+  [ux] Update flexible card tokens
+
 ## 34.10.1
 
 ### Patch Changes

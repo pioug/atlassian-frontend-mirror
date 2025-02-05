@@ -38,6 +38,13 @@ const styles = cssMap({
 	},
 });
 
+const contentStyles = cssMap({
+	content: {
+		color: token('color.text'),
+		font: token('font.body.small'),
+	},
+});
+
 const ActionButtonNew = ({
 	content,
 	icon: iconOption,
@@ -80,7 +87,11 @@ const ActionButtonNew = ({
 		>
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}
-				<Box xcss={styles.content}>{content}</Box>
+				<Box
+					xcss={fg('platform-linking-visual-refresh-v1') ? contentStyles.content : styles.content}
+				>
+					{content}
+				</Box>
 			</Inline>
 		</Pressable>
 	);

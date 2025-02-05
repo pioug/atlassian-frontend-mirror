@@ -135,21 +135,8 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 		},
 
 		actions: {
-			insertMediaAsMediaSingle: (
-				view,
-				node,
-				inputMethod,
-				isNestingInQuoteSupported,
-				insertMediaVia,
-			) =>
-				insertMediaAsMediaSingle(
-					view,
-					node,
-					inputMethod,
-					api?.analytics?.actions,
-					isNestingInQuoteSupported,
-					insertMediaVia,
-				),
+			insertMediaAsMediaSingle: (view, node, inputMethod, insertMediaVia) =>
+				insertMediaAsMediaSingle(view, node, inputMethod, api?.analytics?.actions, insertMediaVia),
 			setProvider: (provider) => {
 				// Prevent someone trying to set the exact same provider twice for performance reasons
 				if (previousMediaProvider === provider) {

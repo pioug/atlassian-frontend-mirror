@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::22dc13e8a6bd645062468e25d4b8e36a>>
+ * @codegen <<SignedSource::680720311a2425793f9941cda8bf6113>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -19,46 +19,64 @@ import { Inline } from '@atlaskit/primitives';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
 import BookOpenIcon from '../../../../core/book-open';
+import CloudOfflineIcon from '../../../../core/cloud-offline';
+import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
+import DatabaseStorageIcon from '../../../../core/database-storage';
+import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
+import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
 import FieldTextIcon from '../../../../core/field-text';
 import InitiativeIcon from '../../../../core/initiative';
 import LozengeIcon from '../../../../core/lozenge';
+import PageLiveDocIcon from '../../../../core/page-live-doc';
 import PaintBrushIcon from '../../../../core/paint-brush';
 import PaintRollerIcon from '../../../../core/paint-roller';
 import QrCodeIcon from '../../../../core/qr-code';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import SpeedometerIcon from '../../../../core/speedometer';
+import SunsetIcon from '../../../../core/sunset';
+import SyncIcon from '../../../../core/sync';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TicketIcon from '../../../../core/ticket';
 import VehicleTrainIcon from '../../../../core/vehicle-train';
 import VulnerabilityIcon from '../../../../core/vulnerability';
 import WalletIcon from '../../../../core/wallet';
+import WelcomeFeedIcon from '../../../../core/welcome-feed';
 import WrenchIcon from '../../../../core/wrench';
 
 const Icons = [
 	AssetsDataManagerIcon,
 	AssetsSchemaIcon,
 	BookOpenIcon,
+	CloudOfflineIcon,
+	CloudSavedIcon,
 	CoinsIcon,
 	CrossOctagonIcon,
+	DatabaseStorageIcon,
+	DatabaseStorageCacheIcon,
+	DuplicateIcon,
 	EditionsIcon,
 	FieldTextIcon,
 	InitiativeIcon,
 	LozengeIcon,
+	PageLiveDocIcon,
 	PaintBrushIcon,
 	PaintRollerIcon,
 	QrCodeIcon,
 	RoadmapsPlanIcon,
 	RoadmapsServiceIcon,
 	SpeedometerIcon,
+	SunsetIcon,
+	SyncIcon,
 	TakeoutContainerIcon,
 	TicketIcon,
 	VehicleTrainIcon,
 	VulnerabilityIcon,
 	WalletIcon,
+	WelcomeFeedIcon,
 	WrenchIcon,
 ];
 

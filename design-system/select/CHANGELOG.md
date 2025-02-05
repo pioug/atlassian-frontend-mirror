@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 18.10.3
+
+### Patch Changes
+
+- [#110434](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110434)
+  [`29da4bcb1cd78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29da4bcb1cd78) -
+  Inprove device vevification with common utils
+
 ## 18.10.2
 
 ### Patch Changes

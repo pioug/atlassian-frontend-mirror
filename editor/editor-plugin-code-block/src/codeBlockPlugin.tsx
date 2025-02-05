@@ -11,7 +11,6 @@ import {
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CodeBlockPlugin } from './codeBlockPluginType';
 import { createInsertCodeBlockTransaction, insertCodeBlockWithAnalytics } from './editor-commands';
@@ -28,10 +27,6 @@ import refreshBrowserSelectionOnChange from './pm-plugins/refresh-browser-select
 import { getToolbarConfig } from './pm-plugins/toolbar';
 
 const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
-	const isNestingInQuoteSupported =
-		api?.featureFlags?.sharedState.currentState()?.nestMediaAndCodeblockInQuote ||
-		fg('editor_nest_media_and_codeblock_in_quotes_jira');
-
 	return {
 		name: 'codeBlock',
 
@@ -62,11 +57,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 				{
 					name: 'codeBlockInputRule',
 					plugin: ({ schema }: PMPluginFactoryParams) => {
-						return createCodeBlockInputRule(
-							schema,
-							api?.analytics?.actions,
-							isNestingInQuoteSupported,
-						);
+						return createCodeBlockInputRule(schema, api?.analytics?.actions);
 					},
 				},
 				{
@@ -99,11 +90,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 			 * Function will insert code block at current selection if block is empty or below current selection and set focus on it.
 			 */
 			insertCodeBlock: (inputMethod: INPUT_METHOD) =>
-				insertCodeBlockWithAnalytics(
-					inputMethod,
-					api?.analytics?.actions,
-					isNestingInQuoteSupported,
-				),
+				insertCodeBlockWithAnalytics(inputMethod, api?.analytics?.actions),
 		},
 
 		pluginsOptions: {
@@ -117,7 +104,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 					keyshortcut: '```',
 					icon: () => <IconCode />,
 					action(_insert, state) {
-						const tr = createInsertCodeBlockTransaction({ state, isNestingInQuoteSupported });
+						const tr = createInsertCodeBlockTransaction({ state });
 						api?.analytics?.actions.attachAnalyticsEvent({
 							action: ACTION.INSERTED,
 							actionSubject: ACTION_SUBJECT.DOCUMENT,

@@ -45,7 +45,7 @@
 		"./primitives": "./src/ui/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/checkbox": "^15.3.0",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/focus-ring": "^2.1.0",

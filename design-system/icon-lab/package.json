@@ -41,7 +41,7 @@
 	"devDependencies": {
 		"@af/icon-build-process": "^2.4.0",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.3.12",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/code": "^15.6.10",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/heading": "^4.0.2",

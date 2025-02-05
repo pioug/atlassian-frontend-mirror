@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.35.2
+
+### Patch Changes
+
+- [#110234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110234)
+  [`392d8be5ada29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/392d8be5ada29) -
+  Allow overflow property in xcss, correct Icon type
+
 ## 0.35.1
 
 ### Patch Changes

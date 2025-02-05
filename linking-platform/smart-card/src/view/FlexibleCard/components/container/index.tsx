@@ -127,17 +127,32 @@ const baseStyleCommon = css({
 	},
 });
 
-const backgroundStyle = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const backgroundStyleOld = css({
 	backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
 });
 
-const elevationStyles = css({
+const backgroundStyles = css({
+	backgroundColor: token('elevation.surface.raised'),
+});
+
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const elevationStylesOld = css({
 	border: `1px solid ${token('color.border', N40)}`,
 	borderRadius: token('border.radius.200', '8px'),
 	marginTop: token('space.025', '2px'),
 	marginRight: token('space.025', '2px'),
 	marginBottom: token('space.025', '2px'),
 	marginLeft: token('space.025', '2px'),
+});
+
+const elevationStyles = css({
+	border: `1px solid ${token('color.border')}`,
+	borderRadius: token('border.radius.300'),
+	marginTop: token('space.025'),
+	marginRight: token('space.025'),
+	marginBottom: token('space.025'),
+	marginLeft: token('space.025'),
 });
 
 const clickableContainerStyles = css({
@@ -148,7 +163,8 @@ const clickableContainerStyles = css({
 	},
 });
 
-const gapStyleMap = cssMap({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const gapStyleMapOld = cssMap({
 	xlarge: {
 		gap: '1.25rem 0',
 	},
@@ -163,12 +179,41 @@ const gapStyleMap = cssMap({
 	},
 });
 
+const gapStyleMap = cssMap({
+	xlarge: {
+		gap: `${token('space.250')} 0`,
+	},
+	large: {
+		gap: `${token('space.200')} 0`,
+	},
+	medium: {
+		gap: `${token('space.100')} 0`,
+	},
+	small: {
+		gap: `${token('space.050')} 0`,
+	},
+});
+
 /**
  * Get container padding based on smart link size
  * Equivalent version for DS primitives space token is getPrimitivesPaddingSpaceBySize()
  * at view/FlexibleCard/components/utils.tsx
  */
 const getPadding = (size?: SmartLinkSize): string => {
+	if (fg('platform-linking-visual-refresh-v1')) {
+		switch (size) {
+			case SmartLinkSize.XLarge:
+				return token('space.300');
+			case SmartLinkSize.Large:
+				return token('space.250');
+			case SmartLinkSize.Medium:
+				return token('space.200');
+			case SmartLinkSize.Small:
+			default:
+				return token('space.100');
+		}
+	}
+
 	switch (size) {
 		case SmartLinkSize.XLarge:
 			return '1.5rem';
@@ -183,6 +228,20 @@ const getPadding = (size?: SmartLinkSize): string => {
 };
 
 const getGap = (size?: SmartLinkSize): string => {
+	if (fg('platform-linking-visual-refresh-v1')) {
+		switch (size) {
+			case SmartLinkSize.XLarge:
+				return token('space.250', '1.25rem');
+			case SmartLinkSize.Large:
+				return token('space.200', '1rem');
+			case SmartLinkSize.Medium:
+				return token('space.100', '.5rem');
+			case SmartLinkSize.Small:
+			default:
+				return token('space.050', '.25rem');
+		}
+	}
+
 	switch (size) {
 		case SmartLinkSize.XLarge:
 			return '1.25rem';
@@ -196,7 +255,8 @@ const getGap = (size?: SmartLinkSize): string => {
 	}
 };
 
-const previewOnLeftStyleMap = cssMap({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const previewOnLeftStyleMapOld = cssMap({
 	xlarge: {
 		paddingLeft: `calc(var(--preview-block-width) + 1.25rem)`,
 		'--container-gap-left': '1.25rem',
@@ -215,7 +275,27 @@ const previewOnLeftStyleMap = cssMap({
 	},
 });
 
-const previewOnRightStyleMap = cssMap({
+const previewOnLeftStyleMap = cssMap({
+	xlarge: {
+		paddingLeft: `calc(var(--preview-block-width) + ${token('space.250')})`,
+		'--container-gap-left': token('space.250'),
+	},
+	large: {
+		paddingLeft: `calc(var(--preview-block-width) + ${token('space.200')})`,
+		'--container-gap-left': token('space.200'),
+	},
+	medium: {
+		paddingLeft: `calc(var(--preview-block-width) + ${token('space.100')})`,
+		'--container-gap-left': token('space.100'),
+	},
+	small: {
+		paddingLeft: `calc(var(--preview-block-width) + ${token('space.050')})`,
+		'--container-gap-left': token('space.050'),
+	},
+});
+
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const previewOnRightStyleMapOld = cssMap({
 	xlarge: {
 		paddingRight: `calc(var(--preview-block-width) + 1.25rem)`,
 		'--container-gap-right': '1.25rem',
@@ -231,6 +311,25 @@ const previewOnRightStyleMap = cssMap({
 	small: {
 		paddingRight: `calc(var(--preview-block-width) + .25rem)`,
 		'--container-gap-right': '.25rem',
+	},
+});
+
+const previewOnRightStyleMap = cssMap({
+	xlarge: {
+		paddingRight: `calc(var(--preview-block-width) + ${token('space.250')})`,
+		'--container-gap-right': token('space.250'),
+	},
+	large: {
+		paddingRight: `calc(var(--preview-block-width) + ${token('space.200')})`,
+		'--container-gap-right': token('space.200'),
+	},
+	medium: {
+		paddingRight: `calc(var(--preview-block-width) + ${token('space.100')})`,
+		'--container-gap-right': token('space.100'),
+	},
+	small: {
+		paddingRight: `calc(var(--preview-block-width) + ${token('space.050')})`,
+		'--container-gap-right': token('space.050'),
 	},
 });
 
@@ -277,16 +376,34 @@ const ContainerNew = ({
 		padding: padding,
 	});
 
-	const container = (
+	const container = fg('platform-linking-visual-refresh-v1') ? (
 		<div
 			css={[
 				baseStyleCommon,
 				gapStyleMap[size],
-				!hideBackground && backgroundStyle,
+				!hideBackground && backgroundStyles,
 				containerPaddingStyles,
 				previewOnLeft && previewOnLeftStyleMap[size],
 				previewOnRight && previewOnRightStyleMap[size],
 				!hideElevation && elevationStyles,
+				clickableContainer && clickableContainerStyles,
+			]}
+			data-smart-link-container
+			data-testid={testId}
+		>
+			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
+			{renderChildren(children, size, theme, status, retry, onClick)}
+		</div>
+	) : (
+		<div
+			css={[
+				baseStyleCommon,
+				gapStyleMapOld[size],
+				!hideBackground && backgroundStyleOld,
+				containerPaddingStyles,
+				previewOnLeft && previewOnLeftStyleMapOld[size],
+				previewOnRight && previewOnRightStyleMapOld[size],
+				!hideElevation && elevationStylesOld,
 				clickableContainer && clickableContainerStyles,
 			]}
 			data-smart-link-container

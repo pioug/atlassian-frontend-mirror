@@ -7,9 +7,9 @@ import {
 	type ObjectExpression,
 } from 'eslint-codemod-utils';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { getImportSources } from '@atlaskit/eslint-utils/is-supported-import';
 
-import { getScope, getSourceCode } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 import { includesHardCodedColor } from '../utils/is-color';
@@ -348,6 +348,14 @@ const createWithConfig: (initialConfig: RuleConfig) => Rule.RuleModule['create']
 
 				// For inline JSX styles - literals (e.g. <Test color="red"/>) - color only
 				'JSXAttribute > Literal': (node: Rule.Node) => {
+					if (config.domains.includes('color')) {
+						return lintJSXLiteralForColor(node, context, config);
+					}
+					return;
+				},
+
+				// Add handling for JSXExpressionContainer with string literals
+				'JSXAttribute > JSXExpressionContainer > Literal': (node: Rule.Node) => {
 					if (config.domains.includes('color')) {
 						return lintJSXLiteralForColor(node, context, config);
 					}

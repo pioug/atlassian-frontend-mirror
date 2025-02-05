@@ -2,7 +2,8 @@
 import type { Rule } from 'eslint';
 import { type CallExpression, isNodeOfType } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '../../utils/context-compat';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
 import { isBlockedEventBinding } from '../shared/is-blocked-event-binding';
 

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.5.0
+
+### Minor Changes
+
+- [#109636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109636)
+  [`2eadf04054ac2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2eadf04054ac2) -
+  [ux] Introduces way to retrieve the document from offline if there is a possible conflict event on
+  reconnection.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.1
 
 ### Patch Changes

@@ -215,19 +215,18 @@ const customMatchers = {
 		timestampReceived: DOMHighResTimeStamp | undefined | null,
 		timestampExpected: DOMHighResTimeStamp | null,
 	) {
-
 		const receivedInSeconds = Math.round(timestampReceived!) / 1000;
 		const expectedInSeconds = Math.round(timestampExpected!) / 1000;
 
 		let pass: boolean;
 		let matcherResult: any;
-    try {
+		try {
 			baseExpect(receivedInSeconds).toBeCloseTo(expectedInSeconds, 2);
-      pass = true;
-    } catch (e: any) {
-      matcherResult = e.matcherResult;
-      pass = false;
-    }
+			pass = true;
+		} catch (e: any) {
+			matcherResult = e.matcherResult;
+			pass = false;
+		}
 
 		return {
 			pass,

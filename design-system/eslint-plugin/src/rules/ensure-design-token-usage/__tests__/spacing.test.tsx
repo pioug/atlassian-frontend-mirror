@@ -71,10 +71,6 @@ export const spacingTests: Tests = {
 		},
 		{
 			options: [{ domains: ['spacing'], applyImport: false }],
-			code: `const styles = css({ borderWidth: token('border.width', '2px') })`,
-		},
-		{
-			options: [{ domains: ['spacing'], applyImport: false }],
 			code: `const styles = css({ gap: token('space.100', '8px') })`,
 		},
 		{

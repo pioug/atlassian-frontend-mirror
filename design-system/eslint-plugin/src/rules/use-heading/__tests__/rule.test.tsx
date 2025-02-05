@@ -320,7 +320,25 @@ ruleTester.run('use-heading', rule, {
 					<h6>heading 6</h6>
 				</div>`,
 			errors: [
-				{ messageId: 'preferHeading' },
+				{
+					messageId: 'preferHeading',
+					suggestions: [
+						{
+							desc: `Convert to Heading`,
+							output: outdent`
+								import Heading from '@atlaskit/heading';
+								<div>
+									<Heading size='xlarge'>heading 1</Heading>
+									<h2>heading 2</h2>
+									<h3>heading 3</h3>
+									<h4>heading 4</h4>
+									<h5>heading 5</h5>
+									<h6>heading 6</h6>
+								</div>
+							`,
+						},
+					],
+				},
 				{ messageId: 'preferHeading' },
 				{ messageId: 'preferHeading' },
 				{ messageId: 'preferHeading' },

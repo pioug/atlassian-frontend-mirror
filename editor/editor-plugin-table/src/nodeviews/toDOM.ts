@@ -5,6 +5,7 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { generateColgroup, getResizerMinWidth } from '../pm-plugins/table-resizing/utils/colgroup';
@@ -144,7 +145,9 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): NodeSpec => {
 								'--ak-editor-table-min-width': `${tableMinWidth}px`,
 								minWidth: 'var(--ak-editor-table-min-width)',
 								maxWidth: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`,
-								width: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${node.attrs.width})`,
+								width: fg('platform_editor_table_layout_shift_fix')
+									? `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${node.attrs.width}px)`
+									: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${node.attrs.width})`,
 							}),
 						},
 						[

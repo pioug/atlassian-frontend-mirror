@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 9.3.4
+
+### Patch Changes
+
+- [#110015](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110015)
+  [`92048a44fc3f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92048a44fc3f6) -
+  fix table layout shift issue
+- Updated dependencies
+
 ## 9.3.3
 
 ### Patch Changes

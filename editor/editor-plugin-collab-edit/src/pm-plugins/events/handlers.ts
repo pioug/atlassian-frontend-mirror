@@ -1,6 +1,7 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
 	CollabEditProvider,
+	CollabEventConflictPayload,
 	CollabEventConnectionData,
 	CollabEventInitData,
 	CollabEventLocalStepData,
@@ -23,6 +24,7 @@ import {
 	handleTelePointer,
 } from '../actions';
 import { addSynchronyEntityAnalytics, addSynchronyErrorAnalytics } from '../analytics';
+import { trackLastRemoteConflictPluginKey } from '../track-reconnection-conflict';
 
 export type SynchronyEntity = {
 	// Ignored via go/ees005
@@ -45,6 +47,7 @@ export interface CollabHandlers {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	errorHandler: (error: any) => void;
 	entityHandler: ({ entity }: { entity: SynchronyEntity }) => void;
+	dataConflictHandler: (data: CollabEventConflictPayload) => void;
 }
 
 export type Cleanup = () => void;
@@ -134,6 +137,9 @@ export const subscribe = effect<
 					entityRef = entity;
 				}
 			},
+			dataConflictHandler: (data) => {
+				view.dispatch(view.state.tr.setMeta(trackLastRemoteConflictPluginKey, data));
+			},
 		};
 
 		provider
@@ -146,7 +152,8 @@ export const subscribe = effect<
 			.on('telepointer', handlers.telepointerHandler)
 			.on('local-steps', handlers.localStepsHandler)
 			.on('error', handlers.errorHandler)
-			.on('entity', handlers.entityHandler);
+			.on('entity', handlers.entityHandler)
+			.on('data:conflict', handlers.dataConflictHandler);
 
 		return () => {
 			unsubscribeSynchronyEntity();
@@ -161,7 +168,8 @@ export const subscribe = effect<
 				.off('telepointer', handlers.telepointerHandler)
 				.off('local-steps', handlers.localStepsHandler)
 				.off('error', handlers.errorHandler)
-				.off('entity', handlers.entityHandler);
+				.off('entity', handlers.entityHandler)
+				.off('data:conflict', handlers.dataConflictHandler);
 		};
 	},
 	(previousDeps, currentDeps) =>

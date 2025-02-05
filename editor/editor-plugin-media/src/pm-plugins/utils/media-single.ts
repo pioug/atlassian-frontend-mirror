@@ -78,7 +78,6 @@ function insertNodesWithOptionalParagraph({
 	nodes,
 	analyticsAttributes = {},
 	editorAnalyticsAPI,
-	isNestingInQuoteSupported,
 	insertMediaVia,
 }: {
 	nodes: PMNode[];
@@ -89,7 +88,6 @@ function insertNodesWithOptionalParagraph({
 		previousType?: MediaSwitchType;
 	};
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	isNestingInQuoteSupported?: boolean;
 	insertMediaVia?: InsertMediaVia;
 }): Command {
 	return function (state, dispatch) {
@@ -105,14 +103,7 @@ function insertNodesWithOptionalParagraph({
 			openEnd = 1;
 		}
 
-		/** we only allow the insertion of media singles inside a blockquote if nesting in quotes is supported */
-		const grandParentNode = state.selection.$from.node(-1);
-		const grandParentNodeType = grandParentNode?.type.name;
-
-		if (grandParentNodeType === 'blockquote' && !isNestingInQuoteSupported) {
-			const grandparentEndPos = state.selection.$from.start(-1) + grandParentNode.nodeSize - 1;
-			pmSafeInsert(nodes[0], grandparentEndPos)(updatedTr).scrollIntoView();
-		} else if (state.selection.empty) {
+		if (state.selection.empty) {
 			const insertFrom =
 				atTheBeginningOfBlock(state) && fg('platform_editor_axe_leading_paragraph_from_media')
 					? state.selection.$from.before()
@@ -164,7 +155,6 @@ export type InsertMediaAsMediaSingle = (
 	view: EditorView,
 	node: PMNode,
 	inputMethod: InputMethodInsertMedia,
-	isNestingInQuoteSupported?: boolean,
 	insertMediaVia?: InsertMediaVia,
 ) => boolean;
 
@@ -173,7 +163,6 @@ export const insertMediaAsMediaSingle = (
 	node: PMNode,
 	inputMethod: InputMethodInsertMedia,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	isNestingInQuoteSupported?: boolean,
 	insertMediaVia?: InsertMediaVia,
 ): boolean => {
 	const { state, dispatch } = view;
@@ -212,7 +201,6 @@ export const insertMediaAsMediaSingle = (
 		nodes,
 		analyticsAttributes,
 		editorAnalyticsAPI,
-		isNestingInQuoteSupported,
 		insertMediaVia,
 	})(state, dispatch);
 };
@@ -234,7 +222,6 @@ export const insertMediaSingleNode = (
 	widthPluginState?: WidthPluginState | undefined,
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 	onNodeInserted?: (id: string, selectionPosition: number) => void,
-	isNestingInQuoteSupported?: boolean,
 	insertMediaVia?: InsertMediaVia,
 ): boolean => {
 	if (collection === undefined) {
@@ -281,7 +268,6 @@ export const insertMediaSingleNode = (
 			nodes: [node],
 			analyticsAttributes: { fileExtension, inputMethod },
 			editorAnalyticsAPI,
-			isNestingInQuoteSupported,
 			insertMediaVia,
 		})(state, dispatch);
 	} else {
@@ -312,7 +298,6 @@ export const changeFromMediaInlineToMediaSingleNode = (
 	fromNode: PMNode,
 	widthPluginState?: WidthPluginState | undefined,
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
-	isNestingInQuoteSupported?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaInline } = state.schema.nodes;
@@ -354,7 +339,6 @@ export const changeFromMediaInlineToMediaSingleNode = (
 				previousType: ACTION_SUBJECT_ID.MEDIA_INLINE,
 			},
 			editorAnalyticsAPI,
-			isNestingInQuoteSupported,
 		})(state, dispatch);
 	} else {
 		const nodePos = state.tr.doc.resolve(state.selection.from).end();

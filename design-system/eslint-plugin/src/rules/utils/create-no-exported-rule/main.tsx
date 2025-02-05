@@ -1,11 +1,10 @@
 import type { Rule } from 'eslint';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import {
 	getImportSources,
 	type SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
-
-import { getScope, getSourceCode } from '../context-compat';
 
 import { checkIfSupportedExport } from './check-if-supported-export';
 

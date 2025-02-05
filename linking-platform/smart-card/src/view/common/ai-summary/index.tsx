@@ -26,6 +26,18 @@ const AISummaryCSSStyles = css({
 	userSelect: 'text',
 });
 
+const baseStyle = css({
+	color: token('color.text.subtle'),
+	font: token('font.body.small'),
+	wordWrap: 'break-word',
+	wordBreak: 'break-word',
+	whiteSpace: 'normal',
+	WebkitUserSelect: 'text',
+	MozUserSelect: 'text',
+	MsUserSelect: 'text',
+	userSelect: 'text',
+});
+
 /**
  * A component to render a response from AI in markdown text.
  * @internal
@@ -46,7 +58,7 @@ const AISummaryNew = ({
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			css={[AISummaryCSSStyles]}
+			css={[fg('platform-linking-visual-refresh-v1') ? baseStyle : AISummaryCSSStyles]}
 			children={content}
 			options={{
 				forceWrapper: true,

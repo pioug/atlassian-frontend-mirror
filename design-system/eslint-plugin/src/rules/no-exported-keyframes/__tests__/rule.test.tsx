@@ -24,8 +24,8 @@ const keyframes = [
 
 const level = 5;
 
-const createTestCases = (importSource: string) =>
-	keyframes.flatMap((createKeyframe) => [
+const createTestCases = (importSource: string) => [
+	...keyframes.flatMap((createKeyframe) => [
 		{
 			code: `
           import { keyframes } from '${importSource}';
@@ -34,15 +34,7 @@ const createTestCases = (importSource: string) =>
         `,
 			errors: [],
 		},
-		{
-			// name: 'should also fail for renamed imports',
-			code: `
-          import { keyframes as keyframes2 } from '${importSource}';
 
-          export const animation = keyframes2\`\`;
-        `,
-			errors: [{ messageId: 'unexpected' }],
-		},
 		{
 			code: `
           import { keyframes } from '${importSource}';
@@ -437,7 +429,17 @@ const createTestCases = (importSource: string) =>
 			options: [{ importSources: ['@emotion/react'] }],
 			errors: [{ messageId: 'unexpected' }],
 		},
-	]);
+	]),
+	{
+		// name: 'should also fail for renamed imports',
+		code: `
+	  import { keyframes as keyframes2 } from '${importSource}';
+
+	  export const animation = keyframes2\`\`;
+	`,
+		errors: [{ messageId: 'unexpected' }],
+	},
+];
 
 tester.run('no-exported-keyframes', rule, {
 	valid: createTestCases('@compiled/react').filter(({ errors }) => !errors.length),

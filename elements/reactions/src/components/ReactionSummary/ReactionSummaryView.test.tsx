@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, act } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, render, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
@@ -86,5 +87,24 @@ describe('ReactionSummaryView', () => {
 			fireEvent.focus(reactionButtons[0]);
 		});
 		expect(onReactionFocusedMock).toHaveBeenCalled();
+	});
+
+	it('should render "View all" CTA and invoke dialog open if user dialog is allowed', async () => {
+		const mockHandleOpenReactionsDialog = jest.fn();
+		renderComponent({
+			allowUserDialog: true,
+			handleOpenReactionsDialog: mockHandleOpenReactionsDialog,
+		});
+
+		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+		await userEvent.click(reactionSummaryButton);
+
+		await screen.findAllByTestId(RENDER_REACTION_TESTID);
+
+		const viewAllButton = screen.getByRole('button', { name: /^view all$/i });
+		expect(viewAllButton).toBeInTheDocument();
+
+		await userEvent.click(viewAllButton);
+		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
 	});
 });

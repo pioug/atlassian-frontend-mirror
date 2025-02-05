@@ -710,17 +710,11 @@ export function createPlugin(
 						return true;
 					}
 
-					const isNestingMediaOrCodeblockSupported =
-						pluginInjectionApi?.featureFlags?.sharedState.currentState()
-							?.nestMediaAndCodeblockInQuote ||
-						fg('editor_nest_media_and_codeblock_in_quotes_jira');
-
 					return handleRichTextWithAnalytics(
 						view,
 						event,
 						slice,
 						pluginInjectionApi,
-						isNestingMediaOrCodeblockSupported,
 					)(state, dispatch);
 				}
 				return false;

@@ -126,16 +126,6 @@ export const editorExperimentsConfig = {
 		defaultValue: false as boolean,
 	},
 	// Added 2024-09-18
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nest_media_and_codeblock_in_quotes/setup
-	'nest-media-and-codeblock-in-quote': {
-		productKeys: {
-			confluence: 'platform_editor_nest_media_and_codeblock_in_quotes',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
-	// Added 2024-09-18
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nest_nested_expand_in_expand/setup
 	'nested-expand-in-expand': {
 		productKeys: {

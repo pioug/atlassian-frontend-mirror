@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - IconProps
  *
- * @codegen <<SignedSource::dfe64bff7d8cc5aaf63e92a0951547b9>>
+ * @codegen <<SignedSource::b20b7ee253d00fb37c349ea914f0f796>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/icon/index.tsx <<SignedSource::2f230b37d348f80a985d8a7d529d7221>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/icon/index.tsx <<SignedSource::e8d3a49d7c0faccdf54a1e1ef3ec8d5b>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -372,7 +372,7 @@ export type Icon =
 type Glyph = Icon;
 
 
-export type IconColor = Extract<ActiveTokens, `color.icon.${string}`>;
+export type IconColor = Extract<ActiveTokens, `color.icon.${string}`> | 'color.icon';
 
 export interface IconProps {
 	size?: 'small' | 'medium' | 'large';
@@ -381,3 +381,5 @@ export interface IconProps {
 	primaryColor?: IconColor;
 	secondaryColor?: IconColor;
 }
+
+export type TIcon<T> = (props: IconProps) => T;

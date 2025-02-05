@@ -2,6 +2,7 @@
 import type { Expression, SpreadElement } from 'estree';
 import type { JSONSchema4 } from 'json-schema';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import {
 	getImportSources,
 	hasStyleObjectArguments,
@@ -42,7 +43,7 @@ export const rule = createLintRule({
 		const importSources = getImportSources(context);
 		return {
 			CallExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (!hasStyleObjectArguments(node.callee, references, importSources)) {
 					return;
@@ -73,7 +74,7 @@ export const rule = createLintRule({
 											value: SpreadElement | Expression | null,
 										): value is SpreadElement | Expression => value !== null,
 									)
-									.map((element) => context.getSourceCode().getText(element));
+									.map((element) => getSourceCode(context).getText(element));
 
 								return fixer.replaceText(argument, items.join(', '));
 							},

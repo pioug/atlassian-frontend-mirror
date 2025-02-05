@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::31dc8fb4f36ecf67c99521f59d86c2e1>>
+ * @codegen <<SignedSource::60edface96d5ea8300c5007b008cafad>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::7f0def3e681685c87e720c200f3f4b23>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::898e2c561f956fd22d43ade8ef60ca57>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
@@ -84,6 +84,17 @@ const xcssValidator = makeXCSSValidator({
 	borderLeftColor: true,
 	borderRightColor: true,
 	borderTopColor: true,
+
+	overflow: {
+		supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
+	},
+
+	overflowX: {
+		supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
+	},
+	overflowY: {
+		supportedValues: ['hidden', 'visible', 'scroll', 'auto'],
+	},
 
 	// layout and space related props
 	display: {

@@ -1,6 +1,7 @@
 import { isNodeOfType, type Node } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '../utils/context-compat';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { createLintRule } from '../utils/create-rule';
 import { getModuleOfIdentifier } from '../utils/get-import-node-by-source';
 import { getJSXElementName } from '../utils/jsx';

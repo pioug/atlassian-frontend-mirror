@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 10.5.2
+
+### Patch Changes
+
+- [#109636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109636)
+  [`2eadf04054ac2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2eadf04054ac2) -
+  [ux] Introduces way to retrieve the document from offline if there is a possible conflict event on
+  reconnection.
+- Updated dependencies
+
 ## 10.5.1
 
 ### Patch Changes

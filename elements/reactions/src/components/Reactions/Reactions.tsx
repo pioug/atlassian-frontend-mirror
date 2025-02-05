@@ -309,6 +309,25 @@ export const Reactions = React.memo(
 		);
 
 		/**
+		 * event handler to open selected reaction from tooltip
+		 * @param emojiId selected emoji id
+		 */
+		const handleOpenReactionsDialog = (emojiId: string) => {
+			// ufo start opening reaction dialog
+			ufoExperiences.openDialog.start();
+			setSelectedEmojiId(emojiId);
+			onDialogOpenCallback(emojiId, 'tooltip');
+			// ufo opening reaction dialog success
+			ufoExperiences.openDialog.success({
+				metadata: {
+					emojiId,
+					source: 'Reactions',
+					reason: 'Opening dialog from emoji tooltip link successfully',
+				},
+			});
+		};
+
+		/**
 		 * Event handler to oepn all reactions link button
 		 */
 		const handleOpenAllReactionsDialog = () => {
@@ -434,6 +453,8 @@ export const Reactions = React.memo(
 							placement={summaryViewPlacement}
 							showOpaqueBackground={showOpaqueBackground}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+							handleOpenReactionsDialog={handleOpenReactionsDialog}
+							allowUserDialog={allowUserDialog}
 						/>
 					</div>
 				) : (
@@ -470,7 +491,7 @@ export const Reactions = React.memo(
 					showAddReactionText={showAddReactionText}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 				/>
-				{allowUserDialog && hasEmojiWithFivePlusReactions && (
+				{allowUserDialog && hasEmojiWithFivePlusReactions && !shouldShowSummaryView && (
 					<Tooltip
 						content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
 						hideTooltipOnClick

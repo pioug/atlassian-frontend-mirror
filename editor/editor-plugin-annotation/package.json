@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^99.7.0",
+		"@atlaskit/editor-common": "^99.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-plugin-connectivity": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "^1.1.0",
@@ -44,7 +44,7 @@
 		"@atlaskit/icon": "^23.6.0",
 		"@atlaskit/onboarding": "^12.3.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.41.0",
+		"@atlaskit/tmp-editor-statsig": "^2.42.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -88,8 +88,7 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"styling": [
-				"emotion",
-				"emotion"
+				"compiled"
 			],
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"

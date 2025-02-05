@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ee01926a19fe58ce9b323b1b6690a3c3>>
+ * @codegen <<SignedSource::35cb21cd71989271ac7cc49853598145>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "PageLiveDoc".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for Live docs in Confluence.
+ * Usage guidance: Reserved for Live Document content type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

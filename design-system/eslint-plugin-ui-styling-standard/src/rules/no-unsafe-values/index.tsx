@@ -2,6 +2,7 @@
 
 import type { JSONSchema4 } from 'json-schema';
 
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import {
 	getImportSources,
 	isCss,
@@ -67,7 +68,7 @@ export const rule = createLintRule({
 
 		return {
 			CallExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (
 					!isCss(node.callee, references, importSources) &&

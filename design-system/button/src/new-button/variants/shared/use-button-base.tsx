@@ -67,6 +67,7 @@ export type UseButtonBaseReturn<TagName extends HTMLElement> = {
 	'aria-labelledby'?: string;
 } & ControlledEvents<TagName>;
 
+// If updating `buttonStyles`, also update `buttonStylesWithRem`.
 const buttonStyles = xcss({
 	display: 'inline-flex',
 	boxSizing: 'border-box',
@@ -80,6 +81,37 @@ const buttonStyles = xcss({
 	borderWidth: 'border.width.0',
 	flexShrink: 0,
 	height: `${32 / 14}em`,
+	font: 'font.body',
+	fontWeight: 'font.weight.medium',
+	paddingBlock: 'space.075',
+	paddingInlineEnd: 'space.150',
+	paddingInlineStart: 'space.150',
+	textAlign: 'center',
+	transition: 'background 0.1s ease-out',
+	verticalAlign: 'middle',
+	'::after': {
+		borderRadius: 'inherit',
+		inset: 'space.0',
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		pointerEvents: 'none',
+		position: 'absolute',
+	},
+});
+
+const buttonStylesWithRem = xcss({
+	display: 'inline-flex',
+	boxSizing: 'border-box',
+	width: 'auto',
+	maxWidth: '100%',
+	position: 'relative',
+	alignItems: 'baseline',
+	justifyContent: 'center',
+	columnGap: 'space.050',
+	borderRadius: 'border.radius.100',
+	borderWidth: 'border.width.0',
+	flexShrink: 0,
+	height: '2rem',
 	font: 'font.body',
 	fontWeight: 'font.weight.medium',
 	paddingBlock: 'space.075',
@@ -422,6 +454,7 @@ const selectedDiscoveryStyles = xcss({
 	},
 });
 
+// If updating `spacingCompactStyles`, also update `spacingCompactStylesWithRem`.
 const spacingCompactStyles = xcss({
 	columnGap: 'space.050',
 	height: `${24 / 14}em`,
@@ -431,18 +464,39 @@ const spacingCompactStyles = xcss({
 	verticalAlign: 'middle',
 });
 
+const spacingCompactStylesWithRem = xcss({
+	columnGap: 'space.050',
+	height: '1.5rem',
+	paddingBlock: 'space.025',
+	paddingInlineEnd: 'space.150',
+	paddingInlineStart: 'space.150',
+	verticalAlign: 'middle',
+});
+
 const circleStyles = xcss({ borderRadius: 'border.radius.circle' });
 const fullWidthStyles = xcss({ width: '100%' });
 const loadingStyles = xcss({ cursor: 'progress' });
+// If updating `iconButtonStyles`, also update `iconButtonStylesWithRem`.
 const iconButtonStyles = xcss({
 	height: `${32 / 14}em`,
 	width: `${32 / 14}em`,
 	paddingInlineEnd: 'space.0',
 	paddingInlineStart: 'space.0',
 });
+const iconButtonStylesWithRem = xcss({
+	height: '2rem',
+	width: '2rem',
+	paddingInlineEnd: 'space.0',
+	paddingInlineStart: 'space.0',
+});
+// If updating `iconButtonCompactStyles`, also update `iconButtonCompactStylesWithRem`.
 const iconButtonCompactStyles = xcss({
 	width: `${24 / 14}em`,
 	height: `${24 / 14}em`,
+});
+const iconButtonCompactStylesWithRem = xcss({
+	width: '1.5rem',
+	height: '1.5rem',
 });
 const buttonIconBeforeStyles = xcss({ paddingInlineStart: 'space.100' });
 const buttonIconAfterStyles = xcss({ paddingInlineEnd: 'space.100' });
@@ -532,7 +586,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 	return {
 		ref: mergeRefs([localRef, ref]),
 		xcss: [
-			buttonStyles,
+			fg('platform_dst_button_replace_em_with_rem') ? buttonStylesWithRem : buttonStyles,
 			appearance === 'default' &&
 				(fg('platform-component-visual-refresh') ? defaultRefreshedStyles : defaultStyles),
 			appearance === 'default' &&
@@ -568,11 +622,21 @@ const useButtonBase = <TagName extends HTMLElement>({
 			isSelected && appearance === 'discovery' && selectedDiscoveryStyles,
 			isDisabled && disabledStyles,
 			isCircle && !isSplitButton && circleStyles,
-			spacing === 'compact' && spacingCompactStyles,
+			spacing === 'compact' &&
+				(fg('platform_dst_button_replace_em_with_rem')
+					? spacingCompactStylesWithRem
+					: spacingCompactStyles),
 			hasIconBefore && buttonIconBeforeStyles,
 			hasIconAfter && buttonIconAfterStyles,
-			isIconButton && iconButtonStyles,
-			isIconButton && spacing === 'compact' && iconButtonCompactStyles,
+			isIconButton &&
+				(fg('platform_dst_button_replace_em_with_rem')
+					? iconButtonStylesWithRem
+					: iconButtonStyles),
+			isIconButton &&
+				spacing === 'compact' &&
+				(fg('platform_dst_button_replace_em_with_rem')
+					? iconButtonCompactStylesWithRem
+					: iconButtonCompactStyles),
 			shouldFitContainer && fullWidthStyles,
 			isLoading && loadingStyles,
 			isSplitButton && splitButtonStyles,

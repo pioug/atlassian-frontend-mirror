@@ -2,6 +2,7 @@
 import esquery from 'esquery';
 import type { JSONSchema4 } from 'json-schema';
 
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import {
 	getImportSources,
 	hasStyleObjectArguments,
@@ -42,7 +43,7 @@ export const rule = createLintRule({
 
 		return {
 			CallExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (!hasStyleObjectArguments(node.callee, references, importSources)) {
 					return;

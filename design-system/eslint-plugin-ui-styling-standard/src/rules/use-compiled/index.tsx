@@ -3,16 +3,18 @@ import { identifier, importDeclaration, importSpecifier, literal } from 'eslint-
 import type * as ESTree from 'eslint-codemod-utils';
 import type { FromSchema, JSONSchema } from 'json-schema-to-ts';
 
+import { getAllComments } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 
 import { createLintRule } from '../utils/create-rule';
+
+import { isSafeStyled, isSafeUsage } from './is-safe';
 import {
 	getFirstImportFromSource,
 	isImportDefaultSpecifier,
 	isImportNamespaceSpecifier,
 	isImportSpecifier,
 } from './utils';
-import { isSafeStyled, isSafeUsage } from './is-safe';
 
 const SUPPORTED_EMOTION_IMPORTS = new Set(['css', 'keyframes', 'ClassNames', 'jsx']);
 
@@ -77,10 +79,9 @@ export const rule: Rule.RuleModule = createLintRule({
 
 		return {
 			Program() {
-				const pragma = context
-					.getSourceCode()
-					.getAllComments()
-					.find((n) => n.value.includes('@jsxImportSource @emotion/react'));
+				const pragma = getAllComments(context).find((n) =>
+					n.value.includes('@jsxImportSource @emotion/react'),
+				);
 
 				if (!pragma) {
 					return;

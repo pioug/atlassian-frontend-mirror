@@ -1,5 +1,7 @@
-import { type MemberExpression, type CallExpression } from 'eslint-codemod-utils';
-import { isStyled, getImportSources } from '@atlaskit/eslint-utils/is-supported-import';
+import { type CallExpression, type MemberExpression } from 'eslint-codemod-utils';
+
+import { getAncestors, getScope } from '@atlaskit/eslint-utils/context-compat';
+import { getImportSources, isStyled } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
 
@@ -19,7 +21,7 @@ export const rule = createLintRule({
 	create(context) {
 		return {
 			CallExpression: (node: CallExpression) => {
-				const references = context.getScope().references;
+				const references = getScope(context, node).references;
 				const importSources = getImportSources(context);
 
 				if (isStyled(node, references, importSources)) {
@@ -27,11 +29,11 @@ export const rule = createLintRule({
 				}
 			},
 			MemberExpression: (node: MemberExpression) => {
-				const references = context.getScope().references;
+				const references = getScope(context, node).references;
 				const importSources = getImportSources(context);
 
 				if (node.object.type === 'Identifier' && isStyled(node.object, references, importSources)) {
-					const parent = context.getAncestors().at(-1);
+					const parent = getAncestors(context, node).at(-1);
 					if (parent && (parent.type === 'CallExpression' || parent.type === 'MemberExpression')) {
 						return;
 					}

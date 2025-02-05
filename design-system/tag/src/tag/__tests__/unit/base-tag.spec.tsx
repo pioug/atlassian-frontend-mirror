@@ -13,15 +13,14 @@ describe('<BaseTag />', () => {
 			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 
 			const tag = screen.getByTestId('tag');
-			expect(tag).toHaveStyleDeclaration('border-radius', `var(${cssVar.borderRadius})`);
+			expect(tag).toHaveStyle(`border-radius: var(${cssVar.borderRadius})`);
 		});
 
 		it('should use the default border radius', () => {
 			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 
 			const tag = screen.getByTestId('tag');
-			const styles = getComputedStyle(tag);
-			expect(styles.getPropertyValue(cssVar.borderRadius)).toBe(tagStyles.borderRadius.default);
+			expect(tag).toHaveCompiledCss({ borderRadius: '3px' });
 		});
 
 		it('should be configurable using appearance', () => {
@@ -30,8 +29,7 @@ describe('<BaseTag />', () => {
 			);
 
 			const tag = screen.getByTestId('tag');
-			const styles = getComputedStyle(tag);
-			expect(styles.getPropertyValue(cssVar.borderRadius)).toBe(tagStyles.borderRadius.rounded);
+			expect(tag).toHaveCompiledCss({ borderRadius: '10px' });
 		});
 	});
 
@@ -41,13 +39,11 @@ describe('<BaseTag />', () => {
 		it('should be determined by css variables', () => {
 			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 			const tag = screen.getByTestId('tag');
+			expect(tag).toHaveStyle({
+				backgroundColor: `var(${cssVar.color.background.default})`,
+			});
 
-			expect(tag).toHaveStyleDeclaration(
-				'background-color',
-				`var(${cssVar.color.background.default})`,
-			);
-
-			expect(tag).toHaveStyleDeclaration('color', `var(${cssVar.color.text.default})`);
+			expect(tag).toHaveStyle(`color: var(${cssVar.color.text.default})`);
 		});
 
 		it.each(tagColors)('should be configured by the color prop (color="%s")', (tagColor) => {

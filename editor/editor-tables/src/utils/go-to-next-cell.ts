@@ -56,7 +56,13 @@ function findNextCell($cell: ResolvedPos, direction: Direction): number | undefi
 			return $cell.pos + $cell.nodeAfter.nodeSize;
 		}
 
-		const table = $cell.node(-1);
+		let table = $cell.node(-1);
+
+		// table is the parent table, not the nested table
+		if ($cell.node(-4) && $cell.node(-4).type.name === 'table') {
+			table = $cell.node(-4);
+		}
+
 		for (let row = $cell.indexAfter(-1), rowStart = $cell.after(); row < table.childCount; row++) {
 			const rowNode = table.child(row);
 			if (rowNode.childCount) {

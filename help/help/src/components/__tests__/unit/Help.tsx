@@ -285,61 +285,132 @@ describe('Help', () => {
 	describe('Help with AI', () => {
 		const mockFooter = <div>Mock Footer</div>;
 
-		const renderHelpComponent = (isAiEnabled: boolean) => {
-			return render(
+		const defaultProps = {
+			header: {
+				onCloseButtonClick: mockOnCloseButtonClick,
+				onBackButtonClick: mockOnBackButtonClick,
+			},
+			navigation: {
+				navigationData: {
+					articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+					history: [],
+				},
+				setNavigationData: MockNavigationDataSetter,
+			},
+			helpArticle: {
+				onGetHelpArticle: mockOnGetHelpArticle,
+				onHelpArticleLoadingFailTryAgainButtonClick:
+					mockOnHelpArticleLoadingFailTryAgainButtonClick,
+				onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
+				onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
+			},
+			relatedArticles: {
+				onGetRelatedArticles: mockOnGetRelatedArticles,
+				onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
+			},
+			search: {
+				onSearch: mockOnSearch,
+				onSearchInputChanged: mockOnSearchInputChanged,
+				onSearchInputCleared: mockOnSearchInputCleared,
+				onSearchResultItemClick: mockOnSearchResultItemClick,
+				searchExternalUrl: mockSearchExternalUrl,
+				onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
+			},
+			ai: {
+				isAiEnabled: true,
+			},
+			footer: mockFooter,
+		};
+
+		it('Should render footer within HelpContent', () => {
+			const { queryByTestId, getByTestId } = render(
+				<IntlProvider locale="en">
+					<Help {...defaultProps}>
+						<div>{defaultContentText}</div>
+					</Help>
+				</IntlProvider>,
+			);
+			expect(getByTestId('inside-footer')).toBeInTheDocument();
+			expect(queryByTestId('footer')).toBeNull();
+		});
+
+		it('should show search input when search results are visible and not show the back button', async () => {
+			jest.useFakeTimers();
+			const { getByPlaceholderText, queryByText } = render(
+				<IntlProvider locale="en">
+					<Help {...defaultProps}>
+						<div>{defaultContentText}</div>
+					</Help>
+				</IntlProvider>,
+			);
+
+			const searchInput = getByPlaceholderText('Search help articles')!.closest('input');
+			expect(searchInput).toBeInTheDocument();
+			expect(queryByText(messageBack)).not.toBeInTheDocument();
+			if (searchInput) {
+				fireEvent.change(searchInput, { target: { value: 'test' } });
+			}
+
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
+
+			expect(searchInput).toBeInTheDocument();
+			expect(queryByText(messageBack)).not.toBeInTheDocument();
+			jest.clearAllTimers();
+		});
+
+		it('should hide search input and show back button when article is open', () => {
+			jest.useFakeTimers();
+			const { getByPlaceholderText, queryByPlaceholderText, getByText, rerender, queryByText } =
+				render(
+					<IntlProvider locale="en">
+						<Help {...defaultProps}>
+							<div>{defaultContentText}</div>
+						</Help>
+					</IntlProvider>,
+				);
+			const searchInput = getByPlaceholderText('Search help articles');
+			expect(searchInput).toBeInTheDocument();
+			expect(queryByText(messageBack)).not.toBeInTheDocument();
+			rerender(
 				<IntlProvider locale="en">
 					<Help
-						header={{
-							onCloseButtonClick: mockOnCloseButtonClick,
-							onBackButtonClick: mockOnBackButtonClick,
-						}}
+						{...defaultProps}
 						navigation={{
 							navigationData: {
-								articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+								articleId: { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE },
 								history: [],
 							},
 							setNavigationData: MockNavigationDataSetter,
 						}}
-						helpArticle={{
-							onGetHelpArticle: mockOnGetHelpArticle,
-							onHelpArticleLoadingFailTryAgainButtonClick:
-								mockOnHelpArticleLoadingFailTryAgainButtonClick,
-							onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
-							onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
-						}}
-						relatedArticles={{
-							onGetRelatedArticles: mockOnGetRelatedArticles,
-							onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
-						}}
-						search={{
-							onSearch: mockOnSearch,
-							onSearchInputChanged: mockOnSearchInputChanged,
-							onSearchInputCleared: mockOnSearchInputCleared,
-							onSearchResultItemClick: mockOnSearchResultItemClick,
-							searchExternalUrl: mockSearchExternalUrl,
-							onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
-						}}
-						ai={{
-							isAiEnabled,
-						}}
-						footer={mockFooter}
 					>
 						<div>{defaultContentText}</div>
 					</Help>
 				</IntlProvider>,
 			);
-		};
 
-		it('Should render footer within HelpLayout when isAiEnabled is false', () => {
-			const { queryByTestId, getByTestId } = renderHelpComponent(false);
-			expect(getByTestId('footer')).toBeInTheDocument();
-			expect(queryByTestId('inside-footer')).toBeNull();
+			act(() => {
+				jest.advanceTimersByTime(200);
+			});
+
+			expect(queryByPlaceholderText('Search help articles')).not.toBeInTheDocument();
+			expect(getByText(messageBack)).toBeInTheDocument();
+
+			jest.clearAllTimers();
 		});
 
-		it('Should render footer within HelpContent when isAiEnabled is true', () => {
-			const { queryByTestId, getByTestId } = renderHelpComponent(true);
-			expect(getByTestId('inside-footer')).toBeInTheDocument();
-			expect(queryByTestId('footer')).toBeNull();
+		it('should not show back button on home view and show search input', () => {
+			const { queryByText, getByPlaceholderText } = render(
+				<IntlProvider locale="en">
+					<Help {...defaultProps}>
+						<div>{defaultContentText}</div>
+					</Help>
+				</IntlProvider>,
+			);
+			expect(queryByText(messageBack)).not.toBeInTheDocument();
+			const searchInput = getByPlaceholderText('Search help articles');
+			expect(searchInput).toBeInTheDocument();
 		});
 	});
 });

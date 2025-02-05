@@ -1,5 +1,22 @@
 # @atlaskit/button
 
+## 20.5.0
+
+### Minor Changes
+
+- [#110533](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110533)
+  [`9856bf5d3faeb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9856bf5d3faeb) -
+  Updated styles for new button to use `rem` unit for width and height instead of `em` with
+  fractional units.
+
+## 20.4.2
+
+### Patch Changes
+
+- [#109985](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109985)
+  [`f13dc94ee78bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f13dc94ee78bb) -
+  Remove codemod for deprecated exports and remove now unused dev dependencies.
+
 ## 20.4.1
 
 ### Patch Changes
@@ -1661,36 +1678,6 @@ import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 You can also import them all from the root entry point if you like! Heads up though, **if your
 bundler does not support tree shaking then you will not get the minimum possible bundle size**
 
-We have a **automated codemod** you can run to perform many upgrade processes for you. It comes in
-two flavours:
-
-- `optimistic-15.0.0-lite-mode.ts`: An "optimistic" codemod that moves your buttons to the correct
-  version based on the props you've provided. If you use the `isLoading` prop, it will change the
-  import to use `loading-button`. If you use `theme` prop, imports to `custom-theme-button` will be
-  used. If you have a ThemeProvider above your buttons in the React tree the optimistic codemod
-  can't tell, and this could lead to regressions. Use this codemod with care!
-- `15.0.0-lite-mode.ts`: If you wrap your application in a ThemeProvider, you can use this "safe"
-  codemod to change all usages of button to the `custom-theme-button`.
-
-**Running the codemod cli**
-
-To run the codemod: **You first need to have the latest version of button installed before you can
-run the codemod**
-
-`yarn upgrade @atlaskit/button@^15.0.0`
-
-Once upgraded, use the Atlaskit codemod-cli;
-
-`npx @atlaskit/codemod-cli --parser [PARSER] --extensions [FILE_EXTENSIONS] [TARGET_PATH]`
-
-Or run `npx @atlaskit/codemod-cli -h` for more details on usage. For Atlassians, refer to
-[this doc](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for more details on
-the codemod CLI.
-
-```js
-import Button, { LoadingButton, CustomThemeButton } from '@atlaskit/button';
-```
-
 ### Change: default export
 
 Previously the default export of the button package was a button that supported `theme`
@@ -1771,34 +1758,6 @@ content. This approach had a number of shortcomings.
 - Renaming the `ButtonAppearance` `type` to `Appearance` (the codemod will safely upgrade usages)
 - Documentation cleanup
 - Examples cleanup
-
-**Automatic upgrading**
-
-We have created some tooling to automatically upgrade your usage of Button!
-
-```
-# You first need to have the latest button installed before you can run the codemod
-yarn add @atlaskit/button@^15.0.0
-
-# Run the codemod cli
-# Pass in a parser for your codebase
-npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel]
-```
-
-We have created **two** different codemods for you to choose from:
-
-1. **Safe codemod**: This codemod will shift everything over to `CustomThemeButton` which is a 1:1
-   of what exists today. This is super safe and you don’t need to do anything but sit back and
-   enjoy. You get some nice performance wins for just doing this. You can then opportunistically
-   move to the other `button` variants at your future convenience.
-2. **Optimistic codemod**: The codemod will try it’s hardest to move to the best `button` variant in
-   a module based on usage. This is pretty tricky because we are splitting one thing into three. It
-   can also be a bit dangerous because technically you can use a `ButtonTheme.Provider` higher in
-   the React tree and all buttons will pick up that theme. The codemod cannot know about that
-   nuance. This codemod will add comments to any files where it thinks you will need to make a
-   decision and also point out when you might run into any `ButtonTheme.Provider` issues.
-
-_When you use `@atlaskit/codemod-cli` you will be able to select which codemod you want to run_
 
 ### Patch Changes
 

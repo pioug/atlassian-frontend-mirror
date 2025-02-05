@@ -1,8 +1,10 @@
 import type { Rule } from 'eslint';
 import type { JSXAttribute } from 'estree-jsx';
 
-import { createLintRule } from '../utils/create-rule';
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { CSS_IN_JS_IMPORTS, isCxFunction } from '@atlaskit/eslint-utils/is-supported-import';
+
+import { createLintRule } from '../utils/create-rule';
 
 const IMPORT_SOURCES = [CSS_IN_JS_IMPORTS.compiled, CSS_IN_JS_IMPORTS.atlaskitCss];
 
@@ -40,7 +42,7 @@ export const rule = createLintRule({
 			'CallExpression[callee.name="cx"]': (node: Rule.Node) => {
 				if (
 					node.type === 'CallExpression' &&
-					isCxFunction(node.callee, context.getScope().references, IMPORT_SOURCES)
+					isCxFunction(node.callee, getScope(context, node).references, IMPORT_SOURCES)
 				) {
 					const parentJSXAttribute = getParentJSXAttribute(node);
 					const propName = parentJSXAttribute?.name.name.toString();

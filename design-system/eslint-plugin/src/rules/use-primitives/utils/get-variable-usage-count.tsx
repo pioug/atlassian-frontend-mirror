@@ -1,6 +1,6 @@
 import type { Rule } from 'eslint';
 
-import { getSourceCode } from '../../utils/context-compat';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 /**
  * TODO: Update this logic: https://product-fabric.atlassian.net/browse/DSP-16059

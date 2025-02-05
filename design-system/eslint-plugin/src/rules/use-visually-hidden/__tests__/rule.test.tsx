@@ -194,25 +194,6 @@ const MyComponent = () => (
 );
 `,
 			errors: [{ messageId: 'suggestion' }],
-			output: `
-import { something } from '@atlaskit/theme/constants';
-import { css, jsx } from '@emotion/core';
-
-const visuallyHidden = css\`
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  position: absolute;
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  overflow: hidden;
-  white-space: nowrap;
-\`;
-
-const MyComponent = () => (
-  <div css={assistive} />
-);
-`,
 		},
 
 		{
@@ -232,22 +213,6 @@ const MyComponent = () => (
   <${IMPORT_NAME} />
 );`,
 			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
-		},
-		{
-			code: `
-import styled from '@emotion/styled';
-import { visuallyHidden } from '@atlaskit/theme';
-
-export const ScreenReadersOnly = styled.span\`
-  \${visuallyHidden()}
-\`;`,
-			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
-			output: `
-import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
-import styled from '@emotion/styled';
-import { visuallyHidden } from '@atlaskit/theme';
-
-export const ScreenReadersOnly = ${IMPORT_NAME};`,
 		},
 		{
 			code: `

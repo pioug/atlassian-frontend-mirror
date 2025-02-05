@@ -52,7 +52,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/icon": "^23.6.0",

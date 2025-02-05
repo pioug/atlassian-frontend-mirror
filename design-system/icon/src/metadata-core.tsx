@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::7ee5d608c596d6e618679140e4d13235>>
+ * @codegen <<SignedSource::297cb37fa9fafef1e1b28e02fb2b1a3a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1458,7 +1458,19 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 	},
 	error: {
-		keywords: ['error', 'warning', 'alert', 'icon', 'core', 'filled', 'status'],
+		keywords: [
+			'error',
+			'warning',
+			'alert',
+			'icon',
+			'core',
+			'filled',
+			'status',
+			'danger',
+			'exclamation',
+			'!',
+			'stop',
+		],
 		componentName: 'ErrorIcon',
 		package: '@atlaskit/icon/core/error',
 		oldName: ['error'],
@@ -1466,6 +1478,26 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for when there is an error.',
 		team: 'Design System Team',
+	},
+	'exclamation-square': {
+		keywords: [
+			'exclamation-square',
+			'exclamationsquare',
+			'icon',
+			'core',
+			'!',
+			'exclaimation',
+			'exclaim',
+			'issue type',
+			'square',
+		],
+		componentName: 'ExclamationSquareIcon',
+		package: '@atlaskit/icon/core/exclamation-square',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Exclamation Jira issue type',
+		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
 	},
 	'expand-horizontal': {
 		keywords: [
@@ -2032,6 +2064,25 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Known uses: information state in section messages or inline messages.',
 		team: 'Design System Team',
+	},
+	'information-circle': {
+		keywords: [
+			'information-circle',
+			'informationcircle',
+			'icon',
+			'core',
+			'information',
+			'circle',
+			'info',
+		],
+		componentName: 'InformationCircleIcon',
+		package: '@atlaskit/icon/core/information-circle',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage:
+			'Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.',
+		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
 	},
 	issue: {
 		keywords: [
@@ -2926,6 +2977,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['plus-square', 'plussquare', 'icon', 'core', 'square', 'plus', 'add'],
 		componentName: 'PlusSquareIcon',
 		package: '@atlaskit/icon/core/plus-square',
+		oldName: ['issue-raise'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'New feature' Jira issue status.",
@@ -4264,6 +4316,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Single purpose - Reserved for bolding text.',
 		team: 'Design System Team',
 	},
+	'text-heading': {
+		keywords: [
+			'text-heading',
+			'textheading',
+			'icon',
+			'core',
+			'text',
+			'heading',
+			'H',
+			'editor',
+			'text style',
+		],
+		componentName: 'TextHeadingIcon',
+		package: '@atlaskit/icon/core/text-heading',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing heading styles',
+		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
+	},
 	'text-indent-left': {
 		keywords: [
 			'text-indent-left',
@@ -4349,6 +4421,25 @@ const metadata: Record<string, metadata> = {
 		usage: 'Single purpose - Reserved for spellchecking.',
 		team: 'Design System Team',
 	},
+	'text-strikethrough': {
+		keywords: [
+			'text-strikethrough',
+			'textstrikethrough',
+			'icon',
+			'core',
+			'text',
+			'strikethrough',
+			'editor',
+			'cross out',
+		],
+		componentName: 'TextStrikethroughIcon',
+		package: '@atlaskit/icon/core/text-strikethrough',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for strikethrough text tool',
+		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
+	},
 	'text-style': {
 		keywords: [
 			'text-style',
@@ -4368,6 +4459,25 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for text styles in Editor.',
 		team: 'Editor',
+	},
+	'text-underline': {
+		keywords: [
+			'text-underline',
+			'textunderline',
+			'icon',
+			'core',
+			'text',
+			'underline',
+			'U',
+			'editor',
+		],
+		componentName: 'TextUnderlineIcon',
+		package: '@atlaskit/icon/core/text-underline',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for underlined text tool',
+		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
 	},
 	'text-wrap': {
 		keywords: ['text-wrap', 'textwrap', 'icon', 'core', 'text', 'wrap', 'line wrap'],
@@ -4791,9 +4901,11 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'alert',
-			'danger',
 			'triangle',
 			'filled',
+			'exclamation',
+			'!',
+			'warning',
 		],
 		componentName: 'WarningIcon',
 		package: '@atlaskit/icon/core/warning',

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { fireEvent, queryByAttribute, render, screen } from '@testing-library/react';
-import cases from 'jest-in-case';
 
 import noop from '@atlaskit/ds-lib/noop';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
@@ -16,31 +15,14 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import SectionMessage, { SectionMessageAction } from '../../index';
 import { type Appearance } from '../../types';
 
-const appearancesCases: {
-	name: Appearance;
-	icon: ({}) => JSX.Element;
-}[] = [
-	{
-		name: 'information',
-		icon: (props: {}) => <InfoIcon {...props} label="information" />,
-	},
-	{
-		name: 'warning',
-		icon: (props: {}) => <WarningIcon {...props} label="warning" />,
-	},
-	{
-		name: 'error',
-		icon: (props: {}) => <ErrorIcon {...props} label="error" />,
-	},
-	{
-		name: 'success',
-		icon: (props: {}) => <CheckCircleIcon {...props} label="success" />,
-	},
-	{
-		name: 'discovery',
-		icon: (props: {}) => <QuestionCircleIcon {...props} label="discovery" />,
-	},
+const appearances: [Appearance, ({}) => JSX.Element][] = [
+	['information', (props: {}) => <InfoIcon {...props} label="information" />],
+	['warning', (props: {}) => <WarningIcon {...props} label="warning" />],
+	['error', (props: {}) => <ErrorIcon {...props} label="error" />],
+	['success', (props: {}) => <CheckCircleIcon {...props} label="success" />],
+	['discovery', (props: {}) => <QuestionCircleIcon {...props} label="discovery" />],
 ];
+
 const CustomLinkComponent = React.forwardRef((props = {}, ref: React.Ref<HTMLButtonElement>) => (
 	// eslint-disable-next-line react/button-has-type
 	<button {...props} ref={ref}>
@@ -297,26 +279,20 @@ describe('SectionMessage', () => {
 		});
 	});
 
-	cases(
-		'appearances',
-		({ name, icon }: { name: Appearance; icon: (props: {}) => JSX.Element }) => {
-			render(
-				<SectionMessage icon={icon} appearance={name}>
-					boo
-				</SectionMessage>,
-			);
+	test.each(appearances)('appearance: %p', (name, icon) => {
+		render(
+			<SectionMessage icon={icon} appearance={name}>
+				boo
+			</SectionMessage>,
+		);
 
-			const foundIcon = screen.getByLabelText(name);
+		const foundIcon = screen.getByLabelText(name);
 
-			expect(foundIcon).toBeInTheDocument();
-			expect(foundIcon).toHaveAccessibleName(name);
-			expect(
-				screen.getAllByRole(
-					(content, element) =>
-						content === 'presentation' && element!.tagName.toLowerCase() === 'svg',
-				),
-			).toHaveLength(1);
-		},
-		appearancesCases,
-	);
+		expect(foundIcon).toBeInTheDocument();
+		expect(foundIcon).toHaveAccessibleName(name);
+
+		const svgs = screen.getAllByRole('presentation');
+		expect(svgs).toHaveLength(1);
+		expect(svgs[0].tagName).toBe('svg');
+	});
 });

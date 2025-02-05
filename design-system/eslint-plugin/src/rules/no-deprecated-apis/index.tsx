@@ -9,7 +9,8 @@ import {
 	type Statement,
 } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '../utils/context-compat';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { createLintRule } from '../utils/create-rule';
 import { getConfig } from '../utils/get-deprecated-config';
 import { type DeprecatedConfig, isDeprecatedJSXAttributeConfig } from '../utils/types';

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.12
+
+### Patch Changes
+
+- [#107782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107782)
+  [`cccc7a8347929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cccc7a8347929) -
+  [ux] ED-26378 Remove editor_nest_media_and_codeblock_in_quotes_jira and
+  nestMediaAndCodeblockInQuote
+- Updated dependencies
+
+## 2.21.11
+
+### Patch Changes
+
+- [#109021](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109021)
+  [`9d47259416236`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d47259416236) -
+  [ux] ED-26101 Update drag column tooltips
+
 ## 2.21.10
 
 ### Patch Changes

@@ -61,7 +61,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/primitives": "^13.4.0",
 		"@emotion/react": "^11.7.1",

@@ -45,15 +45,13 @@ typescriptEslintTester.run(
 				code: `
         import { styled } from '@compiled/react';
 
-        styled.div\`color: blue\`;
-      `,
+        styled.div\`color: blue\`;`,
 				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           color: "blue"
-        });
-      `,
+        });`,
 			},
 			{
 				filename: 'single-line-static-rule-comments.ts',
@@ -905,13 +903,6 @@ typescriptEslintTester.run(
 			{
 				filename: 'do-not-handle-invalid-css.ts',
 				code: `
-        import { styled } from '@compiled/react';
-
-        styled.div\`
-          color blue;
-        \`;
-      `,
-				output: `
         import { styled } from '@compiled/react';
 
         styled.div\`

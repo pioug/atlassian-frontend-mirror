@@ -75,7 +75,9 @@ test.describe('TTVC: basic react', () => {
 					}),
 				);
 
-				const sectionNineUpdate = ufoVCUpdates.find(v => v.elements.includes('div[testid=sectionNine]'));
+				const sectionNineUpdate = ufoVCUpdates.find((v) =>
+					v.elements.includes('div[testid=sectionNine]'),
+				);
 				expect(sectionNineUpdate!.time).toMatchTimeInSeconds(sectionNineVisibleAt);
 				expect(sectionNineUpdate!.vc).toEqual(90);
 			});

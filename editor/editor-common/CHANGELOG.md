@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 99.8.1
+
+### Patch Changes
+
+- [#107782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107782)
+  [`cccc7a8347929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cccc7a8347929) -
+  [ux] ED-26378 Remove editor_nest_media_and_codeblock_in_quotes_jira and
+  nestMediaAndCodeblockInQuote
+- Updated dependencies
+
+## 99.8.0
+
+### Minor Changes
+
+- [#109636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109636)
+  [`2eadf04054ac2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2eadf04054ac2) -
+  [ux] Introduces way to retrieve the document from offline if there is a possible conflict event on
+  reconnection.
+
+## 99.7.2
+
+### Patch Changes
+
+- [#109021](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109021)
+  [`9d47259416236`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d47259416236) -
+  [ux] ED-26101 Update drag column tooltips
+
 ## 99.7.1
 
 ### Patch Changes

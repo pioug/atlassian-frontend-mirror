@@ -51,16 +51,20 @@ export const dimensionPropertiesTests: Tests = {
 			code: `
         import { css } from '@emotion/react';
         const dimensionStyles = css({ width: token('space.300', '24px') });
-        <div css={dimensionStyles}></div>
+        <span css={dimensionStyles}></span>
       `,
 			options: [
-				'compiled-css-function',
-				'compiled-styled-object',
-				'multiple-properties',
-				'css-property-with-tokens',
-				'jsx-order-fix',
-				'dimension-properties',
-				// 'string-style-property-fix', Disable this pattern to make sure isValidCssPropertiesToTransform correctly bails in this case
+				{
+					patterns: [
+						'compiled-css-function',
+						'compiled-styled-object',
+						'multiple-properties',
+						'css-property-with-tokens',
+						'jsx-order-fix',
+						'dimension-properties',
+						// 'string-style-property-fix', Disable this pattern to make sure isValidCssPropertiesToTransform correctly bails in this case
+					],
+				},
 			],
 		},
 		{

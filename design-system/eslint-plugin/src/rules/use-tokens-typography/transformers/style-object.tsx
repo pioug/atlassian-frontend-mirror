@@ -9,9 +9,10 @@ import {
 	type StringableASTNode,
 } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { Object as ASTObject, ObjectEntry, Root } from '../../../ast-nodes';
 import { getValueForPropertyNode, normaliseValue } from '../../ensure-design-token-usage/utils';
-import { getSourceCode } from '../../utils/context-compat';
 import {
 	isDecendantOfGlobalToken,
 	isDecendantOfStyleBlock,

@@ -6,6 +6,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Drag to move',
 		description: 'Use drag handle to move content',
 	},
+	dragToRearrange: {
+		id: 'fabric.editor.blockControlDragHandleUsageInfo',
+		defaultMessage: 'Drag to rearrange',
+		description: 'Use drag handle to rearrange columns',
+	},
 	insert: {
 		id: 'fabric.editor.blockControlInsert',
 		defaultMessage: 'Insert',

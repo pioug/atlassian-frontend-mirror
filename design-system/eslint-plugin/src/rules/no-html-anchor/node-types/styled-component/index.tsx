@@ -2,7 +2,8 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
-import { getScope } from '../../../utils/context-compat';
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
+
 import { getJsxElementByName } from '../../utils/get-jsx-element-by-name';
 import { isSupportedForLint } from '../supported';
 

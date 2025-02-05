@@ -14,6 +14,20 @@ const rule = createLintRule({
 		type: 'suggestion',
 		fixable: 'code',
 		hasSuggestions: true,
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					enableUnsafeReport: {
+						type: 'boolean',
+					},
+					enableUnsafeAutofix: {
+						type: 'boolean',
+					},
+				},
+				additionalProperties: false,
+			},
+		],
 		docs: {
 			description: 'Encourage the usage of heading components.',
 			recommended: false,

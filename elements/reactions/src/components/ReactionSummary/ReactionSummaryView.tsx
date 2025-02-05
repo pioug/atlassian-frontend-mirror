@@ -1,14 +1,18 @@
 import React, { useCallback, useState } from 'react';
+import { FormattedMessage } from 'react-intl-next';
 
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
-import { Inline, xcss } from '@atlaskit/primitives';
+import { Inline, Text, xcss } from '@atlaskit/primitives';
+import Button from '@atlaskit/button/new';
 
 import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
 import { Reaction } from '../Reaction';
 import { type ReactionsProps } from '../Reactions';
 
 import { ReactionSummaryButton } from './ReactionSummaryButton';
+
+import { messages } from '../../shared/i18n';
 
 const summaryPopupStyles = xcss({
 	padding: 'space.100',
@@ -22,7 +26,10 @@ const summaryPopupStyles = xcss({
 export const RENDER_SUMMARY_VIEW_POPUP_TESTID = 'render-summary-view-popup';
 
 interface ReactionSummaryViewProps
-	extends Pick<ReactionsProps, 'emojiProvider' | 'reactions' | 'flash' | 'particleEffectByEmoji'> {
+	extends Pick<
+		ReactionsProps,
+		'emojiProvider' | 'reactions' | 'flash' | 'particleEffectByEmoji' | 'allowUserDialog'
+	> {
 	/**
 	 * Optional prop to change the placement of the summary popup reaction list
 	 */
@@ -47,6 +54,10 @@ interface ReactionSummaryViewProps
 	 * Optional prop for applying subtle styling to reaction picker
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
+	/**
+	 * Optional function when the user wants to see more users in a modal
+	 */
+	handleOpenReactionsDialog?: (emojiId: string) => void;
 }
 
 export const ReactionSummaryView = ({
@@ -60,6 +71,8 @@ export const ReactionSummaryView = ({
 	onReactionMouseEnter,
 	showOpaqueBackground = false,
 	subtleReactionsSummaryAndPicker = false,
+	handleOpenReactionsDialog,
+	allowUserDialog,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
@@ -91,6 +104,16 @@ export const ReactionSummaryView = ({
 							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
 						/>
 					))}
+					{allowUserDialog && (
+						<Button
+							appearance="subtle"
+							onClick={() => handleOpenReactionsDialog?.(reactions[0].emojiId)}
+						>
+							<Text color="color.text.subtlest" weight="medium">
+								<FormattedMessage {...messages.seeWhoReacted} />
+							</Text>
+						</Button>
+					)}
 				</Inline>
 			)}
 			isOpen={isSummaryPopupOpen}

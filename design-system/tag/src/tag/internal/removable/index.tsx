@@ -4,8 +4,7 @@
  */
 import { forwardRef, memo, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { useCallbackWithAnalytics, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -14,14 +13,34 @@ import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { cssVar } from '../../../constants';
-import * as styles from '../../../styles';
+import {
+	removalActiveBackgroundColors,
+	removalHoverBackgroundColors,
+	removalTextColors,
+} from '../../../styles';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import Content from '../shared/content';
 import { type SimpleTagProps } from '../shared/types';
 
 import RemoveButton from './remove-button';
+
+const cssVar = {
+	color: {
+		background: {
+			default: '--ds-cb',
+			hover: '--ds-cbh',
+			active: '--ds-cba',
+		},
+
+		text: {
+			default: '--ds-ct',
+			hover: '--ds-cth',
+			active: '--ds-ctp',
+			link: '--ds-ctl',
+		},
+	},
+};
 
 export interface RemovableTagProps extends SimpleTagProps, WithAnalyticsEventsProps {
 	/**
@@ -60,9 +79,12 @@ const defaultBeforeRemoveAction = () => true;
  * preventing a double focus ring.
  */
 const removingStyles = css({
-	'&:focus-within': {
-		boxShadow: `0 0 0 2px transparent`,
-		outline: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors,@atlaskit/design-system/no-nested-styles -- To fix specificty in VR tests
+	'&&': {
+		'&:focus-within': {
+			boxShadow: `0 0 0 2px transparent`,
+			outline: 'none',
+		},
 	},
 });
 
@@ -160,23 +182,23 @@ const RemovableTagComponent = forwardRef<any, RemovableTagProps>(
 			// Tag background color on hover
 			[cssVar.color.background.hover]: fg('platform-component-visual-refresh')
 				? undefined
-				: styles.removalHoverBackgroundColors,
+				: removalHoverBackgroundColors,
 			// Tag background color on press
 			[cssVar.color.background.active]: fg('platform-component-visual-refresh')
 				? undefined
-				: styles.removalActiveBackgroundColors,
+				: removalActiveBackgroundColors,
 			// The tag text on hover of remove button
 			[cssVar.color.text.default]: fg('platform-component-visual-refresh')
 				? undefined
-				: styles.removalTextColors,
+				: removalTextColors,
 			// 'elemBefore' text on press of remove button
 			[cssVar.color.text.active]: fg('platform-component-visual-refresh')
 				? undefined
-				: styles.removalTextColors,
+				: removalTextColors,
 			// The tag link text on hover of remove button
 			[cssVar.color.text.link]: fg('platform-component-visual-refresh')
 				? undefined
-				: styles.removalTextColors,
+				: removalTextColors,
 		};
 
 		return (

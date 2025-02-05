@@ -1,9 +1,9 @@
 import type { Rule } from 'eslint';
 import type { CallExpression } from 'estree';
 
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { getImportSources, isStyled } from '@atlaskit/eslint-utils/is-supported-import';
 
-import { getScope } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 
 type RuleModule = Rule.RuleModule;

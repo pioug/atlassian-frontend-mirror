@@ -100,6 +100,7 @@ import { LinkItem } from '@atlaskit/menu';
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -120,6 +121,7 @@ import { ButtonItem, LinkItem } from '@atlaskit/menu';
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -140,6 +142,7 @@ import { LinkItem } from '@atlaskit/menu';
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -160,6 +163,7 @@ import { LinkItem } from '@atlaskit/menu';
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -181,6 +185,7 @@ const url = "";
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -203,6 +208,7 @@ const url = null;
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -226,6 +232,7 @@ const url = undefined;
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -248,6 +255,7 @@ import { LinkItem as AkLinkItem } from '@atlaskit/menu';
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -267,6 +275,7 @@ import { LinkItem as AkLinkItem } from '@atlaskit/menu';
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -287,6 +296,7 @@ import LinkItem from '@atlaskit/menu/link-item';
     `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -308,6 +318,7 @@ import { ButtonItem } from '@atlaskit/menu';
 `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -336,6 +347,7 @@ return (
 `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,
@@ -371,6 +383,7 @@ return (
 `,
 			errors: [
 				{
+					messageId: 'hrefRequired',
 					suggestions: [
 						{
 							desc: hrefRequiredSuggestionText,

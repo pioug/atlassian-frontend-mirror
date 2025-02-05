@@ -8,6 +8,7 @@ import FocusLock from 'react-focus-lock';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
 import { shallowEqualObjects } from 'shallow-equal';
 
+import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
@@ -631,8 +632,7 @@ export default class PopupSelect<
 								label={providedAriaLabel}
 								// TODO: Popup Select does not work well with active-descendant
 								aria-live={
-									(/iPad|iPhone|iPod/.test(navigator.userAgent) ||
-										navigator.platform === 'MacIntel') && // temporary check for now
+									isAppleDevice() &&
 									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 									fg('design_system_select-a11y-improvement')
 										? 'assertive' // only needed on Apple products

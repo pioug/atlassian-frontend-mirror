@@ -459,36 +459,27 @@ export const DragHandle = ({
 		}
 	}, [buttonRef, handleOptions?.isFocused, view]);
 
-	let helpDescriptors = isTopLevelNode
-		? [
-				{
-					description: formatMessage(blockControlsMessages.dragToMove),
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveUp),
-					keymap: dragToMoveUp,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveDown),
-					keymap: dragToMoveDown,
-				},
-			]
-		: [
-				{
-					description: formatMessage(blockControlsMessages.dragToMove),
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveUp),
-					keymap: dragToMoveUp,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveDown),
-					keymap: dragToMoveDown,
-				},
-			];
+	let helpDescriptors = [
+		{
+			description: formatMessage(blockControlsMessages.dragToMove),
+		},
+		{
+			description: formatMessage(blockControlsMessages.moveUp),
+			keymap: dragToMoveUp,
+		},
+		{
+			description: formatMessage(blockControlsMessages.moveDown),
+			keymap: dragToMoveDown,
+		},
+	];
 
 	let isParentNodeOfTypeLayout;
-	if (!isTopLevelNode && handleOptions?.isFocused && editorExperiment('nested-dnd', true)) {
+
+	if (
+		!isTopLevelNode &&
+		(fg('platform_editor_advanced_layouts_accessibility') || handleOptions?.isFocused) &&
+		editorExperiment('nested-dnd', true)
+	) {
 		isParentNodeOfTypeLayout =
 			nodeType === 'layoutSection' ||
 			view.state.doc.resolve(getNestedNodePosition(view.state)).node().type.name === 'layoutColumn';
@@ -510,11 +501,25 @@ export const DragHandle = ({
 
 	// When advanced layout is on, layout column drag handle show only show 'Drag to move', no shortcuts
 	if (editorExperiment('advanced_layouts', true) && nodeType === 'layoutColumn') {
-		helpDescriptors = [
-			{
-				description: formatMessage(blockControlsMessages.dragToMove),
-			},
-		];
+		helpDescriptors = fg('platform_editor_advanced_layouts_accessibility')
+			? [
+					{
+						description: formatMessage(blockControlsMessages.dragToRearrange),
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveLeft),
+						keymap: dragToMoveLeft,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveRight),
+						keymap: dragToMoveRight,
+					},
+				]
+			: [
+					{
+						description: formatMessage(blockControlsMessages.dragToMove),
+					},
+				];
 	}
 
 	const message = helpDescriptors

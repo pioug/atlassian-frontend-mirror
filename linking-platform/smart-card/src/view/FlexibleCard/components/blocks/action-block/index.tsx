@@ -22,7 +22,8 @@ import { ActionFooter } from './action-footer';
 import ActionBlockOld from './ActionBlockOld';
 import type { ActionBlockProps } from './types';
 
-const ignoreContainerPaddingStyles = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const ignoreContainerPaddingStylesOld = css({
 	display: 'flex',
 	flexDirection: 'column',
 	boxSizing: 'border-box',
@@ -30,7 +31,19 @@ const ignoreContainerPaddingStyles = css({
 	width: '100%',
 	// We have to find a better way to ignore container padding
 	// This has become more and more of a common use case.
-	marginLeft: 'calc(var(--container-gap-left) * -1)',
+	marginLeft: 'calc(var(--container-gap-left)  * -1)',
+	marginRight: 'calc(var(--container-gap-right) * -1)',
+});
+
+const ignoreContainerPaddingStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	boxSizing: 'border-box',
+	flexGrow: 1,
+	width: 'calc(100% + var(--container-gap-left) + var(--container-gap-right))',
+	// We have to find a better way to ignore container padding
+	// This has become more and more of a common use case.
+	marginLeft: 'calc(var(--container-gap-left)  * -1)',
 	marginRight: 'calc(var(--container-gap-right) * -1)',
 });
 
@@ -137,7 +150,15 @@ const ActionBlockNew = ({
 	}, [context?.actions, onClick, onError, padding, size, spaceInline, isLoading, onLoadingChange]);
 
 	return actions ? (
-		<div css={ignoreContainerPaddingStyles} ref={blockRef} data-testid={testId}>
+		<div
+			css={[
+				fg('platform-linking-visual-refresh-v1')
+					? ignoreContainerPaddingStyles
+					: ignoreContainerPaddingStylesOld,
+			]}
+			ref={blockRef}
+			data-testid={testId}
+		>
 			{actions}
 			<ActionFooter message={message} testId={testId} />
 		</div>

@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.14.2
+
+### Patch Changes
+
+- [#110345](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110345)
+  [`3b17474e79cff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b17474e79cff) -
+  [ux] refactoring placement of search bar and back button
+
 ## 7.14.1
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-rule';
 
-import { getConfig } from './config';
+import { getConfig, VALID_PATTERNS } from './config';
 import { CompiledStyled, EmotionCSS } from './transformers';
 
 const boxDocsUrl = 'https://atlassian.design/components/primitives/box';
@@ -18,6 +18,22 @@ const rule = createLintRule({
 			recommended: false,
 			severity: 'warn',
 		},
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					patterns: {
+						type: 'array',
+						maxLength: VALID_PATTERNS.length,
+						items: {
+							type: 'string',
+							enum: VALID_PATTERNS,
+						},
+					},
+				},
+				additionalProperties: false,
+			},
+		],
 		messages: {
 			preferPrimitivesBox: `This element can be replaced with a "Box" primitive. See ${boxDocsUrl} for additional guidance.`,
 		},

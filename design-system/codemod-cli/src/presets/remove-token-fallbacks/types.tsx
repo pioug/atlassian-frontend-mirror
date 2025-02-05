@@ -1,4 +1,4 @@
-import { ASTPath, ImportDeclaration, Options } from 'jscodeshift';
+import { ASTPath, ImportDeclaration, Options, VariableDeclarator } from 'jscodeshift';
 
 export interface ReplacementDetail {
 	teamInfo: TeamInfo;
@@ -28,8 +28,18 @@ export type RemoveTokenFallbackOptions = Options & {
 	forceUpdate?: boolean;
 };
 
-export type FallbackResolveResult = {
+export type WithResolvedDeclarations = {
+	resolvedImportDeclaration?: ASTPath<ImportDeclaration>;
+	resolvedLocalVarDeclaration?: ASTPath<VariableDeclarator>;
+};
+
+export type FallbackResolveResult = WithResolvedDeclarations & {
 	rawFallbackValue: string;
 	fallbackValue: string | undefined;
-	resolvedImportDeclaration?: ASTPath<ImportDeclaration>;
+};
+
+export type WithStart = { start?: number };
+
+export type TokenProcessingResult = WithResolvedDeclarations & {
+	fallbackRemoved: boolean;
 };

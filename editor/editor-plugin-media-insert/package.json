@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-insert",
-	"version": "5.0.4",
+	"version": "5.0.5",
 	"description": "Media Insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,8 +27,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/button": "^20.4.0",
-		"@atlaskit/editor-common": "^99.7.0",
+		"@atlaskit/button": "^20.5.0",
+		"@atlaskit/editor-common": "^99.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-plugin-media": "^1.44.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
@@ -44,7 +44,7 @@
 		"@atlaskit/section-message": "^6.9.0",
 		"@atlaskit/tabs": "^17.2.0",
 		"@atlaskit/textfield": "^6.8.0",
-		"@atlaskit/tmp-editor-statsig": "^2.41.0",
+		"@atlaskit/tmp-editor-statsig": "^2.42.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
@@ -95,11 +95,6 @@
 	"stricter": {
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
-		}
-	},
-	"platform-feature-flags": {
-		"editor_nest_media_and_codeblock_in_quotes_jira": {
-			"type": "boolean"
 		}
 	}
 }

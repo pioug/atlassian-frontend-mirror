@@ -316,6 +316,24 @@ ruleTester.run('no-html-anchor', rule, {
 			errors: [
 				{
 					messageId: 'noHtmlAnchor',
+					suggestions: [
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a self-closing div with role="link"
+                                import Link from '@atlaskit/link';
+                                <Link role="link" />
+							`,
+							desc: 'Replace with Link component from @atlaskit/link',
+						},
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a self-closing div with role="link"
+                                import { LinkButton } from '@atlaskit/button/new';
+                                <LinkButton role="link" />
+							`,
+							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+						},
+					],
 				},
 			],
 		},
@@ -327,6 +345,24 @@ ruleTester.run('no-html-anchor', rule, {
 			errors: [
 				{
 					messageId: 'noHtmlAnchor',
+					suggestions: [
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a div with role="link"
+                                import Link from '@atlaskit/link';
+                                <Link role="link">Hello, World!</Link>
+							`,
+							desc: 'Replace with Link component from @atlaskit/link',
+						},
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a div with role="link"
+                                import { LinkButton } from '@atlaskit/button/new';
+                                <LinkButton role="link">Hello, World!</LinkButton>
+							`,
+							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+						},
+					],
 				},
 			],
 		},
@@ -338,6 +374,24 @@ ruleTester.run('no-html-anchor', rule, {
 			errors: [
 				{
 					messageId: 'noHtmlAnchor',
+					suggestions: [
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a span with role="link"
+                                import Link from '@atlaskit/link';
+                                <Link role="link">Hello, World!</Link>
+							`,
+							desc: 'Replace with Link component from @atlaskit/link',
+						},
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a span with role="link"
+                                import { LinkButton } from '@atlaskit/button/new';
+                                <LinkButton role="link">Hello, World!</LinkButton>
+							`,
+							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+						},
+					],
 				},
 			],
 		},
@@ -349,6 +403,24 @@ ruleTester.run('no-html-anchor', rule, {
 			errors: [
 				{
 					messageId: 'noHtmlAnchor',
+					suggestions: [
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a button with role="link"
+                                import Link from '@atlaskit/link';
+							    <Link role="link">Hello, World!</Link>
+							`,
+							desc: 'Replace with Link component from @atlaskit/link',
+						},
+						{
+							output: linesOnly`
+                                // JSX Element > reports for a button with role="link"
+                                import { LinkButton } from '@atlaskit/button/new';
+                                <LinkButton role="link">Hello, World!</LinkButton>
+							`,
+							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+						},
+					],
 				},
 			],
 		},
@@ -360,6 +432,24 @@ ruleTester.run('no-html-anchor', rule, {
 			errors: [
 				{
 					messageId: 'noHtmlAnchor',
+					suggestions: [
+						{
+							output: linesOnly`
+							// JSX Element > reports for a main with role="link"
+							import Link from '@atlaskit/link';
+							<Link role="link">Hello, World!</Link>
+						`,
+							desc: 'Replace with Link component from @atlaskit/link',
+						},
+						{
+							output: linesOnly`
+							// JSX Element > reports for a main with role="link"
+							import { LinkButton } from '@atlaskit/button/new';
+							<LinkButton role="link">Hello, World!</LinkButton>
+						`,
+							desc: 'Replace with LinkButton component from @atlaskit/button/new',
+						},
+					],
 				},
 			],
 		},

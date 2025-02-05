@@ -7,8 +7,9 @@ import {
 	type JSXElement,
 } from 'eslint-codemod-utils';
 
+import { getScope, getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import * as ast from '../../../../ast-nodes';
-import { getScope, getSourceCode } from '../../../utils/context-compat';
 import { type RuleConfig } from '../../config';
 import {
 	getVariableDefinitionValue,

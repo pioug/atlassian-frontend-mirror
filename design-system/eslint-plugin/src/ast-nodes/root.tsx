@@ -10,7 +10,7 @@ import {
 	type Statement,
 } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '../rules/utils/context-compat';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 import { Import } from './import';
 

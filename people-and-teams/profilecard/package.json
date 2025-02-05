@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "22.0.1",
+	"version": "22.0.2",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -66,7 +66,7 @@
 		"@atlaskit/atlassian-context": "^0.1.0",
 		"@atlaskit/avatar": "^21.18.0",
 		"@atlaskit/avatar-group": "^11.1.0",
-		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/dropdown-menu": "^12.26.0",
 		"@atlaskit/empty-state": "^8.2.0",
 		"@atlaskit/focus-ring": "^2.1.0",
@@ -90,6 +90,8 @@
 		"@emotion/styled": "^11.0.0",
 		"date-fns": "^2.17.0",
 		"date-fns-tz": "^2.0.0",
+		"graphql": "^15.8.0",
+		"graphql-tag": "^2.10.1",
 		"lodash": "^4.17.21",
 		"lru_map": "^0.4.1",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -138,6 +140,9 @@
 			"type": "boolean"
 		},
 		"enable_ptc_townsquare_reporting_lines_unsharded": {
+			"type": "boolean"
+		},
+		"platform_agg_user_query_doc_change": {
 			"type": "boolean"
 		},
 		"rovo_use_agent_permissions": {

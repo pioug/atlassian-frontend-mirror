@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-tables",
-	"version": "2.8.4",
+	"version": "2.8.6",
 	"description": "A package that contains common classes and utility functions for editor tables",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,6 +50,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_table_fix_move_column": {
+			"type": "boolean"
+		},
+		"platform_editor_cell_selection_with_nested_tables": {
 			"type": "boolean"
 		}
 	},

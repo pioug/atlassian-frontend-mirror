@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::581d57e0ac1621cb90f7a85df5966fc0>>
+ * @codegen <<SignedSource::2f2750fbf32b2550db965df1841a51b9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -120,6 +120,7 @@ import EmojiNeutralIcon from '../../../../../core/emoji-neutral';
 import EmojiRemoveIcon from '../../../../../core/emoji-remove';
 import EpicIcon from '../../../../../core/epic';
 import ErrorIcon from '../../../../../core/error';
+import ExclamationSquareIcon from '../../../../../core/exclamation-square';
 import ExpandHorizontalIcon from '../../../../../core/expand-horizontal';
 import ExpandVerticalIcon from '../../../../../core/expand-vertical';
 import EyeOpenIcon from '../../../../../core/eye-open';
@@ -162,6 +163,7 @@ import ImageScaledIcon from '../../../../../core/image-scaled';
 import InboxIcon from '../../../../../core/inbox';
 import IncidentIcon from '../../../../../core/incident';
 import InformationIcon from '../../../../../core/information';
+import InformationCircleIcon from '../../../../../core/information-circle';
 import IssueIcon from '../../../../../core/issue';
 import IssuesIcon from '../../../../../core/issues';
 import KeyResultIcon from '../../../../../core/key-result';
@@ -316,12 +318,15 @@ import TasksIcon from '../../../../../core/tasks';
 import TeamsIcon from '../../../../../core/teams';
 import TextIcon from '../../../../../core/text';
 import TextBoldIcon from '../../../../../core/text-bold';
+import TextHeadingIcon from '../../../../../core/text-heading';
 import TextIndentLeftIcon from '../../../../../core/text-indent-left';
 import TextIndentRightIcon from '../../../../../core/text-indent-right';
 import TextItalicIcon from '../../../../../core/text-italic';
 import TextShortenIcon from '../../../../../core/text-shorten';
 import TextSpellcheckIcon from '../../../../../core/text-spellcheck';
+import TextStrikethroughIcon from '../../../../../core/text-strikethrough';
 import TextStyleIcon from '../../../../../core/text-style';
+import TextUnderlineIcon from '../../../../../core/text-underline';
 import TextWrapIcon from '../../../../../core/text-wrap';
 import ThemeIcon from '../../../../../core/theme';
 import ThumbsDownIcon from '../../../../../core/thumbs-down';
@@ -462,6 +467,7 @@ const Icons = [
 	EmojiRemoveIcon,
 	EpicIcon,
 	ErrorIcon,
+	ExclamationSquareIcon,
 	ExpandHorizontalIcon,
 	ExpandVerticalIcon,
 	EyeOpenIcon,
@@ -504,6 +510,7 @@ const Icons = [
 	InboxIcon,
 	IncidentIcon,
 	InformationIcon,
+	InformationCircleIcon,
 	IssueIcon,
 	IssuesIcon,
 	KeyResultIcon,
@@ -658,12 +665,15 @@ const Icons = [
 	TeamsIcon,
 	TextIcon,
 	TextBoldIcon,
+	TextHeadingIcon,
 	TextIndentLeftIcon,
 	TextIndentRightIcon,
 	TextItalicIcon,
 	TextShortenIcon,
 	TextSpellcheckIcon,
+	TextStrikethroughIcon,
 	TextStyleIcon,
+	TextUnderlineIcon,
 	TextWrapIcon,
 	ThemeIcon,
 	ThumbsDownIcon,
@@ -754,3 +764,5 @@ export const IconGroup14 = allExamples[14];
 export const IconGroup15 = allExamples[15];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconGroup16 = allExamples[16];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup17 = allExamples[17];

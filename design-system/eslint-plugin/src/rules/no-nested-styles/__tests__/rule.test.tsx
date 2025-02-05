@@ -178,7 +178,7 @@ tester.run('no-nested-styles', rule, {
 		// No import for media query
 		{
 			code: `
-      xcss({
+	  ${style}({
         [media.above.md]: {
           color: 'green',
         },
@@ -198,7 +198,7 @@ tester.run('no-nested-styles', rule, {
           md: '> div'
         }
       }
-      xcss({
+	  ${style}({
         [media.above.md]: {
           color: 'green',
         },

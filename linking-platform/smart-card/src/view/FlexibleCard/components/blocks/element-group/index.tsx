@@ -35,11 +35,11 @@ const alignmentStyleMap = cssMap({
 	},
 });
 
-const baseStyleBySize = cssMap({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const baseStyleBySizeOld = cssMap({
 	xlarge: {
 		alignItems: 'center',
 		display: 'flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		gap: token('space.250', '1.25rem'),
 		minWidth: 0,
 		overflow: 'hidden',
@@ -68,6 +68,41 @@ const baseStyleBySize = cssMap({
 		minWidth: 0,
 		overflow: 'hidden',
 		lineHeight: '1rem',
+	},
+});
+
+const baseStyleBySize = cssMap({
+	xlarge: {
+		alignItems: 'center',
+		display: 'flex',
+		gap: token('space.250'),
+		minWidth: 0,
+		overflow: 'hidden',
+		lineHeight: '16px',
+	},
+	large: {
+		alignItems: 'center',
+		display: 'flex',
+		gap: token('space.200'),
+		minWidth: 0,
+		overflow: 'hidden',
+		lineHeight: '16px',
+	},
+	medium: {
+		alignItems: 'center',
+		display: 'flex',
+		gap: token('space.100'),
+		minWidth: 0,
+		overflow: 'hidden',
+		lineHeight: '16px',
+	},
+	small: {
+		alignItems: 'center',
+		display: 'flex',
+		gap: token('space.050'),
+		minWidth: 0,
+		overflow: 'hidden',
+		lineHeight: '16px',
 	},
 });
 
@@ -266,23 +301,20 @@ const ElementGroupNew = ({
 	position = SmartLinkPosition.Center,
 	className,
 }: ElementGroupProps) => {
+	const isHorizontal = direction === SmartLinkDirection.Horizontal;
 	return (
 		<div
 			css={[
-				baseStyleBySize[size],
+				fg('platform-linking-visual-refresh-v1') ? baseStyleBySize[size] : baseStyleBySizeOld[size],
 				baseStyleByDirection[direction],
 				baseStyle,
 				alignmentStyleMap[align],
 				minWidthStyle,
 				widthStyle[width],
-				direction === SmartLinkDirection.Horizontal && horizontalStyleBase,
-				direction === SmartLinkDirection.Horizontal && horizontalStyleByHeight[size],
-				direction === SmartLinkDirection.Horizontal &&
-					align === SmartLinkAlignment.Left &&
-					gapStylesLeft[size],
-				direction === SmartLinkDirection.Horizontal &&
-					align === SmartLinkAlignment.Right &&
-					gapStylesRight[size],
+				isHorizontal && horizontalStyleBase,
+				isHorizontal && horizontalStyleByHeight[size],
+				isHorizontal && align === SmartLinkAlignment.Left && gapStylesLeft[size],
+				isHorizontal && align === SmartLinkAlignment.Right && gapStylesRight[size],
 				positionStyle[position],
 			]}
 			data-smart-element-group

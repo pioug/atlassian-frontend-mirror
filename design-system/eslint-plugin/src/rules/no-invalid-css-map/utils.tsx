@@ -6,9 +6,8 @@ import {
 	getAllowedFunctionCalls,
 	isAllowListedVariable,
 } from '@atlaskit/eslint-utils/allowed-function-calls';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
-
-import { getSourceCode } from '../utils/context-compat';
 
 type Reporter = Rule.RuleContext['report'];
 

@@ -31,7 +31,6 @@ import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { messages } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
@@ -187,9 +186,6 @@ const getMediaInlineImageToolbar = (
 	const mediaSingleTitle = intl.formatMessage(mediaAndEmbedToolbarMessages.changeToMediaSingle);
 	const widthPluginState = pluginInjectionApi?.width?.sharedState.currentState();
 	const inlineImageItems: FloatingToolbarItem<Command>[] = [];
-	const isNestingInQuoteSupported =
-		pluginInjectionApi?.featureFlags?.sharedState.currentState()?.nestMediaAndCodeblockInQuote ||
-		fg('editor_nest_media_and_codeblock_in_quotes_jira');
 
 	if (shouldShowImageBorder(state)) {
 		inlineImageItems.push({
@@ -250,11 +246,7 @@ const getMediaInlineImageToolbar = (
 					LEGACY_fallbackIcon={IconEmbed}
 				/>
 			),
-			onClick: changeMediaInlineToMediaSingle(
-				editorAnalyticsAPI,
-				widthPluginState,
-				isNestingInQuoteSupported,
-			),
+			onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
 		},
 		{ type: 'separator' },
 	);

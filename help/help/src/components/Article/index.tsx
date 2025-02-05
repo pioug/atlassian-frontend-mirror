@@ -5,9 +5,13 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useNavigationContext } from '../contexts/navigationContext';
 import { useHelpArticleContext } from '../contexts/helpArticleContext';
 import { SLIDEIN_OVERLAY_TRANSITION_DURATION_MS, type TransitionStatus, VIEW } from '../constants';
-import { ArticleContainer } from './styled';
+import { ArticleContainer, ArticleContainerAi } from './styled';
 import ArticleContent from './ArticleContent';
 import type { HistoryItem } from '../../model/Help';
+
+interface ArticleProps {
+	isAiEnabled?: boolean;
+}
 
 // Animation
 const defaultStyle = {
@@ -25,7 +29,7 @@ const transitionStyles: { [id: string]: React.CSSProperties } = {
 	exited: { left: '100%' },
 };
 
-export const Article = () => {
+export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 	const { view, articleId, history, getCurrentArticle, reloadHelpArticle, reloadWhatsNewArticle } =
 		useNavigationContext();
 	const { onHelpArticleLoadingFailTryAgainButtonClick } = useHelpArticleContext();
@@ -111,7 +115,43 @@ export const Article = () => {
 		}
 	}, [view, showArticle]);
 
-	return (
+	return isAiEnabled ? (
+		<Transition
+			in={showArticle}
+			timeout={SLIDEIN_OVERLAY_TRANSITION_DURATION_MS}
+			enter={!skipArticleSlideInAnimation}
+			onEntered={onArticleEntered}
+			onExit={onArticleExit}
+			unmountOnExit
+			mountOnEnter
+		>
+			{(state: TransitionStatus) => {
+				return (
+					<ArticleContainerAi
+						ref={articleContainerRef}
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							...defaultStyle,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							...transitionStyles[state],
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							...enableTransition[!skipArticleSlideInAnimation ? 'enabled' : 'disabled'],
+						}}
+					>
+						<ArticleContent
+							currentArticle={currentArticle}
+							onHelpArticleLoadingFailTryAgainButtonClick={
+								reloadHelpArticle && handleOnHelpArticleLoadingFailTryAgainButtonClick
+							}
+							onWhatsNewArticleLoadingFailTryAgainButtonClick={
+								reloadWhatsNewArticle && handleOnWhatsNewArticleLoadingFailTryAgainButtonClick
+							}
+						/>
+					</ArticleContainerAi>
+				);
+			}}
+		</Transition>
+	) : (
 		<Transition
 			in={showArticle}
 			timeout={SLIDEIN_OVERLAY_TRANSITION_DURATION_MS}

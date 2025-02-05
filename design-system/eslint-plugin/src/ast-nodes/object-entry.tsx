@@ -2,7 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type Property, type SpreadElement } from 'eslint-codemod-utils';
 
-import { getSourceCode } from '../rules/utils/context-compat';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 export const ObjectEntry = {
 	getProperty(

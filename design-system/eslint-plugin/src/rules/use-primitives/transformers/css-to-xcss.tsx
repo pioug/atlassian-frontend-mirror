@@ -10,8 +10,9 @@ import {
 	type SpreadElement,
 } from 'eslint-codemod-utils';
 
+import { getScope } from '@atlaskit/eslint-utils/context-compat';
+
 import { allSpaceMap, positiveSpaceMap } from '../../../common/token-maps.partial';
-import { getScope } from '../../utils/context-compat';
 import {
 	getAttributeValueIdentifier,
 	getFunctionArgumentAtPos,

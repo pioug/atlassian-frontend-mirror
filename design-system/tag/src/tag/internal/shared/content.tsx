@@ -3,21 +3,10 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import {
-	buttonWidthUnitless,
-	cssVar,
-	defaultTextPadding,
-	maxTextWidth,
-	maxTextWidthUnitless,
-	textMarginLeft,
-	textPaddingRight,
-} from '../../../constants';
 
 import type { SimpleTagProps } from './types';
 
@@ -27,21 +16,17 @@ interface ContentProps extends SimpleTagProps {
 
 // To be removed with platform-component-visual-refresh (BLU-2992)
 const baseStylesOld = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	maxWidth: maxTextWidth,
+	maxWidth: '180px',
 	font: token('font.body'),
 	overflow: 'hidden',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingInlineEnd: defaultTextPadding,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingInlineStart: defaultTextPadding,
+	paddingInlineEnd: token('space.050', '4px'),
+	paddingInlineStart: token('space.050', '4px'),
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
 });
 
 const baseStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	maxWidth: maxTextWidth,
+	maxWidth: '180px',
 	font: token('font.body'),
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
@@ -50,20 +35,17 @@ const baseStyles = css({
 
 // To be removed with platform-component-visual-refresh (BLU-2992)
 const linkStylesOld = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: `var(${cssVar.color.text.link})`,
+	color: 'var(--ds-ctl)',
 	pointerEvents: 'auto',
 	textDecoration: 'none',
 
 	'&:hover': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: `var(${cssVar.color.text.hover})`,
+		color: 'var(--ds-cth)',
 		textDecoration: 'underline',
 	},
 
 	'&:active': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: `var(${cssVar.color.text.active})`,
+		color: 'var(--ds-ctp)',
 		textDecoration: 'underline',
 	},
 
@@ -94,20 +76,18 @@ const linkStyles = css({
 
 const hasAfterStylesOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	maxWidth: `${maxTextWidthUnitless - buttonWidthUnitless}px`,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingInlineEnd: textPaddingRight,
+	maxWidth: '160px',
+	paddingInlineEnd: token('space.200', '16px'),
 });
 
 const hasAfterStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	maxWidth: `${maxTextWidthUnitless - buttonWidthUnitless}px`,
+	maxWidth: '160px',
 });
 
 // To be removed with platform-component-visual-refresh (BLU-2992)
 const hasBeforeStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	marginInlineStart: textMarginLeft,
+	marginInlineStart: token('space.250', '20px'),
 });
 
 const Content = ({
@@ -129,8 +109,8 @@ const Content = ({
 					fg('platform-component-visual-refresh') ? baseStyles : baseStylesOld,
 					fg('platform-component-visual-refresh') ? linkStyles : linkStylesOld,
 					!fg('platform-component-visual-refresh') && elemBefore && hasBeforeStyles,
-					isRemovable && fg('platform-component-visual-refresh') ? hasAfterStyles : undefined,
-					isRemovable && !fg('platform-component-visual-refresh') ? hasAfterStylesOld : undefined,
+					isRemovable && fg('platform-component-visual-refresh') && hasAfterStyles,
+					isRemovable && !fg('platform-component-visual-refresh') && hasAfterStylesOld,
 				]}
 			>
 				{text}
@@ -142,8 +122,8 @@ const Content = ({
 				css={[
 					fg('platform-component-visual-refresh') ? baseStyles : baseStylesOld,
 					!fg('platform-component-visual-refresh') && elemBefore && hasBeforeStyles,
-					isRemovable && fg('platform-component-visual-refresh') ? hasAfterStyles : undefined,
-					isRemovable && !fg('platform-component-visual-refresh') ? hasAfterStylesOld : undefined,
+					isRemovable && fg('platform-component-visual-refresh') && hasAfterStyles,
+					isRemovable && !fg('platform-component-visual-refresh') && hasAfterStylesOld,
 				]}
 			>
 				{text}

@@ -1,18 +1,83 @@
-import React from 'react';
+import React, { type ComponentPropsWithoutRef } from 'react';
 
-import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
-import FileIcon from '@atlaskit/icon-file-type/glyph/generic/16';
-import PresentationIcon from '@atlaskit/icon-file-type/glyph/presentation/16';
-import SpreadsheetIcon from '@atlaskit/icon-file-type/glyph/spreadsheet/16';
+import DocumentIconOld from '@atlaskit/icon-file-type/glyph/document/16';
+import FileIconOld from '@atlaskit/icon-file-type/glyph/generic/16';
+import PresentationIconOld from '@atlaskit/icon-file-type/glyph/presentation/16';
+import SpreadsheetIconOld from '@atlaskit/icon-file-type/glyph/spreadsheet/16';
 import LiveDocumentIcon from '@atlaskit/icon-lab/core/page-live-doc';
-import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
-import DocumentFilledIcon from '@atlaskit/icon/core/migration/page--document-filled';
+import BlogIconOld from '@atlaskit/icon-object/glyph/blog/16';
+import DocumentFilledIconNew from '@atlaskit/icon/core/migration/file--document-filled';
+import DocumentFilledIconOld from '@atlaskit/icon/core/migration/page--document-filled';
 import { isConfluenceGenerator } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import BlogIconNew from '../../../common/ui/icons/blog-icon';
+import PresentationIconNew from '../../../common/ui/icons/chart-bar-icon';
+import FileIconNew from '../../../common/ui/icons/file-icon';
+import SpreadsheetIconNew from '../../../common/ui/icons/list-bullet-icon';
+import DocumentIconNew from '../../../common/ui/icons/page-icon';
 import { getIconForFileType } from '../../../utils';
 
 import { type IconOpts } from './extractIcon';
 import { prioritiseIcon } from './prioritiseIcon';
+
+// TODO Delete this and rename BlogIconNew to BlogIcon when cleaning platform-smart-card-icon-migration
+const BlogIcon = (props: { label: string; testId: string }) => {
+	if (fg('platform-smart-card-icon-migration')) {
+		return <BlogIconNew {...props} />;
+	}
+
+	return <BlogIconOld {...props} />;
+};
+
+// TODO Delete this and rename FileIconNew to FileIcon when cleaning platform-smart-card-icon-migration
+const FileIcon = (props: { label: string; testId: string }) => {
+	if (fg('platform-smart-card-icon-migration')) {
+		return <FileIconNew {...props} />;
+	}
+
+	return <FileIconOld {...props} />;
+};
+
+// TODO Delete this and rename DocumentIconNew to DocumentIcon when cleaning platform-smart-card-icon-migration
+const DocumentIcon = (props: { label: string; testId: string }) => {
+	if (fg('platform-smart-card-icon-migration')) {
+		return <DocumentIconNew {...props} />;
+	}
+
+	return <DocumentIconOld {...props} />;
+};
+
+// TODO Delete this and rename PresentationIconNew to PresentationIcon when cleaning platform-smart-card-icon-migration
+const PresentationIcon = (props: { label: string; testId: string }) => {
+	if (fg('platform-smart-card-icon-migration')) {
+		return <PresentationIconNew {...props} />;
+	}
+
+	return <PresentationIconOld {...props} />;
+};
+
+// TODO Delete this and rename SpreadsheetIconNew to SpreadsheetIcon when cleaning platform-smart-card-icon-migration
+const SpreadsheetIcon = (props: { label: string; testId: string }) => {
+	if (fg('platform-smart-card-icon-migration')) {
+		return <SpreadsheetIconNew {...props} />;
+	}
+
+	return <SpreadsheetIconOld {...props} />;
+};
+
+// TODO Delete this and rename DocumentFilledIconNew to DocumentFilledIcon when cleaning platform-smart-card-icon-migration
+const DocumentFilledIcon = (props: {
+	label: string;
+	testId: string;
+	color?: ComponentPropsWithoutRef<typeof DocumentFilledIconNew>['color'];
+}) => {
+	if (fg('platform-smart-card-icon-migration')) {
+		return <DocumentFilledIconNew {...props} />;
+	}
+
+	return <DocumentFilledIconOld {...props} />;
+};
 
 export type DocumentType =
 	| 'Document'

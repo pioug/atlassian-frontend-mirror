@@ -1,5 +1,26 @@
 # @atlaskit/reactions
 
+## 24.8.0
+
+### Minor Changes
+
+- [#111042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111042)
+  [`6e5ef11d2a9e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e5ef11d2a9e6) -
+  [ux] Refactor Reactions Dialog to have sticky header and change dialog rendering condition for
+  ReactionSummaryView
+
+## 24.7.0
+
+### Minor Changes
+
+- [#110663](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110663)
+  [`ec41000e84d80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec41000e84d80) -
+  [ux] Update styling of Reactions Dialog entrypoint and the Dialog itself
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.6.0
 
 ### Minor Changes

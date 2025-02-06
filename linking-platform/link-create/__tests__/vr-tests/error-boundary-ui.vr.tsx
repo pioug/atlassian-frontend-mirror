@@ -15,4 +15,9 @@ const options: OptionsType = {
 	],
 };
 
-snapshot(DefaultErrorBoundary, options);
+snapshot(DefaultErrorBoundary, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});

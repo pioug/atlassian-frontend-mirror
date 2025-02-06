@@ -267,4 +267,14 @@ export const messages = defineMessages({
 		defaultMessage: 'Back',
 		description: '',
 	},
+	help_search_tab: {
+		id: 'help.search_tab.search',
+		defaultMessage: 'Search',
+		description: 'Search tab text',
+	},
+	help_ai_tab: {
+		id: 'help.search_tab.ai',
+		defaultMessage: 'Ask AI',
+		description: 'Ask AI tab text',
+	},
 });

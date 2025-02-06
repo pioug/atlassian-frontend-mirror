@@ -20,12 +20,20 @@ import BackButton from './BackButton';
 import type { Props as HelpContentButtonProps } from './HelpContentButton';
 import { HelpBodyContainer, HelpBody, Home, HomeAi, HelpBodyAi } from './styled';
 import { HelpFooter } from './styled';
+import { Tabs } from './Tabs';
+import AiChatIcon from '@atlaskit/icon/core/ai-chat';
+import SearchIcon from '@atlaskit/icon/core/search';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { messages } from '../messages';
 
 interface HelpContentInterface {
 	footer?: React.ReactNode;
 }
 
-export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
+export const HelpContent: React.FC<HelpContentInterface & WrappedComponentProps> = ({
+	footer,
+	intl: { formatMessage },
+}) => {
 	// TODO: this will enable all the features and refactors related to AI
 	const { isAiEnabled } = useAiContext();
 	const { homeContent, homeOptions } = useHomeContext();
@@ -66,30 +74,57 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
 		};
 	}, [isOverlayVisible, isAiEnabled]);
 
-	return isAiEnabled ? (
-		<HelpLayout onCloseButtonClick={onClose} isAiEnabled={true}>
-			<HelpBodyContainer>
-				<HelpBodyAi>
-					<BackButton onClick={handleOnBackButtonClick} isVisible={canNavigateBack} />
-					{onSearch && <SearchInput isAiEnabled={true} />}
-					<SearchResults isAiEnabled={true} />
-					<ArticleComponent isAiEnabled={true} />
-					<HomeAi isOverlayFullyVisible={isOverlayFullyVisible} isOverlayVisible={isOverlayVisible}>
-						{homeContent}
-						{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
-							<WhatsNewButton productName={productName} />
-						)}
-						{homeOptions &&
-							homeOptions.map((defaultOption: HelpContentButtonProps) => {
-								return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
-							})}
-					</HomeAi>
-				</HelpBodyAi>
-				<WhatsNewResults />
-				{footer && <HelpFooter data-testid="inside-footer">{footer}</HelpFooter>}
-			</HelpBodyContainer>
+	// Values for tabs
+	const [activeTab, setActiveTab] = useState(0);
+	const handleTabClick = (index: number) => {
+		setActiveTab(index);
+		// add custom event here via props
+	};
+	const tabs = [
+		{
+			label: formatMessage(messages.help_ai_tab),
+			icon: <AiChatIcon label={formatMessage(messages.help_ai_tab)} />,
+		},
+		{
+			label: formatMessage(messages.help_search_tab),
+			icon: <SearchIcon label={formatMessage(messages.help_search_tab)} />,
+		},
+	];
+
+	const HelpLayoutWithAi = (
+		<HelpLayout onCloseButtonClick={onClose} isAiEnabled={isAiEnabled}>
+			<Tabs activeTab={activeTab} onTabClick={handleTabClick} tabs={tabs} />
+
+			{activeTab === 0 && <div>ai agent here</div>}
+			{activeTab === 1 && (
+				<HelpBodyContainer>
+					<HelpBodyAi>
+						<BackButton onClick={handleOnBackButtonClick} isVisible={canNavigateBack} />
+						{onSearch && <SearchInput isAiEnabled={true} />}
+						<SearchResults isAiEnabled={true} />
+						<ArticleComponent isAiEnabled={true} />
+						<HomeAi
+							isOverlayFullyVisible={isOverlayFullyVisible}
+							isOverlayVisible={isOverlayVisible}
+						>
+							{homeContent}
+							{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
+								<WhatsNewButton productName={productName} />
+							)}
+							{homeOptions &&
+								homeOptions.map((defaultOption: HelpContentButtonProps) => {
+									return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
+								})}
+						</HomeAi>
+					</HelpBodyAi>
+					<WhatsNewResults />
+					{footer && <HelpFooter data-testid="inside-footer">{footer}</HelpFooter>}
+				</HelpBodyContainer>
+			)}
 		</HelpLayout>
-	) : (
+	);
+
+	const HelpLayoutWithoutAi = (
 		<HelpLayout
 			onBackButtonClick={handleOnBackButtonClick}
 			onCloseButtonClick={onClose}
@@ -116,6 +151,8 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
 			</HelpBodyContainer>
 		</HelpLayout>
 	);
+
+	return isAiEnabled ? HelpLayoutWithAi : HelpLayoutWithoutAi;
 };
 
-export default HelpContent;
+export default injectIntl(HelpContent);

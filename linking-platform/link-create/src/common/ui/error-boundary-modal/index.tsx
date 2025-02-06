@@ -1,14 +1,12 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
 
 import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX } from '../../constants';
 import { ErrorBoundaryUI } from '../error-boundary-ui';
+
+import { ErrorBoundaryModalOld } from './old';
 
 /**
  * ErrorBoundaryModal props are the same as those passed to LinkCreate, which
@@ -19,7 +17,7 @@ type ErrorBoundaryModalProps = {
 	onClose?: () => void;
 };
 
-export const ErrorBoundaryModal = ({ active, onClose }: ErrorBoundaryModalProps): JSX.Element => {
+const ErrorBoundaryModalNew = ({ active, onClose }: ErrorBoundaryModalProps): JSX.Element => {
 	return (
 		<ModalTransition>
 			{active && (
@@ -36,4 +34,11 @@ export const ErrorBoundaryModal = ({ active, onClose }: ErrorBoundaryModalProps)
 			)}
 		</ModalTransition>
 	);
+};
+
+export const ErrorBoundaryModal = (props: ErrorBoundaryModalProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <ErrorBoundaryModalNew {...props} />;
+	}
+	return <ErrorBoundaryModalOld {...props} />;
 };

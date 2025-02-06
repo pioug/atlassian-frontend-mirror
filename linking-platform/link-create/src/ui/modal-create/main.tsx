@@ -1,16 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { Layering } from '@atlaskit/layering';
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX, DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
 import type { LinkCreateWithModalProps } from '../../common/types';
@@ -33,6 +28,7 @@ import { FormContextProvider } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
 
 import { messages } from './messages';
+import LinkCreateModalOld from './old/main';
 
 const LinkCreateWithModal = ({
 	active,
@@ -47,7 +43,7 @@ const LinkCreateWithModal = ({
 	plugins,
 	entityKey,
 	modalHero,
-}: LinkCreateWithModalProps) => {
+}: LinkCreateWithModalProps): JSX.Element => {
 	const intl = useIntl();
 
 	const { withExitWarning, showExitWarning, setShowExitWarning } = useExitWarningModal();
@@ -107,7 +103,7 @@ const LinkCreateWithModal = ({
 	);
 };
 
-const LinkCreateModal = (props: LinkCreateWithModalProps) => {
+const LinkCreateModalNew = (props: LinkCreateWithModalProps) => {
 	const shouldCallCloseComplete = useRef(!props.active);
 
 	// modal calls onCloseComplete in a useEffect(), so we can track whether
@@ -161,6 +157,13 @@ const LinkCreateModal = (props: LinkCreateWithModalProps) => {
 			)}
 		</LinkCreatePluginsProvider>
 	);
+};
+
+const LinkCreateModal = (props: LinkCreateWithModalProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <LinkCreateModalNew {...props} />;
+	}
+	return <LinkCreateModalOld {...props} />;
 };
 
 export default LinkCreateModal;

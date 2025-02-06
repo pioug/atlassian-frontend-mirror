@@ -3,23 +3,24 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { Field } from 'react-final-form';
 
 import { Label, RequiredAsterisk } from '@atlaskit/form';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { Message } from '../../common/ui/message';
 import { shouldShowValidationErrors } from '../../common/utils/form';
 
+import { CreateFieldOld } from './old/main';
 import { type CreateFieldProps } from './types';
 
 const fieldWrapperStyles = css({
 	marginTop: token('space.100', '8px'),
 });
 
-export function CreateField({
+const CreateFieldNew = ({
 	id,
 	name,
 	label,
@@ -28,7 +29,7 @@ export function CreateField({
 	validationHelpText,
 	testId,
 	children,
-}: CreateFieldProps) {
+}: CreateFieldProps): JSX.Element => {
 	const fieldId = id ? id : `link-create-field-${name}`;
 
 	return (
@@ -87,4 +88,11 @@ export function CreateField({
 			}}
 		</Field>
 	);
-}
+};
+
+export const CreateField = (props: CreateFieldProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <CreateFieldNew {...props} />;
+	}
+	return <CreateFieldOld {...props} />;
+};

@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { MockDisclaimer } from '../example-helpers/mock-disclaimer';

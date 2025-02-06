@@ -15,8 +15,16 @@ const options: OptionsType = {
 	],
 };
 
-snapshot(DefaultTextField, options);
+snapshot(DefaultTextField, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
 snapshot(TextFieldWithMultiProps, {
 	...options,
-	featureFlags: { 'linking-platform-create-field-error-association': [true, false] },
+	featureFlags: {
+		'linking-platform-create-field-error-association': [true, false],
+		'platform_bandicoots-link-create-css': [true, false],
+	},
 });

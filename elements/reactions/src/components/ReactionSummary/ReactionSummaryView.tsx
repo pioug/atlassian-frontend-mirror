@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
-import { Inline, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Button from '@atlaskit/button/new';
 
 import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
@@ -18,6 +18,10 @@ const summaryPopupStyles = xcss({
 	padding: 'space.100',
 	paddingTop: 'space.050',
 	maxWidth: '325px',
+});
+
+const viewAllButtonStyling = xcss({
+	marginTop: 'space.050',
 });
 
 /**
@@ -91,6 +95,7 @@ export const ReactionSummaryView = ({
 					testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}
 					space="space.025"
 					shouldWrap
+					alignBlock="center"
 				>
 					{reactions.map((reaction) => (
 						<Reaction
@@ -105,14 +110,17 @@ export const ReactionSummaryView = ({
 						/>
 					))}
 					{allowUserDialog && (
-						<Button
-							appearance="subtle"
-							onClick={() => handleOpenReactionsDialog?.(reactions[0].emojiId)}
-						>
-							<Text color="color.text.subtlest" weight="medium">
-								<FormattedMessage {...messages.seeWhoReacted} />
-							</Text>
-						</Button>
+						<Box xcss={viewAllButtonStyling}>
+							<Button
+								appearance="subtle"
+								onClick={() => handleOpenReactionsDialog?.(reactions[0].emojiId)}
+								spacing="compact"
+							>
+								<Text color="color.text.subtlest" weight="medium">
+									<FormattedMessage {...messages.seeWhoReacted} />
+								</Text>
+							</Button>
+						</Box>
 					)}
 				</Inline>
 			)}

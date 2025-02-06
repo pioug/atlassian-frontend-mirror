@@ -4,20 +4,17 @@
  */
 import { type ReactNode, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { FORM_ERROR, type MutableState, type Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
 import { RequiredAsterisk } from '@atlaskit/form';
-import { Box, Text } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import {
-	CREATE_FORM_MAX_WIDTH_IN_PX,
-	LINK_CREATE_FORM_POST_CREATE_FIELD,
-} from '../../common/constants';
+import { LINK_CREATE_FORM_POST_CREATE_FIELD } from '../../common/constants';
 import messages from '../../common/messages';
 import { useLinkCreateCallback } from '../../controllers/callback-context';
 import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
@@ -25,12 +22,18 @@ import { useFormContext } from '../../controllers/form-context';
 
 import { CreateFormFooter } from './form-footer';
 import { CreateFormLoader } from './form-loader';
+import { CreateFormOld } from './old/main';
 
 const formStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	maxWidth: `${CREATE_FORM_MAX_WIDTH_IN_PX}px`,
-	padding: `0 0 ${token('space.300', '24px')} 0`,
-	margin: `${token('space.0', '0px')} auto`,
+	maxWidth: `480px`,
+	paddingTop: 0,
+	paddingRight: 0,
+	paddingBottom: token('space.300', '24px'),
+	paddingLeft: 0,
+	marginTop: token('space.0', '0px'),
+	marginRight: 'auto',
+	marginBottom: token('space.0', '0px'),
+	marginLeft: 'auto',
 });
 
 type ReservedFields = {
@@ -88,7 +91,7 @@ export interface CreateFormProps<FormData> {
 
 export const TEST_ID = 'link-create-form';
 
-export const CreateForm = <FormData extends Record<string, any> = {}>({
+const CreateFormNew = <FormData extends Record<string, any> = {}>({
 	children,
 	testId = TEST_ID,
 	onSubmit,
@@ -217,4 +220,13 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 			}}
 		</Form>
 	);
+};
+
+export const CreateForm = <FormData extends Record<string, any> = {}>(
+	props: CreateFormProps<FormData>,
+) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <CreateFormNew {...props} />;
+	}
+	return <CreateFormOld {...props} />;
 };

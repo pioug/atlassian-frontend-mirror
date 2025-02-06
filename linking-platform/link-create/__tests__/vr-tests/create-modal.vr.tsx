@@ -21,7 +21,27 @@ const options: OptionsType = {
 	],
 };
 
-snapshot(DefaultCreateWithModal, options);
-snapshot(DefaultCreateWithModalTitle, options);
-snapshot(DefaultCreateWithEditButton, options);
-snapshot(DefaultCreateWithModalHero, options);
+snapshot(DefaultCreateWithModal, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(DefaultCreateWithModalTitle, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(DefaultCreateWithEditButton, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(DefaultCreateWithModalHero, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});

@@ -11,8 +11,8 @@ import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { Box } from '@atlaskit/primitives';
 
 import { getDefaultPresetOptionsFromEditorProps } from '../src/create-editor/create-plugins-list';
-import { createFeatureFlagsFromProps } from '../src/create-editor/feature-flags-from-props';
 import { type EditorNextProps } from '../src/types/editor-props';
+import { createFeatureFlagsFromProps } from '../src/utils/feature-flags-from-props';
 
 type Complete<T> = {
 	[P in keyof Required<T>]: undefined;

@@ -186,6 +186,7 @@ export class DocumentService implements DocumentServiceInterface {
 			const latency = new Date().getTime() - start;
 			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.SUCCESS, {
 				latency,
+				version: this.getCurrentPmVersion(),
 			});
 		} catch (error) {
 			const latency = new Date().getTime() - start;

@@ -4,9 +4,10 @@
  */
 import { type MouseEvent } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
@@ -16,13 +17,13 @@ import { type FrameStyle } from '../types';
 import { ExpandedFrameOld } from './ExpandedFrameOld';
 import {
 	className,
-	Content,
-	Header,
-	IconWrapper,
-	LinkWrapper,
-	TextWrapper,
-	TooltipWrapper,
-	Wrapper,
+	ContentOldVisualRefresh,
+	HeaderOldVisualRefresh,
+	IconWrapperOldVisualRefresh,
+	LinkWrapperOldVisualRefresh,
+	TextWrapperOldVisualRefresh,
+	TooltipWrapperOldVisualRefresh,
+	WrapperOldVisualRefresh,
 } from './styled';
 
 export interface ExpandedFrameProps {
@@ -84,28 +85,80 @@ const ExpandedFrameNew = ({
 	const handleMouseDown = useMouseDownEvent();
 
 	const renderHeader = () => {
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return (
+				frameStyle !== 'hide' && (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					<div className="embed-header" css={styles.header}>
+						<div css={styles.headerIcon}>{icon}</div>
+						<div css={styles.tooltipWrapper}>
+							{!isPlaceholder && (
+								<Tooltip content={text} hideTooltipOnMouseDown>
+									<a
+										css={styles.headerAnchor}
+										href={href}
+										onClick={handleClick}
+										onMouseDown={handleMouseDown}
+									>
+										{text}
+									</a>
+								</Tooltip>
+							)}
+						</div>
+					</div>
+				)
+			);
+		}
+
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<Header className="embed-header" frameStyle={frameStyle}>
-				<IconWrapper isPlaceholder={isPlaceholder}>{!isPlaceholder && icon}</IconWrapper>
-				<TooltipWrapper>
+			<HeaderOldVisualRefresh className="embed-header" frameStyle={frameStyle}>
+				<IconWrapperOldVisualRefresh isPlaceholder={isPlaceholder}>
+					{!isPlaceholder && icon}
+				</IconWrapperOldVisualRefresh>
+				<TooltipWrapperOldVisualRefresh>
 					<Tooltip content={text} hideTooltipOnMouseDown>
-						<TextWrapper isPlaceholder={isPlaceholder}>
+						<TextWrapperOldVisualRefresh isPlaceholder={isPlaceholder}>
 							{!isPlaceholder && (
 								<a href={href} onClick={handleClick} onMouseDown={handleMouseDown}>
 									{text}
 								</a>
 							)}
-						</TextWrapper>
+						</TextWrapperOldVisualRefresh>
 					</Tooltip>
-				</TooltipWrapper>
-			</Header>
+				</TooltipWrapperOldVisualRefresh>
+			</HeaderOldVisualRefresh>
 		);
 	};
 
+	const interactive = isInteractive();
+	const showBackgroundAlways = frameStyle === 'show' || (isSelected && frameStyle !== 'hide');
+	const showBackgroundOnHover = interactive && frameStyle !== 'hide';
+
 	const renderContent = () => {
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return (
+				<div
+					data-testid="embed-content-wrapper"
+					css={[
+						styles.contentStyle,
+						setOverflow && allowScrollBar && styles.contentOverflowAuto,
+						interactive &&
+							!showBackgroundAlways &&
+							!showBackgroundOnHover &&
+							styles.contentInteractiveActiveBorder,
+					]}
+					// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
+					// See: HOT-107830
+					contentEditable={false}
+				>
+					{children}
+				</div>
+			);
+		}
+
 		return (
-			<Content
+			<ContentOldVisualRefresh
 				data-testid="embed-content-wrapper"
 				allowScrollBar={allowScrollBar}
 				removeOverflow={!setOverflow}
@@ -117,12 +170,44 @@ const ExpandedFrameNew = ({
 				suppressContentEditableWarning={true}
 			>
 				{children}
-			</Content>
+			</ContentOldVisualRefresh>
 		);
 	};
+
+	if (fg('platform-linking-visual-refresh-v1')) {
+		return (
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={className}
+				style={{
+					minWidth: minWidth ? `${minWidth}px` : '',
+					maxWidth: maxWidth ? `${maxWidth}px` : '',
+				}}
+				css={[
+					styles.linkWrapper,
+					inheritDimensions && styles.linkWrapperInheritDimensions,
+					isSelected && frameStyle !== 'hide' && styles.linkWrapperSelected,
+					showBackgroundAlways && styles.linkWrapperBorderAndBackground,
+					showBackgroundOnHover && !showBackgroundAlways && styles.linkWrapperInteractiveNotHidden,
+				]}
+				data-testid={testId}
+				data-trello-do-not-use-override={testId}
+				// Due to limitations of testing library, we can't assert ::after
+				data-is-selected={isSelected}
+				{...((isPlaceholder || !href) && {
+					'data-wrapper-type': 'default',
+					'data-is-interactive': isInteractive(),
+				})}
+			>
+				{renderHeader()}
+				{renderContent()}
+			</div>
+		);
+	}
+
 	if (!isPlaceholder && href) {
 		return (
-			<LinkWrapper
+			<LinkWrapperOldVisualRefresh
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				isInteractive={isInteractive()}
@@ -138,11 +223,11 @@ const ExpandedFrameNew = ({
 			>
 				{renderHeader()}
 				{renderContent()}
-			</LinkWrapper>
+			</LinkWrapperOldVisualRefresh>
 		);
 	} else {
 		return (
-			<Wrapper
+			<WrapperOldVisualRefresh
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				isInteractive={isInteractive()}
@@ -158,7 +243,7 @@ const ExpandedFrameNew = ({
 			>
 				{renderHeader()}
 				{renderContent()}
-			</Wrapper>
+			</WrapperOldVisualRefresh>
 		);
 	}
 };
@@ -170,3 +255,103 @@ export const ExpandedFrame = (props: ExpandedFrameProps) => {
 		return <ExpandedFrameOld {...props} />;
 	}
 };
+
+const styles = cssMap({
+	linkWrapper: {
+		position: 'relative',
+		display: 'flex',
+		flexDirection: 'column',
+		gap: token('space.100'),
+		height: '432px',
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
+		userSelect: 'none',
+		'&::after': {
+			content: '',
+			position: 'absolute',
+			top: '0',
+			right: '0',
+			bottom: '0',
+			left: '0',
+			transition: `background 0.3s, box-shadow 0.3s`,
+			backgroundColor: 'transparent',
+			borderRadius: '12px',
+			zIndex: 0,
+			flexGrow: 0,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.embed-header': {
+			opacity: 0,
+		},
+	},
+	linkWrapperInheritDimensions: {
+		height: '100%',
+	},
+	linkWrapperSelected: {
+		'&::after': {
+			boxShadow: `0 0 0 3px ${token('color.border.selected')}`,
+		},
+	},
+	linkWrapperBorderAndBackground: {
+		'&::after': {
+			backgroundColor: token('elevation.surface.raised'),
+			outline: `1px solid ${token('color.border')}`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.embed-header': {
+			opacity: 1,
+		},
+	},
+	linkWrapperInteractiveNotHidden: {
+		'&:hover': {
+			'&::after': {
+				backgroundColor: token('elevation.surface.raised'),
+				outline: `1px solid ${token('color.border')}`,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.embed-header': {
+				opacity: 1,
+			},
+		},
+	},
+	header: {
+		display: 'flex',
+		alignItems: 'center',
+		height: '20px',
+		gap: token('space.050'),
+		zIndex: 1,
+	},
+	tooltipWrapper: {
+		overflow: 'hidden',
+	},
+	headerAnchor: {
+		font: token('font.heading.xsmall'),
+		'&:hover': {
+			textDecoration: 'none',
+		},
+	},
+	headerIcon: {
+		width: '16px',
+		height: '16px',
+	},
+	contentStyle: {
+		border: `solid 1px ${token('color.border')}`,
+		borderRadius: '4px',
+		backgroundColor: token('elevation.surface.raised'),
+		flexGrow: 1,
+		overflow: 'hidden',
+		height: '100%',
+		transition: 'outline 0.3s',
+		zIndex: 1,
+	},
+	contentInteractiveActiveBorder: {
+		'&:active': {
+			outline: `8px solid ${token('color.background.selected')}`,
+		},
+	},
+	contentOverflowAuto: {
+		overflow: 'auto',
+	},
+});

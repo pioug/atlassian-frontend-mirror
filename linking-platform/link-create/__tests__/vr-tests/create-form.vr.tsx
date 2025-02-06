@@ -21,8 +21,33 @@ const options: OptionsType = {
 	],
 };
 
-snapshot(DefaultCreateForm, options);
-snapshot(CreateFormIsLoading, options);
-snapshot(CreateFormHideFooter, options);
-snapshot(CreateFormWithTextField, options);
-snapshot(CreateFormWithAsyncSelect, options);
+snapshot(DefaultCreateForm, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(CreateFormIsLoading, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(CreateFormHideFooter, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(CreateFormWithTextField, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(CreateFormWithAsyncSelect, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});

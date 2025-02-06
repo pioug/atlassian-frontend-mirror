@@ -2,16 +2,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { cssMap, cx } from '@atlaskit/css';
 import SuccessIcon from '@atlaskit/icon/utility/check-circle';
 import ErrorIcon from '@atlaskit/icon/utility/error';
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import { MessageOld } from './old';
+
+const styles = cssMap({
+	message: {
+		display: 'flex',
+		justifyContent: 'baseline',
+		gap: token('space.050'),
+		font: token('font.body.UNSAFE_small'),
+		marginBlockStart: token('space.050'),
+	},
+});
 
 type MessageAppearance = 'default' | 'error' | 'valid';
 
@@ -22,25 +34,17 @@ type MessageProps = {
 	children: ReactNode;
 };
 
-const messageStyles = xcss({
-	display: 'flex',
-	justifyContent: 'baseline',
-	gap: 'space.050',
-	font: token('font.body.UNSAFE_small'),
-	marginBlockStart: 'space.050',
+const messageAppearanceStyles = cssMap({
+	default: {
+		color: token('color.text.subtlest'),
+	},
+	error: {
+		color: token('color.text.danger'),
+	},
+	valid: {
+		color: token('color.text.success'),
+	},
 });
-
-const messageAppearanceStyles = {
-	default: xcss({
-		color: 'color.text.subtlest',
-	}),
-	error: xcss({
-		color: 'color.text.danger',
-	}),
-	valid: xcss({
-		color: 'color.text.success',
-	}),
-};
 
 const iconWrapperStyles = css({
 	display: 'flex',
@@ -58,7 +62,7 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 	valid: <SuccessIcon color={token('color.text.success', '#216E4E')} label="success" />,
 };
 
-export const Message = ({ children, appearance = 'default', id, testId }: MessageProps) => {
+const MessageNew = ({ children, appearance = 'default', id, testId }: MessageProps) => {
 	const icon = messageIcons[appearance];
 
 	/**
@@ -72,9 +76,16 @@ export const Message = ({ children, appearance = 'default', id, testId }: Messag
 	const content = typeof children === 'string' ? children : <span>{children}</span>;
 
 	return (
-		<Box xcss={[messageStyles, messageAppearanceStyles[appearance]]} testId={testId} id={id}>
+		<Box xcss={cx(styles.message, messageAppearanceStyles[appearance])} testId={testId} id={id}>
 			{icon && <IconWrapper>{icon}</IconWrapper>}
 			{content}
 		</Box>
 	);
+};
+
+export const Message = (props: MessageProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <MessageNew {...props} />;
+	}
+	return <MessageOld {...props} />;
 };

@@ -20,6 +20,8 @@ const intl = createIntl(
 	cache,
 );
 const messageBack = intl.formatMessage(messages.help_navigation_back);
+const searchTab = intl.formatMessage(messages.help_search_tab);
+const aiTab = intl.formatMessage(messages.help_ai_tab);
 
 // Mock props
 const MockNavigationDataSetter = jest.fn().mockImplementation((id) => id);
@@ -65,7 +67,7 @@ const mockOnBackButtonClick = jest.fn();
 
 const defaultContentText = 'Default content';
 
-describe('Help', () => {
+describe('Help without AI', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -281,136 +283,147 @@ describe('Help', () => {
 
 		jest.clearAllTimers();
 	});
+});
 
-	describe('Help with AI', () => {
-		const mockFooter = <div>Mock Footer</div>;
+describe('Help with AI', () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
-		const defaultProps = {
-			header: {
-				onCloseButtonClick: mockOnCloseButtonClick,
-				onBackButtonClick: mockOnBackButtonClick,
-			},
-			navigation: {
-				navigationData: {
-					articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
-					history: [],
-				},
-				setNavigationData: MockNavigationDataSetter,
-			},
-			helpArticle: {
-				onGetHelpArticle: mockOnGetHelpArticle,
-				onHelpArticleLoadingFailTryAgainButtonClick:
-					mockOnHelpArticleLoadingFailTryAgainButtonClick,
-				onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
-				onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
-			},
-			relatedArticles: {
-				onGetRelatedArticles: mockOnGetRelatedArticles,
-				onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
-			},
-			search: {
-				onSearch: mockOnSearch,
-				onSearchInputChanged: mockOnSearchInputChanged,
-				onSearchInputCleared: mockOnSearchInputCleared,
-				onSearchResultItemClick: mockOnSearchResultItemClick,
-				searchExternalUrl: mockSearchExternalUrl,
-				onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
-			},
-			ai: {
-				isAiEnabled: true,
-			},
-			footer: mockFooter,
-		};
+	const mockFooter = <div>Mock Footer</div>;
 
-		it('Should render footer within HelpContent', () => {
-			const { queryByTestId, getByTestId } = render(
-				<IntlProvider locale="en">
-					<Help {...defaultProps}>
-						<div>{defaultContentText}</div>
-					</Help>
-				</IntlProvider>,
-			);
-			expect(getByTestId('inside-footer')).toBeInTheDocument();
-			expect(queryByTestId('footer')).toBeNull();
+	const defaultProps = {
+		header: {
+			onCloseButtonClick: mockOnCloseButtonClick,
+			onBackButtonClick: mockOnBackButtonClick,
+		},
+		navigation: {
+			navigationData: {
+				articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+				history: [],
+			},
+			setNavigationData: MockNavigationDataSetter,
+		},
+		helpArticle: {
+			onGetHelpArticle: mockOnGetHelpArticle,
+			onHelpArticleLoadingFailTryAgainButtonClick: mockOnHelpArticleLoadingFailTryAgainButtonClick,
+			onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
+			onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
+		},
+		relatedArticles: {
+			onGetRelatedArticles: mockOnGetRelatedArticles,
+			onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
+		},
+		search: {
+			onSearch: mockOnSearch,
+			onSearchInputChanged: mockOnSearchInputChanged,
+			onSearchInputCleared: mockOnSearchInputCleared,
+			onSearchResultItemClick: mockOnSearchResultItemClick,
+			searchExternalUrl: mockSearchExternalUrl,
+			onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
+		},
+		ai: {
+			isAiEnabled: true,
+		},
+		footer: mockFooter,
+	};
+
+	const defaultComponent = (
+		<IntlProvider locale="en">
+			<Help {...defaultProps}>
+				<div>{defaultContentText}</div>
+			</Help>
+		</IntlProvider>
+	);
+
+	it('Should render footer within HelpContent', () => {
+		const { queryByTestId, getByTestId, getByText, rerender } = render(defaultComponent);
+
+		getByText(searchTab).click();
+		rerender(defaultComponent);
+
+		expect(getByTestId('inside-footer')).toBeInTheDocument();
+		expect(queryByTestId('footer')).toBeNull();
+	});
+
+	it('should show search input when search results are visible and not show the back button', async () => {
+		jest.useFakeTimers();
+		const { getByPlaceholderText, queryByText, getByText, rerender } = render(defaultComponent);
+
+		getByText(searchTab).click();
+		rerender(defaultComponent);
+
+		const searchInput = getByPlaceholderText('Search help articles')!.closest('input');
+		expect(searchInput).toBeInTheDocument();
+		expect(queryByText(messageBack)).not.toBeInTheDocument();
+		if (searchInput) {
+			fireEvent.change(searchInput, { target: { value: 'test' } });
+		}
+
+		act(() => {
+			jest.advanceTimersByTime(100);
 		});
 
-		it('should show search input when search results are visible and not show the back button', async () => {
-			jest.useFakeTimers();
-			const { getByPlaceholderText, queryByText } = render(
-				<IntlProvider locale="en">
-					<Help {...defaultProps}>
-						<div>{defaultContentText}</div>
-					</Help>
-				</IntlProvider>,
-			);
+		expect(searchInput).toBeInTheDocument();
+		expect(queryByText(messageBack)).not.toBeInTheDocument();
+		jest.clearAllTimers();
+	});
 
-			const searchInput = getByPlaceholderText('Search help articles')!.closest('input');
-			expect(searchInput).toBeInTheDocument();
-			expect(queryByText(messageBack)).not.toBeInTheDocument();
-			if (searchInput) {
-				fireEvent.change(searchInput, { target: { value: 'test' } });
-			}
+	it('should hide search input and show back button when article is open', () => {
+		jest.useFakeTimers();
+		const { getByPlaceholderText, queryByPlaceholderText, getByText, rerender, queryByText } =
+			render(defaultComponent);
 
-			act(() => {
-				jest.advanceTimersByTime(100);
-			});
+		getByText(searchTab).click();
+		rerender(defaultComponent);
 
-			expect(searchInput).toBeInTheDocument();
-			expect(queryByText(messageBack)).not.toBeInTheDocument();
-			jest.clearAllTimers();
+		const searchInput = getByPlaceholderText('Search help articles');
+		expect(searchInput).toBeInTheDocument();
+		expect(queryByText(messageBack)).not.toBeInTheDocument();
+		rerender(
+			<IntlProvider locale="en">
+				<Help
+					{...defaultProps}
+					navigation={{
+						navigationData: {
+							articleId: { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE },
+							history: [],
+						},
+						setNavigationData: MockNavigationDataSetter,
+					}}
+				>
+					<div>{defaultContentText}</div>
+				</Help>
+			</IntlProvider>,
+		);
+
+		act(() => {
+			jest.advanceTimersByTime(200);
 		});
 
-		it('should hide search input and show back button when article is open', () => {
-			jest.useFakeTimers();
-			const { getByPlaceholderText, queryByPlaceholderText, getByText, rerender, queryByText } =
-				render(
-					<IntlProvider locale="en">
-						<Help {...defaultProps}>
-							<div>{defaultContentText}</div>
-						</Help>
-					</IntlProvider>,
-				);
-			const searchInput = getByPlaceholderText('Search help articles');
-			expect(searchInput).toBeInTheDocument();
-			expect(queryByText(messageBack)).not.toBeInTheDocument();
-			rerender(
-				<IntlProvider locale="en">
-					<Help
-						{...defaultProps}
-						navigation={{
-							navigationData: {
-								articleId: { id: '1', type: ARTICLE_TYPE.HELP_ARTICLE },
-								history: [],
-							},
-							setNavigationData: MockNavigationDataSetter,
-						}}
-					>
-						<div>{defaultContentText}</div>
-					</Help>
-				</IntlProvider>,
-			);
+		expect(queryByPlaceholderText('Search help articles')).not.toBeInTheDocument();
+		expect(getByText(messageBack)).toBeInTheDocument();
 
-			act(() => {
-				jest.advanceTimersByTime(200);
-			});
+		jest.clearAllTimers();
+	});
 
-			expect(queryByPlaceholderText('Search help articles')).not.toBeInTheDocument();
-			expect(getByText(messageBack)).toBeInTheDocument();
+	it('should not show back button on home view and show search input', () => {
+		const { queryByText, getByPlaceholderText, getByText, rerender } = render(defaultComponent);
 
-			jest.clearAllTimers();
-		});
+		getByText(searchTab).click();
+		rerender(defaultComponent);
 
-		it('should not show back button on home view and show search input', () => {
-			const { queryByText, getByPlaceholderText } = render(
-				<IntlProvider locale="en">
-					<Help {...defaultProps}>
-						<div>{defaultContentText}</div>
-					</Help>
-				</IntlProvider>,
-			);
-			expect(queryByText(messageBack)).not.toBeInTheDocument();
-			const searchInput = getByPlaceholderText('Search help articles');
-			expect(searchInput).toBeInTheDocument();
-		});
+		expect(queryByText(messageBack)).not.toBeInTheDocument();
+		const searchInput = getByPlaceholderText('Search help articles');
+		expect(searchInput).toBeInTheDocument();
+	});
+
+	it('should not show search components when AI tab is clicked', () => {
+		const { getByText, queryByTestId, rerender } = render(defaultComponent);
+
+		getByText(aiTab).click();
+		rerender(defaultComponent);
+
+		expect(queryByTestId('inside-footer')).toBeNull();
 	});
 });

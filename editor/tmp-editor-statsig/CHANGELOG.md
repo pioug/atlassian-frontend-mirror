@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.42.1
+
+### Patch Changes
+
+- [#111057](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111057)
+  [`a87f76f559c65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a87f76f559c65) -
+  EDF-2382 Cleaned up platform_editor_ai_change_tone_floating_toolbar, defaulted to control
+  behaviour.
+
 ## 2.42.0
 
 ### Minor Changes

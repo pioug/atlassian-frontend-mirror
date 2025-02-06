@@ -20,10 +20,10 @@ import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import EditorActions from '../actions';
-import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import { type WithAppearanceComponent } from '../types/with-appearance-component';
 import { useEditorContext } from '../ui/EditorContext';
+import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import measurements from '../utils/performance/measure-enum';
 import { name, version } from '../version-wrapper';
 

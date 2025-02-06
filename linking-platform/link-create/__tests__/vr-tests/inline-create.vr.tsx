@@ -18,5 +18,15 @@ const options: OptionsType = {
 	],
 };
 
-snapshot(DefaultInlineCreate, options);
-snapshot(DefaultInlineCreateWithEditButton, options);
+snapshot(DefaultInlineCreate, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});
+snapshot(DefaultInlineCreateWithEditButton, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});

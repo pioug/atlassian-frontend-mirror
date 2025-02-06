@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.6.0",
+		"@atlaskit/icon": "^23.7.0",
 		"@atlaskit/menu": "^2.14.0",
 		"@atlaskit/motion": "^1.10.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",

@@ -1,423 +1,287 @@
 import { type IconMetadata } from '@af/icon-build-process';
 const metadata: IconMetadata = {
-  "assets-data-manager": {
-    "keywords": [
-      "data manager",
-      "assets",
-      "CMDB",
-      "configuration management database"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Assets",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for JSM Assets."
-  },
-  "assets-schema": {
-    "keywords": [
-      "assets",
-      "CMDB",
-      "configuration management database"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Assets",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for JSM Assets."
-  },
-  "cloud-offline": {
-    "keywords": [
-      "cloud",
-      "offline",
-      "disconnected",
-      "strikethrough"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Content Types",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for showing when a connection can't be established to the cloud."
-  },
-  "cloud-saved": {
-    "keywords": [
-      "cloud",
-      "check mark",
-      "saved",
-      "success"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Content Types",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for showing saved status after successful cloud synchronisation."
-  },
-  "duplicate": {
-    "keywords": [
-      "clone",
-      "duplicate",
-      "plus"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for cloning and duplicating objects.",
-    "slackChannel": "#icon-contributions"
-  },
-  "editions": {
-    "keywords": [
-      "gem",
-      "premium",
-      "diamond",
-      "precious stone",
-      "editions"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon."
-  },
-  "initiative": {
-    "keywords": [
-      "fortune teller",
-      "crystal ball",
-      "future",
-      "issue type",
-      "system object",
-      "work collection"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Jira Enterprise",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Representing Jira Initiatives"
-  },
-  "lozenge": {
-    "keywords": [
-      "insert",
-      "status",
-      "badge"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Editor",
-    "type": "core",
-    "status": "published",
-    "usage": "Reserved for inserting status lozenges in Editor."
-  },
-  "page-live-doc": {
-    "keywords": [
-      "page",
-      "live edit",
-      "lightning bolt",
-      "multiplayer",
-      "document",
-      "live doc"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Content Types",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for Live Document content type."
-  },
-  "qr-code": {
-    "keywords": [
-      "QR code",
-      "barcode"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Assets",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for QR code experiences."
-  },
-  "roadmaps-plan": {
-    "keywords": [
-      "roadmaps",
-      "roadmap",
-      "plan"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Reserved for roadmaps plan."
-  },
-  "roadmaps-service": {
-    "keywords": [
-      "roadmaps",
-      "service",
-      "roadmap"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Reserved for roadmaps service."
-  },
-  "sync": {
-    "keywords": [
-      "sync",
-      "synch",
-      "synchronise",
-      "synchronize",
-      "saving",
-      "arrows"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Content Types",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Reserved for syncing changes and save operations."
-  },
-  "vulnerability": {
-    "keywords": [
-      "vulnerability",
-      "security",
-      "alert",
-      "warning"
-    ],
-    "categorization": "single-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Automation",
-    "type": "core",
-    "status": "published",
-    "usage": "Reserved for security vulnerabilities."
-  },
-  "book-open": {
-    "keywords": [
-      "book",
-      "knowledgebase article"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Known uses: None"
-  },
-  "coins": {
-    "keywords": [
-      "money",
-      "loose change",
-      "currency"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "cross-octagon": {
-    "keywords": [
-      "cross",
-      "stop",
-      "block",
-      "octagon"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "database-storage": {
-    "keywords": [
-      "database",
-      "db",
-      "storage",
-      "sql"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Ecosystem",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Known uses: SQL database in Developer Console",
-    "slackChannel": "#forge-sql"
-  },
-  "database-storage-cache": {
-    "keywords": [
-      "database",
-      "db",
-      "storage",
-      "sql",
-      "cache"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Ecosystem",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Known uses: Storage cache in Developer Console.",
-    "slackChannel": "#forge-sql"
-  },
-  "field-text": {
-    "keywords": [
-      "form",
-      "input",
-      "label",
-      "cursor",
-      "text field"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "paint-brush": {
-    "keywords": [
-      "brush",
-      "appearance",
-      "paint"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "paint-roller": {
-    "keywords": [
-      "roller",
-      "background",
-      "paint"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "speedometer": {
-    "keywords": [
-      "speed",
-      "performance",
-      "dial"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "sunset": {
-    "keywords": [
-      "sun",
-      "horizon",
-      "farewell",
-      "goodbye",
-      "sky",
-      "farewell feed"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "confluence insights",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Farewell feed in hello."
-  },
-  "takeout-container": {
-    "keywords": [
-      "takeout",
-      "food",
-      "takeaway"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Known usages: Alternative option for food emoji category."
-  },
-  "ticket": {
-    "keywords": [
-      "stub",
-      "ticket"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "vehicle-train": {
-    "keywords": [
-      "transportation",
-      "vehicle",
-      "car"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Known usages: Alternative option for transport emoji category."
-  },
-  "wallet": {
-    "keywords": [
-      "money",
-      "sales",
-      "payment",
-      "wallet"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  },
-  "welcome-feed": {
-    "keywords": [
-      "welcome",
-      "hello",
-      "blog",
-      "smile",
-      "intro"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Insights",
-    "type": "core",
-    "status": "ready-to-publish",
-    "usage": "Known uses: Intro blog feed picker on Hello",
-    "slackChannel": "#cc-insights-and-reporting"
-  },
-  "wrench": {
-    "keywords": [
-      "wrench",
-      "spanner",
-      "tool"
-    ],
-    "categorization": "multi-purpose",
-    "location": "@atlaskit/icon-lab",
-    "team": "Design System Team",
-    "type": "core",
-    "status": "published",
-    "usage": "Multi purpose"
-  }
+	'assets-data-manager': {
+		keywords: ['data manager', 'assets', 'CMDB', 'configuration management database'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Assets',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for JSM Assets.',
+	},
+	'assets-schema': {
+		keywords: ['assets', 'CMDB', 'configuration management database'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Assets',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for JSM Assets.',
+	},
+	'cloud-offline': {
+		keywords: ['cloud', 'offline', 'disconnected', 'strikethrough'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Content Types',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: "Reserved for showing when a connection can't be established to the cloud.",
+	},
+	'cloud-saved': {
+		keywords: ['cloud', 'check mark', 'saved', 'success'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Content Types',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for showing saved status after successful cloud synchronisation.',
+	},
+	duplicate: {
+		keywords: ['clone', 'duplicate', 'plus'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for cloning and duplicating objects.',
+		slackChannel: '#icon-contributions',
+	},
+	editions: {
+		keywords: ['gem', 'premium', 'diamond', 'precious stone', 'editions'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage:
+			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
+	},
+	initiative: {
+		keywords: [
+			'fortune teller',
+			'crystal ball',
+			'future',
+			'issue type',
+			'system object',
+			'work collection',
+		],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Jira Enterprise',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Representing Jira Initiatives',
+	},
+	lozenge: {
+		keywords: ['insert', 'status', 'badge'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Editor',
+		type: 'core',
+		status: 'published',
+		usage: 'Reserved for inserting status lozenges in Editor.',
+	},
+	'page-live-doc': {
+		keywords: ['page', 'live edit', 'lightning bolt', 'multiplayer', 'document', 'live doc'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Content Types',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for Live Document content type.',
+	},
+	'qr-code': {
+		keywords: ['QR code', 'barcode'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Assets',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for QR code experiences.',
+	},
+	'roadmaps-plan': {
+		keywords: ['roadmaps', 'roadmap', 'plan'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Reserved for roadmaps plan.',
+	},
+	'roadmaps-service': {
+		keywords: ['roadmaps', 'service', 'roadmap'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Reserved for roadmaps service.',
+	},
+	sync: {
+		keywords: ['sync', 'synch', 'synchronise', 'synchronize', 'saving', 'arrows'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Content Types',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for syncing changes and save operations.',
+	},
+	vulnerability: {
+		keywords: ['vulnerability', 'security', 'alert', 'warning'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Automation',
+		type: 'core',
+		status: 'published',
+		usage: 'Reserved for security vulnerabilities.',
+	},
+	'book-open': {
+		keywords: ['book', 'knowledgebase article'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Known uses: None',
+	},
+	coins: {
+		keywords: ['money', 'loose change', 'currency'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	'cross-octagon': {
+		keywords: ['cross', 'stop', 'block', 'octagon'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	'database-storage': {
+		keywords: ['database', 'db', 'storage', 'sql'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Ecosystem',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Known uses: SQL database in Developer Console',
+		slackChannel: '#forge-sql',
+	},
+	'database-storage-cache': {
+		keywords: ['database', 'db', 'storage', 'sql', 'cache'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Ecosystem',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Known uses: Storage cache in Developer Console.',
+		slackChannel: '#forge-sql',
+	},
+	'field-text': {
+		keywords: ['form', 'input', 'label', 'cursor', 'text field'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	'paint-brush': {
+		keywords: ['brush', 'appearance', 'paint'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	'paint-roller': {
+		keywords: ['roller', 'background', 'paint'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	speedometer: {
+		keywords: ['speed', 'performance', 'dial'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	sunset: {
+		keywords: ['sun', 'horizon', 'farewell', 'goodbye', 'sky', 'farewell feed'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'confluence insights',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Farewell feed in hello.',
+	},
+	'takeout-container': {
+		keywords: ['takeout', 'food', 'takeaway'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Known usages: Alternative option for food emoji category.',
+	},
+	ticket: {
+		keywords: ['stub', 'ticket'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	'vehicle-train': {
+		keywords: ['transportation', 'vehicle', 'car'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Known usages: Alternative option for transport emoji category.',
+	},
+	wallet: {
+		keywords: ['money', 'sales', 'payment', 'wallet'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
+	'welcome-feed': {
+		keywords: ['welcome', 'hello', 'blog', 'smile', 'intro'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Insights',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Known uses: Intro blog feed picker on Hello',
+		slackChannel: '#cc-insights-and-reporting',
+	},
+	wrench: {
+		keywords: ['wrench', 'spanner', 'tool'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		usage: 'Multi purpose',
+	},
 };
 
 export default metadata;

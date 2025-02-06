@@ -16,4 +16,9 @@ const options: OptionsType = {
 	],
 };
 
-snapshot(DefaultConfirmDismissDialog, options);
+snapshot(DefaultConfirmDismissDialog, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
+});

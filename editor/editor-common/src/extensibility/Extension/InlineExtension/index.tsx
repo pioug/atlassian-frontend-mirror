@@ -27,6 +27,7 @@ export interface Props {
 	isNodeSelected?: boolean;
 	isNodeHovered?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
+	isLivePageViewMode?: boolean;
 }
 
 const InlineExtension = (props: Props) => {
@@ -38,6 +39,7 @@ const InlineExtension = (props: Props) => {
 		children,
 		isNodeHovered,
 		setIsNodeHovered,
+		isLivePageViewMode,
 	} = props;
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 
@@ -64,7 +66,7 @@ const InlineExtension = (props: Props) => {
 
 	const inlineExtensionInternal = (
 		<Fragment>
-			{showMacroInteractionDesignUpdates && (
+			{showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					node={node}
 					isNodeSelected={isNodeSelected}

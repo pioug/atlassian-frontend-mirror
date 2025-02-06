@@ -48,8 +48,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/eslint-utils": "^1.9.0",
-		"@atlaskit/icon": "^23.6.0",
-		"@atlaskit/icon-lab": "^2.3.0",
+		"@atlaskit/icon": "^23.7.0",
+		"@atlaskit/icon-lab": "^2.4.0",
 		"@atlaskit/tokens": "*",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^7.1.0",

@@ -1,13 +1,14 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { keyframes } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { keyframes, jsx, css, cssMap } from '@compiled/react';
 
 import { B50, N30, N40, N50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { type SkeletonProps } from './types';
+import SkeletonOld, { SpanSkeletonOld } from './SkeletonOld';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const placeholderShimmer = keyframes({
 	'0%': {
@@ -20,62 +21,35 @@ const placeholderShimmer = keyframes({
 
 const appearanceValues = {
 	darkGray: {
-		background: token('color.background.accent.gray.subtler', N50),
 		animation: token('color.background.accent.gray.subtle', N60),
 	},
 	gray: {
-		background: token('color.background.accent.gray.subtlest', N30),
 		animation: token('color.skeleton', N40),
 	},
 	blue: {
-		background: token('color.background.accent.blue.subtlest', B50),
 		animation: token('color.background.information.hovered', '#cce0ff'),
 	},
 };
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ShimmerSkeleton = styled.div<SkeletonProps>`
-	height: ${({ height }) => height || 'auto'};
-	width: ${({ width }) => width || 'auto'};
-	border-radius: ${({ borderRadius }) => borderRadius || 0};
-	user-select: none;
-	background: ${({ appearance = 'gray' }) => appearanceValues[appearance].background};
+const spanSkeletonStyles = css({
+	userSelect: 'none',
+	backgroundRepeat: 'no-repeat',
+	animation: `${placeholderShimmer} 1s linear infinite forwards`,
+});
 
-	background-image: ${({ appearance = 'gray' }) => `linear-gradient(
-    to right,
-    transparent 0%,
-   ${appearanceValues[appearance].animation} 20%,
-    transparent 40%,
-    transparent 100%
-  )`};
-	background-repeat: no-repeat;
-	background-size: ${({ height, isShimmering }) => (isShimmering ? `40px ${height};` : '0px')};
+const spanSkeletonBackgroundStyleMap = cssMap({
+	gray: {
+		backgroundColor: token('color.background.accent.gray.subtlest', N30),
+	},
+	blue: {
+		backgroundColor: token('color.background.accent.blue.subtlest', B50),
+	},
+	darkGray: {
+		backgroundColor: token('color.background.accent.gray.subtler', N50),
+	},
+});
 
-	animation: ${placeholderShimmer} 1s linear infinite forwards;
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ShimmerSkeletonSpan = styled.span<SkeletonProps>`
-	height: ${({ height }) => height || 'auto'};
-	width: ${({ width }) => width || 'auto'};
-	border-radius: ${({ borderRadius }) => borderRadius || 0};
-	user-select: none;
-	background: ${({ appearance = 'gray' }) => appearanceValues[appearance].background};
-
-	background-image: ${({ appearance = 'gray' }) => `linear-gradient(
-    to right,
-    transparent 0%,
-   ${appearanceValues[appearance].animation} 20%,
-    transparent 40%,
-    transparent 100%
-  )`};
-	background-repeat: no-repeat;
-	background-size: ${({ height, isShimmering }) => (isShimmering ? `40px ${height};` : '0px')};
-
-	animation: ${placeholderShimmer} 1s linear infinite forwards;
-`;
-
-export const SpanSkeleton = ({
+const SpanSkeletonNew = ({
 	width,
 	appearance = 'gray',
 	height = 14,
@@ -83,20 +57,39 @@ export const SpanSkeleton = ({
 	isShimmering = true,
 	testId,
 	style = {},
-}: SkeletonProps) => (
-	<ShimmerSkeletonSpan
-		width={typeof width === 'number' ? `${width}px` : width}
-		height={typeof height === 'number' ? `${height}px` : height}
-		borderRadius={typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius}
-		appearance={appearance}
-		isShimmering={isShimmering}
-		data-testid={testId}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={style}
-	/>
-);
+}: SkeletonProps): JSX.Element => {
+	return (
+		<span
+			data-testid={testId}
+			css={[spanSkeletonStyles, spanSkeletonBackgroundStyleMap[appearance]]}
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				...style,
+				height: (typeof height === 'number' ? `${height}px` : height) || 'auto',
+				width: (typeof width === 'number' ? `${width}px` : width) || 'auto',
+				borderRadius: (typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius) || 0,
+				backgroundImage: `linear-gradient(
+    to right,
+    transparent 0%,
+    ${appearanceValues[appearance].animation} 20%,
+    transparent 40%,
+    transparent 100%
+  )`,
+				backgroundSize: isShimmering ? `40px ${height}` : '0px',
+			}}
+		></span>
+	);
+};
 
-export const Skeleton = ({
+export const SpanSkeleton = (props: SkeletonProps) => {
+	if (fg('platform_bandicoots-linking-common-css')) {
+		return <SpanSkeletonNew {...props} />;
+	} else {
+		return <SpanSkeletonOld {...props} />;
+	}
+};
+
+const SkeletonNew = ({
 	width,
 	appearance = 'gray',
 	height = 14,
@@ -104,17 +97,36 @@ export const Skeleton = ({
 	isShimmering = true,
 	testId,
 	style = {},
-}: SkeletonProps) => (
-	<ShimmerSkeleton
-		width={typeof width === 'number' ? `${width}px` : width}
-		height={typeof height === 'number' ? `${height}px` : height}
-		borderRadius={typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius}
-		appearance={appearance}
-		isShimmering={isShimmering}
-		data-testid={testId}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={style}
-	/>
-);
+}: SkeletonProps): JSX.Element => {
+	return (
+		<div
+			data-testid={testId}
+			css={[spanSkeletonStyles, spanSkeletonBackgroundStyleMap[appearance]]}
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				...style,
+				height: (typeof height === 'number' ? `${height}px` : height) || 'auto',
+				width: (typeof width === 'number' ? `${width}px` : width) || 'auto',
+				borderRadius: (typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius) || 0,
+				backgroundImage: `linear-gradient(
+    to right,
+    transparent 0%,
+    ${appearanceValues[appearance].animation} 20%,
+    transparent 40%,
+    transparent 100%
+  )`,
+				backgroundSize: isShimmering ? `40px ${height}` : '0px',
+			}}
+		></div>
+	);
+};
+
+export const Skeleton = (props: SkeletonProps) => {
+	if (fg('platform_bandicoots-linking-common-css')) {
+		return <SkeletonNew {...props} />;
+	} else {
+		return <SkeletonOld {...props} />;
+	}
+};
 
 export default Skeleton;

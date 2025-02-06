@@ -40,7 +40,7 @@
 		"@atlaskit/feature-gate-js-client": "^4.17.1",
 		"@atlaskit/link-client-extension": "^3.1.0",
 		"@atlaskit/link-extractors": "^1.10.0",
-		"@atlaskit/linking-common": "^6.2.0",
+		"@atlaskit/linking-common": "^6.3.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@babel/runtime": "^7.0.0",
 		"dataloader": "^2.1.0",

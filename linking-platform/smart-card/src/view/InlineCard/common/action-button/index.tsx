@@ -4,6 +4,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 
 type ActionButtonProps = ComponentPropsWithRef<typeof Box> & {
 	disabled?: boolean;
+	[`data-testid`]?: string;
 };
 
 /**
@@ -11,6 +12,9 @@ type ActionButtonProps = ComponentPropsWithRef<typeof Box> & {
  */
 export const ActionButton = forwardRef(
 	({ children, ...props }: ActionButtonProps, ref: ActionButtonProps['ref']) => {
+		// `Button transforms `testId` into `data-testid`. We need to transform it back to `testId`
+		const { [`data-testid`]: testId } = props;
+
 		return (
 			<Box
 				as="span"
@@ -19,6 +23,7 @@ export const ActionButton = forwardRef(
 				{...props}
 				aria-disabled={props.disabled}
 				role="button"
+				testId={testId}
 			>
 				<Box as="span" xcss={internalButtonStyle}>
 					{children}

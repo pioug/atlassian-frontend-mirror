@@ -3,12 +3,12 @@ import React from 'react';
 import { Stack } from '@atlaskit/primitives';
 
 import ExampleContainer from './utils/example-container';
-import { InlineCardLazyIcons } from './utils/inline-card-lazy-icons';
+import { InlineCardIcons } from './utils/inline-card-icons';
 
 export default () => (
 	<ExampleContainer title="InlineCard Lazy Icons">
 		<Stack>
-			<InlineCardLazyIcons />
+			<InlineCardIcons />
 		</Stack>
 	</ExampleContainer>
 );

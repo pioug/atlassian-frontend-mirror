@@ -1,11 +1,7 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
 
-import { Box } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
 import type { LinkCreateProps } from '../../common/types';
@@ -23,6 +19,7 @@ import { FormContextProvider } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
 
 import { InlineAnalytics } from './inline-analytics';
+import InlineCreateOld from './old/main';
 
 const InlineCreateContent = ({
 	onCreate,
@@ -71,7 +68,7 @@ const InlineCreateContent = ({
 	);
 };
 
-const InlineCreate = (props: LinkCreateProps) => {
+const InlineCreateNew = (props: LinkCreateProps) => {
 	return (
 		<LinkCreatePluginsProvider plugins={props.plugins} entityKey={props.entityKey}>
 			{(pluginsProvider) => (
@@ -107,6 +104,13 @@ const InlineCreate = (props: LinkCreateProps) => {
 			)}
 		</LinkCreatePluginsProvider>
 	);
+};
+
+const InlineCreate = (props: LinkCreateProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <InlineCreateNew {...props} />;
+	}
+	return <InlineCreateOld {...props} />;
 };
 
 export default InlineCreate;

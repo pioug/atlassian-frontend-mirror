@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 2.15.0
+
+### Minor Changes
+
+- [#111213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111213)
+  [`9f0eaa2a16d54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f0eaa2a16d54) -
+  Migration from emotion to compiled under FF
+
 ## 2.14.0
 
 ### Minor Changes

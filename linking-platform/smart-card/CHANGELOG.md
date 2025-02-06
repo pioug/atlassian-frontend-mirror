@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 34.10.4
+
+### Patch Changes
+
+- [#110251](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110251)
+  [`b6adb9244b072`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6adb9244b072) -
+  [ux] Visual refresh of the EmbedCard component
+
+## 34.10.3
+
+### Patch Changes
+
+- [#110748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110748)
+  [`a3f7f14d75b3c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3f7f14d75b3c) -
+  [ux] Update inline card icons
+- Updated dependencies
+
 ## 34.10.2
 
 ### Patch Changes

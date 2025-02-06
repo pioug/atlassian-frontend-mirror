@@ -50,8 +50,9 @@ export interface PlaceholderProps {
 	isPlaceholder: boolean;
 }
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const LinkWrapper = styled.div({
+export const LinkWrapperOldVisualRefresh = styled.div({
 	borderRadius: (props: WrapperProps) =>
 		props.isSelected && props.frameStyle === 'hide'
 			? token('border.radius.100', '4px')
@@ -129,8 +130,9 @@ export const LinkWrapper = styled.div({
 	},
 });
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const Wrapper = styled.div({
+export const WrapperOldVisualRefresh = styled.div({
 	borderRadius: (props: WrapperProps) =>
 		props.isSelected && props.frameStyle === 'hide'
 			? token('border.radius.100', '4px')
@@ -209,8 +211,9 @@ export const Wrapper = styled.div({
 	marginTop: '10px',
 });
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const Header = styled.div({
+export const HeaderOldVisualRefresh = styled.div({
 	height: `32px`,
 	position: 'absolute',
 	zIndex: 1,
@@ -226,8 +229,9 @@ export const Header = styled.div({
 		props.frameStyle === 'show' ? `0 ${token('space.100', '8px')}` : '',
 });
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const IconWrapper = styled.div({
+export const IconWrapperOldVisualRefresh = styled.div({
 	borderRadius: token('border.radius', '3px'),
 	width: '16px',
 	height: '16px',
@@ -236,8 +240,9 @@ export const IconWrapper = styled.div({
 		props.isPlaceholder ? token('color.skeleton', N30) : '',
 });
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const TextWrapper = styled.div({
+export const TextWrapperOldVisualRefresh = styled.div({
 	borderRadius: (props: PlaceholderProps) =>
 		props.isPlaceholder ? token('border.radius', '3px') : '',
 	width: (props: PlaceholderProps) => (props.isPlaceholder ? '125px' : ''),
@@ -251,16 +256,18 @@ export const TextWrapper = styled.div({
 	whiteSpace: 'nowrap',
 });
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const TooltipWrapper = styled.div({
+export const TooltipWrapperOldVisualRefresh = styled.div({
 	overflow: 'hidden',
 });
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // NB: `overflow` is kept as `hidden` since
 // the internal contents of the `iframe` should
 // manage scrolling behaviour.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled,@atlaskit/ui-styling-standard/no-exported-styles
-export const Content = styled.div({
+export const ContentOldVisualRefresh = styled.div({
 	borderRadius: token('border.radius.100', '4px'),
 	border: `1px solid ${token('color.border', N40)}`,
 	backgroundColor: token('elevation.surface.raised', 'white'),

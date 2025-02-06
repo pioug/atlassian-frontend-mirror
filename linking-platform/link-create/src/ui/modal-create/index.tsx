@@ -1,14 +1,8 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { memo } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { memo } from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PACKAGE_DATA } from '../../common/constants';
 import { type LinkCreateWithModalProps } from '../../common/types';
@@ -20,6 +14,7 @@ import { fetchMessagesForLocale } from '../../common/utils/locale/fetch-messages
 import i18nEN from '../../i18n/en';
 
 import LinkCreate from './main';
+import ComposedLinkCreateOld from './old';
 
 const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
 	memo((props: LinkCreateWithModalProps) => {
@@ -35,7 +30,7 @@ const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
 	}),
 );
 
-const ComposedLinkCreate = memo((props: LinkCreateWithModalProps) => {
+const ComposedLinkCreateNew = memo((props: LinkCreateWithModalProps) => {
 	return (
 		<AnalyticsContext data={PACKAGE_DATA}>
 			<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
@@ -43,6 +38,13 @@ const ComposedLinkCreate = memo((props: LinkCreateWithModalProps) => {
 			</IntlMessagesProvider>
 		</AnalyticsContext>
 	);
+});
+
+const ComposedLinkCreate = memo((props: LinkCreateWithModalProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <ComposedLinkCreateNew {...props} />;
+	}
+	return <ComposedLinkCreateOld {...props} />;
 });
 
 export default ComposedLinkCreate;

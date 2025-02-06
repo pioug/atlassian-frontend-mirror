@@ -130,6 +130,9 @@
 			"path": "../editor-plugin-paste/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-selection-extension/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-selection-marker/tsconfig.app.json"
 		},
 		{

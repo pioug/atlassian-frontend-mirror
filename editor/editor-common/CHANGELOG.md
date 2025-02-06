@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 99.9.0
+
+### Minor Changes
+
+- [#108912](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108912)
+  [`4f43a6293679e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f43a6293679e) -
+  [ux] Adds logic to hide macro interactions during view mode of live pages
+
 ## 99.8.1
 
 ### Patch Changes

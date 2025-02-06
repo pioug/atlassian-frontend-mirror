@@ -7,19 +7,14 @@ import { useIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { Flex, xcss } from '@atlaskit/primitives';
-import Button, { IconButton } from '@atlaskit/button/new';
+import Tabs from '@atlaskit/tabs';
+import Button from '@atlaskit/button/new';
+import { Box, xcss } from '@atlaskit/primitives';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
-import Heading from '@atlaskit/heading';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	useModal,
-	type OnCloseHandler,
-} from '@atlaskit/modal-dialog';
-import Tooltip from '@atlaskit/tooltip';
-import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
+import Modal, { ModalBody, ModalFooter, type OnCloseHandler } from '@atlaskit/modal-dialog';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type SelectedType } from '@atlaskit/tabs/types';
+import { token } from '@atlaskit/tokens';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
@@ -30,13 +25,8 @@ import {
 } from '../../types';
 
 import { ReactionsList } from './ReactionsList';
+import { ReactionsDialogHeader } from './ReactionsDialogHeader';
 import { containerStyle } from './styles';
-
-const fullWidthStyle = xcss({
-	width: '100%',
-	padding: 'space.300',
-	paddingBlockEnd: 'space.400',
-});
 
 /**
  * Test id for the Reactions modal dialog
@@ -76,70 +66,9 @@ const getDimensions = (container: HTMLDivElement) => {
 	};
 };
 
-interface ReactionsDialogModalHeaderProps {
-	totalReactionsCount: number;
-	handlePreviousPage: () => void;
-	handleNextPage: () => void;
-	currentPage: number;
-	maxPages: number;
-}
-
-const ReactionsDialogModalHeader = ({
-	totalReactionsCount,
-	handlePreviousPage,
-	handleNextPage,
-	currentPage,
-	maxPages,
-}: ReactionsDialogModalHeaderProps) => {
-	const { titleId } = useModal();
-	const intl = useIntl();
-
-	const isSinglePage = maxPages === 1;
-	const isOnFirstPage = currentPage === 1;
-	const isOnLastPage = currentPage === maxPages;
-
-	return (
-		<Flex direction="row" justifyContent="space-between" alignItems="center" xcss={fullWidthStyle}>
-			<Heading size="medium" id={titleId}>
-				{intl.formatMessage(messages.reactionsCount, {
-					count: totalReactionsCount,
-				})}
-			</Heading>
-			{!isSinglePage && (
-				<Flex alignItems="center" gap="space.100">
-					<Tooltip
-						content={intl.formatMessage(messages.leftNavigateLabel)}
-						canAppear={() => !isOnFirstPage}
-					>
-						{(tooltipProps) => (
-							<IconButton
-								{...tooltipProps}
-								isDisabled={isOnFirstPage}
-								onClick={handlePreviousPage}
-								icon={ChevronLeftIcon}
-								label={intl.formatMessage(messages.leftNavigateLabel)}
-							/>
-						)}
-					</Tooltip>
-					<Tooltip
-						content={intl.formatMessage(messages.rightNavigateLabel)}
-						canAppear={() => !isOnLastPage}
-					>
-						{(tooltipProps) => (
-							<IconButton
-								{...tooltipProps}
-								onClick={handleNextPage}
-								isDisabled={isOnLastPage}
-								icon={ChevronRightIcon}
-								label={intl.formatMessage(messages.rightNavigateLabel)}
-							/>
-						)}
-					</Tooltip>
-				</Flex>
-			)}
-		</Flex>
-	);
-};
+const footerStyle = xcss({
+	borderTop: `2px solid ${token('color.border', 'rgba(11, 18, 14, 0.14)')}`,
+});
 
 export const ReactionsDialog = ({
 	reactions = [],
@@ -274,6 +203,21 @@ export const ReactionsDialog = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const selectedIndex = currentReactions.findIndex(
+		(reaction) => reaction.emojiId === selectedEmojiId,
+	);
+
+	const onTabChange = useCallback(
+		(index: SelectedType, analyticsEvent: UIAnalyticsEvent) => {
+			if (index === selectedIndex) {
+				return;
+			}
+			const emojiId = currentReactions[index].emojiId;
+			handleSelectReaction(emojiId, analyticsEvent);
+		},
+		[selectedIndex, currentReactions, handleSelectReaction],
+	);
+
 	return (
 		<Modal
 			onClose={handleCloseReactionsDialog}
@@ -282,30 +226,37 @@ export const ReactionsDialog = ({
 			// eslint-disable-next-line jsx-a11y/no-autofocus
 			autoFocus={false}
 		>
-			<ReactionsDialogModalHeader
-				totalReactionsCount={totalReactionsCount}
-				maxPages={maxPages}
-				handlePreviousPage={handlePreviousPage}
-				handleNextPage={handleNextPage}
-				currentPage={currentPage}
-			/>
-			<ModalBody>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
-					<ReactionsList
-						initialEmojiId={selectedEmojiId}
-						reactions={currentReactions}
-						emojiProvider={emojiProvider}
-						onReactionChanged={handleSelectReaction}
-						ProfileCardWrapper={ProfileCardWrapper}
-					/>
-				</div>
-			</ModalBody>
-			<ModalFooter>
-				<Button appearance="subtle" onClick={handleCloseReactionsDialog}>
-					{intl.formatMessage(messages.closeReactionsDialog)}
-				</Button>
-			</ModalFooter>
+			<Tabs id="reactions-dialog-tabs" onChange={onTabChange} selected={selectedIndex}>
+				<ReactionsDialogHeader
+					totalReactionsCount={totalReactionsCount}
+					maxPages={maxPages}
+					handlePreviousPage={handlePreviousPage}
+					handleNextPage={handleNextPage}
+					currentPage={currentPage}
+					emojiProvider={emojiProvider}
+					selectedEmojiId={selectedEmojiId}
+					currentReactions={currentReactions}
+				/>
+				<ModalBody>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+					<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
+						<ReactionsList
+							selectedEmojiId={selectedEmojiId}
+							reactions={currentReactions}
+							emojiProvider={emojiProvider}
+							ProfileCardWrapper={ProfileCardWrapper}
+						/>
+					</div>
+				</ModalBody>
+			</Tabs>
+
+			<Box xcss={footerStyle}>
+				<ModalFooter>
+					<Button appearance="subtle" onClick={handleCloseReactionsDialog}>
+						{intl.formatMessage(messages.closeReactionsDialog)}
+					</Button>
+				</ModalFooter>
+			</Box>
 		</Modal>
 	);
 };

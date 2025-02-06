@@ -1,24 +1,28 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+
+import ErrorSVGOld from './old';
 
 const WIDTH = 82;
 
 const errorStyles = css({
 	width: `${WIDTH}px`,
-	margin: `0 auto ${token('space.300', '24px')}`,
+	marginTop: 0,
+	marginRight: 'auto',
+	marginBottom: token('space.300', '24px'),
+	marginLeft: 'auto',
 	display: `block`,
 });
 
 const id = 'link-create-error-svg';
 
-const ErrorSVG = () => (
+const ErrorSVGNew = (): JSX.Element => (
 	<svg
 		height="90"
 		viewBox="0 0 164 212"
@@ -58,5 +62,12 @@ const ErrorSVG = () => (
 		</defs>
 	</svg>
 );
+
+const ErrorSVG = () => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <ErrorSVGNew />;
+	}
+	return <ErrorSVGOld />;
+};
 
 export default ErrorSVG;

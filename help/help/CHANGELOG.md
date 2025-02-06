@@ -1,5 +1,22 @@
 # @atlaskit/help
 
+## 7.14.4
+
+### Patch Changes
+
+- [#106600](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106600)
+  [`6fa81748812d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fa81748812d3) -
+  Fix navigation context to set contentAri in navigation state
+
+## 7.14.3
+
+### Patch Changes
+
+- [#110491](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110491)
+  [`a49d7ed81fc11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a49d7ed81fc11) -
+  [ux] adding tabs to Ai enabled IPH
+- Updated dependencies
+
 ## 7.14.2
 
 ### Patch Changes

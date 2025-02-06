@@ -1,14 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import SmartUserPicker from '@atlaskit/smart-user-picker';
 
 import { CreateField } from '../../../controllers/create-field';
 
+import { UserPickerOld } from './old/main';
 import { type UserPickerProps } from './types';
 
 export const TEST_ID = 'link-create-user-picker';
@@ -18,8 +15,7 @@ const UserPickerWidth = '100%';
 /**
  * A user picker utilising the SmartUserPicker.
  */
-
-export function UserPicker({
+const UserPickerNew = ({
 	productKey,
 	siteId,
 	name,
@@ -28,7 +24,7 @@ export function UserPicker({
 	validators,
 	testId = TEST_ID,
 	defaultValue,
-}: UserPickerProps) {
+}: UserPickerProps): JSX.Element => {
 	return (
 		<CreateField name={name} label={label} isRequired testId={testId} validators={validators}>
 			{({ fieldId, isRequired, ...fieldProps }) => {
@@ -53,4 +49,11 @@ export function UserPicker({
 			}}
 		</CreateField>
 	);
-}
+};
+
+export const UserPicker = (props: UserPickerProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <UserPickerNew {...props} />;
+	}
+	return <UserPickerOld {...props} />;
+};

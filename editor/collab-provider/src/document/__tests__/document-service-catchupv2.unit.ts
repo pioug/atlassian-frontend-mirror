@@ -53,6 +53,7 @@ describe('catchupv2 trigged in document service', () => {
 
 		expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'SUCCESS', {
 			latency: 0,
+			version: 0,
 		});
 
 		// After execution, the queue must be unpaused

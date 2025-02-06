@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 2.1.18
+
+### Patch Changes
+
+- [#107474](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107474)
+  [`5b698c7925d2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b698c7925d2b) -
+  [ux] ED-26365 first release of editor-plugin-selection-extension
+- [#108912](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108912)
+  [`4f43a6293679e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f43a6293679e) -
+  [ux] Adds logic to hide macro interactions during view mode of live pages
+- Updated dependencies
+
 ## 2.1.17
 
 ### Patch Changes

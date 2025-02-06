@@ -1,396 +1,284 @@
 import { type IconMetadata } from '@af/icon-build-process';
 const metadata: IconMetadata = {
-  "add": {
-    "keywords": [
-      "create",
-      "plus"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for creating and adding an object as a secondary/tertiary action in a menu item."
-  },
-  "arrow-down": {
-    "keywords": [
-      "down",
-      "bottom",
-      "sorting"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Know uses: sorting table headers or Bitbucket code difference."
-  },
-  "arrow-left": {
-    "keywords": [
-      "back",
-      "previous"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Known uses: back to previous screen, previous slide."
-  },
-  "arrow-right": {
-    "keywords": [
-      "forward",
-      "next",
-      "link"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Known uses: link to nested menu item, a linked menu item, next slide."
-  },
-  "arrow-up": {
-    "keywords": [
-      "improvement",
-      "jira status"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Known uses: back to top."
-  },
-  "check-circle": {
-    "keywords": [
-      "tick",
-      "yes",
-      "checkmark"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "📦 @atlaskit/icon/utility/check-circle"
-  },
-  "check-mark": {
-    "keywords": [
-      "tick"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "📦 @atlaskit/icon/utility/check-mark"
-  },
-  "chevron-double-left": {
-    "keywords": [
-      "calendar year",
-      "<<",
-      "less than",
-      "previous"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "ready-to-publish",
-    "usage": "Reserved for calendar year button.",
-    "slackChannel": "#help-design-system"
-  },
-  "chevron-double-right": {
-    "keywords": [
-      "calendar year",
-      ">>",
-      "greater than",
-      "next"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "ready-to-publish",
-    "usage": "Reserved for calendar year button.",
-    "slackChannel": "#help-design-system"
-  },
-  "chevron-down": {
-    "keywords": [
-      "accordion",
-      "down"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for dropdown menus, selects, accordions, and expands."
-  },
-  "chevron-left": {
-    "keywords": [
-      "less than",
-      "<",
-      "previous"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for collapse side nav and to indicate previous in dates."
-  },
-  "chevron-right": {
-    "keywords": [
-      "greater than",
-      ">",
-      "next"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for menu fly outs and to indicate next in dates."
-  },
-  "chevron-up": {
-    "keywords": [
-      "up",
-      "accordion"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for accordions."
-  },
-  "cross": {
-    "keywords": [
-      "remove",
-      "clear",
-      "x"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Known uses: remove tag."
-  },
-  "cross-circle": {
-    "keywords": [
-      "x",
-      "exit",
-      "clear",
-      "no",
-      "filled",
-      "form"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for Helper Messages in Forms."
-  },
-  "drag-handle": {
-    "keywords": [
-      "drag handler",
-      "drag dots",
-      "reorder",
-      "move"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for draggable elements."
-  },
-  "error": {
-    "keywords": [
-      "filled",
-      "status",
-      "form",
-      "helper"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for Helper Messages in Forms."
-  },
-  "information": {
-    "keywords": [
-      "info",
-      "filled",
-      "helper",
-      "tip",
-      "form"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for Helper Messages in Forms."
-  },
-  "link-external": {
-    "keywords": [
-      "new tab",
-      "new window",
-      "open in",
-      "url",
-      "hyperlink",
-      "www",
-      "http",
-      "https",
-      "website",
-      "external",
-      "shortcut",
-      "diagonal arrow",
-      "secondary",
-      "tertiary"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for links that open up a new tab as a secondary/tertiary action."
-  },
-  "lock-locked": {
-    "keywords": [
-      "secondary",
-      "tertiary",
-      "permissions",
-      "no access",
-      "restricted",
-      "security",
-      "secure",
-      "forbidden",
-      "authentication"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for indicating something is locked in the side navigation Menu Item."
-  },
-  "lock-unlocked": {
-    "keywords": [
-      "secondary",
-      "tertiary",
-      "open permissions",
-      "unrestricted access",
-      "security",
-      "insecure",
-      "authentication"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for indicating something is locked in the side navigation Menu Item."
-  },
-  "show-more-horizontal": {
-    "keywords": [
-      "ellipses",
-      "three dots",
-      "meatball",
-      "more actions",
-      "secondary",
-      "tertiary"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for secondary/tertiary more action menus."
-  },
-  "show-more-vertical": {
-    "keywords": [
-      "three dots",
-      "kebab",
-      "more actions",
-      "secondary",
-      "tertiary"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for secondary/tertiary action menus, traditionally on mobile."
-  },
-  "star-starred": {
-    "keywords": [
-      "favourite",
-      "star",
-      "starred",
-      "filled",
-      "menu",
-      "secondary",
-      "tertiary"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for starred or favourited objects as a secondary/tertiary action."
-  },
-  "star-unstarred": {
-    "keywords": [
-      "favourite",
-      "star",
-      "form",
-      "secondary",
-      "tertiary"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for starring or favoriting objects as a secondary/tertiary action."
-  },
-  "success": {
-    "keywords": [
-      "tick",
-      "yes",
-      "success",
-      "filled"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for Helper Messages in Forms."
-  },
-  "warning": {
-    "keywords": [
-      "alert",
-      "danger",
-      "triangle",
-      "filled",
-      "secondary",
-      "tertiary"
-    ],
-    "categorization": "utility",
-    "location": "@atlaskit/icon",
-    "team": "Design System Team",
-    "type": "utility",
-    "status": "published",
-    "usage": "Reserved for Helper Messages in Forms."
-  }
+	add: {
+		keywords: ['create', 'plus'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage:
+			'Reserved for creating and adding an object as a secondary/tertiary action in a menu item.',
+	},
+	'arrow-down': {
+		keywords: ['down', 'bottom', 'sorting'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Know uses: sorting table headers or Bitbucket code difference.',
+	},
+	'arrow-left': {
+		keywords: ['back', 'previous'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Known uses: back to previous screen, previous slide.',
+	},
+	'arrow-right': {
+		keywords: ['forward', 'next', 'link'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Known uses: link to nested menu item, a linked menu item, next slide.',
+	},
+	'arrow-up': {
+		keywords: ['improvement', 'jira status'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Known uses: back to top.',
+	},
+	'check-circle': {
+		keywords: ['tick', 'yes', 'checkmark'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: '📦 @atlaskit/icon/utility/check-circle',
+	},
+	'check-mark': {
+		keywords: ['tick'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: '📦 @atlaskit/icon/utility/check-mark',
+	},
+	'chevron-double-left': {
+		keywords: ['calendar year', '<<', 'less than', 'previous'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'ready-to-publish',
+		usage: 'Reserved for calendar year button.',
+		slackChannel: '#help-design-system',
+	},
+	'chevron-double-right': {
+		keywords: ['calendar year', '>>', 'greater than', 'next'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'ready-to-publish',
+		usage: 'Reserved for calendar year button.',
+		slackChannel: '#help-design-system',
+	},
+	'chevron-down': {
+		keywords: ['accordion', 'down'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for dropdown menus, selects, accordions, and expands.',
+	},
+	'chevron-left': {
+		keywords: ['less than', '<', 'previous'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for collapse side nav and to indicate previous in dates.',
+	},
+	'chevron-right': {
+		keywords: ['greater than', '>', 'next'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for menu fly outs and to indicate next in dates.',
+	},
+	'chevron-up': {
+		keywords: ['up', 'accordion'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for accordions.',
+	},
+	cross: {
+		keywords: ['remove', 'clear', 'x'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Known uses: remove tag.',
+	},
+	'cross-circle': {
+		keywords: ['x', 'exit', 'clear', 'no', 'filled', 'form'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for Helper Messages in Forms.',
+	},
+	'drag-handle': {
+		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for draggable elements.',
+	},
+	error: {
+		keywords: ['filled', 'status', 'form', 'helper'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for Helper Messages in Forms.',
+	},
+	information: {
+		keywords: ['info', 'filled', 'helper', 'tip', 'form'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for Helper Messages in Forms.',
+	},
+	'link-external': {
+		keywords: [
+			'new tab',
+			'new window',
+			'open in',
+			'url',
+			'hyperlink',
+			'www',
+			'http',
+			'https',
+			'website',
+			'external',
+			'shortcut',
+			'diagonal arrow',
+			'secondary',
+			'tertiary',
+		],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for links that open up a new tab as a secondary/tertiary action.',
+	},
+	'lock-locked': {
+		keywords: [
+			'secondary',
+			'tertiary',
+			'permissions',
+			'no access',
+			'restricted',
+			'security',
+			'secure',
+			'forbidden',
+			'authentication',
+		],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
+	},
+	'lock-unlocked': {
+		keywords: [
+			'secondary',
+			'tertiary',
+			'open permissions',
+			'unrestricted access',
+			'security',
+			'insecure',
+			'authentication',
+		],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
+	},
+	'show-more-horizontal': {
+		keywords: ['ellipses', 'three dots', 'meatball', 'more actions', 'secondary', 'tertiary'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for secondary/tertiary more action menus.',
+	},
+	'show-more-vertical': {
+		keywords: ['three dots', 'kebab', 'more actions', 'secondary', 'tertiary'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for secondary/tertiary action menus, traditionally on mobile.',
+	},
+	'star-starred': {
+		keywords: ['favourite', 'star', 'starred', 'filled', 'menu', 'secondary', 'tertiary'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for starred or favourited objects as a secondary/tertiary action.',
+	},
+	'star-unstarred': {
+		keywords: ['favourite', 'star', 'form', 'secondary', 'tertiary'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for starring or favoriting objects as a secondary/tertiary action.',
+	},
+	success: {
+		keywords: ['tick', 'yes', 'success', 'filled'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for Helper Messages in Forms.',
+	},
+	warning: {
+		keywords: ['alert', 'danger', 'triangle', 'filled', 'secondary', 'tertiary'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'published',
+		usage: 'Reserved for Helper Messages in Forms.',
+	},
 };
 
 export default metadata;

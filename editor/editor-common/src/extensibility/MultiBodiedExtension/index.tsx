@@ -71,6 +71,7 @@ type Props = {
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
+	isLivePageViewMode?: boolean;
 };
 
 type PropsWithWidth = Props & {
@@ -137,6 +138,7 @@ const MultiBodiedExtensionWithWidth = ({
 	isNodeNested,
 	setIsNodeHovered,
 	pluginInjectionApi,
+	isLivePageViewMode,
 }: PropsWithWidth) => {
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 	const { parameters, extensionKey } = node.attrs;
@@ -231,7 +233,7 @@ const MultiBodiedExtensionWithWidth = ({
 
 	return (
 		<Fragment>
-			{showMacroInteractionDesignUpdates && (
+			{showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					isNodeSelected={isNodeSelected}
 					node={node}

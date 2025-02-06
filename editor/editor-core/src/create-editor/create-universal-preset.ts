@@ -4,9 +4,9 @@ import createUniversalPresetInternal, {
 	type InitialPluginConfiguration,
 } from '../presets/universal';
 import type { EditorProps } from '../types';
+import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 
 import { getDefaultPresetOptionsFromEditorProps } from './create-plugins-list';
-import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 
 // Separate file, we should not accidentally import this into the `ComposableEditor`
 // otherwise it will blow up the bundle size.

@@ -7,9 +7,8 @@ import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type
 import type { DefaultPresetPluginOptions } from '../../src/presets/default';
 import type { EditorProps } from '../types';
 import type { EditorPluginFeatureProps } from '../types/editor-props';
+import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
-
-import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 
 const isCodeBlockAllowed = (options?: Pick<BlockTypePluginOptions, 'allowBlockType'>) => {
 	const exclude =

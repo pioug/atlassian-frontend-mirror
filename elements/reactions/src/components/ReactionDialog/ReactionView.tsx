@@ -11,17 +11,29 @@ import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
-import { useTabPanel } from '@atlaskit/tabs';
-import { Text, Flex, xcss } from '@atlaskit/primitives';
+import { TabPanel } from '@atlaskit/tabs';
+import { Box, Flex, xcss, Inline } from '@atlaskit/primitives';
+import Heading from '@atlaskit/heading';
 
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary, type ProfileCardWrapper } from '../../types';
 
-import { reactionViewStyle, userListStyle, userStyle, centerSpinner } from './styles';
+import { userListStyle, userStyle, centerSpinner } from './styles';
 
 const userDescriptionStyle = xcss({
-	marginLeft: 'space.200',
+	marginLeft: 'space.150',
 });
+
+const profileWrapperStyle = xcss({
+	marginLeft: 'space.0',
+});
+
+const reactionViewStyle = xcss({
+	marginTop: 'space.300',
+});
+
+const headerStyle = xcss({ alignItems: 'flex-end' });
+const emojiSpacingStlye = xcss({ marginLeft: 'space.100' });
 
 export interface ReactionViewProps {
 	/**
@@ -55,7 +67,8 @@ export const ReactionView = ({
 				id: selectedEmojiId,
 			});
 			if (emoji?.shortName) {
-				setEmojiShortName(emoji.shortName);
+				const shortNameWithoutColons = emoji.shortName.replace(/:/g, '');
+				setEmojiShortName(shortNameWithoutColons);
 			}
 		})();
 	}, [emojiProvider, selectedEmojiId, reaction]);
@@ -66,57 +79,63 @@ export const ReactionView = ({
 		return reactionObj.users?.sort((a, b) => a.displayName.localeCompare(b.displayName)) || [];
 	}, [reaction]);
 
-	const tabPanelAttributes = useTabPanel();
-
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div css={reactionViewStyle} {...tabPanelAttributes}>
-			<Text as="p">
-				<FormattedMessage
-					{...messages.peopleWhoReactedSubheading}
-					values={{
-						emojiShortName,
-					}}
-				/>
-				<ResourcedEmoji
-					emojiProvider={emojiProvider}
-					emojiId={{ id: selectedEmojiId, shortName: '' }}
-					fitToHeight={24}
-				/>
-			</Text>
-			{alphabeticalNames.length === 0 ? (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<div css={centerSpinner}>
-					<Spinner size="large" />
-				</div>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<ul css={userListStyle}>
-					{alphabeticalNames.map((user) => {
-						const profile = user.profilePicture?.path;
-						return (
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							<li css={userStyle} key={user.id}>
-								{ProfileCardWrapper && user.accountId ? (
-									<ProfileCardWrapper
-										userId={user.accountId}
-										isAnonymous={false}
-										canViewProfile
-										position="left-start"
-									>
-										<Avatar size="large" src={profile} testId="profile" />
-									</ProfileCardWrapper>
-								) : (
-									<Avatar size="large" src={profile} testId="profile" />
-								)}
-								<Flex xcss={userDescriptionStyle}>
-									<div>{user.displayName}</div>
-								</Flex>
-							</li>
-						);
-					})}
-				</ul>
-			)}
-		</div>
+		<TabPanel>
+			<Flex direction="column" xcss={reactionViewStyle}>
+				<Inline xcss={headerStyle}>
+					<Heading size="xsmall">
+						<FormattedMessage
+							{...messages.peopleWhoReactedSubheading}
+							values={{
+								emojiShortName,
+							}}
+						/>
+					</Heading>
+					<Box as="span" xcss={emojiSpacingStlye}>
+						<ResourcedEmoji
+							emojiProvider={emojiProvider}
+							emojiId={{ id: selectedEmojiId, shortName: '' }}
+							fitToHeight={24}
+						/>
+					</Box>
+				</Inline>
+
+				{alphabeticalNames.length === 0 ? (
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					<div css={centerSpinner}>
+						<Spinner size="large" />
+					</div>
+				) : (
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					<ul css={userListStyle}>
+						{alphabeticalNames.map((user) => {
+							const profile = user.profilePicture?.path;
+							return (
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								<li css={userStyle} key={user.id}>
+									{ProfileCardWrapper && user.accountId ? (
+										<Box xcss={profileWrapperStyle}>
+											<ProfileCardWrapper
+												userId={user.accountId}
+												isAnonymous={false}
+												canViewProfile
+												position="left-start"
+											>
+												<Avatar size="medium" src={profile} testId="profile" />
+											</ProfileCardWrapper>
+										</Box>
+									) : (
+										<Avatar size="medium" src={profile} testId="profile" />
+									)}
+									<Flex xcss={userDescriptionStyle}>
+										<div>{user.displayName}</div>
+									</Flex>
+								</li>
+							);
+						})}
+					</ul>
+				)}
+			</Flex>
+		</TabPanel>
 	);
 };

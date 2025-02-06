@@ -35,6 +35,7 @@ export {
 // Used in editor-test-helpers and mobile bridge
 export { getNodesCount } from './utils/getNodesCount';
 export { default as measurements } from './utils/performance/measure-enum';
+export { createFeatureFlagsFromProps } from './utils/feature-flags-from-props';
 export type { Command, EditorProps, EditorInstance, CommandDispatch } from './types';
 export { default as EditorActions } from './actions';
 

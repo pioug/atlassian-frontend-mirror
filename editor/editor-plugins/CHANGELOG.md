@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugins
 
+## 7.2.0
+
+### Minor Changes
+
+- [#107474](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107474)
+  [`5b698c7925d2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b698c7925d2b) -
+  [ux] ED-26365 first release of editor-plugin-selection-extension
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.9
 
 ### Patch Changes

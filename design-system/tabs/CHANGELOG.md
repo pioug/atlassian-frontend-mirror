@@ -1,5 +1,13 @@
 # @atlaskit/tabs
 
+## 17.2.2
+
+### Patch Changes
+
+- [#110415](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110415)
+  [`f082418019174`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f082418019174) -
+  Remove old codemods from package.
+
 ## 17.2.1
 
 ### Patch Changes
@@ -809,42 +817,6 @@
   - Remove the types: `TabItemElementProps`, `TabItemComponentProvided`,
     `TabContentComponentProvided`, `TabItemType`, `TabContentType`, `SelectedProp`,
     `IsSelectedTestFunction`, `OnSelectCallback`, `TabsState`, `TabsNavigationProps` and `Mode`.
-
-  ### Automatic upgrading
-
-  There is a codemod that assists you in upgrading most of the changes from above. Depending on your
-  usage, you will most likely have to do a manual step as this is a fairly big change in API. The
-  codemod will do its best job at making sure everything functions but you may want to clean up your
-  usage of `@atlaskit/tabs`. It does these following changes:
-
-  - Adds a randomly generated ID
-  - Changes `onSelect` to `onChange` and defines a new inline function that will functionally work
-    the same as it used to. It is however a messy solution and you may want to change the function
-    to only use the selected index.
-  - Remove the `TabItem` and `TabContent` imports.
-  - Map the array you supplied as a `tabs` prop to create `Tab`'s and `TabPanel`'s.
-  - Remove the `component` and `isSelectedTest` prop.
-  - Removes types that no longer exist.
-  - Migrates your usage of `isContentPersisted` to one of `shouldUnmountTabPanelOnChange`.
-
-  To run the codemod: **You first need to have the latest version installed**
-
-  ```bash
-  yarn upgrade @atlaskit/tabs@^13.0.0
-  ```
-
-  Once upgraded, use `@atlaskit/codemod-cli`:
-
-  ```bash
-  npx @atlaskit/codemod-cli --parser babel --extensions ts,tsx,js [relativePath]
-  ```
-
-  The CLI will show a list of components and versions so select `@atlaskit/tabs@^13.0.0` and you
-  will automatically be upgraded.
-
-  Run `npx @atlaskit/codemod-cli -h` for more details on usage. For Atlassians, refer to the
-  [documentation](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for more
-  details on the codemod CLI.
 
 ### Patch Changes
 

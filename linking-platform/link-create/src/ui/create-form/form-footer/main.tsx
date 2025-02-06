@@ -2,18 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { ButtonGroup } from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { Button } from '../../../common/ui/Button';
 
 import { EditButton } from './edit-button';
 import { messages } from './messages';
+import { CreateFormFooterOld } from './old/main';
 import { SubmitButton } from './submit-button';
 
 const formFooterWrapperStyles = css({
@@ -38,11 +39,11 @@ export interface CreateFormFooterProps {
  * and form error messages. This component is unmounted if
  * hideFooter is true in the Create Form.
  */
-export function CreateFormFooter({
+const CreateFormFooterNew = ({
 	formErrorMessage,
 	handleCancel,
 	testId,
-}: CreateFormFooterProps) {
+}: CreateFormFooterProps): JSX.Element => {
 	const intl = useIntl();
 
 	return (
@@ -75,4 +76,11 @@ export function CreateFormFooter({
 			</ButtonGroup>
 		</footer>
 	);
-}
+};
+
+export const CreateFormFooter = (props: CreateFormFooterProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <CreateFormFooterNew {...props} />;
+	}
+	return <CreateFormFooterOld {...props} />;
+};

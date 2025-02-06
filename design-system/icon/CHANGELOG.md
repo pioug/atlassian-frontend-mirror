@@ -1,5 +1,44 @@
 # @atlaskit/icon
 
+## 23.7.0
+
+### Minor Changes
+
+- [#108250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108250)
+  [`2ff8982b58a26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ff8982b58a26) -
+  [ux] This adds and modifies icons in `@atlaskit/icons` and `@atlaskit/icon-lab`
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `exclamation-square`
+  - `information-circle`
+  - `text-heading`
+  - `text-strikethrough`
+  - `text-underline`
+
+    ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `cloud-arrow-up`
+  - `error`
+  - `field-radio-group`
+  - `minus`
+  - `operations`
+  - `problem`
+  - `thumbs-down`
+  - `thumbs-up`
+  - `volume-high`
+  - `volume-low`
+  - `volume-muted`
+  - `warning`
+
+  **`@atlaskit/icon/glyph`**
+
+  - `issue-raise` - now has replacement icon, `core/plus-square` and migration component
+
 ## 23.6.1
 
 ### Patch Changes

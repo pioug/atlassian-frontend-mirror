@@ -1,7 +1,7 @@
-/* eslint-disable @atlaskit/editor/no-re-export */
+/* eslint-disable @atlaskit/editor/no-re-export, @atlaskit/editor/only-export-plugin */
 // Entry file in package.json
 
-export { editorViewModePlugin } from './editorViewmodePlugin';
+export { editorViewModePlugin, editorViewModeWithGracefulEditPlugin } from './editorViewmodePlugin';
 export type {
 	EditorViewModePluginConfig,
 	EditorViewModePluginState,

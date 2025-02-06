@@ -19,6 +19,9 @@ const options: OptionsType = {
 
 snapshotInformational(CreateFormWithRequiredFields, {
 	...options,
+	featureFlags: {
+		'platform_bandicoots-link-create-css': [true, false],
+	},
 	prepare: async (_: Page, component: Locator) => {
 		await component.getByRole('button', { name: 'Create' }).click();
 	},

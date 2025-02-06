@@ -799,7 +799,12 @@ export class TableProcessor extends React.Component<
 }
 
 const TableWithShadows = overflowShadow(TableProcessor, {
-	overflowSelector: `.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`,
+	/**
+	 * The :scope is in reference to table container and we are selecting only
+	 * direct children that match the table node wrapper selector, not their
+	 * descendants.
+	 */
+	overflowSelector: `:scope > .${TableSharedCssClassName.TABLE_NODE_WRAPPER}`,
 	useShadowObserver: true,
 });
 

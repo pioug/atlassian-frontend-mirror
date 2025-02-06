@@ -1,4 +1,8 @@
-import { NestedTableRenderer } from './nested-table.fixture';
+import {
+	NestedTableRenderer,
+	NestedTableWithOverflowRenderer,
+	StickyHeaderNestedTableRenderer,
+} from './nested-table.fixture';
 import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
@@ -74,5 +78,23 @@ snapshotInformational(NestedTableRenderer, {
 
 		await headerCell.hover();
 		await sortButton.waitFor({ state: 'visible' });
+	},
+});
+
+snapshotInformational(NestedTableWithOverflowRenderer, {
+	description: 'should have overflow shadow only on nested table',
+	featureFlags: {
+		platform_editor_use_nested_table_pm_nodes: true,
+	},
+});
+
+snapshotInformational(StickyHeaderNestedTableRenderer, {
+	description: 'should have overflow shadow on nested table inside sticky header',
+	featureFlags: {
+		platform_editor_use_nested_table_pm_nodes: true,
+	},
+	prepare: async (page: Page) => {
+		const tableRow = page.locator('tr').last();
+		await tableRow.scrollIntoViewIfNeeded();
 	},
 });

@@ -1,5 +1,22 @@
 # @atlaskit/tag
 
+## 13.0.0
+
+### Major Changes
+
+- [#94639](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94639)
+  [`135106f2d1c95`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/135106f2d1c95) -
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR.
+
+  Please note, in order to use this version of `@atlaskit/tag`, you will need to ensure that your
+  bundler is configured to handle `.css` imports correctly.
+
+  Most bundlers come with built-in support for `.css` imports, so you may not need to do anything.
+  If you are using a different bundler, please refer to the documentation for that bundler to
+  understand how to handle `.css` imports. For more information on the migration, please refer to
+  [RFC-73 Migrating our components to Compiled CSS-in-JS](https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953).
+
 ## 12.7.1
 
 ### Patch Changes

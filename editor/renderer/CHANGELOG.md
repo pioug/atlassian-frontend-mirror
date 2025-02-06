@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 112.12.3
+
+### Patch Changes
+
+- [#110251](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110251)
+  [`b6adb9244b072`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6adb9244b072) -
+  [ux] Visual refresh of the EmbedCard component
+- [#110634](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110634)
+  [`62224d53da886`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62224d53da886) -
+  [ux] [ED-26283] CSS Selector fix for table with shadows when there are nested tables. It will only
+  select direct children now and not descendants which prevents unnecessary shadow on parent table
+  when there is a nested table.
+- Updated dependencies
+
 ## 112.12.2
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export const MockDisclaimer = () => {
 	const { locale } = useIntl();

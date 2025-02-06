@@ -225,19 +225,22 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
 		const reactionDialog = await screen.getByTestId(RENDER_MODAL_TESTID);
 
-		// get reaction tab from reactions dialog
-		const modalBody = await screen.getByTestId('render-reactions-modal--body');
-		const reactionToClick = within(modalBody).getByTestId(reactionsForDialog[1].emojiId);
-		const reactionTabToClick = within(reactionToClick).getByRole('tab');
+		const reaction = await screen.queryByTestId(reactionsForDialog[1].emojiId);
+		expect(reaction).toBeInTheDocument();
+
+		const tabToClick = screen
+			.getAllByRole('tab')
+			.find((tab) => tab.getAttribute('id') === 'reactions-dialog-tabs-1');
+		expect(tabToClick).toBeInTheDocument();
+
 		// click a different reaction tab
 		act(() => {
-			fireEvent.click(reactionTabToClick);
+			fireEvent.click(tabToClick!);
 		});
 
 		// get close button in reactions dialog
 		const modalFooter = await screen.getByTestId('render-reactions-modal--footer');
 		const closeBtn = within(modalFooter).getByText('Close');
-		// click close button in reactions dialog
 		act(() => {
 			fireEvent.click(closeBtn);
 		});

@@ -1,0 +1,104 @@
+{
+	"name": "@atlaskit/editor-plugin-selection-extension",
+	"version": "1.0.0",
+	"description": "editor-plugin-selection-extension plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Core Experiences",
+		"runReact18": true,
+		"website": {
+			"name": "EditorPluginSelectionExtension",
+			"category": "Layout and structure"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <5.4": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"*.compiled.css"
+	],
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-common": "^99.9.0",
+		"@atlaskit/editor-plugin-analytics": "^1.10.2",
+		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
+		"@atlaskit/editor-plugin-selection-toolbar": "^1.6.1",
+		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/icon": "^23.4.0",
+		"@atlaskit/primitives": "^13.3.0",
+		"@babel/runtime": "^7.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"uuid": "^3.1.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^13.4.0",
+		"react-dom": "^18.2.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
+}

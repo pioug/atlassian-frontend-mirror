@@ -44,6 +44,7 @@ export interface Props {
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 	rendererExtensionHandlers?: ExtensionHandlers;
+	isLivePageViewMode?: boolean;
 }
 
 export interface State {
@@ -126,9 +127,12 @@ export class ExtensionComponentOld extends Component<Props, State> {
 	getExtensionModuleNodePrivateProps = memoizeOne(getExtensionModuleNodePrivateProps);
 
 	setIsNodeHovered = (isHovered: boolean) => {
-		this.setState({
-			isNodeHovered: isHovered,
-		});
+		// Don't want to show hover interactions for live page view mode
+		if (!this.props.isLivePageViewMode) {
+			this.setState({
+				isNodeHovered: isHovered,
+			});
+		}
 	};
 
 	setShowBodiedExtensionRendererView = (showRendererView: boolean) => {
@@ -150,6 +154,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 			macroInteractionDesignFeatureFlags,
 			showLivePagesBodiedMacrosRendererView,
 			showUpdatedLivePages1PBodiedExtensionUI,
+			isLivePageViewMode,
 		} = this.props;
 
 		const { selection } = editorView.state;
@@ -177,6 +182,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 					isNodeNested={isNodeNested}
 					isNodeHovered={this.state.isNodeHovered}
 					setIsNodeHovered={this.setIsNodeHovered}
+					isLivePageViewMode={isLivePageViewMode}
 				/>
 			);
 		}
@@ -209,6 +215,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 						}
 						showBodiedExtensionRendererView={this.state.showBodiedExtensionRendererView}
 						setShowBodiedExtensionRendererView={this.setShowBodiedExtensionRendererView}
+						isLivePageViewMode={isLivePageViewMode}
 					>
 						{extensionHandlerResult}
 					</Extension>
@@ -222,6 +229,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 						pluginInjectionApi={pluginInjectionApi}
 						isNodeHovered={this.state.isNodeHovered}
 						setIsNodeHovered={this.setIsNodeHovered}
+						isLivePageViewMode={isLivePageViewMode}
 					>
 						{extensionHandlerResult}
 					</InlineExtension>
@@ -370,6 +378,7 @@ export const ExtensionComponentNew = (props: Props) => {
 	const [extensionProvider, setExtensionProvider] = useState<ExtensionProvider | undefined>(
 		undefined,
 	);
+
 	const [showBodiedExtensionRendererView, setShowBodiedExtensionRendererView] = useState<boolean>(
 		!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node)) && !isEmptyBodiedMacro(node),
 	);
@@ -418,9 +427,12 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 	getExtensionModuleNodePrivateProps = memoizeOne(getExtensionModuleNodePrivateProps);
 
 	setIsNodeHovered = (isHovered: boolean) => {
-		this.setState({
-			isNodeHovered: isHovered,
-		});
+		// Don't want to show hover interactions for live page view mode
+		if (!this.props.isLivePageViewMode) {
+			this.setState({
+				isNodeHovered: isHovered,
+			});
+		}
 	};
 
 	render() {
@@ -439,6 +451,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 			showUpdatedLivePages1PBodiedExtensionUI,
 			showBodiedExtensionRendererView,
 			setShowBodiedExtensionRendererView,
+			isLivePageViewMode,
 		} = this.props;
 
 		const { selection } = editorView.state;
@@ -466,6 +479,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 					isNodeNested={isNodeNested}
 					isNodeHovered={this.state.isNodeHovered}
 					setIsNodeHovered={this.setIsNodeHovered}
+					isLivePageViewMode={isLivePageViewMode}
 				/>
 			);
 		}
@@ -498,6 +512,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 						}
 						showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 						setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
+						isLivePageViewMode={isLivePageViewMode}
 					>
 						{extensionHandlerResult}
 					</Extension>
@@ -511,6 +526,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 						pluginInjectionApi={pluginInjectionApi}
 						isNodeHovered={this.state.isNodeHovered}
 						setIsNodeHovered={this.setIsNodeHovered}
+						isLivePageViewMode={isLivePageViewMode}
 					>
 						{extensionHandlerResult}
 					</InlineExtension>

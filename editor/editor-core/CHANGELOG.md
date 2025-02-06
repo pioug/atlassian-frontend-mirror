@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 203.15.0
+
+### Minor Changes
+
+- [#111196](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111196)
+  [`8a1567bd07c14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a1567bd07c14) -
+  ED-26257 LCM: Lift createFeatureFlagsFromProps to the utils folder and export from editor-core to
+  allow it to be used in experiment-legacy-content-macro. This function has extra flags on top of
+  what is passed in, so reusing it in order to avoid discrepancy between feature flags inside and
+  outside the LCM extension.
+
+## 203.14.4
+
+### Patch Changes
+
+- [#107474](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107474)
+  [`5b698c7925d2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b698c7925d2b) -
+  [ux] ED-26365 first release of editor-plugin-selection-extension
+- [#108912](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108912)
+  [`4f43a6293679e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f43a6293679e) -
+  [ux] Adds logic to hide macro interactions during view mode of live pages
+- Updated dependencies
+
 ## 203.14.3
 
 ### Patch Changes

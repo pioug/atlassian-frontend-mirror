@@ -59,6 +59,7 @@ import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorProps } from '../types';
 import type { EditorViewStateUpdatedCallbackProps } from '../types/editor-config';
 import type { EditorNextProps } from '../types/editor-props';
+import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { getNodesCount } from '../utils/getNodesCount';
 import { isFullPage } from '../utils/is-full-page';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
@@ -71,7 +72,6 @@ import {
 import { createErrorReporter, createPMPlugins, processPluginsList } from './create-editor';
 import createPluginsList from './create-plugins-list';
 import { createSchema } from './create-schema';
-import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import { editorMessages } from './messages';
 import { getUAPrefix } from './ReactEditorView/getUAPrefix';
 import { handleEditorFocus } from './ReactEditorView/handleEditorFocus';

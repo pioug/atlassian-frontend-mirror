@@ -8,10 +8,7 @@ export type EditorViewModePluginState = {
 	 * but still in consumption mode. This is sometimes referred to as the 'graceful edit' mode.
 	 */
 	contentMode: ContentMode;
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
-	 * @deprecated
-	 *
 	 * This property is misleading and should be avoided as mode is now an internal state
 	 * - with the editor having consumption first state while in edit mode for live pages.
 	 *
@@ -69,9 +66,7 @@ export type EditorViewModePlugin = NextEditorPlugin<
 		dependencies: [];
 		pluginConfiguration?: EditorViewModePluginConfig;
 		commands: {
-			// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 			/**
-			 * @deprecated
 			 * This command is deprecated and should be avoided -- use updateContentMode instead.
 			 */
 			updateViewMode: (mode: ViewMode) => EditorCommand;

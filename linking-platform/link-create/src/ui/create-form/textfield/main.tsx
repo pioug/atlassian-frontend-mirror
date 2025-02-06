@@ -1,14 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import AkTextfield from '@atlaskit/textfield';
 
 import { CreateField } from '../../../controllers/create-field';
 
+import { TextFieldOld } from './old/main';
 import { type TextFieldProps } from './types';
 
 export const TEST_ID = 'link-create-text-field';
@@ -19,8 +16,7 @@ export const TEST_ID = 'link-create-text-field';
  * the handleSubmit function passed to the form <Form> that have a key matching the `name`
  * of this text field are shown above the field.
  */
-
-export function TextField({
+const TextFieldNew = ({
 	id,
 	name,
 	label,
@@ -29,7 +25,7 @@ export function TextField({
 	validationHelpText,
 	testId = TEST_ID,
 	...restProps
-}: TextFieldProps) {
+}: TextFieldProps): JSX.Element => {
 	return (
 		<CreateField
 			id={id}
@@ -45,4 +41,11 @@ export function TextField({
 			}}
 		</CreateField>
 	);
-}
+};
+
+export const TextField = (props: TextFieldProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <TextFieldNew {...props} />;
+	}
+	return <TextFieldOld {...props} />;
+};

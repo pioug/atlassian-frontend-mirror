@@ -2,6 +2,9 @@ import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Anchor } from '@atlaskit/primitives';
+
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CONTENT_URL_3P_ACCOUNT_AUTH, CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../constants';
 import { messages } from '../../messages';
@@ -56,18 +59,33 @@ const UnauthorisedViewContent = ({
 			) : (
 				<FormattedMessage {...messages.connect_unauthorised_account_description_no_provider} />
 			)}{' '}
-			<a
-				href={
-					isProductIntegrationSupported
-						? CONTENT_URL_3P_ACCOUNT_AUTH
-						: CONTENT_URL_SECURITY_AND_PERMISSIONS
-				}
-				target="_blank"
-				data-testid={`${testId}-learn-more`}
-				onClick={handleLearnMoreClick}
-			>
-				<FormattedMessage {...learnMoreMessage} />
-			</a>
+			{fg('platform-linking-visual-refresh-v1') ? (
+				<Anchor
+					href={
+						isProductIntegrationSupported
+							? CONTENT_URL_3P_ACCOUNT_AUTH
+							: CONTENT_URL_SECURITY_AND_PERMISSIONS
+					}
+					target="_blank"
+					testId={`${testId}-learn-more`}
+					onClick={handleLearnMoreClick}
+				>
+					<FormattedMessage {...learnMoreMessage} />
+				</Anchor>
+			) : (
+				<a
+					href={
+						isProductIntegrationSupported
+							? CONTENT_URL_3P_ACCOUNT_AUTH
+							: CONTENT_URL_SECURITY_AND_PERMISSIONS
+					}
+					target="_blank"
+					data-testid={`${testId}-learn-more`}
+					onClick={handleLearnMoreClick}
+				>
+					<FormattedMessage {...learnMoreMessage} />
+				</a>
+			)}
 		</>
 	);
 };

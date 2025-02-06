@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "2.14.0",
+	"version": "2.15.0",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,7 +28,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts"
@@ -41,14 +43,16 @@
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/atlassian-context": "^0.1.0",
 		"@atlaskit/button": "^20.5.0",
+		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/empty-state": "^8.2.0",
 		"@atlaskit/form": "^11.1.0",
-		"@atlaskit/icon": "^23.6.0",
+		"@atlaskit/icon": "^23.7.0",
 		"@atlaskit/icon-file-type": "^6.9.0",
 		"@atlaskit/intl-messages-provider": "^1.1.0",
 		"@atlaskit/layering": "^1.1.0",
-		"@atlaskit/linking-common": "^6.2.0",
+		"@atlaskit/linking-common": "^6.3.0",
 		"@atlaskit/modal-dialog": "^12.20.0",
+		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/smart-user-picker": "^7.0.0",
@@ -57,6 +61,7 @@
 		"@atlaskit/theme": "^14.1.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.1",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"debounce-promise": "^3.1.2",
@@ -117,11 +122,17 @@
 			],
 			"styling": [
 				"static",
-				"emotion"
+				"emotion",
+				"compiled"
 			],
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_bandicoots-link-create-css": {
+			"type": "boolean"
 		}
 	}
 }

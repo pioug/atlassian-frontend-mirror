@@ -91,6 +91,15 @@ snapshot(BlockCardNotFoundSiteAccessExists, {
 snapshot(BlockCardUnauthorisedView, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': true,
+	},
+});
+snapshot(BlockCardUnauthorisedView, {
+	description:
+		'BlockCardUnauthorisedView Old - remove when cleaning platform-linking-visual-refresh-v1',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': false,
 	},
 });
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {

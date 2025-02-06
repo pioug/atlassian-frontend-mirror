@@ -14,6 +14,7 @@ import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
@@ -139,7 +140,31 @@ function ComposableEditorPage() {
 					: { initialContentMode: 'live-edit' },
 			])
 			.add(selectionMarkerPlugin)
-			.add(codeBlockAdvancedPlugin);
+			.add(codeBlockAdvancedPlugin)
+			.add([
+				selectionExtensionPlugin,
+				{
+					pageModes: ['view', 'live-view-only', 'live-view'],
+					extensions: [
+						{
+							name: 'Selection Extension Example',
+							onClick: (params) => {
+								console.log(JSON.stringify(params));
+							},
+						},
+						{
+							name: 'Word Count',
+							onClick: (params) => {
+								console.log(
+									'Word count: ' +
+										params.text.split(/[ \n]+/u).filter((word) => word !== '').length,
+								);
+							},
+						},
+					],
+				},
+			]);
+
 		// The only things that cause a re-creation of the preset is something in the
 		// universal preset to be consistent with current behaviour (ie. this could
 		// be a page width change via the `appearance` prop).
@@ -164,6 +189,13 @@ function ComposableEditorPage() {
 					}
 				}}
 				onViewMode={() => {
+					editorApi?.core?.actions.execute(
+						editorApi?.editorViewMode?.commands.updateViewMode(
+							editorApi?.editorViewMode.sharedState.currentState()?.mode === 'edit'
+								? 'view'
+								: 'edit',
+						),
+					);
 					editorApi?.core?.actions.execute(
 						editorApi?.editorViewMode?.commands.updateContentMode({
 							type: 'switch-content-mode',

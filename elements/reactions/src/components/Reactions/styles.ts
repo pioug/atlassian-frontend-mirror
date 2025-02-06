@@ -13,17 +13,6 @@ export const reactionPickerStyle = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const seeWhoReactedStyle = css({
-	height: '24px',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: '24px',
-	paddingLeft: 0,
-	paddingRight: 0,
-	marginTop: token('space.050', '4px'),
-	marginLeft: token('space.050', '4px'),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperStyle = css({
 	display: 'flex',
 	flexWrap: 'wrap',

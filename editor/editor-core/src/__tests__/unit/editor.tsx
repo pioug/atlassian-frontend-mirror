@@ -52,9 +52,9 @@ import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import * as featureFlagsFromProps from '../../create-editor/feature-flags-from-props';
 import Editor from '../../editor';
 import { EditorActions } from '../../index';
+import * as featureFlagsFromProps from '../../utils/feature-flags-from-props';
 import measurements from '../../utils/performance/measure-enum';
 import { name as packageName, version as packageVersion } from '../../version-wrapper';
 

@@ -310,7 +310,17 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 // Flex block card forbidden snapshot already taken in
 // platform/packages/linking-platform/smart-card/src/__tests__/vr-tests/block-card.vr.tsx (BlockCardForbiddenViews)
+
+snapshot(FlexibleUiBlockCardErroredStates, {
+	description:
+		'FlexibleUiBlockCardErroredStates OLD - remove when cleaning platform-linking-visual-refresh-v1',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': false,
+	},
+});

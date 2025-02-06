@@ -1,15 +1,9 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import React, { type PropsWithChildren } from 'react';
 
-import { type PropsWithChildren } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import { Inline } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Inline } from '@atlaskit/primitives/compiled';
 import AkSelect, {
 	components,
 	type OptionProps,
@@ -22,6 +16,12 @@ import { UrlIcon } from '../../../common/ui/icon';
 import { CreateField } from '../../../controllers/create-field';
 
 import { messages } from './messages';
+import {
+	SelectOld,
+	SitePickerOptionOld,
+	SitePickerSingleValueOld,
+	SiteSelectOld,
+} from './old/main';
 import { type SelectProps, type SitePickerOptionType } from './types';
 
 export const TEST_ID = 'link-create-select';
@@ -32,7 +32,7 @@ export const TEST_ID = 'link-create-select';
  * errors returned by the handleSubmit function passed to the form <Form> that
  * have a key matching the `name` of this field are shown below the field.
  */
-export function Select<T = OptionType>({
+function SelectNew<T = OptionType>({
 	id,
 	name,
 	label,
@@ -41,7 +41,7 @@ export function Select<T = OptionType>({
 	validationHelpText,
 	testId = TEST_ID,
 	...restProps
-}: SelectProps<T>) {
+}: SelectProps<T>): JSX.Element {
 	return (
 		<CreateField
 			id={id}
@@ -59,25 +59,32 @@ export function Select<T = OptionType>({
 	);
 }
 
+export function Select<T = OptionType>(props: SelectProps<T>) {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <SelectNew {...props} />;
+	}
+	return <SelectOld {...props} />;
+}
+
 export type SiteSelectProps = {
 	testId?: string;
 	options?: SitePickerOptionType[];
 	name?: string;
 };
 
-export const SiteSelect = ({ options, name, testId }: SiteSelectProps) => {
+const SiteSelectNew = ({ options, name, testId }: SiteSelectProps): JSX.Element => {
 	const intl = useIntl();
 	const siteTestId = testId ? testId : 'link-create-site-picker';
 	return (
-		<Select<SitePickerOptionType>
+		<SelectOld<SitePickerOptionType>
 			isRequired
 			isSearchable
 			name={name ?? 'site'}
 			options={options}
 			label={intl.formatMessage(messages.siteLabel)}
 			components={{
-				Option: SitePickerOption,
-				SingleValue: SitePickerSingleValue,
+				Option: SitePickerOptionNew,
+				SingleValue: SitePickerSingleValueNew,
 			}}
 			testId={siteTestId}
 			styles={{
@@ -93,6 +100,13 @@ export const SiteSelect = ({ options, name, testId }: SiteSelectProps) => {
 	);
 };
 
+export const SiteSelect = (props: SiteSelectProps) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <SiteSelectNew {...props} />;
+	}
+	return <SiteSelectOld {...props} />;
+};
+
 const SiteRow = ({ avatarUrl, children }: PropsWithChildren<{ avatarUrl?: string }>) => (
 	<Inline space="space.100" alignBlock="center">
 		{avatarUrl ? <UrlIcon url={avatarUrl} /> : null}
@@ -100,7 +114,7 @@ const SiteRow = ({ avatarUrl, children }: PropsWithChildren<{ avatarUrl?: string
 	</Inline>
 );
 
-export const SitePickerOption = ({
+const SitePickerOptionNew = ({
 	children,
 	...props
 }: PropsWithChildren<OptionProps<SitePickerOptionType, false>>): JSX.Element => (
@@ -109,7 +123,16 @@ export const SitePickerOption = ({
 	</components.Option>
 );
 
-export const SitePickerSingleValue = ({
+export const SitePickerOption = (
+	props: PropsWithChildren<OptionProps<SitePickerOptionType, false>>,
+) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <SitePickerOptionNew {...props} />;
+	}
+	return <SitePickerOptionOld {...props} />;
+};
+
+const SitePickerSingleValueNew = ({
 	children,
 	...props
 }: PropsWithChildren<SingleValueProps<SitePickerOptionType, false>>): JSX.Element => (
@@ -117,3 +140,12 @@ export const SitePickerSingleValue = ({
 		<SiteRow avatarUrl={props.data.value.avatarUrl}>{children}</SiteRow>
 	</components.SingleValue>
 );
+
+export const SitePickerSingleValue = (
+	props: PropsWithChildren<SingleValueProps<SitePickerOptionType, false>>,
+) => {
+	if (fg('platform_bandicoots-link-create-css')) {
+		return <SitePickerSingleValueNew {...props} />;
+	}
+	return <SitePickerSingleValueOld {...props} />;
+};

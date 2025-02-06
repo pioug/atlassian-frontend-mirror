@@ -231,6 +231,9 @@
             "path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-selection-extension/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-selection-marker/afm-cc/tsconfig.json"
         },
         {

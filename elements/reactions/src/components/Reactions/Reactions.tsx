@@ -13,9 +13,11 @@ import {
 	ModalTransition,
 	type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 import { type Placement } from '@atlaskit/popper';
+import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createAndFireSafe,
@@ -48,7 +50,9 @@ import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
 import { type SelectorProps } from '../Selector';
 import { ReactionSummaryView } from '../ReactionSummary/';
 
-import { reactionPickerStyle, seeWhoReactedStyle, wrapperStyle } from './styles';
+import { reactionPickerStyle, wrapperStyle } from './styles';
+
+const tooltipStyle = xcss({ paddingLeft: 'space.050' });
 
 /**
  * Set of all available UFO experiences relating to reactions dialog
@@ -252,7 +256,8 @@ export const Reactions = React.memo(
 			if (status !== ReactionStatus.ready) {
 				renderTime.current = Date.now();
 			} else {
-				if (isSampled(SAMPLING_RATE_REACTIONS_RENDERED_EXP)) {
+				const isSSR = process.env.REACT_SSR && fg('platform_fix_analytics_error');
+				if (isSampled(SAMPLING_RATE_REACTIONS_RENDERED_EXP) && !isSSR) {
 					createAndFireSafe(
 						createAnalyticsEvent,
 						createReactionsRenderedEvent,
@@ -373,6 +378,7 @@ export const Reactions = React.memo(
 			ufoExperiences.selectedReactionChangeInsideDialog.start();
 
 			handleReactionMouseEnter(emojiId);
+			setSelectedEmojiId(emojiId);
 			if (analyticsEvent) {
 				onDialogSelectReactionCallback(emojiId, analyticsEvent);
 			}
@@ -454,7 +460,7 @@ export const Reactions = React.memo(
 							showOpaqueBackground={showOpaqueBackground}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							handleOpenReactionsDialog={handleOpenReactionsDialog}
-							allowUserDialog={allowUserDialog}
+							allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
 						/>
 					</div>
 				) : (
@@ -492,23 +498,24 @@ export const Reactions = React.memo(
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 				/>
 				{allowUserDialog && hasEmojiWithFivePlusReactions && !shouldShowSummaryView && (
-					<Tooltip
-						content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
-						hideTooltipOnClick
-					>
-						<Button
-							// TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
-							// https://product-fabric.atlassian.net/browse/DSP-18982
-							appearance="subtle-link"
-							onClick={handleOpenAllReactionsDialog}
-							// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							css={seeWhoReactedStyle}
-							testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
+					<Box xcss={tooltipStyle}>
+						<Tooltip
+							content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
+							hideTooltipOnClick
 						>
-							<FormattedMessage {...messages.seeWhoReacted} />
-						</Button>
-					</Tooltip>
+							{(tooltipProps) => (
+								<Button
+									{...tooltipProps}
+									appearance="subtle"
+									spacing="compact"
+									onClick={handleOpenAllReactionsDialog}
+									testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
+								>
+									<FormattedMessage {...messages.seeWhoReacted} />
+								</Button>
+							)}
+						</Tooltip>
+					</Box>
 				)}
 				{/* https://atlassian.design/components/modal-dialog/examples#default */}
 				<ModalTransition>

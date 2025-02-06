@@ -66,6 +66,23 @@ snapshot(HoverCardUnauthorised, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': true,
+	},
+});
+
+snapshot(HoverCardUnauthorised, {
+	description:
+		'Hover card unauthorised OLD - delete when cleaning platform-linking-visual-refresh-v1',
+	drawsOutsideBounds: true,
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': false,
 	},
 });
 

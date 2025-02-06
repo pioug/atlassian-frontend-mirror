@@ -1,5 +1,35 @@
 # @atlaskit/icon-lab
 
+## 2.4.0
+
+### Minor Changes
+
+- [#108250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108250)
+  [`4e8deb5b0b126`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4e8deb5b0b126) -
+  [ux] This adds and modifies icons in `@atlaskit/icons` and `@atlaskit/icon-lab`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `page-live-doc`: Updated usage guidance
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `cloud-offline`
+  - `cloud-saved`
+  - `database-storage-cache`
+  - `database-storage`
+  - `sunset`
+  - `sync`
+  - `welcome-feed`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

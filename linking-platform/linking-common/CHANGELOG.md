@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 6.3.0
+
+### Minor Changes
+
+- [#109707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109707)
+  [`eb65c12990db9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb65c12990db9) -
+  Convert from emotion to compiled css under FF
+
 ## 6.2.0
 
 ### Minor Changes

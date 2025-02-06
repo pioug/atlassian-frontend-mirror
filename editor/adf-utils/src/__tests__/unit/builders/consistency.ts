@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { execSync } from 'child_process';
 
 // Ignored via go/ees005
 // eslint-disable-next-line no-var
@@ -29,24 +30,21 @@ const ignoredPaths = [
 	'__tests__',
 ];
 
+const REPO_ROOT = execSync('git rev-parse --show-toplevel', {
+	encoding: 'utf-8',
+}).trim();
+
+const rootNodeModules = path.join(REPO_ROOT, 'node_modules');
+const platformNodeModules = path.join(REPO_ROOT, 'platform', 'node_modules');
+
 // TODO: https://product-fabric.atlassian.net/browse/ADFEXP-524
-const adfSchemaNodesPath = path.join(
-	__dirname,
-	'..',
-	'..',
-	'..',
-	'..',
-	'..',
-	'..',
-	'..',
-	'node_modules',
-	'@atlaskit',
-	'adf-schema',
-	'dist',
-	'cjs',
-	'schema',
-	'nodes',
-);
+const adfSchemaNodesDir = path.join('@atlaskit', 'adf-schema', 'dist', 'cjs', 'schema', 'nodes');
+
+// Load 'nodes' from Platform's node_modules if available, otherwise from the root node_modules
+// This is because when Platform migrates to the global hoisted yarn.lock at the repo root, these modules will be hoisted to the root node_modules
+const adfSchemaNodesPath = fs.existsSync(path.join(platformNodeModules, adfSchemaNodesDir))
+	? path.join(platformNodeModules, adfSchemaNodesDir)
+	: path.join(rootNodeModules, adfSchemaNodesDir);
 
 const nodeBuildersPath = path.join(__dirname, '..', '..', '..', 'builders', 'nodes');
 
@@ -61,23 +59,13 @@ const ignoredMarks = [
 ];
 
 // TODO: https://product-fabric.atlassian.net/browse/ADFEXP-524
-const adfSchemaMarksPath = path.join(
-	__dirname,
-	'..',
-	'..',
-	'..',
-	'..',
-	'..',
-	'..',
-	'..',
-	'node_modules',
-	'@atlaskit',
-	'adf-schema',
-	'dist',
-	'cjs',
-	'schema',
-	'marks',
-);
+const adfSchemaMarksDir = path.join('@atlaskit', 'adf-schema', 'dist', 'cjs', 'schema', 'marks');
+
+// Load 'marks' from Platform's node_modules if available, otherwise from the root node_modules
+// This is because when Platform migrates to the global hoisted yarn.lock at the repo root, these modules will be hoisted to the root node_modules
+const adfSchemaMarksPath = fs.existsSync(path.join(platformNodeModules, adfSchemaMarksDir))
+	? path.join(platformNodeModules, adfSchemaMarksDir)
+	: path.join(rootNodeModules, adfSchemaMarksDir);
 
 const marksBuildersPath = path.join(__dirname, '..', '..', '..', 'builders', 'marks');
 

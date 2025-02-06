@@ -101,6 +101,20 @@ snapshotInformational(RendererBlockCardUnauthorized, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
 	},
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+	},
+});
+
+snapshotInformational(RendererBlockCardUnauthorized, {
+	description:
+		'renderer block card unauthorized - OLD remove when cleaning platform-linking-visual-refresh-v1',
+	prepare: async (page) => {
+		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
+	},
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': false,
+	},
 });
 snapshotInformational(RendererBlockCardForbidden, {
 	prepare: async (page) => {
@@ -168,6 +182,21 @@ snapshotInformational(RendererEmbedCardResolving, {
 snapshotInformational(RendererEmbedCardUnauthorized, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-unauthorized-view').waitFor({ state: 'visible' });
+	},
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+		'bandicoots-compiled-migration-smartcard': true,
+	},
+});
+snapshotInformational(RendererEmbedCardUnauthorized, {
+	description:
+		'renderer embed card unauthorized - OLD remove when cleaning platform-linking-visual-refresh-v1',
+	prepare: async (page) => {
+		await page.getByTestId('embed-card-unauthorized-view').waitFor({ state: 'visible' });
+	},
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': false,
+		'bandicoots-compiled-migration-smartcard': false,
 	},
 });
 snapshotInformational(RendererBlockCardFullWidthLayout, {

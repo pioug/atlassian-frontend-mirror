@@ -55,6 +55,7 @@ export interface Props {
 	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	isLivePageViewMode?: boolean;
 }
 
 type WidthStateProps = { widthState?: EditorContainerWidth };
@@ -79,6 +80,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		showBodiedExtensionRendererView,
 		setShowBodiedExtensionRendererView,
 		pluginInjectionApi,
+		isLivePageViewMode,
 	} = props;
 
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
@@ -176,7 +178,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	return (
 		<Fragment>
-			{showMacroInteractionDesignUpdates && (
+			{showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					isNodeSelected={isNodeSelected}
 					isNodeHovered={isNodeHovered}

@@ -98,11 +98,11 @@ const { findByText, findByRole, queryAllByText, queryAllByRole } = screen;
 const renderReactionsDialog = async (extraProps: Partial<ReactionsDialogProps> = {}) => {
 	renderWithIntl(
 		<ReactionsDialog
-			reactions={reactionsData.slice(0, 5)}
+			reactions={reactionsData}
 			emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
 			handleCloseReactionsDialog={mockHandleCloseReactionsDialog}
 			handlePaginationChange={mockHandlePaginationChange}
-			selectedEmojiId="1f44d"
+			selectedEmojiId="1f6bf"
 			{...extraProps}
 		/>,
 	);
@@ -112,14 +112,14 @@ const renderReactionsDialog = async (extraProps: Partial<ReactionsDialogProps> =
 };
 
 it('should display reactions count', async () => {
-	await renderReactionsDialog();
+	await renderReactionsDialog({ reactions: reactionsData.slice(0, 5) });
 
 	const totalCommentCount = await findByText('50 total reactions');
 	expect(totalCommentCount).toBeTruthy();
 });
 
 it('should display a list of reaction tabs', async () => {
-	await renderReactionsDialog();
+	await renderReactionsDialog({ reactions: reactionsData.slice(0, 5) });
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
@@ -157,8 +157,8 @@ it('should display the emoji and emoji name for the selected reaction', async ()
 	expect(reactionView).toBeDefined();
 
 	// selected reaction is thumbsup
-	expect(within(reactionView).getByLabelText(':thumbsup:')).toBeDefined();
-	expect(within(reactionView).getByText(/people who reacted with :thumbsup:/i)).toBeDefined();
+	expect(within(reactionView).getByLabelText(':shower:')).toBeDefined();
+	expect(within(reactionView).getByText(/people who reacted with shower/i)).toBeDefined();
 });
 
 it('should alphabetically sort users for the selected reaction', async () => {
@@ -176,7 +176,10 @@ it('should alphabetically sort users for the selected reaction', async () => {
 
 it('should fire handleSelectReaction when a reaction is selected', async () => {
 	const spy = jest.fn();
-	await renderReactionsDialog({ handleSelectReaction: spy });
+	await renderReactionsDialog({
+		selectedEmojiId: '1f6bf',
+		handleSelectReaction: spy,
+	});
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
@@ -184,14 +187,14 @@ it('should fire handleSelectReaction when a reaction is selected', async () => {
 	const elements = queryAllByRole('tab');
 
 	await act(async () => {
-		await fireEvent.click(elements[0]);
+		await fireEvent.click(elements[1]);
 	});
 
 	expect(spy).toHaveBeenCalled();
 });
 
 it('should display a maximum of eight emojis per page', async () => {
-	await renderReactionsDialog({ reactions: reactionsData });
+	await renderReactionsDialog({});
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
@@ -201,7 +204,7 @@ it('should display a maximum of eight emojis per page', async () => {
 });
 
 it('should render the correct number of pages for emojis', async () => {
-	await renderReactionsDialog({ reactions: reactionsData });
+	await renderReactionsDialog({});
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
@@ -216,7 +219,7 @@ it('should render the correct number of pages for emojis', async () => {
 });
 
 it('should disable navigation buttons on the first and last page', async () => {
-	await renderReactionsDialog({ reactions: reactionsData });
+	await renderReactionsDialog({});
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
@@ -245,7 +248,6 @@ it('should render the first emoji after navigating to a new page', async () => {
 	const spy = jest.fn();
 	await renderReactionsDialog({
 		handlePaginationChange: spy,
-		reactions: reactionsData,
 		// 9th emoji in reactionsData - :fire:
 		// handlePaginationChange updates selectedEmojiId but we have to pass it as a prop for the test
 		selectedEmojiId: '1f525',
@@ -259,27 +261,25 @@ it('should render the first emoji after navigating to a new page', async () => {
 
 	expect(spy).toHaveBeenCalledWith('1f525');
 
-	expect(screen.getByText(/people who reacted with :fire:/i)).toBeInTheDocument();
+	expect(screen.getByText(/people who reacted with fire/i)).toBeInTheDocument();
 });
 
 it('should render user profile card', async () => {
 	await renderReactionsDialog({
-		reactions: reactionsData,
 		// the actual component handles the over hover interaction
 		ProfileCardWrapper: () => <div>ProfileCard</div>,
+		selectedEmojiId: '1f6bf',
 	});
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
 
-	const profileCards = screen.queryAllByText('ProfileCard');
+	const profileCards = await screen.findAllByText('ProfileCard');
 	expect(profileCards).toHaveLength(5);
 });
 
 it('should not render profile card there is no profile card wrapper', async () => {
-	await renderReactionsDialog({
-		reactions: reactionsData,
-	});
+	await renderReactionsDialog({});
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
@@ -292,6 +292,7 @@ it('should not render profile card for users that are missing an account id', as
 	await renderReactionsDialog({
 		reactions: truncatedReactionsData,
 		ProfileCardWrapper: () => <div>ProfileCard</div>,
+		selectedEmojiId: '1f6bf',
 	});
 
 	const reactionsList = await findByRole('tablist');

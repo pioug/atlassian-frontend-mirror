@@ -23,12 +23,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
-import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import ReactEditorViewNext from '../create-editor/ReactEditorViewNext';
 import { type EditorAppearanceComponentProps } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { IntlProviderIfMissingWrapper } from '../ui/IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
+import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 
 import { BaseThemeWrapper } from './BaseThemeWrapper';

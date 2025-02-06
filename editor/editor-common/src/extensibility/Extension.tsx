@@ -68,6 +68,13 @@ export class Extension extends Component<Props, any> {
 			rendererExtensionHandlers,
 		} = this.props;
 
+		// Extensions are not yet using the new plugin architecture, and the use of the pluginInjectionApi
+		// is not type safe in editor-common.
+		// @ts-ignore
+		const currentState = pluginInjectionApi?.editorViewMode?.sharedState?.currentState();
+		const { contentMode } = currentState || {};
+		const isLivePageViewMode = contentMode === 'live-view';
+
 		return (
 			<ExtensionComponent
 				editorView={editorView}
@@ -84,6 +91,7 @@ export class Extension extends Component<Props, any> {
 				showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 				showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 				rendererExtensionHandlers={rendererExtensionHandlers}
+				isLivePageViewMode={isLivePageViewMode}
 			/>
 		);
 	};

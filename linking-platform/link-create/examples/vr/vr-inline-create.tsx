@@ -1,17 +1,27 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { IntlProvider } from 'react-intl-next';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { EditViewProps, LinkCreateProps } from '../../src';
 import { InlineCreate } from '../../src/ui';
 
-const containerStyles = xcss({
-	width: '320px',
-	border: '1px solid',
-	padding: 'space.100',
+const styles = cssMap({
+	container: {
+		width: '320px',
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+	},
 });
 
 const createExample = (props: Partial<LinkCreateProps> = {}): React.ComponentType => {
@@ -34,7 +44,7 @@ const createExample = (props: Partial<LinkCreateProps> = {}): React.ComponentTyp
 
 		return (
 			<IntlProvider locale="en">
-				<Box xcss={containerStyles}>
+				<Box xcss={styles.container}>
 					<InlineCreate {...props} entityKey={ENTITY_KEY} plugins={mockPlugins} />
 				</Box>
 			</IntlProvider>
@@ -65,7 +75,7 @@ const createExampleWithEdit = (props: Partial<LinkCreateProps> = {}): React.Comp
 
 		return (
 			<IntlProvider locale="en">
-				<Box xcss={containerStyles}>
+				<Box xcss={styles.container}>
 					<InlineCreate
 						entityKey={ENTITY_KEY}
 						plugins={mockPlugins}

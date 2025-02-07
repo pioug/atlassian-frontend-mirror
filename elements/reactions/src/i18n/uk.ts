@@ -11,7 +11,6 @@ export default {
   'fabric.reactions.error.unexpected': 'Реакції тимчасово недоступні',
   'fabric.reactions.loading': 'Завантаження...',
   'fabric.reactions.more.emojis': 'Інші емодзі',
-  'fabric.reactions.more.info': 'Докладніше',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {і ще {count} особа} few {і ще {count} особи} many {і ще {count} осіб} other {і ще {count} особи}}',
   'fabric.reactions.reactwithemoji': 'Вставити емодзі {emoji}',
@@ -21,8 +20,6 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Перейти вліво',
   'reactions.dialog.people-who-reacted.subheader': 'Люди, що додали реакцію {emojiShortName}',
-  'reactions.dialog.reactions.count':
-    '{count, plural, one {{count,number} реакція} few {{count,number} реакції} many {{count,number} реакцій} other {{count,number} реакції}}',
   'reactions.dialog.right.navigate': 'Перейти вправо',
   'reactions.dialog.viewall': 'Переглянути все',
   'reactions.dialog.viewall.tooltip': 'Переглянути всі реакції користувачів',

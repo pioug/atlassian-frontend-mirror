@@ -11,7 +11,6 @@ export default {
   'fabric.reactions.error.unexpected': 'Реакции временно недоступны',
   'fabric.reactions.loading': 'Загрузка…',
   'fabric.reactions.more.emojis': 'Другие эмодзи',
-  'fabric.reactions.more.info': 'Подробнее',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {и еще один} few {и еще {count}} many {и еще {count}} other {и еще {count}}}',
   'fabric.reactions.reactwithemoji': 'Отреагировать с помощью эмодзи {emoji}',
@@ -20,8 +19,6 @@ export default {
   'reactions.dialog.close': 'Закрыть',
   'reactions.dialog.left.navigate': 'Навигация влево',
   'reactions.dialog.people-who-reacted.subheader': 'Люди, которые оставили реакцию {emojiShortName}',
-  'reactions.dialog.reactions.count':
-    '{count, plural, one {{count,number} реакция} few {{count,number} реакции} many {{count,number} реакций} other {{count,number} реакции}}',
   'reactions.dialog.right.navigate': 'Навигация вправо',
   'reactions.dialog.viewall': 'Просмотреть все',
   'reactions.dialog.viewall.tooltip': 'Посмотреть все реакции пользователей',

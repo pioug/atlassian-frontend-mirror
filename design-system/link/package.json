@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "A link takes people to a new location in the product or another website.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -55,8 +55,9 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/app-provider": "^1.8.0",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@atlaskit/docs": "*",
+		"@atlaskit/heading": "^4.1.0",
+		"@atlaskit/section-message": "*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

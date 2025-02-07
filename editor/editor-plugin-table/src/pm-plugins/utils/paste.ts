@@ -211,11 +211,75 @@ export const transformSliceToFixHardBreakProblemOnCopyFromCell = (
 	return slice;
 };
 
-export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): Slice => {
-	// we're removing the table, tableRow and tableCell reducing the open depth by 3
-	const depthDecrement = 3;
+const isNodeSingleCellTable = (node: PMNode, schema: Schema): boolean => {
+	return (
+		node.childCount === 1 &&
+		node.firstChild?.type === schema.nodes.tableRow &&
+		node.firstChild.childCount === 1 &&
+		(node.firstChild.firstChild?.type === schema.nodes.tableCell ||
+			node.firstChild.firstChild?.type === schema.nodes.tableHeader)
+	);
+};
 
-	// Case 1: A slice entirely within a single CELL
+const isFragmentSingleCellTable = (fragment: Fragment, schema: Schema): boolean => {
+	return (
+		fragment.childCount === 1 &&
+		fragment.firstChild !== null &&
+		isNodeSingleCellTable(fragment.firstChild, schema)
+	);
+};
+
+const containsTextBlockChildren = (fragment: Fragment, schema: Schema): boolean => {
+	let containsTextBlock = false;
+
+	fragment.forEach((node) => {
+		if (node.isTextblock) {
+			containsTextBlock = true;
+		}
+	});
+
+	return containsTextBlock;
+};
+
+export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): Slice => {
+	if (fg('platform_editor_nested_tables_paste_wrap_fix')) {
+		// Case 1: A slice of a textblock selection inside a nested table
+		// Prosemirror wraps nested textblock selections in their respective tables
+		// We are using `safeInsert` to paste nested tables, so we do not want to preserve this wrapping
+
+		// slice starts and ends inside a nested table at the same depth
+		if (slice.openStart >= 7 && slice.openEnd >= 7 && slice.openStart === slice.openEnd) {
+			let cleaned = slice;
+			let descendedDepth = 0;
+			const tableDepthDecrement = 2;
+
+			// if the slice is a single cell table and contains cells with single cell tables, descend into it until we find textblock children
+			if (isFragmentSingleCellTable(slice.content, schema)) {
+				slice.content.firstChild?.descendants((node, _pos, parent) => {
+					if (isNodeSingleCellTable(node, schema)) {
+						descendedDepth += tableDepthDecrement;
+					} else if (node.type === schema.nodes.table) {
+						return false;
+					} else if (containsTextBlockChildren(node.content, schema)) {
+						descendedDepth += tableDepthDecrement;
+						// create a new slice with the content of the textblock children and the depth of the nested tables subtracted
+						cleaned = new Slice(
+							node.content,
+							slice.openStart - descendedDepth - tableDepthDecrement,
+							slice.openEnd - descendedDepth - tableDepthDecrement,
+						);
+						return false;
+					}
+				});
+			}
+
+			if (!cleaned.eq(slice)) {
+				return cleaned;
+			}
+		}
+	}
+
+	// Case 2: A slice entirely within a single CELL
 	if (
 		// starts and ends inside of a cell
 		slice.openStart >= 4 &&
@@ -226,6 +290,9 @@ export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): S
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		slice.content.firstChild!.type === schema.nodes.table
 	) {
+		// we're removing the table, tableRow and tableCell reducing the open depth by 3
+		const depthDecrement = 3;
+
 		// prosemirror-view has a bug that it duplicates table entry when selecting multiple paragraphs in a table cell.
 		// https://github.com/ProseMirror/prosemirror/issues/1270
 		// The structure becomes
@@ -250,7 +317,7 @@ export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): S
 		);
 	}
 
-	// Case 2: A slice starting within a CELL and ending outside the table
+	// Case 3: A slice starting within a CELL and ending outside the table
 	if (
 		// starts inside of a cell but ends outside of the starting table
 		slice.openStart >= 4 &&

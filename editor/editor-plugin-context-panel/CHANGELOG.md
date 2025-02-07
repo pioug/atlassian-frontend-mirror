@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 2.0.0
+
+### Major Changes
+
+- [#111186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111186)
+  [`40e1ee0230fce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40e1ee0230fce) -
+  Updating API to match Object Sidebar changes in Confluence
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.1
 
 ### Patch Changes

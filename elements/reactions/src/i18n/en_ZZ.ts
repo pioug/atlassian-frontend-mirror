@@ -11,7 +11,6 @@ export default {
   'fabric.reactions.error.unexpected': '⁣⁢Reactions are temporarily unavailable⁡‍‍؜⁬‍⁡⁪‌؜؜⁭⁪⁭⁬⁮⁯؜؜‍⁪⁠‍⁣⁤',
   'fabric.reactions.loading': '⁣⁢Loading...⁭⁫⁡⁬⁮⁭؜⁬⁫⁬⁪⁫⁯⁯؜؜⁪‌⁣⁤',
   'fabric.reactions.more.emojis': '⁣⁢More emojis⁪‌‍⁠⁠⁭‍⁪⁬⁭؜‍⁡⁠⁬⁡؜‌⁫⁮⁪⁠⁣⁤',
-  'fabric.reactions.more.info': '⁣⁢More info؜؜؜‍⁠‍⁪؜⁯⁬⁭⁭⁬⁠؜⁮⁪⁠؜⁡⁯⁯⁯⁣⁤',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {⁣⁢and one other⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤} other {⁣⁢and {count} others⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤}}',
   'fabric.reactions.reactwithemoji': '⁣⁢React with {emoji} emoji⁯⁪⁫‌⁯‍؜‍⁫⁫⁫⁫⁡⁬⁬⁭⁠⁪⁮⁫⁡⁬⁣⁤',
@@ -22,7 +21,7 @@ export default {
   'reactions.dialog.left.navigate': '⁣⁢Left Navigate⁫⁪؜⁯⁯⁫‍⁮‌⁫؜⁪⁠⁭؜⁡‍⁠⁠⁡⁭⁣⁤',
   'reactions.dialog.people-who-reacted.subheader': '⁣⁢People who reacted with {emojiShortName}⁠⁭⁡‍⁬‌⁯‌⁮‌‍⁭⁭‌‍⁯⁪⁫⁯⁣⁤',
   'reactions.dialog.reactions.count':
-    '{count, plural, one {⁣⁢{count,number} reaction‌⁬‍⁫‍⁡‍⁪⁭‌⁬⁡⁬⁠‌‍⁬⁠⁯⁫⁪⁮⁭⁣⁤} other {⁣⁢{count,number} reactions‌⁬‍⁫‍⁡‍⁪⁭‌⁬⁡⁬⁠‌‍⁬⁠⁯⁫⁪⁮⁭⁣⁤}}',
+    '{count, plural, one {⁣⁢{count,number} total reaction؜⁮⁯‍⁮⁡⁪⁬⁫‌⁮⁠⁯⁮⁭⁮⁠‌⁭⁫⁫⁪‌‌؜⁪⁯⁣⁤} other {⁣⁢{count,number} total reactions؜⁮⁯‍⁮⁡⁪⁬⁫‌⁮⁠⁯⁮⁭⁮⁠‌⁭⁫⁫⁪‌‌؜⁪⁯⁣⁤}}',
   'reactions.dialog.right.navigate': '⁣⁢Right Navigate⁪⁬⁭⁪⁠⁪؜؜⁯⁠⁭⁪⁯⁭⁭‌‌⁡‍⁫⁪‍⁠⁠⁮⁪⁣⁤',
   'reactions.dialog.viewall': '⁣⁢View all‌⁫‌⁭⁡⁯⁯⁠⁬⁯⁫⁬⁡‌⁭⁪⁭⁮⁪؜⁪⁯⁭⁣⁤',
   'reactions.dialog.viewall.tooltip': '⁣⁢View all user reactions⁮⁡⁫‌⁮؜؜⁡⁪⁪⁡⁯‌⁭⁬⁯‍؜⁬؜⁬⁣⁤',

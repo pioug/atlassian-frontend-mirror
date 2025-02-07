@@ -3,6 +3,8 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { isHoistedProduct } from '@af/is-hoisted-product';
+
 import Blanket from '../../blanket';
 
 describe('ak-blanket', () => {
@@ -23,7 +25,10 @@ describe('ak-blanket', () => {
 				const blanket = screen.getByRole('presentation');
 
 				expect(blanket).toHaveCompiledCss({
-					backgroundColor: 'initial',
+					// When platform moves to a hoisted yarn.lock file, the backgroundColor property of this element is 'transparent'
+					// Since 'transparent' and 'initial' are equivalent, this should have no impact on consumers
+					// https://atlassian.slack.com/archives/C017XR8K1RB/p1736486506068559
+					backgroundColor: isHoistedProduct('platform') ? 'transparent' : 'initial',
 				});
 			});
 
@@ -39,7 +44,10 @@ describe('ak-blanket', () => {
 				const blanket = screen.getByRole('presentation');
 
 				expect(blanket).toHaveCompiledCss({
-					backgroundColor: 'initial',
+					// When platform moves to a hoisted yarn.lock file, the backgroundColor property of this element is 'transparent'
+					// Since 'transparent' and 'initial' are equivalent, this should have no impact on consumers
+					// https://atlassian.slack.com/archives/C017XR8K1RB/p1736486506068559
+					backgroundColor: isHoistedProduct('platform') ? 'transparent' : 'initial',
 				});
 			});
 		});

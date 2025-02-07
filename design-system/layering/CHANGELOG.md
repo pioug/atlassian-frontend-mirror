@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 1.1.2
+
+### Patch Changes
+
+- [#109887](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109887)
+  [`8091548cf0254`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8091548cf0254) -
+  Update dependencies.
+
 ## 1.1.1
 
 ### Patch Changes

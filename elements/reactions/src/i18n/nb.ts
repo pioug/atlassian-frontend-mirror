@@ -11,7 +11,6 @@ export default {
   'fabric.reactions.error.unexpected': 'Reaksjoner er midlertidig utilgjengelige',
   'fabric.reactions.loading': 'Laster inn …',
   'fabric.reactions.more.emojis': 'Flere emojier',
-  'fabric.reactions.more.info': 'Mer informasjon',
   'fabric.reactions.other.reacted.users': '{count, plural, one {og én annen} other {og {count} andre}}',
   'fabric.reactions.reactwithemoji': 'Reager med emojien {emoji}',
   'fabric.reactions.summary': 'Se alle brukerreaksjoner',
@@ -19,8 +18,6 @@ export default {
   'reactions.dialog.close': 'Lukk',
   'reactions.dialog.left.navigate': 'Naviger til venstre',
   'reactions.dialog.people-who-reacted.subheader': 'Personer som reagerte med {emojiShortName}',
-  'reactions.dialog.reactions.count':
-    '{count, plural, one {{count,number} reaksjon} other {{count,number} reaksjoner}}',
   'reactions.dialog.right.navigate': 'Naviger til høyre',
   'reactions.dialog.viewall': 'Vis alle',
   'reactions.dialog.viewall.tooltip': 'Se alle brukerreaksjoner',

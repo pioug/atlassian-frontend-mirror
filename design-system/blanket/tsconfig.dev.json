@@ -42,6 +42,9 @@
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../monorepo-tooling/is-hoisted-product/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{

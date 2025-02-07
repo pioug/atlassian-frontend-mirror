@@ -16,7 +16,7 @@ import {
 import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 import { type Placement } from '@atlaskit/popper';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -31,7 +31,6 @@ import {
 import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
 import {
-	type onDialogSelectReactionChange,
 	ReactionStatus,
 	type ReactionClick,
 	type ReactionSummary,
@@ -43,6 +42,7 @@ import {
 	ReactionDialogClosed,
 	ReactionDialogOpened,
 	ReactionDialogSelectedReactionChanged,
+	ReactionDialogPageNavigation,
 } from '../../ufo';
 import { Reaction } from '../Reaction';
 import { ReactionsDialog } from '../ReactionDialog';
@@ -52,14 +52,12 @@ import { ReactionSummaryView } from '../ReactionSummary/';
 
 import { reactionPickerStyle, wrapperStyle } from './styles';
 
-const tooltipStyle = xcss({ paddingLeft: 'space.050' });
-
 /**
- * Set of all available UFO experiences relating to reactions dialog
+ * Set of all available UFO experiences relating to Reactions Dialog
  */
 export const ufoExperiences = {
 	/**
-	 * Expeirence when a reaction dialog is opened
+	 * Experience when a reaction dialog is opened
 	 */
 	openDialog: ReactionDialogOpened,
 	/**
@@ -70,6 +68,7 @@ export const ufoExperiences = {
 	 * Experience when a reaction changed/fetched from inside the modal dialog
 	 */
 	selectedReactionChangeInsideDialog: ReactionDialogSelectedReactionChanged,
+	pageNavigated: ReactionDialogPageNavigation,
 };
 
 /**
@@ -149,7 +148,11 @@ export interface ReactionsProps
 	/**
 	 * Optional callback function called when selecting a reaction in reactions dialog
 	 */
-	onDialogSelectReactionCallback?: onDialogSelectReactionChange;
+	onDialogSelectReactionCallback?: (emojiId: string) => void;
+	/**
+	 * Optional callback function called when navigating between pages in the reactions dialog
+	 */
+	onDialogPageChangeCallback?: (emojiId: string, curentPage: number, maxPages: number) => void;
 	/**
 	 * Enables a summary view for displaying reactions. If enabled and the number of reactions meets or exceeds the summaryViewThreshold, reactions will be shown in a more aggregated format.
 	 */
@@ -229,6 +232,7 @@ export const Reactions = React.memo(
 		onDialogOpenCallback = () => {},
 		onDialogCloseCallback = () => {},
 		onDialogSelectReactionCallback = () => {},
+		onDialogPageChangeCallback = () => {},
 		emojiPickerSize = 'medium',
 		miniMode = false,
 		summaryViewEnabled = false,
@@ -314,32 +318,12 @@ export const Reactions = React.memo(
 		);
 
 		/**
-		 * event handler to open selected reaction from tooltip
+		 * event handler to open dialog with selected reaction
 		 * @param emojiId selected emoji id
 		 */
 		const handleOpenReactionsDialog = (emojiId: string) => {
 			// ufo start opening reaction dialog
 			ufoExperiences.openDialog.start();
-			setSelectedEmojiId(emojiId);
-			onDialogOpenCallback(emojiId, 'tooltip');
-			// ufo opening reaction dialog success
-			ufoExperiences.openDialog.success({
-				metadata: {
-					emojiId,
-					source: 'Reactions',
-					reason: 'Opening dialog from emoji tooltip link successfully',
-				},
-			});
-		};
-
-		/**
-		 * Event handler to oepn all reactions link button
-		 */
-		const handleOpenAllReactionsDialog = () => {
-			// ufo start opening reaction dialog
-			ufoExperiences.openDialog.start();
-
-			const emojiId = reactions[0].emojiId;
 			getReactionDetails(emojiId);
 			setSelectedEmojiId(emojiId);
 			onDialogOpenCallback(emojiId, 'button');
@@ -349,7 +333,7 @@ export const Reactions = React.memo(
 				metadata: {
 					emojiId,
 					source: 'Reactions',
-					reason: 'Opening all reactions dialog link successfully',
+					reason: 'Opening Reactions Dialog successfully',
 				},
 			});
 		};
@@ -373,15 +357,13 @@ export const Reactions = React.memo(
 			});
 		};
 
-		const handleSelectReactionInDialog = (emojiId: string, analyticsEvent?: UIAnalyticsEvent) => {
+		const handleSelectReactionInDialog = (emojiId: string) => {
 			// ufo selected reaction inside the modal dialog
 			ufoExperiences.selectedReactionChangeInsideDialog.start();
 
 			handleReactionMouseEnter(emojiId);
 			setSelectedEmojiId(emojiId);
-			if (analyticsEvent) {
-				onDialogSelectReactionCallback(emojiId, analyticsEvent);
-			}
+			onDialogSelectReactionCallback(emojiId);
 
 			// ufo selected reaction inside the modal dialog success
 			ufoExperiences.selectedReactionChangeInsideDialog.success({
@@ -394,9 +376,21 @@ export const Reactions = React.memo(
 		};
 
 		const handlePaginationChange = useCallback(
-			(emojiId: string) => {
+			(emojiId: string, currentPage: number, maxPages: number) => {
+				ufoExperiences.pageNavigated.start();
+
+				// fetch the latest active emoji from the new page
 				getReactionDetails(emojiId);
 				setSelectedEmojiId(emojiId);
+				onDialogPageChangeCallback(emojiId, currentPage, maxPages);
+
+				ufoExperiences.pageNavigated.success({
+					metadata: {
+						emojiId,
+						source: 'Reactions Dialog',
+						reason: 'Navigated to new page',
+					},
+				});
 			},
 			// Exclude unstable getReactionDetails to avoid extra re-renders
 			// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -443,13 +437,17 @@ export const Reactions = React.memo(
 		// criteria to show Reactions Dialog
 		const hasEmojiWithFivePlusReactions = reactions.some((reaction) => reaction.count >= 5);
 
+		const sortedReactions = useMemo(() => {
+			return [...memorizedReactions].sort((a, b) => b?.count - a?.count);
+		}, [memorizedReactions]);
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
 				{shouldShowSummaryView ? (
 					<div data-testid={RENDER_REACTIONS_SUMMARY_TESTID}>
 						<ReactionSummaryView
-							reactions={memorizedReactions}
+							reactions={sortedReactions}
 							emojiProvider={emojiProvider}
 							flash={flash}
 							particleEffectByEmoji={particleEffectByEmoji}
@@ -498,7 +496,7 @@ export const Reactions = React.memo(
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 				/>
 				{allowUserDialog && hasEmojiWithFivePlusReactions && !shouldShowSummaryView && (
-					<Box xcss={tooltipStyle}>
+					<Box>
 						<Tooltip
 							content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
 							hideTooltipOnClick
@@ -508,7 +506,7 @@ export const Reactions = React.memo(
 									{...tooltipProps}
 									appearance="subtle"
 									spacing="compact"
-									onClick={handleOpenAllReactionsDialog}
+									onClick={() => handleOpenReactionsDialog(sortedReactions[0].emojiId)}
 									testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
 								>
 									<FormattedMessage {...messages.seeWhoReacted} />
@@ -522,7 +520,7 @@ export const Reactions = React.memo(
 					{!!selectedEmojiId && (
 						<ReactionsDialog
 							selectedEmojiId={selectedEmojiId}
-							reactions={memorizedReactions}
+							reactions={sortedReactions}
 							emojiProvider={emojiProvider}
 							handleCloseReactionsDialog={handleCloseReactionsDialog}
 							handleSelectReaction={handleSelectReactionInDialog}

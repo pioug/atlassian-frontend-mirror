@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 12.0.0
+
+### Major Changes
+
+- [#111194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111194)
+  [`2e69750df9b79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e69750df9b79) -
+  Typography lint rules enable all patterns by default:
+  - `use-tokens-typography` enables all patterns by default. Set lint rule config to
+    `patterns: ['style-object']` for old default behaviour.
+  - `use-primitives-text` and `use-heading` enables the `enableUnsafeReport` option by default. Set
+    lint rule config to `enableUnsafeReport: false` for old default behaviour.
+
 ## 11.10.0
 
 ### Minor Changes

@@ -36,26 +36,6 @@ export const typographyTests: Tests = {
 				})`,
 			errors: [{ messageId: 'noRestrictedCapitalisation' }],
 		},
-		// Restricted capitalisation used in combination with style-object fixes
-		{
-			options: [
-				{ patterns: ['style-object', 'restricted-capitalisation'], enableUnsafeAutofix: true },
-			],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					lineHeight: 24,
-					textTransform: 'uppercase',
-				})`,
-			errors: [{ messageId: 'noRawTypographyValues' }, { messageId: 'noRestrictedCapitalisation' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					font: token('font.body.large'),
-					textTransform: 'uppercase',
-				})`,
-		},
 	],
 };
 

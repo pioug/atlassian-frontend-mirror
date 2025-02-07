@@ -58,7 +58,9 @@ const rule = createLintRule({
 		},
 		messages: {
 			noRawTypographyValues:
-				'Typography primitives or tokens should be used instead of hard-coded values.\n\n@meta <<{{payload}}>>.\n\nNOTE: Using tokens with the `fontSize` property is invalid. Any `font.heading` or `font.body` tokens must use the CSS `font` property.',
+				'Typography primitives or tokens should be used instead of hard-coded values.',
+			noFontSizeTypographyToken:
+				'Using tokens with the `fontSize` property is invalid. Any `font.heading` or `font.body` tokens must use the CSS `font` property.',
 			noRawFontWeightValues: 'Font weight tokens should be used instead of hard-coded values.',
 			noRawFontFamilyValues: 'Font family tokens should be used instead of hard-coded values.',
 			noUntokenizedProperties: 'Use typography tokens for `{{property}}`.',

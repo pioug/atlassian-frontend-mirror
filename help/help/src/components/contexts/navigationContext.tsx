@@ -71,8 +71,8 @@ const getNewHistoryItem = (id: string, type: ARTICLE_TYPE, contentAri?: string) 
  */
 const getSimpleHistory = (history: HistoryItem[]) =>
 	history.map((historyItem) => {
-		const { id, uid, type } = historyItem;
-		return { id, uid, state: REQUEST_STATE.reload, type };
+		const { id, uid, type, contentAri } = historyItem;
+		return { id, uid, state: REQUEST_STATE.reload, type, contentAri };
 	});
 
 /**
@@ -80,8 +80,8 @@ const getSimpleHistory = (history: HistoryItem[]) =>
  */
 const getHistoryData = (history: HistoryItem[]) =>
 	history.map((historyItem) => {
-		const { id, uid } = historyItem;
-		return { id, uid };
+		const { id, uid, contentAri } = historyItem;
+		return { id, uid, contentAri };
 	});
 
 /**
@@ -495,7 +495,11 @@ export const NavigationContextProvider = ({
 					 * */
 					if (setNavigationData) {
 						setNavigationData({
-							articleId: { id: lastHistoryItem.id, type: lastHistoryItem.type },
+							articleId: {
+								id: lastHistoryItem.id,
+								type: lastHistoryItem.type,
+								contentAri: lastHistoryItem.contentAri,
+							},
 							history: simpleHistory,
 						});
 					}

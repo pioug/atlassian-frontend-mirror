@@ -123,9 +123,35 @@ const gracefulEditCreatePMPlugin = ({
 		key: viewModePluginKey,
 		state: {
 			init: (_, editorState) => {
+				let isEmptyDoc = true;
+				if (editorState.doc.textContent.trim() !== '') {
+					isEmptyDoc = false;
+				}
+
+				if (isEmptyDoc) {
+					// Only iterate through the doc if we haven't already established that it's not empty through the simple textContent check
+					// This is to avoid unnecessary iterations for large docs
+					editorState.doc.descendants((node, pos) => {
+						if (!isEmptyDoc) {
+							// if we've already established that the doc is not empty, we can stop iterating
+							return false;
+						}
+
+						if (node.isLeaf && !node.isText) {
+							// any non text leaf node (ie. date, media, extension, ...) is considered non-empty
+							isEmptyDoc = false;
+						}
+
+						if (node.isText && node.textContent.trim() !== '') {
+							// if there is any non-whitespace text, the doc is considered non-empty
+							isEmptyDoc = false;
+						}
+					});
+				}
+
 				const initialPluginState = getInitialViewModePluginState(config, {
 					// an empty doc has a nodeSize of 4 (the doc and empty paragraph start and end tokens)
-					isEmptyDoc: editorState.doc.nodeSize === 4,
+					isEmptyDoc: isEmptyDoc,
 				});
 				return initialPluginState;
 			},

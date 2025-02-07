@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 
 import Link from '../../../../index';
-import variations from '../../../../utils/variations';
+import variations from '../../../../testutils/variations';
 
 describe(`Accessibility:`, () => {
 	variations.forEach(({ name, props }) => {

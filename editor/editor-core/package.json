@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.15.0",
+	"version": "203.15.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
 		"@atlaskit/mention": "^23.11.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/task-decision": "^17.12.0",
-		"@atlaskit/tmp-editor-statsig": "^2.42.0",
+		"@atlaskit/tmp-editor-statsig": "^2.43.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/width-detector": "^4.4.0",
@@ -427,8 +427,17 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_nested_tables_paste_wrap_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_table_layout_shift_fix": {
-			"type": "boolean"
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_advanced_layouts_dnd_remove_layout": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

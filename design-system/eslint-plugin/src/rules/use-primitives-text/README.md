@@ -38,4 +38,4 @@ we're only targeting instances that almost certainly only have text as children.
 `false`.
 
 `enableUnsafeReport`: Rule reports errors for native elements that are not autofixable. Defaults to
-`false`.
+`true`.

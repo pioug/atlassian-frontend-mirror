@@ -5,6 +5,7 @@ import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Button from '@atlaskit/button/new';
+import Tooltip from '@atlaskit/tooltip';
 
 import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
 import { Reaction } from '../Reaction';
@@ -111,15 +112,26 @@ export const ReactionSummaryView = ({
 					))}
 					{allowUserDialog && (
 						<Box xcss={viewAllButtonStyling}>
-							<Button
-								appearance="subtle"
-								onClick={() => handleOpenReactionsDialog?.(reactions[0].emojiId)}
-								spacing="compact"
+							<Tooltip
+								content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
+								hideTooltipOnClick
 							>
-								<Text color="color.text.subtlest" weight="medium">
-									<FormattedMessage {...messages.seeWhoReacted} />
-								</Text>
-							</Button>
+								{(tooltipProps) => (
+									<Button
+										{...tooltipProps}
+										appearance="subtle"
+										spacing="compact"
+										onClick={() => {
+											handlePopupClose();
+											handleOpenReactionsDialog?.(reactions[0].emojiId);
+										}}
+									>
+										<Text color="color.text.subtlest" weight="medium">
+											<FormattedMessage {...messages.seeWhoReacted} />
+										</Text>
+									</Button>
+								)}
+							</Tooltip>
 						</Box>
 					)}
 				</Inline>

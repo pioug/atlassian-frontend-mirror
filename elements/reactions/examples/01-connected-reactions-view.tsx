@@ -270,7 +270,7 @@ export default () => {
 								onDialogOpenCallback={(emojiId, source) => {
 									alert(`onDialogOpenCallback event with emojiId = ${emojiId}, source = ${source}`);
 								}}
-								onDialogSelectReactionCallback={(emojiId, event) => {
+								onDialogSelectReactionCallback={(emojiId: string) => {
 									alert(`onDialogSelectReactionCallback event with emojiId = ${emojiId}`);
 								}}
 							/>

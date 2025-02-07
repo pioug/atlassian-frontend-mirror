@@ -3,16 +3,21 @@ import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
 import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	findParentNodeClosestToPos,
+	findParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPluginOptions } from '../types';
 
 import { fixColumnSizes, fixColumnStructure, getSelectedLayout } from './actions';
+import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './plugin-key';
 import type { Change, LayoutState } from './types';
 import { getMaybeLayoutSection } from './utils';
@@ -86,7 +91,6 @@ const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState)
 // see packages/editor/editor-plugin-layout-tests/src/__tests__/unit/delete.ts
 const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 	const sel = state.selection;
-
 	if (
 		sel instanceof NodeSelection &&
 		sel.node.type.name === 'layoutColumn' &&
@@ -95,7 +99,34 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 		dispatch &&
 		editorExperiment('advanced_layouts', true)
 	) {
-		dispatch(state.tr.deleteRange(sel.from + 1, sel.from + sel.node.content.size));
+		if (fg('platform_editor_advanced_layouts_dnd_remove_layout')) {
+			const tr = state.tr;
+			const layoutContentFragment =
+				sel.$from.parentOffset === 0
+					? Fragment.from(sel.$from.parent.lastChild?.content)
+					: Fragment.from(sel.$from.parent.firstChild?.content);
+			const parent = findParentNodeClosestToPos(sel.$from, (node) => {
+				return node.type.name === 'layoutSection';
+			});
+
+			if (parent) {
+				const layoutSectionPos = tr.mapping.map(parent.pos);
+				const layoutSectionNodeSize = parent.node.nodeSize;
+
+				dispatch(
+					state.tr.replaceWith(
+						layoutSectionPos,
+						layoutSectionPos + layoutSectionNodeSize,
+						layoutContentFragment,
+					),
+				);
+				return true;
+			}
+			return false;
+		} else {
+			dispatch(state.tr.deleteRange(sel.from + 1, sel.from + sel.node.content.size));
+		}
+
 		return true;
 	}
 
@@ -157,6 +188,7 @@ export default (options: LayoutPluginOptions) =>
 		},
 		appendTransaction: (transactions, _oldState, newState) => {
 			const changes: Change[] = [];
+
 			transactions.forEach((prevTr) => {
 				// remap change segments across the transaction set
 				changes.forEach((change) => {
@@ -177,6 +209,29 @@ export default (options: LayoutPluginOptions) =>
 					changes.push(change);
 				}
 			});
+
+			if (
+				editorExperiment('advanced_layouts', true) &&
+				changes.length === 1 &&
+				fg('platform_editor_advanced_layouts_dnd_remove_layout')
+			) {
+				const change = changes[0];
+				// when need to update a layoutColumn with width 100
+				// meaning a single column layout has been create,
+				// We replace the layout with its content
+				// This is to prevent a single column layout from being created
+				// when a user deletes a layoutColumn
+				if (
+					change.slice.content.childCount === 1 &&
+					change.slice.content.firstChild?.type.name === 'layoutColumn' &&
+					change.slice.content.firstChild?.attrs.width === EVEN_DISTRIBUTED_COL_WIDTHS[1]
+				) {
+					const tr = newState.tr;
+					const { content } = change.slice.content.firstChild;
+					tr.replaceWith(change.from - 1, change.to, content);
+					return tr;
+				}
+			}
 
 			if (changes.length) {
 				let tr = newState.tr;

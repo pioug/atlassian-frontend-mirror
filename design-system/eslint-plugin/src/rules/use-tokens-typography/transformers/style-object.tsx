@@ -281,10 +281,7 @@ export const StyleObject = {
 			const fix = StyleObject._fix(fixerRefs, context);
 			context.report({
 				node: fontSizeNode,
-				messageId: 'noRawTypographyValues',
-				data: {
-					payload: `fontSize:${fontSizeRaw}`,
-				},
+				messageId: isFontSizeAToken ? 'noFontSizeTypographyToken' : 'noRawTypographyValues',
 				...(config.enableUnsafeAutofix
 					? { fix }
 					: { suggest: [{ desc: `Convert to font token`, fix }] }),
@@ -293,9 +290,6 @@ export const StyleObject = {
 			context.report({
 				node: fontSizeNode,
 				messageId: 'noRawTypographyValues',
-				data: {
-					payload: `fontSize:${fontSizeRaw}`,
-				},
 			});
 		}
 

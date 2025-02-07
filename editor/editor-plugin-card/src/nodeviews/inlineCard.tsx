@@ -15,6 +15,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
@@ -247,7 +248,9 @@ export function InlineCardNodeView(
 					getPos,
 					allowEmbeds,
 					allowBlockCards,
-					editorViewModeState?.mode === 'view',
+					!editorExperiment('live_pages_graceful_edit', 'control')
+						? true
+						: editorViewModeState?.mode === 'view',
 				))}
 		/>
 	);

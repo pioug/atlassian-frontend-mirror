@@ -19,7 +19,7 @@ import {
 	type ResolvedPos,
 	type Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState, Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeOfType,
 	findParentNodeOfTypeClosestToPos,
@@ -108,7 +108,7 @@ export const moveNodeViaShortcut = (
 	return (state) => {
 		let isParentNodeOfTypeLayout;
 		const shouldEnableNestedDndA11y = editorExperiment('nested-dnd', true);
-
+		const { selection } = state;
 		if (shouldEnableNestedDndA11y) {
 			isParentNodeOfTypeLayout = !!findParentNodeOfType([state.schema.nodes.layoutSection])(
 				state.selection,
@@ -123,49 +123,106 @@ export const moveNodeViaShortcut = (
 
 			const nodeIndex = $pos.index();
 
+			const isLayoutColumnSelected =
+				selection instanceof NodeSelection && selection.node.type.name === 'layoutColumn';
+
 			if (direction === DIRECTION.LEFT && shouldEnableNestedDndA11y) {
-				if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
-					return false;
+				if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
+					moveToPos = selection.from - ($pos.nodeBefore?.nodeSize || 1);
+					api?.core?.actions.execute(({ tr }) => {
+						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
+							selectMovedNode: true,
+						})({
+							tr,
+						});
+						return tr;
+					});
+					return true;
+				} else {
+					if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
+						return false;
+					}
+
+					// get the previous layoutSection node
+					const index = $pos.index($pos.depth - 1);
+					const grandParent = $pos.node($pos.depth - 1);
+					const previousNode = grandParent ? grandParent.maybeChild(index - 1) : null;
+
+					moveToPos = $pos.start() - (previousNode?.nodeSize || 1);
 				}
-
-				// get the previous layoutSection node
-				const index = $pos.index($pos.depth - 1);
-				const grandParent = $pos.node($pos.depth - 1);
-				const previousNode = grandParent ? grandParent.maybeChild(index - 1) : null;
-
-				moveToPos = $pos.start() - (previousNode?.nodeSize || 1);
 			} else if (direction === DIRECTION.RIGHT && shouldEnableNestedDndA11y) {
-				if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
-					return false;
+				if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
+					const index = $pos.index($pos.depth);
+					const parent = $pos.node($pos.depth);
+					// get the next layoutColumn node
+					const nextNode = parent ? parent.maybeChild(index + 1) : null;
+
+					// if the current node is the last node, don't do anything
+					if (index >= parent.childCount - 1) {
+						return false;
+					}
+
+					const moveToEnd = index === parent.childCount - 2;
+					moveToPos = moveToEnd ? $pos.before() : selection.to + (nextNode?.nodeSize || 1);
+
+					api?.core?.actions.execute(({ tr }) => {
+						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
+							moveToEnd,
+							selectMovedNode: true,
+						})({
+							tr,
+						});
+						return tr;
+					});
+					return true;
+				} else {
+					if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
+						return false;
+					}
+
+					moveToPos = $pos.after($pos.depth) + 1;
 				}
-
-				moveToPos = $pos.after($pos.depth) + 1;
 			} else if (direction === DIRECTION.UP) {
-				const nodeBefore =
-					$pos.depth > 1 && nodeIndex === 0 && shouldEnableNestedDndA11y
-						? $pos.node($pos.depth)
-						: $pos.nodeBefore;
+				if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
+					moveToPos = $pos.start() - 1;
+				} else {
+					const nodeBefore =
+						$pos.depth > 1 && nodeIndex === 0 && shouldEnableNestedDndA11y
+							? $pos.node($pos.depth)
+							: $pos.nodeBefore;
 
-				if (nodeBefore) {
-					moveToPos = currentNodePos - nodeBefore.nodeSize;
+					if (nodeBefore) {
+						moveToPos = currentNodePos - nodeBefore.nodeSize;
+					}
 				}
 			} else {
 				const endOfDoc = $pos.end();
 				const nodeAfterPos = $pos.posAtIndex($pos.index() + 1);
-				const nodeAfter = state.doc.nodeAt(nodeAfterPos);
 
-				if (nodeAfterPos < endOfDoc && nodeAfter) {
-					// if not the last node, move to the end of the next node
-					moveToPos = nodeAfterPos + nodeAfter.nodeSize;
+				if (nodeAfterPos > endOfDoc) {
+					return false;
+				}
+
+				if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
+					moveToPos = state.selection.$from.end() + 1;
+				} else {
+					const nodeAfter = state.doc.nodeAt(nodeAfterPos);
+					if (nodeAfter) {
+						// if not the last node, move to the end of the next node
+						moveToPos = nodeAfterPos + nodeAfter.nodeSize;
+					}
 				}
 			}
 
 			const nodeType = state.doc.nodeAt(currentNodePos)?.type.name;
 
 			// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
-			const shouldMoveNode = shouldEnableNestedDndA11y
-				? moveToPos > -1 && $pos.depth === state.doc.resolve(moveToPos).depth
-				: moveToPos > -1;
+			const shouldMoveNode =
+				(shouldEnableNestedDndA11y
+					? (moveToPos > -1 && $pos.depth === state.doc.resolve(moveToPos).depth) ||
+						nodeType === 'layoutColumn'
+					: moveToPos > -1) ||
+				(nodeType === 'layoutColumn' && fg('platform_editor_advanced_layouts_accessibility'));
 
 			if (shouldMoveNode) {
 				api?.core?.actions.execute(({ tr }) => {

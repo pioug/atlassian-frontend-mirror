@@ -11,7 +11,6 @@ export default {
   'fabric.reactions.error.unexpected': 'Reaktioner är inte tillgängliga just nu',
   'fabric.reactions.loading': 'Läser in ...',
   'fabric.reactions.more.emojis': 'Fler emojis',
-  'fabric.reactions.more.info': 'Mer info',
   'fabric.reactions.other.reacted.users': '{count, plural, one {och en annan} other {och {count} andra}}',
   'fabric.reactions.reactwithemoji': 'Reagera med emojin {emoji}',
   'fabric.reactions.summary': 'Visa alla reaktioner från användare',
@@ -20,8 +19,6 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Vänster navigering',
   'reactions.dialog.people-who-reacted.subheader': 'Personer som reagerade med {emojiShortName}',
-  'reactions.dialog.reactions.count':
-    '{count, plural, one {{count,number} reaktion} other {{count,number} reaktioner}}',
   'reactions.dialog.right.navigate': 'Höger navigering',
   'reactions.dialog.viewall': 'Visa alla',
   'reactions.dialog.viewall.tooltip': 'Visa alla reaktioner från användare',

@@ -57,6 +57,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
+		"@af/is-hoisted-product": "*",
 		"@atlaskit/badge": "^17.1.0",
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/docs": "*",

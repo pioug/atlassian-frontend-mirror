@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 1.3.2
+
+### Patch Changes
+
+- [#109782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109782)
+  [`9129332a66d2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9129332a66d2b) -
+  [ED-26431] Fix rounding error when calculating the TTVC targets
+
 ## 1.3.1
 
 ### Patch Changes

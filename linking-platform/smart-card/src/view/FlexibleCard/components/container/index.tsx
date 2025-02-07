@@ -26,6 +26,7 @@ import {
 	isFlexibleUiBlock,
 	isFlexibleUiPreviewBlock,
 	isFlexibleUiTitleBlock,
+	isStyleCacheProvider,
 } from '../../../../utils/flexible';
 import { type RetryOptions } from '../../types';
 import { type TitleBlockProps } from '../blocks/title-block/types';
@@ -70,25 +71,58 @@ const renderChildren = (
 	status?: SmartLinkStatus,
 	retry?: RetryOptions,
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
-): React.ReactNode =>
-	React.Children.map(children, (child) => {
+): React.ReactNode => {
+	return React.Children.map(children, (child) => {
 		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
+			if (isFlexibleUiTitleBlock(child)) {
+				if (isStyleCacheProvider(child)) {
+					return updateChildren(child, {
+						onClick,
+						retry,
+						containerSize,
+						status,
+						theme: containerTheme,
+					});
+				} else {
+					const { size: blockSize } = child.props;
+					const size = blockSize || containerSize;
+					return React.cloneElement(child, {
+						// @ts-expect-error
+						onClick,
+						retry,
+						size,
+						status,
+						theme: containerTheme,
+					});
+				}
+			}
 			const { size: blockSize } = child.props;
 			const size = blockSize || containerSize;
-			if (isFlexibleUiTitleBlock(child)) {
-				return React.cloneElement(child, {
-					// @ts-expect-error
-					onClick,
-					retry,
-					size,
-					status,
-					theme: containerTheme,
-				});
-			}
+
 			// @ts-expect-error
 			return React.cloneElement(child, { size, status });
 		}
 	});
+};
+
+const updateChildren = (
+	node: React.ReactElement,
+	{ containerSize, ...props }: Record<string, unknown>,
+) => {
+	const updatedChildren = React.Children.map(node.props.children, (child) => {
+		if (React.isValidElement(child) && isFlexibleUiTitleBlock(child)) {
+			const { size: blockSize } = child.props as TitleBlockProps;
+			const size = blockSize || containerSize;
+			return React.cloneElement(child, {
+				...props,
+				size,
+			} as TitleBlockProps);
+		} else {
+			return child;
+		}
+	});
+	return React.cloneElement(node, { children: updatedChildren });
+};
 
 const getTitleBlockProps = (children: React.ReactNode): TitleBlockProps | undefined => {
 	const block = React.Children.toArray(children).find((child) => isFlexibleUiTitleBlock(child));

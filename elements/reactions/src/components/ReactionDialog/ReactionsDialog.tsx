@@ -12,17 +12,12 @@ import Button from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Modal, { ModalBody, ModalFooter, type OnCloseHandler } from '@atlaskit/modal-dialog';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type SelectedType } from '@atlaskit/tabs/types';
 import { token } from '@atlaskit/tokens';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
-import {
-	type onDialogSelectReactionChange,
-	type ReactionSummary,
-	type ProfileCardWrapper,
-} from '../../types';
+import { type ReactionSummary, type ProfileCardWrapper } from '../../types';
 
 import { ReactionsList } from './ReactionsList';
 import { ReactionsDialogHeader } from './ReactionsDialogHeader';
@@ -53,8 +48,8 @@ export interface ReactionsDialogProps {
 	/**
 	 * Optional callback function called when user selects a reaction in reactions dialog
 	 */
-	handleSelectReaction?: onDialogSelectReactionChange;
-	handlePaginationChange?: (emojiId: string) => void;
+	handleSelectReaction?: (emojiId: string) => void;
+	handlePaginationChange?: (emojiId: string, currentPage: number, maxPages: number) => void;
 	ProfileCardWrapper?: ProfileCardWrapper;
 }
 
@@ -83,6 +78,10 @@ export const ReactionsDialog = ({
 
 	const [reactionsContainerRef, setReactionsContainerRef] = useState<HTMLDivElement | null>(null);
 
+	// prevents accidental triggering of handlePaginationChange on initial load
+	const [hasNavigatedPages, setHasNavigatedPages] = useState<boolean>(false);
+	const [currentPage, setCurrentPage] = useState(1);
+
 	const reactionElementsRef = useRef<NodeListOf<HTMLElement>>();
 	const observerRef = useRef<IntersectionObserver>();
 	const intl = useIntl();
@@ -94,33 +93,30 @@ export const ReactionsDialog = ({
 		}, 0);
 	}, [reactions]);
 
-	const sortedReactions = useMemo(() => {
-		return [...reactions].sort((a, b) => b?.count - a?.count);
-	}, [reactions]);
-
 	const maxPages = Math.max(1, Math.ceil(reactions.length / NUMBER_OF_REACTIONS_TO_DISPLAY));
-	const [currentPage, setCurrentPage] = useState(1);
 
 	const currentReactions = useMemo(() => {
 		const start = (currentPage - 1) * NUMBER_OF_REACTIONS_TO_DISPLAY;
 		const end = start + NUMBER_OF_REACTIONS_TO_DISPLAY;
-		return sortedReactions.slice(start, end);
-	}, [sortedReactions, currentPage]);
+		return reactions.slice(start, end);
+	}, [reactions, currentPage]);
 
 	const handleNextPage = () => {
 		setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPages));
+		setHasNavigatedPages(true);
 	};
 	const handlePreviousPage = () => {
 		setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+		setHasNavigatedPages(true);
 	};
 
 	const firstEmojiOnPage = currentReactions[0]?.emojiId;
 	useEffect(() => {
 		// trigger the handler with the first emoji when the page changes
-		if (firstEmojiOnPage) {
-			handlePaginationChange(firstEmojiOnPage);
+		if (hasNavigatedPages && firstEmojiOnPage) {
+			handlePaginationChange(firstEmojiOnPage, currentPage, maxPages);
 		}
-	}, [currentPage, firstEmojiOnPage, handlePaginationChange]);
+	}, [hasNavigatedPages, currentPage, maxPages, firstEmojiOnPage, handlePaginationChange]);
 
 	/* set Reactions Border Width , 8 Number of reactions to display*/
 	const reactionsBorderWidth = useMemo(() => {
@@ -208,12 +204,12 @@ export const ReactionsDialog = ({
 	);
 
 	const onTabChange = useCallback(
-		(index: SelectedType, analyticsEvent: UIAnalyticsEvent) => {
+		(index: SelectedType) => {
 			if (index === selectedIndex) {
 				return;
 			}
 			const emojiId = currentReactions[index].emojiId;
-			handleSelectReaction(emojiId, analyticsEvent);
+			handleSelectReaction(emojiId);
 		},
 		[selectedIndex, currentReactions, handleSelectReaction],
 	);

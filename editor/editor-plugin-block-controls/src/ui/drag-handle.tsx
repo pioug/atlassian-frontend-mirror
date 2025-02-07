@@ -507,6 +507,14 @@ export const DragHandle = ({
 						description: formatMessage(blockControlsMessages.dragToRearrange),
 					},
 					{
+						description: formatMessage(blockControlsMessages.moveUp),
+						keymap: dragToMoveUp,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveDown),
+						keymap: dragToMoveDown,
+					},
+					{
 						description: formatMessage(blockControlsMessages.moveLeft),
 						keymap: dragToMoveLeft,
 					},

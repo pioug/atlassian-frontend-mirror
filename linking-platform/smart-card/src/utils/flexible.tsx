@@ -104,11 +104,7 @@ export const isFlexibleUiTitleBlock = (node: React.ReactNode): boolean => {
 		return true;
 	}
 
-	if (
-		typeof node.type !== 'string' &&
-		node.type?.name === 'StyleCacheProvider' &&
-		node.props.children
-	) {
+	if (isStyleCacheProvider(node)) {
 		// Component wrapped with compiled at runtime, check for children
 		let isChildrenValid = true;
 		React.Children.map(node.props.children, (child) => {
@@ -131,6 +127,11 @@ export const isFlexibleUiTitleBlock = (node: React.ReactNode): boolean => {
 
 	return false;
 };
+
+export const isStyleCacheProvider = (
+	node: React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>,
+) =>
+	typeof node.type !== 'string' && node.type?.name === 'StyleCacheProvider' && node.props.children;
 
 export const isFlexibleUiPreviewBlock = (node: React.ReactNode): boolean => {
 	if (!fg('bandicoots-compiled-migration-smartcard')) {

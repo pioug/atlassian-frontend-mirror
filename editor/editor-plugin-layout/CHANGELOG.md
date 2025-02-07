@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.14.0
+
+### Minor Changes
+
+- [#109549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109549)
+  [`d6907dac2c08d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6907dac2c08d) -
+  ED-26300 Delete a layout section by delete the 2nd last column from the layout
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.1
 
 ### Patch Changes

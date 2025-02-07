@@ -486,9 +486,12 @@ const getDefaultPresetLayout = (layoutNode: Node): PresetLayout => {
 	const layoutColumnCount = layoutNode.childCount;
 
 	if (layoutColumnCount <= 1) {
+		if (fg('platform_editor_advanced_layouts_dnd_remove_layout')) {
+			return 'single';
+		}
+
 		// This prevents the creation of a single column layout
 		// once we support single column layout, we can return 'single'
-
 		return fg('platform_editor_advanced_layouts_post_fix_patch_1') ? 'two_equal' : 'single';
 	}
 	switch (layoutColumnCount) {

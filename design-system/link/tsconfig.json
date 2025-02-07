@@ -12,7 +12,7 @@
     "./example-helpers/**/*.tsx",
     "./codemods/**/*.ts",
     "./codemods/**/*.tsx",
-    "utils/variations.tsx"
+    "testutils/variations.tsx"
   ],
   "compilerOptions": {
   }

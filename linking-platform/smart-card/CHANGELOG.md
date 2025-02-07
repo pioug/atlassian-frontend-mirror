@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 34.10.5
+
+### Patch Changes
+
+- [#109069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109069)
+  [`94a79aaaf7581`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94a79aaaf7581) -
+  Fix an issue where the ui props in FlexibleCard container was not passed down to its children when
+  compiled styles is used.
+
 ## 34.10.4
 
 ### Patch Changes

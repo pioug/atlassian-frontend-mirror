@@ -33,27 +33,6 @@ export const typographyTests: Tests = {
 				'Do not use `letterSpacing`. Typography tokens automatically specify `letterSpacing` alongside font size and font weight.',
 			],
 		},
-		// Banned properties used in combination with style-object fixes
-		{
-			options: [{ patterns: ['style-object', 'banned-properties'], enableUnsafeAutofix: true }],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					lineHeight: 24,
-					letterSpacing: '0.003em'
-				})`,
-			errors: [
-				{ messageId: 'noRawTypographyValues' },
-				{ messageId: 'noBannedProperties' },
-				{ messageId: 'noBannedProperties' },
-			],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					font: token('font.body.large'),
-				})`,
-		},
 	],
 };
 

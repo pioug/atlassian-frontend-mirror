@@ -11,18 +11,21 @@ export const typographyTests: Tests = {
 	valid: [
 		// Unrelated
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `const styles = css({
 				overflow: auto
 			})`,
 		},
 		// Already a token
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `const styles = css({
 				font: token('font.heading.xsmall', 'something')
 			})`,
 		},
 		// lineHeight only
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					lineHeight: '28px',
@@ -30,6 +33,7 @@ export const typographyTests: Tests = {
 		},
 		// already a token + fontStyle italic
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					font: token('font.body.large'),
@@ -38,6 +42,7 @@ export const typographyTests: Tests = {
 		},
 		// fontWeight only
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontWeight: 400,
@@ -48,6 +53,7 @@ export const typographyTests: Tests = {
 		// NO FIXES
 		// fontSize 0
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: 0,
@@ -60,6 +66,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize non pixel values
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: '1.125rem',
@@ -71,6 +78,7 @@ export const typographyTests: Tests = {
 			],
 		},
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize:\`\${ 16 / 14 }em\`
@@ -82,6 +90,7 @@ export const typographyTests: Tests = {
 			],
 		},
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize:\`\${RANDOM_FONT_SIZE_CONSTANT}px\`
@@ -93,6 +102,7 @@ export const typographyTests: Tests = {
 			],
 		},
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: '120%',
@@ -104,6 +114,7 @@ export const typographyTests: Tests = {
 			],
 		},
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: '0.5ch',
@@ -115,6 +126,7 @@ export const typographyTests: Tests = {
 			],
 		},
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: 'smaller',
@@ -127,6 +139,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize used with space token
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: token('space.100'),
@@ -139,6 +152,7 @@ export const typographyTests: Tests = {
 		},
 		// No token match for fontSize + lineHeight
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontWeight: '400',
@@ -149,6 +163,7 @@ export const typographyTests: Tests = {
 		},
 		// No token match
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: '13px',
@@ -158,6 +173,7 @@ export const typographyTests: Tests = {
 		},
 		// No token match
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				const styles = css({
 					fontSize: '13px',
@@ -166,6 +182,7 @@ export const typographyTests: Tests = {
 		},
 		// No token match: lineHeight 1
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -176,6 +193,7 @@ export const typographyTests: Tests = {
 		},
 		// No token match: lineHeight 1 (in px)
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: `
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -188,6 +206,7 @@ export const typographyTests: Tests = {
 		// FIXES
 		// fontSize used with typography token
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -195,7 +214,7 @@ export const typographyTests: Tests = {
 				})`,
 			errors: [
 				{
-					messageId: 'noRawTypographyValues',
+					messageId: 'noFontSizeTypographyToken',
 					suggestions: [
 						{
 							desc: `Convert to font token`,
@@ -211,6 +230,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize and fontWeight - 1 token match
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				const styles = css({
 					fontSize: '14px',
@@ -234,34 +254,8 @@ export const typographyTests: Tests = {
 				},
 			],
 		},
-		// fontSize and fontWeight - 1 token match
-		// No fallbacks
 		{
-			options: [{ shouldEnforceFallbacks: false }],
-			code: outdent`
-				const styles = css({
-					fontSize: '14px',
-					fontWeight: 600,
-					padding: '8px'
-				})`,
-			errors: [
-				{
-					messageId: 'noRawTypographyValues',
-					suggestions: [
-						{
-							desc: `Convert to font token`,
-							output: outdent`
-								import { token } from '@atlaskit/tokens';
-								const styles = css({
-									font: token('font.heading.xsmall'),
-									padding: '8px'
-								})`,
-						},
-					],
-				},
-			],
-		},
-		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				const styles = css({
 					fontSize: '12px',
@@ -285,6 +279,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize only - 1 token match - same fontWeight
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -312,6 +307,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize and lineHeight - 1 token match
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -338,6 +334,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize match, fontWeight conversion
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -363,6 +360,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize only - number - 1 token match
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -390,6 +388,7 @@ export const typographyTests: Tests = {
 		},
 		// fontSize match, fontWeight conversion
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -415,6 +414,7 @@ export const typographyTests: Tests = {
 		},
 		// nested object, fontSize match, fontWeight conversion
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -466,6 +466,7 @@ export const typographyTests: Tests = {
 		},
 		// nested object, fontSize match, fontWeight conversion
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -499,6 +500,7 @@ export const typographyTests: Tests = {
 		},
 		// Font family uses Charlie Display
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -524,6 +526,7 @@ export const typographyTests: Tests = {
 		},
 		// Font family uses Charlie Text
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				import { h100 } from '@atlaskit/theme/typography';
@@ -551,6 +554,7 @@ export const typographyTests: Tests = {
 		},
 		// Font family uses Charlie Text variable
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -576,6 +580,7 @@ export const typographyTests: Tests = {
 		},
 		// Font family uses brand token
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -601,6 +606,7 @@ export const typographyTests: Tests = {
 		},
 		// Font family uses code token
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -626,6 +632,7 @@ export const typographyTests: Tests = {
 		},
 		// Font family uses default stack token
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -650,6 +657,7 @@ export const typographyTests: Tests = {
 		},
 		// Font style normal
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -674,6 +682,7 @@ export const typographyTests: Tests = {
 		},
 		// Font style italic
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -699,6 +708,7 @@ export const typographyTests: Tests = {
 		},
 		// Font weight, Font family uses Charlie Text, font style italic, letterSpacing
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -727,40 +737,9 @@ export const typographyTests: Tests = {
 				},
 			],
 		},
-		// Font weight, Font family uses Charlie Text, font style italic, letterSpacing
-		// No fallbacks
-		{
-			options: [{ shouldEnforceFallbacks: false }],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					fontWeight: 500,
-					fontFamily: 'Charlie Text',
-					fontStyle: 'italic',
-					letterSpacing: '-0.008em',
-				})`,
-			errors: [
-				{
-					messageId: 'noRawTypographyValues',
-					suggestions: [
-						{
-							desc: `Convert to font token`,
-							output: outdent`
-							import { token } from '@atlaskit/tokens';
-							const styles = css({
-								font: token('font.body.large'),
-							fontWeight: token('font.weight.medium'),
-							fontFamily: token('font.family.brand.body'),
-							fontStyle: 'italic',
-							})`,
-						},
-					],
-				},
-			],
-		},
 		// styled.div - fontSize and fontWeight - 1 token match
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = styled.div({
@@ -787,6 +766,7 @@ export const typographyTests: Tests = {
 		},
 		// unary expression with fontSizeSmall
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const someValue = fontSizeSmall();
@@ -812,6 +792,7 @@ export const typographyTests: Tests = {
 		},
 		// unary expression with fontSize
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -835,6 +816,7 @@ export const typographyTests: Tests = {
 		},
 		// fontWeight already a token, match body token and re-add weight
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -860,6 +842,7 @@ export const typographyTests: Tests = {
 		},
 		// fontWeight already a token, match heading token and remove weight
 		{
+			options: [{ patterns: ['style-object'] }],
 			code: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
@@ -884,7 +867,7 @@ export const typographyTests: Tests = {
 		},
 		// Errors and applies auto fixes when option is enabled
 		{
-			options: [{ enableUnsafeAutofix: true }],
+			options: [{ patterns: ['style-object'], enableUnsafeAutofix: true }],
 			code: outdent`
 				const styles = css({
 					fontSize: '14px',

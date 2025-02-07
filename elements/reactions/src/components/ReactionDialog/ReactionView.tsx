@@ -18,7 +18,7 @@ import Heading from '@atlaskit/heading';
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary, type ProfileCardWrapper } from '../../types';
 
-import { userListStyle, userStyle, centerSpinner } from './styles';
+import { userListStyle, userStyle } from './styles';
 
 const userDescriptionStyle = xcss({
 	marginLeft: 'space.150',
@@ -29,6 +29,16 @@ const profileWrapperStyle = xcss({
 });
 
 const reactionViewStyle = xcss({
+	marginTop: 'space.300',
+	minHeight: '300px',
+	minWidth: '550px',
+});
+
+const centerSpinnerStyle = xcss({
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	height: '100%',
 	marginTop: 'space.300',
 });
 
@@ -57,7 +67,7 @@ export const ReactionView = ({
 	reaction,
 	ProfileCardWrapper,
 }: ReactionViewProps) => {
-	const [emojiShortName, setEmojiShortName] = useState<string>('');
+	const [emojiName, setEmojiName] = useState<string>('');
 
 	useEffect(() => {
 		(async () => {
@@ -66,9 +76,11 @@ export const ReactionView = ({
 				shortName: '',
 				id: selectedEmojiId,
 			});
-			if (emoji?.shortName) {
-				const shortNameWithoutColons = emoji.shortName.replace(/:/g, '');
-				setEmojiShortName(shortNameWithoutColons);
+
+			if (emoji?.name) {
+				// capitalize first letter of each string
+				const capitalizedName = emoji.name.replace(/\b\w/g, (char) => char.toUpperCase());
+				setEmojiName(capitalizedName);
 			}
 		})();
 	}, [emojiProvider, selectedEmojiId, reaction]);
@@ -87,7 +99,7 @@ export const ReactionView = ({
 						<FormattedMessage
 							{...messages.peopleWhoReactedSubheading}
 							values={{
-								emojiShortName,
+								emojiShortName: emojiName,
 							}}
 						/>
 					</Heading>
@@ -102,9 +114,9 @@ export const ReactionView = ({
 
 				{alphabeticalNames.length === 0 ? (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					<div css={centerSpinner}>
+					<Box xcss={centerSpinnerStyle}>
 						<Spinner size="large" />
-					</div>
+					</Box>
 				) : (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<ul css={userListStyle}>

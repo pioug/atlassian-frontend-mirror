@@ -85,8 +85,13 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			 * @param from position of the node to be moved
 			 * @param to position of the layout/layout column/node to move the node to
 			 * @param options moveToEnd: move the node to after the layout/layout column/another node
+			 * @param options selectMovedNode: select the moved node after moving it
 			 */
-			moveToLayout: (start: number, to: number, options?: { moveToEnd?: boolean }) => EditorCommand;
+			moveToLayout: (
+				start: number,
+				to: number,
+				options?: { moveToEnd?: boolean; selectMovedNode?: boolean },
+			) => EditorCommand;
 			moveNode: MoveNode;
 			showDragHandleAt: (
 				pos: number,

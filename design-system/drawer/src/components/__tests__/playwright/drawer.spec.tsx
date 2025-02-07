@@ -37,6 +37,26 @@ test.describe('Default Drawer', () => {
 		await drawerTrigger.focus();
 		await expect(drawerTrigger).not.toBeFocused();
 	});
+	test('should prevent scrolling on the body when opened', async ({ page }) => {
+		await page.visitExample('design-system', 'drawer', 'drawer-default');
+
+		// Overflow is scrollable when the drawer is closed
+		// On the body element 'visible' is the same as 'auto'
+		const bodyOverflowWhenClosed = await page.evaluate(
+			() => window.getComputedStyle(document.body).overflow,
+		);
+		expect(bodyOverflowWhenClosed).toBe('visible');
+
+		const drawerTrigger = page.getByTestId('drawer-trigger');
+		await drawerTrigger.click();
+
+		// Overflow is hidden when the drawer is open
+		// So can no longer be scrolled
+		const bodyOverflowWhenOpened = await page.evaluate(
+			() => window.getComputedStyle(document.body).overflow,
+		);
+		expect(bodyOverflowWhenOpened).toBe('hidden');
+	});
 });
 
 test.describe('Scrollable Drawer', () => {

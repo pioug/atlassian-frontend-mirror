@@ -11,7 +11,6 @@ export default {
   'fabric.reactions.error.unexpected': 'Reaktioner er midlertidigt utilgængelige',
   'fabric.reactions.loading': 'Indlæser ...',
   'fabric.reactions.more.emojis': 'Flere emojis',
-  'fabric.reactions.more.info': 'Flere oplysninger',
   'fabric.reactions.other.reacted.users': '{count, plural, one {og én anden} other {og {count} andre}}',
   'fabric.reactions.reactwithemoji': 'Reager med emojien {emoji}',
   'fabric.reactions.summary': 'Se alle brugerreaktioner',
@@ -20,8 +19,6 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigation til venstre',
   'reactions.dialog.people-who-reacted.subheader': 'Personer der reagerede med {emojiShortName}',
-  'reactions.dialog.reactions.count':
-    '{count, plural, one {{count,number} reaktion} other {{count,number} reaktioner}}',
   'reactions.dialog.right.navigate': 'Navigation til højre',
   'reactions.dialog.viewall': 'Vis alle',
   'reactions.dialog.viewall.tooltip': 'Se alle brugerreaktioner',

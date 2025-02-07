@@ -17,56 +17,69 @@ ruleTester.run('use-primitives-text', rule, {
 		'<strong />',
 		'<em></em>',
 		'<em />',
-		// ignores paragraphs mixed with other elements
-		`
-			<div>
-				<p>text 1</p>
-				<p>text 2</p>
-				<Box>{children}</Box>
-			</div>`,
-		`
-			<div>
-				<p>text 1</p>
-				{children}
-				<p>text 2</p>
-			</div>
-		`,
-		`
-			<div>
-				{Boolean(value) && <p>text</p>}
-			</div>
-		`,
-		// ignore span elements with potentially non-string children, even when unsafe report option is enabled
+		// ignore span elements with potentially non-string children
 		'<span>text<Image src="path/to/image.jpg" /></span>',
 		'<span>{children}</span>',
+		// ignores paragraphs mixed with other elements when unsafe reporting is disabled
 		{
-			options: [{ enableUnsafeReport: true }],
-			code: '<span>{children}</span>',
-		},
-		// ignores text elements with unallowed props
-		`
-			import { css } from '@emotion/react';
-			const paddingStyles = css({ padding: '8px' });
-			<div>
-				<span css={paddingStyles}>content</span>
-				<strong css={paddingStyles}>content</strong>
-				<em css={paddingStyles}>content</em>
+			options: [{ enableUnsafeReport: false }],
+			code: `
 				<div>
-					<p css={paddingStyles}>content</p>
+					<p>text 1</p>
+					<p>text 2</p>
+					<Box>{children}</Box>
+				</div>`,
+		},
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `
+				<div>
+					<p>text 1</p>
+					{children}
+					<p>text 2</p>
 				</div>
-			</div>
-		`,
-		`
-			import { css } from '@emotion/react';
-			const paddingStyles = css({ padding: '8px' });
-			<span css={paddingStyles} id='contentId' data-testid='contentTestId'>content</span>
-		`,
-		`
-			import { css } from '@emotion/react';
-			const paddingStyles = css({ padding: '8px' });
-			<span data-test-id='contentTestId'>content</span>
-		`,
-		,
+			`,
+		},
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `
+				<div>
+					{Boolean(value) && <p>text</p>}
+				</div>
+			`,
+		},
+		// ignores text elements with unallowed props when unsafe reporting is disabled
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `
+				import { css } from '@emotion/react';
+				const paddingStyles = css({ padding: '8px' });
+				<div>
+					<span css={paddingStyles}>content</span>
+					<strong css={paddingStyles}>content</strong>
+					<em css={paddingStyles}>content</em>
+					<div>
+						<p css={paddingStyles}>content</p>
+					</div>
+				</div>
+			`,
+		},
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `
+				import { css } from '@emotion/react';
+				const paddingStyles = css({ padding: '8px' });
+				<span css={paddingStyles} id='contentId' data-testid='contentTestId'>content</span>
+			`,
+		},
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `
+				import { css } from '@emotion/react';
+				const paddingStyles = css({ padding: '8px' });
+				<span data-test-id='contentTestId'>content</span>
+			`,
+		},
 	],
 	invalid: [
 		// it suggests Text for span elements with only text as children
@@ -209,31 +222,8 @@ ruleTester.run('use-primitives-text', rule, {
 						},
 					],
 				},
-			],
-		},
-		{
-			code: outdent`
-				<div>
-					<p>text 1</p>
-					<p data-testid='contentTestId'>text 2</p>
-					<p>text 3</p>
-				</div>`,
-			errors: [
-				{
-					messageId: 'preferPrimitivesStackedText',
-					suggestions: [
-						{
-							desc: `Convert to Text and Stack`,
-							output: outdent`
-								import { Text, Stack } from '@atlaskit/primitives';
-								<div><Stack space='space.150'>
-									<Text as='p'>text 1</Text>
-									<Text testId='contentTestId' as='p'>text 2</Text>
-									<Text as='p'>text 3</Text>
-								</Stack></div>`,
-						},
-					],
-				},
+				{ messageId: 'preferPrimitivesText' },
+				{ messageId: 'preferPrimitivesText' },
 			],
 		},
 		// it suggests Text with color inherit for text elements when option is enabled
@@ -334,6 +324,8 @@ ruleTester.run('use-primitives-text', rule, {
 						},
 					],
 				},
+				{ messageId: 'preferPrimitivesText' },
+				{ messageId: 'preferPrimitivesText' },
 			],
 		},
 		// Errors and applies auto fixes when option is enabled
@@ -382,7 +374,11 @@ ruleTester.run('use-primitives-text', rule, {
 					<p data-testid='contentTestId'>text 2</p>
 					<p>text 3</p>
 				</div>`,
-			errors: [{ messageId: 'preferPrimitivesStackedText' }],
+			errors: [
+				{ messageId: 'preferPrimitivesStackedText' },
+				{ messageId: 'preferPrimitivesText' },
+				{ messageId: 'preferPrimitivesText' },
+			],
 			output: outdent`
 				import { Text, Stack } from '@atlaskit/primitives';
 				<div><Stack space='space.150'>

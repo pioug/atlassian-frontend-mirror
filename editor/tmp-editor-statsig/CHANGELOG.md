@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.43.0
+
+### Minor Changes
+
+- [#110672](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110672)
+  [`29afa832aa7c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29afa832aa7c9) -
+  Remove a stale experiment
+
 ## 2.42.1
 
 ### Patch Changes

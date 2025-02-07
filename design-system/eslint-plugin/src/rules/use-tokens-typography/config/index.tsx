@@ -53,7 +53,14 @@ const defaultConfig: RuleConfig = {
 	failSilently: false,
 	shouldEnforceFallbacks: false,
 	enableUnsafeAutofix: false,
-	patterns: ['style-object'],
+	patterns: [
+		'style-object',
+		'font-weight',
+		'font-family',
+		'untokenized-properties',
+		'banned-properties',
+		'restricted-capitalisation',
+	],
 };
 
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {

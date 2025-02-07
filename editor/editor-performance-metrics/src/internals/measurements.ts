@@ -211,7 +211,8 @@ export function getVCPercentFromHeatmap(
 		})
 		.reduce(
 			(acc, [timestamp, amount]) => {
-				const percent = Math.trunc(((amount + accAmount) / flatHeapmap.length) * 100);
+				const base = (amount + accAmount) / flatHeapmap.length;
+				const percent = Math.round(base * 100);
 				acc[percent] = parseInt(timestamp, 10);
 
 				accAmount = accAmount + amount;

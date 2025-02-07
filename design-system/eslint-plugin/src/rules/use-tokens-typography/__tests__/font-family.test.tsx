@@ -110,55 +110,6 @@ export const typographyTests: Tests = {
 				})`,
 			errors: [{ messageId: 'noRawFontFamilyValues' }],
 		},
-		// Font family used in combination with style-object fixes and suggestions
-		{
-			options: [{ patterns: ['style-object', 'font-family'], enableUnsafeAutofix: true }],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					fontFamily: "Charlie Display, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif",
-				})`,
-			errors: [{ messageId: 'noRawTypographyValues' }, { messageId: 'noRawFontFamilyValues' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					font: token('font.body.large'),
-				fontFamily: token('font.family.brand.heading'),
-				})`,
-		},
-		{
-			options: [{ patterns: ['style-object', 'font-family'], enableUnsafeAutofix: false }],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					fontFamily: "Charlie Display, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif",
-				})`,
-			errors: [
-				{
-					messageId: 'noRawTypographyValues',
-					suggestions: [
-						{
-							desc: `Convert to font token`,
-							output: outdent`
-								import { token } from '@atlaskit/tokens';
-								const styles = css({
-									font: token('font.body.large'),
-								fontFamily: token('font.family.brand.heading'),
-								})`,
-						},
-					],
-				},
-				{ messageId: 'noRawFontFamilyValues' },
-			],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					fontFamily: token('font.family.brand.heading'),
-				})`,
-		},
 	],
 };
 

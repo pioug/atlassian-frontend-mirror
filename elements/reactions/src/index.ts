@@ -17,6 +17,7 @@ import {
 	ReactionDialogClosed,
 	ReactionDialogOpened,
 	ReactionDialogSelectedReactionChanged,
+	ReactionDialogPageNavigation,
 	ReactionsRemove,
 	ReactionsRendered,
 	sampledReactionsRendered,
@@ -33,7 +34,6 @@ export type {
 	Store as ReactionsStore,
 	StorePropInput,
 	State,
-	onDialogSelectReactionChange,
 } from './types';
 
 export { ReactionUpdateType } from './types';
@@ -57,6 +57,7 @@ export const UFO = {
 	ReactionDialogClosed,
 	ReactionDialogOpened,
 	ReactionDialogSelectedReactionChanged,
+	ReactionDialogPageNavigation,
 	ReactionsRemove,
 	ReactionsRendered,
 	sampledReactionsRendered,

@@ -50,7 +50,7 @@
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/editor-core": "^203.15.0",
-		"@atlaskit/link": "2.1.1",
+		"@atlaskit/link": "2.1.2",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

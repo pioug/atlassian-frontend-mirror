@@ -11,16 +11,19 @@ export type ObjectSidebarPanelCloseOptions = {
 	onPanelClose?: () => void;
 };
 
+type PanelElement = FC | (() => React.ReactElement<any, any> | null);
+
 // Below type is copied from confluence/next/packages/object-sidebar-api/src/useObjectSidebar.tsx
 export type ObjectSidebarPanel = {
 	id: string;
 	headerComponentElements: {
-		HeaderIcon?: FC | (() => React.ReactElement<any, any> | null);
+		HeaderIcon?: PanelElement;
 		headerLabel: MessageDescriptor;
-		HeaderAfterElement?: FC | (() => React.ReactElement<any, any> | null);
+		HeaderAfterIconElement?: PanelElement;
+		HeaderRightAlignedElement?: PanelElement;
 	};
-	BodyComponent: FC | (() => React.ReactElement<any, any> | null);
-	FooterComponent?: FC | (() => React.ReactElement<any, any> | null);
+	BodyComponent: PanelElement;
+	FooterComponent?: PanelElement;
 	closeOptions?: ObjectSidebarPanelCloseOptions;
 };
 

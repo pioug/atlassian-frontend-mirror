@@ -259,7 +259,8 @@ it('should render the first emoji after navigating to a new page', async () => {
 	const rightNavigateButton = screen.getByRole('button', { name: /right navigate/i });
 	await userEvent.click(rightNavigateButton);
 
-	expect(spy).toHaveBeenCalledWith('1f525');
+	// currently on second page, with a max of 2 pages
+	expect(spy).toHaveBeenCalledWith('1f525', 2, 2);
 
 	expect(screen.getByText(/people who reacted with fire/i)).toBeInTheDocument();
 });

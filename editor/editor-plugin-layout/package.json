@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "1.13.1",
+	"version": "1.14.0",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,7 +44,7 @@
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/icon": "^23.7.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.42.0",
+		"@atlaskit/tmp-editor-statsig": "^2.43.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
@@ -108,6 +108,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_advanced_layouts_post_fix_patch_3": {
+			"type": "boolean"
+		},
+		"platform_editor_advanced_layouts_dnd_remove_layout": {
 			"type": "boolean"
 		}
 	}

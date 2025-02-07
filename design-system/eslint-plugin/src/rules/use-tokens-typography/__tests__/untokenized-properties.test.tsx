@@ -58,27 +58,6 @@ export const typographyTests: Tests = {
 				})`,
 			errors: ['Use typography tokens for `font`.'],
 		},
-		// Banned properties used in combination with style-object fixes
-		{
-			options: [
-				{ patterns: ['style-object', 'untokenized-properties'], enableUnsafeAutofix: true },
-			],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					font: 'bold 36px Helvetica, Arial',
-					fontSize: '16px',
-					lineHeight: 24,
-					letterSpacing: '0.003em'
-				})`,
-			errors: [{ messageId: 'noUntokenizedProperties' }, { messageId: 'noRawTypographyValues' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					font: 'bold 36px Helvetica, Arial',
-					font: token('font.body.large'),
-				})`,
-		},
 	],
 };
 

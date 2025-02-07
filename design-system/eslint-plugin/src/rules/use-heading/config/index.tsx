@@ -13,7 +13,7 @@ const defaults: RuleConfig = {
 	failSilently: false,
 	patterns: ['native-elements'],
 	enableUnsafeAutofix: false,
-	enableUnsafeReport: false,
+	enableUnsafeReport: true,
 };
 
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {

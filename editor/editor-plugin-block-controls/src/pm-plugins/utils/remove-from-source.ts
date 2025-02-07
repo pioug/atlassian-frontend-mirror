@@ -32,7 +32,7 @@ export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: numbe
 			// This value may require an update when we introduce support for a single-column layout.
 			if (
 				sourceParent.childCount === 2 &&
-				fg('platform_editor_advanced_layouts_DnD_remove_layout')
+				fg('platform_editor_advanced_layouts_dnd_remove_layout')
 			) {
 				const layoutContentFragment =
 					$from.parentOffset === 0

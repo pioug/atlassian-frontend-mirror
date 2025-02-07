@@ -1,4 +1,5 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	Fragment,
@@ -54,7 +55,7 @@ const createNewLayout = (schema: Schema, layoutContents: LayoutContent[]) => {
 
 		return layoutSectionNode;
 	} catch (error) {
-		// TODO analytics
+		logException(error as Error, { location: 'editor-plugin-block-controls/move-to-layout' });
 	}
 
 	return null;
@@ -70,6 +71,7 @@ const moveToExistingLayout = (
 	$originalFrom: ResolvedPos,
 	$originalTo: ResolvedPos,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+	selectMovedNode?: boolean,
 ) => {
 	const isSameLayout = isInSameLayout($originalFrom, $originalTo);
 	let sourceContentEndPos: number = -1;
@@ -94,7 +96,7 @@ const moveToExistingLayout = (
 		const mappedTo = tr.mapping.map(to);
 
 		tr.insert(mappedTo, sourceContent);
-		if (!fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+		if (!fg('platform_editor_advanced_layouts_post_fix_patch_1') || selectMovedNode) {
 			tr.setSelection(new NodeSelection(tr.doc.resolve(mappedTo))).scrollIntoView();
 		}
 
@@ -148,24 +150,28 @@ const insertToDestinationNoWidthUpdate = (
 	const { layoutColumn } = tr.doc.type.schema.nodes || {};
 	let content: PMNode | null = null;
 
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-		if (sourceContent instanceof Fragment) {
-			const sourceFragment = sourceContent;
-			content = layoutColumn.createChecked(
-				{ width: 0 },
-				isFragmentOfType(sourceFragment, 'layoutColumn')
-					? sourceFragment.firstChild?.content
-					: sourceFragment,
-			);
+	try {
+		if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+			if (sourceContent instanceof Fragment) {
+				const sourceFragment = sourceContent;
+				content = layoutColumn.createChecked(
+					{ width: 0 },
+					isFragmentOfType(sourceFragment, 'layoutColumn')
+						? sourceFragment.firstChild?.content
+						: sourceFragment,
+				);
+			}
+		} else {
+			if (sourceContent instanceof PMNode) {
+				const sourceNode = sourceContent;
+				content = layoutColumn.createChecked(
+					{ width: 0 },
+					sourceNode.type.name === 'layoutColumn' ? sourceNode.content : sourceNode,
+				);
+			}
 		}
-	} else {
-		if (sourceContent instanceof PMNode) {
-			const sourceNode = sourceContent;
-			content = layoutColumn.createChecked(
-				{ width: 0 },
-				sourceNode.type.name === 'layoutColumn' ? sourceNode.content : sourceNode,
-			);
-		}
+	} catch (error) {
+		logException(error as Error, { location: 'editor-plugin-block-controls/move-to-layout' });
 	}
 
 	if (content) {
@@ -189,22 +195,26 @@ const insertToDestination = (
 
 	let content: PMNode | null = null;
 
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-		if (sourceContent instanceof Fragment) {
-			content = layoutColumn.createChecked(
-				{ width: newColumnWidth },
-				isFragmentOfType(sourceContent, 'layoutColumn')
-					? sourceContent.firstChild?.content
-					: sourceContent,
-			);
+	try {
+		if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+			if (sourceContent instanceof Fragment) {
+				content = layoutColumn.createChecked(
+					{ width: newColumnWidth },
+					isFragmentOfType(sourceContent, 'layoutColumn')
+						? sourceContent.firstChild?.content
+						: sourceContent,
+				);
+			}
+		} else {
+			if (sourceContent instanceof PMNode) {
+				content = layoutColumn.createChecked(
+					{ width: newColumnWidth },
+					sourceContent.type.name === 'layoutColumn' ? sourceContent.content : sourceContent,
+				);
+			}
 		}
-	} else {
-		if (sourceContent instanceof PMNode) {
-			content = layoutColumn.createChecked(
-				{ width: newColumnWidth },
-				sourceContent.type.name === 'layoutColumn' ? sourceContent.content : sourceContent,
-			);
-		}
+	} catch (error) {
+		logException(error as Error, { location: 'editor-plugin-block-controls/move-to-layout' });
 	}
 
 	if (content) {
@@ -344,7 +354,11 @@ const getBreakoutMode = (content: PMNode | Fragment, breakout: MarkType) => {
 // source content variable that has type of `PMNode | Fragment` should be updated to `Fragment` only
 export const moveToLayout =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>) =>
-	(from: number, to: number, options?: { moveToEnd?: boolean }): EditorCommand =>
+	(
+		from: number,
+		to: number,
+		options?: { moveToEnd?: boolean; selectMovedNode?: boolean },
+	): EditorCommand =>
 	({ tr }) => {
 		const canMove = canMoveToLayout(from, to, tr);
 		if (!canMove) {
@@ -380,6 +394,7 @@ export const moveToLayout =
 				$sourceFrom,
 				$to,
 				api,
+				options?.selectMovedNode,
 			);
 		} else if (toNode.type === layoutColumn) {
 			const toLayout = $to.parent;
@@ -395,6 +410,7 @@ export const moveToLayout =
 				$sourceFrom,
 				$to,
 				api,
+				options?.selectMovedNode,
 			);
 		} else {
 			let toNodeWithoutBreakout: PMNode | Fragment = toNode;

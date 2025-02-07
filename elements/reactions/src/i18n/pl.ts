@@ -11,7 +11,6 @@ export default {
   'fabric.reactions.error.unexpected': 'Reakcje są tymczasowo niedostępne',
   'fabric.reactions.loading': 'Ładowanie...',
   'fabric.reactions.more.emojis': 'Więcej emoji',
-  'fabric.reactions.more.info': 'Więcej informacji',
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {i jeszcze 1} few {i jeszcze {count}} many {i jeszcze {count}} other {i jeszcze {count}}}',
   'fabric.reactions.reactwithemoji': 'Zareaguj za pomocą emoji {emoji}',
@@ -21,8 +20,6 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Przejdź w lewo',
   'reactions.dialog.people-who-reacted.subheader': 'Osoby, które zareagowały, przesyłając emoji {emojiShortName}',
-  'reactions.dialog.reactions.count':
-    '{count, plural, one {{count,number} reakcja} few {{count,number} reakcje} many {{count,number} reakcji} other {{count,number} reakcji}}',
   'reactions.dialog.right.navigate': 'Przejdź w prawo',
   'reactions.dialog.viewall': 'Wyświetl wszystkich',
   'reactions.dialog.viewall.tooltip': 'Wyświetl wszystkie reakcje użytkowników',

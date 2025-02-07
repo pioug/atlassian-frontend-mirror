@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 9.3.5
+
+### Patch Changes
+
+- [#108813](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108813)
+  [`123953f8b2006`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/123953f8b2006) -
+  [ux] ED-26075 Unwrap content from nested table text block slices on paste
+
 ## 9.3.4
 
 ### Patch Changes

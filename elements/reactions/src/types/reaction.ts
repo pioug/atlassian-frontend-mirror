@@ -1,20 +1,9 @@
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type User } from './User';
 
 /**
  * Collection of reactions as object (key is unique id from containerAri and ari combined)
  */
 export type Reactions = Record<string, ReactionSummary[]>;
-
-/**
- * Event handler when reactions dialog selected emoji is clicked
- * @param emojiId selected emoji
- * @param analyticsEvent Optional analytics event emitted from @atlaskit/tabs component
- */
-export type onDialogSelectReactionChange = (
-	emojiId: string,
-	analyticsEvent?: UIAnalyticsEvent,
-) => void;
 
 /**
  * MetaData for Reaction object

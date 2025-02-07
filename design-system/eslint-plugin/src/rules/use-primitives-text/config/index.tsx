@@ -24,7 +24,7 @@ const defaults: RuleConfig = {
 	patterns: ['paragraph-elements', 'span-elements', 'strong-elements', 'emphasis-elements'],
 	inheritColor: false,
 	enableUnsafeAutofix: false,
-	enableUnsafeReport: false,
+	enableUnsafeReport: true,
 };
 
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {

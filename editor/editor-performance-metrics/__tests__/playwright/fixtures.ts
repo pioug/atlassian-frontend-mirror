@@ -1,6 +1,14 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
-import { test as base, expect, type Page } from '@af/integration-testing';
+import {
+	test as base,
+	expect as baseExpect,
+	type Expect,
+	type Page,
+} from '@af/integration-testing';
 import { EditorPerformanceMetrics } from '@atlaskit/editor-performance-metrics/metrics';
+import type { TTVCTargets } from '@atlaskit/editor-performance-metrics/react';
 import {
 	createTimelineFromEvents,
 	type Timeline,
@@ -68,7 +76,15 @@ export const test = base.extend<{
 		| 'vc-observer-attribute-mutation'
 		| 'latency-mouse-events'
 		| 'editor-full-page'
+		| 'basic-react'
 		| 'latency-keyboard-events';
+	getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
+	/**
+	 * This fixture allow the tests to get the TTVCTarget value set on the example page.
+	 *
+	 * ⚠️ Your example needs to manually set the global variable called `__editor_metrics_tests__calculated_ttvc`.
+	 */
+	getTTVCTargets: () => Promise<TTVCTargets | null>;
 }>({
 	viewport: {
 		width: 800,
@@ -96,6 +112,41 @@ export const test = base.extend<{
 					(window as WindowWithEditorPerformanceGlobals).__editor_metrics_tests_ticks?.push(at);
 				}, 50);
 			};
+
+			(window as WindowWithEditorPerformanceGlobals).__sectionAddedAt = new Map();
+
+			const intersectionObserver = new IntersectionObserver((entries) => {
+				for (const entry of entries) {
+					const { target } = entry;
+
+					const testId = target.getAttribute('data-testid');
+					if (testId) {
+						(window as WindowWithEditorPerformanceGlobals).__sectionAddedAt.set(
+							testId,
+							performance.now(),
+						);
+					}
+				}
+			});
+			const observer = new MutationObserver((records) => {
+				for (const record of records) {
+					for (const addedNode of record.addedNodes) {
+						if (addedNode instanceof HTMLElement) {
+							intersectionObserver.observe(addedNode);
+						}
+					}
+				}
+			});
+
+			window.addEventListener('load', () => {
+				const divExamples = document.querySelector('#examples');
+				if (divExamples) {
+					observer.observe(divExamples, {
+						childList: true,
+						subtree: true,
+					});
+				}
+			});
 		});
 
 		//page.on('console', (msg) => console.log(msg.text()));
@@ -278,21 +329,23 @@ export const test = base.extend<{
 	},
 	getTimelineEvents: async ({ page, viewport, examplePage }, use) => {
 		const getEvents = async () => {
-			const waitIdle = await page.evaluate(() => {
-				let resolve = () => {};
-				const promise = new Promise<void>((_resolve) => {
-					resolve = _resolve;
+			const waitIdle = () => {
+				return page.evaluate(() => {
+					let resolve = () => {};
+					const promise = new Promise<void>((_resolve) => {
+						resolve = _resolve;
+					});
+					const later = window.requestIdleCallback || window.requestAnimationFrame;
+
+					later(() => {
+						resolve();
+					});
+
+					return promise;
 				});
-				const later = window.requestIdleCallback || window.requestAnimationFrame;
+			};
 
-				later(() => {
-					resolve();
-				});
-
-				return promise;
-			});
-
-			await waitIdle;
+			await waitIdle();
 
 			const timeline = await page.evaluate(() => {
 				const timeline = (window as WindowWithEditorPerformanceGlobals)
@@ -306,4 +359,87 @@ export const test = base.extend<{
 
 		await use(getEvents);
 	},
+	getSectionVisibleAt: async ({ page }, use) => {
+		const getValue = async (sectionTestId: string) => {
+			let result: number | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate((_sectionTestId) => {
+							const myMap = (window as WindowWithEditorPerformanceGlobals).__sectionAddedAt;
+							return myMap.get(_sectionTestId) || null;
+						}, sectionTestId);
+
+						result = value;
+						return value;
+					},
+					{
+						message: `Element with data-testid: "${sectionTestId}" wasn't being added to DOM.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return result;
+		};
+
+		await use(getValue);
+	},
+	getTTVCTargets: async ({ page }, use) => {
+		const getTargets = async () => {
+			const result = await page.evaluate(() => {
+				const myTTVCTargets = (window as WindowWithEditorPerformanceGlobals)
+					.__editor_metrics_tests__calculated_ttvc;
+
+				if (myTTVCTargets) {
+					return myTTVCTargets;
+				}
+
+				return null;
+			});
+
+			return result;
+		};
+
+		await use(getTargets);
+	},
 });
+
+const customMatchers = {
+	/**
+	 * Matches timestamps converted to seconds.
+	 *
+	 * It checks only the first two decimal values.
+	 *
+	 *
+	 * @param selection
+	 */
+	toMatchTimeInSeconds(
+		this: ReturnType<Expect['getState']>,
+		timestampReceived: DOMHighResTimeStamp | undefined | null,
+		timestampExpected: DOMHighResTimeStamp | undefined | null,
+	) {
+		const receivedInSeconds = Math.round(timestampReceived!) / 1000;
+		const expectedInSeconds = Math.round(timestampExpected!) / 1000;
+
+		let pass: boolean;
+		let matcherResult: any;
+		try {
+			baseExpect(receivedInSeconds).toBeCloseTo(expectedInSeconds, 2);
+			pass = true;
+		} catch (e: any) {
+			matcherResult = e.matcherResult;
+			pass = false;
+		}
+
+		return {
+			pass,
+			message: () => {
+				return !pass ? matcherResult.message : '';
+			},
+		};
+	},
+};
+
+export const expect = baseExpect.extend(customMatchers);

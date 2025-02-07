@@ -231,4 +231,5 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		</span>
 	);
 });
+
 export default Icon;

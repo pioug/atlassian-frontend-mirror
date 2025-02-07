@@ -15,8 +15,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
-import CalendarIconNew from '@atlaskit/icon/core/migration/calendar';
-import CalendarIconOld from '@atlaskit/icon/glyph/calendar';
+import CalendarIcon from '@atlaskit/icon/core/migration/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -117,12 +116,8 @@ const iconSpacingWithClearButtonStyles = xcss({
 	marginInlineEnd: 'space.400',
 });
 
-const iconSpacingWithoutClearButtonStylesNew = xcss({
-	marginInlineEnd: 'space.050',
-});
-
 const iconSpacingWithoutClearButtonStyles = xcss({
-	marginInlineEnd: 'space.025',
+	marginInlineEnd: 'space.050',
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -131,11 +126,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	containerRef: HTMLElement | null = null;
 	calendarRef: React.RefObject<HTMLDivElement | null> = createRef();
 	calendarButtonRef: React.RefObject<HTMLButtonElement> = createRef();
-
-	CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
-		? CalendarIconNew
-		: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-			CalendarIconOld;
 
 	constructor(props: any) {
 		super(props);
@@ -448,7 +438,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			openCalendarLabel = 'Open calendar',
 			disabled,
 			disabledDateFilter,
-			icon: Icon = this.CalendarIcon as unknown as React.ComponentType<
+			icon: Icon = CalendarIcon as unknown as React.ComponentType<
 				DropdownIndicatorProps<OptionType>
 			>,
 			id = '',
@@ -485,7 +475,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		let clearIndicator = Icon;
 
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		if (fg('platform-visual-refresh-icons') && fg('platform-visual-refresh-icon-ads-migration')) {
+		if (fg('platform-visual-refresh-icons')) {
 			clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
 				<Box xcss={dropdownIndicatorStyles}>
 					<Icon {...props} />
@@ -648,10 +638,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 									iconContainerStyles,
 									value && !hideIcon
 										? iconSpacingWithClearButtonStyles
-										: // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-											fg('platform-visual-refresh-icon-ads-migration')
-											? iconSpacingWithoutClearButtonStylesNew
-											: iconSpacingWithoutClearButtonStyles,
+										: iconSpacingWithoutClearButtonStyles,
 								]}
 							>
 								<IconButton
@@ -661,15 +648,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 										inputLabelId ? `${inputLabelId} ${openCalendarLabelId}` : undefined
 									}
 									id={openCalendarLabelId}
-									icon={(iconProps) => (
-										<this.CalendarIcon
-											{...iconProps}
-											// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-											{...(fg('platform-visual-refresh-icon-ads-migration')
-												? { color: token('color.icon') }
-												: { primaryColor: token('color.icon') })}
-										/>
-									)}
+									icon={(iconProps) => <CalendarIcon {...iconProps} color={token('color.icon')} />}
 									onClick={this.onCalendarButtonClick}
 									onKeyDown={this.onCalendarButtonKeyDown}
 									ref={this.calendarButtonRef}

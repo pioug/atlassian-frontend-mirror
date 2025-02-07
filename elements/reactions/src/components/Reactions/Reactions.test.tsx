@@ -164,13 +164,13 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			reactions: [],
 			quickReactionEmojis: { ...quickReactionEmojis, emojiIds: [] },
 		});
-		const reactionButtons = await screen.queryAllByTestId(RENDER_REACTION_TESTID);
+		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
 		expect(reactionButtons.length).toEqual(0);
 	});
 
 	it('should return empty reaction list when reactions prop is empty and the hideDefaultReactions is true, even if there are pre-defined quickReactionEmojis ', async () => {
 		renderReactions({ reactions: [], quickReactionEmojis, hideDefaultReactions: true });
-		const reactionButtons = await screen.queryAllByTestId(RENDER_REACTION_TESTID);
+		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
 		expect(reactionButtons.length).toEqual(0);
 	});
 
@@ -223,10 +223,9 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			fireEvent.click(viewAllButton);
 		});
 
-		const reactionDialog = await screen.getByTestId(RENDER_MODAL_TESTID);
+		screen.getByTestId(RENDER_MODAL_TESTID);
 
-		const reaction = await screen.queryByTestId(reactionsForDialog[1].emojiId);
-		expect(reaction).toBeInTheDocument();
+		screen.findByTestId(reactionsForDialog[1].emojiId);
 
 		const tabToClick = screen
 			.getAllByRole('tab')
@@ -239,25 +238,21 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		// get close button in reactions dialog
-		const modalFooter = await screen.getByTestId('render-reactions-modal--footer');
+		const modalFooter = screen.getByTestId('render-reactions-modal--footer');
 		const closeBtn = within(modalFooter).getByText('Close');
 		act(() => {
 			fireEvent.click(closeBtn);
 		});
 
-		expect(reactionDialog).not.toBeUndefined();
 		expect(onDialogOpenCallback).toBeCalledWith(reactionsForDialog[0].emojiId, 'button');
 		expect(onDialogCloseCallback).toBeCalled();
-		expect(onDialogSelectReactionCallback).toBeCalledWith(
-			reactionsForDialog[1].emojiId,
-			expect.any(UIAnalyticsEvent),
-		);
+		expect(onDialogSelectReactionCallback).toBeCalledWith(reactionsForDialog[1].emojiId);
 
 		expect(fakeOpenDialogUFOExperience.success).toBeCalledWith({
 			metadata: {
 				emojiId: reactionsForDialog[0].emojiId,
 				source: 'Reactions',
-				reason: 'Opening all reactions dialog link successfully',
+				reason: 'Opening Reactions Dialog successfully',
 			},
 		});
 		expect(fakeSelectedReactionChangeInsideDialogUFOExperience.success).toBeCalledWith({

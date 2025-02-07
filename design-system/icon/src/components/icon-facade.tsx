@@ -8,7 +8,7 @@ import type {
 	UNSAFE_NewUtilityGlyphProps,
 } from '../types';
 
-import LegacyIcon from './icon';
+import { Icon as LegacyIcon } from './icon';
 
 const sizeSpacingMap = {
 	utility: {
@@ -73,5 +73,3 @@ export const IconFacade = memo(function IconFacade({
 
 	return <LegacyIcon dangerouslySetGlyph={dangerouslySetGlyph} {...props} />;
 });
-
-export default IconFacade;

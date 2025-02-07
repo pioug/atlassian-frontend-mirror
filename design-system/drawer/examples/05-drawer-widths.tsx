@@ -62,4 +62,10 @@ const DrawersExample = () => {
 	);
 };
 
+export const DrawerWidthNarrowExample = () => <Drawer label="narrow" width="narrow" isOpen />;
+export const DrawerWidthMediumExample = () => <Drawer label="medium" width="medium" isOpen />;
+export const DrawerWidthWideExample = () => <Drawer label="wide" width="wide" isOpen />;
+export const DrawerWidthExtendedExample = () => <Drawer label="extended" width="extended" isOpen />;
+export const DrawerWidthFullExample = () => <Drawer label="full" width="full" isOpen />;
+
 export default DrawersExample;

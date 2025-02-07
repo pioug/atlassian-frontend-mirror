@@ -4,7 +4,7 @@ import Link from '@atlaskit/link';
 import { Box } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import variations from '../src/utils/variations';
+import variations from '../src/testutils/variations';
 
 export default function VisitedExample() {
 	return (

@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 24.9.0
+
+### Minor Changes
+
+- [#110049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110049)
+  [`27aa41be2259d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27aa41be2259d) -
+  Create new UFO experience for page navigation in Reactions Dialog along with a new prop that
+  accepts a page change handler. Also refactor code when opening dialog, and update tests
+
 ## 24.8.0
 
 ### Minor Changes

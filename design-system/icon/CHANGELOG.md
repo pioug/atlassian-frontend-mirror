@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 23.7.1
+
+### Patch Changes
+
+- [#108179](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108179)
+  [`327beb94a2e5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/327beb94a2e5a) -
+  Remove unused internal exports and update dependencies.
+
 ## 23.7.0
 
 ### Minor Changes

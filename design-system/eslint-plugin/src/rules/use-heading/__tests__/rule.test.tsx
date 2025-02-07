@@ -23,24 +23,31 @@ ruleTester.run('use-heading', rule, {
 		'<div><h5 /></div>',
 		'<div><h6></h6></div>',
 		'<div><h6 /></div>',
-		// ignores headings that are the root element
-		`
-		<h1>text 1</h1>
-		`,
-		// ignores headings that are not the first element
-		`
-			<div>
-				<p>text 1</p>
-				{children}
-				<h1>text 2</h1>
-			</div>
-		`,
-		`
-			<div>
-				<p>text 1</p>
-				<h1>text 2</h1>
-			</div>
-		`,
+		// ignores headings that are the root element when unsafe reporting is disabled
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `<h1>text 1</h1>`,
+		},
+		// ignores headings that are not the first element when unsafe reporting is disabled
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `
+				<div>
+					<p>text 1</p>
+					{children}
+					<h1>text 2</h1>
+				</div>
+			`,
+		},
+		{
+			options: [{ enableUnsafeReport: false }],
+			code: `
+				<div>
+					<p>text 1</p>
+					<h1>text 2</h1>
+				</div>
+			`,
+		},
 	],
 	invalid: [
 		// No sibling elements

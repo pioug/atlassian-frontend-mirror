@@ -76,12 +76,3 @@ export const customTabListStyles = css({
 		paddingInline: token('space.100', '8px'),
 	},
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const centerSpinner = css({
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-	height: '100%',
-	marginTop: token('space.300', '24px'),
-});

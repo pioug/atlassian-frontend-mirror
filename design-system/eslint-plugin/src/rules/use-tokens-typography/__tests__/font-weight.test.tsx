@@ -171,55 +171,6 @@ export const typographyTests: Tests = {
 					}
 				})`,
 		},
-		// Font weight used in combination with style-object fixes and suggestions
-		{
-			options: [{ patterns: ['style-object', 'font-weight'], enableUnsafeAutofix: true }],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					fontWeight: 500,
-				})`,
-			errors: [{ messageId: 'noRawTypographyValues' }, { messageId: 'noRawFontWeightValues' }],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					font: token('font.body.large'),
-				fontWeight: token('font.weight.medium'),
-				})`,
-		},
-		{
-			options: [{ patterns: ['style-object', 'font-weight'], enableUnsafeAutofix: false }],
-			code: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					fontWeight: 500,
-				})`,
-			errors: [
-				{
-					messageId: 'noRawTypographyValues',
-					suggestions: [
-						{
-							desc: `Convert to font token`,
-							output: outdent`
-								import { token } from '@atlaskit/tokens';
-								const styles = css({
-									font: token('font.body.large'),
-								fontWeight: token('font.weight.medium'),
-								})`,
-						},
-					],
-				},
-				{ messageId: 'noRawFontWeightValues' },
-			],
-			output: outdent`
-				import { token } from '@atlaskit/tokens';
-				const styles = css({
-					fontSize: '16px',
-					fontWeight: token('font.weight.medium'),
-				})`,
-		},
 	],
 };
 

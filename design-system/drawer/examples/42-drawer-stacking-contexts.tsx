@@ -27,9 +27,9 @@ const visualStyles = css({
 	border: `1px solid ${token('color.background.accent.gray.subtle')}`,
 });
 
-export default class DrawersExample extends Component<{}, State> {
+export default class DrawerStackingContextExample extends Component<{}, State> {
 	state = {
-		isDrawerOpen: false,
+		isDrawerOpen: true,
 	};
 
 	openDrawer = () =>

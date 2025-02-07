@@ -202,7 +202,14 @@ describe('getVCPercentFromHeatmap', () => {
 			scaleY: 1,
 		};
 		const result = getVCPercentFromHeatmap(heatmap, defaultOptions);
-		expect(result).toEqual({ '16': 1, '33': 2, '50': 3, '66': 4, '83': 5, '100': 6 });
+		expect(result).toEqual({
+			'17': 1,
+			'33': 2,
+			'50': 3,
+			'67': 4,
+			'83': 5,
+			'100': 6,
+		});
 	});
 
 	test('should round timestamps correctly', () => {
@@ -232,12 +239,12 @@ describe('getVCPercentFromHeatmap', () => {
 		};
 		const result = getVCPercentFromHeatmap(heatmap, defaultOptions);
 		expect(result).toEqual({
-			'33': 0,
-			'55': 1,
-			'66': 2,
-			'77': 3,
-			'88': 4,
 			'100': 5,
+			'33': 0,
+			'56': 1,
+			'67': 2,
+			'78': 3,
+			'89': 4,
 		});
 	});
 });

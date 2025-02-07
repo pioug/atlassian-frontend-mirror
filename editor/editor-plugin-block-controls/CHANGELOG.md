@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.22.0
+
+### Minor Changes
+
+- [#109549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109549)
+  [`d6907dac2c08d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6907dac2c08d) -
+  ED-26300 Delete a layout section by delete the 2nd last column from the layout
+
+### Patch Changes
+
+- [#111290](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111290)
+  [`8a0749139717e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a0749139717e) -
+  [ED-26392] Add exception handler for `.createChecked`
+- Updated dependencies
+
 ## 2.21.12
 
 ### Patch Changes

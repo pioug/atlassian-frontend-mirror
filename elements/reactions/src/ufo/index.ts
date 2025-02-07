@@ -43,6 +43,7 @@ export enum ExperienceName {
 	REACTION_DIALOG_OPENED = 'reaction-dialog-opened',
 	REACTION_DIALOG_CLOSED = 'reaction-dialog-closed',
 	REACTION_DIALOG_SELECTED_REACTION_CHANGED = 'reaction-dialog-selected-reaction-changed',
+	REACTION_DIALOG_PAGE_NAVIGATION = 'reaction-dialog-page-navigation',
 }
 
 /**
@@ -120,6 +121,18 @@ export const ReactionDialogClosed = new UFOExperience(
  */
 export const ReactionDialogSelectedReactionChanged = new UFOExperience(
 	ExperienceName.REACTION_DIALOG_SELECTED_REACTION_CHANGED,
+	createExperienceConfig(
+		ComponentName.REACTION_DIALOG,
+		ExperienceTypes.Experience,
+		ExperiencePerformanceTypes.InlineResult,
+	),
+);
+
+/**
+ * Experience when a user switches to another page of emojis
+ */
+export const ReactionDialogPageNavigation = new UFOExperience(
+	ExperienceName.REACTION_DIALOG_PAGE_NAVIGATION,
 	createExperienceConfig(
 		ComponentName.REACTION_DIALOG,
 		ExperienceTypes.Experience,

@@ -1,5 +1,13 @@
 # @atlaskit/link
 
+## 2.1.2
+
+### Patch Changes
+
+- [#109895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109895)
+  [`bcff15cd1958c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bcff15cd1958c) -
+  Update dependencies and refactor internals.
+
 ## 2.1.1
 
 ### Patch Changes

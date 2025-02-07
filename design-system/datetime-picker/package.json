@@ -118,9 +118,6 @@
 		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
-		},
-		"platform-visual-refresh-icon-ads-migration": {
-			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/datetime-picker/"

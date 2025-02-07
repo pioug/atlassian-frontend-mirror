@@ -101,18 +101,12 @@
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/exenv": "^1.2.0",
 		"react-dom": "^18.2.0",
 		"react-lorem-component": "^0.13.0",
 		"typescript": "~5.4.2"
-	},
-	"platform-feature-flags": {
-		"platform-visual-refresh-icon-ads-migration": {
-			"type": "boolean"
-		}
 	},
 	"techstack": {
 		"@atlassian/frontend": {

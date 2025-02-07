@@ -173,16 +173,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-10-25
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_comment_on_inline_node_spotlight/setup
-	comment_on_inline_node_spotlight: {
-		productKeys: {
-			confluence: 'platform_editor_comment_on_inline_node_spotlight',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	'platform_editor_ai-prompts-placeholder': {
 		productKeys: {
 			confluence: 'platform_editor_ai-prompts-placeholder',

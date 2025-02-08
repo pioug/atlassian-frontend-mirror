@@ -119,7 +119,6 @@ export const ReactionSummaryView = ({
 								{(tooltipProps) => (
 									<Button
 										{...tooltipProps}
-										appearance="subtle"
 										spacing="compact"
 										onClick={() => {
 											handlePopupClose();

@@ -284,6 +284,17 @@ const editorNodes = {
 		state.write(backticks);
 		state.closeBlock(node);
 	},
+	extension: function extension(state: MarkdownSerializerState, node: PMNode) {
+		// if the extension is a code suggestion, render it as a suggestion
+		if (node.attrs.extensionKey === 'codesuggestions:suggestion-node') {
+			const backticks = generateOuterBacktickChain(node.textContent, 3);
+			state.write(backticks + 'suggestion' + '\n');
+			const userContent = node.attrs.text || '';
+			state.text(userContent, false);
+			state.write(backticks);
+			state.closeBlock(node);
+		}
+	},
 	heading(state: MarkdownSerializerState, node: PMNode) {
 		state.write(state.repeat('#', node.attrs.level) + ' ');
 		state.renderInline(node);

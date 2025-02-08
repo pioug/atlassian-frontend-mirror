@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.22.1
+
+### Patch Changes
+
+- [#110750](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110750)
+  [`d561f93940973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d561f93940973) -
+  Add a11y support to rearrange layout column
+
 ## 2.22.0
 
 ### Minor Changes

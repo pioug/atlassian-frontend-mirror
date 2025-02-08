@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "7.2.2",
+	"version": "7.2.3",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -238,7 +238,7 @@
 		"@atlaskit/editor-plugin-batch-attribute-updates": "1.2.0",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "1.4.0",
 		"@atlaskit/editor-plugin-better-type-history": "1.10.0",
-		"@atlaskit/editor-plugin-block-controls": "2.22.0",
+		"@atlaskit/editor-plugin-block-controls": "2.22.1",
 		"@atlaskit/editor-plugin-block-type": "4.2.2",
 		"@atlaskit/editor-plugin-border": "1.8.0",
 		"@atlaskit/editor-plugin-breakout": "1.10.2",

@@ -32,6 +32,7 @@ import {
 	th,
 	tr,
 	inlineCard,
+	extension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
@@ -943,6 +944,25 @@ describe('BitbucketTransformer: serializer', () => {
 					doc(p('pagh\nwa’\ncha’\nwej\nloS\nvagh\njav\nSoch\nchorgh\nHut\n'))(defaultSchema),
 				),
 			).toEqual('pagh  \nwa’  \ncha’  \nwej  \nloS  \nvagh  \njav  \nSoch  \nchorgh  \nHut\n');
+		});
+	});
+
+	describe('Code suggestion extension', () => {
+		it('should serialize code suggestion', () => {
+			const codeSuggestion = extension({
+				extensionKey: 'codesuggestions:suggestion-node',
+				extensionType: 'com.atlassian.bbc.code-suggestions',
+				layout: 'default',
+				localId: '068e92ce-7d93-45a3-9ea9-a94e9e8d0e68',
+				parameters: {
+					extensionTitle: 'Suggesting',
+				},
+				text: 'this is a suggestion',
+			});
+
+			expect(markdownSerializer.serialize(doc(codeSuggestion())(defaultSchema))).toEqual(
+				'```suggestion\nthis is a suggestion```',
+			);
 		});
 	});
 });

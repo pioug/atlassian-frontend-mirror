@@ -10,6 +10,7 @@ import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import BlogIconNew from '../../../../../common/ui/icons/blog-icon';
+import LiveDocumentIcon from '../../../../../common/ui/icons/live-document-icon';
 import DocumentIconNew from '../../../../../common/ui/icons/page-icon';
 import { IconType, SmartLinkSize } from '../../../../../constants';
 import { getLazyIcons, isIconSizeLarge } from '../../../../../utils';
@@ -60,12 +61,6 @@ const importIconMapperOld: {
   [IconType.Story]: () => import(/* webpackChunkName: "glyphStory" */ '@atlaskit/icon-object/glyph/story/16'),
   [IconType.SubTask]: () => import(/* webpackChunkName: "glyphSubTask" */ '@atlaskit/icon-object/glyph/subtask/16'),
   [IconType.Task]: () => import(/* webpackChunkName: "glyphTask" */ '@atlaskit/icon-object/glyph/task/16'),
-
-  // Confluence icons
-  [IconType.LiveDocument]: () =>
-    import(/* webpackChunkName: "glyphConfluenceLiveDocument" */ '@atlaskit/icon-lab/core/page-live-doc').then(({ default: LiveDocumentIcon }) => ({
-      default: LiveDocumentIcon,
-    })),
 
   // Provider icons
   [IconType.Confluence]: () =>
@@ -150,6 +145,8 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 					})}
 				/>
 			);
+		case IconType.LiveDocument:
+			return <LiveDocumentIcon label={label || 'live-doc'} testId={testId} size={size} />;
 	}
 
 	const importFn = getIconImportFn(icon, size);

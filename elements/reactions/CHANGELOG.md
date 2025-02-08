@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 24.10.0
+
+### Minor Changes
+
+- [#111959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111959)
+  [`0411f7100eec8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0411f7100eec8) -
+  [ux] Move "View all" button before the "Add reaction" button and make button non-subtle
+
 ## 24.9.0
 
 ### Minor Changes

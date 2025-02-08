@@ -66,6 +66,26 @@ export function transformHtml(
 		removeSpecialCharacters(p);
 	});
 
+	// convert suggestion code block to a suggestion div
+	Array.from(el.querySelectorAll('div.language-suggestion')).forEach(function (div, index) {
+		// convert to suggestion view mode extension
+		const suggestionDiv = document.createElement('div');
+		suggestionDiv.setAttribute('data-node-type', 'extension');
+		suggestionDiv.setAttribute('data-extension-type', 'com.atlassian.bbc.code-suggestions');
+		suggestionDiv.setAttribute('data-extension-key', 'codesuggestions:suggestion-node');
+		suggestionDiv.setAttribute(
+			'data-parameters',
+			JSON.stringify({
+				suggestionIndex: index,
+				suggestionText: div.textContent || '',
+			}),
+		);
+		if (div.parentNode) {
+			div.parentNode.insertBefore(suggestionDiv, div);
+			div.parentNode.removeChild(div);
+		}
+	});
+
 	// Convert mention containers, i.e.:
 	//   <a href="/abodera/" rel="nofollow" title="@abodera" class="mention mention-me">Artur Bodera</a>
 	Array.from(el.querySelectorAll<HTMLLinkElement>('a.mention, a.ap-mention')).forEach(

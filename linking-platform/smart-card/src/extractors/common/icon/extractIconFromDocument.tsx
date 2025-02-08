@@ -1,5 +1,6 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
+import { IconTile } from '@atlaskit/icon';
 import DocumentIconOld from '@atlaskit/icon-file-type/glyph/document/16';
 import FileIconOld from '@atlaskit/icon-file-type/glyph/generic/16';
 import PresentationIconOld from '@atlaskit/icon-file-type/glyph/presentation/16';
@@ -151,7 +152,15 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
  */
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
-		return <LiveDocumentIcon label="live-doc" testId="live-doc-icon" />;
+		return (
+			<IconTile
+				icon={LiveDocumentIcon}
+				label="live-doc"
+				appearance="magentaBold"
+				shape="square"
+				testId="live-doc-icon"
+			/>
+		);
 	} else {
 		return <FileIcon label={opts.title || 'file'} testId="file-icon" />;
 	}

@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.14.5
+
+### Patch Changes
+
+- [#111434](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111434)
+  [`79cfad2b18287`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79cfad2b18287) -
+  Fix navigation context to set contentAri in navigation state
+
 ## 7.14.4
 
 ### Patch Changes

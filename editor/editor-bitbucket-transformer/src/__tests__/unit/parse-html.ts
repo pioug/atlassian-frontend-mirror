@@ -1,6 +1,6 @@
 import { BitbucketTransformer } from '../..';
 import { uuid } from '@atlaskit/adf-schema';
-import { bitbucketSchema as schema } from '@atlaskit/adf-schema/schema-bitbucket';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import {
 	a,
 	blockquote,
@@ -30,6 +30,7 @@ import {
 	mediaSingle,
 	media,
 	inlineCard,
+	extension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
@@ -835,6 +836,27 @@ describe('BitbucketTransformer: parser', () => {
 					'<p>' + 'foo ' + '<a href="http://www.atlassian.com">#1234</a>' + ' baz' + '</p>',
 				),
 			).toEqualDocument(doc(p('foo ', a({ href: 'http://www.atlassian.com' })('#1234'), ' baz')));
+		});
+	});
+
+	describe('code suggestions', () => {
+		it('should convert code block to suggestion extension', () => {
+			const extensionAttrs = {
+				extensionType: 'com.atlassian.bbc.code-suggestions',
+				extensionKey: 'codesuggestions:suggestion-node',
+				parameters: {
+					suggestionIndex: 0,
+					suggestionText: 'this is a suggestion',
+				},
+			};
+
+			expect(
+				parse(
+					'<div class="codehilite language-suggestion">' +
+						'<pre><span></span><code>this is a suggestion</code></pre>' +
+						'</div>',
+				),
+			).toEqualDocument(doc(extension(extensionAttrs)()));
 		});
 	});
 });

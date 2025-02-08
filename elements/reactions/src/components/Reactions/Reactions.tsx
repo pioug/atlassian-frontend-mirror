@@ -16,7 +16,7 @@ import {
 import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 import { type Placement } from '@atlaskit/popper';
-import { Box } from '@atlaskit/primitives';
+import { Box, xcss } from '@atlaskit/primitives';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -70,6 +70,11 @@ export const ufoExperiences = {
 	selectedReactionChangeInsideDialog: ReactionDialogSelectedReactionChanged,
 	pageNavigated: ReactionDialogPageNavigation,
 };
+
+const dialogEntrypointButtonStyle = xcss({
+	marginRight: 'space.050',
+	marginTop: 'space.050',
+});
 
 /**
  * Test id for wrapper Reactions div
@@ -476,7 +481,25 @@ export const Reactions = React.memo(
 						/>
 					))
 				)}
-
+				{allowUserDialog && hasEmojiWithFivePlusReactions && !shouldShowSummaryView && (
+					<Box xcss={dialogEntrypointButtonStyle}>
+						<Tooltip
+							content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
+							hideTooltipOnClick
+						>
+							{(tooltipProps) => (
+								<Button
+									{...tooltipProps}
+									spacing="compact"
+									onClick={() => handleOpenReactionsDialog(sortedReactions[0].emojiId)}
+									testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
+								>
+									<FormattedMessage {...messages.seeWhoReacted} />
+								</Button>
+							)}
+						</Tooltip>
+					</Box>
+				)}
 				<ReactionPicker
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={reactionPickerStyle}
@@ -495,27 +518,6 @@ export const Reactions = React.memo(
 					showAddReactionText={showAddReactionText}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 				/>
-				{allowUserDialog && hasEmojiWithFivePlusReactions && !shouldShowSummaryView && (
-					<Box>
-						<Tooltip
-							content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
-							hideTooltipOnClick
-						>
-							{(tooltipProps) => (
-								<Button
-									{...tooltipProps}
-									appearance="subtle"
-									spacing="compact"
-									onClick={() => handleOpenReactionsDialog(sortedReactions[0].emojiId)}
-									testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
-								>
-									<FormattedMessage {...messages.seeWhoReacted} />
-								</Button>
-							)}
-						</Tooltip>
-					</Box>
-				)}
-				{/* https://atlassian.design/components/modal-dialog/examples#default */}
 				<ModalTransition>
 					{!!selectedEmojiId && (
 						<ReactionsDialog

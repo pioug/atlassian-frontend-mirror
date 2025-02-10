@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.31.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.31.1
 
 ### Patch Changes

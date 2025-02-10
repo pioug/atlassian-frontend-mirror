@@ -1,5 +1,15 @@
 # @atlaskit/theme
 
+## 15.0.0
+
+### Major Changes
+
+- [#101282](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101282)
+  [`122ae9e737c74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/122ae9e737c74) -
+  Removed deprecated h100-h900 heading mixins, removed headingSizes export. Use the Heading
+  component from `@atlaskit/heading` to apply headings, or typography tokens if the component cannot
+  be used.
+
 ## 14.1.0
 
 ### Minor Changes

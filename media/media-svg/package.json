@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Media Experience",
+		"team": "Media Exif",
 		"website": {
 			"name": "MediaSvg",
 			"category": "Components"
@@ -58,7 +58,7 @@
 		"@atlaskit/form": "^11.1.0",
 		"@atlaskit/media-state": "^1.5.0",
 		"@atlaskit/media-test-data": "^2.11.0",
-		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/range": "^8.1.0",
 		"@atlaskit/section-message": "^6.9.0",
 		"@atlaskit/select": "^18.10.0",

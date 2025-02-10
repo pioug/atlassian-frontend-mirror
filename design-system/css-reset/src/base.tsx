@@ -103,7 +103,6 @@ export default evaluateInner`
   }
   h5 {
     font: ${token('font.heading.xsmall', `600 1em/1.1428571428571428 ${fontFamily}`)};
-    letter-spacing: -0.003em;
     color: ${token('color.text')};
     margin-top: ${token('space.200')};
   }

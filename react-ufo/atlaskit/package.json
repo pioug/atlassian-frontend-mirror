@@ -134,7 +134,9 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
-		"@testing-library/react": "^13.4.0"
+		"@testing-library/react": "^13.4.0",
+		"@types/is-ci": "^3.0.0",
+		"is-ci": "^3.0.1"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -194,6 +196,9 @@
 			"type": "boolean"
 		},
 		"ufo-remove-vc-component-observations-after-ttai": {
+			"type": "boolean"
+		},
+		"ufo-calc-speed-index": {
 			"type": "boolean"
 		}
 	}

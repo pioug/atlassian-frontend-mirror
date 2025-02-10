@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "67.1.1",
+	"version": "67.1.2",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		".": "./src/index.ts"
 	},
 	"atlassian": {
-		"team": "Media Experience",
+		"team": "Media Exif",
 		"website": {
 			"name": "Media Picker"
 		},
@@ -45,7 +45,7 @@
 		"@atlaskit/media-client-react": "^3.0.0",
 		"@atlaskit/media-common": "^11.8.0",
 		"@atlaskit/media-ui": "^27.4.0",
-		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/theme": "^15.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/ufo": "^0.3.0",
 		"@babel/runtime": "^7.0.0",

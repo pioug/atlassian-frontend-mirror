@@ -1,5 +1,5 @@
 import { ConfigCollection } from '@atlaskit/config-common-libs';
-import type { IdentifierEnum } from '@atlassian/feature-gate-node-client-standalone';
+import type { IdentifierEnum } from '@atlassian/experiment-feature-gates';
 
 export interface FetchOptions {
 	/**

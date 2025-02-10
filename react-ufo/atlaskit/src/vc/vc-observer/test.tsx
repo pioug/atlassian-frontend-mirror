@@ -1,9 +1,14 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { Observers } from './observers';
 import type { Callback } from './observers/types';
 
 import { VCObserver } from './index';
 
+jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('./observers');
+
+const mockFg = fg as jest.Mock;
 
 const VIEWPORT_WIDTH = 1000;
 const VIEWPORT_HEIGHT = 500;
@@ -26,6 +31,22 @@ const mockBox = (extend: object) => ({
 describe('vc-observer', () => {
 	let vc: VCObserver;
 	let callbacks: Set<Callback> = new Set();
+
+	const enabledFeatureGateStore: string[] = [];
+
+	function enableFeatureGate(fgName: string) {
+		enabledFeatureGateStore.push(fgName);
+	}
+	function disableFeatureGate(fgName: string) {
+		const index = enabledFeatureGateStore.indexOf(fgName);
+		if (index !== -1) {
+			enabledFeatureGateStore.splice(index, 1);
+		}
+	}
+
+	mockFg.mockImplementation((fgName: string) => {
+		return enabledFeatureGateStore.includes(fgName);
+	});
 
 	const VCObserverMockImplementation = {
 		observe() {},
@@ -61,6 +82,7 @@ describe('vc-observer', () => {
 			clientWidth: { value: VIEWPORT_WIDTH, writable: true },
 			clientHeight: { value: VIEWPORT_HEIGHT, writable: true },
 		});
+		enabledFeatureGateStore.splice(0, enabledFeatureGateStore.length);
 	});
 
 	test('is aborted when abortCalculation is called', () => {
@@ -799,6 +821,138 @@ describe('vc-observer', () => {
 			'vc:state': false,
 			'vc:abort:reason': 'not-supported',
 			'vc:abort:timestamp': 0,
+		});
+	});
+	describe('speed index', () => {
+		describe('ff-enabled', () => {
+			beforeEach(() => {
+				enableFeatureGate('ufo-calc-speed-index');
+			});
+			test('it calculate speed index correctly', () => {
+				vc.start({ startTime: 0 });
+				const elementWidth = VIEWPORT_WIDTH / 4;
+				callbacks.forEach((fn: Callback) => {
+					fn(
+						5,
+						mockBox({
+							top: 0,
+							left: 0,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#a',
+						document.createElement('div'),
+						'html',
+					);
+					fn(
+						10,
+						mockBox({
+							top: 0,
+							left: elementWidth + 1,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#b',
+						document.createElement('div'),
+						'html',
+						'image',
+					);
+					fn(
+						15,
+						mockBox({
+							top: 0,
+							left: 2 * elementWidth + 1,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#c',
+						document.createElement('div'),
+						'html',
+					);
+					fn(
+						20,
+						mockBox({
+							top: 0,
+							left: 3 * elementWidth + 1,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#d',
+						document.createElement('div'),
+						'html',
+					);
+				});
+				const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+				const speedIndex = result['ufo:speedIndex'];
+
+				expect(speedIndex).toEqual(Math.round(5 * 0.25 + 10 * 0.25 + 15 * 0.25 + 20 * 0.25));
+
+				expect(result['ufo:next:speedIndex']).toEqual(speedIndex);
+			});
+		});
+		describe('ff-disabeld', () => {
+			beforeEach(() => {
+				disableFeatureGate('ufo-calc-speed-index');
+			});
+			test('it does not output speed index', () => {
+				vc.start({ startTime: 0 });
+				const elementWidth = VIEWPORT_WIDTH / 4;
+				callbacks.forEach((fn: Callback) => {
+					fn(
+						5,
+						mockBox({
+							top: 0,
+							left: 0,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#a',
+						document.createElement('div'),
+						'html',
+					);
+					fn(
+						10,
+						mockBox({
+							top: 0,
+							left: elementWidth + 1,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#b',
+						document.createElement('div'),
+						'html',
+						'image',
+					);
+					fn(
+						15,
+						mockBox({
+							top: 0,
+							left: 2 * elementWidth + 1,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#c',
+						document.createElement('div'),
+						'html',
+					);
+					fn(
+						20,
+						mockBox({
+							top: 0,
+							left: 3 * elementWidth + 1,
+							width: elementWidth,
+							height: VIEWPORT_HEIGHT,
+						}),
+						'div#d',
+						document.createElement('div'),
+						'html',
+					);
+				});
+				const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+
+				expect(result['ufo:speedIndex']).toBeUndefined();
+				expect(result['ufo:next:speedIndex']).toBeUndefined();
+			});
 		});
 	});
 });

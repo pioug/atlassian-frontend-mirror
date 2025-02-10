@@ -320,6 +320,8 @@ export class VCObserver {
 			/*  do nothing */
 		}
 
+		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
+
 		return {
 			'metrics:vc': VC,
 			[`${fullPrefix}vc:state`]: true,
@@ -336,6 +338,8 @@ export class VCObserver {
 			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
 			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
+			[`ufo:speedIndex`]: isCalcSpeedIndexEnabled ? VCEntries.speedIndex : undefined,
+			[`ufo:next:speedIndex`]: isCalcSpeedIndexEnabled ? vcNext.VCEntries.speedIndex : undefined,
 		};
 	};
 
@@ -394,8 +398,11 @@ export class VCObserver {
 		const VC: { [key: string]: number | null } = VCObserver.makeVCReturnObj<number>();
 		const VCBox: { [key: string]: string[] | null } = VCObserver.makeVCReturnObj<string[]>();
 
+		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
+
 		entries.reduce((acc = 0, v) => {
-			const VCRatio = v[1] / totalPainted + acc;
+			const currRatio = v[1] / totalPainted;
+			const VCRatio = currRatio + acc;
 			const time = v[0];
 			VCObserver.VCParts.forEach((key) => {
 				const value = parseInt(key, 10);
@@ -408,10 +415,21 @@ export class VCObserver {
 		}, 0);
 
 		const VCEntries = entries.reduce(
-			(acc: { abs: number[][]; rel: VCEntryType[] }, [timestamp, entryPainted], i) => {
+			(
+				acc: { abs: number[][]; rel: VCEntryType[]; speedIndex: number },
+				[timestamp, entryPainted],
+				i,
+			) => {
 				const currentlyPainted = entryPainted + (acc.abs[i - 1]?.[1] || 0);
 				const currentlyPaintedRatio = Math.round((currentlyPainted / totalPainted) * 1000) / 10;
 				const logEntry = componentsLog[timestamp]?.map((v) => v.targetName);
+
+				const ratioDelta = (currentlyPaintedRatio - (acc.rel[i - 1]?.vc ?? 0)) / 100;
+
+				if (isCalcSpeedIndexEnabled) {
+					const speedIndex = timestamp * ratioDelta;
+					acc.speedIndex += speedIndex;
+				}
 
 				acc.abs.push([timestamp, currentlyPainted]);
 				acc.rel.push({
@@ -421,8 +439,10 @@ export class VCObserver {
 				});
 				return acc;
 			},
-			{ abs: [], rel: [] },
+			{ abs: [], rel: [], speedIndex: 0 },
 		);
+
+		VCEntries.speedIndex = Math.round(VCEntries.speedIndex);
 
 		return { VC, VCBox, VCEntries, totalPainted };
 	}

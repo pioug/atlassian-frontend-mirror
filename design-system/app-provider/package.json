@@ -54,7 +54,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/dropdown-menu": "^12.26.0",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

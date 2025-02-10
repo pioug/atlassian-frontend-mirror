@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.11.1
 
 ### Patch Changes

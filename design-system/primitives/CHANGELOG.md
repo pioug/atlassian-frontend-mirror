@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 13.5.0
+
+### Minor Changes
+
+- [#112172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112172)
+  [`54699aa47995b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/54699aa47995b) -
+  [ux] Removed feature flag `platform-primitives-nested-text-inherit-size` resulting in Text to
+  inherit size when nested in other Text component.
+
 ## 13.4.1
 
 ### Patch Changes

@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': 'Dodaj obraz, film lub plik',
   'fabric.editor.addRowAbove': 'Dodaj wiersz powyżej',
   'fabric.editor.addRowBelow': 'Dodaj wiersz poniżej',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Wystąpiły problemy podczas generowania podglądu. Zamknij okno dialogowe i spróbuj ponownie.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'Wystąpiły problemy. Zamknij okno dialogowe i spróbuj ponownie.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Wstaw poniżej',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Zamień',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Wyróżnij termin, akronim lub skrót',
   'fabric.editor.ai.selectionToolbar.define.title': 'Podaj definicję',
   'fabric.editor.alignCenter': 'Wyrównaj do środka',

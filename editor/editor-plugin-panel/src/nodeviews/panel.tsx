@@ -22,7 +22,7 @@ import type {
 	getPosHandler,
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
@@ -88,7 +88,7 @@ export const PanelIcon = (props: PanelIconAttributes) => {
 };
 
 class PanelNodeView {
-	node: Node;
+	node: PMNode;
 	dom: HTMLElement;
 	contentDOM: HTMLElement;
 	icon: HTMLElement;
@@ -100,7 +100,7 @@ class PanelNodeView {
 	key: string;
 
 	constructor(
-		node: Node,
+		node: PMNode,
 		view: EditorView,
 		getPos: getPosHandlerNode,
 		pluginOptions: PanelPluginOptions,
@@ -161,7 +161,7 @@ class PanelNodeView {
 		}
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		// ignore mutation if it caused by the icon.
 		if (!this.icon) {
 			return false;
@@ -186,7 +186,7 @@ export const getPanelNodeView =
 		nodeViewPortalProviderAPI: PortalProviderAPI,
 		providerFactory?: ProviderFactory,
 	) =>
-	(node: Node, view: EditorView, getPos: getPosHandler): PanelNodeView => {
+	(node: PMNode, view: EditorView, getPos: getPosHandler): PanelNodeView => {
 		return new PanelNodeView(
 			node,
 			view,

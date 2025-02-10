@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-table",
-	"version": "15.5.1",
+	"version": "15.5.2",
 	"description": "Table UI component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 		".": "./src/index.ts"
 	},
 	"atlassian": {
-		"team": "Media Experience",
+		"team": "Media Exif",
 		"website": {
 			"name": "Media Client"
 		},
@@ -44,7 +44,7 @@
 		"@atlaskit/media-client-react": "^3.0.0",
 		"@atlaskit/media-ui": "^27.4.0",
 		"@atlaskit/media-viewer": "^50.1.0",
-		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/theme": "^15.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@babel/runtime": "^7.0.0",

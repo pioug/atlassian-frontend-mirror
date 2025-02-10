@@ -22,6 +22,11 @@ export default {
   'fabric.editor.addMediaFiles': 'Tilføj billede, video eller fil',
   'fabric.editor.addRowAbove': 'Tilføj række ovenfor',
   'fabric.editor.addRowBelow': 'Tilføj række nedenfor',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Vi har problemer med at danne forhåndsvisningen. Luk dialogboksen, og prøv igen.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage': 'Vi har problemer. Luk dialogboksen, og prøv igen.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Indsæt nedenfor',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Erstat',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Fremhæv et udtryk, akronym eller en forkortelse',
   'fabric.editor.ai.selectionToolbar.define.title': 'Definer',
   'fabric.editor.alignCenter': 'Centrér',

@@ -1,0 +1,31 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "table",
+			"content": [
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableCell",
+							"content": [
+								{
+									"type": "extension",
+									"attrs": {
+										"extensionType": "com.atlassian.confluence.migration",
+										"extensionKey": "nested-table",
+										"parameters": {
+											"adf": "not a valid ADF"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

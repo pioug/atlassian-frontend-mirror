@@ -1,9 +1,8 @@
-import { headingSizes } from '@atlaskit/theme/typography';
 import { N800 } from '@atlaskit/adf-schema';
 import type { NodeSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { applyMarks } from '../apply-marks';
-import { createClassName } from '../styles/util';
+import { createClassName, headingSizes } from '../styles/util';
 
 const commonStyle = `
 font-style: inherit;

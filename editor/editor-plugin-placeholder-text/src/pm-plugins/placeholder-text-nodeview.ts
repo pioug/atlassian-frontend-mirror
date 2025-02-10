@@ -9,7 +9,7 @@ type PmMutationRecord =
 	| MutationRecord
 	| {
 			type: 'selection';
-			target: Element;
+			target: Node;
 	  };
 
 const serializePlaceholderNode = (node: PMNode): HTMLElement => {

@@ -342,7 +342,7 @@ export default class TableView extends ReactNodeView<Props> {
 		});
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		const {
 			type,
 			target: { nodeName, firstChild },

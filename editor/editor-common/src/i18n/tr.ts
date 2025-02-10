@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': 'Görsel, video ya da dosya ekle',
   'fabric.editor.addRowAbove': 'Yukarıya satır ekle',
   'fabric.editor.addRowBelow': 'Aşağıya satır ekle',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Önizlemeyi oluştururken bir sorunla karşılaşıldı. İletişim kutusunu kapatın ve yeniden deneyin.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'Bir sorunla karşılaşıldı. İletişim kutusunu kapatın ve yeniden deneyin.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Aşağıya ekle',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Değiştir',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Bir terimi veya kısaltmayı vurgulayın',
   'fabric.editor.ai.selectionToolbar.define.title': 'Tanımla',
   'fabric.editor.alignCenter': 'Ortaya hizala',
@@ -39,7 +45,7 @@ export default {
   'fabric.editor.backLink': 'Geri dön',
   'fabric.editor.backgroundColor': 'Arkaplan rengi',
   'fabric.editor.blockCardUnavailable': 'Satır içi bağlantı {node} düğümündedir ve görüntüsü değiştirilemez',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Taşımak için sürükleyin',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Yeniden düzenlemek için sürükleyin',
   'fabric.editor.blockControlInsert': 'Ekle',
   'fabric.editor.blockControlMoveDown': 'Aşağı taşı',
   'fabric.editor.blockControlMoveLeft': 'Sola taşı',

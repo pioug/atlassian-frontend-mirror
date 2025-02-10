@@ -189,7 +189,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		);
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		return ignoreResizerMutations(mutation);
 	}
 }

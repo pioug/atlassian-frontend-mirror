@@ -22,6 +22,11 @@ export default {
   'fabric.editor.addMediaFiles': 'Lisää kuva, video tai tiedosto',
   'fabric.editor.addRowAbove': 'Lisää rivi yläpuolelle',
   'fabric.editor.addRowBelow': 'Lisää rivi alapuolelle',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Esikatselun luominen ei onnistu. Sulje ikkuna ja yritä uudelleen.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage': 'Tapahtui virhe. Sulje ikkuna ja yritä uudelleen.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Lisää alle',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Korvaa',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Korosta termi, akronyymi tai lyhenne',
   'fabric.editor.ai.selectionToolbar.define.title': 'Määritä',
   'fabric.editor.alignCenter': 'Tasaa keskelle',

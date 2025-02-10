@@ -36,11 +36,11 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/css-reset": "^6.11.0",
+		"@atlaskit/css-reset": "^6.12.0",
 		"@atlaskit/heading": "^4.1.0",
 		"@atlaskit/icon": "^23.7.0",
-		"@atlaskit/primitives": "^13.4.0",
-		"@atlaskit/renderer": "^112.12.0",
+		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/renderer": "^112.13.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",

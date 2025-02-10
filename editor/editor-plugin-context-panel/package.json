@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-context-panel",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "Context panel plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,8 +26,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^99.9.0",
-		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/editor-common": "^99.10.0",
+		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/tmp-editor-statsig": "^2.43.0",
 		"@babel/runtime": "^7.0.0"

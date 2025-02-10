@@ -3,6 +3,8 @@ import { serializeStyle } from './serialize-style';
 import { createTag } from './create-tag';
 import { createClassName } from './styles/util';
 import { fontFamily, fontSize, fontWeight } from './styles/common';
+import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/transforms';
+import { type ADFEntity } from '@atlaskit/adf-utils/types';
 
 export type TableData = {
 	text?: string | null;
@@ -52,4 +54,15 @@ export const createTable = (
 	const attrs = { ...createTableAttrs(tableAttrs, tableStyle) };
 	const tableRows = tableData.map(tableRowMapper).join('');
 	return createTag('table', attrs, tableRows);
+};
+
+export const transformNestedTableExtension = (adf: ADFEntity) => {
+	try {
+		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(adf);
+		return isTransformed ? transformedAdf : adf;
+	} catch (e) {
+		// eslint-disable-next-line no-console
+		console.error('Failed to transform nested table extension');
+		return adf;
+	}
 };

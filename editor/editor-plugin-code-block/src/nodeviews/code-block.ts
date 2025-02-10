@@ -5,7 +5,7 @@ import type {
 	getPosHandler,
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
-import type { DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -18,7 +18,7 @@ import { codeBlockClassNames } from '../ui/class-names';
 // eslint-disable-next-line require-unicode-regexp
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
-const toDOM = (node: Node, contentEditable: boolean, formattedAriaLabel: string) =>
+const toDOM = (node: PMNode, contentEditable: boolean, formattedAriaLabel: string) =>
 	[
 		'div',
 		{ class: codeBlockClassNames.container },
@@ -57,7 +57,7 @@ const toDOM = (node: Node, contentEditable: boolean, formattedAriaLabel: string)
 	] as DOMOutputSpec;
 
 export class CodeBlockView {
-	node: Node;
+	node: PMNode;
 	dom: HTMLElement;
 	contentDOM: HTMLElement;
 	lineNumberGutter: HTMLElement;
@@ -67,7 +67,7 @@ export class CodeBlockView {
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
 
 	constructor(
-		node: Node,
+		node: PMNode,
 		view: EditorView,
 		getPos: getPosHandlerNode,
 		formattedAriaLabel: string,
@@ -193,7 +193,7 @@ export class CodeBlockView {
 		this.dom.style.setProperty('--lineNumberGutterWidth', `${maxDigits}ch`);
 	};
 
-	update(node: Node) {
+	update(node: PMNode) {
 		if (node.type !== this.node.type) {
 			return false;
 		}
@@ -213,7 +213,7 @@ export class CodeBlockView {
 		return true;
 	}
 
-	ignoreMutation(record: MutationRecord | { type: 'selection'; target: Element }) {
+	ignoreMutation(record: MutationRecord | { type: 'selection'; target: Node }) {
 		const pluginState = getPluginState(this.view.state);
 		if (pluginState?.shouldIgnoreFollowingMutations) {
 			return true;
@@ -234,7 +234,7 @@ export class CodeBlockView {
 }
 
 export const codeBlockNodeView = (
-	node: Node,
+	node: PMNode,
 	view: EditorView,
 	getPos: getPosHandler,
 	formattedAriaLabel: string,

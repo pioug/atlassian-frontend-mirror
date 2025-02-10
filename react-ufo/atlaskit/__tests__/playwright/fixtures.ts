@@ -54,6 +54,7 @@ export const test = base.extend<{
 		width: number;
 		height: number;
 	};
+	featureFlags: string[];
 	examplePage: string;
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
 	getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
@@ -62,8 +63,9 @@ export const test = base.extend<{
 		width: 900,
 		height: 600,
 	},
+	featureFlags: [],
 	examplePage: 'basic',
-	page: async ({ browser, baseURL, viewport, examplePage }, use, testInfo) => {
+	page: async ({ browser, baseURL, viewport, examplePage, featureFlags }, use, testInfo) => {
 		// For the tests work properly, it is really important the page isn't cached
 		const context = await browser.newContext();
 		const page = await context.newPage();
@@ -98,12 +100,6 @@ export const test = base.extend<{
 			});
 		});
 
-		// page.on('console', async (msg) => {
-		// 	const t = msg.text();
-
-		// 	console.log(t);
-		// });
-
 		// @ts-ignore
 		(page as unknown as Page).visitExample = (
 			groupId: string,
@@ -129,8 +125,13 @@ export const test = base.extend<{
 			height: viewport.height,
 		});
 
+		const params: Record<string, string | boolean> = {};
+
+		if (featureFlags && featureFlags.length > 0) {
+			params.featureFlag = featureFlags.join(';');
+		}
 		// @ts-ignore
-		((await page) as unknown as Page).visitExample('react-ufo', 'atlaskit', examplePage);
+		((await page) as unknown as Page).visitExample('react-ufo', 'atlaskit', examplePage, params);
 
 		await use(page);
 	},

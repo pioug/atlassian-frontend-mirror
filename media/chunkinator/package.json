@@ -29,7 +29,7 @@
 		".": "./src/index.ts"
 	},
 	"atlassian": {
-		"team": "Media Experience",
+		"team": "Media Exif",
 		"website": {
 			"name": "Media Client"
 		},

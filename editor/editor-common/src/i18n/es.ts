@@ -45,7 +45,7 @@ export default {
   'fabric.editor.backLink': 'Regresar',
   'fabric.editor.backgroundColor': 'Color de fondo',
   'fabric.editor.blockCardUnavailable': 'El enlace insertado está dentro de {node} y no puede cambiar de vista',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Arrastrar para mover',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Arrastrar para reorganizar',
   'fabric.editor.blockControlInsert': 'Insertar',
   'fabric.editor.blockControlMoveDown': 'Bajar',
   'fabric.editor.blockControlMoveLeft': 'Mover a la izquierda',

@@ -26,19 +26,6 @@ export interface ErroredViewProps {
 }
 
 const styles = cssMap({
-	messageStyles: {
-		font: token('font.heading.xsmall'),
-		fontWeight: token('font.weight.regular'),
-		marginLeft: token('space.050'),
-		marginRight: token('space.050'),
-		display: '-webkit-box',
-		overflow: 'hidden',
-		WebkitLineClamp: 1,
-		WebkitBoxOrient: 'vertical',
-		textOverflow: 'ellipsis',
-		// Fallback options.
-		maxHeight: '21px',
-	},
 	boxStyles: {
 		paddingLeft: token('space.050'),
 		paddingRight: token('space.050'),
@@ -59,7 +46,7 @@ const EmbedCardErroredViewNew = ({
 	>
 		<ErrorIcon LEGACY_size="small" color={token('color.icon.danger', R300)} label="error-icon" />
 		<Box xcss={styles.boxStyles}>
-			<Inline xcss={styles.messageStyles}>
+			<Inline>
 				<FormattedMessage {...messages.could_not_load_link} />
 			</Inline>
 		</Box>

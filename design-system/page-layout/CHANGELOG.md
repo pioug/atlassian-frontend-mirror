@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 3.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.12.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/custom-steps",
-	"version": "0.9.1",
+	"version": "0.10.0",
 	"description": "Editor Custom Steps",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,8 +34,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-prosemirror": "6.2.1",
-		"@atlaskit/editor-tables": "^2.8.0",
+		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-tables": "^2.9.0",
 		"@babel/runtime": "^7.0.0",
 		"memoize-one": "^6.0.0"
 	},

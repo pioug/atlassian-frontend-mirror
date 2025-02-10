@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': 'Adicionar imagem, vídeo ou arquivo',
   'fabric.editor.addRowAbove': 'Adicionar linha acima',
   'fabric.editor.addRowBelow': 'Adicionar linha abaixo',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'A gente está com problemas para gerar a pré-visualização. Feche a caixa de diálogo e tente de novo.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'A gente está com problemas. Feche a caixa de diálogo e tente de novo.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Inserir na parte inferior',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Substituir',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Destaque um termo, um acrônimo ou uma abreviatura',
   'fabric.editor.ai.selectionToolbar.define.title': 'Definir',
   'fabric.editor.alignCenter': 'Alinhar ao centro',
@@ -39,7 +45,7 @@ export default {
   'fabric.editor.backLink': 'Voltar',
   'fabric.editor.backgroundColor': 'Cor do plano de fundo',
   'fabric.editor.blockCardUnavailable': 'O link em linha está em {node}, e sua exibição não pode ser alterada',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Arraste para mover',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Arraste para reorganizar',
   'fabric.editor.blockControlInsert': 'Inserir',
   'fabric.editor.blockControlMoveDown': 'Mover para baixo',
   'fabric.editor.blockControlMoveLeft': 'Mover para esquerda',

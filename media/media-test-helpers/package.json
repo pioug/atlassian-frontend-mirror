@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "34.8.1",
+	"version": "34.8.2",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,7 +22,7 @@
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
-		"team": "Media Experience",
+		"team": "Media Exif",
 		"runReact18": true
 	},
 	"dependencies": {
@@ -34,7 +34,7 @@
 		"@atlaskit/media-common": "^11.8.0",
 		"@atlaskit/media-ui": "^27.4.0",
 		"@atlaskit/popup": "^1.31.0",
-		"@atlaskit/primitives": "13.4.1",
+		"@atlaskit/primitives": "13.5.0",
 		"@atlaskit/tabs": "^17.2.0",
 		"@atlaskit/textfield": "^6.8.0",
 		"@atlaskit/tokens": "^3.3.0",

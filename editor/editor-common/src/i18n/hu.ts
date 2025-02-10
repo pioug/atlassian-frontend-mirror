@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': 'Kép, videó vagy fájl hozzáadása',
   'fabric.editor.addRowAbove': 'Sor beszúrása felülre',
   'fabric.editor.addRowBelow': 'Sor beszúrása alulra',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Problémába ütköztünk az előnézet létrehozásakor. Zárd be a párbeszédpanelt, és próbálkozz újra.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'Problémába ütköztünk. Zárd be a párbeszédpanelt, és próbálkozz újra.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Beszúrás alulra',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Csere',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Emelj ki egy kifejezést, mozaikszót vagy rövidítést',
   'fabric.editor.ai.selectionToolbar.define.title': 'Definiálás',
   'fabric.editor.alignCenter': 'Középre igazítás',

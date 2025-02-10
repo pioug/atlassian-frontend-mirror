@@ -31,7 +31,7 @@
 		"./internal-types": "./src/types.tsx"
 	},
 	"atlassian": {
-		"team": "Media Experience",
+		"team": "Media Exif",
 		"website": {
 			"name": "Media Image"
 		},
@@ -62,7 +62,7 @@
 		"@atlaskit/docs": "^10.0.0",
 		"@atlaskit/media-test-data": "^2.11.0",
 		"@atlaskit/media-test-helpers": "^34.8.0",
-		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/theme": "^15.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"@emotion/react": "^11.7.1",

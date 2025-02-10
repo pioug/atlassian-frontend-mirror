@@ -30,7 +30,7 @@
 		".": "./src/index.ts"
 	},
 	"atlassian": {
-		"team": "Media Experience",
+		"team": "Media Exif",
 		"singleton": true,
 		"website": {
 			"name": "Media Core"

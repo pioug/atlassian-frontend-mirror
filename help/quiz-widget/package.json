@@ -37,7 +37,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/icon": "^23.7.0",
-		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/radio": "^7.2.0",
 		"@atlaskit/spinner": "^17.1.0",
 		"@atlaskit/tokens": "^3.3.0",

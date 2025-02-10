@@ -1,8 +1,8 @@
 import { uuid } from '@atlaskit/adf-schema';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 
-import { mapFragment } from '../utils/slice';
+import { mapFragment, mapSlice } from '../utils/slice';
 
 /**
  * Lift content out of "open" top-level bodiedExtensions.
@@ -91,4 +91,23 @@ export const transformSliceToRemoveOpenMultiBodiedExtension = (slice: Slice, sch
 			? slice.openEnd - depthToReduce
 			: slice.openEnd,
 	);
+};
+
+const LEGACY_CONTENT_MACRO_EXTENSION_TYPE = 'com.atlassian.confluence.migration',
+	LEGACY_CONTENT_MACRO_EXTENSION_KEY = 'legacy-content';
+
+const isLegacyContentMacroExtension = (extensionNode: PMNode) =>
+	extensionNode.attrs?.extensionType === LEGACY_CONTENT_MACRO_EXTENSION_TYPE &&
+	extensionNode.attrs?.extensionKey === LEGACY_CONTENT_MACRO_EXTENSION_KEY;
+
+export const transformSliceToRemoveLegacyContentMacro = (slice: Slice, schema: Schema) => {
+	const { extension } = schema.nodes;
+
+	return mapSlice(slice, (node: PMNode) => {
+		if (node.type === extension && isLegacyContentMacroExtension(node)) {
+			// Strip the node
+			return null;
+		}
+		return node;
+	});
 };

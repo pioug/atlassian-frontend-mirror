@@ -1,5 +1,19 @@
 # @atlaskit/css-reset
 
+## 6.12.0
+
+### Minor Changes
+
+- [#111741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111741)
+  [`99106cc9d8c19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99106cc9d8c19) -
+  Removed letter spacing from h5 elements.
+
+## 6.11.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.11.5
 
 ### Patch Changes

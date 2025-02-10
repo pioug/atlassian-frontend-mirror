@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.14.0
+
+### Minor Changes
+
+- [#105322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105322)
+  [`8876083532adc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8876083532adc) -
+  Bumped editor-prosemirror version to 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.13.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.13.5
 
 ### Patch Changes

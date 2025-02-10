@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 112.13.0
+
+### Minor Changes
+
+- [#105322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105322)
+  [`8876083532adc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8876083532adc) -
+  Bumped editor-prosemirror version to 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.12.4
+
+### Patch Changes
+
+- [#101282](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101282)
+  [`83bbb87a1ef40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83bbb87a1ef40) -
+  Moved deprecated ADS headingSizes object directly into this package as it is the only remaining
+  consumer. This is planned to be removed soon.
+- Updated dependencies
+
 ## 112.12.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/prosemirror-input-rules",
-	"version": "3.2.3",
+	"version": "3.3.0",
 	"description": "A package that contains helpers to create autoformatting rules for ProseMirror",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,11 +27,11 @@
 		"singleton": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-common": "^99.9.0"
+		"@atlaskit/editor-common": "^99.10.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

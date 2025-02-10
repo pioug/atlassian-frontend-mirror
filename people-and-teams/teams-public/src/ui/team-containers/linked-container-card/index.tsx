@@ -3,17 +3,16 @@
  * @jsx jsx
  */
 
-import { Link } from 'react-router-dom';
-
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/utility/cross';
 import Image from '@atlaskit/image';
+import Link from '@atlaskit/link';
 import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { ContainerTypes } from '../../../common/types';
+import { type ContainerTypes } from '../../../common/types';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 const styles = cssMap({
@@ -48,7 +47,7 @@ interface CustomItemComponentPropsWithHref extends CustomItemComponentProps {
 
 const CustomItemInner = ({ children, href }: CustomItemComponentPropsWithHref) => {
 	return (
-		<Link to={href}>
+		<Link href={href} appearance="subtle">
 			<Box xcss={styles.container}>{children}</Box>
 		</Link>
 	);

@@ -63,7 +63,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/primitives": "^13.5.0",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^13.4.0",
 		"@types/jscodeshift": "^0.11.0",

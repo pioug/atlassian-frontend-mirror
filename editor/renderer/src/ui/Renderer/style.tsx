@@ -8,7 +8,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { N60A, Y300, Y75, N40A } from '@atlaskit/theme/colors';
-import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 
 import { getGlobalTheme, token } from '@atlaskit/tokens';
 import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
@@ -119,6 +118,25 @@ const telepointerStyles = (colorMode?: 'light' | 'dark') => {
 			}
 		}
 	`;
+};
+
+/**
+ * **DEPRECATED**
+ *
+ * Originally defined in `@atlaskit/theme/typography`, but moved here as it has since been deleted in favor of typography tokens.
+ * This should be removed as part of editor token work. More info:
+ * https://atlassian.slack.com/archives/C075G5D7ZP1/p1733449725865539?thread_ts=1732159801.409789&cid=C075G5D7ZP1
+ * */
+const headingSizesImport = {
+	h900: { size: 35, lineHeight: 40 },
+	h800: { size: 29, lineHeight: 32 },
+	h700: { size: 24, lineHeight: 28 },
+	h600: { size: 20, lineHeight: 24 },
+	h500: { size: 16, lineHeight: 20 },
+	h400: { size: 14, lineHeight: 16 },
+	h300: { size: 12, lineHeight: 16 },
+	h200: { size: 12, lineHeight: 16 },
+	h100: { size: 11, lineHeight: 16 },
 };
 
 type HeadingSizes = keyof typeof headingSizesImport;

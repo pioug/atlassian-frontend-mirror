@@ -35,7 +35,7 @@
 	},
 	"references": [
 		{
-			"path": "../../design-system/theme/tsconfig.app.json"
+			"path": "../adf-utils/tsconfig.app.json"
 		}
 	],
 	"files": []

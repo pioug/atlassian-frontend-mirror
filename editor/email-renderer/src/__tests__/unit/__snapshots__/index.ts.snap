@@ -6489,6 +6489,49 @@ exports[`Renderer - EmailSerializer should render ordered lists: html 1`] = `
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render original ADF if nested table extension transformer fails: nested tables extension invalid 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <div
+    class="csg-tableNode-wrapper"
+    style="margin-bottom: 20px; margin-top: 20px;"
+  >
+    <table
+      class="csg-tableNode"
+      style="border: 1px solid #C1C7D0; border-collapse: collapse; width: 100%; table-layout: fixed;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <div
+              class="csg-bodiedExtension-outer"
+              style="border: 1px solid #C1C7D0; margin-top: 10px; border-radius: 3px; border-style: dashed; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+            >
+              <div
+                class="csg-bodiedExtension-inner"
+                style="background-color: #EBECF0; border: 10px solid #EBECF0; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; color: #172B4D,;"
+              >
+                 nested-table 
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render panels correctly with mock enabled: mock-embeddedImages 1`] = `[]`;
 
 exports[`Renderer - EmailSerializer should render panels correctly with mock enabled: mock-html 1`] = `
@@ -8566,5 +8609,96 @@ exports[`Renderer - EmailSerializer should render text with em inside of a parag
       </span>
     </span>
   </p>
+</div>
+`;
+
+exports[`Renderer - EmailSerializer should transform and render nested table extension correctly: nested tables extension 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <div
+    class="csg-tableNode-wrapper"
+    style="margin-bottom: 20px; margin-top: 20px;"
+  >
+    <table
+      class="csg-tableNode"
+      style="border: 1px solid #C1C7D0; border-collapse: collapse; width: 100%; table-layout: fixed;"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td
+            bgcolor="white"
+            class="csg-tableCell"
+            colspan="1"
+            rowspan="1"
+            style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+            valign="top"
+          >
+            <div
+              class="csg-tableNode-wrapper"
+              style="margin-bottom: 20px; margin-top: 20px;"
+            >
+              <table
+                class="csg-tableNode"
+                style="border: 1px solid #C1C7D0; border-collapse: collapse; width: 100%; table-layout: fixed;"
+                width="100%"
+              >
+                <tbody>
+                  <tr>
+                    <th
+                      align="left"
+                      bgcolor="#F4F5F7"
+                      class="csg-tableHeader"
+                      colspan="1"
+                      rowspan="1"
+                      style="background-clip: padding-box; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; font-weight: bold; height: auto; min-width: 3em; padding: 8px; text-align: left; vertical-align: top; background-color: #F4F5F7;"
+                      valign="top"
+                    >
+                      Header 1
+                    </th>
+                    <th
+                      align="left"
+                      bgcolor="#F4F5F7"
+                      class="csg-tableHeader"
+                      colspan="1"
+                      rowspan="1"
+                      style="background-clip: padding-box; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; font-weight: bold; height: auto; min-width: 3em; padding: 8px; text-align: left; vertical-align: top; background-color: #F4F5F7;"
+                      valign="top"
+                    >
+                      Header 2
+                    </th>
+                  </tr>
+                  <tr>
+                    <td
+                      bgcolor="white"
+                      class="csg-tableCell"
+                      colspan="1"
+                      rowspan="1"
+                      style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+                      valign="top"
+                    >
+                      Cell 1
+                    </td>
+                    <td
+                      bgcolor="white"
+                      class="csg-tableCell"
+                      colspan="1"
+                      rowspan="1"
+                      style="background-clip: padding-box; height: auto; min-width: 3em; vertical-align: top; border: 1px solid #C1C7D0; border-right-width: 0; border-bottom-width: 0; padding: 8px; background-color: white;"
+                      valign="top"
+                    >
+                      Cell 2
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 `;

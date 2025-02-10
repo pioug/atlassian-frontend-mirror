@@ -93,7 +93,7 @@ class Decision extends ReactNodeView {
 		return super.update(node, decorations);
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		if (!this.contentDOM) {
 			return true;
 		}

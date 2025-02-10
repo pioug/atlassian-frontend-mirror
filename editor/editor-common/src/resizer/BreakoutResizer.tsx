@@ -61,7 +61,7 @@ const getHandleStyle = (node: BreakoutSupportedNodes) => {
 };
 
 export const ignoreResizerMutations = (
-	mutation: MutationRecord | { type: 'selection'; target: Element },
+	mutation: MutationRecord | { type: 'selection'; target: Node },
 ) => {
 	if (fg('platform_editor_breakoutresizer_remove_assertion')) {
 		if (mutation.target instanceof Element) {

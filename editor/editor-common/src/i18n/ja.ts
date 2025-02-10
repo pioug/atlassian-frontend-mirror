@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': '画像、動画、またはファイルを追加',
   'fabric.editor.addRowAbove': '上に行を追加',
   'fabric.editor.addRowBelow': '下に行を追加',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'プレビューを生成できません。ダイアログを閉じて、もう一度お試しください。',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    '問題が発生しました。ダイアログを閉じて、もう一度お試しください。',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': '下に挿入',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': '置換',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': '用語、頭字語、または略語をハイライトする',
   'fabric.editor.ai.selectionToolbar.define.title': '定義',
   'fabric.editor.alignCenter': '中央揃え',
@@ -39,7 +45,7 @@ export default {
   'fabric.editor.backLink': '戻る',
   'fabric.editor.backgroundColor': '背景色',
   'fabric.editor.blockCardUnavailable': 'インライン リンクは {node} 内にあるためビューを変更できません',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'ドラッグして移動',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'ドラッグして並べ替え',
   'fabric.editor.blockControlInsert': '挿入',
   'fabric.editor.blockControlMoveDown': '下に移動',
   'fabric.editor.blockControlMoveLeft': '左に移動',

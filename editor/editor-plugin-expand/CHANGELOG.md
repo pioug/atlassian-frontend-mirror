@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.12.0
+
+### Minor Changes
+
+- [#105322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105322)
+  [`8876083532adc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8876083532adc) -
+  Bumped editor-prosemirror version to 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.1
 
 ### Patch Changes

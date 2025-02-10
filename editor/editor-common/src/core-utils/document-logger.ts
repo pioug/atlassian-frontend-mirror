@@ -133,10 +133,7 @@ const getBlockNode = (node: PMNode, pos: number): SimplifiedNode => {
 	return blockNode;
 };
 
-const getBlockNodeContent = (
-	node: Fragment & { content?: PMNode[] },
-	pos: number,
-): SimplifiedNode[] => {
+const getBlockNodeContent = (node: Fragment, pos: number): SimplifiedNode[] => {
 	if (!node || !node.content || !node.content.length) {
 		return [];
 	}
@@ -162,7 +159,7 @@ const getBlockNodeContent = (
 };
 
 const getInlineNodes = (
-	nodes: PMNode[],
+	nodes: readonly PMNode[],
 	pos: number,
 ): { inlineNodes: SimplifiedNode[]; pos: number } => {
 	const inlineNodes: SimplifiedNode[] = nodes.map((node) => {

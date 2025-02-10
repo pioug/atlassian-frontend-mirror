@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.1
 
 ### Patch Changes

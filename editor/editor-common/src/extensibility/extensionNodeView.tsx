@@ -26,7 +26,7 @@ interface ExtensionNodeViewOptions {
 // The ReactNodeView api will be visited in the second phase of the selections
 // project whilst investigating block nodes. We will revisit the Extension node view there too.
 export class ExtensionNode extends ReactNodeView {
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		// Extensions can perform async operations that will change the DOM.
 		// To avoid having their tree rebuilt, we need to ignore the mutation
 		// for atom based extensions if its not a layout, we need to give

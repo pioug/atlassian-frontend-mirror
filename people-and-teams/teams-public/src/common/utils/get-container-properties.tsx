@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { ConfluenceIcon, JiraIcon, LoomIcon } from '@atlaskit/logo';
 
-import { ContainerTypes } from '../types';
+import { type ContainerTypes } from '../types';
 
 interface ContainerProperties {
 	description: ReactNode;

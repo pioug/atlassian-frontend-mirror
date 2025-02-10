@@ -5,6 +5,8 @@ export type ReactUFOPayload = {
 		properties: ReturnType<typeof createPayloads>[number]['attributes']['properties'] & {
 			'ufo:vc:updates': Array<{ time: number; vc: number; elements: string[] }>;
 			'ufo:vc:updates:next': Array<{ time: number; vc: number; elements: string[] }>;
+			'ufo:speedIndex'?: number;
+			'ufo:next:speedIndex'?: number;
 		};
 	};
 };

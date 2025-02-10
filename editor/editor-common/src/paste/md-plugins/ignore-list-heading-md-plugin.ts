@@ -7,8 +7,8 @@
  */
 
 import type MarkdownIt from 'markdown-it';
-import type StateCore from 'markdown-it/lib/rules_core/state_core';
-import type Token from 'markdown-it/lib/token';
+import type StateCore from 'markdown-it/lib/rules_core/state_core.mjs';
+import type Token from 'markdown-it/lib/token.mjs';
 
 function handleHeadingOpen(state: StateCore, token: Token, acc: Token[], index: number) {
 	const isInListItem = state.tokens[index - 1]?.type === 'list_item_open';

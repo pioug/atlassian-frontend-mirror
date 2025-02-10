@@ -1,5 +1,14 @@
 # @atlaskit/web-config-client
 
+## 0.4.1
+
+### Patch Changes
+
+- [#111262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111262)
+  [`848979922d7f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/848979922d7f6) -
+  Changed dev dependency @atlassian/feature-gate-client-standalone to
+  @atlassian/experiment-feature-gates to pick up latest identifiers
+
 ## 0.4.0
 
 ### Minor Changes

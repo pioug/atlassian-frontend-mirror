@@ -62,6 +62,7 @@ export type VCResult = {
 		| number
 		| string
 		| null
+		| undefined
 		| VCEntryType[]
 		| VCIgnoredElement[]
 		| { w: number; h: number }

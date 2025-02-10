@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': 'Bild, Video oder Datei hinzufügen',
   'fabric.editor.addRowAbove': 'Zeile oberhalb hinzufügen',
   'fabric.editor.addRowBelow': 'Zeile unterhalb hinzufügen',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Beim Erstellen der Vorschau ist ein Problem aufgetreten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'Ein Problem ist aufgetreten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Unten einfügen',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Ersetzen',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip':
     'Markieren Sie einen Begriff, ein Akronym oder eine Abkürzung.',
   'fabric.editor.ai.selectionToolbar.define.title': 'Definieren',
@@ -41,7 +47,7 @@ export default {
   'fabric.editor.backgroundColor': 'Hintergrundfarbe',
   'fabric.editor.blockCardUnavailable':
     'Die Ansicht des Inline-Links kann nicht geändert werden, da sich der Link innerhalb von {node} befindet.',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Zum Verschieben ziehen',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Per Ziehen neu anordnen',
   'fabric.editor.blockControlInsert': 'Einfügen',
   'fabric.editor.blockControlMoveDown': 'Nach unten verschieben',
   'fabric.editor.blockControlMoveLeft': 'Nach links',

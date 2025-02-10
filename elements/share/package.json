@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "4.25.1",
+	"version": "4.25.3",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,12 +50,12 @@
 		"@atlaskit/popper": "^6.4.0",
 		"@atlaskit/popup": "^1.31.0",
 		"@atlaskit/portal": "^4.11.0",
-		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/smart-user-picker": "^7.0.0",
 		"@atlaskit/spinner": "^17.1.0",
 		"@atlaskit/tabs": "^17.2.0",
-		"@atlaskit/textarea": "^5.8.0",
-		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/textarea": "^6.0.0",
+		"@atlaskit/theme": "^15.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/ufo": "^0.3.0",
@@ -72,7 +72,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "^21.2.0",
+		"@atlaskit/editor-test-helpers": "^21.3.0",
 		"@atlaskit/flag": "^15.9.0",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"@testing-library/react": "^13.4.0",

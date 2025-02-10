@@ -450,7 +450,7 @@ class Task extends ReactNodeView<Props> {
 		);
 	}
 
-	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		if (!this.contentDOM) {
 			return true;
 		}

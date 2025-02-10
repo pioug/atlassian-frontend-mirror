@@ -1672,6 +1672,16 @@ map.put(3, 10);`,
 										},
 									],
 								},
+								{
+									type: 'extension',
+									attrs: {
+										extensionType: 'com.atlassian.confluence.migration',
+										extensionKey: 'nested-table',
+										parameters: {
+											adf: '{"type":"doc","version":1,"content":[{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableHeader","content":[{"type":"text","text":"Header 1"}]},{"type":"tableHeader","content":[{"type":"text","text":"Header 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]}]}]}',
+										},
+									},
+								},
 							],
 						},
 						{

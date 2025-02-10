@@ -1,5 +1,27 @@
 # @atlaskit/email-renderer
 
+## 9.2.0
+
+### Minor Changes
+
+- [#112155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112155)
+  [`eb3d719d08ea5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb3d719d08ea5) -
+  ED-25745 Enables transformation of the Confluence nested table extension to nested table nodes for
+  EmailSerializer
+- [#105322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105322)
+  [`8876083532adc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8876083532adc) -
+  Bumped editor-prosemirror version to 7.0.0
+
+## 9.1.1
+
+### Patch Changes
+
+- [#101282](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101282)
+  [`83bbb87a1ef40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83bbb87a1ef40) -
+  Moved deprecated ADS headingSizes object directly into this package as it is the only remaining
+  consumer. This is planned to be removed soon.
+- Updated dependencies
+
 ## 9.1.0
 
 ### Minor Changes

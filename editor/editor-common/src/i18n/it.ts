@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': "Aggiungi un'immagine, un video o un file",
   'fabric.editor.addRowAbove': 'Aggiungi riga sopra',
   'fabric.editor.addRowBelow': 'Aggiungi riga sotto',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    "Stiamo riscontrando problemi nella generazione dell'anteprima. Chiudi la finestra di dialogo e riprova.",
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'Stiamo riscontrando problemi. Chiudi la finestra di dialogo e riprova.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Inserisci sotto',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Sostituisci',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': "Evidenzia un termine, un acronimo o un'abbreviazione",
   'fabric.editor.ai.selectionToolbar.define.title': 'Definisci',
   'fabric.editor.alignCenter': 'Allinea al centro',

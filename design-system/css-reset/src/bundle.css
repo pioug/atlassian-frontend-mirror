@@ -176,7 +176,6 @@ h5 {
 		'Helvetica Neue',
 		sans-serif
 	);
-	letter-spacing: -0.003em;
 	color: var(--ds-text);
 	margin-top: var(--ds-space-200);
 }

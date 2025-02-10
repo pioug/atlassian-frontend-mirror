@@ -20,6 +20,7 @@ import { processImages } from './static';
 import { createClassName } from './styles/util';
 import { fontFamily, fontSize } from './styles/common';
 import { type MetaDataContext, type EmailSerializerOpts } from './interfaces';
+import { transformNestedTableExtension } from './table-util';
 
 const serializeNode = (
 	node: PMNode,
@@ -154,6 +155,7 @@ export class EmailSerializer implements SerializerWithImages<string> {
 			escapeHtmlString,
 			JSON.parse,
 			wrapAdf,
+			transformNestedTableExtension,
 			this.schema.nodeFromJSON,
 			property('content'),
 			(fragment) => traverseTree(fragment, undefined, context),

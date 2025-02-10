@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-feature-flags",
-	"version": "1.2.16",
+	"version": "1.3.0",
 	"description": "Feature flags plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,8 +27,8 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^99.9.0",
-		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/editor-common": "^99.10.0",
+		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"af:exports": {

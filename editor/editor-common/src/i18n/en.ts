@@ -139,7 +139,7 @@ export default {
   'fabric.editor.backLink': 'Go back',
   'fabric.editor.backgroundColor': 'Background color',
   'fabric.editor.blockCardUnavailable': 'The inline link is inside {node} and cannot have its view changed',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Drag to move',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Drag to rearrange',
   'fabric.editor.blockControlInsert': 'Insert',
   'fabric.editor.blockControlMoveDown': 'Move down',
   'fabric.editor.blockControlMoveLeft': 'Move left',

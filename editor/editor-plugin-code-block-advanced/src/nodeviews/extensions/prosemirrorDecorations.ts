@@ -122,18 +122,10 @@ export const prosemirrorDecorationPlugin = (
 				const innnerDecorations = view.state.facet(updateDecorationsEffect);
 				const allDecorations: Decoration[] = [];
 				innnerDecorations?.map((source) => {
-					// Temporary: this only exists on prosemirror-view@1.34.0. Since post-office is lower it causes an error.
-					// Once we do our prosemirror bump (very soon) we should remove this.
-					// https://product-fabric.atlassian.net/browse/ED-26398
-					// @ts-ignore
 					source?.forEachSet((set) => {
 						const decorations = set
 							.find(from, to)
 							// Do not render the code block line decorations
-							// Temporary: this only exists on prosemirror-view@1.34.0. Since post-office is lower it causes an error.
-							// Once we do our prosemirror bump (very soon) we should remove this.
-							// https://product-fabric.atlassian.net/browse/ED-26398
-							// @ts-ignore
 							.filter((dec) => dec.spec.type !== 'decorationWidgetType');
 						allDecorations.push(...decorations);
 					});

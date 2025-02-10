@@ -9,31 +9,30 @@ import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { ContainerTypes } from '../../../common/types';
+import { type ContainerTypes } from '../../../common/types';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 const styles = cssMap({
 	container: {
-		backgroundColor: token('color.background.input'),
+		backgroundColor: token('elevation.surface.sunken'),
 		paddingTop: token('space.150'),
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
 		borderRadius: token('border.radius.100'),
 		'&:hover': {
-			backgroundColor: token('color.background.input.hovered'),
+			backgroundColor: token('elevation.surface.hovered'),
 		},
 	},
 	iconWrapper: {
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
-		borderStyle: 'dash',
+		outlineStyle: 'dashed',
 		borderRadius: token('border.radius.100'),
-		borderColor: token('color.border.accent.gray'),
 		color: token('color.text.subtlest'),
 		'&:hover': {
 			outlineStyle: 'solid',
-			borderColor: token('color.border.accent.gray'),
+			borderColor: token('color.border'),
 		},
 	},
 });

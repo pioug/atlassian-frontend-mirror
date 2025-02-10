@@ -53,6 +53,8 @@ import * as nestedExpandInExpand from './__fixtures__/nested-expand-in-expand.ad
 import * as codeblockInQuote from './__fixtures__/codeblock-in-quote.adf.json';
 import * as mediaSingleInQuote from './__fixtures__/media-single-in-quote.adf.json';
 import * as mediaGroupInQuote from './__fixtures__/media-group-in-quote.adf.json';
+import * as nestedTables from './__fixtures__/nested-tables-extension.adf.json';
+import * as nestedTablesInvalid from './__fixtures__/nested-tables-extension-invalid.adf.json';
 
 const defaultTestOpts: EmailSerializerOpts = {
 	isImageStubEnabled: false,
@@ -459,5 +461,17 @@ describe('Renderer - EmailSerializer', () => {
 	it('should render mediaGroup nested in quote', () => {
 		const { result } = render(mediaGroupInQuote);
 		expect(result).toMatchSnapshot('mediaGroup in quote');
+	});
+
+	it('should transform and render nested table extension correctly', () => {
+		const { result } = render(nestedTables);
+		expect(result).toMatchSnapshot('nested tables extension');
+	});
+
+	it('should render original ADF if nested table extension transformer fails', () => {
+		const consoleErrorMock = jest.spyOn(console, 'error').mockImplementation(() => {});
+		const { result } = render(nestedTablesInvalid);
+		expect(result).toMatchSnapshot('nested tables extension invalid');
+		consoleErrorMock.mockRestore();
 	});
 });

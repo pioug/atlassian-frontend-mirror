@@ -46,7 +46,7 @@ export default {
   'fabric.editor.backgroundColor': 'Цвет фона',
   'fabric.editor.blockCardUnavailable':
     'Встроенная ссылка находится внутри узла {node} — нельзя изменить представление',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Перетаскивайте, чтобы переместить',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Перетащите, чтобы изменить порядок',
   'fabric.editor.blockControlInsert': 'Вставить',
   'fabric.editor.blockControlMoveDown': 'Переместить блок вниз',
   'fabric.editor.blockControlMoveLeft': 'Переместить влево',

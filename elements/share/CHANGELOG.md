@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 4.25.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.25.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.25.1
 
 ### Patch Changes

@@ -22,6 +22,11 @@ export default {
   'fabric.editor.addMediaFiles': 'Přidat obrázek, video nebo soubor',
   'fabric.editor.addRowAbove': 'Přidat řádek nad',
   'fabric.editor.addRowBelow': 'Přidat řádek pod',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Při generování náhledu se vyskytl problém. Zavřete dialog a zkuste to znovu.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage': 'Vyskytly se problémy. Zavřete dialog a zkuste to znovu.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Vložit pod',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Nahradit',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Zvýraznění termínu, akronymu nebo zkratky',
   'fabric.editor.ai.selectionToolbar.define.title': 'Definovat',
   'fabric.editor.alignCenter': 'Zarovnat na střed',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,13 +36,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/media-client": "^31.1.0",
+		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@babel/runtime": "^7.0.0",
 		"zustand": "^4.3.9"
 	},
 	"peerDependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/media-state": "^1.4.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},

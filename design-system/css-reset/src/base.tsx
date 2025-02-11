@@ -97,7 +97,6 @@ export default evaluateInner`
   }
   h4 {
     font: ${token('font.heading.small', `600 1.1428571428571428em/1.25 ${fontFamily}`)};
-    letter-spacing: -0.006em;
     color: ${token('color.text')};
     margin-top: ${token('space.300')};
   }

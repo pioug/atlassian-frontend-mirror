@@ -1,5 +1,13 @@
 # @atlaskit/date
 
+## 1.0.0
+
+### Major Changes
+
+- [#111429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111429)
+  [`a63da03596bb2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a63da03596bb2) -
+  migrate to compiled css
+
 ## 0.12.1
 
 ### Patch Changes

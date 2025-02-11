@@ -4,6 +4,7 @@ import { type ReactNode } from 'react';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import { messages } from '@atlaskit/media-ui';
 import { type MessageDescriptor } from 'react-intl-next';
+import { token } from '@atlaskit/tokens';
 
 export interface CardAction {
 	label?: string;
@@ -33,8 +34,9 @@ export const createDownloadAction = (
 	baseAction: CardAction,
 	formatMessage: FormatMessageFn,
 ): CardAction => {
-	const label = baseAction.isDisabled ? 'Download Disabled' : 'Download';
-	const tooltip = baseAction.isDisabled
+	const { isDisabled } = baseAction;
+	const label = isDisabled ? 'Download Disabled' : 'Download';
+	const tooltip = isDisabled
 		? formatMessage(messages.download_disabled_security_policy)
 		: undefined;
 
@@ -42,6 +44,12 @@ export const createDownloadAction = (
 		...baseAction,
 		label,
 		tooltip,
-		icon: <DownloadIcon color="currentColor" spacing="spacious" label="Download" />,
+		icon: (
+			<DownloadIcon
+				color={isDisabled ? token('color.icon.disabled') : 'currentColor'}
+				spacing="spacious"
+				label="Download"
+			/>
+		),
 	};
 };

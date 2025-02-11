@@ -6,6 +6,7 @@ import {
 } from './styleWrappers';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import Tooltip from '@atlaskit/tooltip';
+import { token } from '@atlaskit/tokens';
 
 export type ArchiveDownloadButtonProps = {
 	downloadFn: () => void;
@@ -33,7 +34,13 @@ export const ArchiveDownloadButton = ({
 		}
 	};
 
-	const icon = <DownloadIcon color="currentColor" spacing="spacious" label="Download" />;
+	const icon = (
+		<DownloadIcon
+			color={isDisabled ? token('color.icon.disabled') : 'currentColor'}
+			spacing="spacious"
+			label="Download"
+		/>
+	);
 	const downloadButton = isDisabled ? (
 		<DisabledArchiveDownloadButtonWrapper>{icon}</DisabledArchiveDownloadButtonWrapper>
 	) : (

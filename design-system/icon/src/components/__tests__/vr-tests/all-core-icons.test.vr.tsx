@@ -11,14 +11,6 @@ import { snapshot } from '@af/visual-regression';
 import {
 	IconGroup0,
 	IconGroup1,
-	IconGroup10,
-	IconGroup11,
-	IconGroup12,
-	IconGroup13,
-	IconGroup14,
-	IconGroup15,
-	IconGroup16,
-	IconGroup17,
 	IconGroup2,
 	IconGroup3,
 	IconGroup4,
@@ -27,6 +19,14 @@ import {
 	IconGroup7,
 	IconGroup8,
 	IconGroup9,
+	IconGroup10,
+	IconGroup11,
+	IconGroup12,
+	IconGroup13,
+	IconGroup14,
+	IconGroup15,
+	IconGroup16,
+	IconGroup17,
 } from './examples/all-core-icons';
 
 snapshot(IconGroup0, {

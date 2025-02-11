@@ -51,7 +51,11 @@ export type SsrPreviewPrimaryReason =
 	| 'ssr-server-uri'
 	| 'ssr-server-load';
 
-export type SvgPrimaryReason = 'svg-img-error' | 'svg-binary-fetch' | 'svg-unknown-error';
+export type SvgPrimaryReason =
+	| 'svg-img-error'
+	| 'svg-binary-fetch'
+	| 'svg-blob-to-datauri'
+	| 'svg-unknown-error';
 
 const POLLING_REASON: PollingErrorReason = 'pollingMaxAttemptsExceeded';
 

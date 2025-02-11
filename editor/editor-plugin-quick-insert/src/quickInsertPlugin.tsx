@@ -20,6 +20,7 @@ import type {
 	QuickInsertPluginStateKeys,
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createInsertItem, openElementBrowserModal } from './pm-plugins/commands';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -38,11 +39,12 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		headless: options?.headless,
 		getItems({ query, editorState }) {
 			const quickInsertState = pluginKey.getState(editorState);
+			const queryAllItems = '';
 
 			return Promise.resolve(
 				getQuickInsertSuggestions(
 					{
-						query,
+						query: editorExperiment('platform_editor_controls', 'control') ? query : queryAllItems,
 						disableDefaultItems: options?.disableDefaultItems,
 						prioritySortingFn: options?.prioritySortingFn,
 					},

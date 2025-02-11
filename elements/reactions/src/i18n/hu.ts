@@ -19,6 +19,8 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Balra navigálás',
   'reactions.dialog.people-who-reacted.subheader': 'A következővel reagáló felhasználók: {emojiShortName}',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reakció összesen} other {{count,number} reakció összesen}}',
   'reactions.dialog.right.navigate': 'Jobbra navigálás',
   'reactions.dialog.viewall': 'Összes megtekintése',
   'reactions.dialog.viewall.tooltip': 'Minden felhasználói reakció megtekintése',

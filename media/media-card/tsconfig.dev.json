@@ -84,6 +84,9 @@
 			"path": "../media-state/tsconfig.app.json"
 		},
 		{
+			"path": "../media-svg/tsconfig.app.json"
+		},
+		{
 			"path": "../media-test-data/tsconfig.app.json"
 		},
 		{
@@ -91,9 +94,6 @@
 		},
 		{
 			"path": "../media-ui/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

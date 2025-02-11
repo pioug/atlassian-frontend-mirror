@@ -8,7 +8,6 @@
 		"**/__perf__/**/*",
 		"**/*.test.*",
 		"**/test.*",
-		"**/test-*",
 		"**/examples.ts",
 		"**/examples.tsx",
 		"**/examples/*.ts",

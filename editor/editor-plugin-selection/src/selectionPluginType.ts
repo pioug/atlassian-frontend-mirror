@@ -10,6 +10,8 @@ export type SelectionPlugin = NextEditorPlugin<
 		actions: EditorSelectionAPI;
 		commands: {
 			displayGapCursor: (toggle: boolean) => EditorCommand;
+			clearManualSelection: () => EditorCommand;
+			setManualSelection: (anchor: number, head: number) => EditorCommand;
 		};
 		sharedState: SelectionSharedState;
 	}

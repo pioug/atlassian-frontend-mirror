@@ -18,6 +18,7 @@ export default {
   'reactions.dialog.close': '닫기',
   'reactions.dialog.left.navigate': '왼쪽 탐색',
   'reactions.dialog.people-who-reacted.subheader': '{emojiShortName} 이모지로 반응한 사용자',
+  'reactions.dialog.reactions.count': '{count, plural, other {반응 총 {count,number}개}}',
   'reactions.dialog.right.navigate': '오른쪽 탐색',
   'reactions.dialog.viewall': '모두 보기',
   'reactions.dialog.viewall.tooltip': '사용자 반응 모두 보기',

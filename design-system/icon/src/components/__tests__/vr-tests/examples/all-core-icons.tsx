@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::2f2750fbf32b2550db965df1841a51b9>>
+ * @codegen <<SignedSource::098ffdd4d493b55255b2624d3765ec87>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -21,8 +21,14 @@ import AiAgentIcon from '../../../../../core/ai-agent';
 import AiChatIcon from '../../../../../core/ai-chat';
 import AlertIcon from '../../../../../core/alert';
 import AlignCenterIcon from '../../../../../core/align-center';
+import AlignImageCenterIcon from '../../../../../core/align-image-center';
+import AlignImageLeftIcon from '../../../../../core/align-image-left';
+import AlignImageRightIcon from '../../../../../core/align-image-right';
 import AlignLeftIcon from '../../../../../core/align-left';
 import AlignRightIcon from '../../../../../core/align-right';
+import AlignTextCenterIcon from '../../../../../core/align-text-center';
+import AlignTextLeftIcon from '../../../../../core/align-text-left';
+import AlignTextRightIcon from '../../../../../core/align-text-right';
 import AngleBracketsIcon from '../../../../../core/angle-brackets';
 import ApiIcon from '../../../../../core/api';
 import AppIcon from '../../../../../core/app';
@@ -290,6 +296,10 @@ import StarUnstarredIcon from '../../../../../core/star-unstarred';
 import StatusVerifiedIcon from '../../../../../core/status-verified';
 import StopwatchIcon from '../../../../../core/stopwatch';
 import StoryIcon from '../../../../../core/story';
+import StrokeWeightExtraLargeIcon from '../../../../../core/stroke-weight-extra-large';
+import StrokeWeightLargeIcon from '../../../../../core/stroke-weight-large';
+import StrokeWeightMediumIcon from '../../../../../core/stroke-weight-medium';
+import StrokeWeightSmallIcon from '../../../../../core/stroke-weight-small';
 import SubtasksIcon from '../../../../../core/subtasks';
 import SuccessIcon from '../../../../../core/success';
 import SummarizeIcon from '../../../../../core/summarize';
@@ -368,8 +378,14 @@ const Icons = [
 	AiChatIcon,
 	AlertIcon,
 	AlignCenterIcon,
+	AlignImageCenterIcon,
+	AlignImageLeftIcon,
+	AlignImageRightIcon,
 	AlignLeftIcon,
 	AlignRightIcon,
+	AlignTextCenterIcon,
+	AlignTextLeftIcon,
+	AlignTextRightIcon,
 	AngleBracketsIcon,
 	ApiIcon,
 	AppIcon,
@@ -637,6 +653,10 @@ const Icons = [
 	StatusVerifiedIcon,
 	StopwatchIcon,
 	StoryIcon,
+	StrokeWeightExtraLargeIcon,
+	StrokeWeightLargeIcon,
+	StrokeWeightMediumIcon,
+	StrokeWeightSmallIcon,
 	SubtasksIcon,
 	SuccessIcon,
 	SummarizeIcon,

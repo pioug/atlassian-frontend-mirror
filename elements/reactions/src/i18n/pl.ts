@@ -20,6 +20,8 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Przejdź w lewo',
   'reactions.dialog.people-who-reacted.subheader': 'Osoby, które zareagowały, przesyłając emoji {emojiShortName}',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {Łącznie {count,number} reakcja} few {Łącznie {count,number} reakcje} many {Łącznie {count,number} reakcji} other {Łącznie {count,number} reakcji}}',
   'reactions.dialog.right.navigate': 'Przejdź w prawo',
   'reactions.dialog.viewall': 'Wyświetl wszystkich',
   'reactions.dialog.viewall.tooltip': 'Wyświetl wszystkie reakcje użytkowników',

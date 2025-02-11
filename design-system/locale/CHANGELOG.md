@@ -1,5 +1,13 @@
 # @atlaskit/locale
 
+## 2.8.3
+
+### Patch Changes
+
+- [#111041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111041)
+  [`333c6c17ffbbc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/333c6c17ffbbc) -
+  Update dependencies.
+
 ## 2.8.2
 
 ### Patch Changes

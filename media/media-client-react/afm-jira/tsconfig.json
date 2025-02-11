@@ -21,13 +21,13 @@
 			"path": "../../media-client/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../media-state/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		}
 	]
 }

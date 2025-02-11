@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.8.0
+
+### Minor Changes
+
+- [#111465](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111465)
+  [`dd20af1fdd46f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd20af1fdd46f) -
+  Add commands for manually setting/clearing selection decoration range
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.19.1
+
+### Patch Changes
+
+- [#112342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112342)
+  [`64c10d25d8014`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64c10d25d8014) -
+  Migrate all instances of slack channel #help-linking-platform to #help-bandicoots
+
 ## 3.19.0
 
 ### Minor Changes

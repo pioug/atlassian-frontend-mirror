@@ -29,7 +29,13 @@ import { MEASURE_NAME, startMeasure, stopMeasure } from '../analytics/performanc
 import type { InternalError } from '../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
 import type { UGCFreeStepDetails } from '../helpers/utils';
-import { createLogger, getStepUGCFreeDetails, sleep } from '../helpers/utils';
+import {
+	createLogger,
+	getDocAdfWithObfuscation,
+	getObfuscatedSteps,
+	getStepUGCFreeDetails,
+	sleep,
+} from '../helpers/utils';
 import type { ParticipantsService } from '../participants/participants-service';
 import { MAX_STEP_REJECTED_ERROR, MAX_STEP_REJECTED_ERROR_AGGRESSIVE } from '../provider';
 import { commitStepQueue } from '../provider/commit-step';
@@ -461,6 +467,31 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
+	obfuscateStepsAndState = (
+		unconfirmedSteps: readonly ProseMirrorStep[] | undefined,
+		currentState: ResolvedEditorState,
+	) => {
+		let obfuscatedSteps;
+		try {
+			obfuscatedSteps = unconfirmedSteps
+				? getObfuscatedSteps(unconfirmedSteps.map((pmStep) => pmStep.toJSON()))
+				: 'None';
+		} catch (error) {
+			// Note that we do not log this error immediately - this string will be logged later.
+			// This avoids double logging and keeps this function pure.
+			obfuscatedSteps = 'Failed to obfuscate steps';
+		}
+
+		let obfuscatedDoc;
+		try {
+			obfuscatedDoc = getDocAdfWithObfuscation(currentState.content);
+		} catch (error) {
+			obfuscatedDoc = 'Failed to obfuscate doc';
+		}
+
+		return { obfuscatedSteps, obfuscatedDoc };
+	};
+
 	// Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
 	onRestore = async ({ doc, version, metadata, targetClientId }: CollabInitPayload) => {
 		if (!targetClientId) {
@@ -474,6 +505,11 @@ export class DocumentService implements DocumentServiceInterface {
 		const unconfirmedSteps = this.getUnconfirmedSteps();
 		const currentState = await this.getCurrentState();
 		let useReconcile = Boolean(unconfirmedSteps?.length && currentState && !targetClientId);
+
+		const { obfuscatedSteps, obfuscatedDoc } = this.obfuscateStepsAndState(
+			unconfirmedSteps,
+			currentState,
+		);
 
 		try {
 			// Reset the editor,
@@ -497,6 +533,8 @@ export class DocumentService implements DocumentServiceInterface {
 						EVENT_STATUS.INFO,
 						{
 							numUnconfirmedSteps: unconfirmedSteps?.length,
+							obfuscatedSteps,
+							obfuscatedDoc,
 							hasTitle: !!metadata?.title,
 							clientId: this.clientId,
 							targetClientId,

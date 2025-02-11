@@ -108,7 +108,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 		inputRef.current.value = searchValue;
 	}
 
-	if (view === VIEW.ARTICLE || view === VIEW.WHATS_NEW_ARTICLE) {
+	if (view === VIEW.ARTICLE || view === VIEW.WHATS_NEW_ARTICLE || view === VIEW.WHATS_NEW) {
 		return null;
 	}
 

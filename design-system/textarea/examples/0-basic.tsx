@@ -1,22 +1,14 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
 import { Label } from '@atlaskit/form';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
-import { token } from '@atlaskit/tokens';
 
-const wrapperStyles = cssMap({
-	root: {
-		maxWidth: '500px',
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
-	},
+const wrapperStyles = xcss({
+	maxWidth: '500px',
+	padding: 'space.100',
 });
-
 export default () => {
 	let textareaElement: HTMLTextAreaElement | undefined;
 
@@ -27,7 +19,7 @@ export default () => {
 	};
 
 	return (
-		<Stack xcss={wrapperStyles.root} space="space.100">
+		<Stack xcss={wrapperStyles} space="space.100">
 			<Label htmlFor="disabled">Disabled</Label>
 			<TextArea
 				id="disabled"

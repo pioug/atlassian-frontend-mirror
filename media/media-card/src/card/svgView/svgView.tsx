@@ -7,11 +7,22 @@ import { jsx, css } from '@emotion/react';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { type FileIdentifier, type ImageResizeMode } from '@atlaskit/media-client';
 import { type WithAnalyticsEventsProps, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { MediaCardError } from '../../errors';
-import { MediaSVGError } from './errors';
+import { MediaCardError, type SvgPrimaryReason } from '../../errors';
 import { calculateSvgDimensions } from './helpers';
-import { getErrorReason } from './errors';
-import { useResolveSvg } from './useResolveSvg';
+import { useResolveSvg, MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg';
+
+export const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason => {
+	switch (svgReason) {
+		case 'img-error':
+			return 'svg-img-error';
+		case 'binary-fetch':
+			return 'svg-binary-fetch';
+		case 'blob-to-datauri':
+			return 'svg-blob-to-datauri';
+		default:
+			return 'svg-unknown-error';
+	}
+};
 
 export type OnClickFn = (
 	event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,

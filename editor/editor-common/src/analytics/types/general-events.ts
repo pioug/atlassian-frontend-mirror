@@ -71,6 +71,8 @@ type EditorStartAEP = UIAEP<
 	{
 		platform: PLATFORMS.NATIVE | PLATFORMS.HYBRID | PLATFORMS.WEB;
 		featureFlags: FeatureFlagKey[];
+		accountLocale?: string;
+		browserLocale?: string;
 	},
 	undefined
 >;

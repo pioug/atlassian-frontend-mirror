@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
-import type { DragEvent, KeyboardEvent } from 'react';
+import type { DragEvent, MouseEvent, KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -28,6 +28,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
@@ -43,7 +44,7 @@ import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginT
 import { key } from '../pm-plugins/main';
 import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
-import { selectNode } from '../pm-plugins/utils/getSelection';
+import { isHandleInSelection, selectNode } from '../pm-plugins/utils/getSelection';
 
 import {
 	DRAG_HANDLE_BORDER_RADIUS,
@@ -158,6 +159,7 @@ export const DragHandle = ({
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isLayoutColumn = nodeType === 'layoutColumn';
 	useEffect(() => {
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
@@ -297,38 +299,22 @@ export const DragHandle = ({
 						},
 					);
 
-					let selectionStart = start;
-
 					if (isMultiSelect) {
-						const selection = tr.selection;
-						const selectionFrom = selection.$from.pos;
-						const selectionTo = selection.$to.pos;
-						const $selectionFrom = tr.doc.resolve(selectionFrom);
-						const $selectionTo = tr.doc.resolve(selectionTo);
-						selectionStart = $selectionFrom.start();
-						const selectionEnd = $selectionTo.end();
 						const handlePos = getPos();
 						if (typeof handlePos !== 'number') {
 							return tr;
 						}
-
-						const posBeforeNode = $selectionFrom.pos
-							? $selectionFrom.start() - 1
-							: $selectionFrom.pos;
-						const shouldExpandSelection = handlePos >= posBeforeNode && handlePos <= selectionEnd;
-
-						if (shouldExpandSelection) {
-							//TODO: What happens if not a text selection?
-							const newSelection = TextSelection.create(tr.doc, selectionStart, selectionEnd);
-							tr.setSelection(newSelection);
-						} else {
-							const $selectionFrom = tr.doc.resolve(handlePos + 1);
-							selectNode(tr, handlePos, $selectionFrom.node().type.name);
+						if (
+							!tr.selection.empty &&
+							handlePos >= tr.selection.$from.start() - 1 &&
+							handlePos <= tr.selection.to
+						) {
+							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
 						}
 					}
 					api?.blockControls?.commands.setNodeDragged(getPos, anchorName, nodeType)({ tr });
 
-					const resolvedMovingNode = tr.doc.resolve(selectionStart);
+					const resolvedMovingNode = tr.doc.resolve(start);
 					const maybeNode = resolvedMovingNode.nodeAfter;
 					tr.setMeta('scrollIntoView', false);
 					api?.analytics?.actions.attachAnalyticsEvent({
@@ -459,6 +445,21 @@ export const DragHandle = ({
 		}
 	}, [buttonRef, handleOptions?.isFocused, view]);
 
+	useEffect(() => {
+		const isMultiSelect = editorExperiment(
+			'platform_editor_element_drag_and_drop_multiselect',
+			true,
+			{
+				exposure: true,
+			},
+		);
+		if (!isMultiSelect || typeof start !== 'number' || !selection) {
+			return;
+		}
+
+		setDragHandleSelected(isHandleInSelection(view.state, selection, start));
+	}, [start, selection, view.state]);
+
 	let helpDescriptors = [
 		{
 			description: formatMessage(blockControlsMessages.dragToMove),
@@ -538,6 +539,11 @@ export const DragHandle = ({
 		})
 		.join('. ');
 
+	const handleOnDrop = (event: MouseEvent<HTMLButtonElement>) => {
+		editorExperiment('platform_editor_element_drag_and_drop_multiselect', true) &&
+			event.stopPropagation();
+	};
+
 	const renderButton = () => (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
@@ -560,6 +566,8 @@ export const DragHandle = ({
 			onClick={handleOnClick}
 			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			onDrop={handleOnDrop}
 			data-testid="block-ctrl-drag-handle"
 		>
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */}

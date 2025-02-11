@@ -21,11 +21,33 @@ const displayGapCursor =
 		});
 	};
 
+const clearManualSelection =
+	(): EditorCommand =>
+	({ tr }) => {
+		const currMeta = tr.getMeta(selectionPluginKey);
+		return tr.setMeta(selectionPluginKey, {
+			...currMeta,
+			manualSelection: {},
+		});
+	};
+
+const setManualSelection =
+	(anchor: number, head: number): EditorCommand =>
+	({ tr }) => {
+		const currMeta = tr.getMeta(selectionPluginKey);
+		return tr.setMeta(selectionPluginKey, {
+			...currMeta,
+			manualSelection: { anchor, head },
+		});
+	};
+
 export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
 	name: 'selection',
 
 	commands: {
 		displayGapCursor,
+		clearManualSelection,
+		setManualSelection,
 	},
 
 	actions: {

@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render, waitFor, fireEvent, act } from '@testing-library/react';
+import { render, waitFor, fireEvent, act, within } from '@testing-library/react';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import { getMockArticle, getMockArticleItemList } from '../../../util/testing/mock';
@@ -22,6 +22,7 @@ const intl = createIntl(
 const messageBack = intl.formatMessage(messages.help_navigation_back);
 const searchTab = intl.formatMessage(messages.help_search_tab);
 const aiTab = intl.formatMessage(messages.help_ai_tab);
+const needMoreHelpAiLabel = intl.formatMessage(messages.help_need_more_help_label);
 
 // Mock props
 const MockNavigationDataSetter = jest.fn().mockImplementation((id) => id);
@@ -424,6 +425,31 @@ describe('Help with AI', () => {
 		getByText(aiTab).click();
 		rerender(defaultComponent);
 
+		expect(queryByTestId('inside-footer')).toBeNull();
+	});
+
+	it('should render NeedMoreHelp component on the default page', () => {
+		const { getByText, rerender } = render(defaultComponent);
+
+		getByText(searchTab).click();
+		rerender(defaultComponent);
+		expect(getByText('Need more help?')).toBeInTheDocument();
+	});
+
+	it('should now show search component when need more help Ask Ai label is clicked', () => {
+		const { getByText, rerender, queryByTestId } = render(defaultComponent);
+
+		getByText(searchTab).click();
+		rerender(defaultComponent);
+		expect(getByText('Need more help?')).toBeInTheDocument();
+
+		const needMoreHelpContainer = getByText('Need more help?').closest('div');
+		if (needMoreHelpContainer) {
+			const askAiButton = within(needMoreHelpContainer).getByText(needMoreHelpAiLabel);
+			askAiButton.click();
+		}
+
+		rerender(defaultComponent);
 		expect(queryByTestId('inside-footer')).toBeNull();
 	});
 });

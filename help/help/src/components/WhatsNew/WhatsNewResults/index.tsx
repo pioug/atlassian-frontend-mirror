@@ -17,12 +17,18 @@ import {
 } from '../../constants';
 import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
 import { useNavigationContext } from '../../contexts/navigationContext';
+import { useAiContext } from '../../contexts/aiAgentContext';
 
 import WhatsNewResultsEmpty from './WhatsNewResultsEmpty';
 import WhatsNewResultsError from './WhatsNewResultsError';
 import WhatsNewResultsLoading from './WhatsNewResultsLoading';
 import WhatsNewResultsList from './WhatsNewResultsList';
-import { WhatsNewResultsContainer, SelectContainer, WhatsNewResultsListContainer } from './styled';
+import {
+	WhatsNewResultsContainer,
+	SelectContainer,
+	WhatsNewResultsListContainer,
+	WhatsNewResultsContainerAi,
+} from './styled';
 
 interface SelectOption {
 	value: WHATS_NEW_ITEM_TYPES | undefined | '';
@@ -46,6 +52,7 @@ const transitionStyles: {
 
 export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { formatMessage } }) => {
 	const { view: helpContextView } = useNavigationContext();
+	const { isAiEnabled } = useAiContext();
 	const {
 		searchWhatsNewArticlesResult,
 		onSearchWhatsNewArticles,
@@ -119,112 +126,219 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 			onEnter={handleOnEnter}
 			onExit={handleOnExit}
 		>
-			{(state: TransitionStatus) => (
-				<WhatsNewResultsContainer
-					ref={containerRef}
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...defaultStyle,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...transitionStyles[state],
-					}}
-				>
-					<>
-						{searchWhatsNewArticlesState === REQUEST_STATE.loading &&
-							searchWhatsNewArticlesResult === null &&
-							state !== 'exited' && <WhatsNewResultsLoading />}
-						{(searchWhatsNewArticlesState === REQUEST_STATE.done ||
-							searchWhatsNewArticlesState === REQUEST_STATE.loading) &&
-							searchWhatsNewArticlesResult !== null &&
-							state !== 'exited' && (
-								<>
-									<SelectContainer>
-										<Select
-											defaultValue={selectedOption}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-											className="single-select"
-											classNamePrefix="react-select"
-											options={[
-												{
-													value: '',
-													label: formatMessage(messages.help_whats_new_filter_select_option_all),
-												},
-												{
-													value: WHATS_NEW_ITEM_TYPES.NEW_FEATURE,
-													label: formatMessage(messages.help_whats_new_filter_select_option_new),
-												},
-												{
-													label: formatMessage(
-														messages.help_whats_new_filter_select_option_improvement,
-													),
-													value: WHATS_NEW_ITEM_TYPES.IMPROVEMENT,
-												},
-												{
-													label: formatMessage(messages.help_whats_new_filter_select_option_fix),
-													value: WHATS_NEW_ITEM_TYPES.FIX,
-												},
-												{
-													label: formatMessage(
-														messages.help_whats_new_filter_select_option_removed,
-													),
-													value: WHATS_NEW_ITEM_TYPES.REMOVED,
-												},
-												{
-													label: formatMessage(
-														messages.help_whats_new_filter_select_option_experiment,
-													),
-													value: WHATS_NEW_ITEM_TYPES.EXPERIMENT,
-												},
-											]}
-											value={selectedOption}
-											onChange={(option) => {
-												if (onSearchWhatsNewArticles) {
-													const selectedOptionValue = (
-														option as {
-															value: string;
-														}
-													).value as WHATS_NEW_ITEM_TYPES | '';
-													const selectedOptionLabel = (
-														option as {
-															label: string;
-														}
-													).label as string;
-													setSelectedOption({
-														value: selectedOptionValue,
-														label: selectedOptionLabel,
-													});
-													onSearchWhatsNewArticles(
-														selectedOptionValue,
-														NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
-														'',
-													);
-												}
-											}}
-										/>
-									</SelectContainer>
-									<WhatsNewResultsListContainer>
-										{searchWhatsNewArticlesResult.articles.length > 0 ? (
-											<WhatsNewResultsList
-												whatsNewArticles={searchWhatsNewArticlesResult.articles}
-												onWhatsNewResultItemClick={onWhatsNewResultItemClick}
-												onShowMoreButtonClick={handleOnShowMoreButtonClick}
-												hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
-												nextPage={searchWhatsNewArticlesResult?.nextPage}
-												loadingMore={searchWhatsNewArticlesState === REQUEST_STATE.loading}
+			{(state: TransitionStatus) =>
+				isAiEnabled ? (
+					<WhatsNewResultsContainerAi
+						ref={containerRef}
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							...defaultStyle,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							...transitionStyles[state],
+						}}
+					>
+						<>
+							{searchWhatsNewArticlesState === REQUEST_STATE.loading &&
+								searchWhatsNewArticlesResult === null &&
+								state !== 'exited' && <WhatsNewResultsLoading />}
+							{(searchWhatsNewArticlesState === REQUEST_STATE.done ||
+								searchWhatsNewArticlesState === REQUEST_STATE.loading) &&
+								searchWhatsNewArticlesResult !== null &&
+								state !== 'exited' && (
+									<>
+										<SelectContainer>
+											<Select
+												defaultValue={selectedOption}
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+												className="single-select"
+												classNamePrefix="react-select"
+												options={[
+													{
+														value: '',
+														label: formatMessage(messages.help_whats_new_filter_select_option_all),
+													},
+													{
+														value: WHATS_NEW_ITEM_TYPES.NEW_FEATURE,
+														label: formatMessage(messages.help_whats_new_filter_select_option_new),
+													},
+													{
+														label: formatMessage(
+															messages.help_whats_new_filter_select_option_improvement,
+														),
+														value: WHATS_NEW_ITEM_TYPES.IMPROVEMENT,
+													},
+													{
+														label: formatMessage(messages.help_whats_new_filter_select_option_fix),
+														value: WHATS_NEW_ITEM_TYPES.FIX,
+													},
+													{
+														label: formatMessage(
+															messages.help_whats_new_filter_select_option_removed,
+														),
+														value: WHATS_NEW_ITEM_TYPES.REMOVED,
+													},
+													{
+														label: formatMessage(
+															messages.help_whats_new_filter_select_option_experiment,
+														),
+														value: WHATS_NEW_ITEM_TYPES.EXPERIMENT,
+													},
+												]}
+												value={selectedOption}
+												onChange={(option) => {
+													if (onSearchWhatsNewArticles) {
+														const selectedOptionValue = (
+															option as {
+																value: string;
+															}
+														).value as WHATS_NEW_ITEM_TYPES | '';
+														const selectedOptionLabel = (
+															option as {
+																label: string;
+															}
+														).label as string;
+														setSelectedOption({
+															value: selectedOptionValue,
+															label: selectedOptionLabel,
+														});
+														onSearchWhatsNewArticles(
+															selectedOptionValue,
+															NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
+															'',
+														);
+													}
+												}}
 											/>
-										) : (
-											<WhatsNewResultsEmpty onClearFilter={handleOnClearFilter} />
-										)}
-									</WhatsNewResultsListContainer>
-								</>
-							)}
+										</SelectContainer>
+										<WhatsNewResultsListContainer>
+											{searchWhatsNewArticlesResult.articles.length > 0 ? (
+												<WhatsNewResultsList
+													whatsNewArticles={searchWhatsNewArticlesResult.articles}
+													onWhatsNewResultItemClick={onWhatsNewResultItemClick}
+													onShowMoreButtonClick={handleOnShowMoreButtonClick}
+													hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
+													nextPage={searchWhatsNewArticlesResult?.nextPage}
+													loadingMore={searchWhatsNewArticlesState === REQUEST_STATE.loading}
+												/>
+											) : (
+												<WhatsNewResultsEmpty onClearFilter={handleOnClearFilter} />
+											)}
+										</WhatsNewResultsListContainer>
+									</>
+								)}
 
-						{searchWhatsNewArticlesState === REQUEST_STATE.error && (
-							<WhatsNewResultsError onSearch={onSearchWhatsNewArticles} />
-						)}
-					</>
-				</WhatsNewResultsContainer>
-			)}
+							{searchWhatsNewArticlesState === REQUEST_STATE.error && (
+								<WhatsNewResultsError onSearch={onSearchWhatsNewArticles} />
+							)}
+						</>
+					</WhatsNewResultsContainerAi>
+				) : (
+					<WhatsNewResultsContainer
+						ref={containerRef}
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							...defaultStyle,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							...transitionStyles[state],
+						}}
+					>
+						<>
+							{searchWhatsNewArticlesState === REQUEST_STATE.loading &&
+								searchWhatsNewArticlesResult === null &&
+								state !== 'exited' && <WhatsNewResultsLoading />}
+							{(searchWhatsNewArticlesState === REQUEST_STATE.done ||
+								searchWhatsNewArticlesState === REQUEST_STATE.loading) &&
+								searchWhatsNewArticlesResult !== null &&
+								state !== 'exited' && (
+									<>
+										<SelectContainer>
+											<Select
+												defaultValue={selectedOption}
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+												className="single-select"
+												classNamePrefix="react-select"
+												options={[
+													{
+														value: '',
+														label: formatMessage(messages.help_whats_new_filter_select_option_all),
+													},
+													{
+														value: WHATS_NEW_ITEM_TYPES.NEW_FEATURE,
+														label: formatMessage(messages.help_whats_new_filter_select_option_new),
+													},
+													{
+														label: formatMessage(
+															messages.help_whats_new_filter_select_option_improvement,
+														),
+														value: WHATS_NEW_ITEM_TYPES.IMPROVEMENT,
+													},
+													{
+														label: formatMessage(messages.help_whats_new_filter_select_option_fix),
+														value: WHATS_NEW_ITEM_TYPES.FIX,
+													},
+													{
+														label: formatMessage(
+															messages.help_whats_new_filter_select_option_removed,
+														),
+														value: WHATS_NEW_ITEM_TYPES.REMOVED,
+													},
+													{
+														label: formatMessage(
+															messages.help_whats_new_filter_select_option_experiment,
+														),
+														value: WHATS_NEW_ITEM_TYPES.EXPERIMENT,
+													},
+												]}
+												value={selectedOption}
+												onChange={(option) => {
+													if (onSearchWhatsNewArticles) {
+														const selectedOptionValue = (
+															option as {
+																value: string;
+															}
+														).value as WHATS_NEW_ITEM_TYPES | '';
+														const selectedOptionLabel = (
+															option as {
+																label: string;
+															}
+														).label as string;
+														setSelectedOption({
+															value: selectedOptionValue,
+															label: selectedOptionLabel,
+														});
+														onSearchWhatsNewArticles(
+															selectedOptionValue,
+															NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
+															'',
+														);
+													}
+												}}
+											/>
+										</SelectContainer>
+										<WhatsNewResultsListContainer>
+											{searchWhatsNewArticlesResult.articles.length > 0 ? (
+												<WhatsNewResultsList
+													whatsNewArticles={searchWhatsNewArticlesResult.articles}
+													onWhatsNewResultItemClick={onWhatsNewResultItemClick}
+													onShowMoreButtonClick={handleOnShowMoreButtonClick}
+													hasNextPage={searchWhatsNewArticlesResult?.hasNextPage}
+													nextPage={searchWhatsNewArticlesResult?.nextPage}
+													loadingMore={searchWhatsNewArticlesState === REQUEST_STATE.loading}
+												/>
+											) : (
+												<WhatsNewResultsEmpty onClearFilter={handleOnClearFilter} />
+											)}
+										</WhatsNewResultsListContainer>
+									</>
+								)}
+
+							{searchWhatsNewArticlesState === REQUEST_STATE.error && (
+								<WhatsNewResultsError onSearch={onSearchWhatsNewArticles} />
+							)}
+						</>
+					</WhatsNewResultsContainer>
+				)
+			}
 		</Transition>
 	);
 };

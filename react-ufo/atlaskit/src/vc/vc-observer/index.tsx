@@ -402,7 +402,14 @@ export class VCObserver {
 
 		entries.reduce((acc = 0, v) => {
 			const currRatio = v[1] / totalPainted;
-			const VCRatio = currRatio + acc;
+			let VCRatio = currRatio + acc;
+
+			if (fg('platform_ufo_fix_vc_observer_rounding_error')) {
+				const preciseCurrRatio = Math.round(100 * (v[1] / totalPainted));
+				const preciseAccRatio = Math.round(acc * 100);
+				VCRatio = (preciseCurrRatio + preciseAccRatio) / 100;
+			}
+
 			const time = v[0];
 			VCObserver.VCParts.forEach((key) => {
 				const value = parseInt(key, 10);

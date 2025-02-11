@@ -22,22 +22,33 @@ import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
 import { selectionPluginKey } from '../types';
 
-export const getDecorations = (tr: Transaction | ReadonlyTransaction): DecorationSet => {
-	if (tr.selection instanceof NodeSelection) {
+export const getDecorations = (
+	tr: Transaction | ReadonlyTransaction,
+	manualSelection?: { anchor: number; head: number },
+): DecorationSet => {
+	let selection = tr.selection;
+	if (selection instanceof NodeSelection) {
 		return DecorationSet.create(tr.doc, [
-			Decoration.node(tr.selection.from, tr.selection.to, {
+			Decoration.node(selection.from, selection.to, {
 				class: akEditorSelectedNodeClassName,
 			}),
 		]);
 	}
-	if (tr.selection instanceof TextSelection || tr.selection instanceof AllSelection) {
-		const decorations = getNodesToDecorateFromSelection(tr.selection, tr.doc).map(
-			({ node, pos }) => {
-				return Decoration.node(pos, pos + node.nodeSize, {
-					class: akEditorSelectedNodeClassName,
-				});
-			},
-		);
+	if (selection instanceof TextSelection || selection instanceof AllSelection) {
+		if (
+			manualSelection &&
+			manualSelection.anchor >= 0 &&
+			manualSelection.head >= 0 &&
+			manualSelection.anchor <= tr.doc.nodeSize &&
+			manualSelection.head <= tr.doc.nodeSize
+		) {
+			selection = TextSelection.create(tr.doc, manualSelection.anchor, manualSelection.head);
+		}
+		const decorations = getNodesToDecorateFromSelection(selection, tr.doc).map(({ node, pos }) => {
+			return Decoration.node(pos, pos + node.nodeSize, {
+				class: akEditorSelectedNodeClassName,
+			});
+		});
 		return DecorationSet.create(tr.doc, decorations);
 	}
 	return DecorationSet.empty;

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 1.3.0
+
+### Minor Changes
+
+- [#112636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112636)
+  [`086f93529b809`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/086f93529b809) -
+  Add a `setMode` command so that the default mode can be overriden by products if they want to
+  align the connectivity to their collaborative provider state.
+
 ## 1.2.0
 
 ### Minor Changes

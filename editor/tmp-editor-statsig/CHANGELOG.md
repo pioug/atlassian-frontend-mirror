@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.44.0
+
+### Minor Changes
+
+- [#111240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111240)
+  [`de6e6869aa62d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de6e6869aa62d) -
+  [ux] EDF-2393: Cleanup platform_editor_ai_1p_smart_link_unfurl_in_prompt experiment code
+  references and autoformatting plugin integration in confluence
+
 ## 2.43.0
 
 ### Minor Changes

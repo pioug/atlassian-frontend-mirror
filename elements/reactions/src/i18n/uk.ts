@@ -20,6 +20,8 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Перейти вліво',
   'reactions.dialog.people-who-reacted.subheader': 'Люди, що додали реакцію {emojiShortName}',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {Усього {count,number} реакція} few {Усього {count,number} реакції} many {Усього {count,number} реакцій} other {Усього {count,number} реакцій}}',
   'reactions.dialog.right.navigate': 'Перейти вправо',
   'reactions.dialog.viewall': 'Переглянути все',
   'reactions.dialog.viewall.tooltip': 'Переглянути всі реакції користувачів',

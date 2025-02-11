@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 17.1.2
+
+### Patch Changes
+
+- [#111665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111665)
+  [`5d898c3d9c9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d898c3d9c9dc) -
+  Remove old codemods and update dependencies.
+
 ## 17.1.1
 
 ### Patch Changes

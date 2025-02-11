@@ -101,7 +101,9 @@ export const DateLozenge = (props: Props) => {
 	const [background, color, hoverBackground]: ColoursTuple = colors;
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<span
+			role="button"
 			css={[
 				baseStyles,
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

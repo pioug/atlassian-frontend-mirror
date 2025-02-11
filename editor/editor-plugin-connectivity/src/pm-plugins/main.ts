@@ -11,14 +11,18 @@ export const createPlugin = () => {
 		state: {
 			init() {
 				return {
-					mode: 'online',
+					browserState: 'online',
+					externalState: undefined,
 				};
 			},
 			apply: (tr: ReadonlyTransaction, pluginState: PluginState) => {
 				const meta = tr.getMeta(key);
 				if (meta) {
+					const { externalState, browserState } = meta;
 					return {
-						mode: meta,
+						browserState: browserState ?? pluginState?.browserState,
+						externalState:
+							externalState === null ? undefined : externalState ?? pluginState?.externalState,
 					};
 				}
 				return pluginState;

@@ -1,79 +1,145 @@
 import React from 'react';
-import { shallow, type ShallowWrapper } from 'enzyme';
-import { Date, DateLozenge, type DateProps } from '../../..';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Date } from '../../../components/Date';
+import { type DateProps } from '../../../';
+import { token } from '@atlaskit/tokens';
+import { N800, R500 } from '@atlaskit/theme/colors';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+const formatColorToken = (color: string) => color.replace(' ', '').toLowerCase();
 
 describe('Date', () => {
-	const shallowDate = (props: Partial<DateProps> = {}) =>
-		shallow(<Date value={586137600000} {...props} />);
+	const renderDate = (props: Partial<DateProps> = {}) =>
+		render(<Date value={586137600000} {...props} />);
 
-	const getText = (component: ShallowWrapper<DateProps>) =>
-		component.find(DateLozenge).prop('children');
+	const getText = () => screen.getByRole('button').textContent;
 
 	describe('format', () => {
-		it('should render date formated', () => {
-			const component = shallowDate();
+		ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
+			it('should render date formated', () => {
+				renderDate();
+				expect(getText()).toEqual('29/07/1988');
+			});
 
-			expect(getText(component)).toEqual('29/07/1988');
+			it('should use custom format', () => {
+				renderDate({ format: 'MM/dd/yyyy' });
+				expect(getText()).toEqual('07/29/1988');
+			});
 		});
 
-		it('should use custom format', () => {
-			const component = shallowDate({ format: 'MM/dd/yyyy' });
+		ffTest.off('platform_editor_css_migrate_stage_1', 'with fg off', () => {
+			it('should render date formated', () => {
+				renderDate();
+				expect(getText()).toEqual('29/07/1988');
+			});
 
-			expect(getText(component)).toEqual('07/29/1988');
+			it('should use custom format', () => {
+				renderDate({ format: 'MM/dd/yyyy' });
+				expect(getText()).toEqual('07/29/1988');
+			});
 		});
-	});
-
-	it('should pass className to DateLozenge', () => {
-		const component = shallowDate({ className: 'some-css-class' });
-		expect(component.find(DateLozenge).prop('className')).toEqual('some-css-class');
 	});
 
 	describe('color', () => {
-		it('should use default color', () => {
-			const component = shallowDate();
-			expect(component.find(DateLozenge).prop('color')).toEqual('grey');
+		ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
+			it('should use default color', () => {
+				renderDate();
+				expect(screen.getByRole('button')).toHaveCompiledCss(
+					'color',
+					formatColorToken(token('color.text', N800)),
+				);
+			});
+
+			it('should set custom color', () => {
+				renderDate({ color: 'red' });
+				expect(screen.getByRole('button')).toHaveCompiledCss(
+					'color',
+					formatColorToken(token('color.text.accent.red', R500)),
+				);
+			});
 		});
 
-		it('should set custom color', () => {
-			const component = shallowDate({ color: 'red' });
-			expect(component.find(DateLozenge).prop('color')).toEqual('red');
+		ffTest.off('platform_editor_css_migrate_stage_1', 'with fg off', () => {
+			it('should use default color', () => {
+				renderDate();
+				expect(screen.getByRole('button')).toHaveStyleDeclaration(
+					'color',
+					token('color.text', N800),
+				);
+			});
+
+			it('should set custom color', () => {
+				renderDate({ color: 'red' });
+				expect(screen.getByRole('button')).toHaveStyleDeclaration(
+					'color',
+					token('color.text.accent.red', R500),
+				);
+			});
 		});
 	});
 
-	describe('onClick', () => {
-		it('should not set onClick', () => {
-			const component = shallowDate();
-			expect(component.find(DateLozenge).prop('onClick')).toBeUndefined();
+	// current implementation actually does not support className
+	describe('className', () => {
+		ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
+			it('should set className', () => {
+				renderDate({ className: 'custom-class' });
+				expect(screen.getByRole('button')).toHaveClass('custom-class');
+			});
 		});
+	});
 
-		it('should not set onClick', () => {
-			const onClick = jest.fn();
-			const component = shallowDate({ onClick });
-
-			const event = {};
-			expect(component.find(DateLozenge).prop('onClick')).toBeDefined();
-			component.find(DateLozenge).simulate('click', event);
-			expect(onClick).toHaveBeenCalledTimes(1);
-			expect(onClick).toHaveBeenCalledWith(586137600000, event);
+	// current implementation actually does not support onClick
+	describe('onClick', () => {
+		ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
+			it('should set onClick', async () => {
+				const user = userEvent.setup();
+				const onClick = jest.fn();
+				renderDate({ onClick });
+				await user.click(screen.getByRole('button'));
+				expect(onClick).toHaveBeenCalledTimes(1);
+				expect(onClick).toHaveBeenCalledWith(586137600000, expect.anything());
+			});
 		});
 	});
 
 	describe('children', () => {
-		it('should be formated value', () => {
-			const component = shallowDate();
-			expect(getText(component)).toEqual('29/07/1988');
+		ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
+			it('should be formated value', () => {
+				renderDate();
+				expect(getText()).toEqual('29/07/1988');
+			});
+
+			it('should be children property', () => {
+				renderDate({ children: '29 - 07 - 1988' });
+				expect(getText()).toEqual('29 - 07 - 1988');
+			});
+
+			it('should be children property', () => {
+				const children = jest.fn();
+				children.mockReturnValueOnce('[29|07|1988]');
+				renderDate({ children });
+				expect(getText()).toEqual('[29|07|1988]');
+			});
 		});
 
-		it('should be children property', () => {
-			const component = shallowDate({ children: '29 - 07 - 1988' });
-			expect(getText(component)).toEqual('29 - 07 - 1988');
-		});
+		ffTest.off('platform_editor_css_migrate_stage_1', 'with fg off', () => {
+			it('should be formated value', () => {
+				renderDate();
+				expect(getText()).toEqual('29/07/1988');
+			});
 
-		it('should be children property', () => {
-			const children = jest.fn();
-			children.mockReturnValueOnce('[29|07|1988]');
-			const component = shallowDate({ children });
-			expect(getText(component)).toEqual('[29|07|1988]');
+			it('should be children property', () => {
+				renderDate({ children: '29 - 07 - 1988' });
+				expect(getText()).toEqual('29 - 07 - 1988');
+			});
+
+			it('should be children property', () => {
+				const children = jest.fn();
+				children.mockReturnValueOnce('[29|07|1988]');
+				renderDate({ children });
+				expect(getText()).toEqual('[29|07|1988]');
+			});
 		});
 	});
 });

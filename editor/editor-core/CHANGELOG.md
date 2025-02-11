@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 203.16.1
+
+### Patch Changes
+
+- [#112757](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112757)
+  [`16ea3fd7c7417`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16ea3fd7c7417) -
+  Added account and browser locale attributes to the editor started event
+- Updated dependencies
+
 ## 203.16.0
 
 ### Minor Changes

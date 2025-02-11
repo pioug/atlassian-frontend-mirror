@@ -20,6 +20,8 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigace doleva',
   'reactions.dialog.people-who-reacted.subheader': 'Lidé, kteří reagovali smajlíkem {emojiShortName}',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reakce celkem} few {{count,number} reakce celkem} many {{count,number} reakce celkem} other {{count,number} reakcí celkem}}',
   'reactions.dialog.right.navigate': 'Navigace doprava',
   'reactions.dialog.viewall': 'Zobrazit vše',
   'reactions.dialog.viewall.tooltip': 'Zobrazit všechny reakce uživatelů',

@@ -57,6 +57,7 @@ const mockstartMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'startMediaFileUf
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf';
+import { failDataURIConversionOnce } from '@atlaskit/media-svg/test-helpers';
 
 const fakeMediaClientConfig = {} as MediaClientConfig;
 
@@ -608,7 +609,7 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 					const { mediaApi } = createMockedMediaApi(fileItem);
 
 					// simulate error
-					mediaApi.getFileBinary = () => {
+					mediaApi.getFileBinary = async () => {
 						throw new Error('binary fetching error');
 					};
 
@@ -653,6 +654,68 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 							error: 'nativeError',
 							errorDetail: 'binary-fetch',
 							failReason: 'svg-binary-fetch',
+							fileAttributes,
+							fileStateFlags: {
+								wasStatusProcessing: false,
+								wasStatusUploading: false,
+							},
+							request: undefined,
+							traceContext: {
+								traceId: expect.any(String),
+							},
+						}),
+					);
+				});
+
+				it('should render error screen when SVG binary fails to convert to DataURI', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { mediaApi } = createMockedMediaApi(fileItem);
+
+					// Simulate error on SVG Blob to DataURI conversion
+					const conversionError = new Error('failed to convert Blob');
+					failDataURIConversionOnce(conversionError);
+
+					render(
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<MediaViewer
+								selectedItem={identifier}
+								items={[identifier]}
+								collectionName={identifier.collectionName || ''}
+								mediaClientConfig={fakeMediaClientConfig}
+							/>
+							,
+						</MockedMediaClientProvider>,
+					);
+
+					const errorIcon = await screen.findByAltText(/error loading file/i);
+					expect(errorIcon).toBeInTheDocument();
+
+					expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
+
+					const fileAttributes = {
+						fileId: identifier.id,
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileSize: fileItem.details.size,
+					};
+
+					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							attributes: expect.objectContaining({
+								failReason: 'svg-blob-to-datauri',
+								fileMimetype: fileAttributes.fileMimetype,
+								fileAttributes,
+							}),
+						}),
+						expect.anything(),
+					);
+
+					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+						expect.objectContaining({
+							error: 'nativeError',
+							errorDetail: 'blob-to-datauri',
+							failReason: 'svg-blob-to-datauri',
 							fileAttributes,
 							fileStateFlags: {
 								wasStatusProcessing: false,

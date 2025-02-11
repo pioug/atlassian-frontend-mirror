@@ -7,7 +7,7 @@ export default md`
 
   The Link Create component is the driver component of meta creation flow. It allows users to create new links without having to leave their current context.
 
-  If you have any questions, you can reach out to [#help-linking-platform](https://atlassian.slack.com/archives/CFKGAQZRV) for help.
+  If you have any questions, you can reach out to [#help-bandicoots](https://atlassian.slack.com/archives/CFKGAQZRV) for help.
 
   ## Installation
 

@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{

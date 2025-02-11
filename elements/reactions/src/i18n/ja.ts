@@ -19,6 +19,7 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': '左に移動',
   'reactions.dialog.people-who-reacted.subheader': '{emojiShortName} でリアクションしたユーザー',
+  'reactions.dialog.reactions.count': '{count, plural, other {合計 {count,number} 件のリアクション}}',
   'reactions.dialog.right.navigate': '右に移動',
   'reactions.dialog.viewall': 'すべて表示',
   'reactions.dialog.viewall.tooltip': 'ユーザーによるすべてのリアクションを表示',

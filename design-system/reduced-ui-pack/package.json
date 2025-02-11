@@ -35,7 +35,7 @@
 		"@atlaskit/theme": "^15.0.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/css-reset": "^6.12.0",
+		"@atlaskit/css-reset": "^6.13.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {

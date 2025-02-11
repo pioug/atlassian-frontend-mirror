@@ -20,6 +20,7 @@ import {
 	attachMoveNodeAnalytics,
 } from '../pm-plugins/utils/fire-analytics';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
+import { getMultiSelectionIfPosInside } from '../pm-plugins/utils/selection';
 import { updateColumnWidths } from '../pm-plugins/utils/update-column-widths';
 import { isInSameLayout } from '../pm-plugins/utils/validation';
 import { DEFAULT_COLUMN_DISTRIBUTIONS } from '../ui/consts';
@@ -231,7 +232,12 @@ const insertToDestination = (
  * Check if the node at `from` can be moved to node at `to` to create/expand a layout.
  * Returns the source and destination nodes and positions if it's a valid move, otherwise, undefined
  */
-const canMoveToLayout = (from: number, to: number, tr: Transaction) => {
+const canMoveToLayout = (
+	api: ExtractInjectionAPI<BlockControlsPlugin>,
+	from: number,
+	to: number,
+	tr: Transaction,
+) => {
 	if (from === to) {
 		return;
 	}
@@ -268,20 +274,10 @@ const canMoveToLayout = (from: number, to: number, tr: Transaction) => {
 	let sourceFrom = from;
 	let sourceTo: number = from + sourceContent.nodeSize;
 	if (isMultiSelect) {
-		// Selection often starts from the content of the node (e.g. to show text selection properly),
-		// so we need to trace back to the start of the node instead
-		const contentStartPos =
-			tr.selection.$from.nodeAfter && tr.selection.$from.nodeAfter?.type.name !== 'text'
-				? tr.selection.$from.pos
-				: tr.selection.$from.before();
-
-		// If the handle position sits within the Editor selection, we will move all nodes that sit in that selection
-		// handle position is the same as `from` position
-		const useSelection = from >= contentStartPos && from <= tr.selection.to;
-
-		if (useSelection) {
-			sourceFrom = contentStartPos;
-			sourceTo = tr.selection.to;
+		const { anchor, head } = getMultiSelectionIfPosInside(api, from);
+		if (anchor && head) {
+			sourceFrom = Math.min(anchor, head);
+			sourceTo = Math.max(anchor, head);
 			sourceContent = tr.doc.slice(sourceFrom, sourceTo).content;
 
 			// TODO: this might become expensive for large content, consider removing it if check has been done beforehand
@@ -360,7 +356,10 @@ export const moveToLayout =
 		options?: { moveToEnd?: boolean; selectMovedNode?: boolean },
 	): EditorCommand =>
 	({ tr }) => {
-		const canMove = canMoveToLayout(from, to, tr);
+		if (!api) {
+			return tr;
+		}
+		const canMove = canMoveToLayout(api, from, to, tr);
 		if (!canMove) {
 			return tr;
 		}

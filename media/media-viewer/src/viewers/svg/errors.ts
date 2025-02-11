@@ -7,6 +7,8 @@ export const getErrorReason = (svgReason: MediaSVGErrorReason): MediaViewerError
 			return 'svg-img-error';
 		case 'binary-fetch':
 			return 'svg-binary-fetch';
+		case 'blob-to-datauri':
+			return 'svg-blob-to-datauri';
 		default:
 			return 'svg-unknown-error';
 	}

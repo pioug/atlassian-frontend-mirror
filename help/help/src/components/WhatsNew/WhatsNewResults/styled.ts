@@ -24,6 +24,23 @@ export const WhatsNewResultsContainer = styled.div({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const WhatsNewResultsContainerAi = styled.div({
+	paddingBottom: token('space.200', '16px'),
+	paddingLeft: token('space.200', '16px'),
+	paddingRight: token('space.200', '16px'),
+	position: 'absolute',
+	width: '100%',
+	top: token('space.800', '60px'),
+	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	flex: 1,
+	flexDirection: 'column',
+	boxSizing: 'border-box',
+	overflowX: 'hidden',
+	overflowY: 'auto',
+	zIndex: 1,
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SelectContainer = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${19 * gridSize()}px`,

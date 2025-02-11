@@ -41,6 +41,9 @@
 			"path": "../form/tsconfig.app.json"
 		},
 		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../textfield/tsconfig.app.json"
 		}
 	]

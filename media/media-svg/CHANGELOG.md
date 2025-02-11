@@ -1,5 +1,13 @@
 # @atlaskit/media-svg
 
+## 1.2.0
+
+### Minor Changes
+
+- [#108452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108452)
+  [`47669ab510c09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47669ab510c09) -
+  Exported useResolveSvg Hook - Converts SVG binary into DataURI for security concerns
+
 ## 1.1.1
 
 ### Patch Changes

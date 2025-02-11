@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 99.11.0
+
+### Minor Changes
+
+- [#111465](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111465)
+  [`c0cbae02ded12`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0cbae02ded12) -
+  Add utility for expanding selection boundaries
+
+### Patch Changes
+
+- [#112757](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112757)
+  [`16ea3fd7c7417`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16ea3fd7c7417) -
+  Added account and browser locale attributes to the editor started event
+- Updated dependencies
+
+## 99.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 99.10.0
 
 ### Minor Changes

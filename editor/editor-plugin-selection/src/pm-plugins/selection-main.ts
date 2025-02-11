@@ -4,6 +4,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SelectionPluginOptions } from '../types';
 import { selectionPluginKey } from '../types';
@@ -27,16 +28,28 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: selectionPluginKey,
 		state: createPluginState(dispatch, getInitialState),
-		appendTransaction(_transactions, oldEditorState, newEditorState) {
-			if (!shouldRecalcDecorations({ oldEditorState, newEditorState })) {
+		appendTransaction(transactions, oldEditorState, newEditorState) {
+			const { tr } = newEditorState;
+
+			let combinedMeta: { manualSelection?: { anchor: number; head: number } } = {};
+			if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+				combinedMeta = transactions
+					.map((value) => value.getMeta(selectionPluginKey))
+					.reduce((prev, curr) => {
+						return { ...prev, ...curr };
+					});
+			}
+			if (
+				!shouldRecalcDecorations({ oldEditorState, newEditorState }) &&
+				combinedMeta?.manualSelection === undefined
+			) {
 				return;
 			}
 
-			const { tr } = newEditorState;
 			tr.setMeta(selectionPluginKey, {
 				type: SelectionActionTypes.SET_DECORATIONS,
 				selection: tr.selection,
-				decorationSet: getDecorations(tr),
+				decorationSet: getDecorations(tr, combinedMeta?.manualSelection),
 			});
 
 			return tr;

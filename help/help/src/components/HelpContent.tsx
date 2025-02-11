@@ -17,6 +17,7 @@ import WhatsNewButton from './WhatsNew/WhatsNewButton';
 import WhatsNewResults from './WhatsNew/WhatsNewResults';
 import HelpContentButton from './HelpContentButton';
 import BackButton from './BackButton';
+import { NeedMoreHelp } from './NeedMoreHelp';
 import type { Props as HelpContentButtonProps } from './HelpContentButton';
 import { HelpBodyContainer, HelpBody, Home, HomeAi, HelpBodyAi } from './styled';
 import { HelpFooter } from './styled';
@@ -91,35 +92,45 @@ export const HelpContent: React.FC<HelpContentInterface & WrappedComponentProps>
 		},
 	];
 
+	const handleNeedMoreHelpClick = useCallback(() => {
+		setActiveTab(0);
+	}, []);
+
 	const HelpLayoutWithAi = (
 		<HelpLayout onCloseButtonClick={onClose} isAiEnabled={isAiEnabled}>
 			<Tabs activeTab={activeTab} onTabClick={handleTabClick} tabs={tabs} />
 
 			{activeTab === 0 && <div>ai agent here</div>}
 			{activeTab === 1 && (
-				<HelpBodyContainer>
-					<HelpBodyAi>
-						<BackButton onClick={handleOnBackButtonClick} isVisible={canNavigateBack} />
-						{onSearch && <SearchInput isAiEnabled={true} />}
-						<SearchResults isAiEnabled={true} />
-						<ArticleComponent isAiEnabled={true} />
-						<HomeAi
-							isOverlayFullyVisible={isOverlayFullyVisible}
-							isOverlayVisible={isOverlayVisible}
-						>
-							{homeContent}
-							{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
-								<WhatsNewButton productName={productName} />
-							)}
-							{homeOptions &&
-								homeOptions.map((defaultOption: HelpContentButtonProps) => {
-									return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
-								})}
-						</HomeAi>
-					</HelpBodyAi>
-					<WhatsNewResults />
+				<>
+					<HelpBodyContainer>
+						<HelpBodyAi>
+							<BackButton onClick={handleOnBackButtonClick} isVisible={canNavigateBack} />
+							{onSearch && <SearchInput isAiEnabled={true} />}
+							<SearchResults isAiEnabled={true} />
+							<ArticleComponent isAiEnabled={true} />
+							<HomeAi
+								isOverlayFullyVisible={isOverlayFullyVisible}
+								isOverlayVisible={isOverlayVisible}
+							>
+								{homeContent}
+								{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
+									<WhatsNewButton productName={productName} />
+								)}
+								{homeOptions &&
+									homeOptions.map((defaultOption: HelpContentButtonProps) => {
+										return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
+									})}
+							</HomeAi>
+						</HelpBodyAi>
+						<WhatsNewResults />
+					</HelpBodyContainer>
+					<NeedMoreHelp
+						label={formatMessage(messages.help_need_more_help_label)}
+						onNeedMoreHelpClick={handleNeedMoreHelpClick}
+					/>
 					{footer && <HelpFooter data-testid="inside-footer">{footer}</HelpFooter>}
-				</HelpBodyContainer>
+				</>
 			)}
 		</HelpLayout>
 	);

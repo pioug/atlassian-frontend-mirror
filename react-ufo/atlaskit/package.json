@@ -174,13 +174,13 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_ufo_fix_vc_observer_rounding_error": {
+			"type": "boolean"
+		},
 		"platform_ufo_AFO-3379_fix_default_interaction": {
 			"type": "boolean"
 		},
 		"platform_editor_ed-25937_ignore_mutations_for_ttvc": {
-			"type": "boolean"
-		},
-		"platform_ufo_ssr_ttvc_use_target_rect": {
 			"type": "boolean"
 		},
 		"platform-ufo-invisible-element-vc-calculations": {

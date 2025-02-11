@@ -18,6 +18,8 @@ export default {
   'reactions.dialog.close': 'Lukk',
   'reactions.dialog.left.navigate': 'Naviger til venstre',
   'reactions.dialog.people-who-reacted.subheader': 'Personer som reagerte med {emojiShortName}',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reaksjon totalt} other {{count,number} reaksjoner totalt}}',
   'reactions.dialog.right.navigate': 'Naviger til høyre',
   'reactions.dialog.viewall': 'Vis alle',
   'reactions.dialog.viewall.tooltip': 'Se alle brukerreaksjoner',

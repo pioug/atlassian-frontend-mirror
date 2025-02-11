@@ -35,6 +35,7 @@ import { attachMoveNodeAnalytics } from '../pm-plugins/utils/fire-analytics';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 import { selectNode, setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
+import { getMultiSelectionIfPosInside } from '../pm-plugins/utils/selection';
 import {
 	canMoveNodeToIndex,
 	isInsideTable,
@@ -159,7 +160,8 @@ export const moveNodeViaShortcut = (
 
 					// if the current node is the last node, don't do anything
 					if (index >= parent.childCount - 1) {
-						return false;
+						// prevent event propagation to avoid moving the cursor and still select the node
+						return true;
 					}
 
 					const moveToEnd = index === parent.childCount - 2;
@@ -254,17 +256,10 @@ export const moveNode =
 		formatMessage?: IntlShape['formatMessage'],
 	): EditorCommand =>
 	({ tr }) => {
-		const isMultiSelect = editorExperiment(
-			'platform_editor_element_drag_and_drop_multiselect',
-			true,
-			{
-				exposure: true,
-			},
-		);
+		if (!api) {
+			return tr;
+		}
 
-		const selection = tr.selection;
-		const selectionFrom = selection.$from.pos;
-		const selectionTo = selection.$to.pos;
 		const handleNode = tr.doc.nodeAt(start);
 
 		if (!handleNode) {
@@ -273,13 +268,21 @@ export const moveNode =
 
 		let sliceFrom = start;
 		let sliceTo;
+
+		const isMultiSelect = editorExperiment(
+			'platform_editor_element_drag_and_drop_multiselect',
+			true,
+			{
+				exposure: true,
+			},
+		);
 		if (isMultiSelect) {
-			// //If the handle position sits within the Editor selection, we will move all nodes that sit in that selection
-			const useSelection = sliceFrom >= selectionFrom - 1 && sliceFrom <= selectionTo;
-			sliceFrom = useSelection ? selectionFrom : start;
+			const { anchor, head } = getMultiSelectionIfPosInside(api, start);
+			const inSelection = anchor !== undefined && head !== undefined;
+			sliceFrom = inSelection ? Math.min(anchor, head) : start;
 			const handleSize = handleNode?.nodeSize ?? 1;
 			const handleEnd = sliceFrom + handleSize;
-			sliceTo = useSelection ? selectionTo : handleEnd;
+			sliceTo = inSelection ? Math.max(anchor, head) : handleEnd;
 		} else {
 			const size = handleNode?.nodeSize ?? 1;
 			sliceTo = sliceFrom + size;

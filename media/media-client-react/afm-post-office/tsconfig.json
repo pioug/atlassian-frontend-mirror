@@ -21,13 +21,13 @@
 			"path": "../../media-client/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../media-state/afm-post-office/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		}
 	]
 }

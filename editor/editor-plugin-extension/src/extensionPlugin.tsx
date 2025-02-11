@@ -7,6 +7,7 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createEditSelectedExtensionAction,
@@ -187,12 +188,17 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 		},
 
 		pluginsOptions: {
-			floatingToolbar: getToolbarConfig({
-				breakoutEnabled: options.breakoutEnabled,
-				hoverDecoration: api?.decorations?.actions.hoverDecoration,
-				applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
-				editorAnalyticsAPI: api?.analytics?.actions,
-			}),
+			floatingToolbar: fg('platform_editor_legacy_content_macro')
+				? getToolbarConfig({
+						breakoutEnabled: options.breakoutEnabled,
+						extensionApi: api,
+					})
+				: getToolbarConfig({
+						breakoutEnabled: options.breakoutEnabled,
+						hoverDecoration: api?.decorations?.actions.hoverDecoration,
+						applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
+						editorAnalyticsAPI: api?.analytics?.actions,
+					}),
 			contextPanel: getContextPanel(() => editorViewRef.current ?? undefined)(api, featureFlags),
 		},
 	};

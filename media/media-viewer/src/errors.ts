@@ -69,6 +69,7 @@ export type MediaViewerErrorReason =
 	| 'svg-img-error'
 	| 'svg-binary-fetch'
 	| 'svg-unknown-error'
+	| 'svg-blob-to-datauri'
 	| 'unsupported'
 	| 'custom-viewer-error'
 	| 'download';

@@ -277,4 +277,14 @@ export const messages = defineMessages({
 		defaultMessage: 'Ask AI',
 		description: 'Ask AI tab text',
 	},
+	help_need_more_help_label: {
+		id: 'help.need_more_help.ai',
+		defaultMessage: 'Ask AI',
+		description: 'Ask AI label in need more help component',
+	},
+	help_need_more_help_text: {
+		id: 'help.need_more_help.text',
+		defaultMessage: 'Need more help?',
+		description: 'Need more help text',
+	},
 });

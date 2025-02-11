@@ -49,6 +49,8 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
+
+import type { DefaultPresetBuilder } from './default-preset-type';
 // #endregion
 
 export type DefaultPresetPluginOptions = {
@@ -87,7 +89,7 @@ export type DefaultPresetPluginOptions = {
  * Note: The order that presets are added determines
  * their placement in the editor toolbar
  */
-export function createDefaultPreset(options: DefaultPresetPluginOptions) {
+export function createDefaultPreset(options: DefaultPresetPluginOptions): DefaultPresetBuilder {
 	const isFullPage = fullPageCheck(options.appearance);
 
 	const preset = new EditorPresetBuilder()

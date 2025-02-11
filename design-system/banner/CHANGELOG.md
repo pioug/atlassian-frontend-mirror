@@ -1,5 +1,13 @@
 # @atlaskit/banner
 
+## 12.7.2
+
+### Patch Changes
+
+- [#112541](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112541)
+  [`903f80ca96378`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/903f80ca96378) -
+  Remove old codemods.
+
 ## 12.7.1
 
 ### Patch Changes

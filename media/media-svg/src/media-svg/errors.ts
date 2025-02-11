@@ -17,7 +17,7 @@ export class MediaSVGError extends Error {
 	}
 }
 
-export type MediaSVGErrorReason = 'img-error' | 'binary-fetch' | 'unexpected';
+export type MediaSVGErrorReason = 'img-error' | 'binary-fetch' | 'blob-to-datauri' | 'unexpected';
 
 export const createUnexpectedErrorCallback = (onError: MediaSvgProps['onError']) => (e: Error) => {
 	onError?.(new MediaSVGError('unexpected', e));

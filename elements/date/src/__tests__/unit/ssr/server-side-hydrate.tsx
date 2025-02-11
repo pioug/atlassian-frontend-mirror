@@ -14,7 +14,7 @@ describe.skip('server side rendering and hydration', () => {
 
 	test.each([
 		['00-custom-colors.tsx'],
-		['01-date-with-style.tsx'],
+		['01-date-with-click.tsx'],
 		['02-custom-format.tsx'],
 		['03-dark-custom-colors.tsx'],
 	])('ssr("%s")', async (fileName: string) => {

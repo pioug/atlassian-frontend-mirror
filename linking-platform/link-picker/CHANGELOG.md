@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 1.48.3
+
+### Patch Changes
+
+- [#112342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112342)
+  [`64c10d25d8014`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64c10d25d8014) -
+  Migrate all instances of slack channel #help-linking-platform to #help-bandicoots
+
 ## 1.48.2
 
 ### Patch Changes

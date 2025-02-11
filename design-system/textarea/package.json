@@ -35,11 +35,15 @@
 	},
 	"af:exports": {
 		".": "./src/index.tsx",
+		"./component-tokens": "./src/component-tokens.tsx",
+		"./styles": "./src/styles.tsx",
 		"./text-area": "./src/text-area.tsx",
 		"./types": "./src/types.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
+		"./component-tokens": "./src/component-tokens.tsx",
+		"./styles": "./src/styles.tsx",
 		"./text-area": "./src/text-area.tsx",
 		"./types": "./src/types.tsx"
 	},
@@ -50,7 +54,7 @@
 		"@atlaskit/theme": "^15.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1"
+		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"

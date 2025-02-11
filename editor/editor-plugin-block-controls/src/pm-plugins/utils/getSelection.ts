@@ -1,5 +1,13 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import { NodeSelection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import {
+	EditorState,
+	NodeSelection,
+	Selection,
+	TextSelection,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 
 export const getInlineNodePos = (
@@ -97,4 +105,66 @@ export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Tr
 
 	tr.setSelection(selection);
 	return tr;
+};
+
+/**
+ * Checks if handle position is with the selection or corresponds to a (partially) selected node
+ * @param state
+ * @param selection
+ * @param handlePos
+ * @returns
+ */
+export const isHandleInSelection = (
+	state: EditorState,
+	selection: Selection,
+	handlePos: number,
+): boolean => {
+	if (selection.empty) {
+		return false;
+	}
+	const $selectionFrom = selection.$from;
+	const selectionFrom = $selectionFrom.pos;
+	let nodeStart = $selectionFrom.depth ? $selectionFrom.before() : selectionFrom;
+	const $resolvedNodePos = state.doc.resolve(nodeStart);
+
+	if (['tableRow', 'tableCell', 'tableHeader'].includes($resolvedNodePos.node().type.name)) {
+		const parentNodeFindRes = findParentNodeOfType(state.schema.nodes['table'])(selection);
+		const tablePos = parentNodeFindRes?.pos;
+		nodeStart = typeof tablePos === 'undefined' ? nodeStart : tablePos;
+	} else if (['listItem'].includes($resolvedNodePos.node().type.name)) {
+		nodeStart = $resolvedNodePos.before(rootListDepth($resolvedNodePos));
+	} else if (['taskList'].includes($resolvedNodePos.node().type.name)) {
+		const listdepth = rootTaskListDepth($resolvedNodePos);
+		nodeStart = $resolvedNodePos.before(listdepth);
+	} else if (['blockquote'].includes($resolvedNodePos.node().type.name)) {
+		nodeStart = $resolvedNodePos.before();
+	}
+
+	return Boolean(handlePos < selection.$to.pos && handlePos >= nodeStart);
+};
+
+export const rootListDepth = (itemPos: ResolvedPos) => {
+	let depth;
+	for (let i = itemPos.depth; i > 1; i -= 2) {
+		const node = itemPos.node(i);
+		if (node.type.name === 'listItem') {
+			depth = i - 1;
+		} else {
+			break;
+		}
+	}
+	return depth;
+};
+
+export const rootTaskListDepth = (taskListPos: ResolvedPos) => {
+	let depth;
+	for (let i = taskListPos.depth; i > 0; i--) {
+		const node = taskListPos.node(i);
+		if (node.type.name === 'taskList' || node.type.name === 'taskItem') {
+			depth = i;
+		} else {
+			break;
+		}
+	}
+	return depth;
 };

@@ -19,6 +19,8 @@ export default {
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigation til venstre',
   'reactions.dialog.people-who-reacted.subheader': 'Personer der reagerede med {emojiShortName}',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {{count,number} reaktion i alt} other {{count,number} reaktioner i alt}}',
   'reactions.dialog.right.navigate': 'Navigation til højre',
   'reactions.dialog.viewall': 'Vis alle',
   'reactions.dialog.viewall.tooltip': 'Se alle brugerreaktioner',

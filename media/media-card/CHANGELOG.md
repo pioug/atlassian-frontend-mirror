@@ -1,5 +1,22 @@
 # @atlaskit/media-card
 
+## 78.19.5
+
+### Patch Changes
+
+- [#112360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112360)
+  [`39bbbe14a6632`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39bbbe14a6632) -
+  Fixed styles for disabled download buttons
+
+## 78.19.4
+
+### Patch Changes
+
+- [#108452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108452)
+  [`47669ab510c09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47669ab510c09) -
+  Handle errors from SVG blob to Dara URI conversion
+- Updated dependencies
+
 ## 78.19.3
 
 ### Patch Changes

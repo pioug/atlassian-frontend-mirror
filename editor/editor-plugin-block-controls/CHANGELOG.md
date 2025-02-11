@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.25.0
+
+### Minor Changes
+
+- [#107342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107342)
+  [`ec6b838ab9935`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec6b838ab9935) -
+  [ux] Set drag handle selection state based on Editor selection
+
+## 2.24.0
+
+### Minor Changes
+
+- [#111465](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111465)
+  [`c0cbae02ded12`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0cbae02ded12) -
+  [ux] Expand existing multi-node selection when dragging handle
+
+### Patch Changes
+
+- [#109402](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109402)
+  [`a8c334f52bb60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8c334f52bb60) -
+  Fix multi-select bug when dragging onto the handle replaces text
+- Updated dependencies
+
+## 2.23.1
+
+### Patch Changes
+
+- [#112350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112350)
+  [`75d73ae5c1963`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75d73ae5c1963) -
+  Pressing move right shortcut on layout column should not move the cursor to the next node
+- Updated dependencies
+
 ## 2.23.0
 
 ### Minor Changes

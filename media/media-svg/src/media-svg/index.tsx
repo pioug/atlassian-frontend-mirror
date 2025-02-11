@@ -20,3 +20,5 @@ const MediaSVG: typeof EmotionMediaSVG = forwardRef<HTMLImageElement, MediaSvgPr
 );
 
 export default MediaSVG;
+
+export { useResolveSvg } from './useResolveSvg';

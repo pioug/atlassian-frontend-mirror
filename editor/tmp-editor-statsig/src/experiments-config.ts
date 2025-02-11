@@ -209,15 +209,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-11-19
-	platform_editor_ai_1p_smart_link_unfurl_in_prompt: {
-		productKeys: {
-			confluence: 'platform_editor_ai_1p_smart_link_unfurl_in_prompt',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-11-26
 	platform_editor_ai_unsplash_page_header: {
 		productKeys: {
@@ -315,5 +306,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
+	},
+	// Added 2025-02-10
+	platform_editor_controls: {
+		productKeys: {
+			confluence: 'platform_editor_controls',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'variant1']),
+		defaultValue: 'control' as 'control' | 'variant1',
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

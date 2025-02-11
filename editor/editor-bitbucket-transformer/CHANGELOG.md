@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.10.1
+
+### Patch Changes
+
+- [#112497](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112497)
+  [`177c1f4b97cef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/177c1f4b97cef) -
+  ability to parse code suggestions in comments and display them correctly
+
 ## 8.10.0
 
 ### Minor Changes

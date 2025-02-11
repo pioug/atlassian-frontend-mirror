@@ -1,5 +1,13 @@
 # @atlaskit/media-client-react
 
+## 3.0.1
+
+### Patch Changes
+
+- [#112326](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112326)
+  [`3341f6e2a15b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3341f6e2a15b4) -
+  Updated @atlaskit/platform-feature-flags as direct dependency (no longer peer deependency)
+
 ## 3.0.0
 
 ### Patch Changes

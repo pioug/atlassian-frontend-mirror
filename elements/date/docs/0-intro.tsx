@@ -1,11 +1,11 @@
 import React from 'react';
 import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
-import DateStyledExample from '../examples/01-date-with-style';
+import DateStyledExample from '../examples/01-date-with-click';
 import CustomColorExample from '../examples/00-custom-colors';
 import CustomFormatExample from '../examples/02-custom-format';
 
-const DateStyledSource = require('!!raw-loader!../examples/01-date-with-style');
+const DateStyledSource = require('!!raw-loader!../examples/01-date-with-click');
 const CustomColorSource = require('!!raw-loader!../examples/00-custom-colors');
 const CustomFormatSource = require('!!raw-loader!../examples/02-custom-format');
 
@@ -36,7 +36,7 @@ This component is the implementation of the Date element in React.
 
 
   \`color\` prop is optional and has the following option \`'grey' | 'red' | 'blue' | 'green' | 'purple' | 'yellow'\`.
-  
+
   ${(
 		<Example
 			Component={CustomColorExample}
@@ -45,10 +45,10 @@ This component is the implementation of the Date element in React.
 			language="javascript"
 		/>
 	)}
-  
+
   You can also specify custom format for the date. We use [date-fns](https://date-fns.org/). Check out [format function
   documentation](https://date-fns.org/v1.29.0/docs/format).
-  
+
   ${(
 		<Example
 			Component={CustomFormatExample}

@@ -397,6 +397,8 @@ export function ReactEditorView(props: EditorViewProps) {
 			attributes: {
 				platform: PLATFORMS.WEB,
 				featureFlags: featureFlags ? getEnabledFeatureFlagKeys(featureFlags) : [],
+				accountLocale: props.intl?.locale,
+				browserLocale: window.navigator.language,
 			},
 			eventType: EVENT_TYPE.UI,
 		});

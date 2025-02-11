@@ -90,3 +90,45 @@ export function startPositionOfParent(resolvedPos: ResolvedPos): number {
 export function endPositionOfParent(resolvedPos: ResolvedPos): number {
 	return resolvedPos.end(resolvedPos.depth) + 1;
 }
+
+export const expandSelectionBounds = (
+	$anchor: ResolvedPos,
+	$head: ResolvedPos,
+): { $anchor: ResolvedPos; $head: ResolvedPos } => {
+	const $from = $anchor.min($head);
+	const $to = $anchor.max($head);
+	const fromDepth = $from.depth;
+	const toDepth = $to.depth;
+	let selectionStart = fromDepth ? $from.before() : $from.pos;
+	let selectionEnd = toDepth ? $to.after() : $to.pos;
+	const selectionHasGrandparent = toDepth > 1 && fromDepth > 1;
+	const selectionIsAcrossDiffParents =
+		selectionHasGrandparent && !$to.parent.isTextblock && !$to.sameParent($from);
+	const selectionIsAcrossTextBlocksWithDiffParents =
+		selectionHasGrandparent &&
+		$to.parent.isTextblock &&
+		$to.before(toDepth - 1) !== $from.before(fromDepth - 1);
+
+	if (toDepth > fromDepth) {
+		// expand end of selection to after the last node
+		selectionEnd = fromDepth ? $to.after(fromDepth) : $to.after(1);
+	} else if (toDepth < fromDepth) {
+		// expand start of selection to before the current node
+		selectionStart = toDepth ? $from.before(toDepth) : $from.before(1);
+	} else if (selectionIsAcrossDiffParents || selectionIsAcrossTextBlocksWithDiffParents) {
+		// when selection from/to share same depth with different parents, hoist up the selection to the parent of the highest depth in the selection
+		selectionStart = $from.before(fromDepth - 1);
+		selectionEnd = $to.after(toDepth - 1);
+	} else if (!$from.node().inlineContent) {
+		// when selection might be a Node selection, return what was passed in
+		return { $anchor, $head };
+	}
+
+	const $expandedFrom = $anchor.doc.resolve(selectionStart);
+	const $expandedTo = $anchor.doc.resolve(selectionEnd);
+
+	return {
+		$anchor: $anchor === $from ? $expandedFrom : $expandedTo,
+		$head: $head === $to ? $expandedTo : $expandedFrom,
+	};
+};

@@ -19,6 +19,8 @@ export default {
   'reactions.dialog.close': 'Закрыть',
   'reactions.dialog.left.navigate': 'Навигация влево',
   'reactions.dialog.people-who-reacted.subheader': 'Люди, которые оставили реакцию {emojiShortName}',
+  'reactions.dialog.reactions.count':
+    '{count, plural, one {Всего реакций: {count,number}} few {Всего реакций: {count,number}} many {Всего реакций: {count,number}} other {Всего реакций: {count,number}}}',
   'reactions.dialog.right.navigate': 'Навигация вправо',
   'reactions.dialog.viewall': 'Просмотреть все',
   'reactions.dialog.viewall.tooltip': 'Посмотреть все реакции пользователей',

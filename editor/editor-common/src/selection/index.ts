@@ -36,6 +36,7 @@ export {
 	atTheEndOfBlock,
 	atTheEndOfDoc,
 	endPositionOfParent,
+	expandSelectionBounds,
 	isSelectionAtEndOfNode,
 	isSelectionAtStartOfNode,
 	startPositionOfParent,

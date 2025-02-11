@@ -59,6 +59,7 @@ import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { failDataURIConversionOnce } from '@atlaskit/media-svg/test-helpers';
 
 const event = { fire: jest.fn() };
 const mockCreateAnalyticsEvent = jest.fn(() => event) as unknown as CreateUIAnalyticsEvent;
@@ -5483,6 +5484,66 @@ ffTest('media_viewer_integrates_ds_portal', () => {
 									spanId: expect.any(String),
 									traceId: expect.any(String),
 								},
+							},
+							ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+							status: 'fail',
+							metadataTraceContext: {
+								spanId: expect.any(String),
+								traceId: expect.any(String),
+							},
+							traceContext: { traceId: expect.any(String) },
+						},
+						eventType: 'operational',
+					});
+				});
+			});
+
+			it('should render error screen when SVG binary fails to convert to DataURI', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svg();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				// Simulate error on SVG Blob to DataURI conversion
+				const conversionError = new Error('failed to convert Blob');
+				failDataURIConversionOnce(conversionError);
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							disableOverlay={disableOverlay}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
+				);
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				};
+
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							error: 'nativeError',
+							errorDetail: conversionError.message,
+							failReason: 'svg-blob-to-datauri',
+							fileAttributes,
+							fileMimetype: 'image/svg+xml',
+							performanceAttributes: {
+								overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
 							},
 							ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
 							status: 'fail',

@@ -11,6 +11,7 @@ import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
@@ -19,6 +20,15 @@ export type ActiveNode = {
 	anchorName: string;
 	nodeType: string;
 	handleOptions?: HandleOptions;
+};
+
+export type MultiSelectDnD = {
+	anchor: number;
+	head: number;
+	textAnchor: number;
+	textHead: number;
+	userAnchor: number;
+	userHead: number;
 };
 
 export interface PluginState {
@@ -39,6 +49,7 @@ export interface PluginState {
 	 * is dragging the node without using drag handle, i,e, native prosemirror DnD
 	 */
 	isPMDragging: boolean;
+	multiSelectDnD?: MultiSelectDnD;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
@@ -49,6 +60,7 @@ export type BlockControlsSharedState =
 			activeNode?: ActiveNode;
 			isDragging: boolean;
 			isPMDragging: boolean;
+			multiSelectDnD?: MultiSelectDnD;
 	  }
 	| undefined;
 
@@ -72,6 +84,7 @@ export type BlockControlsPluginDependencies = [
 	 * Clean up ticket ED-24824
 	 */
 	OptionalPlugin<QuickInsertPlugin>,
+	OptionalPlugin<SelectionPlugin>,
 ];
 
 export type BlockControlsPlugin = NextEditorPlugin<
@@ -104,6 +117,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				anchorName: string,
 				nodeType: string,
 			) => EditorCommand;
+			setMultiSelectPositions: () => EditorCommand;
 		};
 	}
 >;

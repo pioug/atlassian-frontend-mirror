@@ -109,6 +109,23 @@ const destroyFn = (
 				}
 
 				api?.core?.actions.execute(({ tr }) => {
+					if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+						const { multiSelectDnD } = api?.blockControls?.sharedState.currentState() || {};
+						// Restore the users initial Editor selection when the drop completes
+						if (multiSelectDnD) {
+							// If the TextSelection between the drag start and end has changed, the document has changed, and we should not reapply the last selection
+							const expandedSelectionUnchanged =
+								multiSelectDnD.textAnchor === tr.selection.anchor &&
+								multiSelectDnD.textHead === tr.selection.head;
+							if (expandedSelectionUnchanged) {
+								tr.setSelection(
+									TextSelection.create(tr.doc, multiSelectDnD.userAnchor, multiSelectDnD.userHead),
+								);
+							}
+						}
+						api?.selection?.commands.clearManualSelection()({ tr });
+					}
+
 					const { start } = source.data as ElementDragSource;
 					// if no drop targets are rendered, assume that drop is invalid
 					if (location.current.dropTargets.length === 0) {
@@ -125,7 +142,6 @@ const destroyFn = (
 							},
 						})(tr);
 					}
-
 					return tr.setMeta(key, {
 						isDragging: false,
 						isPMDragging: false,
@@ -149,10 +165,12 @@ const initialState: PluginState = {
 	isResizerResizing: false,
 	isDocSizeLimitEnabled: null,
 	isPMDragging: false,
+	multiSelectDnD: undefined,
 };
 
 export interface FlagType {
 	isNestedEnabled: boolean;
+	isMultiSelectEnabled: boolean;
 }
 
 export const newApply = (
@@ -165,19 +183,19 @@ export const newApply = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
 ) => {
-	let { activeNode, decorations, isResizerResizing } = currentState;
+	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
 	const {
 		editorHeight,
 		editorWidthLeft,
 		editorWidthRight,
 		isDragging,
 		isMenuOpen, // NOT USED
-		isPMDragging, // NOT USED
+		isPMDragging,
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
 
-	// Remap existing decorations and activeNode when steps exist
+	// When steps exist, remap existing decorations, activeNode and multi select positions
 	if (tr.docChanged) {
 		decorations = decorations.map(tr.mapping, tr.doc);
 
@@ -190,11 +208,19 @@ export const newApply = (
 				nodeType: activeNode.nodeType,
 			};
 		}
+		if (multiSelectDnD && flags.isMultiSelectEnabled) {
+			multiSelectDnD.anchor = tr.mapping.map(multiSelectDnD.anchor);
+			multiSelectDnD.head = tr.mapping.map(multiSelectDnD.head);
+		}
 	}
 
 	const meta = tr.getMeta(key);
 	const resizerMeta = tr.getMeta('is-resizer-resizing');
 	isResizerResizing = resizerMeta ?? isResizerResizing;
+
+	if (multiSelectDnD && flags.isMultiSelectEnabled) {
+		multiSelectDnD = meta?.isDragging === false ? undefined : multiSelectDnD;
+	}
 
 	const { from, to, numReplaceSteps, isAllText } = getTrMetadata(tr);
 	const maybeNodeCountChanged = !isAllText && numReplaceSteps > 0;
@@ -336,6 +362,7 @@ export const newApply = (
 		isResizerResizing: isResizerResizing,
 		isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 		isPMDragging: meta?.isPMDragging ?? isPMDragging,
+		multiSelectDnD: meta?.multiSelectDnD ?? multiSelectDnD,
 	};
 };
 
@@ -591,8 +618,13 @@ export const createPlugin = (
 	const { formatMessage } = getIntl();
 	const isNestedEnabled = editorExperiment('nested-dnd', true, { exposure: true });
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
+	const isMultiSelectEnabled = editorExperiment(
+		'platform_editor_element_drag_and_drop_multiselect',
+		true,
+	);
 	const flags: FlagType = {
 		isNestedEnabled,
+		isMultiSelectEnabled,
 	};
 
 	let anchorRectCache: AnchorRectCache | undefined;
@@ -688,8 +720,11 @@ export const createPlugin = (
 
 					const isSameNode = !!(nodeTarget && draggable?.eq(nodeTarget));
 
-					if (isSameNode) {
-						// Prevent the default drop behavior if the position is within the activeNode
+					const isInSelection =
+						domPos >= state.selection.$from.pos && domPos < state.selection.$to.pos;
+
+					// Prevent the default drop behavior if the position is within the activeNode or Editor selection
+					if (isSameNode || (isInSelection && isMultiSelectEnabled)) {
 						event.preventDefault();
 						return true;
 					}

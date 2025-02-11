@@ -10,10 +10,15 @@ import type {
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
+	PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 import { getChildrenInfo, getNodeName, isReferencedSource } from '@atlaskit/editor-common/utils';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import type {
+	DecorationsPlugin,
+	HoverDecorationHandler,
+} from '@atlaskit/editor-plugin-decorations';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -157,9 +162,12 @@ const editButton = (
 
 interface GetToolbarConfigProps {
 	breakoutEnabled: boolean | undefined;
-	hoverDecoration: HoverDecorationHandler | undefined;
-	applyChangeToContextPanel: ApplyChangeHandler | undefined;
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	hoverDecoration?: HoverDecorationHandler | undefined;
+	applyChangeToContextPanel?: ApplyChangeHandler | undefined;
+	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined;
+	extensionApi?:
+		| PublicPluginAPI<[ContextPanelPlugin, AnalyticsPlugin, DecorationsPlugin]>
+		| undefined;
 }
 
 export const getToolbarConfig =
@@ -168,10 +176,17 @@ export const getToolbarConfig =
 		hoverDecoration,
 		applyChangeToContextPanel,
 		editorAnalyticsAPI,
+		extensionApi,
 	}: GetToolbarConfigProps): FloatingToolbarHandler =>
 	(state, intl) => {
 		const { formatMessage } = intl;
 		const extensionState = getPluginState(state);
+		if (fg('platform_editor_legacy_content_macro')) {
+			// TODO: Change these all to const upon removal of the above FG. Remove the function params also.
+			hoverDecoration = extensionApi?.decorations?.actions.hoverDecoration;
+			applyChangeToContextPanel = extensionApi?.contextPanel?.actions.applyChange;
+			editorAnalyticsAPI = extensionApi?.analytics?.actions;
+		}
 
 		if (extensionState && !extensionState.showContextPanel && extensionState.element) {
 			const nodeType = [

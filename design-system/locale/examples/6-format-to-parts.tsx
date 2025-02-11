@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
+
+import { jsx } from '@compiled/react';
+
+import { Label } from '@atlaskit/form';
+import { Box, xcss } from '@atlaskit/primitives';
+import TextField from '@atlaskit/textfield';
+
 import { createLocalizationProvider } from '../src';
 import LocaleSelect, { type Locale } from '../src/LocaleSelect';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from 'styled-components';
-import TextField from '@atlaskit/textfield';
-import { Label } from '@atlaskit/form';
 
 // eslint-disable-next-line @atlaskit/design-system/use-primitives, @atlaskit/ui-styling-standard/no-styled -- Keeping this around as an example of `styled-components` object syntax; no reason for it to exist otherwise. 'no-styled' to be migrated as part of go/ui-styling-standard
-const Wrapper = styled.div({
-	marginLeft: '20px',
-});
+const wrapperStyles = xcss({ marginInlineStart: 'space.250' });
 
 const options = {
 	year: 'numeric',
@@ -59,7 +65,7 @@ export default () => {
 	};
 
 	return (
-		<Wrapper>
+		<Box xcss={wrapperStyles}>
 			<Label htmlFor="locale">Locale</Label>
 			<LocaleSelect id="locale" onLocaleChange={onLocaleChange} />
 			<Label htmlFor="date">Try your date</Label>
@@ -75,6 +81,6 @@ export default () => {
 			<pre>{JSON.stringify(l10n.formatToParts(now), undefined, 2)}</pre>
 			<h3>12-hour format</h3>
 			<pre>{JSON.stringify(l10n12Hour.formatToParts(now), undefined, 2)}</pre>
-		</Wrapper>
+		</Box>
 	);
 };

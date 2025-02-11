@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const EQUALITY_THRESHOLD = 0.1;
 const ANCESTOR_LOOKUP_LIMIT = 10;
 
@@ -160,20 +158,15 @@ export class SSRPlaceholderHandlers {
 
 				const rect = this.staticPlaceholders.get(staticKey);
 
-				if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
-					const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
-					if (hasSameSizePosition || this.isDummyRect(rect)) {
-						resolve(hasSameSizePosition);
-					} else {
-						requestAnimationFrame(() => {
-							const targetRect = target.getBoundingClientRect();
-							const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
-							resolve(hasSameSizePosition);
-						});
-					}
-				} else {
-					const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+				if (hasSameSizePosition || this.isDummyRect(rect)) {
 					resolve(hasSameSizePosition);
+				} else {
+					requestAnimationFrame(() => {
+						const targetRect = target.getBoundingClientRect();
+						const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+						resolve(hasSameSizePosition);
+					});
 				}
 
 				this.callbacks.delete(staticKey);
@@ -187,20 +180,15 @@ export class SSRPlaceholderHandlers {
 			}
 
 			const rect = this.staticPlaceholders.get(key);
-			if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
-				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
-				if (hasSameSizePosition || this.isDummyRect(rect)) {
-					resolve(hasSameSizePosition);
-				} else {
-					requestAnimationFrame(() => {
-						const targetRect = target.getBoundingClientRect();
-						const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
-						resolve(hasSameSizePosition);
-					});
-				}
-			} else {
-				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+			const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+			if (hasSameSizePosition || this.isDummyRect(rect)) {
 				resolve(hasSameSizePosition);
+			} else {
+				requestAnimationFrame(() => {
+					const targetRect = target.getBoundingClientRect();
+					const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+					resolve(hasSameSizePosition);
+				});
 			}
 
 			this.staticPlaceholders.delete(staticKey);

@@ -1,5 +1,155 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Provider } from '../..';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+
+const step1 = {
+	userId: 'ari:cloud:identity::user/123',
+	clientId: 123,
+	from: 1,
+	to: 4,
+	stepType: 'replace',
+	slice: {
+		content: [{ type: 'paragraph', content: [{ type: 'text', text: 'abc' }] }],
+	},
+};
+
+const step2 = {
+	userId: 'ari:cloud:identity::user/123',
+	clientId: 123,
+	from: 1,
+	to: 3,
+	stepType: 'replace',
+	slice: {
+		content: [{ type: 'paragraph', content: [{ type: 'text', text: 'ab' }] }],
+	},
+};
+
+const pmSteps = [
+	ProseMirrorStep.fromJSON(defaultSchema, step1),
+	ProseMirrorStep.fromJSON(defaultSchema, step2),
+];
+
+const expectedObfuscatedSteps = [
+	{
+		stepContent: [
+			{
+				content: [
+					{
+						attrs: {
+							localId: null,
+						},
+						content: [
+							{
+								text: 'lor',
+								type: 'text',
+							},
+						],
+						type: 'paragraph',
+					},
+				],
+				type: 'doc',
+			},
+		],
+		stepMetadata: undefined,
+		stepPositions: {
+			from: 1,
+			to: 4,
+		},
+		stepType: {
+			contentTypes: 'paragraph',
+			type: 'replace',
+		},
+	},
+	{
+		stepContent: [
+			{
+				content: [
+					{
+						attrs: {
+							localId: null,
+						},
+						content: [
+							{
+								text: 'lo',
+								type: 'text',
+							},
+						],
+						type: 'paragraph',
+					},
+				],
+				type: 'doc',
+			},
+		],
+		stepMetadata: undefined,
+		stepPositions: {
+			from: 1,
+			to: 3,
+		},
+		stepType: {
+			contentTypes: 'paragraph',
+			type: 'replace',
+		},
+	},
+];
+
+const editorState: any = {
+	content: Node.fromJSON(defaultSchema, {
+		type: 'doc',
+		content: [
+			{
+				type: 'paragraph',
+				content: [
+					{ type: 'text', text: 'Hello, World!' },
+					{
+						// Add a node that looks different in ADF
+						type: 'text',
+						marks: [
+							{
+								type: 'typeAheadQuery',
+								attrs: {
+									trigger: '/',
+								},
+							},
+						],
+						text: '/',
+					},
+				],
+			},
+		],
+	}),
+};
+
+const expectedObfuscatedDoc = {
+	content: [
+		{
+			attrs: {
+				localId: null,
+			},
+			content: [
+				{
+					text: 'Lorem, Ipsum!',
+					type: 'text',
+				},
+				{
+					marks: [
+						{
+							attrs: {
+								trigger: '/',
+							},
+							type: 'typeAheadQuery',
+						},
+					],
+					text: '/',
+					type: 'text',
+				},
+			],
+			type: 'paragraph',
+		},
+	],
+	type: 'doc',
+};
 
 describe('DocumentService onRestore', () => {
 	let dummyPayload: any;
@@ -296,8 +446,8 @@ describe('DocumentService onRestore', () => {
 
 				// When unconfirmedSteps are in range and targetClientId is provided and matches clientId
 				// should restore document using applyLocalSteps only
-				getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
-				getCurrentStateSpy.mockReturnValue({ content: 'something' });
+				getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
+				getCurrentStateSpy.mockReturnValue(editorState);
 
 				await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
 				expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
@@ -311,6 +461,8 @@ describe('DocumentService onRestore', () => {
 					hasTitle: true,
 					targetClientId: '123456',
 					triggeredByCatchup: true,
+					obfuscatedSteps: expectedObfuscatedSteps,
+					obfuscatedDoc: expectedObfuscatedDoc,
 				});
 				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
 					numUnconfirmedSteps: 2,
@@ -353,8 +505,8 @@ describe('DocumentService onRestore', () => {
 
 				// When unconfirmedSteps are out of range and targetClientId is provided and matches clientId
 				// should restore document using applyLocalSteps first and then catching error to fetch reconcile
-				getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
-				getCurrentStateSpy.mockReturnValue({ content: 'something' });
+				getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
+				getCurrentStateSpy.mockReturnValue(editorState);
 				applyLocalStepsSpy.mockImplementation(() => {
 					throw new RangeError('Out of range index');
 				});
@@ -372,6 +524,8 @@ describe('DocumentService onRestore', () => {
 					hasTitle: true,
 					targetClientId: '123456',
 					triggeredByCatchup: true,
+					obfuscatedSteps: expectedObfuscatedSteps,
+					obfuscatedDoc: expectedObfuscatedDoc,
 				});
 				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
 					numUnconfirmedSteps: 2,

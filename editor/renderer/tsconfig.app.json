@@ -65,9 +65,6 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
-			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{

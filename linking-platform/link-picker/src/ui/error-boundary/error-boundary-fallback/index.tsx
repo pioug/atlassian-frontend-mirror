@@ -2,14 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { defineMessages, useIntl } from 'react-intl-next';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { LINK_PICKER_MIN_HEIGHT_IN_PX_FALLBACK } from '../../../common/constants';
 import { GenericErrorSVG } from '../../../common/generic-error-svg';
 import { EmptyState } from '../../../common/ui/empty-state';
 import { MinHeightContainer } from '../../../common/ui/min-height-container';
+
+import { ErrorBoundaryFallbackOld } from './old';
 
 const errorBoundaryFallbackStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -29,7 +32,7 @@ const messages = defineMessages({
 	},
 });
 
-export const ErrorBoundaryFallback = () => {
+export const ErrorBoundaryFallbackNew = () => {
 	const intl = useIntl();
 	const header = intl.formatMessage(messages.heading);
 	const description = intl.formatMessage(messages.description);
@@ -47,4 +50,11 @@ export const ErrorBoundaryFallback = () => {
 			/>
 		</MinHeightContainer>
 	);
+};
+
+export const ErrorBoundaryFallback = () => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <ErrorBoundaryFallbackNew />;
+	}
+	return <ErrorBoundaryFallbackOld />;
 };

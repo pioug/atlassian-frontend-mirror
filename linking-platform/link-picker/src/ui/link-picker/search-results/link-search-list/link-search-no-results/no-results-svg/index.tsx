@@ -2,8 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { NoResultsSVGOld } from './old';
 
 const HEIGHT = 120;
 
@@ -12,7 +15,7 @@ const noResultsSVGStyles = css({
 	display: 'block',
 });
 
-export const NoResultsSVG = () => {
+export const NoResultsSVGNew = (): JSX.Element => {
 	const id = 'link-picker-ui-no-results-svg';
 
 	return (
@@ -69,4 +72,11 @@ export const NoResultsSVG = () => {
 			</defs>
 		</svg>
 	);
+};
+
+export const NoResultsSVG = (props: React.SVGProps<SVGSVGElement>) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <NoResultsSVGNew {...props} />;
+	}
+	return <NoResultsSVGOld {...props} />;
 };

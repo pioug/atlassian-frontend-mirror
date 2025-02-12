@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Search for fields',
   'linkDataSource.column-picker.tooltip': 'Configure columns',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Search for issues by keyword',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Search for work items by keyword',
   'linkDataSource.configmodal.cancelButtonText': 'Cancel',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Cancel',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'after {date}',
@@ -77,6 +78,7 @@ export default {
     'Connect your {providerName} account to collaborate on work across Atlassian products.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Connect your {providerName} account',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Learn more about Smart Links.',
+  'linkDataSource.issue-line-table.edit-button-label.non-final': '{fieldValue}, {fieldName} field',
   'linkDataSource.issue-line-table.error-403-description': 'You need the right permissions to edit this item.',
   'linkDataSource.issue-line-table.error-403-title': 'Changes not saved',
   'linkDataSource.issue-line-table.error-generic-description':
@@ -97,11 +99,17 @@ export default {
     "You can't switch to basic for this query.",
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Basic',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Search for issues by keyword',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Search for work items by keyword',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Choose site',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insert issues',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Insert work items',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insert Jira issues',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Insert Jira work items',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insert Jira issues from',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Insert Jira work items from',
   'linkDataSource.jira-issues.configmodal.placeholder.issues': '### Issues',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### work items',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Display the number of search results as an inline Smart Link',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline link',
@@ -122,9 +130,14 @@ export default {
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Search for Jira issues',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Learn how to search with JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic': 'Search by keyword for issues to insert.',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Search by keyword for work items to insert.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Search by keyword for pages to insert.',
   'linkDataSource.modal-initial-state.searchDescription-jql': 'Use JQL (Jira Query Language) to search for issues.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Use JQL (Jira Query Language) to search for work items.',
   'linkDataSource.modal-initial-state.searchTitle': 'Search for Jira issues',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Search for Jira work items',
   'linkDataSource.no.jira.sites.access.description': 'To request access, contact your admin.',
   'linkDataSource.no.jira.sites.access.title': "You don't have access to any Jira sites",
   'linkDataSource.noResultsFound': 'No results found',
@@ -133,6 +146,8 @@ export default {
   'linkDataSource.render-type.boolean.true': 'Yes',
   'linkDataSource.render-type.user.default.display.name': 'Unassigned',
   'linkDataSource.search.configmodal.issueCountText': '{searchCount, plural, one {# issue} other {# issues}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {# work item} other {# work items}}',
   'linkDataSource.search.configmodal.itemCountText': '{searchCount, plural, one {# item} other {# items}}',
   'linkDataSource.search.configmodal.resultCountText': '{searchCount, plural, one {# result} other {# results}}',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Choose site',

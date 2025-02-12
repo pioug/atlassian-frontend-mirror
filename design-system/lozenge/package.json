@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/lozenge",
-	"version": "11.13.2",
+	"version": "11.13.3",
 	"description": "A lozenge is a visual indicator used to highlight an item's status for quick recognition.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -60,10 +60,12 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
+		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/heading": "^4.1.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^18.2.0",

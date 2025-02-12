@@ -1,5 +1,69 @@
 # @atlaskit/icon-lab
 
+## 2.5.0
+
+### Minor Changes
+
+- [#111393](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111393)
+  [`cbcdf9cbfacf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbcdf9cbfacf7) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `align-content-bottom`
+  - `align-content-center-horizontal`
+  - `align-content-center-vertical`
+  - `align-content-left`
+  - `align-content-right`
+  - `align-content-top`
+  - `align-position-bottom`
+  - `align-position-center-vertical`
+  - `align-position-top`
+  - `cursor-strikethrough`
+  - `cursor`
+  - `drop-shadow`
+  - `group-selection`
+  - `group-ungroup-selection`
+  - `hand`
+  - `incognito`
+  - `jira`
+  - `section`
+  - `shape-diamond`
+  - `shape-ellipse`
+  - `shape-parallelogram-skew-left`
+  - `shape-parallelogram-skew-right`
+  - `shape-rectangle-rounded`
+  - `shape-rectangle`
+  - `shape-triangle-inverted`
+  - `shape-triangle`
+  - `signature`
+  - `stamp`
+  - `sticker`
+  - `stroke-curvature-curved`
+  - `stroke-curvature-dynamic`
+  - `stroke-curvature-straight`
+  - `stroke-properties`
+  - `stroke-style-dashed`
+  - `stroke-style-dotted`
+  - `stroke-style-solid`
+  - `swap`
+  - `template`
+  - `tidy`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `cloud-offline`
+  - `cloud-saved`
+  - `database-storage-cache`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

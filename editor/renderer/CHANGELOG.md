@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 112.14.0
+
+### Minor Changes
+
+- [#108891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108891)
+  [`f2cdf63d500f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2cdf63d500f1) -
+  Removing rolled out feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.13.1
+
+### Patch Changes
+
+- [#112949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112949)
+  [`3204ff13be49e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3204ff13be49e) -
+  [ux] ED-26481 Disable sticky headers for nested tables in renderer
+
 ## 112.13.0
 
 ### Minor Changes

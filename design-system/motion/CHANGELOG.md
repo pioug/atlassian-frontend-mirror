@@ -1,5 +1,16 @@
 # @atlaskit/motion
 
+## 2.0.0
+
+### Major Changes
+
+- [#109511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109511)
+  [`18d4f58b2d05d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18d4f58b2d05d) -
+  Motion now only accepts static duration values via the `duration` props of `SlideIn` / `FadeIn` /
+  etc components. These have been replaced with an enumerated list of durations `small`, `medium`,
+  `large` and `none`. This was done in order to support adoption of `@compiled/react`, which does
+  not have support for dynamic css properties when in extraction mode.
+
 ## 1.10.0
 
 ### Minor Changes

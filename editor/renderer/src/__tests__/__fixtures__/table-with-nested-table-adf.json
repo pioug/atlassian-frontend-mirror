@@ -1,0 +1,199 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "table",
+			"attrs": {
+				"isNumberColumnEnabled": false,
+				"layout": "default"
+			},
+			"content": [
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableHeader",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Table header 1",
+											"marks": []
+										}
+									]
+								},
+								{
+									"type": "table",
+									"attrs": {
+										"isNumberColumnEnabled": false,
+										"layout": "default"
+									},
+									"content": [
+										{
+											"type": "tableRow",
+											"content": [
+												{
+													"type": "tableHeader",
+													"attrs": {},
+													"content": [
+														{
+															"type": "paragraph",
+															"content": [
+																{
+																	"type": "text",
+																	"text": "Table header 1",
+																	"marks": []
+																}
+															]
+														}
+													]
+												},
+												{
+													"type": "tableHeader",
+													"attrs": {},
+													"content": [
+														{
+															"type": "paragraph",
+															"content": [
+																{
+																	"type": "text",
+																	"text": "Table header 2",
+																	"marks": []
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"type": "tableRow",
+											"content": [
+												{
+													"type": "tableCell",
+													"attrs": {},
+													"content": [
+														{
+															"type": "paragraph",
+															"content": [
+																{
+																	"type": "text",
+																	"text": "Cell 1"
+																}
+															]
+														}
+													]
+												},
+												{
+													"type": "tableCell",
+													"attrs": {},
+													"content": [
+														{
+															"type": "paragraph",
+															"content": [
+																{
+																	"type": "text",
+																	"text": "Cell 2"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "tableHeader",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Table header 2",
+											"marks": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "tableHeader",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Table header 3",
+											"marks": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableCell",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Cell 1"
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Cell 2"
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "tableCell",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Cell 3"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

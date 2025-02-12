@@ -130,7 +130,7 @@ const BotProfileCardDetails = (props: ProfilecardProps) => {
 	return (
 		<DetailsGroup>
 			{renderName(nickname, fullName)}
-			<AppTitleLabel>App</AppTitleLabel>
+			<AppTitleLabel>APP</AppTitleLabel>
 		</DetailsGroup>
 	);
 };
@@ -201,7 +201,9 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
 			<Box as="dl" xcss={detailedListWrapperStyles}>
-				<IconLabel icon="email">{props.email}</IconLabel>
+				<IconLabel icon="email" extraTopSpace={true}>
+					{props.email}
+				</IconLabel>
 				<IconLabel icon="time">{props.timestring}</IconLabel>
 				<IconLabel icon="companyName">{props.companyName}</IconLabel>
 				<IconLabel icon="location">{props.location}</IconLabel>

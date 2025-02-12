@@ -8,7 +8,7 @@ import { forwardRef, Fragment, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { easeInOut, smallDurationMs } from '@atlaskit/motion';
+import { durations, easeInOut } from '@atlaskit/motion';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -102,7 +102,8 @@ const Rating = forwardRef<HTMLLabelElement, InternalRatingProps>(
 					htmlFor={id}
 					data-testid={testId && `${testId}--label`}
 					style={{
-						transition: `transform ${smallDurationMs}ms ${easeInOut}`,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						transition: `transform ${durations.small}ms ${easeInOut}`,
 						transform: isChecked ? 'scale(1.2)' : undefined,
 					}}
 				>

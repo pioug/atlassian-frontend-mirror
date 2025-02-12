@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 22.1.0
+
+### Minor Changes
+
+- [#113227](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113227)
+  [`d8c1edd78e6d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8c1edd78e6d4) -
+  Compiled migration - user profile card
+
 ## 22.0.3
 
 ### Patch Changes

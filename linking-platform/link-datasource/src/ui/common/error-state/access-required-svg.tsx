@@ -1,6 +1,7 @@
 import React from 'react';
 
-export const AccessRequiredSVG = () => (
+// TODO Delete when cleaning fg('bandicoots-update-sllv-icons')
+export const AccessRequiredSVGOld = () => (
 	<svg width="75" height="87" viewBox="0 0 75 87" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<g clipPath="url(#clip0_4923_331188)">
 			<rect width="74" height="87" transform="translate(0.5)" fill="white" fillOpacity="0.01" />

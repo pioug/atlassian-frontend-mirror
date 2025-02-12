@@ -2,13 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useState } from 'react';
 import { useIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 
 import { type ThemeColorModes, token, useThemeObserver } from '@atlaskit/tokens';
+import { type OnCloseHandler } from '@atlaskit/modal-dialog';
 import { Tab, TabList } from '@atlaskit/tabs';
-import { Box, Flex, xcss, Stack } from '@atlaskit/primitives';
+import { Box, Flex, xcss, Stack, Inline } from '@atlaskit/primitives';
 import { IconButton } from '@atlaskit/button/new';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Heading from '@atlaskit/heading';
@@ -16,6 +18,7 @@ import { useModal } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
 import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
+import CloseIcon from '@atlaskit/icon/core/close';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 
 import { messages } from '../../shared/i18n';
@@ -34,6 +37,19 @@ const containerEdgeAngle: containerEdgeAngleType = {
 	rightEdge: 270,
 	leftEdge: 90,
 };
+
+const leftNavigationStyle = xcss({
+	marginLeft: 'space.200',
+	alignSelf: 'self-start',
+	marginTop: 'space.050',
+});
+
+const rightNavigationStyle = xcss({
+	marginRight: 'space.100',
+	marginLeft: 'auto',
+	alignSelf: 'self-start',
+	marginTop: 'space.050',
+});
 
 const fadedCss = (edge: keyof containerEdgeAngleType, theme?: ThemeColorModes) =>
 	css({
@@ -60,6 +76,8 @@ const customTabListStyles = css({
 		// paddingInline exists to maintain styling prior to @atlaskit/tabs update that removed baked in horizontal padding
 		paddingInline: token('space.100', '8px'),
 	},
+	width: ' 100%',
+	alignItems: 'flex-start',
 });
 
 const customTabWrapper = (theme?: ThemeColorModes) =>
@@ -121,56 +139,56 @@ interface ReactionsDialogModalHeaderProps {
 	currentPage: number;
 	maxPages: number;
 	emojiProvider: Promise<EmojiProvider>;
-	selectedEmojiId: string;
 	currentReactions: ReactionSummary[];
+	handleCloseReactionsDialog: OnCloseHandler;
 }
 
-type ReactionsTabsProps = Pick<
-	ReactionsDialogModalHeaderProps,
-	'currentReactions' | 'emojiProvider' | 'selectedEmojiId'
->;
+type CloseButtonProp = Pick<ReactionsDialogModalHeaderProps, 'handleCloseReactionsDialog'>;
+const CloseButton = ({ handleCloseReactionsDialog }: CloseButtonProp) => {
+	const intl = useIntl();
 
-const ReactionsTabs = ({
-	currentReactions,
-	emojiProvider,
-	selectedEmojiId,
-}: ReactionsTabsProps) => {
-	const { colorMode } = useThemeObserver();
 	return (
-		<div css={customTabListStyles} id="reactions-dialog-tabs-list">
-			<TabList>
-				{currentReactions.map((reaction, index) => {
-					const emojiId = { id: reaction.emojiId, shortName: '' };
+		<IconButton
+			onClick={handleCloseReactionsDialog}
+			icon={CloseIcon}
+			label={intl.formatMessage(messages.closeReactionsDialog)}
+			appearance="subtle"
+			isTooltipDisabled={false}
+		/>
+	);
+};
 
-					return (
-						<div
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							css={[customTabWrapper(colorMode), index === 0 ? firstElement : []]}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className="reaction-elements"
-							key={reaction.emojiId}
-							data-testid={emojiId?.id}
-						>
-							<Tab>
-								<Flex justifyContent="center" alignItems="center" direction="row">
-									<Box xcss={emojiStyles}>
-										<ResourcedEmoji
-											emojiProvider={emojiProvider}
-											emojiId={emojiId}
-											fitToHeight={16}
-											showTooltip
-										/>
-									</Box>
-									<Box xcss={counterStyle}>
-										<Counter value={reaction.count} />
-									</Box>
-								</Flex>
-							</Tab>
-						</div>
-					);
-				})}
-			</TabList>
-		</div>
+type LeftNavigationButtonProp = Pick<ReactionsDialogModalHeaderProps, 'handlePreviousPage'>;
+const LeftNavigationButton = ({ handlePreviousPage }: LeftNavigationButtonProp) => {
+	const intl = useIntl();
+
+	return (
+		<Flex xcss={leftNavigationStyle}>
+			<IconButton
+				spacing="compact"
+				onClick={handlePreviousPage}
+				icon={ChevronLeftIcon}
+				label={intl.formatMessage(messages.leftNavigateLabel)}
+				isTooltipDisabled={false}
+			/>
+		</Flex>
+	);
+};
+
+type RightNavigationButtonProp = Pick<ReactionsDialogModalHeaderProps, 'handleNextPage'>;
+const RightNavigationButton = ({ handleNextPage }: RightNavigationButtonProp) => {
+	const intl = useIntl();
+
+	return (
+		<Flex xcss={rightNavigationStyle}>
+			<IconButton
+				spacing="compact"
+				onClick={handleNextPage}
+				icon={ChevronRightIcon}
+				label={intl.formatMessage(messages.rightNavigateLabel)}
+				isTooltipDisabled={false}
+			/>
+		</Flex>
 	);
 };
 
@@ -182,14 +200,42 @@ export const ReactionsDialogHeader = ({
 	maxPages,
 	currentReactions,
 	emojiProvider,
-	selectedEmojiId,
+	handleCloseReactionsDialog,
 }: ReactionsDialogModalHeaderProps) => {
+	const [cache, setCache] = useState<{ [key: string]: string }>({});
+
 	const { titleId } = useModal();
 	const intl = useIntl();
+	const { colorMode } = useThemeObserver();
 
 	const isSinglePage = maxPages === 1;
 	const isOnFirstPage = currentPage === 1;
 	const isOnLastPage = currentPage === maxPages;
+
+	const handleHover = (reaction: ReactionSummary) => {
+		const { emojiId } = reaction;
+
+		if (!emojiId || cache[emojiId]) {
+			return;
+		}
+
+		(async () => {
+			const provider = await emojiProvider;
+			const emoji = await provider.findByEmojiId({
+				shortName: '',
+				id: emojiId,
+			});
+
+			if (emoji?.name) {
+				// capitalize first letter of each string
+				const capitalizedName = emoji.name.replace(/\b\w/g, (char) => char.toUpperCase());
+				setCache((prevCache) => ({
+					...prevCache,
+					[emojiId]: capitalizedName,
+				}));
+			}
+		})();
+	};
 
 	return (
 		<Stack>
@@ -204,44 +250,60 @@ export const ReactionsDialogHeader = ({
 						count: totalReactionsCount,
 					})}
 				</Heading>
-				{!isSinglePage && (
-					<Flex alignItems="center" gap="space.100">
-						<Tooltip
-							content={intl.formatMessage(messages.leftNavigateLabel)}
-							canAppear={() => !isOnFirstPage}
-						>
-							{(tooltipProps) => (
-								<IconButton
-									{...tooltipProps}
-									isDisabled={isOnFirstPage}
-									onClick={handlePreviousPage}
-									icon={ChevronLeftIcon}
-									label={intl.formatMessage(messages.leftNavigateLabel)}
-								/>
-							)}
-						</Tooltip>
-						<Tooltip
-							content={intl.formatMessage(messages.rightNavigateLabel)}
-							canAppear={() => !isOnLastPage}
-						>
-							{(tooltipProps) => (
-								<IconButton
-									{...tooltipProps}
-									onClick={handleNextPage}
-									isDisabled={isOnLastPage}
-									icon={ChevronRightIcon}
-									label={intl.formatMessage(messages.rightNavigateLabel)}
-								/>
-							)}
-						</Tooltip>
-					</Flex>
-				)}
+				<CloseButton handleCloseReactionsDialog={handleCloseReactionsDialog} />
 			</Flex>
-			<ReactionsTabs
-				currentReactions={currentReactions}
-				emojiProvider={emojiProvider}
-				selectedEmojiId={selectedEmojiId}
-			/>
+			<Inline>
+				<div css={customTabListStyles} id="reactions-dialog-tabs-list">
+					<TabList>
+						{!isSinglePage && !isOnFirstPage && (
+							<LeftNavigationButton handlePreviousPage={handlePreviousPage} />
+						)}
+
+						{/* Actual tabs - can't move to its own component as React Fragment doesn't play well with TabList */}
+						{currentReactions.map((reaction, index) => {
+							const emojiId = { id: reaction.emojiId, shortName: '' };
+
+							return (
+								// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+								<div
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									css={[customTabWrapper(colorMode), index === 0 ? firstElement : []]}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+									className="reaction-elements"
+									key={reaction.emojiId}
+									data-testid={emojiId?.id}
+									onMouseEnter={() => handleHover(reaction)}
+								>
+									<Tab>
+										<Tooltip
+											content={cache[reaction.emojiId]}
+											canAppear={() => !!cache[reaction.emojiId]}
+										>
+											<Flex justifyContent="center" alignItems="center" direction="row">
+												<Box xcss={emojiStyles}>
+													<ResourcedEmoji
+														emojiProvider={emojiProvider}
+														emojiId={emojiId}
+														fitToHeight={16}
+														showTooltip
+													/>
+												</Box>
+												<Box xcss={counterStyle}>
+													<Counter value={reaction.count} />
+												</Box>
+											</Flex>
+										</Tooltip>
+									</Tab>
+								</div>
+							);
+						})}
+
+						{!isSinglePage && !isOnLastPage && (
+							<RightNavigationButton handleNextPage={handleNextPage} />
+						)}
+					</TabList>
+				</div>
+			</Inline>
 		</Stack>
 	);
 };

@@ -6,6 +6,7 @@
 import { jsx } from '@emotion/react';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { type ReactionSummary, type ProfileCardWrapper } from '../../types';
+import { Box } from '@atlaskit/primitives';
 
 import { ReactionView } from './ReactionView';
 
@@ -35,7 +36,7 @@ export const ReactionsList = ({
 	ProfileCardWrapper,
 }: ReactionsListProps) => {
 	return (
-		<div>
+		<Box>
 			{reactions.map((reaction) => {
 				if (reaction.emojiId === selectedEmojiId) {
 					return (
@@ -51,6 +52,6 @@ export const ReactionsList = ({
 					return null;
 				}
 			})}
-		</div>
+		</Box>
 	);
 };

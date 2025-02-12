@@ -17,13 +17,17 @@ import { caption, doc, media, mediaSingle, p } from '@atlaskit/editor-test-helpe
 import captionNodeView from './index';
 
 const createEditorTestingLibrary = createEditorFactory();
-const editor = (doc: (schema: Schema<string, string>) => RefsNode) =>
-	createEditorTestingLibrary({
+const editor = (
+	doc: (schema: Schema<string, string>) => RefsNode,
+	{ allowImagePreview = false }: { allowImagePreview?: boolean } = {},
+) => {
+	return createEditorTestingLibrary({
 		doc,
 		editorProps: {
-			media: { allowMediaSingle: true, allowCaptions: true },
+			media: { allowMediaSingle: true, allowCaptions: true, allowImagePreview },
 		},
 	});
+};
 
 const mediaNodeAttrs = {
 	id: 'a559980d-cd47-43e2-8377-27359fcb905f',
@@ -50,6 +54,17 @@ describe('caption', () => {
 		expect(screen.getByText('Add a caption')).not.toBeNull();
 	});
 
+	it("should show a placeholder with image viewer suggestion if there's no children and allowImagePreview is enabled", () => {
+		editor(
+			doc(
+				'{<node>}', // node selection
+				mediaSingle()(media(mediaNodeAttrs)()),
+			),
+			{ allowImagePreview: true },
+		);
+		expect(screen.getByText('Add a caption - double-click to preview')).not.toBeNull();
+	});
+
 	it('should not show a placeholder when selecting away from media single', async () => {
 		const { editorView } = editor(
 			doc(
@@ -58,7 +73,7 @@ describe('caption', () => {
 				p('this is a random piece of text'),
 			),
 		);
-		let caption = await screen.findByText('Add a caption');
+		const caption = await screen.findByText('Add a caption');
 		expect(caption).toBeDefined();
 		setTextSelection(editorView, 13, 14);
 		expect(screen.queryByText('Add a caption')).toBeNull();
@@ -74,7 +89,7 @@ describe('caption', () => {
 		);
 		expect(screen.queryByText('Add a caption')).toBeNull();
 		setNodeSelection(editorView, 0);
-		let caption = await screen.findByText('Add a caption');
+		const caption = await screen.findByText('Add a caption');
 		expect(caption).toBeDefined();
 	});
 });

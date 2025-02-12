@@ -1,6 +1,5 @@
 import { createElement } from 'react';
 
-import ReactDOM from 'react-dom';
 import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
@@ -10,7 +9,6 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
@@ -138,18 +136,11 @@ export const createDropTargetDecoration = (
 			element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP, `${gap}px`);
 			element.style.setProperty('display', 'block');
 
-			if (fg('platform_editor_react18_plugin_portalprovider')) {
-				nodeViewPortalProviderAPI.render(
-					() => createElement(DropTarget, { ...props, getPos, anchorRectCache, isSameLayout }),
-					element,
-					key,
-				);
-			} else {
-				ReactDOM.render(
-					createElement(DropTarget, { ...props, getPos, anchorRectCache, isSameLayout }),
-					element,
-				);
-			}
+			nodeViewPortalProviderAPI.render(
+				() => createElement(DropTarget, { ...props, getPos, anchorRectCache, isSameLayout }),
+				element,
+				key,
+			);
 
 			return element;
 		},
@@ -182,18 +173,11 @@ export const createLayoutDropTargetDecoration = (
 			element.setAttribute('data-blocks-drop-target-key', key);
 			element.style.clear = 'unset';
 
-			if (fg('platform_editor_react18_plugin_portalprovider')) {
-				nodeViewPortalProviderAPI.render(
-					() => createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
-					element,
-					key,
-				);
-			} else {
-				ReactDOM.render(
-					createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
-					element,
-				);
-			}
+			nodeViewPortalProviderAPI.render(
+				() => createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
+				element,
+				key,
+			);
 			return element;
 		},
 		{

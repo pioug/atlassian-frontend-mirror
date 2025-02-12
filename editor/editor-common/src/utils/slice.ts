@@ -1,4 +1,5 @@
-import { Fragment, type Node, Slice } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * A helper to get the underlying array of a fragment.
@@ -66,3 +67,23 @@ export function mapChildren<T>(node: Node | Fragment, callback: MapWithCallback<
 
 	return array;
 }
+
+const findNode =
+	(predicate: (node: Node) => boolean) =>
+	(slice: Slice): Node | null => {
+		let foundNode = null;
+		slice.content.nodesBetween(0, slice.content.size, (node) => {
+			if (predicate(node)) {
+				foundNode = node;
+				return false;
+			}
+			return true;
+		});
+		return foundNode;
+	};
+
+export const hasNode =
+	(predicate: (node: Node) => boolean) =>
+	(slice: Slice): boolean => {
+		return !!findNode(predicate)(slice);
+	};

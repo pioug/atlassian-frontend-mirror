@@ -2,7 +2,6 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { date } from '@atlaskit/adf-schema';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import {
 	ACTION,
@@ -32,6 +31,7 @@ import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatePlugin } from './datePluginType';
+import { dateNodeSpec } from './nodeviews/dateNodeSpec';
 import { closeDatePicker, closeDatePickerWithAnalytics, createDate } from './pm-plugins/actions';
 import { deleteDateCommand, insertDateCommand } from './pm-plugins/commands';
 import keymap from './pm-plugins/keymap';
@@ -165,7 +165,7 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 	},
 
 	nodes() {
-		return [{ name: 'date', node: date }];
+		return [{ name: 'date', node: dateNodeSpec() }];
 	},
 
 	pmPlugins() {

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.26.0
+
+### Minor Changes
+
+- [#111831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111831)
+  [`66895944dfac9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66895944dfac9) -
+  [ED-26430] Block drag-and-drop of legacy content macro extension
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.25.0
 
 ### Minor Changes

@@ -95,13 +95,17 @@ test.describe('JiraIssuesModal', () => {
 
 		await expect(
 			page
-				.getByTestId('jira-datasource-table--row-DONUT-11720')
+				.getByTestId(
+					'jira-datasource-table--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/10',
+				)
 				.getByTestId('jira-datasource-table--cell-2'),
 		).toBeVisible();
 
 		await expect(
 			page
-				.getByTestId('jira-datasource-table--row-DONUT-11730')
+				.getByTestId(
+					'jira-datasource-table--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/20',
+				)
 				.getByTestId('jira-datasource-table--cell-2'),
 		).toBeVisible();
 	});

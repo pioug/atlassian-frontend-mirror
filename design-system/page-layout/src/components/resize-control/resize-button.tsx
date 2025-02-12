@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -9,7 +11,7 @@ import { css, jsx } from '@emotion/react';
 
 import ChevronRight from '@atlaskit/icon/utility/migration/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
-import { mediumDurationMs, smallDurationMs } from '@atlaskit/motion/durations';
+import { durations } from '@atlaskit/motion/durations';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -55,9 +57,9 @@ const resizeIconButtonStyles = css({
 	outline: 0,
 	transform: 'translateX(-50%)',
 	transition: `
-    background-color ${smallDurationMs}ms linear,
-    color ${smallDurationMs}ms linear,
-    opacity ${mediumDurationMs}ms ${easeOut}
+    background-color ${durations.small}ms linear,
+    color ${durations.small}ms linear,
+    opacity ${durations.medium}ms ${easeOut}
   `,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {

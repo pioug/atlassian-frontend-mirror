@@ -4,12 +4,12 @@
  */
 import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../../common/types';
@@ -18,8 +18,50 @@ import { handleNavKeyDown } from '../../../../common/utils/handleNavKeyDown';
 
 import { NoResults, testIds as noResultsTestIds } from './link-search-no-results';
 import { LinkSearchListItem, testIds as searchResultItemTestIds } from './list-item';
-import { listContainerStyles, listStyles, listTitleStyles, spinnerContainerStyles } from './styled';
+import { LinkSearchListOld } from './old';
 import { useTrackResultsShown } from './use-track-results-shown';
+
+const styles = cssMap({
+	emptyStateNoResultsWrapper: {
+		minHeight: token('space.200'),
+	},
+});
+
+const listContainerStyles = css({
+	width: '100%',
+	paddingTop: 0,
+	minHeight: '80px',
+	marginTop: token('space.200', '16px'),
+	marginBottom: token('space.200', '16px'),
+	flexGrow: 1,
+	display: 'flex',
+	flexDirection: 'column',
+});
+
+const spinnerContainerStyles = css({
+	flexGrow: 1,
+	flexDirection: 'column',
+	alignItems: 'center',
+});
+
+const listStyles = css({
+	paddingTop: token('space.0', '0px'),
+	paddingRight: token('space.0', '0px'),
+	paddingBottom: token('space.0', '0px'),
+	paddingLeft: token('space.0', '0px'),
+	marginTop: token('space.0', '0px'),
+	marginBottom: token('space.0', '0px'),
+	marginLeft: 'calc(-1 * var(--link-picker-padding-left))',
+	marginRight: 'calc(-1 * var(--link-picker-padding-right))',
+	listStyle: 'none',
+});
+
+const listTitleStyles = css({
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.bold'),
+	color: token('color.text.subtlest'),
+	marginBottom: token('space.050', '4px'),
+});
 
 export const messages = defineMessages({
 	titleRecentlyViewed: {
@@ -69,11 +111,7 @@ export interface LinkSearchListProps
 	activePlugin?: LinkPickerPlugin;
 }
 
-const emptyStateNoResultsWrapper = xcss({
-	minHeight: 'space.200',
-});
-
-export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
+export const LinkSearchListNew = forwardRef<HTMLDivElement, LinkSearchListProps>(
 	(
 		{
 			onChange,
@@ -91,6 +129,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			hasSearchTerm,
 			activePlugin,
 			adaptiveHeight,
+			className,
 			...restProps
 		},
 		ref,
@@ -151,7 +190,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			if (!hasSearchTerm) {
 				const emptyState = activePlugin?.emptyStateNoResults?.();
 				if (emptyState) {
-					return <Box xcss={emptyStateNoResultsWrapper}>{emptyState}</Box>;
+					return <div css={styles.emptyStateNoResultsWrapper}>{emptyState}</div>;
 				}
 			}
 
@@ -164,7 +203,6 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			itemsContent = (
 				<Fragment>
 					<div
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={listTitleStyles}
 						id={testIds.resultListTitle}
 						data-testid={testIds.resultListTitle}
@@ -184,7 +222,6 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 					<ul
 						id={id}
 						role={role}
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 						css={listStyles}
 						aria-controls="fabric.smartcard.linkpicker.suggested.results"
 						aria-labelledby={testIds.resultListTitle}
@@ -216,7 +253,6 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			loadingContent = (
 				<MinHeightContainer
 					minHeight={adaptiveHeight ? '80px' : '50px'}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					css={spinnerContainerStyles}
 				>
 					<Spinner
@@ -229,11 +265,20 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		}
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<div ref={ref} css={listContainerStyles} {...restProps}>
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			<div ref={ref} css={listContainerStyles} className={className} {...restProps}>
 				{itemsContent}
 				{loadingContent}
 			</div>
 		);
+	},
+);
+
+export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
+	(props: LinkSearchListProps, ref) => {
+		if (fg('platform_bandicoots-link-picker-css')) {
+			return <LinkSearchListNew {...props} ref={ref} />;
+		}
+		return <LinkSearchListOld {...props} ref={ref} />;
 	},
 );

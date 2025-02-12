@@ -1,5 +1,14 @@
 # @atlaskit/eslint-utils
 
+## 1.9.1
+
+### Patch Changes
+
+- [#112918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112918)
+  [`1815ac282f76e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1815ac282f76e) -
+  Added utils to allow forward compatibility with ESLint v9 and backwards comaptibility with ESLint
+  v8 for context/sourceCode API changes
+
 ## 1.9.0
 
 ### Minor Changes

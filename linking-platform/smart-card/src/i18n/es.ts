@@ -88,10 +88,10 @@ export default {
   'fabric.linking.download_file': 'Descargar archivo',
   'fabric.linking.edit': 'Editar',
   'fabric.linking.follow': 'Seguir',
-  'fabric.linking.follow_goal': 'Seguir fin',
-  'fabric.linking.follow_goal_description': 'Sigue este fin para recibir notificaciones de las actualizaciones',
+  'fabric.linking.follow_goal': 'Seguir meta',
+  'fabric.linking.follow_goal_description': 'Sigue esta meta para recibir notificaciones de las actualizaciones',
   'fabric.linking.follow_goal_error':
-    'Se ha producido un error al intentar seguir el fin. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
+    'Se ha producido un error al intentar seguir la meta. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
   'fabric.linking.follow_project': 'Seguir proyecto',
   'fabric.linking.follow_project_description': 'Sigue para recibir notificaciones de este proyecto',
   'fabric.linking.follow_project_error':
@@ -181,10 +181,10 @@ export default {
   'fabric.linking.unauthorised_account_name': 'No podemos mostrar las páginas privadas de {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'No podemos mostrar páginas privadas',
   'fabric.linking.unfollow': 'Dejar de seguir',
-  'fabric.linking.unfollow_goal': 'Dejar de seguir fin',
-  'fabric.linking.unfollow_goal_description': 'Deja de seguir para no recibir más notificaciones de este fin',
+  'fabric.linking.unfollow_goal': 'Dejar de seguir meta',
+  'fabric.linking.unfollow_goal_description': 'Deja de seguir para no recibir más notificaciones de esta meta',
   'fabric.linking.unfollow_goal_error':
-    'Se ha producido un error al intentar dejar de seguir el fin. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
+    'Se ha producido un error al intentar dejar de seguir la meta. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
   'fabric.linking.unfollow_project': 'Dejar de seguir proyecto',
   'fabric.linking.unfollow_project_description': 'Deja de seguir para no recibir más notificaciones del proyecto',
   'fabric.linking.unfollow_project_error':

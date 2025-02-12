@@ -1,5 +1,6 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
+import { durations, exitingDurations } from '@atlaskit/motion';
 import { B400 } from '@atlaskit/theme/colors';
 import { act, screen } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
@@ -78,45 +79,43 @@ describe('@atlaskit/reactions/components/Counter', () => {
 	});
 
 	describe('should animate number', () => {
-		const animationDuration = 300;
-
 		it('new entering ', async () => {
 			const { rerender } = renderCounter({
 				value: 5,
-				animationDuration,
+				animationDuration: 'large',
 			});
 
 			const animatedContainer = await screen.findByTestId(RENDER_COUNTER_TESTID);
 			expect(animatedContainer).toBeInTheDocument();
 
-			rerender(<Counter value={6} animationDuration={animationDuration} />);
+			rerender(<Counter value={6} animationDuration="large" />);
 
 			// in the middle of animation
 			act(() => {
-				jest.advanceTimersByTime(animationDuration * 2);
+				jest.advanceTimersByTime(durations.large * 2);
 			});
 
-			expect(animatedContainer).toHaveStyle('animation-duration: 150ms');
+			expect(animatedContainer).toHaveStyle(`animation-duration: ${exitingDurations.large}ms`);
 			expect(animatedContainer).toHaveStyle('position: absolute');
 		});
 
 		it('value decreases', async () => {
 			const { rerender } = renderCounter({
 				value: 5,
-				animationDuration,
+				animationDuration: 'large',
 			});
 
 			const animatedContainer = await screen.findByTestId(RENDER_COUNTER_TESTID);
 			expect(animatedContainer).toBeInTheDocument();
 
-			rerender(<Counter value={4} animationDuration={animationDuration} />);
+			rerender(<Counter value={4} animationDuration="large" />);
 
 			// in the middle of animation
 			act(() => {
-				jest.advanceTimersByTime(animationDuration * 2);
+				jest.advanceTimersByTime(durations.large * 2);
 			});
 
-			expect(animatedContainer).toHaveStyle('animation-duration: 150ms');
+			expect(animatedContainer).toHaveStyle(`animation-duration: ${exitingDurations.large}ms`);
 			expect(animatedContainer).toHaveStyle('position: absolute');
 		});
 	});

@@ -51,6 +51,7 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
 			) => Pick<ADFEntity, 'content' | 'attrs' | 'marks'>,
 			options?: {
 				addToHistory?: boolean;
+				scrollIntoView?: boolean;
 			},
 		) => void;
 	};

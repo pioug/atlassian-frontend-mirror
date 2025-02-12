@@ -5,11 +5,13 @@ import { act, render, screen } from '@testing-library/react';
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
+import { exitingDurations } from '../../../index';
+import { durations } from '../../../utils/durations';
 
 window.matchMedia = (): any => ({ matches: false });
 
 describe('<KeyframesMotion />', () => {
-	const duration = 500;
+	const duration = 'large';
 
 	beforeEach(() => {
 		jest.useRealTimers();
@@ -99,7 +101,7 @@ describe('<KeyframesMotion />', () => {
 
 			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 				'animation-duration',
-				`${duration}ms`,
+				`${durations[duration]}ms`,
 			);
 		});
 
@@ -117,7 +119,7 @@ describe('<KeyframesMotion />', () => {
 				</KeyframesMotion>,
 			);
 			act(() => {
-				jest.advanceTimersByTime(duration);
+				jest.advanceTimersByTime(1000);
 			});
 
 			expect(callback).toHaveBeenCalledWith('entering');
@@ -149,7 +151,7 @@ describe('<KeyframesMotion />', () => {
 
 			// Step is actually logarithmic so we add a little on to make sure it hits the timeout.
 			act(() => {
-				jest.advanceTimersByTime(duration + step + 2);
+				jest.advanceTimersByTime(durations.large + step + 2);
 			});
 			expect(callback).toHaveBeenCalledWith('entering');
 		});
@@ -233,7 +235,7 @@ describe('<KeyframesMotion />', () => {
 			);
 			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 				'animation-duration',
-				`${duration}ms`,
+				`${durations[duration]}ms`,
 			);
 		});
 	});
@@ -260,7 +262,7 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 			act(() => {
-				jest.advanceTimersByTime(duration * 0.5);
+				jest.advanceTimersByTime(350);
 			});
 
 			expect(callback).toHaveBeenCalledWith('exiting');
@@ -369,7 +371,7 @@ describe('<KeyframesMotion />', () => {
 
 			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 				'animation-duration',
-				`${duration * 0.5}ms`,
+				`${exitingDurations.large}ms`,
 			);
 		});
 

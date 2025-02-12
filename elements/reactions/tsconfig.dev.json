@@ -56,6 +56,9 @@
 			"path": "../emoji/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/motion/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{

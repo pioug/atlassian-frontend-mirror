@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.6.1
+
+### Patch Changes
+
+- [#112607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112607)
+  [`aae2efdae0ebe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aae2efdae0ebe) -
+  Fixed regression where editor analytics stopped firing
+
 ## 2.6.0
 
 ### Minor Changes

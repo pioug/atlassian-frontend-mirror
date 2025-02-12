@@ -1,6 +1,3 @@
-export {
-	durationStep,
-	smallDurationMs,
-	mediumDurationMs,
-	largeDurationMs,
-} from '../utils/durations';
+export { durationStep, durations } from '../utils/durations';
+
+export type { Durations } from '../utils/durations';

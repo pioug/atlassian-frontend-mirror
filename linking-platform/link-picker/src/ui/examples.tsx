@@ -1,7 +1,11 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
-import { Flex, Text, xcss } from '@atlaskit/primitives';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -10,6 +14,20 @@ import {
 } from '../__tests__/__helpers/mock-plugins';
 
 import { default as LinkPicker } from './index';
+
+const styles = cssMap({
+	container: {
+		marginBlockStart: token('space.600'),
+		marginBlockEnd: token('space.600'),
+		textAlign: 'center',
+	},
+	mockImage: {
+		borderRadius: token('border.radius.circle'),
+		height: '120px',
+		width: '120px',
+		backgroundColor: token('color.background.information'),
+	},
+});
 
 const NOOP = () => {};
 
@@ -24,33 +42,32 @@ const plugins = [
 	}),
 ];
 
+const createExampleStyle = css({
+	borderWidth: '1px',
+	borderStyle: 'solid',
+	borderColor: 'red',
+	boxSizing: 'border-box',
+	display: 'inline-block',
+});
+
 const createExample = (props?: Partial<React.ComponentProps<typeof LinkPicker>>) => {
 	return () => (
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				border: '1px solid red',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				boxSizing: 'border-box',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				display: 'inline-block',
-			}}
-		>
+		<div css={createExampleStyle}>
 			<LinkPicker onSubmit={NOOP} {...props} />
 		</div>
 	);
 };
 
+const createWidthExampleStyle = css({
+	borderWidth: '1px',
+	borderStyle: 'solid',
+	borderColor: 'red',
+	boxSizing: 'border-box',
+});
+
 const createWidthExample = (props?: Partial<React.ComponentProps<typeof LinkPicker>>) => {
 	return () => (
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				border: '1px solid red',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				boxSizing: 'border-box',
-			}}
-		>
+		<div css={createWidthExampleStyle}>
 			<LinkPicker onSubmit={NOOP} onCancel={NOOP} {...props} />
 		</div>
 	);
@@ -144,19 +161,6 @@ export const UnauthenticatedErrorExample = createExample({
 	],
 });
 
-const containerStyles = xcss({
-	marginBlockStart: 'space.600',
-	marginBlockEnd: 'space.600',
-	textAlign: 'center',
-});
-
-const mockImageStyles = xcss({
-	borderRadius: '50%',
-	height: '120px',
-	width: '120px',
-	backgroundColor: 'color.background.information',
-});
-
 export const CustomEmptyStateExample = createExample({
 	plugins: [
 		{
@@ -165,10 +169,10 @@ export const CustomEmptyStateExample = createExample({
 					data: [],
 				}),
 			emptyStateNoResults: () => (
-				<Flex xcss={containerStyles} direction="column" alignItems="center" gap="space.300">
+				<Flex xcss={styles.container} direction="column" alignItems="center" gap="space.300">
 					<Flex direction="column" alignItems="center" gap="space.200">
 						<Flex justifyContent="center">
-							<Flex justifyContent="center" alignItems="center" xcss={mockImageStyles}>
+							<Flex justifyContent="center" alignItems="center" xcss={styles.mockImage}>
 								<Text>:)</Text>
 							</Flex>
 						</Flex>
@@ -191,10 +195,10 @@ export const CustomEmptyStateWithAdaptiveHeightExample = createExample({
 					data: [],
 				}),
 			emptyStateNoResults: () => (
-				<Flex xcss={containerStyles} direction="column" alignItems="center" gap="space.300">
+				<Flex xcss={styles.container} direction="column" alignItems="center" gap="space.300">
 					<Flex direction="column" alignItems="center" gap="space.200">
 						<Flex justifyContent="center">
-							<Flex justifyContent="center" alignItems="center" xcss={mockImageStyles}>
+							<Flex justifyContent="center" alignItems="center" xcss={styles.mockImage}>
 								<Text>:)</Text>
 							</Flex>
 						</Flex>

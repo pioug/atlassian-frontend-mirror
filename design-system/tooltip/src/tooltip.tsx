@@ -8,7 +8,6 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { type Direction, ExitingPersistence, FadeIn, type Transition } from '@atlaskit/motion';
-import { mediumDurationMs } from '@atlaskit/motion/durations';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -524,7 +523,7 @@ function Tooltip({
 											entranceDirection={direction}
 											exitDirection={direction}
 											onFinish={onAnimationFinished}
-											duration={state === 'show-immediate' ? 0 : mediumDurationMs}
+											duration={state !== 'show-immediate' ? 'medium' : 'none'}
 										>
 											{({ className }) => (
 												<Container

@@ -7,16 +7,11 @@ import { useCallback, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import {
-	ExitingPersistence,
-	SlideIn,
-	type Transition,
-	useExitingPersistence,
-} from '@atlaskit/motion';
+import { ExitingPersistence, SlideIn, type Transition } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
-import { animationTimingFunction, transitionDurationMs } from '../../constants';
+import { animationTimingFunction } from '../../constants';
 import { EnsureIsInsideDrawerContext, OnCloseContext } from '../../context';
 import { type DrawerPanelProps } from '../types';
 
@@ -52,19 +47,10 @@ const CustomSlideIn = ({
 	onFinish,
 	enterFrom,
 }: Pick<SlideInProps, 'children' | 'onFinish' | 'enterFrom'>) => {
-	const { isExiting } = useExitingPersistence();
-
-	/**
-	 * The actual duration should be the same for both enter and exit,
-	 * but motion halves the passed duration for exit animations,
-	 * so we double it when exiting.
-	 */
-	const duration = isExiting ? transitionDurationMs * 2 : transitionDurationMs;
-
 	return (
 		<SlideIn
 			animationTimingFunction={animationTimingFunction}
-			duration={duration}
+			duration="small"
 			enterFrom={enterFrom}
 			exitTo={enterFrom}
 			fade="none"

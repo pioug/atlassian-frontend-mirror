@@ -7,6 +7,9 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
+import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { type DisplayViewModes } from '../../../../common/types';
@@ -21,7 +24,7 @@ const dropDownItemGroupStyles = xcss({
 	borderRadius: 'border.radius',
 });
 
-const InlineIcon = (
+const InlineIconOld = (
 	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 		<path
 			fillRule="evenodd"
@@ -32,7 +35,14 @@ const InlineIcon = (
 	</svg>
 );
 
-const ListIcon = (
+// TODO Rename to InlineIcon when cleaning fg('bandicoots-update-sllv-icons')
+const InlineIconNew = <SmartLinkInlineIcon label="" spacing="spacious" />;
+
+// TODO Delete when cleaning fg('bandicoots-update-sllv-icons')
+const getInlineIconFFed = () =>
+	fg('bandicoots-update-sllv-icons') ? InlineIconNew : InlineIconOld;
+
+const ListIconOld = (
 	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 15 15" fill="none">
 		<path
 			fillRule="evenodd"
@@ -42,6 +52,12 @@ const ListIcon = (
 		/>
 	</svg>
 );
+
+// TODO Rename to ListIcon when cleaning fg('bandicoots-update-sllv-icons')
+const ListIconNew = <SmartLinkListIcon label="" spacing="spacious" />;
+
+// TODO Delete when cleaning fg('bandicoots-update-sllv-icons')
+const getListIconFFed = () => (fg('bandicoots-update-sllv-icons') ? ListIconNew : ListIconOld);
 
 export type DisplayViewDropDownProps = {
 	onViewModeChange: (value: DisplayViewModes) => void;
@@ -54,6 +70,9 @@ export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewD
 	const triggerText = isTable
 		? formatMessage(displayViewDropDownMessages.viewModeListLabel)
 		: formatMessage(displayViewDropDownMessages.viewModeInlineLinkLabel);
+
+	const InlineIcon = getInlineIconFFed();
+	const ListIcon = getListIconFFed();
 
 	return (
 		<DropdownMenu trigger={triggerText} testId="datasource-modal--view-drop-down">

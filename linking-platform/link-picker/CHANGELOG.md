@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 1.49.0
+
+### Minor Changes
+
+- [#111227](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111227)
+  [`06c41390fca28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06c41390fca28) -
+  Migrate to compiled css under FF
+
 ## 1.48.3
 
 ### Patch Changes

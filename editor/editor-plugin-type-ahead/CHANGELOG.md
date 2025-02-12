@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.13.1
+
+### Patch Changes
+
+- [#112096](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112096)
+  [`5d95afdd358ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d95afdd358ac) -
+  [ux] Creates a package for new QuickInsert and Right Rail UI and adds it under a FF
+- Updated dependencies
+
 ## 1.13.0
 
 ### Minor Changes

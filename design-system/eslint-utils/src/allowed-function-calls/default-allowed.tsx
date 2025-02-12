@@ -1,7 +1,6 @@
 import type { AllowList } from './types';
 
 const motionCurves = ['easeInOut', 'easeIn', 'easeOut'];
-const motionDurations = ['smallDurationMs', 'mediumDurationMs', 'largeDurationMs'];
 
 /**
  * By default these are allowed in values of style objects.
@@ -10,9 +9,8 @@ const motionDurations = ['smallDurationMs', 'mediumDurationMs', 'largeDurationMs
  * We rely on types to enforce appropriate usage beyond allow listing.
  */
 export const defaultAllowedValues: AllowList = {
-	'@atlaskit/motion': [...motionCurves, ...motionDurations],
+	'@atlaskit/motion': [...motionCurves],
 	'@atlaskit/motion/curves': motionCurves,
-	'@atlaskit/motion/durations': motionDurations,
 	'@atlaskit/theme/colors': [
 		'R50',
 		'R75',

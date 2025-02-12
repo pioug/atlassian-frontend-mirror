@@ -9,14 +9,16 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import EmptyState from '@atlaskit/empty-state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { N400 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import { SpotPadlockKey } from '../../../common/ui/spot/basics/padlock-key';
 
-import { AccessRequiredSVG } from './access-required-svg';
+import { AccessRequiredSVGOld } from './access-required-svg';
 import { loadingErrorMessages } from './messages';
 
 const urlStyles = css({
@@ -44,11 +46,24 @@ const Description = ({ message, url }: { message: string; url: string }) => {
 	);
 };
 
-const IconContainer = () => (
-	<Box xcss={iconContainerStyles}>
-		<AccessRequiredSVG />
-	</Box>
-);
+const noop = () => '';
+
+const IconContainer = () => {
+	const { formatMessage } = fg('bandicoots-update-sllv-icons')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIntl()
+		: { formatMessage: noop };
+
+	return (
+		<Box xcss={iconContainerStyles}>
+			{fg('bandicoots-update-sllv-icons') ? (
+				<SpotPadlockKey size={'xlarge'} alt={formatMessage(loadingErrorMessages.accessRequired)} />
+			) : (
+				<AccessRequiredSVGOld />
+			)}
+		</Box>
+	);
+};
 
 interface AccessRequiredProps {
 	/** The url to be displayed to the user when they are unauthorized to query */

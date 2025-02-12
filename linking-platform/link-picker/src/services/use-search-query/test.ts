@@ -13,7 +13,6 @@ describe('useSearchQuery', () => {
 		invalidUrl: false,
 		activeTab: 0,
 		preventHidingRecents: false,
-		allowCreateFeatureDiscovery: false,
 	};
 
 	it('Should return a query if state has a invalid url', () => {

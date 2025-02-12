@@ -2,7 +2,7 @@ import React, { Fragment, useRef } from 'react';
 
 import { isReducedMotion } from '../utils/accessibility';
 import { easeInOut } from '../utils/curves';
-import { mediumDurationMs } from '../utils/durations';
+import { durations } from '../utils/durations';
 import { useRequestAnimationFrame, useSetTimeout } from '../utils/timer-hooks';
 import { type CallbackRef, useElementRef } from '../utils/use-element-ref';
 import { useLayoutEffect } from '../utils/use-layout-effect';
@@ -44,7 +44,7 @@ interface Dimensions {
  * See [examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/resizing-motions).
  */
 export const useResizingHeight = ({
-	duration: calcDuration = () => mediumDurationMs,
+	duration: calcDuration = () => durations.medium,
 	timingFunction: calcTimingFunction = () => easeInOut,
 }: ResizingHeightOpts = {}) => {
 	const prevDimensions = useRef<Dimensions>();

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
@@ -13,7 +12,6 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -124,35 +122,8 @@ export const factoryDecorations = ({
 					return false;
 				};
 
-				if (fg('platform_editor_react18_plugin_portalprovider')) {
-					nodeViewPortalProviderAPI.render(
-						() => (
-							<IntlProvider
-								locale={intl.locale || 'en'}
-								messages={intl.messages}
-								formats={intl.formats}
-							>
-								<WrapperTypeAhead
-									triggerHandler={triggerHandler}
-									editorView={editorView}
-									anchorElement={typeaheadComponent}
-									inputMethod={inputMethod}
-									getDecorationPosition={getDecorationPosition}
-									shouldFocusCursorInsideQuery={shouldFocusCursorInsideQuery}
-									popupsMountPoint={popupMountRef.current?.popupsMountPoint}
-									popupsBoundariesElement={popupMountRef.current?.popupsBoundariesElement}
-									popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
-									onUndoRedo={onUndoRedo}
-									reopenQuery={reopenQuery}
-									api={api}
-								/>
-							</IntlProvider>
-						),
-						typeaheadComponent,
-						decorationId,
-					);
-				} else {
-					ReactDOM.render(
+				nodeViewPortalProviderAPI.render(
+					() => (
 						<IntlProvider
 							locale={intl.locale || 'en'}
 							messages={intl.messages}
@@ -172,10 +143,12 @@ export const factoryDecorations = ({
 								reopenQuery={reopenQuery}
 								api={api}
 							/>
-						</IntlProvider>,
-						typeaheadComponent,
-					);
-				}
+						</IntlProvider>
+					),
+					typeaheadComponent,
+					decorationId,
+				);
+
 				shouldFocusCursorInsideQuery = false;
 				return typeaheadComponent;
 			},
@@ -225,11 +198,7 @@ export const factoryDecorations = ({
 			if (!decoElement) {
 				return;
 			}
-			if (fg('platform_editor_react18_plugin_portalprovider')) {
-				nodeViewPortalProviderAPI.remove(spec.key);
-			} else {
-				ReactDOM.unmountComponentAtNode(decoElement);
-			}
+			nodeViewPortalProviderAPI.remove(spec.key);
 		});
 
 		return true;

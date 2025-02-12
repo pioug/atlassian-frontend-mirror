@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 11.13.3
+
+### Patch Changes
+
+- [#113045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113045)
+  [`2c88e65615d04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c88e65615d04) -
+  Update dependencies and remove old codemods.
+
 ## 11.13.2
 
 ### Patch Changes

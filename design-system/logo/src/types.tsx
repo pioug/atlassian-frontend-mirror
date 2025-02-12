@@ -1,6 +1,6 @@
-export type Appearance = 'brand' | 'neutral' | 'inverse';
+type Appearance = 'brand' | 'neutral' | 'inverse';
 
-export type Size = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type Size = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
 export type LogoProps = {
 	/**

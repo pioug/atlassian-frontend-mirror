@@ -27,6 +27,7 @@ import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosem
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { setEditingContextToContextPanel } from '../editor-commands/commands';
 import type { CreateExtensionAPI } from '../extensionPluginType';
@@ -321,6 +322,9 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 
 			if (typeof opts?.addToHistory === 'boolean') {
 				tr.setMeta('addToHistory', opts.addToHistory);
+			}
+			if (typeof opts?.scrollIntoView === 'boolean' && fg('platform_editor_legacy_content_macro')) {
+				tr.setMeta('scrollIntoView', opts.scrollIntoView);
 			}
 			dispatch(tr);
 		},

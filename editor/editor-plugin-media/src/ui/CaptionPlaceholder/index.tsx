@@ -29,10 +29,15 @@ const placeholderButton = xcss({
 	marginTop: 'space.100',
 });
 
+type CaptionPlaceholderProps = {
+	onClick: () => void;
+	placeholderMessage?: { id: string; defaultMessage: string; description: string };
+};
+
 // platform_editor_typography_ugc clean up
 // Remove this component
-export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: () => void }>(
-	({ onClick }, ref) => {
+export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, CaptionPlaceholderProps>(
+	({ onClick, placeholderMessage }, ref) => {
 		const handlePointerDown = useCallback(
 			(e: React.MouseEvent) => {
 				e.preventDefault();
@@ -40,9 +45,10 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: (
 			},
 			[onClick],
 		);
-		const message = fg('platform_editor_media_interaction_improvements')
-			? { ...messages.placeholderWithDoubleClickPrompt }
-			: { ...messages.placeholder };
+
+		const computedPlaceholderMessage = placeholderMessage
+			? placeholderMessage
+			: messages.placeholder;
 
 		// This issue is a temporary fix for users being able to edit captions on edge browsers. This will be removed
 		// replaced with CaptionPlaceholderButton in the near future and this code can be removed.
@@ -59,7 +65,7 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: (
 					<FormattedMessage
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...message}
+						{...computedPlaceholderMessage}
 					/>
 				</span>
 			);
@@ -77,7 +83,7 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: (
 				<FormattedMessage
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...message}
+					{...computedPlaceholderMessage}
 				/>
 			</span>
 		);
@@ -86,17 +92,15 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: (
 
 export const CaptionPlaceholderButton = React.forwardRef<
 	HTMLButtonElement,
-	{ onClick: () => void }
->(({ onClick }, ref) => {
+	CaptionPlaceholderProps
+>(({ onClick, placeholderMessage }, ref) => {
 	const handleMouseDown = useCallback((e: React.MouseEvent) => {
 		// In firefox, button is focused when mouse down, which make editor lose focus
 		// Hence we want to disabled it so that user can type in caption directly after click
 		e.preventDefault();
 	}, []);
 
-	const message = fg('platform_editor_media_interaction_improvements')
-		? { ...messages.placeholderWithDoubleClickPrompt }
-		: { ...messages.placeholder };
+	const computedPlaceholderMessage = placeholderMessage ? placeholderMessage : messages.placeholder;
 
 	return (
 		<Pressable
@@ -113,7 +117,7 @@ export const CaptionPlaceholderButton = React.forwardRef<
 				<FormattedMessage
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...message}
+					{...computedPlaceholderMessage}
 				/>
 			</Text>
 		</Pressable>

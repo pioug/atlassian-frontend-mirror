@@ -7,10 +7,13 @@
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import { CrystalBallSVG } from './assets/crystal-ball-svg';
+import { RichIconSearch } from '../../../../../common/ui/rich-icon/search';
+
+import { CrystalBallSVGOld } from './assets/crystal-ball-svg-old';
 import { initialStateViewMessages } from './messages';
 
 const initialStateViewContainerStyles = css({
@@ -38,7 +41,11 @@ export const InitialStateView = () => {
 			data-testid="assets-aql-datasource-modal--initial-state-view"
 		>
 			<div css={svgAndTextsWrapperStyles}>
-				<CrystalBallSVG />
+				{fg('bandicoots-update-sllv-icons') ? (
+					<RichIconSearch size="xlarge" alt={formatMessage(initialStateViewMessages.searchTitle)} />
+				) : (
+					<CrystalBallSVGOld />
+				)}
 				<div css={searchTitleStyles}>{formatMessage(initialStateViewMessages.searchTitle)}</div>
 				<div>{formatMessage(initialStateViewMessages.searchDescription)}</div>
 				<a href={AQLSupportDocumentLink} target="_blank">

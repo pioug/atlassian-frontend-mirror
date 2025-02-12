@@ -1,5 +1,4 @@
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type AnalyticsCallback,
@@ -291,16 +290,6 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		}
 	}
 
-	recordMentionSelection(
-		mention: MentionDescription,
-		contextIdentifier?: MentionContextIdentifier,
-	): Promise<void> {
-		return this.recordSelection(mention, contextIdentifier).then(
-			() => {},
-			(error) => debug(`error recording mention selection: ${error}`, error),
-		);
-	}
-
 	isFiltering(query: string): boolean {
 		return this.activeSearches.has(query);
 	}
@@ -445,35 +434,6 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		});
 
 		return { ...result, mentions, query: result.query || query };
-	}
-
-	async recordSelection(
-		mention: MentionDescription,
-		contextIdentifier?: MentionContextIdentifier,
-	): Promise<void> {
-		if (fg('platform_editor_ai_remove_mentions_record')) {
-			return;
-		}
-
-		const options = {
-			path: 'record',
-			queryParams: {
-				selectedUserId: mention.id,
-				...this.getQueryParams(contextIdentifier),
-			},
-			requestInit: {
-				method: 'POST',
-			},
-		};
-		const sliName = isTeamMention(mention) ? SliNames.SELECT_TEAM : SliNames.SELECT;
-		try {
-			const result = await serviceUtils.requestService<void>(this.config, options);
-			this._notifyAnalyticsListeners(SLI_EVENT_TYPE, sliName, Actions.SUCCEEDED);
-			return result;
-		} catch (error) {
-			this._notifyAnalyticsListeners(SLI_EVENT_TYPE, sliName, Actions.FAILED);
-			throw error;
-		}
 	}
 }
 

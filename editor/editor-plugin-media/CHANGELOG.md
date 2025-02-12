@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.45.1
+
+### Patch Changes
+
+- [#112160](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112160)
+  [`00ccb71f91143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00ccb71f91143) -
+  ED-26483 cleanup platform_editor_media_interaction_improvements
+
 ## 1.45.0
 
 ### Minor Changes

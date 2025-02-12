@@ -1,5 +1,45 @@
 # @atlaskit/editor-plugin-extension
 
+## 3.5.0
+
+### Minor Changes
+
+- [#113205](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113205)
+  [`74786973d6de2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74786973d6de2) -
+  ED-26443 LCM: Add scrollIntoView option on extension API 'update' function. This allows you to
+  disable scrollIntoView.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.0
+
+### Minor Changes
+
+- [#111831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111831)
+  [`66895944dfac9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66895944dfac9) -
+  [ED-26430] Block drag-and-drop of legacy content macro extension
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.0
+
+### Minor Changes
+
+- [#112758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112758)
+  [`dcef693895f59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcef693895f59) -
+  ED-26472: Resolving issue with extension plugin that required the context panel plugin to be added
+  to the editor preset first. In the plugin options when calling getToolbarConfig then function for
+  applyChangeToContextPanel was sometimes undefined. Now passing in the entire extension API and
+  handling it within getToolbarConfig.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

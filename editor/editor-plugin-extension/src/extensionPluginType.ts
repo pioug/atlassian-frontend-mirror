@@ -63,7 +63,6 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 	breakoutEnabled?: boolean;
 	extensionHandlers?: ExtensionHandlers;
 	appearance?: EditorAppearance;
-	allowDragAndDrop?: boolean;
 	__rendererExtensionOptions?: {
 		rendererExtensionHandlers?: ExtensionHandlers;
 		isAllowedToUseRendererView: (node: ADFEntity) => boolean;

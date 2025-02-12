@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 1.1.1
+
+### Patch Changes
+
+- [#113094](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113094)
+  [`b7cb7ca6cd1e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b7cb7ca6cd1e0) -
+  Stop auto-scrolling on large code blocks from prosemirror.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -89,15 +89,19 @@ export type ExperimentalVCDevToolsOptions = {
 
 export type ComponentsLogType = { [timestamp: number]: ComponentsLogEntry[] };
 
+interface VCDebugInfo {
+	entries: VCEntryType[];
+	log: ComponentsLogType;
+	metrics: MetricsDevToolsTypes;
+	heatmap: number[][];
+	ratios: VCRatioType;
+	start: number;
+	stop: number;
+}
 declare global {
 	interface Window {
-		__vc?: {
-			entries: VCEntryType[];
-			log: ComponentsLogType;
-			metrics: MetricsDevToolsTypes;
-			heatmap: number[][];
-			ratios: VCRatioType;
-		};
+		__vc?: VCDebugInfo;
+		__vcNext?: VCDebugInfo;
 		__vcNotAvailableReason?: string;
 		__SSR_PLACEHOLDERS_DIMENSIONS__?: { [key: string]: DOMRectReadOnly };
 		__SSR_ABORT_LISTENERS__?: {

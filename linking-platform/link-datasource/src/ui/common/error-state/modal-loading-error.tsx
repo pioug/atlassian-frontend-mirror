@@ -8,12 +8,14 @@ import { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 
-import { LoadingErrorSVG } from './loading-error-svg';
+import { LoadingErrorSVGOld } from './loading-error-svg-old';
 import { loadingErrorMessages } from './messages';
 
 const errorContainerStyles = css({
@@ -46,7 +48,11 @@ export const ModalLoadingError = ({
 
 	return (
 		<Box xcss={errorContainerStyles} testId="datasource-modal--loading-error">
-			<LoadingErrorSVG />
+			{fg('bandicoots-update-sllv-icons') ? (
+				<SpotErrorSearch size={'xlarge'} alt={'something'} />
+			) : (
+				<LoadingErrorSVGOld />
+			)}
 			<Box xcss={errorMessageContainerStyles}>
 				<Text size="small">
 					<FormattedMessage {...loadingErrorMessages.unableToLoadResults} />

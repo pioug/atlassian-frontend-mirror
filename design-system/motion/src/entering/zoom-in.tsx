@@ -35,7 +35,7 @@ export const shrinkOutAnimation = (): CSSObject => ({
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const ZoomIn = ({ children, duration = 125, isPaused, onFinish }: KeyframesMotionProps) => {
+const ZoomIn = ({ children, duration = 'small', isPaused, onFinish }: KeyframesMotionProps) => {
 	return (
 		<KeyframesMotion
 			duration={duration}

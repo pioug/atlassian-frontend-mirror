@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
@@ -24,7 +23,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
@@ -576,28 +574,17 @@ export class ExpandNodeView implements NodeView {
 			return;
 		}
 
-		if (fg('platform_editor_react18_plugin_portalprovider')) {
-			this.nodeViewPortalProviderAPI.render(
-				() => (
-					<ExpandButton
-						intl={this.intl}
-						allowInteractiveExpand={this.allowInteractiveExpand}
-						expanded={expanded}
-					/>
-				),
-				icon,
-				this.renderKey,
-			);
-		} else {
-			ReactDOM.render(
+		this.nodeViewPortalProviderAPI.render(
+			() => (
 				<ExpandButton
 					intl={this.intl}
 					allowInteractiveExpand={this.allowInteractiveExpand}
 					expanded={expanded}
-				/>,
-				icon,
-			);
-		}
+				/>
+			),
+			icon,
+			this.renderKey,
+		);
 	};
 
 	destroy() {
@@ -619,11 +606,8 @@ export class ExpandNodeView implements NodeView {
 		if (this.cleanUpEditorDisabledOnChange) {
 			this.cleanUpEditorDisabledOnChange();
 		}
-		if (fg('platform_editor_react18_plugin_portalprovider')) {
-			this.nodeViewPortalProviderAPI.remove(this.renderKey);
-		} else {
-			ReactDOM.unmountComponentAtNode(this.icon);
-		}
+
+		this.nodeViewPortalProviderAPI.remove(this.renderKey);
 	}
 }
 

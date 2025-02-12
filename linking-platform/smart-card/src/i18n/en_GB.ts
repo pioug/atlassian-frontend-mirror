@@ -104,6 +104,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "You'll need to request access or try a different account to view this preview.",
   'fabric.linking.join_to_view': 'Join {context} to view this issue',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Join {context} to view this work item',
   'fabric.linking.learn_more_about_connecting_account':
     'Learn more about connecting your account to Atlassian products.',
   'fabric.linking.learn_more_about_smart_links': 'Learn more about Smart Links.',
@@ -117,6 +118,7 @@ export default {
   'fabric.linking.not_found_description': "The page doesn't exist or it may have changed after this link was added.",
   'fabric.linking.not_found_title': "We can't show you this {product} page",
   'fabric.linking.open_issue_in_jira': 'Open issue in Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Open work item in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Open link in a new tab',
   'fabric.linking.owned_by': 'Owned by {context}',
   'fabric.linking.pending_request': 'Your access request is pending',
@@ -156,6 +158,7 @@ export default {
   'fabric.linking.request_access_pending_description': 'Your request to access {hostname} is awaiting admin approval.',
   'fabric.linking.request_access_pending_title': 'Access to {product} is pending',
   'fabric.linking.request_access_to_view': 'Request access to {context} to view this issue',
+  'fabric.linking.request_access_to_view-issue-term-refresh': 'Request access to {context} to view this work item',
   'fabric.linking.request_denied': 'Your access request was denied',
   'fabric.linking.request_denied_description':
     "Your admin didn't approve your request to view {product} pages from {hostname}.",
@@ -168,6 +171,8 @@ export default {
   'fabric.linking.srclinkunknown': 'View Original',
   'fabric.linking.status_change_load_error': 'We couldn’t load the statuses and transitions',
   'fabric.linking.status_change_permission_error': 'You don’t have permission to transition this issue.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'You don’t have permission to transition this work item.',
   'fabric.linking.status_change_update_error': 'We couldn’t update the status',
   'fabric.linking.try_again': 'Try again',
   'fabric.linking.try_another_account': 'Try another account',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-caption",
-	"version": "1.12.0",
+	"version": "1.12.1",
 	"description": "Caption plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^99.11.0",
+		"@atlaskit/editor-common": "^99.13.0",
 		"@atlaskit/editor-plugin-analytics": "^1.12.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.5.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/editor-plugin-guideline": "^1.4.0",
 		"@atlaskit/editor-plugin-selection": "^1.8.0",
 		"@atlaskit/editor-plugin-width": "^2.1.0",
-		"@atlaskit/renderer": "^112.13.0"
+		"@atlaskit/renderer": "^112.14.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"

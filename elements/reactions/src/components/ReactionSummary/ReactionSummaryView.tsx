@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
 
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
-import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Pressable, Flex, xcss } from '@atlaskit/primitives';
 import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 
 import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
 import { Reaction } from '../Reaction';
@@ -24,6 +25,8 @@ const summaryPopupStyles = xcss({
 const viewAllButtonStyling = xcss({
 	marginTop: 'space.050',
 });
+
+const iconStyle = xcss({ height: '20px' });
 
 /**
  * Test id for the Reactions summary view popup
@@ -79,6 +82,8 @@ export const ReactionSummaryView = ({
 	handleOpenReactionsDialog,
 	allowUserDialog,
 }: ReactionSummaryViewProps) => {
+	const intl = useIntl();
+
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
 	const handlePopupClose = useCallback(() => setSummaryPopupOpen(false), []);
@@ -112,25 +117,26 @@ export const ReactionSummaryView = ({
 					))}
 					{allowUserDialog && (
 						<Box xcss={viewAllButtonStyling}>
-							<Tooltip
-								content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
-								hideTooltipOnClick
-							>
-								{(tooltipProps) => (
-									<Button
-										{...tooltipProps}
-										spacing="compact"
-										onClick={() => {
-											handlePopupClose();
-											handleOpenReactionsDialog?.(reactions[0].emojiId);
-										}}
-									>
-										<Text color="color.text.subtlest" weight="medium">
-											<FormattedMessage {...messages.seeWhoReacted} />
-										</Text>
-									</Button>
-								)}
-							</Tooltip>
+							<Pressable backgroundColor="color.background.neutral.subtle" padding="space.0">
+								<Tooltip content={intl.formatMessage(messages.seeWhoReactedTooltip)}>
+									{(tooltipProps) => (
+										<Button
+											{...tooltipProps}
+											spacing="compact"
+											onClick={() => {
+												handlePopupClose();
+												handleOpenReactionsDialog?.(reactions[0].emojiId);
+											}}
+										>
+											<Flex alignItems="center" xcss={iconStyle}>
+												<ShowMoreHorizontalIcon
+													label={intl.formatMessage(messages.seeWhoReacted)}
+												/>
+											</Flex>
+										</Button>
+									)}
+								</Tooltip>
+							</Pressable>
 						</Box>
 					)}
 				</Inline>

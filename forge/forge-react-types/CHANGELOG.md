@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.35.6
+
+### Patch Changes
+
+- [#112145](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112145)
+  [`f4270a2af5cb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4270a2af5cb7) -
+  Fix form component onSubmit behaviour in jira assets import module
+
 ## 0.35.5
 
 ### Patch Changes

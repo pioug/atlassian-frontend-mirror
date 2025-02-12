@@ -511,7 +511,7 @@ describe('<ExitingPersistence />', () => {
 				<KeyframesMotion
 					enteringAnimation={{}}
 					animationTimingFunction={() => 'linear'}
-					duration={100}
+					duration="small"
 				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
@@ -527,7 +527,7 @@ describe('<ExitingPersistence />', () => {
 				<KeyframesMotion
 					enteringAnimation={{}}
 					animationTimingFunction={() => 'linear'}
-					duration={100}
+					duration="small"
 				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
@@ -548,7 +548,7 @@ describe('<ExitingPersistence />', () => {
 				<KeyframesMotion
 					enteringAnimation={{}}
 					animationTimingFunction={() => 'linear'}
-					duration={100}
+					duration="small"
 				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
@@ -566,7 +566,7 @@ describe('<ExitingPersistence />', () => {
 				<KeyframesMotion
 					enteringAnimation={{}}
 					animationTimingFunction={() => 'linear'}
-					duration={100}
+					duration="small"
 				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
@@ -581,7 +581,7 @@ describe('<ExitingPersistence />', () => {
 			<KeyframesMotion
 				enteringAnimation={{}}
 				animationTimingFunction={() => 'linear'}
-				duration={100}
+				duration="small"
 			>
 				{(props) => <div {...props} data-testid="target" />}
 			</KeyframesMotion>,

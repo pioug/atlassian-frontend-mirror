@@ -49,6 +49,12 @@
 		},
 		{
 			"path": "../../input-rules/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
 		}
 	]
 }

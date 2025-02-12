@@ -36,6 +36,7 @@ import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json'
 import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-media.json';
 import * as layoutWithMedia from '../../__fixtures__/layout-with-media.adf.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
+import * as tableWithNestedTable from '../../__fixtures__/table-with-nested-table-adf.json';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -416,6 +417,41 @@ describe('Renderer - ReactSerializer', () => {
 					);
 
 					wrapper.unmount();
+				});
+			});
+
+			describe('tables -> tables', () => {
+				it('nested table should not have a sticky header', async () => {
+					const reactSerializer = new ReactSerializer({ stickyHeaders: { offsetTop: 100 } });
+
+					const { container } = renderWithIntl(
+						reactSerializer.serializeFragment(
+							schema.nodeFromJSON(tableWithNestedTable).content,
+						) as any,
+					);
+
+					// Not ideal but using a querySelector here because I can't find a better way to target only the root table and its sticky table
+					// eslint-disable-next-line testing-library/no-container
+					const nestedTable = container.querySelector(
+						':scope > .pm-table-container  .pm-table-container',
+					);
+					expect(nestedTable).toBeDefined();
+					expect(nestedTable?.querySelector(':scope > [class$=StickyTable]')).toBeNull();
+				});
+
+				it('non-nested table should have a sticky header', async () => {
+					const reactSerializer = new ReactSerializer({ stickyHeaders: { offsetTop: 100 } });
+
+					const { container } = renderWithIntl(
+						reactSerializer.serializeFragment(
+							schema.nodeFromJSON(tableWithNestedTable).content,
+						) as any,
+					);
+
+					// Not ideal but using a querySelector here because I can't find a better way to target only the root table and its sticky table
+					// eslint-disable-next-line testing-library/no-container
+					const rootTable = container.querySelector(':scope > .pm-table-container');
+					expect(rootTable?.querySelector(':scope > [class$=StickyTable]')).toBeDefined();
 				});
 			});
 

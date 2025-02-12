@@ -3,8 +3,23 @@
  */
 export const durationStep = 25;
 
-export const smallDurationMs = durationStep * 4;
+export type Durations = 'none' | 'small' | 'medium' | 'large';
 
-export const mediumDurationMs = durationStep * 14;
+export const durations: Record<Durations, number> = {
+	none: 0,
+	small: 100,
+	medium: 350,
+	large: 700,
+};
 
-export const largeDurationMs = durationStep * 28;
+/**
+ * Used to multiply the initial duration for exiting motions.
+ */
+const EXITING_MOTION_MULTIPLIER = 0.5;
+
+export const exitingDurations: Record<Durations, number> = {
+	none: durations.none,
+	small: durations.small * EXITING_MOTION_MULTIPLIER,
+	medium: durations.medium * EXITING_MOTION_MULTIPLIER,
+	large: durations.large * EXITING_MOTION_MULTIPLIER,
+};

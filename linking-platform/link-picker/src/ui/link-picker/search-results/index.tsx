@@ -4,23 +4,28 @@
  */
 import { Fragment, type KeyboardEvent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
+import { token } from '@atlaskit/tokens';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../common/types';
 
 import { LinkSearchError, testIds as searchErrorTestIds } from './link-search-error';
 import { LinkSearchList, testIds as listTestIds } from './link-search-list';
+import { SearchResultsOld } from './old';
 import { ScrollingTabList } from './scrolling-tabs';
 import { SearchResultsContainer } from './search-results-container';
 import { TrackTabViewed } from './track-tab-viewed';
 
-const tabsWrapperStyles = xcss({
-	marginTop: 'space.150',
+const styles = cssMap({
+	tabsWrapper: {
+		marginTop: token('space.150'),
+	},
 });
 
 const spinnerContainerStyles = css({
@@ -62,7 +67,7 @@ export type SearchResultsProps = {
 	retry: () => void;
 };
 
-export const SearchResults = ({
+export const SearchResultsNew = ({
 	tabs,
 	activeTab,
 	activePlugin,
@@ -82,7 +87,7 @@ export const SearchResults = ({
 	handleKeyDown,
 	adaptiveHeight,
 	retry,
-}: SearchResultsProps) => {
+}: SearchResultsProps): JSX.Element => {
 	const isActivePlugin = !!activePlugin;
 
 	const tabList = (
@@ -113,7 +118,7 @@ export const SearchResults = ({
 			{!isLoadingPlugins && isActivePlugin && !!queryState && (
 				<Fragment>
 					{tabs.length > 0 && (
-						<Box xcss={tabsWrapperStyles}>
+						<Box xcss={styles.tabsWrapper}>
 							<Tabs
 								id={testIds.tabList}
 								testId={testIds.tabList}
@@ -151,4 +156,11 @@ export const SearchResults = ({
 			)}
 		</SearchResultsContainer>
 	);
+};
+
+export const SearchResults = (props: SearchResultsProps) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <SearchResultsNew {...props} />;
+	}
+	return <SearchResultsOld {...props} />;
 };

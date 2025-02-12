@@ -6,7 +6,7 @@ import replaceRaf from 'raf-stub';
 import { useResizingHeight } from '../../../resizing/height';
 import { isReducedMotion } from '../../../utils/accessibility';
 import { easeInOut } from '../../../utils/curves';
-import { mediumDurationMs } from '../../../utils/durations';
+import { durations } from '../../../utils/durations';
 
 jest.mock('../../../utils/accessibility');
 
@@ -79,7 +79,7 @@ describe('<ResizingHeight />', () => {
 		expect(screen.getByTestId('element').style).toMatchObject({
 			'will-change': 'height',
 			'transition-property': 'height',
-			'transition-duration': `${mediumDurationMs}ms`,
+			'transition-duration': `${durations.medium}ms`,
 			'transition-timing-function': easeInOut,
 		});
 	});

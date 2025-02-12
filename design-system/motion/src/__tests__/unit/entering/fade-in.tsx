@@ -22,8 +22,8 @@ describe('<FadeIn />', () => {
 	});
 
 	it('should override the default duration', () => {
-		render(<FadeIn duration={1234}>{(props) => <div data-testid="element" {...props} />}</FadeIn>);
+		render(<FadeIn duration="small">{(props) => <div data-testid="element" {...props} />}</FadeIn>);
 
-		expect(screen.getByTestId('element')).toHaveStyleDeclaration('animation-duration', '1234ms');
+		expect(screen.getByTestId('element')).toHaveStyleDeclaration('animation-duration', '100ms');
 	});
 });

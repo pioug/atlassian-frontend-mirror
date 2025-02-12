@@ -11,13 +11,13 @@ describe('<ZoomIn />', () => {
 	it('should default to medium duration', () => {
 		render(<ZoomIn>{(props) => <div data-testid="target" {...props} />}</ZoomIn>);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '125ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
 	});
 
 	it('should override default duration', () => {
-		render(<ZoomIn duration={123}>{(props) => <div data-testid="target" {...props} />}</ZoomIn>);
+		render(<ZoomIn duration="large">{(props) => <div data-testid="target" {...props} />}</ZoomIn>);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '123ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '700ms');
 	});
 
 	it('should zoom in ease in out', () => {

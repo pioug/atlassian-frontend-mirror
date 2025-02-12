@@ -3,20 +3,16 @@
  * @jsx jsx
  */
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
-import { useIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import Tabs from '@atlaskit/tabs';
-import Button from '@atlaskit/button/new';
-import { Box, xcss } from '@atlaskit/primitives';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
-import Modal, { ModalBody, ModalFooter, type OnCloseHandler } from '@atlaskit/modal-dialog';
+import Modal, { ModalBody, type OnCloseHandler } from '@atlaskit/modal-dialog';
 import { type SelectedType } from '@atlaskit/tabs/types';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
-import { messages } from '../../shared/i18n';
 import { type ReactionSummary, type ProfileCardWrapper } from '../../types';
 
 import { ReactionsList } from './ReactionsList';
@@ -51,6 +47,7 @@ export interface ReactionsDialogProps {
 	handleSelectReaction?: (emojiId: string) => void;
 	handlePaginationChange?: (emojiId: string, currentPage: number, maxPages: number) => void;
 	ProfileCardWrapper?: ProfileCardWrapper;
+	handleReactionMouseEnter?: (emojiId: string) => void;
 }
 
 const getDimensions = (container: HTMLDivElement) => {
@@ -61,9 +58,7 @@ const getDimensions = (container: HTMLDivElement) => {
 	};
 };
 
-const footerStyle = xcss({
-	borderTop: `2px solid ${token('color.border', 'rgba(11, 18, 14, 0.14)')}`,
-});
+const modalBodyStyle = xcss({ marginBottom: 'space.300' });
 
 export const ReactionsDialog = ({
 	reactions = [],
@@ -73,6 +68,7 @@ export const ReactionsDialog = ({
 	handleSelectReaction = () => {},
 	handlePaginationChange = () => {},
 	ProfileCardWrapper,
+	handleReactionMouseEnter,
 }: ReactionsDialogProps) => {
 	const [elementToScroll, setElementToScroll] = useState<Element>();
 
@@ -84,7 +80,6 @@ export const ReactionsDialog = ({
 
 	const reactionElementsRef = useRef<NodeListOf<HTMLElement>>();
 	const observerRef = useRef<IntersectionObserver>();
-	const intl = useIntl();
 	const isSelectedEmojiViewed = useRef(false);
 
 	const totalReactionsCount = useMemo(() => {
@@ -230,29 +225,23 @@ export const ReactionsDialog = ({
 					handleNextPage={handleNextPage}
 					currentPage={currentPage}
 					emojiProvider={emojiProvider}
-					selectedEmojiId={selectedEmojiId}
 					currentReactions={currentReactions}
+					handleCloseReactionsDialog={handleCloseReactionsDialog}
 				/>
 				<ModalBody>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
-						<ReactionsList
-							selectedEmojiId={selectedEmojiId}
-							reactions={currentReactions}
-							emojiProvider={emojiProvider}
-							ProfileCardWrapper={ProfileCardWrapper}
-						/>
-					</div>
+					<Box xcss={modalBodyStyle}>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+						<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
+							<ReactionsList
+								selectedEmojiId={selectedEmojiId}
+								reactions={currentReactions}
+								emojiProvider={emojiProvider}
+								ProfileCardWrapper={ProfileCardWrapper}
+							/>
+						</div>
+					</Box>
 				</ModalBody>
 			</Tabs>
-
-			<Box xcss={footerStyle}>
-				<ModalFooter>
-					<Button appearance="subtle" onClick={handleCloseReactionsDialog}>
-						{intl.formatMessage(messages.closeReactionsDialog)}
-					</Button>
-				</ModalFooter>
-			</Box>
 		</Modal>
 	);
 };

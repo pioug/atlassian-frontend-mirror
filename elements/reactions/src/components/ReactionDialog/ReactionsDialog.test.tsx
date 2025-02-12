@@ -150,17 +150,6 @@ it('should display an emoji and count for each tab in the reaction list', async 
 	expect(within(elements[1]).getByText('10')).toBeDefined();
 });
 
-it('should display the emoji and emoji name for the selected reaction', async () => {
-	await renderReactionsDialog();
-
-	const reactionView = await findByRole('tabpanel');
-	expect(reactionView).toBeDefined();
-
-	// selected reaction is thumbsup
-	expect(within(reactionView).getByLabelText(':shower:')).toBeDefined();
-	expect(within(reactionView).getByText(/people who reacted with shower/i)).toBeDefined();
-});
-
 it('should alphabetically sort users for the selected reaction', async () => {
 	await renderReactionsDialog();
 
@@ -218,20 +207,33 @@ it('should render the correct number of pages for emojis', async () => {
 	expect(tabs).toHaveLength(2);
 });
 
-it('should disable navigation buttons on the first and last page', async () => {
+it('should not show left navigation button on the first page', async () => {
 	await renderReactionsDialog({});
 
 	const reactionsList = await findByRole('tablist');
 	expect(reactionsList).toBeDefined();
 
-	const leftNavigateButton = screen.getByRole('button', { name: /left navigate/i });
-	expect(leftNavigateButton).toBeDisabled();
+	expect(screen.queryByRole('button', { name: /left navigate/i })).not.toBeInTheDocument();
 
 	const rightNavigateButton = screen.getByRole('button', { name: /right navigate/i });
+	expect(rightNavigateButton).toBeInTheDocument();
+});
+
+it('should not show right navigation button on the last page', async () => {
+	await renderReactionsDialog({});
+
+	const reactionsList = await findByRole('tablist');
+	expect(reactionsList).toBeDefined();
+
+	const rightNavigateButton = screen.getByRole('button', { name: /right navigate/i });
+	expect(rightNavigateButton).toBeInTheDocument();
 
 	await userEvent.click(rightNavigateButton);
 
-	expect(rightNavigateButton).toBeDisabled();
+	const leftNavigateButton = screen.getByRole('button', { name: /left navigate/i });
+	expect(leftNavigateButton).toBeInTheDocument();
+
+	expect(screen.queryByRole('button', { name: /right navigate/i })).not.toBeInTheDocument();
 });
 
 it('should not render nagivation buttons if there is only one page', async () => {
@@ -261,8 +263,6 @@ it('should render the first emoji after navigating to a new page', async () => {
 
 	// currently on second page, with a max of 2 pages
 	expect(spy).toHaveBeenCalledWith('1f525', 2, 2);
-
-	expect(screen.getByText(/people who reacted with fire/i)).toBeInTheDocument();
 });
 
 it('should render user profile card', async () => {

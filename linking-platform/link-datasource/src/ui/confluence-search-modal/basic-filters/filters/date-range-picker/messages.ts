@@ -91,4 +91,9 @@ export const dateRangeMessages = defineMessages({
 		defaultMessage: 'after {date}',
 		description: '`after date` for date picker dropdown',
 	},
+	dateRangeError: {
+		id: 'linkDataSource.confluence-search.configmodal.date.range.error',
+		defaultMessage: 'Date range error',
+		description: 'Label of the icon that is displayed before the error message',
+	},
 });

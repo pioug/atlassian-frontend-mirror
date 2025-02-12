@@ -4,11 +4,10 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Text } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { MockLinkPickerPromisePlugin } from '../../__tests__/__helpers/mock-plugins';
@@ -29,13 +28,14 @@ const plugins = [
 	}),
 ];
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const borderStyle = css({
 	display: 'inline-flex',
 	alignItems: 'flex-start',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div': {
-		border: '1px solid red',
+		borderWidth: '1px',
+		borderStyle: 'solid',
+		borderColor: 'red',
 		marginRight: '5px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${LINK_PICKER_WIDTH_IN_PX}px`,

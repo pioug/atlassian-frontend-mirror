@@ -10,15 +10,10 @@ import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
-import {
-	ExitingPersistence,
-	SlideIn,
-	type Transition,
-	useExitingPersistence,
-} from '@atlaskit/motion';
+import { ExitingPersistence, SlideIn, type Transition } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
 
-import { animationTimingFunction, transitionDurationMs } from '../../constants';
+import { animationTimingFunction } from '../../constants';
 import {
 	type DrawerPrimitiveDefaults,
 	type DrawerPrimitiveOverrides,
@@ -47,19 +42,10 @@ const CustomSlideIn = ({
 	onFinish,
 	enterFrom,
 }: Pick<SlideInProps, 'children' | 'onFinish' | 'enterFrom'>) => {
-	const { isExiting } = useExitingPersistence();
-
-	/**
-	 * The actual duration should be the same for both enter and exit,
-	 * but motion halves the passed duration for exit animations,
-	 * so we double it when exiting.
-	 */
-	const duration = isExiting ? transitionDurationMs * 2 : transitionDurationMs;
-
 	return (
 		<SlideIn
 			animationTimingFunction={animationTimingFunction}
-			duration={duration}
+			duration="small"
 			enterFrom={enterFrom}
 			exitTo={enterFrom}
 			fade="none"

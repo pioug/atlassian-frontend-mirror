@@ -17,6 +17,7 @@ import type {
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
+import { captionMessages } from '@atlaskit/editor-common/media';
 import {
 	calcMediaSinglePixelWidth,
 	DEFAULT_IMAGE_HEIGHT,
@@ -678,9 +679,22 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 						// remove typecasting
 						ref={captionPlaceHolderRef as React.RefObject<HTMLButtonElement>}
 						onClick={clickPlaceholder}
+						placeholderMessage={
+							mediaOptions.allowImagePreview
+								? captionMessages.placeholderWithDoubleClickPrompt
+								: captionMessages.placeholder
+						}
 					/>
 				) : (
-					<CaptionPlaceholder ref={captionPlaceHolderRef} onClick={clickPlaceholder} />
+					<CaptionPlaceholder
+						ref={captionPlaceHolderRef}
+						onClick={clickPlaceholder}
+						placeholderMessage={
+							mediaOptions.allowImagePreview
+								? captionMessages.placeholderWithDoubleClickPrompt
+								: captionMessages.placeholder
+						}
+					/>
 				))}
 		</figure>
 	);

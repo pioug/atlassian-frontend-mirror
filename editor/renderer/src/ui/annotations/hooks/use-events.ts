@@ -7,7 +7,6 @@ import type {
 	OnAnnotationClickPayload,
 	AnnotationUpdateEmitter,
 } from '@atlaskit/editor-common/types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import type { AnnotationMarkStates, AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -84,9 +83,6 @@ export const useAnnotationStateByTypeEvent = ({
 export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => {
 	const [hasFocus, setHasFocus] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
-	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
-		'inline_comments_keyboard_accessible_renderer',
-	);
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber) {
@@ -107,14 +103,14 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 
 		const removeFocus = () => {
 			setHasFocus(false);
-			if (isInlineCommentsKbAccessible && document.activeElement instanceof HTMLElement) {
+			if (document.activeElement instanceof HTMLElement) {
 				document.activeElement.blur();
 			}
 		};
 
 		const removeHoverEffect = () => {
 			setIsHovered(false);
-			if (isInlineCommentsKbAccessible && document.activeElement instanceof HTMLElement) {
+			if (document.activeElement instanceof HTMLElement) {
 				document.activeElement.blur();
 			}
 		};
@@ -133,7 +129,7 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 			updateSubscriber.off(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
 			updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_HOVERED, removeHoverEffect);
 		};
-	}, [id, updateSubscriber, isInlineCommentsKbAccessible]);
+	}, [id, updateSubscriber]);
 
 	return { hasFocus, isHovered };
 };
@@ -149,9 +145,6 @@ export const useAnnotationClickEvent = (
 	const [annotationClickEvent, setAnnotationClickEvent] =
 		useState<AnnotationsWithClickTarget>(null);
 	const { updateSubscriber, createAnalyticsEvent, isNestedRender } = props;
-	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
-		'inline_comments_keyboard_accessible_renderer',
-	);
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber || isNestedRender) {
@@ -196,7 +189,7 @@ export const useAnnotationClickEvent = (
 				annotations: [],
 				clickElementTarget: undefined,
 			});
-			if (isInlineCommentsKbAccessible && document.activeElement instanceof HTMLElement) {
+			if (document.activeElement instanceof HTMLElement) {
 				document.activeElement.blur();
 			}
 		};
@@ -208,7 +201,7 @@ export const useAnnotationClickEvent = (
 			updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
 			updateSubscriber.off(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 		};
-	}, [updateSubscriber, createAnalyticsEvent, isInlineCommentsKbAccessible, isNestedRender]);
+	}, [updateSubscriber, createAnalyticsEvent, isNestedRender]);
 
 	return annotationClickEvent;
 };

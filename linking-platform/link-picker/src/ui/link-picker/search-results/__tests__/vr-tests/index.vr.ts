@@ -26,13 +26,63 @@ const options: OptionsType = {
 	],
 };
 
-snapshot(DefaultExample, options);
-snapshot(DefaultAdaptiveHeightExample, options);
-snapshot(LoadingPlugins, options);
-snapshot(LoadingPluginsWithAdaptiveHeight, options);
-snapshot(NoResults, options);
-snapshot(NoResultsAdaptive, options);
-snapshot(ErrorExample, options);
-snapshot(LoadingResultsWithTabs, options);
-snapshot(LoadingResultsWithTabsAdaptive, options);
-snapshot(ShowingResultsWhileLoadingResults, options);
+snapshot(DefaultExample, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(DefaultAdaptiveHeightExample, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(LoadingPlugins, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(LoadingPluginsWithAdaptiveHeight, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(NoResults, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(NoResultsAdaptive, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(ErrorExample, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(LoadingResultsWithTabs, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(LoadingResultsWithTabsAdaptive, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(ShowingResultsWhileLoadingResults, {
+	...options,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});

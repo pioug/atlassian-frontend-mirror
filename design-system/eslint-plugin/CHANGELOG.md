@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 12.1.0
+
+### Minor Changes
+
+- [#112918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112918)
+  [`4a2db8e5349f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a2db8e5349f6) -
+  Fixed bugs with `ensure-design-token-usage`, `no-legacy-icons` and also support ESLint v9
+  context/sourceCode methods
+
 ## 12.0.0
 
 ### Major Changes

@@ -1,5 +1,28 @@
 # @atlaskit/reactions
 
+## 25.1.0
+
+### Minor Changes
+
+- [#112754](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112754)
+  [`281e77ddc6053`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/281e77ddc6053) -
+  [ux] Reactions Dialog updates - move navigation buttons next to tabs, move close handler from
+  footer to header, add tooltips on reaction hover, change CTA into meatball menu, remove
+  subheading, adjust modal body bottom padding
+
+## 25.0.0
+
+### Major Changes
+
+- [#109511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109511)
+  [`3b4db09205e2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b4db09205e2f) -
+  The `Counter` component no longer accepts an arbitrary duration in ms and instead only offers an
+  enum of static durations: `small` = 100ms, `medium` = 350ms, `large` = 700ms and `none` = 0.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.10.1
 
 ### Patch Changes

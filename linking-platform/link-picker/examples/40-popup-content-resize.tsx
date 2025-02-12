@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
@@ -45,11 +45,11 @@ function TestContentResize() {
 				</p>
 				<p>
 					Experiment with different numbers of results by searching with different search query
-					lengths to see how the content resizing impacts the positionings of the popup, with and
+					lengths to see how the content resizing impacts the positioning of the popup, with and
 					without provision of the update method.
 				</p>
 				<p>
-					The popup trigger is positon fixed in a way that the picker should ordinarily be
+					The popup trigger is position fixed in a way that the picker should ordinarily be
 					off-screen when a full set of results are loaded.
 				</p>
 			</PageHeader>

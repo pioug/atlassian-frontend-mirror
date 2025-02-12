@@ -32,7 +32,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css": "^0.8.0",
-		"@atlaskit/editor-common": "^99.9.0",
+		"@atlaskit/editor-common": "^99.13.0",
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",

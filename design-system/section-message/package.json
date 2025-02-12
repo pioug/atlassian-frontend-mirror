@@ -49,7 +49,7 @@
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/heading": "^4.1.0",
-		"@atlaskit/icon": "^23.7.0",
+		"@atlaskit/icon": "^23.8.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/theme": "^15.0.0",

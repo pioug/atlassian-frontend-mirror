@@ -4,13 +4,13 @@
  */
 import { memo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
 import EditorAddIcon from '@atlaskit/icon/utility/add';
+import { fg } from '@atlaskit/platform-feature-flags';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -20,8 +20,8 @@ import {
 } from '../../../common/types';
 import { UnauthenticatedError } from '../../../common/utils/errors';
 
-import FeatureDiscovery from './feature-discovery';
 import { LinkPickerSubmitButton } from './link-picker-submit-button';
+import { FormFooterOld } from './old';
 
 const formFooterStyles = css({
 	display: 'flex',
@@ -51,8 +51,6 @@ export const testIds = {
 	cancelButton: 'link-picker-cancel-button',
 	actionButton: 'link-picker-action-button',
 	submitStatusA11yIndicator: 'link-picker-submit-status-a11y-indicator',
-	/** Feature discovery for action button (css pulse) */
-	actionButtonDiscovery: 'link-picker-action-button-discovery',
 } as const;
 
 interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
@@ -67,13 +65,12 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
 	isEditing?: boolean;
 	onCancel?: () => void;
 	action?: LinkPickerPluginAction;
-	createFeatureDiscovery?: boolean;
 	customSubmitButtonLabel?: MessageDescriptor;
 	submitMessageId?: string;
 	hideSubmitButton?: boolean;
 }
 
-export const FormFooter = memo(
+export const FormFooterNew = memo(
 	({
 		isLoading,
 		isSubmitting = false,
@@ -84,10 +81,10 @@ export const FormFooter = memo(
 		isEditing,
 		onCancel,
 		action,
-		createFeatureDiscovery = false,
 		customSubmitButtonLabel,
 		submitMessageId,
 		hideSubmitButton,
+		className,
 		...restProps
 	}: FormFooterProps) => {
 		const intl = useIntl();
@@ -119,7 +116,8 @@ export const FormFooter = memo(
 		);
 
 		return (
-			<footer css={formFooterStyles} {...restProps}>
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			<footer css={formFooterStyles} className={className} {...restProps}>
 				{isSubmitting && (
 					<VisuallyHidden
 						role="status"
@@ -129,17 +127,7 @@ export const FormFooter = memo(
 						{intl.formatMessage(messages.submittingStatusMessage)}
 					</VisuallyHidden>
 				)}
-				{action && (
-					<div css={formFooterActionStyles}>
-						{createFeatureDiscovery ? (
-							<FeatureDiscovery testId={testIds.actionButtonDiscovery}>
-								{createButton(action)}
-							</FeatureDiscovery>
-						) : (
-							createButton(action)
-						)}
-					</div>
-				)}
+				{action && <div css={formFooterActionStyles}>{createButton(action)}</div>}
 				<ButtonGroup>
 					{onCancel && (
 						<Button
@@ -171,3 +159,10 @@ export const FormFooter = memo(
 		);
 	},
 );
+
+export const FormFooter = (props: FormFooterProps) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <FormFooterNew {...props} />;
+	}
+	return <FormFooterOld {...props} />;
+};

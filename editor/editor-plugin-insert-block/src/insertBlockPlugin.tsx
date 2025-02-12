@@ -212,9 +212,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				// menu it opens instantly. As we're delaying the loading this won't affect the
 				// initial editor rendering metrics.
 				delayUntilIdle(() => {
-					if (fg('platform_editor_preload_insert_menu')) {
-						ElementBrowser.preload();
-					}
+					ElementBrowser.preload();
 				});
 			}, []);
 		},

@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { ExitingPersistence, FadeIn, mediumDurationMs } from '@atlaskit/motion';
+import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
@@ -69,7 +69,7 @@ const LoadingItems = ({ children, isLoading, fallback, testId }: LoadingItemsPro
 
 	return (
 		<ExitingPersistence>
-			<FadeIn key={`loading-section-${isLoading}`} duration={mediumDurationMs}>
+			<FadeIn key={`loading-section-${isLoading}`} duration="medium">
 				{(motion, state) => (
 					<span
 						{...motion}

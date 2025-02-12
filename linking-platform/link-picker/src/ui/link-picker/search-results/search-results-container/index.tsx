@@ -4,10 +4,13 @@
  */
 import { useLayoutEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';
+
+import { SearchResultsContainerOld } from './old';
 
 const flexColumn = css({
 	display: 'flex',
@@ -23,12 +26,12 @@ type SearchResultsContainerProps = {
 	children?: React.ReactNode;
 };
 
-export const SearchResultsContainer = ({
+export const SearchResultsContainerNew = ({
 	hasTabs,
 	adaptiveHeight,
 	isLoadingResults,
 	children,
-}: SearchResultsContainerProps) => {
+}: SearchResultsContainerProps): JSX.Element => {
 	const ref = useRef<HTMLDivElement>(null);
 	const currentHeight: React.MutableRefObject<number | null> = useRef<number>(null);
 
@@ -48,4 +51,11 @@ export const SearchResultsContainer = ({
 			{children}
 		</MinHeightContainer>
 	);
+};
+
+export const SearchResultsContainer = (props: SearchResultsContainerProps) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <SearchResultsContainerNew {...props} />;
+	}
+	return <SearchResultsContainerOld {...props} />;
 };

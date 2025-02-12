@@ -1,7 +1,22 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Flex, Text, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import { EmptyStateOld } from './old';
+
+const styles = cssMap({
+	container: {
+		marginBlockStart: token('space.600'),
+		marginBlockEnd: token('space.600'),
+		textAlign: 'center',
+	},
+});
 
 type EmptyStateProps = {
 	header: string;
@@ -10,16 +25,10 @@ type EmptyStateProps = {
 	renderImage?: () => React.ReactNode;
 };
 
-const containerStyles = xcss({
-	marginBlockStart: 'space.600',
-	marginBlockEnd: 'space.600',
-	textAlign: 'center',
-});
-
-export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {
+export const EmptyStateNew = ({ testId, header, description, renderImage }: EmptyStateProps) => {
 	return (
 		<Flex
-			xcss={containerStyles}
+			xcss={styles.container}
 			testId={testId}
 			direction="column"
 			alignItems="center"
@@ -38,4 +47,11 @@ export const EmptyState = ({ testId, header, description, renderImage }: EmptySt
 			</Flex>
 		</Flex>
 	);
+};
+
+export const EmptyState = (props: EmptyStateProps) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <EmptyStateNew {...props} />;
+	}
+	return <EmptyStateOld {...props} />;
 };

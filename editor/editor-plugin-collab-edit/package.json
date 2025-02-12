@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "2.6.0",
+	"version": "2.6.1",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/custom-steps": "^0.10.0",
-		"@atlaskit/editor-common": "^99.11.0",
+		"@atlaskit/editor-common": "^99.13.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-plugin-analytics": "1.12.0",
 		"@atlaskit/editor-plugin-connectivity": "^1.3.0",
@@ -116,9 +116,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_selection_without_left_shift": {
-			"type": "boolean"
-		},
-		"platform_editor_migrate_state_updates": {
 			"type": "boolean"
 		}
 	}

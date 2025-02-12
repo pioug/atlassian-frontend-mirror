@@ -507,12 +507,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	}
 
 	private getTableProps(node: Node, path: Array<Node> = []) {
-		// TODO: https://product-fabric.atlassian.net/browse/CEMS-1048
-		const stickyHeaders = !insideBreakoutLayout(path) ? this.stickyHeaders : undefined;
-
 		const isInsideOfBlockNode = insideBlockNode(path, node.type.schema);
 		const isInsideMultiBodiedExtension = insideMultiBodiedExtension(path, node.type.schema);
 		const isInsideOfTable = insideTable(path, node.type.schema);
+
+		// TODO: https://product-fabric.atlassian.net/browse/CEMS-1048
+		const stickyHeaders =
+			!isInsideOfTable && !insideBreakoutLayout(path) ? this.stickyHeaders : undefined;
 
 		return {
 			...this.getProps(node),

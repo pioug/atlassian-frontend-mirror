@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.14.3
+
+### Patch Changes
+
+- [#112416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112416)
+  [`7bc761ae449f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7bc761ae449f4) -
+  VC ratio calculation precision fix
+
 ## 2.14.2
 
 ### Patch Changes

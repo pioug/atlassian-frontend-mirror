@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom';
 import uuid from 'uuid/v4';
 
 import CodeBidiWarning from '@atlaskit/code/bidi-warning';
@@ -9,7 +8,6 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { pluginFactory, stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { codeBidiWarningPluginKey } from './plugin-key';
 import reducer from './reducer';
@@ -92,9 +90,10 @@ export function createBidiWarningsDecorationSetFromDoc({
 		doc,
 		bidiCharactersAndTheirPositions.map(({ position, bidiCharacter }) => {
 			const renderKey = uuid();
+
 			return Decoration.widget(
 				position,
-				() =>
+				(el) =>
 					renderDOM({
 						bidiCharacter,
 						codeBidiWarningLabel,
@@ -103,10 +102,18 @@ export function createBidiWarningsDecorationSetFromDoc({
 						renderKey,
 					}),
 				{
-					destroy: () => {
-						if (fg('platform_editor_react18_plugin_portalprovider')) {
-							nodeViewPortalProviderAPI.remove(renderKey);
-						}
+					destroy: (el) => {
+						// removing portalprovider clean up due to a rendering bug
+						// with this plugin under React 18. This matches the previous
+						// React 16 behaviour which never cleaned up rendering.
+						//
+						// This will mean CodeBidi instances are not cleaned up, but
+						// this is expected to be minimal due to the low frequency of
+						// bidi characters in code blocks.
+						//
+						// We will fix this in a follow up ticket to rewrite the plugin
+						// to use pure toDOM -> ED-26540
+						// nodeViewPortalProviderAPI.remove(renderKey);
 					},
 				},
 			);
@@ -131,32 +138,18 @@ function renderDOM({
 }) {
 	const element = document.createElement('span');
 
-	if (fg('platform_editor_react18_plugin_portalprovider')) {
-		nodeViewPortalProviderAPI.render(
-			() => (
-				<CodeBidiWarning
-					bidiCharacter={bidiCharacter}
-					skipChildren={true}
-					label={codeBidiWarningLabel}
-					tooltipEnabled={tooltipEnabled}
-				/>
-			),
-			element,
-			renderKey,
-		);
-	} else {
-		// Note: we use this pattern elsewhere (see highlighting code block, and drop cursor widget decoration)
-		// we should investigate if there is a memory leak with such usage.
-		ReactDOM.render(
+	nodeViewPortalProviderAPI.render(
+		() => (
 			<CodeBidiWarning
 				bidiCharacter={bidiCharacter}
 				skipChildren={true}
 				label={codeBidiWarningLabel}
 				tooltipEnabled={tooltipEnabled}
-			/>,
-			element,
-		);
-	}
+			/>
+		),
+		element,
+		renderKey,
+	);
 
 	return element;
 }

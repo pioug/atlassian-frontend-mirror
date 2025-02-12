@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/standard-button';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
@@ -70,25 +72,27 @@ export default () => {
 	};
 
 	return (
-		<SmartCardProvider client={new SmartLinkClient()}>
-			<Button appearance="primary" onClick={toggleIsOpen} testId="example-toggle-modal">
-				Toggle Modal
-			</Button>
-			<div>Generated ADF:</div>
-			<pre>
-				<code data-testid="generated-adf">{generatedAdf}</code>
-			</pre>
-			{showModal && (
-				<ConfluenceSearchConfigModal
-					datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
-					visibleColumnKeys={visibleColumnKeys}
-					columnCustomSizes={columnCustomSizes}
-					wrappedColumnKeys={wrappedColumnKeys}
-					parameters={parameters}
-					onCancel={closeModal}
-					onInsert={onInsert}
-				/>
-			)}
-		</SmartCardProvider>
+		<IntlProvider locale="en">
+			<SmartCardProvider client={new SmartLinkClient()}>
+				<Button appearance="primary" onClick={toggleIsOpen} testId="example-toggle-modal">
+					Toggle Modal
+				</Button>
+				<div>Generated ADF:</div>
+				<pre>
+					<code data-testid="generated-adf">{generatedAdf}</code>
+				</pre>
+				{showModal && (
+					<ConfluenceSearchConfigModal
+						datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
+						visibleColumnKeys={visibleColumnKeys}
+						columnCustomSizes={columnCustomSizes}
+						wrappedColumnKeys={wrappedColumnKeys}
+						parameters={parameters}
+						onCancel={closeModal}
+						onInsert={onInsert}
+					/>
+				)}
+			</SmartCardProvider>
+		</IntlProvider>
 	);
 };

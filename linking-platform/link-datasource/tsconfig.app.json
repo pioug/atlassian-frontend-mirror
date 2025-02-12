@@ -75,6 +75,9 @@
 			"path": "../../design-system/icon-object/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/image/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/inline-edit/tsconfig.app.json"
 		},
 		{

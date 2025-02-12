@@ -37,7 +37,7 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.7.0",
+		"@atlaskit/icon": "^23.8.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

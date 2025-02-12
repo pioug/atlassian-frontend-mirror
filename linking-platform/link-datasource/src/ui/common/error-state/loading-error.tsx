@@ -9,13 +9,15 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 
-import { LoadingErrorSVG } from './loading-error-svg';
+import { LoadingErrorSVGOld } from './loading-error-svg-old';
 import { loadingErrorMessages } from './messages';
 
 const errorContainerStyles = css({
@@ -51,7 +53,11 @@ export const LoadingError = ({ onRefresh }: LoadingErrorProps) => {
 
 	return (
 		<Box xcss={errorContainerStyles} testId="datasource--loading-error">
-			<LoadingErrorSVG />
+			{fg('bandicoots-update-sllv-icons') ? (
+				<SpotErrorSearch size={'xlarge'} alt={'something'} />
+			) : (
+				<LoadingErrorSVGOld />
+			)}
 			<Box xcss={errorMessageContainerStyles}>
 				<Inline as="span" xcss={errorMessageStyles}>
 					<FormattedMessage {...loadingErrorMessages.unableToLoadItems} />

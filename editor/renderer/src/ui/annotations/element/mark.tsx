@@ -83,8 +83,6 @@ export const MarkComponent = ({
 	onClick,
 	useBlockLevel,
 }: React.PropsWithChildren<MarkComponentProps>) => {
-	const isInlineCommentsKbAccessible = fg('inline_comments_keyboard_accessible_renderer');
-
 	const intl = useIntl();
 	const annotationIds = useMemo(
 		() => [...new Set([...annotationParentIds, id])],
@@ -147,16 +145,14 @@ export const MarkComponent = ({
 				'data-is-hovered': isHovered,
 			};
 
-	const desktopAccessibilityAttributes = isInlineCommentsKbAccessible
-		? isMobile()
-			? {}
-			: {
-					role: 'button',
-					tabIndex: 0,
-					onKeyDown: onMarkEnter,
-					'aria-expanded': hasFocus,
-				}
-		: {};
+	const desktopAccessibilityAttributes = isMobile()
+		? {}
+		: {
+				role: 'button',
+				tabIndex: 0,
+				onKeyDown: onMarkEnter,
+				'aria-expanded': hasFocus,
+			};
 
 	const accessibility =
 		state !== AnnotationMarkStates.ACTIVE
@@ -170,7 +166,7 @@ export const MarkComponent = ({
 		if (isMobile()) {
 			return {};
 		}
-		if (isInlineCommentsKbAccessible && state !== AnnotationMarkStates.RESOLVED) {
+		if (state !== AnnotationMarkStates.RESOLVED) {
 			const startMarker = intl.formatMessage(
 				inlineCommentMessages.contentRendererInlineCommentMarkerStart,
 			);

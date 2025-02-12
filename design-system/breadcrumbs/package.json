@@ -48,6 +48,7 @@
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/theme": "^15.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
@@ -94,5 +95,9 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/breadcrumbs/",
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"platform_fix_unnessesary_re-renders_in_breadcrumbs": {
+			"type": "boolean"
+		}
+	}
 }

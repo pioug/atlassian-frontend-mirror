@@ -24,13 +24,7 @@ import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from '../ReactionPicker/ReactionPicker';
 import { RENDER_SUMMARY_BUTTON_TESTID } from '../ReactionSummary/ReactionSummaryButton';
 
-import {
-	type ReactionsProps,
-	Reactions,
-	getTooltip,
-	RENDER_VIEWALL_REACTED_USERS_DIALOG,
-	ufoExperiences,
-} from './Reactions';
+import { type ReactionsProps, Reactions, getTooltip, ufoExperiences } from './Reactions';
 
 jest.mock('../../shared/constants', () => ({
 	...jest.requireActual('../../shared/constants'),
@@ -180,7 +174,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			allowUserDialog: true,
 		});
 
-		const viewAllButton = screen.getByText('View all');
+		const viewAllButton = screen.getByLabelText('View all');
 		expect(viewAllButton).toBeInTheDocument();
 	});
 
@@ -190,7 +184,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			allowUserDialog: false,
 		});
 
-		const viewAllButton = screen.queryByText('View all');
+		const viewAllButton = screen.queryByLabelText('View all');
 		expect(viewAllButton).not.toBeInTheDocument();
 	});
 
@@ -200,7 +194,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			allowUserDialog: true,
 		});
 
-		const viewAllButton = screen.queryByText('View all');
+		const viewAllButton = screen.queryByLabelText('View all');
 		expect(viewAllButton).not.toBeInTheDocument();
 	});
 
@@ -216,7 +210,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			onDialogSelectReactionCallback,
 		});
 
-		const viewAllButton = await screen.findByTestId(RENDER_VIEWALL_REACTED_USERS_DIALOG);
+		const viewAllButton = screen.getByLabelText('View all');
 
 		// click see who reacted button
 		act(() => {
@@ -237,9 +231,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			fireEvent.click(tabToClick!);
 		});
 
-		// get close button in reactions dialog
-		const modalFooter = screen.getByTestId('render-reactions-modal--footer');
-		const closeBtn = within(modalFooter).getByText('Close');
+		const closeBtn = screen.getByText('Close');
 		act(() => {
 			fireEvent.click(closeBtn);
 		});

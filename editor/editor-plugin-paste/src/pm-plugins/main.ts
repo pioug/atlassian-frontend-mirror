@@ -218,6 +218,15 @@ export function createPlugin(
 					text = text.replace(/\r/g, '');
 				}
 
+				// Strip Legacy Content Macro (LCM) extensions on paste
+				if (
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+					fg('platform_editor_legacy_content_macro') &&
+					!fg('platform_editor_legacy_content_macro_insert')
+				) {
+					slice = transformSliceToRemoveLegacyContentMacro(slice, schema);
+				}
+
 				const isPastedFile = isPastedFileFromEvent(event);
 				const isPlainText = text && !html;
 				const isRichText = !!html;
@@ -751,15 +760,6 @@ export function createPlugin(
 
 				if (fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
 					slice = transformSingleColumnLayout(slice, schema);
-				}
-
-				// Strip Legacy Content Macro (LCM) extensions on paste
-				if (
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-					fg('platform_editor_legacy_content_macro') &&
-					!fg('platform_editor_legacy_content_macro_insert')
-				) {
-					slice = transformSliceToRemoveLegacyContentMacro(slice, schema);
 				}
 
 				return slice;

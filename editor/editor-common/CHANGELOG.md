@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 99.13.0
+
+### Minor Changes
+
+- [#113205](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113205)
+  [`74786973d6de2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74786973d6de2) -
+  ED-26443 LCM: Add scrollIntoView option on extension API 'update' function. This allows you to
+  disable scrollIntoView.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 99.12.0
+
+### Minor Changes
+
+- [#111831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111831)
+  [`66895944dfac9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66895944dfac9) -
+  [ED-26430] Block drag-and-drop of legacy content macro extension
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 99.11.0
 
 ### Minor Changes

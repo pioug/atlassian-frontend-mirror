@@ -89,7 +89,7 @@ describe('ReactionSummaryView', () => {
 		expect(onReactionFocusedMock).toHaveBeenCalled();
 	});
 
-	it('should render "View all" CTA and invoke dialog open if user dialog is allowed', async () => {
+	it('should render meatball icon CTA and invoke dialog open if user dialog is allowed', async () => {
 		const mockHandleOpenReactionsDialog = jest.fn();
 		renderComponent({
 			allowUserDialog: true,
@@ -101,7 +101,7 @@ describe('ReactionSummaryView', () => {
 
 		await screen.findAllByTestId(RENDER_REACTION_TESTID);
 
-		const viewAllButton = screen.getByRole('button', { name: /^view all$/i });
+		const viewAllButton = screen.getByLabelText('View all');
 		expect(viewAllButton).toBeInTheDocument();
 
 		await userEvent.click(viewAllButton);

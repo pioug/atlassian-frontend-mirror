@@ -24,8 +24,9 @@ export const createEditorStateNotificationPlugin = (
 		pluginName: string;
 		callback: (props: EditorViewStateUpdatedCallbackProps) => void;
 	}>,
-) =>
-	new SafePlugin<EditorStateNotificationPluginState>({
+) => {
+	let transactions: ReadonlyTransaction[] = [];
+	return new SafePlugin<EditorStateNotificationPluginState>({
 		key: key,
 		state: {
 			init() {
@@ -34,6 +35,7 @@ export const createEditorStateNotificationPlugin = (
 				};
 			},
 			apply(tr) {
+				transactions.push(tr);
 				return {
 					latestTransaction: tr,
 				};
@@ -49,14 +51,16 @@ export const createEditorStateNotificationPlugin = (
 						onEditorViewStateUpdatedCallbacks.forEach((entry) => {
 							entry.callback({
 								originalTransaction,
-								transactions: [originalTransaction as Transaction],
+								transactions: transactions as unknown as readonly Transaction[],
 								oldEditorState,
 								newEditorState: view.state,
 							});
 						});
+						transactions = [];
 					}
 					onEditorStateUpdated({ oldEditorState, newEditorState: view.state });
 				},
 			};
 		},
 	});
+};

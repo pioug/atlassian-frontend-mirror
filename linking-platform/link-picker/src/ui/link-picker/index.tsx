@@ -14,16 +14,16 @@ import {
 	useReducer,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { cssMap } from '@atlaskit/css';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -48,10 +48,19 @@ import { Announcer } from './announcer';
 import { FormFooter, testIds as formFooterTestIds } from './form-footer';
 import { LinkPickerSubmitButton } from './form-footer/link-picker-submit-button';
 import { formMessages, linkMessages, linkTextMessages, searchMessages } from './messages';
+import { LinkPickerOld } from './old';
 import { SearchResults, testIds as searchTestIds } from './search-results';
 import { testIds as textFieldTestIds, TextInput } from './text-input';
 import { TrackMount } from './track-mount';
 import { getDataSource, getScreenReaderText } from './utils';
+
+const styles = cssMap({
+	fullWidthSubmitButton: {
+		marginTop: token('space.200'),
+		display: 'flex',
+		flexDirection: 'column',
+	},
+});
 
 const rootContainerStyles = css({
 	paddingLeft: 'var(--link-picker-padding-left)',
@@ -87,15 +96,7 @@ const initState: PickerState = {
 	invalidUrl: false,
 	activeTab: 0,
 	preventHidingRecents: false,
-	/** This only allows the feature discovery pulse - to be shown the ff must be on and active tab be Jira */
-	allowCreateFeatureDiscovery: true,
 };
-
-const FullWidthSubmitButtonStyles = xcss({
-	marginTop: 'space.200',
-	display: 'flex',
-	flexDirection: 'column',
-});
 
 function reducer(state: PickerState, payload: Partial<PickerState>): PickerState {
 	if (payload.url && state.url !== payload.url) {
@@ -103,8 +104,6 @@ function reducer(state: PickerState, payload: Partial<PickerState>): PickerState
 			...state,
 			invalidUrl: false,
 			selectedIndex: isSafeUrl(payload.url) && payload.url.length ? -1 : state.selectedIndex,
-			/** When the user starts entering a url, stop pulsing the create button */
-			allowCreateFeatureDiscovery: false,
 			...payload,
 		};
 	}
@@ -115,7 +114,6 @@ function reducer(state: PickerState, payload: Partial<PickerState>): PickerState
 /**
  * Bind input fields to analytics tracking
  */
-
 const getLinkFieldContent = (value: string) => {
 	if (!Boolean(value)) {
 		return null;
@@ -130,7 +128,7 @@ const LinkInputField = withInputFieldTracking(TextInput, 'link', (event, attribu
 
 const DisplayTextInputField = withInputFieldTracking(TextInput, 'displayText');
 
-export const LinkPicker = withLinkPickerAnalyticsContext(
+export const LinkPickerNew = withLinkPickerAnalyticsContext(
 	memo(
 		({
 			onSubmit,
@@ -155,15 +153,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				displayText: initDisplayText || '',
 			});
 
-			const {
-				activeIndex,
-				selectedIndex,
-				url,
-				displayText,
-				invalidUrl,
-				activeTab,
-				allowCreateFeatureDiscovery,
-			} = state;
+			const { activeIndex, selectedIndex, url, displayText, invalidUrl, activeTab } = state;
 
 			const intl = useIntl();
 			const queryState = useSearchQuery(state);
@@ -521,7 +511,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						/>
 					)}
 					{UNSAFE_moveSubmitButton && (
-						<Box xcss={FullWidthSubmitButtonStyles}>
+						<Box xcss={styles.fullWidthSubmitButton}>
 							<LinkPickerSubmitButton
 								isEditing={isEditing}
 								isLoading={isLoadingResults || !!isLoadingPlugins}
@@ -570,15 +560,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						isEditing={isEditing}
 						onCancel={onCancel}
 						action={pluginAction}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={!queryState || !plugins?.length ? formFooterMargin : undefined}
-						/* Show the feature discovery pulse when we're on the Jira tab, we haven't started typing a url and
-            the feature flag is enabled */
-						createFeatureDiscovery={
-							activePlugin?.tabKey === 'jira' &&
-							allowCreateFeatureDiscovery &&
-							fg('platform.linking-platform.link-picker.enable-jira-create')
-						}
+						css={(!queryState || !plugins?.length) && formFooterMargin}
 						customSubmitButtonLabel={customSubmitButtonLabel}
 						submitMessageId={submitMessageId}
 						hideSubmitButton={UNSAFE_moveSubmitButton}
@@ -588,3 +570,10 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 		},
 	),
 );
+
+export const LinkPicker = (props: LinkPickerProps) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <LinkPickerNew {...props} />;
+	}
+	return <LinkPickerOld {...props} />;
+};

@@ -104,6 +104,7 @@ function ComposableEditorPage() {
 				allowAltTextOnImages: true,
 				allowCaptions: true,
 				allowMediaInlineImages: true,
+				allowImagePreview: false,
 				featureFlags: {
 					...exampleMediaFeatureFlags,
 					mediaInline: true,

@@ -4,7 +4,7 @@ import React, { type Ref, useEffect, useState } from 'react';
 import { ClassNames, type CSSObject, keyframes } from '@emotion/react';
 
 import { reduceMotionAsPerUserPreference } from '../utils/accessibility';
-import { largeDurationMs } from '../utils/durations';
+import { type Durations, durations, exitingDurations } from '../utils/durations';
 import { useSetTimeout } from '../utils/timer-hooks';
 
 import { useExitingPersistence } from './exiting-persistence';
@@ -40,17 +40,11 @@ interface InternalKeyframesMotionProps extends KeyframesMotionProps {
 	 */
 	exitingAnimation?: CSSObject;
 
-	/**
-	 * Duration in `ms`.
+	/**.
 	 * How long the motion will take.
 	 */
-	duration: number;
+	duration: Durations;
 }
-
-/**
- * Used to multiply the initial duration for exiting motions.
- */
-const EXITING_MOTION_MULTIPLIER = 0.5;
 
 /**
  * This is the base INTERNAL component used for all other entering motions.
@@ -64,7 +58,7 @@ const EnteringMotion = ({
 	exitingAnimation,
 	isPaused,
 	onFinish: onFinishMotion,
-	duration = largeDurationMs,
+	duration = 'large',
 }: InternalKeyframesMotionProps) => {
 	const staggered = useStaggeredEntrance();
 	const { isExiting, onFinish: onExitFinished, appear } = useExitingPersistence();
@@ -101,7 +95,7 @@ const EnteringMotion = ({
 				}
 				onFinishMotion && onFinishMotion(state);
 			},
-			isExiting ? duration * EXITING_MOTION_MULTIPLIER : duration + delay,
+			isExiting ? exitingDurations[duration] : durations[duration] + delay,
 		);
 
 		return () => {
@@ -115,25 +109,30 @@ const EnteringMotion = ({
 
 	return (
 		<ClassNames>
-			{({ css }) =>
+			{({ css, cx }) =>
 				children(
 					{
 						ref: staggered.ref,
 						className: hasAnimationStyles
-							? css({
-									...reduceMotionAsPerUserPreference,
-									animationDelay: `${delay}ms`,
-									animationDuration: `${
-										isExiting ? duration * EXITING_MOTION_MULTIPLIER : duration
-									}ms`,
-									animationFillMode: isExiting ? 'forwards' : 'backwards',
-									animationName: `${keyframes(
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-										isExiting ? exitingAnimation || enteringAnimation : enteringAnimation,
-									)}`,
-									animationPlayState: paused ? 'paused' : 'running',
-									animationTimingFunction: animationTimingFunction(state),
-								})
+							? cx(
+									css({
+										...reduceMotionAsPerUserPreference,
+										animationDelay: `${delay}ms`,
+										animationFillMode: isExiting ? 'forwards' : 'backwards',
+										animationName: `${keyframes(
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+											isExiting ? exitingAnimation || enteringAnimation : enteringAnimation,
+										)}`,
+										animationPlayState: paused ? 'paused' : 'running',
+										animationTimingFunction: animationTimingFunction(state),
+									}),
+									duration === 'small' && css({ animationDuration: '100ms' }),
+									duration === 'medium' && css({ animationDuration: '350ms' }),
+									duration === 'large' && css({ animationDuration: '700ms' }),
+									isExiting && duration === 'small' && css({ animationDuration: '50ms' }),
+									isExiting && duration === 'medium' && css({ animationDuration: '175ms' }),
+									isExiting && duration === 'large' && css({ animationDuration: '350ms' }),
+								)
 							: '',
 					},
 					state,

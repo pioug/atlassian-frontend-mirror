@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import Button from '@atlaskit/button/new';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
@@ -93,7 +95,11 @@ const WithIssueModal = (props?: { parameters?: JiraIssueDatasourceParameters }) 
 	);
 };
 
-export default () => <WithIssueModal />;
+export default () => (
+	<IntlProvider locale="en">
+		<WithIssueModal />
+	</IntlProvider>
+);
 
 export const WithIssueModalWithParameters = () => (
 	<WithIssueModal

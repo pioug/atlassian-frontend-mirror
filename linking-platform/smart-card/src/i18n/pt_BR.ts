@@ -124,7 +124,7 @@ export default {
   'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
   'fabric.linking.preview_close': 'Fechar pré-visualização',
   'fabric.linking.preview_description': 'Abre uma pré-visualização em tela cheia deste link',
-  'fabric.linking.preview_improved': 'Abir pré-visualização',
+  'fabric.linking.preview_improved': 'Abrir pré-visualização',
   'fabric.linking.preview_max_size': 'Exibir em tela cheia',
   'fabric.linking.preview_min_size': 'Fechar tela cheia',
   'fabric.linking.priority_blocker': 'Gravíssima',

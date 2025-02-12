@@ -4,13 +4,16 @@
  */
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
 import ChevronLeftIcon from '@atlaskit/icon/utility/migration/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { N0, N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
+import { ScrollingTabListOld } from './old';
 import {
 	calculateConditionalButtons,
 	type ConditionalButtons,
@@ -19,12 +22,6 @@ import {
 	scrollBack,
 	scrollForward,
 } from './scrolling-tabs';
-import {
-	backButtonStyles,
-	containerStyles,
-	nextButtonStyles,
-	scrollingContainerStyles,
-} from './styles';
 
 function isTouchDevice() {
 	return (
@@ -34,17 +31,74 @@ function isTouchDevice() {
 	);
 }
 
-interface ScrollingTabListProps {
+type ScrollingTabListProps = {
 	children: JSX.Element;
-}
+};
 
 const initialConditionalButtonsState: ConditionalButtons = {
 	back: false,
 	forward: false,
 };
 
+const scrollingContainerStyles = css({
+	overflowX: 'auto',
+	scrollBehavior: 'smooth',
+	scrollPadding: '0 24px',
+	scrollbarWidth: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&::-webkit-scrollbar': {
+		display: 'none',
+	},
+	'&::before': {
+		content: '""',
+		borderRadius: 2,
+		bottom: 0,
+		margin: 0,
+		position: 'absolute',
+		width: 'inherit',
+		left: token('space.100', '8px'),
+		right: token('space.100', '8px'),
+		height: 2,
+		backgroundColor: token('color.border', N30),
+	},
+});
+
+const containerStyles = css({
+	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'[role="tablist"]': {
+		'&::before': {
+			display: 'none',
+		},
+	},
+	// Overrides Atlaskit tabs styles to stop overflowing with ellipsis
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'[role="tab"]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		overflow: 'unset !important',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		textOverflow: 'unset !important',
+	},
+});
+
+const backButtonStyles = css({
+	position: 'absolute',
+	top: token('space.050', '4px'),
+	zIndex: 999,
+	backgroundColor: token('elevation.surface', N0),
+	left: 0,
+});
+
+const nextButtonStyles = css({
+	position: 'absolute',
+	top: token('space.050', '4px'),
+	zIndex: 999,
+	backgroundColor: token('elevation.surface', N0),
+	right: 0,
+});
+
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
-export const ScrollingTabList = (props: ScrollingTabListProps) => {
+export const ScrollingTabListNew = (props: ScrollingTabListProps): JSX.Element => {
 	const ref = useRef<HTMLDivElement>(null);
 	const [conditionalButtons, setConditionalButtons] = useState<ConditionalButtons>(
 		initialConditionalButtonsState,
@@ -137,10 +191,9 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 	};
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={containerStyles} ref={ref} data-testid="scrolling-tabs">
 			{conditionalButtons.back && (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				<div className="back" css={backButtonStyles}>
 					<IconButton
 						data-test-id="back"
@@ -151,10 +204,8 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 					/>
 				</div>
 			)}
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={scrollingContainerStyles}>{props.children}</div>
 			{conditionalButtons.forward && (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={nextButtonStyles}>
 					<IconButton
 						data-test-id="forward"
@@ -167,4 +218,11 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 			)}
 		</div>
 	);
+};
+
+export const ScrollingTabList = (props: ScrollingTabListProps) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <ScrollingTabListNew {...props} />;
+	}
+	return <ScrollingTabListOld {...props} />;
 };

@@ -4,7 +4,6 @@ import React from 'react';
 import { type CSSObject } from '@emotion/react';
 
 import { easeInOut } from '../utils/curves';
-import { largeDurationMs } from '../utils/durations';
 
 import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
 import type { Direction, Distance } from './types';
@@ -97,7 +96,7 @@ export interface FadeKeyframesMotionProps extends KeyframesMotionProps {
  */
 const FadeIn = ({
 	children,
-	duration = largeDurationMs,
+	duration = 'large',
 	entranceDirection,
 	exitDirection,
 	distance = 'proportional',

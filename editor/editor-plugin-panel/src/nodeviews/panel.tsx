@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom';
 import uuid from 'uuid/v4';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
@@ -27,7 +26,6 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PanelPlugin, PanelPluginOptions } from '../panelPluginType';
 import { panelAttrsToDom } from '../pm-plugins/utils/utils';
@@ -135,30 +133,19 @@ class PanelNodeView {
 		}
 		// set contentEditable as false to be able to select the custom panels with keyboard
 		this.icon.contentEditable = 'false';
-		if (fg('platform_editor_react18_plugin_portalprovider')) {
-			this.nodeViewPortalProviderAPI.render(
-				() => (
-					<PanelIcon
-						pluginInjectionApi={api}
-						allowCustomPanel={pluginOptions.allowCustomPanel}
-						panelAttributes={node.attrs as PanelAttributes}
-						providerFactory={this.providerFactory}
-					/>
-				),
-				this.icon,
-				this.key,
-			);
-		} else {
-			ReactDOM.render(
+
+		this.nodeViewPortalProviderAPI.render(
+			() => (
 				<PanelIcon
 					pluginInjectionApi={api}
 					allowCustomPanel={pluginOptions.allowCustomPanel}
 					panelAttributes={node.attrs as PanelAttributes}
 					providerFactory={this.providerFactory}
-				/>,
-				this.icon,
-			);
-		}
+				/>
+			),
+			this.icon,
+			this.key,
+		);
 	}
 
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
@@ -173,9 +160,7 @@ class PanelNodeView {
 	}
 
 	destroy() {
-		if (fg('platform_editor_react18_plugin_portalprovider')) {
-			this.nodeViewPortalProviderAPI.remove(this.key);
-		}
+		this.nodeViewPortalProviderAPI.remove(this.key);
 	}
 }
 

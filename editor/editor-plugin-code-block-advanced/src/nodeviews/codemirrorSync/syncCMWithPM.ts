@@ -33,7 +33,7 @@ export const syncCMWithPM = ({ view, update, offset }: Props): void => {
 			}
 			offset += toB - fromB - (toA - fromA);
 		});
-		tr.setSelection(TextSelection.create(tr.doc, selFrom, selTo));
+		tr.setSelection(TextSelection.create(tr.doc, selFrom, selTo)).setMeta('scrollIntoView', false);
 		view.dispatch(tr);
 	}
 };

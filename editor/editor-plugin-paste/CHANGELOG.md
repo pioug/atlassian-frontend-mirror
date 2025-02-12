@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.2.1
+
+### Patch Changes
+
+- [#111831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111831)
+  [`66895944dfac9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66895944dfac9) -
+  [ED-26430] Block drag-and-drop of legacy content macro extension
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

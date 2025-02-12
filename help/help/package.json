@@ -48,7 +48,7 @@
 		"@atlaskit/heading": "^4.1.0",
 		"@atlaskit/help-article": "^4.4.0",
 		"@atlaskit/help-layout": "^4.5.0",
-		"@atlaskit/icon": "^23.7.0",
+		"@atlaskit/icon": "^23.8.0",
 		"@atlaskit/legacy-custom-icons": "^0.21.0",
 		"@atlaskit/notification-indicator": "^9.5.0",
 		"@atlaskit/notification-log-client": "^6.2.0",

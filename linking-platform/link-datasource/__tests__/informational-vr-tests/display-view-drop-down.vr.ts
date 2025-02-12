@@ -20,6 +20,20 @@ snapshotInformational(WithJiraIssuesModal, {
 	},
 	description: 'jira issues modal with an open drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': true,
+	},
+});
+
+snapshotInformational(WithJiraIssuesModal, {
+	prepare: async (page: Page, _component: Locator) => {
+		await openDropDown(page);
+	},
+	description: 'jira issues modal with an open drop down - bandicoots-update-sllv-icons false',
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': false,
+	},
 });
 snapshotInformational(WithJiraIssuesModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -37,6 +51,22 @@ snapshotInformational(WithJiraIssuesModal, {
 	},
 	description: 'jira issues modal after selecting Inline link with open drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': true,
+	},
+});
+snapshotInformational(WithJiraIssuesModal, {
+	prepare: async (page: Page, _component: Locator) => {
+		await openDropDown(page);
+		await page.getByTestId('dropdown-item-inline-link').click();
+		await openDropDown(page);
+	},
+	description:
+		'jira issues modal after selecting Inline link with open drop down - bandicoots-update-sllv-icons false',
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': false,
+	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal with drop down closed',
@@ -48,6 +78,20 @@ snapshotInformational(WithConfluenceSearchModal, {
 	},
 	description: 'confluence search modal with an open drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': true,
+	},
+});
+snapshotInformational(WithConfluenceSearchModal, {
+	prepare: async (page: Page, _component: Locator) => {
+		await openDropDown(page);
+	},
+	description:
+		'confluence search modal with an open drop down - bandicoots-update-sllv-icons false',
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': false,
+	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -65,4 +109,20 @@ snapshotInformational(WithConfluenceSearchModal, {
 	},
 	description: 'confluence search modal after selecting Inline link with open drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': true,
+	},
+});
+snapshotInformational(WithConfluenceSearchModal, {
+	prepare: async (page: Page, _component: Locator) => {
+		await openDropDown(page);
+		await page.getByTestId('dropdown-item-inline-link').click();
+		await openDropDown(page);
+	},
+	description:
+		'confluence search modal after selecting Inline link with open drop down - bandicoots-update-sllv-icons false',
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-update-sllv-icons': false,
+	},
 });

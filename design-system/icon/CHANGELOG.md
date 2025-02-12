@@ -1,5 +1,34 @@
 # @atlaskit/icon
 
+## 23.8.0
+
+### Minor Changes
+
+- [#111393](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111393)
+  [`cbcdf9cbfacf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbcdf9cbfacf7) -
+  This release adds and updates icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `align-image-center`
+  - `align-image-left`
+  - `align-image-right`
+  - `align-text-center`
+  - `align-text-left`
+  - `align-text-right`
+  - `stroke-weight-extra-large`
+  - `stroke-weight-large`
+  - `stroke-weight-medium`
+  - `stroke-weight-small`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `text-strikethrough`
+
 ## 23.7.1
 
 ### Patch Changes

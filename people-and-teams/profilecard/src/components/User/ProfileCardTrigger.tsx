@@ -473,7 +473,7 @@ const LoadingView = ({
 }: {
 	fireAnalytics: (payload: AnalyticsEventPayload) => void;
 }) => (
-	<CardWrapper data-testId="profilecard.profilecardtrigger.loading">
+	<CardWrapper testId="profilecard.profilecardtrigger.loading">
 		<UserLoadingState fireAnalytics={fireAnalytics} />
 	</CardWrapper>
 );

@@ -4,6 +4,8 @@ import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
 import IconEmail from '@atlaskit/icon/core/migration/email';
 import IconLocation from '@atlaskit/icon/core/migration/location';
 import OfficeBuildingIcon from '@atlaskit/icon/core/migration/office-building';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { DetailsLabel, DetailsLabelIcon, DetailsLabelText } from '../../styled/Card';
 
@@ -17,6 +19,7 @@ const icons = {
 type Props = {
 	icon: string;
 	children?: React.ReactNode;
+	extraTopSpace?: boolean;
 };
 
 export default class IconLabel extends React.PureComponent<Props> {
@@ -32,13 +35,17 @@ export default class IconLabel extends React.PureComponent<Props> {
 		// @ts-ignore
 		const IconElement = this.props.icon && icons[this.props.icon];
 		const displayIcon = IconElement ? (
-			<IconElement label={`${this.props.icon}`} LEGACY_size="small" color="currentColor" />
+			<IconElement
+				label={`${this.props.icon}`}
+				LEGACY_size="small"
+				color={fg('compiled-migration-profilecard') ? token('color.text.subtlest') : 'currentColor'}
+			/>
 		) : null;
 
 		return (
-			<DetailsLabel>
-				<DetailsLabelIcon as="dt">{displayIcon}</DetailsLabelIcon>
-				<DetailsLabelText as="dd">{this.props.children}</DetailsLabelText>
+			<DetailsLabel extraTopSpace={this.props.extraTopSpace}>
+				<DetailsLabelIcon>{displayIcon}</DetailsLabelIcon>
+				<DetailsLabelText>{this.props.children}</DetailsLabelText>
 			</DetailsLabel>
 		);
 	}

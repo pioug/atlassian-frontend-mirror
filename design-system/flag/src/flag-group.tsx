@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
 
 import { Children, createContext, type ReactElement, useContext, useMemo } from 'react';
 
@@ -10,12 +9,13 @@ import { Children, createContext, type ReactElement, useContext, useMemo } from 
 import { css, jsx } from '@emotion/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { easeIn, ExitingPersistence, SlideIn } from '@atlaskit/motion';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 import noop from '@atlaskit/ds-lib/noop';
+import { durations, easeIn, exitingDurations, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import Portal from '@atlaskit/portal';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 type FlagGroupProps = {
 	/**
@@ -50,7 +50,6 @@ type FlagGroupProps = {
 
 const gridSize = getGridSize();
 export const flagWidth = gridSize * 50;
-export const flagAnimationTime = 400;
 
 type FlagGroupAPI = {
 	onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
@@ -77,7 +76,8 @@ const baseStyles = css({
 	width: flagWidth,
 	position: 'absolute',
 	insetBlockEnd: 0,
-	transition: `transform ${flagAnimationTime}ms ease-in-out`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	transition: `transform ${durations.medium}ms ease-in-out`,
 	// TODO: Use new breakpoints
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (max-width: 560px)': {
@@ -114,7 +114,8 @@ const dismissAllowedStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& + *': {
 		transform: `translate(0, 0)`,
-		transitionDuration: `${flagAnimationTime / 2}ms`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		transitionDuration: `${exitingDurations.medium}ms`,
 	},
 });
 
@@ -168,7 +169,7 @@ const FlagGroup = (props: FlagGroupProps) => {
 						<SlideIn
 							enterFrom="left"
 							fade="inout"
-							duration={flagAnimationTime}
+							duration="medium"
 							animationTimingFunction={() => easeIn}
 						>
 							{({ className, ref }) => (

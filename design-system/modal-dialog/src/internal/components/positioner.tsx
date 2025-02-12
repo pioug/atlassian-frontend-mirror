@@ -9,7 +9,7 @@ import { type CSSProperties, type ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
-import { mediumDurationMs } from '@atlaskit/motion/durations';
+import { durations } from '@atlaskit/motion/durations';
 import { media } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -59,7 +59,8 @@ const bodyScrollStyles = css({
 });
 
 const stackTransitionStyles = css({
-	transitionDuration: `${mediumDurationMs}ms`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	transitionDuration: `${durations.medium}ms`,
 	transitionProperty: 'transform',
 	transitionTimingFunction: easeInOut,
 

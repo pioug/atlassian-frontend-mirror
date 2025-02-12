@@ -27,7 +27,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import { easeInOut } from '@atlaskit/motion/curves';
-import { smallDurationMs } from '@atlaskit/motion/durations';
+import { durations } from '@atlaskit/motion/durations';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
@@ -89,15 +89,16 @@ interface DraggableItemProps {
 const itemStyles = css({
 	boxSizing: 'border-box',
 	width: '100%',
-	paddingTop: 'space.050',
-	paddingRight: 'space.050',
-	paddingBottom: 'space.050',
-	paddingLeft: 'space.050',
 	backgroundColor: 'elevation.surface.raised',
 	borderRadius: 'border.radius.100',
 	boxShadow: 'elevation.shadow.raised',
 	objectFit: 'cover',
-	transition: `all ${smallDurationMs}ms ${easeInOut}`,
+	paddingBlockEnd: 'space.050',
+	paddingBlockStart: 'space.050',
+	paddingInlineEnd: 'space.050',
+	paddingInlineStart: 'space.050',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	transition: `all ${durations.small}ms ${easeInOut}`,
 	WebkitTouchCallout: 'none',
 });
 

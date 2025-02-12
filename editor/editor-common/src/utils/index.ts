@@ -122,7 +122,14 @@ export {
 export type { Reducer } from './plugin-state-factory';
 export { pluginFactory } from './plugin-state-factory';
 
-export { getFragmentBackingArray, mapFragment, mapSlice, flatmap, mapChildren } from './slice';
+export {
+	getFragmentBackingArray,
+	mapFragment,
+	mapSlice,
+	flatmap,
+	mapChildren,
+	hasNode,
+} from './slice';
 export type { FlatMapCallback, MapWithCallback } from './slice';
 
 export {

@@ -1,5 +1,13 @@
 # @atlaskit/blanket
 
+## 14.1.2
+
+### Patch Changes
+
+- [#113039](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113039)
+  [`dc89be79601e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc89be79601e2) -
+  Remove old codemods.
+
 ## 14.1.1
 
 ### Patch Changes

@@ -81,7 +81,7 @@ const useKudos = (
 };
 
 const Wrapper = (props: { children: React.ReactNode }) => (
-	<CardWrapper data-testid="profilecard" role="dialog" aria-labelledby="profilecard-name-label">
+	<CardWrapper testId="profilecard" role="dialog" labelledBy="profilecard-name-label">
 		{props.children}
 	</CardWrapper>
 );
@@ -245,7 +245,7 @@ const Actions = ({
 			: undefined;
 
 	return (
-		<ActionButtonGroup data-testid="profilecard-actions">
+		<ActionButtonGroup testId="profilecard-actions">
 			{regularActions.map((action, index) => {
 				const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
@@ -299,7 +299,7 @@ const LoadingView = ({ fireAnalyticsWithDuration }: AnalyticsWithDurationProps) 
 	}, [fireAnalyticsWithDuration]);
 
 	return (
-		<SpinnerContainer data-testid="profilecard-spinner-container">
+		<SpinnerContainer testId="profilecard-spinner-container">
 			<Spinner />
 		</SpinnerContainer>
 	);

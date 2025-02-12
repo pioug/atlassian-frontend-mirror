@@ -14,6 +14,7 @@ import type { LazyNodeViewToDOMConfiguration, NodeViewConstructor } from './type
 export { convertToInlineCss } from './css-helper';
 
 export type { NodeViewConstructor, LazyNodeViewToDOMConfiguration };
+export { LazyNodeView };
 
 /**
  * 📢 Public Plugin Key
@@ -147,7 +148,7 @@ export const withLazyLoading = <Options>({
 	loader,
 	getNodeViewOptions,
 }: LazyLoadingProps<Options>): NodeViewConstructor => {
-	const createLazyNodeView = (
+	return (
 		node: PMNode,
 		view: EditorView,
 		getPos: () => number | undefined,
@@ -237,6 +238,4 @@ export const withLazyLoading = <Options>({
 
 		return new LazyNodeView(node, view, getPos, decorations);
 	};
-
-	return createLazyNodeView;
 };

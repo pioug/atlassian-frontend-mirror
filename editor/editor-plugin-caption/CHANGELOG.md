@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-caption
 
+## 1.12.1
+
+### Patch Changes
+
+- [#112160](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112160)
+  [`f38b585cb0587`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f38b585cb0587) -
+  ED-26483 respect caption placeholder override
+
 ## 1.12.0
 
 ### Minor Changes

@@ -162,6 +162,29 @@ filters.forEach((filter) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}--no-options-message`);
 		},
 		description: `${filter} open and view empty state`,
+		featureFlags: {
+			'bandicoots-update-sllv-icons': true,
+		},
+	});
+
+	snapshotInformational(BasicFiltersVR, {
+		...options,
+
+		prepare: async (page: Page, component: Locator) => {
+			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
+
+			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `empty-message`);
+
+			await page
+				.getByRole('heading', { name: 'No matches found', exact: true })
+				.waitFor({ state: 'visible' });
+
+			await component.getByTestId(`jlol-basic-filter-${filter}--no-options-message`);
+		},
+		description: `${filter} open and view empty state - bandicoots-update-sllv-icons false`,
+		featureFlags: {
+			'bandicoots-update-sllv-icons': false,
+		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -179,6 +202,29 @@ filters.forEach((filter) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
 		},
 		description: `${filter} open and view error state`,
+		featureFlags: {
+			'bandicoots-update-sllv-icons': true,
+		},
+	});
+
+	snapshotInformational(BasicFiltersVR, {
+		...options,
+
+		prepare: async (page: Page, component: Locator) => {
+			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
+
+			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `error-message`);
+
+			await page
+				.getByRole('heading', { name: 'Something went wrong', exact: true })
+				.waitFor({ state: 'visible' });
+
+			await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
+		},
+		description: `${filter} open and view error state - bandicoots-update-sllv-icons false`,
+		featureFlags: {
+			'bandicoots-update-sllv-icons': false,
+		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {

@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react';
 
+import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
+import { SpotSearchNoResult } from '../../../../../common/ui/spot/error-state/search-no-result';
 import { SEARCH_DEBOUNCE_MS } from '../constants';
 
 import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';
+
+const noop = () => '';
 
 const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -29,10 +34,26 @@ const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
 
 	useEffect(debouncedAnalyticsCallback, [debouncedAnalyticsCallback]);
 
+	const { formatMessage } = fg('bandicoots-update-sllv-icons')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIntl()
+		: { formatMessage: noop };
+
 	return (
 		<CustomSelectMessage
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19578
-			icon={<QuestionCircleIcon primaryColor={token('color.icon', N500)} size="xlarge" label="" />}
+			icon={
+				fg('bandicoots-update-sllv-icons') ? (
+					<SpotSearchNoResult
+						size={'medium'}
+						alt={formatMessage(asyncPopupSelectMessages.noOptionsMessage)}
+					/>
+				) : (
+					<>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
+						<QuestionCircleIcon primaryColor={token('color.icon', N500)} size="xlarge" label="" />
+					</>
+				)
+			}
 			message={asyncPopupSelectMessages.noOptionsMessage}
 			testId={`${filterName}--no-options-message`}
 		/>

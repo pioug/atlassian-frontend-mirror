@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import AkBlanket from '@atlaskit/blanket';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
-import { animationTimingFunction, transitionDurationMs } from '../constants';
+import { animationTimingFunction } from '../constants';
 
 type BlanketProps = {
 	isOpen: boolean;
@@ -36,7 +36,7 @@ const Blanket = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
 					 *
 					 * The fade out animation uses half the passed duration so it evens out.
 					 */
-					duration={transitionDurationMs * 2}
+					duration="large"
 					/**
 					 * We don't expose this on `FadeIn` but it does get passed down.
 					 * TODO: figure out how we want to handle this...

@@ -4,7 +4,6 @@ import React from 'react';
 import { type CSSObject } from '@emotion/react';
 
 import { type AnimationCurve, easeIn, easeOut } from '../utils/curves';
-import { mediumDurationMs } from '../utils/durations';
 
 import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
 import { type Direction, type Fade, type Transition } from './types';
@@ -81,7 +80,7 @@ const SlideIn = ({
 	enterFrom,
 	exitTo,
 	fade = 'none',
-	duration = mediumDurationMs,
+	duration = 'medium',
 	isPaused,
 	onFinish,
 	animationTimingFunction = (state) => (state === 'entering' ? easeOut : easeIn),

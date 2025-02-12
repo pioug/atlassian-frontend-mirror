@@ -1,14 +1,12 @@
 import { createElement } from 'react';
 
 import { bind, type UnbindFn } from 'bind-event-listener';
-import ReactDOM from 'react-dom';
 import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
@@ -98,24 +96,8 @@ export const dragHandleDecoration = (
 			// due to margins applied to other nodes eg. Headings
 			element.style.clear = 'unset';
 
-			if (fg('platform_editor_react18_plugin_portalprovider')) {
-				nodeViewPortalProviderAPI.render(
-					() =>
-						createElement(DragHandle, {
-							view,
-							api,
-							formatMessage,
-							getPos,
-							anchorName,
-							nodeType,
-							handleOptions,
-							isTopLevelNode,
-						}),
-					element,
-					key,
-				);
-			} else {
-				ReactDOM.render(
+			nodeViewPortalProviderAPI.render(
+				() =>
 					createElement(DragHandle, {
 						view,
 						api,
@@ -126,9 +108,9 @@ export const dragHandleDecoration = (
 						handleOptions,
 						isTopLevelNode,
 					}),
-					element,
-				);
-			}
+				element,
+				key,
+			);
 			return element;
 		},
 		{

@@ -76,9 +76,4 @@ export const messages = defineMessages({
 		defaultMessage: 'View all user reactions',
 		description: 'Tooltip content of see who reacted link',
 	},
-	peopleWhoReactedSubheading: {
-		id: 'reactions.dialog.people-who-reacted.subheader',
-		defaultMessage: 'People who reacted with {emojiShortName}',
-		description: 'Subheading that shows the user which emoji tab they are on',
-	},
 });

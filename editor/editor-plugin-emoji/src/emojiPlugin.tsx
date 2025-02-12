@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { emoji } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -42,6 +41,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
 import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './emojiPluginType';
 import { EmojiNodeView } from './nodeviews/emoji';
+import { emojiNodeSpec } from './nodeviews/emojiNodeSpec';
 import {
 	ACTIONS,
 	openTypeAhead as openTypeAheadAction,
@@ -241,7 +241,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 		name: 'emoji',
 
 		nodes() {
-			return [{ name: 'emoji', node: emoji }];
+			return [{ name: 'emoji', node: emojiNodeSpec() }];
 		},
 
 		pmPlugins() {

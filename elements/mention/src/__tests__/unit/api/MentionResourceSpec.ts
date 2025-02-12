@@ -1,5 +1,4 @@
 import { type SecurityOptions } from '@atlaskit/util-service-support';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import fetchMock from 'fetch-mock/cjs/client';
@@ -64,13 +63,6 @@ const FULL_CONTEXT = {
 	objectId: 'someObjectId',
 	childObjectId: 'someChildObjectId',
 	sessionId: 'someSessionId',
-};
-
-const PARTIAL_CONTEXT = {
-	containerId: '',
-	objectId: undefined,
-	childObjectId: '',
-	sessionId: 'longfurbies',
 };
 
 describe('MentionResource', () => {
@@ -412,7 +404,6 @@ describe('MentionResource', () => {
 				},
 				(err) => {
 					fail('listener error called');
-					done(err);
 				},
 			);
 			resource.filter('test');
@@ -457,120 +448,6 @@ describe('MentionResource', () => {
 			);
 			resource.filter('test');
 		});
-	});
-
-	describe('#recordMentionSelection', () => {
-		ffTest.on(
-			'platform_editor_ai_remove_mentions_record',
-			'platform_editor_ai_remove_mentions_record is on',
-			() => {
-				it('should not call any endpoints', (done) => {
-					const resource = new MentionResource(apiConfig);
-					resource
-						.recordMentionSelection(
-							{
-								id: '666',
-							},
-							FULL_CONTEXT,
-						)
-						.then(() => {
-							expect(fetchMock.called('record')).toBe(false);
-							done();
-						});
-				});
-			},
-		);
-
-		ffTest.off(
-			'platform_editor_ai_remove_mentions_record',
-			'platform_editor_ai_remove_mentions_record is off',
-			() => {
-				it('should call record endpoint', (done) => {
-					const resource = new MentionResource(apiConfig);
-					resource
-						.recordMentionSelection(
-							{
-								id: '666',
-							},
-							FULL_CONTEXT,
-						)
-						.then(() => {
-							const queryParams = queryString.parse(queryString.extract(fetchMock.lastUrl()));
-							expect(queryParams.containerId).toBe('someContainerId');
-							expect(queryParams.objectId).toBe('someObjectId');
-							expect(queryParams.childObjectId).toBe('someChildObjectId');
-							expect(queryParams.sessionId).toBe('someSessionId');
-							expect(fetchMock.called('record')).toBe(true);
-							done();
-						});
-				});
-
-				it('should resolve the query parameters with a partial context', (done) => {
-					const resource = new MentionResource(apiConfig);
-					resource.recordMentionSelection({ id: '666' }, PARTIAL_CONTEXT).then(() => {
-						const queryParams = queryString.parse(queryString.extract(fetchMock.lastUrl()));
-
-						expect(queryParams).not.toHaveProperty('containerId');
-						expect(queryParams).not.toHaveProperty('objectId');
-						expect(queryParams).not.toHaveProperty('objectChildId');
-						expect(queryParams.sessionId).toBe(PARTIAL_CONTEXT.sessionId);
-						done();
-					});
-				});
-
-				it('should send analytics event when user is selected', async () => {
-					const resource = new MentionResource(apiConfig);
-					const analytics = jest.fn();
-
-					resource.subscribe(
-						'test1',
-						() => {
-							throw new Error('listener should not be called');
-						},
-						() => {
-							throw new Error('listener should not be called');
-						},
-						undefined,
-						undefined,
-						analytics,
-					);
-
-					await resource.recordMentionSelection(
-						{
-							id: '666',
-						},
-						FULL_CONTEXT,
-					);
-					expect(analytics).toHaveBeenCalledTimes(1);
-					expect(analytics).toHaveBeenCalledWith('sli', 'select', 'succeeded', undefined);
-				});
-
-				it('should send failed to select analytics event when it fails to select user', async () => {
-					const resource = new MentionResource(apiConfig);
-					const analytics = jest.fn();
-
-					resource.subscribe(
-						'test1',
-						() => {
-							throw new Error('listener should not be called');
-						},
-						() => {
-							throw new Error('listener should not be called');
-						},
-						undefined,
-						undefined,
-						analytics,
-					);
-
-					await resource.recordMentionSelection({
-						id: 'broken',
-					});
-
-					expect(analytics).toHaveBeenCalledTimes(1);
-					expect(analytics).toHaveBeenCalledWith('sli', 'select', 'failed', undefined);
-				});
-			},
-		);
 	});
 
 	describe('#shouldHighlightMention', () => {

@@ -91,7 +91,7 @@ const MediaViewerFunctionalComponent = ({
 	// when document changes are made while media viewer is open
 
 	const mediaItems = useMemo(() => {
-		if (mediaState?.isMediaViewerVisible && fg('platform_editor_media_interaction_improvements')) {
+		if (mediaState?.isMediaViewerVisible) {
 			const mediaNodes = extractMediaNodes(editorView.state.doc);
 			return createMediaIdentifierArray(mediaNodes);
 		}
@@ -117,7 +117,7 @@ const MediaViewerFunctionalComponent = ({
 			mediaClientConfig={mediaState?.mediaClientConfig}
 			onClose={handleOnClose}
 			selectedNodeAttrs={mediaState.mediaViewerSelectedMedia}
-			items={fg('platform_editor_media_interaction_improvements') ? mediaItems : undefined}
+			items={mediaItems}
 		/>
 	);
 };

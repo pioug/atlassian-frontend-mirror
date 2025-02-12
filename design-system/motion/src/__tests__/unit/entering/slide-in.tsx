@@ -6,7 +6,7 @@ import ExitingPersistence from '../../../entering/exiting-persistence';
 import SlideIn, { slideInAnimation } from '../../../entering/slide-in';
 import { type Direction, type Fade, type Transition } from '../../../entering/types';
 import { easeIn, easeOut } from '../../../utils/curves';
-import { mediumDurationMs } from '../../../utils/durations';
+import { durations } from '../../../utils/durations';
 
 jest.mock('../../../utils/accessibility');
 
@@ -18,18 +18,18 @@ describe('<SlideIn />', () => {
 
 		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 			'animation-duration',
-			`${mediumDurationMs}ms`,
+			`${durations.medium}ms`,
 		);
 	});
 
 	it('should override default duration', () => {
 		render(
-			<SlideIn duration={123} enterFrom="left">
+			<SlideIn duration="small" enterFrom="left">
 				{(props) => <div data-testid="target" {...props} />}
 			</SlideIn>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '123ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
 	});
 
 	it('should slide in easing out', () => {

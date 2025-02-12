@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 15.2.2
+
+### Patch Changes
+
+- [#112549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112549)
+  [`ed68a8d2ee5f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed68a8d2ee5f7) -
+  Update dependencies and remove unused exports and codemods.
+
 ## 15.2.1
 
 ### Patch Changes

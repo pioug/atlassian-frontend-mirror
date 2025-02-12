@@ -181,7 +181,6 @@ export const createPlugin = (
 		appearance?: EditorAppearance;
 	} = {},
 	featureFlags?: FeatureFlags,
-	allowDragAndDrop: boolean = true,
 	__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'],
 ) => {
 	const state = createPluginState(dispatch, {
@@ -419,20 +418,6 @@ export const createPlugin = (
 						: !target.closest('.extension-content'), // It's to enable nested extensions selection
 				{ useLongPressSelection },
 			),
-			handleDrop(view, event, slice, moved) {
-				if (fg('platform_editor_legacy_content_macro')) {
-					if (!allowDragAndDrop) {
-						// Completely disable DND for extension nodes when allowDragAndDrop is false
-						const isExtension =
-							slice.content.childCount === 1 &&
-							slice.content.firstChild?.type === view.state.schema.nodes.extension;
-
-						return isExtension;
-					}
-					return false;
-				}
-				return false;
-			},
 		},
 	});
 };

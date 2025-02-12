@@ -7,16 +7,18 @@ import { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { DatasourceAction, DatasourceSearchMethod } from '../../../analytics/types';
 import { type Site } from '../../../common/types';
+import { RichIconSearch } from '../../../common/ui/rich-icon/search';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { useUserInteractions } from '../../../contexts/user-interactions';
 import i18nEN from '../../../i18n/en';
@@ -48,7 +50,7 @@ import {
 	type ConnectedConfluenceSearchConfigModalProps,
 } from '../types';
 
-import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-state-svg';
+import { ConfluenceSearchInitialStateSVGOld } from './confluence-search-initial-state-svg-old';
 import { confluenceSearchModalMessages } from './messages';
 
 const inputContainerStyles = xcss({
@@ -64,12 +66,19 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 		Object.values(parameters).filter((v) => v !== undefined).length > 1
 	);
 
+const noop = () => '';
+
 export const PlainConfluenceSearchConfigModal = (
 	props: ConnectedConfluenceSearchConfigModalProps,
 ) => {
 	const { onCancel, url: urlBeingEdited, overrideParameters } = props;
 
 	const { currentViewMode } = useViewModeContext();
+
+	const { formatMessage } = fg('bandicoots-update-sllv-icons')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIntl()
+		: { formatMessage: noop };
 
 	const {
 		visibleColumnKeys,
@@ -273,7 +282,16 @@ export const PlainConfluenceSearchConfigModal = (
 			return (
 				<ContentContainer>
 					<InitialStateView
-						icon={<ConfluenceSearchInitialStateSVG />}
+						icon={
+							fg('bandicoots-update-sllv-icons') ? (
+								<RichIconSearch
+									size="xlarge"
+									alt={formatMessage(confluenceSearchModalMessages.initialViewSearchTitle)}
+								/>
+							) : (
+								<ConfluenceSearchInitialStateSVGOld />
+							)
+						}
 						title={confluenceSearchModalMessages.initialViewSearchTitle}
 						description={confluenceSearchModalMessages.initialViewSearchDescription}
 					/>
@@ -286,12 +304,13 @@ export const PlainConfluenceSearchConfigModal = (
 			</ContentContainer>
 		);
 	}, [
+		status,
+		resolvedWithNoResults,
 		columns.length,
 		selectedConfluenceSiteUrl,
-		resolvedWithNoResults,
-		status,
 		urlBeingEdited,
 		hasConfluenceSearchParams,
+		formatMessage,
 	]);
 
 	const renderInlineLinkModalContent = useCallback(() => {

@@ -62,6 +62,14 @@ const shouldIgnoreNode = (
 		return false;
 	}
 
+	const isLegacyContentMacroExtension =
+		node.type.name === 'extension' &&
+		node.attrs?.extensionType === 'com.atlassian.confluence.migration' &&
+		node.attrs?.extensionKey === 'legacy-content';
+	if (isLegacyContentMacroExtension) {
+		return true;
+	}
+
 	return (isEmbedCard || isMediaSingle) && ['wrap-right', 'wrap-left'].includes(node.attrs.layout)
 		? true
 		: ignore_nodes.includes(node.type.name);

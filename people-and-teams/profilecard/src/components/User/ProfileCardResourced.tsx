@@ -178,7 +178,7 @@ class ProfileCardResourced extends React.PureComponent<
 			);
 		} else if (hasError) {
 			return (
-				<CardWrapper data-testid="profile-card-resourced-error-state">
+				<CardWrapper testId="profile-card-resourced-error-state">
 					<ErrorMessage
 						errorType={error}
 						reload={this.clientFetchProfile}

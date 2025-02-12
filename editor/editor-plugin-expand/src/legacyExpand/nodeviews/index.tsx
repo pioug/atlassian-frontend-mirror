@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
@@ -264,24 +263,8 @@ export class ExpandNodeView implements NodeView {
 
 		const { __expanded } = (node && node.attrs) || this.node.attrs;
 
-		if (fg('platform_editor_react18_plugin_portalprovider')) {
-			this.nodeViewPortalProviderAPI.render(
-				() => (
-					<ExpandIconButton
-						intl={intl}
-						allowInteractiveExpand={this.allowInteractiveExpand}
-						expanded={
-							this.__livePage && fg('platform.editor.live-pages-expand-divergence')
-								? !__expanded
-								: __expanded
-						}
-					></ExpandIconButton>
-				),
-				this.icon,
-				this.renderKey,
-			);
-		} else {
-			ReactDOM.render(
+		this.nodeViewPortalProviderAPI.render(
+			() => (
 				<ExpandIconButton
 					intl={intl}
 					allowInteractiveExpand={this.allowInteractiveExpand}
@@ -290,10 +273,11 @@ export class ExpandNodeView implements NodeView {
 							? !__expanded
 							: __expanded
 					}
-				></ExpandIconButton>,
-				this.icon,
-			);
-		}
+				></ExpandIconButton>
+			),
+			this.icon,
+			this.renderKey,
+		);
 	}
 
 	private handleClick = (event: Event) => {
@@ -690,11 +674,7 @@ export class ExpandNodeView implements NodeView {
 		if (this.icon) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.icon.removeEventListener('keydown', this.handleIconKeyDown);
-			if (fg('platform_editor_react18_plugin_portalprovider')) {
-				this.nodeViewPortalProviderAPI.remove(this.renderKey);
-			} else {
-				ReactDOM.unmountComponentAtNode(this.icon);
-			}
+			this.nodeViewPortalProviderAPI.remove(this.renderKey);
 		}
 
 		this.decorationCleanup?.();

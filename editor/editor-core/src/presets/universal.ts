@@ -215,7 +215,10 @@ export default function createUniversalPresetInternal({
 					allowMediaSingleEditable: true,
 					allowRemoteDimensionsFetch: true,
 					allowMarkingUploadsAsIncomplete: false,
-					allowImagePreview: isFullPage,
+					allowImagePreview:
+						typeof props.media?.allowImagePreview !== 'undefined'
+							? props.media?.allowImagePreview
+							: isFullPage,
 					fullWidthEnabled: appearance === 'full-width',
 					editorAppearance: appearance,
 					uploadErrorHandler: props.uploadErrorHandler,

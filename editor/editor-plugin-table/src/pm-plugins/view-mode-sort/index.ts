@@ -6,7 +6,6 @@
 
 import { createElement } from 'react';
 
-import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl-next';
 import uuid from 'uuid/v4';
 
@@ -16,7 +15,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type tablePlugin from '../../tablePlugin';
 import { SortingIconWrapper } from '../../ui/icons/SortingIconWrapper';
@@ -111,25 +109,8 @@ export const createPlugin = (
 
 										const { getIntl } = getPluginState(oldState);
 
-										if (fg('platform_editor_react18_plugin_portalprovider')) {
-											nodeViewPortalProviderAPI.render(
-												() =>
-													createElement(
-														RawIntlProvider,
-														{ value: getIntl() },
-														createElement(SortingIconWrapper, {
-															isSortingAllowed: !hasMergedCells,
-															sortOrdered,
-															onClick: () => {},
-															onKeyDown: () => {},
-															api,
-														}),
-													),
-												element,
-												decorationRenderKey,
-											);
-										} else {
-											ReactDOM.render(
+										nodeViewPortalProviderAPI.render(
+											() =>
 												createElement(
 													RawIntlProvider,
 													{ value: getIntl() },
@@ -141,19 +122,15 @@ export const createPlugin = (
 														api,
 													}),
 												),
-												element,
-											);
-										}
+											element,
+											decorationRenderKey,
+										);
 
 										return element;
 									},
 									{
 										destroy: (node) => {
-											if (fg('platform_editor_react18_plugin_portalprovider')) {
-												nodeViewPortalProviderAPI.remove(decorationRenderKey);
-											} else {
-												ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
-											}
+											nodeViewPortalProviderAPI.remove(decorationRenderKey);
 										},
 									},
 								),

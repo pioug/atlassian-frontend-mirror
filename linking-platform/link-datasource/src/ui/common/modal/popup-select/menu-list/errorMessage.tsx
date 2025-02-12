@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 
+import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { type ErrorShownBasicSearchDropdownAttributesType } from '../../../../../analytics/generated/analytics.types';
+import { SpotError } from '../../../../../common/ui/spot/error-state/error';
 import { SEARCH_DEBOUNCE_MS } from '../constants';
 
 import { asyncPopupSelectMessages } from './messages';
@@ -29,6 +32,8 @@ const getErrorReasonType = (
 	return 'unknown';
 };
 
+const noop = () => '';
+
 const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors?: unknown[] }) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -45,10 +50,23 @@ const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors
 
 	useEffect(debouncedAnalyticsCallback, [debouncedAnalyticsCallback]);
 
+	const { formatMessage } = fg('bandicoots-update-sllv-icons')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIntl()
+		: { formatMessage: noop };
+
 	return (
 		<CustomSelectMessage
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19579
-			icon={<ErrorIcon primaryColor={token('color.icon', N500)} label="" size="xlarge" />}
+			icon={
+				fg('bandicoots-update-sllv-icons') ? (
+					<SpotError size={'medium'} alt={formatMessage(asyncPopupSelectMessages.errorMessage)} />
+				) : (
+					<>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
+						<ErrorIcon primaryColor={token('color.icon', N500)} label="" size="xlarge" />
+					</>
+				)
+			}
 			message={asyncPopupSelectMessages.errorMessage}
 			testId={`${filterName}--error-message`}
 		/>

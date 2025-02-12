@@ -6,7 +6,7 @@ import { replaceRaf } from 'raf-stub';
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import ShrinkOut from '../../../entering/shrink-out';
 import { easeIn } from '../../../utils/curves';
-import { smallDurationMs } from '../../../utils/durations';
+import { durations } from '../../../utils/durations';
 import { ComponentStub } from '../../__utils__/component-stub';
 
 jest.mock('../../../utils/accessibility');
@@ -144,7 +144,7 @@ describe('<ShrinkOut />', () => {
 		raf.step();
 
 		expect(screen.getByTestId('target')).toHaveStyle({
-			transitionDuration: `${smallDurationMs}ms`,
+			transitionDuration: `${durations.small}ms`,
 		});
 	});
 
@@ -220,7 +220,7 @@ describe('<ShrinkOut />', () => {
 		raf.step();
 		raf.step();
 		act(() => {
-			// jest.advanceTimersByTime(smallDurationMs);
+			// jest.advanceTimersByTime(100);
 			jest.runAllTimers();
 		});
 		expect(within(baseElement).queryByTestId('target')).not.toBeInTheDocument();

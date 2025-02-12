@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.14.1
+
+### Patch Changes
+
+- [#112096](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112096)
+  [`5d95afdd358ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d95afdd358ac) -
+  [ux] Creates a package for new QuickInsert and Right Rail UI and adds it under a FF
+- Updated dependencies
+
 ## 2.14.0
 
 ### Minor Changes

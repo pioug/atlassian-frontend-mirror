@@ -2,8 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { GenericErrorSVGOld } from './old';
 
 const HEIGHT = 90;
 
@@ -12,7 +15,7 @@ const genericErrorStyles = css({
 	display: 'block',
 });
 
-export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
+export const GenericErrorSVGNew = (props: React.SVGProps<SVGSVGElement>) => {
 	const id = 'link-picker-ui-generic-error-svg';
 
 	return (
@@ -56,4 +59,11 @@ export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
 			</defs>
 		</svg>
 	);
+};
+
+export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <GenericErrorSVGNew {...props} />;
+	}
+	return <GenericErrorSVGOld {...props} />;
 };

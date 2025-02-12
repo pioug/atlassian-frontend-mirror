@@ -1,3 +1,5 @@
+import type { Durations } from '../utils/durations';
+
 /**
  * Direction the motion is going.
  */
@@ -25,10 +27,9 @@ export type Fade = 'none' | 'in' | 'out' | 'inout';
  */
 export interface MotionProps<TProps extends {}> {
 	/**
-	 * Duration in `ms`.
 	 * How long the motion will take.
 	 */
-	duration?: number;
+	duration?: Durations;
 
 	/**
 	 * Will callback when the motion has finished in the particular direction.

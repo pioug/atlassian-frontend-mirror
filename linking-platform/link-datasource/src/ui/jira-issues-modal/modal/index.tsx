@@ -8,7 +8,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import type { DatasourceParameters, Link } from '@atlaskit/linking-types';
@@ -29,6 +29,7 @@ import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/u
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type { DisplayViewModes, JiraSearchMethod, Site } from '../../../common/types';
+import { RichIconSearch } from '../../../common/ui/rich-icon/search';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 import { useUserInteractions } from '../../../contexts/user-interactions';
@@ -68,6 +69,8 @@ import {
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
+
+const noop = () => '';
 
 const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
 	if (currentViewMode === 'table') {
@@ -124,6 +127,11 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const experienceId = useDatasourceExperienceId();
+
+	const { formatMessage } = fg('bandicoots-update-sllv-icons')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useIntl()
+		: { formatMessage: noop };
 
 	const analyticsPayload = useMemo(
 		() => ({
@@ -355,7 +363,20 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 						<EmptyState testId={`jira-datasource-modal--empty-state`} />
 					) : (
 						<InitialStateView
-							icon={<JiraInitialStateSVG />}
+							icon={
+								fg('bandicoots-update-sllv-icons') ? (
+									<RichIconSearch
+										alt={formatMessage(
+											fg('confluence-issue-terminology-refresh')
+												? modalMessages.searchJiraTitleIssueTermRefresh
+												: modalMessages.searchJiraTitle,
+										)}
+										size={'xlarge'}
+									/>
+								) : (
+									<JiraInitialStateSVG />
+								)
+							}
 							title={
 								fg('confluence-issue-terminology-refresh')
 									? modalMessages.searchJiraTitleIssueTermRefresh
@@ -384,6 +405,7 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	}, [
 		columns.length,
 		currentSearchMethod,
+		formatMessage,
 		jql,
 		jqlUrl,
 		resolvedWithNoResults,

@@ -1,7 +1,7 @@
 import type React from 'react';
 
 import { easeIn } from '../utils/curves';
-import { smallDurationMs } from '../utils/durations';
+import { durations } from '../utils/durations';
 import { useRequestAnimationFrame, useSetTimeout } from '../utils/timer-hooks';
 import { useElementRef } from '../utils/use-element-ref';
 import { useLayoutEffect } from '../utils/use-layout-effect';
@@ -19,7 +19,7 @@ export interface ShrinkOutProps extends MotionProps<{ ref: React.Ref<any> }> {}
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
  */
-const ShrinkOut = ({ children, duration = smallDurationMs, onFinish }: ShrinkOutProps): any => {
+const ShrinkOut = ({ children, duration = 'small', onFinish }: ShrinkOutProps): any => {
 	const [element, setElementRef] = useElementRef();
 	const exiting = useExitingPersistence();
 	const requestAnimationFrame = useRequestAnimationFrame();
@@ -43,15 +43,16 @@ const ShrinkOut = ({ children, duration = smallDurationMs, onFinish }: ShrinkOut
 						width: '0px',
 						margin: '0px', // We animate margin down to zero so it doesn't take any space.
 						transitionTimingFunction: easeIn,
-						transitionDuration: `${duration}ms`,
+						transitionDuration: durations[duration] + 'ms',
 						transitionProperty: 'width,margin',
 					};
+
 					Object.assign(element.style, newStyles);
 
 					setTimeout(() => {
 						exiting.onFinish && exiting.onFinish();
 						onFinish && onFinish('exiting');
-					}, duration);
+					}, durations[duration]);
 				});
 			});
 		}

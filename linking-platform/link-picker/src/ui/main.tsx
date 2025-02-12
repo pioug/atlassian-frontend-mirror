@@ -4,11 +4,11 @@
  */
 import React, { memo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { LazySuspense } from 'react-loosely-lazy';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
@@ -19,6 +19,7 @@ import { LinkPickerSessionProvider } from '../controllers/session-provider';
 import { ErrorBoundary } from './error-boundary';
 import { LoaderFallback } from './loader-fallback';
 import { MessagesProvider } from './messages-provider';
+import { composeLinkPickerOld } from './old/main';
 
 export const testIds = {
 	linkPickerRoot: 'link-picker-root',
@@ -45,7 +46,7 @@ const FixedWidthContainer = (props: React.HTMLAttributes<HTMLDivElement>) => {
 	return <div css={fixedWidthContainerStyles} {...props} />;
 };
 
-export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps>) => {
+export const composeLinkPickerNew = (Component: React.ComponentType<LinkPickerProps>) => {
 	return memo((props: LinkPickerProps) => {
 		const { component } = props;
 		const RootComponent = component ?? DefaultRootComponent;
@@ -94,4 +95,11 @@ export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps
 			</AnalyticsContext>
 		);
 	});
+};
+
+export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps>) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return composeLinkPickerNew(Component);
+	}
+	return composeLinkPickerOld(Component);
 };

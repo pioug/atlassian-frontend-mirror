@@ -1,6 +1,5 @@
 import { createElement } from 'react';
 
-import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl-next';
 import type { IntlShape } from 'react-intl-next';
 import uuid from 'uuid/v4';
@@ -20,7 +19,6 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getCellsInRow, getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Cell, CellColumnPositioning } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';
@@ -341,23 +339,8 @@ export const createResizeHandleDecoration = (
 			position,
 			() => {
 				const element = document.createElement('div');
-				if (fg('platform_editor_react18_plugin_portalprovider')) {
-					nodeViewPortalProviderAPI.render(
-						() =>
-							createElement(
-								RawIntlProvider,
-								{ value: getIntl() },
-								createElement(ColumnResizeWidget, {
-									startIndex: cellColumnPositioning.left,
-									endIndex: cellColumnPositioning.right,
-									includeTooltip,
-								}),
-							),
-						element,
-						decorationRenderKey,
-					);
-				} else {
-					ReactDOM.render(
+				nodeViewPortalProviderAPI.render(
+					() =>
 						createElement(
 							RawIntlProvider,
 							{ value: getIntl() },
@@ -367,9 +350,9 @@ export const createResizeHandleDecoration = (
 								includeTooltip,
 							}),
 						),
-						element,
-					);
-				}
+					element,
+					decorationRenderKey,
+				);
 				return element;
 			},
 			{
@@ -377,11 +360,7 @@ export const createResizeHandleDecoration = (
 					TableDecorations.COLUMN_RESIZING_HANDLE_WIDGET
 				}_${rowIndex}_${columnIndex}_${includeTooltip ? 'with' : 'no'}-tooltip`,
 				destroy: (node) => {
-					if (fg('platform_editor_react18_plugin_portalprovider')) {
-						nodeViewPortalProviderAPI.remove(decorationRenderKey);
-					} else {
-						ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
-					}
+					nodeViewPortalProviderAPI.remove(decorationRenderKey);
 				},
 			},
 		);

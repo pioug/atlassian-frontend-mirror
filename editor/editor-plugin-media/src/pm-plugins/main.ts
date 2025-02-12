@@ -2,7 +2,6 @@ import assert from 'assert';
 
 import React from 'react';
 
-import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 import { RawIntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
@@ -52,7 +51,6 @@ import { isFileIdentifier, type Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
@@ -101,31 +99,9 @@ const createDropPlaceholder = (
 	const dropPlaceholder = document.createElement('div');
 	const createElement = React.createElement;
 
-	if (fg('platform_editor_react18_plugin_portalprovider')) {
-		if (allowDropLine) {
-			nodeViewPortalProviderAPI.render(
-				() =>
-					createElement(
-						RawIntlProvider,
-						{ value: intl },
-						createElement(DropPlaceholder, { type: 'single' } as {
-							type: PlaceholderType;
-						}),
-					),
-				dropPlaceholder,
-				dropPlaceholderKey,
-			);
-		} else {
-			nodeViewPortalProviderAPI.render(
-				() => createElement(RawIntlProvider, { value: intl }, createElement(DropPlaceholder)),
-				dropPlaceholder,
-				dropPlaceholderKey,
-			);
-		}
-	} else {
-		if (allowDropLine) {
-			//eslint-disable-next-line react/no-deprecated
-			ReactDOM.render(
+	if (allowDropLine) {
+		nodeViewPortalProviderAPI.render(
+			() =>
 				createElement(
 					RawIntlProvider,
 					{ value: intl },
@@ -133,15 +109,15 @@ const createDropPlaceholder = (
 						type: PlaceholderType;
 					}),
 				),
-				dropPlaceholder,
-			);
-		} else {
-			//eslint-disable-next-line react/no-deprecated
-			ReactDOM.render(
-				createElement(RawIntlProvider, { value: intl }, createElement(DropPlaceholder)),
-				dropPlaceholder,
-			);
-		}
+			dropPlaceholder,
+			dropPlaceholderKey,
+		);
+	} else {
+		nodeViewPortalProviderAPI.render(
+			() => createElement(RawIntlProvider, { value: intl }, createElement(DropPlaceholder)),
+			dropPlaceholder,
+			dropPlaceholderKey,
+		);
 	}
 
 	return dropPlaceholder;
@@ -1102,12 +1078,7 @@ export const createPlugin = (
 							key: 'drop-placeholder',
 							destroy: (elem) => {
 								if (elem instanceof HTMLElement) {
-									if (fg('platform_editor_react18_plugin_portalprovider')) {
-										nodeViewPortalProviderAPI.remove(dropPlaceholderKey);
-									} else {
-										//eslint-disable-next-line react/no-deprecated
-										ReactDOM.unmountComponentAtNode(elem);
-									}
+									nodeViewPortalProviderAPI.remove(dropPlaceholderKey);
 								}
 							},
 						},
@@ -1170,8 +1141,10 @@ export const createPlugin = (
 				return false;
 			},
 			handleDoubleClickOn: (view) => {
-				if (!fg('platform_editor_media_interaction_improvements')) {
-					return;
+				// Check if media viewer is enabled
+				const pluginState = getMediaPluginState(view.state);
+				if (!pluginState.mediaOptions?.allowImagePreview) {
+					return false;
 				}
 
 				const isLivePagesViewMode =

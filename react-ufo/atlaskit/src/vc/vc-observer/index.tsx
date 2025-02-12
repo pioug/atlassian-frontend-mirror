@@ -302,7 +302,29 @@ export class VCObserver {
 						tti,
 						ttai: stop - start,
 					},
+					start,
+					stop,
 					heatmap,
+					ratios,
+				};
+
+				window.__vcNext = {
+					entries: vcNext.VCEntries.rel,
+					log: componentsLog,
+					metrics: {
+						'75': vcNext.VC['75'],
+						'80': vcNext.VC['80'],
+						'85': vcNext.VC['85'],
+						'90': vcNext.VC['90'],
+						'95': vcNext.VC['95'],
+						'98': vcNext.VC['98'],
+						'99': vcNext.VC['99'],
+						tti,
+						ttai: stop - start,
+					},
+					start,
+					stop,
+					heatmap: heatmapNext,
 					ratios,
 				};
 

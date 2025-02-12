@@ -58,8 +58,6 @@ export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions) => 
 	const showErrorFlag = useCallback(
 		(args?: Partial<CreateFlagArgs> & { status?: number }) => {
 			showFlag({
-				// We need IconTile in order to scale the new icon to 24px
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 				icon: (
 					<CrossCircleIcon spacing="spacious" label="Error" color={token('color.icon.danger')} />
 				),

@@ -1,9 +1,5 @@
-export {
-	durationStep,
-	largeDurationMs,
-	mediumDurationMs,
-	smallDurationMs,
-} from './utils/durations';
+export { durations, exitingDurations, durationStep } from './utils/durations';
+export type { Durations } from './utils/durations';
 export { easeIn, easeInOut, easeOut } from './utils/curves';
 export {
 	isReducedMotion,

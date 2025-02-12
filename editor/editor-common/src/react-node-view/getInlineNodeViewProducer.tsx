@@ -123,18 +123,25 @@ function createNodeView<ExtraComponentProps>({
 
 	function attachNodeViewObserver() {
 		const observer = getOrCreateOnVisibleObserver(nodeViewParams.view);
-		removeIntersectionObserver = observer.observe(domRef, () => {
-			if (!didRenderComponentWithIntersectionObserver && !destroyed) {
-				domRef.replaceChildren();
-				renderComponent();
-				didRenderComponentWithIntersectionObserver = true;
-			}
-		});
+		if (domRef) {
+			removeIntersectionObserver = observer.observe(domRef, () => {
+				if (!didRenderComponentWithIntersectionObserver && !destroyed) {
+					domRef.replaceChildren();
+					renderComponent();
+					didRenderComponentWithIntersectionObserver = true;
+				}
+			});
+		}
 	}
 
 	if (shouldVirtualize) {
 		renderFallback();
-		attachNodeViewObserver();
+		// allow the fallback to render first before attaching the observer.
+		// Will tweak this in a follow up PR to optimise rendering of visible
+		// nodes without fallback rendering.
+		setTimeout(() => {
+			attachNodeViewObserver();
+		}, 0);
 	} else {
 		const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
 			nodeViewParams.view,

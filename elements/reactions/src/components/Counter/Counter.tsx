@@ -5,7 +5,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
-import { SlideIn, ExitingPersistence, mediumDurationMs } from '@atlaskit/motion';
+import { SlideIn, ExitingPersistence, type Durations } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 
 import { formatLargeNumber } from '../../shared/utils';
@@ -49,9 +49,9 @@ export interface CounterProps {
 	 */
 	className?: string;
 	/**
-	 * Duration in ms of how long the motion will take (defaults to "mediumDurationMs" from '@atlaskit/motion')
+	 * Duration of how long the motion will take (defaults to "medium" from '@atlaskit/motion')
 	 */
-	animationDuration?: number;
+	animationDuration?: Durations;
 }
 
 /**
@@ -63,7 +63,7 @@ export const Counter = ({
 	overLimitLabel,
 	className,
 	value,
-	animationDuration = mediumDurationMs,
+	animationDuration = 'medium',
 }: CounterProps) => {
 	const getLabel = (value: number) => {
 		// Check if reached limit

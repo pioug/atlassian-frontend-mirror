@@ -34,8 +34,18 @@ const allVariantsOptions: OptionsType = {
 	],
 };
 
-snapshot(DefaultExample, allVariantsOptions);
-snapshot(WithCancelExample, allVariantsOptions);
+snapshot(DefaultExample, {
+	...allVariantsOptions,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(WithCancelExample, {
+	...allVariantsOptions,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
 snapshot(ErrorBoundaryExample, {
 	...allVariantsOptions,
 	ignoredErrors: [
@@ -50,18 +60,51 @@ snapshot(ErrorBoundaryExample, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
 });
-snapshot(PluginErrorExample, allVariantsOptions);
-snapshot(UnauthenticatedErrorExample, allVariantsOptions);
+snapshot(PluginErrorExample, {
+	...allVariantsOptions,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(UnauthenticatedErrorExample, {
+	...allVariantsOptions,
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
 
 /** Width examples */
-snapshot(DisableWidthExample);
-snapshot(DisableWidthWithPluginsExample);
-snapshot(DisableWidth500Example);
-snapshot(DisableWidth300Example);
+snapshot(DisableWidthExample, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(DisableWidthWithPluginsExample, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(DisableWidth500Example, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(DisableWidth300Example, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
 
 /** Padding examples */
-snapshot(ZeroPaddingExample);
+snapshot(ZeroPaddingExample, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
 snapshot(LargePaddingUsingTokensExample, {
 	variants: [
 		{
@@ -71,9 +114,24 @@ snapshot(LargePaddingUsingTokensExample, {
 			},
 		},
 	],
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
 });
-snapshot(VaryingPaddingsExample);
+snapshot(VaryingPaddingsExample, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
 
 /** Custom empty state */
-snapshot(CustomEmptyStateExample);
-snapshot(CustomEmptyStateWithAdaptiveHeightExample);
+snapshot(CustomEmptyStateExample, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});
+snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
+	featureFlags: {
+		'platform_bandicoots-link-picker-css': [true, false],
+	},
+});

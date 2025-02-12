@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 23.11.3
+
+### Patch Changes
+
+- [#100905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100905)
+  [`09996c6135609`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09996c6135609) -
+  [EDF-2181] Cleanup platform_editor_ai_remove_mentions_record FF
+
 ## 23.11.2
 
 ### Patch Changes

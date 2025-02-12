@@ -51,7 +51,7 @@ export const OverflowProfileCardButtons = (props: OverflowButtonsProps) => {
 	);
 
 	return (
-		<OverflowActionButtonsWrapper data-testid="profilecard-actions-overflow">
+		<OverflowActionButtonsWrapper testId="profilecard-actions-overflow">
 			<DropdownMenu
 				onOpenChange={onOpenChange}
 				placement={'bottom-end'}

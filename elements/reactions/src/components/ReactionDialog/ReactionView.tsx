@@ -2,20 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
 import { TabPanel } from '@atlaskit/tabs';
-import { Box, Flex, xcss, Inline } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading';
-
-import { messages } from '../../shared/i18n';
+import { Box, Flex, xcss } from '@atlaskit/primitives';
 import { type ReactionSummary, type ProfileCardWrapper } from '../../types';
 
 import { userListStyle, userStyle } from './styles';
@@ -29,7 +24,7 @@ const profileWrapperStyle = xcss({
 });
 
 const reactionViewStyle = xcss({
-	marginTop: 'space.300',
+	marginTop: 'space.150',
 	minHeight: '300px',
 	minWidth: '550px',
 });
@@ -41,9 +36,6 @@ const centerSpinnerStyle = xcss({
 	height: '100%',
 	marginTop: 'space.300',
 });
-
-const headerStyle = xcss({ alignItems: 'flex-end' });
-const emojiSpacingStlye = xcss({ marginLeft: 'space.100' });
 
 export interface ReactionViewProps {
 	/**
@@ -67,24 +59,6 @@ export const ReactionView = ({
 	reaction,
 	ProfileCardWrapper,
 }: ReactionViewProps) => {
-	const [emojiName, setEmojiName] = useState<string>('');
-
-	useEffect(() => {
-		(async () => {
-			const provider = await emojiProvider;
-			const emoji = await provider.findByEmojiId({
-				shortName: '',
-				id: selectedEmojiId,
-			});
-
-			if (emoji?.name) {
-				// capitalize first letter of each string
-				const capitalizedName = emoji.name.replace(/\b\w/g, (char) => char.toUpperCase());
-				setEmojiName(capitalizedName);
-			}
-		})();
-	}, [emojiProvider, selectedEmojiId, reaction]);
-
 	const alphabeticalNames = useMemo(() => {
 		const reactionObj = reaction;
 
@@ -94,24 +68,6 @@ export const ReactionView = ({
 	return (
 		<TabPanel>
 			<Flex direction="column" xcss={reactionViewStyle}>
-				<Inline xcss={headerStyle}>
-					<Heading size="xsmall">
-						<FormattedMessage
-							{...messages.peopleWhoReactedSubheading}
-							values={{
-								emojiShortName: emojiName,
-							}}
-						/>
-					</Heading>
-					<Box as="span" xcss={emojiSpacingStlye}>
-						<ResourcedEmoji
-							emojiProvider={emojiProvider}
-							emojiId={{ id: selectedEmojiId, shortName: '' }}
-							fitToHeight={24}
-						/>
-					</Box>
-				</Inline>
-
 				{alphabeticalNames.length === 0 ? (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<Box xcss={centerSpinnerStyle}>

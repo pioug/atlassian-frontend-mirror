@@ -11,12 +11,13 @@ import {
 	useRef,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/core/migration/cross-circle--select-clear';
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -25,13 +26,26 @@ import {
 	ConditionalSpotlightTargetWrapper,
 	type ConditionalSpotlightTargetWrapperProps,
 } from './conditional-spotlight-target-wrapper';
+import { TextInputOld } from './old';
 import { isRedoEvent, isUndoEvent } from './utils';
 
+const styles = cssMap({
+	clearTextButton: {
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		marginRight: token('space.050'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		border: 'none',
+		verticalAlign: 'middle',
+	},
+});
+
 /**
- * Overidding text input margin top which design system provides as a default spacer
+ * Overriding text input margin top which design system provides as a default spacer
  * but it gets in the way of our layout
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 const fieldStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
@@ -61,15 +75,8 @@ export const testIds = {
 	urlError: 'link-error',
 	clearUrlButton: 'clear-text',
 };
-const clearTextButtonStyles = xcss({
-	padding: 'space.0',
-	marginRight: 'space.050',
-	backgroundColor: 'color.background.neutral.subtle',
-	border: 'none',
-	verticalAlign: 'middle',
-});
 
-export const TextInput = ({
+export const TextInputNew = ({
 	name,
 	label,
 	autoFocus,
@@ -126,7 +133,11 @@ export const TextInput = ({
 
 	const clearText = restProps.value !== '' && (
 		<Tooltip content={clearLabel}>
-			<Pressable xcss={clearTextButtonStyles} onClick={handleClear} testId={testIds.clearUrlButton}>
+			<Pressable
+				xcss={styles.clearTextButton}
+				onClick={handleClear}
+				testId={testIds.clearUrlButton}
+			>
 				<Selectclear
 					LEGACY_size="medium"
 					label={clearLabel || ''}
@@ -160,4 +171,11 @@ export const TextInput = ({
 			</Field>
 		</div>
 	);
+};
+
+export const TextInput = (props: TextInputProps) => {
+	if (fg('platform_bandicoots-link-picker-css')) {
+		return <TextInputNew {...props} />;
+	}
+	return <TextInputOld {...props} />;
 };

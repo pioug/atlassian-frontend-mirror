@@ -1,25 +1,35 @@
-import React, { type ReactNode, useContext } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode, useContext } from 'react';
 
 import { createIntl, createIntlCache, IntlContext, IntlProvider } from 'react-intl-next';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 import { ufologger } from '@atlaskit/ufo';
+
+const styles = cssMap({
+	pageWrapper: {
+		marginBottom: token('space.400'),
+		maxWidth: '700px',
+	},
+	exampleWrapper: {
+		paddingTop: token('space.600'),
+		paddingRight: token('space.600'),
+		paddingBottom: token('space.600'),
+		paddingLeft: token('space.600'),
+	},
+});
 
 interface WrapperProps {
 	children: ReactNode;
 }
 
 export type messages = { [key: string]: string };
-
-const pageWrapperStyles = xcss({
-	marginBottom: 'space.400',
-	maxWidth: '700px',
-});
-
-const exampleWrapperStyles = xcss({
-	padding: 'space.600',
-});
 
 // Prevents memory leaks
 const cache = createIntlCache();
@@ -45,19 +55,13 @@ export function PageWrapper({ children }: WrapperProps) {
 
 	return (
 		<SmartCardProvider>
-			<Box xcss={[exampleWrapperStyles]}>
-				<IntlProvider
-					locale={intl.locale}
-					// should be remove when ff: platform.linking-platform.link-picker.lazy-intl-messages is cleaned up
-					onError={() => {}}
-				>
-					{children}
-				</IntlProvider>
+			<Box xcss={styles.exampleWrapper}>
+				<IntlProvider locale={intl.locale}>{children}</IntlProvider>
 			</Box>
 		</SmartCardProvider>
 	);
 }
 
 export function PageHeader(wrapperProps: WrapperProps) {
-	return <Box xcss={[pageWrapperStyles]}>{wrapperProps.children}</Box>;
+	return <Box xcss={styles.pageWrapper}>{wrapperProps.children}</Box>;
 }

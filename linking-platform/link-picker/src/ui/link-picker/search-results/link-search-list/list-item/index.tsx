@@ -4,25 +4,19 @@
  */
 import { forwardRef, Fragment, type KeyboardEvent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
-import { Text } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Text } from '@atlaskit/primitives/compiled';
+import { B100, B400, B50, N20, N200, N300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { type LinkSearchListItemData } from '../../../../../common/types';
 /* eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports */
 import { transformTimeStamp } from '../../../transformTimeStamp';
 
-import {
-	composeListItemStyles,
-	imgStyles,
-	itemIconStyles,
-	itemNameStyles,
-	listItemContainerInnerStyles,
-	listItemContainerStyles,
-	listItemContextStyles,
-} from './styled';
+import { LinkSearchListItemOld } from './old';
 
 export const testIds = {
 	searchResultItem: 'link-search-list-item',
@@ -33,6 +27,48 @@ const isSVG = (icon: string) => icon.startsWith('<svg') && icon.endsWith('</svg>
 
 const base64SVG = (icon: string) =>
 	`data:image/svg+xml;base64,${Buffer.from(icon).toString('base64')}`;
+
+const itemIconStyles = css({
+	minWidth: token('space.200', '16px'),
+	marginTop: token('space.050', '4px'),
+	marginRight: token('space.150', '12px'),
+});
+
+const listItemContextStyles = css({
+	color: token('color.text', N300),
+	font: token('font.body.small'),
+	display: 'flex',
+});
+
+const listItemContainerStyles = css({
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+});
+
+const listItemContainerInnerStyles = css({
+	color: token('color.text.subtlest', N200),
+	whiteSpace: 'nowrap',
+});
+
+const itemNameStyles = css({
+	overflow: 'hidden',
+	alignContent: 'center',
+	width: '100%',
+});
+
+const imgStyles = css({
+	maxWidth: token('space.200', '16px'),
+});
+
+const listItemBaseStyles = css({
+	display: 'flex',
+	paddingTop: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: `clamp( ${token('space.100', '8px')}, var(--link-picker-padding-left), 100% )`,
+	paddingRight: `clamp( ${token('space.100', '8px')}, var(--link-picker-padding-right), 100% )`,
+	margin: 0,
+	cursor: 'pointer',
+});
 
 const ListItemIcon = (props: { item: LinkSearchListItemData; intl: IntlShape }) => {
 	const { item, intl } = props;
@@ -47,20 +83,17 @@ const ListItemIcon = (props: { item: LinkSearchListItemData; intl: IntlShape }) 
 		const Glyph = icon;
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={itemIconStyles}>
 				<Glyph alt={alt} data-testid={testIds.searchResultIcon} />
 			</span>
 		);
 	}
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={itemIconStyles}>
 			<img
 				data-testid={testIds.searchResultIcon}
 				src={isSVG(icon) ? base64SVG(icon) : icon}
 				alt={alt}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={imgStyles}
 			/>
 		</span>
@@ -73,7 +106,6 @@ type SubtitleProps = {
 
 const ListItemSubtitle = ({ items: [firstItem, secondItem] }: SubtitleProps) => {
 	return (
-		/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
 		<div data-testid={`${testIds.searchResultItem}-subtitle`} css={listItemContextStyles}>
 			<div css={listItemContainerStyles}>
 				<span css={listItemContainerInnerStyles}>{firstItem}</span>
@@ -86,7 +118,6 @@ const ListItemSubtitle = ({ items: [firstItem, secondItem] }: SubtitleProps) => 
 			)}
 		</div>
 	);
-	/* eslint-enable @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
 };
 
 const getDefaultSubtitleItems = (
@@ -110,7 +141,7 @@ const getDefaultSubtitleItems = (
 	return undefined;
 };
 
-export interface LinkSearchListItemProps {
+export type LinkSearchListItemProps = {
 	item: LinkSearchListItemData;
 	selected: boolean;
 	active: boolean;
@@ -121,10 +152,43 @@ export interface LinkSearchListItemProps {
 	id?: string;
 	role?: string;
 	nameMaxLines?: number;
-}
+};
 
-export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
-	({ item, selected, id, role, onSelect, tabIndex, onKeyDown, onFocus, nameMaxLines = 1 }, ref) => {
+const listItemActive = css({
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered', N20),
+		boxShadow: `inset 2px 0px 0px ${token('color.border.selected', B400)}`,
+	},
+});
+
+const listItemSelected = css({
+	backgroundColor: token('color.background.selected', B50),
+	boxShadow: `inset 2px 0px 0px ${token('color.border.selected', B400)}`,
+});
+
+const listItemFocusStyles = css({
+	'&:focus': {
+		outline: 'none',
+		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)} inset`,
+		textDecoration: 'none',
+	},
+});
+
+export const LinkSearchListItemNew = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
+	(
+		{
+			item,
+			selected,
+			id,
+			role,
+			onSelect,
+			tabIndex,
+			onKeyDown,
+			onFocus,
+			nameMaxLines = 1,
+		}: LinkSearchListItemProps,
+		ref,
+	): JSX.Element => {
 		const intl = useIntl();
 		const handleSelect = () => onSelect(item.objectId);
 		const subtitleItems = item.subtitleItems || getDefaultSubtitleItems(item, intl);
@@ -132,8 +196,12 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 		return (
 			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 			<div
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={composeListItemStyles(selected)}
+				css={[
+					listItemBaseStyles,
+					!selected && listItemActive,
+					selected && listItemSelected,
+					listItemFocusStyles,
+				]}
 				role={role}
 				id={id}
 				aria-selected={selected}
@@ -145,7 +213,6 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 				ref={ref}
 			>
 				<ListItemIcon item={item} intl={intl} />
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={itemNameStyles}>
 					<Text maxLines={nameMaxLines}>
 						<span data-testid={`${testIds.searchResultItem}-title`} title={item.name}>
@@ -156,5 +223,14 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 				</div>
 			</div>
 		);
+	},
+);
+
+export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
+	(props: LinkSearchListItemProps, ref) => {
+		if (fg('platform_bandicoots-link-picker-css')) {
+			return <LinkSearchListItemNew {...props} ref={ref} />;
+		}
+		return <LinkSearchListItemOld {...props} ref={ref} />;
 	},
 );

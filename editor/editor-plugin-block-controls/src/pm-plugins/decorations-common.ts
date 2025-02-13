@@ -15,6 +15,11 @@ export const getNodeAnchor = (node: PMNode) => {
 	return `--node-anchor-${node.type.name}-${handleId}`;
 };
 
+export const getNodeTypeWithLevel = (node: PMNode) => {
+	const subType = node.attrs.level ? `-${node.attrs.level}` : '';
+	return node.type.name + subType;
+};
+
 class ObjHash {
 	static caching = new WeakMap();
 

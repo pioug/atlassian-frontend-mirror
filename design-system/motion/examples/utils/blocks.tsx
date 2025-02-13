@@ -3,10 +3,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, keyframes } from '@emotion/react';
+import { css, jsx, keyframes } from '@compiled/react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
@@ -20,51 +20,67 @@ interface AnimatedBlockProps extends BlockProps {
 	duration: number;
 }
 
-const blockSize = {
-	small: 50,
-	medium: 150,
-	large: 300,
-};
-
 const logoSize = {
 	large: 'xlarge',
 	medium: 'large',
 	small: 'small',
 };
 
-export const Block = forwardRef<HTMLDivElement, BlockProps>(
-	({ onClick, appearance = 'medium', ...props }: BlockProps, ref) => {
-		const size = blockSize[appearance];
-		return (
-			<div
-				ref={ref}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={css({
-					display: 'flex',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					width: `${size}px`,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					height: `${size}px`,
-					margin: token('space.200', '16px'),
-					alignItems: 'center',
-					justifyContent: 'center',
-					backgroundColor: token('elevation.surface'),
-					borderRadius: `${Math.floor(size / 7)}px`,
-					boxShadow: token('elevation.shadow.overlay'),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					cursor: onClick ? 'pointer' : 'default',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-					':hover': {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						backgroundColor: onClick ? token('color.background.brand.bold') : undefined,
-					},
-				})}
-				{...props}
-			>
-				{props.children || <AtlassianIcon size={logoSize[appearance] as any} />}
-			</div>
-		);
+const blockStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	backgroundColor: token('elevation.surface'),
+	borderRadius: '1rem',
+	boxShadow: token('elevation.shadow.overlay'),
+	cursor: 'default',
+	marginBlockEnd: token('space.200', '16px'),
+	marginBlockStart: token('space.200', '16px'),
+	marginInlineEnd: token('space.200', '16px'),
+	marginInlineStart: token('space.200', '16px'),
+});
+
+const interactiveStyles = css({
+	cursor: 'pointer',
+	'&:hover': {
+		backgroundColor: token('color.background.brand.bold'),
 	},
+});
+
+const sizeSmall = css({
+	width: '50px',
+	height: '50px',
+});
+
+const sizeMedium = css({
+	width: '150px',
+	height: '150px',
+});
+
+const sizeLarge = css({
+	width: '300px',
+	height: '300px',
+});
+
+export const Block = forwardRef<HTMLDivElement, BlockProps>(
+	({ onClick, appearance = 'medium', ...props }: BlockProps, ref) => (
+		<div
+			ref={ref}
+			css={[
+				blockStyles,
+				appearance === 'small' && sizeSmall,
+				appearance === 'medium' && sizeMedium,
+				appearance === 'large' && sizeLarge,
+				onClick && interactiveStyles,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={props.className}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={props.style}
+		>
+			{props.children || <AtlassianIcon size={logoSize[appearance] as any} />}
+		</div>
+	),
 );
 
 const movesRight = keyframes({
@@ -79,14 +95,17 @@ const movesRight = keyframes({
 export const MovesRightBlock = forwardRef<HTMLDivElement, AnimatedBlockProps>(
 	(props: AnimatedBlockProps, ref) => (
 		<Block
-			ref={ref as any}
+			ref={ref}
 			css={{
 				animationName: `${movesRight}`,
 				animationDuration: `${props.duration}ms`,
 				animationTimingFunction: props.curve,
 				animationIterationCount: 'infinite',
 			}}
-			{...props}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={props.className}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={props.style}
 		/>
 	),
 );

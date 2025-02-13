@@ -103,7 +103,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			moveToLayout: (
 				start: number,
 				to: number,
-				options?: { moveToEnd?: boolean; selectMovedNode?: boolean },
+				options?: { moveToEnd?: boolean; selectMovedNode?: boolean; moveNodeAtCursorPos?: boolean },
 			) => EditorCommand;
 			moveNode: MoveNode;
 			showDragHandleAt: (

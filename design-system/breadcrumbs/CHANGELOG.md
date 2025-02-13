@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 14.1.2
+
+### Patch Changes
+
+- [#113285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113285)
+  [`80c522079f747`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80c522079f747) -
+  Remove old codemods.
+
 ## 14.1.1
 
 ### Patch Changes

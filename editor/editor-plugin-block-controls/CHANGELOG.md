@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.26.2
+
+### Patch Changes
+
+- [#109976](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109976)
+  [`2f1cbe0e2b32f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f1cbe0e2b32f) -
+  [ED-26272] Update DnD related analytics, e.g. element moved, to reflect multi-select info
+  (distinctive types of nodes, whether multiple nodes are selected)
+- Updated dependencies
+
+## 2.26.1
+
+### Patch Changes
+
+- [#111887](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111887)
+  [`dc433156e592a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc433156e592a) -
+  [ux] ED-26101 Create layout with nodes before/after using keyboard shortcuts
+
 ## 2.26.0
 
 ### Minor Changes

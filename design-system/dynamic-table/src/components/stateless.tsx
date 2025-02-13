@@ -2,6 +2,7 @@ import React, { forwardRef, lazy, Suspense, useEffect, useRef, useState } from '
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ASC, DESC, LARGE, SMALL } from '../internal/constants';
 import { assertIsSortable, getPageRows, validateSortKey } from '../internal/helpers';
@@ -60,8 +61,8 @@ const DynamicTable = ({
 	onRankEnd: providedOnRankEnd = noop,
 	loadingSpinnerSize,
 	paginationi18n = {
-		prev: 'Previous',
-		next: 'Next',
+		prev: fg('eax-1131_fix_a11y_issues_global_issues_settings') ? 'Previous Page' : 'Previous',
+		next: fg('eax-1131_fix_a11y_issues_global_issues_settings') ? 'Next Page' : 'Next',
 		label: 'Pagination',
 		pageLabel: 'Page',
 	},

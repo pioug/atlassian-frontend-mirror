@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.8.2
+
+### Patch Changes
+
+- [#112743](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112743)
+  [`7f0dcc0e66696`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f0dcc0e66696) -
+  Refactor appendTransaction
+
 ## 1.8.1
 
 ### Patch Changes

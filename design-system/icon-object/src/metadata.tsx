@@ -3,11 +3,10 @@
  *
  * To change the format of this file, modify `createIconDocs` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::24e59c282db467ac427dad3493eac07e>>
+ * @codegen <<SignedSource::617f9e8cc692aa7de8e78ee992787e08>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable import/no-extraneous-dependencies -- This import is within the same package, hence self-referential. */
-
 interface Data {
 	keywords: string[];
 	componentName: string;
@@ -134,6 +133,16 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
 				'./artifacts/glyph/new-feature/16'
+			),
+	},
+	'page-live-doc/16': {
+		keywords: ['page-live-doc/16', 'pagelivedoc16', 'object', 'icon-object'],
+		componentName: 'PageLiveDoc16Icon',
+		package: '@atlaskit/icon-object/glyph/page-live-doc/16',
+		packageLoader: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_icon" */
+				'./artifacts/glyph/page-live-doc/16'
 			),
 	},
 	'page/16': {
@@ -324,6 +333,16 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
 				'./artifacts/glyph/new-feature/24'
+			),
+	},
+	'page-live-doc/24': {
+		keywords: ['page-live-doc/24', 'pagelivedoc24', 'object', 'icon-object'],
+		componentName: 'PageLiveDoc24Icon',
+		package: '@atlaskit/icon-object/glyph/page-live-doc/24',
+		packageLoader: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_icon" */
+				'./artifacts/glyph/page-live-doc/24'
 			),
 	},
 	'page/24': {

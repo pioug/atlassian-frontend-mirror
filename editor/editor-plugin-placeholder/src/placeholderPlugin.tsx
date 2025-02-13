@@ -56,7 +56,7 @@ export function createPlaceholderDecoration(
 	return DecorationSet.create(editorState.doc, [
 		Decoration.widget(pos, placeholderDecoration, {
 			side: 0,
-			key: 'placeholder',
+			key: `placeholder ${placeholderText}`,
 		}),
 	]);
 }
@@ -69,17 +69,20 @@ function setPlaceHolderState(placeholderText: string, pos?: number): PlaceHolder
 	};
 }
 
-const emptyPlaceholder: PlaceHolderState = { hasPlaceholder: false };
+const emptyPlaceholder = (placeholderText: string | undefined): PlaceHolderState => ({
+	hasPlaceholder: false,
+	placeholderText,
+});
 
 function createPlaceHolderStateFrom(
 	isEditorFocused: boolean,
 	editorState: EditorState,
 	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined,
-	defaultPlaceholderText?: string,
+	defaultPlaceholderText: string | undefined,
 	bracketPlaceholderText?: string,
 ): PlaceHolderState {
 	if (isTypeAheadOpen?.(editorState)) {
-		return emptyPlaceholder;
+		return emptyPlaceholder(defaultPlaceholderText);
 	}
 
 	if (defaultPlaceholderText && isEmptyDocument(editorState.doc)) {
@@ -92,7 +95,7 @@ function createPlaceHolderStateFrom(
 		const bracketHint = '  ' + bracketPlaceholderText;
 		return setPlaceHolderState(bracketHint, $from.pos - 1);
 	}
-	return emptyPlaceholder;
+	return emptyPlaceholder(defaultPlaceholderText);
 }
 
 export function createPlugin(
@@ -115,31 +118,25 @@ export function createPlugin(
 					defaultPlaceholderText,
 					bracketPlaceholderText,
 				),
-			apply: (tr, _oldPluginState, _oldEditorState, newEditorState) => {
+			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
 				const isEditorFocused = Boolean(api?.focus?.sharedState.currentState()?.hasFocus);
 
-				if (meta) {
-					if (meta.removePlaceholder) {
-						return emptyPlaceholder;
-					}
-
-					if (meta.applyPlaceholderIfEmpty) {
-						return createPlaceHolderStateFrom(
-							isEditorFocused,
-							newEditorState,
-							api?.typeAhead?.actions.isOpen,
-							defaultPlaceholderText,
-							bracketPlaceholderText,
-						);
-					}
+				if (meta?.placeholderText !== undefined) {
+					return createPlaceHolderStateFrom(
+						isEditorFocused,
+						newEditorState,
+						api?.typeAhead?.actions.isOpen,
+						meta.placeholderText,
+						bracketPlaceholderText,
+					);
 				}
 
 				return createPlaceHolderStateFrom(
 					isEditorFocused,
 					newEditorState,
 					api?.typeAhead?.actions.isOpen,
-					defaultPlaceholderText,
+					placeholderState?.placeholderText ?? defaultPlaceholderText,
 					bracketPlaceholderText,
 				);
 			},
@@ -163,20 +160,36 @@ export function createPlugin(
 	});
 }
 
-export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) => ({
-	name: 'placeholder',
+export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) => {
+	let currentPlaceholder = options?.placeholder;
 
-	pmPlugins() {
-		return [
-			{
-				name: 'placeholder',
-				plugin: () =>
-					createPlugin(
-						options && options.placeholder,
-						options && options.placeholderBracketHint,
-						api,
-					),
-			},
-		];
-	},
-});
+	return {
+		name: 'placeholder',
+
+		commands: {
+			setPlaceholder:
+				(placeholderText) =>
+				({ tr }) => {
+					if (currentPlaceholder !== placeholderText) {
+						currentPlaceholder = placeholderText;
+						return tr.setMeta(pluginKey, { placeholderText: placeholderText });
+					}
+					return null;
+				},
+		},
+
+		pmPlugins() {
+			return [
+				{
+					name: 'placeholder',
+					plugin: () =>
+						createPlugin(
+							options && options.placeholder,
+							options && options.placeholderBracketHint,
+							api,
+						),
+				},
+			];
+		},
+	};
+};

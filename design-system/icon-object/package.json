@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "6.10.1",
+	"version": "6.11.0",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,7 +37,8 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.8.0",
+		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon-lab": "^2.4.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -104,6 +105,8 @@
 		"./glyph/new-feature/24": "./src/artifacts/glyph/new-feature/24.tsx",
 		"./glyph/page/16": "./src/artifacts/glyph/page/16.tsx",
 		"./glyph/page/24": "./src/artifacts/glyph/page/24.tsx",
+		"./glyph/page-live-doc/16": "./src/artifacts/glyph/page-live-doc/16.tsx",
+		"./glyph/page-live-doc/24": "./src/artifacts/glyph/page-live-doc/24.tsx",
 		"./glyph/problem/16": "./src/artifacts/glyph/problem/16.tsx",
 		"./glyph/problem/24": "./src/artifacts/glyph/problem/24.tsx",
 		"./glyph/pull-request/16": "./src/artifacts/glyph/pull-request/16.tsx",
@@ -146,6 +149,8 @@
 		"./glyph/new-feature/24": "./src/artifacts/glyph/new-feature/24.tsx",
 		"./glyph/page/16": "./src/artifacts/glyph/page/16.tsx",
 		"./glyph/page/24": "./src/artifacts/glyph/page/24.tsx",
+		"./glyph/page-live-doc/16": "./src/artifacts/glyph/page-live-doc/16.tsx",
+		"./glyph/page-live-doc/24": "./src/artifacts/glyph/page-live-doc/24.tsx",
 		"./glyph/problem/16": "./src/artifacts/glyph/problem/16.tsx",
 		"./glyph/problem/24": "./src/artifacts/glyph/problem/24.tsx",
 		"./glyph/pull-request/16": "./src/artifacts/glyph/pull-request/16.tsx",

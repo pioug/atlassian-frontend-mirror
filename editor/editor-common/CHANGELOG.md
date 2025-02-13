@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 99.14.0
+
+### Minor Changes
+
+- [#109976](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109976)
+  [`2f1cbe0e2b32f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f1cbe0e2b32f) -
+  [ED-26272] Update DnD related analytics, e.g. element moved, to reflect multi-select info
+  (distinctive types of nodes, whether multiple nodes are selected)
+
+### Patch Changes
+
+- [#113907](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113907)
+  [`d3e81647325c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3e81647325c9) -
+  [ED-26503] Treat legacy content macro as any other bodied macro
+- [#113311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113311)
+  [`8a101cd92e89a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a101cd92e89a) -
+  Add sticky table wrapper to selector to ensures styles target duplicated table correctly
+- Updated dependencies
+
 ## 99.13.0
 
 ### Minor Changes

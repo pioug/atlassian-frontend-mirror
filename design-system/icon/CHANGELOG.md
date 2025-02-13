@@ -1,5 +1,22 @@
 # @atlaskit/icon
 
+## 23.9.0
+
+### Minor Changes
+
+- [#113397](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113397)
+  [`50304c1a4bc84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/50304c1a4bc84) -
+  This release adds a `svgs/core` and `svgs/utility` entry point to allow use of the svgs for the
+  new icons.
+
+## 23.8.1
+
+### Patch Changes
+
+- [#113648](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113648)
+  [`b99bce6a11fd5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b99bce6a11fd5) -
+  Update dependencies.
+
 ## 23.8.0
 
 ### Minor Changes

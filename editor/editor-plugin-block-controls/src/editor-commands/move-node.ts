@@ -13,6 +13,7 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/dist/types/transform';
 import {
 	Fragment,
 	type NodeType,
@@ -30,12 +31,16 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
+import {
+	attachMoveNodeAnalytics,
+	getMultiSelectAnalyticsAttributes,
+} from '../pm-plugins/utils/analytics';
 import { DIRECTION } from '../pm-plugins/utils/consts';
-import { attachMoveNodeAnalytics } from '../pm-plugins/utils/fire-analytics';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 import { selectNode, setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
-import { getMultiSelectionIfPosInside } from '../pm-plugins/utils/selection';
+import { getSelectedSlicePosition } from '../pm-plugins/utils/selection';
+import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
 import {
 	canMoveNodeToIndex,
 	isInsideTable,
@@ -75,7 +80,7 @@ const isDragLayoutColumnToTopLevel = ($from: ResolvedPos, $to: ResolvedPos) => {
  *
  * @returns the start position of a node if the node can be moved, otherwise -1
  */
-const getCurrentNodePos = (state: EditorState, isParentNodeOfTypeLayout?: boolean): number => {
+const getCurrentNodePos = (state: EditorState): number => {
 	const { selection } = state;
 	const { activeNode } = key.getState(state) || {};
 	let currentNodePos = -1;
@@ -116,10 +121,11 @@ export const moveNodeViaShortcut = (
 			);
 		}
 
-		const currentNodePos = getCurrentNodePos(state, isParentNodeOfTypeLayout);
-
+		const currentNodePos = getCurrentNodePos(state);
 		if (currentNodePos > -1) {
 			const $pos = state.doc.resolve(currentNodePos);
+			const isTopLevelNode = $pos.depth === 0;
+
 			let moveToPos = -1;
 
 			const nodeIndex = $pos.index();
@@ -128,16 +134,43 @@ export const moveNodeViaShortcut = (
 				selection instanceof NodeSelection && selection.node.type.name === 'layoutColumn';
 
 			if (direction === DIRECTION.LEFT && shouldEnableNestedDndA11y) {
-				if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
-					moveToPos = selection.from - ($pos.nodeBefore?.nodeSize || 1);
+				if (
+					isTopLevelNode &&
+					editorExperiment('advanced_layouts', true) &&
+					fg('platform_editor_advanced_layouts_accessibility')
+				) {
+					const nodeBefore = $pos.nodeBefore;
+
+					if (nodeBefore) {
+						moveToPos = currentNodePos - nodeBefore.nodeSize;
+					}
+
+					if (moveToPos < 0) {
+						return false;
+					}
+
 					api?.core?.actions.execute(({ tr }) => {
 						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
-							selectMovedNode: true,
-						})({
-							tr,
-						});
+							moveToEnd: true,
+							moveNodeAtCursorPos: true,
+						})({ tr });
+
+						const insertColumnStep = getInsertLayoutStep(tr);
+						const mappedTo = (insertColumnStep as ReplaceStep)?.from;
+						updateSelection(tr, mappedTo, true);
 						return tr;
 					});
+					api?.core?.actions.focus();
+
+					return true;
+				} else if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
+					moveToPos = selection.from - ($pos.nodeBefore?.nodeSize || 1);
+
+					api?.core?.actions.execute(
+						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
+							selectMovedNode: true,
+						}),
+					);
 					return true;
 				} else {
 					if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
@@ -148,11 +181,34 @@ export const moveNodeViaShortcut = (
 					const index = $pos.index($pos.depth - 1);
 					const grandParent = $pos.node($pos.depth - 1);
 					const previousNode = grandParent ? grandParent.maybeChild(index - 1) : null;
-
 					moveToPos = $pos.start() - (previousNode?.nodeSize || 1);
 				}
 			} else if (direction === DIRECTION.RIGHT && shouldEnableNestedDndA11y) {
-				if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
+				if (
+					isTopLevelNode &&
+					editorExperiment('advanced_layouts', true) &&
+					fg('platform_editor_advanced_layouts_accessibility')
+				) {
+					const endOfDoc = $pos.end();
+					moveToPos = $pos.posAtIndex($pos.index() + 1);
+
+					if (moveToPos >= endOfDoc) {
+						return false;
+					}
+					api?.core?.actions.execute(({ tr }) => {
+						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
+							moveNodeAtCursorPos: true,
+						})({ tr });
+						const insertColumnStep = getInsertLayoutStep(tr);
+						const mappedTo = (insertColumnStep as ReplaceStep)?.from;
+
+						updateSelection(tr, mappedTo);
+						return tr;
+					});
+					api?.core?.actions.focus();
+
+					return true;
+				} else if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
 					const index = $pos.index($pos.depth);
 					const parent = $pos.node($pos.depth);
 					// get the next layoutColumn node
@@ -166,16 +222,13 @@ export const moveNodeViaShortcut = (
 
 					const moveToEnd = index === parent.childCount - 2;
 					moveToPos = moveToEnd ? $pos.before() : selection.to + (nextNode?.nodeSize || 1);
-
-					api?.core?.actions.execute(({ tr }) => {
+					api?.core?.actions.execute(
 						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
 							moveToEnd,
 							selectMovedNode: true,
-						})({
-							tr,
-						});
-						return tr;
-					});
+						}),
+					);
+
 					return true;
 				} else {
 					if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
@@ -268,6 +321,8 @@ export const moveNode =
 
 		let sliceFrom = start;
 		let sliceTo;
+		let mappedTo;
+		let sourceNodeTypes, hasSelectedMultipleNodes;
 
 		const isMultiSelect = editorExperiment(
 			'platform_editor_element_drag_and_drop_multiselect',
@@ -276,13 +331,15 @@ export const moveNode =
 				exposure: true,
 			},
 		);
+
 		if (isMultiSelect) {
-			const { anchor, head } = getMultiSelectionIfPosInside(api, start);
-			const inSelection = anchor !== undefined && head !== undefined;
-			sliceFrom = inSelection ? Math.min(anchor, head) : start;
-			const handleSize = handleNode?.nodeSize ?? 1;
-			const handleEnd = sliceFrom + handleSize;
-			sliceTo = inSelection ? Math.max(anchor, head) : handleEnd;
+			const slicePosition = getSelectedSlicePosition(start, tr, api);
+			sliceFrom = slicePosition.from;
+			sliceTo = slicePosition.to;
+
+			const attributes = getMultiSelectAnalyticsAttributes(tr, sliceFrom, sliceTo);
+			hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+			sourceNodeTypes = attributes.nodeTypes;
 		} else {
 			const size = handleNode?.nodeSize ?? 1;
 			sliceTo = sliceFrom + size;
@@ -291,7 +348,7 @@ export const moveNode =
 		const { expand, nestedExpand } = tr.doc.type.schema.nodes;
 		const $to = tr.doc.resolve(to);
 		const $handlePos = tr.doc.resolve(start);
-		let mappedTo;
+
 		if (editorExperiment('nested-dnd', true)) {
 			const nodeCopy = tr.doc.slice(sliceFrom, sliceTo, false); // cut the content
 			const destType = $to.node().type;
@@ -387,6 +444,8 @@ export const moveNode =
 				$mappedTo?.parent.type.name,
 				$handlePos.sameParent($mappedTo),
 				api,
+				sourceNodeTypes,
+				hasSelectedMultipleNodes,
 			);
 		} else {
 			api?.analytics?.actions.attachAnalyticsEvent({
@@ -400,6 +459,7 @@ export const moveNode =
 					destinationNodeDepth: $mappedTo?.depth,
 					destinationNodeType: $mappedTo?.parent.type.name,
 					...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
+					...(isMultiSelect && { sourceNodeTypes, hasSelectedMultipleNodes }),
 				},
 			})(tr);
 		}

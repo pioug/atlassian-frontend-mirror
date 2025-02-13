@@ -41,7 +41,9 @@ import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-ta
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
+import { getMultiSelectAnalyticsAttributes } from './utils/analytics';
 import { AnchorRectCache, isAnchorSupported } from './utils/anchor-utils';
+import { getSelectedSlicePosition } from './utils/selection';
 import { getTrMetadata } from './utils/transactions';
 
 export const key = new PluginKey<PluginState>('blockControls');
@@ -109,7 +111,12 @@ const destroyFn = (
 				}
 
 				api?.core?.actions.execute(({ tr }) => {
-					if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+					const isMultiSelect = editorExperiment(
+						'platform_editor_element_drag_and_drop_multiselect',
+						true,
+					);
+
+					if (isMultiSelect) {
 						const { multiSelectDnD } = api?.blockControls?.sharedState.currentState() || {};
 						// Restore the users initial Editor selection when the drop completes
 						if (multiSelectDnD) {
@@ -129,6 +136,14 @@ const destroyFn = (
 					const { start } = source.data as ElementDragSource;
 					// if no drop targets are rendered, assume that drop is invalid
 					if (location.current.dropTargets.length === 0) {
+						let nodeTypes, hasSelectedMultipleNodes;
+						if (isMultiSelect && api) {
+							const position = getSelectedSlicePosition(start, tr, api);
+							const attributes = getMultiSelectAnalyticsAttributes(tr, position.from, position.to);
+							nodeTypes = attributes.nodeTypes;
+							hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+						}
+
 						const resolvedMovingNode = tr.doc.resolve(start);
 						const maybeNode = resolvedMovingNode.nodeAfter;
 						api?.analytics?.actions.attachAnalyticsEvent({
@@ -139,6 +154,7 @@ const destroyFn = (
 							attributes: {
 								nodeDepth: resolvedMovingNode.depth,
 								nodeType: maybeNode?.type.name || '',
+								...(isMultiSelect && { nodeTypes, hasSelectedMultipleNodes }),
 							},
 						})(tr);
 					}
@@ -172,6 +188,9 @@ export interface FlagType {
 	isNestedEnabled: boolean;
 	isMultiSelectEnabled: boolean;
 }
+
+export const getDecorations = (state: EditorState): DecorationSet | undefined =>
+	key.getState(state)?.decorations;
 
 export const newApply = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,

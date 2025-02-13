@@ -5,7 +5,7 @@
 import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import FocusRing from '@atlaskit/focus-ring';
@@ -92,17 +92,16 @@ export default () => {
 								display: 'block',
 								boxSizing: 'border-box',
 								width: '100%',
-								padding: token('space.200', '16px'),
 								border: 'none',
-								borderRadius: `${token('border.radius', '3px')} ${token(
-									'border.radius',
-									'3px',
-								)} 0 0`,
+								borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
 								color: '#172b4d',
 								fontSize: '24px',
 								marginBlockEnd: token('space.100', '8px'),
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-								':hover': {
+								paddingBlockEnd: token('space.200', '16px'),
+								paddingBlockStart: token('space.200', '16px'),
+								paddingInlineEnd: token('space.200', '16px'),
+								paddingInlineStart: token('space.200', '16px'),
+								'&:hover': {
 									backgroundColor: token('color.background.neutral.subtle.hovered'),
 								},
 							})}
@@ -118,15 +117,19 @@ export default () => {
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={css({
 												display: 'flex',
-												padding: token('space.200', '16px'),
 												fontSize: '16px',
 												fontWeight: token('font.weight.medium', '500'),
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-												':hover': {
+												paddingBlockEnd: token('space.200', '16px'),
+												paddingBlockStart: token('space.200', '16px'),
+												paddingInlineEnd: token('space.200', '16px'),
+												paddingInlineStart: token('space.200', '16px'),
+												'&:hover': {
 													backgroundColor: token('color.background.neutral.subtle.hovered'),
 												},
 											})}
-											{...motion}
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+											className={motion.className}
+											ref={motion.ref}
 										>
 											{logos[index][0]}
 											<h3

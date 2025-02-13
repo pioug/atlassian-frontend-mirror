@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 112.14.1
+
+### Patch Changes
+
+- [#113311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113311)
+  [`8a101cd92e89a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a101cd92e89a) -
+  Add sticky table wrapper to selector to ensures styles target duplicated table correctly
+- Updated dependencies
+
 ## 112.14.0
 
 ### Minor Changes

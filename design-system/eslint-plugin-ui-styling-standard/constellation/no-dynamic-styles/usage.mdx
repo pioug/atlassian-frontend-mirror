@@ -36,6 +36,27 @@ const Container = styled.div<{ hasPadding: boolean }>({
 });
 ```
 
+The following example shows the code leading to a bug. In this scenario Compiled transforms the
+whole function into the result of its first `return` statement (static string
+`'0 0 0 1px magenta'`):
+
+```tsx
+import { styled } from '@compiled/react';
+
+const Component = styled.li({
+	boxShadow: (props) => {
+		if (props.isSelected) {
+			return '0 0 0 1px magenta';
+		}
+
+		return '0 0 0 1px green';
+	},
+});
+```
+
+See more about this issue
+[here](https://compiledcssinjs.com/docs/limitations#returning-static-values-from-a-dynamic-property).
+
 ### Correct
 
 Define all styles statically, and dynamically apply them using the `css` prop. Use the `style` prop

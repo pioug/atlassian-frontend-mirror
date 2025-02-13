@@ -19,7 +19,7 @@ export default (props: { analytics: AnalyticsFunction }) => {
 	}, [analytics]);
 
 	return (
-		<TeamForbiddenErrorStateWrapper data-testid="team-profilecard-forbidden-error-state">
+		<TeamForbiddenErrorStateWrapper testId="team-profilecard-forbidden-error-state">
 			<EmptyState
 				header={intl.formatMessage(messages.teamForbiddenErrorStateTitle)}
 				description={intl.formatMessage(messages.teamForbiddenErrorStateDescription)}

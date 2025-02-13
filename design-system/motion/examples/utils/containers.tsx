@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button';
 
@@ -18,17 +18,17 @@ const containerStyles = css({
 export const Centered = ({
 	as: As = 'div',
 	...props
-}: React.HTMLProps<HTMLDivElement> & { as?: keyof JSX.IntrinsicElements }) => {
-	const Component = As as React.ElementType;
-
-	return (
-		<Component
-			css={containerStyles}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...props}
-		/>
-	);
-};
+}: React.HTMLProps<HTMLDivElement> & { as?: keyof JSX.IntrinsicElements }) => (
+	<As
+		css={containerStyles}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={props.className}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		style={props.style}
+	>
+		{props.children}
+	</As>
+);
 
 export const RetryContainer = (props: { children: React.ReactNode }) => {
 	const [count, setCount] = useState(0);

@@ -316,4 +316,13 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'variant1']),
 		defaultValue: 'control' as 'control' | 'variant1',
 	},
+	// Added 2025-02-11
+	platform_editor_node_nesting_expansion_non_macros: {
+		productKeys: {
+			confluence: 'platform_editor_node_nesting_expansion_non_macros',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

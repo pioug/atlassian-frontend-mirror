@@ -2,12 +2,12 @@ import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
 	dragToMove: {
-		id: 'fabric.editor.blockControlDragHandleUsageInfo',
+		id: 'fabric.editor.blockControlDragHandleMove',
 		defaultMessage: 'Drag to move',
 		description: 'Use drag handle to move content',
 	},
 	dragToRearrange: {
-		id: 'fabric.editor.blockControlDragHandleUsageInfo',
+		id: 'fabric.editor.blockControlDragHandleRearrange',
 		defaultMessage: 'Drag to rearrange',
 		description: 'Use drag handle to rearrange columns',
 	},

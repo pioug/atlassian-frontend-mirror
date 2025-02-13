@@ -5,7 +5,7 @@
 import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -34,7 +34,14 @@ const MotionSlideInExample = () => {
 				<Centered css={centeredStyles}>
 					<ExitingPersistence appear>
 						<SlideIn enterFrom={forms[fromIndex]} fade={fades[fadeIndex]}>
-							{(props) => <Block {...props} css={blockStyles} />}
+							{(props) => (
+								<Block
+									ref={props.ref}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+									className={props.className}
+									css={blockStyles}
+								/>
+							)}
 						</SlideIn>
 					</ExitingPersistence>
 				</Centered>
@@ -50,8 +57,11 @@ const containerStyles = css({ textAlign: 'center' });
 
 const centeredStyles = css({
 	height: '300px',
-	margin: `${token('space.0', '0')} auto`,
 	position: 'relative',
+	marginBlockEnd: token('space.0', '0'),
+	marginBlockStart: token('space.0', '0'),
+	marginInlineEnd: 'auto',
+	marginInlineStart: 'auto',
 	overflow: 'hidden',
 });
 

@@ -5,6 +5,7 @@ import { debug } from './debug';
 const pkgName = '@atlaskit/platform-feature-flags';
 
 export const PFF_GLOBAL_KEY = '__PLATFORM_FEATURE_FLAGS__' as const;
+export const ECOSYSTEM_PFF_GLOBAL_KEY = '__ECOSYSTEM_PLATFORM_FEATURE_FLAGS__' as const;
 
 const hasProcessEnv = typeof process !== 'undefined' && typeof process.env !== 'undefined';
 
@@ -32,6 +33,7 @@ type WindowFeatureFlagVars = {
 		booleanResolver: FeatureFlagResolverBoolean;
 		earlyResolvedFlags: Map<string, number>;
 	};
+	[ECOSYSTEM_PFF_GLOBAL_KEY]: Record<string, boolean>;
 };
 
 const DEFAULT_PFF_GLOBAL: WindowFeatureFlagVars[typeof PFF_GLOBAL_KEY] = {
@@ -92,7 +94,9 @@ export function resolveBooleanFlag(flagKey: string): boolean {
 			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 			return FeatureGates.checkGate(flagKey);
 		}
-		const result = globalVar[PFF_GLOBAL_KEY]?.booleanResolver(flagKey);
+		const result =
+			globalVar[ECOSYSTEM_PFF_GLOBAL_KEY]?.[flagKey] ||
+			globalVar[PFF_GLOBAL_KEY]?.booleanResolver(flagKey);
 
 		if (typeof result !== 'boolean') {
 			// eslint-disable-next-line no-console

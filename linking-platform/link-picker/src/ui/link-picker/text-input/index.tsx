@@ -46,7 +46,7 @@ const styles = cssMap({
  * Overriding text input margin top which design system provides as a default spacer
  * but it gets in the way of our layout
  */
-const fieldStyles = css({
+const baseFieldStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		marginTop: 0,
@@ -55,6 +55,10 @@ const fieldStyles = css({
 	'& + &': {
 		marginTop: token('space.200', '16px'),
 	},
+});
+
+const newFieldStyles = css({
+	font: token('font.heading.xxsmall'),
 });
 
 export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
@@ -149,7 +153,7 @@ export const TextInputNew = ({
 	);
 
 	return (
-		<div css={fieldStyles}>
+		<div css={[baseFieldStyles, fg('platform-linking-visual-refresh-v1') && newFieldStyles]}>
 			<Field label={label} name={name}>
 				{({ fieldProps }) => {
 					return (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "2.14.2",
+	"version": "2.14.3",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -60,15 +60,19 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
+		"@atlaskit/button": "^20.5.1",
+		"@atlaskit/docs": "*",
+		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon-file-type": "^6.9.0",
+		"@atlaskit/icon-object": "^6.11.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@emotion/jest": "^11.8.0",
-		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"ast-types": "^0.13.3",
-		"bind-event-listener": "^3.0.0",
 		"jscodeshift": "^0.13.0",
-		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [
@@ -81,7 +85,6 @@
 			"import-structure": "atlassian-conventions"
 		},
 		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
 			"ui-components": "lite-mode",
 			"design-system": "v1",
 			"styling": [

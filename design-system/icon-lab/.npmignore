@@ -3,7 +3,6 @@ examples-utils/
 example-helpers/
 examples/
 icons_raw/
-icons_optimised/
 index.ts
 tsconfig.json
 tsconfig.app.json

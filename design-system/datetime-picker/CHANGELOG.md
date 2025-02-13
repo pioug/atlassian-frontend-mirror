@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 15.13.0
+
+### Minor Changes
+
+- [#103629](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103629)
+  [`60472f23c74f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60472f23c74f1) -
+  Finish conversion of datetime picker components from class components to functional components,
+  and cleaning up feature flags.
+
 ## 15.12.2
 
 ### Patch Changes

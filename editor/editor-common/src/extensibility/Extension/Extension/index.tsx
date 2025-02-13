@@ -84,7 +84,15 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	} = props;
 
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
-	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
+
+	const isLegacyContentMacroExtension = (extensionNode: PmNode) =>
+		extensionNode.type.name === 'extension' &&
+		extensionNode.attrs?.extensionType === 'com.atlassian.confluence.migration' &&
+		extensionNode.attrs?.extensionKey === 'legacy-content';
+
+	const hasBody =
+		['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name) ||
+		(isLegacyContentMacroExtension(node) && fg('platform_editor_legacy_content_macro'));
 
 	const hasChildren = !!children;
 	const removeBorder = showMacroInteractionDesignUpdates || !!(hideFrame && !hasBody);

@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 2.0.1
+
+### Patch Changes
+
+- [#113458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113458)
+  [`9114c12b5682f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9114c12b5682f) -
+  Refactors internal styles so that dynamically declared styles are now static where possible.
+
 ## 2.0.0
 
 ### Major Changes

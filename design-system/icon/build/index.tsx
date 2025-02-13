@@ -54,7 +54,7 @@ async function main() {
 	 */
 	const configCore: NewIconBuildConfig = {
 		srcDir: path.resolve(root, 'icons_raw/core'),
-		processedDir: path.resolve(root, 'icons_optimised/core'),
+		processedDir: path.resolve(root, 'svgs/core'),
 		destDir: path.resolve(root, 'core'),
 		maxWidth: 24,
 		maxHeight: 24,
@@ -96,7 +96,7 @@ async function main() {
 	 */
 	const configUtility: NewIconBuildConfig = {
 		srcDir: path.resolve(root, 'icons_raw/utility'),
-		processedDir: path.resolve(root, 'icons_optimised/utility'),
+		processedDir: path.resolve(root, 'svgs/utility'),
 		destDir: path.resolve(root, 'utility'),
 		maxWidth: 12,
 		maxHeight: 12,

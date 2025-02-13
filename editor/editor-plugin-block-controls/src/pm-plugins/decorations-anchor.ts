@@ -4,7 +4,12 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { getNestedDepth, getNodeAnchor, TYPE_NODE_DEC } from './decorations-common';
+import {
+	getNestedDepth,
+	getNodeAnchor,
+	getNodeTypeWithLevel,
+	TYPE_NODE_DEC,
+} from './decorations-common';
 
 const IGNORE_NODES = [
 	'tableCell',
@@ -114,9 +119,9 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 		: IGNORE_NODES;
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
-		let anchorName;
 		const shouldDescend = shouldDescendIntoNode(node);
-		anchorName = getNodeAnchor(node);
+		const anchorName = getNodeAnchor(node);
+		const nodeTypeWithLevel = getNodeTypeWithLevel(node);
 
 		if (editorExperiment('nested-dnd', true)) {
 			// Doesn't descend into a node
@@ -128,15 +133,9 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 			if (shouldIgnoreNode(node, ignore_nodes, depth, parent)) {
 				return shouldDescend; //skip over, don't consider it a valid depth
 			}
-
-			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${pos}`;
-		} else {
-			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${index}`;
 		}
 
 		const anchorStyles = `anchor-name: ${anchorName};`;
-
-		const subType = node.attrs.level ? `-${node.attrs.level}` : '';
 
 		decs.push(
 			Decoration.node(
@@ -145,13 +144,14 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 				{
 					style: anchorStyles,
 					['data-drag-handler-anchor-name']: anchorName,
-					['data-drag-handler-node-type']: node.type.name + subType,
+					['data-drag-handler-node-type']: nodeTypeWithLevel,
 					['data-drag-handler-anchor-depth']: `${depth}`,
 				},
 				{
 					type: TYPE_NODE_DEC,
 					anchorName,
 					nodeType: node.type.name,
+					nodeTypeWithLevel,
 				},
 			),
 		);

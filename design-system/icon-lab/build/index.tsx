@@ -25,7 +25,7 @@ if (!root) {
  */
 const config: NewIconBuildConfig = {
 	srcDir: path.resolve(root, 'icons_raw/core'),
-	processedDir: path.resolve(root, 'icons_optimised/core'),
+	processedDir: path.resolve(root, 'svgs/core'),
 	destDir: path.resolve(root, 'core'),
 	maxWidth: 24,
 	maxHeight: 24,

@@ -1,5 +1,18 @@
 # @atlaskit/icon-object
 
+## 6.11.0
+
+### Minor Changes
+
+- [#113741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113741)
+  [`bb699da066ffc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb699da066ffc) -
+  [ux] This release adds icons in `@atlaskit/icon-object`.
+
+  **`@atlaskit/icon-object`**
+
+  - LiveDoc16Icon
+  - LiveDoc24Icon
+
 ## 6.10.1
 
 ### Patch Changes

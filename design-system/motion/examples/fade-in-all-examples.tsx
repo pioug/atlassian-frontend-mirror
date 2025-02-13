@@ -1,9 +1,13 @@
+/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
+/* eslint-disable @atlaskit/ui-styling-standard/no-important-styles */
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+
+import { css, jsx } from '@compiled/react';
 
 import { md } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
@@ -28,12 +32,19 @@ export default () => md`
   ${(
 		<RetryContainer>
 			<div
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={{
+				css={css({
 					width: '158px',
-					margin: `${token('space.200', '16px')} auto`,
-					'> *': { margin: `${token('space.100', '8px')} !important` },
-				}}
+					marginBlockEnd: token('space.200', '16px'),
+					marginBlockStart: token('space.200', '16px'),
+					marginInlineEnd: 'auto',
+					marginInlineStart: 'auto',
+					'> *': {
+						marginBlockEnd: token('space.100', '8px'),
+						marginBlockStart: token('space.100', '8px'),
+						marginInlineEnd: token('space.100', '8px'),
+						marginInlineStart: token('space.100', '8px'),
+					},
+				})}
 			>
 				<StaggeredEntrance columns={1}>
 					<FadeIn>{(props) => <Block {...props} />}</FadeIn>
@@ -49,15 +60,22 @@ export default () => md`
   ${(
 		<RetryContainer>
 			<div
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={{
+				css={css({
 					display: 'flex',
 					maxWidth: '474px',
-					flexWrap: 'wrap',
 					justifyContent: 'flex-start',
-					margin: `${token('space.200', '16px')} auto`,
-					'> *': { margin: `${token('space.050', '4px')} !important` },
-				}}
+					flexWrap: 'wrap',
+					marginBlockEnd: token('space.200', '16px'),
+					marginBlockStart: token('space.200', '16px'),
+					marginInlineEnd: 'auto',
+					marginInlineStart: 'auto',
+					'> *': {
+						marginBlockEnd: token('space.050', '4px'),
+						marginBlockStart: token('space.050', '4px'),
+						marginInlineEnd: token('space.050', '4px'),
+						marginInlineStart: token('space.050', '4px'),
+					},
+				})}
 			>
 				<StaggeredEntrance columns="responsive">
 					<FadeIn>{(props) => <Block {...props} />}</FadeIn>
@@ -80,14 +98,21 @@ export default () => md`
   ${(
 		<RetryContainer>
 			<div
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={{
+				css={css({
 					display: 'flex',
 					width: '474px',
 					flexWrap: 'wrap',
-					margin: `${token('space.200', '16px')} auto`,
-					'> *': { margin: `${token('space.050', '4px')} !important` },
-				}}
+					marginBlockEnd: token('space.200', '16px'),
+					marginBlockStart: token('space.200', '16px'),
+					marginInlineEnd: 'auto',
+					marginInlineStart: 'auto',
+					'> *': {
+						marginBlockEnd: token('space.050', '4px'),
+						marginBlockStart: token('space.050', '4px'),
+						marginInlineEnd: token('space.050', '4px'),
+						marginInlineStart: token('space.050', '4px'),
+					},
+				})}
 			>
 				<StaggeredEntrance columns={3}>
 					<FadeIn>{(props) => <Block {...props} />}</FadeIn>
@@ -109,16 +134,29 @@ export default () => md`
   ${(
 		<RetryContainer>
 			<Centered
-				css={{
-					padding: '0',
+				css={css({
 					width: '600px',
-					flexWrap: 'wrap',
 					margin: '0 auto',
-					paddingTop: token('space.200', '16px'),
-					li: { listStyle: 'none', margin: 0 },
-					div: { margin: `0 0 ${token('space.100', '8px')} !important` },
-					'> div': { margin: `${token('space.050', '4px')} !important` },
-				}}
+					padding: '0',
+					flexWrap: 'wrap',
+					paddingBlockStart: token('space.200', '16px'),
+					li: {
+						margin: 0,
+						listStyle: 'none',
+					},
+					div: {
+						marginBlockEnd: token('space.100', '8px'),
+						marginBlockStart: 0,
+						marginInlineEnd: 0,
+						marginInlineStart: 0,
+					},
+					'> div': {
+						marginBlockEnd: token('space.050', '4px'),
+						marginBlockStart: token('space.050', '4px'),
+						marginInlineEnd: token('space.050', '4px'),
+						marginInlineStart: token('space.050', '4px'),
+					},
+				})}
 			>
 				<div>
 					<StaggeredEntrance column={0}>

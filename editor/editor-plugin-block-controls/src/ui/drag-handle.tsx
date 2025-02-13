@@ -42,6 +42,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
+import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
 import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 import { isHandleInSelection, selectNode } from '../pm-plugins/utils/getSelection';
@@ -299,6 +300,9 @@ export const DragHandle = ({
 						},
 					);
 
+					let nodeTypes, hasSelectedMultipleNodes;
+					const resolvedMovingNode = tr.doc.resolve(start);
+					const maybeNode = resolvedMovingNode.nodeAfter;
 					if (isMultiSelect) {
 						const handlePos = getPos();
 						if (typeof handlePos !== 'number') {
@@ -311,12 +315,25 @@ export const DragHandle = ({
 						) {
 							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
 						}
+
+						const multiSelectDnD = tr.getMeta(key)?.multiSelectDnD;
+						if (multiSelectDnD) {
+							const attributes = getMultiSelectAnalyticsAttributes(
+								tr,
+								multiSelectDnD.anchor,
+								multiSelectDnD.head,
+							);
+							nodeTypes = attributes.nodeTypes;
+							hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+						} else {
+							nodeTypes = maybeNode?.type.name;
+							hasSelectedMultipleNodes = false;
+						}
 					}
 					api?.blockControls?.commands.setNodeDragged(getPos, anchorName, nodeType)({ tr });
 
-					const resolvedMovingNode = tr.doc.resolve(start);
-					const maybeNode = resolvedMovingNode.nodeAfter;
 					tr.setMeta('scrollIntoView', false);
+
 					api?.analytics?.actions.attachAnalyticsEvent({
 						eventType: EVENT_TYPE.UI,
 						action: ACTION.DRAGGED,
@@ -325,6 +342,7 @@ export const DragHandle = ({
 						attributes: {
 							nodeDepth: resolvedMovingNode.depth,
 							nodeType: maybeNode?.type.name || '',
+							...(isMultiSelect && { nodeTypes, hasSelectedMultipleNodes }),
 						},
 					})(tr);
 					return tr;
@@ -460,19 +478,42 @@ export const DragHandle = ({
 		setDragHandleSelected(isHandleInSelection(view.state, selection, start));
 	}, [start, selection, view.state]);
 
-	let helpDescriptors = [
-		{
-			description: formatMessage(blockControlsMessages.dragToMove),
-		},
-		{
-			description: formatMessage(blockControlsMessages.moveUp),
-			keymap: dragToMoveUp,
-		},
-		{
-			description: formatMessage(blockControlsMessages.moveDown),
-			keymap: dragToMoveDown,
-		},
-	];
+	let helpDescriptors =
+		isTopLevelNode && fg('platform_editor_advanced_layouts_accessibility')
+			? [
+					{
+						description: formatMessage(blockControlsMessages.dragToMove),
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveUp),
+						keymap: dragToMoveUp,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveDown),
+						keymap: dragToMoveDown,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveLeft),
+						keymap: dragToMoveLeft,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveRight),
+						keymap: dragToMoveRight,
+					},
+				]
+			: [
+					{
+						description: formatMessage(blockControlsMessages.dragToMove),
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveUp),
+						keymap: dragToMoveUp,
+					},
+					{
+						description: formatMessage(blockControlsMessages.moveDown),
+						keymap: dragToMoveDown,
+					},
+				];
 
 	let isParentNodeOfTypeLayout;
 

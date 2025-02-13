@@ -4,8 +4,7 @@
  */
 import { cloneElement, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import {
@@ -88,7 +87,9 @@ export default () => {
 								<FadeIn key={index}>
 									{(props) => (
 										<li
-											{...props}
+											ref={props.ref}
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+											className={props.className}
 											// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={{
 												display: 'block',

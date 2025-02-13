@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
 	ACTION,
@@ -31,6 +31,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
 import {
 	EmojiTypeAheadItem,
+	preloadEmojiPicker,
 	recordSelectionFailedSli,
 	recordSelectionSucceededSli,
 	SearchSort,
@@ -105,6 +106,18 @@ type EmojiProviderChangeHandler = {
 	result: (res: { emojis: Array<EmojiDescription> }) => void;
 };
 const TRIGGER = ':';
+
+function delayUntilIdle(cb: Function) {
+	if (typeof window === 'undefined') {
+		return;
+	}
+	// eslint-disable-next-line compat/compat
+	if (window.requestIdleCallback !== undefined) {
+		// eslint-disable-next-line compat/compat
+		return window.requestIdleCallback(() => cb(), { timeout: 500 });
+	}
+	return window.requestAnimationFrame(() => cb());
+}
 
 /**
  * Emoji plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -242,6 +255,16 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 
 		nodes() {
 			return [{ name: 'emoji', node: emojiNodeSpec() }];
+		},
+
+		usePluginHook() {
+			useEffect(() => {
+				delayUntilIdle(() => {
+					if (fg('platform_editor_preload_emoji_picker')) {
+						preloadEmojiPicker();
+					}
+				});
+			}, []);
 		},
 
 		pmPlugins() {

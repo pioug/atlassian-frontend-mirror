@@ -35,7 +35,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.4.0",
 		"@atlaskit/css": "^0.8.0",
-		"@atlaskit/icon": "^23.8.0",
+		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/image": "^1.4.0",
 		"@atlaskit/link": "^2.1.2",
 		"@atlaskit/logo": "^15.2.0",

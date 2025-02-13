@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -5,7 +6,7 @@
 import { cloneElement, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import {
@@ -57,7 +58,12 @@ const MotionFadeInGridOfElementsExample = () => {
 							.map((_, index) => (
 								<FadeIn key={index}>
 									{(props) => (
-										<li {...props} css={listItemStyles}>
+										<li
+											ref={props.ref}
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+											className={props.className}
+											css={listItemStyles}
+										>
 											<Block appearance={state.size}>
 												{/* eslint-disable-next-line @repo/internal/react/no-clone-element */}
 												{cloneElement(logos[index % logos.length], {
@@ -91,28 +97,44 @@ const buttonContainerStyles = css({
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
-		margin: token('space.025', '2px'),
+		marginBlockEnd: token('space.025', '2px'),
+		marginBlockStart: token('space.025', '2px'),
+		marginInlineEnd: token('space.025', '2px'),
+		marginInlineStart: token('space.025', '2px'),
 	},
 });
 
 const listStyles = css({
 	display: 'flex',
 	maxWidth: '474px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-	margin: `${token('space.200', '16px')} !important`,
-	padding: token('space.0', '0px'),
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	marginBlockEnd: token('space.200', '16px'),
+	marginBlockStart: token('space.200', '16px'),
+	marginInlineEnd: token('space.200', '16px'),
+	marginInlineStart: token('space.200', '16px'),
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.0', '0px'),
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingInlineStart: token('space.0', '0px'),
 	div: {
-		margin: token('space.0', '0px'),
+		marginBlockEnd: token('space.0', '0px'),
+		marginBlockStart: token('space.0', '0px'),
+		marginInlineEnd: token('space.0', '0px'),
+		marginInlineStart: token('space.0', '0px'),
 	},
 });
 
 const listItemStyles = css({
 	display: 'block',
-	margin: token('space.050', '4px'),
-	padding: token('space.0', '0px'),
+	marginBlockEnd: token('space.050', '4px'),
+	marginBlockStart: token('space.050', '4px'),
+	marginInlineEnd: token('space.050', '4px'),
+	marginInlineStart: token('space.050', '4px'),
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.0', '0px'),
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingInlineStart: token('space.0', '0px'),
 });
 
 export default MotionFadeInGridOfElementsExample;

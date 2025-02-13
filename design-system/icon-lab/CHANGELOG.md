@@ -1,5 +1,17 @@
 # @atlaskit/icon-lab
 
+## 2.6.0
+
+### Minor Changes
+
+- [#113397](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113397)
+  [`bca2efd4b2902`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bca2efd4b2902) -
+  This release adds a `svgs/core` entry point to allow use of the svgs for the new icons.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.0
 
 ### Minor Changes

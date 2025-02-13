@@ -8,19 +8,19 @@ import { MovesRightBlock } from './utils/blocks';
 
 export default () => md`
   ${code`
-import { small } from '@atlaskit/motion';
+<SlideIn duration="small">...</SlideIn>
   `}
 
   ${(<MovesRightBlock appearance="small" curve={easeOut} duration={durations.small} />)}
 
   ${code`
-import { medium } from '@atlaskit/motion';
+<SlideIn duration="medium">...</SlideIn>
   `}
 
   ${(<MovesRightBlock curve={easeOut} duration={durations.medium} />)}
 
   ${code`
-import { large } from '@atlaskit/motion';
+<SlideIn duration="large">...</SlideIn>
   `}
 
   ${(<MovesRightBlock appearance="large" curve={easeOut} duration={durations.large} />)}

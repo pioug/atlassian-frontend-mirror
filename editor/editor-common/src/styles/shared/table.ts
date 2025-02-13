@@ -60,7 +60,7 @@ export const TableSharedCssClassName = {
 	TABLE_ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-row-controls-wrapper`,
 	TABLE_COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,
 	TABLE_RESIZER_CONTAINER: `${tablePrefixSelector}-resizer-container`,
-};
+} as const;
 
 /* first block node has 0 top margin */
 const firstNodeWithNotMarginTop = () =>

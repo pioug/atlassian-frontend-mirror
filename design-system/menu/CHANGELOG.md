@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.14.3
+
+### Patch Changes
+
+- [#113256](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113256)
+  [`ae6561e3b5b1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae6561e3b5b1e) -
+  Update dependencies and remove old codemods.
+
 ## 2.14.2
 
 ### Patch Changes

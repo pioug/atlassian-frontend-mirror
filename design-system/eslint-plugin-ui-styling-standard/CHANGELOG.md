@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.3.0
+
+### Minor Changes
+
+- [#113173](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113173)
+  [`46aad36c62f2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46aad36c62f2f) -
+  Cuts a new changeset to land ESLint v9 changes to NPM fully (shipped internally Feb 5th:
+  https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/109855)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

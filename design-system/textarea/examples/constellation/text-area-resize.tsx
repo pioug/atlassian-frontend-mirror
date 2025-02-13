@@ -3,18 +3,20 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, cx, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import TextArea from '@atlaskit/textarea';
 
-const wrapperStyles = xcss({
-	maxWidth: '500px',
+const wrapperStyles = cssMap({
+	root: {
+		maxWidth: '500px',
+	},
 });
 
 export default () => (
-	<Box id="resize" xcss={wrapperStyles}>
+	<Box id="resize" xcss={cx(wrapperStyles.root)}>
 		<Label htmlFor="resize-auto">Resize: auto</Label>
 		<TextArea resize="auto" name="resize-auto" id="resize-auto" testId="autoResizeTextArea" />
 		<Label htmlFor="resize-vertical">Resize: vertical</Label>

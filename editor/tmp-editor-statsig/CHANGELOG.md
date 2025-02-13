@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.46.0
+
+### Minor Changes
+
+- [#111692](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111692)
+  [`e656e48ee1932`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e656e48ee1932) -
+  ED-26473 Adding new experiment for platform_editor_node_nesting_expansion_non_macros
+
 ## 2.45.0
 
 ### Minor Changes

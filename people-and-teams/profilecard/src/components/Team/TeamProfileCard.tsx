@@ -11,7 +11,7 @@ import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
-import { Inline, Text } from '@atlaskit/primitives';
+import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -331,8 +331,11 @@ const TeamProfilecardContent = ({
 	}, [analytics]);
 
 	return (
-		<CardWrapper data-testid="team-profilecard">
-			<CardHeader image={team.largeHeaderImageUrl || team.smallHeaderImageUrl} />
+		<CardWrapper testId="team-profilecard">
+			<CardHeader
+				image={team.largeHeaderImageUrl || team.smallHeaderImageUrl}
+				label={team.displayName}
+			/>
 			<CardContent>
 				<Tooltip content={team.displayName}>
 					<Inline>
@@ -393,7 +396,7 @@ const ErrorMessage = ({
 	}, [analytics, clientFetchProfile]);
 
 	return (
-		<ErrorWrapper data-testid="team-profilecard-error">
+		<ErrorWrapper testId="team-profilecard-error">
 			<ErrorIllustration />
 			<Text as="p" weight="semibold">
 				<FormattedMessage {...messages.teamErrorTitle} />
@@ -427,7 +430,7 @@ const TeamProfileCard = (props: TeamProfilecardProps) => {
 			return <TeamForbiddenErrorState analytics={analytics} />;
 		} else {
 			return (
-				<CardWrapper data-testid="team-profilecard">
+				<CardWrapper testId="team-profilecard">
 					<ErrorMessage
 						analytics={analytics}
 						clientFetchProfile={clientFetchProfile}

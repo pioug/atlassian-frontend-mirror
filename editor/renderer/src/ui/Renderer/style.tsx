@@ -785,13 +785,13 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 			}
 
 			/**
-     * A hack for making all the <th /> heights equal in case some have shorter
-     * content than others.
-     *
-     * This is done to make sort buttons fill entire <th />.
-     */
+			 * A hack for making all the <th /> heights equal in case some have shorter
+			 * content than others.
+			 *
+			 * This is done to make sort buttons fill entire <th />.
+			*/
 			${fg('platform_editor_renderer_table_header_styles')
-				? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table`
+				? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`
 				: 'table'} {
 				height: 1px; /* will be ignored */
 				${tableSortableColumnStyle(wrapperProps)};
@@ -800,7 +800,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 			}
 
 			${fg('platform_editor_renderer_table_header_styles')
-				? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table > tbody > tr:first-of-type `
+				? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table > tbody > tr:first-of-type, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table > tbody > tr:first-of-type`
 				: 'table tr:first-of-type'} {
 				height: 100%;
 

@@ -5,12 +5,10 @@
 import { Fragment, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import Avatar from '@atlaskit/avatar';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import InlineDialog from '@atlaskit/inline-dialog';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -19,17 +17,6 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { Flex, Grid, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
-
-const wrapperStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	color: token('color.text.subtlest'),
-	cursor: 'help',
-	marginInlineEnd: 'auto',
-});
-
-const marginLeftStyles = css({ marginInlineStart: token('space.200', '16px') });
 
 const gridStyles = xcss({
 	width: '100%',
@@ -45,13 +32,9 @@ const titleContainerStyles = xcss({
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
-	const [isHintOpen, setIsHintOpen] = useState(false);
 
 	const openModal = useCallback(() => setIsOpen(true), []);
 	const closeModal = useCallback(() => setIsOpen(false), []);
-
-	const openHint = useCallback(() => setIsHintOpen(true), []);
-	const closeHint = useCallback(() => setIsHintOpen(false), []);
 
 	return (
 		<Fragment>
@@ -95,17 +78,6 @@ export default function Example() {
 							</p>
 						</ModalBody>
 						<ModalFooter>
-							<InlineDialog content="Some hint text?" isOpen={isHintOpen} placement="top-start">
-								<span
-									role="presentation"
-									css={wrapperStyles}
-									onMouseEnter={openHint}
-									onMouseLeave={closeHint}
-								>
-									<Avatar size="small" />
-									<span css={marginLeftStyles}>Hover Me!</span>
-								</span>
-							</InlineDialog>
 							<Button appearance="primary" onClick={closeModal}>
 								Close
 							</Button>

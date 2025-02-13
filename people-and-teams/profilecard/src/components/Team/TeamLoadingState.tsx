@@ -14,10 +14,10 @@ export default (props: { analytics: AnalyticsFunction }) => {
 	}, [analytics]);
 
 	return (
-		<CardWrapper data-testid="team-profilecard">
+		<CardWrapper testId="team-profilecard">
 			<CardHeader isLoading />
 			<CardContent>
-				<LoadingWrapper data-testid="team-profilecard-spinner">
+				<LoadingWrapper testId="team-profilecard-spinner">
 					<Spinner />
 				</LoadingWrapper>
 			</CardContent>

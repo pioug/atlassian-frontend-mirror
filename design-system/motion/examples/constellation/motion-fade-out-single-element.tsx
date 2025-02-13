@@ -5,7 +5,7 @@
 import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
@@ -38,7 +38,13 @@ const MotionFadeOutSingleElementExample = () => {
 				<Centered css={centeredStyles}>
 					<ExitingPersistence appear>
 						<FadeIn entranceDirection={directions[direction]}>
-							{(props) => <Block {...props} />}
+							{(props) => (
+								<Block
+									ref={props.ref}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+									className={props.className}
+								/>
+							)}
 						</FadeIn>
 					</ExitingPersistence>
 				</Centered>

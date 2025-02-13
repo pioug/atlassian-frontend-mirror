@@ -13,12 +13,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-import { isFragmentOfType, containsNodeOfType } from '../pm-plugins/utils/check-fragment';
-import { maxLayoutColumnSupported } from '../pm-plugins/utils/consts';
 import {
 	fireInsertLayoutAnalytics,
 	attachMoveNodeAnalytics,
-} from '../pm-plugins/utils/fire-analytics';
+	getMultiSelectAnalyticsAttributes,
+} from '../pm-plugins/utils/analytics';
+import { isFragmentOfType, containsNodeOfType } from '../pm-plugins/utils/check-fragment';
+import { maxLayoutColumnSupported } from '../pm-plugins/utils/consts';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
 import { getMultiSelectionIfPosInside } from '../pm-plugins/utils/selection';
 import { updateColumnWidths } from '../pm-plugins/utils/update-column-widths';
@@ -76,9 +77,15 @@ const moveToExistingLayout = (
 ) => {
 	const isSameLayout = isInSameLayout($originalFrom, $originalTo);
 	let sourceContentEndPos: number = -1;
-	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
+	let sourceNodeTypes, hasSelectedMultipleNodes;
+
+	if (isMultiSelect) {
 		if (sourceContent instanceof Fragment) {
 			sourceContentEndPos = from + sourceContent.size;
+			const attributes = getMultiSelectAnalyticsAttributes(tr, from, sourceContentEndPos);
+			hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+			sourceNodeTypes = attributes.nodeTypes;
 		}
 	} else {
 		if (sourceContent instanceof PMNode) {
@@ -110,6 +117,8 @@ const moveToExistingLayout = (
 			'layoutSection',
 			true,
 			api,
+			sourceNodeTypes,
+			hasSelectedMultipleNodes,
 		);
 	} else if (toLayout.childCount < maxLayoutColumnSupported()) {
 		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
@@ -130,6 +139,8 @@ const moveToExistingLayout = (
 			'layoutSection',
 			false,
 			api,
+			sourceNodeTypes,
+			hasSelectedMultipleNodes,
 		);
 	}
 	return tr;
@@ -237,6 +248,7 @@ const canMoveToLayout = (
 	from: number,
 	to: number,
 	tr: Transaction,
+	moveNodeAtCursorPos?: boolean,
 ) => {
 	if (from === to) {
 		return;
@@ -273,9 +285,9 @@ const canMoveToLayout = (
 	let sourceContent: Fragment | PMNode = $from.nodeAfter;
 	let sourceFrom = from;
 	let sourceTo: number = from + sourceContent.nodeSize;
-	if (isMultiSelect) {
+	if (isMultiSelect && !moveNodeAtCursorPos) {
 		const { anchor, head } = getMultiSelectionIfPosInside(api, from);
-		if (anchor && head) {
+		if (anchor !== undefined && head !== undefined) {
 			sourceFrom = Math.min(anchor, head);
 			sourceTo = Math.max(anchor, head);
 			sourceContent = tr.doc.slice(sourceFrom, sourceTo).content;
@@ -323,7 +335,7 @@ const removeBreakoutMarks = (tr: Transaction, $from: ResolvedPos, to: number) =>
 const getBreakoutMode = (content: PMNode | Fragment, breakout: MarkType) => {
 	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
 		if (content instanceof PMNode) {
-			return content.marks.find((m) => m.type === breakout)?.attrs;
+			return content.marks.find((m) => m.type === breakout)?.attrs.mode;
 		} else if (content instanceof Fragment) {
 			// Find the first breakout mode in the fragment
 			let firstBreakoutMode;
@@ -353,13 +365,13 @@ export const moveToLayout =
 	(
 		from: number,
 		to: number,
-		options?: { moveToEnd?: boolean; selectMovedNode?: boolean },
+		options?: { moveToEnd?: boolean; selectMovedNode?: boolean; moveNodeAtCursorPos?: boolean },
 	): EditorCommand =>
 	({ tr }) => {
 		if (!api) {
 			return tr;
 		}
-		const canMove = canMoveToLayout(api, from, to, tr);
+		const canMove = canMoveToLayout(api, from, to, tr, options?.moveNodeAtCursorPos);
 		if (!canMove) {
 			return tr;
 		}
@@ -379,6 +391,11 @@ export const moveToLayout =
 		if (!fromContentWithoutBreakout) {
 			return tr;
 		}
+
+		const isMultiSelect = editorExperiment(
+			'platform_editor_element_drag_and_drop_multiselect',
+			true,
+		);
 
 		if (toNode.type === layoutSection) {
 			const toPos = options?.moveToEnd ? to + toNode.nodeSize - 1 : to + 1;
@@ -421,7 +438,7 @@ export const moveToLayout =
 				toNodeWithoutBreakout = tr.doc.resolve(to).nodeAfter || toNode;
 			}
 
-			if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+			if (isMultiSelect) {
 				if (
 					isFragmentOfType(fromContentWithoutBreakout as Fragment, 'layoutColumn') &&
 					fromContentWithoutBreakout.firstChild
@@ -444,6 +461,13 @@ export const moveToLayout =
 			const newLayout = createNewLayout(tr.doc.type.schema, layoutContents);
 
 			if (newLayout) {
+				let sourceNodeTypes, hasSelectedMultipleNodes;
+				if (isMultiSelect) {
+					const attributes = getMultiSelectAnalyticsAttributes(tr, $sourceFrom.pos, sourceTo);
+					hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+					sourceNodeTypes = attributes.nodeTypes;
+				}
+
 				tr = removeFromSource(tr, $sourceFrom, sourceTo);
 				const mappedTo = tr.mapping.map(to);
 
@@ -457,7 +481,7 @@ export const moveToLayout =
 						breakout.create({ mode: breakoutMode }),
 					]);
 
-				fireInsertLayoutAnalytics(tr, api);
+				fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes);
 			}
 
 			return tr;

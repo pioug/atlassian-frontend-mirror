@@ -2,7 +2,6 @@ src/
 example-helpers/
 examples/
 icons_raw/
-icons_optimised/
 index.ts
 constellation/
 tsconfig.app.json

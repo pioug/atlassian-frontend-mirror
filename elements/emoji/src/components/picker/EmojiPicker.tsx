@@ -27,6 +27,12 @@ const emojiPickerLoader: () => Promise<
 	React.ComponentType<React.PropsWithChildren<ComponentProps>>
 > = () => emojiPickerModuleLoader().then((module) => module.default);
 
+export const preloadEmojiPicker = () => {
+	emojiPickerLoader().then((component) => {
+		EmojiPickerInternal.AsyncLoadedComponent = component;
+	});
+};
+
 export interface Props extends LoadingProps {
 	/**
 	 * Callback to be executed on emoji selection.

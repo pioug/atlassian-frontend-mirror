@@ -55,7 +55,7 @@ const EnteringMotion = ({
 	children,
 	animationTimingFunction,
 	enteringAnimation,
-	exitingAnimation,
+	exitingAnimation = enteringAnimation,
 	isPaused,
 	onFinish: onFinishMotion,
 	duration = 'large',
@@ -118,20 +118,26 @@ const EnteringMotion = ({
 									css({
 										...reduceMotionAsPerUserPreference,
 										animationDelay: `${delay}ms`,
-										animationFillMode: isExiting ? 'forwards' : 'backwards',
-										animationName: `${keyframes(
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-											isExiting ? exitingAnimation || enteringAnimation : enteringAnimation,
-										)}`,
-										animationPlayState: paused ? 'paused' : 'running',
+										animationFillMode: 'backwards',
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+										animationName: keyframes(enteringAnimation),
+										animationPlayState: 'running',
 										animationTimingFunction: animationTimingFunction(state),
 									}),
+									paused && css({ animationPlayState: 'paused' }),
 									duration === 'small' && css({ animationDuration: '100ms' }),
 									duration === 'medium' && css({ animationDuration: '350ms' }),
 									duration === 'large' && css({ animationDuration: '700ms' }),
 									isExiting && duration === 'small' && css({ animationDuration: '50ms' }),
 									isExiting && duration === 'medium' && css({ animationDuration: '175ms' }),
 									isExiting && duration === 'large' && css({ animationDuration: '350ms' }),
+									isExiting &&
+										css({
+											animationDelay: '0ms',
+											animationFillMode: 'forwards',
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+											animationName: keyframes(exitingAnimation),
+										}),
 								)
 							: '',
 					},

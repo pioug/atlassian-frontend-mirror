@@ -59,7 +59,13 @@ Object.entries(iconObjectMapping).forEach(([name, iconObject]) => {
 	// empty existing folder
 	fs.emptyDirSync(path.resolve(root!, 'src', 'artifacts', 'glyph', name));
 	(['16', '24'] as const).forEach((size) => {
-		const iconObjectJSX = getIconObjectJSX(name, iconObject.icon, iconObject.appearance, size);
+		const iconObjectJSX = getIconObjectJSX(
+			name,
+			iconObject.icon,
+			iconObject.appearance,
+			size,
+			iconObject.packageName,
+		);
 		// create file if it doesn't exist
 		fs.ensureFileSync(path.resolve(root!, 'src', 'artifacts', 'glyph', name, `${size}.tsx`));
 		// write new content

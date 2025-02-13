@@ -3,11 +3,17 @@ import type { TrackAEP, UIAEP } from './utils';
 
 type ElementAttributes = {
 	nodeDepth: number;
+	// TODO: when clean up `platform_editor_element_drag_and_drop_multiselect`
+	// remove `nodeType` since `nodeTypes` will cover the same information
 	nodeType: string;
 	destinationNodeDepth?: number;
 	destinationNodeType?: string;
 	isSameParent?: boolean;
 	inputMethod?: string;
+	// distinctive types of node that are involved in the operation
+	nodeTypes?: string;
+	// whether there are multiple nodes involved
+	hasSelectedMultipleNodes?: boolean;
 };
 
 type ElementMovedAEP = TrackAEP<

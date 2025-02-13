@@ -56,11 +56,17 @@ const listStyles = css({
 	listStyle: 'none',
 });
 
-const listTitleStyles = css({
+const baseListTitleStyles = css({
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
-	color: token('color.text.subtlest'),
 	marginBottom: token('space.050', '4px'),
+});
+
+const oldListTitleStyles = css({
+	color: token('color.text.subtlest'),
+});
+const newListTitleStyles = css({
+	color: token('color.text.subtle'),
 });
 
 export const messages = defineMessages({
@@ -203,7 +209,10 @@ export const LinkSearchListNew = forwardRef<HTMLDivElement, LinkSearchListProps>
 			itemsContent = (
 				<Fragment>
 					<div
-						css={listTitleStyles}
+						css={[
+							baseListTitleStyles,
+							fg('platform-linking-visual-refresh-v1') ? newListTitleStyles : oldListTitleStyles,
+						]}
 						id={testIds.resultListTitle}
 						data-testid={testIds.resultListTitle}
 					>

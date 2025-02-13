@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "Build Infra",
@@ -35,7 +35,7 @@
 		"./package.json": "./package.json"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-utils": "^1.9.0",
+		"@atlaskit/eslint-utils": "^1.10.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/eslint-plugin": "^0.18.2",
 		"@manypkg/find-root": "^1.1.0",

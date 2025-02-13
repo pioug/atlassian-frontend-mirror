@@ -36,7 +36,7 @@ export type {
 	State,
 } from './types';
 
-export { ReactionUpdateType } from './types';
+export { ReactionUpdateType, ReactionStatus } from './types';
 
 export const constants = {
 	DefaultReactions,

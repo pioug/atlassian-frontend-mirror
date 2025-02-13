@@ -5,7 +5,7 @@
 import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import FocusRing from '@atlaskit/focus-ring';
@@ -57,18 +57,22 @@ const centeredContainerStyles = css({
 
 const logoContainerStyles = css({
 	display: 'flex',
-	padding: token('space.200', '16px'),
 	fontSize: '16px',
 	fontWeight: token('font.weight.medium', '500'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover': {
+	paddingBlockEnd: token('space.200', '16px'),
+	paddingBlockStart: token('space.200', '16px'),
+	paddingInlineEnd: token('space.200', '16px'),
+	paddingInlineStart: token('space.200', '16px'),
+	'&:hover': {
 		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
 });
 
 const headerStyles = css({
-	margin: token('space.0', '0px'),
 	fontWeight: 300,
+	marginBlockEnd: token('space.0', '0px'),
+	marginBlockStart: token('space.0', '0px'),
+	marginInlineEnd: token('space.0', '0px'),
 	marginInlineStart: token('space.100', '8px'),
 });
 
@@ -117,7 +121,12 @@ const MotionResizeHeightExample = () => {
 							.map((_, index) => (
 								<FadeIn key={index}>
 									{(motion) => (
-										<div css={logoContainerStyles} {...motion}>
+										<div
+											ref={motion.ref}
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+											className={motion.className}
+											css={logoContainerStyles}
+										>
 											{logos[index][0]}
 											<h3 css={headerStyles}>{logos[index][1]}</h3>
 										</div>

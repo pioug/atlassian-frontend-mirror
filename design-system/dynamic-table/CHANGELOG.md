@@ -1,5 +1,14 @@
 # @atlaskit/dynamic-table
 
+## 17.1.3
+
+### Patch Changes
+
+- [#113467](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113467)
+  [`01b28858edafb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01b28858edafb) -
+  Changed the aria-label for previous page and next page buttons
+- Updated dependencies
+
 ## 17.1.2
 
 ### Patch Changes

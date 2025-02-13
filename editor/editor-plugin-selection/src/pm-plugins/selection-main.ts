@@ -31,25 +31,24 @@ export const createPlugin = (
 		appendTransaction(transactions, oldEditorState, newEditorState) {
 			const { tr } = newEditorState;
 
-			let combinedMeta: { manualSelection?: { anchor: number; head: number } } = {};
+			let manualSelection: { anchor: number; head: number } | undefined;
 			if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-				combinedMeta = transactions
-					.map((value) => value.getMeta(selectionPluginKey))
-					.reduce((prev, curr) => {
-						return { ...prev, ...curr };
-					});
+				// Start at most recent transaction, look for manualSelection meta
+				for (let i = transactions.length - 1; i >= 0; i--) {
+					manualSelection = transactions[i].getMeta(selectionPluginKey)?.manualSelection;
+					if (manualSelection) {
+						break;
+					}
+				}
 			}
-			if (
-				!shouldRecalcDecorations({ oldEditorState, newEditorState }) &&
-				combinedMeta?.manualSelection === undefined
-			) {
+			if (!shouldRecalcDecorations({ oldEditorState, newEditorState }) && !manualSelection) {
 				return;
 			}
 
 			tr.setMeta(selectionPluginKey, {
 				type: SelectionActionTypes.SET_DECORATIONS,
 				selection: tr.selection,
-				decorationSet: getDecorations(tr, combinedMeta?.manualSelection),
+				decorationSet: getDecorations(tr, manualSelection),
 			});
 
 			return tr;

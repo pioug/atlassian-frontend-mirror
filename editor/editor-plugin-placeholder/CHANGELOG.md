@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 1.6.0
+
+### Minor Changes
+
+- [#113560](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113560)
+  [`0acdf46472e21`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0acdf46472e21) -
+  Add new setPlaceholder API so the placeholder text can be changed dynamically via the editor API.
+
 ## 1.5.0
 
 ### Minor Changes

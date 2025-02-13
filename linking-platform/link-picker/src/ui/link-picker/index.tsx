@@ -62,16 +62,19 @@ const styles = cssMap({
 	},
 });
 
-const rootContainerStyles = css({
+const baseRootContainerStyles = css({
 	paddingLeft: 'var(--link-picker-padding-left)',
 	paddingRight: 'var(--link-picker-padding-right)',
 	paddingTop: 'var(--link-picker-padding-top)',
 	paddingBottom: 'var(--link-picker-padding-bottom)',
 	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 'initial',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	display: 'block !important',
+});
+// To be removed when platform-linking-visual-refresh-v1 is removed
+const oldRootContainerStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	lineHeight: 'initial',
 });
 
 const formFooterMargin = css({
@@ -439,7 +442,10 @@ export const LinkPickerNew = withLinkPickerAnalyticsContext(
 			return (
 				<form
 					data-testid={testIds.linkPicker}
-					css={rootContainerStyles}
+					css={[
+						baseRootContainerStyles,
+						!fg('platform-linking-visual-refresh-v1') && oldRootContainerStyles,
+					]}
 					// Use onSubmitCapture instead of onSubmit so that any possible parent form isn't submitted
 					onSubmitCapture={handleSubmit}
 				>

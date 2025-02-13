@@ -5,7 +5,7 @@
 import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -30,7 +30,7 @@ const MotionShrinkOutExample = () => {
 					{actualProducts.map((product) => (
 						<ShrinkOut key={product}>
 							{(props) => (
-								<Block {...props} appearance="small" css={blockStyles}>
+								<Block ref={props.ref} appearance="small" css={blockStyles}>
 									<Button
 										onClick={() => {
 											setProducts((prods) => prods.filter((val) => val !== product));
@@ -63,7 +63,10 @@ const centeredStyles = css({ height: '82px' });
 
 const blockStyles = css({
 	width: 'auto',
-	margin: token('space.050', '4px'),
+	marginBlockEnd: token('space.050', '4px'),
+	marginBlockStart: token('space.050', '4px'),
+	marginInlineEnd: token('space.050', '4px'),
+	marginInlineStart: token('space.050', '4px'),
 	overflow: 'hidden',
 });
 

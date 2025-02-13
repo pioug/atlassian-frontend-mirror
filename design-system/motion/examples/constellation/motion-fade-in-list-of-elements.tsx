@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -5,7 +6,7 @@
 import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import {
@@ -35,7 +36,12 @@ const MotionFadeInListOfElementsExample = () => {
 						// Gotcha #1 set propery keys YO
 						<FadeIn key={logo[1] as string}>
 							{(props) => (
-								<li {...props} css={listItemStyles}>
+								<li
+									ref={props.ref}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+									className={props.className}
+									css={listItemStyles}
+								>
 									<Block css={blockStyles}>
 										<div css={logoContainerStyles}>
 											{logo[0]}
@@ -78,19 +84,32 @@ const retryContainerStyles = css({
 const listStyles = css({
 	maxWidth: '474px',
 	height: '328px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-	margin: `${token('space.200', '16px')} !important`,
-	padding: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	marginBlockEnd: token('space.200', '16px'),
+	marginBlockStart: token('space.200', '16px'),
+	marginInlineEnd: token('space.200', '16px'),
+	marginInlineStart: token('space.200', '16px'),
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.0', '0px'),
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingInlineStart: token('space.0', '0px'),
 	div: {
-		margin: token('space.0', '0px'),
+		marginBlockEnd: token('space.0', '0px'),
+		marginBlockStart: token('space.0', '0px'),
+		marginInlineEnd: token('space.0', '0px'),
+		marginInlineStart: token('space.0', '0px'),
 	},
 });
 
 const listItemStyles = css({
 	display: 'block',
-	margin: token('space.100', '8px'),
-	padding: token('space.0', '0px'),
+	marginBlockEnd: token('space.100', '8px'),
+	marginBlockStart: token('space.100', '8px'),
+	marginInlineEnd: token('space.100', '8px'),
+	marginInlineStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.0', '0px'),
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingInlineStart: token('space.0', '0px'),
 });
 
 const blockStyles = css({
@@ -107,8 +126,10 @@ const logoContainerStyles = css({
 });
 
 const headerStyles = css({
-	margin: token('space.0', '0px'),
 	fontWeight: 300,
+	marginBlockEnd: token('space.0', '0px'),
+	marginBlockStart: token('space.0', '0px'),
+	marginInlineEnd: token('space.0', '0px'),
 	marginInlineStart: token('space.100', '8px'),
 });
 

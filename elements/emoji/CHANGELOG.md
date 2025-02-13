@@ -1,5 +1,17 @@
 # @atlaskit/emoji
 
+## 67.14.0
+
+### Minor Changes
+
+- [#113788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113788)
+  [`532820b675878`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/532820b675878) -
+  ED-26212: Preloads the emoji picker to allow it to be used offline
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 67.13.2
 
 ### Patch Changes

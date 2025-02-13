@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "23.8.0",
+	"version": "23.9.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -71,9 +71,7 @@
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/register": "^7.25.9",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"globby": "^6.1.0",
-		"puppeteer": "13.7.0"
+		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
@@ -91,7 +89,7 @@
 		"@atlaskit/form": "^11.0.2",
 		"@atlaskit/heading": "^4.1.0",
 		"@atlaskit/icon-file-type": "^6.8.0",
-		"@atlaskit/icon-object": "^6.9.0",
+		"@atlaskit/icon-object": "^6.11.0",
 		"@atlaskit/link": "^2.1.0",
 		"@atlaskit/logo": "^15.2.0",
 		"@atlaskit/menu": "^2.14.0",
@@ -109,6 +107,7 @@
 		"@compiled/react": "^0.18.1",
 		"@testing-library/react": "^13.4.0",
 		"fs-extra": "^4.0.2",
+		"globby": "^6.1.0",
 		"jscodeshift": "^0.13.0",
 		"lodash": "^4.17.21",
 		"nullthrows": "^1.1.1",

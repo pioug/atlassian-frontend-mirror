@@ -1,14 +1,15 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop */
-/* eslint-disable testing-library/no-container,testing-library/no-node-access */
+/* eslint-disable testing-library/prefer-user-event */
 import React from 'react';
 
-import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
 import Async from '../../async';
 
 import { type Option, OPTIONS } from './constants.mock';
+
+const testId = 'react-select';
 
 /**
  * loadOptions with promise is not resolved and it renders loading options
@@ -18,10 +19,10 @@ import { type Option, OPTIONS } from './constants.mock';
 cases(
 	'load option prop with defaultOptions true',
 	async ({ props, expectOptionLength }: any) => {
-		const { container } = render(<Async classNamePrefix="react-select" menuIsOpen {...props} />);
+		render(<Async menuIsOpen {...props} />);
 
 		await waitFor(() => {
-			expect(container.querySelectorAll('.react-select__option').length).toBe(expectOptionLength);
+			expect(screen.getAllByRole('option').length).toBe(expectOptionLength);
 		});
 	},
 	{
@@ -58,13 +59,12 @@ test('load options prop with defaultOptions true and inputValue prop', () => {
 cases(
 	'load options props with no default options',
 	async ({ props, expectloadOptionsLength }: any) => {
-		let { container } = render(<Async classNamePrefix="react-select" {...props} />);
-		let input = container.querySelector('input.react-select__input');
-		await userEvent.type(input!, 'a');
+		render(<Async {...props} />);
+		let input = screen.getByTestId(`${testId}-select--input`);
+		const user = userEvent.setup();
+		await user.type(input!, 'a');
 		await waitFor(() => {
-			expect(container.querySelectorAll('.react-select__option').length).toBe(
-				expectloadOptionsLength,
-			);
+			expect(screen.getAllByRole('option').length).toBe(expectloadOptionsLength);
 		});
 	},
 	{
@@ -72,12 +72,14 @@ cases(
 			props: {
 				loadOptions: (inputValue: string, callBack: (options: readonly Option[]) => void) =>
 					callBack(OPTIONS),
+				testId: testId,
 			},
 			expectloadOptionsLength: 17,
 		},
 		'with promise > should resolve the options': {
 			props: {
 				loadOptions: () => Promise.resolve(OPTIONS),
+				testId: testId,
 			},
 			expectloadOptionsLength: 17,
 		},
@@ -86,15 +88,8 @@ cases(
 
 test('to not call loadOptions again for same value when cacheOptions is true', () => {
 	let loadOptionsSpy = jest.fn((_, callback) => callback([]));
-	let { container } = render(
-		<Async
-			className="react-select"
-			classNamePrefix="react-select"
-			loadOptions={loadOptionsSpy}
-			cacheOptions
-		/>,
-	);
-	let input = container.querySelector('input.react-select__input');
+	render(<Async loadOptions={loadOptionsSpy} cacheOptions testId={testId} />);
+	let input = screen.getByTestId(`${testId}-select--input`);
 
 	fireEvent.input(input!, {
 		target: {
@@ -122,17 +117,14 @@ test('to not call loadOptions again for same value when cacheOptions is true', (
 
 test('to create new cache for each instance', async () => {
 	let loadOptionsOne = jest.fn();
-	let { container: containerOne } = render(
-		<Async classNamePrefix="react-select" cacheOptions menuIsOpen loadOptions={loadOptionsOne} />,
-	);
-	await userEvent.type(containerOne.querySelector('input.react-select__input')!, 'a');
+	render(<Async cacheOptions menuIsOpen loadOptions={loadOptionsOne} testId={`${testId}-1`} />);
+	const user = userEvent.setup();
+	await user.type(screen.getByTestId(`${testId}-1-select--input`)!, 'a');
 
 	let loadOptionsTwo = jest.fn();
-	let { container: containerTwo } = render(
-		<Async classNamePrefix="react-select" cacheOptions menuIsOpen loadOptions={loadOptionsTwo} />,
-	);
+	render(<Async cacheOptions menuIsOpen loadOptions={loadOptionsTwo} testId={`${testId}-2`} />);
 
-	await userEvent.type(containerTwo.querySelector('input.react-select__input')!, 'a');
+	await user.type(screen.getByTestId(`${testId}-2-select--input`)!, 'a');
 
 	expect(loadOptionsOne).toHaveBeenCalled();
 	expect(loadOptionsTwo).toHaveBeenCalled();
@@ -143,11 +135,9 @@ test('in case of callbacks display the most recently-requested loaded options (i
 	const loadOptions = (inputValue: string, callback: (options: readonly Option[]) => void) => {
 		callbacks.push(callback);
 	};
-	let { container } = render(
-		<Async className="react-select" classNamePrefix="react-select" loadOptions={loadOptions} />,
-	);
+	render(<Async loadOptions={loadOptions} testId={testId} />);
 
-	let input = container.querySelector('input.react-select__input');
+	let input = screen.getByTestId(`${testId}-select--input`)!;
 	fireEvent.input(input!, {
 		target: {
 			value: 'foo',
@@ -162,14 +152,15 @@ test('in case of callbacks display the most recently-requested loaded options (i
 		bubbles: true,
 		cancelable: true,
 	});
-	expect(container.querySelector('.react-select__option')).toBeFalsy();
+	expect(screen.queryByTestId(`${testId}-select--option-0`)).not.toBeInTheDocument();
 	act(() => {
 		callbacks[1]([{ value: 'bar', label: 'bar' }]);
 	});
 	act(() => {
 		callbacks[0]([{ value: 'foo', label: 'foo' }]);
 	});
-	expect(container.querySelector('.react-select__option')!).toHaveTextContent('bar');
+
+	expect(screen.getByTestId(`${testId}-select--option-0`)).toHaveTextContent('bar');
 });
 
 // QUESTION: we currently do not do this, do we want to?
@@ -178,15 +169,8 @@ test.skip('in case of callbacks should handle an error by setting options to an 
 		// @ts-ignore
 		callback(new Error('error'));
 	};
-	let { container } = render(
-		<Async
-			className="react-select"
-			classNamePrefix="react-select"
-			loadOptions={loadOptions}
-			options={OPTIONS}
-		/>,
-	);
-	let input = container.querySelector('input.react-select__input');
+	render(<Async loadOptions={loadOptions} options={OPTIONS} testId={testId} />);
+	let input = screen.getByTestId(`${testId}-select--input`);
 	fireEvent.input(input!, {
 		target: {
 			value: 'foo',
@@ -194,5 +178,5 @@ test.skip('in case of callbacks should handle an error by setting options to an 
 		bubbles: true,
 		cancelable: true,
 	});
-	expect(container.querySelectorAll('.react-select__option').length).toBe(0);
+	expect(screen.getAllByRole('option').length).toBe(0);
 });

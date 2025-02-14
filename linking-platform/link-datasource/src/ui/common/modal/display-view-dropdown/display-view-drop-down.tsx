@@ -1,30 +1,29 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
+
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
-import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { type DisplayViewModes } from '../../../../common/types';
 
+import { DisplayViewDropDownOld } from './display-view-drop-down-old';
 import { displayViewDropDownMessages } from './messages';
 
-const dropDownItemGroupStyles = xcss({
-	width: '320px',
-	height: '140px',
-	paddingTop: 'space.050',
-	paddingBottom: 'space.050',
-	borderRadius: 'border.radius',
+const styles = cssMap({
+	dropDownItemGroupStyles: {
+		width: '320px',
+		height: '140px',
+		paddingTop: token('space.050'),
+		paddingBottom: token('space.050'),
+		borderRadius: token('border.radius'),
+	},
 });
 
-const InlineIconOld = (
+const InlineIcon = (
 	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 		<path
 			fillRule="evenodd"
@@ -35,14 +34,7 @@ const InlineIconOld = (
 	</svg>
 );
 
-// TODO Rename to InlineIcon when cleaning fg('bandicoots-update-sllv-icons')
-const InlineIconNew = <SmartLinkInlineIcon label="" spacing="spacious" />;
-
-// TODO Delete when cleaning fg('bandicoots-update-sllv-icons')
-const getInlineIconFFed = () =>
-	fg('bandicoots-update-sllv-icons') ? InlineIconNew : InlineIconOld;
-
-const ListIconOld = (
+const ListIcon = (
 	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 15 15" fill="none">
 		<path
 			fillRule="evenodd"
@@ -53,30 +45,24 @@ const ListIconOld = (
 	</svg>
 );
 
-// TODO Rename to ListIcon when cleaning fg('bandicoots-update-sllv-icons')
-const ListIconNew = <SmartLinkListIcon label="" spacing="spacious" />;
-
-// TODO Delete when cleaning fg('bandicoots-update-sllv-icons')
-const getListIconFFed = () => (fg('bandicoots-update-sllv-icons') ? ListIconNew : ListIconOld);
-
 export type DisplayViewDropDownProps = {
 	onViewModeChange: (value: DisplayViewModes) => void;
 	viewMode: DisplayViewModes;
 };
 
-export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewDropDownProps) => {
+export const DisplayViewDropDownNew = ({
+	onViewModeChange,
+	viewMode,
+}: DisplayViewDropDownProps) => {
 	const { formatMessage } = useIntl();
 	const isTable = viewMode === 'table';
 	const triggerText = isTable
 		? formatMessage(displayViewDropDownMessages.viewModeListLabel)
 		: formatMessage(displayViewDropDownMessages.viewModeInlineLinkLabel);
 
-	const InlineIcon = getInlineIconFFed();
-	const ListIcon = getListIconFFed();
-
 	return (
 		<DropdownMenu trigger={triggerText} testId="datasource-modal--view-drop-down">
-			<Box xcss={dropDownItemGroupStyles}>
+			<Box xcss={styles.dropDownItemGroupStyles}>
 				<DropdownItemGroup>
 					<DropdownItem
 						testId="dropdown-item-table"
@@ -100,4 +86,12 @@ export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewD
 			</Box>
 		</DropdownMenu>
 	);
+};
+
+export const DisplayViewDropDown = (props: DisplayViewDropDownProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <DisplayViewDropDownNew {...props} />;
+	} else {
+		return <DisplayViewDropDownOld {...props} />;
+	}
 };

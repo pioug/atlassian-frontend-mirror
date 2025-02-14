@@ -10,8 +10,6 @@ import { css, jsx } from '@emotion/react';
 import AkBlanket from '@atlaskit/blanket';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
-import { animationTimingFunction } from '../constants';
-
 type BlanketProps = {
 	isOpen: boolean;
 	onBlanketClicked: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -42,7 +40,7 @@ const Blanket = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
 					 * TODO: figure out how we want to handle this...
 					 */
 					// @ts-ignore
-					animationTimingFunction={animationTimingFunction}
+					animationTimingFunction="ease-out"
 				>
 					{({ className }) => (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

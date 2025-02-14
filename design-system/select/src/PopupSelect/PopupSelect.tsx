@@ -652,6 +652,7 @@ export default class PopupSelect<
 								maxMenuHeight={this.getMaxHeight()}
 								components={selectComponents}
 								onChange={this.handleSelectChange}
+								testId={testId}
 								ariaLiveMessages={{
 									// Overwriting ariaLiveMessages builtin onFocus method to announce selected option when popup has been opened
 									onFocus: onReactSelectFocus,

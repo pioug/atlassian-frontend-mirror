@@ -21,6 +21,7 @@ type OnTTVC = (result: {
 	relativeTTVC: TTVCTargets;
 }) => void;
 type OnUserLatency = (result: { latency: LatencyPercentileTargets }) => void;
+type OnTTAI = (result: { idleAt: DOMHighResTimeStamp }) => void;
 
 /**
  *    onTTVC: (optional) Callback function that receives TTVC metrics.
@@ -31,10 +32,15 @@ type OnUserLatency = (result: { latency: LatencyPercentileTargets }) => void;
  *    onUserLatency: (optional) Callback function that receives user latency metrics.
  *        Type: (result: { latency: LatencyPercentileTargets }) => void
  *        latency: Object containing latency percentiles for different user event categories.
+ *
+ *    onTTAI: (Optional) Called once when the first idle time happen after the component is mounted
+ *        Type: (result: { idleAt: DOMHighResTimeStamp }) => void
+ *        idleAt: This number represents the moment the browser as truly idle
  */
 type PerformanceMetricsProps = {
 	onTTVC?: OnTTVC;
 	onUserLatency?: OnUserLatency;
+	onTTAI?: OnTTAI;
 };
 
 export type {
@@ -42,11 +48,12 @@ export type {
 	LatencyPercentileTargets,
 	OnUserLatency,
 	OnTTVC,
+	OnTTAI,
 	PerformanceMetricsProps,
 };
 
 type UseTTVCProps = {
-	observer: EditorPerformanceObserver;
+	observer: EditorPerformanceObserver | null;
 	onTTVC: PerformanceMetricsProps['onTTVC'];
 };
 const useTTVC = ({ observer, onTTVC }: UseTTVCProps) => {
@@ -89,7 +96,7 @@ const useTTVC = ({ observer, onTTVC }: UseTTVCProps) => {
 };
 
 type UseLatencyProps = {
-	observer: EditorPerformanceObserver;
+	observer: EditorPerformanceObserver | null;
 	onUserLatency: PerformanceMetricsProps['onUserLatency'];
 };
 const useLatency = ({ observer, onUserLatency }: UseLatencyProps) => {
@@ -118,20 +125,54 @@ const useLatency = ({ observer, onUserLatency }: UseLatencyProps) => {
 	}, [observer, onUserLatency]);
 };
 
-export const PerformanceMetrics = memo(({ onTTVC, onUserLatency }: PerformanceMetricsProps) => {
-	const observer = useMemo(() => getGlobalEditorMetricsObserver(), []);
+type UseTTAIProps = {
+	observer: EditorPerformanceObserver | null;
+	onTTAI: PerformanceMetricsProps['onTTAI'];
+};
+const useTTAI = ({ observer, onTTAI }: UseTTAIProps) => {
+	useEffect(() => {
+		if (!observer || !onTTAI) {
+			return;
+		}
 
-	useTTVC({
-		observer,
-		onTTVC,
-	});
+		const unsub = observer.onceNextIdle(({ idleAt, timelineBuffer }) => {
+			onTTAI({ idleAt });
+		});
 
-	useLatency({
-		observer,
-		onUserLatency,
-	});
+		return () => {
+			unsub();
+		};
+	}, [observer, onTTAI]);
+};
 
-	return null;
-});
+export const PerformanceMetrics = memo(
+	({ onTTVC, onUserLatency, onTTAI }: PerformanceMetricsProps) => {
+		const observer = useMemo(() => {
+			const isSSR = Boolean(process.env.REACT_SSR);
+			if (isSSR) {
+				return null;
+			}
+
+			return getGlobalEditorMetricsObserver();
+		}, []);
+
+		useTTVC({
+			observer,
+			onTTVC,
+		});
+
+		useLatency({
+			observer,
+			onUserLatency,
+		});
+
+		useTTAI({
+			observer,
+			onTTAI,
+		});
+
+		return null;
+	},
+);
 
 PerformanceMetrics.displayName = 'PerformanceMetrics';

@@ -36,6 +36,9 @@
 			"path": "../../../design-system/button/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/datetime-picker/afm-post-office/tsconfig.json"
 		},
 		{

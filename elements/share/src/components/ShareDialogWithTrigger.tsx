@@ -36,6 +36,7 @@ import {
 } from '../types';
 
 import {
+	ANALYTICS_SOURCE,
 	cancelShare,
 	CHANNEL_ID,
 	copyLinkButtonClicked,
@@ -334,6 +335,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			formShareOrigin,
 			showFlags,
 			isPublicLink,
+			createAnalyticsEvent,
 		} = this.props;
 		if (!onShareSubmit) {
 			return;
@@ -354,6 +356,22 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 				shareContentId,
 			}),
 		);
+
+		if (createAnalyticsEvent) {
+			createAnalyticsEvent({
+				type: 'sendTrackEvent',
+				data: {
+					action: 'shared',
+					actionSubject: 'page',
+					source: ANALYTICS_SOURCE,
+					attributes: {
+						contentType: shareContentType,
+						subContentType: shareContentSubType,
+						shareData: data,
+					},
+				},
+			}).fire();
+		}
 
 		onShareSubmit(data)
 			.then(() => {

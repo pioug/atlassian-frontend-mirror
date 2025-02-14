@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
@@ -15,6 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
+import { BasicSearchInputOld } from './basic-search-input-old';
 import { basicSearchInputMessages } from './messages';
 
 export interface BasicSearchInputProps {
@@ -41,7 +41,7 @@ const formWithMaxWidthStyles = css({
 	maxWidth: 250,
 });
 
-export const BasicSearchInput = ({
+export const BasicSearchInputNew = ({
 	isDisabled,
 	isSearching,
 	onChange,
@@ -65,7 +65,7 @@ export const BasicSearchInput = ({
 	};
 
 	return (
-		<form css={fullWidth ? formStyles : formWithMaxWidthStyles} onSubmit={handleFormSubmit}>
+		<form css={[fullWidth ? formStyles : formWithMaxWidthStyles]} onSubmit={handleFormSubmit}>
 			<Textfield
 				elemAfterInput={
 					<LoadingButton
@@ -98,4 +98,12 @@ export const BasicSearchInput = ({
 			/>
 		</form>
 	);
+};
+
+export const BasicSearchInput = (props: BasicSearchInputProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <BasicSearchInputNew {...props} />;
+	} else {
+		return <BasicSearchInputOld {...props} />;
+	}
 };

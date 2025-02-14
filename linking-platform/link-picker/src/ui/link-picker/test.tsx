@@ -1674,7 +1674,7 @@ describe('<LinkPicker />', () => {
 				);
 			});
 
-			it('should render the submit button in between the plugin tab list and the input field when the UNSAFE_moveSubmitButton is passed', async () => {
+			it('should render the submit button in between the plugin tab list and the input field when the moveSubmitButton prop is true', async () => {
 				const plugin1 = new MockLinkPickerPromisePlugin({
 					tabKey: 'tab1',
 					tabTitle: 'tab1',
@@ -1687,7 +1687,7 @@ describe('<LinkPicker />', () => {
 
 				const { testIds } = setupWithGenericPlugin({
 					plugins: [plugin1, plugin2],
-					UNSAFE_moveSubmitButton: true,
+					moveSubmitButton: true,
 				});
 
 				const tabList = await screen.findByTestId(testIds.tabList);

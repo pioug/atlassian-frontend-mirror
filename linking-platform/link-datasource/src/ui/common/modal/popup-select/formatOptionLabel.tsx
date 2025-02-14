@@ -1,31 +1,35 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import { cssMap, cx } from '@atlaskit/css';
 import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import formatOptionLabelOld from './formatOptionLabelOld';
 import {
 	type AvatarLabelOption,
 	type FormatOptionLabel,
 	type IconLabelOption,
 	type LozengeLabelOption,
+	type SelectOption,
 } from './types';
 
-const commonLabelStyles = xcss({
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-});
-
-const avatarOptionLabelStyles = xcss({
-	marginLeft: 'space.050',
-});
-
-const groupWrapperStyles = xcss({
-	width: token('space.250', '20px'),
-	minWidth: token('space.250', '20px'),
-	height: token('space.250', '20px'),
+const styles = cssMap({
+	commonLabelStyles: {
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+	},
+	avatarOptionLabelStyles: {
+		marginLeft: token('space.050'),
+	},
+	groupWrapperStyles: {
+		width: '20px',
+		minWidth: '20px',
+		height: '20px',
+	},
 });
 
 const IconOptionLabel = ({ data }: { data: IconLabelOption }) => {
@@ -50,7 +54,7 @@ const IconOptionLabel = ({ data }: { data: IconLabelOption }) => {
 const LozengeOptionLabel = ({ data }: { data: LozengeLabelOption }) => {
 	return (
 		<Lozenge appearance={data.appearance} testId="basic-filter-popup-select-option--lozenge">
-			<Box xcss={[commonLabelStyles]}>{data.label}</Box>
+			<Box xcss={styles.commonLabelStyles}>{data.label}</Box>
 		</Lozenge>
 	);
 };
@@ -59,13 +63,13 @@ const AvatarOptionLabel = ({ data, testId }: { data: AvatarLabelOption; testId?:
 	return (
 		<Flex alignItems="center" testId={testId || 'basic-filter-popup-select-option--avatar'}>
 			{data.isGroup ? (
-				<Flex alignItems="center" justifyContent="center" xcss={groupWrapperStyles}>
+				<Flex alignItems="center" justifyContent="center" xcss={styles.groupWrapperStyles}>
 					<PeopleGroupIcon color="currentColor" LEGACY_size="small" label="" />
 				</Flex>
 			) : (
 				<Avatar appearance={data.isSquare ? 'square' : 'circle'} src={data.avatar} size="xsmall" />
 			)}
-			<Box xcss={[commonLabelStyles, avatarOptionLabelStyles]}>{data.label}</Box>
+			<Box xcss={cx(styles.commonLabelStyles, styles.avatarOptionLabelStyles)}>{data.label}</Box>
 		</Flex>
 	);
 };
@@ -86,4 +90,12 @@ const formatOptionLabel: FormatOptionLabel = (data) => {
 	return <></>;
 };
 
-export default formatOptionLabel;
+const formatOptionLabelExported = (data: SelectOption) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return formatOptionLabel(data);
+	} else {
+		return formatOptionLabelOld(data);
+	}
+};
+
+export default formatOptionLabelExported;

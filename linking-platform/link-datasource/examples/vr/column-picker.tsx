@@ -4,8 +4,7 @@
  */
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { faker } from '@faker-js/faker';
 import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
@@ -18,7 +17,10 @@ import { token } from '@atlaskit/tokens';
 import { ColumnPicker } from '../../src/ui/issue-like-table/column-picker';
 
 const containerStyles = css({
-	padding: token('space.250', '20px'),
+	paddingTop: token('space.250', '20px'),
+	paddingRight: token('space.250', '20px'),
+	paddingBottom: token('space.250', '20px'),
+	paddingLeft: token('space.250', '20px'),
 	width: '400px',
 });
 

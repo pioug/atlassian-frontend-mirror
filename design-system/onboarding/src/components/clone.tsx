@@ -2,7 +2,7 @@ import React, { type MouseEvent, useMemo } from 'react';
 
 import { TargetInner, TargetOverlay } from '../styled/target';
 import { useElementObserver } from '../utils/use-element-observer';
-export interface CloneProps {
+interface CloneProps {
 	/**
 	 * Whether to display a pulse animation around the spotlighted element.
 	 */

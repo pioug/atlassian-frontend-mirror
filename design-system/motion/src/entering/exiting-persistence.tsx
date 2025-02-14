@@ -13,7 +13,7 @@ import { isReducedMotion } from '../utils/accessibility';
 /**
  * Internally we will be playing with an element that will always have a key defined.
  */
-export type ElementWithKey = JSX.Element & { key: string };
+type ElementWithKey = JSX.Element & { key: string };
 
 export interface ExitingPersistenceProps {
 	/**
@@ -41,7 +41,7 @@ export interface ExitingPersistenceProps {
 /**
  * Internal data passed to child motions.
  */
-export interface ExitingChildContext {
+interface ExitingChildContext {
 	/**
 	 * Will perform an exit animation instead of an enter animation.
 	 */
@@ -59,7 +59,7 @@ export interface ExitingChildContext {
 }
 
 // We define empty context here so the object doesn't change.
-export const emptyContext: ExitingChildContext = {
+const emptyContext: ExitingChildContext = {
 	// Motions will always appear if not inside a exiting persistence component.
 	appear: true,
 	isExiting: false,
@@ -70,14 +70,14 @@ export const emptyContext: ExitingChildContext = {
  *
  * An exiting context.
  */
-export const ExitingContext = createContext<ExitingChildContext>(emptyContext);
+const ExitingContext = createContext<ExitingChildContext>(emptyContext);
 
 /**
  * This method will wrap any React element with a context provider. We're using context (instead of
  * cloneElement) so we can communicate between multiple elements without the need of prop drilling
  * (results in a better API for consumers).
  */
-export const wrapChildWithContextProvider = (
+const wrapChildWithContextProvider = (
 	child: JSX.Element,
 	value: ExitingChildContext = emptyContext,
 ) => {
@@ -91,7 +91,7 @@ export const wrapChildWithContextProvider = (
 /**
  * This function will convert all children types to an array while also filtering out non-valid React elements.
  */
-export const childrenToArray = (children?: ReactNode): ElementWithKey[] => {
+const childrenToArray = (children?: ReactNode): ElementWithKey[] => {
 	const childrenAsArray: ElementWithKey[] = [];
 
 	// We convert children to an array using this helper method as it will add keys to children that do not
@@ -108,7 +108,7 @@ export const childrenToArray = (children?: ReactNode): ElementWithKey[] => {
 	return childrenAsArray;
 };
 
-export const spliceNewElementsIntoPrevious = (
+const spliceNewElementsIntoPrevious = (
 	current: ElementWithKey[],
 	previous: ElementWithKey[],
 ): ElementWithKey[] => {
@@ -128,7 +128,7 @@ export const spliceNewElementsIntoPrevious = (
 	return splicedChildren;
 };
 
-export const childrenToObj = (children: ElementWithKey[]) => {
+const childrenToObj = (children: ElementWithKey[]) => {
 	return children.reduce<{ [key: string]: ElementWithKey }>((acc, child) => {
 		acc[child.key] = child;
 		return acc;

@@ -3,8 +3,6 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
-import { easeInOut } from '../utils/curves';
-
 import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
 import type { Direction, Distance } from './types';
 
@@ -69,7 +67,8 @@ export const fadeOutAnimation = (
 /**
  * Props for controlling the behavior of the FadeIn animation
  */
-export interface FadeKeyframesMotionProps extends KeyframesMotionProps {
+export interface FadeKeyframesMotionProps
+	extends Omit<KeyframesMotionProps, 'animationTimingFunction' | 'animationTimingFunctionExiting'> {
 	/**
 	 * The direction the element will enter from using a slide animation. If undefined, no slide will be applied.
 	 */
@@ -110,7 +109,7 @@ const FadeIn = ({
 			duration={duration}
 			enteringAnimation={fadeInAnimation(entranceDirection, distance)}
 			exitingAnimation={fadeOutAnimation(exitDirection || invertedEntranceDirection, distance)}
-			animationTimingFunction={() => easeInOut}
+			animationTimingFunction="ease-in-out"
 			onFinish={onFinish}
 			isPaused={isPaused}
 		>

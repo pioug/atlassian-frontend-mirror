@@ -12,4 +12,7 @@ snapshot(ConfluenceSearchConfigModalNoInstances, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });

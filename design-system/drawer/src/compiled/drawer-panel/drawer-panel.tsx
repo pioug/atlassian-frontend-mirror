@@ -11,7 +11,6 @@ import { ExitingPersistence, SlideIn, type Transition } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
-import { animationTimingFunction } from '../../constants';
 import { EnsureIsInsideDrawerContext, OnCloseContext } from '../../context';
 import { type DrawerPanelProps } from '../types';
 
@@ -49,7 +48,7 @@ const CustomSlideIn = ({
 }: Pick<SlideInProps, 'children' | 'onFinish' | 'enterFrom'>) => {
 	return (
 		<SlideIn
-			animationTimingFunction={animationTimingFunction}
+			animationTimingFunction="ease-out"
 			duration="small"
 			enterFrom={enterFrom}
 			exitTo={enterFrom}

@@ -59,6 +59,7 @@ class AsyncCreatableExample extends Component<{}, State> {
 			<>
 				<Label htmlFor="async-creatable-example">Which city do you live in?</Label>
 				<AsyncCreatable
+					testId="react-select"
 					inputId="async-creatable-example"
 					loadOptions={this.loadOptions}
 					allowCreateWhileLoading={allowCreateWhileLoading}

@@ -13,6 +13,7 @@ import type {
 	CommandDispatch,
 	DropdownOptions,
 	DropdownOptionT,
+	FloatingToolbarOverflowDropdownOptions,
 	FloatingToolbarButtonSpotlightConfig,
 } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
@@ -63,7 +64,7 @@ export interface Props {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconBefore?: ReactElement<any>;
 	hideExpandIcon?: boolean;
-	options: DropdownOptions<Function>;
+	options: DropdownOptions<Function> | FloatingToolbarOverflowDropdownOptions<Function>;
 	dispatchCommand: (command: Function) => void;
 	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
@@ -222,7 +223,9 @@ export default class Dropdown extends Component<Props, State> {
 		);
 	}
 
-	private renderArrayOptions = (options: Array<DropdownOptionT<Function>>) => {
+	private renderArrayOptions = (
+		options: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>,
+	) => {
 		const { showSelected, dispatchCommand, editorView } = this.props;
 		return (
 			<DropdownMenu

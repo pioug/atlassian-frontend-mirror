@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,12 +34,12 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^46.1.0",
+		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/calendar": "^16.3.0",
 		"@atlaskit/date": "^1.0.0",
-		"@atlaskit/editor-common": "^99.14.0",
+		"@atlaskit/editor-common": "^99.16.0",
 		"@atlaskit/editor-plugin-analytics": "^1.12.0",
-		"@atlaskit/editor-plugin-annotation": "1.28.0",
+		"@atlaskit/editor-plugin-annotation": "1.28.1",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.5.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.2.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -65,7 +65,7 @@
 		"@atlaskit/editor-plugin-guideline": "^1.4.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.10.0",
 		"@atlaskit/editor-plugin-selection": "^1.8.0",
-		"@atlaskit/editor-plugin-table": "^9.4.0",
+		"@atlaskit/editor-plugin-table": "^9.5.0",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "^2.14.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.13.0",
 		"@atlaskit/editor-plugin-width": "^2.1.0",

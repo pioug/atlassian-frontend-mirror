@@ -29,16 +29,9 @@ export const wrapperFetch = ({
 
 			const promise = target.apply(thisArg, args);
 
-			return promise.then(
-				(response) => {
-					unhold();
-					return response;
-				},
-				(error) => {
-					unhold();
-					throw error;
-				},
-			);
+			return promise.finally(() => {
+				unhold();
+			});
 		},
 	});
 

@@ -37,6 +37,10 @@ export interface InputSpecificProps<
 	 * Set className for the input element
 	 */
 	inputClassName?: string;
+	/**
+	 * A testId prop is provided for specific elements. This is a unique string that appears as a data attribute data-testid in the rendered code and serves as a hook for automated tests.
+	 */
+	testId?: string;
 }
 
 export type InputProps<
@@ -97,9 +101,16 @@ const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 	props: InputProps<Option, IsMulti, Group>,
 ) => {
 	const { cx, value } = props;
-	const { innerRef, isDisabled, isHidden, inputClassName, ...innerProps } = cleanCommonProps(props);
+	const { innerRef, isDisabled, isHidden, inputClassName, testId, ...innerProps } =
+		cleanCommonProps(props);
+	const dataId = testId ? `${testId}-select--input` : null;
+
 	return (
-		<div {...getStyleProps(props, 'input', { 'input-container': true })} data-value={value || ''}>
+		<div
+			{...getStyleProps(props, 'input', { 'input-container': true })}
+			data-value={value || ''}
+			data-testid={dataId && `${dataId}-container`}
+		>
 			<input
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={cx({ input: true }, inputClassName)}
@@ -107,6 +118,7 @@ const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={inputStyle(isHidden)}
 				disabled={isDisabled}
+				data-testid={dataId}
 				{...innerProps}
 			/>
 		</div>

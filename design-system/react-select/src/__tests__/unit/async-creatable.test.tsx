@@ -1,35 +1,30 @@
-/* eslint-disable testing-library/no-container,testing-library/no-node-access */
 import React from 'react';
 
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import AsyncCreatable from '../../async-creatable';
 
 import { type Option, OPTIONS } from './constants.mock';
 
+const testId = 'react-select';
+
 test('creates an inner Select', () => {
-	const { container } = render(
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-		<AsyncCreatable className="react-select" classNamePrefix="react-select" />,
-	);
-	expect(container.querySelector('.react-select')).toBeInTheDocument();
+	render(<AsyncCreatable testId="react-select" />);
+	expect(screen.getByTestId(`${testId}-select--container`)).toBeInTheDocument();
 });
 
 test('render decorated select with props passed', () => {
-	const { container } = render(
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-		<AsyncCreatable className="foo" classNamePrefix="foo" />,
-	);
-	expect(container.querySelector('.foo')).toBeInTheDocument();
+	render(<AsyncCreatable testId="foo" />);
+	expect(screen.getByTestId('foo-select--container')).toBeInTheDocument();
 });
 
 test('to show the create option in menu', async () => {
-	let { container, rerender } = render(<AsyncCreatable classNamePrefix="react-select" />);
-	let input = container.querySelector('input.react-select__input');
-	rerender(<AsyncCreatable classNamePrefix="react-select" inputValue="a" />);
+	let { rerender } = render(<AsyncCreatable testId={testId} />);
+	let input = screen.getByTestId(`${testId}-select--input`);
+	rerender(<AsyncCreatable testId={testId} inputValue="a" />);
 	await userEvent.type(input!, 'a');
-	expect(container.querySelector('.react-select__option')!).toHaveTextContent('Create "a"');
+	expect(screen.getByRole('option', { name: 'Create "a"' })).toBeInTheDocument();
 });
 
 test('to show loading and then create option in menu', async () => {
@@ -38,17 +33,16 @@ test('to show loading and then create option in menu', async () => {
 			setTimeout(() => callback(OPTIONS), 200);
 		},
 	);
-	let { container } = render(
-		<AsyncCreatable classNamePrefix="react-select" loadOptions={loadOptionsSpy} />,
-	);
-	let input = container.querySelector('input.react-select__input');
+	render(<AsyncCreatable testId={testId} loadOptions={loadOptionsSpy} />);
+	let input = screen.getByTestId(`${testId}-select--input`);
 	await userEvent.type(input!, 'a');
 
 	// to show a loading message while loading options
-	expect(container.querySelector('.react-select__menu')!).toHaveTextContent('Loading...');
+	expect(screen.getByTestId(`${testId}-select--listbox-container`)!).toHaveTextContent(
+		'Loading...',
+	);
 	await waitFor(() => {
 		// show create options once options are loaded
-		let options = container.querySelectorAll('.react-select__option');
-		expect(options[options.length - 1]).toHaveTextContent('Create "a"');
+		expect(screen.getByRole('option', { name: 'Create "a"' })).toBeInTheDocument();
 	});
 });

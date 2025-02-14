@@ -62,7 +62,6 @@ export {
 	non_nestable_block_content,
 	orderedList,
 	panel,
-	panel_with_nested_blockquote, // Stage-0
 	paragraph,
 	paragraph_with_alignment,
 	paragraph_with_indentation,

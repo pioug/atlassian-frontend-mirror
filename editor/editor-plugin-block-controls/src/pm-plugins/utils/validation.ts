@@ -150,13 +150,13 @@ export function canMoveNodeToIndex(
 export function canMoveSliceToIndex(
 	slice: Slice,
 	sliceFromPos: number,
-	doc: PMNode,
 	destParent: PMNode,
 	indexIntoParent: number,
 	$destNodePos: ResolvedPos,
 	destNode?: PMNode,
 ) {
 	let canMoveNodes = true;
+	const doc = $destNodePos.doc;
 	const nodesPos: number[] = [];
 	for (let i = 0; i < slice.content.childCount; i++) {
 		const node = slice.content.maybeChild(i);

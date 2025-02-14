@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import ZoomIn, { shrinkOutAnimation, zoomInAnimation } from '../../../entering/zoom-in';
+import { easeInOut } from '../../../utils/curves';
 
 jest.mock('../../../utils/accessibility');
 
@@ -25,7 +26,7 @@ describe('<ZoomIn />', () => {
 
 		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 			'animation-timing-function',
-			'ease-in-out',
+			easeInOut,
 		);
 	});
 
@@ -40,7 +41,7 @@ describe('<ZoomIn />', () => {
 
 		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 			'animation-timing-function',
-			'ease-in-out',
+			easeInOut,
 		);
 	});
 

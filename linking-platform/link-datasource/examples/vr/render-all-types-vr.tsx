@@ -2,10 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { css, jsx, styled } from '@compiled/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -27,7 +24,10 @@ const ContainerWrapper = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const RenderDiv = styled.div({
-	margin: `${token('space.075', '6px')} ${token('space.0', '0px')}`,
+	marginTop: token('space.075', '6px'),
+	marginRight: token('space.0', '0px'),
+	marginBottom: token('space.075', '6px'),
+	marginLeft: token('space.0', '0px'),
 });
 
 const tableHeaderStyles = css({

@@ -357,7 +357,8 @@ export const getLazyIcons = (): Partial<
 
 		// Confluence icons
 		[IconType.LiveDocument]: {
-			default: () => import(/* webpackChunkName: "@atlaskit-internal_live-document-icon" */ '../common/ui/icons/live-document-icon'),
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/16'),
+			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphPageLiveDoc" */ '@atlaskit/icon-object/glyph/page-live-doc/24'),
 		},
 
 		// Provider icons

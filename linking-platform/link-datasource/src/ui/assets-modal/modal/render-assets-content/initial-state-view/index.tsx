@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -14,6 +13,7 @@ import { token } from '@atlaskit/tokens';
 import { RichIconSearch } from '../../../../../common/ui/rich-icon/search';
 
 import { CrystalBallSVGOld } from './assets/crystal-ball-svg-old';
+import { InitialStateViewOld } from './initial-state-view-old';
 import { initialStateViewMessages } from './messages';
 
 const initialStateViewContainerStyles = css({
@@ -33,7 +33,7 @@ const searchTitleStyles = css({
 });
 const AQLSupportDocumentLink =
 	'https://support.atlassian.com/jira-service-management-cloud/docs/use-assets-query-language-aql/';
-export const InitialStateView = () => {
+export const InitialStateViewNew = () => {
 	const { formatMessage } = useIntl();
 	return (
 		<div
@@ -54,4 +54,12 @@ export const InitialStateView = () => {
 			</div>
 		</div>
 	);
+};
+
+export const InitialStateView = () => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <InitialStateViewNew />;
+	} else {
+		return <InitialStateViewOld />;
+	}
 };

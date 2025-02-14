@@ -48,7 +48,6 @@ import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	editInsertedLink,
@@ -256,7 +255,6 @@ export const getToolbarConfig =
 						{ type: 'separator' },
 						{
 							type: 'copy-button',
-							supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 							items: [
 								{
 									state,

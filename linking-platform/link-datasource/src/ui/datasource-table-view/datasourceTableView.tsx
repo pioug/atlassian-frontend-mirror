@@ -4,11 +4,11 @@
  */
 import { useCallback, useEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { componentMetadata } from '../../analytics/constants';
@@ -33,6 +33,7 @@ import { IssueLikeDataTableView } from '../issue-like-table';
 import EmptyState from '../issue-like-table/empty-state';
 import { TableFooter } from '../table-footer';
 
+import { DatasourceTableViewOld } from './datasourceTableViewOld';
 import { type DatasourceTableViewProps } from './types';
 
 const containerStyles = css({
@@ -222,7 +223,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	);
 };
 
-export const DatasourceTableView = withAnalyticsContext(componentMetadata.tableView)(
+const DatasourceTableViewNew = withAnalyticsContext(componentMetadata.tableView)(
 	(props: DatasourceTableViewProps) => (
 		<StoreContainer>
 			<DatasourceExperienceIdProvider>
@@ -231,3 +232,11 @@ export const DatasourceTableView = withAnalyticsContext(componentMetadata.tableV
 		</StoreContainer>
 	),
 );
+
+export const DatasourceTableView = (props: DatasourceTableViewProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <DatasourceTableViewNew {...props} />;
+	} else {
+		return <DatasourceTableViewOld {...props} />;
+	}
+};

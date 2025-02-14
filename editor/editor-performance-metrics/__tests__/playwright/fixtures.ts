@@ -77,6 +77,7 @@ export const test = base.extend<{
 		| 'latency-mouse-events'
 		| 'editor-full-page'
 		| 'basic-react'
+		| 'ttai-with-timers'
 		| 'latency-keyboard-events';
 	getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
 	/**

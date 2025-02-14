@@ -1,5 +1,32 @@
 # @atlaskit/motion
 
+## 3.0.0
+
+### Major Changes
+
+- [#114382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114382)
+  [`5033cb80b3765`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5033cb80b3765) -
+  Breaking change removing the ability to provide arbitrary animation timing functions in favor of a
+  pre-defined set: `linear` `ease-in` `ease-out` `ease-in-out`.
+
+  Introduced `animationTimingFunctionExiting` to support changing the timing function based on
+  `state` (`entering`/`exiting`)
+
+### Patch Changes
+
+- [#114382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114382)
+  [`5033cb80b3765`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5033cb80b3765) -
+  Updates internal animation logic to leverage static animation timing names, rather than arbitrary
+  values.
+
+## 2.0.2
+
+### Patch Changes
+
+- [#113714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113714)
+  [`8285339ba23ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8285339ba23ae) -
+  Update dependencies and remove unused internal exports and files.
+
 ## 2.0.1
 
 ### Patch Changes

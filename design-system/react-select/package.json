@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "1.7.2",
+	"version": "1.7.3",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -58,6 +58,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"jest-in-case": "^1.0.2",

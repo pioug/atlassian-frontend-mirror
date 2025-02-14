@@ -191,6 +191,10 @@ export interface ReactionsProps
 	 * Optional prop for rendering a profile card wrapper in the Reactions Dialog
 	 */
 	ProfileCardWrapper?: ProfileCardWrapper;
+	/**
+	 * Optional prop to hide the user reactions and only render the picker
+	 */
+	onlyRenderPicker?: boolean;
 }
 
 /**
@@ -252,6 +256,7 @@ export const Reactions = React.memo(
 		showAddReactionText = false,
 		hideDefaultReactions = false,
 		ProfileCardWrapper,
+		onlyRenderPicker = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -454,57 +459,63 @@ export const Reactions = React.memo(
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
-				{shouldShowSummaryView ? (
-					<div data-testid={RENDER_REACTIONS_SUMMARY_TESTID}>
-						<ReactionSummaryView
-							reactions={sortedReactions}
-							emojiProvider={emojiProvider}
-							flash={flash}
-							particleEffectByEmoji={particleEffectByEmoji}
-							onReactionClick={onReactionClick}
-							onReactionFocused={handleReactionFocused}
-							onReactionMouseEnter={handleReactionMouseEnter}
-							placement={summaryViewPlacement}
-							showOpaqueBackground={showOpaqueBackground}
-							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-							handleOpenReactionsDialog={handleOpenReactionsDialog}
-							allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
-						/>
-					</div>
-				) : (
-					memorizedReactions.map((reaction) => (
-						<Reaction
-							key={reaction.emojiId}
-							reaction={reaction}
-							emojiProvider={emojiProvider}
-							onClick={onReactionClick}
-							onMouseEnter={handleReactionMouseEnter}
-							onFocused={handleReactionFocused}
-							flash={flash[reaction.emojiId]}
-							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
-							showOpaqueBackground={showOpaqueBackground}
-						/>
-					))
-				)}
-				{allowUserDialog && hasEmojiWithFivePlusReactions && !shouldShowSummaryView && (
-					<Box xcss={dialogEntrypointButtonStyle}>
-						<Pressable backgroundColor="color.background.neutral.subtle" padding="space.0">
-							<Tooltip content={intl.formatMessage(messages.seeWhoReactedTooltip)}>
-								{(tooltipProps) => (
-									<Button
-										{...tooltipProps}
-										spacing="compact"
-										onClick={() => handleOpenReactionsDialog(sortedReactions[0].emojiId)}
-									>
-										<Flex alignItems="center" xcss={iconStyle}>
-											<ShowMoreHorizontalIcon label={intl.formatMessage(messages.seeWhoReacted)} />
-										</Flex>
-									</Button>
-								)}
-							</Tooltip>
-						</Pressable>
-					</Box>
-				)}
+				{!onlyRenderPicker &&
+					(shouldShowSummaryView ? (
+						<div data-testid={RENDER_REACTIONS_SUMMARY_TESTID}>
+							<ReactionSummaryView
+								reactions={sortedReactions}
+								emojiProvider={emojiProvider}
+								flash={flash}
+								particleEffectByEmoji={particleEffectByEmoji}
+								onReactionClick={onReactionClick}
+								onReactionFocused={handleReactionFocused}
+								onReactionMouseEnter={handleReactionMouseEnter}
+								placement={summaryViewPlacement}
+								showOpaqueBackground={showOpaqueBackground}
+								subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+								handleOpenReactionsDialog={handleOpenReactionsDialog}
+								allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
+							/>
+						</div>
+					) : (
+						memorizedReactions.map((reaction) => (
+							<Reaction
+								key={reaction.emojiId}
+								reaction={reaction}
+								emojiProvider={emojiProvider}
+								onClick={onReactionClick}
+								onMouseEnter={handleReactionMouseEnter}
+								onFocused={handleReactionFocused}
+								flash={flash[reaction.emojiId]}
+								showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+								showOpaqueBackground={showOpaqueBackground}
+							/>
+						))
+					))}
+				{!onlyRenderPicker &&
+					allowUserDialog &&
+					hasEmojiWithFivePlusReactions &&
+					!shouldShowSummaryView && (
+						<Box xcss={dialogEntrypointButtonStyle}>
+							<Pressable backgroundColor="color.background.neutral.subtle" padding="space.0">
+								<Tooltip content={intl.formatMessage(messages.seeWhoReactedTooltip)}>
+									{(tooltipProps) => (
+										<Button
+											{...tooltipProps}
+											spacing="compact"
+											onClick={() => handleOpenReactionsDialog(sortedReactions[0].emojiId)}
+										>
+											<Flex alignItems="center" xcss={iconStyle}>
+												<ShowMoreHorizontalIcon
+													label={intl.formatMessage(messages.seeWhoReacted)}
+												/>
+											</Flex>
+										</Button>
+									)}
+								</Tooltip>
+							</Pressable>
+						</Box>
+					)}
 				<ReactionPicker
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={reactionPickerStyle}

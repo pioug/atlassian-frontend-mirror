@@ -71,7 +71,7 @@ export class VCObserver {
 	outOfBoundaryInfo = '';
 
 	/** config * */
-	static VCParts = ['25', '50', '75', '80', '85', '90', '95', '98', '99'];
+	static VCParts = ['25', '50', '75', '80', '85', '90', '95', '98', '99'] as const;
 
 	viewport = {
 		w: 0,
@@ -249,6 +249,7 @@ export class VCObserver {
 		}
 
 		let _componentsLog: ComponentsLogType = {};
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		if (fg('ufo-remove-vc-component-observations-after-ttai')) {
 			Object.entries(this.componentsLog).forEach(([_timestamp, value]) => {
 				const timestamp = Number(_timestamp);
@@ -342,6 +343,7 @@ export class VCObserver {
 			/*  do nothing */
 		}
 
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
 
 		return {
@@ -420,6 +422,7 @@ export class VCObserver {
 		const VC: { [key: string]: number | null } = VCObserver.makeVCReturnObj<number>();
 		const VCBox: { [key: string]: string[] | null } = VCObserver.makeVCReturnObj<string[]>();
 
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
 
 		entries.reduce((acc = 0, v) => {

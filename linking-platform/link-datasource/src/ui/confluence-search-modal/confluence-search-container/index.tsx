@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { cssMap } from '@compiled/react';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { Flex, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { FILTER_SELECTION_DEBOUNCE_MS } from '../../common/modal/popup-select/constants';
@@ -12,6 +14,7 @@ import { useBasicFilterHydration } from '../basic-filters/hooks/useBasicFilterHy
 import { CLOLBasicFilters, type SelectedOptionsMap } from '../basic-filters/types';
 import { type ConfluenceSearchDatasourceParameters } from '../types';
 
+import ConfluenceSearchContainerOld from './confluence-search-container-old';
 import { searchMessages } from './messages';
 
 interface Props {
@@ -20,8 +23,10 @@ interface Props {
 	onSearch: (searchTerm: string, filters?: SelectedOptionsMap) => void;
 }
 
-const basicSearchInputContainerStyles = xcss({
-	flexGrow: 1,
+const styles = cssMap({
+	basicSearchInputContainerStyles: {
+		flexGrow: 1,
+	},
 });
 
 const ConfluenceSearchContainer = ({
@@ -123,7 +128,7 @@ const ConfluenceSearchContainer = ({
 	}, [users, status, filterSelections.lastModified]);
 
 	return (
-		<Flex alignItems="center" xcss={basicSearchInputContainerStyles}>
+		<Flex alignItems="center" xcss={styles.basicSearchInputContainerStyles}>
 			<BasicSearchInput
 				testId="confluence-search-datasource-modal"
 				isSearching={isSearching}
@@ -143,4 +148,12 @@ const ConfluenceSearchContainer = ({
 	);
 };
 
-export default ConfluenceSearchContainer;
+const ConfluenceSearchContainerExported = (props: Props) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <ConfluenceSearchContainer {...props} />;
+	} else {
+		return <ConfluenceSearchContainerOld {...props} />;
+	}
+};
+
+export default ConfluenceSearchContainerExported;

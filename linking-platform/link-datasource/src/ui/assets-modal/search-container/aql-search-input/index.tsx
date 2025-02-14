@@ -4,8 +4,7 @@
  */
 import { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx, styled } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
@@ -14,6 +13,7 @@ import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
 import { G300, N500, R400 } from '@atlaskit/theme/colors';
@@ -22,9 +22,15 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { type AqlValidationResult, useValidateAqlText } from '../../../../hooks/useValidateAqlText';
 import { aqlKey } from '../../../../types/assets/types';
-import { FieldContainer } from '../styled';
 
+import { AqlSearchInputOld } from './aql-search-input-old';
 import { searchInputMessages } from './messages';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const FieldContainer = styled.div({
+	flex: 1,
+	marginTop: token('space.negative.100', '-8px'),
+});
 
 const buttonBaseStyles = css({
 	display: 'flex',
@@ -86,7 +92,7 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
 	);
 };
 
-export const AqlSearchInput = ({
+export const AqlSearchInputNew = ({
 	value,
 	workspaceId,
 	testId = 'assets-datasource-modal--aql-search-input',
@@ -157,4 +163,12 @@ export const AqlSearchInput = ({
 			</Field>
 		</FieldContainer>
 	);
+};
+
+export const AqlSearchInput = (props: AqlSearchInputProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <AqlSearchInputNew {...props} />;
+	} else {
+		return <AqlSearchInputOld {...props} />;
+	}
 };

@@ -34,7 +34,6 @@ import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
 import LayoutTwoLeftSidebarIcon from '@atlaskit/icon/glyph/editor/layout-two-left-sidebar';
 import LayoutTwoRightSidebarIcon from '@atlaskit/icon/glyph/editor/layout-two-right-sidebar';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../index';
@@ -255,7 +254,6 @@ const getAdvancedLayoutItems = ({
 		separator,
 		{
 			type: 'copy-button',
-			supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 			items: [
 				{
 					state,
@@ -340,7 +338,6 @@ export const buildToolbar = (
 						separator,
 						{
 							type: 'copy-button',
-							supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 							items: [
 								{
 									state,

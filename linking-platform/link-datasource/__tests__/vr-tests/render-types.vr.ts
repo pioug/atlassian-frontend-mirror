@@ -4,4 +4,7 @@ import RenderAllTypes from '../../examples/vr/render-all-types-vr';
 
 snapshot(RenderAllTypes, {
 	description: 'Render all types',
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });

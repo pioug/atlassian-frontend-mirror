@@ -1,6 +1,5 @@
 import type React from 'react';
 
-import { easeIn } from '../utils/curves';
 import { durations } from '../utils/durations';
 import { useRequestAnimationFrame, useSetTimeout } from '../utils/timer-hooks';
 import { useElementRef } from '../utils/use-element-ref';
@@ -42,7 +41,7 @@ const ShrinkOut = ({ children, duration = 'small', onFinish }: ShrinkOutProps): 
 					const newStyles: React.CSSProperties = {
 						width: '0px',
 						margin: '0px', // We animate margin down to zero so it doesn't take any space.
-						transitionTimingFunction: easeIn,
+						transitionTimingFunction: 'cubic-bezier(0.8,0,0,0.8)',
 						transitionDuration: durations[duration] + 'ms',
 						transitionProperty: 'width,margin',
 					};

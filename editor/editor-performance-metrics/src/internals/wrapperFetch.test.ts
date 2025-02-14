@@ -125,4 +125,65 @@ describe('wrapperFetch', () => {
 			expect(mockTimelineHoldable.hold).toHaveBeenCalledTimes(3);
 		});
 	});
+
+	it('should call unhold when fetch rejects with a non-Error object', async () => {
+		wrapperFetch({
+			globalContext: mockGlobalContext,
+			timelineHoldable: mockTimelineHoldable,
+		});
+
+		const nonErrorReason = { message: 'Custom rejection reason' };
+		(mockGlobalContext.fetch as jest.Mock).mockRejectedValue(nonErrorReason);
+
+		await expect(mockGlobalContext.fetch('https://example.com')).rejects.toEqual(nonErrorReason);
+
+		expect(unholdMock).toHaveBeenCalled();
+	});
+
+	it('should call unhold when then handler throws', async () => {
+		wrapperFetch({
+			globalContext: mockGlobalContext,
+			timelineHoldable: mockTimelineHoldable,
+		});
+
+		(mockGlobalContext.fetch as jest.Mock).mockResolvedValue(new Response());
+
+		await expect(
+			mockGlobalContext.fetch('https://example.com').then(() => {
+				throw new Error('Unexpected error in then');
+			}),
+		).rejects.toThrow('Unexpected error in then');
+
+		expect(unholdMock).toHaveBeenCalled();
+	});
+
+	it('should call unhold when catch handler throws', async () => {
+		wrapperFetch({
+			globalContext: mockGlobalContext,
+			timelineHoldable: mockTimelineHoldable,
+		});
+
+		(mockGlobalContext.fetch as jest.Mock).mockRejectedValue(new Error('Original error'));
+
+		await expect(
+			mockGlobalContext.fetch('https://example.com').catch(() => {
+				throw new Error('Unexpected error in catch');
+			}),
+		).rejects.toThrow('Unexpected error in catch');
+
+		expect(unholdMock).toHaveBeenCalled();
+	});
+
+	it('should call unhold only once when the promise settles', async () => {
+		wrapperFetch({
+			globalContext: mockGlobalContext,
+			timelineHoldable: mockTimelineHoldable,
+		});
+
+		(mockGlobalContext.fetch as jest.Mock).mockResolvedValue(new Response());
+
+		await mockGlobalContext.fetch('https://example.com');
+
+		expect(unholdMock).toHaveBeenCalledTimes(1);
+	});
 });

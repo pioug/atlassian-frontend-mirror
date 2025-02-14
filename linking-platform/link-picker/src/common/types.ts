@@ -162,12 +162,8 @@ export interface LinkPickerProps {
 	featureFlags?: Record<string, unknown>;
 	/** Controls showing a "submission in-progres" UX */
 	isSubmitting?: boolean;
-	/**
-	 * Do not utilize this! This is a temporary prop that is being used for a specific experiment.
-	 * This prop controls where the submit button appears. When true the submit button will move below the input field and be full width
-	 * @internal
-	 * */
-	UNSAFE_moveSubmitButton?: boolean;
+	/** This prop controls where the submit button appears. When true the submit button will move below the input field and be full width */
+	moveSubmitButton?: boolean;
 }
 
 type CustomLinkPickerMessages = {

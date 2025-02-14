@@ -1,23 +1,25 @@
 import React from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import { JiraServiceManagementIcon } from '@atlaskit/logo';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 
-const jsmTextStyles = xcss({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontSize: 'small',
-	color: 'color.text.subtle',
-	marginLeft: 'space.075',
-	':hover': {
-		color: 'color.link.pressed',
+const styles = cssMap({
+	jsmTextStyles: {
+		color: token('color.text.subtle'),
+		marginLeft: token('space.075'),
+		'&:hover': {
+			color: token('color.link.pressed'),
+		},
 	},
-});
-
-const jsmContainerStyles = xcss({
-	display: 'flex',
-	flexDirection: 'row-reverse',
+	jsmContainerStyles: {
+		display: 'flex',
+		flexDirection: 'row-reverse',
+	},
 });
 
 export const PoweredByJSMAssets = (props: { text: string }) => {
@@ -25,7 +27,7 @@ export const PoweredByJSMAssets = (props: { text: string }) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	return (
-		<Box xcss={jsmContainerStyles} padding="space.150">
+		<Box xcss={styles.jsmContainerStyles} padding="space.150">
 			<a
 				data-testid={'powered-by-jsm-assets-link'}
 				onClick={() =>
@@ -45,7 +47,13 @@ export const PoweredByJSMAssets = (props: { text: string }) => {
 				}}
 			>
 				<JiraServiceManagementIcon size="xsmall" appearance="brand" label={props.text} />
-				<Box xcss={jsmTextStyles}>{props.text}</Box>
+				<Box
+					xcss={styles.jsmTextStyles}
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/enforce-style-prop
+					style={{ fontSize: 'small' }}
+				>
+					{props.text}
+				</Box>
 			</a>
 		</Box>
 	);

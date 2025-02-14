@@ -4,12 +4,11 @@
  */
 import { useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Text } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -17,25 +16,27 @@ import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 
 import { LoadingErrorSVGOld } from './loading-error-svg-old';
 import { loadingErrorMessages } from './messages';
+import { ModalLoadingErrorOld } from './modal-loading-error-old';
 
-const errorContainerStyles = css({
-	display: 'grid',
-	gap: token('space.300', '24px'),
-	placeItems: 'center',
-	placeSelf: 'center',
-});
-
-const errorMessageContainerStyles = css({
-	display: 'grid',
-	gap: token('space.100', '8px'),
-	placeItems: 'center',
+const styles = cssMap({
+	errorContainerStyles: {
+		display: 'grid',
+		gap: token('space.300', '24px'),
+		placeItems: 'center',
+		placeSelf: 'center',
+	},
+	errorMessageContainerStyles: {
+		display: 'grid',
+		gap: token('space.100', '8px'),
+		placeItems: 'center',
+	},
 });
 
 interface ModalLoadingErrorProps {
 	errorMessage?: React.ReactNode;
 }
 
-export const ModalLoadingError = ({
+export const ModalLoadingErrorNew = ({
 	errorMessage = <FormattedMessage {...loadingErrorMessages.checkConnection} />,
 }: ModalLoadingErrorProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -47,13 +48,13 @@ export const ModalLoadingError = ({
 	}, [fireEvent]);
 
 	return (
-		<Box xcss={errorContainerStyles} testId="datasource-modal--loading-error">
+		<Box xcss={styles.errorContainerStyles} testId="datasource-modal--loading-error">
 			{fg('bandicoots-update-sllv-icons') ? (
-				<SpotErrorSearch size={'xlarge'} alt={'something'} />
+				<SpotErrorSearch size={'xlarge'} alt="" />
 			) : (
 				<LoadingErrorSVGOld />
 			)}
-			<Box xcss={errorMessageContainerStyles}>
+			<Box xcss={styles.errorMessageContainerStyles}>
 				<Text size="small">
 					<FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
 				</Text>
@@ -61,4 +62,12 @@ export const ModalLoadingError = ({
 			</Box>
 		</Box>
 	);
+};
+
+export const ModalLoadingError = (props: ModalLoadingErrorProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <ModalLoadingErrorNew {...props} />;
+	} else {
+		return <ModalLoadingErrorOld {...props} />;
+	}
 };

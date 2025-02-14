@@ -17,6 +17,38 @@ import type { PaletteColor } from '../ui-color/ColorPalette/Palettes/type';
 import type { Command, CommandDispatch } from './command';
 import type { MarkOptions, NodeOptions } from './copy-button';
 
+/**
+ * New dropdown types to support editor controls
+ */
+type OverflowDropdownHeading = {
+	type: 'overflow-dropdown-heading';
+	title: string;
+};
+
+export type FloatingToolbarOverflowDropdownOptions<T extends Object> = Array<
+	DropdownOptionT<T> | FloatingToolbarSeparator | OverflowDropdownHeading
+>;
+
+type FloatingToolbarOverflowDropdown<T extends Object> = {
+	type: 'overflow-dropdown';
+	options: FloatingToolbarOverflowDropdownOptions<T>;
+	testId?: string;
+	id?: string;
+	hidden?: boolean;
+	disabled?: boolean;
+	tooltip?: string;
+	dropdownWidth?: number;
+	showSelected?: boolean;
+	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
+	alignDropdownWithToolbar?: boolean;
+	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
+	footer?: React.ReactNode;
+	/** If true, the component will have pulse onboarding effect around it. */
+	pulse?: boolean;
+	onMount?: () => void;
+	onClick?: () => void;
+};
+
 export interface RenderOptionsPropsT<T extends Object> {
 	hide: () => void;
 	dispatchCommand: (command: T) => void;
@@ -315,7 +347,8 @@ export type FloatingToolbarItem<T extends Object> =
 	| FloatingToolbarInput<T>
 	| FloatingToolbarCustom<T>
 	| FloatingToolbarSeparator
-	| FloatingToolbarExtensionsPlaceholder;
+	| FloatingToolbarExtensionsPlaceholder
+	| FloatingToolbarOverflowDropdown<T>;
 
 export interface FloatingToolbarConfig {
 	/** Used for the ariaLabel on the <Popup /> component */

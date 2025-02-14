@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 9.5.0
+
+### Minor Changes
+
+- [#112673](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112673)
+  [`df389f09ee177`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df389f09ee177) -
+  ED-25870 disable table sticky header inside layout for Safari
+
+## 9.4.1
+
+### Patch Changes
+
+- [#112186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112186)
+  [`9462d8ca2405a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9462d8ca2405a) -
+  Bump adf-schema to 47.2.1
+- Updated dependencies
+
 ## 9.4.0
 
 ### Minor Changes

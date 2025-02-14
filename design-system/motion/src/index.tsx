@@ -1,6 +1,6 @@
 export { durations, exitingDurations, durationStep } from './utils/durations';
 export type { Durations } from './utils/durations';
-export { easeIn, easeInOut, easeOut } from './utils/curves';
+export { easeIn, easeInOut, easeOut, linear } from './utils/curves';
 export {
 	isReducedMotion,
 	useIsReducedMotion,

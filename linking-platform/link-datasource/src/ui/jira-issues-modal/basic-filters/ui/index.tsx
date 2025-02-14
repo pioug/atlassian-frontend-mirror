@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react';
 
-import { Flex, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
@@ -8,6 +12,7 @@ import type { BasicFilterFieldType, SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
 
 import AsyncPopupSelect from './async-popup-select';
+import BasicFilterContainerOld from './ui-old';
 
 export const availableBasicFilterTypes: BasicFilterFieldType[] = [
 	'project',
@@ -24,8 +29,10 @@ export interface BasicFilterContainerProps {
 	isJQLHydrating: boolean;
 }
 
-const basicFilterContainerStyles = xcss({
-	paddingLeft: 'space.100',
+const styles = cssMap({
+	basicFilterContainerStyles: {
+		paddingLeft: token('space.100'),
+	},
 });
 
 const BasicFilterContainer = ({
@@ -43,7 +50,11 @@ const BasicFilterContainer = ({
 	const { cloudId } = site || {};
 
 	return (
-		<Flex xcss={basicFilterContainerStyles} gap="space.100" testId="jlol-basic-filter-container">
+		<Flex
+			xcss={styles.basicFilterContainerStyles}
+			gap="space.100"
+			testId="jlol-basic-filter-container"
+		>
 			{availableBasicFilterTypes.map((filter: BasicFilterFieldType) => {
 				const shouldShowHydrationLoader =
 					isJQLHydrating && extractedFilterValues[filter]?.length > 0;
@@ -64,4 +75,12 @@ const BasicFilterContainer = ({
 	);
 };
 
-export default BasicFilterContainer;
+const BasicFilterContainerExported = (props: BasicFilterContainerProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <BasicFilterContainer {...props} />;
+	} else {
+		return <BasicFilterContainerOld {...props} />;
+	}
+};
+
+export default BasicFilterContainerExported;

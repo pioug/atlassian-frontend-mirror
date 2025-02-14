@@ -1,103 +1,55 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
-import { B400, B50, N0, N20, N30, R400 } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
+import { B400, B50, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const PopupComponentContainer = styled.div({
-	boxSizing: 'border-box',
-	display: 'block',
-	flex: '1 1 auto',
-	overflow: 'visible',
-	borderRadius: token('border.radius.100', '4px'),
-	background: token('color.background.input', N0),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':focus': {
-		outline: 'none',
-	},
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'0px 0px 1px 0px rgba(9, 30, 66, 0.31), 0px 3px 5px 0px rgba(9, 30, 66, 0.20)',
-	),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const CustomDropdown = styled.div({
-	width: '340px',
-	background: token('color.background.input', N0),
-	borderRadius: token('border.radius.100', '4px'),
-	boxShadow: token(
-		'elevation.shadow.overlay',
-		'0px 0px 1px 0px rgba(9, 30, 66, 0.31), 0px 3px 5px 0px rgba(9, 30, 66, 0.20)',
-	),
-	zIndex: layers.modal(),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const CustomDropdownItem = styled.div<{ isSelected: boolean }>((props) => ({
+const customDropdownItemBaseStyles = css({
 	height: '36px',
 	width: '100%',
 	display: 'flex',
 	justifyContent: 'flex-start',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingLeft: props.isSelected ? '15px' : '16px',
 	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: props.isSelected ? token('color.text.selected', B400) : 'inherit',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	background: props.isSelected
-		? token('color.background.accent.blue.subtlest', B50)
-		: 'transparent',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderLeft: props.isSelected ? `2px solid ${token('color.text.selected', B400)}` : 'none',
 	'&:hover': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		background: props.isSelected
-			? token('color.background.accent.blue.subtlest', B50)
-			: token('color.background.input.hovered', N20),
 		cursor: 'default',
 	},
-}));
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const CustomDateWrapper = styled.div({
-	padding: token('space.150', '12px'),
-	boxSizing: 'border-box',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const DatePickersWrapper = styled.div({
-	display: 'flex',
-	justifyContent: 'space-between',
-	alignItems: 'center',
-	width: '100%',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SelectDateRangeButton = styled.button({
-	background: token('color.background.accent.gray.subtler', N20),
-	border: 'none',
-	font: 'inherit',
-	width: '70px',
-	height: '40px',
-	marginTop: token('space.150', '12px'),
-	borderRadius: token('border.radius.100', '4px'),
+const customDropdownItemSelectedStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingLeft: '15px',
+	color: token('color.text.selected', B400),
+	backgroundColor: token('color.background.accent.blue.subtlest', B50),
+	borderLeft: `2px solid ${token('color.text.selected', B400)}`,
 	'&:hover': {
-		background: token('color.background.accent.gray.subtler', N30),
-		cursor: 'pointer',
+		backgroundColor: token('color.background.accent.blue.subtlest', B50),
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const DateRangeErrorMessage = styled.div({
-	display: 'flex',
-	marginTop: token('space.050', '2px'),
-	gap: token('space.025'),
-	paddingInlineStart: token('space.025'),
-	font: token('font.body.UNSAFE_small'),
-	color: token('color.text.danger', R400),
-	alignItems: 'center',
+const customDropdownItemNotSelectedStyles = css({
+	paddingLeft: token('space.200', '16px'),
+	color: 'inherit',
+	backgroundColor: 'transparent',
+	borderLeft: `none`,
+	'&:hover': {
+		backgroundColor: token('color.background.input.hovered', N20),
+	},
 });
+
+export const CustomDropdownItem = (
+	props: React.PropsWithChildren<{ isSelected: boolean; onClick: () => void }>,
+) => (
+	<div
+		{...props}
+		css={[
+			customDropdownItemBaseStyles,
+			props.isSelected ? customDropdownItemSelectedStyles : customDropdownItemNotSelectedStyles,
+		]}
+	>
+		{props.children}
+	</div>
+);

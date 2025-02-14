@@ -1,5 +1,18 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.24.0
+
+### Minor Changes
+
+- [#111947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111947)
+  [`d9e24de5d5abe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9e24de5d5abe) -
+  Upgrades from the old deprecated statsig-js-lite library to the newer and more performant
+  @statsig/js-client library while keeping the API identical to avoid a breaking change.
+
+  Also exposes the client under @atlaskit/feature-gate-js-client/client so that consumers which need
+  to (like Marketplace) can create their own client instance separate to the static client used by
+  products.
+
 ## 4.23.4
 
 ### Patch Changes

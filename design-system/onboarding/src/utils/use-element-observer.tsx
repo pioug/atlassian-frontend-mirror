@@ -63,33 +63,6 @@ export function useElementObserver(
 }
 
 /**
- * A component that watches for changes to a node and forces a re-render when it changes.
- *
- * @param props
- * @param props.element The node to watch for changes.
- * @param props.children The children to render.
- * @param [props.disableWatch=false] Whether to watch for changes or not.
- * @param [props.onChange] A callback that is called when the node changes.
- *
- * @component
- * @internal
- */
-export function ElementObserver({
-	element,
-	children,
-	onChange,
-	disableWatch,
-}: {
-	element: HTMLElement;
-	children: any;
-	onChange?: (version: number) => void;
-	disableWatch?: boolean;
-}) {
-	useElementObserver(element, { disableWatch, onChange });
-	return { children };
-}
-
-/**
  * When the browser is idle call the callback.
  *
  * This function will use `requestIdleCallback` if available, otherwise it will fallback to `setTimeout`.

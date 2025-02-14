@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.27.0
+
+### Minor Changes
+
+- [#114097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114097)
+  [`c767c26ecbc7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c767c26ecbc7c) -
+  [ux] [ED-26269] Support moving multiple nodes with shortcuts
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.26.4
+
+### Patch Changes
+
+- [#112698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112698)
+  [`121f8e8854a3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/121f8e8854a3a) -
+  [ux] [ED-26476] Bugfix for drag handle appearing on nested tables when it shouldn't.
+
+## 2.26.3
+
+### Patch Changes
+
+- [#112186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112186)
+  [`9462d8ca2405a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9462d8ca2405a) -
+  Bump adf-schema to 47.2.1
+
 ## 2.26.2
 
 ### Patch Changes

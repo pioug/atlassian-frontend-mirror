@@ -10,27 +10,29 @@ import Select from '../../index';
 
 import { type Option, OPTIONS } from './constants.mock';
 
-function openMenu(container: HTMLElement) {
-	expect(container.querySelector('.react-select__menu')).not.toBeInTheDocument();
+const testId = 'react-select';
 
-	toggleMenuOpen(container);
+function openMenu() {
+	expect(screen.queryByTestId(`${testId}-select--listbox-container`)).not.toBeInTheDocument();
 
-	expect(container.querySelector('.react-select__menu')).toBeInTheDocument();
+	toggleMenuOpen();
+
+	expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
 }
 
-function toggleMenuOpen(container: HTMLElement) {
-	fireEvent.mouseDown(container.querySelector('.react-select__dropdown-indicator')!, { button: 0 });
+function toggleMenuOpen() {
+	fireEvent.mouseDown(screen.getByTestId(`${testId}-select--dropdown-indicator`)!, { button: 0 });
 }
 
-function closeMenu(container: HTMLElement) {
-	expect(container.querySelector('.react-select__menu')).toBeInTheDocument();
-	toggleMenuOpen(container);
-	expect(container.querySelector('.react-select__menu')).not.toBeInTheDocument();
+function closeMenu() {
+	expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
+
+	toggleMenuOpen();
+	expect(screen.queryByTestId(`${testId}-select--listbox-container`)).not.toBeInTheDocument();
 }
 
 interface BasicProps {
-	readonly className: string;
-	readonly classNamePrefix: string;
+	readonly testId?: string;
 	readonly onChange: () => void;
 	readonly onInputChange: () => void;
 	readonly onMenuClose: () => void;
@@ -40,8 +42,7 @@ interface BasicProps {
 }
 
 const BASIC_PROPS: BasicProps = {
-	className: 'react-select',
-	classNamePrefix: 'react-select',
+	testId,
 	onChange: jest.fn(),
 	onInputChange: jest.fn(),
 	onMenuClose: jest.fn(),
@@ -51,18 +52,19 @@ const BASIC_PROPS: BasicProps = {
 };
 
 test('passes down the className prop', () => {
-	const { container } = render(<Select {...BASIC_PROPS} />);
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+	const { container } = render(<Select className={'react-select'} {...BASIC_PROPS} />);
 	expect(container.querySelector('.react-select')).toBeTruthy();
 });
 
 cases(
 	'click on dropdown indicator',
 	({ props }) => {
-		let { container } = render(<Select {...props} />);
+		render(<Select {...props} />);
 		// Menu not open by default
-		expect(container.querySelector('.react-select__menu')).not.toBeInTheDocument();
-		openMenu(container);
-		closeMenu(container);
+		expect(screen.queryByTestId(`${testId}-select--listbox-container`)).not.toBeInTheDocument();
+		openMenu();
+		closeMenu();
 	},
 	{
 		'single select > should toggle Menu': { props: BASIC_PROPS },
@@ -76,31 +78,30 @@ cases(
 );
 
 test('If menuIsOpen prop is passed Menu should not close on clicking Dropdown Indicator', () => {
-	const { container } = render(<Select menuIsOpen {...BASIC_PROPS} />);
-	expect(container.querySelector('.react-select__menu')).toBeTruthy();
+	render(<Select menuIsOpen {...BASIC_PROPS} />);
+	expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
 
-	toggleMenuOpen(container);
-	expect(container.querySelector('.react-select__menu')).toBeTruthy();
+	toggleMenuOpen();
+	expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
 });
 
 test('defaultMenuIsOpen prop > should open by menu default and clicking on Dropdown Indicator should toggle menu', () => {
-	const { container } = render(<Select defaultMenuIsOpen {...BASIC_PROPS} />);
-	expect(container.querySelector('.react-select__menu')).toBeTruthy();
+	render(<Select defaultMenuIsOpen {...BASIC_PROPS} />);
+	expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
 
-	toggleMenuOpen(container);
-	expect(container.querySelector('.react-select__menu')).toBeFalsy();
+	toggleMenuOpen();
+	expect(screen.queryByTestId(`${testId}-select--listbox-container`)).not.toBeInTheDocument();
 });
 
 test('Menu is controllable by menuIsOpen prop', () => {
-	const menuClass = `.${BASIC_PROPS.classNamePrefix}__menu`;
-	const { container, rerender } = render(<Select {...BASIC_PROPS} />);
-	expect(container.querySelector(menuClass)).toBeFalsy();
+	const { rerender } = render(<Select {...BASIC_PROPS} />);
+	expect(screen.queryByTestId(`${testId}-select--listbox-container`)).not.toBeInTheDocument();
 
 	rerender(<Select menuIsOpen {...BASIC_PROPS} />);
-	expect(container.querySelector(menuClass)).toBeTruthy();
+	expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
 
 	rerender(<Select menuIsOpen={false} {...BASIC_PROPS} />);
-	expect(container.querySelector(menuClass)).toBeFalsy();
+	expect(screen.queryByTestId(`${testId}-select--listbox-container`)).not.toBeInTheDocument();
 });
 
 interface MenuToOpenByDefaultOptsProps extends Partial<BasicProps> {
@@ -117,13 +118,13 @@ cases<MenuToOpenByDefaultOpts>(
 	'Menu to open by default if menuIsOpen prop is true',
 	async ({ props }) => {
 		props = { ...BASIC_PROPS, ...props, menuIsOpen: true };
-		const menuClass = `.${BASIC_PROPS.classNamePrefix}__menu`;
-		const { container } = render(<Select {...props} />);
-		expect(container.querySelector(menuClass)).toBeTruthy();
+		render(<Select {...props} />);
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
+		const user = userEvent.setup();
 
-		await userEvent.click(container.querySelector('div.react-select__dropdown-indicator')!);
+		await user.click(screen.getByTestId(`${testId}-select--dropdown-indicator`)!);
 
-		expect(container.querySelector(menuClass)).toBeTruthy();
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)).toBeInTheDocument();
 	},
 	{
 		'single select > should keep Menu open by default if true is passed for menuIsOpen prop': {},
@@ -137,69 +138,71 @@ cases<MenuToOpenByDefaultOpts>(
 	},
 );
 
-test('multi select > selecting multiple values', () => {
-	let { container } = render(<Select {...BASIC_PROPS} isMulti />);
-	openMenu(container);
-	fireEvent.keyDown(container.querySelector('.react-select__menu')!, {
-		keyCode: 13,
-		key: 'Enter',
-	});
-	expect(container.querySelector('.react-select__control')!).toHaveTextContent('0');
+test('multi select > selecting multiple values', async () => {
+	const user = userEvent.setup();
+	render(<Select {...BASIC_PROPS} isMulti />);
 
-	openMenu(container);
-	fireEvent.keyDown(container.querySelector('.react-select__menu')!, {
-		keyCode: 13,
-		key: 'Enter',
-	});
-	expect(container.querySelector('.react-select__control')!).toHaveTextContent('01');
+	openMenu();
+	await user.type(screen.getByTestId(`${testId}-select--listbox-container`)!, '{enter}');
+	expect(screen.getByTestId(`${testId}-select--control`)!).toHaveTextContent('0');
+
+	openMenu();
+	await user.type(screen.getByTestId(`${testId}-select--listbox-container`)!, '{enter}');
+	expect(screen.getByTestId(`${testId}-select--control`)!).toHaveTextContent('01');
 });
 
 test('defaultInputValue prop > should update the inputValue on change of input if defaultInputValue prop is provided', async () => {
 	const props = { ...BASIC_PROPS, defaultInputValue: '0' };
-	let { container } = render(<Select {...props} />);
-	let input = container.querySelector<HTMLInputElement>('.react-select__control input');
+	const user = userEvent.setup();
+	render(<Select {...props} />);
+	let input = screen.getByTestId(`${testId}-select--input`);
 
 	expect(input!.value).toBe('0');
-	await userEvent.type(input!, 'A');
+	await user.type(input!, 'A');
 	expect(input!.value).toBe('0A');
 });
 
 test('inputValue prop > should not update the inputValue when on change of input if inputValue prop is provided', async () => {
 	const props = { ...BASIC_PROPS, inputValue: '0' };
-	let { container } = render(<Select {...props} />);
-	let input = container.querySelector<HTMLInputElement>('.react-select__control input');
+	const user = userEvent.setup();
+	render(<Select {...props} />);
+	let input = screen.getByTestId(`${testId}-select--input`);
 	expect(input!.value).toBe('0');
-	await userEvent.type(input!, 'A');
+	await user.type(input!, 'A');
 	expect(input!.value).toBe('0');
 });
 
 test('defaultValue prop > should update the value on selecting option', async () => {
 	const props = { ...BASIC_PROPS, defaultValue: [OPTIONS[0]] };
+	const user = userEvent.setup();
 	let { container } = render(<Select {...props} menuIsOpen />);
 	expect(container.querySelector<HTMLInputElement>('input[type="hidden"]')!.value).toBe('zero');
-	await userEvent.click(container.querySelectorAll('div.react-select__option')[1]);
+	await user.click(screen.getByTestId(`${testId}-select--option-1`));
 	expect(container.querySelector<HTMLInputElement>('input[type="hidden"]')!.value).toBe('one');
 });
 
 test('value prop > should not update the value on selecting option', async () => {
 	const props = { ...BASIC_PROPS, value: [OPTIONS[0]] };
+	const user = userEvent.setup();
 	let { container } = render(<Select {...props} menuIsOpen />);
 	expect(container.querySelector<HTMLInputElement>('input[type="hidden"]')!.value).toBe('zero');
-	await userEvent.click(container.querySelectorAll('div.react-select__option')[1]);
+	await user.click(screen.getByTestId(`${testId}-select--option-1`));
 	expect(container.querySelector<HTMLInputElement>('input[type="hidden"]')!.value).toBe('zero');
 });
 
 cases(
 	'Integration tests > selecting an option > mouse interaction',
-	({
+	async ({
 		props = { ...BASIC_PROPS },
 		event: [eventName, eventArgs],
 		selectOption,
 		expectSelectedOption,
 	}) => {
 		let { container } = render(<Select {...props} />);
-		let toSelectOption = screen.getByText(selectOption.label);
-		fireEvent[eventName](toSelectOption, eventArgs);
+		let toSelectOption = screen.getByRole('option', { name: selectOption.label });
+		const user = userEvent.setup();
+
+		await user[eventName](toSelectOption, eventArgs);
 		expect(container.querySelector<HTMLInputElement>('input[type="hidden"]')!.value).toBe(
 			expectSelectedOption,
 		);
@@ -240,16 +243,14 @@ interface KeyboardInteractionOpts {
 
 cases<KeyboardInteractionOpts>(
 	'Integration tests > selection an option > keyboard interaction',
-	({ props = { ...BASIC_PROPS }, eventsToSimulate, expectedSelectedOption }) => {
+	async ({ props = { ...BASIC_PROPS }, eventsToSimulate, expectedSelectedOption }) => {
 		let { container } = render(<Select {...props} />);
-		openMenu(container);
+		const user = userEvent.setup();
+		openMenu();
 		eventsToSimulate.map(([eventName, eventArgs]) => {
-			fireEvent[eventName](container.querySelector('.react-select__menu')!, eventArgs);
+			user[eventName](screen.getByTestId(`${testId}-select--listbox-container`)!, eventArgs);
 		});
-		fireEvent.keyDown(container.querySelector('.react-select__menu')!, {
-			keyCode: 13,
-			key: 'Enter',
-		});
+		await user.type(screen.getByTestId(`${testId}-select--listbox-container`)!, '{enter}');
 		expect(container.querySelector<HTMLInputElement>('input[type="hidden"]')!.value).toBe(
 			expectedSelectedOption,
 		);
@@ -262,66 +263,63 @@ cases<KeyboardInteractionOpts>(
 		'single select > (open select -> 3 x ArrowDown -> Enter) > should select the forth option in the select':
 			{
 				eventsToSimulate: [
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowDown}'],
 				],
 				expectedSelectedOption: OPTIONS[3].value,
 			},
 		'single select > (open select -> 2 x ArrowDown -> 2 x ArrowUp -> Enter) > should select the first option in the select':
 			{
 				eventsToSimulate: [
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 38, key: 'ArrowUp' }],
-					['keyDown', { keyCode: 38, key: 'ArrowUp' }],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowUp}'],
+					['type', '{ArrowUp}'],
 				],
 				expectedSelectedOption: OPTIONS[0].value,
 			},
 		'single select > (open select -> 1 x ArrowUp -> Enter) > should select the last option in the select':
 			{
-				eventsToSimulate: [['keyDown', { keyCode: 38, key: 'ArrowUp' }]],
+				eventsToSimulate: [['type', '{ArrowUp}']],
 				expectedSelectedOption: OPTIONS[OPTIONS.length - 1].value,
 			},
 		'single select > (open select -> 1 x PageDown -> Enter) > should select the first option on next page - default pageSize 5':
 			{
-				eventsToSimulate: [['keyDown', { keyCode: 34, key: 'PageDown' }]],
+				eventsToSimulate: [['type', '{PageDown}']],
 				expectedSelectedOption: OPTIONS[5].value,
 			},
 		'single select > (open select -> 1 x PageDown -> 1 x ArrowDown -> 1 x PageUp -> Enter) > should select the second option - default pageSize 5':
 			{
 				eventsToSimulate: [
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 33, key: 'PageUp' }],
+					['type', '{PageDown}'],
+					['type', '{ArrowDown}'],
+					['type', '{PageUp}'],
 				],
 				expectedSelectedOption: OPTIONS[1].value,
 			},
 		'single select > (open select -> End -> Enter) > should select the last option': {
-			eventsToSimulate: [['keyDown', { keyCode: 35, key: 'End' }]],
+			eventsToSimulate: [['type', '{End}']],
 			expectedSelectedOption: OPTIONS[OPTIONS.length - 1].value,
 		},
 		'single select > (open select -> 3 x PageDown -> Home -> Enter) > should select the last option':
 			{
 				eventsToSimulate: [
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 36, key: 'Home' }],
+					['type', '{PageDown}'],
+					['type', '{PageDown}'],
+					['type', '{PageDown}'],
+					['type', '{Home}'],
 				],
 				expectedSelectedOption: OPTIONS[0].value,
 			},
 		'single select > cycle options > ( open select -> End -> ArrowDown -> Enter) > should select the first option':
 			{
-				eventsToSimulate: [
-					['keyDown', { keyCode: 35, key: 'End' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-				],
+				eventsToSimulate: [['type', '{End}'], , ['type', '{ArrowDown}']],
 				expectedSelectedOption: OPTIONS[0].value,
 			},
 		'single select > cycle options > (open select -> ArrowUp -> Enter) > should select the last option':
 			{
-				eventsToSimulate: [['keyDown', { keyCode: 38, key: 'ArrowUp' }]],
+				eventsToSimulate: [['type', '{ArrowUp}']],
 				expectedSelectedOption: OPTIONS[OPTIONS.length - 1].value,
 			},
 		'multi select > open select and hit enter > should select first option': {
@@ -339,9 +337,9 @@ cases<KeyboardInteractionOpts>(
 					isMulti: true,
 				},
 				eventsToSimulate: [
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowDown}'],
 				],
 				expectedSelectedOption: OPTIONS[3].value,
 			},
@@ -352,10 +350,10 @@ cases<KeyboardInteractionOpts>(
 					isMulti: true,
 				},
 				eventsToSimulate: [
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 38, key: 'ArrowUp' }],
-					['keyDown', { keyCode: 38, key: 'ArrowUp' }],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowDown}'],
+					['type', '{ArrowUp}'],
+					['type', '{ArrowUp}'],
 				],
 				expectedSelectedOption: OPTIONS[0].value,
 			},
@@ -365,7 +363,7 @@ cases<KeyboardInteractionOpts>(
 					...BASIC_PROPS,
 					isMulti: true,
 				},
-				eventsToSimulate: [['keyDown', { keyCode: 38, key: 'ArrowUp' }]],
+				eventsToSimulate: [['type', '{ArrowUp}']],
 				expectedSelectedOption: OPTIONS[OPTIONS.length - 1].value,
 			},
 		'multi select > (open select -> 1 x PageDown -> Enter) > should select the first option on next page - default pageSize 5':
@@ -374,7 +372,7 @@ cases<KeyboardInteractionOpts>(
 					...BASIC_PROPS,
 					isMulti: true,
 				},
-				eventsToSimulate: [['keyDown', { keyCode: 34, key: 'PageDown' }]],
+				eventsToSimulate: [['type', '{PageDown}']],
 				expectedSelectedOption: OPTIONS[5].value,
 			},
 		'multi select > (open select -> 1 x PageDown -> 1 x ArrowDown -> 1 x PageUp -> Enter) > should select the second option - default pageSize 5':
@@ -384,9 +382,9 @@ cases<KeyboardInteractionOpts>(
 					isMulti: true,
 				},
 				eventsToSimulate: [
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-					['keyDown', { keyCode: 33, key: 'PageUp' }],
+					['type', '{PageDown}'],
+					['type', '{ArrowDown}'],
+					['type', '{PageUp}'],
 				],
 				expectedSelectedOption: OPTIONS[1].value,
 			},
@@ -395,7 +393,7 @@ cases<KeyboardInteractionOpts>(
 				...BASIC_PROPS,
 				isMulti: true,
 			},
-			eventsToSimulate: [['keyDown', { keyCode: 35, key: 'End' }]],
+			eventsToSimulate: [['type', '{End}']],
 			expectedSelectedOption: OPTIONS[OPTIONS.length - 1].value,
 		},
 		'multi select > (open select -> 3 x PageDown -> Home -> Enter) > should select the last option':
@@ -405,10 +403,10 @@ cases<KeyboardInteractionOpts>(
 					isMulti: true,
 				},
 				eventsToSimulate: [
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 34, key: 'PageDown' }],
-					['keyDown', { keyCode: 36, key: 'Home' }],
+					['type', '{PageDown}'],
+					['type', '{PageDown}'],
+					['type', '{PageDown}'],
+					['type', '{Home}'],
 				],
 				expectedSelectedOption: OPTIONS[0].value,
 			},
@@ -418,10 +416,7 @@ cases<KeyboardInteractionOpts>(
 					...BASIC_PROPS,
 					isMulti: true,
 				},
-				eventsToSimulate: [
-					['keyDown', { keyCode: 35, key: 'End' }],
-					['keyDown', { keyCode: 40, key: 'ArrowDown' }],
-				],
+				eventsToSimulate: [['type', '{End}'], , ['type', '{ArrowDown}']],
 				expectedSelectedOption: OPTIONS[0].value,
 			},
 		'multi select > cycle options > (open select -> ArrowUp -> Enter) > should select the last option':
@@ -430,7 +425,7 @@ cases<KeyboardInteractionOpts>(
 					...BASIC_PROPS,
 					isMulti: true,
 				},
-				eventsToSimulate: [['keyDown', { keyCode: 38, key: 'ArrowUp' }]],
+				eventsToSimulate: [['type', '{ArrowUp}']],
 				expectedSelectedOption: OPTIONS[OPTIONS.length - 1].value,
 			},
 	},
@@ -442,12 +437,13 @@ test('`required` prop > should validate', async () => {
 			<Select {...BASIC_PROPS} menuIsOpen required />
 		</form>,
 	);
+	const user = userEvent.setup();
 
 	expect(container.querySelector<HTMLFormElement>('#formTest')?.checkValidity()).toEqual(false);
 
-	let selectOption = container.querySelectorAll('div.react-select__option')[3];
+	let selectOption = screen.getByTestId(`${testId}-select--option-3`);
 
-	await userEvent.click(selectOption);
+	await user.click(selectOption);
 
 	expect(container.querySelector<HTMLFormElement>('#formTest')?.checkValidity()).toEqual(true);
 });

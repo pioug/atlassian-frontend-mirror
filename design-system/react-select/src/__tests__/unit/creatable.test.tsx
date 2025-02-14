@@ -1,17 +1,18 @@
 // @ts-nocheck
-/* eslint-disable testing-library/no-container,testing-library/no-node-access */
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
 import Creatable from '../../creatable';
 
 import { type Option, OPTIONS } from './constants.mock';
 
+const testId = 'react-select';
+
 interface BasicProps {
-	readonly className: string;
-	readonly classNamePrefix: string;
+	readonly testId?: string;
 	readonly onChange: () => void;
 	readonly onInputChange: () => void;
 	readonly onMenuClose: () => void;
@@ -21,8 +22,7 @@ interface BasicProps {
 }
 
 const BASIC_PROPS: BasicProps = {
-	className: 'react-select',
-	classNamePrefix: 'react-select',
+	testId: testId,
 	onChange: jest.fn(),
 	onInputChange: jest.fn(),
 	onMenuClose: jest.fn(),
@@ -43,9 +43,9 @@ cases<Opts>(
 	'filtered option is an exact match for an existing option',
 	({ props }) => {
 		props = { ...BASIC_PROPS, ...props };
-		const { container, rerender } = render(<Creatable menuIsOpen {...props} />);
+		const { rerender } = render(<Creatable menuIsOpen {...props} />);
 		rerender(<Creatable inputValue="one" menuIsOpen {...props} />);
-		expect(container.querySelector('.react-select__menu')!).not.toHaveTextContent(
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)!).not.toHaveTextContent(
 			expect.stringContaining('create'),
 		);
 	},
@@ -66,14 +66,10 @@ cases<Opts>(
 		props = { ...BASIC_PROPS, ...props };
 		let filterOptionSpy = jest.fn().mockReturnValue(null);
 
-		const { container, rerender } = render(
-			<Creatable filterOption={filterOptionSpy} menuIsOpen {...props} />,
-		);
+		const { rerender } = render(<Creatable filterOption={filterOptionSpy} menuIsOpen {...props} />);
 		rerender(<Creatable filterOption={filterOptionSpy} menuIsOpen inputValue="one" {...props} />);
 
-		expect(container.querySelector('.react-select__menu-notice--no-options')!).toHaveTextContent(
-			'No options',
-		);
+		expect(screen.getByTestId(`${testId}-select--no-options`)!).toHaveTextContent('No options');
 	},
 	{
 		'single select > should not show "create..." prompt"': {},
@@ -91,10 +87,10 @@ cases<Opts>(
 	({ props }) => {
 		props = { ...BASIC_PROPS, ...props };
 
-		const { container, rerender } = render(<Creatable menuIsOpen {...props} />);
+		const { rerender } = render(<Creatable menuIsOpen {...props} />);
 		rerender(<Creatable menuIsOpen {...props} inputValue="option not is list" />);
 
-		expect(container.querySelector('.react-select__menu')!).toHaveTextContent(
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)!).toHaveTextContent(
 			'Create "option not is list"',
 		);
 	},
@@ -115,7 +111,7 @@ cases<Opts>(
 		props = { ...BASIC_PROPS, ...props };
 		let isValidNewOption = jest.fn((options) => options === 'new Option');
 
-		const { container, rerender } = render(
+		const { rerender } = render(
 			<Creatable menuIsOpen isValidNewOption={isValidNewOption} {...props} />,
 		);
 
@@ -128,11 +124,11 @@ cases<Opts>(
 			/>,
 		);
 
-		expect(container.querySelector('.react-select__menu')!).toHaveTextContent(
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)!).toHaveTextContent(
 			'Create "new Option"',
 		);
 
-		expect(container.querySelector('.react-select__menu-notice--no-options')).toBeFalsy();
+		expect(screen.queryByTestId(`${testId}-select--no-options`)).not.toBeInTheDocument();
 
 		rerender(
 			<Creatable
@@ -142,11 +138,11 @@ cases<Opts>(
 				{...props}
 			/>,
 		);
-		expect(container.querySelector('.react-select__menu')!).not.toHaveTextContent(
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)!).not.toHaveTextContent(
 			'Create "invalid new Option"',
 		);
 
-		expect(container.querySelector('.react-select__menu-notice--no-options')).toBeTruthy();
+		expect(screen.getByTestId(`${testId}-select--no-options`)).toBeInTheDocument();
 	},
 	{
 		'single select > should show "create..." prompt only if isValidNewOption returns thruthy value':
@@ -163,12 +159,14 @@ cases<Opts>(
 
 cases<Opts>(
 	'close by hitting escape with search text present',
-	({ props }) => {
+	async ({ props }) => {
 		props = { ...BASIC_PROPS, ...props };
-		const { container, rerender } = render(<Creatable menuIsOpen {...props} />);
+		const { rerender } = render(<Creatable menuIsOpen {...props} />);
 		rerender(<Creatable menuIsOpen inputValue="new Option" {...props} />);
-		fireEvent.keyDown(container, { keyCode: 27, key: 'Escape' });
-		expect(container.querySelector('input')!).toHaveTextContent('');
+		const user = userEvent.setup();
+		screen.getByTestId(`${testId}-select--input`)!.focus();
+		await user.keyboard('[Escape]');
+		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveTextContent('');
 	},
 	{
 		'single select > should remove the search text': {},
@@ -183,9 +181,9 @@ cases<Opts>(
 
 test('should remove the new option after closing on blur', () => {
 	const { container, rerender } = render(<Creatable menuIsOpen options={OPTIONS} />);
-	rerender(<Creatable menuIsOpen options={OPTIONS} inputValue="new Option" />);
+	rerender(<Creatable menuIsOpen options={OPTIONS} inputValue="new Option" testId={testId} />);
 	fireEvent.blur(container);
-	expect(container.querySelector('input')!).toHaveTextContent('');
+	expect(screen.getByTestId(`${testId}-select--input`)!).toHaveTextContent('');
 });
 
 cases<Opts>(
@@ -196,7 +194,7 @@ cases<Opts>(
 			label: `custom text ${label}`,
 			value: label,
 		}));
-		const { container, rerender } = render(
+		const { rerender } = render(
 			<Creatable menuIsOpen getNewOptionData={getNewOptionDataSpy} {...props} />,
 		);
 		rerender(
@@ -208,7 +206,7 @@ cases<Opts>(
 			/>,
 		);
 
-		expect(container.querySelector('.react-select__menu')!).toHaveTextContent(
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)!).toHaveTextContent(
 			'custom text new Option',
 		);
 	},
@@ -228,7 +226,7 @@ cases<Opts>(
 	({ props = { options: OPTIONS } }) => {
 		props = { ...BASIC_PROPS, ...props };
 		let formatCreateLabelSpy = jest.fn((label) => `custom label "${label}"`);
-		const { container, rerender } = render(
+		const { rerender } = render(
 			<Creatable menuIsOpen formatCreateLabel={formatCreateLabelSpy} {...props} />,
 		);
 
@@ -240,7 +238,7 @@ cases<Opts>(
 				{...props}
 			/>,
 		);
-		expect(container.querySelector('.react-select__menu')!).toHaveTextContent(
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)!).toHaveTextContent(
 			'custom label "new Option"',
 		);
 	},
@@ -286,7 +284,7 @@ cases<CustomOpts>(
 		const getOptionLabel = ({ title }: CustomOption) => title;
 		const getOptionValue = ({ key }: CustomOption) => key;
 
-		const { container, rerender } = render(
+		const { rerender } = render(
 			<Creatable
 				menuIsOpen
 				getOptionLabel={getOptionLabel}
@@ -304,7 +302,7 @@ cases<CustomOpts>(
 				{...props}
 			/>,
 		);
-		expect(container.querySelector('.react-select__menu')!).toHaveTextContent('Test C');
+		expect(screen.getByTestId(`${testId}-select--listbox-container`)!).toHaveTextContent('Test C');
 	},
 	{
 		'single select > should handle options with custom structure': {

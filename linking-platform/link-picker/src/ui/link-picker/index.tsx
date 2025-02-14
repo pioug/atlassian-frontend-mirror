@@ -146,7 +146,7 @@ export const LinkPickerNew = withLinkPickerAnalyticsContext(
 			customMessages,
 			isSubmitting = false,
 			adaptiveHeight = false,
-			UNSAFE_moveSubmitButton = false,
+			moveSubmitButton = false,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -516,7 +516,7 @@ export const LinkPickerNew = withLinkPickerAnalyticsContext(
 							onChange={handleChangeText}
 						/>
 					)}
-					{UNSAFE_moveSubmitButton && (
+					{moveSubmitButton && (
 						<Box xcss={styles.fullWidthSubmitButton}>
 							<LinkPickerSubmitButton
 								isEditing={isEditing}
@@ -569,7 +569,7 @@ export const LinkPickerNew = withLinkPickerAnalyticsContext(
 						css={(!queryState || !plugins?.length) && formFooterMargin}
 						customSubmitButtonLabel={customSubmitButtonLabel}
 						submitMessageId={submitMessageId}
-						hideSubmitButton={UNSAFE_moveSubmitButton}
+						hideSubmitButton={moveSubmitButton}
 					/>
 				</form>
 			);

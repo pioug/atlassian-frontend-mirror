@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.19.1",
+	"version": "3.20.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,16 +33,18 @@
 		"runReact18": false
 	},
 	"scripts": {
-		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
+		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated",
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^46.1.0",
+		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/atlassian-context": "^0.1.0",
 		"@atlaskit/avatar": "^21.18.0",
 		"@atlaskit/avatar-group": "^11.1.0",
 		"@atlaskit/badge": "^17.1.0",
 		"@atlaskit/button": "^20.5.0",
+		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/datetime-picker": "^15.13.0",
 		"@atlaskit/dropdown-menu": "^12.26.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -147,7 +149,8 @@
 			],
 			"styling": [
 				"static",
-				"emotion"
+				"emotion",
+				"compiled"
 			],
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
@@ -186,6 +189,9 @@
 			"type": "boolean"
 		},
 		"bandicoots-update-sllv-icons": {
+			"type": "boolean"
+		},
+		"bandicoots-compiled-migration-link-datasource": {
 			"type": "boolean"
 		}
 	}

@@ -13,7 +13,6 @@ import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
 import { ExitingPersistence, SlideIn, type Transition } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
 
-import { animationTimingFunction } from '../../constants';
 import {
 	type DrawerPrimitiveDefaults,
 	type DrawerPrimitiveOverrides,
@@ -44,7 +43,7 @@ const CustomSlideIn = ({
 }: Pick<SlideInProps, 'children' | 'onFinish' | 'enterFrom'>) => {
 	return (
 		<SlideIn
-			animationTimingFunction={animationTimingFunction}
+			animationTimingFunction="ease-out"
 			duration="small"
 			enterFrom={enterFrom}
 			exitTo={enterFrom}

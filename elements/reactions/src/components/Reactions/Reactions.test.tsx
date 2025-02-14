@@ -24,7 +24,14 @@ import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from '../ReactionPicker/ReactionPicker';
 import { RENDER_SUMMARY_BUTTON_TESTID } from '../ReactionSummary/ReactionSummaryButton';
 
-import { type ReactionsProps, Reactions, getTooltip, ufoExperiences } from './Reactions';
+import {
+	type ReactionsProps,
+	Reactions,
+	getTooltip,
+	ufoExperiences,
+	RENDER_REACTIONS_TESTID,
+	RENDER_VIEWALL_REACTED_USERS_DIALOG,
+} from './Reactions';
 
 jest.mock('../../shared/constants', () => ({
 	...jest.requireActual('../../shared/constants'),
@@ -298,6 +305,15 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
 		const wrapper = container.querySelector('div.miniMode');
 		expect(wrapper).toBeDefined();
+	});
+
+	it('should only render the picker and nothing else if "onlyRenderPicker" is passed in as true', async () => {
+		renderReactions({ reactions, onlyRenderPicker: true });
+
+		await screen.findByTestId(RENDER_REACTIONS_TESTID);
+
+		expect(screen.queryAllByTestId(RENDER_REACTION_TESTID).length).toEqual(0);
+		expect(screen.queryByTestId(RENDER_VIEWALL_REACTED_USERS_DIALOG)).toBeNull();
 	});
 
 	describe('with analytics', () => {

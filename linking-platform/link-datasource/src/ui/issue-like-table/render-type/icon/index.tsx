@@ -1,12 +1,15 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { cssMap, styled } from '@compiled/react';
 
 import { type Icon } from '@atlaskit/linking-types';
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import TextRenderType from '../text';
+
+import IconRenderTypeOld from './icon-old';
 
 interface IconProps extends Icon {
 	testId?: string;
@@ -19,11 +22,13 @@ const IconWrapper = styled.div({
 	justifyContent: 'left',
 });
 
-const textWrapperStyles = xcss({
-	marginLeft: 'space.100',
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
+const styles = cssMap({
+	textWrapperStyles: {
+		marginLeft: token('space.100'),
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+	},
 });
 
 export const ICON_TYPE_TEST_ID = 'link-datasource-render-type--icon';
@@ -44,7 +49,7 @@ const IconRenderType = ({ label, text, source, testId = ICON_TYPE_TEST_ID }: Ico
 				style={{ minWidth: '20px', maxWidth: '20px' }} // having just width: '20px' shrinks it when table width is reduced
 			/>
 			{text && (
-				<Box xcss={textWrapperStyles}>
+				<Box xcss={styles.textWrapperStyles}>
 					<TextRenderType testId={ICON_TYPE_TEXT_TEST_ID} text={text}></TextRenderType>
 				</Box>
 			)}
@@ -52,4 +57,12 @@ const IconRenderType = ({ label, text, source, testId = ICON_TYPE_TEST_ID }: Ico
 	);
 };
 
-export default IconRenderType;
+const IconRenderTypeExported = (props: IconProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <IconRenderType {...props} />;
+	} else {
+		return <IconRenderTypeOld {...props} />;
+	}
+};
+
+export default IconRenderTypeExported;

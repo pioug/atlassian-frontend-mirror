@@ -11,7 +11,7 @@ import { type Actions } from '../types';
 import SpotlightCard from './spotlight-card';
 import ValueChanged from './value-changed';
 
-export interface SpotlightDialogProps {
+interface SpotlightDialogProps {
 	/**
 	 * Buttons to render in the footer.
 	 */

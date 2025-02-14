@@ -456,6 +456,26 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	tabSelectsValue: boolean;
 	/**
+	 * A unique string that appears as data attribute data-testid in the rendered code, serving as a hook for automated tests.
+	 * Use this instead of using ARIA properties as locators.
+	 *
+	 * - Container: `${testId}-select--container`
+	 * - Control : `${testId}-select--control`
+	 * - Value container: `${testId}-select--value-container`
+	 * - Placeholder: `${testId}-select--placeholder`
+	 * - Input container: `${testId}-select--input-container`
+	 * - Input: `${testId}-select--input`
+	 * - Indicators container: `${testId}-select--indicators-container`
+	 * - Dropdown indicator: `${testId}-select--dropdown-indicator`
+	 * - Clear indicator: `${testId}-select--clear-indicator`
+	 * - Loading indicator: `${testId}-select--loading-indicator`
+	 * - Listbox container: `${testId}-select--listbox-container`
+	 * - Listbox: `${testId}-select--listbox`
+	 * - Option group heading: `${testId}-select--group-${groupIndex}-heading`
+	 * - Option: `${testId}-select--option-${id}`
+	 */
+	testId?: string;
+	/**
 	 * The value of the select; reflected by the selected option
 	 */
 	value: PropsValue<Option>;
@@ -1880,6 +1900,7 @@ export default class Select<
 			menuIsOpen,
 			required,
 			tabIndex = 0,
+			testId,
 		} = this.props;
 		const { Input } = this.getComponents();
 		const { inputIsHidden, ariaSelection } = this.state;
@@ -1930,6 +1951,7 @@ export default class Select<
 					inputMode="none"
 					form={form}
 					value=""
+					data-testid={testId && `${testId}-select--input`}
 					{...ariaAttributes}
 				/>
 			);
@@ -1942,6 +1964,7 @@ export default class Select<
 				autoComplete="off"
 				autoCorrect="off"
 				id={id}
+				testId={testId}
 				innerRef={this.getInputRef}
 				isDisabled={isDisabled}
 				isHidden={inputIsHidden}
@@ -1967,7 +1990,8 @@ export default class Select<
 			Placeholder,
 		} = this.getComponents();
 		const { commonProps } = this;
-		const { controlShouldRenderValue, isDisabled, isMulti, inputValue, placeholder } = this.props;
+		const { controlShouldRenderValue, isDisabled, isMulti, inputValue, placeholder, testId } =
+			this.props;
 		const { selectValue, focusedValue, isFocused } = this.state;
 
 		if (!this.hasValue() || !controlShouldRenderValue) {
@@ -1977,7 +2001,12 @@ export default class Select<
 					key="placeholder"
 					isDisabled={isDisabled}
 					isFocused={isFocused}
-					innerProps={{ id: this.getElementId('placeholder') }}
+					innerProps={{
+						id: this.getElementId('placeholder'),
+						...(testId && {
+							'data-testid': `${testId}-select--placeholder`,
+						}),
+					}}
 				>
 					{placeholder}
 				</Placeholder>
@@ -2009,6 +2038,11 @@ export default class Select<
 							},
 						}}
 						data={opt}
+						innerProps={{
+							...(testId && {
+								'data-testid': `${testId}-select--multivalue`,
+							}),
+						}}
 					>
 						{this.formatOptionLabel(opt, 'value')}
 					</MultiValue>
@@ -2030,7 +2064,7 @@ export default class Select<
 	renderClearIndicator() {
 		const { ClearIndicator } = this.getComponents();
 		const { commonProps } = this;
-		const { clearControlLabel, isDisabled, isLoading, spacing } = this.props;
+		const { clearControlLabel, isDisabled, isLoading, spacing, testId } = this.props;
 		const { isFocused } = this.state;
 
 		if (!this.isClearable() || !ClearIndicator || isDisabled || !this.hasValue() || isLoading) {
@@ -2040,6 +2074,9 @@ export default class Select<
 		const innerProps = {
 			onMouseDown: this.onClearIndicatorMouseDown,
 			onTouchEnd: this.onClearIndicatorTouchEnd,
+			...(testId && {
+				'data-testid': `${testId}-select--clear-indicator`,
+			}),
 		};
 		const isCompact = spacing === 'compact';
 
@@ -2056,7 +2093,7 @@ export default class Select<
 	renderLoadingIndicator() {
 		const { LoadingIndicator } = this.getComponents();
 		const { commonProps } = this;
-		const { isDisabled, isLoading, spacing } = this.props;
+		const { isDisabled, isLoading, spacing, testId } = this.props;
 		const { isFocused } = this.state;
 
 		if (!LoadingIndicator || !isLoading) {
@@ -2067,6 +2104,7 @@ export default class Select<
 		const innerProps = { 'aria-hidden': 'true' };
 		return (
 			<LoadingIndicator
+				data-testid={testId && `${testId}-select--loading-indicator`}
 				{...commonProps}
 				innerProps={innerProps}
 				isDisabled={isDisabled}
@@ -2082,7 +2120,7 @@ export default class Select<
 			return null;
 		}
 		const { commonProps } = this;
-		const { isDisabled, spacing } = this.props;
+		const { isDisabled, spacing, testId } = this.props;
 		const { isFocused } = this.state;
 		const isCompact = spacing === 'compact';
 
@@ -2090,6 +2128,9 @@ export default class Select<
 			onMouseDown: this.onDropdownIndicatorMouseDown,
 			onTouchEnd: this.onDropdownIndicatorTouchEnd,
 			'aria-hidden': 'true',
+			...(testId && {
+				'data-testid': `${testId}-select--dropdown-indicator`,
+			}),
 		};
 
 		return (
@@ -2133,6 +2174,7 @@ export default class Select<
 			onMenuScrollToBottom,
 			labelId,
 			label,
+			testId,
 		} = this.props;
 
 		if (!menuIsOpen) {
@@ -2165,6 +2207,9 @@ export default class Select<
 						? undefined
 						: isDisabled,
 				'aria-describedby': fg('design_system_select-a11y-improvement') ? headingId : undefined,
+				...(testId && {
+					'data-testid': `${testId}-select--option-${id}`,
+				}),
 			};
 
 			return (
@@ -2206,6 +2251,9 @@ export default class Select<
 							headingProps={{
 								id: headingId,
 								data: item.data,
+								...(testId && {
+									'data-testid': `${testId}-select--group-${groupIndex}-heading`,
+								}),
 							}}
 							label={this.formatGroupLabel(item.data)}
 						>
@@ -2229,7 +2277,19 @@ export default class Select<
 			if (message === null) {
 				return null;
 			}
-			menuUI = <NoOptionsMessage {...commonProps}>{message}</NoOptionsMessage>;
+			menuUI = (
+				<NoOptionsMessage
+					{...commonProps}
+					innerProps={{
+						'data-testid': testId && `${testId}-select--no-options`,
+						...(testId && {
+							'data-testid': `${testId}-select--no-options`,
+						}),
+					}}
+				>
+					{message}
+				</NoOptionsMessage>
+			);
 		}
 		const menuPlacementProps = {
 			minMenuHeight,
@@ -2238,6 +2298,7 @@ export default class Select<
 			menuPosition,
 			menuShouldScrollIntoView,
 		};
+
 		const menuElement = (
 			<MenuPlacer {...commonProps} {...menuPlacementProps}>
 				{({ ref, placerProps: { placement, maxHeight } }) => (
@@ -2249,6 +2310,9 @@ export default class Select<
 							onMouseDown: this.onMenuMouseDown,
 							onMouseMove: this.onMenuMouseMove,
 							id: this.props.components.Menu ? this.getElementId('listbox') : undefined,
+							...(testId && {
+								'data-testid': `${testId}-select--listbox-container`,
+							}),
 						}}
 						isLoading={isLoading}
 						placement={placement}
@@ -2274,6 +2338,9 @@ export default class Select<
 												? undefined
 												: commonProps.isMulti,
 										id: this.getElementId('listbox'),
+										...(testId && {
+											'data-testid': `${testId}-select--listbox`,
+										}),
 										// add aditional label on listbox when ff is on
 										...(fg('design_system_select-a11y-improvement') && {
 											'aria-label': label,
@@ -2383,6 +2450,7 @@ export default class Select<
 			isDisabled,
 			menuIsOpen,
 			isInvalid,
+			testId,
 			appearance = 'default',
 			spacing = 'default',
 		} = this.props;
@@ -2397,6 +2465,9 @@ export default class Select<
 				innerProps={{
 					id: id,
 					onKeyDown: this.onKeyDown,
+					...(testId && {
+						'data-testid': testId && `${testId}-select--container`,
+					}),
 				}}
 				isDisabled={isDisabled}
 				isFocused={isFocused}
@@ -2409,6 +2480,9 @@ export default class Select<
 					innerProps={{
 						onMouseDown: this.onControlMouseDown,
 						onTouchEnd: this.onControlTouchEnd,
+						...(testId && {
+							'data-testid': `${testId}-select--control`,
+						}),
 					}}
 					appearance={appearance}
 					isInvalid={isInvalid}
@@ -2417,11 +2491,28 @@ export default class Select<
 					menuIsOpen={menuIsOpen}
 					isCompact={isCompact}
 				>
-					<ValueContainer {...commonProps} isDisabled={isDisabled} isCompact={isCompact}>
+					<ValueContainer
+						{...commonProps}
+						isDisabled={isDisabled}
+						isCompact={isCompact}
+						innerProps={{
+							...(testId && {
+								'data-testid': `${testId}-select--value-container`,
+							}),
+						}}
+					>
 						{this.renderPlaceholderOrValue()}
 						{this.renderInput()}
 					</ValueContainer>
-					<IndicatorsContainer {...commonProps} isDisabled={isDisabled}>
+					<IndicatorsContainer
+						{...commonProps}
+						isDisabled={isDisabled}
+						innerProps={{
+							...(testId && {
+								'data-testid': `${testId}-select--indicators-container`,
+							}),
+						}}
+					>
 						{this.renderClearIndicator()}
 						{this.renderLoadingIndicator()}
 						{this.renderDropdownIndicator()}

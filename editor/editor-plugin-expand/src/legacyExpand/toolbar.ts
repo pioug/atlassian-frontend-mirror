@@ -2,7 +2,6 @@ import commonMessages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, FloatingToolbarHandler } from '@atlaskit/editor-common/types';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../types';
 
@@ -28,7 +27,6 @@ export const getToolbarConfig =
 				items: [
 					{
 						type: 'copy-button',
-						supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 						items: [
 							{
 								state,

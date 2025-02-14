@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 4.25.5
+
+### Patch Changes
+
+- [#112700](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112700)
+  [`801eca471b29b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/801eca471b29b) -
+  add new analytic
+
 ## 4.25.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.14.1
+
+### Patch Changes
+
+- [#114380](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114380)
+  [`3f0d12d18c264`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f0d12d18c264) -
+  Cleanup platform_always_sample_rendered_emoji feature gate
+
 ## 67.14.0
 
 ### Minor Changes

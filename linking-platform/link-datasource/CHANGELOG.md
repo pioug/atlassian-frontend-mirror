@@ -1,5 +1,29 @@
 # @atlaskit/link-datasource
 
+## 3.20.1
+
+### Patch Changes
+
+- [#114566](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114566)
+  [`bedca9b01e708`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bedca9b01e708) -
+  [ux] Update icons and illustrations
+
+## 3.20.0
+
+### Minor Changes
+
+- [#114497](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114497)
+  [`b958f57b19df9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b958f57b19df9) -
+  Migrating styles from emotion to compiled for link-datasource
+
+## 3.19.2
+
+### Patch Changes
+
+- [#112186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112186)
+  [`9462d8ca2405a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9462d8ca2405a) -
+  Bump adf-schema to 47.2.1
+
 ## 3.19.1
 
 ### Patch Changes

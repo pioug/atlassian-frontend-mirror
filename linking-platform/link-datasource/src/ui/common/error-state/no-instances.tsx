@@ -2,25 +2,27 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
-import { Flex, Inline, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
+import { NoInstancesViewOld } from './no-instances-old';
 import { NoInstancesSvg } from './no-instances-svg';
 
-const titleStyles = xcss({
-	font: 'font.heading.small',
-	marginTop: 'space.200',
-});
-
-const descriptionStyles = xcss({
-	marginTop: 'space.100',
-});
-
-const containerStyles = xcss({
-	marginTop: 'space.800',
+const styles = cssMap({
+	titleStyles: {
+		font: token('font.heading.small'),
+		marginTop: token('space.200'),
+	},
+	descriptionStyles: {
+		marginTop: token('space.100'),
+	},
+	containerStyles: {
+		marginTop: token('space.800'),
+	},
 });
 
 interface NoInstanceViewProps {
@@ -29,17 +31,25 @@ interface NoInstanceViewProps {
 	testId: string;
 }
 
-export const NoInstancesView = ({ title, description, testId }: NoInstanceViewProps) => {
+export const NoInstancesViewNew = ({ title, description, testId }: NoInstanceViewProps) => {
 	const { formatMessage } = useIntl();
 	return (
-		<Flex testId={testId} direction="column" alignItems="center" xcss={containerStyles}>
+		<Flex testId={testId} direction="column" alignItems="center" xcss={styles.containerStyles}>
 			<NoInstancesSvg />
-			<Inline as="span" xcss={titleStyles}>
+			<Inline as="span" xcss={styles.titleStyles}>
 				{formatMessage(title)}
 			</Inline>
-			<Inline as="span" xcss={descriptionStyles}>
+			<Inline as="span" xcss={styles.descriptionStyles}>
 				{formatMessage(description)}
 			</Inline>
 		</Flex>
 	);
+};
+
+export const NoInstancesView = (props: NoInstanceViewProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <NoInstancesViewNew {...props} />;
+	} else {
+		return <NoInstancesViewOld {...props} />;
+	}
 };

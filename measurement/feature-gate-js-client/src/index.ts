@@ -13,19 +13,17 @@ export type {
 	UpdateUserCompletionCallback,
 	OptionsWithDefaults,
 	Provider,
-
-	// Statsig
-	EvaluationDetails,
-	LocalOverrides,
 } from './client/FeatureGates';
+
+export type { LocalOverrides } from './client/PersistentOverrideAdapter';
 
 export {
 	default,
 	FeatureGateEnvironment,
 	PerimeterType,
 	CLIENT_VERSION,
-
-	// Statsig
-	DynamicConfig,
-	EvaluationReason,
 } from './client/FeatureGates';
+
+export { DynamicConfig } from './client/compat/DynamicConfig';
+export { Layer } from './client/compat/Layer';
+export { EvaluationReason, type EvaluationDetails } from './client/compat/types';

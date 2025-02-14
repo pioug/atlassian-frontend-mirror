@@ -1,5 +1,19 @@
 # @atlaskit/onboarding
 
+## 12.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.4
+
+### Patch Changes
+
+- [#114282](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114282)
+  [`ff1c7111d8dd5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff1c7111d8dd5) -
+  Update dependencies and remove unused internal exports.
+
 ## 12.3.3
 
 ### Patch Changes

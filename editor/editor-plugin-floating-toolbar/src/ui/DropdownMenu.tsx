@@ -11,8 +11,12 @@ import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
-import type { DropdownOptionT } from '@atlaskit/editor-common/types';
+import type {
+	DropdownOptionT,
+	FloatingToolbarOverflowDropdownOptions,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem } from '@atlaskit/menu';
@@ -22,6 +26,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+
 export const menuItemDimensions = {
 	width: 175,
 	height: 32,
@@ -31,6 +36,11 @@ const spacerStyles = css({
 	display: 'flex',
 	flex: 1,
 	padding: token('space.100', '8px'),
+});
+
+const separatorStyles = css({
+	background: token('color.border'),
+	height: '1px',
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
@@ -62,7 +72,7 @@ export const itemSpacing = gridSize() / 2;
 export interface Props {
 	hide: Function;
 	dispatchCommand: Function;
-	items: Array<DropdownOptionT<Function>>;
+	items: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>;
 	showSelected?: boolean;
 	editorView?: EditorView;
 }
@@ -281,9 +291,48 @@ const SelectedIconBefore = ({ itemSelected, intl, showSelected }: SelectedIconBe
 const Dropdown = memo((props: Props & WrappedComponentProps) => {
 	const { hide, dispatchCommand, items, intl, editorView, showSelected = true } = props;
 
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		return (
+			<div css={menuContainerStyles} role="menu">
+				{items
+					.filter((item) => !('hidden' in item) || !item.hidden)
+					.map((item, idx) => {
+						if (!('type' in item)) {
+							return (
+								<DropdownMenuItem
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/no-array-index-key
+									key={idx}
+									item={item}
+									hide={hide}
+									dispatchCommand={dispatchCommand}
+									editorView={editorView}
+									showSelected={showSelected}
+									intl={intl}
+								/>
+							);
+						}
+						if (item.type === 'separator') {
+							// eslint-disable-next-line react/no-array-index-key
+							return <div key={idx} css={separatorStyles} />;
+						}
+						if (item.type === 'overflow-dropdown-heading') {
+							return (
+								// eslint-disable-next-line react/no-array-index-key, @atlaskit/ui-styling-standard/enforce-style-prop
+								<div key={idx} style={{ padding: '10px' }}>
+									<Heading size="xxsmall">{item.title}</Heading>
+								</div>
+							);
+						}
+					})}
+			</div>
+		);
+	}
+
+	// here to change based on dropdown type
 	return (
 		<div css={menuContainerStyles} role="menu">
-			{items
+			{(items as Array<DropdownOptionT<Function>>)
 				.filter((item) => !item.hidden)
 				.map((item, idx) => (
 					<DropdownMenuItem

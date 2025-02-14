@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.8.0
+
+### Minor Changes
+
+- [#113466](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113466)
+  [`756bb7e35a24d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/756bb7e35a24d) -
+  Add new FloatingToolbarOverflowDropdown item to floating toolbar config to support new editor
+  controls, add config in selection-toolbar plugin to add new button to text selection
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

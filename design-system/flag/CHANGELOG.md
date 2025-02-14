@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 15.9.3
+
+### Patch Changes
+
+- [#114382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114382)
+  [`5033cb80b3765`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5033cb80b3765) -
+  Updates internal animation logic to leverage static animation timing names, rather than arbitrary
+  values.
+- Updated dependencies
+
 ## 15.9.2
 
 ### Patch Changes

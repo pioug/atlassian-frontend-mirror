@@ -2,8 +2,9 @@ import { Client } from './Client';
 import { type FeatureFlagValue, type WithDocComments } from './types';
 import { CLIENT_VERSION } from './version';
 
-export type { EvaluationDetails, LocalOverrides } from 'statsig-js-lite';
-export { DynamicConfig, EvaluationReason } from 'statsig-js-lite';
+export { type EvaluationDetails, EvaluationReason } from './compat/types';
+export type { LocalOverrides } from './PersistentOverrideAdapter';
+export { DynamicConfig } from './compat/DynamicConfig';
 
 export type {
 	AnalyticsWebClient,
@@ -110,22 +111,18 @@ class FeatureGates {
 			}
 		} catch (error) {
 			// Log the first occurrence of the error
-			if (!FeatureGates.hasCheckGateErrorOccurred) {
-				// Log the first occurrence of the error
-				if (!this.hasGetExperimentValueErrorOccurred) {
-					// eslint-disable-next-line no-console
-					console.warn({
-						msg: 'An error has occurred getting the experiment value from criterion override. Only the first occurrence of this error is logged.',
-						experimentName,
-						defaultValue,
-						options,
-						error,
-					});
-					this.hasGetExperimentValueErrorOccurred = true;
-				}
-
-				return defaultValue;
+			if (!FeatureGates.hasGetExperimentValueErrorOccurred) {
+				// eslint-disable-next-line no-console
+				console.warn({
+					msg: 'An error has occurred getting the experiment value from criterion override. Only the first occurrence of this error is logged.',
+					experimentName,
+					defaultValue,
+					options,
+					error,
+				});
+				this.hasGetExperimentValueErrorOccurred = true;
 			}
+			return defaultValue;
 		}
 
 		// Proceed with the main logic if no override is found

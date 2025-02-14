@@ -2,19 +2,33 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, styled } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { AssetsAqlSearchInputSkeleton } from './aql-search-input/loading-state';
+import { AssetsSearchContainerLoadingOld } from './loading-state-old';
 import { AssetsObjectSchemaSelectSkeleton } from './object-schema-select/loading-state';
-import { FormContainer, FormRowContainer, SchemaSelectContainer } from './styled';
+import { FormRowContainer } from './styled';
 
 type AssetsSearchConatinerLoadingProps = {
 	// This is due to ModalTitle needing a ModalDialog so should be passed down
 	modalTitle?: JSX.Element;
 };
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const SchemaSelectContainer = styled.div({
+	width: '100%',
+	maxWidth: '386px',
+});
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const FormContainer = styled.form({
+	display: 'grid',
+	rowGap: token('space.200', '16px'),
+	width: '100%',
+});
 
-export const AssetsSearchContainerLoading = ({ modalTitle }: AssetsSearchConatinerLoadingProps) => {
+const AssetsSearchContainerLoadingNew = ({ modalTitle }: AssetsSearchConatinerLoadingProps) => {
 	return (
 		<FormContainer data-testid="assets-datasource-modal--search-container-skeleton">
 			<FormRowContainer isNarrowGap>
@@ -28,4 +42,12 @@ export const AssetsSearchContainerLoading = ({ modalTitle }: AssetsSearchConatin
 			</FormRowContainer>
 		</FormContainer>
 	);
+};
+
+export const AssetsSearchContainerLoading = (props: AssetsSearchConatinerLoadingProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <AssetsSearchContainerLoadingNew {...props} />;
+	} else {
+		return <AssetsSearchContainerLoadingOld {...props} />;
+	}
 };

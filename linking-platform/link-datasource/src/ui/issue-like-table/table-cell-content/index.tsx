@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { type DatasourceDataResponseItem, type DatasourceType } from '@atlaskit/linking-types';
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useDatasourceItem } from '../../../state';
@@ -14,6 +16,7 @@ import { TruncateTextTag } from '../truncate-text-tag';
 import { type DatasourceTypeWithOnlyValues, type TableViewPropsRenderType } from '../types';
 
 import { InlineEdit } from './inline-edit';
+import { TableCellContentOld } from './table-cell-content-old';
 
 interface TableCellContentProps {
 	id: string;
@@ -25,13 +28,13 @@ interface TableCellContentProps {
 	wrappedColumnKeys: string[] | undefined;
 }
 
-const readViewStyles = xcss({
-	textOverflow: 'ellipsis',
-	overflow: 'hidden',
-	width: '100%',
-	// Compensates for 2px from both top and bottom taken by InlneEdit (from transparent border in read-view mode and border+padding in edit view)
-	minHeight: 'calc(40px - 2px * 2)',
-	alignContent: 'center',
+const styles = cssMap({
+	readViewStyles: {
+		textOverflow: 'ellipsis',
+		overflow: 'hidden',
+		width: '100%',
+		alignContent: 'center',
+	},
 });
 
 const TooltipWrapper = ({
@@ -139,7 +142,10 @@ const InlineEditableCell = ({
 				testId="inline-edit-read-view"
 				paddingInline={isEditable ? 'space.075' : 'space.100'}
 				paddingBlock="space.050"
-				xcss={readViewStyles}
+				xcss={styles.readViewStyles}
+				// minHeight here compensates for 2px from both top and bottom taken by InlneEdit (from transparent border in read-view mode and border+padding in edit view)
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={{ minHeight: 'calc(40px - 2px * 2)' }}
 			>
 				{renderItem(values)}
 			</Box>
@@ -188,7 +194,7 @@ const toDatasourceTypeWithValues = ({
 	} as DatasourceTypeWithOnlyValues;
 };
 
-export const TableCellContent = ({
+const TableCellContentNew = ({
 	id,
 	columnKey,
 	columnTitle,
@@ -223,7 +229,10 @@ export const TableCellContent = ({
 			testId="inline-edit-read-view"
 			paddingInline="space.100"
 			paddingBlock="space.050"
-			xcss={readViewStyles}
+			xcss={styles.readViewStyles}
+			// minHeight here compensates for 2px from both top and bottom taken by InlneEdit (from transparent border in read-view mode and border+padding in edit view)
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={{ minHeight: 'calc(40px - 2px * 2)' }}
 		>
 			<ReadOnlyCell
 				id={id}
@@ -235,4 +244,12 @@ export const TableCellContent = ({
 			/>
 		</Box>
 	);
+};
+
+export const TableCellContent = (props: TableCellContentProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <TableCellContentNew {...props} />;
+	} else {
+		return <TableCellContentOld {...props} />;
+	}
 };

@@ -4,25 +4,29 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	height: '100%',
-	backgroundColor: 'elevation.surface.overlay',
-	padding: 'space.400',
-	':hover': {
-		backgroundColor: 'elevation.surface.overlay.hovered',
+const styles = cssMap({
+	containerStyles: {
+		height: '100%',
+		paddingTop: token('space.400'),
+		paddingRight: token('space.400'),
+		paddingBottom: token('space.400'),
+		paddingLeft: token('space.400'),
+		backgroundColor: token('elevation.surface.overlay'),
+		'&:hover': {
+			backgroundColor: token('elevation.surface.overlay.hovered'),
+		},
 	},
 });
 
 // To simulate Jira description's hover background wrapper
 export const HoverableContainer = ({ children }: React.PropsWithChildren<{}>) => {
 	return (
-		<Box testId="examples-hoverable-container" xcss={containerStyles}>
+		<div data-testid="examples-hoverable-container" css={styles.containerStyles}>
 			{children}
-		</Box>
+		</div>
 	);
 };

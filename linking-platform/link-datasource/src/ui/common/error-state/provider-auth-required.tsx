@@ -4,8 +4,7 @@
  */
 import React, { useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
@@ -13,13 +12,14 @@ import EmptyState from '@atlaskit/empty-state';
 import { type DatasourceMeta } from '@atlaskit/linking-types';
 import { AuthError, auth as outboundAuth } from '@atlaskit/outbound-auth-flow-client';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Anchor } from '@atlaskit/primitives';
+import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import useErrorLogger from '../../../hooks/useErrorLogger';
 
 import { loadingErrorMessages } from './messages';
+import { ProviderAuthRequiredOld } from './provider-auth-required-old';
 import { ProviderAuthRequiredSVG } from './provider-auth-required-svg';
 
 const buttonStyles = css({
@@ -38,7 +38,7 @@ interface ProviderAuthRequiredProps {
 	datasourceId: string;
 }
 
-export const ProviderAuthRequired = ({
+export const ProviderAuthRequiredNew = ({
 	auth = [],
 	onAuthSuccess,
 	onAuthError,
@@ -106,4 +106,12 @@ export const ProviderAuthRequired = ({
 			primaryAction={renderAuthConnectButton()}
 		/>
 	);
+};
+
+export const ProviderAuthRequired = (props: ProviderAuthRequiredProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <ProviderAuthRequiredNew {...props} />;
+	} else {
+		return <ProviderAuthRequiredOld {...props} />;
+	}
 };

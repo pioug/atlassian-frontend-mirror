@@ -5,4 +5,7 @@ import { JiraIssuesConfigModalNoInitialJQL } from '../../examples/vr/jira-issues
 snapshot(JiraIssuesConfigModalNoInitialJQL, {
 	description: 'Jira issues config modal without initial JQL',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });

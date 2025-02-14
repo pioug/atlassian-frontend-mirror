@@ -4,33 +4,32 @@
  */
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { css, cssMap, jsx, styled } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Avatar, { type SizeType } from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
 import { type User } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 import { userTypeMessages } from './messages';
+import UserTypeOld from './user-old';
 
-const userWrapperStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	font: 'font.body',
-});
-
-const avatarWrapperStyles = xcss({
-	marginRight: 'space.100',
-});
-
-const widthObserverWrapperStyles = xcss({
-	position: 'relative',
+const styles = cssMap({
+	userWrapperStyles: {
+		display: 'flex',
+		alignItems: 'center',
+		font: token('font.body'),
+	},
+	avatarWrapperStyles: {
+		marginRight: token('space.100'),
+	},
+	widthObserverWrapperStyles: {
+		position: 'relative',
+	},
 });
 
 const labelWrapperStyles = css({
@@ -89,8 +88,8 @@ const UserType = ({ users }: { users: UserProps[] }) => {
 			children,
 		} = users[0] || {};
 		return (
-			<Box xcss={userWrapperStyles} testId={testId}>
-				<Box xcss={avatarWrapperStyles}>
+			<Box xcss={styles.userWrapperStyles} testId={testId}>
+				<Box xcss={styles.avatarWrapperStyles}>
 					<Avatar
 						appearance="circle"
 						size={avatarSize || 'small'}
@@ -122,7 +121,7 @@ const UserType = ({ users }: { users: UserProps[] }) => {
 
 		return (
 			<AvatarGroupWrapperStyles>
-				<Box xcss={widthObserverWrapperStyles}>
+				<Box xcss={styles.widthObserverWrapperStyles}>
 					<WidthObserver setWidth={setWidth} />
 				</Box>
 				<AvatarGroup
@@ -137,4 +136,12 @@ const UserType = ({ users }: { users: UserProps[] }) => {
 	}
 };
 
-export default UserType;
+const UserTypeExported = (props: { users: UserProps[] }) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <UserType {...props} />;
+	} else {
+		return <UserTypeOld {...props} />;
+	}
+};
+
+export default UserTypeExported;

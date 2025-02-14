@@ -438,6 +438,30 @@ const unsubscribe = FeatureGates.onAnyUpdated(() => {});
 unsubscribe();
 ```
 
+### Multiple clients on a single page
+
+Typically we don't allow multiple usages of the feature gate client on a single page because the
+client makes a lot of heavy network calls which could have a drastic performance impact for
+customers if many clients were to exist on a single page. However there are some cases where a
+seperate client to the product is absolutely necessary. We expose a way to instantiate a new client
+instead of using the static methods for this case.
+
+Due to the performance implications **please ask us in #help-statsig-switcheroo before using the
+standalone client** so that we can check if there are any alternative solutions that won't impact
+customers and make us aware of the cases where separate clients are necessary.
+
+```typescript
+import FeatureGateClient from '@atlaskit/feature-gate-js-client/client';
+
+const featureGates = new FeatureGateClient();
+
+// Usage is the same as the static API
+await featureGates.initialize({
+	// ...
+});
+featureGates.checkGate('my-gate');
+```
+
 ## Testing
 
 ### Jest

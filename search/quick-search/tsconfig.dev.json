@@ -41,6 +41,9 @@
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
@@ -48,6 +51,9 @@
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/spinner/tsconfig.app.json"

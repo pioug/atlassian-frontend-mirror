@@ -5,7 +5,7 @@ import { act, render, screen } from '@testing-library/react';
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
-import { exitingDurations } from '../../../index';
+import { easeIn, easeOut, exitingDurations } from '../../../index';
 import { durations } from '../../../utils/durations';
 
 window.matchMedia = (): any => ({ matches: false });
@@ -19,11 +19,7 @@ describe('<KeyframesMotion />', () => {
 
 	it('should respect reduced motion', () => {
 		render(
-			<KeyframesMotion
-				duration={duration}
-				enteringAnimation={{}}
-				animationTimingFunction={() => 'linear'}
-			>
+			<KeyframesMotion duration={duration} enteringAnimation={{}} animationTimingFunction="linear">
 				{(props) => <div data-testid="target" {...props} />}
 			</KeyframesMotion>,
 		);
@@ -40,7 +36,8 @@ describe('<KeyframesMotion />', () => {
 		it('should fill the animation backwards to prevent a frame of the element already being entered', () => {
 			render(
 				<KeyframesMotion
-					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+					animationTimingFunction="ease-out"
+					animationTimingFunctionExiting="ease-in"
 					duration={duration}
 					enteringAnimation={{}}
 				>
@@ -57,7 +54,8 @@ describe('<KeyframesMotion />', () => {
 		it('should use the entering timing function', () => {
 			render(
 				<KeyframesMotion
-					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+					animationTimingFunction="ease-out"
+					animationTimingFunctionExiting="ease-in"
 					duration={duration}
 					enteringAnimation={{}}
 				>
@@ -67,14 +65,15 @@ describe('<KeyframesMotion />', () => {
 
 			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 				'animation-timing-function',
-				'ease-out',
+				easeOut,
 			);
 		});
 
 		it('should animate in', () => {
 			render(
 				<KeyframesMotion
-					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+					animationTimingFunction="ease-out"
+					animationTimingFunctionExiting="ease-in"
 					duration={duration}
 					enteringAnimation={{}}
 				>
@@ -91,7 +90,8 @@ describe('<KeyframesMotion />', () => {
 		it('should animate over {duration} ms', () => {
 			render(
 				<KeyframesMotion
-					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+					animationTimingFunction="ease-out"
+					animationTimingFunctionExiting="ease-in"
 					duration={duration}
 					enteringAnimation={{}}
 				>
@@ -110,7 +110,7 @@ describe('<KeyframesMotion />', () => {
 			const callback = jest.fn();
 			render(
 				<KeyframesMotion
-					animationTimingFunction={() => 'linear'}
+					animationTimingFunction="linear"
 					duration={duration}
 					enteringAnimation={{}}
 					onFinish={callback}
@@ -132,14 +132,14 @@ describe('<KeyframesMotion />', () => {
 			render(
 				<StaggeredEntrance delayStep={step} columns={1}>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 					>
 						{(props) => <div {...props} />}
 					</KeyframesMotion>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 						onFinish={callback}
@@ -162,7 +162,7 @@ describe('<KeyframesMotion />', () => {
 			render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 						onFinish={callback}
@@ -184,7 +184,7 @@ describe('<KeyframesMotion />', () => {
 			render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 						onFinish={callback}
@@ -201,7 +201,7 @@ describe('<KeyframesMotion />', () => {
 			render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 					>
@@ -220,7 +220,7 @@ describe('<KeyframesMotion />', () => {
 			render(
 				<ExitingPersistence appear>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 					>
@@ -250,7 +250,7 @@ describe('<KeyframesMotion />', () => {
 			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 						onFinish={callback}
@@ -274,7 +274,7 @@ describe('<KeyframesMotion />', () => {
 			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={() => 'linear'}
+						animationTimingFunction="linear"
 						duration={duration}
 						enteringAnimation={{}}
 						onFinish={callback}
@@ -298,7 +298,8 @@ describe('<KeyframesMotion />', () => {
 			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+						animationTimingFunction="ease-out"
+						animationTimingFunctionExiting="ease-in"
 						duration={duration}
 						enteringAnimation={{}}
 					>
@@ -316,7 +317,8 @@ describe('<KeyframesMotion />', () => {
 			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+						animationTimingFunction="ease-out"
+						animationTimingFunctionExiting="ease-in"
 						duration={duration}
 						enteringAnimation={{}}
 					>
@@ -337,7 +339,8 @@ describe('<KeyframesMotion />', () => {
 			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+						animationTimingFunction="ease-out"
+						animationTimingFunctionExiting="ease-in"
 						duration={duration}
 						enteringAnimation={{}}
 					>
@@ -358,7 +361,8 @@ describe('<KeyframesMotion />', () => {
 			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+						animationTimingFunction="ease-out"
+						animationTimingFunctionExiting="ease-in"
 						duration={duration}
 						enteringAnimation={{}}
 					>
@@ -379,7 +383,8 @@ describe('<KeyframesMotion />', () => {
 			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
-						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
+						animationTimingFunction="ease-out"
+						animationTimingFunctionExiting="ease-in"
 						duration={duration}
 						enteringAnimation={{}}
 					>
@@ -392,7 +397,7 @@ describe('<KeyframesMotion />', () => {
 
 			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 				'animation-timing-function',
-				'ease-in',
+				easeIn,
 			);
 		});
 	});

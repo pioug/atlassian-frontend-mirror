@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 16.3.2
+
+### Patch Changes
+
+- [#114277](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114277)
+  [`f10877b44dc55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f10877b44dc55) -
+  Update depdencies and remove old codemods.
+
 ## 16.3.1
 
 ### Patch Changes

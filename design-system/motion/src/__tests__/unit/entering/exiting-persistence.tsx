@@ -508,11 +508,7 @@ describe('<ExitingPersistence />', () => {
 	it('should allow child motions to appear on initial mount', () => {
 		render(
 			<ExitingPersistence appear>
-				<KeyframesMotion
-					enteringAnimation={{}}
-					animationTimingFunction={() => 'linear'}
-					duration="small"
-				>
+				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
@@ -524,11 +520,7 @@ describe('<ExitingPersistence />', () => {
 	it('should immediately show child motions on initial mount', () => {
 		render(
 			<ExitingPersistence>
-				<KeyframesMotion
-					enteringAnimation={{}}
-					animationTimingFunction={() => 'linear'}
-					duration="small"
-				>
+				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
@@ -545,11 +537,7 @@ describe('<ExitingPersistence />', () => {
 
 		rerender(
 			<ExitingPersistence>
-				<KeyframesMotion
-					enteringAnimation={{}}
-					animationTimingFunction={() => 'linear'}
-					duration="small"
-				>
+				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
@@ -563,11 +551,7 @@ describe('<ExitingPersistence />', () => {
 
 		rerender(
 			<ExitingPersistence appear>
-				<KeyframesMotion
-					enteringAnimation={{}}
-					animationTimingFunction={() => 'linear'}
-					duration="small"
-				>
+				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
@@ -578,11 +562,7 @@ describe('<ExitingPersistence />', () => {
 
 	it('should let motions appear by default outside of a exiting persistence', () => {
 		render(
-			<KeyframesMotion
-				enteringAnimation={{}}
-				animationTimingFunction={() => 'linear'}
-				duration="small"
-			>
+			<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
 				{(props) => <div {...props} data-testid="target" />}
 			</KeyframesMotion>,
 		);

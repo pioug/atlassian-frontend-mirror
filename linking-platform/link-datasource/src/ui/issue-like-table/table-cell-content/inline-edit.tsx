@@ -1,13 +1,15 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
+import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import AKInlineEdit from '@atlaskit/inline-edit';
 import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';
 import { type DatasourceDataResponseItem, type Link } from '@atlaskit/linking-types/datasource';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { startUfoExperience } from '../../../analytics/ufoExperiences';
@@ -19,12 +21,15 @@ import { EmptyAvatar } from '../shared-components/avatar';
 import type { DatasourceTypeWithOnlyValues } from '../types';
 import { getFieldLabelById } from '../utils';
 
+import { InlineEditOld } from './inline-edit-old';
 import { tableCellMessages } from './messages';
 
 export const InlineEditUFOExperience = 'inline-edit-rendered';
 
-const editContainerStyles = xcss({
-	marginBlockStart: 'space.negative.100',
+const styles = cssMap({
+	editContainerStyles: {
+		marginBlockStart: token('space.negative.100'),
+	},
 });
 
 interface InlineEditProps {
@@ -165,7 +170,7 @@ const useRefreshDatasourceItem = (item: DatasourceItem | undefined) => {
 	}, [reloadSmartLinkAction, url]);
 };
 
-export const InlineEdit = ({
+const InlineEditNew = ({
 	ari,
 	execute,
 	executeFetch,
@@ -290,7 +295,7 @@ export const InlineEdit = ({
 	}, [columnTitle, formatMessage, editValues]);
 
 	return (
-		<Box xcss={editContainerStyles}>
+		<Box xcss={styles.editContainerStyles}>
 			<AKInlineEdit
 				{...editType({
 					defaultValue: datasourceTypeWithValues,
@@ -310,6 +315,14 @@ export const InlineEdit = ({
 			/>
 		</Box>
 	);
+};
+
+export const InlineEdit = (props: InlineEditProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <InlineEditNew {...props} />;
+	} else {
+		return <InlineEditOld {...props} />;
+	}
 };
 
 /**

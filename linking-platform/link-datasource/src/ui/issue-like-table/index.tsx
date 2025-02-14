@@ -1,13 +1,11 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { css, jsx, styled } from '@compiled/react';
 import debounce from 'lodash/debounce';
 import invariant from 'tiny-invariant';
 
@@ -17,12 +15,13 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { N40 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -30,20 +29,14 @@ import Tooltip from '@atlaskit/tooltip';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 import { startUfoExperience, succeedUfoExperience } from '../../analytics/ufoExperiences';
-import { stickyTableHeadersIndex } from '../../common/zindex';
 import { useDatasourceExperienceId } from '../../contexts/datasource-experience-id';
 
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
+import { IssueLikeDataTableViewOld } from './issue-like-table-old';
 import { renderType } from './render-type';
-import {
-	InlineEditableTableCell,
-	Table,
-	TableHeading,
-	withTablePluginHeaderPrefix,
-} from './styled';
 import { TableCellContent } from './table-cell-content';
 import {
 	type HeaderRowCellType,
@@ -57,37 +50,37 @@ import { COLUMN_BASE_WIDTH, getFieldLabelById, getWidthCss } from './utils';
 const tableSidePadding = token('space.200', '16px');
 
 const tableHeadStyles = css({
-	background: token('utility.elevation.surface.current', '#FFF'),
+	backgroundColor: token('utility.elevation.surface.current', '#FFF'),
 	position: 'sticky',
 	top: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: stickyTableHeadersIndex,
+	zIndex: 10,
 });
 
 const columnPickerWidth = 80;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ColumnPickerHeader = styled.th({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`${withTablePluginHeaderPrefix('&:last-of-type')}`]: {
-		boxSizing: 'border-box',
-		border: 0,
-		width: `${columnPickerWidth}px`,
-		zIndex: 10,
-		position: 'sticky',
-		right: `calc(-1 * ${tableSidePadding})`,
-		backgroundColor: token('utility.elevation.surface.current', '#FFF'),
-		/* It is required to have solid (not half-transparent) color because of this gradient business below */
-		borderBottom: `2px solid ${token('color.border', N40)}`,
-		paddingRight: tableSidePadding,
-		background: `linear-gradient( 90deg, rgba(255, 255, 255, 0) 0%, ${token(
-			'utility.elevation.surface.current',
-			'#FFF',
-		)} 10% )`,
-		/* Keeps dropdown button in the middle */
-		verticalAlign: 'middle',
-		/* In case when TH itself is bigger we want to keep picker at the right side */
-		textAlign: 'right',
-	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &:last-of-type, .ProseMirror .pm-table-wrapper > table thead &:last-of-type, &:last-of-type':
+		{
+			boxSizing: 'border-box',
+			border: 0,
+			width: `${columnPickerWidth}px`,
+			zIndex: 10,
+			position: 'sticky',
+			right: `calc(-1 * ${tableSidePadding})`,
+			background: `linear-gradient( 90deg, rgba(255, 255, 255, 0) 0%, ${token(
+				'utility.elevation.surface.current',
+				'#FFF',
+			)} 10% )`,
+			/* It is required to have solid (not half-transparent) color because of this gradient business below */
+			borderBottom: `2px solid ${token('color.border', N40)}`,
+			paddingRight: tableSidePadding,
+			/* Keeps dropdown button in the middle */
+			verticalAlign: 'middle',
+			/* In case when TH itself is bigger we want to keep picker at the right side */
+			textAlign: 'right',
+		},
 });
 
 const truncateStyles = css({
@@ -101,6 +94,103 @@ const tableContainerStyles = css({
 	position: 'relative',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const Table = styled.table({
+	width: '100%',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const TableHeading = styled.th({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &, .ProseMirror .pm-table-wrapper > table thead &, &': {
+		border: 0,
+		position: 'relative',
+		/* This makes resizing work with out jumping due to padding + changes overall width for same default values. */
+		boxSizing: 'border-box',
+		lineHeight: '24px',
+		paddingTop: token('space.025', '2px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: token('space.050', '4px'),
+		borderRight: `0.5px solid ${token('color.border', N40)}`,
+		borderBottom: `2px solid ${token('color.border', N40)}`,
+		/*
+      lineHeight * 2 -> Max height of two lined header
+      verticalPadding * 2 -> padding for this component itself
+      verticalPadding * 2 -> padding inside span (--container)
+      2px -> Bottom border
+      Last two terms are needed because of border-box box sizing.
+    */
+		height: `calc(24px * 2 + ${token('space.025', '2px')} * 4 + 2px)`,
+		verticalAlign: 'bottom',
+		backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), .ProseMirror .pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), thead.has-column-picker &:nth-last-of-type(2)':
+		{
+			borderRight: 0,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &:first-of-type, .ProseMirror .pm-table-wrapper > table thead &:first-of-type, &:first-of-type':
+		{
+			paddingLeft: token('space.050', '4px'),
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &:last-of-type, .ProseMirror .pm-table-wrapper > table thead &:last-of-type, &:last-of-type':
+		{
+			borderRight: 0,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	"& [data-testid='datasource-header-content--container']": {
+		width: '100%',
+		/* With Button now being a parent for this component it adds its lineHeight value and spoils
+      `height` calculation above. */
+		lineHeight: '24px',
+		paddingTop: token('space.025', '2px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: token('space.050', '4px'),
+		display: '-webkit-box',
+		WebkitLineClamp: 2,
+		WebkitBoxOrient: 'vertical',
+		whiteSpace: 'normal',
+		overflow: 'hidden',
+		wordWrap: 'break-word',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const InlineEditableTableCell = styled.td({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table tbody &, .ProseMirror .pm-table-wrapper > table tbody &, &': {
+		/* First section here is to override things editor table plugin css defines */
+		font: token('font.body'),
+		paddingTop: token('space.0', '0'),
+		paddingRight: token('space.0', '0'),
+		paddingBottom: token('space.0', '0'),
+		paddingLeft: token('space.0', '0'),
+		border: 0,
+		minWidth: 'auto',
+		height: '40px',
+		verticalAlign: 'inherit',
+		boxSizing: 'content-box',
+		borderRight: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
+		borderBottom: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table tbody &:last-of-type, .ProseMirror .pm-table-wrapper > table tbody &:last-of-type, &:last-of-type':
+		{
+			borderRight: 0,
+		},
+	// Inline smart links are pretty opinionated about word-wrapping.
+	// We want it to be controlled by user, so we make it overflow and truncate by default.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	["& [data-testid='inline-card-icon-and-title'], " +
+	"& [data-testid='button-connect-account'] > span"]: {
+		whiteSpace: 'unset',
+	},
+});
+
 /**
  * Following section deals with slight gradient shadows that we add
  * on all four sides when there is more content in that direction.
@@ -110,146 +200,26 @@ const tableContainerStyles = css({
  * "Static" one makes a white color gradient, that when window is at the end of scrollable area goes on top
  * of "sticky" (gray) one, dominating and hence disabling sticky one.
  */
-
-interface ShadowCssPortion {
-	backgroundImage: string;
-	backgroundPosition: string;
-	size: string;
-	attachment: string;
-}
-
-const shadowColor = token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)');
-const shadowColorLight = token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)');
-
-const leftWhiteOverrideGradient: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    90deg,
-    ${token('utility.elevation.surface.current', '#FFF')} 30%,
-    rgba(255, 255, 255, 0)
-  )`,
-	backgroundPosition: 'left center',
-	size: `40px 100%`,
-	attachment: `local`,
-};
-
-const topWhiteOverrideGradient: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0),
-    ${token('utility.elevation.surface.current', '#FFF')} 30%
-  )`,
-	backgroundPosition: 'top center',
-	size: `100% 100px`,
-	attachment: `local`,
-};
-
-const rightWhiteOverrideGradient: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0),
-    ${token('utility.elevation.surface.current', '#FFF')} 70%
-  )`,
-	backgroundPosition: 'right center',
-	size: `40px 100%`,
-	attachment: `local`,
-};
-
-const bottomWhiteOverride: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    0deg,
-    ${token('utility.elevation.surface.current', '#FFF')} 30%,
-    rgba(255, 255, 255, 0)
-  )`,
-	backgroundPosition: 'bottom center',
-	size: `100% 40px`,
-	attachment: `local`,
-};
-
-const leftShadowGradient: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    90deg,
-    ${shadowColor},
-    rgba(0, 0, 0, 0)
-  )`,
-	backgroundPosition: 'left center',
-	size: `14px 100%`,
-	attachment: `scroll`,
-};
-
-const topShadowGradient: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0),
-    ${shadowColorLight}
-  )`,
-	backgroundPosition: '0 52px',
-	size: `100% 14px`,
-	attachment: `scroll`,
-};
-
-const rightShadowGradient: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0),
-    ${shadowColor}
-  )`,
-	backgroundPosition: 'right center',
-	size: `14px 100%`,
-	attachment: `scroll`,
-};
-
-const bottomShadowGradient: ShadowCssPortion = {
-	backgroundImage: `
-  linear-gradient(
-    0deg,
-    ${shadowColorLight},
-    rgba(0, 0, 0, 0)
-  )`,
-	backgroundPosition: 'bottom center',
-	size: `100% 10px`,
-	attachment: `scroll`,
-};
-
-const shadows: ShadowCssPortion[] = [
-	leftWhiteOverrideGradient,
-	leftShadowGradient,
-	rightWhiteOverrideGradient,
-	rightShadowGradient,
-	topWhiteOverrideGradient,
-	topShadowGradient,
-	bottomWhiteOverride,
-	bottomShadowGradient,
-];
-
-export const scrollableContainerShadowsCssComponents = {
-	backgroundImage: shadows.map(({ backgroundImage }) => backgroundImage).join(','),
-	backgroundPosition: shadows.map(({ backgroundPosition }) => backgroundPosition).join(','),
-	backgroundRepeat: 'no-repeat',
-	backgroundSize: shadows.map(({ size }) => size).join(','),
-	backgroundAttachment: shadows.map(({ attachment }) => attachment).join(','),
-};
-
 const scrollableContainerStyles = css({
 	overflow: 'auto',
 	boxSizing: 'border-box',
 	backgroundColor: token('utility.elevation.surface.current', '#FFF'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundImage: scrollableContainerShadowsCssComponents.backgroundImage,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundPosition: scrollableContainerShadowsCssComponents.backgroundPosition,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundRepeat: scrollableContainerShadowsCssComponents.backgroundRepeat,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundSize: scrollableContainerShadowsCssComponents.backgroundSize,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundAttachment: scrollableContainerShadowsCssComponents.backgroundAttachment,
+	backgroundImage: `
+		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}, rgba(0, 0, 0, 0)),
+		linear-gradient(90deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 70%),
+		linear-gradient(90deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}),
+		linear-gradient(0deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 30%),
+		linear-gradient(0deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}),
+		linear-gradient(0deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(0deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}, rgba(0, 0, 0, 0))
+		`,
+	backgroundPosition:
+		'left center, left center, right center, right center, center top, 0px 52px, center bottom, center bottom',
+	backgroundRepeat: 'no-repeat',
+	backgroundSize:
+		'40px 100%, 14px 100%, 40px 100%, 14px 100%, 100% 100px, 100% 14px, 100% 40px, 100% 10px',
+	backgroundAttachment: 'local, scroll, local, scroll, local, scroll, local, scroll',
 });
 
 const tableStyles = css({
@@ -279,7 +249,7 @@ const headingHoverEffectStyles = css({
 	alignItems: 'center',
 	whiteSpace: 'nowrap',
 	'&:hover': {
-		background: token('color.background.input.hovered', '#F7F8F9'),
+		backgroundColor: token('color.background.input.hovered', '#F7F8F9'),
 		borderRadius: token('border.radius.200', '3px'),
 	},
 });
@@ -344,7 +314,7 @@ function getDefaultColumnWidth(key: string, type: DatasourceType['type']): numbe
 	}
 }
 
-export const IssueLikeDataTableView = ({
+const IssueLikeDataTableViewNew = ({
 	testId,
 	onNextPage,
 	onLoadDatasourceDetails,
@@ -773,6 +743,14 @@ export const IssueLikeDataTableView = ({
 	);
 
 	return <FlagsProvider>{view}</FlagsProvider>;
+};
+
+export const IssueLikeDataTableView = (props: IssueLikeDataTableViewProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <IssueLikeDataTableViewNew {...props} />;
+	} else {
+		return <IssueLikeDataTableViewOld {...props} />;
+	}
 };
 
 export const EmptyState = TableEmptyState;

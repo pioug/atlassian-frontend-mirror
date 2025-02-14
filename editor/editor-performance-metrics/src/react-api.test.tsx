@@ -127,4 +127,64 @@ describe('PerformanceMetrics Component', () => {
 		expect(mockObserver.onIdleBuffer).not.toHaveBeenCalled();
 		expect(mockObserver.onceNextIdle).not.toHaveBeenCalled();
 	});
+
+	describe('when using onTTAI', () => {
+		it('should set up the observer on mount', () => {
+			render(<PerformanceMetrics onTTAI={jest.fn()} />);
+			expect(mockObserver.onceNextIdle).toHaveBeenCalled();
+		});
+
+		it('should call onTTAI with idleAt time', async () => {
+			const onTTAI = jest.fn();
+			const idleAt = 1000;
+
+			mockObserver.onceNextIdle.mockImplementation((cb) => {
+				cb({ idleAt, timelineBuffer: null });
+				return unsubscribe;
+			});
+
+			render(<PerformanceMetrics onTTAI={onTTAI} />);
+
+			await act(async () => {
+				jest.runAllTimers();
+			});
+
+			expect(onTTAI).toHaveBeenCalledWith({ idleAt });
+		});
+	});
+
+	describe('SSR support', () => {
+		let originalEnv: NodeJS.ProcessEnv;
+
+		beforeEach(() => {
+			originalEnv = process.env;
+			process.env = { ...originalEnv, REACT_SSR: 'true' };
+		});
+
+		afterEach(() => {
+			process.env = originalEnv;
+		});
+
+		it('should not set up observer in SSR mode', () => {
+			render(
+				<PerformanceMetrics onTTVC={jest.fn()} onUserLatency={jest.fn()} onTTAI={jest.fn()} />,
+			);
+			expect(getGlobalEditorMetricsObserver).not.toHaveBeenCalled();
+			expect(mockObserver.onIdleBuffer).not.toHaveBeenCalled();
+			expect(mockObserver.onceNextIdle).not.toHaveBeenCalled();
+		});
+	});
+
+	it('should handle null observer gracefully', () => {
+		(getGlobalEditorMetricsObserver as jest.Mock).mockReturnValue(null);
+		const onTTVC = jest.fn();
+		const onUserLatency = jest.fn();
+		const onTTAI = jest.fn();
+
+		render(<PerformanceMetrics onTTVC={onTTVC} onUserLatency={onUserLatency} onTTAI={onTTAI} />);
+
+		expect(onTTVC).not.toHaveBeenCalled();
+		expect(onUserLatency).not.toHaveBeenCalled();
+		expect(onTTAI).not.toHaveBeenCalled();
+	});
 });

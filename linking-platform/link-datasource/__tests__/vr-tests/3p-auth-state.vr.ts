@@ -7,5 +7,6 @@ snapshot(AuthState, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		fix_a11y_violations_in_link_datasource: [true, false],
+		'bandicoots-compiled-migration-link-datasource': [true, false],
 	},
 });

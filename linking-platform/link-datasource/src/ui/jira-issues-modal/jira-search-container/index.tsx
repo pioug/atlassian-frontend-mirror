@@ -4,12 +4,12 @@
  */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { Flex, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod, Site } from '../../../common/types';
@@ -29,16 +29,18 @@ import {
 } from '../types';
 
 import { buildJQL } from './buildJQL';
+import { JiraSearchContainerOld } from './jira-search-container-old';
 import { modeSwitcherMessages } from './messages';
 
-const inputContainerStyles = css({
-	alignItems: 'baseline',
-	display: 'flex',
-	minHeight: '72px',
-});
-
-const basicSearchInputContainerStyles = xcss({
-	flexGrow: 1,
+const styles = cssMap({
+	basicSearchInputContainerStyles: {
+		flexGrow: 1,
+	},
+	inputContainerStyles: {
+		alignItems: 'baseline',
+		display: 'flex',
+		minHeight: '72px',
+	},
 });
 
 export const DEFAULT_JQL_QUERY = 'ORDER BY created DESC';
@@ -65,7 +67,7 @@ export interface SearchContainerProps {
 	site?: Site;
 }
 
-export const JiraSearchContainer = (props: SearchContainerProps) => {
+export const JiraSearchContainerNew = (props: SearchContainerProps) => {
 	const {
 		isSearching,
 		parameters,
@@ -272,9 +274,9 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 	}, [currentCloudId, cloudId, setSearchBarJql]);
 
 	return (
-		<div css={inputContainerStyles} data-testid="jira-search-container">
+		<div css={styles.inputContainerStyles} data-testid="jira-search-container">
 			{currentSearchMethod === 'basic' && (
-				<Flex alignItems="center" xcss={basicSearchInputContainerStyles}>
+				<Flex alignItems="center" xcss={styles.basicSearchInputContainerStyles}>
 					<BasicSearchInput
 						isSearching={isSearching}
 						onChange={handleBasicSearchChange}
@@ -309,4 +311,12 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 			/>
 		</div>
 	);
+};
+
+export const JiraSearchContainer = (props: SearchContainerProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <JiraSearchContainerNew {...props} />;
+	} else {
+		return <JiraSearchContainerOld {...props} />;
+	}
 };

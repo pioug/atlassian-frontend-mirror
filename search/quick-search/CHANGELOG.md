@@ -1,5 +1,13 @@
 # @atlaskit/quick-search
 
+## 10.0.2
+
+### Patch Changes
+
+- [#114055](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114055)
+  [`5011ea90ffebe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5011ea90ffebe) -
+  Add deprecation notice
+
 ## 10.0.1
 
 ### Patch Changes

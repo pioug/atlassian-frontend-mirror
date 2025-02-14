@@ -31,6 +31,9 @@ snapshotInformational(JiraIssuesTableReadonly, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });
 
 snapshotInformational(JiraIssuesTableNoWrapControl, {
@@ -58,4 +61,7 @@ snapshotInformational(JiraIssuesTableNoWrapControl, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });

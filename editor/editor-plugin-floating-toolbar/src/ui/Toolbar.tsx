@@ -32,6 +32,7 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -248,6 +249,36 @@ const ToolbarItems = React.memo(
 				case 'custom': {
 					return item.render(editorView, idx, dispatchAnalyticsEvent);
 				}
+
+				case 'overflow-dropdown':
+					return (
+						<Dropdown
+							key={idx}
+							// TODO: Find more appropriate copy
+							title={'Show more items'}
+							icon={<ShowMoreHorizontalIcon label={'Show more items'} spacing="spacious" />}
+							dispatchCommand={dispatchCommand}
+							options={item.options}
+							disabled={item.disabled}
+							tooltip={item.tooltip}
+							hideExpandIcon
+							mountPoint={popupsMountPoint}
+							boundariesElement={popupsBoundariesElement}
+							scrollableElement={popupsScrollableElement}
+							dropdownWidth={item.dropdownWidth}
+							showSelected={item.showSelected}
+							buttonTestId={item.testId}
+							editorView={editorView}
+							setDisableParentScroll={scrollable ? setDisableScroll : undefined}
+							dropdownListId={item?.id && `${item.id}-dropdownList`}
+							alignDropdownWithToolbar={items.length === 1}
+							onToggle={item.onToggle}
+							footer={item.footer}
+							onMount={item.onMount}
+							onClick={item.onClick}
+							pulse={item.pulse}
+						/>
+					);
 
 				case 'dropdown':
 					const DropdownIcon = item.icon;

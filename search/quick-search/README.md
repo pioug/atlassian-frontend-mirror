@@ -1,1 +1,1 @@
-This package has been deprecated. Please use the `search-dialog` package instead.
+This package has been deprecated. Please use the `@atlassian/search-dialog` package instead.

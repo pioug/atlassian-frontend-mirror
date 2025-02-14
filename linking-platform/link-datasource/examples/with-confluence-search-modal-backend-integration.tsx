@@ -4,18 +4,18 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { DatasourceTableView } from '@atlaskit/link-datasource';
 import { CardClient as SmartCardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { Radio } from '@atlaskit/radio';
 import { Card } from '@atlaskit/smart-card';
 import TextArea from '@atlaskit/textarea';
+import { token } from '@atlaskit/tokens';
 
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../src/ui/confluence-search-modal';
 import { ConfluenceSearchConfigModal } from '../src/ui/confluence-search-modal/modal';
@@ -24,18 +24,24 @@ import {
 	type ConfluenceSearchDatasourceParameters,
 } from '../src/ui/confluence-search-modal/types';
 
-const tableContainerStyles = css({
-	width: '700px',
-	height: '400px',
-	overflow: 'scroll',
-});
-
-const configurationBox = xcss({
-	padding: 'space.050',
-	margin: 'space.050',
-	display: 'inline-block',
-	width: '400px',
-	backgroundColor: 'color.background.accent.lime.subtler',
+const styles = cssMap({
+	tableContainerStyles: {
+		width: '700px',
+		height: '400px',
+		overflow: 'scroll',
+	},
+	configurationBox: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		marginTop: token('space.050'),
+		marginRight: token('space.050'),
+		marginBottom: token('space.050'),
+		marginLeft: token('space.050'),
+		display: 'inline-block',
+		width: '400px',
+	},
 });
 
 forceBaseUrl('https://pug.jira-dev.com');
@@ -60,7 +66,7 @@ function PresetPicker({
 	}, [disableDisplayDropdown, overrideEntityTypes]);
 
 	return (
-		<Box xcss={configurationBox}>
+		<Box xcss={styles.configurationBox} backgroundColor="color.background.accent.lime.subtler">
 			<Radio
 				label="Custom"
 				name="preset"
@@ -85,7 +91,7 @@ function OverrideEntityTypes({
 	onChange: (override: string[] | undefined) => void;
 }) {
 	return (
-		<Box xcss={configurationBox}>
+		<Box xcss={styles.configurationBox} backgroundColor="color.background.accent.lime.subtler">
 			<p>
 				Override entity types:{' '}
 				{overrideEntityTypes ? `${JSON.stringify(overrideEntityTypes)}` : '- -'}
@@ -113,7 +119,7 @@ function DisableDisplayDropdownRadioToggle({
 	onChange: (disabled: boolean) => void;
 }) {
 	return (
-		<Box xcss={configurationBox}>
+		<Box xcss={styles.configurationBox} backgroundColor="color.background.accent.lime.subtler">
 			<p>Disable display dropdown: {`${disableDisplayDropdown}`}</p>
 			<Radio
 				label="True"
@@ -176,7 +182,7 @@ export default () => {
 			if (parameters) {
 				return (
 					<div>
-						<div css={tableContainerStyles}>
+						<div css={styles.tableContainerStyles}>
 							In renderer:
 							<DatasourceTableView
 								datasourceId={generatedAdf.attrs.datasource.id}
@@ -185,7 +191,7 @@ export default () => {
 								onVisibleColumnKeysChange={undefined} // readonly
 							/>
 						</div>
-						<div css={tableContainerStyles}>
+						<div css={styles.tableContainerStyles}>
 							In Editor:
 							<DatasourceTableView
 								datasourceId={generatedAdf.attrs.datasource.id}

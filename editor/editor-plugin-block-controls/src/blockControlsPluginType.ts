@@ -117,7 +117,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				anchorName: string,
 				nodeType: string,
 			) => EditorCommand;
-			setMultiSelectPositions: () => EditorCommand;
+			setMultiSelectPositions: (anchor?: number, head?: number) => EditorCommand;
 		};
 	}
 >;

@@ -1,15 +1,16 @@
-import type { StatsigOptions, StatsigUser } from 'statsig-js-lite';
+import type { EvaluationDetails as NewEvaluationDetails, StatsigUser } from '@statsig/js-client';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 
+import { type EvaluationDetails, EvaluationReason } from './compat/types';
 import {
 	type BaseClientOptions,
 	type CustomAttributes,
-	type FromValuesClientOptions,
+	type FeatureGateOptions,
 	type Identifiers,
+	type NewFeatureGateOptions,
 	type OptionsWithDefaults,
 	PerimeterType,
-	type UpdateUserCompletionCallback,
 } from './types';
 
 export const getOptionsWithDefaults = <T extends BaseClientOptions>(
@@ -74,60 +75,63 @@ export const toStatsigUser = (
 	return user;
 };
 
-/**
- * This method transforms the options given by the user into the format accepted by the Statsig
- * client.
- */
-export const toStatsigOptions = (
-	options: FromValuesClientOptions,
-	initializeValues: Record<string, unknown>,
-): StatsigOptions => {
+export const migrateInitializationOptions = <T extends FeatureGateOptions>(
+	options: T,
+): Omit<T, keyof FeatureGateOptions> & NewFeatureGateOptions => {
 	const {
-		// De-structured to remove from restClientOptions
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		sdkKey,
-		// De-structured to remove from restClientOptions
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		updateUserCompletionCallback,
-		// De-structured to remove from restClientOptions
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		perimeter,
-		...restClientOptions
+		api,
+		disableCurrentPageLogging,
+		loggingIntervalMillis,
+		loggingBufferMaxSize,
+		localMode,
+		eventLoggingApi,
+		eventLoggingApiForRetries,
+		disableLocalStorage,
+		ignoreWindowUndefined,
+		disableAllLogging,
+
+		// No equivalent but is pointless anyway since our Statsig init is synchronous
+		initTimeoutMs: _initTimeoutMs,
+
+		// No equivalent in new client but probably not important?
+		disableNetworkKeepalive: _disableNetworkKeepalive,
+
+		// Needs to be implemented manually but unused according to zoekt
+		overrideStableID: _overrideStableID,
+
+		// No equivalent for these but can't see them actually used anywhere in old client?
+		disableErrorLogging: _disableErrorLogging,
+		disableAutoMetricsLogging: _disableAutoMetricsLogging,
+
+		...rest
 	} = options;
 
 	return {
-		...restClientOptions,
-		initializeValues,
-		environment: {
-			tier: options.environment,
+		...rest,
+		networkConfig: {
+			api,
+			logEventUrl: eventLoggingApi ? eventLoggingApi + 'rgstr' : undefined,
+			logEventFallbackUrls: eventLoggingApiForRetries ? [eventLoggingApiForRetries] : undefined,
+			preventAllNetworkTraffic:
+				localMode || (!ignoreWindowUndefined && typeof window === 'undefined'),
 		},
-		disableCurrentPageLogging: true,
-		...(options.updateUserCompletionCallback && {
-			updateUserCompletionCallback: toStatsigUpdateUserCompletionCallback(
-				options.updateUserCompletionCallback,
-			),
-		}),
+		includeCurrentPageUrlWithEvents: !disableCurrentPageLogging,
+		loggingIntervalMs: loggingIntervalMillis,
+		loggingBufferMaxSize,
+		disableStorage: disableLocalStorage,
+		disableLogging: disableAllLogging,
 	};
 };
 
-type StatsigUpdateUserCompletionCallback = NonNullable<
-	StatsigOptions['updateUserCompletionCallback']
->;
-
-/**
- * This method transforms an UpdateUserCompletionCallback in our own format into the format
- * accepted by the Statsig client.
- */
-export const toStatsigUpdateUserCompletionCallback = (
-	callback: UpdateUserCompletionCallback,
-): StatsigUpdateUserCompletionCallback => {
-	/**
-	 * The duration passed to the callback indicates how long the update took, but it is deceptive
-	 * since it only times the Statsig code and doesn't account for all of the extra custom work we
-	 * do to obtain the bootstrap values. As a result, we just suppress this parameter in our own
-	 * callback rather than trying to keep it accurate.
-	 */
-	return (_duration: number, success: boolean, message: string | null) => {
-		callback(success, message);
+const evaluationReasonMappings = Object.entries(EvaluationReason).map<[string, EvaluationReason]>(
+	([key, value]) => [key.toLowerCase(), value],
+);
+export const migrateEvaluationDetails = (details: NewEvaluationDetails): EvaluationDetails => {
+	const reasonLower = details.reason.toLowerCase();
+	return {
+		reason:
+			evaluationReasonMappings.find(([key]) => reasonLower.includes(key))?.[1] ??
+			EvaluationReason.Unknown,
+		time: details.receivedAt ?? Date.now(),
 	};
 };

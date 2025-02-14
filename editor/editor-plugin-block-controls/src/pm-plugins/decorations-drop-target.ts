@@ -4,6 +4,7 @@ import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -237,6 +238,17 @@ export const dropTargetDecorations = (
 
 	const isAdvancedLayoutsPreRelease2 = editorExperiment('advanced_layouts', true);
 
+	// For deciding to show drop targets or not when multiple nodes are selected
+	const selection = newState.selection;
+	const { $anchor: expandedAnchor, $head: expandedHead } = expandSelectionBounds(
+		selection.$anchor,
+		selection.$head,
+	);
+	const selectionFrom = Math.min(expandedAnchor.pos, expandedHead.pos);
+	const selectionTo = Math.max(expandedAnchor.pos, expandedHead.pos);
+	const handleInsideSelection =
+		activeNodePos !== undefined && activeNodePos >= selectionFrom && activeNodePos <= selectionTo;
+
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		// drop target deco at the end position
@@ -284,13 +296,6 @@ export const dropTargetDecorations = (
 
 			// When multi select is on, validate all the nodes in the selection instead of just the handle node
 			if (isMultiSelect) {
-				const selection = newState.selection;
-				const selectionFrom = selection.$from.pos;
-				const selectionTo = selection.$to.pos;
-				const handleInsideSelection =
-					activeNodePos !== undefined &&
-					activeNodePos >= selectionFrom - 1 &&
-					activeNodePos <= selectionTo;
 				const selectionSlice = newState.doc.slice(selectionFrom, selectionTo, false);
 				const selectionSliceChildCount = selectionSlice.content.childCount;
 				let canDropSingleNode: boolean = true;
@@ -301,7 +306,6 @@ export const dropTargetDecorations = (
 					canDropMultipleNodes = canMoveSliceToIndex(
 						selectionSlice,
 						selectionFrom,
-						newState.doc,
 						parent,
 						index,
 						$pos,

@@ -1,14 +1,16 @@
 import React, { forwardRef, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { cssMap, styled } from '@compiled/react';
 
 import Badge from '@atlaskit/badge';
 import Button from '@atlaskit/button/standard-button';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 
+import PopupTriggerOld from './trigger-old';
 import { type SelectOption } from './types';
 
 export interface PopupTriggerProps {
@@ -20,17 +22,18 @@ export interface PopupTriggerProps {
 	isLoading?: boolean;
 }
 
-const triggerButtonLabelStyles = xcss({
-	textOverflow: 'ellipsis',
-	overflow: 'hidden',
+const styles = cssMap({
+	triggerButtonLabelStyles: {
+		textOverflow: 'ellipsis',
+		overflow: 'hidden',
+	},
+	badgeStyles: {
+		marginLeft: token('space.050'),
+	},
 });
 
-const badgeStyles = xcss({
-	marginLeft: 'space.050',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const LoadingStateAnimationWrapper = styled.div({
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const LoadingStateAnimationWrapper = styled.div({
 	position: 'relative',
 	animation: 'flickerAnimation 2s infinite',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -82,12 +85,12 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 					testId={`${triggerButtonTestId}--button`}
 				>
 					<Flex>
-						<Box xcss={triggerButtonLabelStyles}>
+						<Box xcss={styles.triggerButtonLabelStyles}>
 							{label}
 							{firstOption && <>: {firstOption.label}</>}
 						</Box>
 						{selectedOptions && selectedOptions.length > 1 && (
-							<Flex xcss={badgeStyles} alignItems="center">
+							<Flex xcss={styles.badgeStyles} alignItems="center">
 								<Badge appearance="primary">+{selectedOptions.length - 1}</Badge>
 							</Flex>
 						)}
@@ -117,4 +120,12 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 	},
 );
 
-export default PopupTrigger;
+const PopupTriggerExported = forwardRef<HTMLElement, PopupTriggerProps>((props, ref) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <PopupTrigger {...props} ref={ref} />;
+	} else {
+		return <PopupTriggerOld {...props} ref={ref} />;
+	}
+});
+
+export default PopupTriggerExported;

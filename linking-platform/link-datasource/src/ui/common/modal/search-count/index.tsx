@@ -1,10 +1,11 @@
 import React from 'react';
 
+import { cssMap } from '@compiled/react';
 import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Flex, xcss } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -12,9 +13,12 @@ import { token } from '@atlaskit/tokens';
 import { footerMessages } from '../../../table-footer/messages';
 
 import { searchCountMessages } from './messages';
+import TableSearchCountOld, { AssetsItemCountOld } from './search-count-old';
 
-const searchCountStyles = xcss({
-	flex: 1,
+const styles = cssMap({
+	searchCountStyles: {
+		flex: 1,
+	},
 });
 
 interface TableSearchCountProps {
@@ -29,7 +33,7 @@ const ItemCountWrapper = ({
 	children,
 	testId,
 }: Pick<TableSearchCountProps, 'testId' | 'url'> & { children: React.ReactNode }) => (
-	<Flex testId={testId} xcss={searchCountStyles} alignItems="center">
+	<Flex testId={testId} xcss={styles.searchCountStyles} alignItems="center">
 		<LinkUrl
 			href={url}
 			target="_blank"
@@ -42,7 +46,7 @@ const ItemCountWrapper = ({
 	</Flex>
 );
 
-export const AssetsItemCount = ({
+export const AssetsItemCountNew = ({
 	searchCount,
 	url,
 	testId,
@@ -57,6 +61,16 @@ export const AssetsItemCount = ({
 			<FormattedMessage {...footerMessages.itemText} values={{ itemCount: searchCount }} />
 		</ItemCountWrapper>
 	);
+};
+
+export const AssetsItemCount = (
+	props: Pick<TableSearchCountProps, 'testId' | 'url' | 'searchCount'>,
+) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <AssetsItemCountNew {...props} />;
+	} else {
+		return <AssetsItemCountOld {...props} />;
+	}
 };
 
 const TableSearchCount = ({
@@ -77,4 +91,12 @@ const TableSearchCount = ({
 	);
 };
 
-export default TableSearchCount;
+export const TableSearchCountExported = (props: TableSearchCountProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <TableSearchCount {...props} />;
+	} else {
+		return <TableSearchCountOld {...props} />;
+	}
+};
+
+export default TableSearchCountExported;

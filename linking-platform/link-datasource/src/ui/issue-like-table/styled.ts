@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
@@ -39,7 +40,6 @@ export const TableHeading = styled.th({
 		position: 'relative',
 		/* This makes resizing work with out jumping due to padding + changes overall width for same default values. */
 		boxSizing: 'border-box',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: lineHeight,
 		padding: `${verticalPadding} ${token('space.050', '4px')}`,
 		borderRight: `0.5px solid ${token('color.border', N40)}`,
@@ -72,7 +72,6 @@ export const TableHeading = styled.th({
 		width: '100%',
 		/* With Button now being a parent for this component it adds its lineHeight value and spoils
       `height` calculation above. */
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: lineHeight,
 		padding: `${verticalPadding} ${token('space.050', '4px')}`,
 		display: '-webkit-box',

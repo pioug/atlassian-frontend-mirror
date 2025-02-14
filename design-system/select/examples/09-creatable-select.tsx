@@ -63,6 +63,7 @@ class CreatableAdvanced extends Component<{}, State> {
 			<>
 				<Label htmlFor="createable-example">Which city do you live in?</Label>
 				<CreatableSelect
+					testId="react-select"
 					inputId="createable-example"
 					isClearable
 					isDisabled={isLoading}
@@ -71,6 +72,7 @@ class CreatableAdvanced extends Component<{}, State> {
 					onCreateOption={this.handleCreate}
 					options={options}
 					value={value}
+					menuIsOpen
 				/>
 			</>
 		);

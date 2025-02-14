@@ -1,18 +1,14 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import BoardIcon from '@atlaskit/icon/core/migration/board';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import {
 	CheckboxOption,
 	createFilter,
@@ -25,16 +21,19 @@ import Tooltip from '@atlaskit/tooltip';
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 
+import { ColumnPickerOld } from './column-picker-old';
 import { ConcatenatedMenuList } from './concatenated-menu-list';
 import { columnPickerMessages } from './messages';
 import { type ColumnPickerProps } from './types';
 
-const chevronIconStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
+const styles = cssMap({
+	chevronIconStyles: {
+		display: 'flex',
+		alignItems: 'center',
+	},
 });
 
-export const ColumnPicker = ({
+const ColumnPickerNew = ({
 	columns,
 	selectedColumnKeys,
 	onSelectedColumnKeysChange,
@@ -156,7 +155,7 @@ export const ColumnPicker = ({
 							appearance="subtle"
 							testId="column-picker-trigger-button"
 							iconBefore={() => (
-								<Box as="span" xcss={chevronIconStyles}>
+								<Box as="span" xcss={styles.chevronIconStyles}>
 									<BoardIcon
 										color="currentColor"
 										label="board"
@@ -175,4 +174,12 @@ export const ColumnPicker = ({
 			)}
 		/>
 	);
+};
+
+export const ColumnPicker = (props: ColumnPickerProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <ColumnPickerNew {...props} />;
+	} else {
+		return <ColumnPickerOld {...props} />;
+	}
 };

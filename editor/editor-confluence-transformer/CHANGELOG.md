@@ -1,5 +1,13 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.14.1
+
+### Patch Changes
+
+- [#112186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112186)
+  [`9462d8ca2405a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9462d8ca2405a) -
+  Bump adf-schema to 47.2.1
+
 ## 8.14.0
 
 ### Minor Changes

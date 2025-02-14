@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 99.16.0
+
+### Minor Changes
+
+- [#114421](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114421)
+  [`1b137b82b89d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b137b82b89d3) -
+  [ECOHELP-54944] Strip macro IDs on paste for extensions and inline extensions
+
+## 99.15.0
+
+### Minor Changes
+
+- [#113466](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113466)
+  [`756bb7e35a24d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/756bb7e35a24d) -
+  Add new FloatingToolbarOverflowDropdown item to floating toolbar config to support new editor
+  controls, add config in selection-toolbar plugin to add new button to text selection
+
+### Patch Changes
+
+- [#113299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113299)
+  [`329821ba1c893`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/329821ba1c893) -
+  [ED-26503] Mark the extension label as non-editable
+
+## 99.14.1
+
+### Patch Changes
+
+- [#112186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112186)
+  [`9462d8ca2405a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9462d8ca2405a) -
+  Bump adf-schema to 47.2.1
+
 ## 99.14.0
 
 ### Minor Changes

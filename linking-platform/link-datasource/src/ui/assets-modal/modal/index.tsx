@@ -4,8 +4,7 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
@@ -19,6 +18,7 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
@@ -56,7 +56,8 @@ import { AssetsSearchContainerLoading } from '../search-container/loading-state'
 import { type AssetsConfigModalProps, type AssetsDatasourceParameters } from '../types';
 
 import { modalMessages } from './messages';
-import { MODAL_HEIGHT, RenderAssetsContent } from './render-assets-content';
+import { AssetsConfigModalOld } from './modal-old';
+import { RenderAssetsContent } from './render-assets-content';
 
 type ErrorState = 'permission' | 'network';
 
@@ -66,7 +67,7 @@ const modalBodyErrorWrapperStyles = css({
 	alignItems: 'center',
 	display: 'grid',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	height: MODAL_HEIGHT,
+	height: 420,
 });
 
 const AssetsModalTitle = (
@@ -489,7 +490,7 @@ const contextData = {
 	},
 };
 
-export const AssetsConfigModal = withAnalyticsContext(contextData)(
+export const AssetsConfigModalNew = withAnalyticsContext(contextData)(
 	(props: AssetsConfigModalProps) => (
 		<StoreContainer>
 			<DatasourceExperienceIdProvider>
@@ -500,3 +501,11 @@ export const AssetsConfigModal = withAnalyticsContext(contextData)(
 		</StoreContainer>
 	),
 );
+
+export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <AssetsConfigModalNew {...props} />;
+	} else {
+		return <AssetsConfigModalOld {...props} />;
+	}
+};

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.3.0
+
+### Minor Changes
+
+- [#114421](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114421)
+  [`1b137b82b89d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b137b82b89d3) -
+  [ECOHELP-54944] Strip macro IDs on paste for extensions and inline extensions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.2
+
+### Patch Changes
+
+- [#112186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112186)
+  [`9462d8ca2405a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9462d8ca2405a) -
+  Bump adf-schema to 47.2.1
+
 ## 2.2.1
 
 ### Patch Changes

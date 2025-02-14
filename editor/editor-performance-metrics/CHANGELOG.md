@@ -1,5 +1,43 @@
 # @atlaskit/editor-performance-metrics
 
+## 1.4.0
+
+### Minor Changes
+
+- [#113957](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113957)
+  [`9bf5ff8b2ae82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9bf5ff8b2ae82) - ##
+  Minor Changes
+
+  This update adds the onTTAI callback functionality to the PerformanceMetrics component, which
+  allows tracking of the Time To App Idle (TTAI) event. The onTTAI callback is triggered when the
+  first idle time is detected after the component is mounted, providing a DOMHighResTimeStamp
+  indicating when the browser is truly idle.
+
+      New Callback: onTTAI
+          Type: (result: { idleAt: DOMHighResTimeStamp }) => void
+          Description: This callback is called once when the component detects its first idle state after mounting, supplying the timestamp of this idle state.
+
+      Enhancements:
+          Updated the PerformanceMetricsProps to include the new onTTAI callback.
+          Modified the PerformanceMetrics component to check for server-side rendering (SSR) and handle observers accordingly.
+          Incorporated useTTAI hook to manage the subscription to the idle event.
+
+  These enhancements provide additional metrics for analyzing editor performance, specifically
+  focusing on idle state detection, which can be critical for improving user experience and resource
+  management in applications.
+
+  ## Patch Changes
+
+  ### Race conditions
+
+  This updates fixes a race condition between `setTimeout` and `clearTimeout` that would call end up
+  calling the same `unhold` function twice.
+
+  ### Nested timers
+
+  This updates fixes a problem where the `onIdle` callback was never been called due to infinite
+  nested timers been used by third-party.
+
 ## 1.3.2
 
 ### Patch Changes

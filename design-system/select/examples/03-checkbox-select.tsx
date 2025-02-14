@@ -11,9 +11,7 @@ const CheckboxExample = () => (
 		<Label htmlFor="checkbox-select-example">Which cities have you lived in?</Label>
 		<CheckboxSelect
 			inputId="checkbox-select-example"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="checkbox-select"
-			classNamePrefix="select"
+			testId="react-select"
 			options={[
 				...cities,
 				{
@@ -25,12 +23,10 @@ const CheckboxExample = () => (
 			placeholder="Choose a City"
 		/>
 
-		<Label htmlFor="checkbox-select-example">Which cities have you lived in? (Selected)</Label>
+		<Label htmlFor="checkbox-selected-example">Which cities have you lived in? (Selected)</Label>
 		<CheckboxSelect
-			inputId="checkbox-select-example"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="checkbox-select"
-			classNamePrefix="select"
+			inputId="checkbox-selected-example"
+			testId="react-selected"
 			menuIsOpen
 			options={[
 				...cities,

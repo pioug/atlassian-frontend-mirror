@@ -2,17 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, styled } from '@compiled/react';
 
 import Form, { type OnSubmitHandler } from '@atlaskit/form';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { ObjectSchema, SearchForm } from '../../../types/assets/types';
 
 import { AqlSearchInput } from './aql-search-input';
 import { AssetsObjectSchemaSelect } from './object-schema-select';
-import { FormContainer, FormRowContainer, SchemaSelectContainer } from './styled';
+import { AssetsSearchContainerOld } from './search-container-old';
+import { FormRowContainer } from './styled';
 
 export type InitialSearchData = {
 	objectSchema?: ObjectSchema;
@@ -32,7 +34,20 @@ export interface SearchContainerProps {
 const DEFAULT_AQL_QUERY = '';
 const SEARCH_FORM_ID = 'linkDataSource.assets.configModal.searchContainer-form';
 
-export const AssetsSearchContainer = (props: SearchContainerProps) => {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const SchemaSelectContainer = styled.div({
+	width: '100%',
+	maxWidth: '386px',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const FormContainer = styled.form({
+	display: 'grid',
+	rowGap: token('space.200', '16px'),
+	width: '100%',
+});
+
+export const AssetsSearchContainerNew = (props: SearchContainerProps) => {
 	const { onSearch, workspaceId, initialSearchData, modalTitle, isSearching } = props;
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -71,4 +86,12 @@ export const AssetsSearchContainer = (props: SearchContainerProps) => {
 			)}
 		</Form>
 	);
+};
+
+export const AssetsSearchContainer = (props: SearchContainerProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <AssetsSearchContainerNew {...props} />;
+	} else {
+		return <AssetsSearchContainerOld {...props} />;
+	}
 };

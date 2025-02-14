@@ -3,14 +3,14 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, styled } from '@compiled/react';
 import debounce from 'debounce-promise';
 import { useIntl } from 'react-intl-next';
 
 import { Field } from '@atlaskit/form';
 import { AsyncSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { useObjectSchemas } from '../../../../hooks/useObjectSchemas';
 import {
@@ -18,10 +18,15 @@ import {
 	objectSchemaKey,
 	type ObjectSchemaOption,
 } from '../../../../types/assets/types';
-import { FieldContainer } from '../styled';
 
 import { objectSchemaSelectMessages } from './messages';
 import { objectSchemaToSelectOption } from './utils';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const FieldContainer = styled.div({
+	flex: 1,
+	marginTop: token('space.negative.100', '-8px'),
+});
 
 type AssetsObjectSchemaSelectProps = {
 	value: ObjectSchema | undefined;

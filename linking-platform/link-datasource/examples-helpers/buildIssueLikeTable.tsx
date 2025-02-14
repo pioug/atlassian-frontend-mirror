@@ -4,15 +4,12 @@
  */
 import { useEffect, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { jsx, styled } from '@compiled/react';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';

@@ -1,8 +1,10 @@
 import { createPayloads } from '../../src/create-payload';
+import { VCObserver } from '../../src/vc/vc-observer';
 
 export type ReactUFOPayload = {
 	attributes: {
 		properties: ReturnType<typeof createPayloads>[number]['attributes']['properties'] & {
+			'ufo:vc:dom': Record<(typeof VCObserver.VCParts)[number], string[]>;
 			'ufo:vc:updates': Array<{ time: number; vc: number; elements: string[] }>;
 			'ufo:vc:updates:next': Array<{ time: number; vc: number; elements: string[] }>;
 			'ufo:speedIndex'?: number;

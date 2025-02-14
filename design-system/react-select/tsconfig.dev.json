@@ -39,6 +39,9 @@
 		},
 		{
 			"path": "../form/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

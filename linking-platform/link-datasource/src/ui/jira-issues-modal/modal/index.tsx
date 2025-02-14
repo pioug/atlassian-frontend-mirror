@@ -1,13 +1,7 @@
 /* eslint-disable @atlaskit/platform/no-preconditioning */
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
@@ -69,6 +63,7 @@ import {
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
+import { JiraIssuesConfigModalOld } from './modal-old';
 
 const noop = () => '';
 
@@ -582,5 +577,9 @@ const JiraIssuesConfigModalWithExtraAnalyticsOnInsert = (props: JiraConfigModalP
 };
 
 export const JiraIssuesConfigModal = (props: JiraConfigModalProps) => {
-	return <JiraIssuesConfigModalWithExtraAnalyticsOnInsert {...props} />;
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <JiraIssuesConfigModalWithExtraAnalyticsOnInsert {...props} />;
+	} else {
+		return <JiraIssuesConfigModalOld {...props} />;
+	}
 };

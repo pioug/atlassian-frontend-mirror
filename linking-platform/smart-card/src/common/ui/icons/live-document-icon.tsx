@@ -1,8 +1,9 @@
-import LiveDocumentIcon from '@atlaskit/icon-lab/core/page-live-doc';
+import LiveDocIconSmall from '@atlaskit/icon-object/glyph/page-live-doc/16';
+import LiveDocIconLarge from '@atlaskit/icon-object/glyph/page-live-doc/24';
 
-import { renderIconTile } from './utils';
+import { renderIconPerSize } from './utils';
 
-const LiveDocumentIconWithColor = renderIconTile(LiveDocumentIcon, 'magentaBold');
+const LiveDocumentIconWithColor = renderIconPerSize(LiveDocIconSmall, LiveDocIconLarge);
 LiveDocumentIconWithColor.displayName = 'LiveDocumentIconWithColor';
 
 export default LiveDocumentIconWithColor;

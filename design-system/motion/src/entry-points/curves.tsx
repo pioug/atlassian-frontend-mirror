@@ -1,2 +1,2 @@
-export { easeIn, easeInOut, easeOut } from '../utils/curves';
+export { easeIn, easeInOut, easeOut, linear } from '../utils/curves';
 export type { AnimationCurve } from '../utils/curves';

@@ -1,13 +1,19 @@
-import Statsig, {
-	DynamicConfig,
-	EvaluationReason,
-	Layer,
-	type LocalOverrides,
-} from 'statsig-js-lite';
+import {
+	_makeExperiment,
+	_makeLayer,
+	StatsigClient,
+	type StatsigOptions,
+	type StatsigUser,
+} from '@statsig/js-client';
 
 import Subscriptions from '../subscriptions';
 
+import { DynamicConfig } from './compat/DynamicConfig';
+import { Layer } from './compat/Layer';
+import { EvaluationReason } from './compat/types';
 import Fetcher, { type FetcherOptions } from './fetcher';
+import { NoFetchDataAdapter } from './NoFetchDataAdapter';
+import { type LocalOverrides, PersistentOverrideAdapter } from './PersistentOverrideAdapter';
 import {
 	type BaseClientOptions,
 	type CheckGateOptions,
@@ -26,14 +32,21 @@ import {
 	PerimeterType,
 	type Provider,
 } from './types';
-import { getOptionsWithDefaults, shallowEquals, toStatsigOptions, toStatsigUser } from './utils';
+import {
+	getOptionsWithDefaults,
+	migrateInitializationOptions,
+	shallowEquals,
+	toStatsigUser,
+} from './utils';
 import { CLIENT_VERSION } from './version';
 
 const DEFAULT_CLIENT_KEY = 'client-default-key';
 // default event logging api is Atlassian proxy rather than Statsig's domain, to avoid ad blockers
-const DEFAULT_EVENT_LOGGING_API = 'https://xp.atlassian.com/v1/';
+const DEFAULT_EVENT_LOGGING_API = 'https://xp.atlassian.com/v1/rgstr';
 
 export class Client {
+	private statsigClient?: StatsigClient;
+	private user?: StatsigUser;
 	private initOptions?: OptionsWithDefaults<
 		BaseClientOptions | ClientOptions | FromValuesClientOptions
 	>;
@@ -56,6 +69,8 @@ export class Client {
 
 	private provider?: Provider;
 	private subscriptions = new Subscriptions();
+	private dataAdapter = new NoFetchDataAdapter();
+	private overrideAdapter = new PersistentOverrideAdapter();
 
 	/**
 	 * @description
@@ -177,8 +192,10 @@ export class Client {
 	private applyUpdateCallback(experimentsResult: FrontendExperimentsResult): void {
 		try {
 			if (this.initCompleted || this.initWithDefaults) {
-				Statsig.setInitializeValues(experimentsResult.experimentValues);
-				this.subscriptions.anyUpdated();
+				this.assertInitialized(this.statsigClient);
+				this.dataAdapter.setBootstrapData(experimentsResult.experimentValues);
+				this.dataAdapter.setData(JSON.stringify(experimentsResult.experimentValues));
+				this.statsigValuesUpdated();
 			}
 		} catch (error) {
 			// eslint-disable-next-line no-console
@@ -233,6 +250,13 @@ export class Client {
 			}
 			return this.initPromise;
 		}
+
+		// This makes sure the new Statsig client behaves like the old when bootstrap data is
+		// passed, and `has_updates` isn't specified (which happens a lot in product integration tests).
+		if (!Object.prototype.hasOwnProperty.call(initializeValues, 'has_updates')) {
+			initializeValues['has_updates'] = true;
+		}
+
 		const startTime = performance.now();
 		this.initOptions = clientOptionsWithDefaults;
 		this.initPromise = this.initFromValues(
@@ -253,6 +277,12 @@ export class Client {
 		return this.initPromise;
 	}
 
+	protected assertInitialized(statsigClient: StatsigClient | undefined): asserts statsigClient {
+		if (!statsigClient) {
+			throw new Error('Client must be initialized before using this method');
+		}
+	}
+
 	/**
 	 * This method updates the user using a network call to fetch the new set of values.
 	 * @param fetchOptions {FetcherOptions}
@@ -264,6 +294,7 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
+		this.assertInitialized(this.statsigClient);
 		const fetchOptionsWithDefaults = getOptionsWithDefaults(fetchOptions);
 		const initializeValuesProducer = () =>
 			Fetcher.fetchExperimentValues(fetchOptionsWithDefaults, identifiers, customAttributes).then(
@@ -289,6 +320,7 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
+		this.assertInitialized(this.statsigClient);
 		if (!this.provider) {
 			throw new Error(
 				'Cannot update user using provider as the client was not initialised with a provider',
@@ -317,6 +349,7 @@ export class Client {
 		customAttributes?: CustomAttributes,
 		initializeValues: Record<string, unknown> = {},
 	): Promise<void> {
+		this.assertInitialized(this.statsigClient);
 		const initializeValuesProducer = () =>
 			Promise.resolve({
 				experimentValues: initializeValues,
@@ -348,11 +381,9 @@ export class Client {
 	 */
 	checkGate(gateName: string, options: CheckGateOptions = {}): boolean {
 		try {
+			this.assertInitialized(this.statsigClient);
 			const { fireGateExposure = true } = options;
-			const evalMethod = fireGateExposure
-				? Statsig.checkGate.bind(Statsig)
-				: Statsig.checkGateWithExposureLoggingDisabled.bind(Statsig);
-			return evalMethod(gateName);
+			return this.statsigClient.checkGate(gateName, { disableExposureLog: !fireGateExposure });
 		} catch (error: unknown) {
 			// Log the first occurrence of the error
 			if (!this.hasCheckGateErrorOccurred) {
@@ -371,10 +402,10 @@ export class Client {
 
 	isGateExist(gateName: string): boolean {
 		try {
-			// @ts-expect-error TS2341: Property _getClientX is private and only accessible within class Statsi
-			const gate = Statsig._getClientX()._getGateFromStore(gateName);
+			this.assertInitialized(this.statsigClient);
+			const gate = this.statsigClient.getFeatureGate(gateName, { disableExposureLog: true });
 
-			return gate.evaluationDetails.reason !== EvaluationReason.Unrecognized;
+			return !gate.details.reason.includes('Unrecognized');
 		} catch (error: unknown) {
 			// eslint-disable-next-line no-console
 			console.error(`Error occurred when trying to check FeatureGate: ${error}`);
@@ -385,9 +416,10 @@ export class Client {
 
 	isExperimentExist(experimentName: string): boolean {
 		try {
-			const config = Statsig.getExperimentWithExposureLoggingDisabled(experimentName);
+			this.assertInitialized(this.statsigClient);
+			const config = this.statsigClient.getExperiment(experimentName, { disableExposureLog: true });
 
-			return config._evaluationDetails.reason !== EvaluationReason.Unrecognized;
+			return !config.details.reason.includes('Unrecognized');
 		} catch (error: unknown) {
 			// eslint-disable-next-line no-console
 			console.error(`Error occurred when trying to check Experiment: ${error}`);
@@ -403,7 +435,10 @@ export class Client {
 	 * @param gateName
 	 */
 	manuallyLogGateExposure(gateName: string): void {
-		Statsig.manuallyLogGateExposure(gateName);
+		this.assertInitialized(this.statsigClient);
+		// This is the approach recommended in the docs
+		// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
+		this.statsigClient.checkGate(gateName);
 	}
 
 	/**
@@ -423,11 +458,13 @@ export class Client {
 	 */
 	getExperiment(experimentName: string, options: GetExperimentOptions = {}): DynamicConfig {
 		try {
+			this.assertInitialized(this.statsigClient);
 			const { fireExperimentExposure = true } = options;
-			const evalMethod = fireExperimentExposure
-				? Statsig.getExperiment.bind(Statsig)
-				: Statsig.getExperimentWithExposureLoggingDisabled.bind(Statsig);
-			return evalMethod(experimentName);
+			return DynamicConfig.fromExperiment(
+				this.statsigClient.getExperiment(experimentName, {
+					disableExposureLog: !fireExperimentExposure,
+				}),
+			);
 		} catch (error: unknown) {
 			// Log the first occurrence of the error
 			if (!this.hasGetExperimentErrorOccurred) {
@@ -521,7 +558,10 @@ export class Client {
 	 * @param experimentName
 	 */
 	manuallyLogExperimentExposure(experimentName: string): void {
-		Statsig.manuallyLogExperimentExposure(experimentName);
+		this.assertInitialized(this.statsigClient);
+		// This is the approach recommended in the docs
+		// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
+		this.statsigClient.getExperiment(experimentName);
 	}
 
 	/**
@@ -531,11 +571,15 @@ export class Client {
 	 * @param parameterName
 	 */
 	manuallyLogLayerExposure(layerName: string, parameterName: string): void {
-		Statsig.manuallyLogLayerParameterExposure(layerName, parameterName);
+		this.assertInitialized(this.statsigClient);
+		// This is the approach recommended in the docs
+		// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
+		this.statsigClient.getLayer(layerName)?.get(parameterName);
 	}
 
 	shutdownStatsig(): void {
-		Statsig.shutdown();
+		this.assertInitialized(this.statsigClient);
+		this.statsigClient.shutdown();
 	}
 
 	/**
@@ -544,7 +588,7 @@ export class Client {
 	 * This method is additive, meaning you can call it multiple times with different gate names to
 	 * build your full set of overrides.
 	 *
-	 * Overrides are persisted to the `STATSIG_JS_LITE_LOCAL_OVERRIDES` key in localStorage, so they
+	 * Overrides are persisted to the `STATSIG_OVERRIDES` key in localStorage, so they
 	 * will continue to affect every client that is initialized on the same domain after this method
 	 * is called. If you are using this API for testing purposes, you should call
 	 * {@link Client.clearGateOverride} after your tests are completed to remove this
@@ -554,16 +598,22 @@ export class Client {
 	 * @param {boolean} value
 	 */
 	overrideGate(gateName: string, value: boolean): void {
-		Statsig.overrideGate(gateName, value);
-		this.subscriptions.anyUpdated();
+		this.assertInitialized(this.statsigClient);
+		this.overrideAdapter.overrideGate(gateName, value);
+		// Trigger a reset of the memoized gate value
+		if (this.user) {
+			this.statsigClient.updateUserSync(this.user, { disableBackgroundCacheRefresh: true });
+		}
+		this.statsigValuesUpdated();
 	}
 
 	/**
 	 * Removes any overrides that have been set for the given gate.
 	 */
 	clearGateOverride(gateName: string): void {
-		Statsig.overrideGate(gateName, null);
-		this.subscriptions.anyUpdated();
+		this.assertInitialized(this.statsigClient);
+		this.overrideAdapter.removeGateOverride(gateName);
+		this.statsigValuesUpdated();
 	}
 
 	/**
@@ -572,7 +622,7 @@ export class Client {
 	 * This method is additive, meaning you can call it multiple times with different experiment
 	 * names to build your full set of overrides.
 	 *
-	 * Overrides are persisted to the `STATSIG_JS_LITE_LOCAL_OVERRIDES` key in localStorage, so they
+	 * Overrides are persisted to the `STATSIG_OVERRIDES` key in localStorage, so they
 	 * will continue to affect every client that is initialized on the same domain after this method
 	 * is called. If you are using this API for testing purposes, you should call
 	 * {@link Client.clearConfigOverride} after your tests are completed to remove this
@@ -582,8 +632,9 @@ export class Client {
 	 * @param {object} values
 	 */
 	overrideConfig(experimentName: string, values: Record<string, unknown>): void {
-		Statsig.overrideConfig(experimentName, values);
-		this.subscriptions.anyUpdated();
+		this.assertInitialized(this.statsigClient);
+		this.overrideAdapter.overrideDynamicConfig(experimentName, values);
+		this.statsigValuesUpdated();
 	}
 
 	/**
@@ -591,8 +642,9 @@ export class Client {
 	 * @param {string} experimentName
 	 */
 	clearConfigOverride(experimentName: string): void {
-		Statsig.overrideConfig(experimentName, null);
-		this.subscriptions.anyUpdated();
+		this.assertInitialized(this.statsigClient);
+		this.overrideAdapter.removeDynamicConfigOverride(experimentName);
+		this.statsigValuesUpdated();
 	}
 
 	/**
@@ -602,35 +654,33 @@ export class Client {
 	 * added via prior calls to {@link Client.overrideConfig} or
 	 * {@link Client.overrideGate}.
 	 *
-	 * Overrides are persisted to the `STATSIG_JS_LITE_LOCAL_OVERRIDES` key in localStorage, so they
+	 * Overrides are persisted to the `STATSIG_OVERRIDES` key in localStorage, so they
 	 * will continue to affect every client that is initialized on the same domain after this method
 	 * is called. If you are using this API for testing purposes, you should call
 	 * {@link Client.clearAllOverrides} after your tests are completed to remove this
 	 * localStorage entry.
 	 */
 	setOverrides(overrides: Partial<LocalOverrides>): void {
-		Statsig.setOverrides({
-			gates: {},
-			configs: {},
-			layers: {},
-			...overrides,
-		});
-		this.subscriptions.anyUpdated();
+		this.assertInitialized(this.statsigClient);
+		this.overrideAdapter.setOverrides(overrides);
+		this.statsigValuesUpdated();
 	}
 
 	/**
 	 * @returns The current overrides for gates, configs (including experiments) and layers.
 	 */
 	getOverrides(): LocalOverrides {
-		return Statsig.getOverrides();
+		this.assertInitialized(this.statsigClient);
+		return this.overrideAdapter.getOverrides();
 	}
 
 	/**
 	 * Clears overrides for all gates, configs (including experiments) and layers.
 	 */
 	clearAllOverrides(): void {
-		Statsig.setOverrides(null);
-		this.subscriptions.anyUpdated();
+		this.assertInitialized(this.statsigClient);
+		this.overrideAdapter.removeAllOverrides();
+		this.statsigValuesUpdated();
 	}
 
 	/**
@@ -722,7 +772,7 @@ export class Client {
 			parameterName,
 			defaultValue,
 			wrapCallback,
-			this.getExperimentValue,
+			this.getExperimentValue.bind(this),
 			options,
 		);
 	}
@@ -875,28 +925,50 @@ export class Client {
 		customAttributes?: CustomAttributes | undefined,
 		initializeValues: Record<string, unknown> = {},
 	): Promise<void> {
-		const user = toStatsigUser(identifiers, customAttributes);
+		this.overrideAdapter.initFromStoredOverrides();
+		this.user = toStatsigUser(identifiers, customAttributes);
 		this.currentIdentifiers = identifiers;
 		this.currentAttributes = customAttributes;
 
-		if (!clientOptions.sdkKey) {
-			clientOptions.sdkKey = DEFAULT_CLIENT_KEY;
+		const newClientOptions = migrateInitializationOptions(clientOptions);
+		if (!newClientOptions.sdkKey) {
+			newClientOptions.sdkKey = DEFAULT_CLIENT_KEY;
 		}
 
-		if (!clientOptions.eventLoggingApi) {
-			clientOptions.eventLoggingApi = DEFAULT_EVENT_LOGGING_API;
+		if (!newClientOptions.networkConfig?.logEventUrl) {
+			newClientOptions.networkConfig = {
+				...newClientOptions.networkConfig,
+				logEventUrl: DEFAULT_EVENT_LOGGING_API,
+			};
 		}
 
-		if (clientOptions.perimeter === PerimeterType.FEDRAMP_MODERATE) {
+		if (newClientOptions.perimeter === PerimeterType.FEDRAMP_MODERATE) {
 			// disable all logging in FedRAMP to prevent egress of sensitive data
-			clientOptions.disableAllLogging = true;
+			newClientOptions.disableLogging = true;
 		}
 
-		const { sdkKey } = clientOptions;
-		const statsigOptions = toStatsigOptions(clientOptions, initializeValues);
+		const {
+			sdkKey,
+			environment,
+			updateUserCompletionCallback: _updateUserCompletionCallback,
+			perimeter: _perimeter,
+			...restClientOptions
+		} = newClientOptions;
+
+		const statsigOptions: StatsigOptions = {
+			...restClientOptions,
+			environment: {
+				tier: environment,
+			},
+			includeCurrentPageUrlWithEvents: false,
+			dataAdapter: this.dataAdapter,
+			overrideAdapter: this.overrideAdapter,
+		};
 
 		try {
-			await Statsig.initialize(sdkKey, user, statsigOptions);
+			this.statsigClient = new StatsigClient(sdkKey, this.user, statsigOptions);
+			this.dataAdapter.setBootstrapData(initializeValues);
+			await this.statsigClient.initializeAsync();
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				// eslint-disable-next-line no-console
@@ -906,10 +978,9 @@ export class Client {
 			}
 			// eslint-disable-next-line no-console
 			console.warn(`Initialising Statsig client with default sdk key and without values`);
-			await Statsig.initialize(DEFAULT_CLIENT_KEY, user, {
-				...statsigOptions,
-				initializeValues: {},
-			});
+			this.statsigClient = new StatsigClient(DEFAULT_CLIENT_KEY, this.user, statsigOptions);
+			this.dataAdapter.setBootstrapData();
+			await this.statsigClient.initializeAsync();
 			this.initWithDefaults = true;
 			throw error;
 		}
@@ -931,6 +1002,7 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
+		this.assertInitialized(this.statsigClient);
 		if (!this.initPromise) {
 			throw new Error('The client must be initialized before you can update the user.');
 		}
@@ -989,6 +1061,8 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
+		this.assertInitialized(this.statsigClient);
+
 		let initializeValues, user;
 		try {
 			initializeValues = await initializeValuesPromise;
@@ -1002,7 +1076,18 @@ export class Client {
 			throw err;
 		}
 
-		const success = Statsig.updateUserWithValues(user, initializeValues.experimentValues);
+		let success = true;
+		let errorMessage: string | null = null;
+		try {
+			this.dataAdapter.setBootstrapData(initializeValues.experimentValues);
+			this.user = user;
+			await this.statsigClient.updateUserAsync(this.user);
+		} catch (err) {
+			success = false;
+			errorMessage = String(err);
+		}
+
+		this.initOptions?.updateUserCompletionCallback?.(success, errorMessage);
 		if (success) {
 			this.currentIdentifiers = identifiers;
 			this.currentAttributes = customAttributes;
@@ -1011,6 +1096,18 @@ export class Client {
 			throw new Error('Failed to update user. An unexpected error occured.');
 		}
 	}
+
+	/**
+	 * Call this if modifying the values being served by the Statsig library since it has its own
+	 * memoization cache which will not be updated if the values are changed outside of the library.
+	 */
+	protected statsigValuesUpdated = () => {
+		if (this.user) {
+			// Trigger a reset of the memoize cache
+			this.statsigClient!.updateUserSync(this.user, { disableBackgroundCacheRefresh: true });
+		}
+		this.subscriptions.anyUpdated();
+	};
 
 	/**
 	 * @returns string version of the current package in semver style.
@@ -1040,11 +1137,11 @@ export class Client {
 		options: GetLayerOptions = {},
 	): Layer {
 		try {
+			this.assertInitialized(this.statsigClient);
 			const { fireLayerExposure = true } = options;
-			const evalMethod = fireLayerExposure
-				? Statsig.getLayer.bind(Statsig)
-				: Statsig.getLayerWithExposureLoggingDisabled.bind(Statsig);
-			return evalMethod(layerName);
+			return Layer.fromLayer(
+				this.statsigClient.getLayer(layerName, { disableExposureLog: !fireLayerExposure }),
+			);
 		} catch (error: unknown) {
 			// Log the first occurrence of the error
 			if (!this.hasGetLayerErrorOccurred) {
@@ -1058,10 +1155,7 @@ export class Client {
 			}
 
 			// Return a default value
-			return Layer._create(layerName, {}, '', {
-				time: Date.now(),
-				reason: EvaluationReason.Error,
-			});
+			return Layer.fromLayer(_makeLayer(layerName, { reason: 'Error' }, null));
 		}
 	}
 

@@ -1,9 +1,14 @@
 import React from 'react';
 
-import { Flex, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from '../../common/modal/popup-select/types';
 
+import BasicFilterContainerOld from './basic-filters-old';
 import { DateRangePicker, type DateRangeSelection } from './filters/date-range-picker';
 import EditedOrCreatedByFilter from './filters/edited-or-created-by';
 import { CLOLBasicFilters, type SelectedOptionsMap } from './types';
@@ -15,8 +20,10 @@ export interface BasicFilterContainerProps {
 	isHydrating?: boolean;
 }
 
-const basicFilterContainerStyles = xcss({
-	paddingLeft: 'space.100',
+const styles = cssMap({
+	basicFilterContainerStyles: {
+		paddingLeft: token('space.100'),
+	},
 });
 
 const BasicFilterContainer = ({
@@ -40,7 +47,11 @@ const BasicFilterContainer = ({
 	};
 
 	return (
-		<Flex xcss={basicFilterContainerStyles} gap="space.100" testId="clol-basic-filter-container">
+		<Flex
+			xcss={styles.basicFilterContainerStyles}
+			gap="space.100"
+			testId="clol-basic-filter-container"
+		>
 			<EditedOrCreatedByFilter
 				cloudId={cloudId}
 				onSelectionChange={onChange}
@@ -56,4 +67,12 @@ const BasicFilterContainer = ({
 	);
 };
 
-export default BasicFilterContainer;
+const BasicFilterContainerExported = (props: BasicFilterContainerProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <BasicFilterContainer {...props} />;
+	} else {
+		return <BasicFilterContainerOld {...props} />;
+	}
+};
+
+export default BasicFilterContainerExported;

@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { expandedState } from '@atlaskit/editor-common/expand';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection, expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
@@ -121,7 +121,27 @@ export const moveNodeViaShortcut = (
 			);
 		}
 
-		const currentNodePos = getCurrentNodePos(state);
+		const isMultiSelectEnabled = editorExperiment(
+			'platform_editor_element_drag_and_drop_multiselect',
+			true,
+		);
+
+		let expandedAnchor, expandedHead;
+		const pluginState = api?.blockControls.sharedState.currentState();
+
+		if (pluginState?.multiSelectDnD) {
+			expandedAnchor = pluginState.multiSelectDnD.anchor;
+			expandedHead = pluginState.multiSelectDnD.head;
+		} else {
+			const expandedSelection = expandSelectionBounds(selection.$anchor, selection.$head);
+			expandedAnchor = expandedSelection.$anchor.pos;
+			expandedHead = expandedSelection.$head.pos;
+		}
+
+		const currentNodePos = isMultiSelectEnabled
+			? Math.min(expandedAnchor, expandedHead)
+			: getCurrentNodePos(state);
+
 		if (currentNodePos > -1) {
 			const $pos = state.doc.resolve(currentNodePos);
 			const isTopLevelNode = $pos.depth === 0;
@@ -252,7 +272,9 @@ export const moveNodeViaShortcut = (
 				}
 			} else {
 				const endOfDoc = $pos.end();
-				const nodeAfterPos = $pos.posAtIndex($pos.index() + 1);
+				const nodeAfterPos = isMultiSelectEnabled
+					? Math.max(expandedAnchor, expandedHead)
+					: $pos.posAtIndex($pos.index() + 1);
 
 				if (nodeAfterPos > endOfDoc) {
 					return false;
@@ -281,15 +303,23 @@ export const moveNodeViaShortcut = (
 
 			if (shouldMoveNode) {
 				api?.core?.actions.execute(({ tr }) => {
+					api?.blockControls.commands.setMultiSelectPositions(expandedAnchor, expandedHead)({ tr });
 					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.SHORTCUT, formatMessage)({ tr });
 					tr.scrollIntoView();
 					return tr;
 				});
 				return true;
-			} else if (nodeType) {
+			} else if (nodeType && !isMultiSelectEnabled) {
 				// If the node is first/last one, only select the node
 				api?.core?.actions.execute(({ tr }) => {
 					selectNode(tr, currentNodePos, nodeType);
+					tr.scrollIntoView();
+					return tr;
+				});
+				return true;
+			} else if (isMultiSelectEnabled) {
+				api?.core?.actions.execute(({ tr }) => {
+					api.blockControls.commands.setMultiSelectPositions(expandedAnchor, expandedHead)({ tr });
 					tr.scrollIntoView();
 					return tr;
 				});
@@ -408,12 +438,19 @@ export const moveNode =
 			tr.insert(mappedTo, nodeCopy); // insert the content at the new position
 		}
 
+		const sliceSize = sliceTo - sliceFrom;
 		tr =
 			inputMethod === INPUT_METHOD.DRAG_AND_DROP
 				? setCursorPositionAtMovedNode(tr, mappedTo)
-				: selectNode(tr, mappedTo, handleNode.type.name);
+				: isMultiSelect
+					? api?.blockControls.commands.setMultiSelectPositions(
+							mappedTo,
+							mappedTo + sliceSize,
+						)({ tr }) ?? tr
+					: selectNode(tr, mappedTo, handleNode.type.name);
 
-		tr.setMeta(key, { nodeMoved: true });
+		const currMeta = tr.getMeta(key);
+		tr.setMeta(key, { ...currMeta, nodeMoved: true });
 		api?.core.actions.focus();
 		const $mappedTo = tr.doc.resolve(mappedTo);
 

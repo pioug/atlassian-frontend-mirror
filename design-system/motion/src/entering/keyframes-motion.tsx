@@ -9,7 +9,7 @@ import { useSetTimeout } from '../utils/timer-hooks';
 
 import { useExitingPersistence } from './exiting-persistence';
 import { useStaggeredEntrance } from './staggered-entrance';
-import { type MotionProps, type Transition } from './types';
+import { type AnimationCurve, type MotionProps } from './types';
 
 /**
  * These are props that motions should use as their external props for consumers.
@@ -25,10 +25,15 @@ export interface KeyframesMotionProps extends MotionProps<{ className: string; r
 interface InternalKeyframesMotionProps extends KeyframesMotionProps {
 	/**
 	 * Timing function to be used with the animation.
-	 * Receives the `state` and expects a `string` return value.
 	 * Useful if you want a different curve when entering vs. exiting.
 	 */
-	animationTimingFunction: (state: Transition) => string;
+	animationTimingFunction: AnimationCurve;
+
+	/**
+	 * Timing function to be used with the animation when exiting.
+	 * If not provided, it will default to the entering animation timing function.
+	 */
+	animationTimingFunctionExiting?: AnimationCurve;
 
 	/**
 	 * CSS keyframes for the entering animation.
@@ -54,6 +59,7 @@ interface InternalKeyframesMotionProps extends KeyframesMotionProps {
 const EnteringMotion = ({
 	children,
 	animationTimingFunction,
+	animationTimingFunctionExiting = animationTimingFunction,
 	enteringAnimation,
 	exitingAnimation = enteringAnimation,
 	isPaused,
@@ -122,7 +128,6 @@ const EnteringMotion = ({
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 										animationName: keyframes(enteringAnimation),
 										animationPlayState: 'running',
-										animationTimingFunction: animationTimingFunction(state),
 									}),
 									paused && css({ animationPlayState: 'paused' }),
 									duration === 'small' && css({ animationDuration: '100ms' }),
@@ -138,6 +143,31 @@ const EnteringMotion = ({
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 											animationName: keyframes(exitingAnimation),
 										}),
+
+									!isExiting &&
+										animationTimingFunction === 'linear' &&
+										css({ animationTimingFunction: 'cubic-bezier(0,0,1,1)' }),
+									!isExiting &&
+										animationTimingFunction === 'ease-out' &&
+										css({ animationTimingFunction: 'cubic-bezier(0.2,0,0,1)' }),
+									!isExiting &&
+										animationTimingFunction === 'ease-in' &&
+										css({ animationTimingFunction: 'cubic-bezier(0.8,0,0,0.8)' }),
+									!isExiting &&
+										animationTimingFunction === 'ease-in-out' &&
+										css({ animationTimingFunction: 'cubic-bezier(0.15,1,0.3,1)' }),
+									isExiting &&
+										animationTimingFunction === 'linear' &&
+										css({ animationTimingFunction: 'cubic-bezier(0,0,1,1)' }),
+									isExiting &&
+										animationTimingFunctionExiting === 'ease-out' &&
+										css({ animationTimingFunction: 'cubic-bezier(0.2,0,0,1)' }),
+									isExiting &&
+										animationTimingFunctionExiting === 'ease-in' &&
+										css({ animationTimingFunction: 'cubic-bezier(0.8,0,0,0.8)' }),
+									isExiting &&
+										animationTimingFunctionExiting === 'ease-in-out' &&
+										css({ animationTimingFunction: 'cubic-bezier(0.15,1,0.3,1)' }),
 								)
 							: '',
 					},

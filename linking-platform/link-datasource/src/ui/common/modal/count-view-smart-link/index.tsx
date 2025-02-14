@@ -1,49 +1,67 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
+
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import LinkRenderType from '../../../issue-like-table/render-type/link';
 
-const placeholderSmartLinkStyles = xcss({
-	backgroundColor: 'elevation.surface.raised',
-	borderRadius: token('border.radius.200', '3px'),
-	color: 'color.text.brand',
-	paddingTop: 'space.0',
-	paddingBottom: 'space.0',
-	paddingLeft: 'space.025',
-	paddingRight: 'space.025',
-	boxShadow: 'elevation.shadow.raised',
+import { SmartCardPlaceholderOld, SmartLinkOld } from './count-view-smart-link-old';
+
+const styles = cssMap({
+	placeholderSmartLinkStyles: {
+		borderRadius: token('border.radius.200', '3px'),
+		color: token('color.text.brand'),
+		paddingTop: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.025'),
+		paddingRight: token('space.025'),
+		boxShadow: token('elevation.shadow.raised'),
+	},
+	smartLinkContainerStyles: {
+		paddingLeft: token('space.025'),
+	},
 });
 
-const smartLinkContainerStyles = xcss({
-	paddingLeft: 'space.025',
-});
-
-export const SmartCardPlaceholder = ({
+export const SmartCardPlaceholderNew = ({
 	placeholderText,
 }: {
 	placeholderText: MessageDescriptor;
 }) => (
-	<Box xcss={smartLinkContainerStyles}>
+	<Box xcss={styles.smartLinkContainerStyles}>
 		<Box
 			as="span"
 			testId="datasource-modal--smart-card-placeholder"
-			xcss={placeholderSmartLinkStyles}
+			xcss={styles.placeholderSmartLinkStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={{ backgroundColor: token('elevation.surface.raised') }}
 		>
 			<FormattedMessage {...placeholderText} />
 		</Box>
 	</Box>
 );
 
-export const SmartLink = ({ url }: { url: string }) => (
-	<Box xcss={smartLinkContainerStyles}>
+export const SmartCardPlaceholder = (props: { placeholderText: MessageDescriptor }) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <SmartCardPlaceholderNew {...props} />;
+	} else {
+		return <SmartCardPlaceholderOld {...props} />;
+	}
+};
+
+export const SmartLinkNew = ({ url }: { url: string }) => (
+	<Box xcss={styles.smartLinkContainerStyles}>
 		<LinkRenderType url={url} />
 	</Box>
 );
+
+export const SmartLink = (props: { url: string }) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <SmartLinkNew {...props} />;
+	} else {
+		return <SmartLinkOld {...props} />;
+	}
+};

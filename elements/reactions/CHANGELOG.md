@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 25.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.2.0
+
+### Minor Changes
+
+- [#113141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113141)
+  [`2b9b00172281b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b9b00172281b) -
+  Added new 'onlyRenderPicker' property to hide user reactions and only render picker
+
 ## 25.1.0
 
 ### Minor Changes

@@ -19,6 +19,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { toggleToolbar } from './pm-plugins/commands';
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
+import { overflowToolbarConfig } from './ui/overflow-toolbar-config';
 
 type SelectionToolbarPluginState = {
 	selectionStable: boolean;
@@ -186,6 +187,10 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 							items.push({ type: 'separator' });
 						}
 					}
+				}
+
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
+					items.push(...overflowToolbarConfig);
 				}
 
 				const calcToolbarPosition = options.config.preferenceToolbarAboveSelection

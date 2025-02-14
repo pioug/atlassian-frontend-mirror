@@ -5,4 +5,7 @@ import { JiraIssuesConfigModalNoResultsState } from '../../examples/jira-issues-
 snapshot(JiraIssuesConfigModalNoResultsState, {
 	description: 'Jira issues config modal no results view',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });

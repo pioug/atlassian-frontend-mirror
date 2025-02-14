@@ -1,4 +1,6 @@
-import { type StatsigOptions } from 'statsig-js-lite';
+import type { StatsigOptions as NewStatsigOptions } from '@statsig/js-client';
+
+import type { StatsigOptions } from './compat/types';
 
 /**
  * The identifiers for the user. Options are restricted to the set that is currently supported.
@@ -26,7 +28,15 @@ export type Identifiers = {
 
 export type UpdateUserCompletionCallback = (success: boolean, message: string | null) => void;
 
-type FeatureGateOptions = StatsigOptions;
+export type FeatureGateOptions = Omit<
+	StatsigOptions,
+	'environment' | 'initializeValues' | 'sdkKey' | 'updateUserCompletionCallback'
+>;
+
+export type NewFeatureGateOptions = Omit<
+	NewStatsigOptions,
+	'environment' | 'initializeValues' | 'sdkKey' | 'updateUserCompletionCallback'
+>;
 
 type OperationalEventPayload = {
 	action: string;
@@ -49,11 +59,7 @@ export interface AnalyticsWebClient {
  * @property {AnalyticsWebClient} analyticsWebClient - The analytics web client.
  * @property {PerimeterType} perimeter - The perimeter for the client.
  */
-export interface BaseClientOptions
-	extends Omit<
-		FeatureGateOptions,
-		'environment' | 'initializeValues' | 'sdkKey' | 'updateUserCompletionCallback'
-	> {
+export interface BaseClientOptions extends FeatureGateOptions {
 	environment: FeatureGateEnvironment;
 	targetApp: string;
 	updateUserCompletionCallback?: UpdateUserCompletionCallback;

@@ -4,27 +4,24 @@
  */
 import { useCallback, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { AccessRequired } from '../../../common/error-state/access-required';
 import { ModalLoadingError } from '../../../common/error-state/modal-loading-error';
 import { NoResults } from '../../../common/error-state/no-results';
-import {
-	EmptyState,
-	IssueLikeDataTableView,
-	scrollableContainerShadowsCssComponents,
-} from '../../../issue-like-table';
+import { EmptyState, IssueLikeDataTableView } from '../../../issue-like-table';
 
 import { InitialStateView } from './initial-state-view';
+import { RenderAssetsContentOld } from './render-assets-content-old';
 
 export interface RenderAssetsContentProps {
 	isFetchingInitialData: boolean;
@@ -51,7 +48,7 @@ const disableOverflowStyles = css({
 });
 
 const contentContainerStyles = css({
-	height: MODAL_HEIGHT,
+	height: 420,
 	display: 'grid',
 	overflow: 'auto',
 });
@@ -61,14 +58,20 @@ const tableBordersStyles = css({
 	borderTopLeftRadius: token('border.radius.200', '8px'),
 	borderTopRightRadius: token('border.radius.200', '8px'),
 	borderBottom: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundImage: scrollableContainerShadowsCssComponents.backgroundImage,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundRepeat: scrollableContainerShadowsCssComponents.backgroundRepeat,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundSize: scrollableContainerShadowsCssComponents.backgroundSize,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundAttachment: scrollableContainerShadowsCssComponents.backgroundAttachment,
+	backgroundImage: `
+		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}, rgba(0, 0, 0, 0)),
+		linear-gradient(90deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 70%),
+		linear-gradient(90deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}])
+		linear-gradient(0deg, rgba(255, 255, 255, 0),  ${token('utility.elevation.surface.current', '#FFF')} 30%),
+		linear-gradient(0deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}),
+		linear-gradient(0deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(0deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}, rgba(0, 0, 0, 0))
+		`,
+	backgroundRepeat: 'no-repeat',
+	backgroundSize:
+		'40px 100%, 14px 100%, 40px 100%, 14px 100%, 100% 100px, 100% 14px, 100% 40px, 100% 10px',
+	backgroundAttachment: 'local, scroll, local, scroll, local, scroll, local, scroll',
 });
 
 const RejectedView = () => (
@@ -108,7 +111,7 @@ const LoadingView = () => (
 	</div>
 );
 
-export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
+export const RenderAssetsContentNew = (props: RenderAssetsContentProps) => {
 	const {
 		status,
 		responseItems,
@@ -182,4 +185,12 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
 	]);
 
 	return renderAssetsContentView();
+};
+
+export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <RenderAssetsContentNew {...props} />;
+	} else {
+		return <RenderAssetsContentOld {...props} />;
+	}
 };

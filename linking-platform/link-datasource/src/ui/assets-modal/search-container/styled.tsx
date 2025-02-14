@@ -1,34 +1,33 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const FormRowContainer = styled.div<{ isNarrowGap?: boolean }>((props) => ({
+const formRowContainerBaseStyles = css({
 	alignItems: 'center',
 	display: 'flex',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	gap: props.isNarrowGap ? token('space.100', '8px') : token('space.200', '16px'),
 	flexGrow: 1,
 	width: '100%',
-}));
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const FormContainer = styled.form({
-	display: 'grid',
-	rowGap: token('space.200', '16px'),
-	width: '100%',
 });
 
-// Override the top margin of fields
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const FieldContainer = styled.div({
-	flex: 1,
-	marginTop: token('space.negative.100', '-8px'),
+const formRowContainerNarrowGapStyles = css({
+	gap: token('space.100', '8px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SchemaSelectContainer = styled.div({
-	width: '100%',
-	maxWidth: '386px',
+const formRowContainerWideGapStyles = css({
+	gap: token('space.200', '16px'),
 });
+
+export const FormRowContainer = (props: React.PropsWithChildren<{ isNarrowGap?: boolean }>) => (
+	<div
+		css={[
+			formRowContainerBaseStyles,
+			props.isNarrowGap ? formRowContainerNarrowGapStyles : formRowContainerWideGapStyles,
+		]}
+	>
+		{props.children}
+	</div>
+);

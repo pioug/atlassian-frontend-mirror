@@ -8,9 +8,7 @@ const SingleExample = () => (
 		<Label htmlFor="default">Default</Label>
 		<Select
 			inputId="default"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="single-select"
-			classNamePrefix="react-select"
+			testId="react-select"
 			options={[
 				{ label: 'Adelaide', value: 'adelaide' },
 				{ label: 'Brisbane', value: 'brisbane' },
@@ -26,9 +24,7 @@ const SingleExample = () => (
 		<Label htmlFor="subtle">Subtle</Label>
 		<Select
 			inputId="subtle"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="single-select"
-			classNamePrefix="react-select"
+			testId="react-select"
 			options={[
 				{ label: 'Adelaide', value: 'adelaide' },
 				{ label: 'Brisbane', value: 'brisbane' },
@@ -45,9 +41,7 @@ const SingleExample = () => (
 		<Label htmlFor="none">None</Label>
 		<Select
 			inputId="none"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="single-select"
-			classNamePrefix="react-select"
+			testId="react-select"
 			options={[
 				{ label: 'Adelaide', value: 'adelaide' },
 				{ label: 'Brisbane', value: 'brisbane' },

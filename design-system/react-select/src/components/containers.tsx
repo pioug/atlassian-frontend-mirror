@@ -34,7 +34,7 @@ export interface ContainerProps<
 	/**
 	 * Inner props to be passed down to the container.
 	 */
-	innerProps: JSX.IntrinsicElements['div'];
+	innerProps: {};
 }
 export const containerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
@@ -83,7 +83,7 @@ export interface ValueContainerProps<
 	/**
 	 * Props to be passed to the value container element.
 	 */
-	innerProps?: JSX.IntrinsicElements['div'];
+	innerProps?: {};
 	/**
 	 * The children to be rendered.
 	 */

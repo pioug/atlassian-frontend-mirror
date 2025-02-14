@@ -17,7 +17,7 @@ import Clone from './clone';
 import NodeResolverSpotlightInner from './node-resolver-spotlight-inner';
 import SpotlightDialog from './spotlight-dialog';
 import { SpotlightTransitionConsumer } from './spotlight-transition';
-export interface SpotlightInnerProps extends SpotlightProps {
+interface SpotlightInnerProps extends SpotlightProps {
 	/**
 	 * The spotlight target DOM element.
 	 */

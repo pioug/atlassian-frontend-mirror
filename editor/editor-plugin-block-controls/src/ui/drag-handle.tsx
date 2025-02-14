@@ -45,7 +45,7 @@ import { key } from '../pm-plugins/main';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
 import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
-import { isHandleInSelection, selectNode } from '../pm-plugins/utils/getSelection';
+import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 
 import {
 	DRAG_HANDLE_BORDER_RADIUS,
@@ -475,7 +475,7 @@ export const DragHandle = ({
 			return;
 		}
 
-		setDragHandleSelected(isHandleInSelection(view.state, selection, start));
+		setDragHandleSelected(isHandleCorrelatedToSelection(view.state, selection, start));
 	}, [start, selection, view.state]);
 
 	let helpDescriptors =

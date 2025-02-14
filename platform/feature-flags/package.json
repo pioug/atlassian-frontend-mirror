@@ -40,7 +40,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/feature-gate-js-client": "^4.23.0",
+		"@atlaskit/feature-gate-js-client": "^4.24.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"bugs": {

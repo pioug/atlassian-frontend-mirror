@@ -4,7 +4,9 @@ import throttle from 'lodash/throttle';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -384,7 +386,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			return;
 		}
 		const { table } = tree;
-		const shouldStick = this.isHeaderSticky();
+		const shouldStick = this.shouldSticky();
 		if (this.isSticky !== shouldStick) {
 			if (shouldStick) {
 				// The rootRect is kept in sync across sentinels so it doesn't matter which one we use.
@@ -394,6 +396,33 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				this.makeRowHeaderNotSticky(table);
 			}
 		}
+	}
+
+	private shouldSticky() {
+		if (
+			// is Safari
+			navigator.userAgent.includes('AppleWebKit') &&
+			!navigator.userAgent.includes('Chrome') &&
+			fg('platform_editor_advanced_layouts_post_fix_patch_4')
+		) {
+			const pos = this.getPos();
+			if (typeof pos === 'number') {
+				const $tableRowPos = this.view.state.doc.resolve(pos);
+
+				// layout -> layout column -> table -> table row
+				if ($tableRowPos.depth >= 3) {
+					const isInsideLayout = findParentNodeClosestToPos($tableRowPos, (node) => {
+						return node.type.name === 'layoutColumn';
+					})?.node;
+
+					if (isInsideLayout) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return this.isHeaderSticky();
 	}
 
 	private isHeaderSticky() {

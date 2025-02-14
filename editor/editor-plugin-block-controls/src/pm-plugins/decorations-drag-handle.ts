@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 
 import { bind, type UnbindFn } from 'bind-event-listener';
+import ReactDOM from 'react-dom';
 import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
@@ -96,21 +97,40 @@ export const dragHandleDecoration = (
 			// due to margins applied to other nodes eg. Headings
 			element.style.clear = 'unset';
 
-			nodeViewPortalProviderAPI.render(
-				() =>
-					createElement(DragHandle, {
-						view,
-						api,
-						formatMessage,
-						getPos,
-						anchorName,
-						nodeType,
-						handleOptions,
-						isTopLevelNode,
-					}),
+			// temporarily re-instating ReactDOM.render to fix drag handle focus issue, fix to
+			// follow via ED-26546
+
+			// if (fg('platform_editor_react18_plugin_portalprovider')) {
+			// 	nodeViewPortalProviderAPI.render(
+			// 		() =>
+			// 			createElement(DragHandle, {
+			// 				view,
+			// 				api,
+			// 				formatMessage,
+			// 				getPos,
+			// 				anchorName,
+			// 				nodeType,
+			// 				handleOptions,
+			// 				isTopLevelNode,
+			// 			}),
+			// 		element,
+			// 		key,
+			// 	);
+			// } else {
+			ReactDOM.render(
+				createElement(DragHandle, {
+					view,
+					api,
+					formatMessage,
+					getPos,
+					anchorName,
+					nodeType,
+					handleOptions,
+					isTopLevelNode,
+				}),
 				element,
-				key,
 			);
+			//}
 			return element;
 		},
 		{

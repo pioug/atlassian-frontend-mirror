@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -63,11 +63,9 @@ export const ExampleJiraIssuesTableView = ({
 	parameters,
 	mockDatasourceFetchRequest = true,
 }: JiraIssuesTableViewProps) => {
-	useEffect(() => {
-		if (mockDatasourceFetchRequest) {
-			mockDatasourceFetchRequests();
-		}
-	}, [mockDatasourceFetchRequest]);
+	if (mockDatasourceFetchRequest) {
+		mockDatasourceFetchRequests();
+	}
 
 	return (
 		<DatasourceExperienceIdProvider>

@@ -1,31 +1,45 @@
 /* eslint-disable no-console */
-import Statsig from 'statsig-js-lite';
+import type { StatsigClient } from '@statsig/js-client';
 
 import { Client } from '../Client';
+import { NoFetchDataAdapter } from '../NoFetchDataAdapter';
 
-jest.mock('statsig-js-lite', () => {
-	const statsig = jest.requireActual('statsig-js-lite');
+const mockStatsigClient = {
+	initializeAsync: jest.fn(),
+	updateUserAsync: jest.fn(),
+	checkGate: jest.fn(),
+	getExperiment: jest.fn(),
+	getLayer: jest.fn(),
+	shutdown: jest.fn(),
+} satisfies Partial<StatsigClient>;
+
+const mockStatsigClientConstructor = jest.fn();
+
+jest.mock('@statsig/js-client', () => {
+	const actual = jest.requireActual('@statsig/js-client');
 
 	return {
-		...statsig,
-		default: {
-			initialize: jest.fn(),
-			checkGate: jest.fn(),
-			checkGateWithExposureLoggingDisabled: jest.fn(),
-			getExperiment: jest.fn(),
-			getExperimentWithExposureLoggingDisabled: jest.fn(),
-			getLayer: jest.fn(),
-			getLayerWithExposureLoggingDisabled: jest.fn(),
-			setOverrides: jest.fn(),
-			shutdown: jest.fn(),
-			updateUserWithValues: jest.fn().mockReturnValue(true),
-			setInitializeValues: jest.fn(),
+		...actual,
+		StatsigClient: function (...args: unknown[]) {
+			mockStatsigClientConstructor(...args);
+			return mockStatsigClient;
 		},
-		__esModule: true,
 	};
 });
-// @ts-ignore
-const StatsigMocked: jest.Mocked<typeof Statsig> = Statsig;
+
+jest.mock('../NoFetchDataAdapter', () => {
+	const mockDataAdapter = {
+		setBootstrapData: jest.fn(),
+		setData: jest.fn(),
+	} satisfies Partial<NoFetchDataAdapter>;
+
+	return {
+		NoFetchDataAdapter: function () {
+			return mockDataAdapter;
+		},
+	};
+});
+const mockDataAdapter = jest.mocked(new NoFetchDataAdapter());
 
 afterEach(() => {
 	jest.resetAllMocks();
@@ -48,6 +62,7 @@ describe('applyUpdateCallback', () => {
 		${'initWithDefaults true'} | ${false}      | ${true}
 	`('should apply update when - $variation', ({ initCompleted, initWithDefaults }) => {
 		const client = new Client();
+		client['statsigClient'] = mockStatsigClient as unknown as StatsigClient;
 		client['initCompleted'] = initCompleted;
 		client['initWithDefaults'] = initWithDefaults;
 
@@ -55,13 +70,14 @@ describe('applyUpdateCallback', () => {
 			experimentValues,
 			customAttributesFromFetch: {},
 		});
-		expect(StatsigMocked.setInitializeValues).toHaveBeenCalledWith(experimentValues);
+		expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledWith(experimentValues);
 
 		expect(console.warn).toHaveBeenCalledTimes(0);
 	});
 
 	test('do not apply update if init was not completed and not with defaults', () => {
 		const client = new Client();
+		client['statsigClient'] = mockStatsigClient as unknown as StatsigClient;
 		client['initCompleted'] = false;
 		client['initWithDefaults'] = false;
 
@@ -69,19 +85,20 @@ describe('applyUpdateCallback', () => {
 			experimentValues,
 			customAttributesFromFetch: {},
 		});
-		expect(StatsigMocked.setInitializeValues).toHaveBeenCalledTimes(0);
+		expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledTimes(0);
 
 		expect(console.warn).toHaveBeenCalledTimes(0);
 	});
 
 	test('console warn when apply update fails', () => {
 		const client = new Client();
+		client['statsigClient'] = mockStatsigClient as unknown as StatsigClient;
 		client['initCompleted'] = true;
 		client['initWithDefaults'] = false;
 
 		const error = new Error('Error when setting values');
 
-		StatsigMocked.setInitializeValues.mockImplementation(() => {
+		mockDataAdapter.setBootstrapData.mockImplementation(() => {
 			throw error;
 		});
 
@@ -89,7 +106,7 @@ describe('applyUpdateCallback', () => {
 			experimentValues,
 			customAttributesFromFetch: {},
 		});
-		expect(StatsigMocked.setInitializeValues).toHaveBeenCalledTimes(1);
+		expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledTimes(1);
 
 		expect(console.warn).toHaveBeenCalledWith('Error when attempting to apply update', error);
 	});

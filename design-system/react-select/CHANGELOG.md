@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.7.3
+
+### Patch Changes
+
+- [#106179](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106179)
+  [`84a6c5a582438`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84a6c5a582438) -
+  Add support for testId to Select
+
 ## 1.7.2
 
 ### Patch Changes

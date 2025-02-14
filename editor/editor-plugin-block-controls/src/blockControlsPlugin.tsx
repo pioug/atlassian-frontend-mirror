@@ -54,13 +54,20 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		setMultiSelectPositions:
-			() =>
+			(anchor?: number, head?: number) =>
 			({ tr }: { tr: Transaction }) => {
 				const { anchor: userAnchor, head: userHead } = tr.selection;
-				const { $anchor: expandedAnchor, $head: expandedHead } = expandSelectionBounds(
-					tr.selection.$anchor,
-					tr.selection.$head,
-				);
+				let expandedAnchor, expandedHead;
+
+				if (anchor !== undefined && head !== undefined) {
+					expandedAnchor = tr.doc.resolve(anchor);
+					expandedHead = tr.doc.resolve(head);
+				} else {
+					const expandedSelection = expandSelectionBounds(tr.selection.$anchor, tr.selection.$head);
+					expandedAnchor = expandedSelection.$anchor;
+					expandedHead = expandedSelection.$head;
+				}
+
 				api?.selection?.commands.setManualSelection(expandedAnchor.pos, expandedHead.pos)({ tr });
 				// this is to normalise the selection's boundaries to inline positions, preventing it from collapsing
 				const expandedNormalisedSel = TextSelection.between(expandedAnchor, expandedHead);

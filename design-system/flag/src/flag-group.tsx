@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { durations, easeIn, exitingDurations, ExitingPersistence, SlideIn } from '@atlaskit/motion';
+import { durations, exitingDurations, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import Portal from '@atlaskit/portal';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
@@ -170,7 +170,7 @@ const FlagGroup = (props: FlagGroupProps) => {
 							enterFrom="left"
 							fade="inout"
 							duration="medium"
-							animationTimingFunction={() => easeIn}
+							animationTimingFunction="ease-in"
 						>
 							{({ className, ref }) => (
 								<div

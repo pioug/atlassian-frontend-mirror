@@ -7,7 +7,7 @@ import { type Ref } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { type Direction, easeOut, SlideIn } from '@atlaskit/motion';
+import { type Direction, SlideIn } from '@atlaskit/motion';
 
 interface ChildrenAsFunctionProps {
 	'data-enter-from': string;
@@ -30,7 +30,7 @@ interface NestingMotionProps {
 export const NestingMotion = (props: NestingMotionProps) => {
 	const { children, enterFrom, exitTo, testId } = props;
 	return (
-		<SlideIn exitTo={exitTo} enterFrom={enterFrom} animationTimingFunction={(_) => easeOut}>
+		<SlideIn exitTo={exitTo} enterFrom={enterFrom} animationTimingFunction="ease-out">
 			{(innerProps, direction) =>
 				children({
 					'data-enter-from': enterFrom,

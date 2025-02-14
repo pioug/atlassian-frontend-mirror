@@ -4,29 +4,34 @@
  */
 import { useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Grid, Text, xcss } from '@atlaskit/primitives';
+import { Grid, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotSearchNoResult } from '../../../common/ui/spot/error-state/search-no-result';
 
 import { loadingErrorMessages } from './messages';
+import { NoResultsOld } from './no-results-old';
 
-const noResultsContainerStyles = xcss({
-	margin: 'space.500',
-	gap: 'space.300',
-	placeItems: 'center',
-	placeSelf: 'center',
-});
-
-const noResultsMessageContainerStyles = xcss({
-	gap: 'space.100',
-	placeItems: 'center',
+const styles = cssMap({
+	noResultsContainerStyles: {
+		marginTop: token('space.500'),
+		marginRight: token('space.500'),
+		marginBottom: token('space.500'),
+		marginLeft: token('space.500'),
+		gap: token('space.300'),
+		placeItems: 'center',
+		placeSelf: 'center',
+	},
+	noResultsMessageContainerStyles: {
+		gap: token('space.100'),
+		placeItems: 'center',
+	},
 });
 
 interface NoResultsProps {
@@ -34,7 +39,7 @@ interface NoResultsProps {
 }
 
 const noop = () => '';
-export const NoResults = ({ onRefresh }: NoResultsProps) => {
+export const NoResultsNew = ({ onRefresh }: NoResultsProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const { formatMessage } = fg('bandicoots-update-sllv-icons')
@@ -47,7 +52,7 @@ export const NoResults = ({ onRefresh }: NoResultsProps) => {
 	}, [fireEvent]);
 
 	return (
-		<Grid xcss={noResultsContainerStyles} testId="datasource-modal--no-results">
+		<Grid xcss={styles.noResultsContainerStyles} testId="datasource-modal--no-results">
 			{fg('bandicoots-update-sllv-icons') ? (
 				<SpotSearchNoResult
 					size={'xlarge'}
@@ -198,7 +203,7 @@ export const NoResults = ({ onRefresh }: NoResultsProps) => {
 					</defs>
 				</svg>
 			)}
-			<Grid xcss={noResultsMessageContainerStyles}>
+			<Grid xcss={styles.noResultsMessageContainerStyles}>
 				<Text as="span" size="large" weight="bold">
 					<FormattedMessage {...loadingErrorMessages.noResultsFound} />
 				</Text>
@@ -210,4 +215,12 @@ export const NoResults = ({ onRefresh }: NoResultsProps) => {
 			</Grid>
 		</Grid>
 	);
+};
+
+export const NoResults = (props: NoResultsProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <NoResultsNew {...props} />;
+	} else {
+		return <NoResultsOld {...props} />;
+	}
 };

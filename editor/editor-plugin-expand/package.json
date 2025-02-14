@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-expand",
-	"version": "2.12.0",
+	"version": "2.12.1",
 	"description": "Expand plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,9 +34,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^46.1.0",
+		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/editor-common": "^99.14.0",
+		"@atlaskit/editor-common": "^99.16.0",
 		"@atlaskit/editor-plugin-analytics": "^1.12.0",
 		"@atlaskit/editor-plugin-decorations": "^1.5.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.5.0",
@@ -66,7 +66,7 @@
 		"@atlaskit/editor-plugin-content-insertion": "^1.13.0",
 		"@atlaskit/editor-plugin-guideline": "^1.4.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.10.0",
-		"@atlaskit/editor-plugin-table": "^9.4.0",
+		"@atlaskit/editor-plugin-table": "^9.5.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.13.0",
 		"@atlaskit/editor-plugin-width": "^2.1.0",
 		"@testing-library/react": "^13.4.0",
@@ -119,7 +119,7 @@
 		"platform_editor_nested_expand_in_expand_adf_change": {
 			"type": "boolean"
 		},
-		"platform_editor_remove_copy_button_from_view_mode": {
+		"platform_editor_react18_plugin_portalprovider": {
 			"type": "boolean"
 		},
 		"platform_editor_long_node_expand": {

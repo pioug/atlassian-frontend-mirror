@@ -2,15 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { Skeleton } from '@atlaskit/linking-common';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { ScrollableContainerHeight, TableHeading } from '../styled';
+import { TableHeading } from '../styled';
+
+import EmptyStateOld from './empty-state-old';
 
 type Column = Omit<DatasourceResponseSchemaProperty, 'type' | 'title'> & {
 	width: number;
@@ -41,7 +43,7 @@ const tableBodyStyles = css({
 });
 
 const tableStyles = css({
-	background: token('utility.elevation.surface.current', '#FFF'),
+	backgroundColor: token('utility.elevation.surface.current', '#FFF'),
 });
 
 const padding = `${token('space.100', '8px')} ${token('space.100', '8px')}`;
@@ -51,11 +53,11 @@ const cellStyles = css({
 	borderRight: `0.5px solid ${token('color.border', N40)}`,
 	borderBottom: `0.5px solid ${token('color.border', N40)}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&:first-child': {
+	'&:first-of-type': {
 		paddingLeft: `${token('space.100', '8px')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&:last-child': {
+	'&:last-of-type': {
 		borderRight: 0,
 		paddingRight: `${token('space.100', '8px')}`,
 	},
@@ -119,7 +121,7 @@ export interface Props {
 	testId?: string;
 }
 
-export default ({ isCompact, testId }: Props) => {
+const EmptyState = ({ isCompact, testId }: Props) => {
 	const columnsToRender = isCompact ? baseColumns.slice(0, 6) : baseColumns;
 	// if it is compact (non-modal), there is room for 14 rows
 	// if it is modal (not compact), there is only room for 10 rows
@@ -135,8 +137,8 @@ export default ({ isCompact, testId }: Props) => {
 			style={{
 				// the IssueLikeDataTableView wraps the table in a container with the styling below while modal doesn't
 				// this maxHeight comes from scrollableContainerHeight
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxHeight: ScrollableContainerHeight,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				maxHeight: 590,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				padding: token('space.0', '0px'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -176,3 +178,13 @@ export default ({ isCompact, testId }: Props) => {
 		</div>
 	);
 };
+
+const EmptyStateExported = (props: Props) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <EmptyState {...props} />;
+	} else {
+		return <EmptyStateOld {...props} />;
+	}
+};
+
+export default EmptyStateExported;

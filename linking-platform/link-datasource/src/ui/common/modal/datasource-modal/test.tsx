@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { Box, Text } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';

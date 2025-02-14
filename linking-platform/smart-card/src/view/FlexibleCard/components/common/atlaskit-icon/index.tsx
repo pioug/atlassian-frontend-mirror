@@ -146,7 +146,15 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 				/>
 			);
 		case IconType.LiveDocument:
-			return <LiveDocumentIcon label={label || 'live-doc'} testId={testId} size={size} />;
+			return (
+				<LiveDocumentIcon
+					label={label || 'live-doc'}
+					testId={testId}
+					{...(fg('platform-smart-card-icon-migration') && {
+						size,
+					})}
+				/>
+			);
 	}
 
 	const importFn = getIconImportFn(icon, size);

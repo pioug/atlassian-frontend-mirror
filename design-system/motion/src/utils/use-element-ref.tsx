@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 
-export type Element = HTMLElement | null;
+type Element = HTMLElement | null;
 export type CallbackRef = (instance: Element) => void;
 
 /**

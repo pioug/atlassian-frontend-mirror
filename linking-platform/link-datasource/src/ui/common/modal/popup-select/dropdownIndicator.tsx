@@ -1,18 +1,23 @@
 import React from 'react';
 
+import { cssMap } from '@compiled/react';
+
 import CloseIcon from '@atlaskit/icon/core/migration/cross-circle';
 import SearchIcon from '@atlaskit/icon/core/migration/search';
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import { components, type DropdownIndicatorProps } from '@atlaskit/select';
-import { token } from '@atlaskit/tokens';
 
+import CustomDropdownIndicatorOld from './dropdownIndicatorOld';
 import { type SelectOption } from './types';
 
-const customDropdownIndicatorStyles = xcss({
-	display: 'flex',
-	cursor: 'pointer',
-	justifyContent: 'center',
-	width: token('space.400', '32px'),
+const styles = cssMap({
+	customDropdownIndicatorStyles: {
+		display: 'flex',
+		cursor: 'pointer',
+		justifyContent: 'center',
+		width: '32px',
+	},
 });
 
 const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, true>) => {
@@ -20,7 +25,7 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, tru
 	return (
 		<components.DropdownIndicator {...props}>
 			<Box
-				xcss={customDropdownIndicatorStyles}
+				xcss={styles.customDropdownIndicatorStyles}
 				onClick={() => {
 					if (selectProps.inputValue) {
 						selectProps.onInputChange &&
@@ -41,4 +46,12 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, tru
 	);
 };
 
-export default CustomDropdownIndicator;
+const CustomDropdownIndicatorExported = (props: DropdownIndicatorProps<SelectOption, true>) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <CustomDropdownIndicator {...props} />;
+	} else {
+		return <CustomDropdownIndicatorOld {...props} />;
+	}
+};
+
+export default CustomDropdownIndicatorExported;

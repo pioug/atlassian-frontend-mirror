@@ -1,8 +1,8 @@
 import fetchMock from 'jest-fetch-mock';
-import type StatsigType from 'statsig-js-lite';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 
+import Client from '../client';
 import type FeatureGates from '../client/FeatureGates';
 // eslint-disable-next-line no-duplicate-imports
 import type {
@@ -24,9 +24,20 @@ jest.mock('@atlaskit/atlassian-context', () => ({
 
 const isFedRampMock = jest.mocked(isFedRamp);
 
+const statsigInitSpy = jest.fn();
+jest.mock('@statsig/js-client', () => {
+	const actual = jest.requireActual('@statsig/js-client');
+	return {
+		...actual,
+		StatsigClient: function (...args: unknown[]) {
+			statsigInitSpy(...args);
+			return new actual.StatsigClient(...args);
+		},
+	};
+});
+
 describe('FeatureGate client Statsig integration test', () => {
 	const MOCK_CLIENT_SDK_KEY = 'client-mockSdkKey';
-	const INVALID_SDK_KEY = 'invalid-sdkKey';
 	const CLIENT_SDK_KEY = 'client-sdkKey';
 	const TARGET_APP = 'jira_web';
 	const API_KEY = 'apiKey-123';
@@ -39,10 +50,13 @@ describe('FeatureGate client Statsig integration test', () => {
 		environment: {
 			tier: 'development',
 		},
-		initializeValues: {},
-		eventLoggingApi: 'https://xp.atlassian.com/v1/',
-		disableCurrentPageLogging: true,
+		networkConfig: expect.objectContaining({
+			logEventUrl: 'https://xp.atlassian.com/v1/rgstr',
+		}),
+		includeCurrentPageUrlWithEvents: false,
 		targetApp: 'jira_web',
+		dataAdapter: expect.anything(),
+		overrideAdapter: expect.anything(),
 	};
 
 	const TEST_STATSIG_USER = {
@@ -53,8 +67,6 @@ describe('FeatureGate client Statsig integration test', () => {
 	let FeatureGatesClass: typeof FeatureGates;
 	let FeatureGateEnvironment: typeof FeatureGateEnvironmentType;
 	let PerimeterType: typeof PerimeterTypeType;
-	let StatsigClass: typeof StatsigType;
-	let statsigInitSpy: jest.SpyInstance;
 
 	/* eslint-disable no-console */
 
@@ -69,15 +81,13 @@ describe('FeatureGate client Statsig integration test', () => {
 		window.__FEATUREGATES_JS__ = undefined;
 
 		jest.isolateModules(() => {
-			const FG_API = jest.requireActual('../client/index');
+			const FG_API = jest.requireActual('../client/FeatureGates');
 			FeatureGatesClass = FG_API.default;
 			FeatureGateEnvironment = FG_API.FeatureGateEnvironment;
 			PerimeterType = FG_API.PerimeterType;
-			const S_API = jest.requireActual('statsig-js-lite');
-			StatsigClass = S_API.default;
 		});
 
-		statsigInitSpy = jest.spyOn(StatsigClass, 'initialize');
+		statsigInitSpy.mockClear();
 	});
 
 	describe('initialize client', function () {
@@ -112,9 +122,11 @@ describe('FeatureGate client Statsig integration test', () => {
 			expect(statsigInitSpy).toHaveBeenCalledTimes(1);
 			expect(statsigInitSpy).toHaveBeenCalledWith(MOCK_CLIENT_SDK_KEY, TEST_STATSIG_USER, {
 				...TEST_STATSIG_OPTIONS,
-				initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues
 				apiKey: API_KEY, // apiKey added
 			});
+			const client = (FeatureGatesClass as unknown as { client: Client }).client;
+			const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+			expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 			expect(fetchMock).toHaveBeenCalledWith(
 				`${DEV_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`, // commercial base url for environment
@@ -133,50 +145,6 @@ describe('FeatureGate client Statsig integration test', () => {
 				`${DEV_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`, // commercial base url for environment
 				expect.objectContaining({}),
 			);
-		});
-
-		test('initialize successfully with default key because invalid key was provided', async () => {
-			fetchMock.resetMocks();
-
-			fetchMock
-				.mockResponseOnce(
-					JSON.stringify({
-						clientSdkKey: INVALID_SDK_KEY,
-					}),
-					{ status: 200 },
-				)
-				.mockResponseOnce(
-					JSON.stringify({
-						experimentValues: TEST_INITIALIZE_VALUES,
-					}),
-					{ status: 200 },
-				);
-
-			await expect(initializeFeatureGates(TEST_IDENTIFIERS)).rejects.toThrow(
-				'Invalid key provided.  You must use a Client SDK Key from the Statsig console to initialize the sdk',
-			);
-
-			expect(statsigInitSpy).toHaveBeenCalledTimes(2);
-			expect(statsigInitSpy).toHaveBeenNthCalledWith(1, INVALID_SDK_KEY, TEST_STATSIG_USER, {
-				...TEST_STATSIG_OPTIONS,
-				initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues
-				apiKey: API_KEY, // apiKey added
-			});
-
-			expect(statsigInitSpy).toHaveBeenNthCalledWith(2, 'client-default-key', TEST_STATSIG_USER, {
-				...TEST_STATSIG_OPTIONS,
-				apiKey: API_KEY, // apiKey added
-			});
-
-			expect(console.warn).toHaveBeenCalledWith(
-				'Initialising Statsig client with default sdk key and without values',
-			);
-			expect(console.error).toHaveBeenCalledWith(
-				'Error occurred when trying to initialise the Statsig client, error: Invalid key provided.  ' +
-					'You must use a Client SDK Key from the Statsig console to initialize the sdk',
-			);
-
-			expectTestCohortNotEnrolled();
 		});
 
 		test('initialize should initialize with defaults when no identifiers provided', async () => {
@@ -250,10 +218,12 @@ describe('FeatureGate client Statsig integration test', () => {
 					environment: {
 						tier: 'production',
 					},
-					disableAllLogging: true, // disableAllLogging in FedRAMP
-					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					disableLogging: true, // disableAllLogging in FedRAMP
 					apiKey: API_KEY, // apiKey added
 				});
+				const client = (FeatureGatesClass as unknown as { client: Client }).client;
+				const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+				expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 				// call FFS with base url for environment and perimeter
 				expect(fetchMock).toHaveBeenCalledWith(
@@ -295,10 +265,12 @@ describe('FeatureGate client Statsig integration test', () => {
 					environment: {
 						tier: 'production',
 					},
-					disableAllLogging: true, // disableAllLogging in FedRAMP
-					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					disableLogging: true, // disableAllLogging in FedRAMP
 					apiKey: API_KEY, // apiKey added
 				});
+				const client = (FeatureGatesClass as unknown as { client: Client }).client;
+				const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+				expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 				// call FFS with base url for environment and perimeter
 				expect(fetchMock).toHaveBeenCalledWith(
@@ -323,9 +295,11 @@ describe('FeatureGate client Statsig integration test', () => {
 					environment: {
 						tier: 'production',
 					},
-					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
 					apiKey: API_KEY, // apiKey added
 				});
+				const client = (FeatureGatesClass as unknown as { client: Client }).client;
+				const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+				expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 				// call FFS with base url for environment and perimeter
 				expect(fetchMock).toHaveBeenCalledWith(
@@ -349,9 +323,11 @@ describe('FeatureGate client Statsig integration test', () => {
 					environment: {
 						tier: 'production',
 					},
-					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
 					apiKey: API_KEY, // apiKey added
 				});
+				const client = (FeatureGatesClass as unknown as { client: Client }).client;
+				const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+				expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 				// call FFS with base url for environment and perimeter
 				expect(fetchMock).toHaveBeenCalledWith(
@@ -376,10 +352,12 @@ describe('FeatureGate client Statsig integration test', () => {
 					environment: {
 						tier: 'production',
 					},
-					disableAllLogging: true, // disableAllLogging in FedRAMP
-					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					disableLogging: true, // disableAllLogging in FedRAMP
 					apiKey: API_KEY, // apiKey added
 				});
+				const client = (FeatureGatesClass as unknown as { client: Client }).client;
+				const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+				expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 				// call FFS with base url for environment and perimeter
 				expect(fetchMock).toHaveBeenCalledWith(
@@ -408,50 +386,14 @@ describe('FeatureGate client Statsig integration test', () => {
 			);
 
 			expect(statsigInitSpy).toHaveBeenCalledTimes(1);
-			expect(statsigInitSpy).toHaveBeenCalledWith(CLIENT_SDK_KEY, TEST_STATSIG_USER, {
-				...TEST_STATSIG_OPTIONS,
-				initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues
-			});
-
-			expectTestCohortNotEnrolled();
-		});
-
-		test('initialize successfully with default key because invalid key was provided', async () => {
-			await expect(
-				FeatureGatesClass.initializeFromValues(
-					{
-						sdkKey: INVALID_SDK_KEY,
-						environment: FeatureGateEnvironment.Development,
-						targetApp: TARGET_APP,
-					},
-					TEST_IDENTIFIERS,
-					undefined,
-					TEST_INITIALIZE_VALUES,
-				),
-			).rejects.toThrow(
-				'Invalid key provided.  You must use a Client SDK Key from the Statsig console to initialize the sdk',
-			);
-
-			expect(statsigInitSpy).toHaveBeenCalledTimes(2);
-			expect(statsigInitSpy).toHaveBeenNthCalledWith(1, INVALID_SDK_KEY, TEST_STATSIG_USER, {
-				...TEST_STATSIG_OPTIONS,
-				initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues
-			});
-
-			expect(statsigInitSpy).toHaveBeenNthCalledWith(
-				2,
-				'client-default-key',
+			expect(statsigInitSpy).toHaveBeenCalledWith(
+				CLIENT_SDK_KEY,
 				TEST_STATSIG_USER,
 				TEST_STATSIG_OPTIONS,
 			);
-
-			expect(console.warn).toHaveBeenCalledWith(
-				'Initialising Statsig client with default sdk key and without values',
-			);
-			expect(console.error).toHaveBeenCalledWith(
-				'Error occurred when trying to initialise the Statsig client, error: Invalid key provided.  ' +
-					'You must use a Client SDK Key from the Statsig console to initialize the sdk',
-			);
+			const client = (FeatureGatesClass as unknown as { client: Client }).client;
+			const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+			expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 			expectTestCohortNotEnrolled();
 		});
@@ -474,11 +416,11 @@ describe('FeatureGate client Statsig integration test', () => {
 				{
 					customIDs: {},
 				},
-				{
-					...TEST_STATSIG_OPTIONS,
-					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues
-				},
+				TEST_STATSIG_OPTIONS,
 			);
+			const client = (FeatureGatesClass as unknown as { client: Client }).client;
+			const bootstrapData = JSON.parse(client['dataAdapter'].bootstrapResult?.data ?? '{}');
+			expect(bootstrapData).toEqual(TEST_INITIALIZE_VALUES);
 
 			expectTestCohortNotEnrolled();
 		});

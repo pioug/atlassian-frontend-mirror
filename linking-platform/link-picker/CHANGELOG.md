@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 1.49.2
+
+### Patch Changes
+
+- [#114253](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114253)
+  [`8d063440a1a02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d063440a1a02) -
+  Remove the UNSAFE from the UNSAFE_moveSubmitButton prop on the link picker now that it is a
+  permanent prop
+
 ## 1.49.1
 
 ### Patch Changes

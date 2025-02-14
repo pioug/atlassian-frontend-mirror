@@ -8,9 +8,7 @@ const SingleExample = () => (
 		<Label htmlFor="single-select-example">What city do you live in?</Label>
 		<Select
 			inputId="single-select-example"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="single-select"
-			classNamePrefix="react-select"
+			testId="react-select"
 			options={[
 				{ label: 'Adelaide', value: 'adelaide' },
 				{ label: 'Brisbane', value: 'brisbane' },

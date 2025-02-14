@@ -6,6 +6,7 @@ describe('wrapperTimers', () => {
 	let mockTimelineHoldable: TimelineHoldable;
 	let originalSetTimeout: typeof setTimeout;
 	let originalClearTimeout: typeof clearTimeout;
+	let unholdMock: jest.Mock;
 
 	beforeEach(() => {
 		jest.useFakeTimers();
@@ -17,9 +18,9 @@ describe('wrapperTimers', () => {
 			clearTimeout: originalClearTimeout,
 		};
 
-		const unhold = jest.fn();
+		unholdMock = jest.fn();
 		mockTimelineHoldable = {
-			hold: jest.fn().mockReturnValue(unhold),
+			hold: jest.fn().mockReturnValue(unholdMock),
 		};
 	});
 
@@ -126,5 +127,55 @@ describe('wrapperTimers', () => {
 		mockGlobalContext.clearTimeout(timeoutId);
 
 		expect(originalClearTimeoutSpy).toHaveBeenCalledWith(timeoutId);
+	});
+
+	it('should not call unhold twice when clearTimeout is called after timer execution', () => {
+		const cleanup = wrapperTimers({
+			globalContext: mockGlobalContext,
+			timelineHoldable: mockTimelineHoldable,
+		});
+
+		const callback = jest.fn();
+		const timeoutId = mockGlobalContext.setTimeout(callback, 1000);
+
+		// Fast-forward time to execute the callback
+		jest.advanceTimersByTime(1000);
+		expect(callback).toHaveBeenCalled();
+		expect(unholdMock).toHaveBeenCalledTimes(1);
+
+		// Now call clearTimeout after the callback has been executed
+		mockGlobalContext.clearTimeout(timeoutId);
+
+		// Check that unhold wasn't called again
+		expect(unholdMock).toHaveBeenCalledTimes(1);
+
+		cleanup();
+	});
+
+	it('should not wrap nested setTimeouts', (done) => {
+		const cleanup = wrapperTimers({
+			globalContext: mockGlobalContext,
+			timelineHoldable: mockTimelineHoldable,
+		});
+
+		let outerTimeoutExecuted = false;
+		let innerTimeoutExecuted = false;
+
+		mockGlobalContext.setTimeout(() => {
+			outerTimeoutExecuted = true;
+			mockGlobalContext.setTimeout(() => {
+				innerTimeoutExecuted = true;
+			}, 100);
+		}, 100);
+
+		setTimeout(() => {
+			expect(outerTimeoutExecuted).toBe(true);
+			expect(innerTimeoutExecuted).toBe(true);
+			expect(mockTimelineHoldable.hold).toHaveBeenCalledTimes(1); // Only called for outer setTimeout
+			cleanup();
+			done();
+		}, 300);
+
+		jest.advanceTimersByTime(300);
 	});
 });

@@ -5,4 +5,7 @@ import ConfluenceSearchConfigModalNoDisplayDropdown from '../../examples/vr/conf
 snapshot(ConfluenceSearchConfigModalNoDisplayDropdown, {
 	description: 'Confluence search config modal without display dropdown',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });

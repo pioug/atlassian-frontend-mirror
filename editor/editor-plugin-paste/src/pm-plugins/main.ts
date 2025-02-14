@@ -22,6 +22,7 @@ import {
 	transformSliceToDecisionList,
 	transformSliceToJoinAdjacentCodeBlocks,
 	transformSliceToRemoveLegacyContentMacro,
+	transformSliceToRemoveMacroId,
 } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import {
@@ -760,6 +761,10 @@ export function createPlugin(
 
 				if (fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
 					slice = transformSingleColumnLayout(slice, schema);
+				}
+
+				if (fg('platform_editor_macroid_reset_for_ext_on_paste')) {
+					slice = transformSliceToRemoveMacroId(slice, schema);
 				}
 
 				return slice;

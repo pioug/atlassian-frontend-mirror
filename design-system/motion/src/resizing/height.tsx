@@ -132,9 +132,3 @@ export const ResizingHeight = ({
 	const resizing = useResizingHeight(props);
 	return <Fragment>{children(resizing)}</Fragment>;
 };
-
-/**
- * This exists only to be able to extract opts.
- */
-// eslint-disable-next-line import/no-anonymous-default-export
-export default (_opts: ResizingHeightOpts) => {};

@@ -1,13 +1,11 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { css, jsx, styled } from '@compiled/react';
 import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl-next';
 import invariant from 'tiny-invariant';
@@ -20,6 +18,7 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
 import ChevronUp from '@atlaskit/icon/utility/migration/chevron-up';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	attachClosestEdge,
 	type Edge,
@@ -36,14 +35,75 @@ import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/elem
 import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
+import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 
 import { GlyphPlaceholder, UnwrapTextIcon, WrapTextIcon } from './custom-icons';
+import { DraggableTableHeadingOld } from './draggable-table-heading-old';
 import { issueLikeTableMessages } from './messages';
-import { TableHeading } from './styled';
 import { getColumnMinWidth, getWidthCss } from './utils';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const TableHeading = styled.th({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &, .ProseMirror .pm-table-wrapper > table thead &, &': {
+		border: 0,
+		position: 'relative',
+		/* This makes resizing work with out jumping due to padding + changes overall width for same default values. */
+		boxSizing: 'border-box',
+		lineHeight: '24px',
+		paddingTop: token('space.025', '2px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: token('space.050', '4px'),
+		borderRight: `0.5px solid ${token('color.border', N40)}`,
+		borderBottom: `2px solid ${token('color.border', N40)}`,
+		/*
+      lineHeight * 2 -> Max height of two lined header
+      verticalPadding * 2 -> padding for this component itself
+      verticalPadding * 2 -> padding inside span (--container)
+      2px -> Bottom border
+      Last two terms are needed because of border-box box sizing.
+    */
+		height: `calc(24px * 2 + ${token('space.025', '2px')} * 4 + 2px)`,
+		verticalAlign: 'bottom',
+		backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), .ProseMirror .pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), thead.has-column-picker &:nth-last-of-type(2)':
+		{
+			borderRight: 0,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &:first-of-type, .ProseMirror .pm-table-wrapper > table thead &:first-of-type, &:first-of-type':
+		{
+			paddingLeft: token('space.050', '4px'),
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &:last-of-type, .ProseMirror .pm-table-wrapper > table thead &:last-of-type, &:last-of-type':
+		{
+			borderRight: 0,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	"& [data-testid='datasource-header-content--container']": {
+		width: '100%',
+		/* With Button now being a parent for this component it adds its lineHeight value and spoils
+      `height` calculation above. */
+		lineHeight: '24px',
+		paddingTop: token('space.025', '2px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: token('space.050', '4px'),
+		display: '-webkit-box',
+		WebkitLineClamp: 2,
+		WebkitBoxOrient: 'vertical',
+		whiteSpace: 'normal',
+		overflow: 'hidden',
+		wordWrap: 'break-word',
+	},
+});
 
 type DraggableState =
 	| { type: 'idle' }
@@ -99,7 +159,7 @@ const resizerStyles = css({
 		'--local-line-width': token('border.width', '2px'),
 		content: '""',
 		position: 'absolute',
-		background: token('color.border.brand', '#0052CC'),
+		backgroundColor: token('color.border.brand', '#0052CC'),
 		width: 'var(--local-line-width)',
 		inset: 0,
 		left: `calc(50% - calc(var(--local-line-width) / 2))`,
@@ -139,7 +199,7 @@ interface DraggableTableHeadingProps {
 	onIsWrappedChange?: (shouldWrap: boolean) => void;
 }
 
-export const DraggableTableHeading = ({
+const DraggableTableHeadingNew = ({
 	children,
 	id,
 	index,
@@ -433,4 +493,12 @@ export const DraggableTableHeading = ({
 			{state.type === 'preview' ? ReactDOM.createPortal(dragPreview, state.container) : null}
 		</TableHeading>
 	);
+};
+
+export const DraggableTableHeading = (props: DraggableTableHeadingProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <DraggableTableHeadingNew {...props} />;
+	} else {
+		return <DraggableTableHeadingOld {...props} />;
+	}
 };

@@ -38,7 +38,13 @@
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

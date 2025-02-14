@@ -4,8 +4,11 @@
  */
 import React, { forwardRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { TruncateTextTagOld } from './truncate-text-tag-old';
 
 const truncateTextStyles = css({
 	overflow: 'hidden',
@@ -13,12 +16,22 @@ const truncateTextStyles = css({
 	whiteSpace: 'nowrap',
 });
 
-export const TruncateTextTag = forwardRef(
+export const TruncateTextTagNew = forwardRef(
 	(props: React.PropsWithChildren<unknown>, ref: React.Ref<HTMLElement>) => {
 		return (
 			<span css={truncateTextStyles} {...props} ref={ref}>
 				{props.children}
 			</span>
 		);
+	},
+);
+
+export const TruncateTextTag = forwardRef(
+	(props: React.PropsWithChildren<unknown>, ref: React.Ref<HTMLElement>) => {
+		if (fg('bandicoots-compiled-migration-link-datasource')) {
+			return <TruncateTextTagNew {...props} ref={ref} />;
+		} else {
+			return <TruncateTextTagOld {...props} ref={ref} />;
+		}
 	},
 );

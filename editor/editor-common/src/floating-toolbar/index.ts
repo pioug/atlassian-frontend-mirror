@@ -119,6 +119,7 @@ export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
 				'onChange',
 				'options',
 			]);
+		case 'overflow-dropdown':
 		case 'dropdown':
 			if (
 				makeSameType(leftItem, rightItem) &&

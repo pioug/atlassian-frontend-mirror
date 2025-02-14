@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.10.2
+
+### Patch Changes
+
+- [#112186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112186)
+  [`9462d8ca2405a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9462d8ca2405a) -
+  Bump adf-schema to 47.2.1
+
 ## 8.10.1
 
 ### Patch Changes

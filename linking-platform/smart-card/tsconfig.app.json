@@ -76,9 +76,6 @@
 			"path": "../../media/icon-file-type/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon-lab/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon-object/tsconfig.app.json"
 		},
 		{

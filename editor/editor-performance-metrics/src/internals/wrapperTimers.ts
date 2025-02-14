@@ -1,25 +1,7 @@
 import type { TimelineHoldable } from './timelineInterfaces';
 
-const wrapperCallbackTimer = ({
-	callbackFunction,
-	onFinished,
-}: {
-	callbackFunction: (...args: unknown[]) => unknown;
-	onFinished: () => void;
-}) => {
-	const callbackProxy = new Proxy(callbackFunction, {
-		apply(callbackTarget, cbThisArg, cbArgs) {
-			const result = callbackTarget.apply(cbThisArg, cbArgs);
-			onFinished();
-
-			return result;
-		},
-	});
-
-	return callbackProxy;
-};
-
 const MAX_TIMEOUT_DELAY_ALLOWED_TO_BE_WRAPPED = 2000; // 2 seconds
+const MAX_NESTED_TIMERS_ALLOWED_TO_BE_WRAPPED = 1;
 
 /**
  * 🧱 Internal Type: Editor FE Platform
@@ -64,10 +46,12 @@ export const wrapperTimers = ({
 	globalContext,
 	timelineHoldable,
 	maxTimeoutAllowed,
+	maxNestedTimers,
 }: {
 	globalContext: unknown & { setTimeout: typeof setTimeout; clearTimeout: typeof clearTimeout };
 	timelineHoldable: TimelineHoldable;
 	maxTimeoutAllowed?: number;
+	maxNestedTimers?: number;
 }) => {
 	const timeoutsUnholdMap = new Map<NodeJS.Timeout | number, WeakRef<() => void>>();
 	const timeoutAllowed =
@@ -75,34 +59,71 @@ export const wrapperTimers = ({
 			? maxTimeoutAllowed
 			: MAX_TIMEOUT_DELAY_ALLOWED_TO_BE_WRAPPED;
 
+	const nestedTimersAllowed =
+		typeof maxNestedTimers === 'number' ? maxNestedTimers : MAX_NESTED_TIMERS_ALLOWED_TO_BE_WRAPPED;
+
 	const originalSetTimeout = globalContext.setTimeout;
 	const originalClearTimeout = globalContext.clearTimeout;
 
+	/**
+	 * This counter is used to prevent recursive wrapping of setTimeout calls.
+	 *
+	 * Due to JavaScript's lexical scoping, this variable will be shared across
+	 * all invocations of the setTimeoutProxy within the same wrapperTimers call.
+	 * This allows us to track whether we're currently inside a wrapped callback
+	 * and how deeep.
+	 *
+	 * This prevents excessive hold/unhold calls and potential issues with
+	 * nested timeouts, while still allowing the outer timeout to be tracked.
+	 *
+	 */
+	let nestedCallsTimerCount = 0;
+
 	const setTimeoutProxy = new Proxy(globalContext.setTimeout, {
-		apply(target, thisArg, args: [callback: (args: unknown) => void, ms?: number | undefined]) {
+		apply(
+			target,
+			thisArg,
+			args: [callback: (...args: unknown[]) => void, ms?: number | undefined],
+		) {
 			const delayTime = args.length > 1 && typeof args[1] === 'number' ? args[1] : null;
-			if (typeof delayTime !== 'number' || delayTime === 0 || delayTime > timeoutAllowed) {
+			const isValidDelayTime =
+				typeof delayTime !== 'number' || delayTime === 0 || delayTime > timeoutAllowed;
+
+			if (isValidDelayTime || nestedCallsTimerCount >= nestedTimersAllowed) {
 				return target.apply(thisArg, args);
 			}
+
+			const localNestedCounter = nestedCallsTimerCount;
 
 			const unhold = timelineHoldable.hold({
 				source: 'setTimeout',
 			});
 
-			const callbackProxy = wrapperCallbackTimer({
-				callbackFunction: args[0],
-				onFinished: unhold,
+			let timerId: NodeJS.Timeout | null = null;
+
+			const callbackProxy = new Proxy(args[0], {
+				apply(callbackTarget, cbThisArg, cbArgs) {
+					nestedCallsTimerCount = localNestedCounter + 1;
+					const result = callbackTarget.apply(cbThisArg, cbArgs);
+
+					unhold();
+					if (timerId !== null) {
+						timeoutsUnholdMap.delete(timerId);
+					}
+
+					return result;
+				},
 			});
 
-			const id = target.apply(thisArg, [
+			timerId = target.apply(thisArg, [
 				callbackProxy,
 				// Mistach between the NodeJS type and the Browser implementation
 				// @ts-expect-error
 				...args.slice(1),
 			]);
 
-			timeoutsUnholdMap.set(id, new WeakRef(unhold));
-			return id;
+			timeoutsUnholdMap.set(timerId, new WeakRef(unhold));
+			return timerId;
 		},
 	});
 

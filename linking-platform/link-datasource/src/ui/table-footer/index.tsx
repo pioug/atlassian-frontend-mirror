@@ -4,15 +4,13 @@
  */
 import { Fragment, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { jsx, styled } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import RefreshIcon from '@atlaskit/icon/core/migration/refresh';
-import { Flex } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { N0, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -22,6 +20,7 @@ import TableSearchCount, { AssetsItemCount } from '../common/modal/search-count'
 import { footerMessages } from './messages';
 import { PoweredByJSMAssets } from './powered-by-jsm-assets';
 import { SyncInfo } from './sync-info';
+import { TableFooterOld } from './table-footer-old';
 
 export type TableFooterProps = {
 	datasourceId: string;
@@ -33,12 +32,15 @@ export type TableFooterProps = {
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const FooterWrapper = styled.div({
-	padding: `${token('space.0', '0px')} ${token('space.200', '16px')}`,
+	paddingTop: token('space.0', '0px'),
+	paddingRight: token('space.200', '16px'),
+	paddingBottom: token('space.0', '0px'),
+	paddingLeft: token('space.200', '16px'),
 	boxSizing: 'border-box',
 	borderRadius: 'inherit',
 	borderTopLeftRadius: 0,
 	borderTopRightRadius: 0,
-	background: token('color.background.input', N0),
+	backgroundColor: token('color.background.input', N0),
 	borderTop: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
 });
 
@@ -47,7 +49,10 @@ const TopBorderWrapper = styled.div({
 	display: 'flex',
 	boxSizing: 'border-box',
 	justifyContent: 'space-between',
-	padding: `${token('space.250', '20px')} ${token('space.0', '0px')}`,
+	paddingTop: token('space.250', '20px'),
+	paddingRight: token('space.0', '0px'),
+	paddingBottom: token('space.250', '20px'),
+	paddingLeft: token('space.0', '0px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -63,7 +68,7 @@ const SyncTextWrapper = styled.div({
 	font: token('font.body.UNSAFE_small'),
 });
 
-export const TableFooter = ({
+const TableFooterNew = ({
 	datasourceId,
 	itemCount,
 	onRefresh,
@@ -133,4 +138,12 @@ export const TableFooter = ({
 			</TopBorderWrapper>
 		</FooterWrapper>
 	) : null;
+};
+
+export const TableFooter = (props: TableFooterProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <TableFooterNew {...props} />;
+	} else {
+		return <TableFooterOld {...props} />;
+	}
 };

@@ -731,6 +731,19 @@ describe('ShareDialogWithTrigger', () => {
 			popupContent.find(ShareForm).simulate('submit', values);
 			expect(mockOnSubmit).toHaveBeenCalledTimes(1);
 			expect(mockOnSubmit).toHaveBeenCalledWith(values);
+			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+				type: 'sendTrackEvent',
+				data: {
+					action: 'shared',
+					actionSubject: 'page',
+					source: 'shareModal',
+					attributes: {
+						contentType: 'page',
+						subContentType: undefined,
+						shareData: values,
+					},
+				},
+			});
 		});
 
 		it('should close inline dialog and reset the state and call props.showFlags when onSubmit resolves a value', async () => {

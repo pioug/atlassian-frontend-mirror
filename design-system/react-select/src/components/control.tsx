@@ -24,7 +24,7 @@ export interface ControlProps<
 	/**
 	 * The mouse down event and the innerRef to pass down to the controller element.
 	 */
-	innerProps: JSX.IntrinsicElements['div'];
+	innerProps: {};
 	/**
 	 * Whether the select is disabled.
 	 */

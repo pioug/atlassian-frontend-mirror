@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
+import { cssMap } from '@compiled/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { mockBasicFilterAGGFetchRequests, mockSite } from '@atlaskit/link-test-helpers/datasource';
-import { Flex, xcss } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from '../../src/ui/common/modal/popup-select/types';
 import {
@@ -13,8 +15,13 @@ import {
 } from '../../src/ui/jira-issues-modal/basic-filters/types';
 import AsyncPopupSelect from '../../src/ui/jira-issues-modal/basic-filters/ui/async-popup-select';
 
-const flexContainerStyles = xcss({
-	margin: 'space.400',
+const styles = cssMap({
+	flexContainerStyles: {
+		marginTop: token('space.400'),
+		marginRight: token('space.400'),
+		marginBottom: token('space.400'),
+		marginLeft: token('space.400'),
+	},
 });
 
 mockBasicFilterAGGFetchRequests();
@@ -43,7 +50,7 @@ export default () => {
 	return (
 		<IntlProvider locale="en">
 			<SmartCardProvider client={new CardClient()}>
-				<Flex gap="space.400" xcss={flexContainerStyles}>
+				<Flex gap="space.400" xcss={styles.flexContainerStyles}>
 					{filters.map((filter) => (
 						<AsyncPopupSelect
 							filterType={filter}

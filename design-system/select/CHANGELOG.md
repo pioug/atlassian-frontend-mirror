@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 18.10.5
+
+### Patch Changes
+
+- [#106179](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106179)
+  [`100bd1199507c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/100bd1199507c) -
+  Add support for testId
+
 ## 18.10.4
 
 ### Patch Changes

@@ -238,7 +238,13 @@ export const newApply = (
 	isResizerResizing = resizerMeta ?? isResizerResizing;
 
 	if (multiSelectDnD && flags.isMultiSelectEnabled) {
-		multiSelectDnD = meta?.isDragging === false ? undefined : multiSelectDnD;
+		multiSelectDnD =
+			meta?.isDragging === false ||
+			// For move node with shortcut, only reset when the selection changes
+			tr.selection.anchor !== multiSelectDnD.textAnchor ||
+			tr.selection.head !== multiSelectDnD.textHead
+				? undefined
+				: multiSelectDnD;
 	}
 
 	const { from, to, numReplaceSteps, isAllText } = getTrMetadata(tr);

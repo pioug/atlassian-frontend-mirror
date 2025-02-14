@@ -4,8 +4,7 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -29,7 +28,10 @@ const containerStyles = css({
 });
 
 const lineStyles = css({
-	margin: token('space.150', '12px'),
+	marginTop: token('space.150', '12px'),
+	marginRight: token('space.150', '12px'),
+	marginBottom: token('space.150', '12px'),
+	marginLeft: token('space.150', '12px'),
 });
 
 export default () => {

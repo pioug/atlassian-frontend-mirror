@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { styled } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
-import { R400 } from '@atlaskit/theme/colors';
+import { N0, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -18,16 +19,72 @@ import {
 
 import { dateRangeMessages } from './messages';
 import { PopupComponent } from './PopupComponent';
+import { CustomDropdownItem } from './styled';
 import {
-	CustomDateWrapper,
-	CustomDropdown,
-	CustomDropdownItem,
-	DatePickersWrapper,
-	DateRangeErrorMessage,
-	SelectDateRangeButton,
-} from './styled';
+	CustomDateWrapperOld,
+	CustomDropdownItemOld,
+	CustomDropdownOld,
+	DatePickersWrapperOld,
+	DateRangeErrorMessageOld,
+	SelectDateRangeButtonOld,
+} from './styled-old';
 import { PopupTrigger } from './trigger';
 import { getCurrentOptionLabel, getDropdownLabel, useInvalidDateRange } from './utils';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const DateRangeErrorMessage = styled.div({
+	display: 'flex',
+	marginTop: token('space.050', '2px'),
+	gap: token('space.025'),
+	paddingInlineStart: token('space.025'),
+	font: token('font.body.UNSAFE_small'),
+	color: token('color.text.danger', R400),
+	alignItems: 'center',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const CustomDropdown = styled.div({
+	width: '340px',
+	backgroundColor: token('color.background.input', N0),
+	borderRadius: token('border.radius.100', '4px'),
+	boxShadow: token(
+		'elevation.shadow.overlay',
+		'0px 0px 1px 0px rgba(9, 30, 66, 0.31), 0px 3px 5px 0px rgba(9, 30, 66, 0.20)',
+	),
+	zIndex: layers.modal(),
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const SelectDateRangeButton = styled.button({
+	backgroundColor: token('color.background.accent.gray.subtler', N20),
+	border: 'none',
+	font: 'inherit',
+	width: '70px',
+	height: '40px',
+	marginTop: token('space.150', '12px'),
+	borderRadius: token('border.radius.100', '4px'),
+	'&:hover': {
+		backgroundColor: token('color.background.accent.gray.subtler', N30),
+		cursor: 'pointer',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const CustomDateWrapper = styled.div({
+	paddingTop: token('space.150', '12px'),
+	paddingRight: token('space.150', '12px'),
+	paddingBottom: token('space.150', '12px'),
+	paddingLeft: token('space.150', '12px'),
+	boxSizing: 'border-box',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const DatePickersWrapper = styled.div({
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'center',
+	width: '100%',
+});
 
 const dateRangeValues = [
 	'anyTime',
@@ -122,6 +179,169 @@ export const DateRangePicker = ({
 		}
 	}, [analyticsPayload, fireEvent, isPickerOpen]);
 
+	const popupContent = () => {
+		if (fg('bandicoots-compiled-migration-link-datasource')) {
+			return (
+				<CustomDropdown>
+					{dateRangeValues.map((option) => (
+						<CustomDropdownItem
+							key={option}
+							// want to show Anytime as selected if none of the other options are selected
+							isSelected={selectedValue ? option === selectedValue : option === defaultOptionValue}
+							onClick={() => handleClickFilterOption(option)}
+						>
+							{getDropdownLabel(option, formatMessage)}
+						</CustomDropdownItem>
+					))}
+					{isPickerOpen && isCustomSelected && (
+						<CustomDateWrapper>
+							<DatePickersWrapper>
+								<DatePicker
+									maxDate={todayDate}
+									innerProps={{ style: { width: 140 } }}
+									testId="date-from-picker"
+									dateFormat="D MMM YYYY"
+									onChange={setCustomFromDate}
+									defaultValue={fromDate}
+									placeholder={formatMessage(dateRangeMessages.dateRangeFrom)}
+									isInvalid={Boolean(invalidDateRange)}
+									locale={locale}
+									selectProps={{
+										styles: {
+											placeholder: (base: any) => ({
+												...base,
+												width: 'max-content',
+											}),
+										},
+									}}
+								/>
+								<FormattedMessage {...dateRangeMessages.dateRangeToLabel} />
+								<DatePicker
+									maxDate={todayDate}
+									innerProps={{ style: { width: 140 } }}
+									testId="date-to-picker"
+									dateFormat="D MMM YYYY"
+									onChange={setCustomToDate}
+									defaultValue={toDate}
+									placeholder={formatMessage(dateRangeMessages.dateRangeTo)}
+									isInvalid={Boolean(invalidDateRange)}
+									locale={locale}
+									selectProps={{
+										styles: {
+											placeholder: (base: any) => ({
+												...base,
+												width: 'max-content',
+											}),
+										},
+									}}
+								/>
+							</DatePickersWrapper>
+							{invalidDateRange && (
+								<DateRangeErrorMessage>
+									<ErrorIcon
+										LEGACY_size="small"
+										color={token('color.icon.danger', R400)}
+										label={
+											fg('bandicoots-update-sllv-icons')
+												? formatMessage(dateRangeMessages.dateRangeError)
+												: 'Date range error'
+										}
+										LEGACY_margin={`0 ${token('space.negative.025')}`}
+									/>
+									{invalidDateRange}
+								</DateRangeErrorMessage>
+							)}
+							<SelectDateRangeButton
+								data-testId="custom-date-range-update-button"
+								disabled={Boolean(invalidDateRange)}
+								onClick={handleClickUpdateDateRange}
+							>
+								{formatMessage(dateRangeMessages.dateRangeUpdateButton)}
+							</SelectDateRangeButton>
+						</CustomDateWrapper>
+					)}
+				</CustomDropdown>
+			);
+		}
+		return (
+			<CustomDropdownOld>
+				{dateRangeValues.map((option) => (
+					<CustomDropdownItemOld
+						key={option}
+						// want to show Anytime as selected if none of the other options are selected
+						isSelected={selectedValue ? option === selectedValue : option === defaultOptionValue}
+						onClick={() => handleClickFilterOption(option)}
+					>
+						{getDropdownLabel(option, formatMessage)}
+					</CustomDropdownItemOld>
+				))}
+				{isPickerOpen && isCustomSelected && (
+					<CustomDateWrapperOld>
+						<DatePickersWrapperOld>
+							<DatePicker
+								maxDate={todayDate}
+								innerProps={{ style: { width: 140 } }}
+								testId="date-from-picker"
+								dateFormat="D MMM YYYY"
+								onChange={setCustomFromDate}
+								defaultValue={fromDate}
+								placeholder={formatMessage(dateRangeMessages.dateRangeFrom)}
+								isInvalid={Boolean(invalidDateRange)}
+								locale={locale}
+								selectProps={{
+									styles: {
+										placeholder: (base: any) => ({
+											...base,
+											width: 'max-content',
+										}),
+									},
+								}}
+							/>
+							<FormattedMessage {...dateRangeMessages.dateRangeToLabel} />
+							<DatePicker
+								maxDate={todayDate}
+								innerProps={{ style: { width: 140 } }}
+								testId="date-to-picker"
+								dateFormat="D MMM YYYY"
+								onChange={setCustomToDate}
+								defaultValue={toDate}
+								placeholder={formatMessage(dateRangeMessages.dateRangeTo)}
+								isInvalid={Boolean(invalidDateRange)}
+								locale={locale}
+								selectProps={{
+									styles: {
+										placeholder: (base: any) => ({
+											...base,
+											width: 'max-content',
+										}),
+									},
+								}}
+							/>
+						</DatePickersWrapperOld>
+						{invalidDateRange && (
+							<DateRangeErrorMessageOld>
+								<ErrorIcon
+									LEGACY_size="small"
+									color={token('color.icon.danger', R400)}
+									label="Date range error"
+									LEGACY_margin={`0 ${token('space.negative.025')}`}
+								/>
+								{invalidDateRange}
+							</DateRangeErrorMessageOld>
+						)}
+						<SelectDateRangeButtonOld
+							data-testId="custom-date-range-update-button"
+							disabled={Boolean(invalidDateRange)}
+							onClick={handleClickUpdateDateRange}
+						>
+							{formatMessage(dateRangeMessages.dateRangeUpdateButton)}
+						</SelectDateRangeButtonOld>
+					</CustomDateWrapperOld>
+				)}
+			</CustomDropdownOld>
+		);
+	};
+
 	return (
 		<Popup
 			isOpen={!!isPickerOpen}
@@ -129,91 +349,7 @@ export const DateRangePicker = ({
 			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={PopupComponent}
 			zIndex={layers.modal()}
-			content={() => {
-				return (
-					<CustomDropdown>
-						{dateRangeValues.map((option) => (
-							<CustomDropdownItem
-								key={option}
-								// want to show Anytime as selected if none of the other options are selected
-								isSelected={
-									selectedValue ? option === selectedValue : option === defaultOptionValue
-								}
-								onClick={() => handleClickFilterOption(option)}
-							>
-								{getDropdownLabel(option, formatMessage)}
-							</CustomDropdownItem>
-						))}
-						{isPickerOpen && isCustomSelected && (
-							<CustomDateWrapper>
-								<DatePickersWrapper>
-									<DatePicker
-										maxDate={todayDate}
-										innerProps={{ style: { width: 140 } }}
-										testId="date-from-picker"
-										dateFormat="D MMM YYYY"
-										onChange={setCustomFromDate}
-										defaultValue={fromDate}
-										placeholder={formatMessage(dateRangeMessages.dateRangeFrom)}
-										isInvalid={Boolean(invalidDateRange)}
-										locale={locale}
-										selectProps={{
-											styles: {
-												placeholder: (base: any) => ({
-													...base,
-													width: 'max-content',
-												}),
-											},
-										}}
-									/>
-									<FormattedMessage {...dateRangeMessages.dateRangeToLabel} />
-									<DatePicker
-										maxDate={todayDate}
-										innerProps={{ style: { width: 140 } }}
-										testId="date-to-picker"
-										dateFormat="D MMM YYYY"
-										onChange={setCustomToDate}
-										defaultValue={toDate}
-										placeholder={formatMessage(dateRangeMessages.dateRangeTo)}
-										isInvalid={Boolean(invalidDateRange)}
-										locale={locale}
-										selectProps={{
-											styles: {
-												placeholder: (base: any) => ({
-													...base,
-													width: 'max-content',
-												}),
-											},
-										}}
-									/>
-								</DatePickersWrapper>
-								{invalidDateRange && (
-									<DateRangeErrorMessage>
-										<ErrorIcon
-											LEGACY_size="small"
-											color={token('color.icon.danger', R400)}
-											label={
-												fg('bandicoots-update-sllv-icons')
-													? formatMessage(dateRangeMessages.dateRangeError)
-													: 'Date range error'
-											}
-											LEGACY_margin={`0 ${token('space.negative.025')}`}
-										/>
-										{invalidDateRange}
-									</DateRangeErrorMessage>
-								)}
-								<SelectDateRangeButton
-									data-testId="custom-date-range-update-button"
-									disabled={Boolean(invalidDateRange)}
-									onClick={handleClickUpdateDateRange}
-								>
-									{formatMessage(dateRangeMessages.dateRangeUpdateButton)}
-								</SelectDateRangeButton>
-							</CustomDateWrapper>
-						)}
-					</CustomDropdown>
-				);
-			}}
+			content={popupContent}
 			placement="bottom-start"
 			trigger={(triggerProps) => {
 				const labelText = getCurrentOptionLabel(

@@ -1,40 +1,44 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import React, { type ReactNode } from 'react';
 
-import { type ReactNode } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { scrollableContainerShadowsCssComponents } from '../../../issue-like-table';
+import { ContentContainerOld } from './content-container-old';
 
-const contentContainerStyles = xcss({
-	display: 'grid',
-	maxHeight: '420px',
-	overflow: 'auto',
-	borderBottom: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundImage: scrollableContainerShadowsCssComponents.backgroundImage,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundPosition: scrollableContainerShadowsCssComponents.backgroundPosition,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundRepeat: scrollableContainerShadowsCssComponents.backgroundRepeat,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundSize: scrollableContainerShadowsCssComponents.backgroundSize,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundAttachment: scrollableContainerShadowsCssComponents.backgroundAttachment,
-});
-
-const tableContainerStyles = xcss({
-	borderTopLeftRadius: token('border.radius.200', '8px'),
-	borderTopRightRadius: token('border.radius.200', '8px'),
-	border: `1px solid ${token('color.border', N40)}`,
+const styles = cssMap({
+	tableContainerStyles: {
+		borderBottom: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
+		borderTop: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
+		borderLeft: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
+		borderRight: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
+		borderTopLeftRadius: token('border.radius.200', '8px'),
+		borderTopRightRadius: token('border.radius.200', '8px'),
+	},
+	contentContainerStyles: {
+		display: 'grid',
+		maxHeight: '420px',
+		overflow: 'auto',
+		borderBottom: `${token('border.width.outline', '2px')} solid ${token('color.border', N40)}`,
+		backgroundImage: `
+		linear-gradient(90deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}, rgba(0, 0, 0, 0)),
+		linear-gradient(90deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 70%),
+		linear-gradient(90deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.1)')}),
+		linear-gradient(0deg, rgba(255, 255, 255, 0), ${token('utility.elevation.surface.current', '#FFF')} 30%),
+		linear-gradient(0deg, rgba(0, 0, 0, 0), ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}),
+		linear-gradient(0deg, ${token('utility.elevation.surface.current', '#FFF')} 30%, rgba(255, 255, 255, 0)),
+		linear-gradient(0deg, ${token('elevation.shadow.overflow.perimeter', 'rgba(0, 0, 0, 0.05)')}, rgba(0, 0, 0, 0))
+		`,
+		backgroundPosition:
+			'left center, left center, right center, right center, center top, 0px 52px, center bottom, center bottom',
+		backgroundRepeat: 'no-repeat',
+		backgroundSize:
+			'40px 100%, 14px 100%, 40px 100%, 14px 100%, 100% 100px, 100% 14px, 100% 40px, 100% 10px',
+		backgroundAttachment: 'local, scroll, local, scroll, local, scroll, local, scroll',
+	},
 });
 
 export interface ContentContainerProps {
@@ -42,8 +46,18 @@ export interface ContentContainerProps {
 	withTableBorder?: boolean;
 }
 
-export const ContentContainer = ({ children, withTableBorder }: ContentContainerProps) => {
+export const ContentContainerNew = ({ children, withTableBorder }: ContentContainerProps) => {
 	return (
-		<Box xcss={[contentContainerStyles, withTableBorder && tableContainerStyles]}>{children}</Box>
+		<Box xcss={cx(styles.contentContainerStyles, withTableBorder && styles.tableContainerStyles)}>
+			{children}
+		</Box>
 	);
+};
+
+export const ContentContainer = (props: ContentContainerProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <ContentContainerNew {...props} />;
+	} else {
+		return <ContentContainerOld {...props} />;
+	}
 };

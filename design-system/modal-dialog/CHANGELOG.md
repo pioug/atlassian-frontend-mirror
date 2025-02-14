@@ -1,5 +1,27 @@
 # @atlaskit/modal-dialog
 
+## 12.20.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.20.5
+
+### Patch Changes
+
+- [#113871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113871)
+  [`13ca102123e88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13ca102123e88) -
+  Update dependencies.
+
+## 12.20.4
+
+### Patch Changes
+
+- [#113859](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113859)
+  [`c14cf08cfe2e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c14cf08cfe2e9) -
+  Remove old codemods.
+
 ## 12.20.3
 
 ### Patch Changes

@@ -3,10 +3,8 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
-import { type AnimationCurve, easeIn, easeOut } from '../utils/curves';
-
 import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
-import { type Direction, type Fade, type Transition } from './types';
+import { type AnimationCurve, type Direction, type Fade, type Transition } from './types';
 
 export const slideInAnimation = (from: Direction, state: Transition, fade: Fade): CSSObject => {
 	const initial = state === 'entering' ? '0%' : '100%';
@@ -65,7 +63,13 @@ export interface SlideInProps extends KeyframesMotionProps {
 	 * A custom function used to override the default animation timings.
 	 * Returns which animation curve to use depending on the current transitioning state.
 	 */
-	animationTimingFunction?: (state: Transition) => AnimationCurve;
+	animationTimingFunction?: AnimationCurve;
+
+	/**
+	 * A custom function used to override the default animation timings when exiting.
+	 * Returns which animation curve to use depending on the current transitioning state.
+	 */
+	animationTimingFunctionExiting?: AnimationCurve;
 }
 
 /**
@@ -83,7 +87,8 @@ const SlideIn = ({
 	duration = 'medium',
 	isPaused,
 	onFinish,
-	animationTimingFunction = (state) => (state === 'entering' ? easeOut : easeIn),
+	animationTimingFunction = 'ease-out',
+	animationTimingFunctionExiting = 'ease-in',
 }: SlideInProps) => {
 	return (
 		<KeyframesMotion
@@ -91,6 +96,7 @@ const SlideIn = ({
 			enteringAnimation={slideInAnimation(enterFrom, 'entering', fade)}
 			exitingAnimation={slideInAnimation(exitTo || enterFrom, 'exiting', fade)}
 			animationTimingFunction={animationTimingFunction}
+			animationTimingFunctionExiting={animationTimingFunctionExiting}
 			isPaused={isPaused}
 			onFinish={onFinish}
 		>

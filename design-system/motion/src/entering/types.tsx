@@ -23,6 +23,11 @@ export type Distance = 'constant' | 'proportional';
 export type Fade = 'none' | 'in' | 'out' | 'inout';
 
 /**
+ * Animation curve to use for the motion.
+ */
+export type AnimationCurve = 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
+
+/**
  * Common props all entering motions should make available for consumers.
  */
 export interface MotionProps<TProps extends {}> {

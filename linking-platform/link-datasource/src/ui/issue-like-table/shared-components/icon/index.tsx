@@ -1,11 +1,18 @@
 import React from 'react';
 
-import { Box, Flex, Inline, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@compiled/react';
 
-const labelStyles = xcss({
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	width: '100%',
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+
+import { SharedIconComponentOld } from './icon-old';
+
+const styles = cssMap({
+	labelStyles: {
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		width: '100%',
+	},
 });
 
 interface SharedIconComponentProps {
@@ -30,7 +37,7 @@ interface SharedIconComponentProps {
  * Renders a icon and text label.
  * If the text is undefined, will not render the text label.
  */
-export function SharedIconComponent({ iconUrl, label, text, testId }: SharedIconComponentProps) {
+export function SharedIconComponentNew({ iconUrl, label, text, testId }: SharedIconComponentProps) {
 	return (
 		<Flex gap="space.100" alignItems="center" testId={testId}>
 			<Inline>
@@ -42,10 +49,18 @@ export function SharedIconComponent({ iconUrl, label, text, testId }: SharedIcon
 				/>
 			</Inline>
 			{text && (
-				<Box xcss={labelStyles} testId={`${testId}-text`}>
+				<Box xcss={styles.labelStyles} testId={`${testId}-text`}>
 					{text}
 				</Box>
 			)}
 		</Flex>
 	);
+}
+
+export function SharedIconComponent(props: SharedIconComponentProps) {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <SharedIconComponentNew {...props} />;
+	} else {
+		return <SharedIconComponentOld {...props} />;
+	}
 }

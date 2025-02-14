@@ -10,6 +10,7 @@ import classnames from 'classnames';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -213,6 +214,7 @@ export const ExtensionLabel = ({
 				}
 			}}
 			data-testid="new-lozenge-container"
+			contentEditable={fg('platform_editor_legacy_content_macro') ? false : undefined}
 		>
 			<Tooltip
 				content={

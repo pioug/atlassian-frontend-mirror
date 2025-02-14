@@ -13,6 +13,9 @@ async function openDropDown(page: Page) {
 snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal with drop down closed',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });
 snapshotInformational(WithJiraIssuesModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -21,6 +24,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal with an open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
 		'bandicoots-update-sllv-icons': true,
 	},
 });
@@ -42,6 +46,9 @@ snapshotInformational(WithJiraIssuesModal, {
 	},
 	description: 'jira issues modal after selecting Inline link from the drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });
 snapshotInformational(WithJiraIssuesModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -52,6 +59,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal after selecting Inline link with open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
 		'bandicoots-update-sllv-icons': true,
 	},
 });
@@ -71,6 +79,9 @@ snapshotInformational(WithJiraIssuesModal, {
 snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal with drop down closed',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -79,6 +90,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal with an open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
 		'bandicoots-update-sllv-icons': true,
 	},
 });
@@ -100,6 +112,9 @@ snapshotInformational(WithConfluenceSearchModal, {
 	},
 	description: 'confluence search modal after selecting Inline link from the drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
+	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -110,6 +125,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal after selecting Inline link with open drop down',
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'bandicoots-compiled-migration-link-datasource': [true, false],
 		'bandicoots-update-sllv-icons': true,
 	},
 });

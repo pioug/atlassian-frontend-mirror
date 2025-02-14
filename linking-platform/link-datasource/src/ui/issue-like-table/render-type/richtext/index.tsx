@@ -4,13 +4,15 @@
  */
 import { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { type DocNode } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { type RichText } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import RichTextTypeOld from './rich-text-old';
 
 const rootStyles = css({
 	position: 'relative',
@@ -67,4 +69,12 @@ const RichTextType = ({ value }: { value: RichText }) => {
 	}
 };
 
-export default RichTextType;
+const RichTextTypeExported = (props: { value: RichText }) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <RichTextType {...props} />;
+	} else {
+		return <RichTextTypeOld {...props} />;
+	}
+};
+
+export default RichTextTypeExported;

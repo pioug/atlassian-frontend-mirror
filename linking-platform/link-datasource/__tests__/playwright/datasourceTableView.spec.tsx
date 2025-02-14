@@ -37,7 +37,7 @@ test.describe('DatasourceTableView', () => {
 			.all();
 		expect(totalRowsAfterInitialLoad.length).toEqual(21);
 
-		const lastRow = page.locator('[data-testid="link-datasource--body"] tr:last-child');
+		const lastRow = page.locator('[data-testid="link-datasource--body"] tr:last-of-type');
 		lastRow.scrollIntoViewIfNeeded();
 
 		// waiting for loading to be complete

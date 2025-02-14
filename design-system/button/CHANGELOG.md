@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 20.5.2
+
+### Patch Changes
+
+- [#113702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113702)
+  [`6ac2c34162d59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ac2c34162d59) -
+  Remove old codemods.
+
 ## 20.5.1
 
 ### Patch Changes

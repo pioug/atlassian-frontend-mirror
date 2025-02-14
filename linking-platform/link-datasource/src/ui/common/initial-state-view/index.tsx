@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N300 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
+import { InitialStateViewOld } from './initial-state-view-old';
 import { initialStateViewMessages } from './messages';
 
 const initialStateViewContainerStyles = css({
@@ -59,7 +60,7 @@ interface InitialStateViewProps {
 	learnMoreLink?: { href: string; text: MessageDescriptor };
 }
 
-export const InitialStateView = ({
+export const InitialStateViewNew = ({
 	icon,
 	showBeta = false,
 	title,
@@ -90,4 +91,12 @@ export const InitialStateView = ({
 			</div>
 		</div>
 	);
+};
+
+export const InitialStateView = (props: InitialStateViewProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <InitialStateViewNew {...props} />;
+	} else {
+		return <InitialStateViewOld {...props} />;
+	}
 };

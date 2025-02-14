@@ -1,11 +1,9 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { IconTile } from '@atlaskit/icon';
 import DocumentIconOld from '@atlaskit/icon-file-type/glyph/document/16';
 import FileIconOld from '@atlaskit/icon-file-type/glyph/generic/16';
 import PresentationIconOld from '@atlaskit/icon-file-type/glyph/presentation/16';
 import SpreadsheetIconOld from '@atlaskit/icon-file-type/glyph/spreadsheet/16';
-import LiveDocumentIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import BlogIconOld from '@atlaskit/icon-object/glyph/blog/16';
 import DocumentFilledIconNew from '@atlaskit/icon/core/migration/file--document-filled';
 import DocumentFilledIconOld from '@atlaskit/icon/core/migration/page--document-filled';
@@ -16,6 +14,7 @@ import BlogIconNew from '../../../common/ui/icons/blog-icon';
 import PresentationIconNew from '../../../common/ui/icons/chart-bar-icon';
 import FileIconNew from '../../../common/ui/icons/file-icon';
 import SpreadsheetIconNew from '../../../common/ui/icons/list-bullet-icon';
+import LiveDocumentIcon from '../../../common/ui/icons/live-document-icon';
 import DocumentIconNew from '../../../common/ui/icons/page-icon';
 import { getIconForFileType } from '../../../utils';
 
@@ -152,15 +151,7 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
  */
 const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
-		return (
-			<IconTile
-				icon={LiveDocumentIcon}
-				label="live-doc"
-				appearance="magentaBold"
-				shape="square"
-				testId="live-doc-icon"
-			/>
-		);
+		return <LiveDocumentIcon label="live-doc" testId="live-doc-icon" />;
 	} else {
 		return <FileIcon label={opts.title || 'file'} testId="file-icon" />;
 	}

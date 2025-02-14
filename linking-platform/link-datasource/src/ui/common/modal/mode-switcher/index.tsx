@@ -4,9 +4,9 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N20, N30A, N60, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -16,6 +16,7 @@ import type { DisplayViewModes } from '../../../../common/types';
 import { useUserInteractions } from '../../../../contexts/user-interactions';
 import { DisplayViewDropDown } from '../display-view-dropdown/display-view-drop-down';
 
+import { ModeSwitcherOld } from './modeSwitcherOld';
 import { useViewModeContext } from './useViewModeContext';
 
 export interface ModeSwitcherPropsOption<T extends string = string> {
@@ -34,12 +35,15 @@ export interface ModeSwitcherProps<T extends string = string> {
 
 const modeSwitcherStyles = css({
 	alignItems: 'center',
-	background: token('color.background.neutral', N20),
+	backgroundColor: token('color.background.neutral', N20),
 	borderRadius: token('space.050', '4px'),
 	boxSizing: 'border-box',
 	display: 'inline-flex',
 	gap: token('space.050', '4px'),
-	padding: token('space.050', '4px'),
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
 	'&:disabled': {
 		opacity: '0.5',
 	},
@@ -47,7 +51,10 @@ const modeSwitcherStyles = css({
 });
 
 const compactModeSwitcherStyles = css({
-	padding: token('space.050', '4px'),
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
 	gap: token('space.025', '2px'),
 });
 
@@ -62,7 +69,10 @@ const modeSwitcherLabelStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 
-	padding: `${token('space.050', '4px')}`,
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
 	borderRadius: token('space.050', '4px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
@@ -98,10 +108,13 @@ const modeSwitcherDisabledStyles = css({
 });
 
 const compactModeSwitcherLabelStyles = css({
-	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
+	paddingTop: token('space.025', '2px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.025', '2px'),
+	paddingLeft: token('space.050', '4px'),
 });
 
-export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>) => {
+const ModeSwitcherNew = <T extends string = string>(props: ModeSwitcherProps<T>) => {
 	const {
 		isCompact,
 		isDisabled,
@@ -134,7 +147,8 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 									isCompact && compactModeSwitcherLabelStyles,
 									isSelected && modeSwitcherLabelSelectedStyles,
 									isDisabled && modeSwitcherDisabledStyles,
-									isOptionDisabled && [modeSwitcherLabelDisabledStyles, modeSwitcherDisabledStyles],
+									isOptionDisabled && modeSwitcherLabelDisabledStyles,
+									isOptionDisabled && modeSwitcherDisabledStyles,
 								]}
 								data-testid={`mode-toggle-${value}`}
 							>
@@ -156,6 +170,14 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 			})}
 		</fieldset>
 	) : null;
+};
+
+export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <ModeSwitcherNew {...props} />;
+	} else {
+		return <ModeSwitcherOld {...props} />;
+	}
 };
 
 export const DatasourceViewModeDropDown = () => {

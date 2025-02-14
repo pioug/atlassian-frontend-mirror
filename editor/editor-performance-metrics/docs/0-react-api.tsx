@@ -39,7 +39,7 @@ To use the \`PerformanceMetrics\` component, integrate it into your main applica
 
 ${code`
 import React from 'react';
-import { PerformanceMetrics } from './react-api';
+import { PerformanceMetrics } from '@atlaskit/editor-performance-metrics/react';
 
 
 const handleTTVC = ({ ttvc, relativeTTVC }) => {

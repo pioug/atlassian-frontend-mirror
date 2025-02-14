@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { styled } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -13,7 +12,10 @@ import { ScrollableContainerHeight } from '../../src/ui/issue-like-table/styled'
 const Container = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxHeight: ScrollableContainerHeight,
-	padding: token('space.100', '8px'),
+	paddingTop: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: token('space.100', '8px'),
 });
 
 export default () => {

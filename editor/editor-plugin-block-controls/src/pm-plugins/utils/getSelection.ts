@@ -114,7 +114,7 @@ export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Tr
  * @param handlePos
  * @returns
  */
-export const isHandleInSelection = (
+export const isHandleCorrelatedToSelection = (
 	state: EditorState,
 	selection: Selection,
 	handlePos: number,

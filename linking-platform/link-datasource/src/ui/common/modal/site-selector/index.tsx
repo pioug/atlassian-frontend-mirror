@@ -4,24 +4,26 @@
  */
 import { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';
-import { siteSelectorIndex } from '../../../../common/zindex';
 
 import { siteSelectorMessages } from './messages';
+import { SiteSelectorOld } from './site-selector-old';
 
-const dropdownContainerStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	gap: 'space.100',
-	minHeight: '40px', // to prevent vertical shifting when site selector pops in
+const styles = cssMap({
+	dropdownContainerStyles: {
+		display: 'flex',
+		alignItems: 'center',
+		gap: token('space.100'),
+		minHeight: '40px', // to prevent vertical shifting when site selector pops in
+	},
 });
 
 export interface SiteSelectorProps {
@@ -34,12 +36,11 @@ export interface SiteSelectorProps {
 
 const selectStyles = css({
 	font: token('font.body'),
-	fontWeight: token('font.weight.medium', '500'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: siteSelectorIndex,
+	zIndex: 11,
 });
 
-export const SiteSelector = (props: SiteSelectorProps) => {
+const SiteSelectorNew = (props: SiteSelectorProps) => {
 	const { availableSites, onSiteSelection, selectedSite, label, testId } = props;
 
 	const { formatMessage } = useIntl();
@@ -67,7 +68,7 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 	};
 
 	return (
-		<Box xcss={dropdownContainerStyles}>
+		<Box xcss={styles.dropdownContainerStyles}>
 			{formatMessage(label)}
 			{availableSites && availableSites.length > 1 && (
 				<span data-testid={`${testId}--trigger`}>
@@ -85,6 +86,13 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 								...css,
 								minWidth: '100%',
 								width: 'max-content',
+								// font-weight has to be overridden here so that it gets applied after the font styles in teh css element above
+								fontWeight: token('font.weight.medium', '500'),
+							}),
+							valueContainer: ({ width, ...css }) => ({
+								...css,
+								// font-weight has to be overridden here so that it gets applied after the font styles in teh css element above
+								fontWeight: token('font.weight.medium', '500'),
 							}),
 						}}
 						testId={testId}
@@ -94,4 +102,12 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 			)}
 		</Box>
 	);
+};
+
+export const SiteSelector = (props: SiteSelectorProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <SiteSelectorNew {...props} />;
+	} else {
+		return <SiteSelectorOld {...props} />;
+	}
 };

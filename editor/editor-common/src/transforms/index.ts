@@ -19,6 +19,7 @@ export {
 	transformSliceToRemoveOpenBodiedExtension,
 	transformSliceToRemoveOpenMultiBodiedExtension,
 	transformSliceToRemoveLegacyContentMacro,
+	transformSliceToRemoveMacroId,
 } from './extension';
 export {
 	transformSliceToJoinAdjacentCodeBlocks,

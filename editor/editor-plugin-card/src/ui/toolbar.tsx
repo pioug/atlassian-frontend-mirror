@@ -476,7 +476,6 @@ const generateToolbarItems =
 				...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
 				{
 					type: 'copy-button',
-					supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 					items: [
 						{
 							state,

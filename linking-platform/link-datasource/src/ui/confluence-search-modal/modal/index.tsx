@@ -1,19 +1,14 @@
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { DatasourceAction, DatasourceSearchMethod } from '../../../analytics/types';
@@ -52,11 +47,14 @@ import {
 
 import { ConfluenceSearchInitialStateSVGOld } from './confluence-search-initial-state-svg-old';
 import { confluenceSearchModalMessages } from './messages';
+import { ConfluenceSearchConfigModalOld, PlainConfluenceSearchConfigModalOld } from './modal-old';
 
-const inputContainerStyles = xcss({
-	alignItems: 'baseline',
-	display: 'flex',
-	minHeight: '72px',
+const styles = cssMap({
+	inputContainerStyles: {
+		alignItems: 'baseline',
+		display: 'flex',
+		minHeight: '72px',
+	},
 });
 
 const isValidParameters = (parameters: DatasourceParameters | undefined): boolean =>
@@ -68,7 +66,7 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 
 const noop = () => '';
 
-export const PlainConfluenceSearchConfigModal = (
+export const PlainConfluenceSearchConfigModalNew = (
 	props: ConnectedConfluenceSearchConfigModalProps,
 ) => {
 	const { onCancel, url: urlBeingEdited, overrideParameters } = props;
@@ -396,7 +394,7 @@ export const PlainConfluenceSearchConfigModal = (
 				<ModalBody>
 					{!hasNoConfluenceSites ? (
 						<Fragment>
-							<Box xcss={inputContainerStyles}>
+							<Box xcss={styles.inputContainerStyles}>
 								<ConfluenceSearchContainer
 									isSearching={status === 'loading'}
 									onSearch={onSearch}
@@ -444,14 +442,24 @@ export const PlainConfluenceSearchConfigModal = (
 	);
 };
 
+export const PlainConfluenceSearchConfigModal = (
+	props: ConnectedConfluenceSearchConfigModalProps,
+) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <PlainConfluenceSearchConfigModalNew {...props} />;
+	} else {
+		return <PlainConfluenceSearchConfigModalOld {...props} />;
+	}
+};
+
 const ConnectedConfluenceSearchConfigModal =
 	createDatasourceModal<ConfluenceSearchDatasourceParameters>({
 		isValidParameters,
 		dataProvider: 'confluence-search',
-		component: PlainConfluenceSearchConfigModal,
+		component: PlainConfluenceSearchConfigModalNew,
 	});
 
-export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
+export const ConfluenceSearchConfigModalNew = (props: ConfluenceSearchConfigModalProps) => {
 	return (
 		<StoreContainer>
 			<ConnectedConfluenceSearchConfigModal
@@ -469,4 +477,12 @@ export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalPr
 			/>
 		</StoreContainer>
 	);
+};
+
+export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
+	if (fg('bandicoots-compiled-migration-link-datasource')) {
+		return <ConfluenceSearchConfigModalNew {...props} />;
+	} else {
+		return <ConfluenceSearchConfigModalOld {...props} />;
+	}
 };

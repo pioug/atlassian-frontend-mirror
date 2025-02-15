@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-type-ahead",
-	"version": "1.13.2",
+	"version": "1.13.3",
 	"description": "Type-ahead plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,9 +36,10 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/editor-common": "^99.16.0",
-		"@atlaskit/editor-element-browser": "^0.0.1",
+		"@atlaskit/editor-element-browser": "^0.0.2",
 		"@atlaskit/editor-plugin-analytics": "^1.12.0",
 		"@atlaskit/editor-plugin-connectivity": "^1.3.0",
+		"@atlaskit/editor-plugin-context-panel": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/heading": "^4.1.0",

@@ -148,6 +148,7 @@ const FormCustomSelectFieldExample = () => {
 										{...rest}
 										options={colors}
 										isClearable
+										clearControlLabel="Clear color"
 									/>
 									{error && <ErrorMessage>{error}</ErrorMessage>}
 								</Fragment>

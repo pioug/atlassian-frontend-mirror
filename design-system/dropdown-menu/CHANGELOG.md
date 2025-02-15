@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 12.26.3
+
+### Patch Changes
+
+- [#114433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114433)
+  [`cf11baeb9088e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf11baeb9088e) -
+  Remove old codemods and update dependencies.
+
 ## 12.26.2
 
 ### Patch Changes

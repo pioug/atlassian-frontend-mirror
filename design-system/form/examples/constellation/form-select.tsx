@@ -96,7 +96,13 @@ const FormSelectExample = () => {
 						<Field<Value<Option>> name="colors" label="Select a color" defaultValue={null}>
 							{({ fieldProps: { id, ...rest }, error }) => (
 								<Fragment>
-									<Select<Option> inputId={id} {...rest} options={colors} isClearable />
+									<Select<Option>
+										inputId={id}
+										{...rest}
+										options={colors}
+										isClearable
+										clearControlLabel="Clear color"
+									/>
 									{error && <ErrorMessage>{error}</ErrorMessage>}
 								</Fragment>
 							)}

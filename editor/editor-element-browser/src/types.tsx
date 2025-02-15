@@ -1,5 +1,6 @@
-import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
+// import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 
 export type QuickInsertPanelItem = TypeAheadItem;
 export type SideInsertPanelItem = TypeAheadItem;
@@ -29,4 +30,6 @@ export type SideInsertPanelProps = {
 	 * The full list of items that can be displayed in the SideInsertPanel
 	 */
 	items: SideInsertPanelItem[];
+
+	onItemInsert: (mode: SelectItemMode, index: number) => void;
 };

@@ -2281,7 +2281,6 @@ export default class Select<
 				<NoOptionsMessage
 					{...commonProps}
 					innerProps={{
-						'data-testid': testId && `${testId}-select--no-options`,
 						...(testId && {
 							'data-testid': `${testId}-select--no-options`,
 						}),

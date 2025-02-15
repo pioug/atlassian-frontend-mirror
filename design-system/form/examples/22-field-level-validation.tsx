@@ -221,6 +221,7 @@ export default function FieldLevelValidationExample() {
 											isInvalid={selectHasError}
 											descriptionId={selectHasError ? `${id}-error` : undefined}
 											onBlur={handleSelectBlurEvent}
+											clearControlLabel="Clear color"
 										/>
 										<MessageWrapper>
 											{selectHasError && <ErrorMessage>{selectError}</ErrorMessage>}

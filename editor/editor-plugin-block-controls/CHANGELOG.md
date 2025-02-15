@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.27.1
+
+### Patch Changes
+
+- [#112996](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112996)
+  [`e76ab95452657`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e76ab95452657) -
+  ED-26395: Added tests for canMoveSliceToIndex, and fix drop target showing when first node is p,
+  second node table, drop into panel
+
 ## 2.27.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/page
 
+## 12.7.1
+
+### Patch Changes
+
+- [#114324](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114324)
+  [`991ad9cd7e777`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/991ad9cd7e777) -
+  Update dependencies and remove unused exports.
+
 ## 12.7.0
 
 ### Minor Changes

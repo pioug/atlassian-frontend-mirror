@@ -128,7 +128,13 @@ export default class extends Component<{}> {
 							>
 								{({ fieldProps: { id, ...rest }, error }) => (
 									<Fragment>
-										<Select<Option> inputId={id} {...rest} options={colors} isClearable />
+										<Select<Option>
+											inputId={id}
+											{...rest}
+											options={colors}
+											isClearable
+											clearControlLabel="Clear color"
+										/>
 										<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 									</Fragment>
 								)}

@@ -68,6 +68,7 @@ export default function OnBlurValidationExample() {
 											{...rest}
 											options={colors}
 											isClearable
+											clearControlLabel="Clear color"
 											isInvalid={selectHasError}
 											descriptionId={selectHasError ? `${id}-error` : undefined}
 											onBlur={handleSelectBlurEvent}

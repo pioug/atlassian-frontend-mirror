@@ -84,4 +84,10 @@ export const typeAheadListMessages = defineMessages({
 		defaultMessage: 'Try reloading the page.',
 		description: 'description for offline error fallback when mentions are not available',
 	},
+	viewAllInserts: {
+		id: 'fablric.editor.viewAllInserts',
+		defaultMessage: 'View all inserts',
+		description:
+			'a text on a button that opens a side panel with a list of all insertable editor elements',
+	},
 });

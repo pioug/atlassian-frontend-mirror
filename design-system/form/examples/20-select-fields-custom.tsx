@@ -150,6 +150,7 @@ export default () => (
 									{...rest}
 									options={colors}
 									isClearable
+									clearControlLabel="Clear colour"
 								/>
 								{error && <ErrorMessage>{error}</ErrorMessage>}
 							</Fragment>
@@ -158,7 +159,13 @@ export default () => (
 					<Field<ValueType<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
 						{({ fieldProps: { id, ...rest }, error }) => (
 							<Fragment>
-								<Select inputId={id} {...rest} options={flavors} isMulti />
+								<Select
+									inputId={id}
+									{...rest}
+									options={flavors}
+									isMulti
+									clearControlLabel="Clear flavor"
+								/>
 								{error && <ErrorMessage>{error}</ErrorMessage>}
 							</Fragment>
 						)}

@@ -29,6 +29,7 @@ export { toolbarMessages as layoutMessages } from './layout';
 export { messages as indentationMessages } from './indentation';
 export { avatarGroupMessages } from './avatar-group';
 export { findReplaceMessages } from './find-replace';
+export { elementInsertSidePanel } from './element-insert-side-panel';
 export { textColorMessages } from './text-color';
 export { tasksAndDecisionsMessages } from './tasks-and-decsisions';
 export { placeholderTextMessages } from './placeholder-text';

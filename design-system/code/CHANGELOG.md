@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 15.7.2
+
+### Patch Changes
+
+- [#114336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114336)
+  [`f09cd799e466a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f09cd799e466a) -
+  Update dependencies and remove old codemods.
+
 ## 15.7.1
 
 ### Patch Changes

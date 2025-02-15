@@ -16,6 +16,7 @@ export const akEditorDeleteBackgroundWithOpacity = 'rgba(255, 189, 173, 0.5)'; /
 export const akEditorDeleteBorder = token('color.border.danger');
 export const akEditorDeleteIconColor = token('color.icon.danger');
 export const akEditorCustomIconSize = 20;
+
 export const akEditorSelectedBorderColor = token('color.border.selected');
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorderBoldSize = 2;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "15.7.1",
+	"version": "15.7.2",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -60,7 +60,6 @@
 		"@types/refractor": "^3.0.2",
 		"color-contrast-checker": "^1.5.0",
 		"css-loader": "^2.0.0",
-		"jscodeshift": "^0.13.0",
 		"prismjs": "^1.25.0",
 		"react-dom": "^18.2.0",
 		"style-loader": "^0.16.1",

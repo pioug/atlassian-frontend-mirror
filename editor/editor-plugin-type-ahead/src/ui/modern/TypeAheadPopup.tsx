@@ -19,7 +19,6 @@ import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import { QuickInsertPanel } from '@atlaskit/editor-element-browser';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { Pressable, xcss } from '@atlaskit/primitives';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -31,6 +30,8 @@ import {
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import type { TypeAheadErrorInfo } from '../../types';
 import { TypeAheadErrorFallback } from '../TypeAheadErrorFallback';
+
+import { ViewAllButton } from './ViewAllButton';
 
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 520;
 // const DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW = 480;
@@ -72,26 +73,6 @@ type TypeAheadPopupProps = {
 	}) => void;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 };
-
-const viewAllButtonStyles = xcss({
-	background: token('color.background.input.pressed'),
-
-	position: 'sticky',
-	bottom: '-4px',
-
-	width: '100%',
-	height: '40px',
-
-	color: 'color.text.subtle',
-	fontWeight: token('font.weight.medium'),
-
-	':hover': {
-		textDecoration: 'underline',
-	},
-	':active': {
-		color: 'color.text',
-	},
-});
 
 const OFFSET = [0, 8];
 export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
@@ -300,6 +281,16 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		};
 	}, [ref, cancel]);
 
+	const handlePanelOpen = useCallback(
+		() =>
+			cancel({
+				addPrefixTrigger: true,
+				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
+				forceFocusOnEditor: true,
+			}),
+		[cancel],
+	);
+
 	return (
 		<Popup
 			zIndex={akEditorFloatingDialogZIndex}
@@ -327,12 +318,14 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 					<React.Fragment>
 						<QuickInsertPanel items={items} onItemInsert={onItemInsert} query={query} />
 
-						<Pressable
-							xcss={viewAllButtonStyles}
-							// onClick={() => api?.contextPanel?.actions.showPanel()}
-						>
-							View all inserts
-						</Pressable>
+						{api?.contextPanel && (
+							<ViewAllButton
+								items={items}
+								editorApi={api}
+								onItemInsert={onItemInsert}
+								onPanelOpen={handlePanelOpen}
+							/>
+						)}
 					</React.Fragment>
 				)}
 			</div>

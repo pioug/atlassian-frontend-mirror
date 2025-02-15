@@ -76,6 +76,7 @@ export default function StateSubscriptionExample() {
 										{ label: 'Error', value: 'error' },
 									]}
 									isClearable
+									clearControlLabel="Clear appearance"
 								/>
 							)}
 						</Field>

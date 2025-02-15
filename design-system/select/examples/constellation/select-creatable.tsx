@@ -65,6 +65,7 @@ class CreatableAdvanced extends Component<{}, State> {
 				<CreatableSelect
 					inputId="createable-select-example"
 					isClearable
+					clearControlLabel="Clear city"
 					isDisabled={isLoading}
 					isLoading={isLoading}
 					onChange={this.handleChange}

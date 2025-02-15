@@ -59,9 +59,6 @@
 			"path": "../checkbox/tsconfig.app.json"
 		},
 		{
-			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-		},
-		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{

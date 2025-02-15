@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 15.3.2
+
+### Patch Changes
+
+- [#114285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114285)
+  [`7401cbc8ec943`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7401cbc8ec943) -
+  Remove old codemod.
+
 ## 15.3.1
 
 ### Patch Changes

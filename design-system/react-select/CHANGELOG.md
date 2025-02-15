@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.7.4
+
+### Patch Changes
+
+- [#114436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114436)
+  [`bbcb49e3d0f31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bbcb49e3d0f31) -
+  Clean up extra testId
+
 ## 1.7.3
 
 ### Patch Changes

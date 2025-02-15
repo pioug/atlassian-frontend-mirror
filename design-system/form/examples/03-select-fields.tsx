@@ -98,7 +98,13 @@ export default () => (
 					<Field<Value<Option>> name="colors" label="Select a color" defaultValue={null}>
 						{({ fieldProps: { id, ...rest }, error }) => (
 							<Fragment>
-								<Select<Option> inputId={id} {...rest} options={colors} isClearable />
+								<Select<Option>
+									inputId={id}
+									{...rest}
+									options={colors}
+									isClearable
+									clearControlLabel="Clear color"
+								/>
 								{error && <ErrorMessage>{error}</ErrorMessage>}
 							</Fragment>
 						)}
@@ -106,7 +112,13 @@ export default () => (
 					<Field<Value<Option, true>> name="icecream" label="Select a flavor" defaultValue={[]}>
 						{({ fieldProps: { id, ...rest }, error }) => (
 							<Fragment>
-								<Select inputId={id} {...rest} options={flavors} isMulti />
+								<Select
+									inputId={id}
+									{...rest}
+									options={flavors}
+									isMulti
+									clearControlLabel="Clear flavor"
+								/>
 								{error && <ErrorMessage>{error}</ErrorMessage>}
 							</Fragment>
 						)}
@@ -118,7 +130,13 @@ export default () => (
 					>
 						{({ fieldProps: { id, ...rest }, error }) => (
 							<Fragment>
-								<Select inputId={id} {...rest} options={suits} isMulti />
+								<Select
+									inputId={id}
+									{...rest}
+									options={suits}
+									isMulti
+									clearControlLabel="Clear suits"
+								/>
 								{error && <ErrorMessage>{error}</ErrorMessage>}
 							</Fragment>
 						)}

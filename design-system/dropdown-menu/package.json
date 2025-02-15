@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dropdown-menu",
-	"version": "12.26.2",
+	"version": "12.26.3",
 	"description": "A dropdown menu displays a list of actions or options to a user.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -66,7 +66,6 @@
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"jest-in-case": "^1.0.2",
-		"jscodeshift": "^0.13.0",
 		"raf-stub": "^2.0.1",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

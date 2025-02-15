@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 25.3.0
+
+### Minor Changes
+
+- [#114320](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114320)
+  [`5ab40880ad189`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ab40880ad189) -
+  [ux] Adds a new showRoundTrigger prop to the ReactionPicker component which is used in Trigger
+  component to display a round hover border around the trigger button.
+
 ## 25.2.1
 
 ### Patch Changes

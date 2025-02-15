@@ -44,6 +44,9 @@
 			"path": "../editor-plugin-connectivity/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-context-panel/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
 		},
 		{
@@ -51,6 +54,9 @@
 		},
 		{
 			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/menu/tsconfig.app.json"

@@ -90,6 +90,7 @@ export default () => {
 				}}
 				options={colors}
 				isClearable
+				clearControlLabel="Clear color"
 			/>
 		</div>
 	);

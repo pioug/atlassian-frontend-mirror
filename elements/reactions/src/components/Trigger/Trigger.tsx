@@ -54,6 +54,10 @@ export interface TriggerProps {
 	 * Optional prop for applying subtle styling to reaction picker
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
+	/**
+	 * Optional prop for controlling if the picker hover border will be rounded
+	 */
+	showRoundTrigger?: boolean;
 }
 
 const i18n = defineMessages({
@@ -89,6 +93,12 @@ const expandedTriggerStyles = xcss({
 
 const triggerStylesRefresh = xcss({
 	borderRadius: 'border.radius',
+});
+
+const roundTriggerStyles = xcss({
+	borderRadius: '50%',
+	height: '2rem',
+	width: '2rem',
 });
 
 const transparentEnabledTriggerStyles = xcss({
@@ -148,6 +158,7 @@ export const Trigger = React.forwardRef(
 			showOpaqueBackground = false,
 			showAddReactionText = false,
 			subtleReactionsSummaryAndPicker = false,
+			showRoundTrigger = false,
 		} = props;
 
 		const handleMouseDown = (
@@ -174,6 +185,7 @@ export const Trigger = React.forwardRef(
 								: transparentEnabledTriggerStyles,
 						miniMode && miniModeStyles,
 						fg('platform-component-visual-refresh') && triggerStylesRefresh,
+						showRoundTrigger && roundTriggerStyles,
 					]}
 					onClick={handleMouseDown}
 					isDisabled={disabled}

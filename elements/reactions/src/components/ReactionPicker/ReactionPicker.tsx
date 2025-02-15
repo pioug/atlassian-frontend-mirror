@@ -136,6 +136,10 @@ export interface ReactionPickerProps
 	 * Optional prop for displaying text to add a reaction
 	 */
 	showAddReactionText?: boolean;
+	/**
+	 * Optional prop for controlling if the picker hover border will be rounded
+	 */
+	showRoundTrigger?: boolean;
 }
 
 /**
@@ -158,6 +162,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		showOpaqueBackground = false,
 		subtleReactionsSummaryAndPicker = false,
 		showAddReactionText = false,
+		showRoundTrigger = false,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -316,6 +321,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							showOpaqueBackground={showOpaqueBackground}
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+							showRoundTrigger={showRoundTrigger}
 						/>
 					)}
 				</Reference>

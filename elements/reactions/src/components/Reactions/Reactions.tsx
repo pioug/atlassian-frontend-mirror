@@ -195,6 +195,10 @@ export interface ReactionsProps
 	 * Optional prop to hide the user reactions and only render the picker
 	 */
 	onlyRenderPicker?: boolean;
+	/**
+	 * Optional prop for controlling if the picker hover border will be rounded
+	 */
+	showRoundTrigger?: boolean;
 }
 
 /**
@@ -257,6 +261,7 @@ export const Reactions = React.memo(
 		hideDefaultReactions = false,
 		ProfileCardWrapper,
 		onlyRenderPicker = false,
+		showRoundTrigger = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -533,6 +538,7 @@ export const Reactions = React.memo(
 					showOpaqueBackground={showOpaqueBackground}
 					showAddReactionText={showAddReactionText}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+					showRoundTrigger={showRoundTrigger}
 				/>
 				<ModalTransition>
 					{!!selectedEmojiId && (

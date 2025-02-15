@@ -82,6 +82,7 @@ export default () => {
 											selectProps={{
 												ref: DOBfieldRef,
 												'aria-invalid': ariaInvalid,
+												clearControlLabel: 'Clear date of birth',
 											}}
 											{...rest}
 											id={id}
@@ -114,6 +115,7 @@ export default () => {
 									<Fragment>
 										<DateTimePicker
 											{...rest}
+											clearControlLabel="Clear preferred appointment date & time"
 											datePickerProps={{
 												shouldShowCalendarButton: true,
 												selectProps: {

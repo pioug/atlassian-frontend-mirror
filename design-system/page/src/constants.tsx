@@ -1,4 +1,4 @@
-export const defaultGridSize = 8;
+const defaultGridSize = 8;
 
 export const defaultGridColumns = 12;
 

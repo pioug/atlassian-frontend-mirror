@@ -43,7 +43,7 @@
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.2.0",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "^2.14.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "^3.2.0",
+		"@atlaskit/editor-shared-styles": "^3.3.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/tmp-editor-statsig": "^2.46.0",

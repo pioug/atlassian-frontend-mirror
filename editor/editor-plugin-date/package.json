@@ -43,7 +43,7 @@
 		"@atlaskit/editor-plugin-editor-disabled": "^1.5.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.2.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "^3.2.0",
+		"@atlaskit/editor-shared-styles": "^3.3.0",
 		"@atlaskit/form": "^11.1.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/locale": "^2.8.0",

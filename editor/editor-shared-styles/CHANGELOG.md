@@ -1,5 +1,15 @@
 # @atlaskit/editor-shared-styles
 
+## 3.3.0
+
+### Minor Changes
+
+- [#114486](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114486)
+  [`bd89d7bfae0c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd89d7bfae0c1) -
+  @atlaskit/editor-shared-styles adds an export `akEditorSelectedBoldBoxShadow` recently, which
+  should be minor change and causes trouble for Jira and Atlas/townsquare when bumping editor-core.
+  This PR triggers a minor bump for @atlaskit/editor-shared-styles
+
 ## 3.2.4
 
 ### Patch Changes

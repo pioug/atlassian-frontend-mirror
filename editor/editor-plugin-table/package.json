@@ -41,7 +41,7 @@
 		"@atlaskit/editor-plugin-selection": "^1.8.0",
 		"@atlaskit/editor-plugin-width": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "^3.2.0",
+		"@atlaskit/editor-shared-styles": "^3.3.0",
 		"@atlaskit/editor-tables": "^2.9.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/menu": "^2.14.0",

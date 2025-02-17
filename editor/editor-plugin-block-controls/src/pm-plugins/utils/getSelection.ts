@@ -3,9 +3,9 @@ import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	EditorState,
 	NodeSelection,
-	Selection,
 	TextSelection,
 	type Transaction,
+	Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';

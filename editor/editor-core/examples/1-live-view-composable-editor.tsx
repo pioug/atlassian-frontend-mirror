@@ -86,6 +86,7 @@ function ComposableEditorPage() {
 				stickyHeaders: true,
 				allowTableAlignment: true,
 				allowTableResizing: true,
+				allowNestedTables: true,
 			},
 			allowDate: true,
 			allowRule: true,

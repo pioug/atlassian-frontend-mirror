@@ -7,12 +7,15 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { resetContentMoved, resetContentMovedTransform, updateContentMoved } from './commands';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
-import { defaultState } from './types';
+import { type ContentMoved, defaultState } from './types';
 import {
+	containsExcludedNode,
+	getMultipleSelectionAttributes,
 	getParentNodeDepth,
 	isCursorSelectionAtTopLevel,
 	isEntireNestedParagraphOrHeadingSelected,
@@ -67,11 +70,12 @@ export const createPlugin = (
 					actionSubjectId: ACTION_SUBJECT_ID.NODE,
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
+						// keep nodeName from copied slice
 						nodeType: contentMoved?.nodeName,
 						nodeDepth: contentMoved?.nodeDepth,
 						destinationNodeDepth: getParentNodeDepth(state.selection),
-
-						// keep nodeName from copied slice
+						nodeTypes: contentMoved?.nodeTypes,
+						hasSelectedMultipleNodes: contentMoved?.hasSelectedMultipleNodes,
 					},
 				})(tr);
 
@@ -88,6 +92,9 @@ export const createPlugin = (
 
 				let resetState = false;
 				const { content, size } = slice;
+				const { selection } = state;
+				// Note: the following is not the case once `platform_editor_element_drag_and_drop_multiselect` is enabled
+				// we now want to track cut events for multiple nodes
 				// Content should be just one node, so we added a check for slice.content.childCount === 1;
 				// 1. It is possible to select a table by dragging the mouse over the table's rows.
 				// As a result, slice will contain rows without tableNode itself and the childCount will be the number of rows.
@@ -96,43 +103,63 @@ export const createPlugin = (
 				// the paragraph below the node. Visually only the node in between is selected, in reality, three nodes are
 				// in the slice.
 				// These cases are ignored and moveContent event won't be counted.
-				if (content.childCount !== 1) {
-					resetState = true;
-				}
-
+				const isMultiSelectEnabled = editorExperiment(
+					'platform_editor_element_drag_and_drop_multiselect',
+					true,
+				);
 				const nodeName = content.firstChild?.type.name || '';
+				let nodeTypes,
+					hasSelectedMultipleNodes = false;
 
-				// Some nodes are not relevant as they are parts of nodes, not whole nodes (like tableCell, tableHeader instead of table node)
-				// Some nodes like lists, taskList(item), decisionList(item) requires tricky checks that we want to avoid doing.
-				// These nodes were added to excludedNodes array.
-				if (!resetState && isExcludedNode(nodeName)) {
-					resetState = true;
-				}
-				const { selection } = state;
+				if (content.childCount > 1) {
+					if (isMultiSelectEnabled) {
+						if (containsExcludedNode(content)) {
+							resetState = true;
+						} else {
+							const attributes = getMultipleSelectionAttributes(content);
+							nodeTypes = attributes.nodeTypes;
+							hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+						}
+					} else {
+						resetState = true;
+					}
+				} else if (content.childCount === 1) {
+					// Some nodes are not relevant as they are parts of nodes, not whole nodes (like tableCell, tableHeader instead of table node)
+					// Some nodes like lists, taskList(item), decisionList(item) requires tricky checks that we want to avoid doing.
+					// These nodes were added to excludedNodes array.
+					if (!resetState && isExcludedNode(nodeName)) {
+						resetState = true;
+					}
 
-				if (!resetState && !isEntireNestedParagraphOrHeadingSelected(selection)) {
-					resetState = true;
-				}
+					if (!resetState && !isEntireNestedParagraphOrHeadingSelected(selection)) {
+						resetState = true;
+					}
 
-				if (!resetState && isInlineNode(nodeName) && isNestedInlineNode(selection)) {
-					resetState = true;
-				}
+					if (!resetState && isInlineNode(nodeName) && isNestedInlineNode(selection)) {
+						resetState = true;
+					}
 
-				if (!resetState && isNestedInTable(state)) {
+					if (!resetState && isNestedInTable(state)) {
+						resetState = true;
+					}
+				} else {
 					resetState = true;
 				}
 
 				if (resetState) {
 					resetContentMoved()(state, dispatch);
 				} else {
-					updateContentMoved(
-						{
-							size: size,
-							nodeName: nodeName,
-							nodeDepth: getParentNodeDepth(selection),
-						},
-						'contentCut',
-					)(state, dispatch);
+					let newState: Omit<ContentMoved, 'currentActions'> = {
+						size: size,
+						nodeName: nodeName,
+						nodeDepth: getParentNodeDepth(selection),
+					};
+
+					if (isMultiSelectEnabled) {
+						newState = { ...newState, nodeTypes: nodeTypes ?? nodeName, hasSelectedMultipleNodes };
+					}
+
+					updateContentMoved(newState, 'contentCut')(state, dispatch);
 				}
 
 				isCutEvent = false;

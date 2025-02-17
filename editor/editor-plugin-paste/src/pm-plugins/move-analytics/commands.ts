@@ -18,6 +18,8 @@ export const updateContentMoved = (
 				size: nextState?.size || contentMoved.size,
 				nodeName: nextState?.nodeName,
 				nodeDepth: nextState?.nodeDepth,
+				nodeTypes: nextState?.nodeTypes,
+				hasSelectedMultipleNodes: nextState?.hasSelectedMultipleNodes,
 			};
 
 			return {

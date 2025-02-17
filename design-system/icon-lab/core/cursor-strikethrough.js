@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0e376000f6c35a46532ae877ffa5d1de>>
+ * @codegen <<SignedSource::4e9aa9242f67e2ef0ce96d7cf0512ba7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CursorStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<mask id="a" width="16" height="16" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="currentcolor" fill-rule="evenodd" d="M0 10.812V0h10.812zM12.933 0H16v16H0v-3.067z" clip-rule="evenodd"/></mask><g stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" mask="url(#a)"><path d="M8.9 9.32 7.52 13.8a.63.63 0 0 1-1.18.05L2.03 2.84a.63.63 0 0 1 .81-.81l11 4.32a.63.63 0 0 1-.04 1.18L9.32 8.9a.63.63 0 0 0-.41.41ZM13 1 1 13"/></g>`
+  dangerouslySetGlyph: `<mask id="mask0_35812_11518" width="16" height="16" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="currentcolor" fill-rule="evenodd" d="M0 10.812V0h10.812zM12.933 0H16v16H0v-3.067z" clip-rule="evenodd"/></mask><g stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" mask="url(#mask0_35812_11518)"><path d="M8.9 9.32 7.52 13.8a.63.63 0 0 1-1.18.05L2.03 2.84a.63.63 0 0 1 .81-.81l11 4.32a.63.63 0 0 1-.04 1.18L9.32 8.9a.63.63 0 0 0-.41.41ZM13 1 1 13"/></g>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CursorStrikethroughIcon.displayName = 'CursorStrikethroughIcon';

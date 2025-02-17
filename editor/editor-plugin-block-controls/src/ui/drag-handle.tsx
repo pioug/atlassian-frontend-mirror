@@ -29,7 +29,9 @@ import {
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -44,7 +46,6 @@ import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginT
 import { key } from '../pm-plugins/main';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
 import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
-import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 
 import {
@@ -53,9 +54,12 @@ import {
 	DRAG_HANDLE_WIDTH,
 	DRAG_HANDLE_ZINDEX,
 	dragHandleGap,
+	nodeMargins,
+	spacingBetweenNodesForPreview,
 	topPositionAdjustment,
 } from './consts';
 import { dragPreview } from './drag-preview';
+import type { DragPreviewContent } from './drag-preview';
 
 const iconWrapperStyles = xcss({
 	display: 'flex',
@@ -135,6 +139,21 @@ const handleIconDragStart = (e: DragEvent<HTMLSpanElement>) => {
 	}
 };
 
+const getNodeSpacingForPreview = (node?: PMNode) => {
+	if (!node) {
+		return spacingBetweenNodesForPreview['default'];
+	}
+	const nodeTypeName = node.type.name;
+	if (nodeTypeName === 'heading') {
+		return (
+			spacingBetweenNodesForPreview[`heading${node.attrs.level}`] ||
+			spacingBetweenNodesForPreview['default']
+		);
+	}
+
+	return spacingBetweenNodesForPreview[nodeTypeName] || spacingBetweenNodesForPreview['default'];
+};
+
 export const DragHandle = ({
 	view,
 	api,
@@ -162,6 +181,13 @@ export const DragHandle = ({
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isLayoutColumn = nodeType === 'layoutColumn';
+	const isMultiSelect = editorExperiment(
+		'platform_editor_element_drag_and_drop_multiselect',
+		true,
+		{
+			exposure: true,
+		},
+	);
 	useEffect(() => {
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
 		if (nodeType === 'blockCard') {
@@ -184,13 +210,13 @@ export const DragHandle = ({
 
 	const handleOnClick = useCallback(() => {
 		setDragHandleSelected(!dragHandleSelected);
+
 		api?.core?.actions.execute(({ tr }) => {
 			const startPos = getPos();
 
 			if (startPos === undefined) {
 				return tr;
 			}
-
 			tr = selectNode(tr, startPos, nodeType);
 			const resolvedMovingNode = tr.doc.resolve(startPos);
 			const maybeNode = resolvedMovingNode.nodeAfter;
@@ -211,7 +237,23 @@ export const DragHandle = ({
 		});
 
 		view.focus();
-	}, [dragHandleSelected, api?.core?.actions, api?.analytics?.actions, view, getPos, nodeType]);
+
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			const startPos = getPos();
+			if (startPos === undefined) {
+				return false;
+			}
+			api?.core.actions.execute(api.blockControls.commands.toggleBlockMenu(startPos, nodeType));
+		}
+	}, [
+		dragHandleSelected,
+		api?.core?.actions,
+		api?.analytics?.actions,
+		api?.blockControls.commands,
+		view,
+		getPos,
+		nodeType,
+	]);
 
 	// TODO - This needs to be investigated further. Drag preview generation is not always working
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
@@ -273,37 +315,10 @@ export const DragHandle = ({
 				type: 'element',
 				start,
 			}),
-			onGenerateDragPreview: ({ nativeSetDragImage }) => {
-				setCustomNativeDragPreview({
-					render: ({ container }) => {
-						const dom: HTMLElement | null = view.dom.querySelector(
-							`[data-drag-handler-anchor-name="${anchorName}"]`,
-						);
-						if (!dom) {
-							return;
-						}
-						return dragPreview(container, dom, nodeType);
-					},
-					nativeSetDragImage,
-				});
-			},
-			onDragStart() {
-				if (start === undefined) {
-					return;
-				}
-				api?.core?.actions.execute(({ tr }) => {
-					const isMultiSelect = editorExperiment(
-						'platform_editor_element_drag_and_drop_multiselect',
-						true,
-						{
-							exposure: true,
-						},
-					);
 
-					let nodeTypes, hasSelectedMultipleNodes;
-					const resolvedMovingNode = tr.doc.resolve(start);
-					const maybeNode = resolvedMovingNode.nodeAfter;
-					if (isMultiSelect) {
+			onGenerateDragPreview: ({ nativeSetDragImage }) => {
+				if (isMultiSelect) {
+					api?.core?.actions.execute(({ tr }) => {
 						const handlePos = getPos();
 						if (typeof handlePos !== 'number') {
 							return tr;
@@ -316,20 +331,138 @@ export const DragHandle = ({
 							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
 						}
 
-						const multiSelectDnD = tr.getMeta(key)?.multiSelectDnD;
-						if (multiSelectDnD) {
-							const attributes = getMultiSelectAnalyticsAttributes(
-								tr,
-								multiSelectDnD.anchor,
-								multiSelectDnD.head,
-							);
-							nodeTypes = attributes.nodeTypes;
-							hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+						return tr;
+					});
+				}
+
+				const startPos = getPos();
+				const state = view.state;
+				const { doc, selection } = state;
+				const { multiSelectDnD } = api?.blockControls?.sharedState.currentState() || {};
+				let sliceFrom = selection.from;
+				let sliceTo = selection.to;
+				if (multiSelectDnD) {
+					const { anchor, head } = multiSelectDnD;
+					sliceFrom = Math.min(anchor, head);
+					sliceTo = Math.max(anchor, head);
+				}
+				const expandedSlice = doc.slice(sliceFrom, sliceTo);
+
+				const isDraggingMultiLine =
+					isMultiSelect &&
+					startPos !== undefined &&
+					startPos >= sliceFrom &&
+					startPos <= sliceTo &&
+					expandedSlice.content.childCount > 1;
+
+				setCustomNativeDragPreview({
+					getOffset: () => {
+						if (!isDraggingMultiLine) {
+							return { x: 0, y: 0 };
 						} else {
-							nodeTypes = maybeNode?.type.name;
-							hasSelectedMultipleNodes = false;
+							// Calculate the offset of the preview container,
+							// So when drag multiple nodes, the preview align with the position of the selected nodes
+							const domAtPos = view.domAtPos.bind(view);
+							let domElementsHeightBeforeHandle = 0;
+							const nodesStartPos: number[] = [];
+							const nodesEndPos: number[] = [];
+							let activeNodeMarginTop = 0;
+
+							for (let i = 0; i < expandedSlice.content.childCount; i++) {
+								if (i === 0) {
+									nodesStartPos[i] = sliceFrom;
+									nodesEndPos[i] = sliceFrom + (expandedSlice.content.maybeChild(i)?.nodeSize || 0);
+								} else {
+									nodesStartPos[i] = nodesEndPos[i - 1];
+									nodesEndPos[i] =
+										nodesStartPos[i] + (expandedSlice.content.maybeChild(i)?.nodeSize || 0);
+								}
+
+								// when the node is before the handle, calculate the height of the node
+								if (nodesEndPos[i] <= startPos) {
+									// eslint-disable-next-line @atlaskit/editor/no-as-casting
+									const currentNodeElement = findDomRefAtPos(
+										nodesStartPos[i],
+										domAtPos,
+									) as HTMLElement;
+									const maybeCurrentNode = expandedSlice.content.maybeChild(i);
+									const currentNodeSpacing = maybeCurrentNode
+										? nodeMargins[maybeCurrentNode.type.name].top +
+											nodeMargins[maybeCurrentNode.type.name].bottom
+										: 0;
+									domElementsHeightBeforeHandle =
+										domElementsHeightBeforeHandle +
+										currentNodeElement.offsetHeight +
+										currentNodeSpacing;
+								} else {
+									// when the node is after the handle, calculate the top margin of the active node
+									const maybeNextNode = expandedSlice.content.maybeChild(i);
+									activeNodeMarginTop = maybeNextNode
+										? nodeMargins[maybeNextNode.type.name].top
+										: 0;
+									break;
+								}
+							}
+
+							return { x: 0, y: domElementsHeightBeforeHandle + activeNodeMarginTop };
 						}
+					},
+					render: ({ container }) => {
+						const dom: HTMLElement | null = view.dom.querySelector(
+							`[data-drag-handler-anchor-name="${anchorName}"]`,
+						);
+
+						if (!dom) {
+							return;
+						}
+
+						if (!isDraggingMultiLine) {
+							return dragPreview(container, { dom, nodeType });
+						} else {
+							const domAtPos = view.domAtPos.bind(view);
+							const previewContent: DragPreviewContent[] = [];
+							expandedSlice.content.descendants((node, pos, parent, index) => {
+								// Get the dom element of the node
+								//eslint-disable-next-line @atlaskit/editor/no-as-casting
+								const nodeDomElement = findDomRefAtPos(sliceFrom + pos, domAtPos) as HTMLElement;
+								const currentNodeSpacing = getNodeSpacingForPreview(node);
+								previewContent.push({
+									dom: nodeDomElement,
+									nodeType: node.type.name,
+									nodeSpacing: currentNodeSpacing,
+								});
+
+								return false; // Only iterate through the first level of nodes
+							});
+
+							return dragPreview(container, previewContent);
+						}
+					},
+					nativeSetDragImage,
+				});
+			},
+			onDragStart() {
+				if (start === undefined) {
+					return;
+				}
+				api?.core?.actions.execute(({ tr }) => {
+					let nodeTypes, hasSelectedMultipleNodes;
+					const resolvedMovingNode = tr.doc.resolve(start);
+					const maybeNode = resolvedMovingNode.nodeAfter;
+					const multiSelectDnD = tr.getMeta(key)?.multiSelectDnD;
+					if (multiSelectDnD) {
+						const attributes = getMultiSelectAnalyticsAttributes(
+							tr,
+							multiSelectDnD.anchor,
+							multiSelectDnD.head,
+						);
+						nodeTypes = attributes.nodeTypes;
+						hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
+					} else {
+						nodeTypes = maybeNode?.type.name;
+						hasSelectedMultipleNodes = false;
 					}
+
 					api?.blockControls?.commands.setNodeDragged(getPos, anchorName, nodeType)({ tr });
 
 					tr.setMeta('scrollIntoView', false);
@@ -351,7 +484,7 @@ export const DragHandle = ({
 				view.focus();
 			},
 		});
-	}, [anchorName, api, getPos, nodeType, start, view]);
+	}, [anchorName, api, getPos, isMultiSelect, nodeType, start, view]);
 
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 
@@ -464,19 +597,12 @@ export const DragHandle = ({
 	}, [buttonRef, handleOptions?.isFocused, view]);
 
 	useEffect(() => {
-		const isMultiSelect = editorExperiment(
-			'platform_editor_element_drag_and_drop_multiselect',
-			true,
-			{
-				exposure: true,
-			},
-		);
 		if (!isMultiSelect || typeof start !== 'number' || !selection) {
 			return;
 		}
 
 		setDragHandleSelected(isHandleCorrelatedToSelection(view.state, selection, start));
-	}, [start, selection, view.state]);
+	}, [start, selection, view.state, isMultiSelect]);
 
 	let helpDescriptors =
 		isTopLevelNode && fg('platform_editor_advanced_layouts_accessibility')
@@ -522,9 +648,11 @@ export const DragHandle = ({
 		(fg('platform_editor_advanced_layouts_accessibility') || handleOptions?.isFocused) &&
 		editorExperiment('nested-dnd', true)
 	) {
-		isParentNodeOfTypeLayout =
-			nodeType === 'layoutSection' ||
-			view.state.doc.resolve(getNestedNodePosition(view.state)).node().type.name === 'layoutColumn';
+		const pos = getPos();
+		if (typeof pos === 'number') {
+			const $pos = view.state.doc.resolve(pos);
+			isParentNodeOfTypeLayout = $pos?.parent?.type.name === 'layoutColumn';
+		}
 
 		if (isParentNodeOfTypeLayout) {
 			helpDescriptors = [

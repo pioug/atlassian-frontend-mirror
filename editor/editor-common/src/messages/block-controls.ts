@@ -47,4 +47,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Move right',
 		description: 'Moves selected content right',
 	},
+	delete: {
+		id: 'fabric.editor.blockControlDelete',
+		defaultMessage: 'Delete',
+		description: 'Delete selected element',
+	},
 });

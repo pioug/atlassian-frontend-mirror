@@ -229,16 +229,17 @@ const isFragmentSingleCellTable = (fragment: Fragment, schema: Schema): boolean 
 	);
 };
 
-const containsTextBlockChildren = (fragment: Fragment, schema: Schema): boolean => {
-	let containsTextBlock = false;
+const containsNonTableBlockChildren = (fragment: Fragment, schema: Schema): boolean => {
+	let containsNonTableBlock = false;
+	const { table, tableCell, tableHeader } = schema.nodes;
 
 	fragment.forEach((node) => {
-		if (node.isTextblock) {
-			containsTextBlock = true;
+		if (node.isBlock && ![table, tableCell, tableHeader].includes(node.type)) {
+			containsNonTableBlock = true;
 		}
 	});
 
-	return containsTextBlock;
+	return containsNonTableBlock;
 };
 
 export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): Slice => {
@@ -248,7 +249,7 @@ export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): S
 		// We are using `safeInsert` to paste nested tables, so we do not want to preserve this wrapping
 
 		// slice starts and ends inside a nested table at the same depth
-		if (slice.openStart >= 7 && slice.openEnd >= 7 && slice.openStart === slice.openEnd) {
+		if (slice.openStart >= 7 && slice.openEnd >= 7) {
 			let cleaned = slice;
 			let descendedDepth = 0;
 			const tableDepthDecrement = 2;
@@ -260,9 +261,9 @@ export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): S
 						descendedDepth += tableDepthDecrement;
 					} else if (node.type === schema.nodes.table) {
 						return false;
-					} else if (containsTextBlockChildren(node.content, schema)) {
+					} else if (containsNonTableBlockChildren(node.content, schema)) {
 						descendedDepth += tableDepthDecrement;
-						// create a new slice with the content of the textblock children and the depth of the nested tables subtracted
+						// create a new slice with the content of non-table block children and the depth of the nested tables subtracted
 						cleaned = new Slice(
 							node.content,
 							slice.openStart - descendedDepth - tableDepthDecrement,

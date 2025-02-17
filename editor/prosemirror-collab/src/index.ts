@@ -146,6 +146,69 @@ export function collab(config: CollabConfig = {}): Plugin {
 	});
 }
 
+/**
+ * Get the document before the unconfirmed steps were applied.
+ * This is used to facilitate tab syncing across multiple tabs while offline, by returning the document before the unconfirmed steps were
+ * applied we can ensure each tab starts from the same doc.
+ * @param state The editor state
+ * @returns The document before the unconfirmed steps were applied
+ */
+export function getDocBeforeUnconfirmedSteps(state: EditorState) {
+	const tr = state.tr;
+	const { version, unconfirmed } = collabKey.getState(state) ?? {};
+
+	if (version === undefined || !unconfirmed) {
+		return tr.doc;
+	}
+
+	// undo unconfirmed steps
+	for (let i = unconfirmed.length - 1; i >= 0; i--) {
+		tr.step(unconfirmed[i].inverted);
+	}
+
+	return tr.doc;
+}
+
+/**
+ * Sync the document, version and unconfirmed steps from another source.
+ * This is used to facilitate tab syncing across multiple tabs while offline, because we no longer have access to the central authority.
+ *
+ * @param state The editor state
+ * @param version the version number of the last update received from the central authority
+ * @param docJSON the document corresponding with the version
+ * @param unconfirmedSteps the unconfirmed steps that havent been successfully sent to the server yet
+ * @returns A transaction that represents the new state of the editor after receiving the new steps, doc and version
+ */
+export function syncFromAnotherSource(
+	state: EditorState,
+	version: number,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	docJSON: any,
+	unconfirmedSteps: readonly ProseMirrorStep[],
+): Transaction {
+	const tr = state.tr;
+	const doc = state.schema.nodeFromJSON(docJSON);
+
+	const selection = TextSelection.create(state.doc, 0, state.doc.content.size);
+	tr.setSelection(selection).replaceSelectionWith(doc, false);
+
+	// apply new unconfirmed steps to doc
+	for (let i = 0; i < unconfirmedSteps.length; i++) {
+		tr.step(unconfirmedSteps[i]);
+	}
+
+	const offset = 1; // offset by 1 to account for the initial replace step
+	const newUnconfirmed = tr.steps.slice(offset).map((step, i) => {
+		const index = i + offset;
+		const doc = tr.docs[index];
+		return new Rebaseable(step, step.invert(doc), tr);
+	});
+
+	return tr
+		.setMeta('addToHistory', false)
+		.setMeta(collabKey, new CollabState(version, newUnconfirmed));
+}
+
 /// Create a transaction that represents a set of new steps received from
 /// the authority. Applying this transaction moves the state forward to
 /// adjust to the authority's view of the document.

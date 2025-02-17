@@ -99,19 +99,14 @@ describe('PersistentOverrideAdapter', () => {
 		provider.overrideExperiment(experiment.name, { exp: 'value' });
 		provider.overrideLayer(layer.name, { layer_key: 'value' });
 
-		expect(provider.getAllOverrides()).toEqual({
-			gates: { a_gate: true, '2867927529': true },
+		expect(provider.getOverrides()).toEqual({
+			gates: { a_gate: true },
 			configs: {
 				a_config: { dc: 'value' },
-				'2902556896': {
-					dc: 'value',
-				},
 				an_experiment: { exp: 'value' },
-				'3921852239': { exp: 'value' },
 			},
 			layers: {
 				a_layer: { layer_key: 'value' },
-				'3011030003': { layer_key: 'value' },
 			},
 		});
 	});
@@ -126,7 +121,7 @@ describe('PersistentOverrideAdapter', () => {
 
 		provider.removeAllOverrides();
 
-		expect(provider.getAllOverrides()).toEqual({
+		expect(provider.getOverrides()).toEqual({
 			gates: {},
 			configs: {},
 			layers: {},
@@ -141,9 +136,8 @@ describe('PersistentOverrideAdapter', () => {
 
 		provider.removeGateOverride('gate_a');
 
-		expect(provider.getAllOverrides().gates).toEqual({
+		expect(provider.getOverrides().gates).toEqual({
 			gate_b: true,
-			[_DJB2('gate_b')]: true,
 		});
 	});
 
@@ -154,9 +148,8 @@ describe('PersistentOverrideAdapter', () => {
 
 		provider.removeDynamicConfigOverride('config_a');
 
-		expect(provider.getAllOverrides().configs).toEqual({
+		expect(provider.getOverrides().configs).toEqual({
 			config_b: { b: 2 },
-			[_DJB2('config_b')]: { b: 2 },
 		});
 	});
 
@@ -167,9 +160,8 @@ describe('PersistentOverrideAdapter', () => {
 
 		provider.removeExperimentOverride('experiment_a');
 
-		expect(provider.getAllOverrides().configs).toEqual({
+		expect(provider.getOverrides().configs).toEqual({
 			experiment_b: { b: 2 },
-			[_DJB2('experiment_b')]: { b: 2 },
 		});
 	});
 
@@ -180,16 +172,15 @@ describe('PersistentOverrideAdapter', () => {
 
 		provider.removeLayerOverride('layer_a');
 
-		expect(provider.getAllOverrides().layers).toEqual({
+		expect(provider.getOverrides().layers).toEqual({
 			layer_b: { b: 2 },
-			[_DJB2('layer_b')]: { b: 2 },
 		});
 	});
 
 	it('should populate all of the fields if the provided object is empty', () => {
 		const provider = new PersistentOverrideAdapter();
 		provider.setOverrides({});
-		expect(provider.getAllOverrides()).toEqual({
+		expect(provider.getOverrides()).toEqual({
 			gates: {},
 			configs: {},
 			layers: {},
@@ -202,7 +193,7 @@ describe('PersistentOverrideAdapter', () => {
 			gates: {},
 			layers: {},
 		});
-		expect(provider.getAllOverrides()).toEqual({
+		expect(provider.getOverrides()).toEqual({
 			gates: {},
 			configs: {},
 			layers: {},
@@ -215,7 +206,7 @@ describe('PersistentOverrideAdapter', () => {
 			configs: {},
 			layers: {},
 		});
-		expect(provider.getAllOverrides()).toEqual({
+		expect(provider.getOverrides()).toEqual({
 			gates: {},
 			configs: {},
 			layers: {},
@@ -228,10 +219,61 @@ describe('PersistentOverrideAdapter', () => {
 			gates: {},
 			configs: {},
 		});
-		expect(provider.getAllOverrides()).toEqual({
+		expect(provider.getOverrides()).toEqual({
 			gates: {},
 			configs: {},
 			layers: {},
+		});
+	});
+
+	it('should not return hashes when getting all overrides', () => {
+		const provider = new PersistentOverrideAdapter();
+		provider.overrideGate('gate1', true);
+		provider.overrideLayer('layer1', { param: true });
+		provider.overrideDynamicConfig('config1', { field: true });
+		expect(provider.getOverrides()).toEqual({
+			gates: {
+				gate1: true,
+			},
+			configs: {
+				config1: {
+					field: true,
+				},
+			},
+			layers: {
+				layer1: {
+					param: true,
+				},
+			},
+		});
+	});
+
+	it('should inject hashes when setting all overrides', () => {
+		const provider = new PersistentOverrideAdapter();
+		provider.overrideGate('gate1', true);
+		provider.overrideLayer('layer1', { param: true });
+		provider.overrideDynamicConfig('config1', { field: true });
+		expect(provider['_overrides']).toEqual({
+			gates: {
+				gate1: true,
+				'98127046': true,
+			},
+			configs: {
+				config1: {
+					field: true,
+				},
+				'951117103': {
+					field: true,
+				},
+			},
+			layers: {
+				layer1: {
+					param: true,
+				},
+				'3185235200': {
+					param: true,
+				},
+			},
 		});
 	});
 });

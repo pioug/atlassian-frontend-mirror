@@ -2,6 +2,7 @@ import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-sh
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
+
 export const DRAG_HANDLE_HEIGHT = 24;
 export const DRAG_HANDLE_WIDTH = 12;
 export const DRAG_HANDLE_BORDER_RADIUS = 4;
@@ -132,6 +133,33 @@ export const spaceLookupMap = Object.fromEntries(
 	}),
 );
 
+export const spacingBetweenNodesForPreview: { [key: string]: { top: string; bottom: string } } = {
+	paragraph: { top: '0.75rem', bottom: '0' },
+	heading1: { top: '1.45833em', bottom: '0' },
+	heading2: { top: '1.4em', bottom: '0' },
+	heading3: { top: '1.31249em', bottom: '0' },
+	heading4: { top: '1.25em', bottom: '0' },
+	heading5: { top: '1.45833em', bottom: '0' },
+	heading6: { top: '1.59091em', bottom: '0' },
+	table: { top: '0', bottom: '0' },
+	bulletList: { top: '10px', bottom: '0' },
+	orderedList: { top: '10px', bottom: '0' },
+	decisionList: { top: '0.5rem', bottom: '0' },
+	taskList: { top: '0.75rem', bottom: '0' },
+	codeBlock: { top: '0.75rem', bottom: '0' },
+	panel: { top: '0.75rem', bottom: '0' },
+	rule: { top: '1.5rem', bottom: '1.5rem' },
+	mediaSingle: { top: '24px', bottom: '24px' },
+	media: { top: '24px', bottom: '24px' },
+	bodiedExtension: { top: '0', bottom: '0' },
+	extension: { top: '0', bottom: '0' },
+	layoutSection: { top: '0', bottom: '0' },
+	blockquote: { top: '0', bottom: '0' },
+	embedCard: { top: '24px', bottom: '24px' },
+	blockCard: { top: '0.75rem', bottom: '0' },
+	default: { top: '0', bottom: '0' },
+};
+
 // This table contains the "margins" of different nodes
 // Note this is not the actually margin of the DOM elements,
 // but a percepted margin, e.g. a paragraph has additional margin
@@ -168,3 +196,5 @@ export const DEFAULT_COLUMN_DISTRIBUTIONS: { [key: number]: number } = {
 	4: 25,
 	5: 20,
 };
+
+export const BLOCK_MENU_WIDTH = 220;

@@ -90,9 +90,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		extensionNode.attrs?.extensionType === 'com.atlassian.confluence.migration' &&
 		extensionNode.attrs?.extensionKey === 'legacy-content';
 
-	const hasBody =
-		['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name) ||
-		(isLegacyContentMacroExtension(node) && fg('platform_editor_legacy_content_macro'));
+	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
 
 	const hasChildren = !!children;
 	const removeBorder = showMacroInteractionDesignUpdates || !!(hideFrame && !hasBody);
@@ -121,7 +119,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
 		'with-bodied-border':
 			showMacroInteractionDesignUpdates &&
-			hasBody &&
+			(hasBody ||
+				(isLegacyContentMacroExtension(node) && fg('platform_editor_legacy_content_macro'))) &&
 			!showBodiedExtensionRendererView &&
 			show1PBodiedExtensionBorder,
 		'with-margin-styles':
@@ -195,7 +194,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 					customContainerStyles={customContainerStyles}
 					setIsNodeHovered={setIsNodeHovered}
-					isBodiedMacro={hasBody}
+					isBodiedMacro={
+						hasBody ||
+						(isLegacyContentMacroExtension(node) && fg('platform_editor_legacy_content_macro'))
+					}
 					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}

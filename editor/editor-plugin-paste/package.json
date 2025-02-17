@@ -140,6 +140,9 @@
 		},
 		"platform_editor_legacy_content_macro_insert": {
 			"type": "boolean"
+		},
+		"platform_editor_track_node_types": {
+			"type": "boolean"
 		}
 	}
 }

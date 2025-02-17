@@ -24,6 +24,7 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N40A, R500 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -195,34 +196,67 @@ const breakoutWidthStyling = () => {
 };
 
 const viewModeSortStyles = () => {
-	return css`
-		th {
-			.${SORTING_ICON_CLASS_NAME} {
-				+ p {
-					margin-top: 0 !important;
-				}
-			}
+	return fg('platform_editor_nested_tables_view_mode_sort')
+		? css`
+				// new styles
+				th {
+					.${SORTING_ICON_CLASS_NAME} {
+						+ p {
+							margin-top: 0 !important;
+						}
+					}
 
-			&:has(.is-active) {
-				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-					opacity: 1;
-				}
-			}
+					&:has(.is-active) {
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 1;
+						}
+					}
 
-			.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-				opacity: 0;
-				&:focus {
-					opacity: 1;
-				}
-			}
+					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+						opacity: 0;
+						&:focus {
+							opacity: 1;
+						}
+					}
 
-			&:hover {
-				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-					opacity: 1;
+					&:hover:not(:has(.${ClassName.TABLE_CONTAINER}:hover)) {
+						> .${SORTING_ICON_CLASS_NAME} {
+							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+								opacity: 1;
+							}
+						}
+					}
 				}
-			}
-		}
-	`;
+			`
+		: css`
+				// old styles
+				th {
+					.${SORTING_ICON_CLASS_NAME} {
+						+ p {
+							margin-top: 0 !important;
+						}
+					}
+
+					&:has(.is-active) {
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 1;
+						}
+					}
+
+					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+						opacity: 0;
+						&:focus {
+							opacity: 1;
+						}
+					}
+
+					&:hover {
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 1;
+						}
+					}
+				}
+			`;
 };
 
 const tableBorderStyles = () => {

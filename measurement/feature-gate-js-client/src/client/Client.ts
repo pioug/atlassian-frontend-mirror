@@ -486,42 +486,42 @@ export class Client {
 	}
 
 	/**
-   * Returns the value of a given parameter in an experiment config.
-   *
-   * @template T
-   * @param {string} experimentName - The name of the experiment
-   * @param {string} parameterName - The name of the parameter to fetch from the experiment config
-   * @param {T} defaultValue - The value to serve if the experiment or parameter do not exist, or
+	 * Returns the value of a given parameter in an experiment config.
+	 *
+	 * @template T
+	 * @param {string} experimentName - The name of the experiment
+	 * @param {string} parameterName - The name of the parameter to fetch from the experiment config
+	 * @param {T} defaultValue - The value to serve if the experiment or parameter do not exist, or
 	 * if the returned value does not match the expected type.
-   * @param {Object} options
-   * @param {boolean} options.fireExperimentExposure - Whether or not to fire the exposure event
+	 * @param {Object} options
+	 * @param {boolean} options.fireExperimentExposure - Whether or not to fire the exposure event
 	 * for the experiment. Defaults to true. To log an exposure event manually at a later time, use
 	 * {@link Client.manuallyLogExperimentExposure} (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-))
-   * @param {function} options.typeGuard - A function that asserts that the return value has the
+	 * @param {function} options.typeGuard - A function that asserts that the return value has the
 	 * expected type. If this function returns false, then the default value will be returned
 	 * instead. This can be set to protect your code from unexpected values being set remotely. By
 	 * default, this will be done by asserting that the default value and value are the same primitive
 	 * type.
-   * @returns The value of the parameter if the experiment and parameter both exist, otherwise the
+	 * @returns The value of the parameter if the experiment and parameter both exist, otherwise the
 	 * default value.
-   * @example
-   ``` ts
-   type ValidColor = 'blue' | 'red' | 'yellow';
-   type ValidColorTypeCheck = (value: unknown) => value is ValidColor;
+	 * @example
+	 ``` ts
+	 type ValidColor = 'blue' | 'red' | 'yellow';
+	 type ValidColorTypeCheck = (value: unknown) => value is ValidColor;
 
-   const isValidColor: ValidColorTypeCheck =
-      (value: unknown) => typeof value === 'string' && ['blue', 'red', 'yellow'].includes(value);
+	 const isValidColor: ValidColorTypeCheck =
+			(value: unknown) => typeof value === 'string' && ['blue', 'red', 'yellow'].includes(value);
 
-   const buttonColor: ValidColor = client.getExperimentValue(
-      'example-experiment-name',
-      'backgroundColor',
-      'yellow',
-      {
-          typeGuard: isValidColor
-      }
-   );
-   ```
-  */
+	 const buttonColor: ValidColor = client.getExperimentValue(
+			'example-experiment-name',
+			'backgroundColor',
+			'yellow',
+			{
+					typeGuard: isValidColor
+			}
+	 );
+	 ```
+	*/
 	getExperimentValue<T>(
 		experimentName: string,
 		parameterName: string,

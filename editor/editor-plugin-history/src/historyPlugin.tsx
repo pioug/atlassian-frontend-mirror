@@ -2,7 +2,7 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 
-import { HistoryActionTypes } from './editor-actions/actions';
+import { type HistoryAction, HistoryActionTypes } from './editor-actions/actions';
 import reducer from './editor-actions/reducer';
 import { getPmHistoryPluginState } from './editor-actions/utils';
 import type { HistoryPlugin, HistoryPluginState } from './historyPluginType';
@@ -42,7 +42,7 @@ const createPlugin = (dispatch: Dispatch) =>
 		},
 	});
 
-const historyPlugin: HistoryPlugin = () => ({
+const historyPlugin: HistoryPlugin = ({ api }) => ({
 	name: 'history',
 	pmPlugins() {
 		return [
@@ -57,7 +57,41 @@ const historyPlugin: HistoryPlugin = () => ({
 			return undefined;
 		}
 
-		return historyPluginKey.getState(editorState);
+		const historyPluginState = historyPluginKey.getState(editorState);
+		if (!historyPluginState) {
+			return undefined;
+		}
+
+		const { done, undone } = getPmHistoryPluginState(editorState) ?? {};
+
+		return {
+			canUndo: historyPluginState.canUndo,
+			canRedo: historyPluginState.canRedo,
+			done: {
+				eventCount: done?.eventCount ?? 0,
+			},
+			undone: {
+				eventCount: undone?.eventCount ?? 0,
+			},
+		};
+	},
+	commands: {
+		updatePluginState: ({ tr }) => {
+			const { done, undone } = api?.history.sharedState.currentState() ?? {};
+			if (done === undefined || undone === undefined) {
+				return tr;
+			}
+
+			const canUndo = done.eventCount > 0;
+			const canRedo = undone.eventCount > 0;
+
+			const action: HistoryAction = {
+				type: HistoryActionTypes.UPDATE,
+				canUndo,
+				canRedo,
+			};
+			return tr.setMeta(historyPluginKey, action);
+		},
 	},
 });
 

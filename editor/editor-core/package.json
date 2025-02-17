@@ -442,6 +442,10 @@
 		"platform_editor_track_node_types": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_nested_tables_view_mode_sort": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

@@ -11,7 +11,13 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
 
-import { collab, receiveTransaction, sendableSteps } from '../index';
+import {
+	collab,
+	getDocBeforeUnconfirmedSteps,
+	receiveTransaction,
+	sendableSteps,
+	syncFromAnotherSource,
+} from '../index';
 
 const histPlugin = history();
 
@@ -275,6 +281,32 @@ describe('collab', () => {
 			s.states[0] = s.states[0].apply(transaction);
 
 			expect(sendableSteps(s.states[0])?.steps).toEqual([replaceStep]);
+		});
+
+		describe('getDocBeforeUnconfirmedSteps', () => {
+			it('returns the document before unconfirmed steps with multiple steps', () => {
+				const s = new DummyServer(doc(p('A'))(schema), 1);
+				s.type(0, 'BC', 2);
+				s.conv(doc(p('ABC'))(schema));
+				const docBeforeUnconfirmedSteps = getDocBeforeUnconfirmedSteps(s.states[0]);
+				expect(docBeforeUnconfirmedSteps).toEqualDocument(doc(p('A')));
+			});
+		});
+
+		describe('syncFromAnotherSource', () => {
+			it('returns a trasnaction that updates the CollabState with the steps and version from another source', () => {
+				const s = new DummyServer(doc(p('A'))(schema), 1);
+				const steps = [new ReplaceStep(1, 1, Slice.empty)];
+				const tr = syncFromAnotherSource(s.states[0], 123, doc(p('ABC'))(schema).toJSON(), steps);
+
+				const collabKey = 'collab$';
+				expect(tr.getMeta(collabKey).version).toEqual(123);
+				expect(tr.getMeta(collabKey).unconfirmed.length).toEqual(steps.length);
+				expect(tr.getMeta(collabKey).unconfirmed).toEqual([
+					expect.objectContaining({ step: steps[0] }),
+				]);
+				expect(tr.getMeta('addToHistory')).toBe(false);
+			});
 		});
 	});
 });

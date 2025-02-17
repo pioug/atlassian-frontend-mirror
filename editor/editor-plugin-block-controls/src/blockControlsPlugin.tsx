@@ -6,11 +6,13 @@ import {
 	type EditorState,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, HandleOptions, MultiSelectDnD } from './blockControlsPluginType';
 import { moveNode } from './editor-commands/move-node';
 import { moveToLayout } from './editor-commands/move-to-layout';
 import { createPlugin, key } from './pm-plugins/main';
+import BlockMenu from './ui/block-menu';
 import { DragHandleMenu } from './ui/drag-handle-menu';
 import { GlobalStylesWrapper } from './ui/global-styles';
 
@@ -34,7 +36,19 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			(pos: number, anchorName: string, nodeType: string, handleOptions?: HandleOptions) =>
 			({ tr }: { tr: Transaction }) => {
 				const currMeta = tr.getMeta(key);
-				tr.setMeta(key, { ...currMeta, activeNode: { pos, anchorName, nodeType, handleOptions } });
+
+				tr.setMeta(key, {
+					...currMeta,
+					activeNode: { pos, anchorName, nodeType, handleOptions },
+					closeMenu: editorExperiment('platform_editor_controls', 'variant1') ? true : undefined,
+				});
+				return tr;
+			},
+		toggleBlockMenu:
+			(pos: number, nodeType: string) =>
+			({ tr }: { tr: Transaction }) => {
+				const currMeta = tr.getMeta(key);
+				tr.setMeta(key, { ...currMeta, toggleMenu: true });
 				return tr;
 			},
 		setNodeDragged:
@@ -103,10 +117,25 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		};
 	},
 
-	contentComponent() {
+	contentComponent({
+		editorView,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+	}) {
 		return (
 			<>
-				<DragHandleMenu api={api} />
+				{editorExperiment('platform_editor_controls', 'variant1') ? (
+					<BlockMenu
+						editorView={editorView}
+						mountPoint={popupsMountPoint}
+						boundariesElement={popupsBoundariesElement}
+						scrollableElement={popupsScrollableElement}
+						api={api}
+					/>
+				) : (
+					<DragHandleMenu api={api} />
+				)}
 				<GlobalStylesWrapper />
 			</>
 		);

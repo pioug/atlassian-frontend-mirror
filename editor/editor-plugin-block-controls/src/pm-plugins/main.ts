@@ -376,11 +376,21 @@ export const newApply = (
 			? null
 			: latestActiveNode;
 
+	const isMenuOpenNew = editorExperiment('platform_editor_controls', 'variant1')
+		? meta?.closeMenu
+			? false
+			: meta?.toggleMenu
+				? !isMenuOpen
+				: isMenuOpen
+		: meta?.toggleMenu
+			? !isMenuOpen
+			: isMenuOpen;
+
 	return {
 		decorations,
 		activeNode: newActiveNode,
 		isDragging: meta?.isDragging ?? isDragging,
-		isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
+		isMenuOpen: isMenuOpenNew,
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
 		editorWidthRight: meta?.editorWidthRight ?? editorWidthRight,

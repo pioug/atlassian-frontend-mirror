@@ -2,7 +2,7 @@ import React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
 import Example1 from '../../../examples/2-time-range';
-import Example2 from '../../../examples/exif-orientations-vr';
+import { Example as Example2 } from '../../../examples/exif-orientations-vr';
 import Example3 from '../../../examples/get-image-orientation';
 import Example4 from '../../../examples/media-image-lazy-loading';
 import Example5 from '../../../examples/media-inline-cards';

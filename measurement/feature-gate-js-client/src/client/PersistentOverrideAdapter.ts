@@ -11,6 +11,7 @@ import {
 
 const LOCAL_OVERRIDE_REASON = 'LocalOverride:Recognized';
 export const LOCAL_STORAGE_KEY = 'STATSIG_OVERRIDES';
+const LEGACY_LOCAL_STORAGE_KEY = 'STATSIG_JS_LITE_LOCAL_OVERRIDES';
 
 export type LocalOverrides = {
 	gates: Record<string, boolean>;
@@ -39,29 +40,77 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		this._overrides = makeEmptyStore();
 	}
 
-	initFromStoredOverrides() {
+	private parseStoredOverrides(localStorageKey: string): LocalOverrides {
 		try {
 			const json = window.localStorage.getItem(LOCAL_STORAGE_KEY);
 			if (!json) {
 				return makeEmptyStore();
 			}
 
-			this._overrides = JSON.parse(json);
+			return JSON.parse(json);
 		} catch {
-			this._overrides = makeEmptyStore();
+			return makeEmptyStore();
 		}
+	}
+
+	private mergeOverrides(...allOverrides: LocalOverrides[]): LocalOverrides {
+		const merged = makeEmptyStore();
+		for (const overrides of allOverrides) {
+			for (const [name, value] of Object.entries(overrides.gates)) {
+				merged.gates[name] = value;
+			}
+
+			for (const [name, value] of Object.entries(overrides.configs)) {
+				merged.configs[name] = value;
+			}
+
+			for (const [name, value] of Object.entries(overrides.layers)) {
+				merged.layers[name] = value;
+			}
+		}
+
+		return merged;
+	}
+
+	initFromStoredOverrides() {
+		this._overrides = this.mergeOverrides(
+			this.parseStoredOverrides(LEGACY_LOCAL_STORAGE_KEY),
+			this.parseStoredOverrides(LOCAL_STORAGE_KEY),
+		);
 	}
 
 	saveOverrides() {
 		window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this._overrides));
 	}
 
-	getOverrides() {
-		return this._overrides;
+	getOverrides(): LocalOverrides {
+		return Object.fromEntries(
+			Object.entries(this._overrides).map(([key, container]) => {
+				const record: Record<string, any> = {};
+				for (const [name, value] of Object.entries(container)) {
+					if (Object.prototype.hasOwnProperty.call(container, _DJB2(name))) {
+						record[name] = value;
+					}
+				}
+
+				return [key, record];
+			}),
+		) as LocalOverrides;
 	}
 
 	setOverrides(overrides: Partial<LocalOverrides>) {
-		this._overrides = { ...makeEmptyStore(), ...overrides };
+		const newOverrides = { ...makeEmptyStore(), ...overrides };
+
+		for (const container of Object.values(newOverrides)) {
+			for (const [name, value] of Object.entries(container)) {
+				const hash = _DJB2(name);
+				if (!Object.prototype.hasOwnProperty.call(container, hash)) {
+					container[hash] = value;
+				}
+			}
+		}
+
+		this._overrides = newOverrides;
 		this.saveOverrides();
 	}
 
@@ -133,10 +182,6 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		delete this._overrides.layers[name];
 		delete this._overrides.layers[_DJB2(name)];
 		this.saveOverrides();
-	}
-
-	getAllOverrides(): LocalOverrides {
-		return JSON.parse(JSON.stringify(this._overrides)) as LocalOverrides;
 	}
 
 	removeAllOverrides(): void {

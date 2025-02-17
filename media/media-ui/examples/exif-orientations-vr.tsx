@@ -56,7 +56,7 @@ const OuterBorder = styled.div({
 	height: `calc(100% + ${token('space.100', '8px')})`,
 });
 
-const mediaImage = (dataUri: string, orientation: number) => (
+export const mediaImage = (dataUri: string, orientation: number) => (
 	<ItemWrapper
 		style={{
 			minWidth: orientation < 5 ? LONG : SHORT,
@@ -75,7 +75,7 @@ const mediaImage = (dataUri: string, orientation: number) => (
 	</ItemWrapper>
 );
 
-const Example = () => {
+export const Example = () => {
 	return (
 		<StyledContainer>
 			{mediaImage(orientation_1, 1)}
@@ -89,5 +89,3 @@ const Example = () => {
 		</StyledContainer>
 	);
 };
-
-export default () => <Example />;

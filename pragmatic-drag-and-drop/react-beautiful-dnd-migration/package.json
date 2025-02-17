@@ -7,7 +7,7 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": false,
+		"runReact18": true,
 		"website": {
 			"name": "react-beautiful-dnd migration",
 			"category": "Libraries"

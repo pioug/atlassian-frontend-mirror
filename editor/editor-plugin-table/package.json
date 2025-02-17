@@ -157,6 +157,9 @@
 		},
 		"platform_editor_advanced_layouts_post_fix_patch_4": {
 			"type": "boolean"
+		},
+		"platform_editor_nested_tables_view_mode_sort": {
+			"type": "boolean"
 		}
 	}
 }

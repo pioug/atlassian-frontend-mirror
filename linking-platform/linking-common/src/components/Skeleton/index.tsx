@@ -7,8 +7,6 @@ import { keyframes, jsx, css, cssMap } from '@compiled/react';
 import { B50, N30, N40, N50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { type SkeletonProps } from './types';
-import SkeletonOld, { SpanSkeletonOld } from './SkeletonOld';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const placeholderShimmer = keyframes({
 	'0%': {
@@ -49,7 +47,7 @@ const spanSkeletonBackgroundStyleMap = cssMap({
 	},
 });
 
-const SpanSkeletonNew = ({
+export const SpanSkeleton = ({
 	width,
 	appearance = 'gray',
 	height = 14,
@@ -81,15 +79,7 @@ const SpanSkeletonNew = ({
 	);
 };
 
-export const SpanSkeleton = (props: SkeletonProps) => {
-	if (fg('platform_bandicoots-linking-common-css')) {
-		return <SpanSkeletonNew {...props} />;
-	} else {
-		return <SpanSkeletonOld {...props} />;
-	}
-};
-
-const SkeletonNew = ({
+export const Skeleton = ({
 	width,
 	appearance = 'gray',
 	height = 14,
@@ -119,14 +109,6 @@ const SkeletonNew = ({
 			}}
 		></div>
 	);
-};
-
-export const Skeleton = (props: SkeletonProps) => {
-	if (fg('platform_bandicoots-linking-common-css')) {
-		return <SkeletonNew {...props} />;
-	} else {
-		return <SkeletonOld {...props} />;
-	}
 };
 
 export default Skeleton;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/panel",
-	"version": "0.11.1",
+	"version": "0.11.2",
 	"description": "A React component rendering a collapsible panel",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/primitives": "^13.5.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"react-animate-height": "^2.1.0",

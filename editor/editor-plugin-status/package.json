@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "2.8.1",
+	"version": "2.8.2",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,14 +36,14 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/editor-common": "^99.16.0",
+		"@atlaskit/editor-common": "^99.17.0",
 		"@atlaskit/editor-plugin-analytics": "^1.12.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.3.0",
 		"@atlaskit/icon": "^23.9.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/status": "^1.9.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

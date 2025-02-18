@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pagination",
-	"version": "15.1.0",
+	"version": "15.2.0",
 	"description": "Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,6 +48,7 @@
 		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/visually-hidden": "^1.6.0",
@@ -63,6 +64,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"exenv": "^1.2.2",
@@ -93,6 +95,11 @@
 				"emotion",
 				"static"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"jfp-a11y-team_pagination_list-markup": {
+			"type": "boolean"
 		}
 	}
 }

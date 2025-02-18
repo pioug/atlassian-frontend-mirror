@@ -1,12 +1,10 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import React, { useState } from 'react';
+
 import { IconButton } from '@atlaskit/button/new';
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/utility/add';
 import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../../common/types';
@@ -14,15 +12,11 @@ import { getContainerProperties } from '../../../common/utils/get-container-prop
 
 const styles = cssMap({
 	container: {
-		backgroundColor: token('elevation.surface.sunken'),
 		paddingTop: token('space.150'),
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
 		borderRadius: token('border.radius.100'),
-		'&:hover': {
-			backgroundColor: token('elevation.surface.hovered'),
-		},
 	},
 	iconWrapper: {
 		outlineWidth: token('border.width'),
@@ -39,13 +33,29 @@ const styles = cssMap({
 
 interface AddContainerCardProps {
 	containerType: ContainerTypes;
+	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CustomItemInner = ({ children }: CustomItemComponentProps) => {
-	return <Box xcss={styles.container}>{children}</Box>;
+	const [hovered, setHovered] = useState(false);
+	const handleMouseEnter = () => setHovered(true);
+	const handleMouseLeave = () => setHovered(false);
+	return (
+		<Box
+			backgroundColor={hovered ? 'elevation.surface.hovered' : 'elevation.surface.sunken'}
+			xcss={styles.container}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+		>
+			{children}
+		</Box>
+	);
 };
 
-export const AddContainerCard = ({ containerType }: AddContainerCardProps) => {
+export const AddContainerCard = ({
+	containerType,
+	onAddAContainerClick,
+}: AddContainerCardProps) => {
 	const { description, icon, title } = getContainerProperties(containerType);
 
 	return (
@@ -58,6 +68,7 @@ export const AddContainerCard = ({ containerType }: AddContainerCardProps) => {
 						icon={AddIcon}
 						spacing="compact"
 						testId="add-icon"
+						onClick={(e) => onAddAContainerClick(e)}
 					/>
 				</Box>
 			}

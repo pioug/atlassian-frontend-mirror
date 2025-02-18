@@ -36,6 +36,9 @@
 			"path": "../../../helpers/intl-messages-provider/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
 		},
 		{

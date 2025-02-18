@@ -5,6 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import { getMockProfileClient } from '../../../mocks';
@@ -137,6 +138,30 @@ describe('Profile card trigger', () => {
 			jest.advanceTimersByTime(1);
 			await waitFor(() => {
 				expect(screen.queryByText(mockProfileCardLazyText)).toBeVisible();
+			});
+		});
+
+		ffTest.on('fix_profilecard_trigger_isvisible', 'isVisible fixed', () => {
+			it('renders the popup based on isVisible prop', async () => {
+				const { rerender } = renderProfileCardTrigger({ isVisible: true });
+
+				// popup should appear immediately, (there is still a setTimeout, after 0ms)
+				jest.advanceTimersByTime(1);
+				await waitFor(() => {
+					expect(screen.queryByText(mockProfileCardLazyText)).toBeVisible();
+				});
+
+				rerender(
+					<IntlProvider locale="en">
+						<ProfilecardTrigger {...mockDefaultProps} isVisible={false}>
+							<div>{mockTriggerText}</div>
+						</ProfilecardTrigger>
+					</IntlProvider>,
+				);
+
+				await waitFor(() => {
+					expect(screen.queryByText(mockProfileCardLazyText)).toBeNull();
+				});
 			});
 		});
 	});

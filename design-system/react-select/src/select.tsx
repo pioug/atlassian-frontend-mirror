@@ -2472,7 +2472,7 @@ export default class Select<
 				isFocused={isFocused}
 			>
 				{this.renderLiveRegion()}
-				{commonProps.isMulti && this.isVoiceOver && this.renderMultiselectMessage()}
+				{commonProps.isMulti && this.renderMultiselectMessage()}
 				<Control
 					{...commonProps}
 					innerRef={this.getControlRef}

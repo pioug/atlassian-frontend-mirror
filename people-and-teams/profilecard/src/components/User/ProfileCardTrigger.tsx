@@ -109,14 +109,21 @@ export default function ProfilecardTriggerNext({
 	product,
 	agentActions,
 	ariaHideProfileTrigger = false,
+	isVisible: propsIsVisible,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
 
 	const isMounted = useRef(false);
 
-	const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
-	const hideDelay = trigger === 'click' ? 0 : DELAY_MS_HIDE;
+	const showDelay =
+		trigger === 'click' || (propsIsVisible && fg('fix_profilecard_trigger_isvisible'))
+			? 0
+			: DELAY_MS_SHOW;
+	const hideDelay =
+		trigger === 'click' || (propsIsVisible && fg('fix_profilecard_trigger_isvisible'))
+			? 0
+			: DELAY_MS_HIDE;
 
 	const showTimer = useRef<number>(0);
 	const hideTimer = useRef<number>(0);
@@ -317,6 +324,17 @@ export default function ProfilecardTriggerNext({
 	const onFocus = useCallback(() => {
 		showProfilecard();
 	}, [showProfilecard]);
+
+	useEffect(() => {
+		if (!fg('fix_profilecard_trigger_isvisible')) {
+			return;
+		}
+		if (propsIsVisible) {
+			showProfilecard();
+		} else {
+			hideProfilecard();
+		}
+	}, [hideProfilecard, propsIsVisible, showProfilecard]);
 
 	const containerListeners = useMemo(
 		() =>

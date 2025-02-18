@@ -32,6 +32,7 @@ import type { ContentComponents, ReactComponents } from '../../../types';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
+import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
 import { ContextPanel } from '../../ContextPanel';
 import PluginSlot from '../../PluginSlot';
 
@@ -157,8 +158,8 @@ const Content = React.forwardRef<
 								ref={contentAreaRef}
 							>
 								{!!props.customContentComponents && 'before' in props.customContentComponents
-									? props.customContentComponents.before
-									: props.customContentComponents}
+									? contentComponentClickWrapper(props.customContentComponents.before)
+									: contentComponentClickWrapper(props.customContentComponents)}
 								<PluginSlot
 									editorView={props.editorView}
 									editorActions={props.editorActions}
@@ -178,7 +179,7 @@ const Content = React.forwardRef<
 								/>
 								{props.editorDOMElement}
 								{!!props.customContentComponents && 'after' in props.customContentComponents
-									? props.customContentComponents.after
+									? contentComponentClickWrapper(props.customContentComponents.after)
 									: null}
 							</div>
 						</div>

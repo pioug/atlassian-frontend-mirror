@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 18.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.5.1
 
 ### Patch Changes

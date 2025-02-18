@@ -36,6 +36,9 @@
             "path": "../../../helpers/intl-messages-provider/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/link/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
         },
         {

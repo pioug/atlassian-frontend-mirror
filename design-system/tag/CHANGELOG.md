@@ -1,5 +1,11 @@
 # @atlaskit/tag
 
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.3
 
 ### Patch Changes

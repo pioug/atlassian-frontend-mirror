@@ -37,6 +37,9 @@
 			"path": "../../editor-json-transformer/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-performance-metrics/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-quick-insert/afm-post-office/tsconfig.json"
 		},
 		{
@@ -59,6 +62,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/task-decision/afm-post-office/tsconfig.json"

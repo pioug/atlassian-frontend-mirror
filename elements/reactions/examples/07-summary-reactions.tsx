@@ -55,6 +55,23 @@ export default () => {
 						}
 					/>
 					<hr />
+
+					<Example
+						title={'Summary mode with subtle styling in view only mode, disabling the picker'}
+						body={
+							<ConnectedReactionsView
+								store={store}
+								containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+								ari={`${ExampleConstants.AriPrefix}1`}
+								emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+								allowAllEmojis
+								summaryViewEnabled
+								subtleReactionsSummaryAndPicker
+								isViewOnly
+							/>
+						}
+					/>
+					<hr />
 				</>
 			)}
 		</ExampleWrapper>

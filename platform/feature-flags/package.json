@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/platform-feature-flags",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Platform Feature Flags",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/feature-gate-js-client": "^4.24.0",
+		"@atlaskit/feature-gate-js-client": "^4.25.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"bugs": {

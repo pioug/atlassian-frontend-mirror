@@ -86,6 +86,9 @@
 			"path": "../editor-plugin-mentions/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-metrics/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-panel/tsconfig.app.json"
 		},
 		{

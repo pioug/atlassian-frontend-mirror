@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.15.1
 
 ### Patch Changes

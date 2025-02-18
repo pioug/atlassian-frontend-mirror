@@ -157,6 +157,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	ariaLabel?: string;
 	/** Accessibility: Identifies the element (or elements) that labels the current element.*/
 	ariaLabelledBy?: string;
+	/** Accessibility: Identifies the element (or elements) that describe the current element.*/
+	ariaDescribedBy?: string;
 	/** Accessibility: Used to set the priority with which screen reader should treat updates to live regions.*/
 	ariaLive?: 'polite' | 'off' | 'assertive';
 	/** Name to use for input element. */

@@ -1,5 +1,7 @@
 import type { UnbindFn } from 'bind-event-listener';
 
+import { MultiRevisionHeatmap } from '../../vc/vc-observer/heatmap/heatmap';
+
 export const AbortEvent = {
 	wheel: 'wheel',
 	keydown: 'keydown',
@@ -31,6 +33,7 @@ export type VCRawDataType = {
 	oldDomUpdatesEnabled: boolean;
 	devToolsEnabled: boolean;
 	ratios: VCRatioType;
+	multiHeatmap: MultiRevisionHeatmap | null;
 };
 
 export type VCEntryType = {
@@ -68,7 +71,8 @@ export type VCResult = {
 		| { w: number; h: number }
 		| {
 				[key: string]: boolean | number | string[] | null | VCEntryType[];
-		  };
+		  }
+		| MultiHeatmapPayload;
 };
 
 export type MetricsDevToolsTypes = {
@@ -110,3 +114,17 @@ declare global {
 		};
 	}
 }
+
+type MultiHeatmapRevisionPayload = {
+	'metric:vc90': number | null;
+	revision: string;
+	clean: boolean;
+	vcDetails?: {
+		[key: string]: {
+			t: number;
+			e: string[];
+		};
+	};
+};
+
+export type MultiHeatmapPayload = MultiHeatmapRevisionPayload[];

@@ -82,6 +82,11 @@ const messages = defineMessages({
 		description: 'Success icon label',
 		id: 'team-central.give-kudos.success-icon.label',
 	},
+	errorIconLabel: {
+		defaultMessage: 'Error',
+		description: 'Error icon label',
+		id: 'team-central.give-kudos.error-icon.label',
+	},
 });
 
 export default messages;

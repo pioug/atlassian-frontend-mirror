@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 99.17.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 99.17.1
+
+### Patch Changes
+
+- [#115175](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115175)
+  [`879f5b5efcabd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/879f5b5efcabd) -
+  [ux] ED-25483 Change CSS animation for gap cursor
+
+## 99.17.0
+
+### Minor Changes
+
+- [#114384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114384)
+  [`72325f32502fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72325f32502fb) -
+  [ED-26291] Update document moved event to reflect multiple selection information
+
+### Patch Changes
+
+- [#114618](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114618)
+  [`9976feceb2007`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9976feceb2007) -
+  [ux] Implement initial UI for Block menu
+- [#114622](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114622)
+  [`1a72e048af613`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a72e048af613) -
+  Avoid extra content section in legacy content macro
+
 ## 99.16.1
 
 ### Patch Changes

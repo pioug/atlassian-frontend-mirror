@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "99.16.1",
+	"version": "99.17.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -200,8 +200,8 @@
 		"@atlaskit/activity-provider": "^2.5.0",
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/adf-utils": "^19.18.0",
-		"@atlaskit/analytics-listeners": "^8.14.0",
-		"@atlaskit/analytics-namespaced-context": "^6.13.0",
+		"@atlaskit/analytics-listeners": "^8.15.0",
+		"@atlaskit/analytics-namespaced-context": "^6.14.0",
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/atlassian-context": "^0.1.0",
 		"@atlaskit/button": "^20.5.0",
@@ -226,11 +226,11 @@
 		"@atlaskit/media-file-preview": "^0.10.0",
 		"@atlaskit/media-picker": "^67.1.0",
 		"@atlaskit/media-ui": "^27.4.0",
-		"@atlaskit/media-viewer": "50.1.5",
+		"@atlaskit/media-viewer": "50.1.6",
 		"@atlaskit/mention": "^23.11.0",
 		"@atlaskit/menu": "^2.14.0",
 		"@atlaskit/onboarding": "^12.3.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/popper": "^6.4.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/profilecard": "^22.2.0",

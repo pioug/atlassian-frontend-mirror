@@ -1,5 +1,14 @@
 # @atlaskit/theme
 
+## 16.0.0
+
+### Major Changes
+
+- [#102522](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102522)
+  [`5a455bf5d400f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a455bf5d400f) -
+  Removed deprecated font constants. Use the Text component from `@atlaskit/primitives`, or
+  typography tokens if the component cannot be used.
+
 ## 15.0.0
 
 ### Major Changes

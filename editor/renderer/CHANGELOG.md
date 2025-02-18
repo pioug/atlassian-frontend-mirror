@@ -1,5 +1,28 @@
 # @atlaskit/renderer
 
+## 112.14.5
+
+### Patch Changes
+
+- [#114887](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114887)
+  [`a58aaaa91e54e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a58aaaa91e54e) -
+  [ux] update aria label for panel icon
+- Updated dependencies
+
+## 112.14.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.14.3
+
+### Patch Changes
+
+- [#115185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115185)
+  [`74cb18f37ede7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74cb18f37ede7) -
+  EDF-2469: Migrate usages of useAIThemeColor to colour constants or tokens.
+
 ## 112.14.2
 
 ### Patch Changes

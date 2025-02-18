@@ -57,7 +57,6 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const { pluginConfig } = getPluginState(view.state);
 
 		this.isStickyHeaderEnabled = !!pluginConfig.stickyHeaders;
-
 		if (this.isHeaderRow) {
 			this.dom.setAttribute('data-header-row', 'true');
 			if (this.isStickyHeaderEnabled) {
@@ -286,25 +285,69 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				`.${TableCssClassName.NODEVIEW_WRAPPER}`,
 			);
 			if (tableContainer) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				this.sentinels.top = tableContainer
-					.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_TOP)
-					.item(0) as HTMLElement;
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				this.sentinels.bottom = tableContainer
-					.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
-					.item(0) as HTMLElement;
-				[this.sentinels.top, this.sentinels.bottom].forEach((el) => {
-					// skip if already observed for another row on this table
-					if (el && !el.dataset.isObserved) {
-						el.dataset.isObserved = 'true';
-						// Ignored via go/ees005
-						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-						this.intersectionObserver!.observe(el);
+				const getSentinelTop = () =>
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					tableContainer
+						.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_TOP)
+						.item(0) as HTMLElement;
+				const getSentinelBottom = () => {
+					// Multiple bottom sentinels may be found if there are nested tables.
+					// We need to make sure we get the last one which will belong to the parent table.
+					const bottomSentinels = tableContainer.getElementsByClassName(
+						ClassName.TABLE_STICKY_SENTINEL_BOTTOM,
+					);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					return fg('platform_editor_nested_tables_bottom_sentinel')
+						? // eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(bottomSentinels.item(bottomSentinels.length - 1) as HTMLElement)
+						: // eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(tableContainer
+								.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
+								.item(0) as HTMLElement);
+				};
+
+				const sentinelsInDom = () => getSentinelTop() !== null && getSentinelBottom() !== null;
+
+				const observeStickySentinels = () => {
+					this.sentinels.top = getSentinelTop();
+					this.sentinels.bottom = getSentinelBottom();
+					[this.sentinels.top, this.sentinels.bottom].forEach((el) => {
+						// skip if already observed for another row on this table
+						if (el && !el.dataset.isObserved) {
+							el.dataset.isObserved = 'true';
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							this.intersectionObserver!.observe(el);
+						}
+					});
+				};
+
+				if (fg('platform_editor_react18_stickyheaders_fix')) {
+					if (sentinelsInDom()) {
+						// great - DOM ready, observe as normal
+						observeStickySentinels();
+					} else {
+						// concurrent loading issue - here TableRow is too eager trying to
+						// observe sentinels before they are in the DOM, use MutationObserver
+						// to wait for sentinels to be added to the parent Table node DOM
+						// then attach the IntersectionObserver
+						const tableContainerObserver = new MutationObserver(() => {
+							if (sentinelsInDom()) {
+								observeStickySentinels();
+								tableContainerObserver.disconnect();
+							}
+						});
+
+						const mutatingNode = tableContainer;
+						if (mutatingNode) {
+							tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
+						}
 					}
-				});
+				} else {
+					observeStickySentinels();
+				}
 			}
 		});
 	}

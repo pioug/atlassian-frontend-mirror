@@ -1,6 +1,6 @@
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors, fontFamily } from '@atlaskit/theme';
+import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
@@ -39,7 +39,7 @@ export default evaluateInner`
   }
 
   caption {
-    font: ${token('font.heading.medium', `500 1.4285714285714286em/1.2 ${fontFamily()}`)};
+    font: ${token('font.heading.medium', '500 1.4285714285714286em/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif')};
     letter-spacing: -0.008em;
     color: ${token('color.text')};
     margin-top: 28px;

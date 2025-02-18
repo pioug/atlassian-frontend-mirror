@@ -31,9 +31,11 @@ import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorActions } from '../../../index';
 import type { PrimaryToolbarComponents } from '../../../types';
+import { ToolbarPortalMountPoint, useToolbarPortal } from '../../Toolbar/ToolbarPortal';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 
 import { BeforePrimaryToolbarWrapper } from './BeforeWrapper';
@@ -164,39 +166,78 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		event.stopPropagation();
 	};
 
+	// When a toolbar portal context is provided, render the  toolbar inside a portal.
+	// Otherwise fall back to a fragment just to avoid forking rendering logic.
+	const { Portal: ToolbarPortal } = useToolbarPortal() ?? { Portal: React.Fragment };
+
 	return (
 		<ContextPanelConsumer>
 			{({ width: contextPanelWidth }) => (
 				<ToolbarArrowKeyNavigationProvider
 					editorView={props.editorView}
-					childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+					childComponentSelector="[data-testid='ak-editor-main-toolbar']"
 					isShortcutToFocusToolbar={isShortcutToFocusToolbar}
 					handleEscape={handleEscape}
 					intl={props.intl}
 				>
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={mainToolbarStyle(props.showKeyline || contextPanelWidth > 0, twoLineEditorToolbar)}
-						data-testid="ak-editor-main-toolbar"
-					>
+					{fg('platform_editor_lcm_toolbar_portals') ? (
+						<ToolbarPortal>
+							<div
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+								css={mainToolbarStyle(
+									props.showKeyline || contextPanelWidth > 0,
+									twoLineEditorToolbar,
+								)}
+								data-testid="ak-editor-main-toolbar"
+							>
+								<div
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+									css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
+									role="toolbar"
+									aria-label={props.intl.formatMessage(messages.toolbarLabel)}
+								>
+									{shouldSplitToolbar ? customToolbar : nonCustomToolbar}
+								</div>
+								<div
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+									css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
+									data-testid="avatar-group-outside-plugin"
+									role="region"
+									aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
+								>
+									{shouldSplitToolbar ? nonCustomToolbar : customToolbar}
+								</div>
+								<ToolbarPortalMountPoint />
+							</div>
+						</ToolbarPortal>
+					) : (
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
-							role="toolbar"
-							aria-label={props.intl.formatMessage(messages.toolbarLabel)}
+							css={mainToolbarStyle(
+								props.showKeyline || contextPanelWidth > 0,
+								twoLineEditorToolbar,
+							)}
+							data-testid="ak-editor-main-toolbar"
 						>
-							{shouldSplitToolbar ? customToolbar : nonCustomToolbar}
+							<div
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+								css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
+								role="toolbar"
+								aria-label={props.intl.formatMessage(messages.toolbarLabel)}
+							>
+								{shouldSplitToolbar ? customToolbar : nonCustomToolbar}
+							</div>
+							<div
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+								css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
+								data-testid="avatar-group-outside-plugin"
+								role="region"
+								aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
+							>
+								{shouldSplitToolbar ? nonCustomToolbar : customToolbar}
+							</div>
 						</div>
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
-							data-testid={'avatar-group-outside-plugin'}
-							role="region"
-							aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
-						>
-							{shouldSplitToolbar ? nonCustomToolbar : customToolbar}
-						</div>
-					</div>
+					)}
 				</ToolbarArrowKeyNavigationProvider>
 			)}
 		</ContextPanelConsumer>

@@ -1,5 +1,17 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.15.0
+
+### Minor Changes
+
+- [#115462](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115462)
+  [`17a3ace9d5f67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17a3ace9d5f67) -
+  Moved addSegment to useEffect to prevent it added multiple times when running on concurrent mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.14.3
 
 ### Patch Changes

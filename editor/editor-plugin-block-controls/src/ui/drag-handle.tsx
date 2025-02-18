@@ -243,7 +243,7 @@ export const DragHandle = ({
 			if (startPos === undefined) {
 				return false;
 			}
-			api?.core.actions.execute(api.blockControls.commands.toggleBlockMenu(startPos, nodeType));
+			api?.core.actions.execute(api.blockControls.commands.toggleBlockMenu());
 		}
 	}, [
 		dragHandleSelected,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "1.7.4",
+	"version": "1.7.5",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,7 @@
 	"dependencies": {
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/icon": "^23.9.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/spinner": "^17.1.0",
 		"@atlaskit/tokens": "^3.3.0",

@@ -34,6 +34,7 @@ export interface ConnectedReactionsViewProps
 			| 'subtleReactionsSummaryAndPicker'
 			| 'onlyRenderPicker'
 			| 'showRoundTrigger'
+			| 'isViewOnly'
 		>,
 		Pick<ReactionPickerProps, 'pickerQuickReactionEmojiIds'> {
 	/**

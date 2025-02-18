@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "20.5.2",
+	"version": "20.5.3",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -98,10 +98,10 @@
 		"@atlaskit/focus-ring": "^2.1.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/interaction-context": "^2.6.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/spinner": "^17.1.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/visually-hidden": "^1.6.0",
@@ -122,7 +122,7 @@
 		"@atlaskit/form": "^11.1.0",
 		"@atlaskit/heading": "*",
 		"@atlaskit/link": "*",
-		"@atlaskit/logo": "^15.2.0",
+		"@atlaskit/logo": "^15.3.0",
 		"@atlaskit/modal-dialog": "^12.20.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/select": "^18.10.0",

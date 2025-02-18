@@ -5,7 +5,6 @@ import { debug } from './debug';
 const pkgName = '@atlaskit/platform-feature-flags';
 
 export const PFF_GLOBAL_KEY = '__PLATFORM_FEATURE_FLAGS__' as const;
-export const ECOSYSTEM_PFF_GLOBAL_KEY = '__ECOSYSTEM_PLATFORM_FEATURE_FLAGS__' as const;
 
 const hasProcessEnv = typeof process !== 'undefined' && typeof process.env !== 'undefined';
 
@@ -30,25 +29,12 @@ export type FeatureFlagResolverBoolean = (key: string) => boolean;
 
 type WindowFeatureFlagVars = {
 	[PFF_GLOBAL_KEY]: {
-		booleanResolver: FeatureFlagResolverBoolean;
-		earlyResolvedFlags: Map<string, number>;
+		booleanResolver?: FeatureFlagResolverBoolean;
 	};
-	[ECOSYSTEM_PFF_GLOBAL_KEY]: Record<string, boolean>;
 };
 
 const DEFAULT_PFF_GLOBAL: WindowFeatureFlagVars[typeof PFF_GLOBAL_KEY] = {
-	// In development mode we want to capture any feature flag checks that happen using the default resolver and log this result when the resolver is replaced.
-	// This is because evaluating feature flags when the resolver/FF client is loaded asynchronously could cause unexpected issues.
-	earlyResolvedFlags: new Map<string, number>(),
-	booleanResolver: function (flagKey: string) {
-		if (process.env.NODE_ENV !== 'production') {
-			const unresolvedFlagCount = this.earlyResolvedFlags.get(flagKey) || 0;
-
-			this.earlyResolvedFlags.set(flagKey, unresolvedFlagCount + 1);
-		}
-
-		return false;
-	},
+	booleanResolver: undefined,
 };
 
 const globalVar = (typeof window !== 'undefined'
@@ -59,18 +45,6 @@ globalVar[PFF_GLOBAL_KEY] = globalVar[PFF_GLOBAL_KEY] || DEFAULT_PFF_GLOBAL;
 
 export function setBooleanResolver(resolver: FeatureFlagResolverBoolean) {
 	globalVar[PFF_GLOBAL_KEY].booleanResolver = resolver;
-
-	if (process.env.NODE_ENV !== 'production') {
-		if (globalVar[PFF_GLOBAL_KEY]?.earlyResolvedFlags?.size > 0) {
-			debug(
-				`[%s]: The following list of Feature Flags were called, the following number of times, before setBooleanResolver.`,
-				pkgName,
-				Array.from(globalVar[PFF_GLOBAL_KEY].earlyResolvedFlags.entries()),
-			);
-
-			globalVar[PFF_GLOBAL_KEY].earlyResolvedFlags.clear();
-		}
-	}
 }
 
 export function resolveBooleanFlag(flagKey: string): boolean {
@@ -94,9 +68,7 @@ export function resolveBooleanFlag(flagKey: string): boolean {
 			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 			return FeatureGates.checkGate(flagKey);
 		}
-		const result =
-			globalVar[ECOSYSTEM_PFF_GLOBAL_KEY]?.[flagKey] ||
-			globalVar[PFF_GLOBAL_KEY]?.booleanResolver(flagKey);
+		const result = globalVar[PFF_GLOBAL_KEY]?.booleanResolver(flagKey);
 
 		if (typeof result !== 'boolean') {
 			// eslint-disable-next-line no-console

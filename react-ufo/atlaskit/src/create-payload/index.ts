@@ -7,7 +7,7 @@ import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
 import { REACT_UFO_VERSION } from '../common/constants';
-import type { VCResult } from '../common/vc/types';
+import type { MultiHeatmapPayload, VCResult } from '../common/vc/types';
 import {
 	type Config,
 	getConfig,
@@ -244,6 +244,14 @@ const getVCMetrics = (
 		pageVisibilityUpToTTAI !== 'visible'
 	) {
 		return result;
+	}
+
+	if (fg('ufo_vc_multiheatmap')) {
+		(result[`${prefix}:vc:rev`] as MultiHeatmapPayload)?.forEach((element) => {
+			if (element.vcDetails?.['90']?.t) {
+				element['metric:vc90'] = element.vcDetails['90']?.t;
+			}
+		});
 	}
 
 	return {

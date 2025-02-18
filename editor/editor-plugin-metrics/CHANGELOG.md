@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.2.0
+
+### Minor Changes
+
+- [#108974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108974)
+  [`2ed04755a098e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ed04755a098e) -
+  ED-26233 Start activity session in metrics plugin when user starts dragging nodes and opens
+  element browser
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

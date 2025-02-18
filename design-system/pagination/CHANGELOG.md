@@ -1,5 +1,18 @@
 # @atlaskit/pagination
 
+## 15.2.0
+
+### Minor Changes
+
+- [#114505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114505)
+  [`7d1407c18c85c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d1407c18c85c) -
+  We are testing the pagination behind a feature flag. Moving the page navigator buttons in to the
+  list. If this fix is successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.0
 
 ### Minor Changes

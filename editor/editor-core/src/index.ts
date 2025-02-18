@@ -22,6 +22,7 @@ export { default as WithEditorActions } from './ui/WithEditorActions';
  */
 export { default as WithHelpTrigger } from './ui/WithHelpTrigger';
 export { default as CollapsedEditor } from './ui/CollapsedEditor';
+export { ToolbarPortalContextProvider, useToolbarPortal } from './ui/Toolbar/ToolbarPortal';
 export { default as ToolbarHelp } from './ui/ToolbarHelp';
 export {
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883

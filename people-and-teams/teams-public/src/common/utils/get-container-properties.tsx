@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { ConfluenceIcon, JiraIcon, LoomIcon } from '@atlaskit/logo';
+import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 
 import { type ContainerTypes } from '../types';
 
@@ -47,23 +47,17 @@ export const messages = defineMessages({
 
 export const getContainerProperties = (containerType: ContainerTypes): ContainerProperties => {
 	switch (containerType) {
-		case 'confluence':
+		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
 				icon: <ConfluenceIcon appearance="brand" label="" size="xsmall" />,
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
 			};
-		case 'jira':
+		case 'JiraProject':
 			return {
 				description: <FormattedMessage {...messages.jiraProjectDescription} />,
 				icon: <JiraIcon appearance="brand" label="" size="xsmall" />,
 				title: <FormattedMessage {...messages.addJiraProjectTitle} />,
-			};
-		case 'loom':
-			return {
-				description: <FormattedMessage {...messages.loomSpaceDescription} />,
-				icon: <LoomIcon appearance="brand" label="" size="xsmall" />,
-				title: <FormattedMessage {...messages.addLoomSpaceTitle} />,
 			};
 		default:
 			return {

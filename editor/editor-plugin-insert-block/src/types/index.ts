@@ -15,6 +15,7 @@ import type { LayoutPlugin } from '@atlaskit/editor-plugin-layout';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { MediaInsertPlugin } from '@atlaskit/editor-plugin-media-insert';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { PanelPlugin } from '@atlaskit/editor-plugin-panel';
 import type { PlaceholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
@@ -41,6 +42,7 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<MediaPlugin>,
 	OptionalPlugin<MediaInsertPlugin>,
 	OptionalPlugin<MentionsPlugin>,
+	OptionalPlugin<MetricsPlugin>,
 	OptionalPlugin<StatusPlugin>,
 	OptionalPlugin<LayoutPlugin>,
 	OptionalPlugin<ExpandPlugin>,

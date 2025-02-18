@@ -48,6 +48,7 @@ const defaultProps = {
 
 export default function Example() {
 	const [clickCount, setCount] = useState(0);
+	const [externalPropExampleIsVisible, setExternalPropExampleIsVisible] = useState(false);
 
 	return (
 		<ExampleWrapper>
@@ -94,6 +95,35 @@ export default function Example() {
 							<strong>click me</strong>
 						</ProfileCardTrigger>{' '}
 						dolor sit amet
+					</span>
+				</Section>
+
+				<Section>
+					<h4>Profilecard triggered by external prop</h4>
+					<span>
+						Lorem ipsum{' '}
+						<ProfileCardTrigger
+							{...defaultProps}
+							userId="1"
+							trigger="click"
+							isVisible={externalPropExampleIsVisible}
+							actions={[
+								{
+									label: 'View profile',
+									id: 'view-profile',
+									callback: () => {},
+								},
+							]}
+						>
+							<strong>click me</strong>
+						</ProfileCardTrigger>{' '}
+						dolor sit amet
+						<button
+							type="button"
+							onClick={() => setExternalPropExampleIsVisible(!externalPropExampleIsVisible)}
+						>
+							Toggle external prop
+						</button>
 					</span>
 				</Section>
 

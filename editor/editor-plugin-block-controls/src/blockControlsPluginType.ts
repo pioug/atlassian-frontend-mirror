@@ -112,7 +112,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				nodeType: string,
 				handleOptions?: HandleOptions,
 			) => EditorCommand;
-			toggleBlockMenu: (pos: number, nodeType: string) => EditorCommand;
+			toggleBlockMenu: (options?: { closeMenu?: boolean }) => EditorCommand;
 			setNodeDragged: (
 				getPos: () => number | undefined,
 				anchorName: string,

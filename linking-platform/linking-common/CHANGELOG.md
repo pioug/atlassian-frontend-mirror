@@ -1,5 +1,23 @@
 # @atlaskit/linking-common
 
+## 7.0.0
+
+### Major Changes
+
+- [#114507](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114507)
+  [`e5a417f46346b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5a417f46346b) -
+  Cleanup for ff platform_bandicoots-linking-common-css as well as emotion.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.1
 
 ### Patch Changes

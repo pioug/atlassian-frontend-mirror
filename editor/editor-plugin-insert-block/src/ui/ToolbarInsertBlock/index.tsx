@@ -236,6 +236,22 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 	private togglePlusMenuVisibility = (event?: KeyboardEvent) => {
 		const { isPlusMenuOpen } = this.state;
+
+		const { pluginInjectionApi } = this.props;
+		if (pluginInjectionApi && fg('platform_editor_ease_of_use_metrics')) {
+			pluginInjectionApi.core.actions.execute(({ tr }) => {
+				if (isPlusMenuOpen) {
+					pluginInjectionApi.metrics?.commands.startActiveSessionTimer()({ tr });
+				} else {
+					pluginInjectionApi.metrics?.commands.handleIntentToStartEdit({
+						shouldStartTimer: false,
+						shouldPersistActiveSession: true,
+					})({ tr });
+				}
+				return tr;
+			});
+		}
+
 		this.onOpenChange({ isPlusMenuOpen: !isPlusMenuOpen });
 		if (event?.key === 'Escape') {
 			(this.plusButtonRef || this.dropdownButtonRef)?.deref()?.focus();

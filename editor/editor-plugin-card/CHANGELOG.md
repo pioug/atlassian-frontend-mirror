@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 4.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.6.3
+
+### Patch Changes
+
+- [#114033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114033)
+  [`bd8a7551ac410`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd8a7551ac410) -
+  EDM-11641 Check SL tokens editor & renderer, fix icon
+- [#114033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114033)
+  [`6ca32524df553`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ca32524df553) -
+  EDM-11641 Smart links token migration smart card toolbarwq
+
 ## 4.6.2
 
 ### Patch Changes

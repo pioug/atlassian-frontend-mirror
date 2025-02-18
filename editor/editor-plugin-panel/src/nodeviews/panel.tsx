@@ -26,6 +26,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PanelPlugin, PanelPluginOptions } from '../panelPluginType';
 import { panelAttrsToDom } from '../pm-plugins/utils/utils';
@@ -82,7 +83,11 @@ export const PanelIcon = (props: PanelIconAttributes) => {
 	}
 
 	const Icon = panelIcons[panelType];
-	return <Icon label={`Panel ${panelType}`} />;
+	return fg('platform_editor_update_panel_icon_aria_label') ? (
+		<Icon label={`${panelType} panel`} />
+	) : (
+		<Icon label={`Panel ${panelType}`} />
+	);
 };
 
 class PanelNodeView {

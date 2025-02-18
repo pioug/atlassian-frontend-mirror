@@ -19,6 +19,7 @@ describe('LinkedContainerCard', () => {
 		description: 'Test Description',
 		icon: <Text testId="test-icon">Icon</Text>,
 	};
+	const testLink = 'test-link';
 
 	beforeEach(() => {
 		(getContainerProperties as jest.Mock).mockReturnValue(mockContainerProperties);
@@ -28,9 +29,10 @@ describe('LinkedContainerCard', () => {
 		render(
 			<Router>
 				<LinkedContainerCard
-					containerType={'confluence'}
+					containerType={'ConfluenceSpace'}
 					title="Test Title"
 					containerIcon="test-icon-url"
+					link={testLink}
 				/>
 			</Router>,
 		);
@@ -41,9 +43,10 @@ describe('LinkedContainerCard', () => {
 		render(
 			<Router>
 				<LinkedContainerCard
-					containerType={'confluence'}
+					containerType={'ConfluenceSpace'}
 					title="Test Title"
 					containerIcon="test-icon-url"
+					link={testLink}
 				/>
 			</Router>,
 		);
@@ -54,9 +57,10 @@ describe('LinkedContainerCard', () => {
 		render(
 			<Router>
 				<LinkedContainerCard
-					containerType={'confluence'}
+					containerType={'ConfluenceSpace'}
 					title="Test Title"
 					containerIcon="test-icon-url"
+					link={testLink}
 				/>
 			</Router>,
 		);
@@ -67,9 +71,10 @@ describe('LinkedContainerCard', () => {
 		render(
 			<Router>
 				<LinkedContainerCard
-					containerType={'confluence'}
+					containerType={'ConfluenceSpace'}
 					title="Test Title"
 					containerIcon="test-icon-url"
+					link={testLink}
 				/>
 			</Router>,
 		);
@@ -80,24 +85,56 @@ describe('LinkedContainerCard', () => {
 		render(
 			<Router>
 				<LinkedContainerCard
-					containerType={'confluence'}
+					containerType={'ConfluenceSpace'}
 					title="Test Title"
 					containerIcon="test-icon-url"
+					link={testLink}
 				/>
 			</Router>,
 		);
+		const containerElement = screen.getByTestId('linked-container-card-inner');
+		await userEvent.hover(containerElement);
+
 		const crossIconButton = screen.getByRole('button');
 		await userEvent.click(crossIconButton);
 		expect(crossIconButton).toBeInTheDocument();
+	});
+
+	it('should show/hide cross icon button on hover/unhover', async () => {
+		render(
+			<Router>
+				<LinkedContainerCard
+					containerType={'ConfluenceSpace'}
+					title="Test Title"
+					containerIcon="test-icon-url"
+					link={testLink}
+				/>
+			</Router>,
+		);
+
+		const containerElement = screen.getByTestId('linked-container-card-inner');
+		// Check that the close icon is not visible initially
+		expect(
+			screen.queryByRole('button', { name: /disconnect the container/i }),
+		).not.toBeInTheDocument();
+		await userEvent.hover(containerElement);
+		// Check that the close icon is visible after on hover
+		expect(screen.getByRole('button', { name: /disconnect the container/i })).toBeVisible();
+		await userEvent.unhover(containerElement);
+		// Check that the close icon is not visible after unhover
+		expect(
+			screen.queryByRole('button', { name: /disconnect the container/i }),
+		).not.toBeInTheDocument();
 	});
 
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
 			<Router>
 				<LinkedContainerCard
-					containerType={'confluence'}
+					containerType={'ConfluenceSpace'}
 					title="Test Title"
 					containerIcon="test-icon-url"
+					link={testLink}
 				/>
 			</Router>,
 		);

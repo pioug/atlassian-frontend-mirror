@@ -39,7 +39,7 @@
 	"dependencies": {
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/icon-lab": "^2.4.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

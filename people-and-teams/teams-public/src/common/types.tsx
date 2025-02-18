@@ -1,1 +1,1 @@
-export type ContainerTypes = 'confluence' | 'jira' | 'loom';
+export type ContainerTypes = 'ConfluenceSpace' | 'JiraProject';

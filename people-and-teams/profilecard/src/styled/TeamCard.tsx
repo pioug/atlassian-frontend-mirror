@@ -26,7 +26,6 @@ const styles = cssMap({
 		position: 'relative',
 	},
 	cardheader: {
-		backgroundImage: 'url()',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
 		backgroundSize: 'cover',

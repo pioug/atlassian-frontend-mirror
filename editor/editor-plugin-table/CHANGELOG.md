@@ -1,5 +1,50 @@
 # @atlaskit/editor-plugin-table
 
+## 9.5.5
+
+### Patch Changes
+
+- [#115474](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115474)
+  [`c8ac38a0ef001`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8ac38a0ef001) -
+  Temporarily disable lazy node views on tables
+- Updated dependencies
+
+## 9.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.5.3
+
+### Patch Changes
+
+- [#115241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115241)
+  [`06d29aec8ec04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06d29aec8ec04) -
+  ED-26562: fixes sticky headers under r18 concurrent mode
+
+## 9.5.2
+
+### Patch Changes
+
+- [#114572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114572)
+  [`b9aeb291b4352`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9aeb291b4352) -
+  [ux] ED-26502 Fix bottom sentinel calculation when table has nested table
+
+## 9.5.1
+
+### Patch Changes
+
+- [#113779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113779)
+  [`0a73059d25e59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a73059d25e59) -
+  [ux] ED-25147 Resolve bug previously introduced to transformSliceToRemoveOpenTable which prevented
+  nested lists in table cells from being copy/pasted
+- [#114360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114360)
+  [`4c32f3d14f4f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c32f3d14f4f1) -
+  [ux] [ED-26541] This change is fixing a bug where nested tables had overlapping sorting buttons in
+  view mode.
+- Updated dependencies
+
 ## 9.5.0
 
 ### Minor Changes

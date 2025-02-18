@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 203.17.2
+
+### Patch Changes
+
+- [#115172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115172)
+  [`5dc3799cf466f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5dc3799cf466f) -
+  [ED-26517] Fix LCM right rail alignment
+- Updated dependencies
+
+## 203.17.1
+
+### Patch Changes
+
+- [#112383](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112383)
+  [`51edd811330b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51edd811330b1) -
+  [AFO-3351] Introduce Editor PerformanceMetrics into editor-core
+- Updated dependencies
+
+## 203.17.0
+
+### Minor Changes
+
+- [#108587](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108587)
+  [`441cefc11a2b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/441cefc11a2b9) -
+  [ux] [ED-26339] Add toolbar portal and mountpoint for rendering nested toolbars
+
 ## 203.16.5
 
 ### Patch Changes

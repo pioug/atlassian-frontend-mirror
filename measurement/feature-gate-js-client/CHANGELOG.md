@@ -1,5 +1,23 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.25.0
+
+### Minor Changes
+
+- [#115504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115504)
+  [`3a98e35bee8a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a98e35bee8a5) -
+  Added loomAnonymousId, loomUserId and loomWorkspaceId
+
+## 4.24.1
+
+### Patch Changes
+
+- [#115023](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115023)
+  [`f317911486c79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f317911486c79) -
+  The client now reads STATSIG_JS_LITE_LOCAL_OVERRIDES (the old local storage key) when initialising
+  itself, for better compatibility with code that's relying on deprecated and obsolete private
+  Statsig APIs
+
 ## 4.24.0
 
 ### Minor Changes

@@ -307,6 +307,12 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(wrapper).toBeDefined();
 	});
 
+	it('should not render picker after reactions if isViewOnly', async () => {
+		renderReactions({ reactions, isViewOnly: true });
+
+		expect(screen.queryByTestId(RENDER_REACTIONPICKER_TESTID)).not.toBeInTheDocument();
+	});
+
 	it('should only render the picker and nothing else if "onlyRenderPicker" is passed in as true', async () => {
 		renderReactions({ reactions, onlyRenderPicker: true });
 

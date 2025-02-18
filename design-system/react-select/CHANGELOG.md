@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.7.5
+
+### Patch Changes
+
+- [#114403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114403)
+  [`73c26a58b3d36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73c26a58b3d36) -
+  Update rendering of multiselect description to support SSR
+
 ## 1.7.4
 
 ### Patch Changes

@@ -41,7 +41,7 @@ export const gapCursorStyles = css`
 			}
 
 			& span::after {
-				animation: 1s ${gapCursorBlink} step-end infinite;
+				animation: 1s ${gapCursorBlink} step-start infinite;
 				border-left: 1px solid;
 				content: '';
 				display: block;

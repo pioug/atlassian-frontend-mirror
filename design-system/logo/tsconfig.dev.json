@@ -59,9 +59,6 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
-			"path": "../lozenge/tsconfig.app.json"
-		},
-		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

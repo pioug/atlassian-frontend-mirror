@@ -5,6 +5,7 @@ import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import Pagination from '@atlaskit/pagination';
 import { Stack } from '@atlaskit/primitives/compiled';
+import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
 
 export default function AnalyticsExample() {
 	const [analyticEventContext, setAnalyticEventContext] = useState({});
@@ -43,3 +44,9 @@ export default function AnalyticsExample() {
 const pageLinks: Array<{ value: number }> = [...Array(13)].map((_, index) => ({
 	value: index + 1,
 }));
+
+AnalyticsExample.decorators = [
+	withPlatformFeatureFlags({
+		'jfp-a11y-team_pagination_list-markup': true,
+	}),
+];

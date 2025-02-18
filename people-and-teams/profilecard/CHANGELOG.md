@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 22.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.2.1
+
+### Patch Changes
+
+- [#114979](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114979)
+  [`06b6a25655d18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06b6a25655d18) -
+  Fix for isVisibl
+- [#114983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114983)
+  [`ba03c91383ce7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba03c91383ce7) -
+  Remove invalid specifier
+
 ## 22.2.0
 
 ### Minor Changes

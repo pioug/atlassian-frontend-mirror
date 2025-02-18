@@ -45,7 +45,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/heading": "^4.1.0",
 		"@atlaskit/link": "^2.1.0",
-		"@atlaskit/logo": "^15.2.0",
+		"@atlaskit/logo": "^15.3.0",
 		"@atlaskit/page-layout": "^3.12.0",
 		"@atlaskit/table": "*",
 		"@atlaskit/textfield": "^6.8.0",

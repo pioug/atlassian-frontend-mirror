@@ -1,5 +1,20 @@
 # @atlaskit/logo
 
+## 15.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.0
+
+### Minor Changes
+
+- [#115211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115211)
+  [`3ef7f182f166b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ef7f182f166b) -
+  [ux] Updated Atlassian Analytics logo and icon to support `iconColor` and `textColor` to align
+  with others.
+
 ## 15.2.2
 
 ### Patch Changes

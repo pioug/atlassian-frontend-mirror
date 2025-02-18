@@ -1,5 +1,13 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.14.0
+
+### Minor Changes
+
+- [#113352](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113352)
+  [`f54cef561a5a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f54cef561a5a2) -
+  Add edition awareness analytics listener support
+
 ## 6.13.0
 
 ### Minor Changes

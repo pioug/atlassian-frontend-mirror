@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "22.2.0",
+	"version": "22.2.2",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -71,19 +71,19 @@
 		"@atlaskit/dropdown-menu": "^12.26.0",
 		"@atlaskit/empty-state": "^8.2.0",
 		"@atlaskit/focus-ring": "^2.1.0",
-		"@atlaskit/give-kudos": "^3.1.0",
+		"@atlaskit/give-kudos": "^3.2.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/lozenge": "^11.13.0",
 		"@atlaskit/menu": "^2.14.0",
 		"@atlaskit/modal-dialog": "^12.20.0",
 		"@atlaskit/people-teams-ui-public": "^2.1.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/popup": "^1.31.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/rovo-agent-components": "^1.17.0",
 		"@atlaskit/rovo-triggers": "^1.5.0",
 		"@atlaskit/spinner": "^17.1.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@babel/runtime": "^7.0.0",
@@ -160,6 +160,9 @@
 			"type": "boolean"
 		},
 		"compiled-migration-profilecard": {
+			"type": "boolean"
+		},
+		"fix_profilecard_trigger_isvisible": {
 			"type": "boolean"
 		}
 	}

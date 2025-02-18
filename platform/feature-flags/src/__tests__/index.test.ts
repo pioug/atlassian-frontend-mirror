@@ -93,43 +93,6 @@ describe('platform feature flags', () => {
 			expect(getBooleanFF('my-new-flag')).toEqual(false);
 		});
 
-		it('should log a collection of feature flags that are called before setBooleanFeatureFlagResolver is initialised', () => {
-			const mockConsoleDebug = jest.spyOn(console, 'debug');
-
-			// given
-			const { getBooleanFF, setBooleanFeatureFlagResolver } = loadApi();
-
-			// when
-			getBooleanFF('early-flag-1');
-			getBooleanFF('early-flag-3');
-			getBooleanFF('early-flag-3');
-			getBooleanFF('early-flag-3');
-			getBooleanFF('early-flag-2');
-			getBooleanFF('early-flag-2');
-
-			const resolver: FeatureFlagResolverBoolean = () => {
-				return true;
-			};
-
-			setBooleanFeatureFlagResolver(resolver);
-
-			getBooleanFF('my-feature-flag');
-
-			setBooleanFeatureFlagResolver(resolver);
-
-			// then
-			expect(mockConsoleDebug).toHaveBeenCalledTimes(1);
-			expect(mockConsoleDebug).toHaveBeenCalledWith(
-				'[%s]: The following list of Feature Flags were called, the following number of times, before setBooleanResolver.',
-				'@atlaskit/platform-feature-flags',
-				[
-					['early-flag-1', 1],
-					['early-flag-3', 3],
-					['early-flag-2', 2],
-				],
-			);
-		});
-
 		it('should re-use existing flag resolver when multiple modules are used', () => {
 			// given
 			const { getBooleanFF, setBooleanFeatureFlagResolver } = loadApi();

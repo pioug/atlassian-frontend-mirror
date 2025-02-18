@@ -3033,6 +3033,15 @@ test('multi select > with multi character delimiter', () => {
 		'zero===&===one',
 	);
 });
+// Skipping until the full fix is complete
+test.skip('multi select > described as having multiple selections available', () => {
+	render(<Select {...BASIC_PROPS} isMulti />);
+	expect(screen.getByText(/, multiple selections available,/)).toBeInTheDocument();
+	expect(screen.getByTestId(`${testId}-select--input`)).toHaveAttribute(
+		'aria-describedby',
+		expect.stringContaining('-multi-message'),
+	);
+});
 
 test('hitting spacebar should select option if isSearchable is false', async () => {
 	let onChangeSpy = jest.fn();

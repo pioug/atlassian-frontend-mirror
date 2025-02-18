@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-history
 
+## 1.5.0
+
+### Minor Changes
+
+- [#108583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108583)
+  [`2fce949f7105c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2fce949f7105c) -
+  Add getDocBeforeUnconfirmedSteps and syncFromAnotherSource functions to
+  @atlaskit/prosemirror-collab. Add updatePluginState action to historyPlugin.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

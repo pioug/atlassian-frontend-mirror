@@ -5,16 +5,20 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams } from '../constants';
-import type { LogoPropsAppearanceRequired } from '../types';
+import type { LogoProps } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = (
-	{ appearance }: LogoPropsAppearanceRequired,
-	colorMode: string | undefined,
-	id: string,
-) => {
-	const colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
+const svg = ({ appearance, iconColor }: LogoProps, colorMode: string | undefined, id: string) => {
+	let colors = {
+		iconGradientStart: iconColor,
+		iconGradientStop: iconColor,
+		iconColor,
+	};
+
+	if (appearance) {
+		colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
+	}
 
 	return `<svg height="32" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -50,15 +54,19 @@ export const AtlassianAnalyticsIcon = ({
 	appearance,
 	label = 'Atlassian Analytics',
 	size = defaultLogoParams.size,
+	iconColor = defaultLogoParams.iconColor,
+	textColor = defaultLogoParams.textColor,
 	testId,
-}: LogoPropsAppearanceRequired) => {
+}: LogoProps) => {
 	const { colorMode } = useThemeObserver();
 	const id = useId();
 	return (
 		<Wrapper
 			appearance={appearance}
 			label={label}
-			svg={svg({ appearance }, colorMode, id)}
+			svg={svg({ appearance, iconColor }, colorMode, id)}
+			iconColor={iconColor}
+			textColor={textColor}
 			size={size}
 			testId={testId}
 		/>

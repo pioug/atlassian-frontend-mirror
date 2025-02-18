@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.3.1
+
+### Patch Changes
+
+- [#114384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114384)
+  [`72325f32502fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72325f32502fb) -
+  [ED-26291] Update document moved event to reflect multiple selection information
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

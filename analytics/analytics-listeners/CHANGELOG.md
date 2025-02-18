@@ -1,5 +1,17 @@
 # @atlaskit/analytics-listeners
 
+## 8.15.0
+
+### Minor Changes
+
+- [#113352](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113352)
+  [`f54cef561a5a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f54cef561a5a2) -
+  Add edition awareness analytics listener support
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.14.0
 
 ### Minor Changes

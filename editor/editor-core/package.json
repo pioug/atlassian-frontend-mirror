@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.16.5",
+	"version": "203.17.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,13 +39,14 @@
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.5.0",
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/analytics-namespaced-context": "^6.13.0",
+		"@atlaskit/analytics-namespaced-context": "^6.14.0",
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/editor-common": "^99.16.0",
+		"@atlaskit/editor-common": "^99.17.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
-		"@atlaskit/editor-plugin-quick-insert": "1.10.1",
+		"@atlaskit/editor-performance-metrics": "1.4.0",
+		"@atlaskit/editor-plugin-quick-insert": "1.10.2",
 		"@atlaskit/editor-plugins": "^7.2.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.3.0",
@@ -53,7 +54,8 @@
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/media-card": "^78.19.0",
 		"@atlaskit/mention": "^23.11.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/react-ufo": "^2.15.0",
 		"@atlaskit/task-decision": "^17.12.0",
 		"@atlaskit/tmp-editor-statsig": "^2.46.0",
 		"@atlaskit/tokens": "^3.3.0",
@@ -82,14 +84,14 @@
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.18.0",
-		"@atlaskit/analytics-listeners": "^8.14.0",
-		"@atlaskit/collab-provider": "10.6.1",
+		"@atlaskit/analytics-listeners": "^8.15.0",
+		"@atlaskit/collab-provider": "10.6.2",
 		"@atlaskit/editor-plugin-annotation": "1.28.1",
 		"@atlaskit/editor-plugin-card": "^4.6.0",
 		"@atlaskit/editor-plugin-list": "^3.10.0",
 		"@atlaskit/editor-plugin-paste": "^2.3.0",
 		"@atlaskit/link-provider": "^1.19.0",
-		"@atlaskit/logo": "^15.2.0",
+		"@atlaskit/logo": "^15.3.0",
 		"@atlaskit/media-core": "^34.5.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-test-helpers": "^34.8.0",
@@ -140,6 +142,12 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_fe--performance_metrics": {
+			"type": "boolean"
+		},
+		"platform_editor_fe--ufo-bridge": {
+			"type": "boolean"
+		},
 		"annotations_defensive_node_name_calculations": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -285,6 +293,9 @@
 		"platform_editor_react18_phase2__media_single": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_content_component_ignore_click": {
+			"type": "boolean"
 		},
 		"platform_inline_node_as_valid_annotation_selection": {
 			"type": "boolean",
@@ -434,6 +445,9 @@
 		"platform_editor_css_migrate_stage_1": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_lcm_toolbar_portals": {
+			"type": "boolean"
 		},
 		"platform_editor_macroid_reset_for_ext_on_paste": {
 			"type": "boolean",

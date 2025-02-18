@@ -6,8 +6,6 @@ import { css, jsx, keyframes } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 import React, { type SyntheticEvent, useRef } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { PulseOld } from './PulseOld';
 
 const pulseKeyframes = keyframes({
 	to: {
@@ -33,7 +31,7 @@ export interface PulseProps {
 	testId?: string;
 }
 
-export const PulseNew = ({
+export const Pulse = ({
 	children,
 	showPulse = false,
 	onAnimationIteration,
@@ -62,14 +60,6 @@ export const PulseNew = ({
 			</span>
 		</div>
 	);
-};
-
-export const Pulse = (props: PulseProps) => {
-	if (fg('platform_bandicoots-linking-common-css')) {
-		return <PulseNew {...props} />;
-	} else {
-		return <PulseOld {...props} />;
-	}
 };
 
 export default Pulse;

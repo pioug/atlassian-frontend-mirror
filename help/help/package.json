@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "7.14.8",
+	"version": "7.14.9",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,7 +52,7 @@
 		"@atlaskit/legacy-custom-icons": "^0.21.0",
 		"@atlaskit/notification-indicator": "^9.5.0",
 		"@atlaskit/notification-log-client": "^6.2.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/radio": "^7.2.0",
 		"@atlaskit/section-message": "^6.9.0",
@@ -60,7 +60,7 @@
 		"@atlaskit/spinner": "^17.1.0",
 		"@atlaskit/textarea": "^7.0.0",
 		"@atlaskit/textfield": "^6.8.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@babel/runtime": "^7.0.0",

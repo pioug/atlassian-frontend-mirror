@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 23.9.1
+
+### Patch Changes
+
+- [#113917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113917)
+  [`70dbe7ccc0f8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70dbe7ccc0f8e) -
+  Rebuilt assets with original mask IDs in tact in order to prevent clashes.
+
 ## 23.9.0
 
 ### Minor Changes

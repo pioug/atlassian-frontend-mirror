@@ -17,6 +17,8 @@ import {
 } from 'scheduler';
 import { v4 as createUUID } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../coinflip';
 import type { EnhancedUFOInteractionContextType } from '../common';
 import { getConfig, getInteractionRate } from '../config';
@@ -71,8 +73,9 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 	const interactionId = useContext(UFOInteractionIDContext);
 
 	const interactionContext = useMemo<EnhancedUFOInteractionContextType>(() => {
-		addSegment(labelStack);
-
+		if (!fg('platform-ufo-add-segment-use-effect')) {
+			addSegment(labelStack);
+		}
 		let lastCompleteEndTime = 0;
 		function complete(endTime: number = performance.now()) {
 			if (interactionId.current) {
@@ -316,12 +319,14 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 		[interactionContext],
 	);
 
-	useEffect(
-		() => () => {
+	useEffect(() => {
+		if (fg('platform-ufo-add-segment-use-effect')) {
+			addSegment(labelStack);
+		}
+		return () => {
 			removeSegment(labelStack);
-		},
-		[interactionId, parentContext, interactionContext, labelStack],
-	);
+		};
+	}, [interactionId, parentContext, interactionContext, labelStack]);
 
 	const reactProfilerId = useMemo(() => labelStack.map((l) => l.name).join('/'), [labelStack]);
 

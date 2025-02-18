@@ -38,15 +38,18 @@
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/image": "^1.4.0",
 		"@atlaskit/link": "^2.1.2",
-		"@atlaskit/logo": "^15.2.0",
+		"@atlaskit/logo": "^15.3.0",
 		"@atlaskit/menu": "^2.14.0",
 		"@atlaskit/primitives": "^13.5.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",
+		"graphql": "^15.8.0",
+		"graphql-tag": "^2.10.1",
 		"react-intl-next": "npm:react-intl@^5.18.1",
-		"react-router-dom": "^6.28.0"
+		"react-router-dom": "^6.28.0",
+		"react-sweet-state": "^2.6.5"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -57,6 +60,7 @@
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
+		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
@@ -100,7 +104,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -29,4 +29,5 @@ export enum FabricChannel {
 	postOffice = 'postOffice',
 	aiMate = 'aiMate',
 	avp = 'avp',
+	growth = 'growth',
 }

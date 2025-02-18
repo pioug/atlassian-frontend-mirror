@@ -119,6 +119,8 @@ describe('Annotations/Mark', () => {
 		});
 
 		it('should prevent default when clicked', async () => {
+			jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
+
 			const markWrapper = container.querySelector('mark');
 			const clickEvent = new MouseEvent('click', {
 				bubbles: true,
@@ -211,6 +213,8 @@ describe('Annotations/Mark', () => {
 		});
 
 		it('should call onClick only once', async () => {
+			jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
+
 			const markWrapper = container.querySelector('#childFakeId');
 			const clickEvent = new MouseEvent('click', {
 				bubbles: true,

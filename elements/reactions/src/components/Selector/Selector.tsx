@@ -67,14 +67,12 @@ type RevealProps = {
 	testId?: string;
 };
 
-const Reveal = ({ children, delay, testId }: RevealProps) => {
+const Reveal = ({ children, testId }: RevealProps) => {
 	return (
 		<div
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 			css={revealStyle}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={delay ? { animationDelay: `${delay}ms` } : undefined}
 		>
 			{children}
 		</div>

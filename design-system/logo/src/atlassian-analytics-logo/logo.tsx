@@ -5,16 +5,27 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams } from '../constants';
-import type { LogoPropsAppearanceRequired } from '../types';
+import type { LogoProps } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
 const svg = (
-	{ appearance }: LogoPropsAppearanceRequired,
+	{ appearance, iconColor, textColor }: LogoProps,
 	colorMode: string | undefined,
 	id: string,
 ) => {
-	const colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
+	let colors = {
+		iconGradientStart: iconColor,
+		iconGradientStop: iconColor,
+		textColor,
+		iconColor,
+		// We treat the word "Atlassian" differently to normal product logos, it has a bold brand look
+		atlassianLogoTextColor: textColor,
+	};
+
+	if (appearance) {
+		colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
+	}
 
 	return `
   <svg height="32" viewBox="0 0 477 48" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +66,9 @@ export const AtlassianAnalyticsLogo = ({
 	label = 'Atlassian Analytics',
 	size = defaultLogoParams.size,
 	testId,
-}: LogoPropsAppearanceRequired) => {
+	iconColor = defaultLogoParams.iconColor,
+	textColor = defaultLogoParams.textColor,
+}: LogoProps) => {
 	const { colorMode } = useThemeObserver();
 	const id = useId();
 	return (
@@ -63,8 +76,10 @@ export const AtlassianAnalyticsLogo = ({
 			appearance={appearance}
 			label={label}
 			size={size}
-			svg={svg({ appearance }, colorMode, id)}
+			iconColor={iconColor}
+			svg={svg({ appearance, iconColor, textColor }, colorMode, id)}
 			testId={testId}
+			textColor={textColor}
 		/>
 	);
 };

@@ -45,9 +45,13 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		toggleBlockMenu:
-			(pos: number, nodeType: string) =>
+			(options?: { closeMenu?: boolean }) =>
 			({ tr }: { tr: Transaction }) => {
 				const currMeta = tr.getMeta(key);
+				if (options?.closeMenu) {
+					tr.setMeta(key, { ...currMeta, closeMenu: true });
+					return tr;
+				}
 				tr.setMeta(key, { ...currMeta, toggleMenu: true });
 				return tr;
 			},

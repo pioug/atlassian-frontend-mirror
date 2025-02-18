@@ -1,5 +1,13 @@
 # @atlaskit/platform-feature-flags
 
+## 1.1.0
+
+### Minor Changes
+
+- [#115454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115454)
+  [`6ca190b499062`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ca190b499062) -
+  EDF-2464 Removed default booleanResolver.
+
 ## 1.0.0
 
 ### Major Changes

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef, Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -18,6 +18,7 @@ import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import EditorActions from '../actions';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
@@ -27,6 +28,7 @@ import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import measurements from '../utils/performance/measure-enum';
 import { name, version } from '../version-wrapper';
 
+import { EditorUFOBridge, EditorPerformanceMetrics } from './core-performance-metrics';
 import { EditorInternal } from './editor-internal';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 // Ignored via go/ees005
@@ -132,20 +134,29 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 		},
 		[onSaveFromProps],
 	);
+	const isFullPageApperance = Boolean(
+		props.appearance && ['full-page', 'full-width'].includes(props.appearance),
+	);
 
 	return (
-		<EditorInternal
-			props={props}
-			handleAnalyticsEvent={handleAnalyticsEvent}
-			createAnalyticsEvent={createAnalyticsEvent}
-			preset={props.preset}
-			handleSave={handleSave}
-			editorActions={editorActions}
-			onEditorCreated={onEditorCreated}
-			onEditorDestroyed={onEditorDestroyed}
-			providerFactory={providerFactory}
-			AppearanceComponent={props.AppearanceComponent}
-		/>
+		<Fragment>
+			{isFullPageApperance && fg('platform_editor_fe--ufo-bridge') ? <EditorUFOBridge /> : null}
+			{isFullPageApperance && fg('platform_editor_fe--performance_metrics') ? (
+				<EditorPerformanceMetrics />
+			) : null}
+			<EditorInternal
+				props={props}
+				handleAnalyticsEvent={handleAnalyticsEvent}
+				createAnalyticsEvent={createAnalyticsEvent}
+				preset={props.preset}
+				handleSave={handleSave}
+				editorActions={editorActions}
+				onEditorCreated={onEditorCreated}
+				onEditorDestroyed={onEditorDestroyed}
+				providerFactory={providerFactory}
+				AppearanceComponent={props.AppearanceComponent}
+			/>
+		</Fragment>
 	);
 }
 

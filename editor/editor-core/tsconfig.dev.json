@@ -94,6 +94,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-performance-metrics/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-annotation/tsconfig.app.json"
 		},
 		{
@@ -209,6 +212,9 @@
 		},
 		{
 			"path": "../../design-system/radio/tsconfig.app.json"
+		},
+		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{
 			"path": "../renderer/tsconfig.app.json"

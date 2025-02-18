@@ -1,0 +1,1 @@
+export { BaseGraphQlClient } from './main';

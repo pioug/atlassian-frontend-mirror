@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "27.4.2",
+	"version": "27.4.3",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,12 +34,12 @@
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/media-common": "^11.8.0",
 		"@atlaskit/modal-dialog": "^12.20.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/range": "^8.1.0",
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/spinner": "^17.1.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/width-detector": "^4.4.0",
@@ -61,7 +61,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-listeners": "^8.14.0",
+		"@atlaskit/analytics-listeners": "^8.15.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

@@ -37,6 +37,9 @@
 			"path": "../../editor-json-transformer/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-performance-metrics/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-quick-insert/afm-jira/tsconfig.json"
 		},
 		{
@@ -59,6 +62,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/task-decision/afm-jira/tsconfig.json"

@@ -1,5 +1,14 @@
 # @atlaskit/prosemirror-collab
 
+## 0.13.0
+
+### Minor Changes
+
+- [#108583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108583)
+  [`2fce949f7105c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2fce949f7105c) -
+  Add getDocBeforeUnconfirmedSteps and syncFromAnotherSource functions to
+  @atlaskit/prosemirror-collab. Add updatePluginState action to historyPlugin.
+
 ## 0.12.1
 
 ### Patch Changes

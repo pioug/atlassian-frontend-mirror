@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.13.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.13.4
+
+### Patch Changes
+
+- [#115416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115416)
+  [`7be1394d86a9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7be1394d86a9c) -
+  Fixes undeclared dependency on @atlaskit/icon in package.json dependencies from version 1.13.3.
+
 ## 1.13.3
 
 ### Patch Changes

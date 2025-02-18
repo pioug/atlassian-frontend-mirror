@@ -79,46 +79,34 @@ type RendererWrapperProps = {
 
 export const TELEPOINTER_ID = 'ai-streaming-telepointer';
 
-const telepointerStyles = (colorMode?: 'light' | 'dark') => {
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-	return css`
-		#${TELEPOINTER_ID} {
-			display: inline-block;
-			position: relative;
-			width: 1.5px;
-			height: 25px;
-			background: linear-gradient(
-				45deg,
-				${colorMode === 'dark' ? '#f5cd47' : '#f8e6a0'} -12.02%,
-				${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} 19.18%,
-				${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
-			);
-			margin-left: ${token('space.025', '2px')};
+const telepointerStyles = css`
+	#${TELEPOINTER_ID} {
+		display: inline-block;
+		position: relative;
+		width: 1.5px;
+		height: 25px;
+		background-color: ${token('color.background.brand.bold')};
+		margin-left: ${token('space.025', '2px')};
 
-			&::after {
-				content: 'AI';
-				position: absolute;
-				display: block;
-				top: 0;
-				left: 0;
-				font-size: 10px;
-				font-weight: ${token('font.weight.bold')};
-				width: 12.5px;
-				height: 13px;
-				padding-top: 1px;
-				padding-left: 1.5px;
-				line-height: initial;
-				border-radius: 0px 2px 2px 0px;
-				color: ${token('color.text.inverse', 'white')};
-				background: linear-gradient(
-					45deg,
-					${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} -57%,
-					${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
-				);
-			}
+		&::after {
+			content: 'AI';
+			position: absolute;
+			display: block;
+			top: 0;
+			left: 0;
+			font-size: 10px;
+			font-weight: ${token('font.weight.bold')};
+			width: 12.5px;
+			height: 13px;
+			padding-top: 1px;
+			padding-left: 1.5px;
+			line-height: initial;
+			border-radius: 0px 2px 2px 0px;
+			color: ${token('color.text.inverse', 'white')};
+			background-color: ${token('color.background.brand.bold')};
 		}
-	`;
-};
+	}
+`;
 
 /**
  * **DEPRECATED**
@@ -569,7 +557,7 @@ const stickyScrollbarStyles = `
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: any) => {
-	const { colorMode, typography } = getGlobalTheme();
+	const { typography } = getGlobalTheme();
 	// This is required to be compatible with styled-components prop structure.
 	const themeProps = { theme };
 	const { useBlockRenderForCodeBlock, appearance } = wrapperProps;
@@ -645,7 +633,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 			color: ${token('color.text.subtlest', colors.N200)};
 		}
 
-		${telepointerStyles(colorMode)}
+		${telepointerStyles}
 		${whitespaceSharedStyles};
 		${blockquoteSharedStyles};
 		${headingsSharedStyles(typography)};

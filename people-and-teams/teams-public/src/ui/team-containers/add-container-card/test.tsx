@@ -24,27 +24,48 @@ describe('AddContainerCard', () => {
 	});
 
 	it('should render the title', () => {
-		render(<AddContainerCard containerType={'confluence'} />);
+		render(<AddContainerCard containerType={'ConfluenceSpace'} onAddAContainerClick={() => {}} />);
 		expect(screen.getByText('Test Title')).toBeInTheDocument();
 	});
 
 	it('should render the description', () => {
-		render(<AddContainerCard containerType={'confluence'} />);
+		render(<AddContainerCard containerType={'ConfluenceSpace'} onAddAContainerClick={() => {}} />);
 		expect(screen.getByText('Test Description')).toBeInTheDocument();
 	});
 
 	it('should render the icon', () => {
-		render(<AddContainerCard containerType={'confluence'} />);
+		render(<AddContainerCard containerType={'ConfluenceSpace'} onAddAContainerClick={() => {}} />);
 		expect(screen.getByTestId('test-icon')).toBeInTheDocument();
 	});
 
 	it('should render the AddIcon', () => {
-		render(<AddContainerCard containerType={'confluence'} />);
+		render(<AddContainerCard containerType={'ConfluenceSpace'} onAddAContainerClick={() => {}} />);
 		expect(screen.getByTestId('add-icon')).toBeInTheDocument();
 	});
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<AddContainerCard containerType={'confluence'} />);
+		const { container } = render(
+			<AddContainerCard containerType={'ConfluenceSpace'} onAddAContainerClick={() => {}} />,
+		);
+		await expect(container).toBeAccessible();
+	});
+
+	it('should call onAddAContainerClick when the AddIcon is clicked', () => {
+		const onAddAContainerClick = jest.fn();
+		render(
+			<AddContainerCard
+				containerType={'ConfluenceSpace'}
+				onAddAContainerClick={onAddAContainerClick}
+			/>,
+		);
+		screen.getByTestId('add-icon').click();
+		expect(onAddAContainerClick).toHaveBeenCalledTimes(1);
+	});
+
+	it('should have no accessibility violations', async () => {
+		const { container } = render(
+			<AddContainerCard containerType={'ConfluenceSpace'} onAddAContainerClick={() => {}} />,
+		);
 		await expect(container).toBeAccessible();
 	});
 });

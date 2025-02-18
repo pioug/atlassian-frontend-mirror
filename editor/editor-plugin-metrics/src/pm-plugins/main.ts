@@ -31,6 +31,7 @@ export type MetricsState = {
 	lastSelection?: Selection;
 	actionTypeCount: ActionByType;
 	timeOfLastTextInput?: number;
+	shouldPersistActiveSession?: boolean;
 	initialContent?: Fragment;
 };
 
@@ -80,21 +81,45 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				oldState: EditorState,
 				newState: EditorState,
 			): MetricsState {
+				if (tr.getMeta('isRemote') || tr.getMeta('replaceDocument')) {
+					return pluginState;
+				}
+
 				const meta = tr.getMeta(metricsKey);
 
-				let intentToStartEditTime =
-					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
-
+				// If the active session is stopped, reset the plugin state, and set initialContent to new doc content
 				if (meta && meta.stopActiveSession) {
 					return { ...initialPluginState, initialContent: newState.doc.content };
 				}
 
+				const shouldPersistActiveSession =
+					meta?.shouldPersistActiveSession ?? pluginState.shouldPersistActiveSession;
+
+				const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
+				const docChangedWithoutAnalytics = tr.docChanged && canIgnoreTr();
+
+				let intentToStartEditTime =
+					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
+
+				const now = performance.now();
+
 				if (!intentToStartEditTime) {
-					if (tr.docChanged && !tr.getMeta('replaceDocument')) {
-						intentToStartEditTime = performance.now();
+					if (docChangedWithoutAnalytics || tr.storedMarksSet) {
+						intentToStartEditTime = now;
 					} else {
-						return pluginState;
+						return { ...pluginState };
 					}
+				}
+
+				// Start active session timer if intentToStartEditTime is set and shouldStartTimer is true
+				// shouldPersistActiveSession is set to true when dragging block controls and when insert menu is open
+				// Timer should start when menu closes or dragging stops
+				if (
+					intentToStartEditTime &&
+					meta?.shouldStartTimer &&
+					!pluginState.shouldPersistActiveSession
+				) {
+					timer.startTimer();
 				}
 
 				const undoCount = isNonTextUndo(tr) ? 1 : 0;
@@ -109,9 +134,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 							undoCount,
 						};
 
-				const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
-				if (tr.docChanged && canIgnoreTr()) {
-					const now = performance.now();
+				if (docChangedWithoutAnalytics) {
 					timer.startTimer();
 
 					const { actionTypeCount, timeOfLastTextInput, totalActionCount, activeSessionTime } =
@@ -142,6 +165,8 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 							...newActionTypeCount,
 							textInputCount: newTextInputCount,
 						},
+						intentToStartEditTime,
+						shouldPersistActiveSession,
 					};
 					return newPluginState;
 				}
@@ -151,10 +176,29 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					lastSelection: meta?.newSelection || pluginState.lastSelection,
 					intentToStartEditTime,
 					actionTypeCount: newActionTypeCount,
+					shouldPersistActiveSession,
 				};
 			},
 		},
 		view(view: EditorView) {
+			const handleIsDraggingChanged = api?.blockControls?.sharedState.onChange(
+				({ nextSharedState, prevSharedState }) => {
+					if (nextSharedState) {
+						api?.core.actions.execute(({ tr }) => {
+							if (!prevSharedState?.isDragging && nextSharedState.isDragging) {
+								api?.metrics.commands.handleIntentToStartEdit({
+									shouldStartTimer: false,
+									shouldPersistActiveSession: true,
+								})({ tr });
+							} else if (prevSharedState?.isDragging && !nextSharedState.isDragging) {
+								api?.metrics.commands.startActiveSessionTimer()({ tr });
+							}
+							return tr;
+						});
+					}
+				},
+			);
+
 			const fireAnalyticsEvent = () => {
 				const pluginState = metricsKey.getState(view.state);
 				if (!pluginState) {
@@ -182,30 +226,25 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					fireAnalyticsEvent();
 					timer.cleanupTimer();
 					unbindBeforeUnload();
+					handleIsDraggingChanged?.();
 				},
 			};
 		},
 		props: {
 			handleDOMEvents: {
 				click: (view: EditorView) => {
-					const pluginState = api?.metrics.sharedState.currentState();
-					if (!pluginState || pluginState.intentToStartEditTime) {
-						return false;
-					}
 					const newSelection = view.state.tr.selection;
-
-					const newTr = view.state.tr;
+					const pluginState = api?.metrics.sharedState.currentState();
 
 					if (
 						pluginState?.lastSelection?.from !== newSelection.from &&
 						pluginState?.lastSelection?.to !== newSelection.to
 					) {
-						newTr.setMeta(metricsKey, {
-							intentToStartEditTime: performance.now(),
-							newSelection: newSelection,
-						});
-						view.dispatch(newTr);
-						timer.startTimer();
+						api?.core.actions.execute(
+							api?.metrics.commands.handleIntentToStartEdit({
+								newSelection,
+							}),
+						);
 					}
 					return false;
 				},

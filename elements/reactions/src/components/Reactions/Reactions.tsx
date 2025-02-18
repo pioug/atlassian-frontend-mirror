@@ -199,6 +199,10 @@ export interface ReactionsProps
 	 * Optional prop for controlling if the picker hover border will be rounded
 	 */
 	showRoundTrigger?: boolean;
+	/**
+	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
+	 */
+	isViewOnly?: boolean;
 }
 
 /**
@@ -262,6 +266,7 @@ export const Reactions = React.memo(
 		ProfileCardWrapper,
 		onlyRenderPicker = false,
 		showRoundTrigger = false,
+		isViewOnly = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -521,25 +526,27 @@ export const Reactions = React.memo(
 							</Pressable>
 						</Box>
 					)}
-				<ReactionPicker
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={reactionPickerStyle}
-					emojiProvider={emojiProvider}
-					allowAllEmojis={allowAllEmojis}
-					pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
-					disabled={status !== ReactionStatus.ready}
-					onSelection={handleOnSelection}
-					onOpen={handlePickerOpen}
-					onCancel={handleOnCancel}
-					onShowMore={handleOnMore}
-					tooltipContent={getTooltip(status, errorMessage)}
-					emojiPickerSize={emojiPickerSize}
-					miniMode={miniMode}
-					showOpaqueBackground={showOpaqueBackground}
-					showAddReactionText={showAddReactionText}
-					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-					showRoundTrigger={showRoundTrigger}
-				/>
+				{!isViewOnly && (
+					<ReactionPicker
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						css={reactionPickerStyle}
+						emojiProvider={emojiProvider}
+						allowAllEmojis={allowAllEmojis}
+						pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
+						disabled={status !== ReactionStatus.ready}
+						onSelection={handleOnSelection}
+						onOpen={handlePickerOpen}
+						onCancel={handleOnCancel}
+						onShowMore={handleOnMore}
+						tooltipContent={getTooltip(status, errorMessage)}
+						emojiPickerSize={emojiPickerSize}
+						miniMode={miniMode}
+						showOpaqueBackground={showOpaqueBackground}
+						showAddReactionText={showAddReactionText}
+						subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+						showRoundTrigger={showRoundTrigger}
+					/>
+				)}
 				<ModalTransition>
 					{!!selectedEmojiId && (
 						<ReactionsDialog

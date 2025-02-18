@@ -15,7 +15,9 @@ import type {
 
 import { attachAbortListeners } from './attachAbortListeners';
 import { getViewportHeight, getViewportWidth } from './getViewport';
+import { MultiRevisionHeatmap } from './heatmap/heatmap';
 import { type ObservedMutationType, Observers, type SelectorConfig } from './observers';
+import { getRevisions } from './revisions/revisions';
 
 type PixelsToMap = { l: number; t: number; r: number; b: number };
 
@@ -36,6 +38,15 @@ export type VCObserverOptions = {
 	devToolsEnabled?: boolean | undefined;
 	selectorConfig?: SelectorConfig | undefined;
 	isPostInteraction?: boolean;
+};
+
+type onUpdateArgs = {
+	timestamp: number;
+	intersectionRect: DOMRectReadOnly;
+	targetName: string;
+	element: HTMLElement;
+	type: ObservedMutationType;
+	ignoreReason?: VCIgnoreReason;
 };
 
 const abortReason: AbortReasonEnum = {
@@ -85,6 +96,8 @@ export class VCObserver {
 
 	heatmapNext: number[][];
 
+	multiHeatmap: MultiRevisionHeatmap | null = null;
+
 	componentsLog: ComponentsLogType = {};
 
 	vcRatios: VCRatioType = {};
@@ -126,6 +139,13 @@ export class VCObserver {
 		});
 		this.heatmap = this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
+		if (fg('ufo_vc_multiheatmap')) {
+			this.multiHeatmap = new MultiRevisionHeatmap({
+				viewport: this.viewport,
+				revisions: getRevisions(),
+				devToolsEnabled: this.devToolsEnabled,
+			});
+		}
 		this.isPostInteraction = options.isPostInteraction || false;
 	}
 
@@ -174,6 +194,7 @@ export class VCObserver {
 			abortReason: { ...this.abortReason },
 			heatmap: this.heatmap,
 			heatmapNext: this.heatmapNext,
+			multiHeatmap: this.multiHeatmap,
 			outOfBoundaryInfo: this.outOfBoundaryInfo,
 			totalTime: Math.round(this.totalTime + this.observers.getTotalTime()),
 			componentsLog: { ...this.componentsLog },
@@ -212,6 +233,7 @@ export class VCObserver {
 			viewport,
 			devToolsEnabled,
 			ratios,
+			multiHeatmap,
 		} = rawData;
 
 		if (abortReasonInfo !== null && abortReason.blocking) {
@@ -343,6 +365,18 @@ export class VCObserver {
 			/*  do nothing */
 		}
 
+		const isMultiHeatmapEnabled = fg('ufo_vc_multiheatmap');
+
+		const revisionsData =
+			isMultiHeatmapEnabled && multiHeatmap !== null
+				? {
+						[`${fullPrefix}vc:rev`]: multiHeatmap.getPayloadShapedData({
+							VCParts: VCObserver.VCParts.map((v) => parseInt(v)),
+							ssr,
+							clean: !abortReasonInfo,
+						}),
+					}
+				: null;
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
 
@@ -362,6 +396,7 @@ export class VCObserver {
 			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
 			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
+			...revisionsData,
 			[`ufo:speedIndex`]: isCalcSpeedIndexEnabled ? VCEntries.speedIndex : undefined,
 			[`ufo:next:speedIndex`]: isCalcSpeedIndexEnabled ? vcNext.VCEntries.speedIndex : undefined,
 		};
@@ -501,6 +536,29 @@ export class VCObserver {
 	) => {
 		this.measureStart();
 
+		this.legacyHandleUpdate(rawTime, intersectionRect, targetName, element, type, ignoreReason);
+		if (fg('ufo_vc_multiheatmap')) {
+			this.onViewportChangeDetected({
+				timestamp: rawTime,
+				intersectionRect,
+				targetName,
+				element,
+				type,
+				ignoreReason,
+			});
+		}
+
+		this.measureStop();
+	};
+
+	private legacyHandleUpdate = (
+		rawTime: number,
+		intersectionRect: DOMRectReadOnly,
+		targetName: string,
+		element: HTMLElement,
+		type: ObservedMutationType,
+		ignoreReason?: VCIgnoreReason,
+	) => {
 		if (this.abortReason.reason === null || this.abortReason.blocking === false) {
 			const time = Math.round(rawTime - this.startTime);
 			const mappedValues = this.mapPixelsToHeatmap(
@@ -530,8 +588,42 @@ export class VCObserver {
 				ignoreReason,
 			});
 		}
-		// devtools export
-		this.measureStop();
+	};
+
+	private onViewportChangeDetected = ({
+		element,
+		type,
+		ignoreReason,
+		timestamp,
+		targetName,
+		intersectionRect,
+	}: onUpdateArgs) => {
+		if (this.multiHeatmap === null) {
+			return;
+		}
+		// @todo add abort reason handling
+		const time = Math.round(timestamp - this.startTime);
+
+		const revisions = getRevisions();
+		const revisionsClassification = revisions.map<boolean>((revision) => {
+			return revision.classifier.classifyUpdate({
+				element,
+				type,
+				ignoreReason,
+			});
+		}, []);
+
+		this.multiHeatmap.handleUpdate({
+			time,
+			targetName,
+			intersectionRect,
+			type,
+			element,
+			classification: revisionsClassification,
+			onError: (error) => {
+				this.setAbortReason(abortReason.error, error.time, error.error);
+			},
+		});
 	};
 
 	public abortObservation(abortReason: VCAbortReason = 'custom') {

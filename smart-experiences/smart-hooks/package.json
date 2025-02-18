@@ -26,7 +26,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
-		"@atlaskit/analytics-listeners": "^8.14.0",
+		"@atlaskit/analytics-listeners": "^8.15.0",
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/smart-common": "^1.0.0",
 		"@atlaskit/ufo": "^0.3.0",

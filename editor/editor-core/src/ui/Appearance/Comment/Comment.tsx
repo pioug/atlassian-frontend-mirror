@@ -28,6 +28,7 @@ import type { EditorAppearanceComponentProps } from '../../../types';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
+import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
 import { createEditorContentStyle } from '../../ContentStyles';
 import PluginSlot from '../../PluginSlot';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
@@ -276,8 +277,8 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 										viewMode={editorViewModeState?.mode}
 									>
 										{customContentComponents && 'before' in customContentComponents
-											? customContentComponents.before
-											: customContentComponents}
+											? contentComponentClickWrapper(customContentComponents.before)
+											: contentComponentClickWrapper(customContentComponents)}
 										<PluginSlot
 											editorView={editorView}
 											editorActions={editorActions}
@@ -296,7 +297,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 										/>
 										{editorDOMElement}
 										{customContentComponents && 'after' in customContentComponents
-											? customContentComponents.after
+											? contentComponentClickWrapper(customContentComponents.after)
 											: null}
 									</ContentArea>
 								);

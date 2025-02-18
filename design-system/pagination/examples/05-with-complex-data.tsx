@@ -3,6 +3,7 @@ import React, { type SyntheticEvent, useState } from 'react';
 import { Code } from '@atlaskit/code';
 import Pagination from '@atlaskit/pagination';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
 
 const PAGES = [...Array(10)].map((_, i) => ({
 	label: i + 1,
@@ -45,3 +46,9 @@ export default function ComplexDataExample() {
 		</Stack>
 	);
 }
+
+ComplexDataExample.decorators = [
+	withPlatformFeatureFlags({
+		'jfp-a11y-team_pagination_list-markup': true,
+	}),
+];

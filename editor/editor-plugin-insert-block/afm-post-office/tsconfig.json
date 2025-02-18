@@ -69,6 +69,9 @@
 			"path": "../../editor-plugin-mentions/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-metrics/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-panel/afm-post-office/tsconfig.json"
 		},
 		{

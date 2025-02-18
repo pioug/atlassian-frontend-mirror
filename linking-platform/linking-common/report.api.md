@@ -22,7 +22,6 @@
 
 import { AnyAction } from 'redux';
 import { JsonLd } from 'json-ld-types';
-import { jsx } from '@emotion/react';
 import { default as React_2 } from 'react';
 import { Store } from 'redux';
 

@@ -1,5 +1,19 @@
 # @atlassian/give-kudos
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [#113831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113831)
+  [`a04d71bf2e845`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a04d71bf2e845) -
+  [ux] Updated flags logic and icons
+
 ## 3.1.1
 
 ### Patch Changes

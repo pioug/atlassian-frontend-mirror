@@ -13,8 +13,8 @@ import Button from '@atlaskit/button/standard-button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer } from '@atlaskit/drawer/compiled';
 import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
-import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import Link from '@atlaskit/link';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -23,7 +23,6 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Portal from '@atlaskit/portal';
-import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -71,7 +70,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	);
 
 	const sendAnalytic = useCallback(
-		(action: string, options: {}) => {
+		(action: 'cancelled' | 'opened', options: any) => {
 			const analyticsEvent = createAnalyticsEvent({
 				action: action,
 				actionSubject: 'createKudos',
@@ -96,10 +95,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		(flagEvent: FlagEvent) => {
 			const handleCreateOrFail = (addFlagConfig: Flag) => {
 				closeDrawer();
-				sendAnalytic('created', {});
-				if (flagEvent.kudosUuid || flagEvent.jiraKudosUrl) {
-					addFlag && addFlag(addFlagConfig);
-				}
+				addFlag && addFlag(addFlagConfig);
 			};
 
 			switch (flagEvent.eventType) {
@@ -112,18 +108,14 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 								{...messages.kudosCreatedDescriptionFlag}
 								values={{
 									a: (s: React.ReactNode[]) => (
-										<a href={`${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`}>{s}</a>
+										<Link href={`${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`}>
+											{s}
+										</Link>
 									),
 								}}
 							/>
 						),
-						icon: (
-							<SuccessIcon
-								spacing="spacious"
-								label={intl.formatMessage(messages.successIconLabel)}
-								color={token('color.icon.success', G300)}
-							/>
-						),
+						type: 'success',
 					});
 					break;
 				case FlagEventType.KUDOS_FAILED:
@@ -131,6 +123,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						title: <FormattedMessage {...messages.kudosCreationFailedFlag} />,
 						id: `jiraKudosCreationFailedFlag-${flagEvent.kudosUuid}`,
 						description: <FormattedMessage {...messages.kudosCreationFailedDescriptionFlag} />,
+						type: 'error',
 					});
 					break;
 				case FlagEventType.JIRA_KUDOS_CREATED:
@@ -138,13 +131,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						title: <FormattedMessage {...messages.JiraKudosCreatedFlag} />,
 						id: `kudosCreatedFlag-${flagEvent.kudosUuid}`,
 						description: <FormattedMessage {...messages.JiraKudosCreatedDescriptionFlag} />,
-						icon: (
-							<SuccessIcon
-								spacing="spacious"
-								label={intl.formatMessage(messages.successIconLabel)}
-								color={token('color.icon.success', G300)}
-							/>
-						),
+						type: 'success',
 						actions: [
 							{
 								content: 'Track gift request',
@@ -165,11 +152,13 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 							<FormattedMessage
 								{...messages.JiraKudosCreationFailedDescriptionFlag}
 								values={{
-									a: (s: React.ReactNode[]) => <a href={flagEvent.jiraKudosFormUrl}>{s}</a>,
+									a: (s: React.ReactNode[]) => (
+										<Link href={flagEvent.jiraKudosFormUrl ?? ''}>{s}</Link>
+									),
 								}}
 							/>
 						),
-						type: 'warning',
+						type: 'error',
 						actions: [
 							{
 								content: 'Visit go/kudos',
@@ -193,7 +182,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 					return;
 			}
 		},
-		[addFlag, closeDrawer, sendAnalytic, teamCentralBaseUrl, intl],
+		[addFlag, closeDrawer, teamCentralBaseUrl],
 	);
 
 	const messageListener = useCallback(
@@ -202,43 +191,10 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 				return;
 			}
 
-			if (
-				String(event.data).startsWith('kudos-created-') ||
-				event.data === 'dirty' ||
-				event.data === 'close'
-			) {
-				if (String(event.data).startsWith('kudos-created-')) {
-					const uuid = String(event.data).replace(/^(kudos-created-)/, '');
-
-					closeDrawer();
-					sendAnalytic('created', {});
-					addFlag &&
-						addFlag({
-							title: <FormattedMessage {...messages.kudosCreatedFlag} />,
-							id: `kudosCreatedFlag-${uuid}`,
-							description: (
-								<FormattedMessage
-									{...messages.kudosCreatedDescriptionFlag}
-									values={{
-										a: (s: React.ReactNode[]) => (
-											<a href={`${teamCentralBaseUrl}/people/kudos/${uuid}`}>{s}</a>
-										),
-									}}
-								/>
-							),
-							icon: (
-								<SuccessIcon
-									spacing="spacious"
-									label={intl.formatMessage(messages.successIconLabel)}
-									color={token('color.icon.success', G300)}
-								/>
-							),
-						});
-				} else if (event.data === 'dirty') {
-					setIsDirty(true);
-				} else if (event.data === 'close') {
-					closeDrawer();
-				}
+			if (event.data === 'dirty') {
+				setIsDirty(true);
+			} else if (event.data === 'close') {
+				closeDrawer();
 			} else {
 				try {
 					const eventData = JSON.parse(event.data);
@@ -250,15 +206,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 				}
 			}
 		},
-		[
-			props.isOpen,
-			closeDrawer,
-			sendAnalytic,
-			addFlag,
-			teamCentralBaseUrl,
-			createFlagWithJsonStringifiedInput,
-			intl,
-		],
+		[props.isOpen, closeDrawer, createFlagWithJsonStringifiedInput],
 	);
 
 	useEffect(() => {
@@ -363,7 +311,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 								<FormattedMessage {...messages.unsavedKudosWarning} />
 							</ModalBody>
 							<ModalFooter>
-								<Button appearance="subtle" onClick={closeWarningModal} autoFocus>
+								<Button appearance="subtle" onClick={closeWarningModal}>
 									<FormattedMessage {...messages.unsavedKudosWarningCancelButton} />
 								</Button>
 								<Button

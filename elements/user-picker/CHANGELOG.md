@@ -1,5 +1,19 @@
 # @atlaskit/user-picker
 
+## 10.31.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.31.3
+
+### Patch Changes
+
+- [#114038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114038)
+  [`e279ab8b8f44d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e279ab8b8f44d) -
+  A11Y-7985 Pass aria-describedby to fix instruction not associated with form field issue
+
 ## 10.31.2
 
 ### Patch Changes

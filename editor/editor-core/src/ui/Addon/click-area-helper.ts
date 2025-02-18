@@ -4,6 +4,8 @@ import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { ignoreAttribute } from './ClickAreaBlock/contentComponentWrapper';
+
 // we ignore all of the clicks made inside <div class="ak-editor-content-area" /> (but not clicks on the node itself)
 const insideContentArea = (ref: HTMLElement | null): boolean => {
 	while (ref) {
@@ -84,6 +86,10 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		closestElement(selection?.anchorNode as HTMLElement, '[data-editor-popup]');
 
+	const isContentComponent =
+		!!closestElement(target, `[${ignoreAttribute}]`) ||
+		target?.getAttribute(ignoreAttribute) === 'true';
+
 	// This is a super workaround to find when events are coming from Confluence InlineComment modal
 	// We don't own those components, so we can't change them
 	const isEventComingFromInlineCommentPopup =
@@ -128,6 +134,7 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 		!isPopupClicked &&
 		!isBreadcrumbClicked &&
 		!isEditorPopupTextSelected &&
+		!isContentComponent &&
 		checkForModal(target);
 
 	// click was within editor container and focus should be brought to input
@@ -136,7 +143,7 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 	}
 };
 
-const outsideProsemirrorEditorClickHandler = (
+export const outsideProsemirrorEditorClickHandler = (
 	view: EditorView,
 	event: React.MouseEvent<HTMLElement, MouseEvent>,
 ) => {

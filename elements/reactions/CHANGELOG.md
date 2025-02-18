@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 25.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.4.0
+
+### Minor Changes
+
+- [#115405](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115405)
+  [`8f77c2c8c5307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f77c2c8c5307) -
+  [ux] Adds the isViewOnly prop to the reactions component, making the picker disabled and
+  preventing addition of new reactions
+
 ## 25.3.0
 
 ### Minor Changes

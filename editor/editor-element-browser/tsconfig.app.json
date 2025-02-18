@@ -33,6 +33,21 @@
 	"references": [
 		{
 			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/menu/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tooltip/tsconfig.app.json"
 		}
 	],
 	"files": []

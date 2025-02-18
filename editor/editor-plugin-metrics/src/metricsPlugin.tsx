@@ -5,6 +5,7 @@ import { getAnalyticsPayload } from './pm-plugins/utils/analytics';
  * Metrics plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
  */
+
 export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 	name: 'metrics',
 
@@ -12,6 +13,19 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 		return [{ name: 'metrics', plugin: () => createPlugin(api) }];
 	},
 	commands: {
+		startActiveSessionTimer:
+			() =>
+			({ tr }) => {
+				const pluginState = api?.metrics.sharedState.currentState();
+				if (!pluginState?.intentToStartEditTime) {
+					return tr;
+				}
+
+				return tr.setMeta(metricsKey, {
+					shouldStartTimer: true,
+					shouldPersistActiveSession: false,
+				});
+			},
 		stopActiveSession:
 			() =>
 			({ tr }) => {
@@ -19,18 +33,49 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 					return tr;
 				}
 
-				const newTr = tr;
 				const pluginState = api?.metrics.sharedState.currentState();
+				if (pluginState?.shouldPersistActiveSession) {
+					return tr;
+				}
+
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
 					const payloadToSend = getAnalyticsPayload({
 						currentContent: tr.doc.content,
 						pluginState,
 					});
-					api?.analytics.actions.attachAnalyticsEvent(payloadToSend)(newTr);
+					api?.analytics.actions.attachAnalyticsEvent(payloadToSend)(tr);
 				}
 
-				newTr.setMeta(metricsKey, {
+				tr.setMeta(metricsKey, {
 					stopActiveSession: true,
+				});
+
+				return tr;
+			},
+
+		handleIntentToStartEdit:
+			({ newSelection, shouldStartTimer = true, shouldPersistActiveSession }) =>
+			({ tr }) => {
+				if (!api) {
+					return tr;
+				}
+
+				const pluginState = api?.metrics.sharedState.currentState();
+				if (!pluginState || pluginState.intentToStartEditTime) {
+					if (shouldPersistActiveSession !== pluginState?.shouldPersistActiveSession) {
+						return tr.setMeta(metricsKey, {
+							shouldPersistActiveSession: shouldPersistActiveSession,
+						});
+					}
+				}
+
+				const newTr = tr;
+
+				newTr.setMeta(metricsKey, {
+					intentToStartEditTime: performance.now(),
+					shouldStartTimer,
+					newSelection,
+					shouldPersistActiveSession,
 				});
 
 				return newTr;

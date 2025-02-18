@@ -1,5 +1,6 @@
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -107,11 +108,18 @@ export class TableStickyScrollbar {
 			{ root: this.editorScrollableElement },
 		);
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		this.sentinels.bottom = this.wrapper?.parentElement
-			?.getElementsByClassName(ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM)
-			?.item(0) as HTMLElement;
+		// Multiple bottom sentinels may be found if there are nested tables. We need to make sure we get the last one which will belong to the parent table.
+		const bottomSentinels = this.wrapper?.parentElement?.getElementsByClassName(
+			ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM,
+		);
+
+		this.sentinels.bottom = fg('platform_editor_nested_tables_bottom_sentinel')
+			? // eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(bottomSentinels?.item(bottomSentinels.length - 1) as HTMLElement)
+			: // eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(this.wrapper?.parentElement
+					?.getElementsByClassName(ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM)
+					?.item(0) as HTMLElement);
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting

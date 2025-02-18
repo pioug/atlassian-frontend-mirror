@@ -192,6 +192,11 @@ export const extensionStyles = css`
 
 	.extensionView-content-wrap .extension-container {
 		overflow: hidden;
+
+		/* Don't hide overflow for editors inside extensions */
+		&:has(.extension-editable-area) {
+			overflow: visible;
+		}
 	}
 
 	.bodiedExtensionView-content-wrap .extensionView-content-wrap .extension-container {

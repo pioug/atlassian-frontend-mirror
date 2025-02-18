@@ -46,10 +46,16 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-json-transformer/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-performance-metrics/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-quick-insert/tsconfig.app.json"
@@ -80,6 +86,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/task-decision/tsconfig.app.json"

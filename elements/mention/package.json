@@ -38,9 +38,9 @@
 		"@atlaskit/heading": "^4.1.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/lozenge": "^11.13.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^13.5.0",
-		"@atlaskit/theme": "^15.0.0",
+		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/ufo": "^0.3.0",
@@ -128,5 +128,5 @@
 			]
 		}
 	},
-	"version": "23.11.3"
+	"version": "23.11.4"
 }

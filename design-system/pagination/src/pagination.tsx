@@ -6,6 +6,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
 import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -129,10 +130,54 @@ function InnerPagination<T extends React.ReactNode>(
 		);
 	};
 
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<Box testId={testId} style={style} ref={ref} aria-label={label} as="nav">
-			<Inline space="space.0" alignBlock="center">
+	const oldPaginationList = (
+		<>
+			<Navigator
+				key="left-navigator"
+				component={components!.Previous}
+				onClick={(event: SyntheticEvent) =>
+					onChangeWithAnalytics({
+						event,
+						selectedPageIndex: selectedIndexValue - 1,
+					})
+				}
+				isDisabled={isDisabled || selectedIndexValue === 0}
+				iconBefore={<NavigatorIcon chevronDirection="left" />}
+				aria-label={previousLabel}
+				testId={testId && `${testId}--left-navigator`}
+			/>
+			<Inline space="space.0" alignBlock="baseline" as="ul" xcss={styles.paginationMenu}>
+				{collapseRange(
+					pages,
+					selectedIndexValue,
+					{
+						max: max!,
+						ellipsis: renderEllipsis!,
+						transform,
+					},
+					testId,
+				)}
+			</Inline>
+			<Navigator
+				key="right-navigator"
+				component={components!.Next}
+				onClick={(event: SyntheticEvent) =>
+					onChangeWithAnalytics({
+						event,
+						selectedPageIndex: selectedIndexValue + 1,
+					})
+				}
+				isDisabled={isDisabled || selectedIndexValue === pages.length - 1}
+				iconBefore={<NavigatorIcon chevronDirection="right" />}
+				aria-label={nextLabel}
+				testId={testId && `${testId}--right-navigator`}
+			/>
+		</>
+	);
+
+	const newPaginationList = (
+		<Inline space="space.0" alignBlock="center" as="ul" xcss={styles.paginationMenu}>
+			<Inline as="li" xcss={styles.paginationMenuItem} key="previous-page">
 				<Navigator
 					key="left-navigator"
 					component={components!.Previous}
@@ -147,18 +192,18 @@ function InnerPagination<T extends React.ReactNode>(
 					aria-label={previousLabel}
 					testId={testId && `${testId}--left-navigator`}
 				/>
-				<Inline space="space.0" alignBlock="baseline" as="ul" xcss={styles.paginationMenu}>
-					{collapseRange(
-						pages,
-						selectedIndexValue,
-						{
-							max: max!,
-							ellipsis: renderEllipsis!,
-							transform,
-						},
-						testId,
-					)}
-				</Inline>
+			</Inline>
+			{collapseRange(
+				pages,
+				selectedIndexValue,
+				{
+					max: max!,
+					ellipsis: renderEllipsis!,
+					transform,
+				},
+				testId,
+			)}
+			<Inline as="li" xcss={styles.paginationMenuItem} key="next-page">
 				<Navigator
 					key="right-navigator"
 					component={components!.Next}
@@ -173,6 +218,15 @@ function InnerPagination<T extends React.ReactNode>(
 					aria-label={nextLabel}
 					testId={testId && `${testId}--right-navigator`}
 				/>
+			</Inline>
+		</Inline>
+	);
+
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<Box testId={testId} style={style} ref={ref} aria-label={label} as="nav">
+			<Inline space="space.0" alignBlock="center">
+				{fg('jfp-a11y-team_pagination_list-markup') ? newPaginationList : oldPaginationList}
 			</Inline>
 		</Box>
 	);

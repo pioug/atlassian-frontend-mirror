@@ -93,6 +93,17 @@ export const sidebarArea = css({
 	height: '100%',
 	boxSizing: 'border-box',
 	alignSelf: 'flex-end',
+
+	// Make the sidebar sticky within the legacy content macro
+	// to prevent it from aligning to the bottom with large content.
+	// This style is only applied when opening inside the legacy content macro.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+	'.extension-editable-area &': {
+		height: 'auto',
+		position: 'sticky',
+		top: 0,
+		alignSelf: 'flex-start',
+	},
 });
 
 // initially hide until we have a containerWidth and can properly size them,

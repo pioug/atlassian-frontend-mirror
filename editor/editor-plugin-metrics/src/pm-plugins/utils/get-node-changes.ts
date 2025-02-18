@@ -1,6 +1,6 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
-import { MetricsState } from '../main';
+import type { MetricsState } from '../main';
 
 function countNodesByType(fragment: Fragment) {
 	const counts: Record<string, number> = {};

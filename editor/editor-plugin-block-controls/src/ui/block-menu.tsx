@@ -6,13 +6,14 @@ import { injectIntl } from 'react-intl-next';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { ArrowKeyNavigationType, DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
-import { getBlockMenuItems } from './block-menu-items';
+import { getBlockMenuItems, menuItemsCallback } from './block-menu-items';
 import { BLOCK_MENU_WIDTH } from './consts';
 
 const dragHandleSelector = '[data-blocks-drag-handle-container="true"] button';
@@ -26,6 +27,7 @@ type BlockMenuProps = {
 };
 
 const BlockMenu = ({
+	editorView,
 	mountPoint,
 	boundariesElement,
 	scrollableElement,
@@ -39,6 +41,22 @@ const BlockMenu = ({
 
 	const targetHandleRef = document.querySelector(dragHandleSelector);
 	const items = getBlockMenuItems(formatMessage);
+
+	const handleOpenChange = (payload?: { event: PointerEvent | KeyboardEvent; isOpen: boolean }) => {
+		if (!payload?.isOpen) {
+			api?.core.actions.execute(api?.blockControls.commands.toggleBlockMenu({ closeMenu: true }));
+		}
+	};
+
+	const onMenuItemActivated = ({ item }: { item: MenuItem }) => {
+		if (editorView) {
+			menuItemsCallback[item.value.name as keyof typeof menuItemsCallback]?.(api, formatMessage)?.(
+				editorView.state,
+				editorView.dispatch,
+				editorView,
+			);
+		}
+	};
 
 	return (
 		<Popup
@@ -66,6 +84,8 @@ const BlockMenu = ({
 				isOpen={true}
 				fitWidth={BLOCK_MENU_WIDTH}
 				section={{ hasSeparator: true }}
+				onOpenChange={handleOpenChange}
+				onItemActivated={onMenuItemActivated}
 			/>
 		</Popup>
 	);

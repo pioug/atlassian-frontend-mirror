@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "2.6.2",
+	"version": "2.6.3",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/custom-steps": "^0.10.0",
-		"@atlaskit/editor-common": "^99.16.0",
+		"@atlaskit/editor-common": "^99.17.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-plugin-analytics": "1.12.1",
 		"@atlaskit/editor-plugin-connectivity": "^1.3.0",
@@ -44,8 +44,8 @@
 		"@atlaskit/editor-plugin-feature-flags": "^1.3.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.3.0",
-		"@atlaskit/platform-feature-flags": "^1.0.0",
-		"@atlaskit/prosemirror-collab": "^0.12.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/prosemirror-collab": "^0.13.0",
 		"@babel/runtime": "^7.0.0",
 		"memoize-one": "^6.0.0"
 	},

@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.27.4
+
+### Patch Changes
+
+- [#115469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115469)
+  [`ab16802b3f404`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab16802b3f404) -
+  Implement move functionality in block menu
+- Updated dependencies
+
+## 2.27.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.27.2
+
+### Patch Changes
+
+- [#114482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114482)
+  [`4f000d73e6b03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f000d73e6b03) -
+  Patch to fix page crash in drag handle tooltip logic
+- [#110314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110314)
+  [`63ac551fb3345`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63ac551fb3345) -
+  [ux] ED-26271: Content preview for multi-select
+- [#114618](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114618)
+  [`9976feceb2007`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9976feceb2007) -
+  [ux] Implement initial UI for Block menu
+- Updated dependencies
+
 ## 2.27.1
 
 ### Patch Changes

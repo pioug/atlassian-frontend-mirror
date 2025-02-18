@@ -3,6 +3,7 @@ import { type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import debounce from 'lodash/debounce';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { v4 as uuidv4 } from 'uuid';
 import {
 	cancelEvent,
@@ -542,6 +543,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 			maxPickerHeight,
 			textFieldBackgroundColor,
 			ariaLabelledBy,
+			ariaDescribedBy,
 			ariaLive,
 			ariaLabel,
 			name,
@@ -569,6 +571,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				value={value}
 				autoFocus={autoFocus !== undefined ? autoFocus : menuIsOpen}
 				aria-labelledby={ariaLabelledBy}
+				aria-describedby={
+					fg('pass-aria-describedby-to-baseuserpicker') ? ariaDescribedBy : undefined
+				}
 				aria-label={ariaLabel}
 				aria-live={ariaLive}
 				aria-required={required} // This has been added as a safety net.

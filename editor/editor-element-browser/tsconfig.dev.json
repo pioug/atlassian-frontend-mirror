@@ -41,7 +41,13 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		}
 	]
 }

@@ -15,6 +15,9 @@ export type Identifiers = {
 	bitbucketWorkspaceId?: string;
 	gsacIssueId?: string;
 	intercomConversationId?: string;
+	loomAnonymousId?: string;
+	loomUserId?: string;
+	loomWorkspaceId?: string;
 	marketplaceAnonymousId?: string;
 	marketplacePartnerId?: string;
 	msTeamsTenantId?: string;

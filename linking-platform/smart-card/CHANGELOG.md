@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 34.10.13
+
+### Patch Changes
+
+- [#115421](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115421)
+  [`b75daad50944f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b75daad50944f) -
+  [ux] Migrate flexible card action button to the new DS button, update badge token
+- Updated dependencies
+
+## 34.10.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.10.11
 
 ### Patch Changes

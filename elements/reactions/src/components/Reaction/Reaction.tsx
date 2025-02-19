@@ -64,6 +64,14 @@ export interface ReactionProps {
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for enabling the Reactions Dialog
+	 */
+	allowUserDialog?: boolean;
+	/**
+	 * Optional function when the user wants to open the Reactions Dialog
+	 */
+	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
 }
 const containerStyles = xcss({
 	position: 'relative',
@@ -102,6 +110,8 @@ export const Reaction = ({
 	flash = false,
 	showParticleEffect = false,
 	showOpaqueBackground = false,
+	allowUserDialog,
+	handleOpenReactionsDialog,
 }: ReactionProps) => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
@@ -170,7 +180,13 @@ export const Reaction = ({
 			{showParticleEffect && (
 				<ReactionParticleEffect emojiId={emojiId} emojiProvider={emojiProvider} />
 			)}
-			<ReactionTooltip emojiName={emojiName} reaction={reaction} isEnabled={isTooltipEnabled}>
+			<ReactionTooltip
+				emojiName={emojiName}
+				reaction={reaction}
+				isEnabled={isTooltipEnabled}
+				allowUserDialog={allowUserDialog}
+				handleOpenReactionsDialog={handleOpenReactionsDialog}
+			>
 				<ReactionButton
 					onClick={handleClick}
 					flash={flash}

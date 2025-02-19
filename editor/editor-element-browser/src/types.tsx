@@ -5,6 +5,23 @@ import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 export type QuickInsertPanelItem = TypeAheadItem;
 export type SideInsertPanelItem = TypeAheadItem;
 
+type StructureSubcategory =
+	| 'text structure'
+	| 'page structure'
+	| 'connect pages'
+	| 'navigation'
+	| 'search';
+
+type DataSubcategory = 'charts' | 'gadgets' | 'jira' | 'labels' | 'reports' | 'timelines';
+
+export type InsertPanelItem = TypeAheadItem & {
+	category?: 'media' | 'collaborate' | 'apps' | 'data' | 'structure';
+	subCategory?: StructureSubcategory | DataSubcategory;
+	shouldDisplayAtTop?: boolean; // some elements have to be displayed at the top of the category/subcategory
+	shouldDisplay?: boolean; // some items should not be displayed in new Quick Insert and Right Rail (AI, lists)
+	tempKey: number; // index in the items array
+};
+
 export interface QuickInsertPanelProps {
 	/**
 	 * The full list of items that can be displayed in the QuickInsertPanel

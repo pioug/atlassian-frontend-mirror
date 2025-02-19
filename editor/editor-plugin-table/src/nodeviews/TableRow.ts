@@ -2,6 +2,7 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
@@ -57,6 +58,13 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const { pluginConfig } = getPluginState(view.state);
 
 		this.isStickyHeaderEnabled = !!pluginConfig.stickyHeaders;
+		const pos = this.getPos();
+		this.isInNestedTable = false;
+		if (pos) {
+			this.isInNestedTable =
+				getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(pos)) > 1;
+		}
+
 		if (this.isHeaderRow) {
 			this.dom.setAttribute('data-header-row', 'true');
 			if (this.isStickyHeaderEnabled) {
@@ -69,6 +77,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 	 * Variables
 	 */
 	private isHeaderRow: boolean;
+	private isInNestedTable: boolean;
 	private isStickyHeaderEnabled: boolean;
 	private editorScrollableElement?: HTMLElement | Window;
 	private colControlsOffset = 0;
@@ -588,7 +597,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				// to provide spacing for table controls
 				if (isTableInsideLayout) {
 					tableContentWrapper.style.paddingLeft = '11px';
-				} else if (isTableInsideTable) {
+				} else if (isTableInsideTable && !fg('nested_table_control_padding_with_css')) {
 					tableContentWrapper.style.paddingLeft = '15px';
 					tableContentWrapper.style.paddingRight = '4px';
 				}
@@ -596,7 +605,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				this.colControlsOffset = 0;
 				if (isTableInsideLayout) {
 					tableContentWrapper.style.removeProperty('padding-left');
-				} else if (isTableInsideTable) {
+				} else if (isTableInsideTable && !fg('nested_table_control_padding_with_css')) {
 					tableContentWrapper.style.removeProperty('padding-left');
 					tableContentWrapper.style.removeProperty('padding-right');
 				}
@@ -636,7 +645,14 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 	private makeHeaderRowSticky(tree: TableDOMElements, scrollTop?: number) {
 		// If header row height is more than 50% of viewport height don't do this
-		if (this.isSticky || (this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2)) {
+		// TODO: When cleaning up 'nested_table_control_padding_with_css' FG
+		// move this check to the constructor of the TableRow so that we don't subscribe to
+		// clicks and scrolls for nested tables.
+		if (
+			this.isSticky ||
+			(this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2) ||
+			this.isInNestedTable
+		) {
 			return;
 		}
 

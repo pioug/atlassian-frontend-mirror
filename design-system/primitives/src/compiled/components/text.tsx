@@ -13,7 +13,7 @@ import {
 import { jsx, cssMap as unboundedCssMap } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, type StrictXCSSProp } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 import { HasTextAncestorProvider, useHasTextAncestor } from '../../utils/has-text-ancestor-context';
@@ -61,6 +61,10 @@ type TextPropsBase<T extends ElementType = 'span'> = {
 	 * The [HTML `font-weight` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).
 	 */
 	weight?: FontWeight;
+	/**
+	 * Bounded style overrides.
+	 */
+	xcss?: StrictXCSSProp<'overflowWrap' | 'textDecorationLine', never>;
 	/**
 	 * Forwarded ref.
 	 */
@@ -224,6 +228,7 @@ const Text = forwardRef(
 			size,
 			weight,
 			maxLines,
+			xcss,
 			children,
 		}: TextProps<T>,
 		ref: Ref<any>,
@@ -243,6 +248,8 @@ const Text = forwardRef(
 		const component = (
 			<Component
 				id={id}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={xcss}
 				css={[
 					styles.root,
 					size && fontSizeMap[size],

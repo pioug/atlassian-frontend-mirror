@@ -76,7 +76,6 @@ const styles = cssMap({
 const Bleed = React.memo(({ children, testId, inline, block, all, xcss }: BleedProps) => {
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- TODO: Allow pass-through from `props.xcss`
 			className={xcss}
 			css={[
 				styles.root,

@@ -193,6 +193,15 @@ export class TimelineController
 		};
 	}
 
+	public cleanupSubscribers() {
+		this.flushIdleBuffer();
+
+		this.onIdleBufferFlushCallbacks.clear();
+		this.onNextIdleCallbacks.clear();
+
+		this.checkAllSubscribersCleared();
+	}
+
 	private addEventInternal(event: TimelineEvent) {
 		this.unorderedEvents.push(event);
 		this.updateEventsPerType(event);

@@ -40,7 +40,6 @@ const DrawerContentBase = forwardRef<HTMLDivElement, DrawerContentProps>(
 		return (
 			<div
 				css={styles.default}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={xcss}
 				ref={mergeRefs([ref, scrollableRef])}
 				// tabindex is allowed here so that keyboard users can scroll content

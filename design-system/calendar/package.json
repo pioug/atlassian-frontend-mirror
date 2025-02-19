@@ -29,7 +29,7 @@
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/heading": "^4.1.0",
+		"@atlaskit/heading": "^4.2.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/platform-feature-flags": "*",
@@ -37,7 +37,7 @@
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1",
+		"@compiled/react": "^0.18.2",
 		"date-fns": "^2.17.0"
 	},
 	"peerDependencies": {

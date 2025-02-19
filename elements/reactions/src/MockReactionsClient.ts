@@ -19,6 +19,7 @@ export const getReactionSummary: (
 		emojiId: (getReactionsByShortName as EmojiId).id!,
 		count,
 		reacted,
+		users: defaultUsers,
 	};
 };
 

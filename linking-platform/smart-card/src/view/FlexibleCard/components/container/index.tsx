@@ -265,14 +265,14 @@ const getGap = (size?: SmartLinkSize): string => {
 	if (fg('platform-linking-visual-refresh-v1')) {
 		switch (size) {
 			case SmartLinkSize.XLarge:
-				return token('space.250', '1.25rem');
+				return token('space.250');
 			case SmartLinkSize.Large:
-				return token('space.200', '1rem');
+				return token('space.200');
 			case SmartLinkSize.Medium:
-				return token('space.100', '.5rem');
+				return token('space.100');
 			case SmartLinkSize.Small:
 			default:
-				return token('space.050', '.25rem');
+				return token('space.050');
 		}
 	}
 
@@ -392,7 +392,11 @@ const ContainerNew = ({
 	theme = SmartLinkTheme.Link,
 }: ContainerProps) => {
 	di(HoverCardControl);
-	const padding = hidePadding ? '0rem' : getPadding(size);
+	const padding = hidePadding
+		? fg('platform-linking-visual-refresh-v1')
+			? '0px'
+			: '0rem'
+		: getPadding(size);
 	const gap = getGap(size);
 
 	const context = useContext(FlexibleUiContext);

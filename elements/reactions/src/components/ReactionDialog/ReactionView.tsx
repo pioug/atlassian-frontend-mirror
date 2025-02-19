@@ -6,7 +6,6 @@ import { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
 import { TabPanel } from '@atlaskit/tabs';
@@ -43,22 +42,12 @@ export interface ReactionViewProps {
 	 */
 	reaction: ReactionSummary;
 	/**
-	 * Current emoji selected in the reactions dialog
+	 * Optional ProfileWrapper component to show profile card on hover
 	 */
-	selectedEmojiId: string;
-	/**
-	 * Provider for loading emojis
-	 */
-	emojiProvider: Promise<EmojiProvider>;
 	ProfileCardWrapper?: ProfileCardWrapper;
 }
 
-export const ReactionView = ({
-	selectedEmojiId,
-	emojiProvider,
-	reaction,
-	ProfileCardWrapper,
-}: ReactionViewProps) => {
+export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps) => {
 	const alphabeticalNames = useMemo(() => {
 		const reactionObj = reaction;
 
@@ -69,7 +58,6 @@ export const ReactionView = ({
 		<TabPanel>
 			<Flex direction="column" xcss={reactionViewStyle}>
 				{alphabeticalNames.length === 0 ? (
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<Box xcss={centerSpinnerStyle}>
 						<Spinner size="large" />
 					</Box>

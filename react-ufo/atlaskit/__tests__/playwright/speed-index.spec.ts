@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
-import isCI from 'is-ci';
-
 import { expect, test } from './fixtures';
 
 test.describe('speed index', () => {
-	test.fixme(isCI, '[AFO-3390] - This test is not ready to run on CI yet');
 	test.describe('ff-enabled', () => {
 		test.use({
 			examplePage: 'basic',

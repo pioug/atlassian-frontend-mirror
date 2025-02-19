@@ -90,7 +90,7 @@
 		"@atlaskit/notification-log-client": "*",
 		"@atlaskit/section-message": "^6.9.0",
 		"@atlaskit/spinner": "^17.1.0",
-		"@atlaskit/textfield": "^6.8.0",
+		"@atlaskit/textfield": "^7.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/switcher": "^34.2.0",
 		"@atlassian/switcher-test-utils": "^4.0.0",

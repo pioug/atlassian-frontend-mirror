@@ -45,7 +45,7 @@
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1",
+		"@compiled/react": "^0.18.2",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {

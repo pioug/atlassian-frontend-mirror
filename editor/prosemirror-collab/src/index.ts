@@ -277,6 +277,12 @@ export function receiveTransaction(
 	}
 	return tr
 		.setMeta('rebased', nUnconfirmed)
+		.setMeta('rebasedData', {
+			unconfirmedSteps: collabState?.unconfirmed.slice(ours) || [],
+			remoteSteps: steps,
+			stepsAfterRebase: unconfirmed,
+			versionBefore: version,
+		})
 		.setMeta('addToHistory', false)
 		.setMeta(collabKey, newCollabState);
 }

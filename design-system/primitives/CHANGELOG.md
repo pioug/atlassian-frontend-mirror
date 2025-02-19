@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 13.5.1
+
+### Patch Changes
+
+- [#115124](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115124)
+  [`b6dd4e0fcdd67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6dd4e0fcdd67) -
+  Added support for style overrides of `overflowWrap` and `textDecorationLine` for the compiled
+  version of Text.
+
 ## 13.5.0
 
 ### Minor Changes

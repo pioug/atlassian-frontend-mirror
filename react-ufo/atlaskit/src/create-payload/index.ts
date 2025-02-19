@@ -3,6 +3,7 @@ import Bowser from 'bowser-ultralight';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getLighthouseMetrics } from '../additional-payload';
+import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
@@ -24,6 +25,7 @@ import {
 	interactionSpans as atlaskitInteractionSpans,
 	postInteractionLog,
 } from '../interaction-metrics';
+import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
 import { roundEpsilon } from '../round-number';
 import * as ssr from '../ssr';
@@ -351,6 +353,30 @@ function getSSRProperties(type: InteractionType) {
 		'ssr:featureFlags': getSSRFeatureFlags(type),
 	};
 }
+
+const getAssetsMetrics = (interaction: InteractionMetrics, resourceTimings: ResourceTimings) => {
+	try {
+		const config = getConfig();
+		const { type } = interaction;
+		const isCHREnabled = fg('ufo_chr_config');
+		const allowedTypes = ['page_load', 'transition'];
+		const assetsClassification = config?.assetsClassification;
+		if (!isCHREnabled || !allowedTypes.includes(type) || !assetsClassification) {
+			// Skip if: FG disabled, not allowed type or assetsClassification isn't configured
+			return {};
+		}
+		const reporter = new CHRReporter();
+		const assets = reporter.get(resourceTimings, assetsClassification);
+		if (assets) {
+			// Only add assets in case it exists
+			return { 'event:assets': assets };
+		}
+		return {};
+	} catch (error) {
+		// Skip CHR in case of error
+		return {};
+	}
+};
 
 const getBrowserMetadata = () => {
 	const data: {
@@ -844,7 +870,7 @@ function createInteractionMetricsPayload(
 		};
 	};
 	// Detailed payload. Page visibility = visible
-	const getDetailedInteractionMetrics = () => {
+	const getDetailedInteractionMetrics = (resourceTimings: ResourceTimings) => {
 		if (experimental || window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
 			return {};
 		}
@@ -867,7 +893,7 @@ function createInteractionMetricsPayload(
 			requestInfo: optimizeRequestInfo(interaction.requestInfo, start),
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
-			resourceTimings: objectToArray(getResourceTimings(start, end)),
+			resourceTimings: objectToArray(resourceTimings),
 		};
 	};
 	// Page load & detailed payload
@@ -891,6 +917,8 @@ function createInteractionMetricsPayload(
 	}
 
 	const newUFOName = sanitizeUfoName(ufoName);
+	const resourceTimings = getResourceTimings(start, end);
+
 	const payload = {
 		actionSubject: 'experience',
 		action: 'measured',
@@ -918,6 +946,7 @@ function createInteractionMetricsPayload(
 				// root
 				...getBrowserMetadata(),
 				...getSSRProperties(type),
+				...getAssetsMetrics(interaction, resourceTimings),
 				...getPPSMetrics(interaction),
 				...getPaintMetrics(type),
 				...getNavigationMetrics(type),
@@ -966,7 +995,7 @@ function createInteractionMetricsPayload(
 					),
 					...labelStack,
 					...getPageLoadInteractionMetrics(),
-					...getDetailedInteractionMetrics(),
+					...getDetailedInteractionMetrics(resourceTimings),
 					...getPageLoadDetailedInteractionMetrics(),
 					...getBm3TrackerTimings(interaction),
 					'metric:ttai': experimental ? regularTTAI || expTTAI : undefined,

@@ -1,5 +1,16 @@
 # @atlassian/smart-user-picker
 
+## 7.0.1
+
+### Patch Changes
+
+- [#115319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115319)
+  [`d3a55e50e9513`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3a55e50e9513) -
+  QS-5272 migrate atlassian smart user picker to r18 concurrent
+- [#115319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115319)
+  [`b0c914f8d10d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b0c914f8d10d7) -
+  QS-5272 runReact18 true
+
 ## 7.0.0
 
 ### Major Changes

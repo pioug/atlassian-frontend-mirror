@@ -17,9 +17,7 @@ const items = [
 			return false;
 		},
 		description: 'Create and assing action items',
-		categories: [], // will be defined for each QuickInsert item
-		icon: () => <span />, // Do not use. This one is an old Quick Insert Icon
-		iconModern: () => <TaskIcon label="Actions" />, // Editor Controls icon, to be added to each QuickInsert item
+		icon: () => <TaskIcon label="Actions" />,
 		id: 'action' as QuickInsertItemId,
 		keyshortcut: '[]',
 		keywords: ['checkbox', 'task', 'todo'],
@@ -31,9 +29,7 @@ const items = [
 			return false;
 		},
 		description: 'Capture decisions so they’re easy to track',
-		categories: [],
-		icon: () => <span />, // Old Quick Insert Icon
-		iconModern: () => <DecisionIcon label="Decision" />,
+		icon: () => <DecisionIcon label="Decision" />,
 		id: 'decision' as QuickInsertItemId,
 		keyshortcut: '<>',
 		priority: 900,

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -7,6 +8,7 @@ import { useEffect } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
 import { type BlockProps } from '../types';
@@ -14,7 +16,8 @@ import { renderChildren } from '../utils';
 
 import BlockOld from './indexOld';
 
-const BaseBlockStyles = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const BaseBlockStylesOld = css({
 	alignItems: 'center',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1rem',
@@ -24,27 +27,47 @@ const BaseBlockStyles = css({
 	'&:empty': {
 		display: 'none',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		minWidth: 0,
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-fit-to-content]': {
 		minWidth: 'fit-content',
 	},
 	justifyContent: 'flex-start',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-separator] + [data-separator]::before': {
 		content: "'•'",
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	"[data-smart-element='SourceBranch'] + [data-smart-element='TargetBranch']::before": {
 		content: "'→'",
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	"[data-smart-element='TargetBranch'] + [data-smart-element='SourceBranch']::before": {
 		content: "'←'",
 	},
+});
+
+const baseBlockStyles = css({
+	alignItems: 'center',
+	display: 'flex',
+	minWidth: 0,
+	overflow: 'hidden',
+	'&:empty': {
+		display: 'none',
+	},
+	justifyContent: 'flex-start',
+	'[data-separator] + [data-separator]::before': {
+		content: "'•'",
+		color: token('color.border'),
+	},
+	"[data-separator][data-smart-element='SourceBranch'] + [data-separator][data-smart-element='TargetBranch']::before":
+		{
+			content: "'→'",
+			color: token('color.icon.subtle'),
+		},
+	"[data-separator][data-smart-element='TargetBranch'] + [data-separator][data-smart-element='SourceBranch']::before":
+		{
+			content: "'←'",
+			color: token('color.icon.subtle'),
+		},
 });
 
 const highlightRemoveStyles = css({
@@ -60,33 +83,57 @@ const highlightRemoveStyles = css({
 	userSelect: 'none',
 });
 
-const gapsStyles = cssMap({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const gapsStylesOld = cssMap({
 	xlarge: {
 		gap: `1.25rem`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-separator] + [data-separator]::before': {
 			marginRight: `1.25rem`,
 		},
 	},
 	large: {
 		gap: `1rem`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-separator] + [data-separator]::before': {
 			marginRight: `1rem`,
 		},
 	},
 	medium: {
 		gap: `0.5rem`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-separator] + [data-separator]::before': {
 			marginRight: `0.5rem`,
 		},
 	},
 	small: {
 		gap: `0.25rem`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-separator] + [data-separator]::before': {
 			marginRight: `0.25rem`,
+		},
+	},
+});
+
+const gapStyles = cssMap({
+	xlarge: {
+		gap: token('space.250'),
+		'[data-separator] + [data-separator]::before': {
+			marginRight: token('space.250'),
+		},
+	},
+	large: {
+		gap: token('space.200'),
+		'[data-separator] + [data-separator]::before': {
+			marginRight: token('space.200'),
+		},
+	},
+	medium: {
+		gap: token('space.100'),
+		'[data-separator] + [data-separator]::before': {
+			marginRight: token('space.100'),
+		},
+	},
+	small: {
+		gap: token('space.050'),
+		'[data-separator] + [data-separator]::before': {
+			marginRight: token('space.050'),
 		},
 	},
 });
@@ -128,7 +175,14 @@ const BlockNew = ({
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			css={[BaseBlockStyles, highlightRemoveStyles, directionStyles[direction], gapsStyles[size]]}
+			css={[
+				!fg('platform-linking-visual-refresh-v1') && BaseBlockStylesOld,
+				fg('platform-linking-visual-refresh-v1') && baseBlockStyles,
+				highlightRemoveStyles,
+				directionStyles[direction],
+				!fg('platform-linking-visual-refresh-v1') && gapsStylesOld[size],
+				fg('platform-linking-visual-refresh-v1') && gapStyles[size],
+			]}
 			data-smart-block
 			data-testid={testId}
 			onTransitionEnd={onTransitionEnd}

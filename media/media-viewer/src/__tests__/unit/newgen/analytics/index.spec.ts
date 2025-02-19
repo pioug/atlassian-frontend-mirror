@@ -136,6 +136,7 @@ describe('getFileAttributes()', () => {
 			actionSubject: 'mediaFile',
 			attributes: {
 				error: 'serverInvalidBody',
+				errorDetail: 'unknown',
 				failReason: 'imageviewer-fetch-url',
 				request: {
 					method: 'GET',

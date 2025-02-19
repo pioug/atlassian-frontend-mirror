@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "7.0.0",
+	"version": "7.0.1",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
 	},
 	"atlassian": {
 		"team": "Search Platform: Search Experience",
-		"runReact18": false,
+		"runReact18": true,
 		"slack": {
 			"channel": "#search-plex-prs",
 			"notifications": {
@@ -54,12 +54,15 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/util-data-test": "^18.0.0",
+		"@testing-library/dom": "^10.1.0",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^14.4.3",
 		"enzyme": "^3.10.0",
 		"fetch-mock": "^8.0.0",
 		"graphql-tag": "^2.10.1",

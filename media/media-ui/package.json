@@ -44,7 +44,7 @@
 		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/width-detector": "^4.4.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1",
+		"@compiled/react": "^0.18.2",
 		"@emotion/styled": "^11.0.0",
 		"blueimp-load-image": "2.19.0",
 		"bytes": "^3.1.0",

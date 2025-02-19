@@ -1,9 +1,11 @@
+import { type ReactElement } from 'react';
+
 import { type SmartLinkSize } from '../../../../../../constants';
 import { type ActionProps } from '../types';
 
 export type ActionButtonProps = ActionProps & {
-	iconAfter?: React.ReactChild;
-	iconBefore?: React.ReactChild;
+	iconAfter?: ReactElement;
+	iconBefore?: ReactElement;
 	isLoading?: boolean;
 	size: SmartLinkSize;
 	isDisabled?: boolean;

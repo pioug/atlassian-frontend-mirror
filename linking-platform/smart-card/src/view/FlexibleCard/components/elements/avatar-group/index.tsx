@@ -4,7 +4,7 @@
  */
 import { useMemo } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
@@ -20,12 +20,16 @@ import { type AvatarGroupProps } from './types';
 
 const MAX_COUNT = 4;
 
+const styles = css({
+	minWidth: 'fit-content',
+});
+
 const stylesMap = cssMap({
 	xlarge: {
 		display: 'inline-flex',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		ul: {
-			marginRight: token('space.100', '0.5rem'),
+			marginRight: token('space.100'),
 			marginTop: 0,
 		},
 	},
@@ -33,7 +37,7 @@ const stylesMap = cssMap({
 		display: 'inline-flex',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		ul: {
-			marginRight: token('space.100', '0.5rem'),
+			marginRight: token('space.100'),
 			marginTop: 0,
 		},
 	},
@@ -41,7 +45,7 @@ const stylesMap = cssMap({
 		display: 'inline-flex',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		ul: {
-			marginRight: token('space.100', '0.5rem'),
+			marginRight: token('space.100'),
 			marginTop: 0,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -57,7 +61,7 @@ const stylesMap = cssMap({
 		display: 'inline-flex',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		ul: {
-			marginRight: token('space.100', '0.5rem'),
+			marginRight: token('space.100'),
 			marginTop: 0,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -141,8 +145,8 @@ const AvatarGroupNew = ({
 	return (
 		<span
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[stylesMap[size]]}
-			data-fit-to-content
+			css={[stylesMap[size], fg('platform-linking-visual-refresh-v1') && styles]}
+			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
 			data-smart-element={name}
 			data-smart-element-avatar-group
 			data-testid={testId}

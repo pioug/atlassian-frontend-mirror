@@ -3,11 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Date } from '../../../components/Date';
 import { type DateProps } from '../../../';
-import { token } from '@atlaskit/tokens';
-import { N800, R500 } from '@atlaskit/theme/colors';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-
-const formatColorToken = (color: string) => color.replace(' ', '').toLowerCase();
 
 describe('Date', () => {
 	const renderDate = (props: Partial<DateProps> = {}) =>
@@ -45,17 +41,14 @@ describe('Date', () => {
 		ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
 			it('should use default color', () => {
 				renderDate();
-				expect(screen.getByRole('button')).toHaveCompiledCss(
-					'color',
-					formatColorToken(token('color.text', N800)),
-				);
+				expect(screen.getByRole('button')).toHaveCompiledCss('color', 'var(--ds-text,#172b4d)');
 			});
 
 			it('should set custom color', () => {
 				renderDate({ color: 'red' });
 				expect(screen.getByRole('button')).toHaveCompiledCss(
 					'color',
-					formatColorToken(token('color.text.accent.red', R500)),
+					'var(--ds-text-accent-red,#ae2e24)',
 				);
 			});
 		});
@@ -65,7 +58,7 @@ describe('Date', () => {
 				renderDate();
 				expect(screen.getByRole('button')).toHaveStyleDeclaration(
 					'color',
-					token('color.text', N800),
+					'var(--ds-text, #172B4D)',
 				);
 			});
 
@@ -73,7 +66,7 @@ describe('Date', () => {
 				renderDate({ color: 'red' });
 				expect(screen.getByRole('button')).toHaveStyleDeclaration(
 					'color',
-					token('color.text.accent.red', R500),
+					'var(--ds-text-accent-red, #AE2E24)',
 				);
 			});
 		});

@@ -8,4 +8,5 @@ snapshot(FlexibleCardAction, {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
+	waitForReactLazy: true,
 });

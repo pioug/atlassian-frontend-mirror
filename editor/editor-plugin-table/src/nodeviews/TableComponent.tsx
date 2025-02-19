@@ -12,6 +12,7 @@ import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-commo
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { getParentNodeWidth, getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableMarginSides } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
@@ -906,6 +907,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 
 		const isNested = isTableNested(view.state, tablePos);
+		const isNestedInTable =
+			tablePos && fg('nested_table_control_padding_with_css')
+				? getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(tablePos)) > 0
+				: false;
 
 		const topShadowPadding = isDragAndDropEnabled ? 0 : shadowPadding;
 		const topOffset = 0;
@@ -927,6 +932,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					[ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
 					[ClassName.HOVERED_DELETE_BUTTON]: isInDanger,
 					[ClassName.TABLE_SELECTED]: isTableSelected(selection ?? view.state.selection),
+					[ClassName.NESTED_TABLE_WITH_CONTROLS]: tableActive && allowControls && isNestedInTable,
 				})}
 				editorView={view}
 				getPos={getPos}

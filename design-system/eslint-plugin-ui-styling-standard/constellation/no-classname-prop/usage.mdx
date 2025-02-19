@@ -38,6 +38,17 @@ import { Checkbox } from '@atlaskit/checkbox';
 <Checkbox xcss={{ alignItems: 'center' }} />;
 ```
 
+Pass-through `props.xcss` are allowed, expecting this to be typed, refer to
+[@atlaskit/css](https://atlassian.design/components/css/overview#building-reusable-components)
+
+```tsx
+import { StrictXCSSProp } from '@atlaskit/css';
+
+const Component = (props: { xcss?: StrictXCSSProp<'color', never> }) => (
+	<div className={props.xcss} />
+);
+```
+
 ## FAQ
 
 ### What if I'm using `className` to target elements with JavaScript?

@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 78.19.7
+
+### Patch Changes
+
+- [#113412](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113412)
+  [`bb782d3c9d9ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb782d3c9d9ee) -
+  Removed unused code
+- Updated dependencies
+
 ## 78.19.6
 
 ### Patch Changes

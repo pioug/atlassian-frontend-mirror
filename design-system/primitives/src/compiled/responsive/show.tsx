@@ -70,7 +70,6 @@ export const Show = ({
 }: ResponsiveShowProps) => {
 	return (
 		<AsElement
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- TODO: Allow pass-through from `props.xcss`
 			className={xcss}
 			css={[styles.default, above && styles[`above.${above}`], below && styles[`below.${below}`]]}
 		>

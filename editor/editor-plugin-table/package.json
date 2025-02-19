@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "9.5.5",
+	"version": "9.5.7",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.46.0",
+		"@atlaskit/tmp-editor-statsig": "^2.47.0",
 		"@atlaskit/toggle": "^14.1.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
@@ -159,6 +159,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_advanced_layouts_post_fix_patch_4": {
+			"type": "boolean"
+		},
+		"nested_table_control_padding_with_css": {
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_view_mode_sort": {

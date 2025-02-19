@@ -44,7 +44,7 @@ const truncateStyles = cssMap({
 	},
 });
 
-const sizeStyles = cssMap({
+const sizeStylesOld = cssMap({
 	xlarge: {
 		lineHeight: '1.75rem',
 		'@supports not (-webkit-line-clamp: 1)': {
@@ -67,6 +67,29 @@ const sizeStyles = cssMap({
 		lineHeight: '1.5rem',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: '3rem',
+		},
+	},
+});
+
+const sizeStyles = cssMap({
+	xlarge: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: '56px',
+		},
+	},
+	large: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: '56px',
+		},
+	},
+	medium: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: '48px',
+		},
+	},
+	small: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: '48px',
 		},
 	},
 });
@@ -114,7 +137,11 @@ const MetadataBlock = ({
 					align={SmartLinkAlignment.Left}
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
-					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
+					css={[
+						truncateStyles[maxLinesTotal],
+						!fg('platform-linking-visual-refresh-v1') && sizeStylesOld[size],
+						fg('platform-linking-visual-refresh-v1') && sizeStyles[size],
+					]}
 					size={size}
 				>
 					{primaryElements}
@@ -125,7 +152,11 @@ const MetadataBlock = ({
 					align={SmartLinkAlignment.Right}
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
-					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
+					css={[
+						truncateStyles[maxLinesTotal],
+						!fg('platform-linking-visual-refresh-v1') && sizeStylesOld[size],
+						fg('platform-linking-visual-refresh-v1') && sizeStyles[size],
+					]}
 					size={size}
 				>
 					{secondaryElements}

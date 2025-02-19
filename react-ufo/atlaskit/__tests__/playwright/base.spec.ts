@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
-import isCI from 'is-ci';
-
 import { expect, test } from './fixtures';
 
 /*
@@ -39,8 +37,6 @@ const viewports = [
 ];
 
 test.describe('TTVC: basic page (10 congruent sections)', () => {
-	test.fixme(isCI, '[AFO-3390] - This test is not ready to run on CI yet');
-
 	test.use({
 		examplePage: 'basic',
 		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error'],
@@ -111,8 +107,6 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 });
 
 test.describe('TTVC: basic page (3 congruent sections)', () => {
-	test.fixme(isCI, '[AFO-3390] - This test is not ready to run on CI yet');
-
 	test.use({
 		examplePage: 'basic-three-sections',
 		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error'],
@@ -183,8 +177,6 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 });
 
 test.describe('TTVC: basic page (100 congruent sections)', () => {
-	test.fixme(isCI, '[AFO-3390] - This test is not ready to run on CI yet');
-
 	test.use({
 		examplePage: 'basic-any-number-sections', // hardcoded to 100 in the code
 		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error'],

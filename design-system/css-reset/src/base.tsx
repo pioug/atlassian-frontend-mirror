@@ -85,7 +85,6 @@ export default evaluateInner`
 			'font.heading.large',
 			`500 1.7142857142857142em/1.1666666666666667 ${fontFamily}`,
 		)};
-    letter-spacing: -0.01em;
     color: ${token('color.text')};
     margin-top: ${token('space.500')};
   }

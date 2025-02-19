@@ -67,8 +67,9 @@ const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((p
 
 	return (
 		<div
-			// We suppress this for now as we can't use the Compiled pragma until this module has migrated to Compiled.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @compiled/jsx-pragma
+			// Because we're using Emotion local jsx namespace we have to coerce xcss prop to a string.
+			// When we're fully on Compiled its local jsx namespace accepts the output of xcss prop.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- This rule still fails because of the TS assertion
 			className={xcss as string}
 			css={[
 				rootStyles,

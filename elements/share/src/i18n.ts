@@ -201,6 +201,12 @@ export const messages = defineMessages({
 		description:
 			'Message indicating the recipients of the email share will be able to see the Jira issue title and the included message',
 	},
+	infoMessageDefaultJiraIssueTermRefresh: {
+		id: 'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh',
+		defaultMessage: 'Recipients will see the name of the work item and your message',
+		description:
+			'Message indicating the recipients of the email share will be able to see the Jira issue title and the included message',
+	},
 	requiredFieldSummary: {
 		id: 'fabric.elements.share.form.required-field.summary',
 		defaultMessage: 'Required fields are marked with an asterisk',

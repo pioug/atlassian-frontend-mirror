@@ -469,7 +469,7 @@ export class DocumentService implements DocumentServiceInterface {
 
 	obfuscateStepsAndState = (
 		unconfirmedSteps: readonly ProseMirrorStep[] | undefined,
-		currentState: ResolvedEditorState,
+		currentState?: ResolvedEditorState,
 	) => {
 		let obfuscatedSteps;
 		try {
@@ -483,10 +483,12 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 
 		let obfuscatedDoc;
-		try {
-			obfuscatedDoc = getDocAdfWithObfuscation(currentState.content);
-		} catch (error) {
-			obfuscatedDoc = 'Failed to obfuscate doc';
+		if (currentState) {
+			try {
+				obfuscatedDoc = getDocAdfWithObfuscation(currentState.content);
+			} catch (error) {
+				obfuscatedDoc = 'Failed to obfuscate doc';
+			}
 		}
 
 		return { obfuscatedSteps, obfuscatedDoc };
@@ -764,7 +766,8 @@ export class DocumentService implements DocumentServiceInterface {
 					);
 				}
 				while (!isLastTrConfirmed) {
-					this.sendStepsFromCurrentState();
+					// forcePublish = true, this is because commitUnconfirmedSteps is only called when the Editor publishes a document
+					this.sendStepsFromCurrentState(undefined, true);
 
 					await sleep(500);
 
@@ -856,7 +859,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * The getState function will return the current EditorState
 	 * from the EditorView.
 	 */
-	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean) {
+	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, forcePublish?: boolean) {
 		const state = this.getState?.();
 		if (!state) {
 			this.analyticsHelper?.sendErrorEvent(
@@ -866,7 +869,7 @@ export class DocumentService implements DocumentServiceInterface {
 			return;
 		}
 
-		this.send(null, null, state, sendAnalyticsEvent);
+		this.send(null, null, state, sendAnalyticsEvent, forcePublish);
 	}
 
 	onStepRejectedError = () => {
@@ -903,10 +906,11 @@ export class DocumentService implements DocumentServiceInterface {
 	 * It needs the superfluous arguments because we keep the interface of the send API the same as the Synchrony plugin
 	 */
 	send(
-		_tr: Transaction | null,
+		tr: Transaction | null,
 		_oldState: EditorState | null,
 		newState: EditorState,
 		sendAnalyticsEvent?: boolean,
+		forcePublish?: boolean,
 	) {
 		const unconfirmedStepsData = sendableSteps(newState);
 		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
@@ -934,6 +938,26 @@ export class DocumentService implements DocumentServiceInterface {
 
 		if (!unconfirmedSteps?.length) {
 			return;
+		}
+
+		const rebased = tr?.getMeta('rebasedData');
+
+		if (rebased) {
+			const obfuscatedUnconfirmedSteps = this.obfuscateStepsAndState(
+				rebased.unconfirmedSteps,
+			).obfuscatedSteps;
+			const obfuscatedRemoteSteps = this.obfuscateStepsAndState(rebased.remoteSteps);
+			const obfuscatedRebasedSteps = this.obfuscateStepsAndState(unconfirmedSteps).obfuscatedSteps;
+			// send analtyics on unconfirmed steps
+			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.STEPS_REBASED, EVENT_STATUS.INFO, {
+				obfuscatedUnconfirmedSteps,
+				obfuscatedRemoteSteps,
+				obfuscatedRebasedSteps,
+				clientID: this.clientId,
+				userId: this.getUserId(),
+				versionBefore: rebased.versionBefore,
+				versionAfter: version,
+			});
 		}
 
 		// If we are going to commit unconfirmed steps
@@ -967,6 +991,7 @@ export class DocumentService implements DocumentServiceInterface {
 			__livePage: this.options.__livePage,
 			hasRecovered: this.hasRecovered,
 			collabMode: this.participantsService.getCollabMode(),
+			forcePublish,
 		});
 	}
 }

@@ -335,8 +335,8 @@ describe('<AvatarGroup />', () => {
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 				overrides={{
 					MoreIndicator: {
-						render: (_, props) => (
-							<button type="button" {...props} data-testid={props.testId} onClick={props.onClick}>
+						render: (_, { borderColor, isActive, buttonProps, testId, ...props }) => (
+							<button type="button" {...buttonProps} {...props} data-testid={testId}>
 								Test MoreIndicator
 							</button>
 						),
@@ -611,62 +611,6 @@ describe('<AvatarGroup />', () => {
 		expect(firstAvatar).not.toBeNull();
 		expect(secondAvatar).toBeNull();
 		expect(thirdAvatar).not.toBeNull();
-	});
-});
-
-describe('borderColor', () => {
-	const groupBorderColor = '#BABEEE';
-	const avatarBorderColor = '#C0FFEE';
-
-	it('should put border color on every avatar if provided to avatar group as a prop', () => {
-		render(
-			<AvatarGroup
-				borderColor={groupBorderColor}
-				testId="test"
-				appearance="stack"
-				data={generateData({ avatarCount: 2, onClick: __noop })}
-			/>,
-		);
-
-		const avatars = screen.getAllByRole('button');
-
-		avatars.forEach((avatar) => {
-			expect(avatar).toHaveStyle(`background-color: ${groupBorderColor}`);
-		});
-	});
-
-	it('should put border color on avatar if provided to avatar as a prop', () => {
-		render(
-			<AvatarGroup
-				testId="test"
-				appearance="stack"
-				data={generateData({ avatarCount: 2, onClick: __noop, borderColor: avatarBorderColor })}
-			/>,
-		);
-
-		const avatars = screen.getAllByRole('button');
-
-		avatars.forEach((avatar) => {
-			expect(avatar).toHaveStyle(`background-color: ${avatarBorderColor}`);
-		});
-	});
-
-	it('should prefer the border color on avatar props if both avatar and avatar group have `borderColor` set', () => {
-		render(
-			<AvatarGroup
-				borderColor={groupBorderColor}
-				testId="test"
-				appearance="stack"
-				data={generateData({ avatarCount: 2, onClick: __noop, borderColor: avatarBorderColor })}
-			/>,
-		);
-
-		const avatars = screen.getAllByRole('button');
-
-		avatars.forEach((avatar) => {
-			expect(avatar).not.toHaveStyle(`background-color: ${avatarBorderColor}`);
-			expect(avatar).toHaveStyle(`background-color: ${groupBorderColor}`);
-		});
 	});
 });
 

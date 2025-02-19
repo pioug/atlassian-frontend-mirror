@@ -60,4 +60,15 @@ describe('Heading', () => {
 		expect(screen.getByTestId('h3').tagName).toEqual('H3');
 		expect(screen.getByTestId('h4').tagName).toEqual('H4');
 	});
+
+	it('forwards ref correctly', () => {
+		const ref = React.createRef<HTMLHeadingElement>();
+		render(
+			<Heading size="medium" ref={ref}>
+				Hello, Atlassian!
+			</Heading>,
+		);
+		expect(ref.current).toBeDefined();
+		expect(ref.current?.textContent).toEqual('Hello, Atlassian!');
+	});
 });

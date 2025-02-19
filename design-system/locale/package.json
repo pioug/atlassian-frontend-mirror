@@ -49,7 +49,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "*",
-		"@atlaskit/textfield": "^6.8.0",
+		"@atlaskit/textfield": "^7.0.0",
 		"typescript": "~5.4.2"
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/helpers/locale"

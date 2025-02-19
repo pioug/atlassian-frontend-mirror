@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 5.0.0
+
+### Major Changes
+
+- [#112367](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112367)
+  [`fbcf73510841a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbcf73510841a) -
+  Added issue terminology refresh changes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.25.6
 
 ### Patch Changes

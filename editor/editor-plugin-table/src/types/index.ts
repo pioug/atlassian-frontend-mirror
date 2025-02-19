@@ -412,6 +412,9 @@ export const TableCssClassName = {
 	DRAG_CORNER_BUTTON: `${tablePrefixSelector}-drag-corner-button`,
 	DRAG_CORNER_BUTTON_INNER: `${tablePrefixSelector}-drag-corner-button-inner`,
 
+	/** nested tables classes */
+	NESTED_TABLE_WITH_CONTROLS: `${tablePrefixSelector}-nested-table-with-controls`,
+
 	/** disabled classes */
 	DRAG_HANDLE_DISABLED: `${tablePrefixSelector}-drag-handle-disabled`,
 

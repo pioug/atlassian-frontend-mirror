@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.17.2",
+	"version": "203.17.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,9 +55,9 @@
 		"@atlaskit/media-card": "^78.19.0",
 		"@atlaskit/mention": "^23.11.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/react-ufo": "^2.15.0",
+		"@atlaskit/react-ufo": "^2.16.0",
 		"@atlaskit/task-decision": "^17.12.0",
-		"@atlaskit/tmp-editor-statsig": "^2.46.0",
+		"@atlaskit/tmp-editor-statsig": "^2.47.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/width-detector": "^4.4.0",
@@ -85,7 +85,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-listeners": "^8.15.0",
-		"@atlaskit/collab-provider": "10.6.2",
+		"@atlaskit/collab-provider": "10.7.0",
 		"@atlaskit/editor-plugin-annotation": "1.28.1",
 		"@atlaskit/editor-plugin-card": "^4.6.0",
 		"@atlaskit/editor-plugin-list": "^3.10.0",
@@ -105,7 +105,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.27.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.34",
+		"@atlassian/search-provider": "3.0.35",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^13.4.0",
@@ -420,6 +420,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_nested_tables_paste_dupe_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"nested_table_control_padding_with_css": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

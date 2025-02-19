@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary } from '../../types';
-import { emojiNameStyle, footerStyle, tooltipStyle } from './styles';
+import { emojiNameStyle, footerStyle, tooltipStyle, underlineStyle } from './styles';
 
 /**
  * Test id for wrapper ReactionTooltip div
@@ -34,6 +34,14 @@ export type ReactionTooltipProps = PropsWithChildren<{
 	 * Optional flag for enabling tooltip (defaults to true)
 	 */
 	isEnabled?: boolean;
+	/**
+	 * Optional prop for enabling the Reactions Dialog
+	 */
+	allowUserDialog?: boolean;
+	/**
+	 * Optional function when the user wants to open the Reactions Dialog
+	 */
+	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
 }>;
 
 export const ReactionTooltip = ({
@@ -42,10 +50,9 @@ export const ReactionTooltip = ({
 	reaction: { users = [] },
 	maxReactions = TOOLTIP_USERS_LIMIT,
 	isEnabled = true,
+	allowUserDialog,
+	handleOpenReactionsDialog,
 }: ReactionTooltipProps) => {
-	/**
-	 * Render list of users in the tooltip box
-	 */
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, jsx-a11y/no-noninteractive-tabindex -- Ignored via go/DSP-18766
@@ -61,7 +68,12 @@ export const ReactionTooltip = ({
 					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
 					<li
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={footerStyle}
+						css={allowUserDialog ? [footerStyle, underlineStyle] : footerStyle}
+						onClick={() => {
+							if (allowUserDialog && handleOpenReactionsDialog) {
+								handleOpenReactionsDialog();
+							}
+						}}
 					>
 						{users.length > maxReactions && (
 							<FormattedMessage
@@ -75,6 +87,7 @@ export const ReactionTooltip = ({
 				</ul>
 			</div>
 		);
+
 	return (
 		<Tooltip content={content} position="bottom" testId={RENDER_REACTIONTOOLTIP_TESTID}>
 			{React.Children.only(children)}

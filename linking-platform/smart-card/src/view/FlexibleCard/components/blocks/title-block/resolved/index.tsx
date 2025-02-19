@@ -22,7 +22,7 @@ import { type TitleBlockViewProps } from '../types';
 import TitleBlockResolvedViewOld from './TitleBlockResolvedViewOld';
 
 const style = css({
-	gap: token('space.050', '0.25rem'),
+	gap: token('space.050'),
 });
 
 /**

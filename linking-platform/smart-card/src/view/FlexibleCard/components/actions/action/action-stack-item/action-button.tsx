@@ -4,7 +4,7 @@
  */
 import { useCallback } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
@@ -17,7 +17,7 @@ import ActionIcon from '../action-icon';
 import ActionButtonOld from './action-buttonOld';
 import type { ActionStackItemProps } from './types';
 
-const styles = cssMap({
+const stylesOld = cssMap({
 	button: {
 		all: 'unset',
 		paddingTop: token('space.050'),
@@ -38,7 +38,24 @@ const styles = cssMap({
 	},
 });
 
-const contentStyles = cssMap({
+const styles = cssMap({
+	button: {
+		backgroundColor: token('color.background.neutral.subtle'),
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		width: '100%',
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
+		'&:focus-visible': {
+			outlineOffset: token('space.negative.025'),
+		},
+	},
 	content: {
 		color: token('color.text'),
 		font: token('font.body.small'),
@@ -78,7 +95,10 @@ const ActionButtonNew = ({
 
 	return (
 		<Pressable
-			xcss={styles.button}
+			xcss={cx(
+				!fg('platform-linking-visual-refresh-v1') && stylesOld.button,
+				fg('platform-linking-visual-refresh-v1') && styles.button,
+			)}
 			{...tooltipProps}
 			onClick={onClick}
 			testId={testId}
@@ -88,7 +108,10 @@ const ActionButtonNew = ({
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}
 				<Box
-					xcss={fg('platform-linking-visual-refresh-v1') ? contentStyles.content : styles.content}
+					xcss={cx(
+						!fg('platform-linking-visual-refresh-v1') && stylesOld.content,
+						fg('platform-linking-visual-refresh-v1') && styles.content,
+					)}
 				>
 					{content}
 				</Box>

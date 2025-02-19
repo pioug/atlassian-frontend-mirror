@@ -67,6 +67,18 @@ export interface CustomTriggerProps<TriggerElement extends HTMLElement = any>
 	onClick?: (e: MouseEvent | KeyboardEvent) => void;
 
 	/**
+	 * onFocus handler that should be applied to the trigger. Used to bind onKeyDown listener
+	 * to the window object to track ArrowDown events.
+	 */
+	onFocus?: () => void;
+
+	/**
+	 * onBlur handler that should be applied to the trigger. Used to unbind onKeyDown listener
+	 * from the window object.
+	 */
+	onBlur?: () => void;
+
+	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests.

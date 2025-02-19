@@ -10,6 +10,14 @@ snapshot(Variations, {
 	featureFlags: {
 		platform_design_system_team_safari_input_fix: true,
 	},
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(Variations, {
@@ -20,16 +28,49 @@ snapshot(Variations, {
 		{
 			name: 'mobile chrome',
 			device: Device.MOBILE_CHROME,
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 		{
 			name: 'desktop chrome',
 			device: Device.DESKTOP_CHROME,
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });
 
-snapshot(ElementsBeforeAndAfter);
+snapshot(ElementsBeforeAndAfter, {
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
 
-snapshot(Widths);
+snapshot(Widths, {
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
 
-snapshot(Customisation);
+snapshot(Customisation, {
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});

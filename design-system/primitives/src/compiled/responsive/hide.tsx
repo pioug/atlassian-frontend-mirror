@@ -70,7 +70,6 @@ export const Hide = ({
 }: ResponsiveHideProps) => {
 	return (
 		<AsElement
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- TODO: Allow pass-through from `props.xcss`
 			className={xcss}
 			css={[above && styles[`above.${above}`], below && styles[`below.${below}`]]}
 		>

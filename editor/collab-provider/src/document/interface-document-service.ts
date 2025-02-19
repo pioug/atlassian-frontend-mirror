@@ -34,7 +34,7 @@ export interface DocumentServiceInterface {
 		newState: EditorState,
 		sendAnalyticsEvent?: boolean,
 	): void;
-	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean): void;
+	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, forcePublish?: boolean): void;
 	throttledCatchupv2(): void;
 	getCurrentState(): Promise<ResolvedEditorState>;
 	getFinalAcknowledgedState(): Promise<ResolvedEditorState>;

@@ -5,7 +5,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
@@ -13,12 +13,8 @@ import {
 	ModalTransition,
 	type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
-import Tooltip from '@atlaskit/tooltip';
 import { type Placement } from '@atlaskit/popper';
-import { Box, Pressable, Flex, xcss } from '@atlaskit/primitives';
 import { fg } from '@atlaskit/platform-feature-flags';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Button from '@atlaskit/button/new';
 
 import {
 	createAndFireSafe,
@@ -127,11 +123,6 @@ export interface ReactionsProps
 	 */
 	getReactionDetails?: (emojiId: string) => void;
 	/**
-	 * @private
-	 * @deprecated use getReactionDetails instead
-	 */
-	onReactionHover?: (emojiId: string) => void;
-	/**
 	 * Optional error message to show when unable to display the reaction emoji
 	 */
 	errorMessage?: string;
@@ -223,13 +214,6 @@ export function getTooltip(status: ReactionStatus, errorMessage?: string) {
 	}
 }
 
-const dialogEntrypointButtonStyle = xcss({
-	marginRight: 'space.050',
-	marginTop: 'space.050',
-});
-
-const iconStyle = xcss({ height: '20px' });
-
 /**
  * Renders list of reactions
  */
@@ -243,7 +227,6 @@ export const Reactions = React.memo(
 		quickReactionEmojis,
 		pickerQuickReactionEmojiIds,
 		getReactionDetails = () => {},
-		onReactionHover = () => {},
 		onSelection,
 		reactions = [],
 		emojiProvider,
@@ -270,7 +253,6 @@ export const Reactions = React.memo(
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
-		const intl = useIntl();
 
 		let openTime = useRef<number>();
 		let renderTime = useRef<number>();
@@ -300,9 +282,8 @@ export const Reactions = React.memo(
 		const handleReactionMouseEnter = useCallback(
 			(emojiId: string) => {
 				getReactionDetails(emojiId);
-				onReactionHover(emojiId);
 			},
-			[getReactionDetails, onReactionHover],
+			[getReactionDetails],
 		);
 
 		const handleReactionFocused = useCallback(
@@ -341,27 +322,6 @@ export const Reactions = React.memo(
 			},
 			[createAnalyticsEvent, onSelection, reactions],
 		);
-
-		/**
-		 * event handler to open dialog with selected reaction
-		 * @param emojiId selected emoji id
-		 */
-		const handleOpenReactionsDialog = (emojiId: string) => {
-			// ufo start opening reaction dialog
-			ufoExperiences.openDialog.start();
-			getReactionDetails(emojiId);
-			setSelectedEmojiId(emojiId);
-			onDialogOpenCallback(emojiId, 'button');
-
-			// ufo opening reaction dialog success
-			ufoExperiences.openDialog.success({
-				metadata: {
-					emojiId,
-					source: 'Reactions',
-					reason: 'Opening Reactions Dialog successfully',
-				},
-			});
-		};
 
 		const handleCloseReactionsDialog: OnCloseHandler = (
 			e: KeyboardOrMouseEvent,
@@ -466,6 +426,30 @@ export const Reactions = React.memo(
 			return [...memorizedReactions].sort((a, b) => b?.count - a?.count);
 		}, [memorizedReactions]);
 
+		/**
+		 * event handler to open dialog with selected reaction
+		 * @param emojiId initial emoji id to load dialog with
+		 */
+		const handleOpenReactionsDialog = (
+			emojiId: string = sortedReactions[0].emojiId,
+			source: string = 'endOfPageReactions',
+		) => {
+			// ufo start opening reaction dialog
+			ufoExperiences.openDialog.start();
+			getReactionDetails(emojiId);
+			setSelectedEmojiId(emojiId);
+			onDialogOpenCallback(emojiId, source);
+
+			// ufo opening reaction dialog success
+			ufoExperiences.openDialog.success({
+				metadata: {
+					emojiId,
+					source: 'Reactions',
+					reason: 'Opening Reactions Dialog successfully',
+				},
+			});
+		};
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
@@ -499,33 +483,11 @@ export const Reactions = React.memo(
 								flash={flash[reaction.emojiId]}
 								showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
 								showOpaqueBackground={showOpaqueBackground}
+								allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
+								handleOpenReactionsDialog={handleOpenReactionsDialog}
 							/>
 						))
 					))}
-				{!onlyRenderPicker &&
-					allowUserDialog &&
-					hasEmojiWithFivePlusReactions &&
-					!shouldShowSummaryView && (
-						<Box xcss={dialogEntrypointButtonStyle}>
-							<Pressable backgroundColor="color.background.neutral.subtle" padding="space.0">
-								<Tooltip content={intl.formatMessage(messages.seeWhoReactedTooltip)}>
-									{(tooltipProps) => (
-										<Button
-											{...tooltipProps}
-											spacing="compact"
-											onClick={() => handleOpenReactionsDialog(sortedReactions[0].emojiId)}
-										>
-											<Flex alignItems="center" xcss={iconStyle}>
-												<ShowMoreHorizontalIcon
-													label={intl.formatMessage(messages.seeWhoReacted)}
-												/>
-											</Flex>
-										</Button>
-									)}
-								</Tooltip>
-							</Pressable>
-						</Box>
-					)}
 				{!isViewOnly && (
 					<ReactionPicker
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

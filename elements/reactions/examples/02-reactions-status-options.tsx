@@ -97,7 +97,6 @@ export default () => {
 							onSelection={onSelection}
 							onReactionClick={onReactionClick}
 							getReactionDetails={(emojiId) => console.log('get reaction details of ', emojiId)}
-							onReactionHover={(emojiId) => console.log('[deprecated] reaction hovered', emojiId)}
 							allowAllEmojis
 						/>
 					</IntlProvider>

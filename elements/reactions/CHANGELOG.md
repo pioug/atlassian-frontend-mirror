@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 25.5.0
+
+### Minor Changes
+
+- [#113818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113818)
+  [`ae63179ab3076`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae63179ab3076) -
+  [ux] Reactions Dialog changed after leadership review to remove border from meatball menu. Also
+  misc fixes like fixing button accessibility for the meatball, and removing left navigation button
+  from tablist
+
 ## 25.4.1
 
 ### Patch Changes

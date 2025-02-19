@@ -1,5 +1,13 @@
 # @atlaskit/heading
 
+## 4.2.0
+
+### Minor Changes
+
+- [#116022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116022)
+  [`49d35008263f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49d35008263f7) -
+  Added ref forwarding support.
+
 ## 4.1.0
 
 ### Minor Changes

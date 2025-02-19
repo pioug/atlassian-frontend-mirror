@@ -39,16 +39,17 @@ const containerEdgeAngle: containerEdgeAngleType = {
 };
 
 const leftNavigationStyle = xcss({
-	marginLeft: 'space.200',
-	alignSelf: 'self-start',
 	marginTop: 'space.050',
+	alignSelf: 'self-start',
+	paddingLeft: 'space.200',
+	paddingBottom: 'space.150',
 });
 
 const rightNavigationStyle = xcss({
-	marginRight: 'space.100',
-	marginLeft: 'auto',
-	alignSelf: 'self-start',
 	marginTop: 'space.050',
+	alignSelf: 'self-start',
+	marginLeft: 'auto',
+	marginRight: 'space.100',
 });
 
 const fadedCss = (edge: keyof containerEdgeAngleType, theme?: ThemeColorModes) =>
@@ -75,9 +76,14 @@ const customTabListStyles = css({
 		flexGrow: 1,
 		// paddingInline exists to maintain styling prior to @atlaskit/tabs update that removed baked in horizontal padding
 		paddingInline: token('space.100', '8px'),
+		// we add our own border bottom below since tablist border is not full width
+		'&::before': {
+			backgroundColor: 'transparent',
+		},
 	},
 	width: ' 100%',
 	alignItems: 'flex-start',
+	borderBottom: `1px solid ${token('color.border', '#EBECF0')}`,
 });
 
 const customTabWrapper = (theme?: ThemeColorModes) =>
@@ -212,7 +218,7 @@ export const ReactionsDialogHeader = ({
 	const isOnFirstPage = currentPage === 1;
 	const isOnLastPage = currentPage === maxPages;
 
-	const handleHover = (reaction: ReactionSummary) => {
+	const handleMouseEnterTab = (reaction: ReactionSummary) => {
 		const { emojiId } = reaction;
 
 		if (!emojiId || cache[emojiId]) {
@@ -220,6 +226,7 @@ export const ReactionsDialogHeader = ({
 		}
 
 		(async () => {
+			// Note: not a network request e.g. ReactedUsersQuery
 			const provider = await emojiProvider;
 			const emoji = await provider.findByEmojiId({
 				shortName: '',
@@ -254,11 +261,10 @@ export const ReactionsDialogHeader = ({
 			</Flex>
 			<Inline>
 				<div css={customTabListStyles} id="reactions-dialog-tabs-list">
+					{!isSinglePage && !isOnFirstPage && (
+						<LeftNavigationButton handlePreviousPage={handlePreviousPage} />
+					)}
 					<TabList>
-						{!isSinglePage && !isOnFirstPage && (
-							<LeftNavigationButton handlePreviousPage={handlePreviousPage} />
-						)}
-
 						{/* Actual tabs - can't move to its own component as React Fragment doesn't play well with TabList */}
 						{currentReactions.map((reaction, index) => {
 							const emojiId = { id: reaction.emojiId, shortName: '' };
@@ -272,7 +278,9 @@ export const ReactionsDialogHeader = ({
 									className="reaction-elements"
 									key={reaction.emojiId}
 									data-testid={emojiId?.id}
-									onMouseEnter={() => handleHover(reaction)}
+									onMouseEnter={() => {
+										handleMouseEnterTab(reaction);
+									}}
 								>
 									<Tab>
 										<Tooltip
@@ -297,7 +305,6 @@ export const ReactionsDialogHeader = ({
 								</div>
 							);
 						})}
-
 						{!isSinglePage && !isOnLastPage && (
 							<RightNavigationButton handleNextPage={handleNextPage} />
 						)}

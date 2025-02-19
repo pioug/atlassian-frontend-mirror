@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -31,16 +32,25 @@ import ActionGroupItem from './action-group-item';
 import ActionGroupOld from './ActionGroupOld';
 import { type ActionGroupProps } from './types';
 
-const styles = css({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const stylesOld = css({
 	display: 'inline-flex',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1rem',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		alignItems: 'center',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'button:focus-visible': {
 			outlineOffset: token('space.negative.025', '-2px'),
+		},
+	},
+});
+
+const styles = css({
+	display: 'inline-flex',
+	'> div': {
+		alignItems: 'center',
+		'button:focus-visible': {
+			outlineOffset: token('space.negative.025'),
 		},
 	},
 });
@@ -170,7 +180,10 @@ const ActionGroupNew = ({
 
 	return renderableActionItems.length > 0 ? (
 		<div
-			css={styles}
+			css={[
+				!fg('platform-linking-visual-refresh-v1') && stylesOld,
+				fg('platform-linking-visual-refresh-v1') && styles,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="actions-button-group"
 			data-action-open={isOpen}

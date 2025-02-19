@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.47.0
+
+### Minor Changes
+
+- [#115595](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115595)
+  [`8eafb76f48873`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8eafb76f48873) -
+  set up nested non-bodied macros experiment
+
 ## 2.46.0
 
 ### Minor Changes

@@ -36,7 +36,7 @@
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -86,7 +86,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-element-browser",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "New UI for the QuickInsert menu and Right rail",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

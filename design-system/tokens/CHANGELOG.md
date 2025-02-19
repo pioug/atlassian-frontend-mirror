@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 3.3.2
+
+### Patch Changes
+
+- [#115124](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115124)
+  [`e22fce04b0119`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e22fce04b0119) -
+  Narrow type definition for `overflowWrap` and `textDecorationLine` properties. This change does
+  not impact the `@atlaskit/tokens` API directly, but it does narrow types of css properties/tokens
+  used via `@atlaskit/css`.
+
 ## 3.3.1
 
 ### Patch Changes

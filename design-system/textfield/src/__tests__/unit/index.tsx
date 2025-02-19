@@ -111,14 +111,14 @@ describe('Textfield', () => {
 		describe('appearance', () => {
 			it('should have a solid border when appearance is not none', () => {
 				render(createTextfield());
-				const textFieldContainer = screen.getByTestId('test-container');
-				expect(textFieldContainer).toHaveStyle(`border-style: solid`);
+				const textFieldContainer = screen.getByRole('presentation');
+				expect(textFieldContainer).toHaveCompiledCss('border-style', 'solid');
 			});
 
 			it('should have no border when appearance is none', () => {
 				render(createTextfield({ appearance: 'none' }));
-				const textFieldContainer = screen.getByTestId('test-container');
-				expect(textFieldContainer).toHaveStyle(`border-style: none`);
+				const textFieldContainer = screen.getByRole('presentation');
+				expect(textFieldContainer).toHaveCompiledCss('border-style', 'none');
 			});
 		});
 
@@ -138,7 +138,7 @@ describe('Textfield', () => {
 					!width ? 'not passed' : width
 				}`, () => {
 					render(createTextfield({ width }));
-					const textFieldContainer = screen.getByTestId('test-container');
+					const textFieldContainer = screen.getByRole('presentation');
 					expect(textFieldContainer).toHaveStyle(`max-width: ${maxWidth}`);
 				});
 			});

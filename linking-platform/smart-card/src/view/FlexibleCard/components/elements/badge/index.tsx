@@ -3,22 +3,54 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, cx, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
+import { withOverrideCss } from '../../common/with-override-css';
 import { getFormattedMessage } from '../../utils';
 
 import BadgeOld from './BadgeOld';
 import { type BadgeProps } from './types';
+
+const styles = cssMap({
+	container: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		minWidth: 'fit-content',
+		gap: token('space.050'),
+	},
+	icon: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&, span, svg, img': {
+			display: 'inline-flex',
+			height: '16px',
+			paddingTop: token('space.0'),
+			paddingRight: token('space.0'),
+			paddingBottom: token('space.0'),
+			paddingLeft: token('space.0'),
+			width: '16px',
+			verticalAlign: 'middle',
+		},
+	},
+	text: {
+		font: token('font.body.small'),
+	},
+});
+
+const colorMap = cssMap({
+	subtle: { color: token('color.text.subtlest') },
+	default: { color: token('color.text.subtle') },
+});
 
 const badgeStyles = css({
 	alignItems: 'center',
@@ -61,13 +93,6 @@ const iconStyles = css({
 const labelStylesOld = css({
 	color: token('color.text.subtlest', '#626F86'),
 	font: token('font.body.UNSAFE_small'),
-	paddingLeft: token('space.025', '0.125rem'),
-	verticalAlign: 'middle',
-});
-
-const labelStyles = css({
-	color: token('color.text.subtle'),
-	font: token('font.body.small'),
 	paddingLeft: token('space.025', '0.125rem'),
 	verticalAlign: 'middle',
 });
@@ -124,7 +149,65 @@ const renderImageIcon = (url?: string, testId?: string): React.ReactNode | undef
  * @see ProgrammingLanguage
  * @see Provider
  */
-const BadgeNew = ({
+const BadgeRefreshNew = forwardRef(
+	(
+		{
+			appearance = 'default',
+			hideIcon = false,
+			icon,
+			label,
+			name,
+			testId = 'smart-element-badge',
+			url,
+		}: BadgeProps,
+		ref: React.Ref<HTMLElement>,
+	) => {
+		const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
+		const badgeIcon = renderAtlaskitIcon(icon, testId) || renderImageIcon(url, testId);
+		if (!formattedMessageOrLabel || !badgeIcon) {
+			return null;
+		}
+
+		return (
+			<Inline
+				as="span"
+				data-smart-element={name}
+				data-smart-element-badge
+				testId={testId}
+				xcss={cx(styles.container, colorMap[appearance])}
+				ref={ref}
+			>
+				{!hideIcon && (
+					<Box as="span" xcss={styles.icon}>
+						{badgeIcon}
+					</Box>
+				)}
+				<Box as="span" testId={`${testId}-label`} xcss={styles.text}>
+					{formattedMessageOrLabel}
+				</Box>
+			</Inline>
+		);
+	},
+);
+
+// On cleanup of platform-linking-visual-refresh-v1, this should become
+// export default withOverrideCss(Badge);
+const BadgeRefreshNewWithOverrideCss = withOverrideCss(BadgeRefreshNew);
+
+/**
+ * A base element that displays some text with an associated icon.
+ * @internal
+ * @param {BadgeProps} BadgeProps - The props necessary for the Badge.
+ * @see CommentCount
+ * @see ViewCount
+ * @see ReactCount
+ * @see VoteCount
+ * @see SubscriberCount
+ * @see Priority
+ * @see ProgrammingLanguage
+ * @see Provider
+ */
+const BadgeCompiledNew = ({
 	hideIcon = false,
 	icon,
 	label,
@@ -142,7 +225,7 @@ const BadgeNew = ({
 	return (
 		<span
 			css={[badgeStyles]}
-			data-fit-to-content
+			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
 			data-smart-element={name}
 			data-smart-element-badge
 			data-testid={testId}
@@ -150,10 +233,7 @@ const BadgeNew = ({
 			className={className}
 		>
 			{!hideIcon && <span css={iconStyles}>{badgeIcon}</span>}
-			<span
-				css={[fg('platform-linking-visual-refresh-v1') ? labelStyles : labelStylesOld]}
-				data-testid={`${testId}-label`}
-			>
+			<span css={[labelStylesOld]} data-testid={`${testId}-label`}>
 				{formattedMessageOrLabel}
 			</span>
 		</span>
@@ -162,7 +242,11 @@ const BadgeNew = ({
 
 const Badge = (props: BadgeProps): JSX.Element => {
 	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <BadgeNew {...props} />;
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return <BadgeRefreshNewWithOverrideCss {...props} />;
+		} else {
+			return <BadgeCompiledNew {...props} />;
+		}
 	} else {
 		return <BadgeOld {...props} />;
 	}

@@ -238,8 +238,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 		nodes() {
 			const { allowColumnResizing } = pluginConfig(options?.tableOptions);
 			// TODO: ED-25901 - We need to move this into a plugin config option so we don't accidentally enable nested nodes in Jira
-			const isNestingSupported =
-				options?.tableOptions?.allowNestedTables && fg('platform_editor_use_nested_table_pm_nodes');
+			const isNestingSupported = Boolean(options?.tableOptions?.allowNestedTables);
 
 			return isNestingSupported
 				? [

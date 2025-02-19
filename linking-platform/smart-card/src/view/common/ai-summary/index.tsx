@@ -58,7 +58,10 @@ const AISummaryNew = ({
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			css={[fg('platform-linking-visual-refresh-v1') ? baseStyle : AISummaryCSSStyles]}
+			css={[
+				!fg('platform-linking-visual-refresh-v1') && AISummaryCSSStyles,
+				fg('platform-linking-visual-refresh-v1') && baseStyle,
+			]}
 			children={content}
 			options={{
 				forceWrapper: true,

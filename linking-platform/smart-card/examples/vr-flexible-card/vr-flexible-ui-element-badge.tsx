@@ -85,6 +85,11 @@ export default () => {
 						</HorizontalWrapper>
 					</React.Fragment>
 				))}
+				<h5>Appearance: Subtle</h5>
+				<HorizontalWrapper>
+					<Provider appearance="subtle" />
+					<CommentCount appearance="subtle" />
+				</HorizontalWrapper>
 				<h5>Override CSS</h5>
 				<HorizontalWrapper>
 					<ProgrammingLanguage css={overrideCss} />

@@ -88,6 +88,16 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 	// When primary toolbar components is undefined, do not show two line editor toolbar
 	const twoLineEditorToolbar = !!props.customPrimaryToolbarComponents;
 
+	// When a toolbar portal context is provided, render the  toolbar inside a portal.
+	// Otherwise fall back to a fragment just to avoid forking rendering logic.
+	const { Portal: ToolbarPortal } = useToolbarPortal() ?? { Portal: React.Fragment };
+	const hasToolbarPortal = ToolbarPortal !== React.Fragment;
+
+	const popupsMountPoint =
+		hasToolbarPortal && fg('platform_editor_lcm_toolbar_portals')
+			? undefined
+			: props.popupsMountPoint;
+
 	const nonCustomToolbar = (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={nonCustomToolbarWrapperStyle}>
@@ -100,7 +110,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 				providerFactory={props.providerFactory}
 				appearance={props.appearance}
 				items={props.primaryToolbarComponents}
-				popupsMountPoint={props.popupsMountPoint}
+				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={props.popupsBoundariesElement}
 				popupsScrollableElement={props.popupsScrollableElement}
 				disabled={props.disabled}
@@ -124,7 +134,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 			{editorAPI?.findReplace && twoLineEditorToolbar
 				? editorAPI?.findReplace.actions.getToolbarButton({
 						popupsBoundariesElement: props.popupsBoundariesElement,
-						popupsMountPoint: props.popupsMountPoint,
+						popupsMountPoint: popupsMountPoint,
 						popupsScrollableElement: props.popupsScrollableElement,
 						editorView: props.editorView,
 						containerElement: props.containerElement,
@@ -165,10 +175,6 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		event.preventDefault();
 		event.stopPropagation();
 	};
-
-	// When a toolbar portal context is provided, render the  toolbar inside a portal.
-	// Otherwise fall back to a fragment just to avoid forking rendering logic.
-	const { Portal: ToolbarPortal } = useToolbarPortal() ?? { Portal: React.Fragment };
 
 	return (
 		<ContextPanelConsumer>

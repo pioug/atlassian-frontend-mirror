@@ -3,6 +3,11 @@ import { type ElementProps } from '../types';
 
 export type BadgeProps = ElementProps & {
 	/**
+	 * Badge appearances
+	 */
+	appearance?: 'default' | 'subtle';
+
+	/**
 	 * Determines whether the badge icon should be hidden. When set to true,
 	 * the badge will be displayed without the icon, showing only the label text.
 	 */

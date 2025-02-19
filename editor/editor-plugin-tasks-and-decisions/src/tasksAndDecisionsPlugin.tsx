@@ -14,8 +14,6 @@ import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { DOMOutputSpec, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import DecisionIcon from '@atlaskit/icon/core/decision';
-import TaskIcon from '@atlaskit/icon/core/task';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -302,9 +300,6 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				{
 					id: 'action',
 					title: formatMessage(insertBlockMessages.action),
-					categories: !editorExperiment('platform_editor_controls', 'control')
-						? ['recommended']
-						: undefined,
 					description:
 						quickInsertActionDescription !== undefined &&
 						editorExperiment('issue_view_action_items', true)
@@ -314,7 +309,6 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					keywords: ['checkbox', 'task', 'todo'],
 					keyshortcut: '[]',
 					icon: () => <IconAction />,
-					iconModern: () => <TaskIcon label={formatMessage(insertBlockMessages.action)} />,
 					action(insert, state) {
 						return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
 							state,
@@ -328,13 +322,9 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					id: 'decision',
 					title: formatMessage(insertBlockMessages.decision),
 					description: formatMessage(insertBlockMessages.decisionDescription),
-					categories: !editorExperiment('platform_editor_controls', 'control')
-						? ['recommended']
-						: undefined,
 					priority: 900,
 					keyshortcut: '<>',
 					icon: () => <IconDecision />,
-					iconModern: () => <DecisionIcon label={formatMessage(insertBlockMessages.decision)} />,
 					action(insert, state) {
 						return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
 							state,

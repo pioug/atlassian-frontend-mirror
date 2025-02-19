@@ -50,7 +50,7 @@
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1",
+		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
@@ -62,7 +62,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/heading": "^4.1.0",
+		"@atlaskit/heading": "^4.2.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",

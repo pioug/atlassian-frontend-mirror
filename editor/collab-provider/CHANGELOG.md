@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 10.7.0
+
+### Minor Changes
+
+- [#115482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115482)
+  [`5c3199f49f3c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c3199f49f3c7) -
+  Added analytics tracking for rebased steps
+
+### Patch Changes
+
+- [#115191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115191)
+  [`83e0a3ca379fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83e0a3ca379fa) -
+  CEPS-362: pass a forcePublish flag to NCS backend when committing steps via publish - this is so
+  that we can remoev ackDelays for publish
+- Updated dependencies
+
 ## 10.6.2
 
 ### Patch Changes

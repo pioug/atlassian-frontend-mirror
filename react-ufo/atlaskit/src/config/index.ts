@@ -1,4 +1,4 @@
-import type { InteractionMetrics, InteractionType } from '../common';
+import type { AssetsClassification, InteractionMetrics, InteractionType } from '../common';
 
 let config: Config | undefined;
 export interface AdditionalData {
@@ -74,6 +74,7 @@ export type Config = {
 		readonly getSSRTimings?: () => SSRTiming[];
 		readonly getSSRDoneTime?: () => number | undefined;
 	};
+	readonly assetsClassification?: AssetsClassification;
 	readonly enableBetterPageVisibilityApi?: boolean;
 	readonly vc?: {
 		readonly enabled?: boolean;

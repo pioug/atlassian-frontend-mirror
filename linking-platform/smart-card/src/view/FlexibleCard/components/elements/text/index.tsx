@@ -29,6 +29,7 @@ const baseStyle = css({
 	font: token('font.body.small'),
 	whiteSpace: 'normal',
 	display: '-webkit-box',
+	minWidth: 0,
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	wordBreak: 'break-word',
@@ -64,8 +65,12 @@ const TextNew = ({
 
 	return (
 		<span
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={[fg('platform-linking-visual-refresh-v1') ? baseStyle : baseStyleOld, dynamicCss]}
+			css={[
+				!fg('platform-linking-visual-refresh-v1') && baseStyleOld,
+				fg('platform-linking-visual-refresh-v1') && baseStyle,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				dynamicCss,
+			]}
 			data-separator
 			data-smart-element={name}
 			data-smart-element-text

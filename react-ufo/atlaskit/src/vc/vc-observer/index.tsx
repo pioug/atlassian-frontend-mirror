@@ -372,6 +372,9 @@ export class VCObserver {
 				? {
 						[`${fullPrefix}vc:rev`]: multiHeatmap.getPayloadShapedData({
 							VCParts: VCObserver.VCParts.map((v) => parseInt(v)),
+							VCCalculationMethods: getRevisions().map(
+								({ classifier }) => classifier.VCCalculationMethod,
+							),
 							ssr,
 							clean: !abortReasonInfo,
 						}),

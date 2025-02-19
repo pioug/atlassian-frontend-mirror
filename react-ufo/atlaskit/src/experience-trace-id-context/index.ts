@@ -37,3 +37,8 @@ export const getActiveTraceHttpRequestHeaders = (_url: string) => {
 	const { traceId, spanId } = state.context;
 	return makeTraceHttpRequestHeaders(traceId, spanId);
 };
+
+export const getActiveTraceAsQueryParams = (_url: string) => {
+	const traceHeaders = getActiveTraceHttpRequestHeaders(_url);
+	return traceHeaders ? new URLSearchParams(traceHeaders).toString().toLowerCase() : null;
+};

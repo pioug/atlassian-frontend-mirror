@@ -316,13 +316,14 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'variant1']),
 		defaultValue: 'control' as 'control' | 'variant1',
 	},
-	// Added 2025-02-11
-	platform_editor_node_nesting_expansion_non_macros: {
+	// Added 2025-02-18
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_non_bodied_macros/setup
+	platform_editor_nested_non_bodied_macros: {
 		productKeys: {
-			confluence: 'platform_editor_node_nesting_expansion_non_macros',
+			confluence: 'platform_editor_nested_non_bodied_macros',
 		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

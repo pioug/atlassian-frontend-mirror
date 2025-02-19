@@ -1,4 +1,50 @@
 import SelectSingle from '../../examples/constellation/select-single';
+import SelectSingleLegacy from '../../examples/constellation/select-single-legacy';
+
+## Testing with `testId`
+
+As of version 18.10.4, Select now supports specifying a `testId` for testing. These should be used
+going forward as the preferred method over the previously recommended `className` or
+`classNamePrefix` as these may be deprecated in the future.
+
+Here are new values you can use as locators:
+
+| classeNamePrefix                        | testId                                   |
+| --------------------------------------- | ---------------------------------------- |
+| `[classNamePrefix]__control`            | `${testId}-select--control`              |
+| `[classNamePrefix]__input`              | `${testId}-select--input`                |
+| `[classNamePrefix]__placeholder`        | `${testId}-select--placeholder`          |
+| `[classNamePrefix]__value-container`    | `${testId}-select--value-container`      |
+| `[classNamePrefix]__indicators`         | `${testId}-select--indicators-container` |
+| `[classNamePrefix]__dropdown-indicator` | `${testId}-select--dropdown-indicator`   |
+| `[classNamePrefix]__clear-indicator`    | `${testId}-select--clear-indicator`      |
+| `[classNamePrefix]__menu`               | `${testId}-select--listbox-container`    |
+| `[classNamePrefix]__menu-list`          | `${testId}-select--listbox`              |
+| `[classNamePrefix]__option`             | `${testId}-select--option-${id}`         |
+
+Additionally, there are some new locators that have been added:
+
+- `${testId}-select--input-container`
+- `${testId}-select--loading-indicator`
+- `${testId}-select--group-${groupIndex}-heading`
+
+Lastly, instead of using `className` to produce a locator on the entire select container, you can
+now use `${testId}-select--container` instead.
+
+### Testing via `role`
+
+You can also use semantic roles as locators. The following semantic roles have been added to Select:
+
+- `role="combobox"` for the select input
+- `role="listbox"` for the select list
+- `role="option"` for select options (specify the option label as the `name` to locate a specific
+  option)
+
+You can see both `testId` and role's in action by inspecting the following example.
+
+<Example packageName="@atlaskit/select" Component={SelectSingle} />
+
+## Testing with versions < 18.10.4
 
 Being able to programmatically test the behavior of your components is important. Select enables
 this through two props `className` and `classNamePrefix`.
@@ -38,16 +84,16 @@ As such in our tests, we can now reliably assert the state of specific dom eleme
 
 Once you provide a `classNamePrefix`, these are the selectors that will be exposed to you:
 
-- [classNamePrefix]\_\_control
-- [classNamePrefix]\_\_input
-- [classNamePrefix]\_\_placeholder
-- [classNamePrefix]\_\_value-container
-- [classNamePrefix]\_\_indicators
-- [classNamePrefix]\_\_dropdown-indicator
-- [classNamePrefix]\_\_clear-indicator
-- [classNamePrefix]\_\_menu
-- [classNamePrefix]\_\_menu-list
-- [classNamePrefix]\_\_option
+- `[classNamePrefix]__control`
+- `[classNamePrefix]__input`
+- `[classNamePrefix]__placeholder`
+- `[classNamePrefix]__value-container`
+- `[classNamePrefix]__indicators`
+- `[classNamePrefix]__dropdown-indicator`
+- `[classNamePrefix]__clear-indicator`
+- `[classNamePrefix]__menu`
+- `[classNamePrefix]__menu-list`
+- `[classNamePrefix]__option`
 
 Providing a value for the `className` prop will reflect that value to the class name of the `select`
 container.

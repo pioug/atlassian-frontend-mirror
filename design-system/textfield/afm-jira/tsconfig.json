@@ -24,9 +24,6 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../primitives/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../theme/afm-jira/tsconfig.json"
 		},
 		{

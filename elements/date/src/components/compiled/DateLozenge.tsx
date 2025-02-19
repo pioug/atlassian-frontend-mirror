@@ -3,26 +3,6 @@
  * @jsx jsx
  */
 import React from 'react';
-import {
-	R50,
-	R500,
-	R75,
-	Y50,
-	Y500,
-	Y75,
-	B50,
-	B500,
-	B75,
-	G50,
-	G500,
-	G75,
-	P50,
-	P500,
-	P75,
-	N30A,
-	N800,
-	N40,
-} from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { css, cssMap, jsx } from '@compiled/react';
@@ -53,45 +33,45 @@ const onClickStyles = css({
 
 const colorStyles = cssMap({
 	red: {
-		backgroundColor: token('color.background.accent.red.subtlest', R50),
-		color: token('color.text.accent.red', R500),
+		backgroundColor: token('color.background.accent.red.subtlest'),
+		color: token('color.text.accent.red'),
 		'&:hover': {
-			backgroundColor: token('color.background.accent.red.subtler', R75),
+			backgroundColor: token('color.background.accent.red.subtler'),
 		},
 	},
 	yellow: {
-		backgroundColor: token('color.background.accent.yellow.subtlest', Y50),
-		color: token('color.text.accent.yellow', Y500),
+		backgroundColor: token('color.background.accent.yellow.subtlest'),
+		color: token('color.text.accent.yellow'),
 		'&:hover': {
-			backgroundColor: token('color.background.accent.yellow.subtler', Y75),
+			backgroundColor: token('color.background.accent.yellow.subtler'),
 		},
 	},
 	blue: {
-		backgroundColor: token('color.background.accent.blue.subtlest', B50),
-		color: token('color.text.accent.blue', B500),
+		backgroundColor: token('color.background.accent.blue.subtlest'),
+		color: token('color.text.accent.blue'),
 		'&:hover': {
-			backgroundColor: token('color.background.accent.blue.subtler', B75),
+			backgroundColor: token('color.background.accent.blue.subtler'),
 		},
 	},
 	green: {
-		backgroundColor: token('color.background.accent.green.subtlest', G50),
-		color: token('color.text.accent.green', G500),
+		backgroundColor: token('color.background.accent.green.subtlest'),
+		color: token('color.text.accent.green'),
 		'&:hover': {
-			backgroundColor: token('color.background.accent.green.subtler', G75),
+			backgroundColor: token('color.background.accent.green.subtler'),
 		},
 	},
 	purple: {
-		backgroundColor: token('color.background.accent.purple.subtlest', P50),
-		color: token('color.text.accent.purple', P500),
+		backgroundColor: token('color.background.accent.purple.subtlest'),
+		color: token('color.text.accent.purple'),
 		'&:hover': {
-			backgroundColor: token('color.background.accent.purple.subtler', P75),
+			backgroundColor: token('color.background.accent.purple.subtler'),
 		},
 	},
 	grey: {
-		backgroundColor: token('color.background.neutral', N30A),
-		color: token('color.text', N800),
+		backgroundColor: token('color.background.neutral'),
+		color: token('color.text'),
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered', N40),
+			backgroundColor: token('color.background.neutral.hovered'),
 		},
 	},
 });

@@ -55,12 +55,15 @@ const PreviewBlockResolvedViewNew = ({
 	className,
 	...blockProps
 }: PreviewBlockProps) => {
-	// const [styles, setStyles] = useState<SerializedStyles | undefined>(overrideCss);
 	const [dynamicStyles, setDynamicStyles] = useState<React.CSSProperties>(style ?? {});
 
 	const updateStyles = useCallback(() => {
 		if (placement === MediaPlacement.Left || placement === MediaPlacement.Right) {
-			const containerPadding = ignoreContainerPadding ? '0rem' : 'var(--container-padding)';
+			const containerPadding = ignoreContainerPadding
+				? fg('platform-linking-visual-refresh-v1')
+					? '0px'
+					: '0rem'
+				: 'var(--container-padding)';
 			const newStyle: React.CSSProperties = {
 				...style,
 				position: 'absolute',

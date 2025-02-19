@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-collab
 
+## 0.14.0
+
+### Minor Changes
+
+- [#115482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115482)
+  [`5c3199f49f3c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c3199f49f3c7) -
+  Added analytics tracking for rebased steps
+
 ## 0.13.0
 
 ### Minor Changes

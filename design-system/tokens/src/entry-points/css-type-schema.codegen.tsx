@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::f3f9f38afb55d3481fd9f9b7da62283f>>
+ * @codegen <<SignedSource::d93aac128a4dab42b47c7390eecfd656>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -502,6 +502,7 @@ export interface DesignTokenStyles {
 	outlineColor: BorderColor;
 	outlineOffset: Space;
 	outlineWidth: BorderWidth;
+	overflowWrap: 'normal' | 'break-word' | 'anywhere';
 	overlay: never;
 	padding: Space;
 	paddingBlock: Space;
@@ -516,6 +517,7 @@ export interface DesignTokenStyles {
 	paddingTop: Space;
 	right: Space;
 	rowGap: Space;
+	textDecorationLine: 'line-through' | 'underline';
 	top: Space;
 	userModify: never;
 	width: SizeIntrinsic;

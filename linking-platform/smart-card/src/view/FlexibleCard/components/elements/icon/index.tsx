@@ -23,6 +23,9 @@ import IconOld from './IconOld';
 import { type IconProps } from './types';
 
 const styles = cssMap({
+	container: {
+		minWidth: 'fit-content',
+	},
 	iconWrapperStyle: {
 		display: 'flex',
 		alignItems: 'center',
@@ -365,12 +368,13 @@ const IconNew = ({
 	return (
 		<div
 			css={[
+				fg('platform-linking-visual-refresh-v1') && styles.container,
 				!fg('platform-smart-card-icon-migration') && iconStylesMapOld[size],
 				!fg('platform-smart-card-icon-migration') && positionStyleMap[position],
 				render && !fg('platform-smart-card-icon-migration') && customRenderStyleMapOld[size],
 				render && fg('platform-smart-card-icon-migration') && customRenderStyleMapNew[size],
 			]}
-			data-fit-to-content
+			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
 			data-smart-element={name}
 			data-smart-element-icon
 			data-testid={testId}

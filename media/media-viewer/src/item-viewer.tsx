@@ -7,12 +7,13 @@ import {
 	isFileIdentifier,
 	type ExternalImageIdentifier,
 	type NonErrorFileState,
+	toCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { Text } from '@atlaskit/primitives';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
-import { useFileState, useMediaClient, MediaFileStateError } from '@atlaskit/media-client-react';
+import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import { Outcome } from './domain';
 import { Spinner } from './loading';
 import ErrorMessage from './errorMessage';
@@ -190,13 +191,11 @@ export const ItemViewerBase = ({
 
 				setItem(Outcome.successful(fileState));
 			} else {
-				const e = new MediaFileStateError(
-					fileState.id,
-					fileState.reason,
-					fileState.message,
-					fileState.details,
+				setItem(
+					Outcome.failed(
+						new MediaViewerError('itemviewer-fetch-metadata', toCommonMediaClientError(fileState)),
+					),
 				);
-				setItem(Outcome.failed(new MediaViewerError('itemviewer-fetch-metadata', e)));
 			}
 		}
 	}, [fileState, identifier]);
@@ -393,7 +392,13 @@ export const ItemViewerBase = ({
 							fileItem,
 						);
 					case 'error':
-						return renderError(new MediaViewerError('itemviewer-file-error-status'), fileItem);
+						return renderError(
+							new MediaViewerError(
+								'itemviewer-file-error-status',
+								toCommonMediaClientError(fileItem),
+							),
+							fileItem,
+						);
 				}
 			}
 		},

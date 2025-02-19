@@ -23,6 +23,7 @@ describe('EditorPerformanceObserver', () => {
 			onceAllSubscribersCleaned: jest.fn().mockImplementation((cb) => {
 				mockCleanupCallback = cb;
 			}),
+			cleanupSubscribers: jest.fn(),
 		};
 
 		observer = new EditorPerformanceObserver(mockTimeline);
@@ -141,6 +142,8 @@ describe('EditorPerformanceObserver', () => {
 		});
 
 		it('should disconnect observers on stop', () => {
+			observer.start({ startTime: 1000 }); // make sure the observer is running
+
 			const mockDisconnect = jest.fn();
 			(observer as any).domObservers = { disconnect: mockDisconnect };
 			(observer as any).firstInteraction = { disconnect: mockDisconnect };
@@ -149,6 +152,151 @@ describe('EditorPerformanceObserver', () => {
 			observer.stop();
 
 			expect(mockDisconnect).toHaveBeenCalledTimes(3);
+		});
+	});
+
+	describe('EditorPerformanceObserver start/stop functionality', () => {
+		let observer: EditorPerformanceObserver;
+		let mockDomObservers: { observe: jest.Mock; disconnect: jest.Mock };
+		let mockFirstInteraction: { disconnect: jest.Mock };
+		let mockUserEventsObserver: { disconnect: jest.Mock };
+
+		beforeEach(() => {
+			mockDomObservers = {
+				observe: jest.fn(),
+				disconnect: jest.fn(),
+			};
+			mockFirstInteraction = {
+				disconnect: jest.fn(),
+			};
+			mockUserEventsObserver = {
+				disconnect: jest.fn(),
+			};
+
+			observer = new EditorPerformanceObserver(mockTimeline);
+			(observer as any).domObservers = mockDomObservers;
+			(observer as any).firstInteraction = mockFirstInteraction;
+			(observer as any).userEventsObserver = mockUserEventsObserver;
+		});
+
+		describe('start', () => {
+			it('should initialize observer with correct start time', () => {
+				const startTime = 1000;
+				observer.start({ startTime });
+
+				expect(observer.startTime).toBe(startTime);
+				expect(mockDomObservers.observe).toHaveBeenCalledWith(document.body);
+			});
+
+			it('should silently return when starting an already started observer', () => {
+				observer.start({ startTime: 1000 });
+				mockDomObservers.observe.mockClear();
+
+				observer.start({ startTime: 2000 });
+
+				expect(observer.startTime).toBe(1000); // Should keep original start time
+				expect(mockDomObservers.observe).not.toHaveBeenCalled();
+			});
+
+			it('should create WeakRef to target element only on first start', () => {
+				observer.start({ startTime: 1000 });
+				const firstRef = (observer as any).observedTargetRef;
+
+				observer.start({ startTime: 2000 });
+				const secondRef = (observer as any).observedTargetRef;
+
+				expect(firstRef).toBe(secondRef);
+				expect(firstRef.deref()).toBe(document.body);
+			});
+		});
+
+		describe('stop', () => {
+			beforeEach(() => {
+				observer.start({ startTime: 1000 });
+			});
+
+			it('should properly cleanup all observers', () => {
+				observer.stop();
+
+				expect(mockDomObservers.disconnect).toHaveBeenCalled();
+				expect(mockFirstInteraction.disconnect).toHaveBeenCalled();
+				expect(mockUserEventsObserver.disconnect).toHaveBeenCalled();
+			});
+
+			it('should silently return when stopping a non-started observer', () => {
+				observer.stop(); // First stop
+
+				// Clear mocks to verify second stop doesn't trigger anything
+				mockDomObservers.disconnect.mockClear();
+				mockFirstInteraction.disconnect.mockClear();
+				mockUserEventsObserver.disconnect.mockClear();
+
+				observer.stop(); // Second stop
+
+				expect(mockDomObservers.disconnect).not.toHaveBeenCalled();
+				expect(mockFirstInteraction.disconnect).not.toHaveBeenCalled();
+				expect(mockUserEventsObserver.disconnect).not.toHaveBeenCalled();
+			});
+
+			it('should allow starting again after stop', () => {
+				observer.stop();
+
+				observer.start({ startTime: 2000 });
+
+				expect(observer.startTime).toBe(2000);
+				expect(mockDomObservers.observe).toHaveBeenCalledWith(document.body);
+			});
+
+			it('should cleanup wrappers when stopping', () => {
+				const mockTimersCleanup = jest.fn();
+				const mockFetchCleanup = jest.fn();
+
+				(wrapperTimers as jest.Mock).mockReturnValue(mockTimersCleanup);
+				(wrapperFetch as jest.Mock).mockReturnValue(mockFetchCleanup);
+
+				// Apply wrappers by subscribing
+				observer.onIdleBuffer(() => {});
+
+				observer.stop();
+
+				expect(mockTimersCleanup).toHaveBeenCalled();
+				expect(mockFetchCleanup).toHaveBeenCalled();
+			});
+
+			it('should cleanup timeline subscribers when stopping', () => {
+				const mockCleanupSubscribers = jest.fn();
+				mockTimeline.cleanupSubscribers = mockCleanupSubscribers;
+
+				observer.stop();
+
+				expect(mockCleanupSubscribers).toHaveBeenCalled();
+			});
+
+			it('should reset isStarted flag when stopping', () => {
+				observer.stop();
+
+				expect((observer as any).isStarted).toBe(false);
+			});
+
+			it('should allow restarting after stop', () => {
+				observer.stop();
+				observer.start({ startTime: 2000 });
+
+				expect((observer as any).isStarted).toBe(true);
+				expect(observer.startTime).toBe(2000);
+			});
+
+			it('should not perform cleanup operations if already stopped', () => {
+				const mockCleanupSubscribers = jest.fn();
+				mockTimeline.cleanupSubscribers = mockCleanupSubscribers;
+
+				observer.stop(); // First stop
+				mockCleanupSubscribers.mockClear();
+
+				observer.stop(); // Second stop
+
+				expect(mockCleanupSubscribers).not.toHaveBeenCalled();
+			});
 		});
 	});
 });

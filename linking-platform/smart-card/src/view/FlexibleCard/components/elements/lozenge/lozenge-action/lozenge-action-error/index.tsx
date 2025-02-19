@@ -25,13 +25,12 @@ const MAX_LINE_NUMBER = 8;
 
 const contentStyles = css({
 	display: 'flex',
-	gap: token('space.100', '0.5rem'),
-	// lineHeight: '1rem',
+	gap: token('space.100'),
 	font: token('font.body.large'),
 	minWidth: 0,
 	overflow: 'hidden',
 	flexDirection: 'row',
-	marginTop: token('space.025', '2px'),
+	marginTop: token('space.025'),
 	alignItems: 'flex-start',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span, > div': {
@@ -42,17 +41,16 @@ const contentStyles = css({
 
 const linkStyles = css({
 	display: 'flex',
-	gap: token('space.100', '0.5rem'),
-	// lineHeight: '1rem',
+	gap: token('space.100'),
 	minWidth: 0,
 	overflow: 'hidden',
 	flexDirection: 'row',
 	alignItems: 'center',
 	cursor: 'pointer',
 	font: token('font.body'),
-	marginTop: token('space.100', '8px'),
-	marginLeft: token('space.400', '32px'),
-	marginBottom: token('space.025', '2px'),
+	marginTop: token('space.100'),
+	marginLeft: token('space.400'),
+	marginBottom: token('space.025'),
 });
 
 const textStylesBase = css({

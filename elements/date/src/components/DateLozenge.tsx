@@ -4,26 +4,6 @@
  */
 
 import React from 'react';
-import {
-	R50,
-	R500,
-	R75,
-	Y50,
-	Y500,
-	Y75,
-	B50,
-	B500,
-	B75,
-	G50,
-	G500,
-	G75,
-	P50,
-	P500,
-	P75,
-	N30A,
-	N800,
-	N40,
-} from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -41,45 +21,45 @@ export const resolveColors = (color?: Color): ColoursTuple => {
 	switch (color) {
 		case 'red': {
 			return [
-				token('color.background.accent.red.subtlest', R50),
-				token('color.text.accent.red', R500),
-				token('color.background.accent.red.subtler', R75),
+				token('color.background.accent.red.subtlest'),
+				token('color.text.accent.red'),
+				token('color.background.accent.red.subtler'),
 			];
 		}
 		case 'yellow': {
 			return [
-				token('color.background.accent.yellow.subtlest', Y50),
-				token('color.text.accent.yellow', Y500),
-				token('color.background.accent.yellow.subtler', Y75),
+				token('color.background.accent.yellow.subtlest'),
+				token('color.text.accent.yellow'),
+				token('color.background.accent.yellow.subtler'),
 			];
 		}
 		case 'blue': {
 			return [
-				token('color.background.accent.blue.subtlest', B50),
-				token('color.text.accent.blue', B500),
-				token('color.background.accent.blue.subtler', B75),
+				token('color.background.accent.blue.subtlest'),
+				token('color.text.accent.blue'),
+				token('color.background.accent.blue.subtler'),
 			];
 		}
 		case 'green': {
 			return [
-				token('color.background.accent.green.subtlest', G50),
-				token('color.text.accent.green', G500),
-				token('color.background.accent.green.subtler', G75),
+				token('color.background.accent.green.subtlest'),
+				token('color.text.accent.green'),
+				token('color.background.accent.green.subtler'),
 			];
 		}
 		case 'purple': {
 			return [
-				token('color.background.accent.purple.subtlest', P50),
-				token('color.text.accent.purple', P500),
-				token('color.background.accent.purple.subtler', P75),
+				token('color.background.accent.purple.subtlest'),
+				token('color.text.accent.purple'),
+				token('color.background.accent.purple.subtler'),
 			];
 		}
 		case 'grey':
 		default:
 			return [
-				token('color.background.neutral', N30A),
-				token('color.text', N800),
-				token('color.background.neutral.hovered', N40),
+				token('color.background.neutral'),
+				token('color.text'),
+				token('color.background.neutral.hovered'),
 			];
 	}
 };

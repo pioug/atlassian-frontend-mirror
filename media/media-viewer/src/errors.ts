@@ -1,12 +1,8 @@
 import {
 	type MediaClientErrorReason,
-	getMediaClientErrorReason,
-	isMediaClientError,
 	type RequestMetadata,
-	isRequestError,
-	isMediaStoreError,
+	isCommonMediaClientError,
 } from '@atlaskit/media-client';
-import { isMediaFileStateError, getFileStateErrorReason } from '@atlaskit/media-client-react';
 import { type ZipEntry } from 'unzipit';
 
 export class MediaViewerError extends Error {
@@ -103,38 +99,28 @@ export function getPrimaryErrorReason(error: MediaViewerError): PrimaryErrorReas
 
 export function getSecondaryErrorReason(error: MediaViewerError): SecondaryErrorReason {
 	const { secondaryError } = error;
-	if (secondaryError) {
-		if (isMediaClientError(secondaryError)) {
-			return getMediaClientErrorReason(secondaryError);
-		} else if (isMediaFileStateError(secondaryError)) {
-			return getFileStateErrorReason(secondaryError);
-		}
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.reason;
+	} else if (secondaryError) {
 		return 'nativeError';
+	} else {
+		return 'unknown';
 	}
 }
 
-export function getErrorDetail(error?: Error): string | undefined {
-	// when the secondaryReason is "nativeError" we extract the error message for debugging
-	if (error && isMediaViewerError(error)) {
-		if (getSecondaryErrorReason(error) === 'nativeError') {
-			// pls don't send stack traces, they can get polluted and blow out payload sizes
-			return error.secondaryError && error.secondaryError.message;
-		}
-
-		const { secondaryError } = error;
-		if (secondaryError && (isRequestError(secondaryError) || isMediaStoreError(secondaryError))) {
-			return secondaryError.innerError?.message;
-		}
+export function getErrorDetail(error?: MediaViewerError): string {
+	const { secondaryError } = error || {};
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.innerError?.message || 'unknown';
+	} else if (secondaryError) {
+		return secondaryError.message;
 	}
+	return 'unknown';
 }
 
-export function getRequestMetadata(error?: Error): RequestMetadata | undefined {
-	if (
-		error &&
-		isMediaViewerError(error) &&
-		error.secondaryError &&
-		isRequestError(error.secondaryError)
-	) {
-		return error.secondaryError.metadata;
+export function getRequestMetadata(error?: MediaViewerError): RequestMetadata | undefined {
+	const { secondaryError } = error || {};
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.metadata;
 	}
 }

@@ -1261,3 +1261,79 @@ describe('TimelineController - Hold Race Condition', () => {
 		expect(idleEvents).toHaveLength(1);
 	});
 });
+
+describe('TimelineController - cleanupSubscribers', () => {
+	let timeline: TimelineController;
+	let mockCallback: jest.Mock;
+
+	beforeEach(() => {
+		timeline = new TimelineController();
+		mockCallback = jest.fn();
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	it('should clear all idle buffer flush callbacks', () => {
+		const callback1 = jest.fn();
+		const callback2 = jest.fn();
+
+		timeline.onIdleBufferFlush(callback1);
+		timeline.onIdleBufferFlush(callback2);
+
+		timeline.cleanupSubscribers();
+
+		expect(timeline.onIdleBufferFlushCallbacks.size).toBe(0);
+	});
+
+	it('should clear all next idle callbacks', () => {
+		const callback1 = jest.fn();
+		const callback2 = jest.fn();
+
+		timeline.onNextIdle(callback1);
+		timeline.onNextIdle(callback2);
+
+		timeline.cleanupSubscribers();
+
+		expect(timeline.onNextIdleCallbacks.size).toBe(0);
+	});
+
+	it('should trigger onceAllSubscribersCleaned callback', () => {
+		timeline.onceAllSubscribersCleaned(mockCallback);
+		timeline.onIdleBufferFlush(() => {});
+		timeline.onNextIdle(() => {});
+
+		timeline.cleanupSubscribers();
+
+		expect(mockCallback).toHaveBeenCalledTimes(1);
+	});
+
+	it('should flush idle buffer before cleaning up subscribers', () => {
+		const flushCallback = jest.fn();
+		timeline.onIdleBufferFlush(flushCallback);
+
+		// Add an event to the idle buffer
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		timeline.cleanupSubscribers();
+
+		expect(timeline.idleBuffer.unorderedEvents).toHaveLength(0);
+
+		expect(flushCallback).toHaveBeenCalledTimes(0); // Make sure the idle callbacks are called later
+
+		jest.runAllTimers();
+		expect(flushCallback).toHaveBeenCalledTimes(1);
+	});
+});

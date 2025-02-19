@@ -78,7 +78,6 @@ const baseStyleBySize = cssMap({
 		gap: token('space.250'),
 		minWidth: 0,
 		overflow: 'hidden',
-		lineHeight: '16px',
 	},
 	large: {
 		alignItems: 'center',
@@ -86,7 +85,6 @@ const baseStyleBySize = cssMap({
 		gap: token('space.200'),
 		minWidth: 0,
 		overflow: 'hidden',
-		lineHeight: '16px',
 	},
 	medium: {
 		alignItems: 'center',
@@ -94,7 +92,6 @@ const baseStyleBySize = cssMap({
 		gap: token('space.100'),
 		minWidth: 0,
 		overflow: 'hidden',
-		lineHeight: '16px',
 	},
 	small: {
 		alignItems: 'center',
@@ -102,7 +99,6 @@ const baseStyleBySize = cssMap({
 		gap: token('space.050'),
 		minWidth: 0,
 		overflow: 'hidden',
-		lineHeight: '16px',
 	},
 });
 
@@ -117,7 +113,7 @@ const baseStyleByDirection = cssMap({
 	},
 });
 
-const baseStyle = css({
+const baseStyleOld = css({
 	'&:empty': {
 		display: 'none',
 	},
@@ -128,6 +124,12 @@ const baseStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-fit-to-content]': {
 		minWidth: 'fit-content',
+	},
+});
+
+const baseStyles = css({
+	'&:empty': {
+		display: 'none',
 	},
 });
 
@@ -165,7 +167,8 @@ const horizontalStyleBase = css({
 	WebkitBoxOrient: 'vertical',
 });
 
-const horizontalStyleByHeight = cssMap({
+// TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
+const horizontalStyleByHeightOld = cssMap({
 	xlarge: {
 		display: '-webkit-box',
 		'@supports not (-webkit-line-clamp: 1)': {
@@ -192,11 +195,38 @@ const horizontalStyleByHeight = cssMap({
 	},
 });
 
+const horizontalStyleByHeight = cssMap({
+	xlarge: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * ${token('space.400')})`,
+		},
+	},
+	large: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 *  ${token('space.400')})`,
+		},
+	},
+	medium: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * ${token('space.300')})`,
+		},
+	},
+	small: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * ${token('space.300')})`,
+		},
+	},
+});
+
 const gapStylesLeft = cssMap({
 	xlarge: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
-			marginRight: token('space.250', '1.25rem'),
+			marginRight: token('space.250'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:last-child': {
 				marginRight: 'initial',
@@ -207,7 +237,7 @@ const gapStylesLeft = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			marginRight: token('space.200', '1rem'),
+			marginRight: token('space.200'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:last-child': {
 				marginRight: 'initial',
@@ -218,7 +248,7 @@ const gapStylesLeft = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			marginRight: token('space.100', '0.5rem'),
+			marginRight: token('space.100'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:last-child': {
 				marginRight: 'initial',
@@ -229,7 +259,7 @@ const gapStylesLeft = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			marginRight: token('space.050', '0.25rem'),
+			marginRight: token('space.050'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:last-child': {
 				marginRight: 'initial',
@@ -242,7 +272,7 @@ const gapStylesRight = cssMap({
 	xlarge: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
-			marginLeft: token('space.250', '1.25rem'),
+			marginLeft: token('space.250'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> span:first-of-type': {
@@ -253,7 +283,7 @@ const gapStylesRight = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			marginLeft: token('space.200', '1rem'),
+			marginLeft: token('space.200'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> span:first-of-type': {
@@ -263,7 +293,7 @@ const gapStylesRight = cssMap({
 	medium: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
-			marginLeft: token('space.100', '0.5rem'),
+			marginLeft: token('space.100'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> span:first-of-type': {
@@ -273,7 +303,7 @@ const gapStylesRight = cssMap({
 	small: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
-			marginLeft: token('space.050', '0.25rem'),
+			marginLeft: token('space.050'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> span:first-of-type': {
@@ -305,14 +335,19 @@ const ElementGroupNew = ({
 	return (
 		<div
 			css={[
-				fg('platform-linking-visual-refresh-v1') ? baseStyleBySize[size] : baseStyleBySizeOld[size],
+				!fg('platform-linking-visual-refresh-v1') && baseStyleBySizeOld[size],
+				fg('platform-linking-visual-refresh-v1') && baseStyleBySize[size],
 				baseStyleByDirection[direction],
-				baseStyle,
+				!fg('platform-linking-visual-refresh-v1') && baseStyleOld,
+				fg('platform-linking-visual-refresh-v1') && baseStyles,
 				alignmentStyleMap[align],
 				minWidthStyle,
 				widthStyle[width],
 				isHorizontal && horizontalStyleBase,
-				isHorizontal && horizontalStyleByHeight[size],
+				isHorizontal &&
+					!fg('platform-linking-visual-refresh-v1') &&
+					horizontalStyleByHeightOld[size],
+				isHorizontal && fg('platform-linking-visual-refresh-v1') && horizontalStyleByHeight[size],
 				isHorizontal && align === SmartLinkAlignment.Left && gapStylesLeft[size],
 				isHorizontal && align === SmartLinkAlignment.Right && gapStylesRight[size],
 				positionStyle[position],

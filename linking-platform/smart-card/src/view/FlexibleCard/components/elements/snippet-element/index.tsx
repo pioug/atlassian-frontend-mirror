@@ -28,6 +28,7 @@ const snippetBaseStyleOld = css({
 
 const snippetBaseStyle = css({
 	color: token('color.text'),
+	minWidth: 0,
 	WebkitUserSelect: 'text',
 	MozUserSelect: 'text',
 	MsUserSelect: 'text',
@@ -46,7 +47,10 @@ const SnippetElementNew = ({
 		<Text
 			content={overrideContent ?? context?.snippet}
 			maxLines={maxLines}
-			css={[fg('platform-linking-visual-refresh-v1') ? snippetBaseStyle : snippetBaseStyleOld]}
+			css={[
+				!fg('platform-linking-visual-refresh-v1') && snippetBaseStyleOld,
+				fg('platform-linking-visual-refresh-v1') && snippetBaseStyle,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 			{...props}

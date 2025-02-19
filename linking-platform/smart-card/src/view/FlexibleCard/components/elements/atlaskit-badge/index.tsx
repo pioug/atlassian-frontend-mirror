@@ -10,9 +10,15 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import AtlaskitBadgeOld from './AtlaskitBadgeOld';
 import { type AtlaskitBadgeProps } from './types';
 
+const badgeStylesOld = css({
+	alignItems: 'center',
+	display: 'inline-flex',
+});
+
 const badgeStyles = css({
 	alignItems: 'center',
 	display: 'inline-flex',
+	minWidth: 'fit-content',
 });
 
 /**
@@ -33,8 +39,11 @@ const AtlaskitBadgeNew = ({
 
 	return (
 		<span
-			css={[badgeStyles]}
-			data-fit-to-content
+			css={[
+				!fg('platform-linking-visual-refresh-v1') && badgeStylesOld,
+				fg('platform-linking-visual-refresh-v1') && badgeStyles,
+			]}
+			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
 			data-smart-element={name}
 			data-smart-element-atlaskit-badge
 			data-testid={testId}

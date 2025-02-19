@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 203.17.3
+
+### Patch Changes
+
+- [#115142](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115142)
+  [`3b18bda297166`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b18bda297166) -
+  [ED-26550] Don't render popups at custom mount points when in a toolbar portal
+
 ## 203.17.2
 
 ### Patch Changes

@@ -1,11 +1,5 @@
-import {
-	isPollingError as isMediaClientPollingError,
-	isRateLimitedError as isMediaClientRateLimitedError,
-	type PollingErrorReason,
-} from '@atlaskit/media-client';
 import { type CardPreview } from './types';
 
-import { isMediaFileStateError } from '@atlaskit/media-client-react';
 /**
  * Primary reason is logged through Data Portal.
  * Make sure all the values are whitelisted in Measure -> Event Regitry -> "mediaCardRender failed" event
@@ -56,34 +50,6 @@ export type SvgPrimaryReason =
 	| 'svg-binary-fetch'
 	| 'svg-blob-to-datauri'
 	| 'svg-unknown-error';
-
-const POLLING_REASON: PollingErrorReason = 'pollingMaxAttemptsExceeded';
-
-export function isPollingError(err?: Error) {
-	if (!err) {
-		return false;
-	}
-
-	return (
-		isMediaClientPollingError(err) || (isMediaFileStateError(err) && err.reason === POLLING_REASON)
-	);
-}
-
-export function isRateLimitedError(error?: Error) {
-	if (!error) {
-		return false;
-	}
-
-	if (isMediaClientRateLimitedError(error)) {
-		return true;
-	}
-
-	if (isMediaFileStateError(error)) {
-		return error.details?.statusCode === 429 || error.message?.includes('429');
-	}
-
-	return false;
-}
 
 export class MediaCardError extends Error {
 	constructor(

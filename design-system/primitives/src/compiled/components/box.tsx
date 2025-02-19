@@ -813,7 +813,6 @@ export const Box = forwardRef(
 				style={style}
 				// @ts-ignore -- Expression produces a union type that is too complex to represent. We may be able to narrow the type here but unsure.
 				ref={ref}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- TODO: Support `xcss` in className pass-through
 				className={xcss}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...safeHtmlAttributes}

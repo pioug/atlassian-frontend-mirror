@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 12.26.5
+
+### Patch Changes
+
+- [#115543](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115543)
+  [`9d96558cbd534`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d96558cbd534) -
+  Updated types for DropdownMenu trigger props
+
 ## 12.26.4
 
 ### Patch Changes

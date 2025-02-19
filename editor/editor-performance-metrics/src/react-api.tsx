@@ -153,8 +153,24 @@ export const PerformanceMetrics = memo(
 				return null;
 			}
 
-			return getGlobalEditorMetricsObserver();
+			const observer = getGlobalEditorMetricsObserver();
+
+			if (observer) {
+				observer.start({ startTime: performance.now() });
+			}
+
+			return observer;
 		}, []);
+
+		useEffect(() => {
+			return () => {
+				if (!observer) {
+					return;
+				}
+
+				observer.stop();
+			};
+		}, [observer]);
 
 		useTTVC({
 			observer,

@@ -206,7 +206,6 @@ const Grid = memo(
 				<Component
 					id={id}
 					role={role}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- TODO: Allow pass-through from `props.xcss`
 					className={xcss}
 					css={[
 						baseStyles.root,

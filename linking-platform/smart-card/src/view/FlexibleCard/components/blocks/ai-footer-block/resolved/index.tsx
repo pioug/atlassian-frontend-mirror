@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { InternalActionName } from '../../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { Provider } from '../../../elements';
@@ -17,7 +19,10 @@ const AIFooterBlockResolvedView = (props: AIFooterBlockProps) => {
 
 	return (
 		<Block {...props} testId={`${testId}-resolved-view`}>
-			<Provider testId={`${testId}-provider`} />
+			<Provider
+				{...(fg('platform-linking-visual-refresh-v1') ? { appearance: 'subtle' } : {})}
+				testId={`${testId}-provider`}
+			/>
 
 			{actionData ? <AIFooterMetadata {...actionData} testId={`${testId}-ai-metadata`} /> : null}
 		</Block>

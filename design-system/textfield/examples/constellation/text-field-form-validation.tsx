@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, FormFooter, ValidMessage } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 
 export default function FormValidationExample() {

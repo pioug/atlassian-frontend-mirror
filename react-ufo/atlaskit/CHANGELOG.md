@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.16.0
+
+### Minor Changes
+
+- [#109616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109616)
+  [`5feb3a695a6d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5feb3a695a6d9) -
+  Add Assets API to rUFO
+
 ## 2.15.0
 
 ### Minor Changes

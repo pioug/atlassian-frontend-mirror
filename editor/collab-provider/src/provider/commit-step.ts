@@ -32,6 +32,7 @@ export const commitStepQueue = ({
 	__livePage,
 	hasRecovered,
 	collabMode,
+	forcePublish,
 }: {
 	broadcast: <K extends keyof ChannelEvent>(
 		type: K,
@@ -49,6 +50,7 @@ export const commitStepQueue = ({
 	__livePage: boolean;
 	hasRecovered: boolean;
 	collabMode: string;
+	forcePublish?: boolean;
 }) => {
 	if (!readyToCommit) {
 		logger('Not ready to commit, skip');
@@ -107,6 +109,7 @@ export const commitStepQueue = ({
 				steps: stepsWithClientAndUserId,
 				version,
 				userId,
+				forcePublish,
 			},
 			(response: AddStepAcknowledgementPayload) => {
 				const latency = new Date().getTime() - start;

@@ -122,7 +122,6 @@ h2 {
 		'Helvetica Neue',
 		sans-serif
 	);
-	letter-spacing: -0.01em;
 	color: var(--ds-text);
 	margin-top: var(--ds-space-500);
 }
@@ -357,14 +356,12 @@ th:last-child {
 caption {
 	font: var(
 		--ds-font-heading-medium,
-		500 1.4285714285714286em/1.2 -apple-system,
+		500 1.4285714285714286em/1.2 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
+		system-ui,
 		'Helvetica Neue',
 		sans-serif
 	);

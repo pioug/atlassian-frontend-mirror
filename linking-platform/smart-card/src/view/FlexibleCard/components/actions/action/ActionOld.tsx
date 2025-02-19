@@ -48,7 +48,7 @@ const ActionOld = ({
 	const isStackItem = as === 'stack-item';
 	const isDropdownItem = as === 'dropdown-item' || asDropDownItem;
 
-	const actionIcon = icon && (
+	const actionIcon = icon ? (
 		<ActionIcon
 			asStackItemIcon={isStackItem}
 			isDisabled={isDisabled}
@@ -56,7 +56,7 @@ const ActionOld = ({
 			size={size}
 			testId={testId}
 		/>
-	);
+	) : undefined;
 	const iconBefore = icon && iconPosition === 'before' ? actionIcon : undefined;
 	const iconAfter = icon && iconPosition === 'after' ? actionIcon : undefined;
 

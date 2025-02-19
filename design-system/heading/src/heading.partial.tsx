@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode } from 'react';
+import { forwardRef, type ReactNode, type Ref } from 'react';
 
 import { cssMap as unboundedCssMap } from '@compiled/react';
 
@@ -126,7 +126,9 @@ const useColor = (colorProp?: HeadingColor): HeadingColor => {
  * <Heading size="xxlarge">Page title</Heading>
  * ```
  */
-const Heading = ({ children, size, id, testId, as, color: colorProp }: HeadingProps) => {
+const Heading = forwardRef((props: HeadingProps, ref: Ref<HTMLHeadingElement>) => {
+	const { children, size, id, testId, as, color: colorProp } = props;
+
 	if (
 		typeof process !== 'undefined' &&
 		process.env.NODE_ENV !== 'production' &&
@@ -136,9 +138,7 @@ const Heading = ({ children, size, id, testId, as, color: colorProp }: HeadingPr
 		throw new Error('`as` prop should be a string.');
 	}
 
-	// Technically size can be undefined here due to how the types work.
-	// Once removing the level prop this assertion can be removed since size will be a required prop.
-	const [hLevel, inferredElement] = useHeading(sizeTagMap[size!]);
+	const [hLevel, inferredElement] = useHeading(sizeTagMap[size]);
 	const Component = as || inferredElement;
 	const needsAriaRole = Component === 'div' && hLevel;
 	const color = useColor(colorProp);
@@ -146,6 +146,7 @@ const Heading = ({ children, size, id, testId, as, color: colorProp }: HeadingPr
 	return (
 		<Component
 			id={id}
+			ref={ref}
 			data-testid={testId}
 			role={needsAriaRole ? 'heading' : undefined}
 			aria-level={needsAriaRole ? hLevel : undefined}
@@ -154,6 +155,6 @@ const Heading = ({ children, size, id, testId, as, color: colorProp }: HeadingPr
 			{children}
 		</Component>
 	);
-};
+});
 
 export default Heading;

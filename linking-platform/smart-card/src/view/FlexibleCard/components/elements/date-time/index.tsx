@@ -33,13 +33,14 @@ const styles = css({
 	color: token('color.text.subtle'),
 	font: token('font.body.small'),
 	display: '-webkit-box',
+	minWidth: 0,
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	wordBreak: 'break-word',
 	WebkitLineClamp: 1,
 	WebkitBoxOrient: 'vertical',
 	'@supports not (-webkit-line-clamp: 1)': {
-		maxHeight: 'calc(1 * 1rem)',
+		maxHeight: 'calc(1 * 16px)',
 	},
 });
 
@@ -100,7 +101,10 @@ const DateTimeNew = ({
 
 	return (
 		<span
-			css={[fg('platform-linking-visual-refresh-v1') ? styles : stylesOld]}
+			css={[
+				!fg('platform-linking-visual-refresh-v1') && stylesOld,
+				fg('platform-linking-visual-refresh-v1') && styles,
+			]}
 			data-separator
 			data-smart-element={name}
 			data-smart-element-date-time

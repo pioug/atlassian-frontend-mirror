@@ -42,7 +42,7 @@
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"

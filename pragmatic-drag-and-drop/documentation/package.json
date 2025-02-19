@@ -50,7 +50,7 @@
 		"@atlaskit/code": "^15.7.0",
 		"@atlaskit/focus-ring": "^2.1.0",
 		"@atlaskit/grid": "^0.16.0",
-		"@atlaskit/heading": "^4.1.0",
+		"@atlaskit/heading": "^4.2.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.5.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",

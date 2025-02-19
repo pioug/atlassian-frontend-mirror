@@ -41,7 +41,7 @@
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1",
+		"@compiled/react": "^0.18.2",
 		"json-ld-types": "^4.1.0",
 		"linkify-it": "^3.0.3",
 		"redux": "^3.7.2"

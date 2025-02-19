@@ -18,6 +18,8 @@ describe('PerformanceMetrics Component', () => {
 	let mockObserver: {
 		onIdleBuffer: jest.Mock;
 		onceNextIdle: jest.Mock;
+		start: jest.Mock;
+		stop: jest.Mock;
 	};
 	let unsubscribe: jest.Mock;
 
@@ -27,6 +29,8 @@ describe('PerformanceMetrics Component', () => {
 		mockObserver = {
 			onIdleBuffer: jest.fn(),
 			onceNextIdle: jest.fn(),
+			start: jest.fn(),
+			stop: jest.fn(),
 		};
 		(createCalculator as jest.Mock).mockReturnValue({
 			calculateLatencyPercents: jest.fn().mockResolvedValue({}),
@@ -186,5 +190,23 @@ describe('PerformanceMetrics Component', () => {
 		expect(onTTVC).not.toHaveBeenCalled();
 		expect(onUserLatency).not.toHaveBeenCalled();
 		expect(onTTAI).not.toHaveBeenCalled();
+	});
+
+	describe('when mounting the component', () => {
+		it('should start the observer', () => {
+			render(<PerformanceMetrics />);
+
+			expect(mockObserver.start).toHaveBeenCalled();
+		});
+	});
+
+	describe('when unmounting the component', () => {
+		it('should stop the observer', () => {
+			const { unmount } = render(<PerformanceMetrics />);
+
+			unmount();
+
+			expect(mockObserver.stop).toHaveBeenCalled();
+		});
 	});
 });

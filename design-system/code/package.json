@@ -54,7 +54,7 @@
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.1.0",
-		"@compiled/react": "^0.18.1",
+		"@compiled/react": "^0.18.2",
 		"@testing-library/react": "^13.4.0",
 		"@types/jscodeshift": "^0.11.0",
 		"@types/refractor": "^3.0.2",

@@ -66,13 +66,12 @@ export default () => {
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={{
 						MoreIndicator: {
-							render: (Component, props) => (
+							render: (Component, { buttonProps, borderColor, isActive, ...props }) => (
 								<Pressable
 									type="submit"
-									{...props.buttonProps}
+									{...buttonProps}
 									{...props}
-									onClick={props.onClick}
-									xcss={cx(styles.indicator, props.isActive && styles.indicatorActive)}
+									xcss={cx(styles.indicator, isActive && styles.indicatorActive)}
 									testId={props.testId && `${props.testId}-0`}
 								>
 									{data.length - 4}
@@ -92,13 +91,12 @@ export default () => {
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={{
 						MoreIndicator: {
-							render: (Component, props) => (
+							render: (Component, { buttonProps, borderColor, isActive, ...props }) => (
 								<Pressable
 									type="submit"
-									{...props.buttonProps}
+									{...buttonProps}
 									{...props}
-									onClick={props.onClick}
-									xcss={cx(styles.indicator, props.isActive && styles.indicatorActive)}
+									xcss={cx(styles.indicator, isActive && styles.indicatorActive)}
 									testId={props.testId && `${props.testId}-1`}
 								>
 									9,999,999

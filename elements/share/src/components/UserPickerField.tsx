@@ -4,6 +4,7 @@ import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 import SmartUserPicker, {
 	type EmailValidationResponse,
@@ -209,11 +210,15 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 			return helperMessage;
 		}
 
-		return product === 'jira' ? (
-			<FormattedMessage {...messages.infoMessageDefaultJira} />
-		) : (
-			<FormattedMessage {...messages.infoMessageDefaultConfluence} />
-		);
+		if (product === 'jira') {
+			return fg('jira-issue-terminology-refresh-m3') ? (
+				<FormattedMessage {...messages.infoMessageDefaultJiraIssueTermRefresh} />
+			) : (
+				<FormattedMessage {...messages.infoMessageDefaultJira} />
+			);
+		}
+
+		return <FormattedMessage {...messages.infoMessageDefaultConfluence} />;
 	};
 
 	private handleUserPickerTransform = (

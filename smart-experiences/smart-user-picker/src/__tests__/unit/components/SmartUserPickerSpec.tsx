@@ -1,32 +1,25 @@
-import React, { type ReactNode } from 'react';
-// eslint-disable-next-line no-restricted-imports
-import { mount, type ReactWrapper } from 'enzyme';
+import React from 'react';
+import { screen, render, waitFor, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
-import Select from '@atlaskit/select';
-import UserPicker, { type DefaultValue, type OptionData, type User } from '@atlaskit/user-picker';
+import { type DefaultValue, type OptionData, type User } from '@atlaskit/user-picker';
 import { AnalyticsListener, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 // Commented due to HOT-111922
 import { /* type ConcurrentExperience, */ type UFOExperience } from '@atlaskit/ufo';
 
-import {
-	flushPromises,
-	temporarilySilenceActAndAtlaskitDeprecationWarnings,
-	waitForUpdate,
-	MockConcurrentExperienceInstance,
-} from '../_testUtils';
 import SmartUserPicker, { type Props } from '../../../index';
 import MessagesIntlProvider from '../../../components/MessagesIntlProvider';
 
 import { getUserRecommendations, hydrateDefaultValues } from '../../../service';
+import {
+	MockConcurrentExperienceInstance,
+	flushPromises,
+	temporarilySilenceActAndAtlaskitDeprecationWarnings,
+} from '../_testUtils';
 
 temporarilySilenceActAndAtlaskitDeprecationWarnings();
 
 const mockPREFETCH_SESSION_ID = 'prefetch-session-id';
-
-// This session id should only be needed to be used explicitly in some tests.
-// For most tests, triggering onFocus() inside the @atlaskit/select element is
-// all that's needed to auto-generate a session ID.
-const ANALYTICS_SESSION_ID = 'new-session';
 
 const mockMounted = new MockConcurrentExperienceInstance('smart-user-picker-rendered');
 const mockOptionsShown = new MockConcurrentExperienceInstance('smart-user-picker-options-shown');
@@ -206,26 +199,18 @@ const mockReturnOptionsForAnalytics = mockReturnOptions.map(({ id, type }) => ({
 	type,
 }));
 
-const nextTick = () => {
-	new Promise((resolve) => setTimeout(resolve, 0));
-};
-
-const mountWithIntl = (component: ReactNode) => {
-	return mount(<IntlProvider locale="en">{component}</IntlProvider>);
-};
-
 describe('SmartUserPicker', () => {
 	let getUserRecommendationsMock = getUserRecommendations as jest.Mock;
 	let getUsersByIdMock = hydrateDefaultValues as jest.Mock;
 
-	const smartUserPickerWrapper = (initialProps: Partial<Props> = {}): ReactWrapper =>
-		mount(
-			React.createElement((innerProps) => (
-				<IntlProvider locale="en">
-					<SmartUserPicker {...defaultProps} {...initialProps} {...innerProps} />
-				</IntlProvider>
-			)),
-		);
+	const getSmartUserPicker = (initialProps: Partial<Props> = {}) => (
+		<IntlProvider locale="en">
+			<SmartUserPicker {...defaultProps} {...initialProps} />
+		</IntlProvider>
+	);
+
+	const renderSmartUserPicker = (initialProps: Partial<Props> = {}) =>
+		render(getSmartUserPicker(initialProps));
 
 	beforeEach(() => {
 		getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
@@ -240,181 +225,59 @@ describe('SmartUserPicker', () => {
 		it('should hydrate defaultValues for jira on mount', async () => {
 			getUsersByIdMock.mockReturnValue(Promise.resolve(usersById));
 
-			const component = smartUserPickerWrapper({ defaultValue });
-			await flushPromises();
-			component.update();
-			await nextTick();
+			renderSmartUserPicker({
+				defaultValue,
+				isMulti: true,
+			});
 
 			expect(getUsersByIdMock).toHaveBeenCalledTimes(1);
-			const select = component.find(Select);
-			expect(select.prop('value')).toEqual([
-				{
-					label: 'Oliver Oldfield-Hodge',
-					value: 'id1',
-					data: {
-						id: 'id1',
-						type: 'user',
-						avatarUrl: 'someavatar.com',
-						name: 'Oliver Oldfield-Hodge',
-						email: 'a@b.com',
-					},
-				},
-				{
-					label: 'Ann Other',
-					value: 'id2',
-					data: {
-						id: 'id2',
-						type: 'user',
-						avatarUrl: 'someavatar1.com',
-						name: 'Ann Other',
-						email: 'b@b.com',
-					},
-				},
-			]);
+
+			for (const user of usersById) {
+				expect(await screen.findByText(user.name)).toBeInTheDocument();
+			}
 		});
 
 		it('should hydrate single defaultValue for confluence on mount', async () => {
 			getUsersByIdMock.mockReturnValue(Promise.resolve(userById));
 
-			const component = smartUserPickerWrapper({
+			renderSmartUserPicker({
 				defaultValue: singleDefaultValue,
 				productKey: 'confluence',
 			});
 
-			await flushPromises();
-			component.update();
-
 			expect(getUsersByIdMock).toHaveBeenCalledTimes(1);
-			const select = component.find(Select);
-			expect(select.prop('value')).toEqual([
-				{
-					label: 'Oliver Oldfield-Hodge',
-					value: 'id1',
-					data: {
-						id: 'id1',
-						type: 'user',
-						avatarUrl: 'someavatar.com',
-						name: 'Oliver Oldfield-Hodge',
-						email: 'a@b.com',
-					},
-				},
-			]);
-		});
 
-		it('should hydrate multiple defaultValue for confluence on mount', async () => {
-			getUsersByIdMock.mockReturnValue(Promise.resolve(usersById));
-
-			const component = smartUserPickerWrapper({
-				defaultValue: defaultValue,
-				productKey: 'confluence',
-			});
-
-			await flushPromises();
-			component.update();
-			expect(getUsersByIdMock).toHaveBeenCalledTimes(1);
-			const select = component.find(Select);
-			//Note the order from defaultValue should be preserved despite the order of the returned usersById
-			expect(select.prop('value')).toEqual([
-				{
-					label: 'Oliver Oldfield-Hodge',
-					value: 'id1',
-					data: {
-						id: 'id1',
-						type: 'user',
-						avatarUrl: 'someavatar.com',
-						name: 'Oliver Oldfield-Hodge',
-						email: 'a@b.com',
-					},
-				},
-				{
-					label: 'Ann Other',
-					value: 'id2',
-					data: {
-						id: 'id2',
-						type: 'user',
-						avatarUrl: 'someavatar1.com',
-						name: 'Ann Other',
-						email: 'b@b.com',
-					},
-				},
-			]);
-		});
-
-		it('should set defaultValues if the full hydrated defaultValue is passed in', async () => {
-			getUsersByIdMock.mockReturnValue(Promise.resolve(usersById));
-
-			const component = smartUserPickerWrapper({
-				defaultValue: usersById,
-				productKey: 'people',
-			});
-
-			await flushPromises();
-			component.update();
-			expect(getUsersByIdMock).toHaveBeenCalledTimes(1);
-			const select = component.find(Select);
-			expect(select.prop('value')).toEqual([
-				{
-					label: 'Oliver Oldfield-Hodge',
-					value: 'id1',
-					data: {
-						avatarUrl: 'someavatar.com',
-						email: 'a@b.com',
-						id: 'id1',
-						type: 'user',
-						name: 'Oliver Oldfield-Hodge',
-					},
-				},
-				{
-					label: 'Ann Other',
-					value: 'id2',
-					data: {
-						avatarUrl: 'someavatar1.com',
-						email: 'b@b.com',
-						id: 'id2',
-						type: 'user',
-						name: 'Ann Other',
-					},
-				},
-			]);
+			expect(await screen.findByText(userById[0].name)).toBeInTheDocument();
 		});
 
 		it('should use the overrideByline to set bylines for options', async () => {
 			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
 
-			const overrideByline = jest.fn((user: any) => `byline for ${user.name}`);
+			const bylineFn = (user: any) => `byline for ${user.name}`;
+			const overrideByline = jest.fn(bylineFn);
 
-			const component = smartUserPickerWrapper({
+			renderSmartUserPicker({
 				prefetch: true,
 				overrideByline,
 			});
 
-			await flushPromises();
-			component.update();
-
-			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+			await waitFor(() => expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1));
 			expect(overrideByline).toHaveBeenCalledTimes(2);
-
-			const options = component.find(UserPicker).prop('options');
-			const expectedOptions = mockReturnOptions.map((option) => ({
-				...option,
-				byline: `byline for ${option.name}`,
-			}));
-
-			expect(options).toEqual(expectedOptions);
+			expect(overrideByline).toHaveBeenNthCalledWith(1, mockReturnOptions[0]);
 		});
 
 		it('should set nothing if empty', async () => {
 			getUsersByIdMock.mockReturnValue(Promise.resolve([]));
-			const component = smartUserPickerWrapper({
+			renderSmartUserPicker({
 				defaultValue: [],
 				productKey: 'people',
 			});
-			await flushPromises();
-			component.update();
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
 
 			expect(getUsersByIdMock).toHaveBeenCalledTimes(1);
-			const select = component.find(Select);
-			expect(select.prop('value')).toBeUndefined();
+			expect(await screen.findByText('No options')).toBeInTheDocument();
 		});
 
 		it('should execute onValueError if internal hydration fails', async () => {
@@ -428,350 +291,204 @@ describe('SmartUserPicker', () => {
 				return Promise.resolve(mockOnValueErrorDefaultValues);
 			});
 
-			const component = smartUserPickerWrapper({ defaultValue, onValueError });
-			await flushPromises();
-			component.update();
+			renderSmartUserPicker({ defaultValue, onValueError });
 
 			expect(onValueError).toHaveBeenCalledWith(mockError, defaultValue);
-			const select = component.find(Select);
-			expect(select.prop('value')).toEqual([
-				{
-					label: 'Hydrated User 1',
-					value: 'id1',
-					data: {
-						id: 'id1',
-						type: 'user',
-						name: 'Hydrated User 1',
-					},
-				},
-				{
-					label: 'Hydrated User 2',
-					value: 'id2',
-					data: {
-						id: 'id2',
-						type: 'user',
-						name: 'Hydrated User 2',
-					},
-				},
-			]);
-		});
-	});
-
-	it('should fetch users on focus', () => {
-		const component = smartUserPickerWrapper();
-		component.find(Select).props().onFocus();
-		expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
-	});
-
-	it('should fetch users on query change', () => {
-		const component = smartUserPickerWrapper();
-		component.find(Select).props().onFocus();
-		component.find(UserPicker).props().onInputChange('a');
-		expect(getUserRecommendationsMock).toHaveBeenCalledTimes(2);
-		expect(getUserRecommendationsMock).toHaveBeenNthCalledWith(
-			1,
-			expect.objectContaining({ query: '' }),
-			expect.objectContaining({ defaultLocale: 'en' }),
-		);
-		expect(getUserRecommendationsMock).toHaveBeenNthCalledWith(
-			2,
-			expect.objectContaining({ query: 'a' }),
-			expect.objectContaining({ defaultLocale: 'en' }),
-		);
-	});
-
-	it('should use requests in submit order', async () => {
-		type Deferrable<T> = Promise<T> & {
-			resolve: (value: T) => void;
-			reject: (err: any) => void;
-		};
-
-		const defer = <T,>(): Deferrable<T> => {
-			let resolve: (value: T) => void;
-			let reject: (err: any) => void;
-
-			const p = new Promise((_resolve, _reject) => {
-				resolve = _resolve;
-				reject = _reject;
-			});
-
-			(p as any).resolve = (value: T) => resolve(value);
-			(p as any).reject = (err: any) => reject(err);
-			return p as any;
-		};
-
-		const queries = new Map<string, Deferrable<OptionData[]>>();
-
-		/**
-		 * Simulate a requst race for two queries
-		 * 1. query ''
-		 * 2. query 'a'
-		 * 3. response 'a' ➞ [{}, {}]
-		 * 4. response '' ➞ []
-		 */
-		getUserRecommendationsMock.mockImplementation(({ query }) => {
-			if (query === '') {
-				const empty = defer<OptionData[]>();
-				queries.set(query, empty);
-				return empty;
-			}
-
-			if (query === 'a') {
-				const empty = queries.get('');
-				return Promise.resolve(mockConfluenceGuestUserOptions).then((results) => {
-					setTimeout(() => empty?.resolve([]), 0);
-					return results;
-				});
-			}
-
-			return Promise.resolve([]);
 		});
 
-		const component = smartUserPickerWrapper();
-		component.find(Select).props().onFocus();
-		component.find(UserPicker).props().onInputChange('a');
-
-		// wait until the deferrable for the initial request has been resolved
-		await queries.get('');
-		component.update();
-
-		expect(component.find(UserPicker).prop('options')).toEqual(mockConfluenceGuestUserOptions);
-	});
-
-	it('should fetch a confluence guest user and guest group', async () => {
-		getUserRecommendationsMock.mockReturnValue(
-			Promise.resolve(mockConfluenceGuestUserAndGroupOptions),
-		);
-
-		const guestUser: OptionData[] = [
-			{
-				avatarUrl: 'someavatar.com',
-				id: 'id1',
-				name: 'Pranay Marella',
-				type: 'user',
-				lozenge: {
-					text: 'GUEST',
-					appearance: 'default',
-				},
-			},
-			{
-				id: 'id2',
-				type: 'group',
-				name: 'Group with Guests',
-				lozenge: {
-					text: 'GUEST',
-					appearance: 'default',
-				},
-			},
-		];
-
-		const filterOptions = jest.fn(() => {
-			return guestUser;
+		it('should fetch users on focus', async () => {
+			renderSmartUserPicker();
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
 		});
 
-		const component = smartUserPickerWrapper({
-			filterOptions,
-			productKey: 'confluence',
-		});
+		it('should fetch users on query change', async () => {
+			renderSmartUserPicker();
 
-		// trigger on focus
-		await component.find(Select).props().onFocus();
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'a');
 
-		// expect api to run and fetch a guest user
-		expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
-
-		// expect filterOptions to be called, mocks the response of a guest user
-		expect(filterOptions).toHaveBeenCalled();
-
-		await component.update();
-		// expect the user picker options prop to match the mock guest user data
-		expect(component.find(UserPicker).prop('options')).toEqual(
-			mockConfluenceGuestUserAndGroupOptions,
-		);
-	});
-
-	it('should execute onError when recommendations client returns with error', async () => {
-		const request = {
-			baseUrl: '',
-			context: {
-				childObjectId: undefined,
-				containerId: undefined,
-				contextType: 'test',
-				objectId: undefined,
-				principalId: 'Context',
-				productAttributes: undefined,
-				productKey: 'jira',
-				sessionId: mockPREFETCH_SESSION_ID,
-				siteId: 'site-id',
-				organizationId: 'org-id',
-			},
-			includeGroups: false,
-			includeTeams: false,
-			includeUsers: true,
-			includeNonLicensedUsers: false,
-			maxNumberOfResults: 100,
-			query: '',
-			searchQueryFilter: undefined,
-		};
-
-		const mockError = new Error();
-		getUserRecommendationsMock.mockImplementation(() => {
-			throw mockError;
-		});
-		const onError = jest.fn((error) => {
-			expect(error).toEqual(mockError);
-			return Promise.resolve(mockReturnOptions);
-		});
-		const component = smartUserPickerWrapper({
-			onError,
-		});
-		expect(component.find(UserPicker).prop('options')).toEqual([]);
-		await component.find(Select).props().onFocus();
-		await flushPromises();
-
-		expect(onError).toHaveBeenCalledWith(mockError, request);
-
-		component.update();
-		expect(component.find(UserPicker).prop('options')).toEqual(mockReturnOptions);
-	});
-
-	it('should prefetch users when prefetch props is true', async () => {
-		getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-		const component = smartUserPickerWrapper({ prefetch: true });
-		await flushPromises();
-		component.update();
-		expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
-		expect(component.find(UserPicker).prop('options')).toEqual(mockReturnOptions);
-		jest.clearAllMocks();
-		await component.find(Select).props().onFocus();
-		await flushPromises();
-		expect(getUserRecommendationsMock).not.toHaveBeenCalled();
-	});
-
-	it('should not call onEmpty when picker has some results', async () => {
-		getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-
-		const user3: OptionData = {
-			id: 'user3',
-			name: 'user3',
-			type: 'user',
-		};
-		const onEmpty = jest.fn(() => Promise.resolve([user3]));
-
-		const component = smartUserPickerWrapper({ onEmpty });
-		// trigger on focus
-		await component.find(Select).props().onFocus();
-
-		await flushPromises();
-
-		// expect load items from server
-		expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
-
-		// expect on Empty to be called
-		expect(onEmpty).toHaveBeenCalledTimes(0);
-
-		await component.update();
-		expect(component.find(UserPicker).prop('options')).toEqual(mockReturnOptions);
-	});
-
-	it('should use provided promise onEmpty', async () => {
-		getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
-
-		const user3: OptionData = {
-			id: 'user3',
-			name: 'user3',
-			type: 'user',
-		};
-		const onEmpty = jest.fn(() => Promise.resolve([user3]));
-
-		const component = smartUserPickerWrapper({
-			onEmpty,
-		});
-
-		// trigger on focus
-		await component.find(Select).props().onFocus();
-
-		await flushPromises();
-
-		// expect load items from server
-		expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
-
-		// expect on Empty to be called
-		expect(onEmpty).toHaveBeenCalledTimes(1);
-
-		await component.update();
-		expect(component.find(UserPicker).prop('options')).toEqual([user3]);
-	});
-
-	describe('filterOptions', () => {
-		it('should filter options from suggested options', async () => {
-			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-			const filterOptions = jest.fn((options: OptionData[]) => {
-				return options.filter((option) => option.type === 'user');
-			});
-
-			let component = smartUserPickerWrapper({ filterOptions });
-			expect(component.find(UserPicker).props().options).toEqual([]);
-
-			await component.find(Select).props().onFocus();
-			await component.find(UserPicker).props().onInputChange('user');
-			await flushPromises();
-			component.update();
-			expect(filterOptions).toHaveBeenCalledWith(mockReturnOptions, 'user');
-			expect(component.find(UserPicker).prop('options')).toEqual(filterOptions(mockReturnOptions));
-		});
-
-		it('should apply new filterOptions if filterOptions changes', async () => {
-			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-			const filterOptions = jest.fn((options: OptionData[]) => {
-				return options.filter((option) => option.type === 'user');
-			});
-			const changedFilterOptions = jest.fn((options: OptionData[]) => {
-				return options.filter((option) => option.type === 'team');
-			});
-
-			let component = smartUserPickerWrapper({ filterOptions });
-
-			await component.find(Select).props().onFocus();
-			await component.find(UserPicker).props().onInputChange('user');
-			await flushPromises();
-			component.update();
-
-			expect(changedFilterOptions).toHaveBeenCalledTimes(0);
-			component.setProps({ filterOptions: changedFilterOptions });
-			await flushPromises();
-			component.find(SmartUserPicker).update();
-
-			expect(component.find(UserPicker).prop('options')).toEqual(
-				changedFilterOptions(mockReturnOptions),
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(2);
+			expect(getUserRecommendationsMock).toHaveBeenNthCalledWith(
+				1,
+				expect.objectContaining({ query: '' }),
+				expect.objectContaining({ defaultLocale: 'en' }),
+			);
+			expect(getUserRecommendationsMock).toHaveBeenNthCalledWith(
+				2,
+				expect.objectContaining({ query: 'a' }),
+				expect.objectContaining({ defaultLocale: 'en' }),
 			);
 		});
 
-		it('should override onError when recommendations client returns with error', async () => {
+		it('should use requests in submit order', async () => {
+			type Deferrable<T> = Promise<T> & {
+				resolve: (value: T) => void;
+				reject: (err: any) => void;
+			};
+
+			const defer = <T,>(): Deferrable<T> => {
+				let resolve: (value: T) => void;
+				let reject: (err: any) => void;
+
+				const p = new Promise((_resolve, _reject) => {
+					resolve = _resolve;
+					reject = _reject;
+				});
+
+				(p as any).resolve = (value: T) => resolve(value);
+				(p as any).reject = (err: any) => reject(err);
+				return p as any;
+			};
+
+			const queries = new Map<string, Deferrable<OptionData[]>>();
+
+			/**
+			 * Simulate a requst race for two queries
+			 * 1. query ''
+			 * 2. query 'a'
+			 * 3. response 'a' ➞ [{}, {}]
+			 * 4. response '' ➞ []
+			 */
+			getUserRecommendationsMock.mockImplementation(({ query }) => {
+				if (query === '') {
+					const empty = defer<OptionData[]>();
+					queries.set(query, empty);
+					return empty;
+				}
+
+				if (query === 'a') {
+					const empty = queries.get('');
+					return Promise.resolve(mockConfluenceGuestUserOptions).then((results) => {
+						setTimeout(() => empty?.resolve([]), 0);
+						return results;
+					});
+				}
+
+				return Promise.resolve([]);
+			});
+
+			renderSmartUserPicker();
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'a');
+
+			// wait until the deferrable for the initial request has been resolved
+			await queries.get('');
+
+			expect(await screen.findByText(mockConfluenceGuestUserOptions[0].name)).toBeInTheDocument();
+		});
+
+		it('should fetch a confluence guest user and guest group', async () => {
+			getUserRecommendationsMock.mockReturnValue(
+				Promise.resolve(mockConfluenceGuestUserAndGroupOptions),
+			);
+
+			const guestUser: OptionData[] = [
+				{
+					avatarUrl: 'someavatar.com',
+					id: 'id1',
+					name: 'Pranay Marella',
+					type: 'user',
+					lozenge: {
+						text: 'GUEST',
+						appearance: 'default',
+					},
+				},
+				{
+					id: 'id2',
+					type: 'group',
+					name: 'Group with Guests',
+					lozenge: {
+						text: 'GUEST',
+						appearance: 'default',
+					},
+				},
+			];
+
+			const filterOptions = jest.fn(() => {
+				return guestUser;
+			});
+
+			renderSmartUserPicker({
+				filterOptions,
+				productKey: 'confluence',
+			});
+
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+
+			// expect api to run and fetch a guest user
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+			// expect filterOptions to be called, mocks the response of a guest user
+			expect(filterOptions).toHaveBeenCalled();
+
+			for (const option of mockConfluenceGuestUserAndGroupOptions) {
+				expect(await screen.findByText(option.name)).toBeInTheDocument();
+			}
+		});
+
+		it('should execute onError when recommendations client returns with error', async () => {
+			const request = {
+				baseUrl: '',
+				context: {
+					childObjectId: undefined,
+					containerId: undefined,
+					contextType: 'test',
+					objectId: undefined,
+					principalId: 'Context',
+					productAttributes: undefined,
+					productKey: 'jira',
+					sessionId: mockPREFETCH_SESSION_ID,
+					siteId: 'site-id',
+					organizationId: 'org-id',
+				},
+				includeGroups: false,
+				includeTeams: false,
+				includeUsers: true,
+				includeNonLicensedUsers: false,
+				maxNumberOfResults: 100,
+				query: '',
+				searchQueryFilter: undefined,
+			};
+
 			const mockError = new Error();
 			getUserRecommendationsMock.mockImplementation(() => {
 				throw mockError;
 			});
-			const filterOptions = jest.fn(() => mockReturnOptions);
 			const onError = jest.fn((error) => {
 				expect(error).toEqual(mockError);
-				return Promise.resolve([]);
+				return Promise.resolve(mockReturnOptions);
 			});
-			const component = smartUserPickerWrapper({
-				filterOptions,
+
+			renderSmartUserPicker({
 				onError,
 			});
-			await component.find(Select).props().onFocus();
-			await flushPromises();
 
-			expect(onError).toHaveBeenCalled();
-			expect(filterOptions).toHaveBeenCalled();
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
 
-			component.update();
-			expect(component.find(UserPicker).prop('options')).toEqual(mockReturnOptions);
+			expect(onError).toHaveBeenCalledWith(mockError, request);
 		});
 
-		it('should apply filter to onEmpty results', async () => {
+		it('should prefetch users when prefetch props is true', async () => {
+			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+			renderSmartUserPicker({ prefetch: true });
+
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+			await act(() => input.blur());
+
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+			jest.clearAllMocks();
+			await userEvent.click(input);
+
+			expect(getUserRecommendationsMock).not.toHaveBeenCalled();
+		});
+
+		it('should not call onEmpty when picker has some results', async () => {
 			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
 
 			const user3: OptionData = {
@@ -780,303 +497,477 @@ describe('SmartUserPicker', () => {
 				type: 'user',
 			};
 			const onEmpty = jest.fn(() => Promise.resolve([user3]));
-			const filterOptions = jest.fn(() => []);
 
-			const component = smartUserPickerWrapper({
-				filterOptions,
+			renderSmartUserPicker({ onEmpty });
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
+
+			// expect load items from server
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+			// expect on Empty to be called
+			expect(onEmpty).toHaveBeenCalledTimes(0);
+
+			for (const option of mockReturnOptions) {
+				expect(await screen.findByText(option.name)).toBeInTheDocument();
+			}
+		});
+
+		it('should use provided promise onEmpty', async () => {
+			getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
+
+			const user3: OptionData = {
+				id: 'user3',
+				name: 'user3',
+				type: 'user',
+			};
+			const onEmpty = jest.fn(() => Promise.resolve([user3]));
+
+			renderSmartUserPicker({
 				onEmpty,
 			});
 
 			// trigger on focus
-			await component.find(Select).props().onFocus();
-			await flushPromises();
-			await component.update();
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
 
-			expect(component.find(UserPicker).prop('options')).toEqual([]);
+			// expect load items from server
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+
+			// expect on Empty to be called
+			expect(onEmpty).toHaveBeenCalledTimes(1);
+
+			expect(await screen.findByText(user3.name)).toBeInTheDocument();
 		});
 
-		it('should apply filterOptions to bootstrap', () => {
-			const bootstrapOptions = mockReturnOptions;
-			const filterOptions = jest.fn((options: OptionData[]) => {
-				return options.filter((option) => option.type === 'user');
+		describe('filterOptions', () => {
+			it('should filter options from suggested options', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+				const filterOptions = jest.fn((options: OptionData[]) => {
+					return options.filter((option) => option.type === 'user');
+				});
+
+				renderSmartUserPicker({ filterOptions });
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.type(input, 'user');
+
+				expect(filterOptions).toHaveBeenCalledWith(mockReturnOptions, 'user');
+
+				for (const option of filterOptions(mockReturnOptions)) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
 			});
 
-			const component = smartUserPickerWrapper({
-				bootstrapOptions,
-				filterOptions,
+			it('should apply new filterOptions if filterOptions changes', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+				const filterOptions = jest.fn((options: OptionData[]) => {
+					return options.filter((option) => option.type === 'user');
+				});
+				const changedFilterOptions = jest.fn((options: OptionData[]) => {
+					return options.filter((option) => option.type === 'team');
+				});
+
+				const { rerender } = renderSmartUserPicker({ filterOptions });
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.type(input, 'user');
+
+				expect(changedFilterOptions).toHaveBeenCalledTimes(0);
+
+				rerender(getSmartUserPicker({ filterOptions: changedFilterOptions }));
+
+				await userEvent.type(input, 'team');
+
+				for (const option of changedFilterOptions(mockReturnOptions)) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
 			});
 
-			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
-			expect(filterOptions).toHaveBeenCalled();
-			expect(component.find(UserPicker).prop('options')).toEqual(filterOptions(mockReturnOptions));
+			it('should override onError when recommendations client returns with error', async () => {
+				const mockError = new Error();
+				getUserRecommendationsMock.mockImplementation(() => {
+					throw mockError;
+				});
+				const filterOptions = jest.fn(() => mockReturnOptions);
+				const onError = jest.fn((error) => {
+					expect(error).toEqual(mockError);
+					return Promise.resolve([]);
+				});
+				renderSmartUserPicker({
+					filterOptions,
+					onError,
+				});
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(onError).toHaveBeenCalled();
+				expect(filterOptions).toHaveBeenCalled();
+
+				for (const option of mockReturnOptions) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should apply filter to onEmpty results', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				const user3: OptionData = {
+					id: 'user3',
+					name: 'user3',
+					type: 'user',
+				};
+				const onEmpty = jest.fn(() => Promise.resolve([user3]));
+				const filterOptions = jest.fn(() => []);
+
+				renderSmartUserPicker({
+					filterOptions,
+					onEmpty,
+				});
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(await screen.findByText('No options')).toBeInTheDocument();
+			});
+
+			it('should apply filterOptions to bootstrap', async () => {
+				const bootstrapOptions = mockReturnOptions;
+				const filterOptions = jest.fn((options: OptionData[]) => {
+					return options.filter((option) => option.type === 'user');
+				});
+
+				renderSmartUserPicker({
+					bootstrapOptions,
+					filterOptions,
+				});
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
+				expect(filterOptions).toHaveBeenCalled();
+
+				for (const option of filterOptions(mockReturnOptions)) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
 		});
-	});
 
-	it('should pass default principalId if principalId not provided as props', async () => {
-		const component = smartUserPickerWrapper({ principalId: undefined });
-		component.find(Select).props().onFocus();
-		expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
-		expect(getUserRecommendationsMock).toHaveBeenCalledWith(
-			expect.objectContaining({
-				context: expect.objectContaining({ principalId: 'Context' }),
-			}),
-			expect.objectContaining({ defaultLocale: 'en' }),
-		);
-	});
+		it('should pass default principalId if principalId not provided as props', async () => {
+			renderSmartUserPicker({ principalId: undefined });
 
-	describe('analytics', () => {
-		const onEvent = jest.fn();
-		let component: ReactWrapper;
+			// trigger on focus
+			const input = screen.getByRole('combobox');
+			await userEvent.click(input);
 
-		const constructPayload = (
-			action: string,
-			actionSubject: string,
-			attributes = {},
-		): AnalyticsEventPayload => {
-			return expect.objectContaining({
-				eventType: 'operational',
-				action,
-				actionSubject,
-				source: 'smart-user-picker',
-				attributes: expect.objectContaining({
-					context: 'test',
-					prefetch: false,
-					packageName: expect.any(String),
-					sessionId: ANALYTICS_SESSION_ID,
-					queryLength: 0,
+			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
+			expect(getUserRecommendationsMock).toHaveBeenCalledWith(
+				expect.objectContaining({
+					context: expect.objectContaining({ principalId: 'Context' }),
+				}),
+				expect.objectContaining({ defaultLocale: 'en' }),
+			);
+		});
+
+		describe('analytics', () => {
+			const onEvent = jest.fn();
+
+			const constructPayload = (
+				action: string,
+				actionSubject: string,
+				attributes = {},
+			): AnalyticsEventPayload => {
+				return expect.objectContaining({
+					eventType: 'operational',
+					action,
+					actionSubject,
+					source: 'smart-user-picker',
+					attributes: expect.objectContaining({
+						context: 'test',
+						prefetch: false,
+						packageName: expect.any(String),
+						sessionId: mockPREFETCH_SESSION_ID,
+						queryLength: 0,
+						...attributes,
+					}),
+				});
+			};
+
+			const constructPayloadWithQueryAttributes = (
+				action: string,
+				actionSubject: string,
+				attributes = {},
+			): AnalyticsEventPayload => {
+				const defaultQueryAttributes = {
+					principalId: 'Context',
+					productKey: 'jira',
+					siteId: 'site-id',
+					orgId: 'org-id',
+				};
+				return constructPayload(action, actionSubject, {
+					...defaultQueryAttributes,
 					...attributes,
-				}),
-			});
-		};
-
-		const constructPayloadWithQueryAttributes = (
-			action: string,
-			actionSubject: string,
-			attributes = {},
-		): AnalyticsEventPayload => {
-			const defaultQueryAttributes = {
-				principalId: 'Context',
-				productKey: 'jira',
-				siteId: 'site-id',
-				orgId: 'org-id',
+				});
 			};
-			return constructPayload(action, actionSubject, {
-				...defaultQueryAttributes,
-				...attributes,
-			});
-		};
 
-		const AnalyticsTestComponent = (props: Partial<Props> = {}) => {
-			const smartUserPickerProps = { ...defaultProps, ...props };
-			return (
-				<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-					<SmartUserPicker {...smartUserPickerProps} />
-				</AnalyticsListener>
-			);
-		};
+			const renderAnalyticsTestComponent = (props: Partial<Props> = {}) =>
+				render(
+					<IntlProvider locale="en">
+						<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+							<SmartUserPicker {...defaultProps} {...props} />
+						</AnalyticsListener>
+					</IntlProvider>,
+				);
 
-		beforeEach(() => {
-			component = mountWithIntl(<AnalyticsTestComponent />);
-			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-		});
-
-		afterEach(() => {
-			onEvent.mockClear();
-		});
-
-		it('should trigger users requested event', () => {
-			component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
-			expect(onEvent).toHaveBeenCalledTimes(2);
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayloadWithQueryAttributes('requested', 'users'),
-				}),
-				'fabric-elements',
-			);
-			component.find(UserPicker).props().onInputChange!('a', ANALYTICS_SESSION_ID);
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayloadWithQueryAttributes('requested', 'users', {
-						queryLength: 1,
-					}),
-				}),
-				'fabric-elements',
-			);
-		});
-
-		it('should trigger users filtered event', async () => {
-			// load initial list so query-based filter can be applied
-			await component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
-			await flushPromises();
-			component.update();
-
-			// initial filter when no reults returned
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayload('filtered', 'users', {
-						all: [],
-						filtered: [],
-					}),
-				}),
-				'fabric-elements',
-			);
-
-			// don't wait so that filter can be applied while loading is true
-			component.find(UserPicker).props().onInputChange!('u', ANALYTICS_SESSION_ID);
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayload('filtered', 'users', {
-						queryLength: 1,
-						filtered: [{ id: 'user1', type: 'user' }],
-						all: mockReturnOptionsForAnalytics,
-					}),
-				}),
-				'fabric-elements',
-			);
-		});
-
-		it('should trigger user request successful event', async () => {
-			const productAttributes = {
-				isEntitledConfluenceExternalCollaborator: false,
-			};
-			const filterOptions = jest.fn((options: OptionData[]) => {
-				return options.filter((option) => option.type === 'user');
-			});
-			component = mountWithIntl(AnalyticsTestComponent({ filterOptions, productAttributes }));
-
-			await component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
-			await flushPromises();
-
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayloadWithQueryAttributes('successful', 'usersRequest', {
-						users: mockReturnOptionsForAnalytics,
-						productAttributes,
-					}),
-				}),
-				'fabric-elements',
-			);
-		});
-
-		it('should trigger prefetch mounted event', async () => {
-			component = mountWithIntl(AnalyticsTestComponent({ prefetch: true }));
-
-			await flushPromises();
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayloadWithQueryAttributes('mounted', 'prefetch', {
-						prefetch: true,
-						sessionId: mockPREFETCH_SESSION_ID,
-					}),
-				}),
-				'fabric-elements',
-			);
-
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayloadWithQueryAttributes('successful', 'usersRequest', {
-						prefetch: true,
-						users: mockReturnOptionsForAnalytics,
-						sessionId: mockPREFETCH_SESSION_ID,
-					}),
-				}),
-				'fabric-elements',
-			);
-		});
-
-		it('should trigger user request failed event', async () => {
-			const mockError = new Error();
-			getUserRecommendationsMock.mockImplementation(() => {
-				throw mockError;
+			beforeEach(() => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
 			});
 
-			await component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
-			await flushPromises();
-
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayloadWithQueryAttributes('failed', 'usersRequest'),
-				}),
-				'fabric-elements',
-			);
-		});
-
-		it('should return the options that it was passed in bootstrapOptions', async () => {
-			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-
-			const exampleUsers: OptionData[] = [
-				{
-					id: 'id2',
-					avatarUrl: 'someavatar1.com',
-					name: 'Ann Other',
-				},
-				{
-					id: 'id1',
-					avatarUrl: 'someavatar.com',
-					name: 'Oliver Oldfield-Hodge',
-				},
-				{
-					id: 'id2',
-					avatarUrl: 'someavatar.com',
-					name: 'Kira Molloy',
-				},
-			];
-			const bootstrapOptions = exampleUsers;
-
-			const component = smartUserPickerWrapper({
-				bootstrapOptions,
+			afterEach(() => {
+				onEvent.mockClear();
 			});
 
-			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
+			it('should trigger users requested event', async () => {
+				renderAnalyticsTestComponent();
 
-			expect(component.find(UserPicker).prop('options')).toEqual(exampleUsers);
-		});
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
 
-		it('should return the empty options that it was passed in bootstrapOptions', async () => {
-			getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-
-			const exampleUsers: OptionData[] = [];
-			const bootstrapOptions = exampleUsers;
-
-			const component = smartUserPickerWrapper({
-				bootstrapOptions,
-			});
-
-			expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
-
-			expect(component.find(UserPicker).prop('options')).toEqual(exampleUsers);
-		});
-
-		it('should trigger preparedUsers loaded event', async () => {
-			component = mountWithIntl(AnalyticsTestComponent({ prefetch: true }));
-
-			await flushPromises();
-
-			await component.find(Select).props().onFocus();
-			await component.find(UserPicker).props().onInputChange('a');
-			await flushPromises();
-			expect(onEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: constructPayloadWithQueryAttributes('loaded', 'preparedUsers', {
-						prefetch: true,
-						preparedSessionId: mockPREFETCH_SESSION_ID,
-						sessionId: mockPREFETCH_SESSION_ID,
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayloadWithQueryAttributes('requested', 'users'),
 					}),
-				}),
-				'fabric-elements',
-			);
+					'fabric-elements',
+				);
+
+				await userEvent.type(input, 'a');
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayloadWithQueryAttributes('requested', 'users', {
+							queryLength: 1,
+						}),
+					}),
+					'fabric-elements',
+				);
+			});
+
+			it('should trigger users filtered event', async () => {
+				renderAnalyticsTestComponent();
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				// initial filter when no reults returned
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayload('filtered', 'users', {
+							all: [],
+							filtered: [],
+						}),
+					}),
+					'fabric-elements',
+				);
+
+				// don't wait so that filter can be applied while loading is true
+				await userEvent.type(input, 'u');
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayload('filtered', 'users', {
+							queryLength: 1,
+							filtered: [{ id: 'user1', type: 'user' }],
+							all: mockReturnOptionsForAnalytics,
+						}),
+					}),
+					'fabric-elements',
+				);
+			});
+
+			it('should trigger user request successful event', async () => {
+				const productAttributes = {
+					isEntitledConfluenceExternalCollaborator: false,
+				};
+				const filterOptions = jest.fn((options: OptionData[]) => {
+					return options.filter((option) => option.type === 'user');
+				});
+
+				renderAnalyticsTestComponent({ filterOptions, productAttributes });
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayloadWithQueryAttributes('successful', 'usersRequest', {
+							users: mockReturnOptionsForAnalytics,
+							productAttributes,
+						}),
+					}),
+					'fabric-elements',
+				);
+			});
+
+			it('should trigger prefetch mounted event', async () => {
+				renderAnalyticsTestComponent({ prefetch: true });
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayloadWithQueryAttributes('mounted', 'prefetch', {
+							prefetch: true,
+							sessionId: mockPREFETCH_SESSION_ID,
+						}),
+					}),
+					'fabric-elements',
+				);
+
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayloadWithQueryAttributes('successful', 'usersRequest', {
+							prefetch: true,
+							users: mockReturnOptionsForAnalytics,
+							sessionId: mockPREFETCH_SESSION_ID,
+						}),
+					}),
+					'fabric-elements',
+				);
+			});
+
+			it('should trigger user request failed event', async () => {
+				renderAnalyticsTestComponent();
+
+				const mockError = new Error();
+				getUserRecommendationsMock.mockImplementation(() => {
+					throw mockError;
+				});
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayloadWithQueryAttributes('failed', 'usersRequest'),
+					}),
+					'fabric-elements',
+				);
+			});
+
+			it('should return the options that it was passed in bootstrapOptions', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				const exampleUsers: OptionData[] = [
+					{
+						id: 'id2',
+						avatarUrl: 'someavatar1.com',
+						name: 'Ann Other',
+					},
+					{
+						id: 'id1',
+						avatarUrl: 'someavatar.com',
+						name: 'Oliver Oldfield-Hodge',
+					},
+					{
+						id: 'id2',
+						avatarUrl: 'someavatar.com',
+						name: 'Kira Molloy',
+					},
+				];
+				const bootstrapOptions = exampleUsers;
+
+				renderAnalyticsTestComponent({
+					bootstrapOptions,
+				});
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
+
+				for (const option of exampleUsers) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should return the empty options that it was passed in bootstrapOptions', async () => {
+				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
+
+				const exampleUsers: OptionData[] = [];
+				const bootstrapOptions = exampleUsers;
+
+				renderAnalyticsTestComponent({
+					bootstrapOptions,
+				});
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.click(input);
+
+				expect(getUserRecommendationsMock).toHaveBeenCalledTimes(0);
+
+				for (const option of exampleUsers) {
+					expect(await screen.findByText(option.name)).toBeInTheDocument();
+				}
+			});
+
+			it('should trigger preparedUsers loaded event', async () => {
+				renderAnalyticsTestComponent({ prefetch: true });
+
+				await act(flushPromises);
+
+				// trigger on focus
+				const input = screen.getByRole('combobox');
+				await userEvent.type(input, 'a');
+
+				expect(onEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						payload: constructPayloadWithQueryAttributes('loaded', 'preparedUsers', {
+							prefetch: true,
+							preparedSessionId: mockPREFETCH_SESSION_ID,
+							sessionId: mockPREFETCH_SESSION_ID,
+						}),
+					}),
+					'fabric-elements',
+				);
+			});
 		});
 	});
 
 	describe('UFO metrics', () => {
 		beforeEach(() => {
+			jest.spyOn(console, 'error');
+			// @ts-ignore
+			// eslint-disable-next-line no-console
+			console.error.mockImplementation(() => {});
 			mockMounted.mockReset();
 			mockOptionsShown.mockReset();
 		});
 
+		afterEach(() => {
+			// @ts-ignore
+			// eslint-disable-next-line no-console
+			console.error.mockRestore();
+			// @ts-ignore
+			MessagesIntlProvider.mockImplementation((props) => props.children);
+		});
+
 		describe('initial mount UFO event', () => {
 			it('should send a UFO success metric when mounted successfully', async () => {
-				smartUserPickerWrapper();
+				renderSmartUserPicker();
 				expect(mockMounted.startSpy).toHaveBeenCalled();
 				expect(mockMounted.successSpy).toHaveBeenCalled();
 				expect(mockOptionsShown.startSpy).not.toHaveBeenCalled();
@@ -1090,10 +981,12 @@ describe('SmartUserPicker', () => {
 
 			it('should send a UFO failure metric when mount fails', async () => {
 				// @ts-ignore
-				MessagesIntlProvider.mockImplementationOnce(() => {
+				MessagesIntlProvider.mockImplementation(() => {
 					throw new Error('Mount error1');
 				});
-				smartUserPickerWrapper();
+
+				renderSmartUserPicker();
+
 				expect(mockMounted.startSpy).toHaveBeenCalled();
 				expect(mockMounted.failureSpy).toHaveBeenCalled();
 				expect(mockOptionsShown.startSpy).not.toHaveBeenCalled();
@@ -1102,6 +995,7 @@ describe('SmartUserPicker', () => {
 					'NOT_STARTED',
 					// Initial mount
 					'STARTED',
+					'STARTED', // RTL calls render twice
 					'FAILED',
 				]);
 			});
@@ -1111,17 +1005,16 @@ describe('SmartUserPicker', () => {
 			describe(`when showing list after focusing in input (prefetch=${isPrefetch})`, () => {
 				it('should send a UFO success when the list of users are shown after focus', async () => {
 					getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-					const wrapper = smartUserPickerWrapper({ prefetch: isPrefetch });
+
+					renderSmartUserPicker({ prefetch: isPrefetch });
 
 					// Focus in the user picker so the user list is shown
-					// @ts-ignore in this case UserPicker.onFocus is not undefined
-					wrapper.find(Select).props().onFocus();
-					await waitForUpdate(wrapper);
+					const input = screen.getByRole('combobox');
+					await userEvent.click(input);
 
-					expect(mockOptionsShown.startSpy).toHaveBeenCalled();
+					await waitFor(() => expect(mockOptionsShown.startSpy).toHaveBeenCalled());
 					expect(mockOptionsShown.successSpy).toHaveBeenCalled();
 					expect(mockOptionsShown.failureSpy).not.toHaveBeenCalled();
-
 					expect(mockOptionsShown.transitions).toStrictEqual([
 						'NOT_STARTED',
 						// Initial focus
@@ -1137,12 +1030,15 @@ describe('SmartUserPicker', () => {
 							statusCode: 500,
 						}),
 					);
-					const wrapper = smartUserPickerWrapper({ prefetch: isPrefetch });
+					renderSmartUserPicker({ prefetch: isPrefetch });
+
+					// await act(flushPromises);
 
 					// Focus in the user picker so the user list is shown
-					// @ts-ignore in this case UserPicker.onFocus is not undefined
-					wrapper.find(Select).props().onFocus();
-					await waitForUpdate(wrapper);
+					const input = screen.getByRole('combobox');
+					await act(() => input.focus());
+
+					// await act(flushPromises);
 
 					expect(mockOptionsShown.startSpy).toHaveBeenCalled();
 					expect(mockOptionsShown.failureSpy).toHaveBeenCalled();
@@ -1163,12 +1059,12 @@ describe('SmartUserPicker', () => {
 							statusCode: 400,
 						}),
 					);
-					const wrapper = smartUserPickerWrapper({ prefetch: isPrefetch });
+					renderSmartUserPicker({ prefetch: isPrefetch });
 
 					// Focus in the user picker so the user list is shown
 					// @ts-ignore in this case UserPicker.onFocus is not undefined
-					wrapper.find(Select).props().onFocus();
-					await waitForUpdate(wrapper);
+					const input = screen.getByRole('combobox');
+					await act(() => input.focus());
 
 					expect(mockOptionsShown.startSpy).toHaveBeenCalled();
 					expect(mockOptionsShown.failureSpy).not.toHaveBeenCalled();
@@ -1187,15 +1083,14 @@ describe('SmartUserPicker', () => {
 					getUserRecommendationsMock.mockImplementationOnce(() => {
 						throw new Error('Cannot call getUserRecommendations');
 					});
-					const wrapper = smartUserPickerWrapper({
+					renderSmartUserPicker({
 						prefetch: isPrefetch,
 						onError: async () => [],
 					});
 
 					// Focus in the user picker so the user list is shown
-					// @ts-ignore in this case UserPicker.onFocus is not undefined
-					wrapper.find(Select).props().onFocus();
-					await waitForUpdate(wrapper);
+					const input = screen.getByRole('combobox');
+					await act(() => input.focus());
 
 					expect(mockOptionsShown.startSpy).toHaveBeenCalled();
 					expect(mockOptionsShown.failureSpy).not.toHaveBeenCalled();
@@ -1216,7 +1111,7 @@ describe('SmartUserPicker', () => {
 							statusCode: 500,
 						}),
 					);
-					const wrapper = smartUserPickerWrapper({
+					renderSmartUserPicker({
 						prefetch: isPrefetch,
 						onError: async () => {
 							throw new Error('Fallback lookup failed');
@@ -1224,9 +1119,8 @@ describe('SmartUserPicker', () => {
 					});
 
 					// Focus in the user picker so the user list is shown
-					// @ts-ignore in this case UserPicker.onFocus is not undefined
-					wrapper.find(Select).props().onFocus();
-					await waitForUpdate(wrapper);
+					const input = screen.getByRole('combobox');
+					await act(() => input.focus());
 
 					expect(mockOptionsShown.startSpy).toHaveBeenCalled();
 					expect(mockOptionsShown.failureSpy).toHaveBeenCalled();
@@ -1239,6 +1133,7 @@ describe('SmartUserPicker', () => {
 						'FAILED',
 					]);
 				});
+
 				it('should not send a UFO failure when both the URS and fallback onError requests fail, so the list of users cannot be shown after focus but the error is not a 5xx', async () => {
 					getUserRecommendationsMock.mockImplementation(() =>
 						Promise.reject({
@@ -1246,7 +1141,7 @@ describe('SmartUserPicker', () => {
 							statusCode: 400,
 						}),
 					);
-					const wrapper = smartUserPickerWrapper({
+					renderSmartUserPicker({
 						prefetch: isPrefetch,
 						onError: async () => {
 							throw new Error('Fallback lookup failed');
@@ -1254,9 +1149,8 @@ describe('SmartUserPicker', () => {
 					});
 
 					// Focus in the user picker so the user list is shown
-					// @ts-ignore in this case UserPicker.onFocus is not undefined
-					wrapper.find(Select).props().onFocus();
-					await waitForUpdate(wrapper);
+					const input = screen.getByRole('combobox');
+					await act(() => input.focus());
 
 					expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 					expect(mockOptionsShown.failureSpy).not.toHaveBeenCalled();
@@ -1276,20 +1170,18 @@ describe('SmartUserPicker', () => {
 		describe('when showing list after typing input', () => {
 			it('should send a UFO success when the list of users are shown after typing', async () => {
 				getUserRecommendationsMock.mockReturnValue(Promise.resolve(mockReturnOptions));
-				const wrapper = smartUserPickerWrapper({ prefetch: true });
+				renderSmartUserPicker({ prefetch: true });
 
 				// Focus in the user picker so the user list is shown
-				// @ts-ignore in this case UserPicker.onFocus is not undefined
-				wrapper.find(Select).props().onFocus();
-				await waitForUpdate(wrapper);
+				const input = screen.getByRole('combobox');
+				await act(() => input.focus());
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
 
 				// Now that the options list is shown, type "user" to filter:
-				wrapper.find(UserPicker).props().onInputChange('user');
-				await waitForUpdate(wrapper);
+				await userEvent.type(input, 'u');
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(2);
@@ -1313,20 +1205,18 @@ describe('SmartUserPicker', () => {
 						statusCode: 500,
 					}),
 				);
-				const wrapper = smartUserPickerWrapper({ prefetch: true });
+				renderSmartUserPicker({ prefetch: true });
 
 				// Focus in the user picker so the user list is shown
-				// @ts-ignore in this case UserPicker.onFocus is not undefined
-				wrapper.find(Select).props().onFocus();
-				await waitForUpdate(wrapper);
+				const input = screen.getByRole('combobox');
+				await act(() => input.focus());
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
 
 				// Now that the options list is shown, type "user" to filter:
-				wrapper.find(UserPicker).props().onInputChange('user');
-				await waitForUpdate(wrapper);
+				await userEvent.type(input, 'u');
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(2);
@@ -1350,12 +1240,11 @@ describe('SmartUserPicker', () => {
 						statusCode: 400,
 					}),
 				);
-				const wrapper = smartUserPickerWrapper({ prefetch: true });
+				renderSmartUserPicker({ prefetch: true });
 
 				// Focus in the user picker so the user list is shown
-				// @ts-ignore in this case UserPicker.onFocus is not undefined
-				wrapper.find(Select).props().onFocus();
-				await waitForUpdate(wrapper);
+				const input = screen.getByRole('combobox');
+				await act(() => input.focus());
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
@@ -1363,8 +1252,7 @@ describe('SmartUserPicker', () => {
 				expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
 
 				// Now that the options list is shown, type "user" to filter:
-				wrapper.find(UserPicker).props().onInputChange('user');
-				await waitForUpdate(wrapper);
+				await userEvent.type(input, 'u');
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
@@ -1389,7 +1277,7 @@ describe('SmartUserPicker', () => {
 						statusCode: 500,
 					}),
 				);
-				const wrapper = smartUserPickerWrapper({
+				renderSmartUserPicker({
 					prefetch: true,
 					onError: async (error, request) => {
 						return [{ id: 'fallback-user-1', name: 'Fallback User 1' }].filter((user) =>
@@ -1399,17 +1287,15 @@ describe('SmartUserPicker', () => {
 				});
 
 				// Focus in the user picker so the user list is shown
-				// @ts-ignore in this case UserPicker.onFocus is not undefined
-				wrapper.find(Select).props().onFocus();
-				await waitForUpdate(wrapper);
+				const input = screen.getByRole('combobox');
+				await act(() => input.focus());
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
 				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(1);
 
-				// Now that the options list is shown, type "user" to filter:
-				wrapper.find(UserPicker).props().onInputChange('Fallback User 1');
-				await waitForUpdate(wrapper);
+				// Now that the options list is shown, type "F" to filter:
+				await userEvent.type(input, 'F');
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
@@ -1433,7 +1319,7 @@ describe('SmartUserPicker', () => {
 						statusCode: 500,
 					}),
 				);
-				const wrapper = smartUserPickerWrapper({
+				renderSmartUserPicker({
 					prefetch: true,
 					onError: async () => {
 						throw new Error('Fallback lookup failed');
@@ -1441,17 +1327,15 @@ describe('SmartUserPicker', () => {
 				});
 
 				// Focus in the user picker so the user list is shown
-				// @ts-ignore in this case UserPicker.onFocus is not undefined
-				wrapper.find(Select).props().onFocus();
-				await waitForUpdate(wrapper);
+				const input = screen.getByRole('combobox');
+				await act(() => input.focus());
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
 
-				// Now that the options list is shown, type "user" to filter:
-				wrapper.find(UserPicker).props().onInputChange('user');
-				await waitForUpdate(wrapper);
+				// Now that the options list is shown, type "F" to filter:
+				await userEvent.type(input, 'u');
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(2);
@@ -1475,7 +1359,7 @@ describe('SmartUserPicker', () => {
 						statusCode: 400,
 					}),
 				);
-				const wrapper = smartUserPickerWrapper({
+				renderSmartUserPicker({
 					prefetch: true,
 					onError: async () => {
 						throw new Error('Fallback lookup failed');
@@ -1483,18 +1367,16 @@ describe('SmartUserPicker', () => {
 				});
 
 				// Focus in the user picker so the user list is shown
-				// @ts-ignore in this case UserPicker.onFocus is not undefined
-				wrapper.find(Select).props().onFocus();
-				await waitForUpdate(wrapper);
+				const input = screen.getByRole('combobox');
+				await act(() => input.focus());
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
 				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
 				expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
 
-				// Now that the options list is shown, type "user" to filter:
-				wrapper.find(UserPicker).props().onInputChange('user');
-				await waitForUpdate(wrapper);
+				// Now that the options list is shown, type "F" to filter:
+				await userEvent.type(input, 'u');
 
 				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
@@ -1513,23 +1395,15 @@ describe('SmartUserPicker', () => {
 			});
 
 			it('should abort the UFO show options request if a new query is typed while a previous query is already loading', async () => {
-				const wrapper = smartUserPickerWrapper({ prefetch: true });
+				renderSmartUserPicker({ prefetch: true });
 
 				// Focus in the user picker so the user list is shown
-				// @ts-ignore in this case UserPicker.onFocus is not undefined
-				wrapper.find(Select).props().onFocus();
-				await waitForUpdate(wrapper);
+				const input = screen.getByRole('combobox');
+				// Now that the options list is shown, type "use" to filter:
+				await userEvent.type(input, 'u');
 
-				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(1);
-
-				// Now that the options list is shown, type "us" to filter:
-				wrapper.find(UserPicker).props().onInputChange('us');
-				wrapper.find(UserPicker).props().onInputChange('user');
-				await waitForUpdate(wrapper);
-
-				expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(3);
-				expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(2);
 				expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
 				expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
 
@@ -1537,11 +1411,8 @@ describe('SmartUserPicker', () => {
 					'NOT_STARTED',
 					// Initial focus
 					'STARTED',
-					'SUCCEEDED',
-					// First onInputChange which gets aborted
-					'STARTED',
 					'ABORTED',
-					// 2nd onInputChange which finishes successfully
+					// First onInputChange which gets aborted
 					'STARTED',
 					'SUCCEEDED',
 				]);

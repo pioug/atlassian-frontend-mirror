@@ -44,7 +44,7 @@
 		"@atlaskit/primitives": "^13.5.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
@@ -56,7 +56,7 @@
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/app-provider": "^1.8.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/heading": "^4.1.0",
+		"@atlaskit/heading": "^4.2.0",
 		"@atlaskit/section-message": "*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",

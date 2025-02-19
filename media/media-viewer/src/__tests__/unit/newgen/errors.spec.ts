@@ -23,6 +23,7 @@ describe('Errors', () => {
 	const MCError = (reason: MediaClientErrorReason) => {
 		const error = new Error(reason) as any;
 		error.attributes = { reason };
+		error.reason = reason;
 		return error as MediaClientError<any>;
 	};
 
@@ -81,12 +82,12 @@ describe('Errors', () => {
 			).toEqual('some-error-message');
 		});
 
-		it('should detect undefined for non-nativeError detail of MediaViewerErrors', () => {
-			expect(getErrorDetail(MVError('imageviewer-fetch-url'))).toBeUndefined();
+		it('should detect unknown for non-nativeError detail of MediaViewerErrors', () => {
+			expect(getErrorDetail(MVError('imageviewer-fetch-url'))).toBe('unknown');
 		});
 
-		it('should detect undefined for non-nativeError detail', () => {
-			expect(getErrorDetail(new Error('some-error'))).toBeUndefined();
+		it('should detect unknown for non-nativeError detail', () => {
+			expect(getErrorDetail(new Error('some-error') as MediaViewerError)).toBe('unknown');
 		});
 	});
 
@@ -110,7 +111,7 @@ describe('Errors', () => {
 		});
 
 		it('should detect undefined for non-native errors', () => {
-			expect(getRequestMetadata(new Error('some-error'))).toBeUndefined();
+			expect(getRequestMetadata(new Error('some-error') as MediaViewerError)).toBeUndefined();
 		});
 	});
 });

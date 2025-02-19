@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.4.0
+
+### Minor Changes
+
+- [#115551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115551)
+  [`b773fe465608e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b773fe465608e) -
+  Allows `@atlaskit/ui-styling-standard/no-classname-prop` to work with bounded pass-through, eg.
+  `className={props.xcss}`
+
 ## 1.3.0
 
 ### Minor Changes

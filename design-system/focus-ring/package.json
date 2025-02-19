@@ -53,7 +53,7 @@
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/primitives": "^13.5.0",
-		"@atlaskit/textfield": "^6.8.0",
+		"@atlaskit/textfield": "^7.0.0",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

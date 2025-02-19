@@ -44,7 +44,7 @@
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.1",
+		"@compiled/react": "^0.18.2",
 		"graphql": "^15.8.0",
 		"graphql-tag": "^2.10.1",
 		"react-intl-next": "npm:react-intl@^5.18.1",

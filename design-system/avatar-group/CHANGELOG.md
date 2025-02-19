@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 11.1.4
+
+### Patch Changes
+
+- [#114591](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114591)
+  [`e0ea3e42506fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0ea3e42506fb) -
+  Internal refactor to the "more indicator". Fixes the focus state of the "more indicator" button.
+
 ## 11.1.3
 
 ### Patch Changes

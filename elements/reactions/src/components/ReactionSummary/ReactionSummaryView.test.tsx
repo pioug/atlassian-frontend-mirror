@@ -89,9 +89,10 @@ describe('ReactionSummaryView', () => {
 		expect(onReactionFocusedMock).toHaveBeenCalled();
 	});
 
-	it('should render meatball icon CTA and invoke dialog open if user dialog is allowed', async () => {
+	it('should render Reactions Dialog entrypoint and invoke dialog open if user dialog is allowed', async () => {
 		const mockHandleOpenReactionsDialog = jest.fn();
 		renderComponent({
+			reactions,
 			allowUserDialog: true,
 			handleOpenReactionsDialog: mockHandleOpenReactionsDialog,
 		});
@@ -99,12 +100,15 @@ describe('ReactionSummaryView', () => {
 		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 		await userEvent.click(reactionSummaryButton);
 
-		await screen.findAllByTestId(RENDER_REACTION_TESTID);
+		const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+		expect(reactionButtons.length).toEqual(reactions.length);
+		await userEvent.hover(reactionButtons[3]);
 
-		const viewAllButton = screen.getByLabelText('View all');
-		expect(viewAllButton).toBeInTheDocument();
+		const labelRegex = /and \d+ others/i;
+		const dialogEntrypoints = await screen.findAllByText(labelRegex);
+		expect(dialogEntrypoints.length).toBeGreaterThan(0);
+		await userEvent.click(dialogEntrypoints[0]);
 
-		await userEvent.click(viewAllButton);
 		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
 	});
 });

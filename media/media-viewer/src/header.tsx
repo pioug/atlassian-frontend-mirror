@@ -8,6 +8,7 @@ import {
 	isErrorFileState,
 	type ErrorFileState,
 	type FileIdentifier,
+	toCommonMediaClientError,
 } from '@atlaskit/media-client';
 import {
 	hideControlsClassName,
@@ -31,7 +32,7 @@ import {
 } from './styleWrappers';
 import { ToolbarDownloadButton, DisabledToolbarDownloadButton } from './download';
 import { type MediaViewerExtensions } from './components/types';
-import { MediaFileStateError, useFileState, useMediaClient } from '@atlaskit/media-client-react';
+import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from './viewers/codeViewer/util';
@@ -101,13 +102,11 @@ export const Header = ({
 			);
 			setItem(Outcome.successful(fileState));
 		} else {
-			const error = new MediaFileStateError(
-				fileState.id,
-				fileState.reason,
-				fileState.message,
-				fileState.details,
+			setItem(
+				Outcome.failed(
+					new MediaViewerError('header-fetch-metadata', toCommonMediaClientError(fileState)),
+				),
 			);
-			setItem(Outcome.failed(new MediaViewerError('header-fetch-metadata', error)));
 		}
 	}, [fileState, identifier]);
 

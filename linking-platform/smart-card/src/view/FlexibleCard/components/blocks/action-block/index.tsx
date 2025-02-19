@@ -152,9 +152,8 @@ const ActionBlockNew = ({
 	return actions ? (
 		<div
 			css={[
-				fg('platform-linking-visual-refresh-v1')
-					? ignoreContainerPaddingStyles
-					: ignoreContainerPaddingStylesOld,
+				!fg('platform-linking-visual-refresh-v1') && ignoreContainerPaddingStylesOld,
+				fg('platform-linking-visual-refresh-v1') && ignoreContainerPaddingStyles,
 			]}
 			ref={blockRef}
 			data-testid={testId}

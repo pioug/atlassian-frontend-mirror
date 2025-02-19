@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.14.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.14.8
+
+### Patch Changes
+
+- [#115686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115686)
+  [`3bc33ee6062f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3bc33ee6062f6) -
+  Removes unused categories and iconModern and maps items to new IA
+- Updated dependencies
+
+## 2.14.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.14.6
 
 ### Patch Changes

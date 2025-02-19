@@ -861,7 +861,7 @@ describe('document-service', () => {
 				});
 				jest.spyOn(service, 'send').mockImplementation();
 				service.sendStepsFromCurrentState();
-				expect(service.send).toBeCalledWith(null, null, 'state', undefined);
+				expect(service.send).toBeCalledWith(null, null, 'state', undefined, undefined);
 			});
 		});
 
@@ -892,7 +892,19 @@ describe('document-service', () => {
 				});
 				(getCollabState as jest.Mock).mockReturnValue(collabState);
 				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
-				service.send(null, null, 'state' as any);
+				service.send(
+					//@ts-expect-error Expects type 'Transaction' but we don't export it from editor-prosemirror
+					{
+						getMeta: (metaName: string) => ({
+							unconfirmedSteps: [],
+							remoteSteps: [],
+							stepsAfterRebase: [],
+							versionBefore: 1,
+						}),
+					},
+					null,
+					'state' as any,
+				);
 				expect(sendableSteps).toBeCalledWith('state');
 				expect(commitStepQueue).toBeCalledWith({
 					broadcast: broadcastMock,
@@ -917,6 +929,11 @@ describe('document-service', () => {
 				} else {
 					expect(analyticsHelperMock.sendErrorEvent).not.toHaveBeenCalled();
 				}
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith(
+					'stepsRebased',
+					'INFO',
+					expect.any(Object),
+				);
 			};
 
 			it('Does nothing when there is no unconfirmedStepsData', () => {

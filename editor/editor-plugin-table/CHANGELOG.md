@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 9.5.7
+
+### Patch Changes
+
+- [#115194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115194)
+  [`094a16cdc37f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/094a16cdc37f5) -
+  [ux] [ED-26390] Apply padding to all nested tables
+
+## 9.5.6
+
+### Patch Changes
+
+- [#115520](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115520)
+  [`328b6f9fa248b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/328b6f9fa248b) -
+  [ux] ED-25438 Clean up usage of `platform_editor_use_nested_table_pm_nodes` when used for toggling
+  ProseMirror schema nodes to reduce risk of content loss in case of a Statsig outage. Schema
+  changes are non-reversible so we need to prevent it from being mistakenly disabled.
+
 ## 9.5.5
 
 ### Patch Changes

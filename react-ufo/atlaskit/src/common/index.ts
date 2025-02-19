@@ -1,4 +1,11 @@
 export type {
+	AssetResourceEntry,
+	AssetsClassification,
+	AssetsData,
+	AssetsReporter,
+} from './assets/types';
+
+export type {
 	LifecycleMarkType,
 	MarkType,
 	SpanType,

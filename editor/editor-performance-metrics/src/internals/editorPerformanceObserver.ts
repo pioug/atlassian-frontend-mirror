@@ -56,6 +56,7 @@ const defaultOptions: EditorPerformanceObserverOptions = {
 export class EditorPerformanceObserver implements ObserverInterface {
 	public startTime: DOMHighResTimeStamp | null = null;
 
+	private isStarted: boolean = false;
 	private timeline: TimelineClock & TimelineHoldable;
 	private domObservers: DOMObservers;
 	private firstInteraction: FirstInteractionObserver;
@@ -185,11 +186,15 @@ export class EditorPerformanceObserver implements ObserverInterface {
 	}
 
 	start({ startTime }: StartProps) {
+		if (this.isStarted) {
+			return;
+		}
 		const target = document.body;
 		this.observedTargetRef = new WeakRef(target);
 		this.startTime = startTime;
 
 		this.domObservers.observe(target);
+		this.isStarted = true;
 	}
 
 	onIdleBuffer(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe {
@@ -203,9 +208,16 @@ export class EditorPerformanceObserver implements ObserverInterface {
 	}
 
 	stop() {
+		if (!this.isStarted) {
+			return;
+		}
+
+		this.isStarted = false;
 		this.domObservers.disconnect();
 		this.firstInteraction.disconnect();
 		this.userEventsObserver.disconnect();
+		this.cleanupWrappers();
+		this.timeline.cleanupSubscribers();
 	}
 
 	private applyWrappersOnce() {

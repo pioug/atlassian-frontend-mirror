@@ -12,6 +12,7 @@ import TextAlign from '../../examples/constellation/text/text-align';
 import TextAsElement from '../../examples/constellation/text/text-as-element';
 import TextSpacing from '../../examples/constellation/text/text-spacing';
 import TextTruncation from '../../examples/constellation/text/text-truncation';
+import TextCustomization from '../../examples/constellation/text/text-customization';
 
 ## Basic
 
@@ -87,3 +88,10 @@ However if truncation cannot be avoided, for example when displaying user-genera
 `maxLines` prop to indicate how text should be truncated.
 
 <Example Component={TextTruncation} packageName="@atlaskit/primitives" />
+
+## Customization
+
+A restricted set of styles can be customized using the `xcss` prop. This is only available in the
+Compiled version of Text.
+
+<Example Component={TextCustomization} packageName="@atlaskit/primitives" />

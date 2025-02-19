@@ -6,7 +6,7 @@ import type {
 	VCRatioType,
 } from '../../../common/vc/types';
 import type { ObservedMutationType } from '../observers/types';
-import type { RevisionEntry } from '../revisions/types';
+import type { RevisionEntry, VCCalculationMethodType } from '../revisions/types';
 
 type Viewport = {
 	w: number;
@@ -31,6 +31,7 @@ type Heatmap = Uint32Array;
 
 type ProcessDataArgs = {
 	VCParts: number[];
+	VCCalculationMethods: VCCalculationMethodType[];
 	clean: boolean;
 	ssr?: number;
 };
@@ -155,7 +156,7 @@ export class MultiRevisionHeatmap {
 		return payload;
 	}
 
-	processData({ VCParts, ssr = UNUSED_SECTOR }: ProcessDataArgs) {
+	processData({ VCParts, VCCalculationMethods, ssr = UNUSED_SECTOR }: ProcessDataArgs) {
 		return this.heatmaps.map((heatmap, i) => {
 			const lastUpdate: { [key: string]: number } = {};
 			let totalPainted = 0;
@@ -199,22 +200,12 @@ export class MultiRevisionHeatmap {
 				.map((a) => [parseInt(a[0], 10), a[1]])
 				.sort((a, b) => (a[0] > b[0] ? 1 : -1));
 
-			const VC: { [key: string]: number | null } =
-				MultiRevisionHeatmap.makeVCReturnObj<number>(VCParts);
-			const VCBox = MultiRevisionHeatmap.makeVCReturnObj<Set<string>>(VCParts);
-
-			entries.reduce((acc = 0, v) => {
-				const VCRatio = v[1] / totalPainted + acc;
-				const time = v[0];
-				VCParts.forEach((value) => {
-					if ((VC[value] === null || VC[value] === undefined) && VCRatio >= value / 100) {
-						VC[value] = time;
-						VCBox[value] = new Set();
-						componentsLog[time]?.forEach((v) => VCBox[value]?.add(v.targetName));
-					}
-				});
-				return VCRatio;
-			}, 0);
+			const { VC, VCBox } = VCCalculationMethods[i]({
+				VCParts,
+				componentsLog,
+				entries,
+				totalPainted,
+			});
 
 			const VCEntries = entries.reduce(
 				(acc: { abs: number[][]; rel: VCEntryType[] }, [timestamp, entryPainted], i) => {

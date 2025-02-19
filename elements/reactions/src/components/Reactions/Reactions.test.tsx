@@ -1,5 +1,6 @@
 import React from 'react';
-import { act, fireEvent, screen, within } from '@testing-library/react';
+import { act, fireEvent, screen, within, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type EmojiProvider } from '@atlaskit/emoji';
@@ -175,37 +176,69 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(reactionButtons.length).toEqual(0);
 	});
 
-	it('should see "View all" button if there is at least one emoji with 5 reactions', async () => {
+	it('should see clickable "and X others" dialog entrypoint if there is at least one emoji with 5 reactions', async () => {
+		const onDialogOpenCallback = jest.fn();
+
 		renderReactions({
 			reactions: reactionsForDialog,
 			allowUserDialog: true,
+			onDialogOpenCallback,
 		});
 
-		const viewAllButton = screen.getByLabelText('View all');
-		expect(viewAllButton).toBeInTheDocument();
+		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
+		userEvent.hover(reactionButtons[2]);
+
+		// "and X others" entrypoint should be visible
+		const labelRegex = /and \d+ others/i;
+		const dialogEntrypoints = await screen.findAllByText(labelRegex);
+		expect(dialogEntrypoints.length).toBeGreaterThan(0);
+
+		userEvent.click(dialogEntrypoints[0]);
+
+		await waitFor(() => expect(onDialogOpenCallback).toHaveBeenCalled());
 	});
 
-	it('should not show see "View all" button if allowUserDialog is disabled', async () => {
+	it('should see non-clickable "and X others" if allowUserDialog is disabled', async () => {
+		const onDialogOpenCallback = jest.fn();
+
 		renderReactions({
 			reactions: reactionsForDialog,
 			allowUserDialog: false,
+			onDialogOpenCallback,
 		});
 
-		const viewAllButton = screen.queryByLabelText('View all');
-		expect(viewAllButton).not.toBeInTheDocument();
+		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
+		userEvent.hover(reactionButtons[2]);
+
+		const labelRegex = /and \d+ others/i;
+		const dialogEntrypoints = await screen.findAllByText(labelRegex);
+		expect(dialogEntrypoints.length).toBeGreaterThan(0);
+
+		userEvent.click(dialogEntrypoints[0]);
+
+		await waitFor(() => {
+			expect(onDialogOpenCallback).not.toHaveBeenCalled();
+		});
 	});
 
-	it('should not show "View all" button if no emoji has 5 or more reactions', async () => {
+	it('should not see "and X others" if no emoji has 5 or more reactions', async () => {
+		const onDialogOpenCallback = jest.fn();
+
 		renderReactions({
 			reactions,
 			allowUserDialog: true,
+			onDialogOpenCallback,
 		});
 
-		const viewAllButton = screen.queryByLabelText('View all');
-		expect(viewAllButton).not.toBeInTheDocument();
+		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
+		userEvent.hover(reactionButtons[2]);
+
+		const labelRegex = /and \d+ others/i;
+		const dialogEntrypoints = screen.queryAllByText(labelRegex);
+		expect(dialogEntrypoints.length).toEqual(0);
 	});
 
-	it('should open reactions users dialog if allowUserDialog is enabled and "View all" button is clicked', async () => {
+	it('should open reactions users dialog if allowUserDialog is enabled and "And X others" button is clicked', async () => {
 		const onDialogOpenCallback = jest.fn();
 		const onDialogCloseCallback = jest.fn();
 		const onDialogSelectReactionCallback = jest.fn();
@@ -217,14 +250,16 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			onDialogSelectReactionCallback,
 		});
 
-		const viewAllButton = screen.getByLabelText('View all');
+		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
+		userEvent.hover(reactionButtons[2]);
 
-		// click see who reacted button
-		act(() => {
-			fireEvent.click(viewAllButton);
+		const labelRegex = /and \d+ others/i;
+		const dialogEntrypoints = await screen.findAllByText(labelRegex);
+		userEvent.click(dialogEntrypoints[0]);
+
+		await waitFor(() => {
+			screen.getByTestId(RENDER_MODAL_TESTID);
 		});
-
-		screen.getByTestId(RENDER_MODAL_TESTID);
 
 		screen.findByTestId(reactionsForDialog[1].emojiId);
 
@@ -243,7 +278,10 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			fireEvent.click(closeBtn);
 		});
 
-		expect(onDialogOpenCallback).toBeCalledWith(reactionsForDialog[0].emojiId, 'button');
+		expect(onDialogOpenCallback).toBeCalledWith(
+			reactionsForDialog[0].emojiId,
+			'endOfPageReactions',
+		);
 		expect(onDialogCloseCallback).toBeCalled();
 		expect(onDialogSelectReactionCallback).toBeCalledWith(reactionsForDialog[1].emojiId);
 

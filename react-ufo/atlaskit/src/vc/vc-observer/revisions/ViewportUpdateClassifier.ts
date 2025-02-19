@@ -1,3 +1,5 @@
+import type { VCCalculationMethodArgs } from './types';
+
 export type FilterArgs = { type: string; tags?: string[]; ignoreReason?: string };
 
 type Filter = {
@@ -18,6 +20,13 @@ export class ViewportUpdateClassifier {
 	filters: Filter[] = [];
 
 	removedFilters: string[] = [];
+
+	VCCalculationMethod(_: VCCalculationMethodArgs) {
+		return {
+			VC: {},
+			VCBox: {},
+		};
+	}
 
 	protected __combinedTypes: string[] = [];
 

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
@@ -47,16 +47,7 @@ export interface ReactionsDialogProps {
 	handleSelectReaction?: (emojiId: string) => void;
 	handlePaginationChange?: (emojiId: string, currentPage: number, maxPages: number) => void;
 	ProfileCardWrapper?: ProfileCardWrapper;
-	handleReactionMouseEnter?: (emojiId: string) => void;
 }
-
-const getDimensions = (container: HTMLDivElement) => {
-	return {
-		clientWidth: container?.clientWidth,
-		scrollWidth: container?.scrollWidth,
-		scrollLeft: container?.scrollLeft,
-	};
-};
 
 const modalBodyStyle = xcss({ marginBottom: 'space.300' });
 
@@ -68,19 +59,9 @@ export const ReactionsDialog = ({
 	handleSelectReaction = () => {},
 	handlePaginationChange = () => {},
 	ProfileCardWrapper,
-	handleReactionMouseEnter,
 }: ReactionsDialogProps) => {
-	const [elementToScroll, setElementToScroll] = useState<Element>();
-
-	const [reactionsContainerRef, setReactionsContainerRef] = useState<HTMLDivElement | null>(null);
-
-	// prevents accidental triggering of handlePaginationChange on initial load
 	const [hasNavigatedPages, setHasNavigatedPages] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState(1);
-
-	const reactionElementsRef = useRef<NodeListOf<HTMLElement>>();
-	const observerRef = useRef<IntersectionObserver>();
-	const isSelectedEmojiViewed = useRef(false);
 
 	const totalReactionsCount = useMemo(() => {
 		return reactions.reduce((accum: number, current: ReactionSummary) => {
@@ -117,82 +98,6 @@ export const ReactionsDialog = ({
 	const reactionsBorderWidth = useMemo(() => {
 		return (Math.ceil(reactions.length / NUMBER_OF_REACTIONS_TO_DISPLAY) * 100) as number;
 	}, [reactions]);
-
-	/* Callback from IntersectionObserver to set/unset classNames based on visibility to toggle styles*/
-	const handleNavigation = useCallback(
-		(entries: IntersectionObserverEntry[]) => {
-			entries.forEach((entry: IntersectionObserverEntry) => {
-				const element = entry.target;
-				const emojiElement = element?.querySelector('[data-emoji-id]');
-				const emojiId = (emojiElement as HTMLElement)?.dataset?.emojiId;
-				if (entry.intersectionRatio < 1) {
-					element.classList.add('disabled');
-					/*Check if selectedEmoji (passed as props based on what user selects) is out of viewport */
-					if (emojiId === selectedEmojiId && !isSelectedEmojiViewed.current) {
-						setElementToScroll(emojiElement ?? undefined);
-					}
-				} else {
-					if (emojiId === selectedEmojiId && !isSelectedEmojiViewed.current) {
-						isSelectedEmojiViewed.current = true;
-					}
-					element.classList.remove('disabled');
-				}
-			});
-		},
-		[selectedEmojiId],
-	);
-
-	useEffect(() => {
-		if (elementToScroll && !isSelectedEmojiViewed.current && reactionsContainerRef) {
-			isSelectedEmojiViewed.current = true;
-			const parentElement = elementToScroll.closest('.reaction-elements');
-
-			const reactionsList = document.querySelector('#reactions-dialog-tabs-list');
-			const { clientWidth } = getDimensions(reactionsList as HTMLDivElement);
-
-			const offsetLeft = (parentElement as HTMLElement)?.offsetLeft;
-			/* which means emoji is not in viewport so scroll to it*/
-			if (reactionsList && offsetLeft > clientWidth) {
-				const scrollBy = Math.trunc(offsetLeft / clientWidth) * clientWidth;
-				reactionsList.scrollLeft += scrollBy;
-			}
-		}
-	}, [elementToScroll, reactionsContainerRef]);
-
-	/* Set up InterSectionObserver to observer reaction elements on navigating*/
-	useEffect(() => {
-		if (reactionsContainerRef) {
-			const options = {
-				root: reactionsContainerRef,
-				rootMargin: '0px',
-				threshold: 1.0,
-			};
-
-			observerRef.current = new IntersectionObserver(handleNavigation, options);
-
-			reactionElementsRef.current = reactionsContainerRef.querySelectorAll('.reaction-elements');
-
-			reactionElementsRef.current &&
-				reactionElementsRef.current.length > 0 &&
-				reactionElementsRef.current.forEach((child) => {
-					observerRef?.current?.observe(child);
-				});
-		}
-
-		return () => {
-			if (observerRef.current) {
-				observerRef.current.disconnect();
-				observerRef.current = undefined;
-			}
-		};
-	}, [reactionsContainerRef, reactions, handleNavigation, selectedEmojiId]);
-
-	const setRef = useCallback((node: HTMLDivElement) => {
-		if (!reactionsContainerRef) {
-			setReactionsContainerRef(node);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	const selectedIndex = currentReactions.findIndex(
 		(reaction) => reaction.emojiId === selectedEmojiId,
@@ -231,11 +136,10 @@ export const ReactionsDialog = ({
 				<ModalBody>
 					<Box xcss={modalBodyStyle}>
 						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-						<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
+						<div css={containerStyle(reactionsBorderWidth)}>
 							<ReactionsList
 								selectedEmojiId={selectedEmojiId}
 								reactions={currentReactions}
-								emojiProvider={emojiProvider}
 								ProfileCardWrapper={ProfileCardWrapper}
 							/>
 						</div>

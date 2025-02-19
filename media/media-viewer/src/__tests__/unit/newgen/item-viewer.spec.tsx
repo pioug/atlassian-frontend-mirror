@@ -3,7 +3,11 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import {
+	createMockedMediaApi,
+	createRateLimitedError,
+	createServerUnauthorizedError,
+} from '@atlaskit/media-client/test-helpers';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
@@ -500,7 +504,8 @@ describe('<ItemViewer />', () => {
 
 			const errorInfo = {
 				failReason: 'imageviewer-external-onerror',
-				errorDetail: undefined,
+				errorDetail: 'unknown',
+				error: 'unknown',
 			};
 
 			const { mediaApi } = createMockedMediaApi();
@@ -524,7 +529,7 @@ describe('<ItemViewer />', () => {
 			fireEvent.error(interactiveImg);
 
 			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
-				expect.objectContaining({
+				{
 					action: 'loadFailed',
 					actionSubject: 'mediaFile',
 					attributes: {
@@ -534,12 +539,14 @@ describe('<ItemViewer />', () => {
 						fileAttributes,
 					},
 					eventType: 'operational',
-				}),
+				},
 				expect.anything(),
 			);
 
 			expect(mockfailMediaFileUfoExperience).toBeCalledWith({
 				...errorInfo,
+				request: undefined,
+				traceContext: undefined,
 				fileAttributes,
 				filteredMimeType: fileAttributes.fileMimetype,
 				fileStateFlags: {
@@ -554,9 +561,7 @@ describe('<ItemViewer />', () => {
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
 			// simulate error
-			mediaApi.getItems = () => {
-				throw new Error('metadata fetching error');
-			};
+			jest.spyOn(mediaApi, 'getItems').mockRejectedValueOnce(createRateLimitedError());
 
 			render(
 				<IntlProvider locale="en">
@@ -571,17 +576,36 @@ describe('<ItemViewer />', () => {
 			);
 
 			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					attributes: expect.objectContaining({
+				{
+					eventType: 'operational',
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: {
 						failReason: 'itemviewer-fetch-metadata',
+						error: 'serverRateLimited',
+						errorDetail: 'unknown',
 						fileAttributes: {
 							fileId: identifier.id,
 							fileMediatype: undefined,
 							fileMimetype: undefined,
 							fileSize: undefined,
 						},
-					}),
-				}),
+						fileMimetype: undefined,
+						request: {
+							attempts: 5,
+							clientExhaustedRetries: true,
+							mediaEnv: 'test-media-env',
+							mediaRegion: 'test-media-region',
+							statusCode: 429,
+							traceContext: {
+								spanId: 'some-span',
+								traceId: 'some-trace',
+							},
+						},
+						status: 'fail',
+						traceContext: undefined,
+					},
+				},
 				expect.anything(),
 			);
 		});
@@ -591,9 +615,9 @@ describe('<ItemViewer />', () => {
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
 			// simulate error
-			mediaApi.getFileBinaryURL = () => {
-				throw new Error('image viewer error');
-			};
+			jest
+				.spyOn(mediaApi, 'getFileBinaryURL')
+				.mockRejectedValueOnce(createServerUnauthorizedError());
 
 			render(
 				<IntlProvider locale="en">
@@ -613,17 +637,38 @@ describe('<ItemViewer />', () => {
 
 			// check the error attributes
 			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					attributes: expect.objectContaining({
+				{
+					eventType: 'operational',
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: {
 						failReason: 'imageviewer-fetch-url',
+						error: 'serverUnauthorized',
+						errorDetail: 'unknown',
 						fileAttributes: {
 							fileId: identifier.id,
 							fileMediatype: fileItem.details.mediaType,
 							fileMimetype: fileItem.details.mimeType,
 							fileSize: fileItem.details.size,
 						},
-					}),
-				}),
+						fileMimetype: 'image/png',
+						request: {
+							attempts: 5,
+							clientExhaustedRetries: true,
+							mediaEnv: 'test-media-env',
+							mediaRegion: 'test-media-region',
+							statusCode: 403,
+							traceContext: {
+								spanId: 'some-span',
+								traceId: 'some-trace',
+							},
+						},
+						status: 'fail',
+						traceContext: {
+							traceId: 'some-trace-id',
+						},
+					},
+				},
 				expect.anything(),
 			);
 		});
@@ -750,9 +795,7 @@ describe('<ItemViewer />', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			mediaApi.getArtifactURL = () => {
-				throw new Error('Document Viewer fetch failure');
-			};
+			jest.spyOn(mediaApi, 'getArtifactURL').mockRejectedValueOnce(createServerUnauthorizedError());
 
 			render(
 				<IntlProvider locale="en">
@@ -772,8 +815,12 @@ describe('<ItemViewer />', () => {
 
 			// check the error attributes
 			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					attributes: expect.objectContaining({
+				{
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: {
+						error: 'serverUnauthorized',
+						errorDetail: 'unknown',
 						failReason: 'docviewer-fetch-url',
 						fileAttributes: {
 							fileId: identifier.id,
@@ -781,8 +828,23 @@ describe('<ItemViewer />', () => {
 							fileMimetype: fileItem.details.mimeType,
 							fileSize: fileItem.details.size,
 						},
-					}),
-				}),
+						fileMimetype: 'application/pdf',
+						request: {
+							attempts: 5,
+							clientExhaustedRetries: true,
+							mediaEnv: 'test-media-env',
+							mediaRegion: 'test-media-region',
+							statusCode: 403,
+							traceContext: {
+								spanId: 'some-span',
+								traceId: 'some-trace',
+							},
+						},
+						status: 'fail',
+						traceContext: undefined,
+					},
+					eventType: 'operational',
+				},
 				expect.anything(),
 			);
 		});
@@ -791,7 +853,7 @@ describe('<ItemViewer />', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
@@ -800,10 +862,10 @@ describe('<ItemViewer />', () => {
 			);
 
 			await waitFor(() =>
-				expect(container.querySelector('[data-testid="custom-media-player"]')).toBeInTheDocument(),
+				expect(document.querySelector('[data-testid="custom-media-player"]')).toBeInTheDocument(),
 			);
 
-			const video = container.querySelector('video') as HTMLVideoElement;
+			const video = document.querySelector('video') as HTMLVideoElement;
 			fireEvent.error(video);
 
 			// assess error experience
@@ -835,7 +897,7 @@ describe('<ItemViewer />', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingAudioWithoutRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
@@ -844,10 +906,10 @@ describe('<ItemViewer />', () => {
 			);
 
 			await waitFor(() =>
-				expect(container.querySelector('[data-testid="custom-media-player"]')).toBeInTheDocument(),
+				expect(document.querySelector('[data-testid="custom-media-player"]')).toBeInTheDocument(),
 			);
 
-			const audio = container.querySelector('audio') as HTMLAudioElement;
+			const audio = document.querySelector('audio') as HTMLAudioElement;
 			fireEvent.error(audio);
 
 			// assess error experience

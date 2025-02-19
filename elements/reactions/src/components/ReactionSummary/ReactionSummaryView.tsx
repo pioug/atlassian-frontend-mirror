@@ -1,12 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { useIntl } from 'react-intl-next';
 
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
-import { Box, Inline, Pressable, Flex, xcss } from '@atlaskit/primitives';
-import Button from '@atlaskit/button/new';
-import Tooltip from '@atlaskit/tooltip';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { Inline, xcss } from '@atlaskit/primitives';
 
 import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
 import { Reaction } from '../Reaction';
@@ -14,19 +10,11 @@ import { type ReactionsProps } from '../Reactions';
 
 import { ReactionSummaryButton } from './ReactionSummaryButton';
 
-import { messages } from '../../shared/i18n';
-
 const summaryPopupStyles = xcss({
 	padding: 'space.100',
 	paddingTop: 'space.050',
 	maxWidth: '325px',
 });
-
-const viewAllButtonStyling = xcss({
-	marginTop: 'space.050',
-});
-
-const iconStyle = xcss({ height: '20px' });
 
 /**
  * Test id for the Reactions summary view popup
@@ -63,9 +51,13 @@ interface ReactionSummaryViewProps
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
 	/**
-	 * Optional function when the user wants to see more users in a modal
+	 * Optional prop for enabling the Reactions Dialog
 	 */
-	handleOpenReactionsDialog?: (emojiId: string) => void;
+	allowUserDialog?: boolean;
+	/**
+	 * Optional function when the user wants to open the Reactions Dialog
+	 */
+	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
 }
 
 export const ReactionSummaryView = ({
@@ -79,11 +71,9 @@ export const ReactionSummaryView = ({
 	onReactionMouseEnter,
 	showOpaqueBackground = false,
 	subtleReactionsSummaryAndPicker = false,
-	handleOpenReactionsDialog,
 	allowUserDialog,
+	handleOpenReactionsDialog,
 }: ReactionSummaryViewProps) => {
-	const intl = useIntl();
-
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
 	const handlePopupClose = useCallback(() => setSummaryPopupOpen(false), []);
@@ -113,32 +103,10 @@ export const ReactionSummaryView = ({
 							onMouseEnter={onReactionMouseEnter}
 							flash={flash[reaction.emojiId]}
 							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+							allowUserDialog={allowUserDialog}
+							handleOpenReactionsDialog={handleOpenReactionsDialog}
 						/>
 					))}
-					{allowUserDialog && (
-						<Box xcss={viewAllButtonStyling}>
-							<Pressable backgroundColor="color.background.neutral.subtle" padding="space.0">
-								<Tooltip content={intl.formatMessage(messages.seeWhoReactedTooltip)}>
-									{(tooltipProps) => (
-										<Button
-											{...tooltipProps}
-											spacing="compact"
-											onClick={() => {
-												handlePopupClose();
-												handleOpenReactionsDialog?.(reactions[0].emojiId);
-											}}
-										>
-											<Flex alignItems="center" xcss={iconStyle}>
-												<ShowMoreHorizontalIcon
-													label={intl.formatMessage(messages.seeWhoReacted)}
-												/>
-											</Flex>
-										</Button>
-									)}
-								</Tooltip>
-							</Pressable>
-						</Box>
-					)}
 				</Inline>
 			)}
 			isOpen={isSummaryPopupOpen}

@@ -34,12 +34,7 @@ export const DrawerSidebar = ({ children, xcss }: DrawerSidebarProps) => {
 	useEnsureIsInsideDrawer();
 
 	return (
-		<div
-			css={styles.default}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={xcss}
-			data-testid="drawer-sidebar"
-		>
+		<div css={styles.default} className={xcss} data-testid="drawer-sidebar">
 			{children}
 		</div>
 	);

@@ -109,10 +109,7 @@ const SvgViewerBase = ({
 	};
 
 	const onSvgError = (err: MediaSVGError) => {
-		const error = new MediaViewerError(
-			getErrorReason(err.primaryReason),
-			err instanceof Error ? err : undefined,
-		);
+		const error = new MediaViewerError(getErrorReason(err.primaryReason), err.secondaryError);
 		onError(error);
 	};
 

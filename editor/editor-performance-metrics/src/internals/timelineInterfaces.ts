@@ -61,24 +61,53 @@ export interface Timeline {
 /**
  * TimelineClock
  *
- * The TimelineClock interface extends the Timeline interface, adding methods for
- * marking new events, managing idle-period callbacks, and handling subscription lifecycle.
+ * The TimelineClock interface extends the Timeline interface, providing methods for
+ * marking new events, managing idle-period callbacks, and handling the subscription lifecycle.
+ * It includes functionality for both immediate and next-idle event handling, as well as
+ * cleanup operations for subscriber management.
  *
  * Key Methods:
  * - `markEvent(event)`: Adds a new event to the timeline and manages the idle detection logic.
+ *
+ * Subscription Methods:
  * - `onIdleBufferFlush(cb)`: Registers a callback to be triggered when the idle buffer is flushed.
  *   Returns a function to unsubscribe the callback.
+ *
  * - `onNextIdle(cb)`: Registers a callback to be triggered when the next idle event happens.
  *   The callback will be called only once. Returns a function to unsubscribe the callback.
+ *
+ * Lifecycle Methods:
  * - `onceAllSubscribersCleaned(cb)`: Registers a callback to be called once when all subscribers
  *   to onIdleBufferFlush and onNextIdle have been unsubscribed. This is useful for performing
  *   cleanup operations when the timeline is no longer being actively monitored.
+ *
+ * - `cleanupSubscribers()`: Forcefully removes all subscribers and triggers any pending idle buffer
+ *   flushes. This method will:
+ *   1. Flush the current idle buffer, ensuring all pending callbacks are executed
+ *   2. Clear all registered onIdleBufferFlush callbacks
+ *   3. Clear all registered onNextIdle callbacks
+ *   4. Trigger the onceAllSubscribersCleaned callback if registered
+ *
+ * @example
+ * ```typescript
+ * // Regular subscription pattern
+ * const unsubscribe = timeline.onIdleBufferFlush(({ idleAt, timelineBuffer }) => {
+ *   console.log('Buffer flushed at:', idleAt);
+ * });
+ *
+ * // Cleanup when done
+ * unsubscribe();
+ *
+ * // Force cleanup of all subscribers
+ * timeline.cleanupSubscribers();
+ * ```
  */
 export interface TimelineClock extends Timeline {
 	markEvent(event: TimelineEvent): void;
 	onIdleBufferFlush(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
 	onNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
 	onceAllSubscribersCleaned(cb: () => void): void;
+	cleanupSubscribers: () => void;
 }
 
 /**

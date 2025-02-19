@@ -149,6 +149,8 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 						}),
 						expect.anything(),
 					);
+				});
+				await waitFor(() => {
 					expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
 						expect.objectContaining({
 							action: 'loadSucceeded',
@@ -164,7 +166,11 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 						}),
 						expect.anything(),
 					);
+				});
+				await waitFor(() => {
 					expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				});
+				await waitFor(() => {
 					expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
 						expect.objectContaining({
 							fileAttributes,
@@ -234,6 +240,8 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 						}),
 						expect.anything(),
 					);
+				});
+				await waitFor(() => {
 					expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
 						expect.objectContaining({
 							action: 'loadSucceeded',
@@ -249,7 +257,11 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 						}),
 						expect.anything(),
 					);
+				});
+				await waitFor(() => {
 					expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				});
+				await waitFor(() => {
 					expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
 						expect.objectContaining({
 							fileAttributes,
@@ -609,9 +621,7 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 					const { mediaApi } = createMockedMediaApi(fileItem);
 
 					// simulate error
-					mediaApi.getFileBinary = async () => {
-						throw new Error('binary fetching error');
-					};
+					jest.spyOn(mediaApi, 'getFileBinary').mockRejectedValue(createServerUnauthorizedError());
 
 					render(
 						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
@@ -638,28 +648,55 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 					};
 
 					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
-						expect.objectContaining({
-							attributes: expect.objectContaining({
+						{
+							eventType: 'operational',
+							action: 'loadFailed',
+							actionSubject: 'mediaFile',
+							attributes: {
+								error: 'serverUnauthorized',
+								errorDetail: 'unknown',
 								failReason: 'svg-binary-fetch',
 								fileMimetype: fileAttributes.fileMimetype,
 								fileAttributes,
-							}),
-						}),
+								request: {
+									attempts: 5,
+									clientExhaustedRetries: true,
+									mediaEnv: 'test-media-env',
+									mediaRegion: 'test-media-region',
+									statusCode: 403,
+									traceContext: {
+										spanId: 'some-span',
+										traceId: 'some-trace',
+									},
+								},
+								status: 'fail',
+								traceContext: {
+									traceId: expect.any(String),
+								},
+							},
+						},
 						expect.anything(),
 					);
 
 					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
 					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
 						expect.objectContaining({
-							error: 'nativeError',
-							errorDetail: 'binary-fetch',
+							error: 'serverUnauthorized',
+							errorDetail: 'unknown',
 							failReason: 'svg-binary-fetch',
 							fileAttributes,
 							fileStateFlags: {
 								wasStatusProcessing: false,
 								wasStatusUploading: false,
 							},
-							request: undefined,
+							request: {
+								attempts: 5,
+								clientExhaustedRetries: true,
+								mediaEnv: 'test-media-env',
+								mediaRegion: 'test-media-region',
+								statusCode: 403,
+								traceContext: { spanId: 'some-span', traceId: 'some-trace' },
+							},
 							traceContext: {
 								traceId: expect.any(String),
 							},
@@ -700,13 +737,23 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 					};
 
 					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
-						expect.objectContaining({
-							attributes: expect.objectContaining({
+						{
+							eventType: 'operational',
+							action: 'loadFailed',
+							actionSubject: 'mediaFile',
+							attributes: {
 								failReason: 'svg-blob-to-datauri',
+								error: 'nativeError',
+								errorDetail: 'failed to convert Blob',
 								fileMimetype: fileAttributes.fileMimetype,
 								fileAttributes,
-							}),
-						}),
+								request: undefined,
+								traceContext: {
+									traceId: expect.any(String),
+								},
+								status: 'fail',
+							},
+						},
 						expect.anything(),
 					);
 
@@ -714,7 +761,7 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
 						expect.objectContaining({
 							error: 'nativeError',
-							errorDetail: 'blob-to-datauri',
+							errorDetail: 'failed to convert Blob',
 							failReason: 'svg-blob-to-datauri',
 							fileAttributes,
 							fileStateFlags: {
@@ -764,21 +811,31 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 					};
 
 					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
-						expect.objectContaining({
-							attributes: expect.objectContaining({
+						{
+							eventType: 'operational',
+							action: 'loadFailed',
+							actionSubject: 'mediaFile',
+							attributes: {
+								error: 'unknown',
+								errorDetail: 'unknown',
 								failReason: 'svg-img-error',
 								fileMimetype: fileAttributes.fileMimetype,
 								fileAttributes,
-							}),
-						}),
+								request: undefined,
+								status: 'fail',
+								traceContext: {
+									traceId: expect.any(String),
+								},
+							},
+						},
 						expect.anything(),
 					);
 
 					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
 					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
 						expect.objectContaining({
-							error: 'nativeError',
-							errorDetail: 'img-error',
+							error: 'unknown',
+							errorDetail: 'unknown',
 							failReason: 'svg-img-error',
 							fileAttributes,
 							fileStateFlags: {
@@ -1370,7 +1427,7 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 						action: 'downloadFailed',
 						attributes: {
 							error: 'serverUnauthorized',
-							errorDetail: undefined,
+							errorDetail: 'unknown',
 							failReason: 'download',
 							status: 'fail',
 							fileMediatype: fileItem.details.mediaType,
@@ -1420,9 +1477,6 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				// Clearing Media Viewer reliability calls for easier debugging
-				fireAnalyticsMock.mockClear();
-
 				const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
 
 				expect(downloadButton).toBeInTheDocument();
@@ -1465,7 +1519,7 @@ ffTest.on('media_viewer_integrates_ds_portal', 'Testing DS Portal', () => {
 						action: 'downloadFailed',
 						attributes: {
 							error: 'serverUnauthorized',
-							errorDetail: undefined,
+							errorDetail: 'unknown',
 							failReason: 'download',
 							status: 'fail',
 							fileMediatype: fileItem.details.mediaType,

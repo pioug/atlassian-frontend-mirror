@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "4.25.6",
+	"version": "5.0.0",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/dropdown-menu": "^12.26.0",
 		"@atlaskit/form": "^11.1.0",
-		"@atlaskit/heading": "^4.1.0",
+		"@atlaskit/heading": "^4.2.0",
 		"@atlaskit/icon": "^23.9.0",
 		"@atlaskit/link": "^2.1.0",
 		"@atlaskit/menu": "^2.14.0",
@@ -131,6 +131,9 @@
 			"type": "boolean"
 		},
 		"plans_outgoing_mail_fix": {
+			"type": "boolean"
+		},
+		"jira-issue-terminology-refresh-m3": {
 			"type": "boolean"
 		}
 	}

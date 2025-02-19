@@ -40,6 +40,20 @@ const errorStyles = css({
 });
 
 const styles = cssMap({
+	containerStyles: {
+		all: 'unset',
+		borderRadius: token('border.radius'),
+		marginTop: token('space.100'),
+		marginRight: token('space.100'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.100'),
+		paddingBlock: token('space.075'),
+		paddingInline: token('space.100'),
+		width: '100%',
+		'&:empty': {
+			display: 'none',
+		},
+	},
 	errorContentStyles: {
 		paddingInlineStart: token('space.025'),
 	},
@@ -70,6 +84,26 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 const ActionFooterNew = ({ message, testId }: ActionFooterProps) => {
 	if (!message) {
 		return null;
+	}
+
+	if (fg('platform-linking-visual-refresh-v1')) {
+		return (
+			<Box
+				backgroundColor={message.appearance === 'error' ? 'color.background.danger' : undefined}
+				testId={`${testId}-footer`}
+				style={{
+					width: `calc(100% - var(--container-padding-left) - var(--container-padding-right))`,
+				}}
+				xcss={styles.containerStyles}
+			>
+				<MotionWrapper isFadeIn={true} show={true} showTransition={true}>
+					<Inline alignBlock="start" grow="fill" space="space.075" xcss={styles.errorContentStyles}>
+						{message.icon || getIcon(message.appearance)}
+						<Box xcss={styles.titleStyles}>{message.title}</Box>
+					</Inline>
+				</MotionWrapper>
+			</Box>
+		);
 	}
 
 	return (

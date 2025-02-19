@@ -22,6 +22,7 @@ export enum EVENT_ACTION {
 	PROVIDER_SETUP = 'providerSetup', // https://data-portal.internal.atlassian.com/analytics/registry/54715
 	HAS_UNCONFIRMED_STEPS = 'hasUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/56141
 	OUT_OF_SYNC = 'outOfSync', // https://data-portal.internal.atlassian.com/analytics/registry/74993
+	STEPS_REBASED = 'stepsRebased', // https://data-portal.internal.atlassian.com/analytics/registry/76616
 }
 export enum EVENT_STATUS {
 	SUCCESS = 'SUCCESS',
@@ -308,6 +309,26 @@ type OutOfSyncAnalyticsEvent = {
 	} & BaseActionAnalyticsEventAttributes;
 };
 
+type StepsRebasedAnalyticsEvent = {
+	eventAction: EVENT_ACTION.STEPS_REBASED;
+	attributes: {
+		eventStatus: EVENT_STATUS.INFO;
+		obfuscatedUnconfirmedSteps: {
+			[key: string]: number;
+		}[];
+		obfuscatedRemoteSteps: {
+			[key: string]: number;
+		}[];
+		obfuscatedRebasedSteps: {
+			[key: string]: number;
+		}[];
+		clientID: 'string';
+		userId: 'string';
+		versionBefore: 'string';
+		versionAfter: 'string';
+	} & BaseActionAnalyticsEventAttributes;
+};
+
 export type ActionAnalyticsEvent =
 	| AddStepsSuccessAnalyticsEvent
 	| AddStepsFailureAnalyticsEvent
@@ -335,7 +356,8 @@ export type ActionAnalyticsEvent =
 	| ProviderHasUnconfirmedStepsAnalyticsEvent
 	| UpdateDocumentAnalyticsEvent
 	| ReconnectionAnalyticsEvent
-	| OutOfSyncAnalyticsEvent;
+	| OutOfSyncAnalyticsEvent
+	| StepsRebasedAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;
 

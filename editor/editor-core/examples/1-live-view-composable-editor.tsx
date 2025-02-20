@@ -127,6 +127,7 @@ function ComposableEditorPage() {
 			defaultValue: getDefaultValue(),
 			featureFlags: {
 				'nested-expand-in-expand-ex': true,
+				'table-drag-and-drop': true,
 			},
 			allowTemplatePlaceholders: true,
 		},

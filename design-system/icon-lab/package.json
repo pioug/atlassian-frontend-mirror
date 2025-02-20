@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "2.6.1",
+	"version": "2.7.0",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon": "^23.10.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -42,15 +42,15 @@
 		"@af/icon-build-process": "^2.4.0",
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/code": "^15.6.10",
+		"@atlaskit/code": "^15.8.0",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/heading": "^4.2.0",
+		"@atlaskit/heading": "^4.3.0",
 		"@atlaskit/modal-dialog": "^12.19.3",
-		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^7.0.0",
 		"@atlaskit/tokens": "^3.2.0",
-		"@atlaskit/tooltip": "^19.0.3",
+		"@atlaskit/tooltip": "^19.2.0",
 		"@compiled/react": "^0.18.2",
 		"@testing-library/react": "^13.4.0",
 		"fs-extra": "^4.0.2",

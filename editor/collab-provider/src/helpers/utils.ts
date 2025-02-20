@@ -188,6 +188,15 @@ export const getDocAdfWithObfuscation = (doc: ProseMirrorNode): ADFEntity | null
 	return scrubbedDoc;
 };
 
+export const getDocAdfWithObfuscationFromJSON = (docJson: JSONDocNode): ADFEntity | null => {
+	const scrubbedDoc = scrubAdf(docJson);
+	if (!scrubbedDoc) {
+		return null;
+	}
+
+	return scrubbedDoc;
+};
+
 export const getStepPositions = (stepJson: StepJson) => {
 	return {
 		...(stepWithFromTo(stepJson) && { from: stepJson.from, to: stepJson.to }),

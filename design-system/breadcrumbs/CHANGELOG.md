@@ -1,5 +1,17 @@
 # @atlaskit/breadcrumbs
 
+## 14.2.0
+
+### Minor Changes
+
+- [#116138](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116138)
+  [`b50c5d5d65ae2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b50c5d5d65ae2) -
+  Bump to the latest version of @compiled/react
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.3
 
 ### Patch Changes

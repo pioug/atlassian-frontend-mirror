@@ -1,5 +1,19 @@
 # @atlaskit/teams-public
 
+## 0.4.0
+
+### Minor Changes
+
+- [#116721](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116721)
+  [`566f2e1f6e143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/566f2e1f6e143) -
+  Fixed getTeamContainers query to pass ari
+
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.0
 
 ### Minor Changes

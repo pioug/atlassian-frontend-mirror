@@ -5,21 +5,23 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
+import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { EditorAppearanceComponentProps } from '../../../types';
+import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '../../../types';
 
 import { FullPageContentArea } from './FullPageContentArea';
-import { FullPageToolbar } from './FullPageToolbar';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
+import { FullPageToolbar } from './FullPageToolbar';
 import { fullPageEditorWrapper } from './StyledComponents';
 import { type ScrollContainerRefs } from './types';
 
@@ -61,9 +63,27 @@ type ComponentProps = EditorAppearanceComponentProps<
 	[
 		OptionalPlugin<EditorViewModePlugin>,
 		OptionalPlugin<PrimaryToolbarPlugin>,
+		OptionalPlugin<SelectionToolbarPlugin>,
 		...ToolbarEditorPlugins,
 	]
 >;
+
+const hasCustomComponents = (components?: PrimaryToolbarComponents) => {
+	if (!components) {
+		return false;
+	}
+
+	if ('before' in components) {
+		return (
+			(Array.isArray(components.before) && components.before.length > 0) ||
+			!!components.before ||
+			(Array.isArray(components.after) && components.after.length > 0) ||
+			!!components.after
+		);
+	}
+
+	return true;
+};
 
 export const FullPageEditor = (props: ComponentProps) => {
 	const wrapperElementRef = useMemo(() => props.innerRef, [props.innerRef]);
@@ -74,6 +94,8 @@ export const FullPageEditor = (props: ComponentProps) => {
 		'editorViewMode',
 		'primaryToolbar',
 	]);
+	const toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking');
+
 	let primaryToolbarComponents = props.primaryToolbarComponents;
 
 	if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
@@ -97,6 +119,19 @@ export const FullPageEditor = (props: ComponentProps) => {
 				// a separate flag in the editorViewMode plugin state.
 				isEditorToolbarHidden = !editorViewModeState._showTopToolbar || false;
 			}
+		}
+	}
+
+	const { customPrimaryToolbarComponents } = props;
+
+	if (
+		toolbarDocking === 'none' &&
+		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+	) {
+		primaryToolbarComponents = [];
+
+		if (!hasCustomComponents(customPrimaryToolbarComponents)) {
+			isEditorToolbarHidden = true;
 		}
 	}
 

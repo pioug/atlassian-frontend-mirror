@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/empty-state",
-	"version": "8.2.2",
+	"version": "8.3.0",
 	"description": "An empty state appears when there is no data to display and describes what the user can do next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,9 +26,9 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/heading": "^4.2.0",
-		"@atlaskit/primitives": "^13.5.0",
-		"@atlaskit/spinner": "^17.1.0",
+		"@atlaskit/heading": "^4.3.0",
+		"@atlaskit/primitives": "^13.6.0",
+		"@atlaskit/spinner": "^17.2.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",

@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 1.6.0
+
+### Minor Changes
+
+- [#115442](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115442)
+  [`99a5dbb7e64f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99a5dbb7e64f3) -
+  Add 3p action auth handling
+
 ## 1.5.0
 
 ### Minor Changes

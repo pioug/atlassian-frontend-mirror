@@ -13,7 +13,7 @@ import Popup from '@atlaskit/popup';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
-	CopyLinkButton,
+	CopyLinkButtonInner as CopyLinkButton,
 	HiddenInput,
 	type Props,
 	type State,

@@ -38,10 +38,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon": "^23.10.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.5.0",
-		"@atlaskit/spinner": "^17.1.0",
+		"@atlaskit/primitives": "^13.6.0",
+		"@atlaskit/spinner": "^17.2.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

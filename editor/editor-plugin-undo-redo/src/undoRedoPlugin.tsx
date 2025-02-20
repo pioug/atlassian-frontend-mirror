@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { keymapPlugin } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
@@ -25,10 +26,13 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			/>
 		);
 	};
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'undoRedoPlugin',
-		component: primaryToolbarComponent,
-	});
+
+	if (editorExperiment('platform_editor_controls', 'control', { exposure: true })) {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'undoRedoPlugin',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	return {
 		name: 'undoRedoPlugin',
@@ -46,6 +50,10 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			];
 		},
 
-		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
+		primaryToolbarComponent:
+			!api?.primaryToolbar &&
+			editorExperiment('platform_editor_controls', 'control', { exposure: true })
+				? primaryToolbarComponent
+				: undefined,
 	};
 };

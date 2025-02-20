@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 203.18.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 203.18.0
+
+### Minor Changes
+
+- [#116013](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116013)
+  [`18e022766bfd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18e022766bfd3) -
+  [ux] ED-26464 Hiding primary toolbar and docking contextual toolbar items to top
+
+### Patch Changes
+
+- [#115715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115715)
+  [`cdfc0912cc98c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdfc0912cc98c) -
+  ED-26650 LCM: Add feature flag hard coded into the legacy content macro so that it can be passed
+  down as a prop when the editor is created and prevent it from enabling render tracking. The LCM
+  was firing too many re-render events. We're aware it's an issue, but for now we want to stop the
+  event spam.
+
+## 203.17.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 203.17.3
 
 ### Patch Changes

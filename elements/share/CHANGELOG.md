@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 5.0.1
+
+### Patch Changes
+
+- [#113832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113832)
+  [`e3b0e6a2598b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3b0e6a2598b0) -
+  Migrate to compiled components
+
 ## 5.0.0
 
 ### Major Changes

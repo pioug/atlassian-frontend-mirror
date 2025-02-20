@@ -1,5 +1,61 @@
 # @atlaskit/editor-performance-metrics
 
+## 1.5.0
+
+### Minor Changes
+
+- [#116155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116155)
+  [`27cf8da4bec02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27cf8da4bec02) -
+  Ticket: ED-26671
+
+  ### Minor Changes
+
+  This update introduces improved lifecycle management for the Timeline and
+  EditorPerformanceObserver, providing better control over observer states and cleanup operations.
+
+  ## Timeline Lifecycle Management
+
+  1. New `cleanupSubscribers` method in TimelineClock:
+
+     - Forcefully removes all subscribers
+     - Flushes any pending idle buffer
+     - Triggers the onceAllSubscribersCleaned callback
+     - Ensures proper cleanup of all timeline resources
+
+  2. Enhanced EditorPerformanceObserver lifecycle:
+     - Added state management through `isStarted` flag
+     - Improved start/stop functionality to prevent duplicate operations
+     - Comprehensive cleanup on stop, including:
+       - Disconnecting all observers
+       - Cleaning up wrappers
+       - Cleaning up timeline subscribers
+
+  ## React Integration Improvements
+
+  The PerformanceMetrics component now properly manages the EditorPerformanceObserver lifecycle:
+
+  - Automatically starts the observer when the component mounts
+  - Properly stops the observer when the component unmounts
+  - Handles SSR scenarios gracefully
+
+  ## Documentation Updates
+
+  - Added comprehensive examples for lifecycle management
+
+  ## Testing
+
+  Added new test suites:
+
+  - Timeline cleanupSubscribers functionality
+  - EditorPerformanceObserver start/stop operations
+  - PerformanceMetrics component lifecycle management
+
+  ## Important Notes
+
+  - These changes maintain backward compatibility with existing implementations
+  - The core timeline functionality remains unchanged
+  - Improved resource management should lead to better memory usage in long-running applications
+
 ## 1.4.0
 
 ### Minor Changes

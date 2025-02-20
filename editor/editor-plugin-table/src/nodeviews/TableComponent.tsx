@@ -651,7 +651,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				// changed via breakout button
 				window.requestAnimationFrame(() => {
 					this.overflowShadowsObserver = new OverflowShadowsObserver(
-						this.updateShadowState,
+						fg('platform_editor_nested_tables_view_mode_sort')
+							? this.updateShadowStateDebounced
+							: this.updateShadowState,
 						// Ignored via go/ees005
 						// eslint-disable-next-line @atlaskit/editor/no-as-casting
 						this.table as HTMLElement,
@@ -1335,6 +1337,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	private handleScrollDebounced = rafSchedule(this.handleScroll);
 	private handleAutoSizeDebounced = rafSchedule(this.handleAutoSize);
 	private handleWindowResizeDebounced = rafSchedule(this.handleWindowResize);
+	private updateShadowStateDebounced = rafSchedule(this.updateShadowState);
 }
 
 export default injectIntl(TableComponent);

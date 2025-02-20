@@ -105,10 +105,16 @@ export type ChatOpenPayload = PayloadCore<
 	}
 >;
 
-export type ForgeAppAuthSuccess = PayloadCore<'forge-auth-success'>;
+export type ForgeAppAuthSuccess = PayloadCore<
+	'forge-auth-success',
+	{
+		is3pActionAuth?: boolean;
+	}
+>;
 export type ForgeAppAuthFailure = PayloadCore<
 	'forge-auth-failure',
 	{
+		is3pActionAuth?: boolean;
 		errorMessage: string | undefined;
 	}
 >;

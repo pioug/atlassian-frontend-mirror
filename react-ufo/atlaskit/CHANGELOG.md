@@ -1,5 +1,17 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.16.1
+
+### Patch Changes
+
+- [#116098](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116098)
+  [`9650ffb0c42b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9650ffb0c42b2) -
+  Revert: [AFO-3379] Make the DefaultInteractionID trully global across multiple bundles
+
+  # Impact
+
+  No impact since the flag was never rolled out
+
 ## 2.16.0
 
 ### Minor Changes

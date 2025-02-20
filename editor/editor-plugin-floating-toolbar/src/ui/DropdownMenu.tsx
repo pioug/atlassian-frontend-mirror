@@ -40,7 +40,7 @@ const spacerStyles = css({
 
 const separatorStyles = css({
 	background: token('color.border'),
-	height: '1px',
+	height: token('space.025', '1px'),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
@@ -329,7 +329,6 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 		);
 	}
 
-	// here to change based on dropdown type
 	return (
 		<div css={menuContainerStyles} role="menu">
 			{(items as Array<DropdownOptionT<Function>>)

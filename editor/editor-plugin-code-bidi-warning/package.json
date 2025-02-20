@@ -34,8 +34,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/code": "^15.7.0",
-		"@atlaskit/editor-common": "^99.17.0",
+		"@atlaskit/code": "^15.8.0",
+		"@atlaskit/editor-common": "^99.18.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@babel/runtime": "^7.0.0",

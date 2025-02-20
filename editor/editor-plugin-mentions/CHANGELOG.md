@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.15.3
+
+### Patch Changes
+
+- [#116070](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116070)
+  [`85b41fded4577`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85b41fded4577) -
+  ED-26308: implements fallback dom for mention plugin
+
 ## 2.15.2
 
 ### Patch Changes

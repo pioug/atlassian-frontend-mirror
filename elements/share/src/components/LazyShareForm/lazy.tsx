@@ -7,10 +7,12 @@ import React, { type FunctionComponent, lazy, Suspense } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 
 import { ShareFormWrapper } from '../ShareFormWrapper';
 
+import ComponentNext from './lazyNext';
 import type { LazyShareFormProps } from './LazyShareForm';
 
 const spinnerWrapperStyles = css({
@@ -60,18 +62,21 @@ const LoadingDialog: React.FC<LoadingDialog> = ({
 	);
 };
 
-export default (props: LazyShareFormProps) => (
-	<Suspense
-		fallback={
-			<LoadingDialog
-				shareFormTitle={props.shareFormTitle}
-				showTitle={props.showTitle}
-				setIsLoading={props.setIsLoading}
-				integrationMode={props.integrationMode}
-				isMenuItemSelected={props.isMenuItemSelected}
-			/>
-		}
-	>
-		<LazyShareFormLazy {...props} />
-	</Suspense>
-);
+export default (props: LazyShareFormProps) =>
+	fg('share-compiled-migration') ? (
+		<ComponentNext {...props} />
+	) : (
+		<Suspense
+			fallback={
+				<LoadingDialog
+					shareFormTitle={props.shareFormTitle}
+					showTitle={props.showTitle}
+					setIsLoading={props.setIsLoading}
+					integrationMode={props.integrationMode}
+					isMenuItemSelected={props.isMenuItemSelected}
+				/>
+			}
+		>
+			<LazyShareFormLazy {...props} />
+		</Suspense>
+	);

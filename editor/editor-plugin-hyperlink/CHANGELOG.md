@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 3.5.0
+
+### Minor Changes
+
+- [#116013](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116013)
+  [`18e022766bfd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18e022766bfd3) -
+  [ux] ED-26464 Hiding primary toolbar and docking contextual toolbar items to top
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.5
 
 ### Patch Changes

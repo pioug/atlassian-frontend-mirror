@@ -411,6 +411,11 @@ export interface FloatingToolbarConfig {
 	preventPopupOverflow?: boolean;
 	mediaAssistiveMessage?: string;
 	stick?: boolean;
+
+	/**
+	 * Used in `platform_editor_controls` experiment - force new contextual toolbar to display without collapse and expand functionality
+	 */
+	forceStaticToolbar?: boolean;
 }
 
 export type FloatingToolbarHandler = (

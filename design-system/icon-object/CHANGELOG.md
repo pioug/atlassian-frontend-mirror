@@ -1,5 +1,13 @@
 # @atlaskit/icon-object
 
+## 6.11.1
+
+### Patch Changes
+
+- [#116456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116456)
+  [`b1978c1e70a88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1978c1e70a88) -
+  Remove old codemod and update dependncies.
+
 ## 6.11.0
 
 ### Minor Changes

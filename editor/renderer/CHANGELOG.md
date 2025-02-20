@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 112.15.0
+
+### Minor Changes
+
+- [#116362](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116362)
+  [`4f47b49b5e735`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f47b49b5e735) -
+  [ED-26419] Add skipValidation for LCM nested renderer
+
+## 112.14.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.14.5
 
 ### Patch Changes

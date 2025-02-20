@@ -76,7 +76,6 @@ export default evaluateInner`
 			'font.heading.xlarge',
 			`600 2.0714285714285716em/1.103448275862069 ${fontFamily}`,
 		)};
-    letter-spacing: -0.01em;
     color: ${token('color.text')};
     margin-top: ${token('space.500')};
   }

@@ -27,12 +27,14 @@ export type ToolbarElementNames =
 	| 'alignment'
 	| 'textColor'
 	| 'highlight'
+	| 'hyperlink'
 	| 'toolbarListsIndentation'
 	| 'insertBlock'
 	| 'beforePrimaryToolbar'
 	| 'avatarGroup'
 	| 'findReplace'
 	| 'aiExperience'
+	| 'aiSimplified'
 	| 'loom'
 	| 'spellCheck';
 

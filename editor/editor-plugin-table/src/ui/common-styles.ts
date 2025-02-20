@@ -206,16 +206,20 @@ const viewModeSortStyles = () => {
 						}
 					}
 
-					&:has(.is-active) {
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 1;
+					> .${SORTING_ICON_CLASS_NAME} {
+						&:has(.is-active) {
+							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+								opacity: 1;
+							}
 						}
 					}
 
-					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-						opacity: 0;
-						&:focus {
-							opacity: 1;
+					> .${SORTING_ICON_CLASS_NAME} {
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 0;
+							&:focus {
+								opacity: 1;
+							}
 						}
 					}
 

@@ -39,7 +39,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon": "^23.10.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",

@@ -24,6 +24,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import throttle from 'lodash/throttle';
 import { MEASURE_NAME, startMeasure, stopMeasure } from '../analytics/performance';
 import type { InternalError } from '../errors/internal-errors';
@@ -31,7 +32,7 @@ import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
 import type { UGCFreeStepDetails } from '../helpers/utils';
 import {
 	createLogger,
-	getDocAdfWithObfuscation,
+	getDocAdfWithObfuscationFromJSON,
 	getObfuscatedSteps,
 	getStepUGCFreeDetails,
 	sleep,
@@ -469,7 +470,7 @@ export class DocumentService implements DocumentServiceInterface {
 
 	obfuscateStepsAndState = (
 		unconfirmedSteps: readonly ProseMirrorStep[] | undefined,
-		currentState?: ResolvedEditorState,
+		currentState?: ResolvedEditorState<JSONDocNode>,
 	) => {
 		let obfuscatedSteps;
 		try {
@@ -485,7 +486,7 @@ export class DocumentService implements DocumentServiceInterface {
 		let obfuscatedDoc;
 		if (currentState) {
 			try {
-				obfuscatedDoc = getDocAdfWithObfuscation(currentState.content);
+				obfuscatedDoc = getDocAdfWithObfuscationFromJSON(currentState.content);
 			} catch (error) {
 				obfuscatedDoc = 'Failed to obfuscate doc';
 			}

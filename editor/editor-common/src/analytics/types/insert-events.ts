@@ -265,10 +265,14 @@ type InsertLayoutAEP = InsertAEP<
 	undefined
 >;
 
-type InsertDateAEP = InsertAEP<
+export type InsertDateAEP = InsertAEP<
 	ACTION_SUBJECT_ID.DATE,
 	{
-		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.INSERT_MENU;
+		inputMethod:
+			| INPUT_METHOD.QUICK_INSERT
+			| INPUT_METHOD.TOOLBAR
+			| INPUT_METHOD.INSERT_MENU
+			| INPUT_METHOD.INLINE_SUGGESTION_FLOATING_TB;
 	},
 	undefined
 >;

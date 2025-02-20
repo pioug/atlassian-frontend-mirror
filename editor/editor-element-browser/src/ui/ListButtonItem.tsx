@@ -1,33 +1,29 @@
 import React, { useMemo } from 'react';
 
-import {
-	Keymap,
-	TooltipContentWithMultipleShortcuts,
-	formatShortcut,
-} from '@atlaskit/editor-common/keymaps';
+import { ToolTipContent, formatShortcut } from '@atlaskit/editor-common/keymaps';
 import Lozenge from '@atlaskit/lozenge';
 import { ButtonItem } from '@atlaskit/menu';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { ButtonItemProps } from './ButtonItemType';
 
-const Shortcut = ({ keyshortcut }: { keyshortcut?: Keymap }) => {
-	const shortcut = keyshortcut && formatShortcut(keyshortcut);
-	if (!shortcut) {
-		return null;
-	}
-	return (
-		<Box paddingInline="space.025" paddingBlock="space.025" xcss={shortcutStyles}>
-			{shortcut}
-		</Box>
-	);
-};
+const shortcutStyles = xcss({
+	color: 'color.text.subtle',
+	font: 'font.body.small',
+	backgroundColor: 'color.background.accent.gray.subtlest',
+	borderRadius: 'border.radius',
+	borderStyle: 'none',
+});
 
-export interface ListButtonItemProps extends ButtonItemProps {
-	showDescription?: boolean;
-}
+const selectedShortcutStyles = xcss({
+	color: 'color.text.selected',
+});
+
+const disabledShortcutStyles = xcss({
+	color: 'color.text.disabled',
+	backgroundColor: 'color.background.disabled',
+});
 
 export const ListButtonItem = ({
 	index,
@@ -35,39 +31,46 @@ export const ListButtonItem = ({
 	description,
 	keyshortcut,
 	isSelected,
+	isDisabled,
 	attributes,
 	showDescription = false,
 	renderIcon,
 	onItemSelected,
-}: ListButtonItemProps) => {
+}: ButtonItemProps) => {
 	const iconComponent = useMemo(() => renderIcon?.(), [renderIcon]);
-	const shortcutComponent = useMemo(() => {
-		return <Shortcut keyshortcut={keyshortcut} />;
-	}, [keyshortcut]);
 
-	const content = useMemo(() => {
+	const shortcutComponent = useMemo(() => {
+		const shortcut = keyshortcut && formatShortcut(keyshortcut);
+		if (!shortcut) {
+			return null;
+		}
+		return (
+			<Box
+				paddingInline="space.025"
+				paddingBlock="space.025"
+				xcss={[
+					shortcutStyles,
+					isSelected && selectedShortcutStyles,
+					isDisabled && disabledShortcutStyles,
+				]}
+			>
+				{shortcut}
+			</Box>
+		);
+	}, [isDisabled, isSelected, keyshortcut]);
+
+	const contentComponent = useMemo(() => {
 		return (
 			<Inline space="space.100" alignBlock={'center'}>
 				{title}
-				{attributes?.new && (
-					<Lozenge
-						style={{
-							color: `${token('color.text.accent.gray.bolder')}`,
-							backgroundColor: `${token('color.background.accent.blue.subtle')}`,
-						}}
-					>
-						New
-					</Lozenge>
-				)}
+				{attributes?.new && <Lozenge appearance="new">New</Lozenge>}
 			</Inline>
 		);
 	}, [attributes?.new, title]);
 
-	const helpDescriptors = [{ description: `${title}`, keymap: keyshortcut }];
-
 	return (
 		<Tooltip
-			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
+			content={<ToolTipContent description={title} keymap={keyshortcut} />}
 			position="top"
 			ignoreTooltipPointerEvents={true}
 		>
@@ -80,19 +83,12 @@ export const ListButtonItem = ({
 					description={showDescription ? description : undefined}
 					shouldDescriptionWrap
 					isSelected={isSelected}
+					isDisabled={isDisabled}
 					onClick={() => onItemSelected?.(index)}
 				>
-					{content}
+					{contentComponent}
 				</ButtonItem>
 			)}
 		</Tooltip>
 	);
 };
-
-const shortcutStyles = xcss({
-	color: 'color.text.subtle',
-	font: 'font.body.small',
-	backgroundColor: 'color.background.accent.gray.subtlest',
-	borderRadius: 'border.radius',
-	borderStyle: 'none',
-});

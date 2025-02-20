@@ -216,3 +216,8 @@ export type {
 	ActiveSessionEventPayload,
 	ActiveSessionEventAttributes,
 } from './types/activity-session-events';
+
+export {
+	type AIInlineSuggestionPayload,
+	AI_SUGGESTION_TRIGGERED_FROM,
+} from './types/ai-inline-suggestion-events';

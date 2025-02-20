@@ -1,7 +1,7 @@
 import React from 'react';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import ResourcedTaskItem from '../src/components/ResourcedTaskItem';
+import { ResourcedTaskItem } from '../src';
 import { Grid, Item } from '../example-helpers/story-utils';
 
 const mockTaskDecisionProvider = Promise.resolve(getMockTaskDecisionResource({ lag: 1000 }));

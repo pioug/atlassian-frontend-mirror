@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/blanket",
-	"version": "14.1.3",
+	"version": "14.2.0",
 	"description": "A blanket covers the underlying UI for a layered component, such as a modal dialog or a tooltip.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/css": "^0.8.0",
+		"@atlaskit/css": "^0.9.0",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
@@ -58,16 +58,16 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/is-hoisted-product": "*",
-		"@atlaskit/badge": "^17.1.0",
+		"@atlaskit/badge": "^17.2.0",
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/heading": "^4.2.0",
+		"@atlaskit/heading": "^4.3.0",
 		"@atlaskit/layering": "^1.1.0",
 		"@atlaskit/link": "*",
-		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^14.1.0",
+		"@atlaskit/toggle": "^14.2.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",

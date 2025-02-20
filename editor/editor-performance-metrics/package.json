@@ -93,7 +93,7 @@
 		]
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

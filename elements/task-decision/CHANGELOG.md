@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 18.0.0
+
+### Major Changes
+
+- [#115200](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115200)
+  [`f9fada9b2d802`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9fada9b2d802) -
+  migrate emotion styles to compiled css
+
 ## 17.12.2
 
 ### Patch Changes

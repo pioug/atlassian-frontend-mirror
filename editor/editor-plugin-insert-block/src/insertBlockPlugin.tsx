@@ -11,7 +11,6 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type {
 	Command,
 	DropdownOptions,
@@ -21,6 +20,7 @@ import type {
 	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { getWrappingOptions } from '@atlaskit/editor-common/utils';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
@@ -169,10 +169,13 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			/>
 		);
 	};
-	api?.primaryToolbar?.actions.registerComponent({
-		name: 'insertBlock',
-		component: primaryToolbarComponent,
-	});
+
+	if (editorExperiment('platform_editor_controls', 'control', { exposure: true })) {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'insertBlock',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	const plugin: ReturnType<InsertBlockPlugin> = {
 		name: 'insertBlock',
@@ -332,7 +335,11 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			},
 		},
 
-		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
+		primaryToolbarComponent:
+			!api?.primaryToolbar &&
+			editorExperiment('platform_editor_controls', 'control', { exposure: true })
+				? primaryToolbarComponent
+				: undefined,
 	};
 
 	if (

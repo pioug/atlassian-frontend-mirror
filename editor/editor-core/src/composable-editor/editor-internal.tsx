@@ -86,7 +86,12 @@ export const EditorInternal = memo(
 		const featureFlags = createFeatureFlagsFromProps(props.featureFlags);
 
 		// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
-		const renderTrackingEnabled = !fg('platform_editor_disable_rerender_tracking_jira');
+		// Also firing too many events for the legacy content macro, so disabling for now. See - https://product-fabric.atlassian.net/browse/ED-26650
+		const renderTrackingEnabled = fg('platform_editor_legacy_content_macro')
+			? !fg('platform_editor_disable_rerender_tracking_jira') &&
+				!featureFlags.lcmPreventRenderTracking
+			: !fg('platform_editor_disable_rerender_tracking_jira');
+
 		const useShallow = false;
 		const [portalProviderAPI, PortalRenderer] = usePortalProvider();
 		const [nodeViewPortalProviderAPI, NodeViewPortalRenderer] = usePortalProvider();

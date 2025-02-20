@@ -3,6 +3,7 @@ import React from 'react';
 import type { IntlShape } from 'react-intl-next';
 
 import { blockquoteWithNestedCodeblockOrMedia, hardBreak, heading } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -10,7 +11,6 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { keymap, tooltip } from '@atlaskit/editor-common/keymaps';
 import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
@@ -34,10 +34,10 @@ import { type BlockTypePlugin } from './blockTypePluginType';
 import type { TextBlockTypes } from './pm-plugins/block-types';
 import type { ClearFormattingInputMethod, InputMethod } from './pm-plugins/commands/block-type';
 import {
-	setBlockTypeWithAnalytics,
+	clearFormatting,
 	insertBlockQuoteWithAnalytics,
 	insertBlockQuoteWithAnalyticsCommand,
-	clearFormatting,
+	setBlockTypeWithAnalytics,
 } from './pm-plugins/commands/block-type';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
@@ -141,6 +141,10 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
+		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+			return <FloatingToolbarComponent api={api} />;
+		}
+
 		let isSmall =
 			options && options.isUndoRedoButtonsEnabled
 				? toolbarSize < ToolbarSize.XXL

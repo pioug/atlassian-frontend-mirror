@@ -386,7 +386,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 							/>
 
 							{helperMessage && !wasValidationOrShareError && (
-								<HelperMessage>{helperMessage}</HelperMessage>
+								<HelperMessage testId="user-picker">{helperMessage}</HelperMessage>
 							)}
 							{!fieldValid && fieldValidationError === REQUIRED && (
 								<ErrorMessage>

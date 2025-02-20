@@ -8,6 +8,7 @@ import type {
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
 import type {
 	HideLinkToolbar,
@@ -61,6 +62,7 @@ export type HyperlinkPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<CardPlugin>,
 	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<PrimaryToolbarPlugin>,
 ];
 
 export type HyperlinkPluginActions = {

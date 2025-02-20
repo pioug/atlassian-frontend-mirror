@@ -284,6 +284,17 @@ export type FeatureFlags = {
 	 * @default false
 	 */
 	nestedExpandInExpandEx?: boolean;
+
+	/**
+	 * @description
+	 * Used by the legacy content macro to disable render tracking due to excessive logs.
+	 * Will be removed once re-rendering issue is resolved.
+	 * Note: This is hardcoded into the LCM code, it does not exist in Switcheroo.
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-26650
+	 * @default false
+	 */
+	lcmPreventRenderTracking?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

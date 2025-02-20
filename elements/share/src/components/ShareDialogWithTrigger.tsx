@@ -54,6 +54,7 @@ import { isValidFailedExperience } from './analytics/ufoExperienceHelper';
 import { renderShareDialogExp, shareSubmitExp } from './analytics/ufoExperiences';
 import LazyShareFormLazy from './LazyShareForm/lazy';
 import ShareButton from './ShareButton';
+import { ShareDialogWithTriggerInternal as ShareDialogWithTriggerInternalNext } from './ShareDialogWithTriggerNext';
 import SplitButton from './SplitButton';
 import { generateSelectZIndex, resolveShareFooter } from './utils';
 
@@ -70,14 +71,14 @@ export const defaultShareContentState: ShareData = {
 	},
 };
 
-type ShareDialogWithTriggerInternalProps = ShareDialogWithTriggerProps &
+export type ShareDialogWithTriggerInternalProps = ShareDialogWithTriggerProps &
 	WrappedComponentProps &
 	WithAnalyticsEventsProps;
 
 export const IconShare = () => <ShareIcon spacing="spacious" label="" color="currentColor" />;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class ShareDialogWithTriggerInternal extends React.PureComponent<
+export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 	ShareDialogWithTriggerInternalProps,
 	ShareDialogWithTriggerStates
 > {
@@ -694,6 +695,13 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 		);
 	}
 }
+
+export const ShareDialogWithTriggerInternal = (props: ShareDialogWithTriggerInternalProps) =>
+	fg('share-compiled-migration') ? (
+		<ShareDialogWithTriggerInternalNext {...props} />
+	) : (
+		<ShareDialogWithTriggerInternalLegacy {...props} />
+	);
 
 export const ShareDialogWithTrigger: React.ComponentType<ShareDialogWithTriggerProps> =
 	withAnalyticsEvents()(injectIntl(ShareDialogWithTriggerInternal));

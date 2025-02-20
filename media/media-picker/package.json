@@ -40,11 +40,11 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/flag": "^15.9.0",
-		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon": "^23.10.0",
 		"@atlaskit/media-client": "^31.1.0",
 		"@atlaskit/media-client-react": "^3.0.0",
 		"@atlaskit/media-common": "^11.8.0",
-		"@atlaskit/media-ui": "^27.4.0",
+		"@atlaskit/media-ui": "^27.5.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/ufo": "^0.3.0",

@@ -35,12 +35,12 @@
 		"@atlaskit/theme": "^16.0.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/css-reset": "^6.14.0",
+		"@atlaskit/css-reset": "^6.16.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@af/yarn-utils": "*",
-		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon": "^23.10.0",
 		"glob": "9.0.0",
 		"jsdom": "^22.0.0",
 		"mkdirp": "^0.5.1",

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -10,6 +9,7 @@ import type {
 	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -26,6 +26,7 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 	const { showIndentationButtons = false, allowHeadingAndParagraphIndentation = false } =
 		config ?? {};
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		popupsMountPoint,
@@ -35,7 +36,17 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
-		const isSmall = toolbarSize < ToolbarSize.L;
+		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+			return (
+				<FloatingToolbarComponent
+					editorView={editorView}
+					featureFlags={featureFlags}
+					pluginInjectionApi={api}
+					showIndentationButtons={showIndentationButtons}
+					allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
+				/>
+			);
+		}
 
 		return (
 			<PrimaryToolbarComponent
@@ -43,7 +54,7 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
-				isSmall={isSmall}
+				isSmall={toolbarSize < ToolbarSize.L}
 				isToolbarReducedSpacing={isToolbarReducedSpacing}
 				disabled={disabled}
 				editorView={editorView}
@@ -53,6 +64,7 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 			/>
 		);
 	};
+
 	api?.primaryToolbar?.actions.registerComponent({
 		name: 'toolbarListsIndentation',
 		component: primaryToolbarComponent,

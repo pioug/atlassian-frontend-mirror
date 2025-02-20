@@ -1,5 +1,19 @@
 # @atlaskit/pagination
 
+## 15.2.2
+
+### Patch Changes
+
+- [#116445](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116445)
+  [`1f4d9ed8a1be8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f4d9ed8a1be8) -
+  Remove unused internal exports and old codemods, update dependencies.
+
+## 15.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.0
 
 ### Minor Changes

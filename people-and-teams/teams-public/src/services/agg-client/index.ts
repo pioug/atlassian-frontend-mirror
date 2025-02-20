@@ -19,7 +19,7 @@ export class AGGClient extends BaseGraphQlClient {
 
 	async getTeamContainers(teamId: string) {
 		const teamAri = teamIdToAri(teamId);
-		const cypherQuery = `MATCH (team:IdentityTeam {id: '${teamAri}'})-[:team_connected_to_container]->(container) RETURN container`;
+		const cypherQuery = `MATCH (team:IdentityTeam {ari: '${teamAri}'})-[:team_connected_to_container]->(container) RETURN container`;
 		const response = await this.makeGraphQLRequest<
 			'graphStore',
 			TeamContainersQueryResponse,

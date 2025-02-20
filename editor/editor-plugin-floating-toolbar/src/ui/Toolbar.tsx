@@ -28,15 +28,22 @@ import {
 	ColorPickerButton,
 	ToolbarArrowKeyNavigationProvider,
 } from '@atlaskit/editor-common/ui-menu';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import EditIcon from '@atlaskit/icon/core/edit';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
+import type {
+	FloatingToolbarPlugin,
+	FloatingToolbarPluginNext,
+} from '../floatingToolbarPluginType';
 import { checkShouldForceFocusAndApply, forceFocusSelector } from '../pm-plugins/force-focus';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
 
@@ -65,6 +72,7 @@ export interface Props {
 	scrollable?: boolean;
 	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 	mediaAssistiveMessage?: string;
+	forceStaticToolbar?: boolean;
 }
 
 type GroupedItems = (Item | Item[])[];
@@ -449,6 +457,129 @@ const ToolbarItems = React.memo(
 	},
 );
 
+const ToolbarItemsCollapsable = React.memo(
+	({
+		items,
+		groupLabel,
+		dispatchCommand,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		editorView,
+		dispatchAnalyticsEvent,
+		popupsScrollableElement,
+		scrollable,
+		providerFactory,
+		extensionsProvider,
+		node,
+		setDisableScroll,
+		mountRef,
+		mounted,
+		api,
+		forceStaticToolbar,
+	}: Props & {
+		setDisableScroll?: (disable: boolean) => void;
+		mountRef: React.RefObject<HTMLDivElement>;
+		mounted: boolean;
+	}) => {
+		const contextualToolbarState = useSharedPluginStateSelector(
+			api as ExtractInjectionAPI<FloatingToolbarPluginNext> | undefined,
+			'floatingToolbar.contextualToolbar',
+		);
+
+		let updatedItems = items.slice();
+		if (!forceStaticToolbar && contextualToolbarState?.display === 'collapsed') {
+			let nonSeparatorItems = 0;
+			let slicedIndex = -1;
+
+			for (let i = items.length - 1; i > 0; i--) {
+				const item = items[i];
+				if (item.type !== 'separator') {
+					nonSeparatorItems += 1;
+					slicedIndex = i;
+				}
+
+				if (nonSeparatorItems > 2) {
+					break;
+				}
+			}
+
+			updatedItems = updatedItems.slice(slicedIndex);
+
+			updatedItems.unshift({ type: 'separator' });
+			updatedItems.unshift({
+				type: 'button',
+				icon: EditIcon,
+				title: 'Show items',
+				onClick: () => {
+					if (api) {
+						api.core.actions.execute(
+							(
+								api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
+							).floatingToolbar.commands.updateContextualToolbar({
+								type: 'expand-toolbar',
+							}),
+						);
+					}
+				},
+			});
+		}
+
+		if (!forceStaticToolbar && contextualToolbarState?.display === 'expanded') {
+			updatedItems.unshift({ type: 'separator' });
+			updatedItems.unshift({
+				type: 'button',
+				icon: ChevronRightIcon,
+				title: 'Hide items',
+				onClick: () => {
+					if (api) {
+						api.core.actions.execute(
+							(
+								api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
+							).floatingToolbar.commands.updateContextualToolbar({
+								type: 'collapse-toolbar',
+							}),
+						);
+					}
+				},
+			});
+		}
+
+		return (
+			<ToolbarItems
+				items={updatedItems}
+				groupLabel={groupLabel}
+				dispatchCommand={dispatchCommand}
+				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				editorView={editorView}
+				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+				popupsScrollableElement={popupsScrollableElement}
+				scrollable={scrollable}
+				providerFactory={providerFactory}
+				extensionsProvider={extensionsProvider}
+				node={node}
+				setDisableScroll={setDisableScroll}
+				mountRef={mountRef}
+				mounted={mounted}
+				api={api}
+			/>
+		);
+	},
+	(prevProps, nextProps) => {
+		if (!nextProps.node) {
+			return false;
+		}
+		// only rerender toolbar items if the node is different
+		// otherwise it causes an issue where multiple popups stays open
+		return !(
+			prevProps.node.type !== nextProps.node.type ||
+			prevProps.node.attrs.localId !== nextProps.node.attrs.localId ||
+			!areSameItems(prevProps.items, nextProps.items) ||
+			!prevProps.mounted !== !nextProps.mounted
+		);
+	},
+);
+
 const buttonGroupStyles = css({
 	display: 'flex',
 	gap: token('space.050', '4px'),
@@ -720,14 +851,25 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 								paddingFeatureFlag: fg('platform_editor_floating_toolbar_padding_fix'),
 							})}
 						>
-							<ToolbarItems
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...this.props}
-								setDisableScroll={this.setDisableScroll.bind(this)}
-								mountRef={this.mountRef}
-								mounted={this.state.mounted}
-							/>
+							{editorExperiment('platform_editor_controls', 'control') ? (
+								<ToolbarItems
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...this.props}
+									setDisableScroll={this.setDisableScroll.bind(this)}
+									mountRef={this.mountRef}
+									mounted={this.state.mounted}
+								/>
+							) : (
+								<ToolbarItemsCollapsable
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...this.props}
+									setDisableScroll={this.setDisableScroll.bind(this)}
+									mountRef={this.mountRef}
+									mounted={this.state.mounted}
+								/>
+							)}
 						</div>
 						{scrollable && (
 							<ScrollButtons

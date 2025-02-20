@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "13.0.4",
+	"version": "13.1.0",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,12 +45,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/css": "^0.8.0",
+		"@atlaskit/css": "^0.9.0",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.9.0",
-		"@atlaskit/motion": "^3.0.0",
+		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/motion": "^3.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -65,10 +65,10 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/avatar": "^21.18.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/link": "^2.1.0",
+		"@atlaskit/link": "^2.2.0",
 		"@atlaskit/section-message": "^6.9.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tag-group": "^11.1.0",
+		"@atlaskit/tag-group": "^11.2.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/dom": "^10.1.0",

@@ -4,3 +4,5 @@ export type SelectionToolbarPluginOptions = {
 	 */
 	preferenceToolbarAboveSelection?: boolean;
 };
+
+export type ToolbarDocking = 'top' | 'none';

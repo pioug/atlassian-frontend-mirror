@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/calendar",
-	"version": "16.3.3",
+	"version": "16.4.0",
 	"description": "An interactive calendar for date selection experiences.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,13 +27,13 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/css": "^0.8.0",
+		"@atlaskit/css": "^0.9.0",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/heading": "^4.2.0",
-		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/heading": "^4.3.0",
+		"@atlaskit/icon": "^23.10.0",
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/platform-feature-flags": "*",
-		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -48,7 +48,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/form": "^11.1.0",
+		"@atlaskit/form": "^11.2.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/select": "^18.10.0",

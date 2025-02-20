@@ -1,12 +1,7 @@
-import { Keymap } from '@atlaskit/editor-common/keymaps';
+import { ItemData } from './ItemType';
 
-export interface ButtonItemProps {
-	index: number;
-	title?: string;
-	description?: string;
-	keyshortcut?: Keymap;
+export interface ButtonItemProps extends ItemData {
 	isSelected?: boolean;
-	attributes?: { new?: boolean };
-	renderIcon?: () => React.ReactNode;
+	isDisabled?: boolean;
 	onItemSelected?: (index: number) => void;
 }

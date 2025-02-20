@@ -2,7 +2,7 @@ import React, { type ReactElement, type SyntheticEvent } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 
-export type NavigatorProps<T> = {
+type NavigatorProps<T> = {
 	/**
 	 * This will be passed in as aria-label to the button. Use this to supply a descriptive label for assistive technology.
 	 */

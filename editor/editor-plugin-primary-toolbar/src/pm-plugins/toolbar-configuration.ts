@@ -1,13 +1,18 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ComponentRegistry, ToolbarElementConfig } from '../primaryToolbarPluginType';
 
 export const getToolbarComponents = (
 	componentRegistry: ComponentRegistry,
 	editorState: EditorState,
-): ToolbarUIComponentFactory[] =>
-	toolbarConfiguration
+): ToolbarUIComponentFactory[] => {
+	return (
+		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+			? toolbarConfigurationV2
+			: toolbarConfiguration
+	)
 		.filter(
 			(toolbarElement) =>
 				typeof toolbarElement.enabled === 'undefined' ||
@@ -23,6 +28,7 @@ export const getToolbarComponents = (
 			}
 			return acc;
 		}, []);
+};
 
 const undoRedoGroup: ToolbarElementConfig[] = [
 	{
@@ -87,6 +93,19 @@ const textColorGroup: ToolbarElementConfig[] = [
 			componentRegistry.has('textColor') || componentRegistry.has('highlight'),
 	},
 ];
+const alignmentAndListGroup: ToolbarElementConfig[] = [
+	{
+		name: 'alignment',
+	},
+	{
+		name: 'toolbarListsIndentation',
+	},
+	{
+		name: 'separator',
+		enabled: (componentRegistry) =>
+			componentRegistry.has('toolbarListsIndentation') || componentRegistry.has('alignment'),
+	},
+];
 const listFormatting: ToolbarElementConfig[] = [
 	{
 		name: 'toolbarListsIndentation',
@@ -94,6 +113,15 @@ const listFormatting: ToolbarElementConfig[] = [
 	{
 		name: 'separator',
 		enabled: (componentRegistry) => componentRegistry.has('toolbarListsIndentation'),
+	},
+];
+const hyperlinkGroup: ToolbarElementConfig[] = [
+	{
+		name: 'hyperlink',
+	},
+	{
+		name: 'separator',
+		enabled: (componentRegistry) => componentRegistry.has('hyperlink'),
 	},
 ];
 const insertBlockGroup: ToolbarElementConfig[] = [
@@ -130,4 +158,15 @@ const toolbarConfiguration: ToolbarElementConfig[] = [
 	...listFormatting,
 	...insertBlockGroup,
 	...others,
+];
+
+const toolbarConfigurationV2: ToolbarElementConfig[] = [
+	...blockTypeGroup,
+	...textFormattingGroup,
+	...textColorGroup,
+	...alignmentAndListGroup,
+	...hyperlinkGroup,
+	{
+		name: 'beforePrimaryToolbar',
+	},
 ];

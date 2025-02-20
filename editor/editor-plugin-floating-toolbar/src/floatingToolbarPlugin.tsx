@@ -21,10 +21,12 @@ import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
+	EditorCommand,
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
+	PMPlugin,
 	UiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
@@ -43,6 +45,9 @@ import type {
 	FloatingToolbarPlugin,
 	FloatingToolbarPluginState,
 } from './floatingToolbarPluginType';
+import { contextualToolbarPlugin } from './pm-plugins/contextual-toolbar/plugin';
+import { contextualToolbarPluginKey } from './pm-plugins/contextual-toolbar/plugin-key';
+import type { ContextualToolbarActions } from './pm-plugins/contextual-toolbar/types';
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import { hideConfirmDialog } from './pm-plugins/toolbar-data/commands';
 import { createPlugin as floatingToolbarDataPluginFactory } from './pm-plugins/toolbar-data/plugin';
@@ -159,7 +164,7 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 		name: 'floatingToolbar',
 
 		pmPlugins(floatingToolbarHandlers: Array<FloatingToolbarHandler> = []) {
-			return [
+			const plugins: PMPlugin[] = [
 				{
 					// Should be after all toolbar plugins
 					name: 'floatingToolbar',
@@ -179,6 +184,15 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 					plugin: () => forceFocusPlugin(),
 				},
 			];
+
+			if (!editorExperiment('platform_editor_controls', 'control')) {
+				plugins.push({
+					name: 'contextualToolbar',
+					plugin: () => contextualToolbarPlugin(),
+				});
+			}
+
+			return plugins;
 		},
 
 		actions: {
@@ -196,7 +210,18 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 			return {
 				configWithNodeInfo,
 				floatingToolbarData: dataPluginKey.getState(editorState),
+				// Experimental - excluding this property from the external API whilst it's in development
+				contextualToolbar: contextualToolbarPluginKey.getState(editorState),
 			};
+		},
+
+		commands: {
+			// Experimental
+			updateContextualToolbar:
+				(action: ContextualToolbarActions): EditorCommand =>
+				({ tr }) => {
+					return tr.setMeta(contextualToolbarPluginKey, action);
+				},
 		},
 
 		contentComponent({
@@ -283,6 +308,7 @@ export function ContentComponent({
 		focusTrap,
 		mediaAssistiveMessage = '',
 		stick = true,
+		forceStaticToolbar,
 	} = config;
 	const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
@@ -428,6 +454,7 @@ export function ContentComponent({
 								scrollable={scrollable}
 								api={pluginInjectionApi}
 								mediaAssistiveMessage={mediaAssistiveMessage}
+								forceStaticToolbar={forceStaticToolbar}
 							/>
 						);
 					}}

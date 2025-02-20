@@ -27,6 +27,9 @@
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
 		},
 		{

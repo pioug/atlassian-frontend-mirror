@@ -2,7 +2,6 @@ import { emoji } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N20A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -30,14 +29,14 @@ export const emojiNodeSpec = () => {
 				contenteditable: 'false',
 				style: convertToInlineCss({
 					content: "''",
-					fill: 'f7f7f7',
+					fill: token('color.background.neutral'),
 					minWidth: `20px`,
 					width: `20px`,
 					height: `20px`,
 					position: 'relative',
 					margin: '-1px 0',
 					display: 'inline-block',
-					background: token('color.background.neutral', N20A),
+					background: token('color.background.neutral'),
 					borderRadius: token('border.radius.100', '3px'),
 					overflow: 'hidden',
 					verticalAlign: 'middle',

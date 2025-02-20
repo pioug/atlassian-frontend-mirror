@@ -7,6 +7,7 @@ export { default as TextSerializer } from './text';
 export { default as ReactRenderer, RendererWithAnalytics } from './ui/Renderer';
 export { nodeToReact as defaultNodeComponents } from './react/nodes';
 export { AnnotationsWrapper } from './ui/annotations';
+export { ValidationContextProvider } from './ui/Renderer/ValidationContext';
 
 export type { Serializer } from './serializer';
 export type {

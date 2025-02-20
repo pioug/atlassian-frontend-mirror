@@ -3,7 +3,6 @@ import React, { useEffect, useMemo } from 'react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 import uuid from 'uuid';
 
-import { mention } from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
@@ -24,6 +23,7 @@ import { MentionNameStatus, isPromise } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MentionsPlugin } from './mentionsPluginType';
+import { mentionNodeSpec } from './nodeviews/mentionNodeSpec';
 import { mentionPluginKey } from './pm-plugins/key';
 import { ACTIONS, createMentionPlugin } from './pm-plugins/main';
 import type { FireElementsChannelEvent, MentionSharedState } from './types';
@@ -119,7 +119,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 		name: 'mention',
 
 		nodes() {
-			return [{ name: 'mention', node: mention }];
+			return [{ name: 'mention', node: mentionNodeSpec() }];
 		},
 
 		pmPlugins() {

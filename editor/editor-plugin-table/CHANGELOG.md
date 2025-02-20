@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 9.5.9
+
+### Patch Changes
+
+- [#115089](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115089)
+  [`cebfa87c2825a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cebfa87c2825a) -
+  [ux] [ED-26564] This change fixes the table sort functionality for tables containing nested
+  tables, and fixes the styling for the table sort button when selected (is active).
+
+## 9.5.8
+
+### Patch Changes
+
+- [#115259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115259)
+  [`a3150808f308a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3150808f308a) -
+  Add new forceStaticToolbar config option to floating toolbar and add it to panel and table. Add
+  new contextual toolbar plugin which controls expand and collapse logic for toolbar options.
+- Updated dependencies
+
 ## 9.5.7
 
 ### Patch Changes

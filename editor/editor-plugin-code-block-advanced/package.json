@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/editor-common": "^99.17.0",
+		"@atlaskit/editor-common": "^99.18.0",
 		"@atlaskit/editor-plugin-code-block": "^3.7.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.5.0",
 		"@atlaskit/editor-plugin-find-replace": "^1.9.0",
@@ -59,7 +59,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/code": "^15.7.0",
+		"@atlaskit/code": "^15.8.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

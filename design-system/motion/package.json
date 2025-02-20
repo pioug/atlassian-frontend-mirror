@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -71,9 +71,9 @@
 		"@atlaskit/button": "^20.5.1",
 		"@atlaskit/docs": "*",
 		"@atlaskit/focus-ring": "^2.1.0",
-		"@atlaskit/form": "^11.1.1",
+		"@atlaskit/form": "^11.2.0",
 		"@atlaskit/link": "*",
-		"@atlaskit/logo": "^15.3.0",
+		"@atlaskit/logo": "^15.4.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tokens": "^3.3.1",

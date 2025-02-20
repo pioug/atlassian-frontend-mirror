@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 10.7.1
+
+### Patch Changes
+
+- [#116044](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116044)
+  [`927dd6876fbca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/927dd6876fbca) -
+  Fix obfuscated doc logging for onRestore
+
 ## 10.7.0
 
 ### Minor Changes

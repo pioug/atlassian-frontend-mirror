@@ -38,7 +38,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/link-extractors": "^1.10.0",
-		"@atlaskit/linking-common": "^7.0.0",
+		"@atlaskit/linking-common": "^7.1.0",
 		"@atlaskit/platform-feature-flags": "1.1.0",
 		"@babel/runtime": "^7.0.0",
 		"async-retry": "^1.2.3",

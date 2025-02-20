@@ -17,7 +17,7 @@ const styles = cssMap({
 	},
 });
 
-export type EllipsisProp = {
+type EllipsisProp = {
 	key: string;
 	testId?: string;
 	from: number;

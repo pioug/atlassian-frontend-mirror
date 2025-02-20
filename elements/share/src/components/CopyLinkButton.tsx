@@ -17,6 +17,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+import CopyLinkButtonNext from './CopyLinkButtonNext';
 import { InlineDialogContentWrapper } from './ShareFormWrapper/styled';
 import Button from './styles';
 
@@ -81,7 +82,7 @@ export type State = {
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class CopyLinkButton extends React.Component<Props, State> {
+export class CopyLinkButtonInner extends React.Component<Props, State> {
 	private autoDismiss: ReturnType<typeof setTimeout> | undefined;
 	private inputRef: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -200,5 +201,12 @@ export class CopyLinkButton extends React.Component<Props, State> {
 		);
 	}
 }
+
+export const CopyLinkButton = (props: Props) =>
+	fg('share-compiled-migration') ? (
+		<CopyLinkButtonNext {...props} />
+	) : (
+		<CopyLinkButtonInner {...props} />
+	);
 
 export default CopyLinkButton;

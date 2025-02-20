@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-panel
 
+## 3.3.3
+
+### Patch Changes
+
+- [#115259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115259)
+  [`a3150808f308a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3150808f308a) -
+  Add new forceStaticToolbar config option to floating toolbar and add it to panel and table. Add
+  new contextual toolbar plugin which controls expand and collapse logic for toolbar options.
+- Updated dependencies
+
 ## 3.3.2
 
 ### Patch Changes

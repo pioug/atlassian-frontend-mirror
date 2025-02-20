@@ -1,6 +1,6 @@
 import React, { type RefObject } from 'react';
 import { PureComponent } from 'react';
-import TaskItem from './TaskItem';
+import { TaskItem } from '../';
 import {
 	type Appearance,
 	type BaseItem,

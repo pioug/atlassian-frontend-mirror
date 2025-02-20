@@ -175,6 +175,14 @@ export enum ACTION {
 	RESIZED = 'resized',
 	BLOCKS_DRAG_INIT = 'blocksDragInit',
 	SINGLE_COL_LAYOUT_DETECTED = 'singleColumLayoutDetected',
+	/**
+	 * used in Editor AI inline suggestion for a track event when a suggestion is inserted
+	 * previously tracked events being used by Editor AI proactive suggestion
+	 *
+	 */
+	SUGGESTION_INSERTED = 'suggestionInserted',
+	SUGGESTION_DISMISSED = 'suggestionDismissed',
+	SUGGESTION_VIEWED = 'suggestionViewed',
 }
 
 export enum INPUT_METHOD {
@@ -211,6 +219,7 @@ export enum INPUT_METHOD {
 	MOUSE = 'mouse',
 	BROWSER = 'browser',
 	DOUBLE_CLICK = 'doubleClick',
+	INLINE_SUGGESTION_FLOATING_TB = 'inlineSuggestionFloatingToolbar',
 }
 
 export enum INSERT_MEDIA_VIA {
@@ -302,6 +311,7 @@ export enum ACTION_SUBJECT_ID {
 	ACTIVITY = 'activity',
 	AI_DEFINITIONS_DEFINE_BUTTON = 'aiDefinitionsDefineButton',
 	AI_DEFINITIONS_AUTO_HIGHLIGHT = 'aiDefinitionsAutoHighlight',
+	AI_INLINE_SUGGESTION = 'aiInlineSuggestion',
 	AI_PANELS_BODIED_EXTENSION = 'aiPanelsBodiedExtension',
 	AI_PROMPT_LINK_PICKER_BUTTON = 'aiPromptLinkPickerButton',
 	AI_PROMPT_MENTION_BUTTON = 'aiPromptMentionButton',

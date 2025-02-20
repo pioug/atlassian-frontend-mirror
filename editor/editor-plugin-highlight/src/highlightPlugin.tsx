@@ -25,17 +25,29 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 		disabled,
 		isToolbarReducedSpacing,
 		editorView,
-	}) => (
-		<PrimaryToolbarHighlightColor
-			popupsMountPoint={popupsMountPoint}
-			popupsBoundariesElement={popupsBoundariesElement}
-			popupsScrollableElement={popupsScrollableElement}
-			disabled={disabled}
-			isToolbarReducedSpacing={isToolbarReducedSpacing}
-			pluginInjectionApi={api}
-			editorView={editorView}
-		/>
-	);
+		dispatchAnalyticsEvent,
+	}) => {
+		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+			return (
+				<FloatingToolbarHighlightColor
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					pluginInjectionApi={api}
+				/>
+			);
+		}
+
+		return (
+			<PrimaryToolbarHighlightColor
+				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsScrollableElement={popupsScrollableElement}
+				disabled={disabled}
+				isToolbarReducedSpacing={isToolbarReducedSpacing}
+				pluginInjectionApi={api}
+				editorView={editorView}
+			/>
+		);
+	};
 	api?.primaryToolbar?.actions.registerComponent({
 		name: 'highlight',
 		component: primaryToolbarComponent,

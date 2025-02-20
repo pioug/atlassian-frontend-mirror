@@ -70,6 +70,7 @@ import { countNodes } from './count-nodes';
 import { TELEPOINTER_ID, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import type { RendererAppearance } from './types';
+import { ValidationContext } from './ValidationContext';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -87,7 +88,9 @@ const setAsQueryContainerStyles = css({
  * Exported due to enzyme test reliance on this component.
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class __RendererClassComponent extends PureComponent<RendererProps & { startPos?: number }> {
+export class __RendererClassComponent extends PureComponent<
+	RendererProps & { startPos?: number; skipValidation?: boolean }
+> {
 	private providerFactory: ProviderFactory;
 	private serializer: ReactSerializer;
 	private editorRef: React.RefObject<HTMLDivElement>;
@@ -694,7 +697,9 @@ const handleWrapperOnClick = (
 	}
 };
 
-const RendererFunctionalComponent = (props: RendererProps & { startPos?: number }) => {
+const RendererFunctionalComponent = (
+	props: RendererProps & { startPos?: number; skipValidation?: boolean },
+) => {
 	const mouseDownSelection = useRef<string | undefined>(undefined);
 	const providerFactory = useMemo(
 		() => props.dataProviders || new ProviderFactory(),
@@ -1034,6 +1039,7 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
+	const { skipValidation } = useContext(ValidationContext) || {};
 
 	return fg('platform_editor_react18_renderer') ? (
 		<RendererFunctionalComponent
@@ -1042,6 +1048,7 @@ export function Renderer(props: RendererProps) {
 			{...props}
 			startPos={startPos}
 			isTopLevelRenderer={isTopLevelRenderer}
+			skipValidation={skipValidation}
 		/>
 	) : (
 		// eslint-disable-next-line react/jsx-pascal-case
@@ -1051,6 +1058,7 @@ export function Renderer(props: RendererProps) {
 			{...props}
 			startPos={startPos}
 			isTopLevelRenderer={isTopLevelRenderer}
+			skipValidation={skipValidation}
 		/>
 	);
 }

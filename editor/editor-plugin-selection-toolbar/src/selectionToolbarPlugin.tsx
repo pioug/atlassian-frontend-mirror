@@ -16,14 +16,16 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { toggleToolbar } from './pm-plugins/commands';
+import { setToolbarDocking, toggleToolbar } from './pm-plugins/commands';
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
-import { overflowToolbarConfig } from './ui/overflow-toolbar-config';
+import type { ToolbarDocking } from './types';
+import { getOverflowToolbarConfig } from './ui/overflow-toolbar-config';
 
 type SelectionToolbarPluginState = {
 	selectionStable: boolean;
 	hide: boolean;
+	toolbarDocking: ToolbarDocking;
 };
 
 export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
@@ -39,6 +41,17 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 			unsuppressToolbar: () => {
 				return options.api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
 			},
+			setToolbarDocking: (toolbarDocking: ToolbarDocking) => {
+				return options.api?.core.actions.execute(setToolbarDocking({ toolbarDocking })) ?? false;
+			},
+		},
+
+		getSharedState(editorState) {
+			if (!editorState) {
+				return;
+			}
+
+			return selectionToolbarPluginKey.getState(editorState);
 		},
 
 		pmPlugins(selectionToolbarHandlers: Array<SelectionToolbarHandler>) {
@@ -54,7 +67,13 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 							key: selectionToolbarPluginKey,
 							state: {
 								init(): SelectionToolbarPluginState {
-									return { selectionStable: false, hide: false };
+									return {
+										selectionStable: false,
+										hide: false,
+										toolbarDocking: editorExperiment('platform_editor_controls', 'variant1')
+											? 'none'
+											: 'top',
+									};
 								},
 								apply(tr, pluginState: SelectionToolbarPluginState) {
 									const meta = tr.getMeta(selectionToolbarPluginKey);
@@ -189,8 +208,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 					}
 				}
 
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					items.push(...overflowToolbarConfig);
+				if (items.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
+					items.push(...getOverflowToolbarConfig({ api: options.api }));
 				}
 
 				const calcToolbarPosition = options.config.preferenceToolbarAboveSelection

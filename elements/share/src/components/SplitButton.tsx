@@ -17,6 +17,7 @@ import {
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -61,6 +62,14 @@ type SplitButtonDropdownProps = Pick<
 const integrationButtonText = (integrationName: string) => (
 	<FormattedMessage {...messages.shareToIntegrationButtonText} values={{ integrationName }} />
 );
+
+const IntegrationButtonWrapper = ({ children }: { children: React.ReactNode }) =>
+	// The css has no discernible effect on the button, so it is not included in the migration
+	fg('share-compiled-migration') ? (
+		<span>{children}</span>
+	) : (
+		<span css={dropDownIntegrationButtonWrapperStyles}>{children}</span>
+	);
 
 const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
 	const {
@@ -114,7 +123,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
 						key={integration.type}
 						testId={`split-button-dropdownitem-${integration.type}`}
 					>
-						<span css={dropDownIntegrationButtonWrapperStyles}>
+						<IntegrationButtonWrapper>
 							<IntegrationButton
 								textColor={token('color.text', N800)}
 								appearance="subtle"
@@ -123,7 +132,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
 								text={integrationButtonText(integration.type)}
 								IntegrationIcon={integration.Icon}
 							/>
-						</span>
+						</IntegrationButtonWrapper>
 					</DropdownItem>
 				))}
 			</DropdownItemGroup>

@@ -2,7 +2,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Provider } from '../..';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',
@@ -95,8 +95,9 @@ const expectedObfuscatedSteps = [
 ];
 
 const editorState: any = {
-	content: Node.fromJSON(defaultSchema, {
+	content: {
 		type: 'doc',
+		version: 1,
 		content: [
 			{
 				type: 'paragraph',
@@ -118,15 +119,12 @@ const editorState: any = {
 				],
 			},
 		],
-	}),
+	} as JSONDocNode,
 };
 
 const expectedObfuscatedDoc = {
 	content: [
 		{
-			attrs: {
-				localId: null,
-			},
 			content: [
 				{
 					text: 'Lorem, Ipsum!',
@@ -149,6 +147,7 @@ const expectedObfuscatedDoc = {
 		},
 	],
 	type: 'doc',
+	version: 1,
 };
 
 describe('DocumentService onRestore', () => {

@@ -9,8 +9,8 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { addLink, tooltip } from '@atlaskit/editor-common/keymaps';
-import { LinkAction } from '@atlaskit/editor-common/link';
 import type { LinkToolbarState } from '@atlaskit/editor-common/link';
+import { LinkAction } from '@atlaskit/editor-common/link';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { IconLink } from '@atlaskit/editor-common/quick-insert';
@@ -18,6 +18,7 @@ import type {
 	Command,
 	CommandDispatch,
 	FloatingToolbarButton,
+	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -38,6 +39,7 @@ import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
 import { toolbarButtonsPlugin } from './pm-plugins/toolbar-buttons';
+import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 import { getToolbarConfig } from './ui/toolbar/Toolbar';
 
 const getPosFromActiveLinkMark = (state: LinkToolbarState) => {
@@ -60,6 +62,19 @@ const selectionToolbarLinkButtonTestId = 'ak-editor-selection-toolbar-link-butto
  * from `@atlaskit/editor-core`.
  */
 export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) => {
+	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
+
+	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+		primaryToolbarComponent = () => (
+			<PrimaryToolbarComponent api={api} editorAnalyticsAPI={api?.analytics?.actions} />
+		);
+
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'hyperlink',
+			component: primaryToolbarComponent,
+		});
+	}
+
 	return {
 		name: 'hyperlink',
 
@@ -234,6 +249,12 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 					return undefined;
 				}
 			},
+
+			primaryToolbarComponent:
+				!api?.primaryToolbar &&
+				editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+					? primaryToolbarComponent
+					: undefined,
 		},
 	};
 };

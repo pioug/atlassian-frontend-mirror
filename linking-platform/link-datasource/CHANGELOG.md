@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 3.21.0
+
+### Minor Changes
+
+- [#116138](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116138)
+  [`b50c5d5d65ae2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b50c5d5d65ae2) -
+  Bump to the latest version of @compiled/react
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.20.5
 
 ### Patch Changes

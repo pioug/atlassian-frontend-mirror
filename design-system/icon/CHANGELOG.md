@@ -1,5 +1,21 @@
 # @atlaskit/icon
 
+## 23.10.1
+
+### Patch Changes
+
+- [#116447](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116447)
+  [`d0c45e793a17d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0c45e793a17d) -
+  Remove old codemod.
+
+## 23.10.0
+
+### Minor Changes
+
+- [#116138](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116138)
+  [`b50c5d5d65ae2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b50c5d5d65ae2) -
+  Bump to the latest version of @compiled/react
+
 ## 23.9.1
 
 ### Patch Changes

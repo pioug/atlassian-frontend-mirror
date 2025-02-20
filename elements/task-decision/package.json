@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "17.12.2",
+	"version": "18.0.0",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
@@ -47,11 +49,13 @@
 	"dependencies": {
 		"@atlaskit/analytics-namespaced-context": "^6.14.0",
 		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/icon": "^23.9.0",
+		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/platform-feature-flags-react": "^0.1.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1",
 		"uuid": "^3.1.0"
 	},
@@ -66,6 +70,7 @@
 		"@atlaskit/elements-test-helpers": "^0.8.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/util-data-test": "^18.0.0",
+		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"@emotion/jest": "^11.8.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
@@ -85,7 +90,15 @@
 		"@repo/internal": {
 			"design-tokens": [
 				"color"
+			],
+			"styling": [
+				"compiled"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_css_migrate_stage_1": {
+			"type": "boolean"
 		}
 	}
 }

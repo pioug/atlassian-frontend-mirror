@@ -771,6 +771,9 @@ export function ReactEditorView(props: EditorViewProps) {
 		[props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy],
 	);
 
+	// Render tracking firing too many events for the legacy content macro. We're aware of the re-render issue, but disabling this for now. See - https://product-fabric.atlassian.net/browse/ED-26650
+	const renderTrackingEnabled = !featureFlags.lcmPreventRenderTracking;
+
 	return (
 		<ReactEditorViewContext.Provider
 			value={{
@@ -779,13 +782,26 @@ export function ReactEditorView(props: EditorViewProps) {
 				popupsMountPoint: props.editorProps.popupsMountPoint,
 			}}
 		>
-			<RenderTracking
-				componentProps={props}
-				action={ACTION.RE_RENDERED}
-				actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
-				handleAnalyticsEvent={handleAnalyticsEvent}
-				useShallow={true}
-			/>
+			{fg('platform_editor_legacy_content_macro') ? (
+				renderTrackingEnabled && (
+					<RenderTracking
+						componentProps={props}
+						action={ACTION.RE_RENDERED}
+						actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+						handleAnalyticsEvent={handleAnalyticsEvent}
+						useShallow={true}
+					/>
+				)
+			) : (
+				<RenderTracking
+					componentProps={props}
+					action={ACTION.RE_RENDERED}
+					actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+					handleAnalyticsEvent={handleAnalyticsEvent}
+					useShallow={true}
+				/>
+			)}
+
 			{props.render
 				? props.render?.({
 						editor,

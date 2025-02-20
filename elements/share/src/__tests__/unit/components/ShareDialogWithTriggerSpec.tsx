@@ -21,7 +21,7 @@ import ShareButton, { type Props as ShareButtonProps } from '../../../components
 import {
 	defaultShareContentState,
 	IconShare,
-	ShareDialogWithTriggerInternal,
+	ShareDialogWithTriggerInternalLegacy as ShareDialogWithTriggerInternal,
 } from '../../../components/ShareDialogWithTrigger';
 import { ShareForm } from '../../../components/ShareForm';
 import SplitButton from '../../../components/SplitButton';

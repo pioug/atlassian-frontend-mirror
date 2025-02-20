@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/breadcrumbs",
-	"version": "14.1.3",
+	"version": "14.2.0",
 	"description": "Breadcrumbs are a navigation system used to show a user's location in a site or app.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/tooltip": "^19.1.0",
+		"@atlaskit/tooltip": "^19.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
@@ -65,8 +65,8 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
 		"@atlaskit/link": "*",
-		"@atlaskit/logo": "^15.3.0",
-		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/logo": "^15.4.0",
+		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/ssr": "*",

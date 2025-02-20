@@ -43,7 +43,7 @@
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/link": "*",
-		"@atlaskit/primitives": "^13.5.0",
+		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^13.4.0",

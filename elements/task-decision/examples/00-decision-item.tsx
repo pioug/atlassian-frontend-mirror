@@ -3,7 +3,7 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import DecisionItem from '../src/components/DecisionItem';
+import { DecisionItem } from '../src';
 import { dumpRef } from '../example-helpers/story-utils';
 
 export default () => (

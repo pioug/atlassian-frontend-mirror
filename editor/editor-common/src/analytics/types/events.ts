@@ -12,6 +12,7 @@ import type { ActiveSessionEventPayload } from './activity-session-events';
 import type { AICommandPaletteEventPayload } from './ai-command-palette-events';
 import type { AIDefinitionsEventPayload } from './ai-definitions-events';
 import type { AIEventPayload } from './ai-events';
+import type { AIInlineSuggestionPayload } from './ai-inline-suggestion-events';
 import type { AIProactiveEventPayload } from './ai-proactive-events';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AvatarEventPayload } from './avatar';
@@ -125,7 +126,8 @@ export type AnalyticsEventPayload<T = void> =
 	| AIProactiveEventPayload
 	| AIUnifiedEventPayload
 	| BreakoutEventPayload
-	| ActiveSessionEventPayload;
+	| ActiveSessionEventPayload
+	| AIInlineSuggestionPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

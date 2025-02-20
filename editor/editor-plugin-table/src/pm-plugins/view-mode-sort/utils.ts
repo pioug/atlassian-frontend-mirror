@@ -5,6 +5,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	IS_DISABLED_CLASS_NAME,
@@ -14,8 +15,12 @@ import {
 import type { TableSortMeta } from './types';
 
 export const unsort = (oldOrder: { index: number; value: number }[], tableElement: HTMLElement) => {
-	const rows = tableElement.querySelectorAll('tr');
-	const tbody = tableElement.querySelector('tbody');
+	const tbody = fg('platform_editor_nested_tables_view_mode_sort')
+		? tableElement.querySelector(`:scope > tbody`)
+		: tableElement.querySelector('tbody');
+	const rows = fg('platform_editor_nested_tables_view_mode_sort')
+		? tableElement.querySelectorAll(`:scope > tbody > tr`)
+		: tableElement.querySelectorAll('tr');
 
 	const sortedOrder = [...oldOrder].sort((a, b) => a.value - b.value);
 	sortedOrder.forEach((item) => {
@@ -129,7 +134,12 @@ export const toggleSort = (view: EditorView, event: Event, pluginState: TableSor
 
 export const getTableElements = (tableId: string) => {
 	const tableElement = document.querySelector(`table[data-table-local-id="${tableId}"]`);
-	const tbody = tableElement?.querySelector('tbody');
-	const rows = tableElement?.querySelectorAll('tr');
+	const tbody = fg('platform_editor_nested_tables_view_mode_sort')
+		? tableElement?.querySelector(':scope > tbody')
+		: tableElement?.querySelector('tbody');
+
+	const rows = fg('platform_editor_nested_tables_view_mode_sort')
+		? tableElement?.querySelectorAll(':scope > tbody > tr')
+		: tableElement?.querySelectorAll('tr');
 	return { tbody, rows };
 };

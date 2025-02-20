@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 99.18.2
+
+### Patch Changes
+
+- [#116233](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116233)
+  [`f6dc13d68b808`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f6dc13d68b808) -
+  Fixed document undefined check which was broken and allowing clipboard copy polyfill fallback to
+  run with an undefined document.
+- Updated dependencies
+
+## 99.18.1
+
+### Patch Changes
+
+- [#115715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115715)
+  [`cdfc0912cc98c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdfc0912cc98c) -
+  ED-26650 LCM: Add feature flag hard coded into the legacy content macro so that it can be passed
+  down as a prop when the editor is created and prevent it from enabling render tracking. The LCM
+  was firing too many re-render events. We're aware it's an issue, but for now we want to stop the
+  event spam.
+
+## 99.18.0
+
+### Minor Changes
+
+- [#115259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115259)
+  [`a3150808f308a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3150808f308a) -
+  Add new forceStaticToolbar config option to floating toolbar and add it to panel and table. Add
+  new contextual toolbar plugin which controls expand and collapse logic for toolbar options.
+
+### Patch Changes
+
+- [#115770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115770)
+  [`18d671ff09f59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18d671ff09f59) -
+  [EDF-2280] Inline suggestion analytics
+
 ## 99.17.4
 
 ### Patch Changes

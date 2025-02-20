@@ -5,7 +5,7 @@ import { KeyBinding, keymap as cmKeymap } from '@codemirror/view';
 import { browser } from '@atlaskit/editor-common/browser';
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
-import { exitCode } from '@atlaskit/editor-prosemirror/commands';
+import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
 import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -92,6 +92,26 @@ const codeBlockKeymap = ({
 					selectCodeBlockNode,
 					onMaybeNodeSelection,
 				}),
+		},
+		{
+			key: 'Ctrl-a',
+			mac: 'Cmd-a',
+			run: (cm) => {
+				const isFullBlockSelection =
+					cm.state.selection.main.from === 0 &&
+					cm.state.selection.main.to === getNode().content.size;
+
+				// Allow codemirror to handle
+				if (!isFullBlockSelection) {
+					return false;
+				}
+
+				// Move the selection and focus into prosemirror
+				onMaybeNodeSelection();
+				view.focus();
+				selectAll(view.state, view.dispatch);
+				return true;
+			},
 		},
 		{
 			key: 'ArrowRight',

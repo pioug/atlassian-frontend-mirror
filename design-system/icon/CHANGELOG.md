@@ -1,5 +1,46 @@
 # @atlaskit/icon
 
+## 23.11.0
+
+### Minor Changes
+
+- [#114599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114599)
+  [`bea386785f6f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bea386785f6f4) -
+  This release adds, updates and deprecates icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `drag-handle-horizontal`
+  - `drag-handle-vertical`
+
+  **`@atlaskit/icon/utility`**
+
+  - `drag-handle-horizontal`
+  - `drag-handle-vertical`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `refresh`
+  - `text-strikethrough`
+
+  ### Deprecated:
+
+  **`@atlaskit/icon/core`**
+
+  - `content-align-center`
+  - `content-align-left`
+  - `content-align-right`
+  - `border-weight-medium`
+  - `border-weight-thick`
+  - `border-weight-thin`
+  - `align-center`
+  - `align-left`
+  - `align-right`
+
 ## 23.10.1
 
 ### Patch Changes

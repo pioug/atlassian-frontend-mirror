@@ -104,11 +104,7 @@ describe('AgentDropdownMenu', () => {
 		expect(viewAgentFullProfileButton).toBeNull();
 	});
 
-	it('shows view agent full profile option if doesAgentHaveIdentityAccountId is enabled and rovo_agent_profile_page is enabled', async () => {
-		fgMock.mockImplementation((flag: any) =>
-			['rovo_agent_profile_page', 'rovo_use_agent_permissions'].includes(flag),
-		);
-
+	it('shows view agent full profile option if doesAgentHaveIdentityAccountId is enabled', async () => {
 		const user = userEvent.setup();
 
 		const onViewAgentFullProfileClick = jest.fn();
@@ -124,19 +120,6 @@ describe('AgentDropdownMenu', () => {
 
 		await user.click(viewAgentFullProfileButton!);
 		expect(onViewAgentFullProfileClick).toHaveBeenCalled();
-	});
-
-	it('does not show view agent full profile option if doesAgentHaveIdentityAccountId is enabled and rovo_agent_profile_page is disabled', async () => {
-		const user = userEvent.setup();
-
-		renderComponent({ doesAgentHaveIdentityAccountId: true });
-
-		await user.click(moreActions());
-
-		const viewAgentFullProfileButton = screen.queryByRole('menuitem', {
-			name: 'View full profile',
-		});
-		expect(viewAgentFullProfileButton).toBeNull();
 	});
 
 	it("does not show duplicate agent option if it's a forge agent", async () => {
@@ -190,298 +173,164 @@ describe('AgentDropdownMenu', () => {
 		expect(screen.queryByRole('menuitem', { name: 'Copied URL' })).toBeVisible();
 	});
 
-	describe('when rovo_use_agent_permissions is enabled', () => {
-		beforeEach(() => {
-			fgMock.mockReturnValue((flag: any) => flag === 'rovo_use_agent_permissions');
+	it('fetches permissions on mount if loadPermissionsOnMount is enabled', () => {
+		const loadAgentPermissions = jest.fn().mockResolvedValue({
+			isEditEnabled: true,
+			isDeleteEnabled: true,
 		});
 
-		it('fetches permissions on mount if loadPermissionsOnMount is enabled', () => {
-			const loadAgentPermissions = jest.fn().mockResolvedValue({
-				isEditEnabled: true,
-				isDeleteEnabled: true,
-			});
+		renderComponent({ loadAgentPermissions, loadPermissionsOnMount: true });
 
-			renderComponent({ loadAgentPermissions, loadPermissionsOnMount: true });
-
-			expect(loadAgentPermissions).toHaveBeenCalled();
-		});
-
-		it('does not fetch permissions on mount if loadPermissionsOnMount is disabled', () => {
-			const loadAgentPermissions = jest.fn().mockResolvedValue({
-				isEditEnabled: true,
-				isDeleteEnabled: true,
-			});
-
-			renderComponent({ loadAgentPermissions, loadPermissionsOnMount: false });
-
-			expect(loadAgentPermissions).not.toHaveBeenCalled();
-		});
-
-		it('only fetches permissions once', async () => {
-			const user = userEvent.setup();
-
-			const loadAgentPermissions = jest
-				.fn()
-				.mockResolvedValue({ isEditEnabled: true, isDeleteEnabled: false });
-
-			const { rerender } = renderComponent({ loadAgentPermissions, loadPermissionsOnMount: true });
-
-			await user.click(moreActions());
-
-			rerender(
-				<DiProvider use={deps}>
-					<IntlProvider locale="en">
-						<AgentDropdownMenu
-							agentId="2"
-							isAgentCreatedByUser={true}
-							isForgeAgent={false}
-							loadAgentPermissions={() =>
-								Promise.resolve({
-									isEditEnabled: false,
-									isDeleteEnabled: true,
-								})
-							}
-						/>
-					</IntlProvider>
-				</DiProvider>,
-			);
-
-			expect(loadAgentPermissions).toHaveBeenCalledTimes(1);
-		});
-
-		it('shows edit option if user has permission', async () => {
-			const user = userEvent.setup();
-
-			const onEditAgent = jest.fn();
-			const loadAgentPermissions = jest
-				.fn()
-				.mockResolvedValue({ isEditEnabled: true, isDeleteEnabled: false });
-
-			renderComponent({ onEditAgent, loadAgentPermissions });
-
-			await user.click(moreActions());
-
-			const editButton = screen.queryByRole('menuitem', {
-				name: 'Edit Agent',
-			});
-			expect(editButton).toBeVisible();
-
-			await user.click(editButton!);
-			expect(onEditAgent).toHaveBeenCalled();
-		});
-
-		it('does not show edit option if user does not have permission', async () => {
-			const user = userEvent.setup();
-
-			const onEditAgent = jest.fn();
-			const loadAgentPermissions = jest
-				.fn()
-				.mockResolvedValue({ isEditEnabled: false, isDeleteEnabled: false });
-
-			renderComponent({ onEditAgent, loadAgentPermissions });
-
-			await user.click(moreActions());
-
-			const editButton = screen.queryByRole('menuitem', {
-				name: 'Edit Agent',
-			});
-			expect(editButton).toBeNull();
-		});
-
-		it('shows delete option if user has permission', async () => {
-			const user = userEvent.setup();
-
-			const onDeleteAgent = jest.fn();
-			const loadAgentPermissions = jest
-				.fn()
-				.mockResolvedValue({ isEditEnabled: false, isDeleteEnabled: true });
-
-			renderComponent({ onDeleteAgent, loadAgentPermissions });
-
-			await user.click(moreActions());
-
-			const deleteButton = screen.queryByRole('menuitem', {
-				name: 'Delete Agent',
-			});
-			expect(deleteButton).toBeVisible();
-
-			await user.click(deleteButton!);
-			expect(onDeleteAgent).toHaveBeenCalled();
-		});
-
-		it('does not show delete option if user does not have permission', async () => {
-			const user = userEvent.setup();
-
-			const onDeleteAgent = jest.fn();
-			const loadAgentPermissions = jest
-				.fn()
-				.mockResolvedValue({ isEditEnabled: false, isDeleteEnabled: false });
-
-			renderComponent({ onDeleteAgent, loadAgentPermissions });
-
-			await user.click(moreActions());
-
-			const deleteButton = screen.queryByRole('menuitem', {
-				name: 'Delete Agent',
-			});
-			expect(deleteButton).toBeNull();
-		});
-
-		it('shows loading spinner while loading permissions', async () => {
-			const user = userEvent.setup();
-
-			let resolve: (value: any) => void = () => {};
-			const permissionPromise = new Promise((resolveParam) => {
-				resolve = resolveParam;
-			});
-			const loadAgentPermissions = jest.fn().mockResolvedValue(permissionPromise);
-
-			renderComponent({ loadAgentPermissions });
-
-			await user.click(moreActions());
-
-			expect(screen.queryByRole('menuitem', { name: 'Copy link' })).toBeNull();
-			expect(
-				screen.getByRole('img', {
-					name: 'Loading',
-				}),
-			).toBeInTheDocument();
-
-			resolve({ isEditEnabled: true, isDeleteEnabled: false });
-
-			await waitFor(() => {
-				expect(screen.queryByRole('img', { name: 'Loading' })).toBeNull();
-			});
-
-			expect(screen.getByRole('menuitem', { name: 'Copy link' })).toBeVisible();
-		});
+		expect(loadAgentPermissions).toHaveBeenCalled();
 	});
 
-	describe('when rovo_use_agent_permissions is disabled', () => {
-		beforeEach(() => {
-			fgMock.mockImplementation((flag: any) => flag !== 'rovo_use_agent_permissions');
+	it('does not fetch permissions on mount if loadPermissionsOnMount is disabled', () => {
+		const loadAgentPermissions = jest.fn().mockResolvedValue({
+			isEditEnabled: true,
+			isDeleteEnabled: true,
 		});
 
-		it('does not call loadAgentPermissions', async () => {
-			const user = userEvent.setup();
+		renderComponent({ loadAgentPermissions, loadPermissionsOnMount: false });
 
-			const loadAgentPermissions = jest.fn();
+		expect(loadAgentPermissions).not.toHaveBeenCalled();
+	});
 
-			renderComponent({ loadAgentPermissions, onEditAgent: jest.fn(), onDeleteAgent: jest.fn() });
+	it('only fetches permissions once', async () => {
+		const user = userEvent.setup();
 
-			await user.click(moreActions());
+		const loadAgentPermissions = jest
+			.fn()
+			.mockResolvedValue({ isEditEnabled: true, isDeleteEnabled: false });
 
-			expect(loadAgentPermissions).not.toHaveBeenCalled();
+		const { rerender } = renderComponent({ loadAgentPermissions, loadPermissionsOnMount: true });
+
+		await user.click(moreActions());
+
+		rerender(
+			<DiProvider use={deps}>
+				<IntlProvider locale="en">
+					<AgentDropdownMenu
+						agentId="2"
+						isAgentCreatedByUser={true}
+						isForgeAgent={false}
+						loadAgentPermissions={() =>
+							Promise.resolve({
+								isEditEnabled: false,
+								isDeleteEnabled: true,
+							})
+						}
+					/>
+				</IntlProvider>
+			</DiProvider>,
+		);
+
+		expect(loadAgentPermissions).toHaveBeenCalledTimes(1);
+	});
+
+	it('shows edit option if user has permission', async () => {
+		const user = userEvent.setup();
+
+		const onEditAgent = jest.fn();
+		const loadAgentPermissions = jest
+			.fn()
+			.mockResolvedValue({ isEditEnabled: true, isDeleteEnabled: false });
+
+		renderComponent({ onEditAgent, loadAgentPermissions });
+
+		await user.click(moreActions());
+
+		const editButton = screen.queryByRole('menuitem', {
+			name: 'Edit Agent',
+		});
+		expect(editButton).toBeVisible();
+
+		await user.click(editButton!);
+		expect(onEditAgent).toHaveBeenCalled();
+	});
+
+	it('does not show edit option if user does not have permission', async () => {
+		const user = userEvent.setup();
+
+		const onEditAgent = jest.fn();
+		const loadAgentPermissions = jest
+			.fn()
+			.mockResolvedValue({ isEditEnabled: false, isDeleteEnabled: false });
+
+		renderComponent({ onEditAgent, loadAgentPermissions });
+
+		await user.click(moreActions());
+
+		const editButton = screen.queryByRole('menuitem', {
+			name: 'Edit Agent',
+		});
+		expect(editButton).toBeNull();
+	});
+
+	it('shows delete option if user has permission', async () => {
+		const user = userEvent.setup();
+
+		const onDeleteAgent = jest.fn();
+		const loadAgentPermissions = jest
+			.fn()
+			.mockResolvedValue({ isEditEnabled: false, isDeleteEnabled: true });
+
+		renderComponent({ onDeleteAgent, loadAgentPermissions });
+
+		await user.click(moreActions());
+
+		const deleteButton = screen.queryByRole('menuitem', {
+			name: 'Delete Agent',
+		});
+		expect(deleteButton).toBeVisible();
+
+		await user.click(deleteButton!);
+		expect(onDeleteAgent).toHaveBeenCalled();
+	});
+
+	it('does not show delete option if user does not have permission', async () => {
+		const user = userEvent.setup();
+
+		const onDeleteAgent = jest.fn();
+		const loadAgentPermissions = jest
+			.fn()
+			.mockResolvedValue({ isEditEnabled: false, isDeleteEnabled: false });
+
+		renderComponent({ onDeleteAgent, loadAgentPermissions });
+
+		await user.click(moreActions());
+
+		const deleteButton = screen.queryByRole('menuitem', {
+			name: 'Delete Agent',
+		});
+		expect(deleteButton).toBeNull();
+	});
+
+	it('shows loading spinner while loading permissions', async () => {
+		const user = userEvent.setup();
+
+		let resolve: (value: any) => void = () => {};
+		const permissionPromise = new Promise((resolveParam) => {
+			resolve = resolveParam;
+		});
+		const loadAgentPermissions = jest.fn().mockResolvedValue(permissionPromise);
+
+		renderComponent({ loadAgentPermissions });
+
+		await user.click(moreActions());
+
+		expect(screen.queryByRole('menuitem', { name: 'Copy link' })).toBeNull();
+		expect(
+			screen.getByRole('img', {
+				name: 'Loading',
+			}),
+		).toBeInTheDocument();
+
+		resolve({ isEditEnabled: true, isDeleteEnabled: false });
+
+		await waitFor(() => {
+			expect(screen.queryByRole('img', { name: 'Loading' })).toBeNull();
 		});
 
-		it('shows edit option if the agent was created by the user', async () => {
-			const user = userEvent.setup();
-
-			const onEditAgent = jest.fn();
-			renderComponent({
-				isAgentCreatedByUser: true,
-				onEditAgent,
-			});
-
-			await user.click(moreActions());
-
-			const editButton = screen.queryByRole('menuitem', {
-				name: 'Edit Agent',
-			});
-			expect(editButton).toBeVisible();
-
-			await user.click(editButton!);
-			expect(onEditAgent).toHaveBeenCalled();
-		});
-
-		it('does not show edit option if the agent was not created by the user', async () => {
-			const user = userEvent.setup();
-
-			const onEditAgent = jest.fn();
-			renderComponent({
-				isAgentCreatedByUser: false,
-				onEditAgent,
-			});
-
-			await user.click(moreActions());
-
-			const editButton = screen.queryByRole('menuitem', {
-				name: 'Edit Agent',
-			});
-			expect(editButton).toBeNull();
-		});
-
-		it('does not show edit option if the agent was created by the user but is a forge agent', async () => {
-			const user = userEvent.setup();
-
-			const onEditAgent = jest.fn();
-			renderComponent({
-				isAgentCreatedByUser: true,
-				isForgeAgent: true,
-				onEditAgent,
-			});
-
-			await user.click(moreActions());
-
-			const editButton = screen.queryByRole('menuitem', {
-				name: 'Edit Agent',
-			});
-			expect(editButton).toBeNull();
-		});
-
-		it('shows delete option if the agent was created by the user', async () => {
-			const user = userEvent.setup();
-
-			const onDeleteAgent = jest.fn();
-			renderComponent({
-				isAgentCreatedByUser: true,
-				onDeleteAgent,
-			});
-
-			await user.click(moreActions());
-
-			const deleteButton = screen.queryByRole('menuitem', {
-				name: 'Delete Agent',
-			});
-			expect(deleteButton).toBeVisible();
-
-			await user.click(deleteButton!);
-			expect(onDeleteAgent).toHaveBeenCalled();
-		});
-
-		it('does not show delete option if the agent was not created by the user', async () => {
-			const user = userEvent.setup();
-
-			const onDeleteAgent = jest.fn();
-			renderComponent({
-				isAgentCreatedByUser: false,
-				onDeleteAgent,
-			});
-
-			await user.click(moreActions());
-
-			const deleteButton = screen.queryByRole('menuitem', {
-				name: 'Delete Agent',
-			});
-			expect(deleteButton).toBeNull();
-		});
-
-		it('does not show delete option if the agent was created by the user but is a forge agent', async () => {
-			const user = userEvent.setup();
-
-			const onDeleteAgent = jest.fn();
-			renderComponent({
-				isAgentCreatedByUser: true,
-				isForgeAgent: true,
-				onDeleteAgent,
-			});
-
-			await user.click(moreActions());
-
-			const deleteButton = screen.queryByRole('menuitem', {
-				name: 'Delete Agent',
-			});
-			expect(deleteButton).toBeNull();
-		});
+		expect(screen.getByRole('menuitem', { name: 'Copy link' })).toBeVisible();
 	});
 });

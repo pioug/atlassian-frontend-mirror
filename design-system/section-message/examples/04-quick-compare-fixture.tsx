@@ -2,7 +2,7 @@ import React from 'react';
 
 import noop from 'lodash/noop';
 
-import { Box, Stack, Text } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
 const SomeParts = ({

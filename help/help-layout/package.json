@@ -32,7 +32,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.2.0",

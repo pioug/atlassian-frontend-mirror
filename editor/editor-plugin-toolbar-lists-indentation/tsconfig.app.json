@@ -53,6 +53,9 @@
 			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-selection-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
 		},
 		{

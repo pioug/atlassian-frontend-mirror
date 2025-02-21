@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
-import AvatarGroup from '@atlaskit/avatar-group';
+import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
 import FocusRing from '@atlaskit/focus-ring';
@@ -57,6 +57,7 @@ type TeamMembersProps = TeamMembers &
 
 const LARGE_MEMBER_COUNT = 50;
 const GIVE_KUDOS_ACTION_ID = 'give-kudos';
+const avatarGroupMaxCount = 9;
 
 function onMemberClick(
 	callback: TeamMembersProps['onUserClick'],
@@ -88,6 +89,7 @@ const TeamMembers = ({
 	onUserClick,
 	includingYou,
 }: TeamMembersProps) => {
+	const { formatMessage } = useIntl();
 	const count = members ? members.length : 0;
 
 	const message = includingYou
@@ -117,6 +119,17 @@ const TeamMembers = ({
 		isMoreMembersOpen.current = !isOpen;
 	}, [analytics, count]);
 
+	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = {
+		onClick: onMoreClick,
+		...(fg('platform_profilecard-enable_reporting_lines_label')
+			? {
+					'aria-label': formatMessage(messages.profileCardMoreMembersLabel, {
+						count: count - avatarGroupMaxCount + 1,
+					}),
+				}
+			: {}),
+	};
+
 	return (
 		<>
 			<MemberCount>
@@ -145,8 +158,8 @@ const TeamMembers = ({
 								onClick,
 							};
 						})}
-						maxCount={9}
-						showMoreButtonProps={{ onClick: onMoreClick }}
+						maxCount={avatarGroupMaxCount}
+						showMoreButtonProps={showMoreButtonProps}
 						testId="profilecard-avatar-group"
 					/>
 				</AvatarSection>

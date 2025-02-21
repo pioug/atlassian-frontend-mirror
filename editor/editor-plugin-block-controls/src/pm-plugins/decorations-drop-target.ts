@@ -306,6 +306,7 @@ export const dropTargetDecorations = (
 					canDropMultipleNodes = canMoveSliceToIndex(
 						selectionSlice,
 						selectionFrom,
+						selectionTo,
 						parent,
 						index,
 						$pos,

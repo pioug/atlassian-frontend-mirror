@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 
+import { IconButton } from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import ChevronUpIcon from '@atlaskit/icon/utility/chevron-up';
 import Lozenge from '@atlaskit/lozenge';
@@ -78,7 +80,7 @@ const disabledButtonStyles = xcss({
 	},
 });
 
-export interface CategoryButtonProps {
+interface ButtonBaseProps {
 	id: string;
 	mode: 'navigation' | 'expandable';
 	label?: string;
@@ -89,7 +91,7 @@ export interface CategoryButtonProps {
 	onClick?: (id: string) => void;
 }
 
-const CategoryButton = ({
+const ButtonBase = ({
 	id,
 	mode,
 	label,
@@ -98,7 +100,7 @@ const CategoryButton = ({
 	isExpanded,
 	attributes,
 	onClick,
-}: CategoryButtonProps) => {
+}: ButtonBaseProps) => {
 	const iconComponent = useMemo(() => {
 		let Icon: typeof ChevronUpIcon | typeof ChevronDownIcon | typeof ChevronRightIcon;
 		let iconLabel: string;
@@ -167,14 +169,30 @@ const CategoryButton = ({
 	);
 };
 
-export const NavCategoryButton = (props: Omit<CategoryButtonProps, 'mode' | 'isExpanded'>) => (
+export const LinkNavButton = (props: Omit<ButtonBaseProps, 'mode' | 'isExpanded'>) => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
-	<CategoryButton mode="navigation" {...props}></CategoryButton>
+	<ButtonBase mode="navigation" {...props}></ButtonBase>
 );
 
-export const ExpandableCategoryButton = (
-	props: Omit<CategoryButtonProps, 'mode' | 'isSelected'>,
-) => (
+export const ExpandableNavButton = (props: Omit<ButtonBaseProps, 'mode' | 'isSelected'>) => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
-	<CategoryButton mode="expandable" {...props}></CategoryButton>
+	<ButtonBase mode="expandable" {...props}></ButtonBase>
 );
+
+export const BackNavButton = ({ label, onClick }: { label: string; onClick: () => void }) => {
+	return (
+		<Tooltip content={label} position="top" ignoreTooltipPointerEvents={true}>
+			{(tooltipProps) => (
+				<IconButton
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...tooltipProps}
+					label={label}
+					icon={ChevronLeftIcon}
+					appearance="subtle"
+					spacing="compact"
+					onClick={onClick}
+				/>
+			)}
+		</Tooltip>
+	);
+};

@@ -29,7 +29,7 @@
 		"@atlaskit/css": "^0.9.0",
 		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/heading": "^4.3.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",

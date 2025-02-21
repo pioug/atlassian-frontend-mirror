@@ -8,7 +8,7 @@ import TaskIcon from '@atlaskit/icon/core/task';
 import Table from '@atlaskit/icon/glyph/table';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
-import { ListButtonItem } from '../src/ui/ListButtonItem';
+import { ListButtonItem, ViewAllButtonItem } from '../src/ui/ListButtonItem';
 
 const innerBoxContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
@@ -93,6 +93,12 @@ const items = [
 		isDisabled: true,
 		renderIcon: () => <TaskIcon label="Actions" />,
 	},
+	{
+		exampleTitle: 'No Icon',
+		index: 7,
+		title: 'Actions',
+		description: 'Create and assign action items',
+	},
 ];
 
 export default function ListButtonItemExample() {
@@ -118,6 +124,15 @@ export default function ListButtonItemExample() {
 						</Box>
 					</Stack>
 				))}
+				<Stack space="space.100" alignBlock="center">
+					<Heading size="xsmall">View All Button</Heading>
+					<Box xcss={innerBoxContainerStyles}>
+						<ViewAllButtonItem
+							label="View all inserts"
+							onClick={() => console.log('view all clicked')}
+						/>
+					</Box>
+				</Stack>
 			</Stack>
 		</Box>
 	);

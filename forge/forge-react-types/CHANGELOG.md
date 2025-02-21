@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 0.35.12
+
+### Patch Changes
+
+- [#115727](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115727)
+  [`a3b72fca5d164`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3b72fca5d164) -
+  Fix ui kit form onsubmit type
+
+## 0.35.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.35.10
 
 ### Patch Changes

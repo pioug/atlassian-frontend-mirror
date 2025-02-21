@@ -6,7 +6,11 @@ import type {
 	VCRatioType,
 } from '../../../common/vc/types';
 import type { ObservedMutationType } from '../observers/types';
-import type { RevisionEntry, VCCalculationMethodType } from '../revisions/types';
+import type {
+	FilterComponentsLogType,
+	RevisionEntry,
+	VCCalculationMethodType,
+} from '../revisions/types';
 
 type Viewport = {
 	w: number;
@@ -27,12 +31,14 @@ type HeatmapAttrs = {
 
 type PixelsToMap = { l: number; t: number; r: number; b: number };
 
-type Heatmap = Uint32Array;
+type Heatmap = Int32Array;
 
 type ProcessDataArgs = {
 	VCParts: number[];
 	VCCalculationMethods: VCCalculationMethodType[];
 	clean: boolean;
+	ttai: number;
+	filterComponentsLog: FilterComponentsLogType[];
 	ssr?: number;
 };
 
@@ -156,7 +162,13 @@ export class MultiRevisionHeatmap {
 		return payload;
 	}
 
-	processData({ VCParts, VCCalculationMethods, ssr = UNUSED_SECTOR }: ProcessDataArgs) {
+	processData({
+		VCParts,
+		VCCalculationMethods,
+		filterComponentsLog,
+		ttai,
+		ssr = UNUSED_SECTOR,
+	}: ProcessDataArgs) {
 		return this.heatmaps.map((heatmap, i) => {
 			const lastUpdate: { [key: string]: number } = {};
 			let totalPainted = 0;
@@ -199,6 +211,9 @@ export class MultiRevisionHeatmap {
 			const entries: number[][] = Object.entries(lastUpdate)
 				.map((a) => [parseInt(a[0], 10), a[1]])
 				.sort((a, b) => (a[0] > b[0] ? 1 : -1));
+
+			// @todo remove it once fixed as described: https://product-fabric.atlassian.net/browse/AFO-3443
+			componentsLog = filterComponentsLog[i]({ componentsLog, ttai });
 
 			const { VC, VCBox } = VCCalculationMethods[i]({
 				VCParts,
@@ -294,7 +309,7 @@ export class MultiRevisionHeatmap {
 	}
 
 	private getCleanHeatmap() {
-		return new Uint32Array(this.arraySize.w * this.arraySize.h);
+		return new Int32Array(this.arraySize.w * this.arraySize.h);
 	}
 
 	static makeVCReturnObj<T>(VCParts: number[]) {

@@ -36,7 +36,7 @@
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/avatar": "^21.18.0",
 		"@atlaskit/comment": "^12.2.0",
-		"@atlaskit/editor-common": "^99.18.0",
+		"@atlaskit/editor-common": "^99.19.0",
 		"@atlaskit/editor-core": "^203.18.0",
 		"@atlaskit/editor-plugins": "^7.2.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",

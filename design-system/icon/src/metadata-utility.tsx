@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d604eb54f7c4dbe01b0cc929a7910d27>>
+ * @codegen <<SignedSource::34c18c6b3305be3ce8bfc2ad0683cdaa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -335,8 +335,46 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/drag-handle',
 		oldName: ['drag-handler'],
 		type: 'utility',
+		replacement: { name: 'drag-handle-vertical', type: 'utility', location: '@atlaskit/icon' },
 		categorization: 'utility',
-		usage: 'Reserved for draggable elements.',
+		usage: 'Reserved for draggable elements, like rows.',
+		team: 'Design System Team',
+	},
+	'drag-handle-horizontal': {
+		keywords: [
+			'drag-handle-horizontal',
+			'draghandlehorizontal',
+			'icon',
+			'utility',
+			'drag handler',
+			'drag dots',
+			'reorder',
+			'move',
+		],
+		componentName: 'DragHandleHorizontalIcon',
+		package: '@atlaskit/icon/utility/drag-handle-horizontal',
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Reserved for draggable elements, like columns.',
+		team: 'Design System Team',
+	},
+	'drag-handle-vertical': {
+		keywords: [
+			'drag-handle-vertical',
+			'draghandlevertical',
+			'icon',
+			'utility',
+			'drag handler',
+			'drag dots',
+			'reorder',
+			'move',
+		],
+		componentName: 'DragHandleVerticalIcon',
+		package: '@atlaskit/icon/utility/drag-handle-vertical',
+		oldName: ['drag-handler'],
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Reserved for draggable elements, like rows.',
 		team: 'Design System Team',
 	},
 	error: {

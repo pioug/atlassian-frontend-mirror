@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1889360ea50129d9de12bad0626d7284>>
+ * @codegen <<SignedSource::28f3eb3664044b93368e3fef7d78315a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  *
  * Category: utility
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for draggable elements.
+ * Usage guidance: Reserved for draggable elements, like rows.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

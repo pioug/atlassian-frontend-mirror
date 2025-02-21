@@ -73,11 +73,13 @@ export function transformHtml(
 		suggestionDiv.setAttribute('data-node-type', 'extension');
 		suggestionDiv.setAttribute('data-extension-type', 'com.atlassian.bbc.code-suggestions');
 		suggestionDiv.setAttribute('data-extension-key', 'codesuggestions:suggestion-node');
+		// remove trailing newline from suggestion text
+		const suggestionText = div.textContent ? div.textContent.replace(/\n$/u, '') : '';
 		suggestionDiv.setAttribute(
 			'data-parameters',
 			JSON.stringify({
 				suggestionIndex: index,
-				suggestionText: div.textContent || '',
+				suggestionText: suggestionText,
 			}),
 		);
 		if (div.parentNode) {

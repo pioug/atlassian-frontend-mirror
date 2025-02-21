@@ -34,11 +34,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^99.18.0",
+		"@atlaskit/editor-common": "^99.19.0",
 		"@atlaskit/editor-plugin-analytics": "^1.12.0",
 		"@atlaskit/editor-plugin-decorations": "^1.5.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

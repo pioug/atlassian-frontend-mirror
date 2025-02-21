@@ -23,3 +23,10 @@ export type VCCalculationMethodReturn = {
 };
 
 export type VCCalculationMethodType = (args: VCCalculationMethodArgs) => VCCalculationMethodReturn;
+
+export type FilterComponentsLogArgs = {
+	componentsLog: ComponentsLogType;
+	ttai: number;
+};
+
+export type FilterComponentsLogType = (args: FilterComponentsLogArgs) => ComponentsLogType;

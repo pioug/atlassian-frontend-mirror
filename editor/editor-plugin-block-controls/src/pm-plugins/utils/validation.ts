@@ -150,6 +150,7 @@ export function canMoveNodeToIndex(
 export function canMoveSliceToIndex(
 	slice: Slice,
 	sliceFromPos: number,
+	sliceToPos: number,
 	destParent: PMNode,
 	indexIntoParent: number,
 	$destNodePos: ResolvedPos,
@@ -158,6 +159,12 @@ export function canMoveSliceToIndex(
 	let canMoveNodes = true;
 	const doc = $destNodePos.doc;
 	const nodesPos: number[] = [];
+
+	// Drag multiple nodes to be inside themselves not allowed
+	if ($destNodePos.pos < sliceToPos && $destNodePos.pos >= sliceFromPos) {
+		return false;
+	}
+
 	for (let i = 0; i < slice.content.childCount; i++) {
 		const node = slice.content.maybeChild(i);
 		if (i === 0) {

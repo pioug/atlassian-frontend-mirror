@@ -2,7 +2,7 @@ import React, { type PropsWithChildren, useCallback, useState } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
-import DragHandlerIcon from '@atlaskit/icon/core/migration/drag-handle--drag-handler';
+import DragHandleVerticalIcon from '@atlaskit/icon/core/migration/drag-handle-vertical--drag-handler';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Grid, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -43,7 +43,11 @@ const BlockBuilderContainer = ({
 	return (
 		<Box padding="space.100" xcss={containerStyles}>
 			<Grid alignItems="center" columnGap="space.025" templateColumns="24px 1fr 24px">
-				<DragHandlerIcon label="" spacing="spacious" color={token('color.icon', '#44546F')} />
+				<DragHandleVerticalIcon
+					label=""
+					spacing="spacious"
+					color={token('color.icon', '#44546F')}
+				/>
 				<Text weight="medium">
 					{name} {internal && <Lozenge>INTERNAL</Lozenge>}
 				</Text>

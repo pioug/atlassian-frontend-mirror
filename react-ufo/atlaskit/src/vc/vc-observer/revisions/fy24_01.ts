@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type {
 	VCBoxType,
 	VCCalculationMethodArgs,
@@ -37,8 +39,16 @@ export class FY24_01Classifier extends ViewportUpdateClassifier {
 		const VCBox: VCBoxType = {};
 
 		entries.reduce((acc = 0, v) => {
-			const VCRatio = v[1] / totalPainted + acc;
+			let VCRatio = v[1] / totalPainted + acc;
 			const time = v[0];
+
+			if (fg('platform_ufo_fix_vc_observer_rounding_error')) {
+				// @todo apply fix to include small changes into accumulator
+				const preciseCurrRatio = Math.round(100 * (v[1] / totalPainted));
+				const preciseAccRatio = Math.round(acc * 100);
+				VCRatio = (preciseCurrRatio + preciseAccRatio) / 100;
+			}
+
 			VCParts.forEach((value) => {
 				if ((VC[value] === null || VC[value] === undefined) && VCRatio >= value / 100) {
 					VC[value] = time;

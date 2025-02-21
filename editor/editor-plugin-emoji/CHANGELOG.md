@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.9.4
+
+### Patch Changes
+
+- [#114079](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114079)
+  [`d32dc78b19302`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d32dc78b19302) -
+  [ux] Re-enables emojis while offline and adds a fallback for emojis in the emoji picker if the
+  image cannot be loaded
+- Updated dependencies
+
 ## 2.9.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-element-browser
 
+## 0.1.1
+
+### Patch Changes
+
+- [#116567](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116567)
+  [`583a5c6a5c1de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/583a5c6a5c1de) -
+  [ux] Add search function
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes

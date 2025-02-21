@@ -244,8 +244,8 @@ const containsNonTableBlockChildren = (fragment: Fragment, schema: Schema): bool
 
 export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): Slice => {
 	if (fg('platform_editor_nested_tables_paste_wrap_fix')) {
-		// Case 1: A slice of a textblock selection inside a nested table
-		// Prosemirror wraps nested textblock selections in their respective tables
+		// Case 1: A slice of a block selection inside a nested table
+		// Prosemirror wraps nested block selections in their respective tables
 		// We are using `safeInsert` to paste nested tables, so we do not want to preserve this wrapping
 
 		// slice starts and ends inside a nested table at the same depth
@@ -256,7 +256,7 @@ export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): S
 
 			// if the slice is a single cell table and contains cells with single cell tables, descend into it until we find textblock children
 			if (isFragmentSingleCellTable(slice.content, schema)) {
-				slice.content.firstChild?.descendants((node, _pos, parent) => {
+				slice.content.firstChild?.descendants((node) => {
 					if (isNodeSingleCellTable(node, schema)) {
 						descendedDepth += tableDepthDecrement;
 					} else if (node.type === schema.nodes.table) {

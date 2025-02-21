@@ -46,7 +46,7 @@
 		"@atlaskit/css": "^0.9.0",
 		"@atlaskit/empty-state": "^8.3.0",
 		"@atlaskit/form": "^11.2.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/icon-file-type": "^6.9.0",
 		"@atlaskit/intl-messages-provider": "^1.1.0",
 		"@atlaskit/layering": "^1.1.0",

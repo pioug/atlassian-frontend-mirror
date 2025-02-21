@@ -1,5 +1,6 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
 import type { ToolbarDocking } from './types';
 
@@ -15,7 +16,7 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			 */
 			preferenceToolbarAboveSelection?: boolean;
 		};
-		dependencies: [OptionalPlugin<EditorViewModePlugin>];
+		dependencies: [OptionalPlugin<EditorViewModePlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
 		actions?: {
 			suppressToolbar?: () => boolean;
 			unsuppressToolbar?: () => boolean;

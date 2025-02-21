@@ -375,6 +375,10 @@ export class VCObserver {
 							VCCalculationMethods: getRevisions().map(
 								({ classifier }) => classifier.VCCalculationMethod,
 							),
+							filterComponentsLog: getRevisions().map(
+								({ classifier }) => classifier.filterComponentsLog,
+							),
+							ttai: stop,
 							ssr,
 							clean: !abortReasonInfo,
 						}),
@@ -655,6 +659,14 @@ export class VCObserver {
 		this.detachAbortListeners();
 		this.heatmap = this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
+
+		if (fg('ufo_vc_multiheatmap')) {
+			this.multiHeatmap = new MultiRevisionHeatmap({
+				viewport: this.viewport,
+				revisions: getRevisions(),
+				devToolsEnabled: this.devToolsEnabled,
+			});
+		}
 
 		this.totalTime = 0;
 		this.componentsLog = {};

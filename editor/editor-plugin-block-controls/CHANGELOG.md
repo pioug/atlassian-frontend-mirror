@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.27.5
+
+### Patch Changes
+
+- [#116263](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116263)
+  [`1810b6677a5df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1810b6677a5df) -
+  ED-26616:Multi select should not support drag to itself
+
 ## 2.27.4
 
 ### Patch Changes

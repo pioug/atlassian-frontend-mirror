@@ -1,4 +1,4 @@
-import { ItemData } from './ItemType';
+import type { ItemData } from './ItemType';
 
 export interface ButtonItemProps extends ItemData {
 	isSelected?: boolean;

@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 1.1.3
+
+### Patch Changes
+
+- [#116482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116482)
+  [`521b94c157089`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/521b94c157089) -
+  Use setTimeout to correctly set top layer when closing multiple layers
+
 ## 1.1.2
 
 ### Patch Changes

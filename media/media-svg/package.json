@@ -62,7 +62,7 @@
 		"@atlaskit/media-test-data": "^2.11.0",
 		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/range": "^8.2.0",
-		"@atlaskit/section-message": "^6.9.0",
+		"@atlaskit/section-message": "^7.0.0",
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.2.0",

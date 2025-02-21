@@ -1,11 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed7eec0f0b2a35551b86cb692f58c039>>
+ * @codegen <<SignedSource::c63516352cf3755557b5ebfd2c57518b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 
+/**
+ * @deprecated The icon "content-align-right" is deprecated in favour of "align-image-right" from “@atlaskit/icon/core”
+*/
 declare const ContentAlignRightIcon: {
   (props: NewCoreIconProps): JSX.Element;
   displayName: string;

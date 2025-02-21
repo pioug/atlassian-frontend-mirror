@@ -7,9 +7,10 @@ import { EditorMainToolbarModel } from '@af/editor-libra/page-models';
 // to avoid pixel-perfect comparison, which is a source of flake
 test.describe('Toolbar with long width and short height', () => {
 	test.use({
-		appearance: 'full-page',
+		editorProps: {
+			appearance: 'full-page',
+		},
 		viewport: { width: 1280, height: 300 },
-		withCollab: true,
 	});
 
 	test.use({
@@ -28,9 +29,10 @@ test.describe('Toolbar with long width and short height', () => {
 
 test.describe('Toolbar with mid width and short height', () => {
 	test.use({
-		appearance: 'full-page',
+		editorProps: {
+			appearance: 'full-page',
+		},
 		viewport: { width: 870, height: 300 },
-		withCollab: true,
 	});
 	test.use({
 		editorProps: {
@@ -48,9 +50,10 @@ test.describe('Toolbar with mid width and short height', () => {
 
 test.describe('Toolbar with short width and short height', () => {
 	test.use({
-		appearance: 'full-page',
+		editorProps: {
+			appearance: 'full-page',
+		},
 		viewport: { width: 400, height: 300 },
-		withCollab: true,
 	});
 	test.use({
 		editorProps: {

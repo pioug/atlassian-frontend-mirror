@@ -2,7 +2,7 @@ import React from 'react';
 
 import ArrowRightIcon from '@atlaskit/icon/utility/arrow-right';
 import ChevronIcon from '@atlaskit/icon/utility/chevron-down';
-import DragHandleIcon from '@atlaskit/icon/utility/drag-handle';
+import DragHandleVerticalIcon from '@atlaskit/icon/utility/drag-handle-vertical';
 import ErrorIcon from '@atlaskit/icon/utility/error';
 import { Box, Inline } from '@atlaskit/primitives';
 
@@ -19,7 +19,7 @@ const IconUtilityExample = () => {
 				<ErrorIcon label="" />
 			</Box>
 			<Box>
-				<DragHandleIcon label="" />
+				<DragHandleVerticalIcon label="" />
 			</Box>
 		</Inline>
 	);

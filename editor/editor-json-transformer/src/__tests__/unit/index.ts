@@ -1,18 +1,11 @@
-// eslint-disable no-duplicate-imports
-
 import { uuid } from '@atlaskit/adf-schema';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-import { highlightPlugin } from '@atlaskit/editor-plugin-highlight';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-// eslint-disable-next-line no-duplicate-imports
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Options } from '@atlaskit/editor-test-helpers/create-editor';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
 	a,
 	backgroundColor,
@@ -59,10 +52,8 @@ import {
 	unsupportedMark,
 	unsupportedNodeAttribute,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line no-duplicate-imports
 
 import { JSONTransformer, SchemaStage } from '../../index';
-// eslint-disable-next-line no-duplicate-imports
 import type { JSONDocNode, JSONNode } from '../../index';
 import * as markOverride from '../../markOverrideRules';
 import { sanitizeNode } from '../../sanitize/sanitize-node';
@@ -98,7 +89,6 @@ describe('JSONTransformer:', () => {
 		const editor = (doc: DocBuilder, options?: Pick<Options, 'editorProps'>) =>
 			createEditor({
 				doc,
-				editorPlugins: [highlightPlugin({ config: undefined })],
 				editorProps: {
 					emojiProvider: new Promise(() => {}),
 					mentionProvider: new Promise(() => {}),
@@ -145,7 +135,7 @@ describe('JSONTransformer:', () => {
 		});
 
 		it('should serialize common nodes/marks as ProseMirror does', () => {
-			const { editorView } = editor(
+			const state = createEditorState(
 				doc(
 					p(strong('>'), ' Atlassian: ', br(), a({ href: 'https://atlassian.com' })('Atlassian')),
 					p(
@@ -174,7 +164,7 @@ describe('JSONTransformer:', () => {
 					ol({ order: 6 })(li(p('One')), li(p('Two')), li(p('Three'))),
 				),
 			);
-			const pmDoc = editorView.state.doc;
+			const pmDoc = state.doc;
 			expect(toJSON(pmDoc)).toMatchSnapshot();
 		});
 
@@ -868,7 +858,7 @@ describe('JSONTransformer:', () => {
 		});
 
 		describe('unsupported mark', () => {
-			let markOverrideRuleFor: any;
+			let markOverrideRuleFor: jest.SpyInstance;
 			beforeEach(() => {
 				markOverrideRuleFor = jest.spyOn(markOverride, 'markOverrideRuleFor');
 			});
@@ -1722,7 +1712,7 @@ describe('JSONTransformer:', () => {
 					],
 				};
 
-				let result = parseJSON(entity);
+				const result = parseJSON(entity);
 				expect(toJSON(result)).toEqual(expected);
 			});
 
@@ -1786,7 +1776,7 @@ describe('JSONTransformer:', () => {
 					],
 				};
 
-				let result = parseJSON(entity);
+				const result = parseJSON(entity);
 				expect(toJSON(result)).toEqual(expected);
 			});
 
@@ -1848,7 +1838,7 @@ describe('JSONTransformer:', () => {
 					],
 				};
 
-				let result = parseJSON(entity);
+				const result = parseJSON(entity);
 				expect(toJSON(result)).toEqual(expected);
 			});
 		});
@@ -2100,18 +2090,18 @@ describe('JSONTransformer:', () => {
 	});
 
 	it('should throw an error if not ADF-like', () => {
-		const badADF: any = {
+		const badADF = {
 			type: 'paragraph',
 			content: [{ type: 'text', content: 'hello' }],
-		};
+		} as unknown as JSONDocNode;
 		expect(() => parseJSON(badADF)).toThrowError('Expected content format to be ADF');
 	});
 
 	it('should throw an error if not a valid PM document', () => {
-		const badADF: any = {
+		const badADF = {
 			type: 'doc',
 			content: [{ type: 'fakeNode', content: 'hello' }],
-		};
+		} as unknown as JSONDocNode;
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		expect(() => parseJSON(badADF)).toThrowError(/Invalid input for Fragment.fromJSON/);

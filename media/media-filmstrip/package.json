@@ -40,7 +40,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/media-card": "^78.19.0",
 		"@atlaskit/media-client": "^31.1.0",
 		"@atlaskit/media-client-react": "^3.0.0",

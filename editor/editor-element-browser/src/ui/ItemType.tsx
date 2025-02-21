@@ -1,4 +1,4 @@
-import { Keymap } from '@atlaskit/editor-common/keymaps';
+import type { Keymap } from '@atlaskit/editor-common/keymaps';
 
 export interface ItemData {
 	index: number;

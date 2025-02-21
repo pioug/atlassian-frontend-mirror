@@ -184,7 +184,10 @@ const createInsertBlockItems = (
 			emoji({
 				content: formatMessage(messages.emoji),
 				tooltipDescription: formatMessage(messages.emojiDescription),
-				disabled: emojiDisabled || !isTypeAheadAllowed || isOffline,
+				disabled:
+					emojiDisabled ||
+					!isTypeAheadAllowed ||
+					(isOffline && !fg('platform_editor_preload_emoji_picker')),
 				'aria-haspopup': 'dialog',
 			}),
 		);

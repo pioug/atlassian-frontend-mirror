@@ -9,7 +9,7 @@ import InfoIcon from '@atlaskit/icon/glyph/info';
 import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SectionMessage, { SectionMessageAction } from '../../index';

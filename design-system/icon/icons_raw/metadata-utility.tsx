@@ -138,14 +138,23 @@ const metadata: IconMetadata = {
 		status: 'published',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
-	'drag-handle': {
+	'drag-handle-horizontal': {
 		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
 		categorization: 'utility',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
-		status: 'published',
-		usage: 'Reserved for draggable elements.',
+		status: 'ready-to-publish',
+		usage: 'Reserved for draggable elements, like columns.',
+	},
+	'drag-handle-vertical': {
+		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'ready-to-publish',
+		usage: 'Reserved for draggable elements, like rows.',
 	},
 	error: {
 		keywords: ['filled', 'status', 'form', 'helper'],
@@ -278,6 +287,20 @@ const metadata: IconMetadata = {
 		type: 'utility',
 		status: 'published',
 		usage: 'Reserved for Helper Messages in Forms.',
+	},
+	'drag-handle': {
+		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'deprecated',
+		usage: 'Reserved for draggable elements, like rows.',
+		replacement: {
+			name: 'drag-handle-vertical',
+			type: 'utility',
+			location: '@atlaskit/icon',
+		},
 	},
 };
 

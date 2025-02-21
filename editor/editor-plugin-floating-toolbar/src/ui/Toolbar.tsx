@@ -457,6 +457,72 @@ const ToolbarItems = React.memo(
 	},
 );
 
+const getFormattedItems = (
+	items: Array<Item>,
+	isCollapsed: boolean,
+	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined,
+) => {
+	if (isCollapsed) {
+		const updatedItems = items
+			.filter(
+				(item) =>
+					item.type === 'separator' ||
+					('contextualToolbarDefaultVisibility' in item &&
+						item.contextualToolbarDefaultVisibility === 'visible') ||
+					!('contextualToolbarDefaultVisibility' in item),
+			)
+			.filter(
+				(item, index, items) =>
+					item.type !== 'separator' ||
+					(index > 0 && index < items.length - 1 && items[index - 1].type !== 'separator'),
+			);
+
+		if (updatedItems[updatedItems.length - 1].type === 'separator') {
+			updatedItems.pop();
+		}
+
+		updatedItems.unshift({ type: 'separator' });
+		updatedItems.unshift({
+			type: 'button',
+			icon: EditIcon,
+			title: 'Show items',
+			onClick: () => {
+				if (api) {
+					api.core.actions.execute(
+						(
+							api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
+						).floatingToolbar.commands.updateContextualToolbar({
+							type: 'expand-toolbar',
+						}),
+					);
+				}
+			},
+		});
+
+		return updatedItems;
+	}
+
+	items.unshift({ type: 'separator' });
+	items.unshift({
+		type: 'button',
+		icon: ChevronRightIcon,
+		title: 'Hide items',
+		onClick: () => {
+			if (api) {
+				api.core.actions.execute(
+					(
+						api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
+					).floatingToolbar.commands.updateContextualToolbar({
+						type: 'collapse-toolbar',
+					}),
+				);
+			}
+		},
+	});
+
+	return items;
+};
+
 const ToolbarItemsCollapsable = React.memo(
 	({
 		items,
@@ -475,7 +541,6 @@ const ToolbarItemsCollapsable = React.memo(
 		mountRef,
 		mounted,
 		api,
-		forceStaticToolbar,
 	}: Props & {
 		setDisableScroll?: (disable: boolean) => void;
 		mountRef: React.RefObject<HTMLDivElement>;
@@ -486,63 +551,29 @@ const ToolbarItemsCollapsable = React.memo(
 			'floatingToolbar.contextualToolbar',
 		);
 
-		let updatedItems = items.slice();
-		if (!forceStaticToolbar && contextualToolbarState?.display === 'collapsed') {
-			let nonSeparatorItems = 0;
-			let slicedIndex = -1;
+		// NOTE: Unsure if collapse/expand logic will be needed, for now hard code for cards
+		const isCard =
+			node.type.name === 'inlineCard' ||
+			node.type.name === 'blockCard' ||
+			node.type.name === 'embedCard';
 
-			for (let i = items.length - 1; i > 0; i--) {
-				const item = items[i];
-				if (item.type !== 'separator') {
-					nonSeparatorItems += 1;
-					slicedIndex = i;
-				}
-
-				if (nonSeparatorItems > 2) {
-					break;
-				}
-			}
-
-			updatedItems = updatedItems.slice(slicedIndex);
-
-			updatedItems.unshift({ type: 'separator' });
-			updatedItems.unshift({
-				type: 'button',
-				icon: EditIcon,
-				title: 'Show items',
-				onClick: () => {
-					if (api) {
-						api.core.actions.execute(
-							(
-								api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
-							).floatingToolbar.commands.updateContextualToolbar({
-								type: 'expand-toolbar',
-							}),
-						);
-					}
-				},
-			});
-		}
-
-		if (!forceStaticToolbar && contextualToolbarState?.display === 'expanded') {
-			updatedItems.unshift({ type: 'separator' });
-			updatedItems.unshift({
-				type: 'button',
-				icon: ChevronRightIcon,
-				title: 'Hide items',
-				onClick: () => {
-					if (api) {
-						api.core.actions.execute(
-							(
-								api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
-							).floatingToolbar.commands.updateContextualToolbar({
-								type: 'collapse-toolbar',
-							}),
-						);
-					}
-				},
-			});
-		}
+		const updatedItems = isCard
+			? getFormattedItems(
+					items.map((item) => {
+						if (
+							'id' in item &&
+							(item.id === 'editor.link.openLink' ||
+								item.id === 'editor.floatingToolbar.copy' ||
+								item.id === 'editor.link.commentLink')
+						) {
+							return item;
+						}
+						return { ...item, contextualToolbarDefaultVisibility: 'hidden' };
+					}),
+					contextualToolbarState?.isCollapsed ?? false,
+					api,
+				)
+			: items;
 
 		return (
 			<ToolbarItems

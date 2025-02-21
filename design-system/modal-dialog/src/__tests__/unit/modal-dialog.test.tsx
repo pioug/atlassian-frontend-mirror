@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -6,9 +6,7 @@ import userEvent from '@testing-library/user-event';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
-import Portal from '@atlaskit/portal';
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives';
-import { layers } from '@atlaskit/theme/constants';
 
 import { width } from '../../internal/constants';
 import ModalBody from '../../modal-body';
@@ -488,73 +486,71 @@ describe('<ModalDialog />', () => {
 	});
 });
 
-describe('focus lock', () => {
-	it('Input field outside modal dialog does not have focus when data-atlas-extension attribute does not exists and auto focus is turned on', () => {
-		render(
-			<div>
-				<Portal zIndex={layers.dialog() + 1}>
-					<input
-						// This is required to test a very unique implementation for an
-						// internal Chrome plugin. See DSP-11753 for more info.
-						autoFocus={true}
-						data-testid="input-field-outside-modal"
-						type="text"
-						aria-label="second"
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							top: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							left: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							position: 'fixed',
-						}}
-					/>
-				</Portal>
-				{createModal({
-					children: (
-						<input
-							data-testid="input-field-inside-modal"
-							title="inputFieldInsideModal"
-							type="text"
-							aria-label="first"
-						/>
-					),
-				})}
-			</div>,
+describe('autoFocus', () => {
+	const openModalButtonTestId = 'open-modal';
+	const innerButtonTestId = 'inner-button';
+	const refElementTestId = 'ref-element';
+
+	// add way to add in element to render
+	const Jsx = ({ autoFocus }: { autoFocus: ModalDialogProps['autoFocus'] | 'ref' }) => {
+		const [isOpen, setIsOpen] = useState(false);
+		const open = () => setIsOpen(true);
+		const ref = useRef(null);
+
+		const modalAutoFocus = autoFocus === 'ref' ? ref : autoFocus;
+
+		return (
+			<div data-testid="container">
+				<Button appearance="primary" onClick={open} testId={openModalButtonTestId}>
+					Open modal
+				</Button>
+
+				{isOpen && (
+					<ModalDialog onClose={close} testId="modal" autoFocus={modalAutoFocus} label="Layered">
+						<ModalBody>
+							<button data-testid={innerButtonTestId} type="button">
+								Click Me
+							</button>
+							{autoFocus === 'ref' ? (
+								<button type="button" ref={ref} data-testid={refElementTestId}>
+									Button
+								</button>
+							) : null}
+						</ModalBody>
+					</ModalDialog>
+				)}
+			</div>
 		);
-		expect(screen.getByTestId('input-field-inside-modal')).toHaveFocus();
-		expect(screen.getByTestId('input-field-outside-modal')).not.toHaveFocus();
+	};
+
+	it('should focus on the first interactive element when `autoFocus` is true', async () => {
+		const user = userEvent.setup();
+		render(<Jsx autoFocus={true} />);
+
+		expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
+		await user.click(screen.getByTestId(openModalButtonTestId));
+		expect(screen.getByTestId(innerButtonTestId)).toHaveFocus();
 	});
 
-	it('Input field outside modal dialog has focus when data-atlas-extension attribute exists and autofocus is turned on', () => {
-		render(
-			<div>
-				<Portal zIndex={layers.dialog() + 1}>
-					<input
-						data-atlas-extension="test"
-						// This is required to test a very unique implementation for an
-						// internal Chrome plugin. See DSP-11753 for more info.
-						autoFocus={true}
-						data-testid="input-field-outside-modal"
-						type="text"
-						aria-label="second"
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							top: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							left: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							position: 'fixed',
-						}}
-					/>
-				</Portal>
-				{createModal({
-					children: <input data-testid="input-field-inside-modal" type="text" aria-label="first" />,
-				})}
-			</div>,
-		);
-		expect(screen.getByTestId('input-field-outside-modal')).toHaveFocus();
-		expect(screen.getByTestId('input-field-inside-modal')).not.toHaveFocus();
+	it('should not change from initial focus when `autoFocus` is false', async () => {
+		const user = userEvent.setup();
+		render(<Jsx autoFocus={false} />);
+
+		expect(screen.queryByTestId(innerButtonTestId)).not.toBeInTheDocument();
+		await user.click(screen.getByTestId(openModalButtonTestId));
+		// Focus should not have moved
+		expect(screen.getByTestId(innerButtonTestId)).not.toHaveFocus();
+	});
+
+	it('should focus on element if `ref` is provided to `autoFocus`', async () => {
+		const user = userEvent.setup();
+		render(<Jsx autoFocus={'ref'} />);
+
+		expect(screen.queryByTestId(refElementTestId)).not.toBeInTheDocument();
+		await user.click(screen.getByTestId(openModalButtonTestId));
+		// Focus should not have gone to first interactive element
+		expect(screen.getByTestId(innerButtonTestId)).not.toHaveFocus();
+		expect(screen.getByTestId(refElementTestId)).toHaveFocus();
 	});
 });
 

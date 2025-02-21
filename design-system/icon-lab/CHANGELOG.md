@@ -1,5 +1,27 @@
 # @atlaskit/icon-lab
 
+## 2.8.0
+
+### Minor Changes
+
+- [#114599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114599)
+  [`bea386785f6f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bea386785f6f4) -
+  This release updates icons in `@atlaskit/icon-lab`. Minor metadata changes and includes small
+  internal updates to masked icons.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `cloud-offline`
+  - `cloud-saved`
+  - `cursor-strikethrough`
+  - `database-storage-cache`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.0
 
 ### Minor Changes

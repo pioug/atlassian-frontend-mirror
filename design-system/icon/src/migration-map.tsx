@@ -80,7 +80,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/align-center': {
-		newIcon: { name: 'align-center', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'align-text-center', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'align-center', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -89,7 +90,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/align-left': {
-		newIcon: { name: 'align-left', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'align-text-left', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'align-left', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -98,7 +100,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/align-right': {
-		newIcon: { name: 'align-right', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'align-text-right', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'align-right', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -917,7 +920,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'drag-handler': {
-		newIcon: { name: 'drag-handle', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'drag-handle-vertical', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'drag-handle', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -978,10 +982,11 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/align-image-center': {
 		newIcon: {
-			name: 'content-align-center',
+			name: 'align-image-center',
 			type: 'core',
 			package: '@atlaskit/icon',
 		},
+		additionalIcons: [{ name: 'content-align-center', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -991,10 +996,11 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/align-image-left': {
 		newIcon: {
-			name: 'content-align-left',
+			name: 'align-image-left',
 			type: 'core',
 			package: '@atlaskit/icon',
 		},
+		additionalIcons: [{ name: 'content-align-left', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -1004,10 +1010,11 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/align-image-right': {
 		newIcon: {
-			name: 'content-align-right',
+			name: 'align-image-right',
 			type: 'core',
 			package: '@atlaskit/icon',
 		},
+		additionalIcons: [{ name: 'content-align-right', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -2351,7 +2358,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/line': {
-		newIcon: { name: 'border-weight-thin', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'stroke-weight-small', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'border-weight-thin', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',

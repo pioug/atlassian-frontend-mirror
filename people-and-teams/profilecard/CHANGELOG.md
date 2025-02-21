@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 22.2.4
+
+### Patch Changes
+
+- [#115593](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115593)
+  [`d549b45702f75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d549b45702f75) -
+  Updates the reporting lines avatar group (in the platform profile card component both user and
+  team) to have an aria label for the more indicator button
+
 ## 22.2.3
 
 ### Patch Changes

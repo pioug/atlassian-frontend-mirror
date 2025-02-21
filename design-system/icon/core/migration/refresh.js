@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e77e094a0aa1d7ca1d4c9b1f496feee5>>
+ * @codegen <<SignedSource::1e8917d3a5aac4b99b0f55b24958842a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  *
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for expanding a object or panel.
+ * Usage guidance: Reserved for reloading content.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

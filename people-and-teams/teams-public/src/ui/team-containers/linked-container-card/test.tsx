@@ -33,6 +33,7 @@ describe('LinkedContainerCard', () => {
 					title="Test Title"
 					containerIcon="test-icon-url"
 					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
 				/>
 			</Router>,
 		);
@@ -47,6 +48,7 @@ describe('LinkedContainerCard', () => {
 					title="Test Title"
 					containerIcon="test-icon-url"
 					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
 				/>
 			</Router>,
 		);
@@ -61,6 +63,7 @@ describe('LinkedContainerCard', () => {
 					title="Test Title"
 					containerIcon="test-icon-url"
 					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
 				/>
 			</Router>,
 		);
@@ -75,13 +78,15 @@ describe('LinkedContainerCard', () => {
 					title="Test Title"
 					containerIcon="test-icon-url"
 					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
 				/>
 			</Router>,
 		);
 		expect(screen.getByTestId('linked-container-icon')).toHaveAttribute('src', 'test-icon-url');
 	});
 
-	it('should prevent default action on cross icon button click', async () => {
+	it('should prevent default action on cross icon button click and trigger onDisconnectButtonClick', async () => {
+		const mockOnDisconnectButtonClick = jest.fn();
 		render(
 			<Router>
 				<LinkedContainerCard
@@ -89,6 +94,7 @@ describe('LinkedContainerCard', () => {
 					title="Test Title"
 					containerIcon="test-icon-url"
 					link={testLink}
+					onDisconnectButtonClick={mockOnDisconnectButtonClick}
 				/>
 			</Router>,
 		);
@@ -98,6 +104,7 @@ describe('LinkedContainerCard', () => {
 		const crossIconButton = screen.getByRole('button');
 		await userEvent.click(crossIconButton);
 		expect(crossIconButton).toBeInTheDocument();
+		expect(mockOnDisconnectButtonClick).toHaveBeenCalledTimes(1);
 	});
 
 	it('should show/hide cross icon button on hover/unhover', async () => {
@@ -108,6 +115,7 @@ describe('LinkedContainerCard', () => {
 					title="Test Title"
 					containerIcon="test-icon-url"
 					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
 				/>
 			</Router>,
 		);
@@ -135,6 +143,7 @@ describe('LinkedContainerCard', () => {
 					title="Test Title"
 					containerIcon="test-icon-url"
 					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
 				/>
 			</Router>,
 		);

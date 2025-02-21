@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.35.10",
+	"version": "0.35.12",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 		"@atlaskit/radio": "^7.3.0",
 		"@atlaskit/range": "^8.2.0",
 		"@atlaskit/renderer": "^112.15.0",
-		"@atlaskit/section-message": "^6.9.0",
+		"@atlaskit/section-message": "^7.0.0",
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/spinner": "^17.2.0",
 		"@atlaskit/tabs": "^17.3.0",

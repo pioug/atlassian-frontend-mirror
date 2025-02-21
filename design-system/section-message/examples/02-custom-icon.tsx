@@ -1,7 +1,7 @@
 import React from 'react';
 
 import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
 const Example = () => (

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { getContainerProperties, messages } from '../../common/utils/get-container-properties';
@@ -157,6 +158,29 @@ describe('TeamContainers', () => {
 		renderTeamContainers(teamId);
 
 		expect(screen.getByTestId('team-containers-skeleton')).toBeInTheDocument();
+	});
+
+	it('should not render disconnect dialog initially', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [JiraProject],
+		});
+		renderTeamContainers(teamId);
+
+		expect(screen.queryByTestId('team-containers-disconnect-dialog')).toBeNull();
+	});
+
+	it('should render disconnect dialog when disconnect button is clicked', async () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [JiraProject],
+		});
+		renderTeamContainers(teamId);
+
+		await userEvent.hover(screen.getByText(JiraProject.name));
+		const crossIconButton = screen.getByRole('button', {
+			name: `disconnect the container ${JiraProject.name}`,
+		});
+		await userEvent.click(crossIconButton);
+		expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
 	});
 
 	it('should have no accessibility violations', async () => {

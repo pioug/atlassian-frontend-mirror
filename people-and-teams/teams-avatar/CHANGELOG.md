@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 1.3.0
+
+### Minor Changes
+
+- [#116733](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116733)
+  [`8382a04b535cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8382a04b535cd) -
+  Updated fallback avatar
+
 ## 1.2.3
 
 ### Patch Changes

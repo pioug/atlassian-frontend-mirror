@@ -1,6 +1,11 @@
 import { snapshot } from '@af/visual-regression';
 
-import { EmojiPickerWithUpload, EmojiPickerWithoutUpload } from './picker.fixture';
+import {
+	EmojiPickerWithUpload,
+	EmojiPickerWithoutUpload,
+	EmojiPickerWithFallbackWithUpload,
+	EmojiPickerWithFallbackWithoutUpload,
+} from './picker.fixture';
 
 snapshot(EmojiPickerWithUpload, {
 	ignoredErrors: [
@@ -19,4 +24,38 @@ snapshot(EmojiPickerWithoutUpload, {
 			jiraIssueId: 'TODO-123',
 		},
 	],
+});
+snapshot(EmojiPickerWithFallbackWithUpload, {
+	ignoredErrors: [
+		{
+			pattern: /Failed to load resource/,
+			ignoredBecause: 'Expected since fallback only renders if src is unavailable',
+			jiraIssueId: 'TODO-123',
+		},
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'React 18 causes a warning to occur',
+			jiraIssueId: 'TODO-123',
+		},
+	],
+	featureFlags: {
+		platform_editor_preload_emoji_picker: true,
+	},
+});
+snapshot(EmojiPickerWithFallbackWithoutUpload, {
+	ignoredErrors: [
+		{
+			pattern: /Failed to load resource/,
+			ignoredBecause: 'Expected since fallback only renders if src is unavailable',
+			jiraIssueId: 'TODO-123',
+		},
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'React 18 causes a warning to occur',
+			jiraIssueId: 'TODO-123',
+		},
+	],
+	featureFlags: {
+		platform_editor_preload_emoji_picker: true,
+	},
 });

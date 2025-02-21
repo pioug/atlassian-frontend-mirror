@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.20.8
+
+### Patch Changes
+
+- [#116009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116009)
+  [`b6feda4124cd2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6feda4124cd2) -
+  Remove code path for now obsolete chrome plugin.
+
 ## 12.20.7
 
 ### Patch Changes

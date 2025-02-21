@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::098ffdd4d493b55255b2624d3765ec87>>
+ * @codegen <<SignedSource::5942979cde91d2222f548b777090a0da>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -116,6 +116,8 @@ import DevicesIcon from '../../../../../core/devices';
 import DiscoveryIcon from '../../../../../core/discovery';
 import DownloadIcon from '../../../../../core/download';
 import DragHandleIcon from '../../../../../core/drag-handle';
+import DragHandleHorizontalIcon from '../../../../../core/drag-handle-horizontal';
+import DragHandleVerticalIcon from '../../../../../core/drag-handle-vertical';
 import EditIcon from '../../../../../core/edit';
 import EditBulkIcon from '../../../../../core/edit-bulk';
 import EmailIcon from '../../../../../core/email';
@@ -473,6 +475,8 @@ const Icons = [
 	DiscoveryIcon,
 	DownloadIcon,
 	DragHandleIcon,
+	DragHandleHorizontalIcon,
+	DragHandleVerticalIcon,
 	EditIcon,
 	EditBulkIcon,
 	EmailIcon,

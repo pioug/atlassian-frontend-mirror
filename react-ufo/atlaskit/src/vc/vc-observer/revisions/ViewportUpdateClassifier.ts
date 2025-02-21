@@ -1,4 +1,4 @@
-import type { VCCalculationMethodArgs } from './types';
+import type { FilterComponentsLogArgs, VCCalculationMethodArgs } from './types';
 
 export type FilterArgs = { type: string; tags?: string[]; ignoreReason?: string };
 
@@ -26,6 +26,11 @@ export class ViewportUpdateClassifier {
 			VC: {},
 			VCBox: {},
 		};
+	}
+
+	// @todo remove it once fixed as described: https://product-fabric.atlassian.net/browse/AFO-3443
+	filterComponentsLog({ componentsLog }: FilterComponentsLogArgs) {
+		return componentsLog;
 	}
 
 	protected __combinedTypes: string[] = [];

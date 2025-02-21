@@ -24,6 +24,11 @@ export default function TeamAvatarExample() {
 				<TeamAvatar src="https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/v4/blue_4.svg" />
 				<span>Next avatar</span>
 			</Inline>
+
+			<Inline alignBlock="center">
+				<TeamAvatar size="xsmall" />
+				<span>Fallback small</span>
+			</Inline>
 		</Stack>
 	);
 }

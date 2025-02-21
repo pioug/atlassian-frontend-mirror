@@ -1,24 +1,26 @@
 import React, { forwardRef } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
 import type { SectionMessageProps } from './types';
 
-const containerStyles = xcss({
-	wordBreak: 'break-word',
-	borderRadius: 'border.radius',
-});
-
-const bleedStyles = xcss({
-	display: 'flex',
-	marginBlock: 'space.negative.025',
-});
-
-const contentStyles = xcss({
-	color: 'color.text',
-	font: 'font.body',
+const sectionMessageStyles = cssMap({
+	container: {
+		wordBreak: 'break-word',
+		borderRadius: token('border.radius'),
+	},
+	bleed: {
+		display: 'flex',
+		marginBlock: token('space.negative.025'),
+	},
+	content: {
+		color: token('color.text'),
+		font: token('font.body'),
+	},
 });
 
 /**
@@ -53,10 +55,10 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 			padding="space.200"
 			testId={testId}
 			ref={ref}
-			xcss={containerStyles}
+			xcss={sectionMessageStyles.container}
 		>
 			<Inline space="space.200" alignBlock="stretch">
-				<Box xcss={bleedStyles}>
+				<Box xcss={sectionMessageStyles.bleed}>
 					<Icon
 						size="medium"
 						primaryColor={primaryColor}
@@ -73,7 +75,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 							{title}
 						</Heading>
 					)}
-					<Box xcss={contentStyles}>{children}</Box>
+					<Box xcss={sectionMessageStyles.content}>{children}</Box>
 					{actionsArray.length > 0 && (
 						<Inline
 							shouldWrap

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -10,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 import { useTeamContainers } from '../../controllers/hooks/use-team-containers';
 
 import { AddContainerCard } from './add-container-card';
+import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { LinkedContainerCard } from './linked-container-card';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
 import { type TeamContainerProps } from './types';
@@ -23,6 +25,7 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 	const [showAddJiraContainer, setShowAddJiraContainer] = useState(false);
 	const [showAddConfluenceContainer, setShowAddConfluenceContainer] = useState(false);
 	const [showMore, setShowMore] = useState(false);
+	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
 
 	useEffect(() => {
 		if (teamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW) {
@@ -47,33 +50,10 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 	}
 
 	return (
-		<Stack space="space.200">
-			<Grid templateColumns="1fr 1fr" gap="space.100" autoFlow="row">
-				{teamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
-					return (
-						<LinkedContainerCard
-							key={container.id}
-							containerType={container.type}
-							title={container.name}
-							containerIcon={container.icon}
-							link={container.link}
-						/>
-					);
-				})}
-				{showAddJiraContainer && (
-					<AddContainerCard
-						onAddAContainerClick={onAddAContainerClick}
-						containerType="JiraProject"
-					/>
-				)}
-				{showAddConfluenceContainer && (
-					<AddContainerCard
-						onAddAContainerClick={onAddAContainerClick}
-						containerType="ConfluenceSpace"
-					/>
-				)}
-				{showMore &&
-					teamContainers.slice(MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
+		<>
+			<Stack space="space.200">
+				<Grid templateColumns="1fr 1fr" gap="space.100" autoFlow="row">
+					{teamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 						return (
 							<LinkedContainerCard
 								key={container.id}
@@ -81,22 +61,60 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 								title={container.name}
 								containerIcon={container.icon}
 								link={container.link}
+								onDisconnectButtonClick={() => setIsDisconnectDialogOpen(true)}
 							/>
 						);
 					})}
-			</Grid>
-			{teamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW && (
-				<Inline>
-					<Button appearance="subtle" onClick={handleShowMore}>
-						{showMore ? (
-							<FormattedMessage {...messages.showLess} />
-						) : (
-							<FormattedMessage {...messages.showMore} />
-						)}
-					</Button>
-				</Inline>
-			)}
-		</Stack>
+					{showAddJiraContainer && (
+						<AddContainerCard
+							onAddAContainerClick={onAddAContainerClick}
+							containerType="JiraProject"
+						/>
+					)}
+					{showAddConfluenceContainer && (
+						<AddContainerCard
+							onAddAContainerClick={onAddAContainerClick}
+							containerType="ConfluenceSpace"
+						/>
+					)}
+					{showMore &&
+						teamContainers.slice(MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
+							return (
+								<LinkedContainerCard
+									key={container.id}
+									containerType={container.type}
+									title={container.name}
+									containerIcon={container.icon}
+									link={container.link}
+									onDisconnectButtonClick={() => setIsDisconnectDialogOpen(true)}
+								/>
+							);
+						})}
+				</Grid>
+				{teamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW && (
+					<Inline>
+						<Button appearance="subtle" onClick={handleShowMore}>
+							{showMore ? (
+								<FormattedMessage {...messages.showLess} />
+							) : (
+								<FormattedMessage {...messages.showMore} />
+							)}
+						</Button>
+					</Inline>
+				)}
+			</Stack>
+			<ModalTransition>
+				{isDisconnectDialogOpen && (
+					<DisconnectDialogLazy
+						containerName="something"
+						containerType="ConfluenceSpace"
+						onClose={() => setIsDisconnectDialogOpen(false)}
+						// TODO: hook the mutation
+						onDisconnect={() => Promise.resolve()}
+					/>
+				)}
+			</ModalTransition>
+		</>
 	);
 };
 

@@ -6,7 +6,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Assets',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for JSM Assets.',
 	},
 	'assets-schema': {
@@ -15,7 +15,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Assets',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for JSM Assets.',
 	},
 	'cloud-offline': {
@@ -24,7 +24,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Content Types',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: "Reserved for showing when a connection can't be established to the cloud.",
 	},
 	'cloud-saved': {
@@ -33,7 +33,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Content Types',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for showing saved status after successful cloud synchronisation.',
 	},
 	'drop-shadow': {
@@ -42,7 +42,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Toggle drop shadow on and off',
 	},
 	duplicate: {
@@ -51,7 +51,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for cloning and duplicating objects.',
 		slackChannel: '#icon-contributions',
 	},
@@ -71,7 +71,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Toggle Whiteboards private mode on and off.',
 	},
 	initiative: {
@@ -87,7 +87,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Jira Enterprise',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Representing Jira Initiatives',
 	},
 	lozenge: {
@@ -105,7 +105,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Content Types',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for Live Document content type.',
 	},
 	'qr-code': {
@@ -114,7 +114,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Assets',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for QR code experiences.',
 	},
 	'roadmaps-plan': {
@@ -141,7 +141,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for curved line type setting for line tool in Whiteboards.',
 	},
 	'stroke-curvature-dynamic': {
@@ -150,7 +150,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for dynamic line type setting for line tool in Whiteboards',
 	},
 	'stroke-curvature-straight': {
@@ -159,7 +159,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for straight line type setting for line tool in Whiteboards',
 	},
 	'stroke-properties': {
@@ -168,7 +168,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for stroke properties in Whiteboards',
 	},
 	'stroke-style-dashed': {
@@ -177,7 +177,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing dashed stroke and border styles.',
 	},
 	'stroke-style-dotted': {
@@ -186,7 +186,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing dotted stroke and border styles.',
 	},
 	'stroke-style-solid': {
@@ -195,7 +195,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing solid stroke and border styles.',
 	},
 	swap: {
@@ -204,7 +204,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Swapping between Jira tickets in Whiteboard smart section',
 	},
 	sync: {
@@ -213,7 +213,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Content Types',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for syncing changes and save operations.',
 	},
 	tidy: {
@@ -222,7 +222,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Tidy up objects on Whiteboards',
 	},
 	vulnerability: {
@@ -240,7 +240,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for aligning bottom edges of content in Whiteboards',
 	},
 	'align-content-center-horizontal': {
@@ -249,7 +249,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for aligning horizontal centers of content in Whiteboards',
 	},
 	'align-content-center-vertical': {
@@ -258,7 +258,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for aligning vertical centers of content in Whiteboards',
 	},
 	'align-content-left': {
@@ -267,7 +267,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for aligning left edges of content in Whiteboards',
 	},
 	'align-content-right': {
@@ -276,7 +276,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for aligning right edges of content in Whiteboards',
 	},
 	'align-content-top': {
@@ -285,7 +285,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for aligning top edges of content in Whiteboards',
 	},
 	'align-position-bottom': {
@@ -294,7 +294,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Bottom-aligned text position within sticky notes in Whiteboards.',
 	},
 	'align-position-center-vertical': {
@@ -303,7 +303,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Center-aligned text position within sticky notes in Whiteboards.',
 	},
 	'align-position-top': {
@@ -312,7 +312,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Top-aligned text position within sticky notes in Whiteboards.',
 	},
 	'book-open': {
@@ -348,7 +348,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Selecting the cursor in Whiteboards',
 	},
 	'cursor-strikethrough': {
@@ -357,7 +357,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Hide collaborator cursors in the Whiteboard',
 	},
 	'database-storage': {
@@ -366,7 +366,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Ecosystem',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Known uses: SQL database in Developer Console',
 		slackChannel: '#forge-sql',
 	},
@@ -376,7 +376,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Ecosystem',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Known uses: Storage cache in Developer Console.',
 		slackChannel: '#forge-sql',
 	},
@@ -395,7 +395,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Grouping selected objects in Whiteboards',
 	},
 	'group-ungroup-selection': {
@@ -404,7 +404,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Ungrouping selected objects in Whiteboards',
 	},
 	hand: {
@@ -413,7 +413,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for move/hand tool in Whiteboards',
 	},
 	jira: {
@@ -422,7 +422,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Representing JIRA',
 	},
 	'paint-brush': {
@@ -449,7 +449,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for section tool in Whiteboards',
 	},
 	'shape-diamond': {
@@ -458,7 +458,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Diamond shape tool in Whiteboards',
 	},
 	'shape-ellipse': {
@@ -467,7 +467,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Ellipse shape tool in Whiteboards',
 	},
 	'shape-parallelogram-skew-left': {
@@ -476,7 +476,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Left parallelogram shape tool in Whiteboards',
 	},
 	'shape-parallelogram-skew-right': {
@@ -485,7 +485,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Right parallelogram shape tool in Whiteboards',
 	},
 	'shape-rectangle': {
@@ -494,7 +494,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Rectangle shape tool in Whiteboards',
 	},
 	'shape-rectangle-rounded': {
@@ -503,7 +503,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Rounded rectangle shape tool in Whiteboards',
 	},
 	'shape-triangle': {
@@ -512,7 +512,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Triangle shape tool in Whiteboards',
 	},
 	'shape-triangle-inverted': {
@@ -521,7 +521,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Upside down triangle shape tool in Whiteboards',
 	},
 	signature: {
@@ -530,7 +530,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Toggle author visibility on sticky notes in Whiteboards.',
 	},
 	speedometer: {
@@ -548,7 +548,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for stamp tool in Whiteboards',
 	},
 	sticker: {
@@ -557,7 +557,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for sticker tool in Whiteboards',
 	},
 	sunset: {
@@ -566,7 +566,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'confluence insights',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Farewell feed in hello.',
 	},
 	'takeout-container': {
@@ -584,7 +584,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Used for templates in Whiteboards',
 	},
 	ticket: {
@@ -620,7 +620,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Insights',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Known uses: Intro blog feed picker on Hello',
 		slackChannel: '#cc-insights-and-reporting',
 	},

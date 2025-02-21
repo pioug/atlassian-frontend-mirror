@@ -196,6 +196,18 @@ const messages = defineMessages({
 		description:
 			'Label for the meatballs icon on the profile card, which when clicked will provide more options',
 	},
+	profileCardMoreReportingLinesLabel: {
+		id: 'pt.user-profile-card.reporting-lines.more-icon-label',
+		defaultMessage: '+{count} more {count, plural, one {profile} other {profiles}}',
+		description:
+			'Label for the "more profiles" indicator in the reporting lines section of the user profile card',
+	},
+	profileCardMoreMembersLabel: {
+		id: 'pt.team.profile-card.members.more-icon-label',
+		defaultMessage: '+{count} more {count, plural, one {members} other {members}}',
+		description:
+			'Label for the "more members" indicator in the members section of the team profile card',
+	},
 });
 
 export default messages;

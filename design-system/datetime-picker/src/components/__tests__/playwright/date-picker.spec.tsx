@@ -31,8 +31,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator(datePicker).first().click();
 		await page.locator(date).first().click();
@@ -56,8 +59,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator(datePicker).first().click();
 		await page.locator(date).first().click();
@@ -81,8 +87,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 
 		/* Clicking on the disabled date picker does not open it */
@@ -108,8 +117,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator('input#text1').first().click();
 		await page.keyboard.press('Tab');
@@ -131,8 +143,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator('button#popup-trigger').first().click();
 		await page.locator('input#text3').first().click();
@@ -168,8 +183,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator('input#text1').first().click();
 		await page.keyboard.press('Tab');
@@ -193,8 +211,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator('input#text1').first().click();
 		await page.keyboard.press('Tab');
@@ -218,8 +239,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator(datePicker).first().click();
 		await page.keyboard.press('ArrowDown');
@@ -237,8 +261,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator(datePicker).first().click();
 		await page.keyboard.press('ArrowUp');
@@ -254,8 +281,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator(datePicker).first().click();
 		await expect(page.locator(calendar)).toBeVisible();
@@ -272,8 +302,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator(tabcheckOuterDatePicker).first().click();
 		await expect(page.locator(calendar).first()).toBeVisible();
@@ -289,8 +322,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.keyboard.press('Tab');
 		await page.keyboard.press('Tab');
@@ -308,8 +344,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator(tabcheckOuterCalendarButton).click();
 		await expect(page.locator(calendar)).toBeVisible();
@@ -326,8 +365,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator('input#text1').first().click();
 		await page.keyboard.press('Tab');
@@ -354,8 +396,11 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
+						'react-18-mode': 'legacy',
 					}
-				: {},
+				: {
+						'react-18-mode': 'legacy',
+					},
 		);
 		await page.locator('input#text1').first().click();
 		await page.keyboard.press('Tab');

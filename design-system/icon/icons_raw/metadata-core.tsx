@@ -42,7 +42,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for center aligning media and content.',
 	},
 	'align-image-left': {
@@ -51,7 +51,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for left aligning media and content.',
 	},
 	'align-image-right': {
@@ -60,7 +60,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for right aligning media and content.',
 	},
 	api: {
@@ -186,7 +186,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Editor',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for toggling the visibility of a border on an object.',
 	},
 	branch: {
@@ -409,14 +409,23 @@ const metadata: IconMetadata = {
 		status: 'published',
 		usage: 'Single purpose - Reserved for file downloads.',
 	},
-	'drag-handle': {
+	'drag-handle-horizontal': {
 		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for draggable elements.',
+		status: 'ready-to-publish',
+		usage: 'Single purpose - Reserved for draggle elements, like columns.',
+	},
+	'drag-handle-vertical': {
+		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Single purpose - Reserved for draggable elements, like rows.',
 	},
 	edit: {
 		keywords: ['pencil', 'pencil on page'],
@@ -505,7 +514,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for when there is an error.',
 	},
 	'expand-horizontal': {
@@ -885,7 +894,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for user mentions.',
 	},
 	menu: {
@@ -1253,13 +1262,13 @@ const metadata: IconMetadata = {
 		usage: 'Single purpose - Reserved for redo in Editor.',
 	},
 	refresh: {
-		keywords: ['diagonal', 'resize', 'arrows'],
+		keywords: ['refresh', 'reload', 'update', 'circular arrows'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
-		usage: 'Single purpose - Reserved for expanding a object or panel.',
+		status: 'published',
+		usage: 'Reserved for reloading content.',
 	},
 	release: {
 		keywords: ['ship', 'boat'],
@@ -1312,7 +1321,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for sending messages in Rovo Chat.',
 	},
 	settings: {
@@ -1403,7 +1412,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for collapsing the navigation sidebar.',
 	},
 	'sidebar-expand': {
@@ -1412,7 +1421,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for expanding the navigation sidebar.',
 	},
 	'sidebar-left': {
@@ -1556,7 +1565,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for stories in Jira.',
 	},
 	'stroke-weight-extra-large': {
@@ -1574,7 +1583,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing the thickest border stroke width.',
 	},
 	'stroke-weight-large': {
@@ -1592,7 +1601,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Editor',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing thick border stroke widths.',
 	},
 	'stroke-weight-medium': {
@@ -1610,7 +1619,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Editor',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing medium border stroke widths.',
 	},
 	'stroke-weight-small': {
@@ -1628,7 +1637,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Editor',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing thin border stroke widths.',
 	},
 	subtasks: {
@@ -1880,7 +1889,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for representing heading styles',
 		slackChannel: '#icon-contributions',
 	},
@@ -1935,7 +1944,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for strikethrough text tool',
 		slackChannel: '#icon-contributions',
 	},
@@ -1954,7 +1963,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for underlined text tool',
 		slackChannel: '#icon-contributions',
 	},
@@ -2108,7 +2117,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for skipping video content backward by 15 seconds.',
 	},
 	'video-skip-backward-ten': {
@@ -2117,7 +2126,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for skipping video content backwards by 10 seconds.',
 	},
 	'video-skip-forward-fifteen': {
@@ -2126,7 +2135,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for skipping video content forward by 15 seconds.',
 	},
 	'video-skip-forward-ten': {
@@ -2135,7 +2144,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Reserved for skipping video content forward by 10 seconds.',
 	},
 	'video-stop': {
@@ -2162,7 +2171,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Single purpose - Reserved for warning system status.',
 	},
 	whiteboard: {
@@ -2201,7 +2210,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Single purpose - Reserved for center aligning media and content.',
 		replacement: {
-			name: 'Align image center',
+			name: 'align-image-center',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -2215,7 +2224,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Single purpose - Reserved for left aligning media and content.',
 		replacement: {
-			name: 'Align image left',
+			name: 'align-image-left',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -2229,7 +2238,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Single purpose - Reserved for right aligning media and content.',
 		replacement: {
-			name: 'Align image right',
+			name: 'align-image-right',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -2243,7 +2252,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Reserved for representing medium border stroke widths.',
 		replacement: {
-			name: 'Stroke weight medium',
+			name: 'stroke-weight-medium',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -2257,7 +2266,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Reserved for representing thick border stroke widths.',
 		replacement: {
-			name: 'Stroke weight large',
+			name: 'stroke-weight-large',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -2271,7 +2280,21 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Reserved for representing thin border stroke widths.',
 		replacement: {
-			name: 'Stroke weight small',
+			name: 'stroke-weight-small',
+			type: 'core',
+			location: '@atlaskit/icon',
+		},
+	},
+	'drag-handle': {
+		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'deprecated',
+		usage: 'Single purpose - Reserved for draggable elements, like rows.',
+		replacement: {
+			name: 'drag-handle-vertical',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -2282,7 +2305,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Multi purpose - Known uses: align text center, align center.',
 	},
 	'align-text-left': {
@@ -2291,7 +2314,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Multi purpose - Known uses: align text left, align content left, summary.',
 	},
 	'align-text-right': {
@@ -2300,7 +2323,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Multi purpose - Known uses: align text right, align content right.',
 	},
 	'angle-brackets': {
@@ -2596,7 +2619,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Multi purpose - Known uses: deployments in Jira.',
 	},
 	compass: {
@@ -2695,7 +2718,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Known uses: Exclamation Jira issue type',
 		slackChannel: '#icon-contributions',
 	},
@@ -2910,7 +2933,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage:
 			'Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.',
 		slackChannel: '#icon-contributions',
@@ -2921,7 +2944,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Known uses: learnings in Atlas.',
 	},
 	'list-bulleted': {
@@ -3028,7 +3051,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Multi purpose - Known uses: horizontal rule in Editor.',
 	},
 	'minus-square': {
@@ -3245,7 +3268,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Multi purpose - Known uses: voting, feedback in AI.',
 	},
 	'thumbs-up': {
@@ -3254,7 +3277,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Multi purpose - Known uses: voting options in Jira, like.',
 	},
 	tools: {
@@ -3290,7 +3313,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: '📦 @atlaskit/icon/core/volume-high',
 	},
 	'volume-low': {
@@ -3299,7 +3322,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: '📦 @atlaskit/icon/core/volume-low',
 	},
 	'volume-muted': {
@@ -3308,7 +3331,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: '📦 @atlaskit/icon/core/volume-muted',
 	},
 	'align-center': {
@@ -3320,7 +3343,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Multi purpose - Known uses: align text center, align center.',
 		replacement: {
-			name: 'Align text center',
+			name: 'align-text-center',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -3334,7 +3357,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Multi purpose - Known uses: align text left, align content left, summary.',
 		replacement: {
-			name: 'Align text left',
+			name: 'align-text-left',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -3348,7 +3371,7 @@ const metadata: IconMetadata = {
 		status: 'deprecated',
 		usage: 'Multi purpose - Known uses: align text right, align content right.',
 		replacement: {
-			name: 'Align text right',
+			name: 'align-text-right',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},

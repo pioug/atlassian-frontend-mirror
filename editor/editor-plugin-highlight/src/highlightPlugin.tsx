@@ -88,6 +88,13 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 		pluginsOptions: {
 			selectionToolbar() {
 				if (
+					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'top' &&
+					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+				) {
+					return undefined;
+				}
+
+				if (
 					!options?.textHighlightingFloatingToolbarExperiment &&
 					editorExperiment('contextual_formatting_toolbar', false, { exposure: true }) &&
 					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'control', {

@@ -70,7 +70,7 @@
 		"@atlaskit/link": "*",
 		"@atlaskit/modal-dialog": "^12.20.0",
 		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/section-message": "^6.9.0",
+		"@atlaskit/section-message": "^7.0.0",
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^13.4.0",

@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Anchor, Box, Pressable } from '@atlaskit/primitives';
+import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { SectionMessageActionProps } from './types';

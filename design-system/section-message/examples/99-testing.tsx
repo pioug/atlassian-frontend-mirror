@@ -1,20 +1,25 @@
 import React from 'react';
 
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import { token } from '@atlaskit/tokens';
 
-const definitionListStyles = xcss({
-	display: 'flex',
-	justifyContent: 'stretch',
-	gap: 'space.100',
-	flexDirection: 'column',
-	marginBlockStart: 'space.0',
-	paddingInlineStart: 'space.0',
-});
-
-const definitionListItemStyles = xcss({
-	margin: 'space.0',
-	marginInlineStart: 'space.0',
+const definitionListStyles = cssMap({
+	list: {
+		display: 'flex',
+		justifyContent: 'stretch',
+		gap: token('space.100'),
+		flexDirection: 'column',
+		marginBlockStart: token('space.0'),
+		paddingInlineStart: token('space.0'),
+	},
+	item: {
+		marginInlineStart: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginBlockEnd: token('space.0'),
+		marginInlineEnd: token('space.0'),
+	},
 });
 
 const Example = () => (
@@ -37,20 +42,20 @@ const Example = () => (
 					<Text as="p">
 						Atlassian provides the tools to help every team unleash their full potential.
 					</Text>
-					<Box as="dl" xcss={definitionListStyles}>
-						<Box as="dt" xcss={definitionListItemStyles}>
+					<Box as="dl" xcss={definitionListStyles.list}>
+						<Box as="dt" xcss={definitionListStyles.item}>
 							<Text weight="bold">Bitbucket:</Text>
 						</Box>
-						<Box as="dd" xcss={definitionListItemStyles}>
+						<Box as="dd" xcss={definitionListStyles.item}>
 							<Text as="p">
 								Bitbucket is more than just Git code management. Bitbucket gives teams one place to
 								plan projects, collaborate on code, test, and deploy.
 							</Text>
 						</Box>
-						<Box as="dt" xcss={definitionListItemStyles}>
+						<Box as="dt" xcss={definitionListStyles.item}>
 							<Text weight="bold">Jira:</Text>
 						</Box>
-						<Box as="dd" xcss={definitionListItemStyles}>
+						<Box as="dd" xcss={definitionListStyles.item}>
 							<Text as="p">The #1 software development tool used by agile teams.</Text>
 						</Box>
 					</Box>

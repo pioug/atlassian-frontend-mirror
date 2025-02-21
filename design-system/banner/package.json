@@ -55,7 +55,7 @@
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",

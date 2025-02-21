@@ -2,8 +2,8 @@ import React, { type KeyboardEvent, type MouseEvent, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import StarIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarIconMigration from '@atlaskit/icon/core/migration/star-starred--star-filled';
+import StarUnstarredIconMigration from '@atlaskit/icon/core/migration/star-unstarred--star';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -40,19 +40,18 @@ export const StarIconButton = ({
 			onMouseLeave={() => setIsHovered(false)}
 		>
 			{isStarred || isHovered ? (
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO: color mapping not available in new icon (https://product-fabric.atlassian.net/browse/DSP-20918)
-				<StarFilledIcon
-					size="medium"
+				<StarIconMigration
+					LEGACY_size="medium"
+					spacing="spacious"
 					label={formatMessage(messages.removeFromFavouritesLabel)}
-					primaryColor={token('color.background.accent.yellow.subtler.pressed')}
+					color={token('color.icon.accent.orange')}
 				/>
 			) : (
-				<StarIcon
+				<StarUnstarredIconMigration
 					LEGACY_size="medium"
 					spacing="spacious"
 					label={formatMessage(messages.clickToFavouriteLabel)}
-					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- suppressed after fixing the eslint rule, as this wasn't reported before
-					color={'var(--ds-text-accent-gray)'}
+					color={token('color.icon')}
 				/>
 			)}
 		</Pressable>

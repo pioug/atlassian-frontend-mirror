@@ -46,8 +46,8 @@ import {
 	isSelectionType,
 	splitCell,
 } from '@atlaskit/editor-tables/utils';
-import ContentAlignCenterIcon from '@atlaskit/icon/core/content-align-center';
-import ContentAlignLeftIcon from '@atlaskit/icon/core/content-align-left';
+import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
+import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
@@ -901,7 +901,7 @@ const getAlignmentOptionsConfig = (
 			id: 'editor.table.alignLeft',
 			value: 'align-start',
 			icon: () => (
-				<ContentAlignLeftIcon
+				<AlignImageLeftIcon
 					color="currentColor"
 					spacing="spacious"
 					label="table-align-start-icon"
@@ -913,7 +913,7 @@ const getAlignmentOptionsConfig = (
 			id: 'editor.table.alignCenter',
 			value: 'center',
 			icon: () => (
-				<ContentAlignCenterIcon
+				<AlignImageCenterIcon
 					color="currentColor"
 					spacing="spacious"
 					label="table-align-center-icon"

@@ -56,7 +56,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/avatar": "^21.18.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/logo": "^15.4.0",
 		"@atlaskit/lozenge": "^11.14.0",
 		"@atlaskit/people-teams-ui-public": "^2.1.0",
@@ -65,7 +65,7 @@
 		"@atlaskit/primitives": "^13.6.0",
 		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/spinner": "^17.2.0",
-		"@atlaskit/teams-avatar": "^1.2.0",
+		"@atlaskit/teams-avatar": "^1.3.0",
 		"@atlaskit/theme": "^16.0.0",
 		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/tooltip": "^19.2.0",

@@ -28,9 +28,9 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import BorderIcon from '@atlaskit/icon/core/border';
-import BorderWeightMediumIcon from '@atlaskit/icon/core/border-weight-medium';
-import BorderWeightThickIcon from '@atlaskit/icon/core/border-weight-thick';
-import BorderWeightThinIcon from '@atlaskit/icon/core/border-weight-thin';
+import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
+import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
+import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -139,17 +139,17 @@ const ImageBorder = ({
 		{
 			name: formatMessage(messages.borderSizeSubtle),
 			value: 1,
-			icon: BorderWeightThinIcon,
+			icon: StrokeWeightSmallIcon,
 		},
 		{
 			name: formatMessage(messages.borderSizeMedium),
 			value: 2,
-			icon: BorderWeightMediumIcon,
+			icon: StrokeWeightMediumIcon,
 		},
 		{
 			name: formatMessage(messages.borderSizeBold),
 			value: 3,
-			icon: BorderWeightThickIcon,
+			icon: StrokeWeightLargeIcon,
 		},
 	];
 

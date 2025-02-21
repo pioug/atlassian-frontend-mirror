@@ -62,7 +62,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^20.5.1",
 		"@atlaskit/docs": "*",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/icon-file-type": "^6.9.0",
 		"@atlaskit/icon-object": "^6.11.0",
 		"@atlaskit/link": "*",

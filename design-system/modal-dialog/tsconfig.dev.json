@@ -101,9 +101,6 @@
 			"path": "../popup/tsconfig.app.json"
 		},
 		{
-			"path": "../portal/tsconfig.app.json"
-		},
-		{
 			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
 		},
 		{

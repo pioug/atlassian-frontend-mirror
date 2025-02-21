@@ -43,11 +43,6 @@ const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElemen
 	const isAuiDialogAllowlisted = fg('platform_dst_allowlist-aui-dialog-for-ak-modal');
 	// Allow focus to reach elements outside the modal:
 
-	//  if those contain the data-atlas-extension attribute
-	if (element.hasAttribute('data-atlas-extension')) {
-		return false;
-	}
-
 	// if AUI dialog is allowListed and visible
 	if (isAuiDialogAllowlisted && !!document.querySelector('.aui-blanket:not([hidden])')) {
 		return false;

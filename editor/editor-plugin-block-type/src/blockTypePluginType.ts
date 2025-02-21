@@ -6,9 +6,10 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
 import type { TextBlockTypes } from './pm-plugins/block-types';
-import type { InputMethod, ClearFormattingInputMethod } from './pm-plugins/commands/block-type';
+import type { ClearFormattingInputMethod, InputMethod } from './pm-plugins/commands/block-type';
 import type { BlockTypeState } from './pm-plugins/main';
 import type { BlockTypePluginOptions } from './pm-plugins/types';
 
@@ -16,7 +17,11 @@ export type BlockTypePlugin = NextEditorPlugin<
 	'blockType',
 	{
 		pluginConfiguration: BlockTypePluginOptions | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<SelectionToolbarPlugin>,
+		];
 		sharedState: BlockTypeState | undefined;
 		actions: {
 			insertBlockQuote: (inputMethod: InputMethod) => Command;

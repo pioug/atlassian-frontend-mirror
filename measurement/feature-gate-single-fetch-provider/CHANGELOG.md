@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-single-fetch-provider
 
+## 1.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.9
 
 ### Patch Changes

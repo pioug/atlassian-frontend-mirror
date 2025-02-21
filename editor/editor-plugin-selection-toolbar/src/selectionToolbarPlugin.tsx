@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { bind } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -6,6 +8,7 @@ import type {
 	FloatingToolbarItem,
 	SelectionToolbarGroup,
 	SelectionToolbarHandler,
+	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import {
 	calculateToolbarPositionAboveSelection,
@@ -20,7 +23,8 @@ import { setToolbarDocking, toggleToolbar } from './pm-plugins/commands';
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
 import type { ToolbarDocking } from './types';
-import { getOverflowToolbarConfig } from './ui/overflow-toolbar-config';
+import { getOverflowFloatingToolbarConfig } from './ui/overflow-toolbar-config';
+import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 type SelectionToolbarPluginState = {
 	selectionStable: boolean;
@@ -28,21 +32,42 @@ type SelectionToolbarPluginState = {
 	toolbarDocking: ToolbarDocking;
 };
 
-export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
+export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) => {
 	const __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
+	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
+
+	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+		primaryToolbarComponent = ({
+			popupsBoundariesElement,
+			popupsMountPoint,
+			popupsScrollableElement,
+		}) => (
+			<PrimaryToolbarComponent
+				api={api}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsMountPoint={popupsMountPoint}
+				popupsScrollableElement={popupsScrollableElement}
+			/>
+		);
+
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'overflowMenu',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	return {
 		name: 'selectionToolbar',
 
 		actions: {
 			suppressToolbar: () => {
-				return options.api?.core.actions.execute(toggleToolbar({ hide: true })) ?? false;
+				return api?.core.actions.execute(toggleToolbar({ hide: true })) ?? false;
 			},
 			unsuppressToolbar: () => {
-				return options.api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
+				return api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
 			},
 			setToolbarDocking: (toolbarDocking: ToolbarDocking) => {
-				return options.api?.core.actions.execute(setToolbarDocking({ toolbarDocking })) ?? false;
+				return api?.core.actions.execute(setToolbarDocking({ toolbarDocking })) ?? false;
 			},
 		},
 
@@ -96,8 +121,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 										// to prevent the toolbar from showing when the editor is blurred
 										// due to a click outside the editor.
 
-										const editorViewModePlugin =
-											options.api?.editorViewMode?.sharedState.currentState();
+										const editorViewModePlugin = api?.editorViewMode?.sharedState.currentState();
 										const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
 
 										view.dispatch(
@@ -209,10 +233,10 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 				}
 
 				if (items.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
-					items.push(...getOverflowToolbarConfig({ api: options.api }));
+					items.push(...getOverflowFloatingToolbarConfig({ api }));
 				}
 
-				const calcToolbarPosition = options.config.preferenceToolbarAboveSelection
+				const calcToolbarPosition = config.preferenceToolbarAboveSelection
 					? calculateToolbarPositionAboveSelection
 					: calculateToolbarPositionTrackHead;
 				const toolbarTitle = 'Selection toolbar';
@@ -226,6 +250,12 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 				};
 			},
 		},
+
+		primaryToolbarComponent:
+			!api?.primaryToolbar &&
+			editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+				? primaryToolbarComponent
+				: undefined,
 	};
 };
 

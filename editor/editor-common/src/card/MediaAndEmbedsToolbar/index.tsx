@@ -11,9 +11,9 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
-import ContentAlignCenterIcon from '@atlaskit/icon/core/content-align-center';
-import ContentAlignLeftIcon from '@atlaskit/icon/core/content-align-left';
-import ContentAlignRightIcon from '@atlaskit/icon/core/content-align-right';
+import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
+import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
+import AlignImageRightIcon from '@atlaskit/icon/core/align-image-right';
 import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
 import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
 import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
@@ -59,7 +59,7 @@ export const alignmentIcons: LayoutIcon[] = [
 		id: 'editor.media.alignLeft',
 		value: 'align-start',
 		icon: () => (
-			<ContentAlignLeftIcon
+			<AlignImageLeftIcon
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-align-left-icon"
@@ -71,7 +71,7 @@ export const alignmentIcons: LayoutIcon[] = [
 		id: 'editor.media.alignCenter',
 		value: 'center',
 		icon: () => (
-			<ContentAlignCenterIcon
+			<AlignImageCenterIcon
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-align-center-icon"
@@ -83,7 +83,7 @@ export const alignmentIcons: LayoutIcon[] = [
 		id: 'editor.media.alignRight',
 		value: 'align-end',
 		icon: () => (
-			<ContentAlignRightIcon
+			<AlignImageRightIcon
 				color="currentColor"
 				spacing="spacious"
 				label="media-toolbar-align-right-icon"

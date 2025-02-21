@@ -4,7 +4,7 @@ import deburr from 'lodash/deburr';
 import noop from 'lodash/noop';
 
 import { type IconProps, type NewCoreIconProps } from '@atlaskit/icon';
-import AlignLeftIcon from '@atlaskit/icon/core/align-left';
+import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ClockIcon from '@atlaskit/icon/core/clock';
 import DataNumberIcon from '@atlaskit/icon/core/data-number';
@@ -82,7 +82,7 @@ const getFieldTypeIcon = (type: string) => {
 		case 'Number':
 			return <ResizedIcon Icon={DataNumberIcon} LegacyIcon={LegacyDataNumberIcon} />;
 		case 'Paragraph':
-			return <ResizedIcon Icon={AlignLeftIcon} LegacyIcon={LegacyAlignLeftIcon} />;
+			return <ResizedIcon Icon={AlignTextLeftIcon} LegacyIcon={LegacyAlignLeftIcon} />;
 		case 'People':
 			return <ResizedIcon Icon={PersonAvatarIcon} LegacyIcon={LegacyPersonAvatarIcon} />;
 		case 'Short text':

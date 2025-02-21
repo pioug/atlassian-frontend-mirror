@@ -18,6 +18,7 @@ const collapseSidebarIfOpen = async (page: Page) => {
 test('Hovering the sidebar opens the flyout', async ({ page }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
+		'react-18-mode': 'legacy',
 	});
 
 	await collapseSidebarIfOpen(page);
@@ -32,6 +33,7 @@ test('Hovering the sidebar opens the flyout', async ({ page }) => {
 test('The flyout is not locked by default', async ({ page }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
+		'react-18-mode': 'legacy',
 	});
 
 	await collapseSidebarIfOpen(page);
@@ -52,6 +54,7 @@ test('The flyout is not locked by default', async ({ page }) => {
 test('The lock prevents the flyout state from automatically collapsing', async ({ page }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
+		'react-18-mode': 'legacy',
 	});
 
 	await collapseSidebarIfOpen(page);
@@ -75,6 +78,7 @@ test('Releasing the lock while the cursor is outside of the sidebar will make th
 }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
+		'react-18-mode': 'legacy',
 	});
 
 	await collapseSidebarIfOpen(page);
@@ -91,6 +95,7 @@ test('Releasing the lock while the cursor is inside of the sidebar will make the
 }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
+		'react-18-mode': 'legacy',
 	});
 
 	await collapseSidebarIfOpen(page);

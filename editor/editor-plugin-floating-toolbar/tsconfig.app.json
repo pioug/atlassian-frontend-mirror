@@ -80,9 +80,6 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/heading/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{

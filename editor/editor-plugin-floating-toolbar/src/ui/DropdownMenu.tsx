@@ -16,10 +16,9 @@ import type {
 	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import type { ButtonItemProps } from '@atlaskit/menu';
-import { ButtonItem } from '@atlaskit/menu';
+import { ButtonItem, HeadingItem } from '@atlaskit/menu';
 import { B400 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
@@ -41,6 +40,10 @@ const spacerStyles = css({
 const separatorStyles = css({
 	background: token('color.border'),
 	height: token('space.025', '1px'),
+});
+
+const headingStyles = css({
+	padding: `${token('space.100')} 0`,
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
@@ -318,9 +321,8 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 						}
 						if (item.type === 'overflow-dropdown-heading') {
 							return (
-								// eslint-disable-next-line react/no-array-index-key, @atlaskit/ui-styling-standard/enforce-style-prop
-								<div key={idx} style={{ padding: '10px' }}>
-									<Heading size="xxsmall">{item.title}</Heading>
+								<div key={item.title} css={headingStyles}>
+									<HeadingItem>{item.title}</HeadingItem>
 								</div>
 							);
 						}

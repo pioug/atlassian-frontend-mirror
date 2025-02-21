@@ -1,5 +1,14 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.25.1
+
+### Patch Changes
+
+- [#111470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111470)
+  [`12526bf66663f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/12526bf66663f) -
+  Produces two prebuilt files under /dist feature-gate-js-client.with-deps.amd.js and
+  feature-gate-js-client.with-deps.amd.min.js
+
 ## 4.25.0
 
 ### Minor Changes

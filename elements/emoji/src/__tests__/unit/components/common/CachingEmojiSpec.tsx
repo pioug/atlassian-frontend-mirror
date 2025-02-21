@@ -14,6 +14,7 @@ import browserSupport from '../../../../util/browser-support';
 import * as constants from '../../../../util/constants';
 import { imageEmoji, mediaEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../../util/constants', () => {
 	const originalModule = jest.requireActual('../../../../util/constants');
@@ -237,6 +238,19 @@ describe.skip('<CachingEmoji />', () => {
 				expect(startSpy).toHaveBeenCalled();
 				await waitFor(() => expect(failureSpy).toHaveBeenCalled());
 			});
+		});
+	});
+});
+
+describe('Offline', () => {
+	ffTest.on('platform_editor_preload_emoji_picker', '', () => {
+		it('should render fallback if src is unavailable', async () => {
+			const result = await renderWithIntl(<CachingEmoji emoji={imageEmoji} />);
+			expect(result).not.toBeNull();
+			const image = result.getByAltText('Grimacing');
+			fireEvent.error(image);
+			const fallback = result.getByText('😬');
+			expect(fallback).not.toBeNull();
 		});
 	});
 });

@@ -10,7 +10,7 @@ test.describe('numbered column table scaling in full page renderer', () => {
 			UNSTABLE_allowTableResizing: true,
 		},
 		viewport: { width: 900, height: 600 },
-		featureFlags: { tablePreserveWidth: true },
+		platformFeatureFlags: { tablePreserveWidth: true },
 	});
 
 	test('table should not scale down when scale percent is bigger than 0.3', async ({

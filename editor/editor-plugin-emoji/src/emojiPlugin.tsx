@@ -322,7 +322,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					description: formatMessage(messages.emojiDescription),
 					priority: 500,
 					keyshortcut: ':',
-					isDisabledOffline: true,
+					isDisabledOffline: fg('platform_editor_preload_emoji_picker') ? false : true,
 					icon: () => <IconEmoji />,
 					action(insert, state) {
 						const tr = insert(undefined);

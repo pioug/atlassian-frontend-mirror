@@ -36,7 +36,8 @@ export type ToolbarElementNames =
 	| 'aiExperience'
 	| 'aiSimplified'
 	| 'loom'
-	| 'spellCheck';
+	| 'spellCheck'
+	| 'overflowMenu';
 
 export type ToolbarElementConfig = {
 	name: ToolbarElementNames;

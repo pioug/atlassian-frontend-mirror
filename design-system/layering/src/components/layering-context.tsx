@@ -52,7 +52,12 @@ const LevelProvider: FC<{
 	}
 	useEffect(() => {
 		return () => {
-			setTopLevel(currentLevel - 1);
+			// avoid immediate cleanup using setTimeout when component unmount
+			// this will make sure non-top layer components can get the correct top level value
+			// when multiple layers trigger onClose in sequence
+			setTimeout(() => {
+				setTopLevel(currentLevel - 1);
+			}, 0);
 		};
 	}, [setTopLevel, currentLevel]);
 	return <LevelContext.Provider value={currentLevel}>{children}</LevelContext.Provider>;

@@ -596,5 +596,6 @@ export {
 export { findNodePosByLocalIds } from './nodes-by-localIds';
 
 export { getPageElementCounts } from './page-element-counts';
+export type { PageElementCounts } from './page-element-counts';
 
 export { withFeatureFlaggedComponent } from './withFeatureFlaggedComponent';

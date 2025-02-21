@@ -167,6 +167,9 @@ const toolbarConfigurationV2: ToolbarElementConfig[] = [
 	...alignmentAndListGroup,
 	...hyperlinkGroup,
 	{
+		name: 'overflowMenu',
+	},
+	{
 		name: 'beforePrimaryToolbar',
 	},
 ];

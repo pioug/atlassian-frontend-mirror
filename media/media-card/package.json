@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/dropdown-menu": "^12.26.0",
 		"@atlaskit/editor-shared-styles": "^3.3.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/media-client": "^31.1.0",
 		"@atlaskit/media-client-react": "^3.0.0",
 		"@atlaskit/media-common": "^11.8.0",

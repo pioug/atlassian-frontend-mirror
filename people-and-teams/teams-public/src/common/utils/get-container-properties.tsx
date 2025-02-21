@@ -10,6 +10,7 @@ interface ContainerProperties {
 	description: ReactNode;
 	icon: ReactNode;
 	title?: ReactNode;
+	containerTypeText: ReactNode;
 }
 
 export const messages = defineMessages({
@@ -43,6 +44,16 @@ export const messages = defineMessages({
 		defaultMessage: 'Loom space',
 		description: 'Description of the card to add a Loom space to a team',
 	},
+	projectContainerText: {
+		id: 'ptc-directory.team-profile-page.team-containers.project-container-text.non-final',
+		defaultMessage: 'project',
+		description: 'Text for project type containers',
+	},
+	spaceContainerText: {
+		id: 'ptc-directory.team-profile-page.team-containers.space-container-text.non-final',
+		defaultMessage: 'space',
+		description: 'Text for space type containers',
+	},
 });
 
 export const getContainerProperties = (containerType: ContainerTypes): ContainerProperties => {
@@ -52,18 +63,21 @@ export const getContainerProperties = (containerType: ContainerTypes): Container
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
 				icon: <ConfluenceIcon appearance="brand" label="" size="xsmall" />,
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
+				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'JiraProject':
 			return {
 				description: <FormattedMessage {...messages.jiraProjectDescription} />,
 				icon: <JiraIcon appearance="brand" label="" size="xsmall" />,
 				title: <FormattedMessage {...messages.addJiraProjectTitle} />,
+				containerTypeText: <FormattedMessage {...messages.projectContainerText} />,
 			};
 		default:
 			return {
 				description: null,
 				icon: null,
 				title: null,
+				containerTypeText: null,
 			};
 	}
 };

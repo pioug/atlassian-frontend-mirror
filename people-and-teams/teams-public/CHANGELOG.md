@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 0.5.0
+
+### Minor Changes
+
+- [#116071](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116071)
+  [`cd351ff2c2abc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd351ff2c2abc) -
+  Move useProductPermissions to teams-public package
+- [#116370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116370)
+  [`83accb97730ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83accb97730ab) -
+  [ux] Add disconnect dialog to the teams container
+
 ## 0.4.0
 
 ### Minor Changes

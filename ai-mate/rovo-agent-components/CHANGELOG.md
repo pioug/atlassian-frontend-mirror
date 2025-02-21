@@ -1,5 +1,25 @@
 # @atlaskit/rovo-agent-components
 
+## 1.19.0
+
+### Minor Changes
+
+- [#116053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116053)
+  [`2c803fec8595b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c803fec8595b) -
+  Replace the usage of legacy icons and updating color that is not supported anymore
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.18.0
+
+### Minor Changes
+
+- [#116674](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116674)
+  [`c5129b867be43`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5129b867be43) -
+  Cleanup FF
+
 ## 1.17.1
 
 ### Patch Changes

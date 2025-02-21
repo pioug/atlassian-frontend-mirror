@@ -3,7 +3,7 @@ import React from 'react';
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { ExpandableCategoryButton, NavCategoryButton } from '../src/ui/CategoryButton';
+import { ExpandableNavButton, LinkNavButton, BackNavButton } from '../src/ui/NavigationButton';
 
 const innerBoxContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
@@ -18,6 +18,7 @@ const outerBoxContainerStyles = xcss({
 });
 
 const columnStyles = xcss({ width: '320px' });
+const backColumnStyles = xcss({ width: '60px' });
 
 const expandableItems = [
 	{
@@ -91,35 +92,43 @@ export default function CategoryNavButtonExample() {
 						<Stack space="space.100" alignBlock="center" key={item.id}>
 							<Heading size="xsmall">{item.exampleTitle}</Heading>
 							<Box xcss={innerBoxContainerStyles}>
-								<ExpandableCategoryButton
+								<ExpandableNavButton
 									id={item.id}
 									label={item.label}
 									isDisabled={item.isDisabled}
 									isExpanded={item.isExpanded}
 									attributes={item.attributes}
-									onClick={(id) => console.log('onClicked', id)}
+									onClick={(id) => console.log('onClick', id)}
 								/>
 							</Box>
 						</Stack>
 					))}
 				</Stack>
 				<Stack space="space.200" xcss={columnStyles}>
-					<Heading size="small">Navigation</Heading>
+					<Heading size="small">Link (Side Navigation)</Heading>
 					{navItems.map((item) => (
 						<Stack space="space.100" alignBlock="center" key={item.id}>
 							<Heading size="xsmall">{item.exampleTitle}</Heading>
 							<Box xcss={innerBoxContainerStyles}>
-								<NavCategoryButton
+								<LinkNavButton
 									id={item.id}
 									label={item.label}
 									isSelected={item.isSelected}
 									isDisabled={item.isDisabled}
 									attributes={item.attributes}
-									onClick={(id) => console.log('onClicked', id)}
+									onClick={(id) => console.log('onClick', id)}
 								/>
 							</Box>
 						</Stack>
 					))}
+				</Stack>
+				<Stack space="space.200" xcss={backColumnStyles}>
+					<Heading size="small">Back</Heading>
+					<Stack space="space.100" alignBlock="center" alignInline="center">
+						<Box xcss={innerBoxContainerStyles}>
+							<BackNavButton label="Back" onClick={() => console.log('onClick back')} />
+						</Box>
+					</Stack>
 				</Stack>
 			</Inline>
 		</Box>

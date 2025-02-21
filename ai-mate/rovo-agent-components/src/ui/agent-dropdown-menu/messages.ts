@@ -46,4 +46,9 @@ export default defineMessages({
 		defaultMessage: 'View full profile',
 		description: 'Button to view an agent full profile',
 	},
+	useTemplateButton: {
+		id: 'rovo-chat.view-agents.use-template-button',
+		defaultMessage: 'Use template',
+		description: 'Button to copy and use a template',
+	},
 } as const);

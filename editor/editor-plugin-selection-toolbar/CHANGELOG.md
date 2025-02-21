@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.10.0
+
+### Minor Changes
+
+- [#117435](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117435)
+  [`2526289f60537`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2526289f60537) -
+  [ux] ED-26675 Docked primary toolbar overflow menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.0
 
 ### Minor Changes

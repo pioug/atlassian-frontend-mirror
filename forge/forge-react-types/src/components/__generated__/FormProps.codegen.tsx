@@ -3,16 +3,16 @@
  *
  * Extract component prop types from UIKit 2 components - FormProps
  *
- * @codegen <<SignedSource::dea38cc30d6c9b3c90a177c2653326bf>>
+ * @codegen <<SignedSource::7b259a0bfc883f09eb65cdccee169a6a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/index.tsx <<SignedSource::8609216439e3924527aacde2ec0cef97>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/index.tsx <<SignedSource::0e0a2f1184da9df422fb61ff7d906158>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import type { ReactNode } from 'react';
 
 export type FormProps = {
-	onSubmit: () => void | boolean;
+	onSubmit: () => Promise<void | boolean> | void;
 	children: ReactNode;
 };
 

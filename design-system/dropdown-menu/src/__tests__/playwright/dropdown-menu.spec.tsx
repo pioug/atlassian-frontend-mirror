@@ -4,13 +4,17 @@ const trigger = '[data-testid="lite-mode-ddm--trigger"]';
 const dropdownMenu = '[data-testid="lite-mode-ddm--content"]';
 
 test('Verify that Dropdown Menu is able to open', async ({ page }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-default');
+	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-default', {
+		'react-18-mode': 'legacy',
+	});
 	await page.locator(trigger).first().click();
 	expect(await page.webdriverCompatUtils.isAttached(dropdownMenu)).toBe(true);
 });
 
 test('Verify that Dropdown Menu is able to open - stateless', async ({ page }) => {
-	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-stateless');
+	await page.visitExample('design-system', 'dropdown-menu', 'testing-ddm-stateless', {
+		'react-18-mode': 'legacy',
+	});
 	await page.locator(trigger).first().click();
 
 	await expect(page.locator(dropdownMenu).first()).toBeVisible();
@@ -26,7 +30,9 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation');
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
+			'react-18-mode': 'legacy',
+		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
 		await expect(page.getByTestId(contentTestId)).toBeVisible();
@@ -39,7 +45,9 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu is closing on Shift+Tab press and focus on trigger', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation');
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
+			'react-18-mode': 'legacy',
+		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
 		await page.getByTestId(contentTestId).press('Shift+Tab');
@@ -51,7 +59,9 @@ test.describe('Keyboard navigation', () => {
 	test('Verify that Dropdown Menu items navigation works on keyUp and keyDown', async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation');
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
+			'react-18-mode': 'legacy',
+		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
 		// Should set focus on the first element
@@ -77,7 +87,14 @@ test.describe('Nested keyboard navigation', () => {
 	const getItemTestId = (level: number, id: number) => `nested-item${id}-${level}`;
 
 	test('Verify that navigation works correctly', async ({ page }) => {
-		await page.visitExample('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation');
+		await page.visitExample(
+			'design-system',
+			'dropdown-menu',
+			'testing-nested-keyboard-navigation',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
 
 		// Should open a nested dropdown level 0
 		await page.getByTestId(getTriggerTestId(0)).focus();
@@ -127,6 +144,7 @@ test.describe('Nested keyboard navigation', () => {
 	}) => {
 		await page.visitExample('design-system', 'dropdown-menu', 'nested-dropdown', {
 			featureFlag: 'select-avoid-duplicated-registered-ref',
+			'react-18-mode': 'legacy',
 		});
 		// Should open a nested dropdown level 0
 		await page
@@ -164,6 +182,9 @@ test.describe('returnFocusRef', () => {
 				'design-system',
 				'dropdown-menu',
 				'testing-return-focus-ref-rendered-in-parent',
+				{
+					'react-18-mode': 'legacy',
+				},
 			);
 		});
 

@@ -1,14 +1,59 @@
 import React from 'react';
 
+import { makeKeyMapWithCommon } from '@atlaskit/editor-common/keymaps';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { Pressable, Stack } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives';
 
-import type { QuickInsertPanelProps } from '../types';
+import { find } from '../search';
+import type { QuickInsertPanelProps, InsertPanelItem } from '../types';
 import { getMappedItems } from '../utils';
 
-export const QuickInsertPanel = ({ items, onItemInsert }: QuickInsertPanelProps) => {
+import { ListButtonItem } from './ListButtonItem';
+
+export const QuickInsertPanel = ({ items, onItemInsert, query }: QuickInsertPanelProps) => {
 	const mappedItems = getMappedItems(items);
 
+	// Search
+	if (query !== '') {
+		const resutls = find(query, mappedItems);
+		return resutls.length > 0 ? (
+			<Stack>
+				{resutls.map((item: InsertPanelItem) => {
+					if (item.shouldDisplay !== false) {
+						return (
+							<ListButtonItem
+								key={item.tempKey}
+								index={item.tempKey}
+								title={item.title}
+								description={item.description}
+								keyshortcut={
+									item.keyshortcut ? makeKeyMapWithCommon('', item.keyshortcut) : undefined
+								}
+								isSelected={item.isSelected}
+								attributes={item.attributes}
+								showDescription={!item.id}
+								renderIcon={item.icon}
+								onItemSelected={() => onItemInsert(SelectItemMode.SELECTED, item.tempKey)}
+							/>
+						);
+					}
+				})}
+			</Stack>
+		) : (
+			<Box padding="space.300">
+				<Stack space="space.0">
+					<Text align="center" as="p">
+						We couldn't find any results.
+					</Text>
+					<Text align="center" as="p">
+						Select <Text weight="medium">View all</Text> to browser inserts.
+					</Text>
+				</Stack>
+			</Box>
+		);
+	}
+
+	//  Main panel
 	const structureItems = [];
 	const dataItems = [];
 	const apps = [];
@@ -22,29 +67,52 @@ export const QuickInsertPanel = ({ items, onItemInsert }: QuickInsertPanelProps)
 		}
 	}
 
-	return (
+	return mappedItems.length > 0 ? (
 		<>
 			<Stack>
 				{structureItems.map((item) => {
-					return (
-						<Pressable
-							key={item.tempKey}
-							onClick={() => onItemInsert(SelectItemMode.SELECTED, item.tempKey)}
-						>{`${item.tempKey} ${item.title}`}</Pressable>
-					);
+					if (item.shouldDisplay !== false) {
+						return (
+							<ListButtonItem
+								key={item.tempKey}
+								index={item.tempKey}
+								title={item.title}
+								description={item.description}
+								keyshortcut={
+									item.keyshortcut ? makeKeyMapWithCommon('', item.keyshortcut) : undefined
+								}
+								isSelected={item.isSelected}
+								attributes={item.attributes}
+								showDescription={!item.id}
+								renderIcon={item.icon}
+								onItemSelected={() => onItemInsert(SelectItemMode.SELECTED, item.tempKey)}
+							/>
+						);
+					}
 				})}
 			</Stack>
-			<div>-------</div>
 			<Stack>
 				{dataItems.map((item) => {
-					return (
-						<Pressable
-							key={item.tempKey}
-							onClick={() => onItemInsert(SelectItemMode.SELECTED, item.tempKey)}
-						>{`${item.tempKey} ${item.title}`}</Pressable>
-					);
+					if (item.shouldDisplay !== false) {
+						return (
+							<ListButtonItem
+								key={item.tempKey}
+								index={item.tempKey}
+								title={item.title}
+								description={item.description}
+								keyshortcut={
+									item.keyshortcut ? makeKeyMapWithCommon('', item.keyshortcut) : undefined
+								}
+								isSelected={item.isSelected}
+								attributes={item.attributes}
+								showDescription={!item.id}
+								renderIcon={item.icon}
+								onItemSelected={() => onItemInsert(SelectItemMode.SELECTED, item.tempKey)}
+							/>
+						);
+					}
 				})}
 			</Stack>
 		</>
-	);
+	) : null;
 };

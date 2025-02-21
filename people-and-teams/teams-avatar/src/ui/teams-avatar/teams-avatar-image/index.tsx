@@ -9,8 +9,11 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { AVATAR_SIZES, type CustomAvatarProps, type SizeType } from '@atlaskit/avatar';
 import TeamIcon from '@atlaskit/icon/glyph/people';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+import { FallbackAvatar } from './fallback';
 
 type AvatarImageProps = {
 	size: SizeType;
@@ -33,6 +36,15 @@ const avatarDefaultIconStyles = css({
 	justifyContent: 'center',
 	alignItems: 'center',
 });
+
+const SIZES: Record<SizeType, number> = {
+	xsmall: 16,
+	small: 24,
+	medium: 32,
+	large: 40,
+	xlarge: 96,
+	xxlarge: 128,
+};
 
 const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
 	(styles, [key, size]) => {
@@ -79,6 +91,16 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId, ...rest }: Avatar
 	}, [src]);
 
 	if (!src || hasImageErrored) {
+		if (fg('enable-team-avatar-switch')) {
+			return (
+				<FallbackAvatar
+					aria-label={alt}
+					width={SIZES[size]}
+					height={SIZES[size]}
+					data-testid={testId}
+				/>
+			);
+		}
 		return (
 			<span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
 				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- No icon available (DSP-19499) */}

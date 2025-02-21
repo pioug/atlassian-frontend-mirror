@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-type
 
+## 4.5.0
+
+### Minor Changes
+
+- [#116949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116949)
+  [`9154f7b89e3d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9154f7b89e3d2) -
+  [ux] ED-26674 Hiding contextual toolbar menu items when the menu is docked to top
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.0
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.20.1
+
+### Patch Changes
+
+- [#117370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117370)
+  [`bdcaab521f1ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdcaab521f1ee) -
+  Make logic for collapse toolbar dynamic, apply only to card elements for now
+- Updated dependencies
+
+## 1.20.0
+
+### Minor Changes
+
+- [#117197](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117197)
+  [`d6202c120a039`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6202c120a039) -
+  Remove @atlaskit/heading import which broke previous versions, replace with HeadingItem
+
 ## 1.19.0
 
 ### Minor Changes

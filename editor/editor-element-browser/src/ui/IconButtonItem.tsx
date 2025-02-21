@@ -4,7 +4,9 @@ import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { Box, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
-import { ButtonItemProps } from './ButtonItemType';
+import type { ButtonItemProps } from './ButtonItemType';
+
+const WIDTH = '62px';
 
 const largeButtonStyles = xcss({
 	display: 'inline-flex',
@@ -16,8 +18,8 @@ const largeButtonStyles = xcss({
 	textAlign: 'center',
 	verticalAlign: 'middle',
 
-	height: '60px',
-	width: '60px',
+	height: `${WIDTH}`, // The width and height of the button are the same for it to appear as square
+	width: `${WIDTH}`,
 	paddingBlock: 'space.075',
 	paddingInlineEnd: 'space.0',
 	paddingInlineStart: 'space.0',
@@ -101,6 +103,10 @@ const iconStyles = xcss({
 	userSelect: 'none',
 });
 
+const textStyles = xcss({
+	width: `${WIDTH}`,
+});
+
 type LargeIconButtonProps = {
 	icon?: React.ReactNode;
 	isSelected?: boolean;
@@ -161,20 +167,22 @@ export const IconButtonItem = ({
 						isDisabled={isDisabled}
 						onClick={() => onItemSelected?.(index)}
 					/>
-					<Text
-						align="center"
-						maxLines={1}
-						color={
-							isDisabled
-								? 'color.text.disabled'
-								: isSelected
-									? 'color.text.selected'
-									: 'color.text.subtle'
-						}
-						size="small"
-					>
-						{title}
-					</Text>
+					<Box xcss={textStyles}>
+						<Text
+							align="center"
+							maxLines={1}
+							color={
+								isDisabled
+									? 'color.text.disabled'
+									: isSelected
+										? 'color.text.selected'
+										: 'color.text.subtle'
+							}
+							size="small"
+						>
+							{title}
+						</Text>
+					</Box>
 				</Stack>
 			)}
 		</Tooltip>

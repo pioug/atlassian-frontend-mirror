@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.10.3
+
+### Patch Changes
+
+- [#116461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116461)
+  [`aad53de73b111`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aad53de73b111) -
+  fix newline at the end of the code suggestion text
+
 ## 8.10.2
 
 ### Patch Changes

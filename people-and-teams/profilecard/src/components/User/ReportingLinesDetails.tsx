@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Avatar from '@atlaskit/avatar';
-import AvatarGroup from '@atlaskit/avatar-group';
+import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import messages from '../../messages';
@@ -41,7 +42,10 @@ const reportingLinesHeadingStyles = xcss({
 	marginBottom: '0',
 });
 
+const avatarGroupMaxCount = 5;
+
 const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
+	const { formatMessage } = useIntl();
 	const {
 		fireAnalyticsWithDuration,
 		reportingLines = {},
@@ -69,6 +73,16 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 					onReportingLinesClick(user);
 				}
 			: undefined;
+
+	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = fg(
+		'platform_profilecard-enable_reporting_lines_label',
+	)
+		? {
+				'aria-label': formatMessage(messages.profileCardMoreReportingLinesLabel, {
+					count: reports.length - avatarGroupMaxCount + 1,
+				}),
+			}
+		: undefined;
 
 	return (
 		<>
@@ -110,8 +124,9 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 								onClick: getReportingLinesOnClick(member, 'direct-report'),
 							};
 						})}
-						maxCount={5}
+						maxCount={avatarGroupMaxCount}
 						testId="profilecard-reports-avatar-group"
+						showMoreButtonProps={showMoreButtonProps}
 					/>
 				</ReportingLinesSection>
 			)}

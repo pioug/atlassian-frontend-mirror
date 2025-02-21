@@ -33,6 +33,7 @@ interface LinkedContainerCardProps {
 	title: string;
 	containerIcon: string;
 	link: string;
+	onDisconnectButtonClick: () => void;
 }
 
 interface CustomItemComponentPropsWithHref extends CustomItemComponentProps {
@@ -76,6 +77,7 @@ export const LinkedContainerCard = ({
 	title,
 	containerIcon,
 	link,
+	onDisconnectButtonClick,
 }: LinkedContainerCardProps) => {
 	const { description, icon } = getContainerProperties(containerType);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
@@ -103,6 +105,7 @@ export const LinkedContainerCard = ({
 							spacing="compact"
 							onClick={(e) => {
 								e.preventDefault();
+								onDisconnectButtonClick();
 							}}
 						/>
 					</Box>

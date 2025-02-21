@@ -8,6 +8,7 @@ import {
 } from '../../types';
 import debug from '../../util/logger';
 import Emoji, { type Props as EmojiProps } from './Emoji';
+import EmojiFallback from './EmojiFallback';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import { UfoErrorBoundary } from './UfoErrorBoundary';
 import {
@@ -20,6 +21,9 @@ import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 import { useEmoji } from '../../hooks/useEmoji';
 import { useCallback } from 'react';
 import { extractErrorInfo } from '../../util/analytics/analytics';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+
 export interface State {
 	cachedEmoji?: EmojiDescription;
 	invalidImage?: boolean;
@@ -54,7 +58,11 @@ export const CachingEmoji = (props: React.PropsWithChildren<CachingEmojiProps>) 
 		if (isMediaEmoji(emoji)) {
 			return <CachingMediaEmoji emoji={emoji} placeholderSize={placeholderSize} {...restProps} />;
 		}
-		return <Emoji emoji={emoji} {...restProps} />;
+		if (fg('platform_editor_preload_emoji_picker')) {
+			return <StandardEmoji emoji={emoji} {...restProps} />;
+		} else {
+			return <Emoji emoji={emoji} {...restProps} />;
+		}
 	};
 
 	return (
@@ -66,6 +74,20 @@ export const CachingEmoji = (props: React.PropsWithChildren<CachingEmojiProps>) 
 			{emojiNode()}
 		</UfoErrorBoundary>
 	);
+};
+
+const StandardEmoji = (props: React.PropsWithChildren<EmojiProps>) => {
+	const { emoji, ...restProps } = props;
+	const [imageLoadError, setImageLoadError] = useState(false);
+
+	const handleLoadError = (_emojiId: EmojiId) => {
+		setImageLoadError(true);
+	};
+
+	if (imageLoadError) {
+		return <EmojiFallback emoji={emoji} {...restProps} />;
+	}
+	return <Emoji emoji={emoji} onLoadError={handleLoadError} {...restProps} />;
 };
 
 /**

@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 99.19.0
+
+### Minor Changes
+
+- [#116608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116608)
+  [`03edfa13ec626`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03edfa13ec626) -
+  ED-26594 LCM: Legacy content macro needs the type PageElementCounts which was not previously
+  exported.
+
+## 99.18.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 99.18.2
 
 ### Patch Changes

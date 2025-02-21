@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::3d84ddb543362b26ff48d69137c2a388>>
+ * @codegen <<SignedSource::10c09b23d81d090ea52970d06babdebf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -32,6 +32,8 @@ import ChevronUpIcon from '../../../../../utility/chevron-up';
 import CrossIcon from '../../../../../utility/cross';
 import CrossCircleIcon from '../../../../../utility/cross-circle';
 import DragHandleIcon from '../../../../../utility/drag-handle';
+import DragHandleHorizontalIcon from '../../../../../utility/drag-handle-horizontal';
+import DragHandleVerticalIcon from '../../../../../utility/drag-handle-vertical';
 import ErrorIcon from '../../../../../utility/error';
 import InformationIcon from '../../../../../utility/information';
 import LinkExternalIcon from '../../../../../utility/link-external';
@@ -61,6 +63,8 @@ const Icons = [
 	CrossIcon,
 	CrossCircleIcon,
 	DragHandleIcon,
+	DragHandleHorizontalIcon,
+	DragHandleVerticalIcon,
 	ErrorIcon,
 	InformationIcon,
 	LinkExternalIcon,

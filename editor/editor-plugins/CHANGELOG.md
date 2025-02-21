@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugins
 
+## 7.2.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.38
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.37
 
 ### Patch Changes

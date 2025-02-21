@@ -1,6 +1,7 @@
 export const getTestImageEmoji = () => ({
 	id: 'grimacing',
 	shortName: ':grimacing:',
+	fallback: '😬',
 	name: 'Grimacing',
 	type: 'standard',
 	category: 'PEOPLE',

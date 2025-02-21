@@ -11,7 +11,9 @@ test.describe('JiraIssuesModal', () => {
 		packageIdSelection: string = 'link-datasource',
 		exampleIdSelection: string = 'with-issues-modal',
 	) {
-		await page.visitExample(groupIdSelection, packageIdSelection, exampleIdSelection);
+		await page.visitExample(groupIdSelection, packageIdSelection, exampleIdSelection, {
+			'react-18-mode': 'legacy',
+		});
 	}
 	async function openDropDown(page: Page) {
 		await page.getByTestId('datasource-modal--view-drop-down--trigger').click();

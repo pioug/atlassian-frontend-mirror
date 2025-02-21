@@ -39,7 +39,7 @@
 		"@atlaskit/button": "^20.5.0",
 		"@atlaskit/emoji": "^67.14.0",
 		"@atlaskit/heading": "^4.3.0",
-		"@atlaskit/icon": "^23.10.0",
+		"@atlaskit/icon": "^23.11.0",
 		"@atlaskit/modal-dialog": "^12.20.0",
 		"@atlaskit/motion": "^3.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",

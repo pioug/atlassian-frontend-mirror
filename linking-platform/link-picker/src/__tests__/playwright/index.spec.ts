@@ -20,7 +20,9 @@ const testIds = testIdsToSelectors({
 });
 
 test('Link picker should be able to be edit link and title without plugins', async ({ page }) => {
-	await page.visitExample('linking-platform', 'link-picker', 'without-plugins');
+	await page.visitExample('linking-platform', 'link-picker', 'without-plugins', {
+		'react-18-mode': 'legacy',
+	});
 
 	// Type url and submit using button
 	await page.locator(testIds.urlInputField).first().fill('https://google.com');
@@ -44,7 +46,9 @@ test('Link picker should be able to be edit link and title without plugins', asy
 });
 
 test('Link picker should be able to edit link and title from search results', async ({ page }) => {
-	await page.visitExample('linking-platform', 'link-picker', 'basic');
+	await page.visitExample('linking-platform', 'link-picker', 'basic', {
+		'react-18-mode': 'legacy',
+	});
 
 	// Type url and submit using button
 	await page.locator(testIds.urlInputField).first().fill('https://google.com');
@@ -72,7 +76,9 @@ test('Link picker should be able to edit link and title from search results', as
 test('Link picker should fire `onContentResize` callback to allow dialogue components to handle content resize and positioning', async ({
 	page,
 }) => {
-	await page.visitExample('linking-platform', 'link-picker', 'popup-content-resize');
+	await page.visitExample('linking-platform', 'link-picker', 'popup-content-resize', {
+		'react-18-mode': 'legacy',
+	});
 	const trigger = '[data-testid="trigger"]';
 	const updateFnToggle = '[data-testid="provide-updateFn-toggle"]';
 	await expect(page.locator(trigger).first()).toBeVisible();

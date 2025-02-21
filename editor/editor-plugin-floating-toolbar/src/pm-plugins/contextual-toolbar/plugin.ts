@@ -4,7 +4,7 @@ import { contextualToolbarPluginKey } from './plugin-key';
 import type { ContextualToolbarActions, ContextualToolbarState } from './types';
 
 const defaultEditState: ContextualToolbarState = {
-	display: 'collapsed',
+	isCollapsed: true,
 };
 
 export const contextualToolbarPlugin = () => {
@@ -15,10 +15,6 @@ export const contextualToolbarPlugin = () => {
 				return defaultEditState;
 			},
 			apply(tr, pluginState: ContextualToolbarState) {
-				if (pluginState.display === 'static') {
-					return pluginState;
-				}
-
 				const action = tr.getMeta(contextualToolbarPluginKey) as
 					| ContextualToolbarActions
 					| undefined;
@@ -26,9 +22,9 @@ export const contextualToolbarPlugin = () => {
 				if (action) {
 					switch (action.type) {
 						case 'expand-toolbar':
-							return { display: 'expanded' };
+							return { isCollapsed: false };
 						case 'collapse-toolbar':
-							return { display: 'collapsed' };
+							return { isCollapsed: true };
 						default:
 							return pluginState;
 					}

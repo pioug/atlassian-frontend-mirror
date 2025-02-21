@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
-import { di } from 'react-magnetic-di';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
@@ -83,6 +82,7 @@ type ViewAgentFullProfileProps =
 
 type AgentDropdownMenuProps = {
 	isAgentCreatedByUser: boolean;
+	isAutodevTemplateAgent?: boolean;
 	agentId: string;
 	onEditAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
 	onCopyAgent?: React.ComponentProps<typeof DropdownItem>['onClick'];
@@ -107,6 +107,7 @@ type AgentDropdownMenuProps = {
 
 export const AgentDropdownMenu = ({
 	isAgentCreatedByUser,
+	isAutodevTemplateAgent,
 	onEditAgent,
 	onCopyAgent,
 	onDuplicateAgent,
@@ -124,8 +125,6 @@ export const AgentDropdownMenu = ({
 	loadPermissionsOnMount,
 	shouldTriggerStopPropagation,
 }: AgentDropdownMenuProps) => {
-	di(fg);
-
 	const [isLoading, setIsLoading] = useState(false);
 	const { formatMessage } = useIntl();
 	const [hasBeenCopied, setHasBeenCopied] = useState(false);
@@ -137,7 +136,7 @@ export const AgentDropdownMenu = ({
 
 	useEffect(() => {
 		const fetchData = async () => {
-			if (!loadAgentPermissions || !fg('rovo_use_agent_permissions')) {
+			if (!loadAgentPermissions) {
 				const canEditDelete = isAgentCreatedByUser && !isForgeAgent;
 				setPermissions({ isEditEnabled: canEditDelete, isDeleteEnabled: canEditDelete });
 				return;
@@ -226,16 +225,16 @@ export const AgentDropdownMenu = ({
 						{formatMessage(messages.viewAgent)}
 					</DropdownItem>
 				)}
-				{doesAgentHaveIdentityAccountId &&
-					onViewAgentFullProfileClick &&
-					fg('rovo_agent_profile_page') && (
-						<DropdownItem onClick={onViewAgentFullProfileClick}>
-							{formatMessage(messages.viewAgentFullProfile)}
-						</DropdownItem>
-					)}
+				{doesAgentHaveIdentityAccountId && onViewAgentFullProfileClick && (
+					<DropdownItem onClick={onViewAgentFullProfileClick}>
+						{formatMessage(messages.viewAgentFullProfile)}
+					</DropdownItem>
+				)}
 				{!isForgeAgent && (
 					<DropdownItem onClick={onDuplicateAgent}>
-						{formatMessage(messages.duplicateAgent)}
+						{isAutodevTemplateAgent && fg('rovo_chat_add_template_tab_to_modal')
+							? formatMessage(messages.useTemplateButton)
+							: formatMessage(messages.duplicateAgent)}
 					</DropdownItem>
 				)}
 				<DropdownItem

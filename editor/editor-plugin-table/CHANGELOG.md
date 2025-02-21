@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 9.5.10
+
+### Patch Changes
+
+- [#116555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116555)
+  [`ee0cb1bc42e39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee0cb1bc42e39) -
+  [ux] ED-26663 Bugfix for a regression introduced by nested tables - when nested table nodes are
+  enabled but the nested table experiment is disabled, copying table content inside a bodied
+  extension and pasting it in the table results in the content being pasted under the table and
+  wrapped in a table
+
 ## 9.5.9
 
 ### Patch Changes

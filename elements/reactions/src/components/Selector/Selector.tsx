@@ -19,11 +19,6 @@ import { revealStyle } from './styles';
  */
 export const RENDER_SELECTOR_TESTID = 'render-selector';
 
-/**
- * Delay for each emoji reveal animation, in ms
- */
-const REVEAL_DELAY = 50;
-
 export interface SelectorProps {
 	/**
 	 * Provider for loading emojis
@@ -63,7 +58,6 @@ const separatorStyles = xcss({
 
 type RevealProps = {
 	children: React.ReactNode;
-	delay: number;
 	testId?: string;
 };
 
@@ -96,11 +90,7 @@ export const Selector = ({
 	 */
 	const renderEmoji = (emoji: EmojiId, index: number) => {
 		return (
-			<Reveal
-				delay={index * REVEAL_DELAY}
-				key={emoji.id ?? emoji.shortName}
-				testId={RENDER_SELECTOR_TESTID}
-			>
+			<Reveal key={emoji.id ?? emoji.shortName} testId={RENDER_SELECTOR_TESTID}>
 				<Tooltip content={emoji.shortName}>
 					<EmojiButton emojiId={emoji} emojiProvider={emojiProvider} onClick={onSelection} />
 				</Tooltip>
@@ -114,7 +104,7 @@ export const Selector = ({
 			{showMore ? (
 				<Fragment>
 					<Box xcss={separatorStyles} />
-					<Reveal delay={DefaultReactions.length * REVEAL_DELAY}>
+					<Reveal>
 						<ShowMore key="more" onClick={onMoreClick} />
 					</Reveal>
 				</Fragment>

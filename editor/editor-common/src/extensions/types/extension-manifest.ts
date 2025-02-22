@@ -130,6 +130,10 @@ export type ExtensionModuleType<T extends Parameters = Parameters> = Exclude<
 	'nodes' | 'fields'
 >;
 
+type AutoConvertMatches = {
+	pattern: string;
+};
+
 export type ExtensionManifest<T extends Parameters = Parameters> = {
 	type: ExtensionType;
 	key: ExtensionKey;
@@ -144,6 +148,7 @@ export type ExtensionManifest<T extends Parameters = Parameters> = {
 		[dimensions: string]: () => ExtensionIconModule;
 	};
 	modules: ExtensionModules<T>;
+	autoConvert?: { matches: Array<AutoConvertMatches> };
 };
 
 // deprecated types

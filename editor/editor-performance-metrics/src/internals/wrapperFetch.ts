@@ -27,11 +27,16 @@ export const wrapperFetch = ({
 				source: 'fetch',
 			});
 
-			const promise = target.apply(thisArg, args);
+			try {
+				const promise = target.apply(thisArg, args);
 
-			return promise.finally(() => {
+				return promise.finally(() => {
+					unhold();
+				});
+			} catch (e) {
 				unhold();
-			});
+				throw e;
+			}
 		},
 	});
 

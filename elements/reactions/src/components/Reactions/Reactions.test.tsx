@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, screen, within, waitFor } from '@testing-library/react';
+import { act, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -7,12 +7,7 @@ import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 import { getReactionSummary, ari, containerAri } from '../../MockReactionsClient';
-import {
-	mockReactDomWarningGlobal,
-	mockResetUFOInstance,
-	renderWithIntl,
-	useFakeTimers,
-} from '../../__tests__/_testing-library';
+import { mockReactDomWarningGlobal, renderWithIntl } from '../../__tests__/_testing-library';
 import type { FakeUFOInstance } from '../../__tests__/_testing-library';
 import { DefaultReactions } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
@@ -74,18 +69,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		ufoExperiences.selectedReactionChangeInsideDialog =
 			fakeSelectedReactionChangeInsideDialogUFOExperience as any;
 	});
-	useFakeTimers(() => {
-		mockOnReactionsClick.mockClear();
-		mockOnSelection.mockClear();
-		mockLoadReaction.mockClear();
-
-		// dialog opening UFO experience mock reset
-		mockResetUFOInstance(fakeOpenDialogUFOExperience);
-		// dialog close UFO experience mock reset
-		mockResetUFOInstance(fakeCloseDialogUFOExperience);
-		// changed Reaction inside dialog UFO experience mock reset
-		mockResetUFOInstance(fakeSelectedReactionChangeInsideDialogUFOExperience);
-	});
 
 	/**
 	 * Pre defined selected emoji ids
@@ -138,7 +121,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
 		const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
 		expect(reactionButtons.length).toEqual(reactions.length);
-		fireEvent.click(reactionButtons[0]);
+		await userEvent.click(reactionButtons[0]);
 		expect(mockOnReactionsClick).toHaveBeenCalled();
 	});
 
@@ -186,14 +169,14 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
-		userEvent.hover(reactionButtons[2]);
+		await userEvent.hover(reactionButtons[2]);
 
 		// "and X others" entrypoint should be visible
 		const labelRegex = /and \d+ others/i;
 		const dialogEntrypoints = await screen.findAllByText(labelRegex);
 		expect(dialogEntrypoints.length).toBeGreaterThan(0);
 
-		userEvent.click(dialogEntrypoints[0]);
+		await userEvent.click(dialogEntrypoints[0]);
 
 		await waitFor(() => expect(onDialogOpenCallback).toHaveBeenCalled());
 	});
@@ -208,17 +191,14 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
-		userEvent.hover(reactionButtons[2]);
+		await userEvent.hover(reactionButtons[2]);
 
 		const labelRegex = /and \d+ others/i;
 		const dialogEntrypoints = await screen.findAllByText(labelRegex);
 		expect(dialogEntrypoints.length).toBeGreaterThan(0);
 
-		userEvent.click(dialogEntrypoints[0]);
-
-		await waitFor(() => {
-			expect(onDialogOpenCallback).not.toHaveBeenCalled();
-		});
+		await userEvent.click(dialogEntrypoints[0]);
+		expect(onDialogOpenCallback).not.toHaveBeenCalled();
 	});
 
 	it('should not see "and X others" if no emoji has 5 or more reactions', async () => {
@@ -231,7 +211,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
-		userEvent.hover(reactionButtons[2]);
+		await userEvent.hover(reactionButtons[2]);
 
 		const labelRegex = /and \d+ others/i;
 		const dialogEntrypoints = screen.queryAllByText(labelRegex);
@@ -251,17 +231,14 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		const reactionButtons = screen.queryAllByTestId(RENDER_REACTION_TESTID);
-		userEvent.hover(reactionButtons[2]);
+		await userEvent.hover(reactionButtons[2]);
 
 		const labelRegex = /and \d+ others/i;
 		const dialogEntrypoints = await screen.findAllByText(labelRegex);
-		userEvent.click(dialogEntrypoints[0]);
+		await userEvent.click(dialogEntrypoints[0]);
 
-		await waitFor(() => {
-			screen.getByTestId(RENDER_MODAL_TESTID);
-		});
-
-		screen.findByTestId(reactionsForDialog[1].emojiId);
+		await screen.findByTestId(RENDER_MODAL_TESTID);
+		screen.getByTestId(reactionsForDialog[1].emojiId);
 
 		const tabToClick = screen
 			.getAllByRole('tab')
@@ -269,14 +246,10 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(tabToClick).toBeInTheDocument();
 
 		// click a different reaction tab
-		act(() => {
-			fireEvent.click(tabToClick!);
-		});
+		await userEvent.click(tabToClick!);
 
 		const closeBtn = screen.getByText('Close');
-		act(() => {
-			fireEvent.click(closeBtn);
-		});
+		await userEvent.click(closeBtn);
 
 		expect(onDialogOpenCallback).toBeCalledWith(
 			reactionsForDialog[0].emojiId,
@@ -392,10 +365,9 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
 				const pickerButton = within(picker).getByRole('button');
 				expect(pickerButton).toBeInTheDocument();
-				// click to open the reaction picker
-				act(() => {
-					fireEvent.click(pickerButton);
-				});
+
+				await userEvent.click(pickerButton);
+
 				expect(mockOnEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
 						payload: expect.objectContaining({
@@ -422,14 +394,13 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				expect(picker).toBeInTheDocument();
 				const pickerButton = within(picker).getByRole('button');
 				expect(pickerButton).toBeInTheDocument();
+
 				// click to open the reaction picker
-				act(() => {
-					fireEvent.click(pickerButton);
-				});
+				await userEvent.click(pickerButton);
+
 				// close the reaction picker by click it again
-				act(() => {
-					fireEvent.click(pickerButton);
-				});
+				await userEvent.click(pickerButton);
+
 				expect(mockOnEvent).not.toHaveBeenCalledWith(
 					expect.objectContaining({
 						payload: expect.objectContaining({
@@ -454,12 +425,10 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				// triggger the picker button to show
 				const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
 				expect(picker).toBeInTheDocument();
+
 				const pickerButton = within(picker).getByRole('button');
 				expect(pickerButton).toBeInTheDocument();
-				// click to open the reaction picker
-				act(() => {
-					fireEvent.click(pickerButton);
-				});
+				await userEvent.click(pickerButton);
 
 				const pickerPopup = await screen.findByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
 
@@ -472,9 +441,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				const selectedButton = within(selectors[1]).getByRole('button');
 				expect(selectedButton).toBeInTheDocument();
 
-				act(() => {
-					fireEvent.click(selectedButton);
-				});
+				await userEvent.click(selectedButton);
 
 				act(() => {
 					jest.runOnlyPendingTimers();
@@ -508,10 +475,9 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				expect(picker).toBeInTheDocument();
 				const pickerButton = within(picker).getByRole('button');
 				expect(pickerButton).toBeInTheDocument();
-				// click to open the reaction picker
-				act(() => {
-					fireEvent.click(pickerButton);
-				});
+
+				await userEvent.click(pickerButton);
+
 				const pickerPopup = await screen.findByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
 				// render the selectors list insider <ReactionPicker />
 				const selectors = await within(pickerPopup).findAllByTestId(RENDER_SELECTOR_TESTID);
@@ -522,9 +488,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				const selectedButton = within(selectors[0]).getByRole('button');
 				expect(selectedButton).toBeInTheDocument();
 
-				act(() => {
-					fireEvent.click(selectedButton);
-				});
+				await userEvent.click(selectedButton);
 
 				act(() => {
 					jest.runOnlyPendingTimers();
@@ -562,10 +526,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				expect(picker).toBeInTheDocument();
 				const pickerButton = within(picker).getByRole('button');
 				expect(pickerButton).toBeInTheDocument();
-				// click to open the reaction picker
-				act(() => {
-					fireEvent.click(pickerButton);
-				});
+				await userEvent.click(pickerButton);
 
 				const pickerPopup = await screen.findByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
 
@@ -581,9 +542,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				const showMoreButton = await screen.findByTestId(RENDER_SHOWMORE_TESTID);
 				expect(showMoreButton).toBeInTheDocument();
 
-				act(() => {
-					fireEvent.click(showMoreButton);
-				});
+				await userEvent.click(showMoreButton);
 
 				expect(mockOnEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -657,13 +616,13 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			renderReactionsWithSummary();
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 
-			act(() => {
-				// click the summary button which opens it to see all the reactions
-				fireEvent.click(reactionSummaryButton);
-			});
+			// click the summary button which opens it to see all the reactions
+			await userEvent.click(reactionSummaryButton);
+
 			const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
 			expect(reactionButtons.length).toEqual(summaryReactions.length);
-			fireEvent.click(reactionButtons[0]);
+			await userEvent.click(reactionButtons[0]);
+
 			expect(mockOnReactionsClick).toHaveBeenCalled();
 		});
 

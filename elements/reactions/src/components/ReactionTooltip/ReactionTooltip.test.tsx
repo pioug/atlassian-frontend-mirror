@@ -1,19 +1,15 @@
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
 import { type ReactionSummary } from '../../types';
-import {
-	mockReactDomWarningGlobal,
-	renderWithIntl,
-	useFakeTimers,
-} from '../../__tests__/_testing-library';
+import { mockReactDomWarningGlobal, renderWithIntl } from '../../__tests__/_testing-library';
 
 import { ReactionTooltip, RENDER_REACTIONTOOLTIP_TESTID } from './ReactionTooltip';
 
 describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 	mockReactDomWarningGlobal();
-	useFakeTimers();
 
 	/**
 	 * Demo reaction object with 7 users selecting it
@@ -58,13 +54,23 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 
 	const RENDER_CONTENT_TESTID = 'test';
 
-	const renderReactionTooltip = (
+	const renderReactionTooltip = ({
 		reactionSummary = demoReaction,
 		emojiName = 'emoji name',
 		maxReactions = 5,
-	) =>
+		dismissTooltip = () => {},
+		handleOpenReactionsDialog = () => {},
+		allowUserDialog = false,
+	}) =>
 		renderWithIntl(
-			<ReactionTooltip reaction={reactionSummary} emojiName={emojiName} maxReactions={maxReactions}>
+			<ReactionTooltip
+				reaction={reactionSummary}
+				emojiName={emojiName}
+				maxReactions={maxReactions}
+				handleOpenReactionsDialog={handleOpenReactionsDialog}
+				dismissTooltip={dismissTooltip}
+				allowUserDialog={allowUserDialog}
+			>
 				<div id="content" data-testid={RENDER_CONTENT_TESTID}>
 					content
 				</div>
@@ -72,7 +78,7 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 		);
 
 	it('should render tooltip', async () => {
-		renderReactionTooltip();
+		renderReactionTooltip({});
 
 		const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
 
@@ -104,22 +110,19 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 
 	it('should not render footer with fewer users than the limit', async () => {
 		renderReactionTooltip({
-			...demoReaction,
-			users: demoReaction.users!.slice(0, 2),
+			reactionSummary: {
+				...demoReaction,
+				users: demoReaction.users!.slice(0, 2),
+			},
 		});
 
 		const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
 
-		// launch the hover over the tooltip to retrieve its content
 		const tooltipContainer = await screen.findByTestId(
 			`${RENDER_REACTIONTOOLTIP_TESTID}--container`,
 		);
 		expect(tooltipContainer).toBeInTheDocument();
-		// hover over the tooltip
-		act(() => {
-			fireEvent.mouseOver(item);
-			jest.runAllTimers();
-		});
+		await userEvent.hover(item);
 
 		const usersListWrapper = await screen.findByRole('tooltip');
 		expect(usersListWrapper).toBeInTheDocument();
@@ -130,20 +133,15 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 	});
 
 	it('test maximum reacted users list', async () => {
-		renderReactionTooltip(demoReaction, 'emoji name', 2);
+		renderReactionTooltip({ emojiName: 'emoji name', maxReactions: 2 });
 
 		const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
 
-		// launch the hover over the tooltip to retrieve its content
 		const tooltipContainer = await screen.findByTestId(
 			`${RENDER_REACTIONTOOLTIP_TESTID}--container`,
 		);
 		expect(tooltipContainer).toBeInTheDocument();
-		// hover over the tooltip
-		act(() => {
-			fireEvent.mouseOver(item);
-			jest.runAllTimers();
-		});
+		await userEvent.hover(item);
 
 		const usersListWrapper = await screen.findByRole('tooltip');
 		expect(usersListWrapper).toBeInTheDocument();
@@ -156,20 +154,15 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 	});
 
 	it('should not render emoji name', async () => {
-		renderReactionTooltip(demoReaction, '');
+		renderReactionTooltip({ emojiName: '' });
 
 		const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
 
-		// launch the hover over the tooltip to retrieve its content
 		const tooltipContainer = await screen.findByTestId(
 			`${RENDER_REACTIONTOOLTIP_TESTID}--container`,
 		);
 		expect(tooltipContainer).toBeInTheDocument();
-		// hover over the tooltip
-		act(() => {
-			fireEvent.mouseOver(item);
-			jest.runAllTimers();
-		});
+		await userEvent.hover(item);
 
 		const usersListWrapper = await screen.findByRole('tooltip');
 		expect(usersListWrapper).toBeInTheDocument();
@@ -177,5 +170,35 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 		expect(items.length).toEqual(TOOLTIP_USERS_LIMIT + 1);
 		expect(items[0].textContent).toEqual('User 1');
 		expect(items[5].textContent).toEqual('and 2 others');
+	});
+
+	it('should open Reactions Dialog and dismiss tooltip when entrypoint is clicked in tooltip', async () => {
+		const mockHandleOpenReactionsDialog = jest.fn();
+		const mockDismissTooltip = jest.fn();
+
+		renderReactionTooltip({
+			dismissTooltip: mockDismissTooltip,
+			handleOpenReactionsDialog: mockHandleOpenReactionsDialog,
+			allowUserDialog: true,
+		});
+
+		const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+
+		const tooltipContainer = await screen.findByTestId(
+			`${RENDER_REACTIONTOOLTIP_TESTID}--container`,
+		);
+		expect(tooltipContainer).toBeInTheDocument();
+		await userEvent.hover(item);
+
+		const usersListWrapper = await screen.findByRole('tooltip');
+		expect(usersListWrapper).toBeInTheDocument();
+
+		const dialogEntrypoints = screen.getAllByText('and 2 others');
+		const dialogEntrypoint = dialogEntrypoints[0];
+
+		await userEvent.click(dialogEntrypoint);
+
+		expect(mockDismissTooltip).toHaveBeenCalled();
+		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
 	});
 });

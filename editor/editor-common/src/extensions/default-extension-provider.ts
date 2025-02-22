@@ -11,8 +11,8 @@ import type { ExtensionProvider } from './types/extension-provider';
 export default class DefaultExtensionProvider<T extends Parameters>
 	implements ExtensionProvider<T>
 {
-	private manifestsPromise: Promise<ExtensionManifest<T>[]>;
-	private autoConvertHandlers?: ExtensionAutoConvertHandler[];
+	protected manifestsPromise: Promise<ExtensionManifest<T>[]>;
+	protected autoConvertHandlers?: ExtensionAutoConvertHandler[];
 
 	constructor(
 		manifests: ExtensionManifest<T>[] | Promise<ExtensionManifest<T>[]>,

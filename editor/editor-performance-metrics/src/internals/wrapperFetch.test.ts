@@ -24,6 +24,25 @@ describe('wrapperFetch', () => {
 		global.fetch = originalFetch;
 	});
 
+	describe('when an expection is throwed inside the fetch implementation', () => {
+		it('should call unhold', async () => {
+			wrapperFetch({
+				globalContext: mockGlobalContext,
+				timelineHoldable: mockTimelineHoldable,
+			});
+
+			(mockGlobalContext.fetch as jest.Mock).mockImplementation(() => {
+				throw Error('random error');
+			});
+
+			expect(() => {
+				mockGlobalContext.fetch('https://example.com');
+			}).toThrow();
+
+			expect(unholdMock).toHaveBeenCalledTimes(1);
+		});
+	});
+
 	it('should wrap fetch', () => {
 		wrapperFetch({
 			globalContext: mockGlobalContext,

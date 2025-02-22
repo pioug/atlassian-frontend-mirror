@@ -104,14 +104,16 @@ export const wrapperTimers = ({
 			const callbackProxy = new Proxy(args[0], {
 				apply(callbackTarget, cbThisArg, cbArgs) {
 					nestedCallsTimerCount = localNestedCounter + 1;
-					const result = callbackTarget.apply(cbThisArg, cbArgs);
+					try {
+						const result = callbackTarget.apply(cbThisArg, cbArgs);
 
-					unhold();
-					if (timerId !== null) {
-						timeoutsUnholdMap.delete(timerId);
+						return result;
+					} finally {
+						unhold();
+						if (timerId !== null) {
+							timeoutsUnholdMap.delete(timerId);
+						}
 					}
-
-					return result;
 				},
 			});
 

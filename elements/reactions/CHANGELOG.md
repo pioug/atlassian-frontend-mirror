@@ -1,5 +1,25 @@
 # @atlaskit/reactions
 
+## 25.6.1
+
+### Patch Changes
+
+- [#117334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117334)
+  [`e8ff97d0f197f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8ff97d0f197f) -
+  [ux] Fix test and remove unused prop after a previous clean up of reactions selector delay
+
+## 25.6.0
+
+### Minor Changes
+
+- [#115993](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115993)
+  [`b41f57ae81daf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b41f57ae81daf) -
+  [ux] Makes reactions behind the isViewOnly prop view-only in the tray, not allowing further
+  reactions and applies view only styles
+- [#116057](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116057)
+  [`4eaacc70b49dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4eaacc70b49dd) -
+  [ux] Close tooltip after Reaction Dialog is opened and fix outdated tests
+
 ## 25.5.1
 
 ### Patch Changes

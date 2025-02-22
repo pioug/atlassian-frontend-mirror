@@ -218,7 +218,7 @@ export const ReactionsDialogHeader = ({
 	const isOnFirstPage = currentPage === 1;
 	const isOnLastPage = currentPage === maxPages;
 
-	const handleMouseEnterTab = (reaction: ReactionSummary) => {
+	const handleMouseEnter = (reaction: ReactionSummary) => {
 		const { emojiId } = reaction;
 
 		if (!emojiId || cache[emojiId]) {
@@ -279,7 +279,7 @@ export const ReactionsDialogHeader = ({
 									key={reaction.emojiId}
 									data-testid={emojiId?.id}
 									onMouseEnter={() => {
-										handleMouseEnterTab(reaction);
+										handleMouseEnter(reaction);
 									}}
 								>
 									<Tab>

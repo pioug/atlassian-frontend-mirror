@@ -178,4 +178,23 @@ describe('wrapperTimers', () => {
 
 		jest.advanceTimersByTime(300);
 	});
+
+	describe('when an expection is throwed inside the setTimeout callback', () => {
+		it('should call unhold', async () => {
+			wrapperTimers({
+				globalContext: mockGlobalContext,
+				timelineHoldable: mockTimelineHoldable,
+			});
+
+			expect(() => {
+				mockGlobalContext.setTimeout(() => {
+					throw Error('random error');
+				}, 10);
+
+				jest.runAllTimers();
+			}).toThrow();
+
+			expect(unholdMock).toHaveBeenCalledTimes(1);
+		});
+	});
 });

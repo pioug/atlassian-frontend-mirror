@@ -8,7 +8,7 @@ import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import {
 	createAndFireSafe,
@@ -25,6 +25,7 @@ import { isLeftClick } from '../../shared/utils';
 import { emojiStyle, emojiNoReactionStyle } from './styles';
 import { type ReactionFocused } from '../../types/reaction';
 import { ReactionButton } from './ReactionButton';
+import { StaticReaction } from './StaticReaction';
 
 /**
  * Test id for Reaction item wrapper div
@@ -72,6 +73,10 @@ export interface ReactionProps {
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
 	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
+	/**
+	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
+	 */
+	isViewOnly?: boolean;
 }
 const containerStyles = xcss({
 	position: 'relative',
@@ -112,6 +117,7 @@ export const Reaction = ({
 	showOpaqueBackground = false,
 	allowUserDialog,
 	handleOpenReactionsDialog,
+	isViewOnly = false,
 }: ReactionProps) => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
@@ -173,7 +179,21 @@ export const Reaction = ({
 		[createAnalyticsEvent, reaction, onFocused],
 	);
 
+	const dismissTooltip = () => {
+		setIsTooltipEnabled(false);
+	};
+
 	const buttonStyles = showOpaqueBackground ? [opaqueBackgroundStyles] : [];
+
+	const emojiAndCount = (
+		<Inline>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+			<div css={[emojiStyle, reaction.count === 0 && emojiNoReactionStyle]}>
+				<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={16} />
+			</div>
+			<Counter value={reaction.count} highlight={!isViewOnly && reaction.reacted} />
+		</Inline>
+	);
 
 	return (
 		<Box xcss={containerStyles}>
@@ -186,29 +206,39 @@ export const Reaction = ({
 				isEnabled={isTooltipEnabled}
 				allowUserDialog={allowUserDialog}
 				handleOpenReactionsDialog={handleOpenReactionsDialog}
+				dismissTooltip={dismissTooltip}
 			>
-				<ReactionButton
-					onClick={handleClick}
-					flash={flash}
-					additionalStyles={reaction.reacted ? [reactedStyles] : buttonStyles}
-					ariaLabel={intl.formatMessage(messages.reactWithEmoji, {
-						emoji: emojiName,
-					})}
-					ariaPressed={reacted}
-					onMouseEnter={handleMouseEnter}
-					onFocus={handleFocused}
-					testId={RENDER_REACTION_TESTID}
-					dataAttributes={{
-						'data-emoji-id': reaction.emojiId,
-						'data-emoji-button-id': reaction.emojiId,
-					}}
-				>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={[emojiStyle, reaction.count === 0 && emojiNoReactionStyle]}>
-						<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={16} />
-					</div>
-					<Counter value={reaction.count} highlight={reaction.reacted} />
-				</ReactionButton>
+				{isViewOnly ? (
+					<StaticReaction
+						onMouseEnter={handleMouseEnter}
+						onFocus={handleFocused}
+						testId={RENDER_REACTION_TESTID}
+						dataAttributes={{
+							'data-emoji-id': reaction.emojiId,
+						}}
+					>
+						{emojiAndCount}
+					</StaticReaction>
+				) : (
+					<ReactionButton
+						onClick={handleClick}
+						flash={flash}
+						additionalStyles={reaction.reacted ? [reactedStyles] : buttonStyles}
+						ariaLabel={intl.formatMessage(messages.reactWithEmoji, {
+							emoji: emojiName,
+						})}
+						ariaPressed={reacted}
+						onMouseEnter={handleMouseEnter}
+						onFocus={handleFocused}
+						testId={RENDER_REACTION_TESTID}
+						dataAttributes={{
+							'data-emoji-id': reaction.emojiId,
+							'data-emoji-button-id': reaction.emojiId,
+						}}
+					>
+						{emojiAndCount}
+					</ReactionButton>
+				)}
 			</ReactionTooltip>
 		</Box>
 	);

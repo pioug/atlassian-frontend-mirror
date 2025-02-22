@@ -1,5 +1,47 @@
 # @atlaskit/editor-performance-metrics
 
+## 1.5.1
+
+### Patch Changes
+
+- [#116860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116860)
+  [`fe10f83753ea7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fe10f83753ea7) - ###
+  Patch Changes
+
+  Ticket: AFO-3446
+
+  This update enhances error handling in the wrapping functions for global timers and fetch
+  operations, ensuring that resources are properly released even when exceptions occur.
+
+  ## Error Handling Improvements
+
+  1. **Wrapper Functions for Web APIs**
+
+     - Enhanced `wrapperFetch`:
+
+       - Now ensures that `unhold` is called even if an exception is thrown within the fetch
+         operation.
+       - Introduced try-catch-finally blocks to manage error handling and ensure consistent resource
+         cleanup.
+
+     - Improved `wrapperTimers`:
+       - Ensures `unhold` is called if an exception occurs within the `setTimeout` callback.
+       - Utilizes try-finally blocks to guarantee unhold operations.
+
+  ## Testing Enhancements
+
+  - Added new test cases to verify the behavior when exceptions are thrown within wrapped functions:
+    - Ensures `unhold` is called when an exception occurs in a `setTimeout` callback.
+    - Confirms `unhold` is invoked when an exception is thrown inside the fetch implementation.
+
+  ## Important Notes
+
+  - These changes maintain backward compatibility with existing implementations.
+  - The core functionalities of the wrapper functions remain unchanged, with improvements focused on
+    error handling.
+  - Enhanced error handling should lead to more reliable resource management in asynchronous
+    operations.
+
 ## 1.5.0
 
 ### Minor Changes

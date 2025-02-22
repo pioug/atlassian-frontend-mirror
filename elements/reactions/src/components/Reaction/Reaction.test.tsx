@@ -70,6 +70,7 @@ const renderReaction = (
 	users: User[] = [],
 	showParticleEffect: boolean = false,
 	showOpaqueBackground: boolean = false,
+	isViewOnly: boolean = false,
 ) =>
 	renderWithIntl(
 		<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
@@ -81,6 +82,7 @@ const renderReaction = (
 				flash={enableFlash}
 				showParticleEffect={showParticleEffect}
 				showOpaqueBackground={showOpaqueBackground}
+				isViewOnly={isViewOnly}
 			/>
 		</AnalyticsListener>,
 	);
@@ -170,6 +172,34 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const btn = await screen.findByRole('button');
 		expect(btn).toBeInTheDocument();
 		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
+	});
+
+	it('should not render with border if isViewOnly is true', async () => {
+		const count = 3;
+		const reacted = false;
+		const onClickSpy = jest.fn();
+		const onMouseEnterSpy = jest.fn();
+		const enableFlash = false;
+		const onEventSpy = jest.fn();
+		const users: User[] = [];
+		const showParticleEffect = false;
+		const showOpaqueBackground = true;
+		const isViewOnly = true;
+		renderReaction(
+			reacted,
+			count,
+			onClickSpy,
+			onMouseEnterSpy,
+			enableFlash,
+			onEventSpy,
+			users,
+			showParticleEffect,
+			showOpaqueBackground,
+			isViewOnly,
+		);
+		const reactionContainer = await screen.findByTestId('render_reaction_wrapper');
+		expect(reactionContainer).toBeInTheDocument();
+		expect(reactionContainer).toHaveCompiledCss('border', 'none');
 	});
 
 	describe('with analytics', () => {

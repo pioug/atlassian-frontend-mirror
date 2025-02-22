@@ -58,6 +58,10 @@ interface ReactionSummaryViewProps
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
 	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
+	/**
+	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
+	 */
+	isViewOnly?: boolean;
 }
 
 export const ReactionSummaryView = ({
@@ -73,6 +77,7 @@ export const ReactionSummaryView = ({
 	subtleReactionsSummaryAndPicker = false,
 	allowUserDialog,
 	handleOpenReactionsDialog,
+	isViewOnly = false,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
@@ -105,6 +110,7 @@ export const ReactionSummaryView = ({
 							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
 							allowUserDialog={allowUserDialog}
 							handleOpenReactionsDialog={handleOpenReactionsDialog}
+							isViewOnly={isViewOnly}
 						/>
 					))}
 				</Inline>

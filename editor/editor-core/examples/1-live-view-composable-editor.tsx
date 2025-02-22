@@ -14,7 +14,8 @@ import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
+// Commented out - see below
+//import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
@@ -143,7 +144,8 @@ function ComposableEditorPage() {
 					: { initialContentMode: 'live-edit' },
 			])
 			.add(selectionMarkerPlugin)
-			.add(codeBlockAdvancedPlugin)
+			.add(codeBlockAdvancedPlugin);
+		/* Commented out - master build is failing - https://atlassian.slack.com/archives/CL6HC337Z/p1740169035917969t pu
 			.add([
 				selectionExtensionPlugin,
 				{
@@ -167,6 +169,7 @@ function ComposableEditorPage() {
 					],
 				},
 			]);
+			*/
 
 		// The only things that cause a re-creation of the preset is something in the
 		// universal preset to be consistent with current behaviour (ie. this could

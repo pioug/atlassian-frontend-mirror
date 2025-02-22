@@ -42,6 +42,10 @@ export type ReactionTooltipProps = PropsWithChildren<{
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
 	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
+	/**
+	 * Function that hides the tooltip
+	 */
+	dismissTooltip: () => void;
 }>;
 
 export const ReactionTooltip = ({
@@ -52,6 +56,7 @@ export const ReactionTooltip = ({
 	isEnabled = true,
 	allowUserDialog,
 	handleOpenReactionsDialog,
+	dismissTooltip,
 }: ReactionTooltipProps) => {
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
@@ -71,6 +76,7 @@ export const ReactionTooltip = ({
 						css={allowUserDialog ? [footerStyle, underlineStyle] : footerStyle}
 						onClick={() => {
 							if (allowUserDialog && handleOpenReactionsDialog) {
+								dismissTooltip();
 								handleOpenReactionsDialog();
 							}
 						}}

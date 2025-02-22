@@ -1,9 +1,7 @@
 import { bind } from 'bind-event-listener';
 
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isTextInput } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
@@ -11,13 +9,24 @@ import {
 	Selection,
 	EditorState,
 } from '@atlaskit/editor-prosemirror/state';
-import { type Step } from '@atlaskit/editor-prosemirror/transform';
+import {
+	AddMarkStep,
+	ReplaceAroundStep,
+	ReplaceStep,
+	type Step,
+} from '@atlaskit/editor-prosemirror/transform';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type MetricsPlugin } from '../metricsPluginType';
 
 import { ActiveSessionTimer } from './utils/active-session-timer';
 import { getAnalyticsPayload } from './utils/analytics';
+import {
+	ActionType,
+	type TrActionType,
+	checkTrActionType,
+	shouldSkipTr,
+} from './utils/check-tr-action-type';
 import { isNonTextUndo } from './utils/is-non-text-undo';
 
 export const metricsKey = new PluginKey('metricsPlugin');
@@ -33,6 +42,7 @@ export type MetricsState = {
 	timeOfLastTextInput?: number;
 	shouldPersistActiveSession?: boolean;
 	initialContent?: Fragment;
+	previousTrType?: TrActionType;
 };
 
 export type ActionByType = {
@@ -95,20 +105,25 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				const shouldPersistActiveSession =
 					meta?.shouldPersistActiveSession ?? pluginState.shouldPersistActiveSession;
 
-				const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
-				const docChangedWithoutAnalytics = tr.docChanged && canIgnoreTr();
+				const hasDocChanges =
+					tr.steps.length > 0 &&
+					tr.steps?.some(
+						(step: Step) =>
+							step instanceof ReplaceStep ||
+							step instanceof ReplaceAroundStep ||
+							step instanceof AddMarkStep,
+					);
 
 				let intentToStartEditTime =
 					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
 
 				const now = performance.now();
+				if (!intentToStartEditTime && !hasDocChanges && !tr.storedMarksSet) {
+					return pluginState;
+				}
 
-				if (!intentToStartEditTime) {
-					if (docChangedWithoutAnalytics || tr.storedMarksSet) {
-						intentToStartEditTime = now;
-					} else {
-						return { ...pluginState };
-					}
+				if (!intentToStartEditTime && (hasDocChanges || tr.storedMarksSet)) {
+					intentToStartEditTime = now;
 				}
 
 				// Start active session timer if intentToStartEditTime is set and shouldStartTimer is true
@@ -134,30 +149,94 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 							undoCount,
 						};
 
-				if (docChangedWithoutAnalytics) {
+				if (hasDocChanges) {
 					timer.startTimer();
 
-					const { actionTypeCount, timeOfLastTextInput, totalActionCount, activeSessionTime } =
+					const { actionTypeCount, timeOfLastTextInput, totalActionCount, previousTrType } =
 						pluginState;
-					// If previous and current action is text insertion, then don't increase total action count
-					const isActionTextInput = isTextInput(tr);
-					let newActiveSessionTime = activeSessionTime + (now - intentToStartEditTime);
-					let newTextInputCount = isActionTextInput
+
+					if (shouldSkipTr(tr)) {
+						return pluginState;
+					}
+
+					const trType = checkTrActionType(tr);
+
+					let shouldNotIncrementActionCount = false;
+					let shouldSetTimeOfLastTextInput = false;
+					let isTextInput = false;
+
+					if (trType) {
+						const isNotNewStatus =
+							trType.type === ActionType.UPDATING_STATUS &&
+							previousTrType?.type === ActionType.UPDATING_STATUS &&
+							trType?.extraData?.statusId === previousTrType?.extraData?.statusId;
+
+						const isAddingTextToListNode =
+							trType.type === ActionType.TEXT_INPUT &&
+							!!previousTrType &&
+							[
+								ActionType.UPDATING_NEW_LIST_TYPE_ITEM,
+								ActionType.INSERTING_NEW_LIST_TYPE_NODE,
+							].includes(previousTrType.type);
+
+						const isAddingNewListItemAfterTextInput =
+							!!previousTrType &&
+							previousTrType.type === ActionType.TEXT_INPUT &&
+							[ActionType.UPDATING_NEW_LIST_TYPE_ITEM].includes(trType.type);
+
+						// Check if tr is textInput and only increment textInputCount if previous action was not textInput
+						isTextInput = [ActionType.TEXT_INPUT, ActionType.EMPTY_LINE_ADDED_OR_DELETED].includes(
+							trType.type,
+						);
+
+						// timeOfLastTextInput should be set if tr includes continuous text input on the same node
+						shouldSetTimeOfLastTextInput =
+							[
+								ActionType.TEXT_INPUT,
+								ActionType.EMPTY_LINE_ADDED_OR_DELETED,
+								ActionType.UPDATING_NEW_LIST_TYPE_ITEM,
+								ActionType.INSERTING_NEW_LIST_TYPE_NODE,
+								ActionType.UPDATING_STATUS,
+							].includes(trType.type) || isNotNewStatus;
+
+						// Should not increase action count if tr is text input,
+						// empty line added or deleted, updating new list item or is updating same status node
+
+						shouldNotIncrementActionCount =
+							isTextInput ||
+							isNotNewStatus ||
+							isAddingTextToListNode ||
+							isAddingNewListItemAfterTextInput;
+					}
+
+					let newTextInputCount = isTextInput
 						? actionTypeCount.textInputCount + 1
 						: actionTypeCount.textInputCount;
-					let newTotalActionCount = pluginState.totalActionCount + 1;
+					let newTotalActionCount = totalActionCount + 1;
 
-					if (pluginState.timeOfLastTextInput && isActionTextInput) {
-						newActiveSessionTime = activeSessionTime + (now - (timeOfLastTextInput || 0));
-						newTextInputCount = actionTypeCount.textInputCount;
+					if (timeOfLastTextInput && shouldNotIncrementActionCount) {
 						newTotalActionCount = totalActionCount;
+					}
+
+					if (
+						timeOfLastTextInput &&
+						isTextInput &&
+						previousTrType &&
+						[
+							ActionType.TEXT_INPUT,
+							ActionType.EMPTY_LINE_ADDED_OR_DELETED,
+							ActionType.UPDATING_NEW_LIST_TYPE_ITEM,
+							ActionType.INSERTING_NEW_LIST_TYPE_NODE,
+						].includes(previousTrType.type)
+					) {
+						newTextInputCount = actionTypeCount.textInputCount;
 					}
 
 					const newPluginState = {
 						...pluginState,
-						activeSessionTime: newActiveSessionTime,
+						activeSessionTime: now - intentToStartEditTime,
 						totalActionCount: newTotalActionCount,
-						timeOfLastTextInput: isActionTextInput ? now : undefined,
+						timeOfLastTextInput: shouldSetTimeOfLastTextInput ? now : undefined,
 						contentSizeChanged:
 							pluginState.contentSizeChanged +
 							(newState.doc.content.size - oldState.doc.content.size),
@@ -167,6 +246,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 						},
 						intentToStartEditTime,
 						shouldPersistActiveSession,
+						previousTrType: trType,
 					};
 					return newPluginState;
 				}

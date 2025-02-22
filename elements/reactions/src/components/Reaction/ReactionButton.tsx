@@ -12,7 +12,8 @@ import { type ReactionProps } from './Reaction';
 import { flashStyle, flashStyleOld } from './styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-const reactionStyles = xcss({
+// please sync reaction styles that are not button-specific with StaticReaction.tsx
+const reactionButtonStyles = xcss({
 	display: 'flex',
 	flexDirection: 'row',
 	alignItems: 'flex-start',
@@ -74,7 +75,7 @@ export const ReactionButton = ({
 			aria-pressed={ariaPressed}
 			testId={testId}
 			xcss={[
-				reactionStyles,
+				reactionButtonStyles,
 				...additionalStyles,
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('platform-component-visual-refresh') && reactionStylesRefresh,

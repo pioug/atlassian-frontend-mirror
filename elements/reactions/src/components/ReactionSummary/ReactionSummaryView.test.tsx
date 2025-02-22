@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -35,10 +35,7 @@ describe('ReactionSummaryView', () => {
 	it('should popup the list of reactions when the summary button is clicked', async () => {
 		renderComponent();
 		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-		act(() => {
-			// click the summary button which opens it to see all the reactions
-			fireEvent.click(reactionSummaryButton);
-		});
+		await userEvent.click(reactionSummaryButton);
 
 		const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
 		expect(summaryViewPopup).toBeInTheDocument();
@@ -50,15 +47,13 @@ describe('ReactionSummaryView', () => {
 			onReactionClick: onReactionClickMock,
 		});
 		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+		await userEvent.click(reactionSummaryButton);
 
-		act(() => {
-			// click the summary button which opens it to see all the reactions
-			fireEvent.click(reactionSummaryButton);
-		});
 		// make sure the correct number of reactions show
 		const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
 		expect(reactionButtons.length).toEqual(reactions.length);
-		fireEvent.click(reactionButtons[0]);
+
+		await userEvent.click(reactionButtons[0]);
 		expect(onReactionClickMock).toHaveBeenCalled();
 	});
 
@@ -71,21 +66,15 @@ describe('ReactionSummaryView', () => {
 		});
 
 		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-		await act(async () => {
-			fireEvent.click(reactionSummaryButton);
-		});
+		await userEvent.click(reactionSummaryButton);
+
 		const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
 		expect(reactionButtons.length).toEqual(reactions.length);
 
-		await act(async () => {
-			fireEvent.mouseEnter(reactionButtons[0]);
-		});
-
+		await userEvent.hover(reactionButtons[0]);
 		expect(onReactionMouseEnterMock).toHaveBeenCalled();
 
-		await act(async () => {
-			fireEvent.focus(reactionButtons[0]);
-		});
+		reactionButtons[0].focus();
 		expect(onReactionFocusedMock).toHaveBeenCalled();
 	});
 

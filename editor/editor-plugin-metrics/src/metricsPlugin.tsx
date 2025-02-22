@@ -69,16 +69,14 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 					}
 				}
 
-				const newTr = tr;
-
-				newTr.setMeta(metricsKey, {
+				tr.setMeta(metricsKey, {
 					intentToStartEditTime: performance.now(),
 					shouldStartTimer,
 					newSelection,
 					shouldPersistActiveSession,
 				});
 
-				return newTr;
+				return tr;
 			},
 	},
 

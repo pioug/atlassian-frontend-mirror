@@ -469,6 +469,7 @@ export const Reactions = React.memo(
 								subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 								handleOpenReactionsDialog={handleOpenReactionsDialog}
 								allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
+								isViewOnly={isViewOnly}
 							/>
 						</div>
 					) : (
@@ -485,6 +486,7 @@ export const Reactions = React.memo(
 								showOpaqueBackground={showOpaqueBackground}
 								allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
 								handleOpenReactionsDialog={handleOpenReactionsDialog}
+								isViewOnly={isViewOnly}
 							/>
 						))
 					))}

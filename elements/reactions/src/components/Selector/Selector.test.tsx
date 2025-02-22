@@ -11,7 +11,7 @@ import {
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { DefaultReactions } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
-import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
+import { Selector } from './Selector';
 
 expect.extend(matchers);
 
@@ -72,14 +72,5 @@ describe('@atlaskit/reactions/components/selector', () => {
 		fireEvent.click(button);
 
 		expect(onMoreClick.mock.calls).toHaveLength(1);
-	});
-
-	it('should calculate animation delay based on reaction index', async () => {
-		renderWithIntl(renderSelector());
-		const animationWrappers = await screen.findAllByTestId(RENDER_SELECTOR_TESTID);
-		expect(animationWrappers.length).toBeGreaterThan(0);
-
-		const animationWrapper = animationWrappers[2];
-		expect(animationWrapper).toHaveStyle('animation-delay: 100ms');
 	});
 });

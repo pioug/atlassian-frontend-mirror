@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.2.1
+
+### Patch Changes
+
+- [#114961](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114961)
+  [`f31ba30a89a05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f31ba30a89a05) -
+  ED-26301 Add logic to exclude transactions that shouldn't increment totalActionCount
+
 ## 3.2.0
 
 ### Minor Changes

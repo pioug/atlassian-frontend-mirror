@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 1.4.0
+
+### Minor Changes
+
+- [#116775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116775)
+  [`0065ae6bf8ff6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0065ae6bf8ff6) -
+  Export func to determine if its a refreshed avatar
+
 ## 1.3.0
 
 ### Minor Changes

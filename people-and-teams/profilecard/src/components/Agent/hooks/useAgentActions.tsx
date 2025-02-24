@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers';
 
 import { encodeParamsToUrl } from '../../../util/url';
@@ -64,26 +63,22 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
 		};
 
-		if (fg('rovo_profile_card_open_chat_sidebar')) {
-			publishWithPostMessage({
-				targetWindow: window,
-				payload: {
-					type: 'chat-new',
-					source: 'AgentProfileCard',
-					data: {
-						name: prompt.slice(0, 50),
-						prompt,
-						agentId,
-						dialogues: [],
-					},
+		publishWithPostMessage({
+			targetWindow: window,
+			payload: {
+				type: 'chat-new',
+				source: 'AgentProfileCard',
+				data: {
+					name: prompt.slice(0, 50),
+					prompt,
+					agentId,
+					dialogues: [],
 				},
-				onAcknowledgeTimeout: () => {
-					startConversationInNewTab();
-				},
-			});
-		} else {
-			startConversationInNewTab();
-		}
+			},
+			onAcknowledgeTimeout: () => {
+				startConversationInNewTab();
+			},
+		});
 	};
 
 	const onOpenChat = (agentId: string, agentName: string) => {
@@ -96,25 +91,21 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
 		};
 
-		if (fg('rovo_profile_card_open_chat_sidebar')) {
-			publishWithPostMessage({
-				targetWindow: window,
-				payload: {
-					type: 'chat-new',
-					source: 'AgentProfileCard',
-					data: {
-						agentId,
-						dialogues: [],
-						name: `Chat with ${agentName}`,
-					},
+		publishWithPostMessage({
+			targetWindow: window,
+			payload: {
+				type: 'chat-new',
+				source: 'AgentProfileCard',
+				data: {
+					agentId,
+					dialogues: [],
+					name: `Chat with ${agentName}`,
 				},
-				onAcknowledgeTimeout: () => {
-					openChatInNewTab();
-				},
-			});
-		} else {
-			openChatInNewTab();
-		}
+			},
+			onAcknowledgeTimeout: () => {
+				openChatInNewTab();
+			},
+		});
 	};
 
 	const onViewFullProfile = (agentId: string) => {

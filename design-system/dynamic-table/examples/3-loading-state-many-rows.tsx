@@ -6,7 +6,7 @@ import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { head, rows } from './content/sample-data';
 
 const LoadingLargePageExample = () => {
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	return (
 		<div>
 			<Button onClick={() => setIsLoading((loading) => !loading)} testId="toggle-loading">

@@ -25,6 +25,7 @@ import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { cardPlugin } from '@atlaskit/editor-plugins/card';
+import { connectivityPlugin } from '@atlaskit/editor-plugins/connectivity';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
 import type { ListPlugin } from '@atlaskit/editor-plugins/list';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
@@ -45,7 +46,8 @@ const createPreset = () =>
 		.add(gridPlugin)
 		.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])
 		.add(listPlugin)
-		.add(codeBlockAdvancedPlugin);
+		.add(codeBlockAdvancedPlugin)
+		.add(connectivityPlugin);
 
 interface ListToolbarProps {
 	editorApi: PublicPluginAPI<[ListPlugin]> | undefined;

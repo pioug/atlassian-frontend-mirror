@@ -12,7 +12,7 @@ import DynamicTable from '@atlaskit/dynamic-table';
 
 import { caption, head, rows } from './content/sample-data';
 
-export default () => {
+export default function DynamicTableBasicExample() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
@@ -42,4 +42,4 @@ export default () => {
 			/>
 		</div>
 	);
-};
+}

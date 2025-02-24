@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-gas-types",
-	"version": "5.1.6",
+	"version": "5.1.7",
 	"description": "Shared analytics functions/components for Fabric Elements",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/analytics-next": "^11.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

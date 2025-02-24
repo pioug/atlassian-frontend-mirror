@@ -136,7 +136,7 @@ describe('<FabricAnalyticsListeners />', () => {
 		});
 
 		it('should render a FabricElementsListener', () => {
-			const component = render(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyElementsCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
@@ -144,12 +144,10 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
 			expect(dummyComponent).toBeInTheDocument();
-
-			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should render an AtlaskitListener', () => {
-			const component = render(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
@@ -157,12 +155,10 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'atlaskit' });
 			expect(dummyComponent).toBeInTheDocument();
-
-			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should render a NavigationListener', () => {
-			const component = render(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyNavigationCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
@@ -170,12 +166,10 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'navigation' });
 			expect(dummyComponent).toBeInTheDocument();
-
-			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should render a PostOfficeListener', () => {
-			const component = render(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyPostOfficeCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
@@ -183,8 +177,6 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			const dummyComponent = screen.getByRole('button', { name: 'postOffice' });
 			expect(dummyComponent).toBeInTheDocument();
-
-			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should exclude the AtlaskitListener if excludedChannels includes atlaskit', () => {

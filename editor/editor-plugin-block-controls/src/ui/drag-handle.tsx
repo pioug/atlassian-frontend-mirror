@@ -746,7 +746,6 @@ export const DragHandle = ({
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 				onDragStart={handleIconDragStart}
 			>
-				{' '}
 				<DragHandlerIcon label="" size="medium" />
 			</Box>
 		</button>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "3.3.2",
+	"version": "4.1.0",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/heading && yarn codegen"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/ds-lib": "^4.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@babel/traverse": "^7.23.2",
@@ -39,17 +39,17 @@
 		"bind-event-listener": "^3.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/formatting": "*",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/calendar": "^16.4.0",
-		"@atlaskit/checkbox": "^15.4.0",
-		"@atlaskit/radio": "^7.3.0",
-		"@atlaskit/textfield": "^7.0.0",
-		"@atlaskit/tooltip": "^19.2.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/calendar": "^17.0.0",
+		"@atlaskit/checkbox": "^16.0.0",
+		"@atlaskit/radio": "^8.0.0",
+		"@atlaskit/textfield": "^8.0.0",
+		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.0",
 		"@atlassian/feature-flags-test-utils": "*",
@@ -75,7 +75,7 @@
 		"react": "^18.2.0",
 		"react-use-clipboard": "^1.0.0",
 		"react-window": "^1.8.8",
-		"recharts": "^1.8.5",
+		"recharts": "^2.15.1",
 		"style-dictionary": "^3.8.0",
 		"typescript": "~5.4.2"
 	},

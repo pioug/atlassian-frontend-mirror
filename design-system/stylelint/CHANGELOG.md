@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 2.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.8
 
 ### Patch Changes

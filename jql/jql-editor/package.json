@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "4.15.1",
+	"version": "5.0.1",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,23 +41,23 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/avatar": "^21.18.0",
-		"@atlaskit/button": "^20.5.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/avatar": "^23.0.0",
+		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/form": "^11.2.0",
-		"@atlaskit/icon": "^23.11.0",
+		"@atlaskit/form": "^12.0.0",
+		"@atlaskit/icon": "^24.0.0",
 		"@atlaskit/jql-ast": "^3.3.0",
 		"@atlaskit/jql-autocomplete": "^2.0.0",
-		"@atlaskit/jql-editor-common": "^2.2.0",
+		"@atlaskit/jql-editor-common": "^3.0.0",
 		"@atlaskit/jql-parser": "^2.0.0",
-		"@atlaskit/legacy-custom-icons": "^0.21.0",
+		"@atlaskit/legacy-custom-icons": "^0.22.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/spinner": "^17.2.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/tooltip": "^19.2.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/spinner": "^18.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
@@ -74,13 +74,13 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/jql-editor-autocomplete-rest": "^2.2.0",
+		"@atlaskit/jql-editor-autocomplete-rest": "^3.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "0.3.1",
 		"@storybook/addon-actions": "^6.4.0",
@@ -135,9 +135,6 @@
 			"type": "boolean"
 		},
 		"add_nin_press_interactions": {
-			"type": "boolean"
-		},
-		"fix_errormessage_viewed_jqlresult_analytics": {
 			"type": "boolean"
 		}
 	}

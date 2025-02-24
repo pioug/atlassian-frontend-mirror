@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-history",
-	"version": "1.5.0",
+	"version": "2.0.0",
 	"description": "History plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,12 +34,12 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^99.19.0",
+		"@atlaskit/editor-common": "^100.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^18.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

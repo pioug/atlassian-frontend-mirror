@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/locale",
-	"version": "2.8.3",
+	"version": "3.0.0",
 	"description": "Utility functions for handling localization",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,15 +41,15 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/select": "^18.10.3",
+		"@atlaskit/select": "^19.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "*",
-		"@atlaskit/textfield": "^7.0.0",
+		"@atlaskit/textfield": "^8.0.0",
 		"typescript": "~5.4.2"
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/helpers/locale"

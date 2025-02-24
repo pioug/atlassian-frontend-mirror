@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-toolbar",
-	"version": "1.10.0",
+	"version": "2.0.0",
 	"description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,18 +34,18 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^99.19.0",
-		"@atlaskit/editor-plugin-editor-viewmode": "^2.2.0",
-		"@atlaskit/editor-plugin-primary-toolbar": "^2.4.0",
+		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^3.0.0",
+		"@atlaskit/editor-plugin-primary-toolbar": "^3.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/tmp-editor-statsig": "^2.47.0",
+		"@atlaskit/tmp-editor-statsig": "^3.1.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",

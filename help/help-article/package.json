@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-article",
-	"version": "4.4.0",
+	"version": "5.0.0",
 	"description": "A cross-product help-article component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,19 +36,19 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/css-reset": "^6.16.0",
-		"@atlaskit/heading": "^4.3.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/renderer": "^112.15.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/css-reset": "^7.0.0",
+		"@atlaskit/heading": "^5.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/renderer": "^113.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",
 		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"enzyme": "^3.10.0",

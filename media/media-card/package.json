@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "78.19.7",
+	"version": "79.0.1",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,27 +40,28 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/dropdown-menu": "^12.26.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/dropdown-menu": "^13.0.0",
 		"@atlaskit/editor-shared-styles": "^3.3.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/media-client": "^31.1.0",
-		"@atlaskit/media-client-react": "^3.0.0",
-		"@atlaskit/media-common": "^11.8.0",
-		"@atlaskit/media-file-preview": "^0.10.0",
-		"@atlaskit/media-svg": "^1.3.0",
-		"@atlaskit/media-ui": "^27.5.0",
-		"@atlaskit/media-viewer": "^50.1.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/media-client": "^32.0.0",
+		"@atlaskit/media-client-react": "^4.0.0",
+		"@atlaskit/media-common": "^12.0.0",
+		"@atlaskit/media-file-preview": "^0.11.0",
+		"@atlaskit/media-svg": "^2.0.0",
+		"@atlaskit/media-ui": "^28.0.0",
+		"@atlaskit/media-viewer": "^51.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/react-ufo": "^2.16.0",
-		"@atlaskit/spinner": "^17.2.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/tooltip": "^19.2.0",
-		"@atlaskit/ufo": "^0.3.0",
-		"@atlaskit/visually-hidden": "^1.6.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/react-ufo": "^3.0.0",
+		"@atlaskit/spinner": "^18.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tooltip": "^20.0.0",
+		"@atlaskit/ufo": "^0.4.0",
+		"@atlaskit/visually-hidden": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.2",
 		"classnames": "^2.2.5",
 		"eventemitter2": "^4.1.0",
 		"lru_map": "^0.4.1",
@@ -70,28 +71,28 @@
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.7.1",
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
-		"@atlaskit/analytics-listeners": "^8.15.0",
-		"@atlaskit/analytics-namespaced-context": "^6.14.0",
-		"@atlaskit/form": "^11.2.0",
-		"@atlaskit/inline-message": "^13.2.0",
-		"@atlaskit/media-core": "^34.5.0",
-		"@atlaskit/media-picker": "^67.1.0",
+		"@atlaskit/analytics-listeners": "^9.0.0",
+		"@atlaskit/analytics-namespaced-context": "^7.0.0",
+		"@atlaskit/form": "^12.0.0",
+		"@atlaskit/inline-message": "^14.0.0",
+		"@atlaskit/media-core": "^35.0.0",
+		"@atlaskit/media-picker": "^68.0.0",
 		"@atlaskit/media-state": "^1.5.0",
-		"@atlaskit/media-test-data": "^2.11.0",
-		"@atlaskit/media-test-helpers": "^34.8.0",
-		"@atlaskit/radio": "^7.3.0",
-		"@atlaskit/range": "^8.2.0",
+		"@atlaskit/media-test-data": "^3.0.0",
+		"@atlaskit/media-test-helpers": "^35.0.0",
+		"@atlaskit/radio": "^8.0.0",
+		"@atlaskit/range": "^9.0.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^14.2.0",
+		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",
-		"@atlassian/ufo": "^0.5.0",
+		"@atlassian/ufo": "^0.6.0",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
@@ -122,6 +123,9 @@
 		},
 		"media_viewer_integrates_ds_portal": {
 			"type": "boolean"
+		},
+		"platform_media_compiled": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {
@@ -129,6 +133,9 @@
 			"design-tokens": [
 				"color",
 				"spacing"
+			],
+			"styling": [
+				"complied"
 			]
 		}
 	}

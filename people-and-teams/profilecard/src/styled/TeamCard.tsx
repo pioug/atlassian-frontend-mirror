@@ -11,6 +11,7 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { bgColor, teamHeaderBgColor } from './constants';
+import { CoverImage } from './CoverImage';
 
 const styles = cssMap({
 	cardtriggerwrapper: {
@@ -26,10 +27,8 @@ const styles = cssMap({
 		position: 'relative',
 	},
 	cardheader: {
-		backgroundRepeat: 'no-repeat',
-		backgroundPosition: 'center',
-		backgroundSize: 'cover',
 		height: '128px',
+		width: '100%',
 	},
 	cardcontent: {
 		display: 'flex',
@@ -161,13 +160,7 @@ export const CardHeader = ({
 		isLoading || !image ? (
 			<Box xcss={cx(styles.cardheader)} backgroundColor="color.background.neutral" />
 		) : (
-			<Box
-				as="img"
-				alt={label || ''}
-				src={image}
-				xcss={cx(styles.cardheader)}
-				backgroundColor="color.background.neutral"
-			/>
+			<CoverImage alt={label || ''} src={image} />
 		)
 	) : (
 		<CardHeaderLegacy image={image} isLoading={isLoading} />

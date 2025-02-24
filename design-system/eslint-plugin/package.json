@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-design-system",
 	"description": "The essential plugin for use with the Atlassian Design System.",
-	"version": "12.2.0",
+	"version": "13.0.0",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
@@ -44,12 +44,12 @@
 		"./package.json": "./package.json"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-utils": "^1.10.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/icon-lab": "^2.8.0",
+		"@atlaskit/eslint-utils": "^2.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/icon-lab": "^3.0.0",
 		"@atlaskit/tokens": "*",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^7.1.0",
@@ -62,8 +62,8 @@
 	},
 	"devDependencies": {
 		"@af/formatting": "*",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/theme": "^16.0.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/theme": "^17.0.0",
 		"@atlassian/codegen": "*",
 		"@atlassian/eslint-utils": "^0.5.0",
 		"@atlassian/ts-loader": "*",

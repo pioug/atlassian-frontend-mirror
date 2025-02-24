@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "1.32.0",
+	"version": "2.0.0",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,16 +43,16 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/css": "^0.9.0",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/focus-ring": "^2.1.0",
-		"@atlaskit/layering": "^1.1.0",
+		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/focus-ring": "^3.0.0",
+		"@atlaskit/layering": "^2.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/popper": "^6.4.0",
-		"@atlaskit/portal": "^4.11.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/popper": "^7.0.0",
+		"@atlaskit/portal": "^5.0.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
@@ -61,18 +61,18 @@
 		"tiny-invariant": "^1.2.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/icon": "^23.11.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/icon": "^24.0.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/textfield": "^7.0.0",
-		"@atlaskit/toggle": "^14.2.0",
+		"@atlaskit/textfield": "^8.0.0",
+		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@compiled/react": "^0.18.2",

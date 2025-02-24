@@ -21,7 +21,7 @@ export default function TeamAvatar({ testId, src, size = 'medium', ...props }: T
 			src={src}
 			testId={`${testId}-team-avatar`}
 		>
-			{(innerProps) => <TeamAvatarImage src={src} size={size} testId={testId} {...innerProps} />}
+			<TeamAvatarImage src={src} size={size} testId={testId} />
 		</Avatar>
 	);
 }

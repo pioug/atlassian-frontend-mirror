@@ -327,16 +327,12 @@ export class TimelineController
 		}
 
 		const startAt = performance.now();
+		const handleIdleBinded = this.handleIdle.bind(this, startAt);
 
-		this.lastIdleTask = backgroundTask(
-			() => {
-				this.handleIdle(startAt);
-			},
-			{
-				// For Timeline idles, we required at least 200ms of non-busy thread
-				delay: 200,
-			},
-		);
+		this.lastIdleTask = backgroundTask(handleIdleBinded, {
+			// For Timeline idles, we required at least 200ms of non-busy thread
+			delay: 200,
+		});
 	}
 
 	private handleIdle(startAt: DOMHighResTimeStamp) {
@@ -362,12 +358,13 @@ export class TimelineController
 	private callOnNextIdleCallbacks() {
 		const buffer = this.idleBuffer;
 		const idleAt = performance.now();
+		const timelineBuffer = createTimelineFromIdleBuffer(buffer);
 
 		for (const cb of this.onNextIdleCallbacks) {
 			backgroundTask(() =>
 				cb({
 					idleAt,
-					timelineBuffer: createTimelineFromIdleBuffer(buffer),
+					timelineBuffer,
 				}),
 			);
 		}
@@ -398,11 +395,13 @@ export class TimelineController
 		const idleAt = performance.now();
 		this.idleCycleCount = 0; // Reset cycle count
 
+		const timelineBuffer = createTimelineFromIdleBuffer(buffer);
+
 		for (const cb of this.onIdleBufferFlushCallbacks) {
 			backgroundTask(() =>
 				cb({
 					idleAt,
-					timelineBuffer: createTimelineFromIdleBuffer(buffer),
+					timelineBuffer,
 				}),
 			);
 		}
@@ -459,9 +458,12 @@ export function createTimelineFromIdleBuffer({
 	unorderedEvents,
 	eventsPerType,
 }: TimelineIdleBuffer): Timeline {
+	const shallowUnorderedEventsCopy = [...unorderedEvents];
+	const copyEventsPerType = new Map(eventsPerType);
+
 	return {
 		getEvents(): ReadonlyArray<TimelineEvent> {
-			return unorderedEvents.sort((a, b) => {
+			return shallowUnorderedEventsCopy.sort((a, b) => {
 				if (a.startTime < b.startTime) {
 					return -1;
 				}
@@ -474,7 +476,7 @@ export function createTimelineFromIdleBuffer({
 			});
 		},
 		getEventsPerType<T extends TimelineEventNames>(type: T): TimelineEventsGrouped[T] {
-			const r = eventsPerType.get(type) || [];
+			const r = copyEventsPerType.get(type) || [];
 
 			return r as TimelineEventsGrouped[T];
 		},

@@ -40,7 +40,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
@@ -93,7 +93,7 @@
 		]
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "1.5.1",
+	"version": "2.0.1",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

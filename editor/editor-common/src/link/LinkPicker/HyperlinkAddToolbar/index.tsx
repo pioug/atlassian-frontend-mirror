@@ -34,6 +34,7 @@ export interface HyperlinkAddToolbarProps
 	inputMethod?: string;
 	searchSessionId?: string;
 	timesViewed?: number;
+	isOffline?: boolean;
 }
 
 /**
@@ -68,13 +69,16 @@ export function HyperlinkAddToolbar({
 	inputMethod,
 	searchSessionId,
 	timesViewed,
+	isOffline,
 }: HyperlinkAddToolbarProps) {
 	return (
 		<WithProviders
 			providers={['activityProvider', 'searchProvider']}
 			providerFactory={providerFactory}
 			renderNode={({ activityProvider, searchProvider }) => {
-				if (lpLinkPicker) {
+				// If we're offline fallback to HyperlinkAddToolbarComp as we may not have loaded
+				// EditorLinkPicker into the bundle
+				if (lpLinkPicker && !Boolean(isOffline)) {
 					return (
 						<EditorLinkPicker
 							view={view}

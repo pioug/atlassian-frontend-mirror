@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-message",
-	"version": "13.2.0",
+	"version": "14.0.0",
 	"description": "An inline message lets users know when important information is available or when an action is required.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,27 +35,27 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/inline-dialog": "^16.2.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/inline-dialog": "^17.0.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/heading": "^4.3.0",
-		"@atlaskit/link": "^2.2.0",
-		"@atlaskit/modal-dialog": "^12.20.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/heading": "^5.0.0",
+		"@atlaskit/link": "^3.0.0",
+		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@emotion/jest": "^11.8.0",

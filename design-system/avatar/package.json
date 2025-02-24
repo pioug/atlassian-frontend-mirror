@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar",
-	"version": "21.18.4",
+	"version": "23.0.0",
 	"description": "An avatar is a visual representation of a user or entity.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,36 +51,36 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/focus-ring": "^2.1.0",
-		"@atlaskit/icon": "^23.11.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/focus-ring": "^3.0.0",
+		"@atlaskit/icon": "^24.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"@emotion/serialize": "^1.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/code": "^15.8.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/code": "^16.0.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/form": "^11.2.0",
-		"@atlaskit/heading": "^4.3.0",
+		"@atlaskit/form": "^12.0.0",
+		"@atlaskit/heading": "^5.0.0",
 		"@atlaskit/link": "*",
-		"@atlaskit/range": "^8.2.0",
+		"@atlaskit/range": "^9.0.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/textfield": "^7.0.0",
-		"@atlaskit/tooltip": "^19.2.0",
+		"@atlaskit/textfield": "^8.0.0",
+		"@atlaskit/tooltip": "^20.0.0",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",

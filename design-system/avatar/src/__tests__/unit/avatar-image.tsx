@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import AvatarImage from '../../avatar-image';
+import AvatarImage from '../../internal/avatar-image';
 
 describe('AvatarImage', () => {
 	ffTest.both('platform-component-visual-refresh', 'displaying default avatar', () => {

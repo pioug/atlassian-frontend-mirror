@@ -166,7 +166,10 @@ const createBaseCells = (president: President, index: number) => [
 ];
 
 export const rows = presidents.map((president: President, index: number) => ({
-	key: kebabCase(president.name),
+	// Using president name + term because the name is not unique
+	// e.g. Grover Cleveland has two non-consecutive terms
+	// This caused React `key` non-unique warnings
+	key: `${kebabCase(president.name)}-${president.term}`,
 	isHighlighted: false,
 	cells: createBaseCells(president, index),
 }));

@@ -1,11 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import {
-	StatusSharedCssClassName,
-	TableSharedCssClassName,
-	getStatusSharedStyles,
-} from '@atlaskit/editor-common/styles';
+import { StatusSharedCssClassName, TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
 	akEditorDeleteBackgroundWithOpacity,
 	akEditorDeleteBorder,
@@ -53,8 +49,6 @@ export const statusStyles = css`
 			cursor: pointer;
 			line-height: 0; /* Prevent responsive layouts increasing height of container. */
 		}
-
-		${getStatusSharedStyles()}
 
 		${getVisualRefreshStatusStyles()}
 	}

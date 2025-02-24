@@ -1,4 +1,8 @@
-import type { EvaluationDetails as NewEvaluationDetails, StatsigUser } from '@statsig/js-client';
+import {
+	type EvaluationDetails as NewEvaluationDetails,
+	StableID,
+	type StatsigUser,
+} from '@statsig/js-client';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 
@@ -62,9 +66,13 @@ export const shallowEquals = (objectA?: object, objectB?: object): boolean => {
 export const toStatsigUser = (
 	identifiers: Identifiers,
 	customAttributes?: CustomAttributes,
+	sdkKey?: string,
 ): StatsigUser => {
 	const user: StatsigUser = {
-		customIDs: identifiers,
+		customIDs:
+			!customAttributes?.stableID && sdkKey
+				? { stableID: StableID.get(sdkKey), ...identifiers }
+				: identifiers,
 		custom: customAttributes,
 	};
 

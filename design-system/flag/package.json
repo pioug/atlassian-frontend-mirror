@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "15.9.4",
+	"version": "16.0.0",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,33 +55,33 @@
 		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/heading": "^4.3.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/motion": "^3.1.0",
-		"@atlaskit/portal": "^4.11.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/visually-hidden": "^1.6.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/heading": "^5.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/motion": "^4.0.0",
+		"@atlaskit/portal": "^5.0.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/visually-hidden": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/drawer": "^9.5.0",
-		"@atlaskit/link": "^2.2.0",
-		"@atlaskit/radio": "^7.3.0",
+		"@atlaskit/drawer": "^10.0.0",
+		"@atlaskit/link": "^3.0.0",
+		"@atlaskit/radio": "^8.0.0",
 		"@atlaskit/section-message": "*",
-		"@atlaskit/spinner": "^17.2.0",
+		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/jest": "^11.8.0",

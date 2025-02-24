@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

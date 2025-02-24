@@ -14,7 +14,7 @@ describe('Test IDs', () => {
 			`${testId}--head`,
 			`${testId}--body`,
 			`${testId}--pagination`,
-			`${testId}--row-thomas-jefferson`,
+			`${testId}--row-thomas-jefferson-1801-1809`,
 		];
 
 		render(
@@ -45,9 +45,9 @@ describe('Test IDs', () => {
 		const testId = 'the-table';
 
 		const testIds = [
-			'foo--row-george-washington',
-			'foo--row-john-adams',
-			'foo--row-thomas-jefferson',
+			'foo--row-george-washington-1789-1797',
+			'foo--row-john-adams-1797-1801',
+			'foo--row-thomas-jefferson-1801-1809',
 		];
 
 		render(

@@ -1,4 +1,4 @@
-import React, { type FC, type MouseEventHandler, type ReactNode } from 'react';
+import React, { type FC } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import Avatar, { AVATAR_SIZES, AvatarContext, type SizeType } from '../../index';
+import Avatar, { AVATAR_SIZES, AvatarContent, AvatarContext, type SizeType } from '../../index';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -105,57 +105,6 @@ describe('Avatar', () => {
 		expect(element).not.toHaveAttribute('rel');
 	});
 
-	describe('Custom Avatar', () => {
-		const MyComponent: FC<{ children: ReactNode; testId?: string }> = ({
-			children,
-			testId,
-			...props
-		}) => (
-			// Allow spread props here because for testing, we want everything
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			<div data-testid={testId} {...props}>
-				{children}
-			</div>
-		);
-		const name = 'Name';
-		const status = 'Status';
-
-		it('should render', () => {
-			render(
-				<Avatar testId={'avatar'} href={'https://atlaskit.atlassian.com/'}>
-					{({ ref, ...props }) => <MyComponent {...props} />}
-				</Avatar>,
-			);
-			expect(screen.getByTestId('avatar--inner').tagName).toEqual('DIV');
-		});
-
-		it('should add an `aria-label` regardless of interactivity', () => {
-			const interactiveTestId = 'interactive';
-			const nonInteractiveTestId = 'not-interactive';
-			render(
-				<>
-					<Avatar
-						testId={interactiveTestId}
-						href={'https://atlaskit.atlassian.com/'}
-						name={name}
-						status={status}
-					>
-						{({ ref, ...props }) => <MyComponent {...props} />}
-					</Avatar>
-					<Avatar testId={nonInteractiveTestId} name={name} status={status}>
-						{({ ref, ...props }) => <MyComponent {...props} />}
-					</Avatar>
-				</>,
-			);
-			[interactiveTestId, nonInteractiveTestId].forEach((testId) => {
-				expect(screen.getByTestId(`${testId}--inner`)).toHaveAttribute(
-					'aria-label',
-					`${name} (${status})`,
-				);
-			});
-		});
-	});
-
 	it('should call onClick with analytics event when clicked', async () => {
 		const user = userEvent.setup();
 		const onEvent = jest.fn();
@@ -207,52 +156,6 @@ describe('Avatar', () => {
 		await user.click(element);
 
 		expect(onClick).toHaveBeenCalled();
-	});
-
-	it('should call onClick with analytics event when a custom component is clicked', async () => {
-		const user = userEvent.setup();
-		const onEvent = jest.fn();
-
-		const MyComponent: FC<{
-			children: ReactNode;
-			testId?: string;
-			onClick?: MouseEventHandler;
-		}> = ({ testId, onClick, children }) => (
-			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-			<div onClick={(e) => typeof onClick === 'function' && onClick(e)} data-testid={testId}>
-				{children}
-			</div>
-		);
-
-		render(
-			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
-				<Avatar
-					testId={'avatar'}
-					onClick={(_, analyticsEvent) => analyticsEvent && analyticsEvent.fire()}
-				>
-					{(props) => <MyComponent {...props} />}
-				</Avatar>
-			</AnalyticsListener>,
-		);
-
-		const element = screen.getByTestId('avatar--inner');
-
-		await user.click(element);
-
-		expect(onEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				payload: {
-					action: 'clicked',
-					actionSubject: 'avatar',
-					attributes: {
-						componentName: 'avatar',
-						packageName,
-						packageVersion,
-					},
-				},
-			}),
-			'atlaskit',
-		);
 	});
 
 	it('should fire an event on the atlaskit channel', async () => {
@@ -652,6 +555,102 @@ describe('Avatar', () => {
 			expect(avatarWithContext).not.toHaveStyleDeclaration(
 				'width',
 				`${AVATAR_SIZES[withContextSize]}px`,
+			);
+		});
+	});
+
+	describe('AvatarContent composition', () => {
+		it('should render custom avatar content when composed with AvatarContent', () => {
+			render(
+				<Avatar>
+					<AvatarContent>
+						<div data-testid="custom-content">ABC</div>
+					</AvatarContent>
+				</Avatar>,
+			);
+			expect(screen.getByTestId('custom-content')).toBeVisible();
+		});
+
+		it('should render the default avatar when composed with AvatarContent and AvatarContent does not have children', () => {
+			render(
+				<Avatar testId="avatar">
+					<AvatarContent />
+				</Avatar>,
+			);
+			expect(screen.getByTestId('avatar')).toBeVisible();
+		});
+
+		it('should prefer the ref from AvatarContent over the ref from Avatar', () => {
+			const ref = React.createRef<HTMLDivElement>();
+			const refContent = React.createRef<HTMLDivElement>();
+
+			render(
+				<Avatar ref={ref}>
+					<AvatarContent ref={refContent} />
+				</Avatar>,
+			);
+
+			expect(ref.current).not.toBe(refContent.current);
+		});
+
+		it('should use the ref from Avatar if AvatarContent does not have a ref', () => {
+			const ref = React.createRef<HTMLDivElement>();
+
+			render(
+				<Avatar ref={ref}>
+					<AvatarContent />
+				</Avatar>,
+			);
+
+			expect(ref.current).toBeVisible();
+		});
+
+		it('should throw an error when AvatarContent is not used within an Avatar component', () => {
+			const consoleError = jest.spyOn(console, 'error').mockImplementation(__noop);
+			expect(() => {
+				render(
+					<AvatarContent>
+						<div>ABC</div>
+					</AvatarContent>,
+				);
+			}).toThrowErrorMatchingInlineSnapshot(
+				`"Avatar sub-components must be used within a Avatar component."`,
+			);
+			consoleError.mockRestore();
+		});
+
+		it('should call onClick with analytics event when a custom component is clicked', async () => {
+			const user = userEvent.setup();
+			const onEvent = jest.fn();
+
+			render(
+				<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
+					<Avatar
+						testId={'avatar'}
+						onClick={(_, analyticsEvent) => analyticsEvent && analyticsEvent.fire()}
+					>
+						<AvatarContent>Custom</AvatarContent>
+					</Avatar>
+				</AnalyticsListener>,
+			);
+
+			const element = screen.getByTestId('avatar--inner');
+
+			await user.click(element);
+
+			expect(onEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'avatar',
+						attributes: {
+							componentName: 'avatar',
+							packageName,
+							packageVersion,
+						},
+					},
+				}),
+				'atlaskit',
 			);
 		});
 	});

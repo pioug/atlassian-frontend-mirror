@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "3.5.1",
+	"version": "4.0.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,7 +80,7 @@
 		"react-uid": "^2.2.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@testing-library/dom": "^10.1.0",
@@ -123,7 +123,7 @@
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib",
 	"platform-feature-flags": {
-		"platform.design-system-team.react-18-use-id_mn8q4": {
+		"platform-dst-react-18-use-id": {
 			"type": "boolean"
 		}
 	}

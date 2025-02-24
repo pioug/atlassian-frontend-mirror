@@ -20,27 +20,27 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('returns overidden gates', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate(gate.name, true);
 		const overridden = provider.getGateOverride(gate, user);
 		expect(overridden?.value).toBe(true);
 	});
 
 	it('stores overrides in local storage', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate(gate.name, true);
 		const overridden = provider.getGateOverride(gate, user);
 		expect(overridden?.value).toBe(true);
 		expect(window.localStorage.getItem(LOCAL_STORAGE_KEY)).toBeTruthy();
 
-		const secondProvider = new PersistentOverrideAdapter();
+		const secondProvider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		secondProvider.initFromStoredOverrides();
 		const secondOverridden = secondProvider.getGateOverride(gate, user);
 		expect(secondOverridden?.value).toBe(true);
 	});
 
 	it('returns overidden gates', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate(gate.name, true);
 		const overridden = provider.getGateOverride(gate, user);
 		expect(overridden?.value).toBe(true);
@@ -48,7 +48,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('returns overidden dynamic configs', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideDynamicConfig(dynamicConfig.name, { dc: 'value' });
 		const overridden = provider.getDynamicConfigOverride(dynamicConfig, user);
 		expect(overridden?.value).toEqual({ dc: 'value' });
@@ -57,7 +57,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('returns overidden experiment', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideExperiment(experiment.name, { exp: 'value' });
 		const overridden = provider.getExperimentOverride(experiment, user);
 		expect(overridden?.value).toEqual({ exp: 'value' });
@@ -66,7 +66,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('returns overidden layer', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideLayer(layer.name, { layer_key: 'value' });
 		const overridden = provider.getLayerOverride(layer, user);
 		expect(overridden?.__value).toEqual({ layer_key: 'value' });
@@ -75,7 +75,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('returns null for unrecognized overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.removeAllOverrides();
 
 		const overriddenGate = provider.getGateOverride(gate, user);
@@ -93,7 +93,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('returns all overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate(gate.name, true);
 		provider.overrideDynamicConfig(dynamicConfig.name, { dc: 'value' });
 		provider.overrideExperiment(experiment.name, { exp: 'value' });
@@ -112,7 +112,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('removes all overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate(gate.name, true);
 		provider.overrideDynamicConfig(dynamicConfig.name, { dc: 'value' });
 		provider.overrideExperiment(experiment.name, { exp: 'value' });
@@ -130,7 +130,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('removes single gate overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate('gate_a', true);
 		provider.overrideGate('gate_b', true);
 
@@ -142,7 +142,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('removes single dynamic config overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideDynamicConfig('config_a', { a: 1 });
 		provider.overrideDynamicConfig('config_b', { b: 2 });
 
@@ -154,7 +154,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('removes single experiment overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideExperiment('experiment_a', { a: 1 });
 		provider.overrideExperiment('experiment_b', { b: 2 });
 
@@ -166,7 +166,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('removes single layer overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideLayer('layer_a', { a: 1 });
 		provider.overrideLayer('layer_b', { b: 2 });
 
@@ -178,7 +178,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('should populate all of the fields if the provided object is empty', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.setOverrides({});
 		expect(provider.getOverrides()).toEqual({
 			gates: {},
@@ -188,7 +188,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('should populate the "configs" field if it is missing from the provided overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.setOverrides({
 			gates: {},
 			layers: {},
@@ -201,7 +201,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('should populate the "gates" field if it is missing from the provided overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.setOverrides({
 			configs: {},
 			layers: {},
@@ -214,7 +214,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('should populate the "layers" field if it is missing from the provided overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.setOverrides({
 			gates: {},
 			configs: {},
@@ -227,7 +227,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('should not return hashes when getting all overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate('gate1', true);
 		provider.overrideLayer('layer1', { param: true });
 		provider.overrideDynamicConfig('config1', { field: true });
@@ -249,7 +249,7 @@ describe('PersistentOverrideAdapter', () => {
 	});
 
 	it('should inject hashes when setting all overrides', () => {
-		const provider = new PersistentOverrideAdapter();
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
 		provider.overrideGate('gate1', true);
 		provider.overrideLayer('layer1', { param: true });
 		provider.overrideDynamicConfig('config1', { field: true });

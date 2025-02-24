@@ -32,18 +32,18 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/avatar": "^21.18.0",
-		"@atlaskit/focus-ring": "^2.1.0",
-		"@atlaskit/heading": "^4.3.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/lozenge": "^11.14.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/avatar": "^23.0.0",
+		"@atlaskit/focus-ring": "^3.0.0",
+		"@atlaskit/heading": "^5.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/lozenge": "^12.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/tooltip": "^19.2.0",
-		"@atlaskit/ufo": "^0.3.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tooltip": "^20.0.0",
+		"@atlaskit/ufo": "^0.4.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -53,7 +53,7 @@
 	},
 	"description": "A React component used to display user profiles in a list for 'Mention' functionality",
 	"devDependencies": {
-		"@atlaskit/elements-test-helpers": "^0.8.0",
+		"@atlaskit/elements-test-helpers": "^0.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^13.4.0",
@@ -96,8 +96,8 @@
 	"module:es2019": "dist/es2019/index.js",
 	"name": "@atlaskit/mention",
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"platform-feature-flags": {
@@ -128,5 +128,5 @@
 			]
 		}
 	},
-	"version": "23.11.4"
+	"version": "24.0.1"
 }

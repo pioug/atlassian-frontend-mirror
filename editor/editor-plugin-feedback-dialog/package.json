@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-feedback-dialog",
-	"version": "1.2.0",
+	"version": "2.0.0",
 	"description": "Feedback dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,19 +33,19 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^99.19.0",
-		"@atlaskit/editor-plugin-analytics": "^1.12.0",
+		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/editor-plugin-quick-insert": "^1.10.0",
-		"@atlaskit/editor-plugin-type-ahead": "^1.13.0",
+		"@atlaskit/editor-plugin-quick-insert": "^2.0.0",
+		"@atlaskit/editor-plugin-type-ahead": "^2.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

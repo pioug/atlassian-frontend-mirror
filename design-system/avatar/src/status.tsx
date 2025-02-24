@@ -4,7 +4,7 @@ import { G400, N0, N40, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ICON_OFFSET, ICON_SIZES } from './constants';
-import IconWrapper from './icon-wrapper';
+import IconWrapper from './internal/icon-wrapper';
 import { type AppearanceType, type IndicatorSizeType, type Status } from './types';
 
 export interface StatusProps {

@@ -51,12 +51,10 @@ export const TableComponentWithSharedState = ({
 	allowTableAlignment,
 	allowTableResizing,
 }: TableComponentWithSharedStateProps) => {
-	const { widthState, tableState, mediaState, selectionState } = useSharedPluginState(api, [
-		'width',
-		'table',
-		'media',
-		'selection',
-	]);
+	const { widthState, tableState, mediaState, selectionState, editorViewModeState } =
+		useSharedPluginState(api, ['width', 'table', 'media', 'selection', 'editorViewMode']);
+
+	const isLivePageViewMode = editorViewModeState?.mode === 'view';
 
 	if (!tableState) {
 		return null;
@@ -108,7 +106,7 @@ export const TableComponentWithSharedState = ({
 			allowControls={allowControls}
 			isHeaderRowEnabled={isHeaderRowEnabled}
 			isHeaderColumnEnabled={isHeaderColumnEnabled}
-			isDragAndDropEnabled={options?.isDragAndDropEnabled}
+			isDragAndDropEnabled={options?.isDragAndDropEnabled && !isLivePageViewMode}
 			isTableScalingEnabled={options?.isTableScalingEnabled}
 			allowTableAlignment={allowTableAlignment}
 			allowTableResizing={allowTableResizing}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 import { isSafeUrl } from '@atlaskit/adf-schema';
@@ -57,7 +57,7 @@ import {
 	removeLink,
 	updateLink,
 } from '../../editor-commands/commands';
-import type { hyperlinkPlugin } from '../../hyperlinkPlugin';
+import type { HyperlinkPlugin } from '../../hyperlinkPluginType';
 import { stateKey } from '../../pm-plugins/main';
 import { toolbarKey } from '../../pm-plugins/toolbar-buttons';
 
@@ -120,10 +120,17 @@ export function HyperlinkAddToolbarWithState({
 	onEscapeCallback,
 	onClickAwayCallback,
 	pluginInjectionApi,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-}: HyperlinkAddToolbarProps & { pluginInjectionApi: any }) {
+}: HyperlinkAddToolbarProps & {
+	pluginInjectionApi: ExtractInjectionAPI<HyperlinkPlugin> | undefined;
+}) {
 	const { hyperlinkState } = useSharedPluginState(pluginInjectionApi, ['hyperlink']);
+	// This is constant rather than dynamic - because if someone's already got a hyperlink toolbar open,
+	// we don't want to dynamically change it on them as this would cause data loss if they've already
+	// started typing in the fields.
+	const isOffline = useRef(
+		pluginInjectionApi?.connectivity?.sharedState.currentState()?.mode === 'offline',
+	);
+
 	return (
 		<HyperlinkAddToolbar
 			linkPickerOptions={linkPickerOptions}
@@ -138,9 +145,10 @@ export function HyperlinkAddToolbarWithState({
 			onClose={onClose}
 			onEscapeCallback={onEscapeCallback}
 			onClickAwayCallback={onClickAwayCallback}
-			timesViewed={hyperlinkState.timesViewed}
-			inputMethod={hyperlinkState.inputMethod}
-			searchSessionId={hyperlinkState.searchSessionId}
+			timesViewed={hyperlinkState?.timesViewed}
+			inputMethod={hyperlinkState?.inputMethod}
+			searchSessionId={hyperlinkState?.searchSessionId}
+			isOffline={isOffline.current}
 		/>
 	);
 }
@@ -148,7 +156,7 @@ export function HyperlinkAddToolbarWithState({
 export const getToolbarConfig =
 	(
 		options: HyperlinkPluginOptions,
-		pluginInjectionApi: ExtractInjectionAPI<typeof hyperlinkPlugin> | undefined,
+		pluginInjectionApi: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
 	): FloatingToolbarHandler =>
 	(state, intl, providerFactory) => {
 		if (options.disableFloatingToolbar) {

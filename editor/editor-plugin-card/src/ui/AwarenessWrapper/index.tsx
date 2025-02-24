@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SmartCardProps } from '../../nodeviews/genericCard';
 import { getResolvedAttributesFromStore } from '../../pm-plugins/utils';
@@ -20,6 +21,7 @@ import {
 	markLocalStorageKeyDiscovered,
 	ONE_DAY_IN_MILLISECONDS,
 } from '../local-storage';
+import OpenButtonOverlay from '../OpenButtonOverlay';
 import { DiscoveryPulse } from '../Pulse';
 
 type AwarenessWrapperProps = {
@@ -133,6 +135,19 @@ export const AwarenessWrapper = ({
 		handleOverlayChange,
 	]);
 
+	const cardWithOpenButtonOverlay: JSX.Element = useMemo(() => {
+		return (
+			<OpenButtonOverlay
+				isVisible={isHovered}
+				onMouseEnter={() => handleOverlayChange(true)}
+				onMouseLeave={() => handleOverlayChange(false)}
+				url={url}
+			>
+				{children}
+			</OpenButtonOverlay>
+		);
+	}, [children, isHovered, url, handleOverlayChange]);
+
 	return useMemo(
 		() => (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -149,11 +164,20 @@ export const AwarenessWrapper = ({
 						shouldShowPulse={isResolvedViewRendered && shouldShowLinkPulse}
 						testId="link-discovery-pulse"
 					>
-						{cardWithOverlay}
+						{editorExperiment('platform_editor_controls', 'variant1')
+							? cardWithOpenButtonOverlay
+							: cardWithOverlay}
 					</DiscoveryPulse>
 				</AnalyticsContext>
 			</span>
 		),
-		[shouldShowLinkPulse, url, cardContext?.value?.store, isResolvedViewRendered, cardWithOverlay],
+		[
+			shouldShowLinkPulse,
+			url,
+			cardContext?.value?.store,
+			isResolvedViewRendered,
+			cardWithOverlay,
+			cardWithOpenButtonOverlay,
+		],
 	);
 };

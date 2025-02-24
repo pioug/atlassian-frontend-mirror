@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 100.1.0
+
+### Minor Changes
+
+- [#117901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117901)
+  [`873bfa0f59444`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/873bfa0f59444) -
+  Use fallback UI on link picker if we're offline and normal link picker has not loaded.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 100.0.0
+
+### Major Changes
+
+- [#117363](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117363)
+  [`10a0f7f6c2027`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10a0f7f6c2027) -
+  This package's `peerDependencies` have been adjusted for `react` and/or `react-dom` to reflect the
+  status of only supporting React 18 going forward. No explicit breaking change to React support has
+  been made in this release, but this is to signify going forward, breaking changes for React 16 or
+  React 17 may come via non-major semver releases.
+
+  Please refer this community post for more details:
+  https://community.developer.atlassian.com/t/rfc-78-dropping-support-for-react-16-and-rendering-in-a-react-18-concurrent-root-in-jira-and-confluence/87026
+
+### Minor Changes
+
+- [#116198](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116198)
+  [`3f2a72e33616f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f2a72e33616f) -
+  ED-26667 remove borders for the Editor status node
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 99.19.0
 
 ### Minor Changes

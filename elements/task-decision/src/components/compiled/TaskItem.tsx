@@ -11,7 +11,6 @@ import { type Appearance, type ContentRef } from '../../types';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { createAndFireEventInElementsChannel } from '../../analytics';
 import { token } from '@atlaskit/tokens';
-import { B100, B300, B400, B50, N10, N100, N20, N30, N70 } from '@atlaskit/theme/colors';
 
 /**
  * References packages/design-system/checkbox/src/checkbox.tsx
@@ -62,7 +61,7 @@ const checkboxStyles = css({
 			position: 'absolute',
 			overflow: 'hidden',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			color: token('color.background.input', N10),
+			color: token('color.background.input'),
 			transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'path:first-of-type': {
@@ -71,7 +70,7 @@ const checkboxStyles = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'rect:first-of-type': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				stroke: token('color.border.input', N100),
+				stroke: token('color.border.input'),
 				strokeWidth: 1,
 				transition: 'stroke 0.2s ease-in-out',
 			},
@@ -79,23 +78,23 @@ const checkboxStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:hover + span > svg': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			color: token('color.background.input.hovered', N30),
+			color: token('color.background.input.hovered'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'rect:first-of-type': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				stroke: token('color.border.input', N100),
+				stroke: token('color.border.input'),
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:checked:hover + span > svg': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			color: token('color.background.selected.bold.hovered', B300),
+			color: token('color.background.selected.bold.hovered'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			fill: token('color.icon.inverse', N10),
+			fill: token('color.icon.inverse'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'rect:first-of-type': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				stroke: token('color.background.selected.bold.hovered', B300),
+				stroke: token('color.background.selected.bold.hovered'),
 			},
 		},
 		'&:checked': {
@@ -106,53 +105,53 @@ const checkboxStyles = css({
 					visibility: 'visible',
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				color: token('color.background.selected.bold', B400),
+				color: token('color.background.selected.bold'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				fill: token('color.icon.inverse', N10),
+				fill: token('color.icon.inverse'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'rect:first-of-type': {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					stroke: token('color.background.selected.bold', B400),
+					stroke: token('color.background.selected.bold'),
 				},
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:active + span > svg': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			color: token('color.background.input.pressed', B50),
+			color: token('color.background.input.pressed'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'rect:first-of-type': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				stroke: token('color.border', B50),
+				stroke: token('color.border'),
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:checked:active + span > svg': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			color: token('color.background.input.pressed', B50),
+			color: token('color.background.input.pressed'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			fill: token('color.icon.inverse', B400),
+			fill: token('color.icon.inverse'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'rect:first-of-type': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				stroke: token('color.border', B50),
+				stroke: token('color.border'),
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:disabled + span > svg, &:disabled:hover + span > svg, &:disabled:focus + span > svg, &:disabled:active + span > svg':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				color: token('color.background.disabled', N20),
+				color: token('color.background.disabled'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'rect:first-of-type': {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					stroke: token('color.background.disabled', N20),
+					stroke: token('color.background.disabled'),
 				},
 			},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:disabled:checked + span > svg': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			fill: token('color.icon.disabled', N70),
+			fill: token('color.icon.disabled'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:focus + span::after': {
@@ -160,7 +159,7 @@ const checkboxStyles = css({
 			width: token('space.200', '16px'),
 			height: token('space.200', '16px'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			border: `2px solid ${token('color.border.focused', B100)}`,
+			border: `2px solid ${token('color.border.focused')}`,
 			borderRadius: token('space.050', '4px'),
 			content: "''",
 			display: 'block',

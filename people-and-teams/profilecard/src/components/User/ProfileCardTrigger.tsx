@@ -329,6 +329,11 @@ export default function ProfilecardTriggerNext({
 		if (!fg('fix_profilecard_trigger_isvisible')) {
 			return;
 		}
+		// If the prop isVisible is not defined, we don't want to do anything
+		if (propsIsVisible === undefined) {
+			return;
+		}
+		// If the prop isVisible is defined, we want to show or hide the profile card based on the value
 		if (propsIsVisible) {
 			showProfilecard();
 		} else {

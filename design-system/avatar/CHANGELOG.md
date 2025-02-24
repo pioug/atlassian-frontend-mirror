@@ -1,5 +1,66 @@
 # @atlaskit/avatar
 
+## 23.0.0
+
+### Major Changes
+
+- [#117222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117222)
+  [`a80e8994489e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a80e8994489e7) -
+  Removes the option to provide a function to the `children` prop to create a custom avatar. A new
+  `AvatarContent` sub-component is now available, which similarly enables custom content to be
+  provided for the avatar. This change is in preparation for the migration from `@emotion/react` to
+  Compiled CSS-in-JS.
+
+  Example usage before and after:
+
+  ### Before
+
+  ```jsx
+  import Avatar from '@atlaskit/avatar';
+
+  <Avatar>
+  	{(props) => (
+  		<span {...props}>
+  			Custom content
+  		</span>
+  	)}
+  <Avatar>
+  ```
+
+  ### After
+
+  ```jsx
+  import Avatar, { AvatarContent } from '@atlaskit/avatar';
+
+  <Avatar>
+  	<AvatarContent>
+  		Custom content
+  	</AvatarContent>
+  <Avatar>
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.0
+
+### Major Changes
+
+- [#117363](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117363)
+  [`10a0f7f6c2027`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10a0f7f6c2027) -
+  This package's `peerDependencies` have been adjusted for `react` and/or `react-dom` to reflect the
+  status of only supporting React 18 going forward. No explicit breaking change to React support has
+  been made in this release, but this is to signify going forward, breaking changes for React 16 or
+  React 17 may come via non-major semver releases.
+
+  Please refer this community post for more details:
+  https://community.developer.atlassian.com/t/rfc-78-dropping-support-for-react-16-and-rendering-in-a-react-18-concurrent-root-in-jira-and-confluence/87026
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.18.4
 
 ### Patch Changes

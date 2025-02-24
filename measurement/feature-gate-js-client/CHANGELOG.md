@@ -1,5 +1,29 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.26.0
+
+### Minor Changes
+
+- [#116594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116594)
+  [`0390682da69b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0390682da69b2) - -
+  Added ability to control the local storage key where overrides are saved per Client
+  - Setting overrides now no longer requires the client to be initialised
+  - Fixed an issue when reading overrides from local storage (hashes are now set)
+  - Fixed an issue with polling updates not being applied in the client
+    - **Please note that this bug existed between `4.23.3` and this version**
+
+### Patch Changes
+
+- [#117445](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117445)
+  [`af35867237785`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af35867237785) -
+  Fixed gates evaluating with reason "stable ID mismatch".
+
+## 4.25.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.25.1
 
 ### Patch Changes

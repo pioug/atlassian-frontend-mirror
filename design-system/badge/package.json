@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/badge",
-	"version": "17.2.0",
+	"version": "18.0.0",
 	"description": "A badge is a visual indicator for numeric values such as tallies and scores.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,24 +43,24 @@
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/ds-lib": "^4.0.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/theme": "^16.0.0",
+		"@atlaskit/theme": "^17.0.0",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",

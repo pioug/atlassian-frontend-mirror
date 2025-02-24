@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "22.2.4",
+	"version": "23.1.1",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,30 +62,30 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/atlassian-context": "^0.1.0",
-		"@atlaskit/avatar": "^21.18.0",
-		"@atlaskit/avatar-group": "^11.2.0",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/css": "^0.9.0",
-		"@atlaskit/dropdown-menu": "^12.26.0",
-		"@atlaskit/empty-state": "^8.3.0",
-		"@atlaskit/focus-ring": "^2.1.0",
-		"@atlaskit/give-kudos": "^3.2.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/lozenge": "^11.14.0",
-		"@atlaskit/menu": "^2.14.0",
-		"@atlaskit/modal-dialog": "^12.20.0",
-		"@atlaskit/people-teams-ui-public": "^2.1.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/atlassian-context": "^0.2.0",
+		"@atlaskit/avatar": "^23.0.0",
+		"@atlaskit/avatar-group": "^12.0.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/dropdown-menu": "^13.0.0",
+		"@atlaskit/empty-state": "^9.0.0",
+		"@atlaskit/focus-ring": "^3.0.0",
+		"@atlaskit/give-kudos": "^4.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/lozenge": "^12.0.0",
+		"@atlaskit/menu": "^3.0.0",
+		"@atlaskit/modal-dialog": "^13.0.0",
+		"@atlaskit/people-teams-ui-public": "^3.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/popup": "^1.32.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/rovo-agent-components": "^1.19.0",
-		"@atlaskit/rovo-triggers": "^1.6.0",
-		"@atlaskit/spinner": "^17.2.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/tooltip": "^19.2.0",
+		"@atlaskit/popup": "^2.0.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/rovo-agent-components": "^2.0.0",
+		"@atlaskit/rovo-triggers": "^2.0.0",
+		"@atlaskit/spinner": "^18.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1",
@@ -99,7 +99,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
@@ -148,9 +148,6 @@
 			"type": "boolean"
 		},
 		"rovo_use_agent_permissions": {
-			"type": "boolean"
-		},
-		"rovo_profile_card_open_chat_sidebar": {
 			"type": "boolean"
 		},
 		"show_verified_team_icon_in_profile_card": {

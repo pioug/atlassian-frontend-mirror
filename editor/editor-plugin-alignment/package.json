@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-alignment",
-	"version": "1.17.0",
+	"version": "2.0.0",
 	"description": "Alignment plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,27 +21,27 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/editor-common": "^99.19.0",
-		"@atlaskit/editor-plugin-primary-toolbar": "^2.4.0",
-		"@atlaskit/editor-plugin-selection-toolbar": "^1.10.0",
+		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-plugin-primary-toolbar": "^3.0.0",
+		"@atlaskit/editor-plugin-selection-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-tables": "^2.9.0",
-		"@atlaskit/icon": "^23.11.0",
+		"@atlaskit/icon": "^24.0.0",
 		"@atlaskit/platform-feature-flags": "1.1.0",
-		"@atlaskit/tmp-editor-statsig": "^2.47.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/tmp-editor-statsig": "^3.1.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/editor-plugin-list": "^3.10.0",
+		"@atlaskit/editor-plugin-list": "^4.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

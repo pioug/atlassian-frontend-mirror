@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-context",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Provides FedRAMP-friendly URLs and helps to identify if product is running in FedRAMP environment.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.2.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",

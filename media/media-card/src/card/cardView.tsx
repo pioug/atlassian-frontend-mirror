@@ -1,9 +1,3 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import React, { type MouseEvent, useEffect, useState, useRef, useMemo } from 'react';
 import { type MessageDescriptor } from 'react-intl-next';
 

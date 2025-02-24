@@ -52,7 +52,7 @@ export { shadowSharedStyle } from './shared/shadow';
 export { dateSharedStyle, DateSharedCssClassName } from './shared/date';
 export { tasksAndDecisionsStyles, TaskDecisionSharedCssClassName } from './shared/task-decision';
 
-export { StatusSharedCssClassName, getStatusSharedStyles } from './shared/status';
+export { StatusSharedCssClassName } from './shared/status';
 export { smartCardSharedStyles, SmartCardSharedCssClassName } from './shared/smart-card';
 
 export { DropdownMenuSharedCssClassName } from './shared/dropdown-menu';

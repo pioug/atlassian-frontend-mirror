@@ -4,7 +4,7 @@ import { G300, N0, N200, N40, P300, R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ICON_OFFSET, ICON_SIZES } from './constants';
-import IconWrapper from './icon-wrapper';
+import IconWrapper from './internal/icon-wrapper';
 import { type AppearanceType, type IndicatorSizeType, type Presence } from './types';
 
 export interface PresenceProps {

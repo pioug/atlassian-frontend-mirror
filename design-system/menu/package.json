@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "2.14.4",
+	"version": "3.0.0",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,30 +41,30 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/app-provider": "^1.8.0",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/focus-ring": "^2.1.0",
-		"@atlaskit/interaction-context": "^2.6.0",
+		"@atlaskit/app-provider": "^2.0.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/focus-ring": "^3.0.0",
+		"@atlaskit/interaction-context": "^3.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.5.1",
+		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/icon-file-type": "^6.9.0",
-		"@atlaskit/icon-object": "^6.11.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/icon-file-type": "^7.0.0",
+		"@atlaskit/icon-object": "^7.0.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/visual-regression": "*",

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

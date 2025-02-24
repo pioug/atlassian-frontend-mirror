@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-common",
-	"version": "11.8.1",
+	"version": "12.0.0",
 	"description": "Includes common utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,17 +49,17 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
-		"@atlaskit/analytics-namespaced-context": "^6.14.0",
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/section-message": "^7.0.0",
+		"@atlaskit/analytics-namespaced-context": "^7.0.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/section-message": "^8.0.0",
 		"@babel/runtime": "^7.0.0",
 		"immer": "^9.0.12",
 		"uuid-validate": "^0.0.3"
 	},
 	"peerDependencies": {
 		"enzyme": ">=3.10.0",
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"peerDependenciesMeta": {
 		"enzyme": {

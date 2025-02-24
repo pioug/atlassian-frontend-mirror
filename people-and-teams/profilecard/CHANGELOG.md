@@ -1,5 +1,46 @@
 # @atlaskit/profilecard
 
+## 23.1.1
+
+### Patch Changes
+
+- [#118134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118134)
+  [`a1a66a777882a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1a66a777882a) -
+  Fix for team profilecard header image in compiled
+
+## 23.1.0
+
+### Minor Changes
+
+- [#116595](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116595)
+  [`7491a878d7b16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7491a878d7b16) -
+  Remove rovo_profile_card_open_chat_sidebar flag
+
+### Patch Changes
+
+- [#117215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117215)
+  [`e7fe78a1d113f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7fe78a1d113f) -
+  Fix for isVisible
+- Updated dependencies
+
+## 23.0.0
+
+### Major Changes
+
+- [#117363](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117363)
+  [`10a0f7f6c2027`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10a0f7f6c2027) -
+  This package's `peerDependencies` have been adjusted for `react` and/or `react-dom` to reflect the
+  status of only supporting React 18 going forward. No explicit breaking change to React support has
+  been made in this release, but this is to signify going forward, breaking changes for React 16 or
+  React 17 may come via non-major semver releases.
+
+  Please refer this community post for more details:
+  https://community.developer.atlassian.com/t/rfc-78-dropping-support-for-react-16-and-rendering-in-a-react-18-concurrent-root-in-jira-and-confluence/87026
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.4
 
 ### Patch Changes

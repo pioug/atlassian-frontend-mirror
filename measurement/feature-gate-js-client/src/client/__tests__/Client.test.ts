@@ -3,6 +3,7 @@ import type { StatsigClient } from '@statsig/js-client';
 
 import { Client } from '../Client';
 import { NoFetchDataAdapter } from '../NoFetchDataAdapter';
+import { FeatureGateEnvironment, Provider } from '../types';
 
 const mockStatsigClient = {
 	initializeAsync: jest.fn(),
@@ -109,5 +110,38 @@ describe('applyUpdateCallback', () => {
 		expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledTimes(1);
 
 		expect(console.warn).toHaveBeenCalledWith('Error when attempting to apply update', error);
+	});
+
+	test('provider applyUpdateCallback', async () => {
+		class MockProvider implements Provider {
+			setClientVersion = jest.fn();
+			setProfile = jest.fn();
+			setApplyUpdateCallback = jest.fn((callback) => callback());
+			getExperimentValues = jest.fn(async () => ({
+				experimentValues: {},
+				customAttributesFromFetch: undefined,
+			}));
+			getClientSdkKey = jest.fn(async () => 'client-sdk-key');
+			getApiKey = jest.fn(() => 'api-key');
+		}
+
+		const client = new Client();
+		const provider = new MockProvider();
+
+		client['applyUpdateCallback'] = function () {
+			expect(this).toBe(client);
+		};
+
+		await client.initializeWithProvider(
+			{
+				environment: FeatureGateEnvironment.Development,
+				targetApp: 'test_target-app',
+			},
+			provider,
+			{ atlassianAccountId: 'foo' },
+		);
+
+		expect(provider.setApplyUpdateCallback).toHaveBeenCalledTimes(1);
+		expect.assertions(2);
 	});
 });

@@ -1,5 +1,33 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.0.1
+
+### Patch Changes
+
+- [#118205](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118205)
+  [`8a4aaaa9b7d26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a4aaaa9b7d26) - ###
+  Patch Changes
+
+  This update fix a race condition caused by wrongly scope binding.
+
+  - The idle callbacks will be called with a shallow copy of timelineBuffer from the lexical scope
+  - The handleIdle is manually bindided with the Timeline class instance to avoid race-condition
+    issues
+
+## 2.0.0
+
+### Major Changes
+
+- [#117363](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117363)
+  [`10a0f7f6c2027`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10a0f7f6c2027) -
+  This package's `peerDependencies` have been adjusted for `react` and/or `react-dom` to reflect the
+  status of only supporting React 18 going forward. No explicit breaking change to React support has
+  been made in this release, but this is to signify going forward, breaking changes for React 16 or
+  React 17 may come via non-major semver releases.
+
+  Please refer this community post for more details:
+  https://community.developer.atlassian.com/t/rfc-78-dropping-support-for-react-16-and-rendering-in-a-react-18-concurrent-root-in-jira-and-confluence/87026
+
 ## 1.5.1
 
 ### Patch Changes

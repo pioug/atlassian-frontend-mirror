@@ -1,48 +1,49 @@
-import React, { type CSSProperties } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
-import Avatar from '@atlaskit/avatar';
+import { css, jsx } from '@emotion/react';
+
+import Avatar, { AvatarContent } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { Block } from '../examples-util/helpers';
 
-const customStyles: CSSProperties = {
-	textAlign: 'center',
-	fontWeight: token('font.weight.semibold'),
-	color: token('color.text.inverse'),
-	backgroundColor: token('color.background.brand.bold'),
+const styles = {
+	custom: css({
+		color: token('color.text.inverse'),
+		fontWeight: token('font.weight.semibold'),
+		textAlign: 'center',
+	}),
 };
 
 export default () => (
 	<Block heading="Circle">
 		<Tooltip content="Mike Cannon-Brookes">
-			<Avatar name="Mike Cannon-Brookes" size="large">
-				{(props) => (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					<span {...props} style={customStyles}>
-						MCB
-					</span>
-				)}
+			<Avatar
+				name="Mike Cannon-Brookes"
+				size="large"
+				borderColor={token('color.background.brand.bold')}
+			>
+				<AvatarContent>
+					<span css={styles.custom}>MCB</span>
+				</AvatarContent>
 			</Avatar>
 		</Tooltip>
 		<Tooltip content="Scott Farquhar">
-			<Avatar name="Scott Farquhar" size="large">
-				{(props) => (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					<span {...props} style={customStyles}>
-						SF
-					</span>
-				)}
-			</Avatar>
-		</Tooltip>
-		<Tooltip content="Daniel Del Core">
-			<Avatar name="Daniel Del Core" size="large">
-				{({ children, ...props }) => (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					<span {...props} style={customStyles}>
-						DDC
-					</span>
-				)}
+			<Avatar
+				name="Scott Farquhar"
+				size="large"
+				onClick={() => {
+					console.log('onClick');
+				}}
+				borderColor={token('color.background.brand.bold')}
+			>
+				<AvatarContent>
+					<span css={styles.custom}>SF</span>
+				</AvatarContent>
 			</Avatar>
 		</Tooltip>
 	</Block>

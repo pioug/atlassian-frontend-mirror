@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "2.15.3",
+	"version": "3.0.0",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,24 +35,24 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/editor-common": "^99.19.0",
-		"@atlaskit/editor-plugin-analytics": "^1.12.0",
+		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-base": "^2.2.0",
-		"@atlaskit/editor-plugin-context-identifier": "^1.4.0",
-		"@atlaskit/editor-plugin-type-ahead": "^1.13.0",
+		"@atlaskit/editor-plugin-context-identifier": "^2.0.0",
+		"@atlaskit/editor-plugin-type-ahead": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/mention": "^23.11.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/mention": "^24.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

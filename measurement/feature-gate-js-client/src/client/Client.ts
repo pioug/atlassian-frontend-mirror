@@ -13,7 +13,11 @@ import { Layer } from './compat/Layer';
 import { EvaluationReason } from './compat/types';
 import Fetcher, { type FetcherOptions } from './fetcher';
 import { NoFetchDataAdapter } from './NoFetchDataAdapter';
-import { type LocalOverrides, PersistentOverrideAdapter } from './PersistentOverrideAdapter';
+import {
+	LOCAL_STORAGE_KEY,
+	type LocalOverrides,
+	PersistentOverrideAdapter,
+} from './PersistentOverrideAdapter';
 import {
 	type BaseClientOptions,
 	type CheckGateOptions,
@@ -50,6 +54,7 @@ export class Client {
 	private initOptions?: OptionsWithDefaults<
 		BaseClientOptions | ClientOptions | FromValuesClientOptions
 	>;
+	private sdkKey?: string;
 	private initPromise: Promise<void> | null = null;
 	/** True if an initialize method was called and completed successfully. */
 	private initCompleted = false;
@@ -70,7 +75,11 @@ export class Client {
 	private provider?: Provider;
 	private subscriptions = new Subscriptions();
 	private dataAdapter = new NoFetchDataAdapter();
-	private overrideAdapter = new PersistentOverrideAdapter();
+	private overrideAdapter: PersistentOverrideAdapter;
+
+	constructor({ localStorageKey = LOCAL_STORAGE_KEY }: { localStorageKey?: string } = {}) {
+		this.overrideAdapter = new PersistentOverrideAdapter(localStorageKey);
+	}
 
 	/**
 	 * @description
@@ -162,7 +171,7 @@ export class Client {
 		this.provider = provider;
 		this.provider.setClientVersion(CLIENT_VERSION);
 		if (this.provider.setApplyUpdateCallback) {
-			this.provider.setApplyUpdateCallback(this.applyUpdateCallback);
+			this.provider.setApplyUpdateCallback(this.applyUpdateCallback.bind(this));
 		}
 
 		this.initPromise = this.initWithProvider(
@@ -598,11 +607,10 @@ export class Client {
 	 * @param {boolean} value
 	 */
 	overrideGate(gateName: string, value: boolean): void {
-		this.assertInitialized(this.statsigClient);
 		this.overrideAdapter.overrideGate(gateName, value);
 		// Trigger a reset of the memoized gate value
 		if (this.user) {
-			this.statsigClient.updateUserSync(this.user, { disableBackgroundCacheRefresh: true });
+			this.statsigClient?.updateUserSync(this.user, { disableBackgroundCacheRefresh: true });
 		}
 		this.statsigValuesUpdated();
 	}
@@ -611,7 +619,6 @@ export class Client {
 	 * Removes any overrides that have been set for the given gate.
 	 */
 	clearGateOverride(gateName: string): void {
-		this.assertInitialized(this.statsigClient);
 		this.overrideAdapter.removeGateOverride(gateName);
 		this.statsigValuesUpdated();
 	}
@@ -632,7 +639,6 @@ export class Client {
 	 * @param {object} values
 	 */
 	overrideConfig(experimentName: string, values: Record<string, unknown>): void {
-		this.assertInitialized(this.statsigClient);
 		this.overrideAdapter.overrideDynamicConfig(experimentName, values);
 		this.statsigValuesUpdated();
 	}
@@ -642,7 +648,6 @@ export class Client {
 	 * @param {string} experimentName
 	 */
 	clearConfigOverride(experimentName: string): void {
-		this.assertInitialized(this.statsigClient);
 		this.overrideAdapter.removeDynamicConfigOverride(experimentName);
 		this.statsigValuesUpdated();
 	}
@@ -661,7 +666,6 @@ export class Client {
 	 * localStorage entry.
 	 */
 	setOverrides(overrides: Partial<LocalOverrides>): void {
-		this.assertInitialized(this.statsigClient);
 		this.overrideAdapter.setOverrides(overrides);
 		this.statsigValuesUpdated();
 	}
@@ -670,7 +674,6 @@ export class Client {
 	 * @returns The current overrides for gates, configs (including experiments) and layers.
 	 */
 	getOverrides(): LocalOverrides {
-		this.assertInitialized(this.statsigClient);
 		return this.overrideAdapter.getOverrides();
 	}
 
@@ -678,7 +681,6 @@ export class Client {
 	 * Clears overrides for all gates, configs (including experiments) and layers.
 	 */
 	clearAllOverrides(): void {
-		this.assertInitialized(this.statsigClient);
 		this.overrideAdapter.removeAllOverrides();
 		this.statsigValuesUpdated();
 	}
@@ -926,7 +928,6 @@ export class Client {
 		initializeValues: Record<string, unknown> = {},
 	): Promise<void> {
 		this.overrideAdapter.initFromStoredOverrides();
-		this.user = toStatsigUser(identifiers, customAttributes);
 		this.currentIdentifiers = identifiers;
 		this.currentAttributes = customAttributes;
 
@@ -954,6 +955,9 @@ export class Client {
 			perimeter: _perimeter,
 			...restClientOptions
 		} = newClientOptions;
+
+		this.sdkKey = sdkKey;
+		this.user = toStatsigUser(identifiers, customAttributes, this.sdkKey);
 
 		const statsigOptions: StatsigOptions = {
 			...restClientOptions,
@@ -1066,7 +1070,7 @@ export class Client {
 		let initializeValues, user;
 		try {
 			initializeValues = await initializeValuesPromise;
-			user = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch);
+			user = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch, this.sdkKey);
 		} catch (err) {
 			// Make sure the updateUserCompletionCallback is called for any errors in our custom code.
 			// This is not necessary for the updateUserWithValues call, because the Statsig client will

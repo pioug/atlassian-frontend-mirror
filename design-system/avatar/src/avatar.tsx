@@ -3,31 +3,24 @@
  * @jsx jsx
  */
 import {
-	createElement,
 	forwardRef,
 	isValidElement,
 	type MouseEvent,
-	type MouseEventHandler,
 	type ReactNode,
-	type Ref,
 	useCallback,
 	useEffect,
 	useRef,
 } from 'react';
 
-import { ClassNames, jsx } from '@emotion/react';
-import { type CSSInterpolation } from '@emotion/serialize';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import FocusRing from '@atlaskit/focus-ring';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { N0, N70A } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
-import AvatarImage from './avatar-image';
-import { ACTIVE_SCALE_FACTOR, AVATAR_RADIUS, AVATAR_SIZES, BORDER_WIDTH } from './constants';
-import { useAvatarContext } from './context';
+import { AvatarContent } from './avatar-content';
+import { AvatarContentContext, EnsureIsInsideAvatarContext, useAvatarContext } from './context';
+import AvatarImage from './internal/avatar-image';
 import { PresenceWrapper } from './presence';
 import { StatusWrapper } from './status';
 import {
@@ -38,27 +31,16 @@ import {
 	type SizeType,
 	type Status,
 } from './types';
-import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
+import { getCustomElement } from './utilities';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-const getTestId = (testId?: string, children?: AvatarPropTypes['children']) =>
-	!children ? { 'data-testid': `${testId}--inner` } : { testId: `${testId}--inner` };
-
-export interface CustomAvatarProps {
-	/**
-	 * This is used in render props so is okay to be defined.
-	 */
-	'aria-label'?: string;
-	tabIndex?: number;
-	testId?: string;
-	onClick?: MouseEventHandler;
-	className?: string;
-	href?: string;
-	children: ReactNode;
-	ref: Ref<HTMLElement>;
-}
+const containerStyles = css({
+	display: 'inline-block',
+	position: 'relative',
+	outline: 0,
+});
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface AvatarPropTypes {
@@ -81,7 +63,7 @@ export interface AvatarPropTypes {
 	/**
 	 * Supply a custom avatar component instead of the default.
 	 */
-	children?: (props: CustomAvatarProps) => ReactNode;
+	children?: ReactNode;
 	/**
 	 * Provides a url for avatars being used as a link.
 	 */
@@ -149,119 +131,6 @@ export interface AvatarPropTypes {
 	as?: keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>;
 }
 
-const getStyles = (
-	css: (template: TemplateStringsArray, ...args: Array<CSSInterpolation>) => string,
-	{
-		size,
-		radius,
-		appearance,
-		borderColor = fg('platform-component-visual-refresh')
-			? token('elevation.surface')
-			: token('elevation.surface.overlay', N0),
-		stackIndex,
-		isInteractive,
-		isDisabled,
-	}: {
-		size: number;
-		radius: number;
-		appearance: AppearanceType;
-		borderColor?: string;
-		stackIndex?: number;
-		isInteractive: boolean;
-		isDisabled?: boolean;
-	},
-) =>
-	//eslint-disable-next-line @repo/internal/react/no-css-string-literals
-	css`
-		height: ${size}px;
-		width: ${size}px;
-		align-items: stretch;
-		background-color: ${borderColor};
-		border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
-		box-sizing: content-box;
-		cursor: inherit;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		outline: none;
-		overflow: hidden;
-		position: static;
-		transform: translateZ(0);
-		transition:
-			transform 200ms,
-			opacity 200ms;
-		box-shadow: 0 0 0 ${BORDER_WIDTH}px ${borderColor};
-		border: none;
-		margin: ${token('space.025', '2px')};
-		padding: ${token('space.0', '0px')};
-
-		&::-moz-focus-inner {
-			border: 0;
-			margin: ${token('space.0', '0px')};
-			padding: ${token('space.0', '0px')};
-		}
-
-		&::after {
-			background-color: transparent;
-			inset: 0px;
-
-			/* Added border-radius style to fix hover issue in safari */
-			border-radius: ${appearance === 'circle' ? '50%' : `${radius}px`};
-			content: ' ';
-			opacity: 0;
-			pointer-events: none;
-			position: absolute;
-			transition: opacity 200ms;
-			width: 100%;
-		}
-
-		:focus-visible {
-			box-shadow: none;
-		}
-
-		${stackIndex && `position: relative;`}
-
-		${isInteractive &&
-		`
-      cursor: pointer;
-
-      :hover {
-        &::after {
-          background-color: ${token('color.interaction.hovered', N70A)};
-          opacity: 1;
-        }
-      }
-
-      :active {
-        &::after {
-          background-color: ${token('color.interaction.pressed', N70A)};
-          opacity: 1;
-        }
-      }
-
-      :active {
-        transform: scale(${ACTIVE_SCALE_FACTOR});
-      }
-
-      @media screen and (forced-colors: active) {
-        &:focus-visible {
-          outline: 1px solid
-        }
-      }
-    `}
-
-    ${isDisabled &&
-		`
-        cursor: not-allowed;
-
-        &::after {
-          opacity: ${token('opacity.disabled', '0.7')};
-          pointer-events: none;
-          background-color: ${token('elevation.surface', N0)};
-        }
-      `}
-	`;
-
 /**
  * __Avatar__
  *
@@ -296,9 +165,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 	) => {
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 		const context = useAvatarContext();
-
-		const size = sizeProp ?? context?.size ?? ('medium' as SizeType);
-
+		const size = sizeProp || context?.size || 'medium';
 		const customPresenceNode = isValidElement(presence) ? presence : null;
 		const customStatusNode = isValidElement(status) ? status : null;
 		const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';
@@ -351,18 +218,6 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 			[createAnalyticsEvent, isDisabled, onClick],
 		);
 
-		const componentProps = () => {
-			if (isDisabled) {
-				return { disabled: true };
-			}
-
-			// return only relevant props for either anchor or button elements
-			return {
-				...(href && getLinkProps(href, target)),
-				...(onClick && !href ? getButtonProps(onClickHandler) : { onClick }),
-			};
-		};
-
 		const isPresence = isValidIconSize && presence && !status;
 		const isStatus = isValidIconSize && status;
 
@@ -380,91 +235,69 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 		const containerShouldBeImage = Boolean(!isInteractive && defaultLabel);
 
 		return (
-			<AvatarContainer
-				data-testid={testId}
-				role={containerShouldBeImage ? 'img' : undefined}
-				aria-labelledby={containerShouldBeImage ? labelId : undefined}
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					display: 'inline-block',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					position: 'relative',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					outline: 0,
-					zIndex: stackIndex,
-				}}
-			>
-				<ClassNames>
-					{({ css }) => {
-						const props: CustomAvatarProps = {
-							className: getStyles(css, {
-								size: AVATAR_SIZES[size],
-								radius: AVATAR_RADIUS[size],
-								appearance,
-								borderColor,
-								stackIndex,
-								isInteractive: Boolean(href || onClick) && !isDisabled,
-								isDisabled,
-							}),
-							...componentProps(),
-							...(testId && getTestId(testId, children)),
-							...((isInteractive || children) && {
-								'aria-label': label || defaultLabel,
-							}),
-							children: (
+			<EnsureIsInsideAvatarContext.Provider value={true}>
+				<AvatarContainer
+					data-testid={testId}
+					role={containerShouldBeImage ? 'img' : undefined}
+					aria-labelledby={containerShouldBeImage ? labelId : undefined}
+					css={containerStyles}
+					style={{ zIndex: stackIndex }}
+				>
+					<AvatarContentContext.Provider
+						value={{
+							as: getCustomElement(isDisabled, href, onClick),
+							appearance,
+							borderColor,
+							href,
+							isDisabled,
+							label: label || defaultLabel,
+							onClick: isInteractive ? onClickHandler : undefined,
+							ref,
+							size,
+							stackIndex,
+							target,
+							testId: testId ? `${testId}--inner` : undefined,
+							avatarImage: (
 								<AvatarImage
-									// Only pass in the name if an image is provided and the
-									// container is not being used as an `img` role
 									alt={!containerShouldBeImage && src ? name : undefined}
-									appearance={appearance!}
-									size={size!}
 									src={src}
+									appearance={appearance}
+									size={size}
 									testId={testId}
 								/>
 							),
-							ref,
-						};
-
-						if (children) {
-							return children(props);
-						}
-
-						const element = getCustomElement(isDisabled, href, onClick);
-
-						return element === 'a' || element === 'button' ? (
-							<FocusRing>{createElement(element, props)}</FocusRing>
-						) : (
-							createElement(element, props)
-						);
-					}}
-				</ClassNames>
-				{isPresence && (
-					<PresenceWrapper
-						appearance={appearance!}
-						size={size as IndicatorSizeType}
-						presence={typeof presence === 'string' ? (presence as Presence) : undefined}
-						testId={testId}
+						}}
 					>
-						{customPresenceNode}
-					</PresenceWrapper>
-				)}
-				{isStatus && (
-					<StatusWrapper
-						appearance={appearance!}
-						size={size as IndicatorSizeType}
-						borderColor={borderColor}
-						status={typeof status === 'string' ? (status as Status) : undefined}
-						testId={testId}
-					>
-						{customStatusNode}
-					</StatusWrapper>
-				)}
-				{containerShouldBeImage ? (
-					<span data-testid={testId && `${testId}--label`} id={labelId} hidden>
-						{defaultLabel}
-					</span>
-				) : undefined}
-			</AvatarContainer>
+						{children || <AvatarContent />}
+					</AvatarContentContext.Provider>
+					{isPresence && (
+						<PresenceWrapper
+							appearance={appearance!}
+							size={size as IndicatorSizeType}
+							presence={typeof presence === 'string' ? (presence as Presence) : undefined}
+							testId={testId}
+						>
+							{customPresenceNode}
+						</PresenceWrapper>
+					)}
+					{isStatus && (
+						<StatusWrapper
+							appearance={appearance!}
+							size={size as IndicatorSizeType}
+							borderColor={borderColor}
+							status={typeof status === 'string' ? (status as Status) : undefined}
+							testId={testId}
+						>
+							{customStatusNode}
+						</StatusWrapper>
+					)}
+					{containerShouldBeImage ? (
+						<span data-testid={testId && `${testId}--label`} id={labelId} hidden>
+							{defaultLabel}
+						</span>
+					) : undefined}
+				</AvatarContainer>
+			</EnsureIsInsideAvatarContext.Provider>
 		);
 	},
 );

@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-table
 
+## 10.1.0
+
+### Minor Changes
+
+- [#116320](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116320)
+  [`53a3a2613a2ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53a3a2613a2ea) -
+  ED-26488 disable table dnd in live pages
+
+### Patch Changes
+
+- [#117960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117960)
+  [`0e8738357b54c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e8738357b54c) -
+  [ux] ED-26725 Bugfix to bring back the blue highlighted border when resizing columns in nested
+  tables
+- Updated dependencies
+
+## 10.0.0
+
+### Major Changes
+
+- [#117363](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117363)
+  [`10a0f7f6c2027`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10a0f7f6c2027) -
+  This package's `peerDependencies` have been adjusted for `react` and/or `react-dom` to reflect the
+  status of only supporting React 18 going forward. No explicit breaking change to React support has
+  been made in this release, but this is to signify going forward, breaking changes for React 16 or
+  React 17 may come via non-major semver releases.
+
+  Please refer this community post for more details:
+  https://community.developer.atlassian.com/t/rfc-78-dropping-support-for-react-16-and-rendering-in-a-react-18-concurrent-root-in-jira-and-confluence/87026
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.5.10
 
 ### Patch Changes

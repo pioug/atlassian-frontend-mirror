@@ -358,11 +358,10 @@ const getAssetsMetrics = (interaction: InteractionMetrics, resourceTimings: Reso
 	try {
 		const config = getConfig();
 		const { type } = interaction;
-		const isCHREnabled = fg('ufo_chr_config');
 		const allowedTypes = ['page_load', 'transition'];
 		const assetsClassification = config?.assetsClassification;
-		if (!isCHREnabled || !allowedTypes.includes(type) || !assetsClassification) {
-			// Skip if: FG disabled, not allowed type or assetsClassification isn't configured
+		if (!allowedTypes.includes(type) || !assetsClassification) {
+			// Skip if: type not allowed or assetsClassification isn't configured
 			return {};
 		}
 		const reporter = new CHRReporter();

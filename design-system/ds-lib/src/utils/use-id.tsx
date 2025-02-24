@@ -14,7 +14,7 @@ const react18UseId: (() => string) | undefined = React.useId ?? undefined;
 /**
  * Returns a unique id
  *
- * React 18 SSR and Concurrent modes are supported when the `platform.design-system-team.react-18-use-id_mn8q4` flag is enabled.
+ * React 18 SSR and Concurrent modes are supported when the `platform-dst-react-18-use-id` flag is enabled.
  * This is an interop function that supports React 16 and 18.
  *
  * If migrating from `useUID` in the `react-uid` package, then `useId` is a direct replacement.
@@ -22,15 +22,15 @@ const react18UseId: (() => string) | undefined = React.useId ?? undefined;
  * @return string
  * @see {@link useIdSeed}
  * @see https://github.com/thearnica/react-uid#hooks-168
+ * @private We intend to deprecate and replace with `useId()` directly
  * @example
- *
  * const id = useUID();
  * id == "r1"; // for example
  *
  * Parts of the above are from: https://github.com/thearnica/react-uid/blob/0f507fbbdb1ab84acf477ec32698afe3d2191e49/src/hooks.ts#L41C1-L49C4
  */
 export function useId(): string {
-	if (react18UseId && fg('platform.design-system-team.react-18-use-id_mn8q4')) {
+	if (react18UseId && fg('platform-dst-react-18-use-id')) {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		return react18UseId();
 	}
@@ -63,7 +63,7 @@ export interface IdProviderProps {
  *
  * @component
  * @param {IdProviderProps} props
- *
+ * @private We intend to deprecate and replace with `useId()` directly
  * @example
  * Child as function
  * ```jsx
@@ -137,7 +137,7 @@ export const IdProvider = forwardRef<string, IdProviderProps>(
 /**
  * Returns an id generator
  *
- * React 18 SSR and Concurrent modes are supported when the `platform.design-system-team.react-18-use-id_mn8q4` flag is enabled.
+ * React 18 SSR and Concurrent modes are supported when the `platform-dst-react-18-use-id` flag is enabled.
  * This is an interop function that supports React 16 and 18.
  *
  * If migrating from `useUIDSeed` in the `react-uid` package, then `useIdSeed` is a direct replacement.
@@ -147,6 +147,7 @@ export const IdProvider = forwardRef<string, IdProviderProps>(
  * @return (id: any) => string
  * @see https://react.dev/reference/react/useId#generating-ids-for-several-related-elements
  * @see https://github.com/thearnica/react-uid#hooks-168
+ * @private We intend to deprecate and replace with `useId()` directly
  * @example
  * import { useIdSeed } from '@atlaskit/ds-lib/use-id';
  *
@@ -164,7 +165,7 @@ export const IdProvider = forwardRef<string, IdProviderProps>(
  * }
  */
 export function useIdSeed(): SeedGenerator {
-	if (react18UseId && fg('platform.design-system-team.react-18-use-id_mn8q4')) {
+	if (react18UseId && fg('platform-dst-react-18-use-id')) {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const uid = react18UseId();
 		return (id: any) => `${uid}-${id.toString()}`;

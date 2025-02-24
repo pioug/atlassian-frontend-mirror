@@ -298,15 +298,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2025-01-22
-	platform_editor_ai_jira_content_read_url: {
-		productKeys: {
-			jira: 'platform_editor_ai_jira_content_read_url',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2025-02-10
 	platform_editor_controls: {
 		productKeys: {

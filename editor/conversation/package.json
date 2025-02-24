@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/conversation",
-	"version": "16.5.2",
+	"version": "17.0.1",
 	"description": "DEPRECATED Render conversation threads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,15 +33,15 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/avatar": "^21.18.0",
-		"@atlaskit/comment": "^12.2.0",
-		"@atlaskit/editor-common": "^99.19.0",
-		"@atlaskit/editor-core": "^203.18.0",
-		"@atlaskit/editor-plugins": "^7.2.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/avatar": "^23.0.0",
+		"@atlaskit/comment": "^13.0.0",
+		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-core": "^204.0.0",
+		"@atlaskit/editor-plugins": "^8.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/reactions": "^25.6.0",
-		"@atlaskit/renderer": "^112.15.0",
+		"@atlaskit/reactions": "^26.0.0",
+		"@atlaskit/renderer": "^113.0.0",
 		"@babel/runtime": "^7.0.0",
 		"date-fns": "^2.17.0",
 		"lodash": "^4.17.21",
@@ -51,7 +51,7 @@
 		"redux-thunk": "^2.3.0"
 	},
 	"peerDependencies": {
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^18.2.0",
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import ProfileCardTrigger from '../../components/User/ProfileCardTrigger';
@@ -248,5 +248,72 @@ describe('ProfileCardTrigger', () => {
 		const triggerSpan = getByTestId('profilecard-trigger');
 
 		expect(triggerSpan.getAttribute('role')).toEqual('button');
+	});
+
+	it('should render based on isVisibleProp', async () => {
+		let isVisible = false;
+		renderWithIntl(
+			<>
+				<ProfileCardTrigger
+					{...defaultProps}
+					resourceClient={mockResourceClient as ProfileClient}
+					trigger="click"
+					testId="profilecard-trigger"
+					isVisible={isVisible}
+				>
+					<span data-testid="test-inner-trigger">This is the trigger</span>
+				</ProfileCardTrigger>
+			</>,
+		);
+
+		expect(screen.queryByTestId('profilecard')).toBe(null);
+
+		act(() => {
+			jest.runAllTimers();
+		});
+
+		expect(screen.queryByTestId('profilecard')).toBe(null);
+
+		isVisible = true;
+
+		expect(screen.queryByTestId('profilecard')).toBe(null);
+
+		act(() => {
+			jest.runAllTimers();
+		});
+
+		expect(screen.queryByTestId('profilecard')).toBeDefined();
+	});
+
+	it('should render based on trigger when isVisibleProp is undefined', async () => {
+		renderWithIntl(
+			<>
+				<ProfileCardTrigger
+					{...defaultProps}
+					resourceClient={mockResourceClient as ProfileClient}
+					trigger="click"
+					testId="profilecard-trigger"
+					isVisible={undefined}
+				>
+					<span data-testid="test-inner-trigger">This is the trigger</span>
+				</ProfileCardTrigger>
+			</>,
+		);
+
+		expect(screen.queryByTestId('profilecard')).toBe(null);
+
+		act(() => {
+			fireEvent.click(screen.getByTestId('test-inner-trigger'));
+			jest.runAllTimers();
+		});
+
+		expect(screen.queryByTestId('profilecard')).toBe(null);
+
+		act(() => {
+			fireEvent.click(screen.getByTestId('test-inner-trigger'));
+			jest.runAllTimers();
+		});
+
+		expect(screen.queryByTestId('profilecard')).toBeDefined();
 	});
 });

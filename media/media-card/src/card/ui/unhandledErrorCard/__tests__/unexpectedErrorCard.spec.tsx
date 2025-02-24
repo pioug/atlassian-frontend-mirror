@@ -1,13 +1,11 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 import { UnhandledErrorCard } from '..';
 
 describe('<UnhandledErrorCard />', () => {
 	it('should render icon with the right size', () => {
-		const component = shallow(
-			<UnhandledErrorCard dimensions={{ width: '50px', height: '50px' }} />,
-		);
+		const component = mount(<UnhandledErrorCard dimensions={{ width: '50px', height: '50px' }} />);
 
 		expect(component.find(WarningIcon).props().LEGACY_size).toBe('medium');
 	});

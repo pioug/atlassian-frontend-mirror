@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -42,9 +43,6 @@ export const unmountDecorations = (
 	// as it was more responsive and causes less re-rendering
 	const decorationsToRemove = document.querySelectorAll(`[${selector}="true"]`);
 	decorationsToRemove.forEach((el) => {
-		const nodeKey = el.getAttribute(key);
-		if (nodeKey) {
-			nodeViewPortalProviderAPI.remove(nodeKey);
-		}
+		ReactDOM.unmountComponentAtNode(el);
 	});
 };

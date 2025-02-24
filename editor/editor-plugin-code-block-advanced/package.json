@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "1.1.2",
+	"version": "2.0.0",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,14 +36,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/editor-common": "^99.19.0",
-		"@atlaskit/editor-plugin-code-block": "^3.7.0",
-		"@atlaskit/editor-plugin-editor-disabled": "^1.5.0",
-		"@atlaskit/editor-plugin-find-replace": "^1.9.0",
-		"@atlaskit/editor-plugin-selection": "^1.8.0",
-		"@atlaskit/editor-plugin-selection-marker": "^1.8.0",
+		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-plugin-code-block": "^4.0.0",
+		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
+		"@atlaskit/editor-plugin-find-replace": "^2.0.0",
+		"@atlaskit/editor-plugin-selection": "^2.0.0",
+		"@atlaskit/editor-plugin-selection-marker": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@codemirror/autocomplete": "6.18.4",
 		"@codemirror/commands": "6.7.1",
@@ -56,10 +56,10 @@
 		"codemirror-lang-elixir": "4.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/code": "^15.8.0",
+		"@atlaskit/code": "^16.0.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

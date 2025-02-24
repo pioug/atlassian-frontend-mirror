@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "9.5.10",
+	"version": "10.1.0",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,33 +28,33 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/button": "^20.5.0",
+		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/custom-steps": "^0.10.0",
-		"@atlaskit/editor-common": "^99.19.0",
-		"@atlaskit/editor-palette": "1.7.0",
-		"@atlaskit/editor-plugin-accessibility-utils": "^1.4.0",
-		"@atlaskit/editor-plugin-analytics": "^1.12.0",
-		"@atlaskit/editor-plugin-batch-attribute-updates": "1.3.1",
-		"@atlaskit/editor-plugin-content-insertion": "^1.13.0",
-		"@atlaskit/editor-plugin-editor-viewmode": "^2.2.0",
-		"@atlaskit/editor-plugin-guideline": "^1.4.0",
-		"@atlaskit/editor-plugin-selection": "^1.8.0",
-		"@atlaskit/editor-plugin-width": "^2.1.0",
+		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-palette": "2.0.0",
+		"@atlaskit/editor-plugin-accessibility-utils": "^2.0.0",
+		"@atlaskit/editor-plugin-analytics": "^2.0.0",
+		"@atlaskit/editor-plugin-batch-attribute-updates": "2.0.0",
+		"@atlaskit/editor-plugin-content-insertion": "^2.0.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^3.0.0",
+		"@atlaskit/editor-plugin-guideline": "^2.0.0",
+		"@atlaskit/editor-plugin-selection": "^2.0.0",
+		"@atlaskit/editor-plugin-width": "^3.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.3.0",
 		"@atlaskit/editor-tables": "^2.9.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/menu": "^2.14.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/menu": "^3.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.5.0",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^2.1.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.47.0",
-		"@atlaskit/toggle": "^14.2.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/tooltip": "^19.2.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tmp-editor-statsig": "^3.1.0",
+		"@atlaskit/toggle": "^15.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"classnames": "^2.2.5",
@@ -64,8 +64,8 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
@@ -174,6 +174,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_bodied_extension_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_nested_tables_resize_border_fix": {
 			"type": "boolean"
 		}
 	}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "3.2.2",
+	"version": "4.0.0",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,22 +45,22 @@
 		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/css": "^0.9.0",
-		"@atlaskit/drawer": "^9.5.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/intl-messages-provider": "^1.1.0",
-		"@atlaskit/link": "^2.2.0",
-		"@atlaskit/modal-dialog": "^12.20.0",
-		"@atlaskit/portal": "^4.11.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/drawer": "^10.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/intl-messages-provider": "^2.0.0",
+		"@atlaskit/link": "^3.0.0",
+		"@atlaskit/modal-dialog": "^13.0.0",
+		"@atlaskit/portal": "^5.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "3.12.9",
+	"version": "4.0.0",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,19 +36,19 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-platform": "2.4.0",
-		"@atlaskit/feature-gate-js-client": "^4.25.0",
-		"@atlaskit/link-client-extension": "^3.1.0",
-		"@atlaskit/link-extractors": "^1.10.0",
-		"@atlaskit/linking-common": "^7.1.0",
+		"@atlaskit/eslint-plugin-platform": "2.4.1",
+		"@atlaskit/feature-gate-js-client": "^4.26.0",
+		"@atlaskit/link-client-extension": "^4.0.0",
+		"@atlaskit/link-extractors": "^2.0.0",
+		"@atlaskit/linking-common": "^8.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@babel/runtime": "^7.0.0",
 		"dataloader": "^2.1.0",
 		"json-ld-types": "^4.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.19.0",
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"@atlaskit/link-provider": "^2.0.0",
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"typescript": "~5.4.2"

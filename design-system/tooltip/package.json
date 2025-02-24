@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "19.2.0",
+	"version": "20.0.0",
 	"description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,29 +49,29 @@
 		"./utilities": "./src/utilities.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/layering": "^1.1.0",
-		"@atlaskit/motion": "^3.1.0",
-		"@atlaskit/popper": "^6.4.0",
-		"@atlaskit/portal": "^4.11.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/layering": "^2.0.0",
+		"@atlaskit/motion": "^4.0.0",
+		"@atlaskit/popper": "^7.0.0",
+		"@atlaskit/portal": "^5.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/css": "^0.9.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/css": "^0.10.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",

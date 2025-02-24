@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "1.19.0",
+	"version": "2.0.1",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,25 +39,25 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "10.3.1",
-		"@atlaskit/avatar": "^21.18.0",
-		"@atlaskit/button": "^20.5.0",
-		"@atlaskit/dropdown-menu": "^12.26.0",
-		"@atlaskit/heading": "^4.3.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/legacy-custom-icons": "^0.21.0",
-		"@atlaskit/logo": "^15.4.0",
+		"@atlaskit/analytics-next": "11.0.0",
+		"@atlaskit/avatar": "^23.0.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/dropdown-menu": "^13.0.0",
+		"@atlaskit/heading": "^5.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/legacy-custom-icons": "^0.22.0",
+		"@atlaskit/logo": "^16.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/skeleton": "^1.2.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/tooltip": "^19.2.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/skeleton": "^2.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-magnetic-di": "^3.1.4"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.2.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",

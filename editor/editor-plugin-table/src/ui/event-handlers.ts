@@ -25,6 +25,7 @@ import {
 	getSelectionRect,
 	removeTable,
 } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	addResizeHandleDecorations,
@@ -239,8 +240,18 @@ export const handleMouseOver = (view: EditorView, mouseEvent: Event): boolean =>
 			state.schema.nodes.table,
 		]);
 
-		if (nearestTable?.dataset.tableLocalId !== parentTable?.node.attrs.localId) {
-			return hideInsertColumnOrRowButton()(state, dispatch);
+		if (fg('platform_editor_nested_tables_resize_border_fix')) {
+			if (
+				nearestTable?.dataset.tableLocalId !== parentTable?.node.attrs.localId &&
+				(isCell(target) || isCornerButton(target)) &&
+				(typeof insertColumnButtonIndex === 'number' || typeof insertRowButtonIndex === 'number')
+			) {
+				return hideInsertColumnOrRowButton()(state, dispatch);
+			}
+		} else {
+			if (nearestTable?.dataset.tableLocalId !== parentTable?.node.attrs.localId) {
+				return hideInsertColumnOrRowButton()(state, dispatch);
+			}
 		}
 	} else if (
 		(isCell(target) || isCornerButton(target)) &&

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-common",
-	"version": "2.2.0",
+	"version": "3.0.0",
 	"description": "Common constants, types and utilities used by the JQL editor and its dependant packages.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,14 +37,14 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/jql-autocomplete": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"rxjs": "^5.5.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "*",

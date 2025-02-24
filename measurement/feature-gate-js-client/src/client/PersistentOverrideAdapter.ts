@@ -35,14 +35,16 @@ const makeEmptyStore = (): LocalOverrides => ({
  */
 export class PersistentOverrideAdapter implements OverrideAdapter {
 	private _overrides: LocalOverrides;
+	private _localStorageKey: string;
 
-	constructor() {
+	constructor(localStorageKey: string) {
 		this._overrides = makeEmptyStore();
+		this._localStorageKey = localStorageKey;
 	}
 
 	private parseStoredOverrides(localStorageKey: string): LocalOverrides {
 		try {
-			const json = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+			const json = window.localStorage.getItem(localStorageKey);
 			if (!json) {
 				return makeEmptyStore();
 			}
@@ -56,15 +58,15 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 	private mergeOverrides(...allOverrides: LocalOverrides[]): LocalOverrides {
 		const merged = makeEmptyStore();
 		for (const overrides of allOverrides) {
-			for (const [name, value] of Object.entries(overrides.gates)) {
+			for (const [name, value] of Object.entries(overrides.gates ?? {})) {
 				merged.gates[name] = value;
 			}
 
-			for (const [name, value] of Object.entries(overrides.configs)) {
+			for (const [name, value] of Object.entries(overrides.configs ?? {})) {
 				merged.configs[name] = value;
 			}
 
-			for (const [name, value] of Object.entries(overrides.layers)) {
+			for (const [name, value] of Object.entries(overrides.layers ?? {})) {
 				merged.layers[name] = value;
 			}
 		}
@@ -73,14 +75,22 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 	}
 
 	initFromStoredOverrides() {
-		this._overrides = this.mergeOverrides(
-			this.parseStoredOverrides(LEGACY_LOCAL_STORAGE_KEY),
-			this.parseStoredOverrides(LOCAL_STORAGE_KEY),
+		this.setOverrides(
+			this.mergeOverrides(
+				this._overrides,
+				this.parseStoredOverrides(LEGACY_LOCAL_STORAGE_KEY),
+				this.parseStoredOverrides(this._localStorageKey),
+			),
 		);
 	}
 
 	saveOverrides() {
-		window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this._overrides));
+		try {
+			window.localStorage.setItem(this._localStorageKey, JSON.stringify(this._overrides));
+		} catch {
+			// ignored - window is not defined in non-browser environments, and we don't save things there
+			// (things like SSR, etc)
+		}
 	}
 
 	getOverrides(): LocalOverrides {

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { AVATAR_SIZES, type CustomAvatarProps, type SizeType } from '@atlaskit/avatar';
+import { AVATAR_SIZES, AvatarContent, type SizeType } from '@atlaskit/avatar';
 import TeamIcon from '@atlaskit/icon/glyph/people';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N90 } from '@atlaskit/theme/colors';
@@ -20,7 +20,7 @@ type AvatarImageProps = {
 	alt?: string;
 	src?: string;
 	testId?: string;
-} & CustomAvatarProps;
+};
 
 const ICON_BACKGROUND = token('color.icon.inverse', N0);
 const ICON_COLOR = token('color.icon.subtle', N90);
@@ -82,7 +82,7 @@ const avatarImageStyles = css({
  *
  * An avatar image is an internal component used to control the rendering phases of an image.
  */
-export const TeamAvatarImage = ({ alt = '', src, size, testId, ...rest }: AvatarImageProps) => {
+export const TeamAvatarImage = ({ alt = '', src, size, testId }: AvatarImageProps) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	// If src changes, reset state
@@ -115,7 +115,7 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId, ...rest }: Avatar
 	}
 
 	return (
-		<span {...rest}>
+		<AvatarContent>
 			<img
 				src={src}
 				alt={alt}
@@ -123,6 +123,6 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId, ...rest }: Avatar
 				css={avatarImageStyles}
 				onError={() => setHasImageErrored(true)}
 			/>
-		</span>
+		</AvatarContent>
 	);
 };

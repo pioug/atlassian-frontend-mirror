@@ -1,5 +1,11 @@
 # @atlaskit/util-service-support
 
+## 6.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.6
 
 ### Patch Changes

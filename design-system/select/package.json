@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "18.10.6",
+	"version": "19.0.0",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,16 +49,16 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.11.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/icon": "^24.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^13.6.0",
-		"@atlaskit/react-select": "^1.7.0",
-		"@atlaskit/spinner": "^17.2.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
-		"@atlaskit/visually-hidden": "^1.6.0",
+		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/react-select": "^2.0.0",
+		"@atlaskit/spinner": "^18.0.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/visually-hidden": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"@popperjs/core": "^2.11.8",
@@ -69,16 +69,16 @@
 		"shallow-equal": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/checkbox": "^15.4.0",
-		"@atlaskit/modal-dialog": "^12.20.0",
-		"@atlaskit/radio": "^7.3.0",
+		"@atlaskit/checkbox": "^16.0.0",
+		"@atlaskit/modal-dialog": "^13.0.0",
+		"@atlaskit/radio": "^8.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

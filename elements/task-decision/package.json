@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "18.0.0",
+	"version": "19.0.1",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,12 +47,12 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-namespaced-context": "^6.14.0",
-		"@atlaskit/analytics-next": "^10.3.0",
-		"@atlaskit/icon": "^23.11.0",
+		"@atlaskit/analytics-namespaced-context": "^7.0.0",
+		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/icon": "^24.0.0",
 		"@atlaskit/platform-feature-flags-react": "^0.1.0",
-		"@atlaskit/theme": "^16.0.0",
-		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
@@ -60,14 +60,14 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"url-search-params": "^0.10.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-listeners": "^8.15.0",
-		"@atlaskit/elements-test-helpers": "^0.8.0",
+		"@atlaskit/analytics-listeners": "^9.0.0",
+		"@atlaskit/elements-test-helpers": "^0.9.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/util-data-test": "^18.0.0",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",

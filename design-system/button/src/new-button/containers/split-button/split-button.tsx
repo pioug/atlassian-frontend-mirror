@@ -73,14 +73,6 @@ const dividerRefreshedOffsetStyles = css({
 
 const dividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
 	default: css({
-		height: `${32 / 14}em`,
-	}),
-	compact: css({
-		height: `${24 / 14}em`,
-	}),
-};
-const dividerHeightWithRem: Record<SplitButtonSpacing, SerializedStyles> = {
-	default: css({
 		height: '2rem',
 	}),
 	compact: css({
@@ -89,17 +81,6 @@ const dividerHeightWithRem: Record<SplitButtonSpacing, SerializedStyles> = {
 };
 
 const defaultDividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
-	// The divider height is calculated by subtracting twice the border width from the button height.
-	// This ensures the divider does not intersect with the button's border, avoiding visual issues
-	// caused by overlapping alpha colors (color.border) at the intersection.
-	default: css({
-		height: `calc(${32 / 14}em - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
-	}),
-	compact: css({
-		height: `calc(${24 / 14}em - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
-	}),
-};
-const defaultDividerHeightWithRem: Record<SplitButtonSpacing, SerializedStyles> = {
 	// The divider height is calculated by subtracting twice the border width from the button height.
 	// This ensures the divider does not intersect with the button's border, avoiding visual issues
 	// caused by overlapping alpha colors (color.border) at the intersection.
@@ -121,22 +102,14 @@ type DividerProps = {
  * TODO: Add JSDoc
  */
 export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProps) => {
-	// Pulling these out of the below `css` prop to avoid nested ternaries
-	const defaultDividerHeightStyles = fg('platform_dst_button_replace_em_with_rem')
-		? defaultDividerHeightWithRem
-		: defaultDividerHeight;
-	const dividerHeightStyles = fg('platform_dst_button_replace_em_with_rem')
-		? dividerHeightWithRem
-		: dividerHeight;
-
 	return (
 		// I find it funny to provide a div for Divider
 		<div
 			css={[
 				baseDividerStyles,
 				appearance === 'default' && !isDisabled && fg('platform-component-visual-refresh')
-					? defaultDividerHeightStyles[spacing]
-					: dividerHeightStyles[spacing],
+					? defaultDividerHeight[spacing]
+					: dividerHeight[spacing],
 				isDisabled &&
 					(fg('platform-component-visual-refresh')
 						? dividerDisabledRefreshedStyles

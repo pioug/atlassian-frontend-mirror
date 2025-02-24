@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag-group",
-	"version": "11.2.0",
+	"version": "12.0.0",
 	"description": "A tag group controls the layout and alignment for a collection of tags.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,13 +29,13 @@
 		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/ds-lib": "^4.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tag": "*",
 		"@atlaskit/visual-regression": "*",

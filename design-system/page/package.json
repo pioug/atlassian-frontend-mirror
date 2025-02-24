@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page",
-	"version": "12.7.1",
+	"version": "13.0.0",
 	"description": "A page layout organizes sections on a page using a grid and grid columns.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,21 +62,21 @@
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/banner": "^12.7.2",
-		"@atlaskit/code": "^15.8.0",
+		"@atlaskit/banner": "^13.0.0",
+		"@atlaskit/code": "^16.0.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.11.0",
-		"@atlaskit/link": "^2.2.0",
-		"@atlaskit/primitives": "^13.6.0",
+		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/link": "^3.0.0",
+		"@atlaskit/primitives": "^14.0.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tokens": "^3.3.1",
+		"@atlaskit/tokens": "^4.1.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",

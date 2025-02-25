@@ -17,6 +17,7 @@ import InlineCardForbiddenTruncate from '../../../examples/vr-inline-card/vr-inl
 import InlineCardIcons from '../../../examples/vr-inline-card/vr-inline-card-icons';
 import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found';
 import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate';
+import InlineCardSelected from '../../../examples/vr-inline-card/vr-inline-card-selected';
 import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap';
 import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
 import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon';
@@ -49,6 +50,21 @@ snapshot(InlineCardDefault, {
 		},
 	],
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-resolved-view' } }],
+});
+
+snapshot(InlineCardSelected, {
+	description: 'inline card when selected',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-smart-card-icon-migration': [true, false],
+	},
+	ignoredErrors: [
+		{
+			pattern: /Failed to load resource/,
+			ignoredBecause: 'This error is expected when rendering an error boundary in a dev build',
+			jiraIssueId: 'TODO-1',
+		},
+	],
 });
 snapshot(InlineCardDefaultTruncate, {
 	description: 'inline card with default icon and truncation',

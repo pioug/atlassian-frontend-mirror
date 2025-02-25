@@ -63,7 +63,7 @@
 		"@atlaskit/media-test-data": "^3.0.0",
 		"@atlaskit/media-test-helpers": "^35.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^13.4.0",

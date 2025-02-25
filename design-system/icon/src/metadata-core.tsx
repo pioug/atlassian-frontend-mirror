@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::a79b61e7d7891e9865d33932dc25db57>>
+ * @codegen <<SignedSource::d25a2654a95241ca8decc1ab6a780010>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1464,9 +1464,9 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'drag handler',
-			'drag dots',
 			'reorder',
 			'move',
+			'reorder vertical',
 		],
 		componentName: 'DragHandleIcon',
 		package: '@atlaskit/icon/core/drag-handle',
@@ -1474,8 +1474,9 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		replacement: { name: 'drag-handle-vertical', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for draggable elements, like rows.',
+		usage: 'Single purpose - Reserved for draggable elements along a vertical axis.',
 		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
 	},
 	'drag-handle-horizontal': {
 		keywords: [
@@ -1484,16 +1485,17 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'drag handler',
-			'drag dots',
 			'reorder',
 			'move',
+			'reorder horizontal',
 		],
 		componentName: 'DragHandleHorizontalIcon',
 		package: '@atlaskit/icon/core/drag-handle-horizontal',
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for draggle elements, like columns.',
+		usage: 'Reserved for dragging elements along a horizontal axis.',
 		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
 	},
 	'drag-handle-vertical': {
 		keywords: [
@@ -1502,17 +1504,18 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'drag handler',
-			'drag dots',
 			'reorder',
 			'move',
+			'reorder vertical',
 		],
 		componentName: 'DragHandleVerticalIcon',
 		package: '@atlaskit/icon/core/drag-handle-vertical',
 		oldName: ['drag-handler'],
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for draggable elements, like rows.',
+		usage: 'Reserved for dragging elements along a vertical axis.',
 		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
 	},
 	edit: {
 		keywords: ['edit', 'pencil', 'write', 'icon', 'core', 'pencil', 'pencil on page'],

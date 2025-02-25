@@ -54,6 +54,7 @@ export default {
     '開始日に将来の日付を指定することはできません',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     '終了日に将来の日付を指定することはできません',
+  'linkDataSource.confluence-search.configmodal.date.range.error': '日付範囲エラー',
   'linkDataSource.confluence-search.configmodal.date.range.from': '開始日',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': '日付を選択',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': '過去 30 日',

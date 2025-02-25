@@ -9,3 +9,10 @@ export interface ItemData {
 	attributes?: { new?: boolean };
 	renderIcon?: () => React.ReactNode;
 }
+
+export interface GroupData {
+	id: string;
+	label: string;
+	items: ItemData[];
+	attributes?: { new?: boolean };
+}

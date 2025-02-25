@@ -30,7 +30,7 @@
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/visually-hidden": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
@@ -50,7 +50,7 @@
 		"@atlaskit/ds-lib": "^4.0.0",
 		"@atlaskit/form": "^12.0.0",
 		"@atlaskit/link": "*",
-		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^15.0.0",

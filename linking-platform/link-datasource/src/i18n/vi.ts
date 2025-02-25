@@ -52,6 +52,7 @@ export default {
     'Ngày Từ không được là ngày trong tương lai',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Ngày Đến không được là ngày trong tương lai',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Lỗi phạm vi ngày',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Từ',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Chọn một ngày',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': '30 ngày qua',

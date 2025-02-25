@@ -4,7 +4,7 @@ import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import { IconButtonItem } from './IconButtonItem';
-import type { ItemData } from './ItemType';
+import type { GroupData } from './ItemType';
 
 const headingContainerStyles = xcss({
 	paddingTop: 'space.0',
@@ -20,16 +20,21 @@ const buttonsContainerStyles = xcss({
 	paddingRight: 'space.200',
 });
 
-export interface IconButtonGroupProps {
-	id: string;
-	label: string;
-	items: ItemData[];
+export interface IconButtonGroupProps extends GroupData {
+	xcss?: ReturnType<typeof xcss>;
 	onItemSelected?: (index: number, categoryId: string) => void;
 }
 
-export const IconButtonGroup = ({ id, label, items, onItemSelected }: IconButtonGroupProps) => {
+export const IconButtonGroup = ({
+	id,
+	label,
+	items,
+	onItemSelected,
+	xcss: xcssStyles,
+}: IconButtonGroupProps) => {
 	return (
-		<Stack space="space.025">
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		<Stack space="space.025" xcss={xcssStyles}>
 			<Box xcss={[headingContainerStyles]}>
 				<Heading size={'xsmall'}>{label}</Heading>
 			</Box>

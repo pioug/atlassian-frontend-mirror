@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.2.0
+
+### Minor Changes
+
+- [#118493](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118493)
+  [`4338e9dcf77a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4338e9dcf77a5) -
+  Updated `font.code` token to use Atlassian Mono in refreshed theme.
+
 ## 4.1.0
 
 ### Minor Changes

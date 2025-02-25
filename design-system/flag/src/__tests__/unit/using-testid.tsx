@@ -48,3 +48,32 @@ describe('Flag actions should be found by data-testid', () => {
 		expect(screen.getByTestId('MyFlagActionTestId')).toBeInTheDocument();
 	});
 });
+describe('Flag icon containers should be found by data-testid', () => {
+	test('Using getByTestId()', async () => {
+		render(
+			<Flag
+				icon={<SuccessIcon label="Info" />}
+				description="We got fun an games. We got everything you want honey, we know the names."
+				id="1"
+				key="1"
+				title="Welcome to the jungle"
+				testId="MyFlagTestId"
+			/>,
+		);
+		expect(screen.getByTestId('MyFlagTestId-icon-container')).toBeInTheDocument();
+	});
+});
+describe('Flag descriptions should be found by data-testid', () => {
+	test('Using getByTestId()', async () => {
+		render(
+			<Flag
+				description="We got fun an games. We got everything you want honey, we know the names."
+				id="1"
+				key="1"
+				title="Welcome to the jungle"
+				testId="MyFlagTestId"
+			/>,
+		);
+		expect(screen.getByTestId('MyFlagTestId-description')).toBeInTheDocument();
+	});
+});

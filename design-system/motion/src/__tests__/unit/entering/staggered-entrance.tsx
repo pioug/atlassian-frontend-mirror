@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+
+import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
 import { useStaggeredEntrance } from '../../../entering/staggered-entrance';
@@ -32,10 +32,7 @@ describe('<StaggeredEntrance />', () => {
 		return (
 			<div
 				ref={box ? null : staggered.ref}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={{
-					animationDelay: `${staggered.delay}ms`,
-				}}
+				style={{ animationDelay: `${staggered.delay}ms` }}
 				data-testid={id}
 			/>
 		);
@@ -50,12 +47,11 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', firstGroupDelay);
-		expect(screen.getByTestId('second')).toHaveStyleDeclaration(
-			'animation-delay',
-			secondGroupDelay,
-		);
-		expect(screen.getByTestId('third')).toHaveStyleDeclaration('animation-delay', thirdGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': firstGroupDelay });
+		expect(screen.getByTestId('second')).toHaveStyle({
+			'animation-delay': secondGroupDelay,
+		});
+		expect(screen.getByTestId('third')).toHaveStyle({ 'animation-delay': thirdGroupDelay });
 	});
 
 	it('should set a staggered duration for a grid of elements', () => {
@@ -73,42 +69,33 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('top-left')).toHaveStyleDeclaration(
-			'animation-delay',
-			firstGroupDelay,
-		);
-		expect(screen.getByTestId('top-mid')).toHaveStyleDeclaration(
-			'animation-delay',
-			secondGroupDelay,
-		);
-		expect(screen.getByTestId('top-right')).toHaveStyleDeclaration(
-			'animation-delay',
-			thirdGroupDelay,
-		);
-		expect(screen.getByTestId('mid-left')).toHaveStyleDeclaration(
-			'animation-delay',
-			secondGroupDelay,
-		);
-		expect(screen.getByTestId('mid-mid')).toHaveStyleDeclaration(
-			'animation-delay',
-			thirdGroupDelay,
-		);
-		expect(screen.getByTestId('mid-right')).toHaveStyleDeclaration(
-			'animation-delay',
-			fourthGroupDelay,
-		);
-		expect(screen.getByTestId('bottom-left')).toHaveStyleDeclaration(
-			'animation-delay',
-			thirdGroupDelay,
-		);
-		expect(screen.getByTestId('bottom-mid')).toHaveStyleDeclaration(
-			'animation-delay',
-			fourthGroupDelay,
-		);
-		expect(screen.getByTestId('bottom-right')).toHaveStyleDeclaration(
-			'animation-delay',
-			fifthGroupDelay,
-		);
+		expect(screen.getByTestId('top-left')).toHaveStyle({
+			'animation-delay': firstGroupDelay,
+		});
+		expect(screen.getByTestId('top-mid')).toHaveStyle({
+			'animation-delay': secondGroupDelay,
+		});
+		expect(screen.getByTestId('top-right')).toHaveStyle({
+			'animation-delay': thirdGroupDelay,
+		});
+		expect(screen.getByTestId('mid-left')).toHaveStyle({
+			'animation-delay': secondGroupDelay,
+		});
+		expect(screen.getByTestId('mid-mid')).toHaveStyle({
+			'animation-delay': thirdGroupDelay,
+		});
+		expect(screen.getByTestId('mid-right')).toHaveStyle({
+			'animation-delay': fourthGroupDelay,
+		});
+		expect(screen.getByTestId('bottom-left')).toHaveStyle({
+			'animation-delay': thirdGroupDelay,
+		});
+		expect(screen.getByTestId('bottom-mid')).toHaveStyle({
+			'animation-delay': fourthGroupDelay,
+		});
+		expect(screen.getByTestId('bottom-right')).toHaveStyle({
+			'animation-delay': fifthGroupDelay,
+		});
 	});
 
 	it('should set a staggered duration for the first column of a grid', () => {
@@ -120,12 +107,11 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', firstGroupDelay);
-		expect(screen.getByTestId('second')).toHaveStyleDeclaration(
-			'animation-delay',
-			secondGroupDelay,
-		);
-		expect(screen.getByTestId('third')).toHaveStyleDeclaration('animation-delay', thirdGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': firstGroupDelay });
+		expect(screen.getByTestId('second')).toHaveStyle({
+			'animation-delay': secondGroupDelay,
+		});
+		expect(screen.getByTestId('third')).toHaveStyle({ 'animation-delay': thirdGroupDelay });
 	});
 
 	it('should set a staggered duration for the second column of a grid', () => {
@@ -137,9 +123,9 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', secondGroupDelay);
-		expect(screen.getByTestId('second')).toHaveStyleDeclaration('animation-delay', thirdGroupDelay);
-		expect(screen.getByTestId('third')).toHaveStyleDeclaration('animation-delay', fourthGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': secondGroupDelay });
+		expect(screen.getByTestId('second')).toHaveStyle({ 'animation-delay': thirdGroupDelay });
+		expect(screen.getByTestId('third')).toHaveStyle({ 'animation-delay': fourthGroupDelay });
 	});
 
 	it('should set a staggered duration for the third column of a grid', () => {
@@ -151,12 +137,11 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', thirdGroupDelay);
-		expect(screen.getByTestId('second')).toHaveStyleDeclaration(
-			'animation-delay',
-			fourthGroupDelay,
-		);
-		expect(screen.getByTestId('third')).toHaveStyleDeclaration('animation-delay', fifthGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': thirdGroupDelay });
+		expect(screen.getByTestId('second')).toHaveStyle({
+			'animation-delay': fourthGroupDelay,
+		});
+		expect(screen.getByTestId('third')).toHaveStyle({ 'animation-delay': fifthGroupDelay });
 	});
 
 	it('should render with no delay when there is only one child element', () => {
@@ -166,7 +151,7 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', firstGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': firstGroupDelay });
 	});
 
 	it('should stagger over one column for a small viewport', () => {
@@ -178,12 +163,11 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', firstGroupDelay);
-		expect(screen.getByTestId('second')).toHaveStyleDeclaration(
-			'animation-delay',
-			secondGroupDelay,
-		);
-		expect(screen.getByTestId('third')).toHaveStyleDeclaration('animation-delay', thirdGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': firstGroupDelay });
+		expect(screen.getByTestId('second')).toHaveStyle({
+			'animation-delay': secondGroupDelay,
+		});
+		expect(screen.getByTestId('third')).toHaveStyle({ 'animation-delay': thirdGroupDelay });
 	});
 
 	it('should stagger over two columns for a medium viewport', () => {
@@ -195,12 +179,11 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', firstGroupDelay);
-		expect(screen.getByTestId('second')).toHaveStyleDeclaration(
-			'animation-delay',
-			secondGroupDelay,
-		);
-		expect(screen.getByTestId('third')).toHaveStyleDeclaration('animation-delay', secondGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': firstGroupDelay });
+		expect(screen.getByTestId('second')).toHaveStyle({
+			'animation-delay': secondGroupDelay,
+		});
+		expect(screen.getByTestId('third')).toHaveStyle({ 'animation-delay': secondGroupDelay });
 	});
 
 	it('should stagger over three columns for a large viewport', () => {
@@ -212,11 +195,10 @@ describe('<StaggeredEntrance />', () => {
 			</StaggeredEntrance>,
 		);
 
-		expect(screen.getByTestId('first')).toHaveStyleDeclaration('animation-delay', firstGroupDelay);
-		expect(screen.getByTestId('second')).toHaveStyleDeclaration(
-			'animation-delay',
-			secondGroupDelay,
-		);
-		expect(screen.getByTestId('third')).toHaveStyleDeclaration('animation-delay', thirdGroupDelay);
+		expect(screen.getByTestId('first')).toHaveStyle({ 'animation-delay': firstGroupDelay });
+		expect(screen.getByTestId('second')).toHaveStyle({
+			'animation-delay': secondGroupDelay,
+		});
+		expect(screen.getByTestId('third')).toHaveStyle({ 'animation-delay': thirdGroupDelay });
 	});
 });

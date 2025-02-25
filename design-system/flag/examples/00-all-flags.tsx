@@ -3,12 +3,11 @@ import React, { type ReactElement } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
-import Tick from '@atlaskit/icon/glyph/check-circle';
-import Error from '@atlaskit/icon/glyph/error';
-import Info from '@atlaskit/icon/glyph/info';
-import Warning from '@atlaskit/icon/glyph/warning';
+import ErrorIcon from '@atlaskit/icon/core/error';
+import InformationIcon from '@atlaskit/icon/core/information';
+import SuccessIcon from '@atlaskit/icon/core/success';
+import WarningIcon from '@atlaskit/icon/core/warning';
 import Stack from '@atlaskit/primitives/stack';
-import { token } from '@atlaskit/tokens';
 
 const actions = [
 	{ content: 'Understood', onClick: noop },
@@ -39,11 +38,11 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 
 const iconMap = (key: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		normal: <Tick label="Normal success" primaryColor={token('color.icon.success')} />,
-		info: <Info label="Info" secondaryColor={token('color.background.neutral.bold')} />,
-		success: <Tick label="Success" secondaryColor={token('color.background.success.bold')} />,
-		warning: <Warning label="Warning" secondaryColor={token('color.background.warning.bold')} />,
-		error: <Error label="Error" secondaryColor={token('color.background.danger.bold')} />,
+		normal: <InformationIcon label="" />,
+		info: <InformationIcon label="" />,
+		success: <SuccessIcon label="" />,
+		warning: <WarningIcon label="" />,
+		error: <ErrorIcon label="" />,
 	};
 
 	return key ? icons[key] : icons;

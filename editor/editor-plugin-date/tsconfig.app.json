@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/calendar/tsconfig.app.json"
 		},
 		{

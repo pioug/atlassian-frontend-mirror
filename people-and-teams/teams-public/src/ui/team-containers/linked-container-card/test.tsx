@@ -6,12 +6,18 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Text } from '@atlaskit/primitives';
 
+import { fireUIEvent } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 import { LinkedContainerCard } from './index';
 
 jest.mock('../../../common/utils/get-container-properties', () => ({
 	getContainerProperties: jest.fn(),
+}));
+
+jest.mock('../../../common/utils/analytics', () => ({
+	...jest.requireActual('../../../common/utils/analytics'),
+	fireUIEvent: jest.fn(),
 }));
 
 describe('LinkedContainerCard', () => {
@@ -23,6 +29,7 @@ describe('LinkedContainerCard', () => {
 
 	beforeEach(() => {
 		(getContainerProperties as jest.Mock).mockReturnValue(mockContainerProperties);
+		jest.clearAllMocks();
 	});
 
 	it('should render the title', () => {
@@ -133,6 +140,31 @@ describe('LinkedContainerCard', () => {
 		expect(
 			screen.queryByRole('button', { name: /disconnect the container/i }),
 		).not.toBeInTheDocument();
+	});
+
+	it('should fire an analytics event when the cross icon button is clicked', async () => {
+		render(
+			<Router>
+				<LinkedContainerCard
+					containerType={'ConfluenceSpace'}
+					title="Test Title"
+					containerIcon="test-icon-url"
+					link={testLink}
+					onDisconnectButtonClick={jest.fn()}
+				/>
+			</Router>,
+		);
+
+		const containerElement = screen.getByTestId('linked-container-card-inner');
+		await userEvent.hover(containerElement);
+		const crossIconButton = screen.getByRole('button');
+		await userEvent.click(crossIconButton);
+		expect(fireUIEvent).toHaveBeenCalledTimes(1);
+		expect(fireUIEvent).toHaveBeenCalledWith(expect.any(Function), {
+			action: 'clicked',
+			actionSubject: 'button',
+			actionSubjectId: 'containerUnlinkButton',
+		});
 	});
 
 	it('should capture and report a11y violations', async () => {

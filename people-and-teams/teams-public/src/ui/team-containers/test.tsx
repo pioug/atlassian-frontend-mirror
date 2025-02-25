@@ -4,14 +4,25 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { fireOperationalEvent, fireTrackEvent } from '../../common/utils/analytics';
 import { getContainerProperties, messages } from '../../common/utils/get-container-properties';
-import { useTeamContainers } from '../../controllers/hooks/use-team-containers';
+import {
+	useTeamContainers,
+	useTeamContainersHook,
+} from '../../controllers/hooks/use-team-containers';
 
 import { TeamContainers } from './main';
 
 jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
 	useTeamContainers: jest.fn(),
+	useTeamContainersHook: jest.fn().mockReturnValue([]),
+}));
+
+jest.mock('../../common/utils/analytics', () => ({
+	...jest.requireActual('../../common/utils/analytics'),
+	fireTrackEvent: jest.fn(),
+	fireOperationalEvent: jest.fn(),
 }));
 
 const renderWithIntl = (node: React.ReactNode) => {
@@ -64,6 +75,10 @@ describe('TeamContainers', () => {
 			<TeamContainers teamId={teamId} onAddAContainerClick={mockOnAddAContainerClick} />,
 		);
 	};
+
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
 
 	it('should render add Jira and Confluence container card when the team has no Jira project and Confluence space linked', () => {
 		(useTeamContainers as jest.Mock).mockReturnValue({
@@ -181,6 +196,53 @@ describe('TeamContainers', () => {
 		});
 		await userEvent.click(crossIconButton);
 		expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
+	});
+
+	it('should open disconnect dialog when disconnect button is clicked', async () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [JiraProject],
+		});
+		renderTeamContainers(teamId);
+
+		await userEvent.hover(screen.getByText(JiraProject.name));
+		const crossIconButton = screen.getByRole('button', {
+			name: `disconnect the container ${JiraProject.name}`,
+		});
+		await userEvent.click(crossIconButton);
+		expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
+		expect(fireTrackEvent).toHaveBeenCalledTimes(1);
+		expect(fireTrackEvent).toHaveBeenCalledWith(expect.any(Function), {
+			action: 'opened',
+			actionSubject: 'unlinkContainerDialog',
+		});
+	});
+
+	it('should close disconnect dialog and fire analytics event when confirmation dialog proceed', async () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [JiraProject],
+		});
+		(useTeamContainersHook as jest.Mock).mockReturnValue([
+			{
+				unlinkError: null,
+			},
+			{ unlinkTeamContainers: jest.fn() },
+		]);
+		renderTeamContainers(teamId);
+
+		await userEvent.hover(screen.getByText(JiraProject.name));
+		const crossIconButton = screen.getByRole('button', {
+			name: `disconnect the container ${JiraProject.name}`,
+		});
+		await userEvent.click(crossIconButton);
+
+		const disconnectButton = screen.getByRole('button', { name: 'Remove' });
+		await userEvent.click(disconnectButton);
+
+		expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
+		expect(fireOperationalEvent).toHaveBeenCalledWith(expect.any(Function), {
+			action: 'succeeded',
+			actionSubject: 'unlinkContainer',
+		});
 	});
 
 	it('should have no accessibility violations', async () => {

@@ -1,4 +1,4 @@
-import { BitbucketTransformer } from '../..';
+import { BitbucketTransformer, AdditionalParseOptions } from '../..';
 import { uuid } from '@atlaskit/adf-schema';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import {
@@ -36,7 +36,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
 
 const transformer = new BitbucketTransformer(schema);
-const parse = (html: string) => transformer.parse(html);
+const parse = (html: string, additionalParseOptions?: AdditionalParseOptions) =>
+	transformer.parse(html, additionalParseOptions);
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const MENTION_LOCAL_ID = 'test-mention-local-id';
 
@@ -840,7 +841,7 @@ describe('BitbucketTransformer: parser', () => {
 	});
 
 	describe('code suggestions', () => {
-		it('should convert code block to suggestion extension', () => {
+		it('should convert code block to suggestion extension if shouldParseCodeSuggestions is true', () => {
 			const extensionAttrs = {
 				extensionType: 'com.atlassian.bbc.code-suggestions',
 				extensionKey: 'codesuggestions:suggestion-node',
@@ -855,8 +856,19 @@ describe('BitbucketTransformer: parser', () => {
 					'<div class="codehilite language-suggestion">' +
 						'<pre><span></span><code>this is a suggestion</code></pre>' +
 						'</div>',
+					{ shouldParseCodeSuggestions: true },
 				),
 			).toEqualDocument(doc(extension(extensionAttrs)()));
+		});
+
+		it('should not convert code block to suggestion extension if shouldParseCodeSuggestions is false', () => {
+			expect(
+				parse(
+					'<div class="codehilite language-suggestion">' +
+						'<pre><span></span><code>this is a suggestion</code></pre>' +
+						'</div>',
+				),
+			).toEqualDocument(doc(code_block({ language: 'suggestion' })('this is a suggestion')));
 		});
 	});
 });

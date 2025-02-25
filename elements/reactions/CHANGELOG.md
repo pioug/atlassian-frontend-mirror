@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 26.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.1.0
+
+### Minor Changes
+
+- [#116526](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/116526)
+  [`a8ce8f4cbde31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8ce8f4cbde31) -
+  Track Reactions and Reactions Dialog using react-ufo and add source to open dialog handler
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

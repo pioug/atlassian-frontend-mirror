@@ -106,7 +106,7 @@ export type TimelineEventsGrouped = {
 
 export type TimelineOptions = {
 	cleanup: {
-		eventsThreshold: 100 | 1000 | 10000;
+		eventsThreshold: 100 | 1000 | 3000 | 10000;
 	};
 	/*
 	 * Control how often the Idle Buffer is flushed to the subscribers.

@@ -15,6 +15,7 @@ import {
 } from '@atlaskit/modal-dialog';
 import { type Placement } from '@atlaskit/popper';
 import { fg } from '@atlaskit/platform-feature-flags';
+import UFOSegment from '@atlaskit/react-ufo/segment';
 
 import {
 	createAndFireSafe,
@@ -35,12 +36,7 @@ import {
 	type QuickReactionEmojiSummary,
 	type ProfileCardWrapper,
 } from '../../types';
-import {
-	ReactionDialogClosed,
-	ReactionDialogOpened,
-	ReactionDialogSelectedReactionChanged,
-	ReactionDialogPageNavigation,
-} from '../../ufo';
+import { ReactionDialogOpened, ReactionDialogSelectedReactionChanged } from '../../ufo';
 import { Reaction } from '../Reaction';
 import { ReactionsDialog } from '../ReactionDialog';
 import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
@@ -58,14 +54,9 @@ export const ufoExperiences = {
 	 */
 	openDialog: ReactionDialogOpened,
 	/**
-	 * Experience when a reaction dialog is closed
-	 */
-	closeDialog: ReactionDialogClosed,
-	/**
 	 * Experience when a reaction changed/fetched from inside the modal dialog
 	 */
 	selectedReactionChangeInsideDialog: ReactionDialogSelectedReactionChanged,
-	pageNavigated: ReactionDialogPageNavigation,
 };
 
 /**
@@ -194,6 +185,11 @@ export interface ReactionsProps
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
 	isViewOnly?: boolean;
+}
+
+export interface OpenReactionsDialogOptions {
+	emojiId?: string;
+	source?: string;
 }
 
 /**
@@ -327,19 +323,8 @@ export const Reactions = React.memo(
 			e: KeyboardOrMouseEvent,
 			analyticsEvent: UIAnalyticsEvent,
 		) => {
-			// ufo closing opening reaction dialog
-			ufoExperiences.closeDialog.start();
-
 			setSelectedEmojiId('');
 			onDialogCloseCallback(e, analyticsEvent);
-
-			// ufo closing reaction dialog success
-			ufoExperiences.closeDialog.success({
-				metadata: {
-					source: 'Reactions',
-					reason: 'Closing reactions dialog successfully',
-				},
-			});
 		};
 
 		const handleSelectReactionInDialog = (emojiId: string) => {
@@ -362,20 +347,10 @@ export const Reactions = React.memo(
 
 		const handlePaginationChange = useCallback(
 			(emojiId: string, currentPage: number, maxPages: number) => {
-				ufoExperiences.pageNavigated.start();
-
 				// fetch the latest active emoji from the new page
 				getReactionDetails(emojiId);
 				setSelectedEmojiId(emojiId);
 				onDialogPageChangeCallback(emojiId, currentPage, maxPages);
-
-				ufoExperiences.pageNavigated.success({
-					metadata: {
-						emojiId,
-						source: 'Reactions Dialog',
-						reason: 'Navigated to new page',
-					},
-				});
 			},
 			// Exclude unstable getReactionDetails to avoid extra re-renders
 			// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -430,10 +405,10 @@ export const Reactions = React.memo(
 		 * event handler to open dialog with selected reaction
 		 * @param emojiId initial emoji id to load dialog with
 		 */
-		const handleOpenReactionsDialog = (
-			emojiId: string = sortedReactions[0].emojiId,
-			source: string = 'endOfPageReactions',
-		) => {
+		const handleOpenReactionsDialog = ({
+			emojiId = sortedReactions[0].emojiId,
+			source = 'endOfPageReactions',
+		}: OpenReactionsDialogOptions = {}) => {
 			// ufo start opening reaction dialog
 			ufoExperiences.openDialog.start();
 			getReactionDetails(emojiId);
@@ -451,80 +426,86 @@ export const Reactions = React.memo(
 		};
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
-				{!onlyRenderPicker &&
-					(shouldShowSummaryView ? (
-						<div data-testid={RENDER_REACTIONS_SUMMARY_TESTID}>
-							<ReactionSummaryView
-								reactions={sortedReactions}
-								emojiProvider={emojiProvider}
-								flash={flash}
-								particleEffectByEmoji={particleEffectByEmoji}
-								onReactionClick={onReactionClick}
-								onReactionFocused={handleReactionFocused}
-								onReactionMouseEnter={handleReactionMouseEnter}
-								placement={summaryViewPlacement}
-								showOpaqueBackground={showOpaqueBackground}
-								subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-								handleOpenReactionsDialog={handleOpenReactionsDialog}
-								allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
-								isViewOnly={isViewOnly}
-							/>
-						</div>
-					) : (
-						memorizedReactions.map((reaction) => (
-							<Reaction
-								key={reaction.emojiId}
-								reaction={reaction}
-								emojiProvider={emojiProvider}
-								onClick={onReactionClick}
-								onMouseEnter={handleReactionMouseEnter}
-								onFocused={handleReactionFocused}
-								flash={flash[reaction.emojiId]}
-								showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
-								showOpaqueBackground={showOpaqueBackground}
-								allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
-								handleOpenReactionsDialog={handleOpenReactionsDialog}
-								isViewOnly={isViewOnly}
-							/>
-						))
-					))}
-				{!isViewOnly && (
-					<ReactionPicker
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={reactionPickerStyle}
-						emojiProvider={emojiProvider}
-						allowAllEmojis={allowAllEmojis}
-						pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
-						disabled={status !== ReactionStatus.ready}
-						onSelection={handleOnSelection}
-						onOpen={handlePickerOpen}
-						onCancel={handleOnCancel}
-						onShowMore={handleOnMore}
-						tooltipContent={getTooltip(status, errorMessage)}
-						emojiPickerSize={emojiPickerSize}
-						miniMode={miniMode}
-						showOpaqueBackground={showOpaqueBackground}
-						showAddReactionText={showAddReactionText}
-						subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-						showRoundTrigger={showRoundTrigger}
-					/>
-				)}
-				<ModalTransition>
-					{!!selectedEmojiId && (
-						<ReactionsDialog
-							selectedEmojiId={selectedEmojiId}
-							reactions={sortedReactions}
+			<UFOSegment name="reactions">
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+				<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
+					{!onlyRenderPicker &&
+						(shouldShowSummaryView ? (
+							<div data-testid={RENDER_REACTIONS_SUMMARY_TESTID}>
+								<ReactionSummaryView
+									reactions={sortedReactions}
+									emojiProvider={emojiProvider}
+									flash={flash}
+									particleEffectByEmoji={particleEffectByEmoji}
+									onReactionClick={onReactionClick}
+									onReactionFocused={handleReactionFocused}
+									onReactionMouseEnter={handleReactionMouseEnter}
+									placement={summaryViewPlacement}
+									showOpaqueBackground={showOpaqueBackground}
+									subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+									handleOpenReactionsDialog={() =>
+										handleOpenReactionsDialog({ source: 'summaryView' })
+									}
+									allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
+									isViewOnly={isViewOnly}
+								/>
+							</div>
+						) : (
+							memorizedReactions.map((reaction) => (
+								<Reaction
+									key={reaction.emojiId}
+									reaction={reaction}
+									emojiProvider={emojiProvider}
+									onClick={onReactionClick}
+									onMouseEnter={handleReactionMouseEnter}
+									onFocused={handleReactionFocused}
+									flash={flash[reaction.emojiId]}
+									showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+									showOpaqueBackground={showOpaqueBackground}
+									allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
+									handleOpenReactionsDialog={handleOpenReactionsDialog}
+									isViewOnly={isViewOnly}
+								/>
+							))
+						))}
+					{!isViewOnly && (
+						<ReactionPicker
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css={reactionPickerStyle}
 							emojiProvider={emojiProvider}
-							handleCloseReactionsDialog={handleCloseReactionsDialog}
-							handleSelectReaction={handleSelectReactionInDialog}
-							handlePaginationChange={handlePaginationChange}
-							ProfileCardWrapper={ProfileCardWrapper}
+							allowAllEmojis={allowAllEmojis}
+							pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
+							disabled={status !== ReactionStatus.ready}
+							onSelection={handleOnSelection}
+							onOpen={handlePickerOpen}
+							onCancel={handleOnCancel}
+							onShowMore={handleOnMore}
+							tooltipContent={getTooltip(status, errorMessage)}
+							emojiPickerSize={emojiPickerSize}
+							miniMode={miniMode}
+							showOpaqueBackground={showOpaqueBackground}
+							showAddReactionText={showAddReactionText}
+							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+							showRoundTrigger={showRoundTrigger}
 						/>
 					)}
-				</ModalTransition>
-			</div>
+					<ModalTransition>
+						{!!selectedEmojiId && (
+							<UFOSegment name="reactions-dialog">
+								<ReactionsDialog
+									selectedEmojiId={selectedEmojiId}
+									reactions={sortedReactions}
+									emojiProvider={emojiProvider}
+									handleCloseReactionsDialog={handleCloseReactionsDialog}
+									handleSelectReaction={handleSelectReactionInDialog}
+									handlePaginationChange={handlePaginationChange}
+									ProfileCardWrapper={ProfileCardWrapper}
+								/>
+							</UFOSegment>
+						)}
+					</ModalTransition>
+				</div>
+			</UFOSegment>
 		);
 	},
 );

@@ -1,5 +1,14 @@
 # @atlaskit/editor-tables
 
+## 2.9.1
+
+### Patch Changes
+
+- [#117917](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117917)
+  [`feeb187f3871c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feeb187f3871c) -
+  Fix selections between cells across tables, and cells to content outside tables
+- Updated dependencies
+
 ## 2.9.0
 
 ### Minor Changes

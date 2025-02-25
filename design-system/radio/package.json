@@ -50,7 +50,7 @@
 		"@atlaskit/ds-lib": "^4.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},

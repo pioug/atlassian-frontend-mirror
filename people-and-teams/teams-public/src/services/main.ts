@@ -1,6 +1,8 @@
 import { aggClient } from './agg-client';
 import { type ClientContextProps, type TeamContainers } from './types';
 
+type AwaitedReturn<T extends (...args: any) => any> = Awaited<ReturnType<T>>;
+
 export class TeamsClient {
 	private readonly _aggClient = aggClient;
 
@@ -37,6 +39,19 @@ export class TeamsClient {
 	 */
 	async getTeamContainers(teamId: string): Promise<TeamContainers> {
 		return this._aggClient.getTeamContainers(teamId);
+	}
+
+	/**
+	 * Unlink a container from a team
+	 * @param {string} teamId
+	 * @param {string} containerId
+	 * @returns {Promise<void>}
+	 */
+	async unlinkTeamContainer(
+		teamId: string,
+		containerId: string,
+	): Promise<AwaitedReturn<typeof this._aggClient.unlinkTeamContainer>> {
+		return this._aggClient.unlinkTeamContainer(teamId, containerId);
 	}
 }
 

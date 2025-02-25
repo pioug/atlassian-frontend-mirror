@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { expandedState } from '@atlaskit/editor-common/expand';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import { GapCursorSelection, expandSelectionBounds } from '@atlaskit/editor-common/selection';
+import { expandSelectionBounds, GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
@@ -29,7 +29,7 @@ import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/u
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
+import type { ActiveNode, BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
 import {
 	attachMoveNodeAnalytics,
@@ -82,13 +82,13 @@ const isDragLayoutColumnToTopLevel = ($from: ResolvedPos, $to: ResolvedPos) => {
  */
 const getCurrentNodePos = (state: EditorState): number => {
 	const { selection } = state;
-	const { activeNode } = key.getState(state) || {};
 	let currentNodePos = -1;
 
 	// There are 3 cases when a node can be moved
-	if (activeNode && activeNode.handleOptions?.isFocused) {
+	const focusedHandle = getFocusedHandle(state);
+	if (focusedHandle) {
 		// 1. drag handle of the node is focused
-		currentNodePos = activeNode.pos;
+		currentNodePos = focusedHandle.pos;
 	} else if (isInTable(state)) {
 		if (isTableSelected(selection)) {
 			// We only move table node if it's fully selected
@@ -104,6 +104,11 @@ const getCurrentNodePos = (state: EditorState): number => {
 		}
 	}
 	return currentNodePos;
+};
+
+const getFocusedHandle = (state: EditorState): ActiveNode | undefined => {
+	const { activeNode } = key.getState(state) || {};
+	return activeNode && activeNode.handleOptions?.isFocused ? activeNode : undefined;
 };
 
 export const moveNodeViaShortcut = (
@@ -126,24 +131,21 @@ export const moveNodeViaShortcut = (
 			true,
 		);
 
-		let expandedAnchor, expandedHead;
-		const pluginState = api?.blockControls.sharedState.currentState();
-
-		if (pluginState?.multiSelectDnD) {
-			expandedAnchor = pluginState.multiSelectDnD.anchor;
-			expandedHead = pluginState.multiSelectDnD.head;
-		} else {
-			const expandedSelection = expandSelectionBounds(selection.$anchor, selection.$head);
-			expandedAnchor = expandedSelection.$anchor.pos;
-			expandedHead = expandedSelection.$head.pos;
-		}
-
-		const currentNodePos = isMultiSelectEnabled
-			? Math.min(expandedAnchor, expandedHead)
-			: getCurrentNodePos(state);
+		const expandedSelection = expandSelectionBounds(selection.$anchor, selection.$head);
+		const expandedAnchor = expandedSelection.$anchor.pos;
+		const expandedHead = expandedSelection.$head.pos;
+		const currentNodePos =
+			isMultiSelectEnabled && !getFocusedHandle(state)
+				? Math.min(expandedAnchor, expandedHead)
+				: getCurrentNodePos(state);
 
 		if (currentNodePos > -1) {
 			const $pos = state.doc.resolve(currentNodePos);
+			const nodeAfterPos =
+				isMultiSelectEnabled && !getFocusedHandle(state)
+					? Math.max(expandedAnchor, expandedHead)
+					: $pos.posAtIndex($pos.index() + 1);
+
 			const isTopLevelNode = $pos.depth === 0;
 
 			let moveToPos = -1;
@@ -272,9 +274,6 @@ export const moveNodeViaShortcut = (
 				}
 			} else {
 				const endOfDoc = $pos.end();
-				const nodeAfterPos = isMultiSelectEnabled
-					? Math.max(expandedAnchor, expandedHead)
-					: $pos.posAtIndex($pos.index() + 1);
 
 				if (nodeAfterPos > endOfDoc) {
 					return false;
@@ -362,8 +361,9 @@ export const moveNode =
 			},
 		);
 
+		const slicePosition = getSelectedSlicePosition(start, tr, api);
+
 		if (isMultiSelect) {
-			const slicePosition = getSelectedSlicePosition(start, tr, api);
 			sliceFrom = slicePosition.from;
 			sliceTo = slicePosition.to;
 
@@ -448,7 +448,6 @@ export const moveNode =
 							mappedTo + sliceSize,
 						)({ tr }) ?? tr
 					: selectNode(tr, mappedTo, handleNode.type.name);
-
 		const currMeta = tr.getMeta(key);
 		tr.setMeta(key, { ...currMeta, nodeMoved: true });
 		api?.core.actions.focus();
@@ -510,6 +509,5 @@ export const moveNode =
 				{ priority: 'important' },
 			);
 		}
-
 		return tr;
 	};

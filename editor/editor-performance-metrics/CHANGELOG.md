@@ -1,5 +1,29 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.0.2
+
+### Patch Changes
+
+- [#118627](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118627)
+  [`964bf43e21dc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/964bf43e21dc5) - ###
+  Patch Changes
+
+  #### Race Condition
+
+  This update fix a race condition between `Timeline.attemptFlushIdleBuffer` and
+  `Timeline.callOnNextIdleCallbacks`,
+
+  - The `attemptFlushIdleBuffer` was cleaning the idle buffer before the `callOnNextIdleCallbacks`
+    call the listerners.
+
+  #### Buffer size
+
+  This update increase the default buffer size from `1000` to `3000`.
+
+  #### Performance Observers
+
+  This update improves when the performance observer should starts the observation
+
 ## 2.0.1
 
 ### Patch Changes

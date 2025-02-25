@@ -1,6 +1,6 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import { durations, exitingDurations } from '@atlaskit/motion';
+import { durations } from '@atlaskit/motion';
 import { B400 } from '@atlaskit/theme/colors';
 import { act, screen } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
@@ -95,7 +95,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 				jest.advanceTimersByTime(durations.large * 2);
 			});
 
-			expect(animatedContainer).toHaveStyle(`animation-duration: ${exitingDurations.large}ms`);
+			expect(animatedContainer).toHaveStyle(`animation-duration: .35s`);
 			expect(animatedContainer).toHaveStyle('position: absolute');
 		});
 
@@ -115,7 +115,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 				jest.advanceTimersByTime(durations.large * 2);
 			});
 
-			expect(animatedContainer).toHaveStyle(`animation-duration: ${exitingDurations.large}ms`);
+			expect(animatedContainer).toHaveStyle(`animation-duration: .35s`);
 			expect(animatedContainer).toHaveStyle('position: absolute');
 		});
 	});

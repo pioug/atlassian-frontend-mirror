@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import { Text, Box } from '@atlaskit/primitives';
 import noop from '@atlaskit/ds-lib/noop';
+import { Box, Text } from '@atlaskit/primitives';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { type FlagProps } from '../../types';
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';
+import { type FlagProps } from '../../types';
 
 describe('Flag', () => {
 	const generateFlag = (extraProps?: Partial<FlagProps>) => (
@@ -37,11 +39,7 @@ describe('Flag', () => {
 		it('should accept JSX in description', () => {
 			render(
 				generateFlag({
-					description: (
-						<Text testId="description-jsx">
-							<a href="https://atlassian.com">Atlassian</a>
-						</Text>
-					),
+					description: <Text testId="description-jsx">Atlassian</Text>,
 					testId: 'flag-test',
 				}),
 			);
@@ -84,7 +82,9 @@ describe('Flag', () => {
 				expect(screen.getByTestId('flag-test-toggle')).toHaveAttribute('aria-expanded', 'false');
 			});
 
-			it('should set aria-expanded to true if expanded', () => {
+			it('should set aria-expanded to true if expanded', async () => {
+				const user = userEvent.setup();
+
 				render(
 					generateFlag({
 						appearance: 'info',
@@ -93,7 +93,8 @@ describe('Flag', () => {
 					}),
 				);
 				const toggleButton = screen.getByTestId('flag-test-toggle');
-				fireEvent.click(toggleButton);
+
+				await user.click(toggleButton);
 
 				expect(screen.getByTestId('flag-test-toggle')).toHaveAttribute('aria-expanded', 'true');
 			});
@@ -127,7 +128,9 @@ describe('Flag', () => {
 				expect(screen.getByTestId('flag-test-toggle')).toBeInTheDocument();
 			});
 
-			it('should un-expand an expanded bold flag when the description and actions props are removed', () => {
+			it('should un-expand an expanded bold flag when the description and actions props are removed', async () => {
+				const user = userEvent.setup();
+
 				const { rerender } = render(
 					generateFlag({
 						appearance: 'info',
@@ -137,7 +140,7 @@ describe('Flag', () => {
 					}),
 				);
 
-				fireEvent.click(screen.getByTestId('flag-test-toggle'));
+				await user.click(screen.getByTestId('flag-test-toggle'));
 
 				expect(screen.getByTestId('flag-test-expander')).toHaveAttribute('aria-hidden', 'false');
 
@@ -172,7 +175,9 @@ describe('Flag', () => {
 		});
 
 		describe('flag actions', () => {
-			it('onDismissed should be called with flag id as param when dismiss icon clicked', () => {
+			it('onDismissed should be called with flag id as param when dismiss icon clicked', async () => {
+				const user = userEvent.setup();
+
 				const spy = jest.fn();
 				render(
 					<FlagGroup onDismissed={spy}>
@@ -182,7 +187,8 @@ describe('Flag', () => {
 						})}
 					</FlagGroup>,
 				);
-				fireEvent.click(screen.getByTestId('flag-test-dismiss'));
+
+				await user.click(screen.getByTestId('flag-test-dismiss'));
 
 				expect(spy).toHaveBeenCalledTimes(1);
 				expect(spy).toHaveBeenCalledWith('a', expect.anything());
@@ -202,4 +208,38 @@ describe('Flag', () => {
 			});
 		});
 	});
+
+	ffTest.off(
+		'platform_ads_component_no_icon_spacing_support',
+		'icon spacing support is disabled',
+		() => {
+			describe('icons', () => {
+				test('do not render by default, if not provided', () => {
+					render(<Flag id="" title="Flag" testId="flag-test" />);
+
+					const iconContainer = screen.getByTestId('flag-test-icon-container');
+
+					expect(iconContainer).toBeInTheDocument();
+					expect(iconContainer).toBeEmptyDOMElement();
+				});
+			});
+		},
+	);
+
+	ffTest.on(
+		'platform_ads_component_no_icon_spacing_support',
+		'icon spacing support is enabled',
+		() => {
+			describe('icons', () => {
+				test('render by default, if not provided', () => {
+					render(<Flag id="" title="Flag" testId="flag-test" />);
+
+					const iconContainer = screen.getByTestId('flag-test-icon-container');
+
+					expect(iconContainer).toBeInTheDocument();
+					expect(iconContainer).not.toBeEmptyDOMElement();
+				});
+			});
+		},
+	);
 });

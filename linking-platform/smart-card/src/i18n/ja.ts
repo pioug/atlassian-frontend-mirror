@@ -89,10 +89,10 @@ export default {
   'fabric.linking.download_file': 'ファイルをダウンロード',
   'fabric.linking.edit': '編集',
   'fabric.linking.follow': 'フォロー',
-  'fabric.linking.follow_goal': '目的をフォロー',
-  'fabric.linking.follow_goal_description': 'この目的をフォローすると、最新情報の通知が届きます',
+  'fabric.linking.follow_goal': 'ゴールをフォロー',
+  'fabric.linking.follow_goal_description': 'このゴールをフォローすると、最新情報の通知が届きます',
   'fabric.linking.follow_goal_error':
-    '目的をフォローする際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
+    'ゴールをフォローする際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
   'fabric.linking.follow_project': 'プロジェクトをフォロー',
   'fabric.linking.follow_project_description': 'フォローすると、このプロジェクトの通知が届きます',
   'fabric.linking.follow_project_error':
@@ -180,10 +180,10 @@ export default {
   'fabric.linking.unauthorised_account_name': '{context} の非公開ページは表示できません',
   'fabric.linking.unauthorised_account_name_no_provider': '非公開ページは表示できません',
   'fabric.linking.unfollow': 'フォローを解除',
-  'fabric.linking.unfollow_goal': '目的をフォロー解除',
-  'fabric.linking.unfollow_goal_description': 'フォロー解除すると、この目的の通知が届かなくなります',
+  'fabric.linking.unfollow_goal': 'ゴールをフォロー解除',
+  'fabric.linking.unfollow_goal_description': 'フォロー解除すると、このゴールの通知が届かなくなります',
   'fabric.linking.unfollow_goal_error':
-    '目的をフォロー解除する際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
+    'ゴールをフォロー解除する際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
   'fabric.linking.unfollow_project': 'プロジェクトをフォロー解除',
   'fabric.linking.unfollow_project_description': 'フォロー解除すると、プロジェクトの通知が届かなくなります',
   'fabric.linking.unfollow_project_error':

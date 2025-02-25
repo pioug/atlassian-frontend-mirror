@@ -33,8 +33,8 @@
 	"dependencies": {
 		"@atlaskit/css": "^0.10.0",
 		"@atlaskit/editor-common": "^100.1.0",
-		"@atlaskit/primitives": "^14.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/primitives": "^14.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"fuse.js": "^6.6.2"

@@ -31,6 +31,7 @@ module.exports = {
 						envName: 'production:es2019',
 						cacheDirectory: true,
 						presets: ['@babel/preset-env'],
+						configFile: path.join(__dirname, './babel.config.js'),
 					},
 				},
 				exclude: /node_modules/,

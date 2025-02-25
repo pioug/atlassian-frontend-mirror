@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-decorations": "^2.0.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/prosemirror-input-rules": "^3.3.0",
 		"@babel/runtime": "^7.0.0"

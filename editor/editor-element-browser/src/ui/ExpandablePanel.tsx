@@ -12,6 +12,7 @@ export interface ExpandablePanelProps {
 	label: string;
 	items: ItemData[];
 	attributes?: { new?: boolean };
+	xcss?: ReturnType<typeof xcss>;
 	onItemSelected?: (index: number, categoryId: string) => void;
 	onViewAllSelected?: (categoryId: string) => void;
 }
@@ -28,6 +29,7 @@ export const ExpandablePanel = ({
 	label,
 	items,
 	attributes,
+	xcss: xcssStyles,
 	onItemSelected,
 	onViewAllSelected,
 }: ExpandablePanelProps) => {
@@ -38,7 +40,8 @@ export const ExpandablePanel = ({
 	const limitedItems = items.slice(0, 5);
 
 	return (
-		<Stack>
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		<Stack xcss={xcssStyles}>
 			<ExpandableNavButton
 				id={id}
 				label={label}

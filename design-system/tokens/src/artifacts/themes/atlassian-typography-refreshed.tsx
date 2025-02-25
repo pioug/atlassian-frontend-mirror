@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a02e93404c9c9524803d9df34cc862c>>
+ * @codegen <<SignedSource::bf2bf094d07b0dde7b12bdde7afc0493>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -17,7 +17,7 @@ html[data-theme~="typography:typography-refreshed"] {
   --ds-font-body: normal 400 0.875rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-body-small: normal 400 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-body-UNSAFE_small: normal 400 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-  --ds-font-code: normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
+  --ds-font-code: normal 400 0.875em/1 "Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
   --ds-font-weight-regular: 400;
   --ds-font-weight-medium: 500;
   --ds-font-weight-semibold: 600;

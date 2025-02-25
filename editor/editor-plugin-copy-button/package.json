@@ -38,7 +38,7 @@
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-decorations": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/icon": "^24.1.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

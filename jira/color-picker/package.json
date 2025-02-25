@@ -30,11 +30,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/platform-feature-flags": "1.1.0",
 		"@atlaskit/select": "^19.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -47,7 +47,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",

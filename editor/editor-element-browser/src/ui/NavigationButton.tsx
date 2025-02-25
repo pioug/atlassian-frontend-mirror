@@ -88,6 +88,7 @@ interface ButtonBaseProps {
 	isDisabled?: boolean;
 	isExpanded?: boolean;
 	attributes?: { new?: boolean };
+	xcss?: ReturnType<typeof xcss>;
 	onClick?: (id: string) => void;
 }
 
@@ -99,6 +100,7 @@ const ButtonBase = ({
 	isDisabled,
 	isExpanded,
 	attributes,
+	xcss: xcssProp,
 	onClick,
 }: ButtonBaseProps) => {
 	const iconComponent = useMemo(() => {
@@ -129,6 +131,8 @@ const ButtonBase = ({
 						buttonStyles,
 						isSelected && selectedButtonStyles,
 						isDisabled && disabledButtonStyles,
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						xcssProp,
 					]}
 				>
 					<Inline

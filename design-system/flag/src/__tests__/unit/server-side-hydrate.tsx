@@ -11,8 +11,7 @@ test('should ssr then hydrate correctly', async () => {
 	elem.innerHTML = html;
 	await hydrateWithAct(examplePath, elem, styles);
 
-	// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
-	await screen.findByLabelText('Normal success');
+	await screen.findByText('Welcome to the jungle');
 
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;

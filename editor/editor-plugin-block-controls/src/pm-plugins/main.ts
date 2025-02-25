@@ -158,10 +158,7 @@ const destroyFn = (
 							},
 						})(tr);
 					}
-					return tr.setMeta(key, {
-						isDragging: false,
-						isPMDragging: false,
-					});
+					return tr.setMeta(key, { ...tr.getMeta(key), isDragging: false, isPMDragging: false });
 				});
 			},
 		}),
@@ -210,6 +207,7 @@ export const newApply = (
 		isDragging,
 		isMenuOpen, // NOT USED
 		isPMDragging,
+		isShiftDown,
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
@@ -236,15 +234,10 @@ export const newApply = (
 	const meta = tr.getMeta(key);
 	const resizerMeta = tr.getMeta('is-resizer-resizing');
 	isResizerResizing = resizerMeta ?? isResizerResizing;
+	multiSelectDnD = meta?.multiSelectDnD ?? multiSelectDnD;
 
 	if (multiSelectDnD && flags.isMultiSelectEnabled) {
-		multiSelectDnD =
-			meta?.isDragging === false ||
-			// For move node with shortcut, only reset when the selection changes
-			tr.selection.anchor !== multiSelectDnD.textAnchor ||
-			tr.selection.head !== multiSelectDnD.textHead
-				? undefined
-				: multiSelectDnD;
+		multiSelectDnD = meta?.isDragging === false || tr.selection.empty ? undefined : multiSelectDnD;
 	}
 
 	const { from, to, numReplaceSteps, isAllText } = getTrMetadata(tr);
@@ -385,7 +378,6 @@ export const newApply = (
 		: meta?.toggleMenu
 			? !isMenuOpen
 			: isMenuOpen;
-
 	return {
 		decorations,
 		activeNode: newActiveNode,
@@ -397,7 +389,8 @@ export const newApply = (
 		isResizerResizing: isResizerResizing,
 		isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 		isPMDragging: meta?.isPMDragging ?? isPMDragging,
-		multiSelectDnD: meta?.multiSelectDnD ?? multiSelectDnD,
+		multiSelectDnD,
+		isShiftDown: meta?.isShiftDown ?? isShiftDown,
 	};
 };
 
@@ -724,7 +717,7 @@ export const createPlugin = (
 					const pluginState = key.getState(state);
 
 					if (pluginState?.isPMDragging) {
-						dispatch(state.tr.setMeta(key, { isPMDragging: false }));
+						dispatch(state.tr.setMeta(key, { ...state.tr.getMeta(key), isPMDragging: false }));
 					}
 
 					if (!(event.target instanceof HTMLElement) || !pluginState?.activeNode) {
@@ -795,13 +788,15 @@ export const createPlugin = (
 					}
 
 					anchorRectCache?.setEditorView(view);
-					view.dispatch(view.state.tr.setMeta(key, { isPMDragging: true }));
+					view.dispatch(
+						view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isPMDragging: true }),
+					);
 				},
 				dragend(view: EditorView) {
 					const { state, dispatch } = view;
 
 					if (key.getState(state)?.isPMDragging) {
-						dispatch(state.tr.setMeta(key, { isPMDragging: false }));
+						dispatch(state.tr.setMeta(key, { ...state.tr.getMeta(key), isPMDragging: false }));
 					}
 				},
 				mouseover: (view: EditorView, event: Event) => {
@@ -809,26 +804,63 @@ export const createPlugin = (
 					return false;
 				},
 				keydown(view: EditorView, event: KeyboardEvent) {
-					// Command + Shift + ArrowUp to select was broken with the plugin enabled so this manually sets the selection
-					const { selection, doc, tr } = view.state;
-					const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
+					if (isMultiSelectEnabled) {
+						if (event.shiftKey && event.ctrlKey) {
+							//prevent holding down key combo from firing repeatedly
+							if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
+								event.preventDefault();
+								return true;
+							}
+						}
 
-					if (event.key === 'ArrowUp' && event.shiftKey && metaKey) {
-						if (selection instanceof TextSelection || selection instanceof NodeSelection) {
-							const newSelection = TextSelection.create(doc, selection.head, 1);
-							view.dispatch(tr.setSelection(newSelection));
+						// Command + Shift + ArrowUp to select was broken with the plugin enabled so this manually sets the selection
+						const { selection, doc, tr } = view.state;
+						const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
+
+						if (event.key === 'ArrowUp' && event.shiftKey && metaKey) {
+							if (selection instanceof TextSelection || selection instanceof NodeSelection) {
+								const newSelection = TextSelection.create(doc, selection.head, 1);
+								view.dispatch(tr.setSelection(newSelection));
+								return true;
+							}
+						}
+
+						if (!event.repeat && event.shiftKey) {
+							view.dispatch(
+								view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: true }),
+							);
 							return true;
 						}
-					}
+						return false;
+					} else {
+						// Command + Shift + ArrowUp to select was broken with the plugin enabled so this manually sets the selection
+						const { selection, doc, tr } = view.state;
+						const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
 
-					if (event.shiftKey && event.ctrlKey) {
-						//prevent holding down key combo from firing repeatedly
-						if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
-							event.preventDefault();
-							return true;
+						if (event.key === 'ArrowUp' && event.shiftKey && metaKey) {
+							if (selection instanceof TextSelection || selection instanceof NodeSelection) {
+								const newSelection = TextSelection.create(doc, selection.head, 1);
+								view.dispatch(tr.setSelection(newSelection));
+								return true;
+							}
+						}
+
+						if (event.shiftKey && event.ctrlKey) {
+							//prevent holding down key combo from firing repeatedly
+							if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
+								event.preventDefault();
+								return true;
+							}
 						}
 					}
 					return false;
+				},
+				keyup(view: EditorView, event: KeyboardEvent) {
+					if (!event.repeat && event.key === 'Shift') {
+						view.dispatch(
+							view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: false }),
+						);
+					}
 				},
 			},
 		},
@@ -858,7 +890,11 @@ export const createPlugin = (
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							const editorWidthLeft = editorContentArea!.getBoundingClientRect().left;
-							transaction.setMeta(key, { editorWidthLeft, editorWidthRight });
+							transaction.setMeta(key, {
+								...transaction.getMeta(key),
+								editorWidthLeft,
+								editorWidthRight,
+							});
 						}
 						editorView.dispatch(transaction);
 					}

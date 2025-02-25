@@ -53,6 +53,7 @@ export default {
     'Aloituspäivä ei voi olla tulevaisuudessa',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Päättymispäivä ei voi olla tulevaisuudessa',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Päivämäärävälin virhe',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Alkaen',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Valitse päivämäärä',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Kuluneet 30 päivää',

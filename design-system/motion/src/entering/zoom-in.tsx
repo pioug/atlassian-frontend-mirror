@@ -1,32 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type CSSObject } from '@emotion/react';
-
 import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
-
-export const zoomInAnimation = (): CSSObject => ({
-	'0%': {
-		opacity: 0,
-		transform: 'scale(0.5)',
-	},
-	'50%': {
-		opacity: 1,
-	},
-	'75%': {
-		transform: 'scale(1.25)',
-	},
-	'100%': {
-		transform: 'scale(1)',
-	},
-});
-
-export const shrinkOutAnimation = (): CSSObject => ({
-	to: {
-		opacity: 0,
-		transform: 'scale(0.75)',
-	},
-});
 
 /**
  * __ZoomIn__
@@ -44,8 +18,8 @@ const ZoomIn = ({
 	return (
 		<KeyframesMotion
 			duration={duration}
-			enteringAnimation={zoomInAnimation()}
-			exitingAnimation={shrinkOutAnimation()}
+			enteringAnimation="zoom-in"
+			exitingAnimation="zoom-out"
 			animationTimingFunction="ease-in-out"
 			isPaused={isPaused}
 			onFinish={onFinish}

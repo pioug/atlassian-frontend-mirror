@@ -36,10 +36,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/icon": "^24.0.0",
-		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"react-animate-height": "^2.1.0",
 		"react-focus-within": "^2.0.1",

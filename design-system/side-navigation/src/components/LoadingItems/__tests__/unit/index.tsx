@@ -52,10 +52,7 @@ describe('<LoadingItems />', () => {
 
 		rerender(markup(false));
 
-		expect(screen.getByTestId('test--exiting')).toHaveStyleDeclaration(
-			'animation-duration',
-			'175ms',
-		);
+		expect(screen.getByTestId('test--exiting')).toHaveCompiledCss('animation-duration', '175ms');
 	});
 
 	it('should render nothing when not apart of the active view', () => {

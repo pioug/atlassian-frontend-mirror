@@ -50,6 +50,7 @@ export default {
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.end': '起始日期必须早于截止日期',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.today': '起始日期不能是未来日期',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today': '结束日期不能是未来日期',
+  'linkDataSource.confluence-search.configmodal.date.range.error': '日期范围错误',
   'linkDataSource.confluence-search.configmodal.date.range.from': '从',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': '选择日期',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': '过去 30 天',

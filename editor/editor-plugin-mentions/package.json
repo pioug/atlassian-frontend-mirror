@@ -41,11 +41,11 @@
 		"@atlaskit/editor-plugin-context-identifier": "^2.0.0",
 		"@atlaskit/editor-plugin-type-ahead": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/mention": "^24.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"uuid": "^3.1.0"

@@ -55,6 +55,7 @@ export default {
     'Data Od nie może być w przyszłości',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Data Do nie może być w przyszłości',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Błąd zakresu dat',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Od',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Wybierz datę',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Ostatnie 30 dni',

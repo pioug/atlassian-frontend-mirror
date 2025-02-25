@@ -47,14 +47,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		addMetadata: jest.fn(),
 	};
 
-	const fakeCloseDialogUFOExperience: FakeUFOInstance = {
-		start: jest.fn(),
-		success: jest.fn(),
-		failure: jest.fn(),
-		abort: jest.fn(),
-		addMetadata: jest.fn(),
-	};
-
 	const fakeSelectedReactionChangeInsideDialogUFOExperience: FakeUFOInstance = {
 		start: jest.fn(),
 		success: jest.fn(),
@@ -65,7 +57,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 	mockReactDomWarningGlobal(() => {
 		// Mock the experiences for all dialog UfoExperience instances
 		ufoExperiences.openDialog = fakeOpenDialogUFOExperience as any;
-		ufoExperiences.closeDialog = fakeCloseDialogUFOExperience as any;
 		ufoExperiences.selectedReactionChangeInsideDialog =
 			fakeSelectedReactionChangeInsideDialogUFOExperience as any;
 	});
@@ -270,12 +261,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 				emojiId: reactionsForDialog[1].emojiId,
 				source: 'Reactions',
 				reason: 'Selected Emoji changed',
-			},
-		});
-		expect(fakeCloseDialogUFOExperience.success).toBeCalledWith({
-			metadata: {
-				source: 'Reactions',
-				reason: 'Closing reactions dialog successfully',
 			},
 		});
 	});

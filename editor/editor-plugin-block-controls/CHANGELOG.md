@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.1.0
+
+### Minor Changes
+
+- [#117917](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117917)
+  [`9d7669d4f5295`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d7669d4f5295) -
+  [ux] Add shift-select functionality to DnD
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

@@ -36,11 +36,11 @@
 	"atlaskit:src": "src/index.ts",
 	"dependencies": {
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/icon": "^24.0.0",
-		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/radio": "^8.0.0",
 		"@atlaskit/spinner": "^18.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0"
 	},

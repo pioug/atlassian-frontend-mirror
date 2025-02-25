@@ -11,6 +11,7 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -18,7 +19,13 @@ import { DEFAULT_APPEARANCE } from './constants';
 import Actions from './flag-actions';
 import { useFlagGroup } from './flag-group';
 import { DismissButton, Expander } from './internal';
-import { flagBackgroundColor, flagIconColor, flagTextColor, flagTextColorToken } from './theme';
+import {
+	flagBackgroundColor,
+	flagIconColor,
+	flagIconGlyph,
+	flagTextColor,
+	flagTextColorToken,
+} from './theme';
 import type { FlagProps } from './types';
 
 const CSS_VAR_ICON_COLOR = '--flag-icon-color';
@@ -34,9 +41,19 @@ const descriptionStyles = css({
 	overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
 });
 
-const iconWrapperStyles = css({
+const oldIconWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'start',
+	flexShrink: 0,
+	color: `var(${CSS_VAR_ICON_COLOR})`,
+});
+
+const iconWrapperStyles = css({
+	display: 'flex',
+	minWidth: '24px',
+	minHeight: '24px',
+	alignItems: 'center',
+	justifyContent: 'center',
 	flexShrink: 0,
 	color: `var(${CSS_VAR_ICON_COLOR})`,
 });
@@ -167,6 +184,7 @@ const Flag: FC<FlagProps> = (props) => {
 
 	const textColor = flagTextColor[appearance];
 	const iconColor = flagIconColor[appearance];
+	const iconGlyph = flagIconGlyph[appearance];
 	const isDismissable = isBold || isDismissAllowed;
 	const shouldRenderGap = (!isBold && (description || actions.length)) || isExpanded;
 	// when delayAnnouncement is available we will use a hidden content for announcement
@@ -180,13 +198,24 @@ const Flag: FC<FlagProps> = (props) => {
 	return (
 		<div role="alert" css={flagWrapperStyles} data-testid={testId} {...autoDismissProps}>
 			<Box backgroundColor={flagBackgroundColor[appearance]} padding="space.200" xcss={flagStyles}>
-				<Inline alignBlock="stretch" space="space.200">
+				<Inline
+					alignBlock={fg('platform_ads_component_no_icon_spacing_support') ? 'start' : 'stretch'}
+					space="space.200"
+				>
 					<div
-						css={iconWrapperStyles}
+						css={
+							fg('platform_ads_component_no_icon_spacing_support')
+								? iconWrapperStyles
+								: oldIconWrapperStyles
+						}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
+						data-testid={testId && `${testId}-icon-container`}
 					>
-						{icon}
+						{icon ||
+							(iconGlyph && fg('platform_ads_component_no_icon_spacing_support')
+								? iconGlyph
+								: null)}
 					</div>
 					<span css={transitionStyles}>
 						<Stack

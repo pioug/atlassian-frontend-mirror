@@ -27,7 +27,7 @@ import LinkInfoOld from './indexOld';
 import LinkInfoButton from './link-info-button';
 import { type LinkInfoProps } from './types';
 
-const containerStyles = css({
+const containerStylesOld = css({
 	alignItems: 'center',
 	display: 'flex',
 	gap: token('space.100', '8px'),
@@ -40,6 +40,17 @@ const containerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingBottom: '14px',
 	paddingLeft: token('space.300', '24px'),
+});
+
+const containerStyles = css({
+	display: 'flex',
+	paddingLeft: token('space.300'),
+	paddingRight: token('space.300'),
+	paddingTop: token('space.300'),
+	paddingBottom: token('space.200'),
+	gap: token('space.100'),
+	alignSelf: 'stretch',
+	height: '24px',
 });
 
 const iconSize = '24px';
@@ -60,9 +71,7 @@ const iconCss = css({
 		},
 });
 
-const height = '20px';
-
-const titleCss = css({
+const titleCssOld = css({
 	flex: '1 1 auto',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h3: {
@@ -77,9 +86,17 @@ const titleCss = css({
 		WebkitLineClamp: 1,
 		WebkitBoxOrient: 'vertical',
 		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: height,
+			maxHeight: '20px',
 		},
 	},
+});
+
+const titleCss = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	flex: '1 0 0',
+	alignSelf: 'stretch',
 });
 
 const actionCss = css({
@@ -105,7 +122,7 @@ const LinkInfo = ({
 	size,
 	testId,
 	title,
-}: LinkInfoProps) => {
+}: LinkInfoProps): JSX.Element => {
 	const { onClose } = useModal();
 
 	const downloadButton = useMemo(() => {
@@ -186,23 +203,23 @@ const LinkInfo = ({
 	}, [onResizeButtonClick, size, testId]);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div css={containerStyles}>
+		<div css={[fg('platform-linking-visual-refresh-v1') ? containerStyles : containerStylesOld]}>
 			{icon && (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={iconCss} data-testid={`${testId}-icon`}>
 					<Icon {...icon} />
 				</div>
 			)}
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-			<div css={titleCss}>
-				<Heading size="medium" testId={`${testId}-title`}>
+			<div css={[fg('platform-linking-visual-refresh-v1') ? titleCss : titleCssOld]}>
+				<Heading
+					size={fg('platform-linking-visual-refresh-v1') ? 'small' : 'medium'}
+					color={fg('platform-linking-visual-refresh-v1') ? 'color.text' : undefined}
+					testId={`${testId}-title`}
+				>
 					{title}
 				</Heading>
 				{/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
 				<span tabIndex={0} />
 			</div>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={actionCss}>
 				{downloadButton}
 				{urlButton}

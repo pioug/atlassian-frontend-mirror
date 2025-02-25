@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.0.1
+
+### Patch Changes
+
+- [#117936](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117936)
+  [`f9d438f975b72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9d438f975b72) -
+  Cleanup react 18 annotation nodeview memory leak.
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

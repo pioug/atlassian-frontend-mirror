@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d443b5c468fe85dc6475fac55f175cc6>>
+ * @codegen <<SignedSource::59c870d1182edf451750202ed7ca53e8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -444,6 +444,16 @@ const metadata: Record<string, metadata> = {
 		team: 'Ecosystem',
 		slackChannel: '#forge-sql',
 	},
+	'divider-element': {
+		keywords: ['divider-element', 'dividerelement', 'icon', 'icon-lab', 'core'],
+		componentName: 'DividerElementIcon',
+		package: '@atlaskit/icon-lab/core/divider-element',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Insert divider element in Confluence',
+		team: 'editor-design',
+		slackChannel: '#editor-controls-project',
+	},
 	'drop-shadow': {
 		keywords: ['drop-shadow', 'dropshadow', 'icon', 'icon-lab', 'core', 'Drop shadow'],
 		componentName: 'DropShadowIcon',
@@ -482,6 +492,16 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
 		team: 'Design System Team',
+	},
+	'expand-element': {
+		keywords: ['expand-element', 'expandelement', 'icon', 'icon-lab', 'core'],
+		componentName: 'ExpandElementIcon',
+		package: '@atlaskit/icon-lab/core/expand-element',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known usage: Insert expand element in Confluence',
+		team: 'editor-design',
+		slackChannel: '#editor-controls-project',
 	},
 	'field-text': {
 		keywords: [

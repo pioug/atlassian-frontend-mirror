@@ -52,6 +52,7 @@ export default {
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.today': '시작일은 미래일 수 없습니다',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     '종료 날짜는 미래일 수 없습니다',
+  'linkDataSource.confluence-search.configmodal.date.range.error': '날짜 범위 오류',
   'linkDataSource.confluence-search.configmodal.date.range.from': '시작',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': '날짜 선택',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': '지난 30일',

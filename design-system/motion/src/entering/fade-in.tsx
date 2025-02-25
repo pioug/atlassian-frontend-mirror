@@ -1,68 +1,14 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type CSSObject } from '@emotion/react';
-
-import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
+import KeyframesMotion, { type Animations, type KeyframesMotionProps } from './keyframes-motion';
 import type { Direction, Distance } from './types';
 
-const directionMotions: Record<Distance, Record<Direction, string>> = {
-	proportional: {
-		bottom: 'translate3d(0, calc(5% + 4px), 0)',
-		left: 'translate3d(calc(-5% - 4px), 0, 0)',
-		right: 'translate3d(calc(5% + 4px), 0, 0)',
-		top: 'translate3d(0, calc(-5% - 4px), 0)',
-	},
-	constant: {
-		bottom: 'translate3d(0, 4px, 0)',
-		left: 'translate3d(-4px, 0, 0)',
-		right: 'translate3d(4px, 0, 0)',
-		top: 'translate3d(0, -4px, 0)',
-	},
-};
-
-const invertedDirection = {
+const invertedDirection: Record<Direction, Direction> = {
 	top: 'bottom',
 	bottom: 'top',
 	left: 'right',
 	right: 'left',
 } as const;
-
-export const fadeInAnimation = (
-	direction?: Direction,
-	distance: Distance = 'proportional',
-): CSSObject => {
-	return {
-		from: {
-			opacity: 0,
-			...(direction !== undefined && {
-				transform: directionMotions[distance][direction],
-			}),
-		},
-		'50%': {
-			opacity: 1,
-		},
-		to: {
-			transform: direction !== undefined ? 'none' : undefined,
-		},
-	};
-};
-
-export const fadeOutAnimation = (
-	direction?: Direction,
-	distance: Distance = 'proportional',
-): CSSObject => ({
-	from: {
-		opacity: 1,
-		transform: direction !== undefined ? 'translate3d(0, 0, 0)' : undefined,
-	},
-	to: {
-		opacity: 0,
-		...(direction !== undefined && {
-			transform: directionMotions[distance][direction],
-		}),
-	},
-});
 
 /**
  * Props for controlling the behavior of the FadeIn animation
@@ -102,13 +48,21 @@ const FadeIn = ({
 	onFinish,
 	isPaused,
 }: FadeKeyframesMotionProps) => {
-	const invertedEntranceDirection = entranceDirection && invertedDirection[entranceDirection];
+	const invertedEntranceDirection =
+		entranceDirection !== undefined ? invertedDirection[entranceDirection] : undefined;
+	const isExitDirect: Animations = Boolean(exitDirection || invertedEntranceDirection)
+		? `fade-out-from-${exitDirection! || invertedEntranceDirection!}${distance === 'proportional' ? '' : '-constant'}`
+		: 'fade-out';
 
 	return (
 		<KeyframesMotion
 			duration={duration}
-			enteringAnimation={fadeInAnimation(entranceDirection, distance)}
-			exitingAnimation={fadeOutAnimation(exitDirection || invertedEntranceDirection, distance)}
+			enteringAnimation={
+				entranceDirection
+					? `fade-in-from-${entranceDirection}${distance === 'proportional' ? '' : '-constant'}`
+					: 'fade-in'
+			}
+			exitingAnimation={isExitDirect}
 			animationTimingFunction="ease-in-out"
 			onFinish={onFinish}
 			isPaused={isPaused}

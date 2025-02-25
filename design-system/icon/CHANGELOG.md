@@ -1,5 +1,28 @@
 # @atlaskit/icon
 
+## 24.1.0
+
+### Minor Changes
+
+- [#117980](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117980)
+  [`445574ca2bf8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/445574ca2bf8c) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `drag-handle-horizontal`
+  - `drag-handle-vertical`
+  - `drag-handle`
+  - `text-strikethrough`
+
+  **`@atlaskit/icon/utility`**
+
+  - `drag-handle-horizontal`
+  - `drag-handle-vertical`
+  - `drag-handle`
+
 ## 24.0.0
 
 ### Major Changes

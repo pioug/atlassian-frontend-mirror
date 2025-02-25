@@ -55,6 +55,7 @@ export default {
     'La data di inizio non può essere nel futuro',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'La data di fine non può essere nel futuro',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Errore intervallo di date',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Da',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Scegli una data',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Ultimi 30 giorni',

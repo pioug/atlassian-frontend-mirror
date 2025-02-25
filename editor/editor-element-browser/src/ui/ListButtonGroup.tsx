@@ -3,16 +3,8 @@ import React from 'react';
 import Heading from '@atlaskit/heading';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
-import type { ItemData } from './ItemType';
+import type { GroupData } from './ItemType';
 import { ListButtonItem } from './ListButtonItem';
-
-interface ListButtonGroupProps {
-	id: string;
-	label?: string;
-	items: ItemData[];
-	attributes?: { new?: boolean };
-	onItemSelected?: (index: number, categoryId: string) => void;
-}
 
 const headingContainerStyles = xcss({
 	paddingTop: 'space.0',
@@ -21,9 +13,23 @@ const headingContainerStyles = xcss({
 	paddingRight: 'space.200',
 });
 
-const ListButtonGroupBase = ({ id, label, items, onItemSelected }: ListButtonGroupProps) => {
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
+interface ListButtonGroupProps extends Optional<GroupData, 'label'> {
+	xcss?: ReturnType<typeof xcss>;
+	onItemSelected?: (index: number, categoryId: string) => void;
+}
+
+const ListButtonGroupBase = ({
+	id,
+	label,
+	items,
+	xcss: xcssStyles,
+	onItemSelected,
+}: ListButtonGroupProps) => {
 	return (
-		<Stack space="space.025">
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		<Stack space="space.025" xcss={xcssStyles}>
 			{label && (
 				<Box xcss={[headingContainerStyles]}>
 					<Heading size={'xsmall'}>{label}</Heading>
@@ -52,10 +58,18 @@ export const ListButtonGroupWithHeading = ({
 	id,
 	label,
 	items,
+	xcss: xcssStyles,
 	onItemSelected,
 }: ListButtonGroupProps) => {
 	return (
-		<ListButtonGroupBase id={id} label={label} items={items} onItemSelected={onItemSelected} />
+		<ListButtonGroupBase
+			id={id}
+			label={label}
+			items={items}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			xcss={xcssStyles}
+			onItemSelected={onItemSelected}
+		/>
 	);
 };
 
@@ -63,6 +77,10 @@ export const ListButtonGroup = ({
 	id,
 	items,
 	onItemSelected,
+	xcss: xcssStyles,
 }: Omit<ListButtonGroupProps, 'label'>) => {
-	return <ListButtonGroupBase id={id} items={items} onItemSelected={onItemSelected} />;
+	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		<ListButtonGroupBase id={id} items={items} xcss={xcssStyles} onItemSelected={onItemSelected} />
+	);
 };

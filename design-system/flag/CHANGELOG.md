@@ -1,5 +1,18 @@
 # @atlaskit/flag
 
+## 16.1.0
+
+### Minor Changes
+
+- [#118326](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118326)
+  [`47ed83a62335a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47ed83a62335a) -
+  We are testing improvements behind a feature flag. Flags with default icons, and support for icons
+  with no spacing. If this fix is successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.0
 
 ### Major Changes

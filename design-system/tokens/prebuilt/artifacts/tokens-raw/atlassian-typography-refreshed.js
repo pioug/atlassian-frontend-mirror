@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e746c2ac14bbe528a59594204f70d95e>>
+ * @codegen <<SignedSource::c9428059ade223cdf3935278e5f9d719>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -357,7 +357,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "For representing code only, either inline or in code blocks."
   },
-  "value": "normal 400 0.875em/1 ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+  "value": "normal 400 0.875em/1 \"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -371,7 +371,7 @@ var tokens = [{
       "fontWeight": "FontWeight400",
       "fontSize": "FontSizeCode",
       "lineHeight": "LineHeight1",
-      "fontFamily": "FontFamilyWebMono",
+      "fontFamily": "FontFamilyWebMonoRefreshed",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
     }

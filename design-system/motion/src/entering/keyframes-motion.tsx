@@ -1,21 +1,181 @@
 import React, { type Ref, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { ClassNames, type CSSObject, keyframes } from '@emotion/react';
+import { ClassNames, keyframes } from '@compiled/react';
+import { ax } from '@compiled/react/runtime';
 
-import { reduceMotionAsPerUserPreference } from '../utils/accessibility';
 import { type Durations, durations, exitingDurations } from '../utils/durations';
 import { useSetTimeout } from '../utils/timer-hooks';
 
 import { useExitingPersistence } from './exiting-persistence';
 import { useStaggeredEntrance } from './staggered-entrance';
-import { type AnimationCurve, type MotionProps } from './types';
+import { type AnimationCurve, type Direction, type MotionProps } from './types';
+
+const zoomIn = keyframes({
+	'0%': { opacity: 0, transform: 'scale(0.5)' },
+	'50%': { opacity: 1 },
+	'75%': { transform: 'scale(1.25)' },
+	'100%': { transform: 'scale(1)' },
+});
+
+const zoomOut = keyframes({
+	to: { opacity: 0, transform: 'scale(0.75)' },
+});
+
+const fadeIn = keyframes({
+	'0%': { opacity: 0 },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1 },
+});
+
+const fadeOut = keyframes({
+	'0%': { opacity: 1 },
+	'100%': { opacity: 0 },
+});
+
+const fadeInFromTop = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(0, calc(-5% - 4px), 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromTop = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+	'100%': { opacity: 0, transform: 'translate3d(0, calc(-5% - 4px), 0)' },
+});
+
+const fadeInFromLeft = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(calc(-5% - 4px), 0, 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromLeft = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+	'100%': { opacity: 0, transform: 'translate3d(calc(-5% - 4px), 0, 0)' },
+});
+
+const fadeInFromBottom = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(0, calc(5% + 4px), 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromBottom = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+	'100%': { opacity: 0, transform: 'translate3d(0, calc(5% + 4px), 0)' },
+});
+
+const fadeInFromRight = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(calc(5% + 4px), 0, 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromRight = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+	'100%': { opacity: 0, transform: 'translate3d(calc(5% + 4px), 0, 0)' },
+});
+
+const fadeInFromTopConstant = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(0, -4px, 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromTopConstant = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+	'100%': { opacity: 0, transform: 'translate3d(0, -4px, 0)' },
+});
+
+const fadeInFromLeftConstant = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(-4px, 0, 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromLeftConstant = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d' },
+	'100%': { opacity: 0, transform: 'translate3d(-4px, 0, 0)' },
+});
+
+const fadeInFromBottomConstant = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(0, 4px, 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromBottomConstant = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+	'100%': { opacity: 0, transform: 'translate3d(0, 4px, 0)' },
+});
+
+const fadeInFromRightConstant = keyframes({
+	'0%': { opacity: 0, transform: 'translate3d(4px, 0, 0)' },
+	'50%': { opacity: 1 },
+	'100%': { opacity: 1, transform: 'none' },
+});
+
+const fadeOutFromRightConstant = keyframes({
+	'0%': { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+	'100%': { opacity: 0, transform: 'translate3d(4px, 0, 0)' },
+});
+
+const slideInFromTop = keyframes({
+	'0%': { transform: 'translate3d(0, -100%, 0)', opacity: 0 },
+	'100%': { transform: 'none', opacity: 1 },
+});
+
+const slideOutFromTop = keyframes({
+	'0%': { transform: 'none', opacity: 1 },
+	'100%': { transform: 'translate3d(0, -100%, 0)', opacity: 0 },
+});
+
+const slideInFromRight = keyframes({
+	'0%': { transform: 'translate3d(100%, 0, 0)', opacity: 0 },
+	'100%': { transform: 'none', opacity: 1 },
+});
+
+const slideOutFromRight = keyframes({
+	'0%': { transform: 'none', opacity: 1 },
+	'100%': { transform: 'translate3d(100%, 0, 0)', opacity: 0 },
+});
+
+const slideInFromBottom = keyframes({
+	'0%': { transform: 'translate3d(0, 100%, 0)', opacity: 0 },
+	'100%': { transform: 'none', opacity: 1 },
+});
+
+const slideOutFromBottom = keyframes({
+	'0%': { transform: 'none', opacity: 1 },
+	'100%': { transform: 'translate3d(0, 100%, 0)', opacity: 0 },
+});
+
+const slideInFromLeft = keyframes({
+	'0%': { transform: 'translate3d(-100%, 0, 0)', opacity: 0 },
+	'100%': { transform: 'none', opacity: 1 },
+});
+
+const slideOutFromLeft = keyframes({
+	'0%': { transform: 'none', opacity: 1 },
+	'100%': { transform: 'translate3d(-100%, 0, 0)', opacity: 0 },
+});
+
+export type Animations =
+	| 'fade-in'
+	| 'fade-out'
+	| 'zoom-in'
+	| 'zoom-out'
+	| `slide-${'in' | 'out'}-from-${Direction}`
+	| `slide-${'in' | 'out'}-from-${Direction}`
+	| `fade-${'in' | 'out'}-from-${Direction}`
+	| `fade-${'in' | 'out'}-from-${Direction}-constant`;
 
 /**
  * These are props that motions should use as their external props for consumers.
  * See [FadeIn](packages/helpers/motion/src/entering/fade-in.tsx) for an example usage.
  */
-export interface KeyframesMotionProps extends MotionProps<{ className: string; ref: Ref<any> }> {
+export interface KeyframesMotionProps
+	extends MotionProps<{ className: string; style: Record<string, any>; ref: Ref<any> }> {
 	/**
 	 * Can be used to pause the animation before it has finished.
 	 */
@@ -38,12 +198,12 @@ interface InternalKeyframesMotionProps extends KeyframesMotionProps {
 	/**
 	 * CSS keyframes for the entering animation.
 	 */
-	enteringAnimation: CSSObject;
+	enteringAnimation: Animations;
 
 	/**
 	 * CSS keyframes for the exiting animation.
 	 */
-	exitingAnimation?: CSSObject;
+	exitingAnimation?: Animations;
 
 	/**.
 	 * How long the motion will take.
@@ -115,19 +275,20 @@ const EnteringMotion = ({
 
 	return (
 		<ClassNames>
-			{({ css, cx }) =>
+			{({ css }) =>
 				children(
 					{
 						ref: staggered.ref,
+						// @ts-expect-error: `ax` is not typed correctly
 						className: hasAnimationStyles
-							? cx(
+							? ax([
 									css({
-										...reduceMotionAsPerUserPreference,
-										animationDelay: `${delay}ms`,
 										animationFillMode: 'backwards',
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-										animationName: keyframes(enteringAnimation),
 										animationPlayState: 'running',
+										'@media (prefers-reduced-motion: reduce)': {
+											animation: 'none',
+											transition: 'none',
+										},
 									}),
 									paused && css({ animationPlayState: 'paused' }),
 									duration === 'small' && css({ animationDuration: '100ms' }),
@@ -140,8 +301,6 @@ const EnteringMotion = ({
 										css({
 											animationDelay: '0ms',
 											animationFillMode: 'forwards',
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-											animationName: keyframes(exitingAnimation),
 										}),
 
 									!isExiting &&
@@ -168,8 +327,96 @@ const EnteringMotion = ({
 									isExiting &&
 										animationTimingFunctionExiting === 'ease-in-out' &&
 										css({ animationTimingFunction: 'cubic-bezier(0.15,1,0.3,1)' }),
-								)
+
+									((!isExiting && enteringAnimation === 'fade-in') ||
+										(isExiting && exitingAnimation === 'fade-in')) &&
+										css({ animationName: fadeIn }),
+									((!isExiting && enteringAnimation === 'fade-out') ||
+										(isExiting && exitingAnimation === 'fade-out')) &&
+										css({ animationName: fadeOut }),
+									((!isExiting && enteringAnimation === 'zoom-in') ||
+										(isExiting && exitingAnimation === 'zoom-in')) &&
+										css({ animationName: zoomIn }),
+									((!isExiting && enteringAnimation === 'zoom-out') ||
+										(isExiting && exitingAnimation === 'zoom-out')) &&
+										css({ animationName: zoomOut }),
+									((!isExiting && enteringAnimation === 'slide-in-from-top') ||
+										(isExiting && exitingAnimation === 'slide-in-from-top')) &&
+										css({ animationName: slideInFromTop }),
+									((!isExiting && enteringAnimation === 'slide-out-from-top') ||
+										(isExiting && exitingAnimation === 'slide-out-from-top')) &&
+										css({ animationName: slideOutFromTop }),
+									((!isExiting && enteringAnimation === 'slide-in-from-right') ||
+										(isExiting && exitingAnimation === 'slide-in-from-right')) &&
+										css({ animationName: slideInFromRight }),
+									((!isExiting && enteringAnimation === 'slide-out-from-right') ||
+										(isExiting && exitingAnimation === 'slide-out-from-right')) &&
+										css({ animationName: slideOutFromRight }),
+									((!isExiting && enteringAnimation === 'slide-in-from-bottom') ||
+										(isExiting && exitingAnimation === 'slide-in-from-bottom')) &&
+										css({ animationName: slideInFromBottom }),
+									((!isExiting && enteringAnimation === 'slide-out-from-bottom') ||
+										(isExiting && exitingAnimation === 'slide-out-from-bottom')) &&
+										css({ animationName: slideOutFromBottom }),
+									((!isExiting && enteringAnimation === 'slide-in-from-left') ||
+										(isExiting && exitingAnimation === 'slide-in-from-left')) &&
+										css({ animationName: slideInFromLeft }),
+									((!isExiting && enteringAnimation === 'slide-out-from-left') ||
+										(isExiting && exitingAnimation === 'slide-out-from-left')) &&
+										css({ animationName: slideOutFromLeft }),
+									((!isExiting && enteringAnimation === 'fade-in-from-top') ||
+										(isExiting && exitingAnimation === 'fade-in-from-top')) &&
+										css({ animationName: fadeInFromTop }),
+									((!isExiting && enteringAnimation === 'fade-out-from-top') ||
+										(isExiting && exitingAnimation === 'fade-out-from-top')) &&
+										css({ animationName: fadeOutFromTop }),
+									((!isExiting && enteringAnimation === 'fade-in-from-left') ||
+										(isExiting && exitingAnimation === 'fade-in-from-left')) &&
+										css({ animationName: fadeInFromLeft }),
+									((!isExiting && enteringAnimation === 'fade-out-from-left') ||
+										(isExiting && exitingAnimation === 'fade-out-from-left')) &&
+										css({ animationName: fadeOutFromLeft }),
+									((!isExiting && enteringAnimation === 'fade-in-from-bottom') ||
+										(isExiting && exitingAnimation === 'fade-in-from-bottom')) &&
+										css({ animationName: fadeInFromBottom }),
+									((!isExiting && enteringAnimation === 'fade-out-from-bottom') ||
+										(isExiting && exitingAnimation === 'fade-out-from-bottom')) &&
+										css({ animationName: fadeOutFromBottom }),
+									((!isExiting && enteringAnimation === 'fade-in-from-right') ||
+										(isExiting && exitingAnimation === 'fade-in-from-right')) &&
+										css({ animationName: fadeInFromRight }),
+									((!isExiting && enteringAnimation === 'fade-out-from-right') ||
+										(isExiting && exitingAnimation === 'fade-out-from-right')) &&
+										css({ animationName: fadeOutFromRight }),
+									((!isExiting && enteringAnimation === 'fade-in-from-top-constant') ||
+										(isExiting && exitingAnimation === 'fade-in-from-top-constant')) &&
+										css({ animationName: fadeInFromTopConstant }),
+									((!isExiting && enteringAnimation === 'fade-out-from-top-constant') ||
+										(isExiting && exitingAnimation === 'fade-out-from-top-constant')) &&
+										css({ animationName: fadeOutFromTopConstant }),
+									((!isExiting && enteringAnimation === 'fade-in-from-left-constant') ||
+										(isExiting && exitingAnimation === 'fade-in-from-left-constant')) &&
+										css({ animationName: fadeInFromLeftConstant }),
+									((!isExiting && enteringAnimation === 'fade-out-from-left-constant') ||
+										(isExiting && exitingAnimation === 'fade-out-from-left-constant')) &&
+										css({ animationName: fadeOutFromLeftConstant }),
+									((!isExiting && enteringAnimation === 'fade-in-from-bottom-constant') ||
+										(isExiting && exitingAnimation === 'fade-in-from-bottom-constant')) &&
+										css({ animationName: fadeInFromBottomConstant }),
+									((!isExiting && enteringAnimation === 'fade-out-from-bottom-constant') ||
+										(isExiting && exitingAnimation === 'fade-out-from-bottom-constant')) &&
+										css({ animationName: fadeOutFromBottomConstant }),
+									((!isExiting && enteringAnimation === 'fade-in-from-right-constant') ||
+										(isExiting && exitingAnimation === 'fade-in-from-right-constant')) &&
+										css({ animationName: fadeInFromRightConstant }),
+									((!isExiting && enteringAnimation === 'fade-out-from-right-constant') ||
+										(isExiting && exitingAnimation === 'fade-out-from-right-constant')) &&
+										css({ animationName: fadeOutFromRightConstant }),
+								])
 							: '',
+						style: {
+							animationDelay: `${delay}ms`,
+						},
 					},
 					state,
 				)

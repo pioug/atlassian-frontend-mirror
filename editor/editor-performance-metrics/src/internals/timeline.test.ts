@@ -1337,3 +1337,78 @@ describe('TimelineController - cleanupSubscribers', () => {
 		expect(flushCallback).toHaveBeenCalledTimes(1);
 	});
 });
+
+describe('TimelineController - Race Condition between handleIdle and callOnNextIdleCallbacks', () => {
+	let timeline: TimelineController;
+	let mockNextIdleCallback: jest.Mock;
+	let mockBufferFlushCallback: jest.Mock;
+
+	beforeEach(() => {
+		timeline = new TimelineController({
+			buffer: {
+				// @ts-expect-error
+				eventsThreshold: 2, // Set a low threshold to trigger buffer flush
+				cyclesThreshold: 5,
+			},
+		});
+		mockNextIdleCallback = jest.fn();
+		mockBufferFlushCallback = jest.fn();
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+		jest.useRealTimers();
+	});
+
+	it('should preserve idle buffer for onNextIdle callbacks when buffer threshold is met', () => {
+		// Register both types of callbacks
+		timeline.onNextIdle(mockNextIdleCallback);
+		timeline.onIdleBufferFlush(mockBufferFlushCallback);
+
+		// Add events to trigger buffer flush
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section1',
+				elementName: 'element1',
+				rect: new DOMRect(),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section2',
+				elementName: 'element2',
+				rect: new DOMRect(),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		// Simulate idle
+		jest.runAllTimers();
+
+		// Both callbacks should have been called
+		expect(mockBufferFlushCallback).toHaveBeenCalledTimes(1);
+		expect(mockNextIdleCallback).toHaveBeenCalledTimes(1);
+
+		// Verify that both callbacks received the same buffer content
+		const bufferFlushCallArg = mockBufferFlushCallback.mock.calls[0][0];
+		const nextIdleCallArg = mockNextIdleCallback.mock.calls[0][0];
+
+		// Both callbacks should receive a buffer containing the two events plus the idle event
+		expect(bufferFlushCallArg.timelineBuffer.getEvents()).toHaveLength(3);
+		expect(nextIdleCallArg.timelineBuffer.getEvents()).toHaveLength(3);
+
+		// Verify that both received the same events
+		expect(bufferFlushCallArg.timelineBuffer.getEvents()).toEqual(
+			nextIdleCallArg.timelineBuffer.getEvents(),
+		);
+	});
+});

@@ -43,10 +43,10 @@
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.3.0",
 		"@atlaskit/emoji": "^68.0.0",
-		"@atlaskit/icon": "^24.0.0",
+		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tmp-editor-statsig": "^3.1.0",
+		"@atlaskit/tmp-editor-statsig": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"uuid": "^3.1.0"
 	},

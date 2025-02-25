@@ -1,5 +1,33 @@
 # @atlaskit/icon-lab
 
+## 3.1.0
+
+### Minor Changes
+
+- [#117980](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117980)
+  [`445574ca2bf8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/445574ca2bf8c) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `divider-element`
+  - `expand-element`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `cloud-offline`
+  - `cloud-saved`
+  - `cursor-strikethrough`
+  - `database-storage-cache`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

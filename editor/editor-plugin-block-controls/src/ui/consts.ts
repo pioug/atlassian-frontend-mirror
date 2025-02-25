@@ -22,6 +22,14 @@ export const DRAG_HANDLE_H6_TOP_ADJUSTMENT = 3;
 export const DRAG_HANDLE_LAYOUT_SECTION_TOP_ADJUSTMENT = 8;
 export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
 
+/** We only want to shift-select nodes that are at the top level of a document.
+ *  This is because funky things happen when selecting inside of tableCells, but we
+ *  also want to avoid heavily nested cases to descope potential corner cases.
+ *  Various top level nodes have their selection 'from' at depths other than 0,
+ *  so we allow for some leniency to capture them all. e.g. Table is depth 3.
+ */
+export const DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH = 3;
+
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 
 export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {

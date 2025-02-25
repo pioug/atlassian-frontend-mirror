@@ -1,5 +1,21 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.26.2
+
+### Patch Changes
+
+- [#118594](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118594)
+  [`497f8f10f6716`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/497f8f10f6716) -
+  Fixed an issue where local overrides would be multiplied when saved and read from local storage
+
+## 4.26.1
+
+### Patch Changes
+
+- [#118528](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118528)
+  [`648957220b9f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/648957220b9f8) -
+  Updated babel configuration
+
 ## 4.26.0
 
 ### Minor Changes

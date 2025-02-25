@@ -1,37 +1,7 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type CSSObject } from '@emotion/react';
-
 import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
-import { type AnimationCurve, type Direction, type Fade, type Transition } from './types';
-
-export const slideInAnimation = (from: Direction, state: Transition, fade: Fade): CSSObject => {
-	const initial = state === 'entering' ? '0%' : '100%';
-	const end = state === 'entering' ? '100%' : '0%';
-	const fromMap = {
-		top: 'translate3d(0, -100%, 0)',
-		right: 'translate3d(100%, 0, 0)',
-		bottom: 'translate3d(0, 100%, 0)',
-		left: 'translate3d(-100%, 0, 0)',
-	};
-
-	const animateOpacity =
-		fade === 'inout' ||
-		(fade === 'in' && state === 'entering') ||
-		(fade === 'out' && state === 'exiting');
-
-	return {
-		[initial]: {
-			transform: fromMap[from],
-			opacity: animateOpacity ? 0 : 1,
-		},
-		[end]: {
-			transform: 'none',
-			opacity: 1,
-		},
-	};
-};
+import { type AnimationCurve, type Direction, type Fade } from './types';
 
 export interface SlideInProps extends KeyframesMotionProps {
 	/**
@@ -93,8 +63,8 @@ const SlideIn = ({
 	return (
 		<KeyframesMotion
 			duration={duration}
-			enteringAnimation={slideInAnimation(enterFrom, 'entering', fade)}
-			exitingAnimation={slideInAnimation(exitTo || enterFrom, 'exiting', fade)}
+			enteringAnimation={`slide-in-from-${enterFrom}`}
+			exitingAnimation={`slide-out-from-${exitTo || enterFrom}`}
 			animationTimingFunction={animationTimingFunction}
 			animationTimingFunctionExiting={animationTimingFunctionExiting}
 			isPaused={isPaused}

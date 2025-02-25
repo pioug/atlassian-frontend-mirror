@@ -56,6 +56,7 @@ export default {
     'Виберіть дату початку в минулому',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Виберіть дату завершення в минулому',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Помилка в періоді',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'З',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Виберіть дату',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Останні 30 днів',

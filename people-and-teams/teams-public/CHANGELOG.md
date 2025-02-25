@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.5.2
+
+### Patch Changes
+
+- [#118290](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118290)
+  [`438c498503ff4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/438c498503ff4) -
+  Add unlink containers mutation, and analytics for unlink dialogs
+- Updated dependencies
+
 ## 0.5.1
 
 ### Patch Changes

@@ -197,20 +197,6 @@ export class DOMObservers {
 				});
 			},
 		});
-
-		if (this.performance) {
-			this.performance.observe({ type: 'paint', buffered: true });
-			this.performance.observe({ type: 'largest-contentful-paint', buffered: true });
-
-			this.performance.observe({
-				type: 'layout-shift',
-				buffered: true,
-				// @ts-ignore-error
-				durationThreshold: 30,
-			});
-
-			this.performance.observe({ type: 'longtask', buffered: true });
-		}
 	}
 
 	observe(target: HTMLElement) {
@@ -220,6 +206,18 @@ export class DOMObservers {
 			childList: true,
 			subtree: true,
 		});
+
+		this.performance?.observe({ type: 'paint', buffered: true });
+		this.performance?.observe({ type: 'largest-contentful-paint', buffered: true });
+
+		this.performance?.observe({
+			type: 'layout-shift',
+			buffered: true,
+			// @ts-ignore-error
+			durationThreshold: 30,
+		});
+
+		this.performance?.observe({ type: 'longtask', buffered: true });
 	}
 
 	disconnect() {

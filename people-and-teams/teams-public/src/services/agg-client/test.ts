@@ -40,4 +40,30 @@ describe('AGGClient', () => {
 			);
 		});
 	});
+
+	describe('unlinkTeamContainer', () => {
+		it('should call makeGraphQLRequest with correct parameters', async () => {
+			const teamId = 'team-id';
+			const containerId = 'container-id';
+
+			const makeRequestSpy = jest
+				.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
+				.mockResolvedValue({});
+
+			await aggClient.unlinkTeamContainer(teamId, containerId);
+
+			expect(makeRequestSpy).toHaveBeenCalledWith(
+				{
+					query: expect.any(String),
+					variables: {
+						teamId: 'ari:cloud:identity::team/team-id',
+						containerId,
+					},
+				},
+				{
+					operationName: 'UnlinkContainerMutation',
+				},
+			);
+		});
+	});
 });

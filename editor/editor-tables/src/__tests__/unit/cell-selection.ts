@@ -1,11 +1,12 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { EditorState, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { CellSelection } from '../../cell-selection';
 import { tableEditing } from '../../pm-plugins/table-editing';
@@ -17,6 +18,7 @@ import {
 	cAnchor,
 	cEmpty,
 	cHead,
+	createDoc,
 	createTable,
 	createTableWithDoc,
 } from '../__helpers/doc-builder';
@@ -131,6 +133,29 @@ describe('normalizeSelection', () => {
 		tr(/*36*/ c11, /*41*/ c11, /*46*/ c11),
 	);
 
+	const tblWithParagraph = createDoc(
+		p('Hello World'),
+		table()(
+			tr(/* 15*/ c11, /* 20*/ c11, /*25*/ c11),
+			tr(/*32*/ c11, /*37*/ c11, /*42*/ c11),
+			tr(/*49*/ c11, /*54*/ c11, /*59*/ c11),
+		),
+	);
+
+	const twoTablesWithParagraphBetween = createDoc(
+		table()(
+			tr(/* 2*/ c11, /* 7*/ c11, /*12*/ c11),
+			tr(/*19*/ c11, /*24*/ c11, /*29*/ c11),
+			tr(/*36*/ c11, /*41*/ c11, /*46*/ c11),
+		),
+		/*53*/ p('Hello World') /*66*/,
+		table()(
+			tr(/* 68*/ c11, /* 73*/ c11, /*78*/ c11),
+			tr(/*85*/ c11, /*90*/ c11, /*95*/ c11),
+			tr(/*102*/ c11, /*107*/ c11, /*112*/ c11),
+		),
+	);
+
 	function normalize(selection: Selection, { allowTableNodeSelection = false } = {}) {
 		const state = EditorState.create({
 			doc: tbl,
@@ -164,6 +189,36 @@ describe('normalizeSelection', () => {
 		const a = normalize(NodeSelection.create(tbl, 2));
 		const b = CellSelection.create(tbl, 2, 2);
 		expect(a.eq(b)).toEqual(true);
+	});
+
+	describe('retains text selection when selection between paragraph outside of table, and paragraph within cell', () => {
+		eeTest('platform_editor_element_drag_and_drop_multiselect', {
+			true: () => {
+				const a = normalize(TextSelection.create(tblWithParagraph, 2, 16));
+				const b = TextSelection.create(tblWithParagraph, 2, 16);
+				expect(a.eq(b)).toEqual(true);
+			},
+			false: () => {
+				const a = normalize(TextSelection.create(tblWithParagraph, 2, 16));
+				const b = TextSelection.create(tblWithParagraph, 2, 16);
+				expect(a.eq(b)).toEqual(false);
+			},
+		});
+	});
+
+	describe('retains text selection when selection between cells in different tables', () => {
+		eeTest('platform_editor_element_drag_and_drop_multiselect', {
+			true: () => {
+				const a = normalize(TextSelection.create(twoTablesWithParagraphBetween, 4, 114));
+				const b = TextSelection.create(twoTablesWithParagraphBetween, 4, 114);
+				expect(a.eq(b)).toEqual(true);
+			},
+			false: () => {
+				const a = normalize(TextSelection.create(twoTablesWithParagraphBetween, 4, 114));
+				const b = TextSelection.create(twoTablesWithParagraphBetween, 4, 114);
+				expect(a.eq(b)).toEqual(false);
+			},
+		});
 	});
 });
 

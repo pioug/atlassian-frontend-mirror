@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@atlaskit/editor-common": "^100.1.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^3.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

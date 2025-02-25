@@ -6,6 +6,7 @@ import {
 	TextSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
@@ -28,6 +29,15 @@ export function normalizeSelection(
 	if (sel instanceof NodeSelection) {
 		role = sel.node.type.spec.tableRole;
 	}
+
+	const isMultiSelect = editorExperiment(
+		'platform_editor_element_drag_and_drop_multiselect',
+		true,
+		{
+			exposure: true,
+		},
+	);
+
 	if (sel instanceof NodeSelection && role) {
 		if (role === 'cell' || role === 'header_cell') {
 			normalize = CellSelection.create(doc, sel.from);
@@ -42,7 +52,11 @@ export function normalizeSelection(
 		}
 	} else if (sel instanceof TextSelection && isCellBoundarySelection(sel)) {
 		normalize = TextSelection.create(doc, sel.from);
-	} else if (sel instanceof TextSelection && isTextSelectionAcrossCells(sel)) {
+	} else if (
+		sel instanceof TextSelection && isMultiSelect
+			? isTextSelectionAcrossSameTableCells(sel)
+			: isTextSelectionAcrossCells(sel)
+	) {
 		normalize = TextSelection.create(doc, sel.$from.start(), sel.$from.end());
 	}
 	if (normalize) {
@@ -91,4 +105,38 @@ function isTextSelectionAcrossCells({ $from, $to }: RangePos): boolean {
 		}
 	}
 	return fromCellBoundaryNode !== toCellBoundaryNode && $to.parentOffset === 0;
+}
+
+function isTextSelectionAcrossSameTableCells({ $from, $to }: RangePos): boolean {
+	let fromCellBoundaryNode;
+	let toCellBoundaryNode;
+	let fromCellTableNode;
+	let toCellTableNode;
+	for (let i = $from.depth; i > 0; i--) {
+		const node = $from.node(i);
+		if (node.type.spec.tableRole === 'cell' || node.type.spec.tableRole === 'header_cell') {
+			fromCellBoundaryNode = node;
+		}
+		if (node.type.name === 'table') {
+			fromCellTableNode = node;
+			break;
+		}
+	}
+	for (let i = $to.depth; i > 0; i--) {
+		const node = $to.node(i);
+		if (node.type.spec.tableRole === 'cell' || node.type.spec.tableRole === 'header_cell') {
+			toCellBoundaryNode = node;
+		}
+		if (node.type.name === 'table') {
+			toCellTableNode = node;
+			break;
+		}
+	}
+	return (
+		fromCellBoundaryNode !== undefined &&
+		toCellBoundaryNode !== undefined &&
+		fromCellBoundaryNode !== toCellBoundaryNode &&
+		toCellTableNode === fromCellTableNode &&
+		$to.parentOffset === 0
+	);
 }

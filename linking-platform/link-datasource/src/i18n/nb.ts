@@ -54,6 +54,7 @@ export default {
     'Fra-datoen kan ikke være i fremtiden',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Til-datoen kan ikke være i fremtiden',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Feil med datoområde',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Fra',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Velg dato',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'De siste 30 dagene',

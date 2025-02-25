@@ -54,6 +54,7 @@ export default {
     'De begindatum kan niet in de toekomst liggen',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'De einddatum kan niet in de toekomst liggen',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Fout met datumbereik',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Vanaf',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Kies een datum',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Afgelopen 30 dagen',

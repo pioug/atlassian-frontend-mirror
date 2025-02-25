@@ -5,7 +5,7 @@ import { act, render, screen } from '@testing-library/react';
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
-import { easeIn, easeOut, exitingDurations } from '../../../index';
+import { easeIn, easeOut } from '../../../index';
 import { durations } from '../../../utils/durations';
 
 window.matchMedia = (): any => ({ matches: false });
@@ -19,12 +19,16 @@ describe('<KeyframesMotion />', () => {
 
 	it('should respect reduced motion', () => {
 		render(
-			<KeyframesMotion duration={duration} enteringAnimation={{}} animationTimingFunction="linear">
+			<KeyframesMotion
+				duration={duration}
+				enteringAnimation="fade-in"
+				animationTimingFunction="linear"
+			>
 				{(props) => <div data-testid="target" {...props} />}
 			</KeyframesMotion>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation', 'none', {
+		expect(screen.getByTestId('target')).toHaveCompiledCss('animation', 'none', {
 			media: '(prefers-reduced-motion: reduce)',
 		});
 	});
@@ -39,16 +43,13 @@ describe('<KeyframesMotion />', () => {
 					animationTimingFunction="ease-out"
 					animationTimingFunctionExiting="ease-in"
 					duration={duration}
-					enteringAnimation={{}}
+					enteringAnimation="fade-in"
 				>
 					{(props) => <div data-testid="target" {...props} />}
 				</KeyframesMotion>,
 			);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-fill-mode',
-				'backwards',
-			);
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 		});
 
 		it('should use the entering timing function', () => {
@@ -57,15 +58,15 @@ describe('<KeyframesMotion />', () => {
 					animationTimingFunction="ease-out"
 					animationTimingFunctionExiting="ease-in"
 					duration={duration}
-					enteringAnimation={{}}
+					enteringAnimation="fade-in"
 				>
 					{(props) => <div data-testid="target" {...props} />}
 				</KeyframesMotion>,
 			);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+			expect(screen.getByTestId('target')).toHaveCompiledCss(
 				'animation-timing-function',
-				easeOut,
+				easeOut.replace('0.', '.'),
 			);
 		});
 
@@ -75,16 +76,13 @@ describe('<KeyframesMotion />', () => {
 					animationTimingFunction="ease-out"
 					animationTimingFunctionExiting="ease-in"
 					duration={duration}
-					enteringAnimation={{}}
+					enteringAnimation="fade-in"
 				>
 					{(props) => <div data-testid="target" {...props} />}
 				</KeyframesMotion>,
 			);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-play-state',
-				'running',
-			);
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
 		});
 
 		it('should animate over {duration} ms', () => {
@@ -93,16 +91,13 @@ describe('<KeyframesMotion />', () => {
 					animationTimingFunction="ease-out"
 					animationTimingFunctionExiting="ease-in"
 					duration={duration}
-					enteringAnimation={{}}
+					enteringAnimation="fade-in"
 				>
 					{(props) => <div data-testid="target" {...props} />}
 				</KeyframesMotion>,
 			);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-duration',
-				`${durations[duration]}ms`,
-			);
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.7s');
 		});
 
 		it('should callback when entering on finish', () => {
@@ -112,7 +107,7 @@ describe('<KeyframesMotion />', () => {
 				<KeyframesMotion
 					animationTimingFunction="linear"
 					duration={duration}
-					enteringAnimation={{}}
+					enteringAnimation="fade-in"
 					onFinish={callback}
 				>
 					{(props) => <div {...props} />}
@@ -134,14 +129,14 @@ describe('<KeyframesMotion />', () => {
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div {...props} />}
 					</KeyframesMotion>
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 						onFinish={callback}
 					>
 						{(props) => <div {...props} />}
@@ -164,7 +159,7 @@ describe('<KeyframesMotion />', () => {
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 						onFinish={callback}
 						isPaused
 					>
@@ -186,7 +181,7 @@ describe('<KeyframesMotion />', () => {
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 						onFinish={callback}
 					>
 						{(props) => <div {...props} />}
@@ -203,17 +198,14 @@ describe('<KeyframesMotion />', () => {
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div data-testid="target" {...props} />}
 					</KeyframesMotion>
 				</ExitingPersistence>,
 			);
 
-			expect(screen.getByTestId('target')).not.toHaveStyleDeclaration(
-				'animation-play-state',
-				'running',
-			);
+			expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
 		});
 
 		it('should animate on mount if appear is true', () => {
@@ -222,21 +214,15 @@ describe('<KeyframesMotion />', () => {
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div data-testid="target" {...props} />}
 					</KeyframesMotion>
 				</ExitingPersistence>,
 			);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-play-state',
-				'running',
-			);
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-duration',
-				`${durations[duration]}ms`,
-			);
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', `.7s`);
 		});
 	});
 
@@ -252,7 +238,7 @@ describe('<KeyframesMotion />', () => {
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 						onFinish={callback}
 					>
 						{(props) => <div {...props} />}
@@ -276,7 +262,7 @@ describe('<KeyframesMotion />', () => {
 					<KeyframesMotion
 						animationTimingFunction="linear"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 						onFinish={callback}
 					>
 						{(props) => <div {...props} />}
@@ -301,7 +287,7 @@ describe('<KeyframesMotion />', () => {
 						animationTimingFunction="ease-out"
 						animationTimingFunctionExiting="ease-in"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div data-testid="target" {...props} />}
 					</KeyframesMotion>
@@ -310,7 +296,7 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-delay', '0ms');
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-delay', '0ms');
 		});
 
 		it('should fill the animation forwards to prevent a frame of the element already being exited', () => {
@@ -320,7 +306,7 @@ describe('<KeyframesMotion />', () => {
 						animationTimingFunction="ease-out"
 						animationTimingFunctionExiting="ease-in"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div data-testid="target" {...props} />}
 					</KeyframesMotion>
@@ -329,10 +315,7 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-fill-mode',
-				'forwards',
-			);
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'forwards');
 		});
 
 		it('should run the animation', () => {
@@ -342,7 +325,7 @@ describe('<KeyframesMotion />', () => {
 						animationTimingFunction="ease-out"
 						animationTimingFunctionExiting="ease-in"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div data-testid="target" {...props} />}
 					</KeyframesMotion>
@@ -351,10 +334,7 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-play-state',
-				'running',
-			);
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
 		});
 
 		it('should take half the time it took when entering', () => {
@@ -364,7 +344,7 @@ describe('<KeyframesMotion />', () => {
 						animationTimingFunction="ease-out"
 						animationTimingFunctionExiting="ease-in"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div data-testid="target" {...props} />}
 					</KeyframesMotion>
@@ -373,10 +353,7 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-				'animation-duration',
-				`${exitingDurations.large}ms`,
-			);
+			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.35s');
 		});
 
 		it('should use its own timing function', () => {
@@ -386,7 +363,7 @@ describe('<KeyframesMotion />', () => {
 						animationTimingFunction="ease-out"
 						animationTimingFunctionExiting="ease-in"
 						duration={duration}
-						enteringAnimation={{}}
+						enteringAnimation="fade-in"
 					>
 						{(props) => <div data-testid="target" {...props} />}
 					</KeyframesMotion>
@@ -395,9 +372,9 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+			expect(screen.getByTestId('target')).toHaveCompiledCss(
 				'animation-timing-function',
-				easeIn,
+				easeIn.replace(new RegExp(/0\./, 'g'), '.'),
 			);
 		});
 	});

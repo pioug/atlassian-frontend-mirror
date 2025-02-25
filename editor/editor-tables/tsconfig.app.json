@@ -34,6 +34,9 @@
 	"references": [
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	],
 	"files": []

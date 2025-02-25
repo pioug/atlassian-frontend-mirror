@@ -54,6 +54,7 @@ export default {
     'A kezdő dátum nem lehet jövőbeli.',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'A záró dátum nem lehet jövőbeli',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Dátumtartomány hiba',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Ettől',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Dátum kiválasztása',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Elmúlt 30 nap',

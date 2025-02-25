@@ -54,6 +54,7 @@ export default {
     'Datum Od nesmí být v budoucnosti.',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Datum Do nesmí být v budoucnosti.',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Chyba rozsahu dat',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Od',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Vyberte datum.',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Posledních 30 dní',

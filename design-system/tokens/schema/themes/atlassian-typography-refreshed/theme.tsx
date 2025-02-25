@@ -105,7 +105,7 @@ const typography: ValueSchema<
 					fontWeight: 'FontWeight400',
 					fontSize: 'FontSizeCode',
 					lineHeight: 'LineHeight1',
-					fontFamily: 'FontFamilyWebMono',
+					fontFamily: 'FontFamilyWebMonoRefreshed',
 					fontStyle: 'normal',
 					letterSpacing: 'LetterSpacing0',
 				},

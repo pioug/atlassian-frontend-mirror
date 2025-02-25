@@ -25,6 +25,8 @@ const makeEmptyStore = (): LocalOverrides => ({
 	layers: {},
 });
 
+const djb2MapKey = (hash: string, kind: keyof LocalOverrides) => kind + ':' + hash;
+
 /**
  * Custom implementation of `@statsig/js-local-overrides` package with support for local storage
  * so we can keep the existing behavior where overrides are cached locally. Also designed for
@@ -36,9 +38,11 @@ const makeEmptyStore = (): LocalOverrides => ({
 export class PersistentOverrideAdapter implements OverrideAdapter {
 	private _overrides: LocalOverrides;
 	private _localStorageKey: string;
+	private _djb2Map: Map<string, LocalOverrides[keyof LocalOverrides][string]>;
 
 	constructor(localStorageKey: string) {
 		this._overrides = makeEmptyStore();
+		this._djb2Map = new Map();
 		this._localStorageKey = localStorageKey;
 	}
 
@@ -75,13 +79,26 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 	}
 
 	initFromStoredOverrides() {
-		this.setOverrides(
-			this.mergeOverrides(
-				this._overrides,
-				this.parseStoredOverrides(LEGACY_LOCAL_STORAGE_KEY),
-				this.parseStoredOverrides(this._localStorageKey),
-			),
+		const storedOverrides = this.mergeOverrides(
+			this._overrides,
+			this.parseStoredOverrides(LEGACY_LOCAL_STORAGE_KEY),
+			this.parseStoredOverrides(this._localStorageKey),
 		);
+
+		// In version 4.24.0 we introduced hashes in this override adapter, but had a bug which would cause
+		// multiple hashes to continue being created. This code here removes these hashes since we've moved
+		// to using a more reliable and easier to maintain map in `_djb2Map`.
+		for (const container of Object.values(storedOverrides)) {
+			const allKeys = new Set(Object.keys(container));
+			for (const name of allKeys) {
+				const hash = _DJB2(name);
+				if (allKeys.has(hash)) {
+					delete container[hash];
+				}
+			}
+		}
+
+		this.applyOverrides(storedOverrides);
 	}
 
 	saveOverrides() {
@@ -94,51 +111,42 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 	}
 
 	getOverrides(): LocalOverrides {
-		return Object.fromEntries(
-			Object.entries(this._overrides).map(([key, container]) => {
-				const record: Record<string, any> = {};
-				for (const [name, value] of Object.entries(container)) {
-					if (Object.prototype.hasOwnProperty.call(container, _DJB2(name))) {
-						record[name] = value;
-					}
-				}
-
-				return [key, record];
-			}),
-		) as LocalOverrides;
+		return this.mergeOverrides(this._overrides);
 	}
 
-	setOverrides(overrides: Partial<LocalOverrides>) {
+	private applyOverrides(overrides: Partial<LocalOverrides>) {
 		const newOverrides = { ...makeEmptyStore(), ...overrides };
 
-		for (const container of Object.values(newOverrides)) {
+		this._djb2Map.clear();
+		for (const [containerName, container] of Object.entries(newOverrides)) {
 			for (const [name, value] of Object.entries(container)) {
-				const hash = _DJB2(name);
-				if (!Object.prototype.hasOwnProperty.call(container, hash)) {
-					container[hash] = value;
-				}
+				this._djb2Map.set(djb2MapKey(_DJB2(name), containerName as keyof LocalOverrides), value);
 			}
 		}
 
 		this._overrides = newOverrides;
+	}
+
+	setOverrides(overrides: Partial<LocalOverrides>) {
+		this.applyOverrides(overrides);
 		this.saveOverrides();
 	}
 
 	overrideGate(name: string, value: boolean): void {
 		this._overrides.gates[name] = value;
-		this._overrides.gates[_DJB2(name)] = value;
+		this._djb2Map.set(djb2MapKey(_DJB2(name), 'gates'), value);
 		this.saveOverrides();
 	}
 
 	removeGateOverride(name: string): void {
 		delete this._overrides.gates[name];
-		delete this._overrides.gates[_DJB2(name)];
+		this._djb2Map.delete(djb2MapKey(_DJB2(name), 'gates'));
 		this.saveOverrides();
 	}
 
 	getGateOverride(current: FeatureGate, _user: StatsigUser): FeatureGate | null {
 		const overridden =
-			this._overrides.gates[current.name] ?? this._overrides.gates[_DJB2(current.name)];
+			this._overrides.gates[current.name] ?? this._djb2Map.get(djb2MapKey(current.name, 'gates'));
 		if (overridden == null) {
 			return null;
 		}
@@ -152,13 +160,13 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 
 	overrideDynamicConfig(name: string, value: Record<string, unknown>): void {
 		this._overrides.configs[name] = value;
-		this._overrides.configs[_DJB2(name)] = value;
+		this._djb2Map.set(djb2MapKey(_DJB2(name), 'configs'), value);
 		this.saveOverrides();
 	}
 
 	removeDynamicConfigOverride(name: string): void {
 		delete this._overrides.configs[name];
-		delete this._overrides.configs[_DJB2(name)];
+		this._djb2Map.delete(djb2MapKey(_DJB2(name), 'configs'));
 		this.saveOverrides();
 	}
 
@@ -168,13 +176,13 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 
 	overrideExperiment(name: string, value: Record<string, unknown>): void {
 		this._overrides.configs[name] = value;
-		this._overrides.configs[_DJB2(name)] = value;
+		this._djb2Map.set(djb2MapKey(_DJB2(name), 'configs'), value);
 		this.saveOverrides();
 	}
 
 	removeExperimentOverride(name: string): void {
 		delete this._overrides.configs[name];
-		delete this._overrides.configs[_DJB2(name)];
+		this._djb2Map.delete(djb2MapKey(_DJB2(name), 'configs'));
 		this.saveOverrides();
 	}
 
@@ -184,13 +192,13 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 
 	overrideLayer(name: string, value: Record<string, unknown>): void {
 		this._overrides.layers[name] = value;
-		this._overrides.layers[_DJB2(name)] = value;
+		this._djb2Map.set(djb2MapKey(_DJB2(name), 'layers'), value);
 		this.saveOverrides();
 	}
 
 	removeLayerOverride(name: string): void {
 		delete this._overrides.layers[name];
-		delete this._overrides.layers[_DJB2(name)];
+		this._djb2Map.delete(djb2MapKey(_DJB2(name), 'layers'));
 		this.saveOverrides();
 	}
 
@@ -201,7 +209,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 
 	getLayerOverride(current: Layer, _user: StatsigUser): Layer | null {
 		const overridden =
-			this._overrides.layers[current.name] ?? this._overrides.layers[_DJB2(current.name)];
+			this._overrides.layers[current.name] ?? this._djb2Map.get(djb2MapKey(current.name, 'layers'));
 		if (overridden == null) {
 			return null;
 		}
@@ -218,7 +226,8 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		current: T,
 		lookup: Record<string, Record<string, unknown>>,
 	): T | null {
-		const overridden = lookup[current.name] ?? lookup[_DJB2(current.name)];
+		const overridden =
+			lookup[current.name] ?? this._djb2Map.get(djb2MapKey(current.name, 'configs'));
 		if (overridden == null) {
 			return null;
 		}

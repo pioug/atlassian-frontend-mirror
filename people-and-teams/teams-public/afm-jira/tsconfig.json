@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{

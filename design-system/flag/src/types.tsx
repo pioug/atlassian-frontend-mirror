@@ -49,10 +49,11 @@ type AutoDismissFlagPropsWithoutId = {
 	description?: ReactNode;
 	/**
 	 * The icon displayed in the top-left of the flag. Should be an instance of `@atlaskit/icon`.
-	 * Your icon will receive the appropriate default color, which you can override by wrapping the
-	 * icon in a containing element with CSS `color` set to your preferred icon color.
+	 * Your icon will receive the appropriate default color, which you can override by setting
+	 * the `color` prop on the icon to your preferred icon color.
+	 * If no icon is provided, a default icon will be used based on the appearance prop.
 	 */
-	icon: ReactNode;
+	icon?: ReactNode;
 	/**
 	 * The bold text shown at the top of the flag.
 	 */

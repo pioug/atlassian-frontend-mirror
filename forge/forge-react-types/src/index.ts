@@ -52,6 +52,7 @@ export type {
 	TabsProps,
 	TagGroupProps,
 	TagProps,
+	TextProps,
 	TextAreaProps,
 	TextfieldProps,
 	ToggleProps,

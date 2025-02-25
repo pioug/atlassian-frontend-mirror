@@ -1,7 +1,6 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { CommandDispatch, FeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -19,11 +18,7 @@ import {
 	updateInlineCommentResolvedState,
 	updateMouseState,
 } from '../editor-commands';
-import {
-	AnnotationNodeView,
-	getAnnotationViewClassname,
-	getBlockAnnotationViewClassname,
-} from '../nodeviews';
+import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
 
 import { createPluginState } from './plugin-factory';
@@ -143,7 +138,7 @@ const onSetVisibility = (view: EditorView) => (isVisible: boolean) => {
 };
 
 export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
-	const { provider, portalProviderAPI, eventDispatcher, featureFlagsPluginState } = options;
+	const { provider, featureFlagsPluginState } = options;
 
 	return new SafePlugin({
 		key: inlineCommentPluginKey,
@@ -237,19 +232,6 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 		},
 
 		props: {
-			...(!fg('platform_editor_annotation_react_18_mem_leak') && {
-				nodeViews: {
-					annotation: (node: PMNode, view: EditorView, getPos: getPosHandler) =>
-						new AnnotationNodeView(
-							node,
-							view,
-							getPos,
-							portalProviderAPI,
-							eventDispatcher,
-							// resolved
-						).init(),
-				},
-			}),
 			handleDOMEvents: {
 				mousedown: (view: EditorView) => {
 					const pluginState = getPluginState(view.state);

@@ -53,7 +53,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@testing-library/react": "^13.4.0",
 		"jest-in-case": "^1.0.2",
 		"typescript": "~5.4.2"

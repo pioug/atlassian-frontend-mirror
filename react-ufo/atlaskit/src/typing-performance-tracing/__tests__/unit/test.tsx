@@ -31,7 +31,7 @@ type mockedTypingMethod = jest.MockedFunction<typeof getTypingPerformanceTracing
 describe('use typing performance tracing', () => {
 	function TypingPerformanceTracingTestComponent() {
 		const ref = useUFOTypingPerformanceTracing<HTMLInputElement>('ufo-key');
-		return <input type="text" ref={ref} />;
+		return <input type="text" ref={ref} aria-label="ufo-key-ref" />;
 	}
 
 	let inputWrapper: Element;
@@ -75,9 +75,7 @@ describe('use typing performance tracing', () => {
 		it('should capture and report a11y violations', async () => {
 			const { container } = render(<TypingPerformanceTracingTestComponent />);
 
-			await expect(container).toBeAccessible({
-				violationCount: 1,
-			});
+			await expect(container).toBeAccessible();
 		});
 
 		it('should send interaction with meta data after 1 key press', () => {
@@ -134,9 +132,7 @@ describe('use typing performance tracing', () => {
 		it('should capture and report a11y violations', async () => {
 			const { container } = render(<TypingPerformanceTracingTestComponent />);
 
-			await expect(container).toBeAccessible({
-				violationCount: 1,
-			});
+			await expect(container).toBeAccessible();
 		});
 
 		it('should send interaction with meta data after 1 key press', () => {
@@ -198,9 +194,7 @@ describe('use typing performance tracing', () => {
 				}));
 			const { container } = render(<TypingPerformanceTracingTestComponent />);
 
-			await expect(container).toBeAccessible({
-				violationCount: 1,
-			});
+			await expect(container).toBeAccessible();
 		});
 
 		it('should send interaction with meta data after 1 key press', () => {

@@ -50,6 +50,7 @@ export interface PluginState {
 	 */
 	isPMDragging: boolean;
 	multiSelectDnD?: MultiSelectDnD;
+	isShiftDown?: boolean;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
@@ -61,6 +62,7 @@ export type BlockControlsSharedState =
 			isDragging: boolean;
 			isPMDragging: boolean;
 			multiSelectDnD?: MultiSelectDnD;
+			isShiftDown?: boolean;
 	  }
 	| undefined;
 

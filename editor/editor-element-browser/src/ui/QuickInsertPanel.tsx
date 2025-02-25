@@ -4,9 +4,9 @@ import { makeKeyMapWithCommon } from '@atlaskit/editor-common/keymaps';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { Box, Stack, Text } from '@atlaskit/primitives';
 
-import { find } from '../search';
-import type { QuickInsertPanelProps, InsertPanelItem } from '../types';
-import { getMappedItems } from '../utils';
+import type { InsertPanelItem, QuickInsertPanelProps } from '../types';
+import { getMappedItems } from '../utils/get-mapped-items';
+import { find } from '../utils/search';
 
 import { ListButtonItem } from './ListButtonItem';
 

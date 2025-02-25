@@ -508,28 +508,33 @@ describe('<ExitingPersistence />', () => {
 	it('should allow child motions to appear on initial mount', () => {
 		render(
 			<ExitingPersistence appear>
-				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
+				<KeyframesMotion
+					enteringAnimation="fade-in"
+					animationTimingFunction="linear"
+					duration="small"
+				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.1s');
 	});
 
 	it('should immediately show child motions on initial mount', () => {
 		render(
 			<ExitingPersistence>
-				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
+				<KeyframesMotion
+					enteringAnimation="fade-in"
+					animationTimingFunction="linear"
+					duration="small"
+				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
 		);
 
-		expect(screen.getByTestId('target')).not.toHaveStyleDeclaration(
-			'animation-play-state',
-			'running',
-		);
+		expect(screen.getByTestId('target')).not.toHaveCompiledCss('animation-play-state', 'running');
 	});
 
 	it('should have child elements appear after the initial mount when initial mount was immediate', () => {
@@ -537,13 +542,17 @@ describe('<ExitingPersistence />', () => {
 
 		rerender(
 			<ExitingPersistence>
-				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
+				<KeyframesMotion
+					enteringAnimation="fade-in"
+					animationTimingFunction="linear"
+					duration="small"
+				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.1s');
 	});
 
 	it('should have child elements appear after the initial mount when initial mount they appeared', () => {
@@ -551,22 +560,30 @@ describe('<ExitingPersistence />', () => {
 
 		rerender(
 			<ExitingPersistence appear>
-				<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
+				<KeyframesMotion
+					enteringAnimation="fade-in"
+					animationTimingFunction="linear"
+					duration="small"
+				>
 					{(props) => <div {...props} data-testid="target" />}
 				</KeyframesMotion>
 			</ExitingPersistence>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.1s');
 	});
 
 	it('should let motions appear by default outside of a exiting persistence', () => {
 		render(
-			<KeyframesMotion enteringAnimation={{}} animationTimingFunction="linear" duration="small">
+			<KeyframesMotion
+				enteringAnimation="fade-in"
+				animationTimingFunction="linear"
+				duration="small"
+			>
 				{(props) => <div {...props} data-testid="target" />}
 			</KeyframesMotion>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.1s');
 	});
 });

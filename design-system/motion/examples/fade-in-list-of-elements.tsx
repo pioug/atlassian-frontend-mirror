@@ -46,7 +46,10 @@ export default () => {
 						<FadeIn key={index}>
 							{(props) => (
 								<li
-									{...props}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+									className={props.className}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+									style={props.style}
 									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									css={{
 										display: 'block',

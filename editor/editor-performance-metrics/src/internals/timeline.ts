@@ -23,7 +23,7 @@ import type {
 
 const defaultOptions: TimelineOptions = {
 	cleanup: {
-		eventsThreshold: 1000,
+		eventsThreshold: 3000,
 	},
 	buffer: {
 		eventsThreshold: 200,
@@ -194,7 +194,7 @@ export class TimelineController
 	}
 
 	public cleanupSubscribers() {
-		this.flushIdleBuffer();
+		this.flushIdleBuffer(this.idleBuffer);
 
 		this.onIdleBufferFlushCallbacks.clear();
 		this.onNextIdleCallbacks.clear();
@@ -351,12 +351,12 @@ export class TimelineController
 		this.idleCycleCount++;
 		this.lastIdleTime = idleTimeEvent;
 
-		this.attemptFlushIdleBuffer();
-		this.callOnNextIdleCallbacks();
+		const buffer = this.idleBuffer;
+		this.attemptFlushIdleBuffer(buffer);
+		this.callOnNextIdleCallbacks(buffer);
 	}
 
-	private callOnNextIdleCallbacks() {
-		const buffer = this.idleBuffer;
+	private callOnNextIdleCallbacks(buffer: TimelineIdleBuffer) {
 		const idleAt = performance.now();
 		const timelineBuffer = createTimelineFromIdleBuffer(buffer);
 
@@ -372,9 +372,9 @@ export class TimelineController
 		this.onNextIdleCallbacks.clear();
 	}
 
-	private attemptFlushIdleBuffer() {
+	private attemptFlushIdleBuffer(buffer: TimelineIdleBuffer) {
 		if (!this.options.buffer) {
-			this.flushIdleBuffer();
+			this.flushIdleBuffer(buffer);
 			return;
 		}
 
@@ -384,12 +384,11 @@ export class TimelineController
 		const hasCrossedCycleCountThreshold = this.idleCycleCount > cyclesThreshold;
 
 		if (hasCrossedEventBufferThreshold || hasCrossedCycleCountThreshold) {
-			this.flushIdleBuffer();
+			this.flushIdleBuffer(buffer);
 		}
 	}
 
-	private flushIdleBuffer() {
-		const buffer = this.idleBuffer;
+	private flushIdleBuffer(buffer: TimelineIdleBuffer) {
 		this.clearIdleBuffer();
 
 		const idleAt = performance.now();

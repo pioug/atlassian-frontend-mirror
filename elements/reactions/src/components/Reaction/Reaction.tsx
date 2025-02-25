@@ -26,6 +26,7 @@ import { emojiStyle, emojiNoReactionStyle } from './styles';
 import { type ReactionFocused } from '../../types/reaction';
 import { ReactionButton } from './ReactionButton';
 import { StaticReaction } from './StaticReaction';
+import { type OpenReactionsDialogOptions } from '../Reactions';
 
 /**
  * Test id for Reaction item wrapper div
@@ -72,7 +73,7 @@ export interface ReactionProps {
 	/**
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
-	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
+	handleOpenReactionsDialog?: (options?: OpenReactionsDialogOptions) => void;
 	/**
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */

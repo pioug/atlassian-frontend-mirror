@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 3.2.0
+
+### Minor Changes
+
+- [#118114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118114)
+  [`21440675d09b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21440675d09b2) -
+  [EDF=2455] Added experiment and got rid of feature gate
+
 ## 3.1.0
 
 ### Minor Changes

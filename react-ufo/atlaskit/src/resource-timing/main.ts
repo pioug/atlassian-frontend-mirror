@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getConfig as getConfigUFO } from '../config';
 import { roundEpsilon } from '../round-number';
 
@@ -11,9 +13,26 @@ const CACHE_NETWORK = 'network';
 const CACHE_MEMORY = 'memory';
 const CACHE_DISK = 'disk';
 
+const isCacheableType = (url: string, type: string) => {
+	if (cacheableTypes.includes(type)) {
+		return true;
+	}
+
+	if (type === 'other' && url.includes('.js') && fg('ufo_support_other_resource_type_js')) {
+		return true;
+	}
+
+	return false;
+};
+
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const calculateTransferType = (type: string, duration: number, size: number | void) => {
-	if (!cacheableTypes.includes(type)) {
+const calculateTransferType = (
+	name: string,
+	type: string,
+	duration: number,
+	size: number | void,
+) => {
+	if (!isCacheableType(name, type)) {
 		return CACHE_NETWORK;
 	}
 
@@ -38,7 +57,7 @@ const hasAccessToResourceSize = (
 	entry: ResourceEntry,
 	hasTimingHeaders: (url: string, entry: ResourceEntry) => boolean,
 ) =>
-	!cacheableTypes.includes(type) ||
+	!isCacheableType(url, type) ||
 	url.includes('localhost') ||
 	(!!getWindowObject() && url.includes(window.location.hostname)) ||
 	hasTimingHeaders(url, entry);
@@ -46,10 +65,17 @@ const hasAccessToResourceSize = (
 const getReportedInitiatorTypes = (xhrEnabled: boolean) => {
 	const ufoConfig = getConfigUFO();
 	if (!ufoConfig?.allowedResources) {
-		if (xhrEnabled) {
-			return ['script', 'link', 'fetch', 'xmlhttprequest'];
+		if (fg('ufo_support_other_resource_type_js')) {
+			if (xhrEnabled) {
+				return ['script', 'link', 'fetch', 'other', 'xmlhttprequest'];
+			}
+			return ['script', 'link', 'fetch', 'other'];
+		} else {
+			if (xhrEnabled) {
+				return ['script', 'link', 'fetch', 'xmlhttprequest'];
+			}
+			return ['script', 'link', 'fetch'];
 		}
-		return ['script', 'link', 'fetch'];
 	}
 	return ufoConfig.allowedResources;
 };
@@ -88,7 +114,7 @@ const getNetworkData = (
 	}
 
 	if (cacheableTypes.includes(initiatorType)) {
-		const transferType = calculateTransferType(initiatorType, duration, transferSize);
+		const transferType = calculateTransferType(name, initiatorType, duration, transferSize);
 
 		return {
 			ttfb,
@@ -139,6 +165,14 @@ export const getResourceTimings = (interactionStart: number, interactionEnd: num
 		if (
 			initiatorType === 'xmlhttprequest' &&
 			(xhrFilter === undefined || xhrFilter(name) === false)
+		) {
+			return;
+		}
+
+		if (
+			initiatorType === 'other' &&
+			!name.includes('.js') &&
+			fg('ufo_support_other_resource_type_js')
 		) {
 			return;
 		}

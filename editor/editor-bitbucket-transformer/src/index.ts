@@ -5,11 +5,15 @@ import { transformHtml } from './util';
 
 interface Transformer<T> {
 	encode(node: PMNode): T;
-	parse(content: T): PMNode;
+	parse(content: T, additionalOptions?: AdditionalParseOptions): PMNode;
 }
 
 export interface TransformerOptions {
 	disableBitbucketLinkStripping?: boolean;
+}
+
+export interface AdditionalParseOptions {
+	shouldParseCodeSuggestions?: boolean;
 }
 
 export class BitbucketTransformer implements Transformer<string> {
@@ -27,12 +31,12 @@ export class BitbucketTransformer implements Transformer<string> {
 		return this.serializer.serialize(node);
 	}
 
-	parse(html: string): PMNode {
-		const dom = this.buildDOMTree(html);
+	parse(html: string, additionalParseOptions: AdditionalParseOptions = {}): PMNode {
+		const dom = this.buildDOMTree(html, additionalParseOptions);
 		return DOMParser.fromSchema(this.schema).parse(dom);
 	}
 
-	buildDOMTree(html: string): HTMLElement {
-		return transformHtml(html, this.options);
+	buildDOMTree(html: string, additionalParseOptions: AdditionalParseOptions = {}): HTMLElement {
+		return transformHtml(html, { ...this.options, ...additionalParseOptions });
 	}
 }

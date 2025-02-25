@@ -6,6 +6,7 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -57,14 +58,25 @@ export default () => {
 					<Heading size="medium" as="h3">
 						Inverse color
 					</Heading>
-					<Box xcss={styles.padded} backgroundColor="color.background.information">
-						<Text color="color.text.information">
-							Text on information surface displays defined color
+					<Box padding="space.100" backgroundColor="color.background.brand.subtlest">
+						<Text>Text on a regular surface displays default color</Text>
+					</Box>
+					<Box padding="space.100" backgroundColor="color.background.brand.bold">
+						<Text>Text on a bold surface displays default inverse color</Text>
+					</Box>
+					{/* Showing example with bold warning background as it has a unique inverse color */}
+					<Box padding="space.100" backgroundColor="color.background.warning.bold">
+						<Text>Text on a bold warning surface displays warning inverse color</Text>
+					</Box>
+					<Box padding="space.100" backgroundColor="color.background.brand.subtlest">
+						<Text color="color.text.danger">
+							Text with color prop on a regular surface displays prop color
 						</Text>
 					</Box>
-					<Box xcss={styles.padded} backgroundColor="color.background.brand.bold">
-						<Text color="color.text.information">
-							Text on brand bold surface displays inverse color
+					<Box padding="space.100" backgroundColor="color.background.brand.bold">
+						<Text color="color.text.danger">
+							Text with color prop on a bold surface displays{' '}
+							{fg('platform-typography-improved-color-control') ? 'prop' : 'inverse'} color
 						</Text>
 					</Box>
 				</Stack>

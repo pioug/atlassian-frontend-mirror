@@ -74,7 +74,7 @@ export const getSelection = (tr: Transaction, start: number) => {
 		return new NodeSelection($startPos);
 	} else {
 		const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
-		return new TextSelection(tr.doc.resolve(inlineNodeEndPos), tr.doc.resolve(inlineNodePos));
+		return new TextSelection(tr.doc.resolve(inlineNodePos), tr.doc.resolve(inlineNodeEndPos));
 	}
 };
 

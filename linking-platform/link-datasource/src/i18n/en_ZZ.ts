@@ -60,6 +60,7 @@ export default {
     '⁣⁢The From date can’t be in the future⁫⁫‌؜‌⁠⁭؜⁯⁡‌⁠‍⁯⁯‌⁯⁮⁭⁡‍⁣⁤',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     '⁣⁢The To date can’t be in the future⁪⁬⁭⁯⁯‌⁡⁯⁫‍⁡⁡‍‍⁪⁠⁪⁠⁪‌⁪⁭⁬⁣⁤',
+  'linkDataSource.confluence-search.configmodal.date.range.error': '⁣⁢Date range error⁠⁫⁫‌⁭⁯⁯⁬‌⁫⁮⁪‌⁮⁬⁮⁪⁭؜⁣⁤',
   'linkDataSource.confluence-search.configmodal.date.range.from': '⁣⁢From⁯؜⁪⁯⁪⁬⁫⁬⁯⁠⁬⁡⁭؜⁯⁮⁮⁫؜⁡⁣⁤',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder':
     '⁣⁢Choose a date؜⁮‌⁯‌⁠⁮⁮⁮⁭‍⁯‍‌⁡⁫⁭⁯⁬⁮⁭⁠⁣⁤',

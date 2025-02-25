@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.7.3
+
+### Patch Changes
+
+- [#117438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117438)
+  [`0de6100bab361`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0de6100bab361) -
+  CEPS-219: The collab provider waits for an ACK from NCS before committing the enxt batch of steps,
+  but there is a timeout of 5s in case this ACK is lost. Since we are now intentionally increasing
+  this ack for single player sessions, this causes unwanted behvaiour if the ack is 5s or more, as
+  the provider will re-send even though an ack is in flight. We increase the window to 20s so that
+  we have a bigger window of ack delay values we can experiment with.
+
 ## 10.7.2
 
 ### Patch Changes

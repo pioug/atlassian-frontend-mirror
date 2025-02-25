@@ -1,13 +1,11 @@
 /* eslint-disable @repo/internal/react/no-class-components */
 import React, { PureComponent } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { ProviderFactory, type Providers, WithProviders } from '../../provider-factory';
 import { type ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import { type MentionEventHandlers } from '../EventHandlers';
 
-import { MentionWithProviders, MentionWithProvidersOld } from './mention-with-providers';
+import { MentionWithProviders } from './mention-with-providers';
 
 export interface MentionProps {
 	id: string;
@@ -42,21 +40,8 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 		const { accessLevel, eventHandlers, id, text, localId } = this.props;
 		const { mentionProvider, profilecardProvider } = providers;
 
-		if (fg('platform_editor_react18_mention_with_provider_fix')) {
-			return (
-				<MentionWithProviders
-					id={id}
-					text={text}
-					accessLevel={accessLevel}
-					localId={localId}
-					eventHandlers={eventHandlers}
-					mentionProvider={mentionProvider}
-					profilecardProvider={profilecardProvider}
-				/>
-			);
-		}
 		return (
-			<MentionWithProvidersOld
+			<MentionWithProviders
 				id={id}
 				text={text}
 				accessLevel={accessLevel}

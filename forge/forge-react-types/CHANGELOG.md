@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.37.0
+
+### Minor Changes
+
+- [#116826](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/116826)
+  [`8c12c6e2b3efe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c12c6e2b3efe) -
+  Add props for "Text" component
+
 ## 0.36.0
 
 ### Minor Changes

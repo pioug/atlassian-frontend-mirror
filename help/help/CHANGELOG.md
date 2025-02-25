@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 8.0.1
+
+### Patch Changes
+
+- [#117884](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117884)
+  [`bdf26bc4d0489`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdf26bc4d0489) -
+  Set an aria-label instead of a title on the serch input for better a11y
+
 ## 8.0.0
 
 ### Major Changes

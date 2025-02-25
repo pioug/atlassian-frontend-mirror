@@ -1,5 +1,17 @@
 # @atlaskit/feature-gate-fetcher
 
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.11
 
 ### Patch Changes

@@ -44,8 +44,8 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "^3.0.0",
 		"@atlaskit/editor-plugin-selection-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^24.0.0",
-		"@atlaskit/primitives": "^14.0.0",
+		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/primitives": "^14.1.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"uuid": "^3.1.0"

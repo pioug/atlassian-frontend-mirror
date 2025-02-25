@@ -1,4 +1,3 @@
-// import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 
@@ -14,8 +13,10 @@ type StructureSubcategory =
 
 type DataSubcategory = 'charts' | 'gadgets' | 'jira' | 'labels' | 'reports' | 'timelines';
 
+type ElementCategory = 'media' | 'collaborate' | 'apps' | 'data' | 'structure';
+
 export type InsertPanelItem = TypeAheadItem & {
-	category?: 'media' | 'collaborate' | 'apps' | 'data' | 'structure';
+	category?: ElementCategory;
 	subCategory?: StructureSubcategory | DataSubcategory;
 	shouldDisplayAtTop?: boolean; // some elements have to be displayed at the top of the category/subcategory
 	shouldDisplay?: boolean; // some items should not be displayed in new Quick Insert and Right Rail (AI, lists)

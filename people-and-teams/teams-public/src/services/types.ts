@@ -1,4 +1,5 @@
 import { type ContainerTypes } from '../common/types';
+export { type UnlinkContainerMutationError } from './agg-client/utils/mutations/unlink-container-mutation';
 
 export type ClientContext = {
 	cloudId?: string | null;

@@ -105,34 +105,10 @@ export const ReactionDialogOpened = new UFOExperience(
 );
 
 /**
- * Experience when a reaction dialog is closed
- */
-export const ReactionDialogClosed = new UFOExperience(
-	ExperienceName.REACTION_DIALOG_CLOSED,
-	createExperienceConfig(
-		ComponentName.REACTION_DIALOG,
-		ExperienceTypes.Experience,
-		ExperiencePerformanceTypes.InlineResult,
-	),
-);
-
-/**
  * Experience when a reaction changed/fetched from inside the modal dialog
  */
 export const ReactionDialogSelectedReactionChanged = new UFOExperience(
 	ExperienceName.REACTION_DIALOG_SELECTED_REACTION_CHANGED,
-	createExperienceConfig(
-		ComponentName.REACTION_DIALOG,
-		ExperienceTypes.Experience,
-		ExperiencePerformanceTypes.InlineResult,
-	),
-);
-
-/**
- * Experience when a user switches to another page of emojis
- */
-export const ReactionDialogPageNavigation = new UFOExperience(
-	ExperienceName.REACTION_DIALOG_PAGE_NAVIGATION,
 	createExperienceConfig(
 		ComponentName.REACTION_DIALOG,
 		ExperienceTypes.Experience,

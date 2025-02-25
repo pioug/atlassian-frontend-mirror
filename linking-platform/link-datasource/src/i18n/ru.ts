@@ -57,6 +57,7 @@ export default {
     'Начальная дата не может быть в будущем',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Конечная дата не может быть в будущем',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Ошибка в диапазоне дат',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'С',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Выберите дату',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'В последние 30 дней',

@@ -47,10 +47,15 @@ import { key } from '../pm-plugins/main';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
 import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
+import {
+	alignAnchorHeadInDirectionOfPos,
+	expandSelectionHeadToNodeAtPos,
+} from '../pm-plugins/utils/selection';
 
 import {
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
+	DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH,
 	DRAG_HANDLE_WIDTH,
 	DRAG_HANDLE_ZINDEX,
 	dragHandleGap,
@@ -99,6 +104,15 @@ const dragHandleButtonStyles = css({
 
 	'&:focus': {
 		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
+	},
+
+	'&:disabled': {
+		color: token('color.icon.disabled', '#8993A4'),
+		backgroundColor: 'transparent',
+	},
+
+	'&:hover:disabled': {
+		backgroundColor: token('color.background.disabled', 'transparent'),
 	},
 });
 
@@ -178,8 +192,11 @@ export const DragHandle = ({
 
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
+	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
+	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
+	const multiSelectDnD = useSharedPluginStateSelector(api, 'blockControls.multiSelectDnD');
 	const isLayoutColumn = nodeType === 'layoutColumn';
 	const isMultiSelect = editorExperiment(
 		'platform_editor_element_drag_and_drop_multiselect',
@@ -208,52 +225,72 @@ export const DragHandle = ({
 		}
 	}, [anchorName, nodeType, view.dom]);
 
-	const handleOnClick = useCallback(() => {
-		setDragHandleSelected(!dragHandleSelected);
+	const handleOnClick = useCallback(
+		(e: MouseEvent<HTMLButtonElement>) => {
+			if (!isMultiSelect) {
+				setDragHandleSelected(!dragHandleSelected);
+			}
+			api?.core?.actions.execute(({ tr }) => {
+				const startPos = getPos();
 
-		api?.core?.actions.execute(({ tr }) => {
-			const startPos = getPos();
+				if (startPos === undefined) {
+					return tr;
+				}
+				const $anchor =
+					multiSelectDnD?.anchor !== undefined
+						? tr.doc.resolve(multiSelectDnD?.anchor)
+						: tr.selection.$anchor;
+				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
+					tr = selectNode(tr, startPos, nodeType);
+					if (editorExperiment('platform_editor_controls', 'variant1')) {
+						api?.blockControls?.commands.toggleBlockMenu()({ tr });
+					}
+				} else if (
+					isTopLevelNode &&
+					$anchor.depth <= DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH &&
+					e.shiftKey
+				) {
+					const alignAnchorHeadToSel = alignAnchorHeadInDirectionOfPos(tr.selection, startPos);
+					const selectionWithExpandedHead = expandSelectionHeadToNodeAtPos(
+						alignAnchorHeadToSel,
+						startPos,
+					);
+					tr.setSelection(selectionWithExpandedHead);
+					api?.blockControls?.commands.setMultiSelectPositions()({ tr });
+				}
+				const resolvedMovingNode = tr.doc.resolve(startPos);
+				const maybeNode = resolvedMovingNode.nodeAfter;
 
-			if (startPos === undefined) {
+				tr.setMeta('scrollIntoView', false);
+				api?.analytics?.actions.attachAnalyticsEvent({
+					eventType: EVENT_TYPE.UI,
+					action: ACTION.CLICKED,
+					actionSubject: ACTION_SUBJECT.BUTTON,
+					actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+					attributes: {
+						nodeDepth: resolvedMovingNode.depth,
+						nodeType: maybeNode?.type.name || '',
+					},
+				})(tr);
+
 				return tr;
-			}
-			tr = selectNode(tr, startPos, nodeType);
-			const resolvedMovingNode = tr.doc.resolve(startPos);
-			const maybeNode = resolvedMovingNode.nodeAfter;
+			});
 
-			tr.setMeta('scrollIntoView', false);
-			api?.analytics?.actions.attachAnalyticsEvent({
-				eventType: EVENT_TYPE.UI,
-				action: ACTION.CLICKED,
-				actionSubject: ACTION_SUBJECT.BUTTON,
-				actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
-				attributes: {
-					nodeDepth: resolvedMovingNode.depth,
-					nodeType: maybeNode?.type.name || '',
-				},
-			})(tr);
-
-			return tr;
-		});
-
-		view.focus();
-
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			const startPos = getPos();
-			if (startPos === undefined) {
-				return false;
-			}
-			api?.core.actions.execute(api.blockControls.commands.toggleBlockMenu());
-		}
-	}, [
-		dragHandleSelected,
-		api?.core?.actions,
-		api?.analytics?.actions,
-		api?.blockControls.commands,
-		view,
-		getPos,
-		nodeType,
-	]);
+			view.focus();
+		},
+		[
+			isMultiSelect,
+			api?.core?.actions,
+			api?.analytics?.actions,
+			api?.blockControls?.commands,
+			view,
+			dragHandleSelected,
+			getPos,
+			multiSelectDnD?.anchor,
+			isTopLevelNode,
+			nodeType,
+		],
+	);
 
 	// TODO - This needs to be investigated further. Drag preview generation is not always working
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
@@ -275,7 +312,6 @@ export const DragHandle = ({
 		(e: KeyboardEvent<HTMLButtonElement>) => {
 			if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
 				// allow user to use spacebar to select the node
-
 				if (!e.repeat && e.key === ' ') {
 					const startPos = getPos();
 					api?.core?.actions.execute(({ tr }) => {
@@ -290,7 +326,7 @@ export const DragHandle = ({
 						const $startPos = tr.doc.resolve(startPos + node.nodeSize);
 						const selection = new TextSelection($startPos);
 						tr.setSelection(selection);
-						tr.setMeta(key, { pos: startPos }); ////WHERE IS THIS USED?
+						!isMultiSelect && tr.setMeta(key, { pos: startPos });
 						return tr;
 					});
 				} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
@@ -300,7 +336,7 @@ export const DragHandle = ({
 				}
 			}
 		},
-		[getPos, api?.core?.actions, view],
+		[getPos, api?.core?.actions, isMultiSelect, view],
 	);
 
 	useEffect(() => {
@@ -338,7 +374,6 @@ export const DragHandle = ({
 				const startPos = getPos();
 				const state = view.state;
 				const { doc, selection } = state;
-				const { multiSelectDnD } = api?.blockControls?.sharedState.currentState() || {};
 				let sliceFrom = selection.from;
 				let sliceTo = selection.to;
 				if (multiSelectDnD) {
@@ -352,7 +387,7 @@ export const DragHandle = ({
 					isMultiSelect &&
 					startPos !== undefined &&
 					startPos >= sliceFrom &&
-					startPos <= sliceTo &&
+					startPos < sliceTo &&
 					expandedSlice.content.childCount > 1;
 
 				setCustomNativeDragPreview({
@@ -449,7 +484,6 @@ export const DragHandle = ({
 					let nodeTypes, hasSelectedMultipleNodes;
 					const resolvedMovingNode = tr.doc.resolve(start);
 					const maybeNode = resolvedMovingNode.nodeAfter;
-					const multiSelectDnD = tr.getMeta(key)?.multiSelectDnD;
 					if (multiSelectDnD) {
 						const attributes = getMultiSelectAnalyticsAttributes(
 							tr,
@@ -484,7 +518,7 @@ export const DragHandle = ({
 				view.focus();
 			},
 		});
-	}, [anchorName, api, getPos, isMultiSelect, nodeType, start, view]);
+	}, [anchorName, api, getPos, isMultiSelect, multiSelectDnD, nodeType, start, view]);
 
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 
@@ -603,6 +637,32 @@ export const DragHandle = ({
 
 		setDragHandleSelected(isHandleCorrelatedToSelection(view.state, selection, start));
 	}, [start, selection, view.state, isMultiSelect]);
+
+	useEffect(() => {
+		if (!isMultiSelect || isShiftDown === undefined || view.state.selection.empty) {
+			return;
+		}
+
+		const $anchor =
+			multiSelectDnD?.anchor !== undefined
+				? view.state.doc.resolve(multiSelectDnD?.anchor)
+				: view.state.selection.$anchor;
+		if (
+			isShiftDown &&
+			(!isTopLevelNode || (isTopLevelNode && $anchor.depth > DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH))
+		) {
+			setDragHandleDisabled(true);
+		} else {
+			setDragHandleDisabled(false);
+		}
+	}, [
+		isMultiSelect,
+		isShiftDown,
+		isTopLevelNode,
+		multiSelectDnD?.anchor,
+		view.state.doc,
+		view.state.selection,
+	]);
 
 	let helpDescriptors =
 		isTopLevelNode && fg('platform_editor_advanced_layouts_accessibility')
@@ -737,6 +797,7 @@ export const DragHandle = ({
 			onKeyDown={handleKeyDown}
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			onDrop={handleOnDrop}
+			disabled={dragHandleDisabled}
 			data-testid="block-ctrl-drag-handle"
 		>
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */}
@@ -751,7 +812,7 @@ export const DragHandle = ({
 		</button>
 	);
 
-	return fg('platform_editor_element_drag_and_drop_ed_23873') ? (
+	return !dragHandleDisabled && fg('platform_editor_element_drag_and_drop_ed_23873') ? (
 		<Tooltip
 			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 			ignoreTooltipPointerEvents={true}

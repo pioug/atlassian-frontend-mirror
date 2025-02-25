@@ -1,4 +1,10 @@
+import React, { type ReactElement } from 'react';
+
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { type BackgroundColor } from '@atlaskit/primitives';
 import { B400, N0, N30A, N500, N700, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -14,11 +20,49 @@ export const flagBackgroundColor: Record<AppearanceTypes, BackgroundColor> = {
 };
 
 export const flagIconColor: Record<AppearanceTypes, string> = {
-	error: token('color.icon.inverse', N0),
-	info: token('color.icon.inverse', N0),
-	normal: token('color.icon.subtle', N500),
-	success: token('color.icon.inverse', N0),
-	warning: token('color.icon.warning.inverse', N700),
+	error: token('color.icon.inverse'),
+	info: token('color.icon.inverse'),
+	normal: token('color.icon.subtle'),
+	success: token('color.icon.inverse'),
+	warning: token('color.icon.warning.inverse'),
+};
+
+export const flagIconGlyph: Record<AppearanceTypes, ReactElement> = {
+	error: (
+		<ErrorIcon
+			label=""
+			LEGACY_primaryColor={token('color.icon.inverse', N0)}
+			LEGACY_secondaryColor={token('color.background.danger.bold')}
+		/>
+	),
+	info: (
+		<InformationIcon
+			label=""
+			LEGACY_primaryColor={token('color.icon.inverse', N0)}
+			LEGACY_secondaryColor={token('color.background.neutral.bold')}
+		/>
+	),
+	normal: (
+		<InformationIcon
+			label=""
+			LEGACY_primaryColor={token('color.icon.subtle', N500)}
+			LEGACY_secondaryColor={token('elevation.surface.overlay')}
+		/>
+	),
+	success: (
+		<SuccessIcon
+			label=""
+			LEGACY_primaryColor={token('color.icon.inverse', N0)}
+			LEGACY_secondaryColor={token('color.background.success.bold')}
+		/>
+	),
+	warning: (
+		<WarningIcon
+			label=""
+			LEGACY_primaryColor={token('color.icon.warning.inverse', N700)}
+			LEGACY_secondaryColor={token('color.background.warning.bold')}
+		/>
+	),
 };
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */

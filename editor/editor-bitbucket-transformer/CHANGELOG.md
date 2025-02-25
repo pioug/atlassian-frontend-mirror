@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.0.1
+
+### Patch Changes
+
+- [#117668](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117668)
+  [`6f6fff3933fff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f6fff3933fff) -
+  parses additional options in transformhtml
+
 ## 9.0.0
 
 ### Major Changes

@@ -53,6 +53,9 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
 		}
 	],

@@ -112,10 +112,12 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 		return null;
 	}
 
-	return isAiEnabled ? (
-		<SearchInputContainerAi>
+	const WrapperComponent = isAiEnabled ? SearchInputContainerAi : SearchInputContainer;
+
+	return (
+		<WrapperComponent>
 			<Textfield
-				title="Help articles search input"
+				aria-label={formatMessage(messages.help_search_placeholder)}
 				autoComplete="off"
 				ref={inputRef}
 				name="help-search-input"
@@ -145,41 +147,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 				onKeyPress={handleOnKeyPress}
 				value={searchValue}
 			/>
-		</SearchInputContainerAi>
-	) : (
-		<SearchInputContainer>
-			<Textfield
-				title="Help articles search input"
-				autoComplete="off"
-				ref={inputRef}
-				name="help-search-input"
-				elemBeforeInput={
-					<SearchIconContainer>
-						<SearchIcon LEGACY_margin="0 2px" color="currentColor" spacing="spacious" label="" />
-					</SearchIconContainer>
-				}
-				elemAfterInput={
-					<CloseButtonAndSpinnerContainer>
-						{searchState === REQUEST_STATE.loading && <Spinner size="small" />}
-						{searchValue !== '' && (
-							<Button
-								css={buttonStyles}
-								appearance="subtle"
-								onClick={handleOnClearButtonClick}
-								spacing="none"
-								aria-label="Clear field"
-							>
-								<EditorCloseIcon color="currentColor" spacing="spacious" label="" />
-							</Button>
-						)}
-					</CloseButtonAndSpinnerContainer>
-				}
-				placeholder={formatMessage(messages.help_search_placeholder)}
-				onChange={handleOnInputChange}
-				onKeyPress={handleOnKeyPress}
-				value={searchValue}
-			/>
-		</SearchInputContainer>
+		</WrapperComponent>
 	);
 };
 

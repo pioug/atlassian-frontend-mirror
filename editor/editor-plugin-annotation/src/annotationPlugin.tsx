@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { annotation } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
@@ -28,9 +26,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			return [
 				{
 					name: 'annotation',
-					mark: fg('platform_editor_annotation_react_18_mem_leak')
-						? annotationWithToDOMFix
-						: annotation,
+					mark: annotationWithToDOMFix,
 				},
 			];
 		},
@@ -59,12 +55,10 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 		pmPlugins: () => [
 			{
 				name: 'annotation',
-				plugin: ({ dispatch, portalProviderAPI, eventDispatcher }) => {
+				plugin: ({ dispatch }) => {
 					if (annotationProviders) {
 						return inlineCommentPlugin({
 							dispatch,
-							portalProviderAPI,
-							eventDispatcher,
 							provider: annotationProviders.inlineComment,
 							editorAnalyticsAPI: api?.analytics?.actions,
 							featureFlagsPluginState: featureFlags,

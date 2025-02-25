@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { useTeamContainers } from '../../controllers/hooks/use-team-containers';
+import { type ContainerTypes } from '../../common/types';
+import {
+	AnalyticsAction,
+	fireOperationalEvent,
+	fireTrackEvent,
+} from '../../common/utils/analytics';
+import {
+	useTeamContainers,
+	useTeamContainersHook,
+} from '../../controllers/hooks/use-team-containers';
 
 import { AddContainerCard } from './add-container-card';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
@@ -20,12 +30,23 @@ export const ICON_BACKGROUND = token('color.icon.inverse', N0);
 export const ICON_COLOR = token('color.icon.subtle', N90);
 export const MAX_NUMBER_OF_CONTAINERS_TO_SHOW = 4;
 
+interface SelectedContainerDetails {
+	containerId: string;
+	containerType: ContainerTypes;
+	containerName: string;
+}
+
 export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerProps) => {
-	const { teamContainers, loading } = useTeamContainers(teamId);
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
+	const [_, actions] = useTeamContainersHook();
 	const [showAddJiraContainer, setShowAddJiraContainer] = useState(false);
 	const [showAddConfluenceContainer, setShowAddConfluenceContainer] = useState(false);
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
+	const [selectedContainerDetails, setSelectedContainerDetails] = useState<
+		SelectedContainerDetails | undefined
+	>();
 
 	useEffect(() => {
 		if (teamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW) {
@@ -45,6 +66,38 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 		setShowMore(!showMore);
 	};
 
+	const handleOpenDisconnectDialog = useCallback(
+		(containerDetails: SelectedContainerDetails) => {
+			setSelectedContainerDetails(containerDetails);
+			setIsDisconnectDialogOpen(true);
+
+			fireTrackEvent(createAnalyticsEvent, {
+				action: AnalyticsAction.OPENED,
+				actionSubject: 'unlinkContainerDialog',
+			});
+		},
+		[createAnalyticsEvent],
+	);
+
+	const handleDisconnect = useCallback(
+		async (containerId: string) => {
+			await actions.unlinkTeamContainers(teamId, containerId);
+			setIsDisconnectDialogOpen(false);
+			if (unlinkError) {
+				fireOperationalEvent(createAnalyticsEvent, {
+					action: AnalyticsAction.FAILED,
+					actionSubject: 'unlinkContainer',
+				});
+			} else {
+				fireOperationalEvent(createAnalyticsEvent, {
+					action: AnalyticsAction.SUCCEEDED,
+					actionSubject: 'unlinkContainer',
+				});
+			}
+		},
+		[actions, createAnalyticsEvent, teamId, unlinkError],
+	);
+
 	if (loading) {
 		return <TeamContainersSkeleton numberOfContainers={MAX_NUMBER_OF_CONTAINERS_TO_SHOW} />;
 	}
@@ -61,7 +114,13 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 								title={container.name}
 								containerIcon={container.icon}
 								link={container.link}
-								onDisconnectButtonClick={() => setIsDisconnectDialogOpen(true)}
+								onDisconnectButtonClick={() =>
+									handleOpenDisconnectDialog({
+										containerId: container.id,
+										containerType: container.type,
+										containerName: container.name,
+									})
+								}
 							/>
 						);
 					})}
@@ -104,13 +163,12 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 				)}
 			</Stack>
 			<ModalTransition>
-				{isDisconnectDialogOpen && (
+				{isDisconnectDialogOpen && selectedContainerDetails && (
 					<DisconnectDialogLazy
-						containerName="something"
-						containerType="ConfluenceSpace"
+						containerName={selectedContainerDetails.containerName}
+						containerType={selectedContainerDetails.containerType}
 						onClose={() => setIsDisconnectDialogOpen(false)}
-						// TODO: hook the mutation
-						onDisconnect={() => Promise.resolve()}
+						onDisconnect={() => handleDisconnect(selectedContainerDetails.containerId)}
 					/>
 				)}
 			</ModalTransition>

@@ -17,7 +17,7 @@ import type { InternalError } from '../errors/internal-errors';
 const logger = createLogger('commit-step', 'black');
 
 export let readyToCommit = true;
-export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;
+export const RESET_READYTOCOMMIT_INTERVAL_MS = 20000;
 
 export const commitStepQueue = ({
 	broadcast,

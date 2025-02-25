@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/utility/cross';
@@ -10,6 +11,7 @@ import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../../common/types';
+import { AnalyticsAction, fireUIEvent } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 const styles = cssMap({
@@ -79,6 +81,7 @@ export const LinkedContainerCard = ({
 	link,
 	onDisconnectButtonClick,
 }: LinkedContainerCardProps) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon } = getContainerProperties(containerType);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 
@@ -106,6 +109,11 @@ export const LinkedContainerCard = ({
 							onClick={(e) => {
 								e.preventDefault();
 								onDisconnectButtonClick();
+								fireUIEvent(createAnalyticsEvent, {
+									action: AnalyticsAction.CLICKED,
+									actionSubject: 'button',
+									actionSubjectId: 'containerUnlinkButton',
+								});
 							}}
 						/>
 					</Box>

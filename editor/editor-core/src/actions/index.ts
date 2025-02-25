@@ -285,6 +285,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	replaceSelection(
 		rawValue: ReplaceRawValue | Array<ReplaceRawValue>,
 		tryToReplace?: boolean,
+		position?: number,
 	): boolean {
 		if (!this.editorView) {
 			return false;
@@ -323,7 +324,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
 		// try to find a place in the document where to insert a node if its not allowed at the cursor position by schema
 		this.editorView.dispatch(
-			safeInsert(content, undefined, tryToReplace)(state.tr).scrollIntoView(),
+			safeInsert(content, position, tryToReplace)(state.tr).scrollIntoView(),
 		);
 
 		return true;

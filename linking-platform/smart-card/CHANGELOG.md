@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 35.0.2
+
+### Patch Changes
+
+- [#113976](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/113976)
+  [`40fea6328a34a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40fea6328a34a) -
+  [ux] Minor UI changes to EmbedModal under FF
+- Updated dependencies
+
 ## 35.0.1
 
 ### Patch Changes

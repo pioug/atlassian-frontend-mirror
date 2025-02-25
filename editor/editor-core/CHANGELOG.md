@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 204.1.0
+
+### Minor Changes
+
+- [#116890](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/116890)
+  [`6e6add1056c65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e6add1056c65) -
+  Adding smartlink button for autoconvert macros
+
+## 204.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 204.0.1
 
 ### Patch Changes

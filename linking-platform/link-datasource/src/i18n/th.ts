@@ -53,6 +53,7 @@ export default {
     'วันที่ "จาก" ต้องไม่ใช่วันในอนาคต',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'วันที่ "ถึง" ต้องไม่ใช่วันในอนาคต',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'ข้อผิดพลาดในช่วงวันที่',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'จาก',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'เลือกวันที่',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': '30 วันที่ผ่านมา',

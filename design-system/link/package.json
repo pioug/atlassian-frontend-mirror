@@ -41,8 +41,8 @@
 	"dependencies": {
 		"@atlaskit/css": "^0.10.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^14.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/primitives": "^14.1.0",
+		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
@@ -56,7 +56,7 @@
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/app-provider": "^2.0.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/heading": "^5.0.0",
+		"@atlaskit/heading": "^5.1.0",
 		"@atlaskit/section-message": "*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",

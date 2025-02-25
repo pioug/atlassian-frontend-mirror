@@ -54,6 +54,7 @@ export default {
     'Från-datum får inte vara i framtiden',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Till-datum får inte vara ett datum i framtiden',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Fel på datumintervall',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Från',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Välj ett datum',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'De senaste 30 dagarna',

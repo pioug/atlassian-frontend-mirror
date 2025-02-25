@@ -6,7 +6,7 @@ import { Inline, xcss } from '@atlaskit/primitives';
 
 import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
 import { Reaction } from '../Reaction';
-import { type ReactionsProps } from '../Reactions';
+import { type ReactionsProps, type OpenReactionsDialogOptions } from '../Reactions';
 
 import { ReactionSummaryButton } from './ReactionSummaryButton';
 
@@ -57,10 +57,9 @@ interface ReactionSummaryViewProps
 	/**
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
-	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
-	/**
+	handleOpenReactionsDialog?: (options?: OpenReactionsDialogOptions) => void /**
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
-	 */
+	 */;
 	isViewOnly?: boolean;
 }
 

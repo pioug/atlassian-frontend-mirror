@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.1.0
+
+### Minor Changes
+
+- [#118212](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118212)
+  [`7a1ec3e0fb496`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a1ec3e0fb496) -
+  Updating logic to track resource timings to include 'other' type which includes '.js'
+
 ## 3.0.0
 
 ### Major Changes

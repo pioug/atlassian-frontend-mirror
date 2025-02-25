@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 100.1.1
+
+### Patch Changes
+
+- [#118516](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118516)
+  [`d550ae651b8f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d550ae651b8f4) -
+  [ux] ED-26762 Change implementation of isElementInTableCell so that it finds whichever is closest
+  out of td or th instead of favouring returning the first td first. This solves an issues with
+  nested tables where the currently hovered nested table was not being tracked but rather the parent
+  cell.
+- Updated dependencies
+
 ## 100.1.0
 
 ### Minor Changes

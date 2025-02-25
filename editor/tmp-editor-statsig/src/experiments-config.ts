@@ -317,4 +317,13 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
+	// Added 2025-02-24
+	editor_ai_inline_suggestion_date: {
+		productKeys: {
+			confluence: 'editor_ai_inline_suggestion_date',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

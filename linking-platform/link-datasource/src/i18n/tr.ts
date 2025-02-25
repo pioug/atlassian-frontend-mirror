@@ -54,6 +54,7 @@ export default {
     'Başlangıç tarihi ileri bir tarihte olamaz',
   'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
     'Bitiş tarihi ileri bir tarihte olamaz',
+  'linkDataSource.confluence-search.configmodal.date.range.error': 'Tarih aralığı hatası',
   'linkDataSource.confluence-search.configmodal.date.range.from': 'Başlangıç',
   'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Bir tarih seçin',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Son 30 gün',

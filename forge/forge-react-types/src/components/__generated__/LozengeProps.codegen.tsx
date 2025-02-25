@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - LozengeProps
  *
- * @codegen <<SignedSource::010c29755ec75417d1649af3008801cd>>
+ * @codegen <<SignedSource::3d662c95d84fa4bb1441b1edbac2c302>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/lozenge/__generated__/index.partial.tsx <<SignedSource::20810ed29278b94c2bf310c8d80efdf8>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/lozenge/__generated__/index.partial.tsx <<SignedSource::e362dbb308b0f7785d47bb5e9aa46ab0>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

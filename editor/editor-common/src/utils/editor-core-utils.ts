@@ -6,6 +6,7 @@ import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/tra
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { closest } from './dom';
 
@@ -60,7 +61,11 @@ export const isTextSelection = (selection: Selection): selection is TextSelectio
 	selection instanceof TextSelection;
 
 export const isElementInTableCell = (element: HTMLElement | null): HTMLElement | null => {
-	return closest(element, 'td') || closest(element, 'th');
+	if (fg('platform_editor_nested_tables_column_drag_fix')) {
+		return closest(element, 'td, th');
+	} else {
+		return closest(element, 'td') || closest(element, 'th');
+	}
 };
 
 export const isLastItemMediaGroup = (node: Node): boolean => {

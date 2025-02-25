@@ -3,10 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
-import SlideIn, { slideInAnimation } from '../../../entering/slide-in';
-import { type Direction, type Fade, type Transition } from '../../../entering/types';
+import SlideIn from '../../../entering/slide-in';
 import { easeIn, easeOut } from '../../../utils/curves';
-import { durations } from '../../../utils/durations';
 
 jest.mock('../../../utils/accessibility');
 
@@ -16,10 +14,7 @@ describe('<SlideIn />', () => {
 			<SlideIn enterFrom="left">{(props) => <div data-testid="target" {...props} />}</SlideIn>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
-			'animation-duration',
-			`${durations.medium}ms`,
-		);
+		expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.35s');
 	});
 
 	it('should override default duration', () => {
@@ -29,7 +24,7 @@ describe('<SlideIn />', () => {
 			</SlideIn>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveCompiledCss('animation-duration', '.1s');
 	});
 
 	it('should slide in easing out', () => {
@@ -37,9 +32,9 @@ describe('<SlideIn />', () => {
 			<SlideIn enterFrom="left">{(props) => <div data-testid="target" {...props} />}</SlideIn>,
 		);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('target')).toHaveCompiledCss(
 			'animation-timing-function',
-			easeOut,
+			easeOut.replace('0.', '.'),
 		);
 	});
 
@@ -52,21 +47,9 @@ describe('<SlideIn />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('target')).toHaveCompiledCss(
 			'animation-timing-function',
-			easeIn,
+			easeIn.replace(new RegExp(/0\./, 'g'), '.'),
 		);
-	});
-
-	['entering', 'exiting'].forEach((state) => {
-		['top', 'right', 'bottom', 'left'].forEach((from) => {
-			['none', 'in', 'out', 'inout'].forEach((fade) => {
-				it(`should animate ${state} from ${from} with fade ${fade}`, () => {
-					expect(
-						slideInAnimation(from as Direction, state as Transition, fade as Fade),
-					).toMatchSnapshot();
-				});
-			});
-		});
 	});
 });

@@ -248,32 +248,86 @@ describe('PersistentOverrideAdapter', () => {
 		});
 	});
 
-	it('should inject hashes when setting all overrides', () => {
+	it('should not continue creating hashes', () => {
 		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
-		provider.overrideGate('gate1', true);
-		provider.overrideLayer('layer1', { param: true });
-		provider.overrideDynamicConfig('config1', { field: true });
-		expect(provider['_overrides']).toEqual({
+		window.localStorage.setItem(
+			LOCAL_STORAGE_KEY,
+			JSON.stringify({
+				gates: {
+					a: true,
+					[_DJB2('a')]: true,
+					[_DJB2(_DJB2('a'))]: true,
+					b: false,
+					[_DJB2('b')]: false,
+					c: false,
+				},
+			}),
+		);
+
+		provider.initFromStoredOverrides();
+		expect(provider.getOverrides()).toEqual({
 			gates: {
-				gate1: true,
-				'98127046': true,
+				a: true,
+				b: false,
+				c: false,
 			},
-			configs: {
-				config1: {
-					field: true,
-				},
-				'951117103': {
-					field: true,
-				},
-			},
-			layers: {
-				layer1: {
-					param: true,
-				},
-				'3185235200': {
-					param: true,
-				},
-			},
+			configs: {},
+			layers: {},
 		});
+
+		provider.saveOverrides();
+		provider.initFromStoredOverrides();
+		expect(provider.getOverrides()).toEqual({
+			gates: {
+				a: true,
+				b: false,
+				c: false,
+			},
+			configs: {},
+			layers: {},
+		});
+	});
+
+	it('should return override if hash is given', () => {
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
+
+		provider.overrideGate('foo', true);
+
+		const result = provider.getGateOverride(
+			{
+				name: _DJB2('foo'),
+				value: false,
+				ruleID: 'asdf',
+				details: {
+					reason: 'UNSET',
+				},
+				__evaluation: null,
+			},
+			{
+				/* user */
+			},
+		);
+
+		expect(result?.value).toBe(true);
+		expect(result?.details.reason).toBe('LocalOverride:Recognized');
+	});
+
+	it('should support DJB2 hashes when setting overrides', () => {
+		const provider = new PersistentOverrideAdapter(LOCAL_STORAGE_KEY);
+		provider.setOverrides({ gates: { foo: true } });
+
+		const result = provider.getGateOverride(
+			{
+				name: _DJB2('foo'),
+				value: false,
+				ruleID: 'asdf',
+				details: {
+					reason: 'UNSET',
+				},
+				__evaluation: null,
+			},
+			{},
+		);
+		expect(result?.value).toBe(true);
 	});
 });

@@ -59,3 +59,8 @@ export type { TooltipProps } from './TooltipProps.codegen';
 export type { ValidMessageProps } from './ValidMessageProps.codegen';
 export type { PopupProps } from './PopupProps.codegen';
 export type { AdfRendererProps, TAdfRenderer } from './AdfRendererProps.codegen';
+
+// Forge UI supports the value "strike" for the "as" prop of the Text component, to have a migration path
+// off using <Strike>. The native ADS Text component does not support it, so we patched it to support it.
+import type { TextProps as OriginalTextProps } from './TextProps.codegen'
+export type TextProps = Omit<OriginalTextProps, 'as'> & { as?: OriginalTextProps['as'] | 'strike' };

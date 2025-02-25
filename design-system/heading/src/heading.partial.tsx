@@ -7,6 +7,7 @@ import { forwardRef, type ReactNode, type Ref } from 'react';
 import { cssMap as unboundedCssMap } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_inverseColorMap } from '@atlaskit/primitives';
 import { UNSAFE_useSurface } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -103,6 +104,18 @@ type HeadingSize = keyof typeof headingSizeStylesMap;
 
 const useColor = (colorProp?: HeadingColor): HeadingColor => {
 	const surface = UNSAFE_useSurface();
+
+	if (fg('platform-typography-improved-color-control')) {
+		if (colorProp) {
+			return colorProp;
+		}
+
+		if (UNSAFE_inverseColorMap.hasOwnProperty(surface)) {
+			return UNSAFE_inverseColorMap[surface as keyof typeof UNSAFE_inverseColorMap];
+		}
+
+		return 'color.text';
+	}
 
 	/**
 	 * Where the color of the surface is inverted we always override the color

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::a64b9612481f845fff0bfc7d076912f5>>
+ * @codegen <<SignedSource::2108bd9b73e5b913947b8c7eae393363>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -36,9 +36,11 @@ import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
+import DividerElementIcon from '../../../../core/divider-element';
 import DropShadowIcon from '../../../../core/drop-shadow';
 import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
+import ExpandElementIcon from '../../../../core/expand-element';
 import FieldTextIcon from '../../../../core/field-text';
 import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
@@ -107,9 +109,11 @@ const Icons = [
 	CursorStrikethroughIcon,
 	DatabaseStorageIcon,
 	DatabaseStorageCacheIcon,
+	DividerElementIcon,
 	DropShadowIcon,
 	DuplicateIcon,
 	EditionsIcon,
+	ExpandElementIcon,
 	FieldTextIcon,
 	GroupSelectionIcon,
 	GroupUngroupSelectionIcon,

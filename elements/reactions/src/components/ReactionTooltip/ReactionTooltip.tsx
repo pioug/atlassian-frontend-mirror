@@ -11,7 +11,7 @@ import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary } from '../../types';
 import { emojiNameStyle, footerStyle, tooltipStyle, underlineStyle } from './styles';
-
+import { type OpenReactionsDialogOptions } from '../Reactions';
 /**
  * Test id for wrapper ReactionTooltip div
  */
@@ -41,7 +41,7 @@ export type ReactionTooltipProps = PropsWithChildren<{
 	/**
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
-	handleOpenReactionsDialog?: (emojiId?: string, source?: string) => void;
+	handleOpenReactionsDialog?: (options?: OpenReactionsDialogOptions) => void;
 	/**
 	 * Function that hides the tooltip
 	 */

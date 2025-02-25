@@ -1,5 +1,18 @@
 # @atlaskit/heading
 
+## 5.1.0
+
+### Minor Changes
+
+- [#118121](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118121)
+  [`4850fa1a503ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4850fa1a503ba) -
+  [ux] Automatic color inversion based on bold surfaces will only affect the default color behind a
+  feature flag. If testing successful, this change will be made available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.0
 
 ### Major Changes

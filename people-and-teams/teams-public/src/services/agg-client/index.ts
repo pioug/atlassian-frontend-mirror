@@ -4,6 +4,11 @@ import { DEFAULT_CONFIG } from '../constants';
 import { BaseGraphQlClient } from '../graphql-client';
 
 import {
+	UnlinkContainerMutation,
+	type UnlinkContainerMutationResponse,
+	type UnlinkContainerMutationVariables,
+} from './utils/mutations/unlink-container-mutation';
+import {
 	TeamContainersQuery,
 	type TeamContainersQueryResponse,
 	type TeamContainersQueryVariables,
@@ -58,6 +63,29 @@ export class AGGClient extends BaseGraphQlClient {
 		}));
 
 		return containersResult;
+	}
+
+	async unlinkTeamContainer(teamId: string, containerId: string) {
+		const teamAri = teamIdToAri(teamId);
+
+		const response = await this.makeGraphQLRequest<
+			'graphStore',
+			UnlinkContainerMutationResponse,
+			UnlinkContainerMutationVariables
+		>(
+			{
+				query: UnlinkContainerMutation,
+				variables: {
+					containerId,
+					teamId: teamAri,
+				},
+			},
+			{
+				operationName: 'UnlinkContainerMutation',
+			},
+		);
+
+		return response.graphStore;
 	}
 }
 

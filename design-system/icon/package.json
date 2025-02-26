@@ -92,7 +92,7 @@
 		"@atlaskit/icon-object": "^7.0.0",
 		"@atlaskit/link": "^3.0.0",
 		"@atlaskit/logo": "^16.0.0",
-		"@atlaskit/menu": "^3.0.0",
+		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/section-message": "*",

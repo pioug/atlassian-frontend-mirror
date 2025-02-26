@@ -1,5 +1,21 @@
 # @atlaskit/reactions
 
+## 26.3.0
+
+### Minor Changes
+
+- [#118041](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118041)
+  [`a003b1b7d2126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a003b1b7d2126) -
+  [ux] Updates the border radius of StaticReaction component to match ReactionButton border shape
+
+## 26.2.0
+
+### Minor Changes
+
+- [#118541](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118541)
+  [`40add733890e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40add733890e6) -
+  [ux] Uses showRoundTrigger to determine if Popper will be placed with 'left' positioning
+
 ## 26.1.1
 
 ### Patch Changes

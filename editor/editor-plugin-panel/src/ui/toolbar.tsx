@@ -43,6 +43,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
 import LegacySuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import LegacyWarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
 import type { PanelPlugin } from '../index';
@@ -305,36 +306,69 @@ export const getToolbarItems = (
 		}
 	}
 
-	if (state) {
-		items.push({
-			type: 'separator',
-		});
-		items.push({
-			type: 'copy-button',
-			items: [{ state, formatMessage, nodeType: panelNodeType }],
-		});
-	}
+	if (editorExperiment('platform_editor_controls', 'control')) {
+		if (state) {
+			items.push({
+				type: 'separator',
+			});
+			items.push({
+				type: 'copy-button',
+				items: [{ state, formatMessage, nodeType: panelNodeType }],
+			});
+		}
 
-	items.push(
-		{
-			type: 'separator',
-		},
-		{
-			id: 'editor.panel.delete',
-			type: 'button',
-			appearance: 'danger',
-			focusEditoronEnter: true,
-			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
-			onClick: removePanel(editorAnalyticsAPI),
-			onMouseEnter: hoverDecoration?.(panelNodeType, true),
-			onMouseLeave: hoverDecoration?.(panelNodeType, false),
-			onFocus: hoverDecoration?.(panelNodeType, true),
-			onBlur: hoverDecoration?.(panelNodeType, false),
-			title: formatMessage(commonMessages.remove),
-			tabIndex: null,
-		},
-	);
+		items.push(
+			{
+				type: 'separator',
+			},
+			{
+				id: 'editor.panel.delete',
+				type: 'button',
+				appearance: 'danger',
+				focusEditoronEnter: true,
+				icon: DeleteIcon,
+				iconFallback: RemoveIcon,
+				onClick: removePanel(editorAnalyticsAPI),
+				onMouseEnter: hoverDecoration?.(panelNodeType, true),
+				onMouseLeave: hoverDecoration?.(panelNodeType, false),
+				onFocus: hoverDecoration?.(panelNodeType, true),
+				onBlur: hoverDecoration?.(panelNodeType, false),
+				title: formatMessage(commonMessages.remove),
+				tabIndex: null,
+			},
+		);
+	} else {
+		items.push(
+			{
+				type: 'separator',
+			},
+			{
+				id: 'editor.panel.delete',
+				type: 'button',
+				appearance: 'danger',
+				focusEditoronEnter: true,
+				icon: DeleteIcon,
+				iconFallback: RemoveIcon,
+				onClick: removePanel(editorAnalyticsAPI),
+				onMouseEnter: hoverDecoration?.(panelNodeType, true),
+				onMouseLeave: hoverDecoration?.(panelNodeType, false),
+				onFocus: hoverDecoration?.(panelNodeType, true),
+				onBlur: hoverDecoration?.(panelNodeType, false),
+				title: formatMessage(commonMessages.remove),
+				tabIndex: null,
+			},
+		);
+
+		if (state) {
+			items.push({
+				type: 'separator',
+			});
+			items.push({
+				type: 'copy-button',
+				items: [{ state, formatMessage, nodeType: panelNodeType }],
+			});
+		}
+	}
 
 	return items;
 };

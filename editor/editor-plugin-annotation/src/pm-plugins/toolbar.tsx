@@ -85,7 +85,9 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 		const createComment: FloatingToolbarButton<Command> = {
 			type: 'button',
 			showTitle:
-				!isViewMode && editorExperiment('contextual_formatting_toolbar', true, { exposure: true })
+				!isViewMode &&
+				editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) &&
+				editorExperiment('platform_editor_controls', 'control')
 					? false
 					: true,
 			disabled:

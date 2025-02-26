@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-common": "^100.1.0",
-		"@atlaskit/editor-plugin-media": "^2.0.0",
+		"@atlaskit/editor-plugin-media": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

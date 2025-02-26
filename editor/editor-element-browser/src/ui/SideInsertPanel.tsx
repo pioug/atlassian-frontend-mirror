@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { Stack, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
+import { Stack } from '@atlaskit/primitives';
 
 import type { SideInsertPanelProps } from '../types';
 import { useItems } from '../utils/use-items';
@@ -11,30 +10,8 @@ import { ExpandablePanel } from './ExpandablePanel';
 import { IconButtonGroup } from './IconButtonGroup';
 import type { GroupData, ItemData } from './ItemType';
 import { ListButtonGroup } from './ListButtonGroup';
+import { SearchPanel } from './SearchPanel';
 import { SubPanelWithBackButton } from './SubPanel';
-
-const styles = xcss({
-	borderTop: 0,
-	borderBottom: '1px',
-	borderRight: 0,
-	borderLeft: 0,
-	borderBlockColor: 'color.border',
-	borderBlockStyle: 'solid',
-});
-
-type OnChangeType = React.ComponentProps<typeof Textfield>['onChange'];
-
-// TODO - polish and possible move to it's own file
-const SearchPanel = ({ onChange }: { onChange: OnChangeType }) => {
-	return (
-		<Textfield
-			name="search"
-			id="search-textfield"
-			placeholder="Find or describe"
-			onChange={onChange}
-		/>
-	);
-};
 
 const DefaultView = ({
 	suggested,
@@ -55,7 +32,6 @@ const DefaultView = ({
 					items={suggested.items}
 					label={suggested.label}
 					onItemSelected={onItemSelected}
-					xcss={styles}
 				/>
 			)}
 			{categories &&
@@ -66,9 +42,9 @@ const DefaultView = ({
 							id={category.id}
 							label={category.label}
 							items={category.items}
+							hasSeparator
 							onItemSelected={onItemSelected}
 							onViewAllSelected={onCategorySelected}
-							xcss={styles}
 						/>
 					);
 				})}
@@ -77,22 +53,22 @@ const DefaultView = ({
 };
 
 const CategoryView = ({
-	items,
+	category,
 	onItemSelected,
 	onBackButtonClicked,
 }: {
-	items: ItemData[];
+	category: GroupData;
 	onItemSelected: (index: number) => void;
 	onBackButtonClicked: () => void;
 }) => {
 	return (
 		<Stack>
 			<SubPanelWithBackButton
-				label={'Media'}
+				label={category.label}
 				buttonLabel="Back to all items"
 				onClick={onBackButtonClicked}
 			>
-				<ListButtonGroup id="media" items={items} onItemSelected={onItemSelected} />
+				<ListButtonGroup id={category.id} items={category.items} onItemSelected={onItemSelected} />
 			</SubPanelWithBackButton>
 		</Stack>
 	);
@@ -108,9 +84,6 @@ const SearchView = ({
 	return <ListButtonGroup id={'search'} items={items} onItemSelected={onItemSelected} />;
 };
 
-// TODO
-//  - polish the UI
-//  - add support for sub-categories
 export const SideInsertPanelNew = ({ items, onItemInsert }: SideInsertPanelProps) => {
 	const onItemSelect = useCallback(
 		(index: number) => {
@@ -121,7 +94,7 @@ export const SideInsertPanelNew = ({ items, onItemInsert }: SideInsertPanelProps
 
 	const {
 		suggested,
-		categories,
+		topFiveItemsByCategory,
 		selectedCategoryItems,
 		searchItems,
 		setSearchText,
@@ -132,14 +105,14 @@ export const SideInsertPanelNew = ({ items, onItemInsert }: SideInsertPanelProps
 		<SearchView items={searchItems} onItemSelected={onItemSelect} />
 	) : selectedCategoryItems ? (
 		<CategoryView
-			items={selectedCategoryItems}
+			category={selectedCategoryItems}
 			onItemSelected={onItemSelect}
 			onBackButtonClicked={() => setSelectedCategory(undefined)}
 		/>
 	) : (
 		<DefaultView
 			suggested={suggested}
-			categories={categories}
+			categories={topFiveItemsByCategory}
 			onItemSelected={onItemSelect}
 			onCategorySelected={(categoryId) => {
 				setSelectedCategory(categoryId);

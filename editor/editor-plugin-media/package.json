@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,7 +43,7 @@
 		"@atlaskit/editor-common": "^100.1.0",
 		"@atlaskit/editor-palette": "2.0.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
-		"@atlaskit/editor-plugin-annotation": "2.0.1",
+		"@atlaskit/editor-plugin-annotation": "2.0.2",
 		"@atlaskit/editor-plugin-connectivity": "^2.0.0",
 		"@atlaskit/editor-plugin-decorations": "^2.0.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
@@ -165,6 +165,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_safari_media_clipboard_fix": {
+			"type": "boolean"
+		},
+		"dlp_cc-enforce-attachment-dl-dsp": {
 			"type": "boolean"
 		}
 	},

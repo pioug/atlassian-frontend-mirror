@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { GRAB_AREA_LINE_SELECTOR, GRAB_AREA_SELECTOR } from '../../common/constants';
 import { type LeftSidebarProps } from '../../common/types';
 
-export type GrabAreaProps = {
+type GrabAreaProps = {
 	isDisabled: boolean;
 	isLeftSidebarCollapsed: boolean;
 	label: string;

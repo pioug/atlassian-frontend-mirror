@@ -9,6 +9,7 @@ import { jsx } from '@emotion/react';
 
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
@@ -34,7 +35,10 @@ const LozengeActionTriggerOld = ({
 
 	const lozenge = useMemo(
 		() => (
-			<Lozenge appearance={appearance} isBold={isBold}>
+			<Lozenge
+				appearance={appearance}
+				isBold={fg('platform-component-visual-refresh') ? true : isBold}
+			>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={triggerLozengeStyles}>
 					<span>{text}</span>

@@ -169,7 +169,12 @@ const InlineCardForbiddenViewNew = ({
 							onClick={handleRetry}
 							testId="button-connect-other-account"
 						>
-							<Lozenge appearance={'moved'}>{renderForbiddenAccessMessage()}</Lozenge>
+							<Lozenge
+								appearance="moved"
+								{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
+							>
+								{renderForbiddenAccessMessage()}
+							</Lozenge>
 						</Pressable>
 					</LozengeWrapper>
 				);
@@ -183,7 +188,12 @@ const InlineCardForbiddenViewNew = ({
 					role="button"
 				>
 					<LozengeWrapper>
-						<Lozenge appearance={'moved'}>{renderForbiddenAccessMessage()}</Lozenge>
+						<Lozenge
+							appearance={'moved'}
+							{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
+						>
+							{renderForbiddenAccessMessage()}
+						</Lozenge>
 					</LozengeWrapper>
 				</Button>
 			);

@@ -13,7 +13,6 @@ import { ItemData } from '../src/ui/ItemType';
 const innerBoxContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 	boxShadow: 'elevation.shadow.overlay',
-	padding: 'space.100',
 });
 
 const outerBoxContainerStyles = xcss({
@@ -59,10 +58,6 @@ const dataItems: ItemData[] = [
 		showDescription: true,
 		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		renderIcon: () => <Table size="xlarge" label="" />,
-	},
-	{
-		index: 5,
-		title: 'This should not be visible',
 	},
 ];
 

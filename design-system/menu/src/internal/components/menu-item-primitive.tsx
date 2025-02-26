@@ -9,6 +9,7 @@ import { ClassNames, css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import FocusRing from '@atlaskit/focus-ring';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, type InlineProps, Stack, xcss } from '@atlaskit/primitives';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -26,8 +27,17 @@ const defaultRender: RenderFunction = (Component, props) => (
 	<Component {...props} />
 );
 
+const beforeAfterElementStylesOld = css({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flexShrink: 0,
+});
+
 const beforeAfterElementStyles = css({
 	display: 'flex',
+	minWidth: 24,
+	minHeight: 24,
 	alignItems: 'center',
 	justifyContent: 'center',
 	flexShrink: 0,
@@ -254,7 +264,11 @@ const MenuItemPrimitive = ({
 									{iconBefore && (
 										<span
 											data-item-elem-before
-											css={beforeAfterElementStyles}
+											css={
+												fg('platform_ads_component_no_icon_spacing_support')
+													? beforeAfterElementStyles
+													: beforeAfterElementStylesOld
+											}
 											data-testid={testId && `${testId}--icon-before`}
 										>
 											{iconBefore}
@@ -287,7 +301,11 @@ const MenuItemPrimitive = ({
 									{iconAfter && (
 										<span
 											data-item-elem-after
-											css={beforeAfterElementStyles}
+											css={
+												fg('platform_ads_component_no_icon_spacing_support')
+													? beforeAfterElementStyles
+													: beforeAfterElementStylesOld
+											}
 											data-testid={testId && `${testId}--icon-after`}
 										>
 											{iconAfter}

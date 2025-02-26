@@ -1,5 +1,14 @@
 # @atlaskit/web-config-client
 
+## 0.5.0
+
+### Minor Changes
+
+- [#118385](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118385)
+  [`8f5d53a41e8ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f5d53a41e8ef) -
+  Produces two prebuilt files under /dist web-config-client.with-deps.amd.js and
+  web-config-client.with-deps.amd.min.js
+
 ## 0.4.1
 
 ### Patch Changes

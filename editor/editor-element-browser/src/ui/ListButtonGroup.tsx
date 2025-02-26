@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Section } from '@atlaskit/menu';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import type { GroupData } from './ItemType';
 import { ListButtonItem } from './ListButtonItem';
@@ -16,7 +17,7 @@ const headingContainerStyles = xcss({
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 interface ListButtonGroupProps extends Optional<GroupData, 'label'> {
-	xcss?: ReturnType<typeof xcss>;
+	hasSeparator?: boolean;
 	onItemSelected?: (index: number, categoryId: string) => void;
 }
 
@@ -24,12 +25,11 @@ const ListButtonGroupBase = ({
 	id,
 	label,
 	items,
-	xcss: xcssStyles,
+	hasSeparator,
 	onItemSelected,
 }: ListButtonGroupProps) => {
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<Stack space="space.025" xcss={xcssStyles}>
+		<Section hasSeparator={hasSeparator}>
 			{label && (
 				<Box xcss={[headingContainerStyles]}>
 					<Heading size={'xsmall'}>{label}</Heading>
@@ -50,7 +50,7 @@ const ListButtonGroupBase = ({
 					/>
 				);
 			})}
-		</Stack>
+		</Section>
 	);
 };
 
@@ -58,7 +58,7 @@ export const ListButtonGroupWithHeading = ({
 	id,
 	label,
 	items,
-	xcss: xcssStyles,
+	hasSeparator,
 	onItemSelected,
 }: ListButtonGroupProps) => {
 	return (
@@ -66,8 +66,7 @@ export const ListButtonGroupWithHeading = ({
 			id={id}
 			label={label}
 			items={items}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			xcss={xcssStyles}
+			hasSeparator={hasSeparator}
 			onItemSelected={onItemSelected}
 		/>
 	);
@@ -76,11 +75,15 @@ export const ListButtonGroupWithHeading = ({
 export const ListButtonGroup = ({
 	id,
 	items,
+	hasSeparator,
 	onItemSelected,
-	xcss: xcssStyles,
 }: Omit<ListButtonGroupProps, 'label'>) => {
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<ListButtonGroupBase id={id} items={items} xcss={xcssStyles} onItemSelected={onItemSelected} />
+		<ListButtonGroupBase
+			id={id}
+			items={items}
+			hasSeparator={hasSeparator}
+			onItemSelected={onItemSelected}
+		/>
 	);
 };

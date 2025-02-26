@@ -43,7 +43,7 @@ const separatorStyles = css({
 });
 
 const headingStyles = css({
-	padding: `${token('space.100')} 0`,
+	padding: `${token('space.200', '16px')} 0 ${token('space.100', '8px')}`,
 });
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
@@ -241,7 +241,7 @@ const DropdownMenuItem = (props: {
 
 	const itemContent = (
 		<DropdownButtonItem
-			isSelected={editorExperiment('advanced_layouts', true) ? itemSelected : undefined}
+			isSelected={itemSelected}
 			iconBefore={iconBefore}
 			iconAfter={item.elemAfter}
 			onClick={handleItemClick}

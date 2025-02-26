@@ -1,17 +1,11 @@
 import {
 	DEFAULT_LEFT_SIDEBAR_WIDTH,
-	DIMENSIONS,
 	LEFT_PANEL_WIDTH,
 	PAGE_LAYOUT_LS_KEY,
 	PAGE_LAYOUT_SLOT_SELECTOR,
 } from './constants';
 import safeLocalStorage from './safe-local-storage';
-import { type DimensionNames, type Dimensions } from './types';
-
-const emptyGridState: Dimensions = DIMENSIONS.reduce(
-	(acc, currentValue) => ({ ...acc, [currentValue]: 0 }),
-	{},
-);
+import { type DimensionNames } from './types';
 
 const mergeGridStateIntoStorage = (key: string, value: any) => {
 	const storageValue = JSON.parse(safeLocalStorage().getItem(PAGE_LAYOUT_LS_KEY) || '{}');
@@ -94,7 +88,6 @@ const getPageLayoutSlotCSSSelector = (slotName: string) =>
 	`[${PAGE_LAYOUT_SLOT_SELECTOR}='${slotName}']`;
 
 export {
-	emptyGridState,
 	mergeGridStateIntoStorage,
 	getGridStateFromStorage,
 	removeFromGridStateInStorage,

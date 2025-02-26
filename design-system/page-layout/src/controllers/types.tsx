@@ -18,7 +18,3 @@ export type SkipLinkData = {
 	 */
 	listIndex?: number;
 };
-
-export type SkipLinkI18n = {
-	title: string;
-};

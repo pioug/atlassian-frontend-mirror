@@ -116,6 +116,7 @@ snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-component-visual-refresh': [true, false],
 	},
 });
 snapshot(InlineCardForbidden, {

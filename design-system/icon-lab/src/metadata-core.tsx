@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::59c870d1182edf451750202ed7ca53e8>>
+ * @codegen <<SignedSource::1d1ebec75ee9bc7e475dbb1677ad433e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -567,6 +567,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for move/hand tool in Whiteboards',
 		team: 'Whiteboards',
+	},
+	'if-else': {
+		keywords: ['if-else', 'ifelse', 'icon', 'icon-lab', 'core', 'condition', 'statement', 'branch'],
+		componentName: 'IfElseIcon',
+		package: '@atlaskit/icon-lab/core/if-else',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for If Else conditions',
+		team: 'Automation',
+		slackChannel: '#help-automation-design',
 	},
 	incognito: {
 		keywords: ['incognito', 'icon', 'icon-lab', 'core', 'Whiteboards', 'Private', 'Incognito'],
@@ -1204,6 +1214,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+	},
+	webhook: {
+		keywords: ['webhook', 'icon', 'icon-lab', 'core', 'api', 'callback', 'payload'],
+		componentName: 'WebhookIcon',
+		package: '@atlaskit/icon-lab/core/webhook',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for using a webhook to send data between applications via HTTP',
+		team: 'Automation',
+		slackChannel: '#help-automation-design',
 	},
 	'welcome-feed': {
 		keywords: [

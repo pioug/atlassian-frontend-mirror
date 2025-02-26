@@ -6,6 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import AtlaskitLozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 
@@ -49,6 +50,7 @@ const LozengeOld = ({
 	) : (
 		<AtlaskitLozenge
 			appearance={appearance}
+			{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			testId={`${testId}-lozenge`}

@@ -14,7 +14,6 @@ import { ListButtonGroup, ListButtonGroupWithHeading } from '../src/ui/ListButto
 const innerBoxContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 	boxShadow: 'elevation.shadow.overlay',
-	padding: 'space.100',
 });
 
 const outerBoxContainerStyles = xcss({
@@ -75,7 +74,7 @@ export default function CategoryNavButtonExample() {
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<Stack space="space.200">
-				<Stack space="space.100" alignBlock="center">
+				<Stack space="space.200" alignBlock="center">
 					<Heading size="xsmall">With Heading</Heading>
 					<Box xcss={innerBoxContainerStyles}>
 						<ListButtonGroupWithHeading
@@ -87,8 +86,6 @@ export default function CategoryNavButtonExample() {
 							}}
 						/>
 					</Box>
-				</Stack>
-				<Stack space="space.100" alignBlock="center">
 					<Heading size="xsmall">Without Heading</Heading>
 					<Box xcss={innerBoxContainerStyles}>
 						<ListButtonGroup
@@ -99,6 +96,29 @@ export default function CategoryNavButtonExample() {
 							}}
 						/>
 					</Box>
+					<Heading size="xsmall">With Heading and separator</Heading>
+					<Box xcss={innerBoxContainerStyles}>
+						<ListButtonGroupWithHeading
+							id={categoryItem.id}
+							label={categoryItem.label}
+							items={categoryItem.items}
+							hasSeparator
+							onItemSelected={(index, categoryId) => {
+								console.log(`Item ${index} selected in category ${categoryId}`);
+							}}
+						/>
+					</Box>
+					<Heading size="xsmall">Without Heading and with separator</Heading>
+					<Box xcss={innerBoxContainerStyles}>
+						<ListButtonGroup
+							id={categoryItem.id}
+							items={categoryItem.items}
+							hasSeparator
+							onItemSelected={(index, categoryId) => {
+								console.log(`Item ${index} selected in category ${categoryId}`);
+							}}
+						/>
+					</Box>{' '}
 				</Stack>
 			</Stack>
 		</Box>

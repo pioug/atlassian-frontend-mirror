@@ -62,6 +62,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { MediaSingleNodeSelector } from '../../nodeviews/styles';
@@ -155,6 +156,13 @@ const generateMediaCardFloatingToolbar = (
 		return [];
 	}
 
+	const enforceMediaDataSecurityPolicy =
+		mediaPluginState?.mediaClientConfig?.enforceDataSecurityPolicy;
+	const disableDownloadButton =
+		typeof enforceMediaDataSecurityPolicy === 'boolean' && fg('dlp_cc-enforce-attachment-dl-dsp')
+			? enforceMediaDataSecurityPolicy
+			: false;
+
 	const { mediaGroup } = state.schema.nodes;
 	const items: FloatingToolbarItem<Command>[] = [
 		{
@@ -206,6 +214,7 @@ const generateMediaCardFloatingToolbar = (
 				return true;
 			},
 			title: intl.formatMessage(messages.download),
+			disabled: disableDownloadButton,
 		},
 		{ type: 'separator' },
 		{
@@ -543,89 +552,91 @@ const generateMediaSingleFloatingToolbar = (
 			toolbarButtons.push({ type: 'separator' });
 		}
 
-		if (allowCommentsOnMedia) {
-			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi), {
-				type: 'separator',
-				supportsViewMode: true,
-			});
-		}
+		if (editorExperiment('platform_editor_controls', 'control')) {
+			if (allowCommentsOnMedia) {
+				toolbarButtons.push(commentButton(intl, state, pluginInjectionApi), {
+					type: 'separator',
+					supportsViewMode: true,
+				});
+			}
 
-		if (allowLinking && shouldShowMediaLinkToolbar(state)) {
-			toolbarButtons.push({
-				type: 'custom',
-				fallback: [],
-				render: (editorView, idx) => {
-					if (editorView?.state) {
-						const editLink = () => {
-							if (editorView) {
-								const { state, dispatch } = editorView;
-								showLinkingToolbar(state, dispatch);
-							}
-						};
+			if (allowLinking && shouldShowMediaLinkToolbar(state)) {
+				toolbarButtons.push({
+					type: 'custom',
+					fallback: [],
+					render: (editorView, idx) => {
+						if (editorView?.state) {
+							const editLink = () => {
+								if (editorView) {
+									const { state, dispatch } = editorView;
+									showLinkingToolbar(state, dispatch);
+								}
+							};
 
-						const openLink = () => {
-							if (editorView) {
-								const {
-									state: { tr },
-									dispatch,
-								} = editorView;
-								pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
-									eventType: EVENT_TYPE.TRACK,
-									action: ACTION.VISITED,
-									actionSubject: ACTION_SUBJECT.MEDIA,
-									actionSubjectId: ACTION_SUBJECT_ID.LINK,
-								})(tr);
-								dispatch(tr);
-								return true;
-							}
-						};
+							const openLink = () => {
+								if (editorView) {
+									const {
+										state: { tr },
+										dispatch,
+									} = editorView;
+									pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
+										eventType: EVENT_TYPE.TRACK,
+										action: ACTION.VISITED,
+										actionSubject: ACTION_SUBJECT.MEDIA,
+										actionSubjectId: ACTION_SUBJECT_ID.LINK,
+									})(tr);
+									dispatch(tr);
+									return true;
+								}
+							};
 
-						return (
-							<LinkToolbarAppearance
-								key={idx}
-								editorState={editorView.state}
-								intl={intl}
-								mediaLinkingState={mediaLinkingState}
-								onAddLink={editLink}
-								onEditLink={editLink}
-								onOpenLink={openLink}
-								isViewOnly={isViewOnly}
-							/>
-						);
-					}
-					return null;
-				},
-				supportsViewMode: true,
-			});
-		}
-		// Preview Support
-		if (allowImagePreview) {
-			const selectedMediaSingleNode = getSelectedMediaSingle(state);
-			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
-			if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
-				toolbarButtons.push(
-					{
-						id: 'editor.media.viewer',
-						testId: 'file-preview-toolbar-button',
-						type: 'button',
-						icon: MaximizeIcon,
-						iconFallback: FilePreviewIcon,
-						title: intl.formatMessage(messages.preview),
-						onClick: () => {
 							return (
-								handleShowMediaViewer({
-									api: pluginInjectionApi,
-									mediaPluginState: pluginState,
-								}) ?? false
+								<LinkToolbarAppearance
+									key={idx}
+									editorState={editorView.state}
+									intl={intl}
+									mediaLinkingState={mediaLinkingState}
+									onAddLink={editLink}
+									onEditLink={editLink}
+									onOpenLink={openLink}
+									isViewOnly={isViewOnly}
+								/>
 							);
+						}
+						return null;
+					},
+					supportsViewMode: true,
+				});
+			}
+			// Preview Support
+			if (allowImagePreview) {
+				const selectedMediaSingleNode = getSelectedMediaSingle(state);
+				const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
+				if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+					toolbarButtons.push(
+						{
+							id: 'editor.media.viewer',
+							testId: 'file-preview-toolbar-button',
+							type: 'button',
+							icon: MaximizeIcon,
+							iconFallback: FilePreviewIcon,
+							title: intl.formatMessage(messages.preview),
+							onClick: () => {
+								return (
+									handleShowMediaViewer({
+										api: pluginInjectionApi,
+										mediaPluginState: pluginState,
+									}) ?? false
+								);
+							},
+							supportsViewMode: true,
 						},
-						supportsViewMode: true,
-					},
-					{
-						type: 'separator',
-						supportsViewMode: true,
-					},
-				);
+						{
+							type: 'separator',
+							supportsViewMode: true,
+						},
+					);
+				}
 			}
 		}
 	}
@@ -669,6 +680,65 @@ const generateMediaSingleFloatingToolbar = (
 		testId: 'media-toolbar-remove-button',
 		supportsViewMode: false,
 	};
+
+	if (!editorExperiment('platform_editor_controls', 'control')) {
+		toolbarButtons.push(removeButton);
+
+		toolbarButtons.push({ type: 'separator', supportsViewMode: false });
+
+		// Preview Support
+		if (allowAdvancedToolBarOptions && allowImagePreview) {
+			const selectedMediaSingleNode = getSelectedMediaSingle(state);
+			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
+			if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+				toolbarButtons.push(
+					{
+						id: 'editor.media.viewer',
+						testId: 'file-preview-toolbar-button',
+						type: 'button',
+						icon: MaximizeIcon,
+						iconFallback: FilePreviewIcon,
+						title: intl.formatMessage(messages.preview),
+						onClick: () => {
+							return (
+								handleShowMediaViewer({
+									api: pluginInjectionApi,
+									mediaPluginState: pluginState,
+								}) ?? false
+							);
+						},
+						supportsViewMode: true,
+					},
+					{
+						type: 'separator',
+						supportsViewMode: true,
+					},
+				);
+			}
+		}
+
+		toolbarButtons.push({
+			type: 'copy-button',
+			items: [
+				{
+					state,
+					formatMessage: intl.formatMessage,
+					nodeType: mediaSingle,
+				},
+			],
+			supportsViewMode: true,
+		});
+
+		toolbarButtons.push({ type: 'separator', supportsViewMode: true });
+
+		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
+			// TODO: add separator when overflow menu is added
+			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi));
+		}
+
+		return toolbarButtons;
+	}
+
 	const items: Array<FloatingToolbarItem<Command>> = [
 		...toolbarButtons,
 		{

@@ -34,6 +34,7 @@ import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { editExtension } from '../editor-actions/actions';
 import {
@@ -298,33 +299,65 @@ export const getToolbarConfig =
 						type: 'extensions-placeholder',
 						separator: 'end',
 					},
-					{
-						type: 'copy-button',
-						items: [
-							{
-								state,
-								formatMessage: intl.formatMessage,
-								nodeType,
-							},
-						],
-					},
-					{ type: 'separator' },
-					{
-						id: 'editor.extension.delete',
-						type: 'button',
-						icon: DeleteIcon,
-						iconFallback: RemoveIcon,
-						appearance: 'danger',
-						onClick: removeExtension(editorAnalyticsAPI),
-						onMouseEnter: hoverDecoration?.(nodeType, true),
-						onMouseLeave: hoverDecoration?.(nodeType, false),
-						onFocus: hoverDecoration?.(nodeType, true),
-						onBlur: hoverDecoration?.(nodeType, false),
-						focusEditoronEnter: true,
-						title: formatMessage(commonMessages.remove),
-						tabIndex: null,
-						confirmDialog,
-					},
+					...(editorExperiment('platform_editor_controls', 'control')
+						? [
+								{
+									type: 'copy-button',
+									items: [
+										{
+											state,
+											formatMessage: intl.formatMessage,
+											nodeType,
+										},
+									],
+								},
+								{ type: 'separator' },
+								{
+									id: 'editor.extension.delete',
+									type: 'button',
+									icon: DeleteIcon,
+									iconFallback: RemoveIcon,
+									appearance: 'danger',
+									onClick: removeExtension(editorAnalyticsAPI),
+									onMouseEnter: hoverDecoration?.(nodeType, true),
+									onMouseLeave: hoverDecoration?.(nodeType, false),
+									onFocus: hoverDecoration?.(nodeType, true),
+									onBlur: hoverDecoration?.(nodeType, false),
+									focusEditoronEnter: true,
+									title: formatMessage(commonMessages.remove),
+									tabIndex: null,
+									confirmDialog,
+								},
+							]
+						: [
+								{
+									id: 'editor.extension.delete',
+									type: 'button',
+									icon: DeleteIcon,
+									iconFallback: RemoveIcon,
+									appearance: 'danger',
+									onClick: removeExtension(editorAnalyticsAPI),
+									onMouseEnter: hoverDecoration?.(nodeType, true),
+									onMouseLeave: hoverDecoration?.(nodeType, false),
+									onFocus: hoverDecoration?.(nodeType, true),
+									onBlur: hoverDecoration?.(nodeType, false),
+									focusEditoronEnter: true,
+									title: formatMessage(commonMessages.remove),
+									tabIndex: null,
+									confirmDialog,
+								},
+								{ type: 'separator' },
+								{
+									type: 'copy-button',
+									items: [
+										{
+											state,
+											formatMessage: intl.formatMessage,
+											nodeType,
+										},
+									],
+								},
+							]),
 				],
 				scrollable: true,
 			} as FloatingToolbarConfig;

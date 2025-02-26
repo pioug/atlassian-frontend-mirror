@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,25 +65,20 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@atlaskit/atlassian-navigation": "^5.0.0",
-		"@atlaskit/atlassian-notifications": "^0.7.0",
-		"@atlaskit/drawer": "^10.0.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/docs": "*",
 		"@atlaskit/logo": "^16.0.0",
-		"@atlaskit/menu": "^3.0.0",
-		"@atlaskit/notification-indicator": "^10.0.0",
-		"@atlaskit/notification-log-client": "^6.2.0",
+		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/popup": "^2.0.0",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/side-navigation": "^5.0.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@types/raf-schd": "^4.0.1",
-		"jest-emotion": "^10.0.32",
 		"raf-stub": "^2.0.1",
-		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {

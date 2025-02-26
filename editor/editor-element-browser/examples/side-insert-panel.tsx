@@ -10,7 +10,7 @@ import { QuickInsertPanelItem } from '../src/types';
 import { SideInsertPanelNew } from '../src/ui/SideInsertPanel';
 
 const outerBoxContainerStyles = xcss({
-	width: '272px',
+	width: '320px',
 	margin: 'auto',
 	marginTop: 'space.200',
 	backgroundColor: 'elevation.surface.overlay',
@@ -23,7 +23,7 @@ const items: QuickInsertPanelItem[] = [
 			return false;
 		},
 		description: 'Create and assing action items',
-		categories: ['Structure'], // will be defined for each QuickInsert item
+		categories: [], // will be defined for each QuickInsert item
 		icon: () => <TaskIcon label="Actions" />, // Editor Controls icon, to be added to each QuickInsert item
 		id: 'action' as QuickInsertItemId,
 		keyshortcut: '[]',
@@ -36,7 +36,7 @@ const items: QuickInsertPanelItem[] = [
 			return false;
 		},
 		description: 'Capture decisions so they’re easy to track',
-		categories: ['Structure'],
+		categories: [],
 		icon: () => <DecisionIcon label="Decision" />,
 		id: 'decision' as QuickInsertItemId,
 		keyshortcut: '<>',
@@ -48,7 +48,7 @@ const items: QuickInsertPanelItem[] = [
 			return false;
 		},
 		description: 'Some description',
-		categories: ['Things'],
+		categories: [],
 		icon: () => <TaskIcon label="Actions" />,
 		id: 'something' as QuickInsertItemId,
 		keyshortcut: 'Cmd-Shift-D',
@@ -61,7 +61,7 @@ const items: QuickInsertPanelItem[] = [
 			return false;
 		},
 		description: 'Some recommended description',
-		categories: ['Suggested'],
+		categories: [],
 		icon: () => <TaskIcon label="Actions" />,
 		id: 'something-recommended' as QuickInsertItemId,
 		keyshortcut: 'Cmd-Shift-D',
@@ -74,7 +74,7 @@ const items: QuickInsertPanelItem[] = [
 			return false;
 		},
 		description: 'Some recommended description 2',
-		categories: ['Suggested'],
+		categories: [],
 		icon: () => <DecisionIcon label="Decision" />,
 		id: 'something-recommended-2' as QuickInsertItemId,
 		keyshortcut: 'Cmd-Shift-D',
@@ -85,6 +85,19 @@ const items: QuickInsertPanelItem[] = [
 ];
 
 export default function ElementBrowserExample() {
+	// temporary example to mark items as new and suggested
+	// mark top 3 items as suggested
+	// mark 4th item as new
+	items.forEach((item, index) => {
+		if (index < 3) {
+			items[index].isSuggested = true;
+		} else if (index === 3) {
+			items[index].isNew = true;
+		} else {
+			return false;
+		}
+	});
+
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<SideInsertPanelNew items={items} onItemInsert={() => {}} />

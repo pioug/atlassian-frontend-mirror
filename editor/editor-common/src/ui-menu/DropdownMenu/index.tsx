@@ -3,8 +3,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { PureComponent, useContext } from 'react';
 import type { MouseEventHandler, PointerEvent } from 'react';
+import React, { PureComponent, useContext } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -50,7 +50,7 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 			> span:hover,
 			> span:active {
 				background: ${token('color.background.selected', '#6c798f')};
-				color: ${token('color.text', '#fff')};
+				color: ${token('color.text.selected', '#0C66E4')};
 			}
 			:focus > span[aria-disabled='false'] {
 				${focusedMenuItemStyle};

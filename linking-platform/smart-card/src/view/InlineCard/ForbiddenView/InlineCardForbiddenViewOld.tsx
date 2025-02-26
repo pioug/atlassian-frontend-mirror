@@ -195,7 +195,12 @@ export class InlineCardForbiddenViewOld extends React.Component<InlineCardForbid
 							onClick={this.handleRetry}
 							testId="button-connect-other-account"
 						>
-							<Lozenge appearance={'moved'}>{this.renderForbiddenAccessMessage()}</Lozenge>
+							<Lozenge
+								appearance={'moved'}
+								{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
+							>
+								{this.renderForbiddenAccessMessage()}
+							</Lozenge>
 						</Pressable>
 					</LozengeWrapper>
 				);
@@ -210,7 +215,12 @@ export class InlineCardForbiddenViewOld extends React.Component<InlineCardForbid
 					role="button"
 				>
 					<LozengeWrapper>
-						<Lozenge appearance={'moved'}>{this.renderForbiddenAccessMessage()}</Lozenge>
+						<Lozenge
+							appearance={'moved'}
+							{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
+						>
+							{this.renderForbiddenAccessMessage()}
+						</Lozenge>
 					</LozengeWrapper>
 				</Button>
 			);

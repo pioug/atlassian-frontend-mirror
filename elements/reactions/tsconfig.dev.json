@@ -59,6 +59,9 @@
 			"path": "../../design-system/motion/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/popper/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{

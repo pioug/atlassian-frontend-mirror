@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  *
@@ -47,19 +48,33 @@ const LevelProvider: FC<{
 }> = ({ children, currentLevel }) => {
 	const { setTopLevel, topLevelRef } = useContext(TopLevelContext);
 
-	if (topLevelRef.current === null || currentLevel > topLevelRef.current) {
-		setTopLevel(currentLevel);
+	if (!fg('plan_timeline_layering_wrapper')) {
+		if (topLevelRef.current === null || currentLevel > topLevelRef.current) {
+			setTopLevel(currentLevel);
+		}
 	}
+
 	useEffect(() => {
+		if (fg('plan_timeline_layering_wrapper')) {
+			if (topLevelRef.current === null || currentLevel > topLevelRef.current) {
+				setTopLevel(currentLevel);
+			}
+		}
+
 		return () => {
-			// avoid immediate cleanup using setTimeout when component unmount
-			// this will make sure non-top layer components can get the correct top level value
-			// when multiple layers trigger onClose in sequence
-			setTimeout(() => {
+			if (fg('plan_timeline_layering_wrapper')) {
 				setTopLevel(currentLevel - 1);
-			}, 0);
+			} else {
+				// avoid immediate cleanup using setTimeout when component unmount
+				// this will make sure non-top layer components can get the correct top level value
+				// when multiple layers trigger onClose in sequence
+				setTimeout(() => {
+					setTopLevel(currentLevel - 1);
+				}, 0);
+			}
 		};
-	}, [setTopLevel, currentLevel]);
+	}, [setTopLevel, currentLevel, topLevelRef]);
+
 	return <LevelContext.Provider value={currentLevel}>{children}</LevelContext.Provider>;
 };
 
@@ -74,6 +89,7 @@ const LayeringProvider: FC<{
 	children: ReactNode;
 }> = ({ children }) => {
 	const topLevelRef = useRef(0);
+
 	const value = useMemo(
 		() => ({
 			topLevelRef,

@@ -1,5 +1,20 @@
 # @atlaskit/icon-lab
 
+## 3.2.0
+
+### Minor Changes
+
+- [#118803](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118803)
+  [`57557d8b393d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57557d8b393d1) -
+  This release adds two new icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `if-else`
+  - `webhook`
+
 ## 3.1.0
 
 ### Minor Changes

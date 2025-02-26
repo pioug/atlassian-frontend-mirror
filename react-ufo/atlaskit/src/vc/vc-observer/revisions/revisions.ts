@@ -1,15 +1,15 @@
-import { revFY24_01Classifier } from './fy24_01';
 import { revFY25_01Classifier } from './fy25_01';
+import { revFY25_02Classifier } from './fy25_02';
 import { type RevisionEntry } from './types';
 
 const Revisions: RevisionEntry[] = [
 	{
-		name: 'fy24.01',
-		classifier: revFY24_01Classifier,
-	},
-	{
 		name: 'fy25.01',
 		classifier: revFY25_01Classifier,
+	},
+	{
+		name: 'fy25.02',
+		classifier: revFY25_02Classifier,
 	},
 ];
 

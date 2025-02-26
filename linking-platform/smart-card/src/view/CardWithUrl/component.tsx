@@ -136,7 +136,10 @@ function Component({
 					definitionId: definitionId ?? null,
 					duration: measure.getMeasure(id, state.status)?.duration ?? null,
 				});
-			} else if (state.error?.type !== 'ResolveUnsupportedError') {
+			} else if (
+				state.error?.type !== 'ResolveUnsupportedError' &&
+				state.error?.type !== 'UnsupportedError'
+			) {
 				fireEvent('operational.smartLink.unresolved', {
 					definitionId: definitionId ?? null,
 					reason: state.status,

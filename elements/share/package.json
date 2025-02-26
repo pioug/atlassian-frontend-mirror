@@ -46,7 +46,7 @@
 		"@atlaskit/heading": "^5.1.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/link": "^3.0.0",
-		"@atlaskit/menu": "^3.0.0",
+		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/popper": "^7.0.0",
 		"@atlaskit/popup": "^2.0.0",

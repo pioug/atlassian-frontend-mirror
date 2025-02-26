@@ -65,6 +65,16 @@ const metadata: IconMetadata = {
 		usage:
 			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
 	},
+	'if-else': {
+		keywords: ['condition', 'statement', 'branch'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Automation',
+		type: 'core',
+		status: 'published',
+		usage: 'Reserved for If Else conditions',
+		slackChannel: '#help-automation-design',
+	},
 	incognito: {
 		keywords: ['Whiteboards', 'Private', 'Incognito'],
 		categorization: 'single-purpose',
@@ -233,6 +243,16 @@ const metadata: IconMetadata = {
 		type: 'core',
 		status: 'published',
 		usage: 'Reserved for security vulnerabilities.',
+	},
+	webhook: {
+		keywords: ['api', 'callback', 'payload'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Automation',
+		type: 'core',
+		status: 'published',
+		usage: 'Reserved for using a webhook to send data between applications via HTTP',
+		slackChannel: '#help-automation-design',
 	},
 	'align-content-bottom': {
 		keywords: ['align', 'alignment', 'content', 'bottom', 'vertical'],

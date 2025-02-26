@@ -57,6 +57,7 @@ import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import TableOptionsIcon from '@atlaskit/icon/glyph/preferences';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	clearHoverSelection,
@@ -573,7 +574,10 @@ export const getToolbarConfig =
 						options?.isCommentEditor,
 					)
 				: [];
-			const colorPicker = getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView);
+
+			const colorPicker = editorExperiment('platform_editor_controls', 'control')
+				? getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView)
+				: [];
 
 			// Check if we need to show confirm dialog for delete button
 			let confirmDialog;
@@ -595,6 +599,39 @@ export const getToolbarConfig =
 				});
 			}
 
+			const deleteButton = {
+				id: 'editor.table.delete',
+				type: 'button' as const,
+				appearance: 'danger',
+				icon: DeleteIcon,
+				iconFallback: RemoveIcon,
+				onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
+				disabled: !!resizeState && !!resizeState.dragging,
+				onMouseEnter: hoverTable(true),
+				onFocus: hoverTable(true),
+				onBlur: clearHoverSelection(),
+				onMouseLeave: clearHoverSelection(),
+				title: intl.formatMessage(commonMessages.remove),
+				focusEditoronEnter: true,
+				confirmDialog,
+			};
+
+			const copyButton = {
+				type: 'copy-button',
+				supportsViewMode: true,
+				items: [
+					{
+						state,
+						formatMessage: intl.formatMessage,
+						nodeType,
+						onMouseEnter: hoverTable(false, true),
+						onMouseLeave: clearHoverSelection(),
+						onFocus: hoverTable(false, true),
+						onBlur: clearHoverSelection(),
+					},
+				],
+			};
+
 			return {
 				title: 'Table floating controls',
 				getDomRef,
@@ -611,42 +648,18 @@ export const getToolbarConfig =
 					...cellItems,
 					...columnSettingsItems,
 					...colorPicker,
+					// TODO: editor controls to move to overflow menu
 					{
 						type: 'extensions-placeholder',
 						separator: 'end',
 					},
-					{
-						type: 'copy-button',
-						supportsViewMode: true,
-						items: [
-							{
-								state,
-								formatMessage: intl.formatMessage,
-								nodeType,
-								onMouseEnter: hoverTable(false, true),
-								onMouseLeave: clearHoverSelection(),
-								onFocus: hoverTable(false, true),
-								onBlur: clearHoverSelection(),
-							},
-						],
-					},
-					{ type: 'separator' },
-					{
-						id: 'editor.table.delete',
-						type: 'button',
-						appearance: 'danger',
-						icon: DeleteIcon,
-						iconFallback: RemoveIcon,
-						onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
-						disabled: !!resizeState && !!resizeState.dragging,
-						onMouseEnter: hoverTable(true),
-						onFocus: hoverTable(true),
-						onBlur: clearHoverSelection(),
-						onMouseLeave: clearHoverSelection(),
-						title: intl.formatMessage(commonMessages.remove),
-						focusEditoronEnter: true,
-						confirmDialog,
-					},
+					...((editorExperiment('platform_editor_controls', 'control')
+						? ([copyButton, { type: 'separator' }, deleteButton] as Array<
+								FloatingToolbarItem<Command>
+							>)
+						: [deleteButton, { type: 'separator' }, copyButton]) as Array<
+						FloatingToolbarItem<Command>
+					>),
 				],
 				scrollable: true,
 			};

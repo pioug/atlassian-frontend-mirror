@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
 import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import ChevronUpIcon from '@atlaskit/icon/utility/chevron-up';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Pressable, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Pressable, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 const buttonStyles = xcss({
@@ -23,8 +24,7 @@ const buttonStyles = xcss({
 	minHeight: 'space.400',
 	width: '100%',
 	paddingBlock: 'space.075',
-	paddingInlineEnd: 'space.300',
-	paddingInlineStart: 'space.250',
+	paddingInline: 'space.100',
 
 	borderRadius: 'border.radius.100',
 	borderWidth: 'border.width.0',
@@ -80,6 +80,8 @@ const disabledButtonStyles = xcss({
 	},
 });
 
+const headingContainerStyles = xcss({ textAlign: 'left', color: 'color.text.accent.orange' });
+
 interface ButtonBaseProps {
 	id: string;
 	mode: 'navigation' | 'expandable';
@@ -88,7 +90,6 @@ interface ButtonBaseProps {
 	isDisabled?: boolean;
 	isExpanded?: boolean;
 	attributes?: { new?: boolean };
-	xcss?: ReturnType<typeof xcss>;
 	onClick?: (id: string) => void;
 }
 
@@ -100,7 +101,6 @@ const ButtonBase = ({
 	isDisabled,
 	isExpanded,
 	attributes,
-	xcss: xcssProp,
 	onClick,
 }: ButtonBaseProps) => {
 	const iconComponent = useMemo(() => {
@@ -131,8 +131,6 @@ const ButtonBase = ({
 						buttonStyles,
 						isSelected && selectedButtonStyles,
 						isDisabled && disabledButtonStyles,
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-						xcssProp,
 					]}
 				>
 					<Inline
@@ -144,21 +142,9 @@ const ButtonBase = ({
 						shouldWrap={false}
 					>
 						<Inline alignBlock="center" space="space.100" shouldWrap={false}>
-							<Text
-								align="start"
-								maxLines={1}
-								color={
-									isDisabled
-										? 'color.text.disabled'
-										: isSelected
-											? 'color.text.selected'
-											: 'color.text.accent.gray.bolder'
-								}
-								size="medium"
-								weight="medium"
-							>
-								{label}
-							</Text>
+							<Box xcss={headingContainerStyles}>
+								<Heading size={'xsmall'}>{label}</Heading>
+							</Box>
 							{attributes?.new && (
 								<Box>
 									<Lozenge appearance="new">New</Lozenge>

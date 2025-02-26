@@ -186,6 +186,10 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			!!allowAllEmojis &&
 			Array.isArray(pickerQuickReactionEmojiIds) &&
 			pickerQuickReactionEmojiIds.length === 0,
+		/**
+		 * Use left placement for popper - using value based on showRoundTrigger for now since it needs the left placement
+		 */
+		useLeftPopperPlacement: showRoundTrigger,
 	});
 
 	/**
@@ -236,10 +240,11 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			setSettings({
 				isOpen: true,
 				showFullPicker: true,
+				useLeftPopperPlacement: showRoundTrigger,
 			});
 			onShowMore();
 		},
-		[onShowMore],
+		[onShowMore, showRoundTrigger],
 	);
 
 	/**
@@ -271,6 +276,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 				!!allowAllEmojis &&
 				Array.isArray(pickerQuickReactionEmojiIds) &&
 				pickerQuickReactionEmojiIds.length === 0,
+			useLeftPopperPlacement: showRoundTrigger,
 		});
 
 		onOpen();
@@ -352,14 +358,15 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	);
 });
 
-interface PopperWrapperProps {
+export interface PopperWrapperProps {
 	settings: {
 		isOpen: boolean;
 		showFullPicker: boolean;
+		useLeftPopperPlacement: boolean;
 	};
 }
 
-const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
+export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 	const { settings, children } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	/**
@@ -367,7 +374,11 @@ const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 	 */
 	useFocusTrap({ initialFocusRef: null, targetRef: popupRef });
 	return (
-		<Popper placement="bottom-start" modifiers={popperModifiers} strategy={'absolute'}>
+		<Popper
+			placement={settings.useLeftPopperPlacement ? 'left' : 'bottom-start'}
+			modifiers={popperModifiers}
+			strategy={'absolute'}
+		>
 			{({ ref, style, update }) => {
 				return (
 					<div

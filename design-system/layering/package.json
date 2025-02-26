@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,6 +30,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
 		"tiny-invariant": "^1.2.0"
@@ -72,6 +73,11 @@
 				"dist/types-ts4.5/*",
 				"dist/types-ts4.5/index.d.ts"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"plan_timeline_layering_wrapper": {
+			"type": "boolean"
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { getVCObserver } from '@atlaskit/react-ufo/vc';
+import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 
 function bind(
 	target: HTMLElement,
@@ -48,28 +48,7 @@ const AbortEvent: ReadonlyArray<FirstUserInteractionEvents> = [
 	'mouseover',
 ];
 
-const ttvcAbort = () => {
-	const vc = getVCObserver();
-
-	if (
-		!vc ||
-		// For reasons that goes beyond my understand,
-		// the type is not properly set.
-		// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/169231
-		// @ts-expect-error
-		typeof vc.abortCalculation !== 'function'
-	) {
-		return;
-	}
-
-	// For reasons that goes beyond my understand,
-	// the type is not properly set.
-	// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/169231
-	// @ts-expect-error
-	vc.abortCalculation();
-};
-
-export const disableTTVCOnFirstUserInteraction = () => {
+export const abortUFOMeasurementOnFirstUserInteraction = () => {
 	if (typeof window.AbortController !== 'function') {
 		return;
 	}
@@ -96,7 +75,7 @@ export const disableTTVCOnFirstUserInteraction = () => {
 			for (const abortEventName of AbortEvent) {
 				unbindCallbacks.add(
 					bind(dom, abortEventName, controller, () => {
-						ttvcAbort();
+						abortAll('new_interaction');
 
 						unbindFirstInteractionEvents();
 					}),

@@ -31,6 +31,7 @@ import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { messages } from '@atlaskit/media-ui';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
@@ -251,53 +252,81 @@ const getMediaInlineImageToolbar = (
 		{ type: 'separator' },
 	);
 
-	inlineImageItems.push({
-		type: 'custom',
-		fallback: [],
-		render: (editorView, idx) => {
-			if (editorView?.state) {
-				const editLink = () => {
-					if (editorView) {
-						const { state, dispatch } = editorView;
-						showLinkingToolbar(state, dispatch);
-					}
-				};
+	// TODO: editor controls move to overflow menu
+	if (editorExperiment('platform_editor_controls', 'control')) {
+		inlineImageItems.push({
+			type: 'custom',
+			fallback: [],
+			render: (editorView, idx) => {
+				if (editorView?.state) {
+					const editLink = () => {
+						if (editorView) {
+							const { state, dispatch } = editorView;
+							showLinkingToolbar(state, dispatch);
+						}
+					};
 
-				const openLink = () => {
-					if (editorView) {
-						const {
-							state: { tr },
-							dispatch,
-						} = editorView;
-						pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
-							eventType: EVENT_TYPE.TRACK,
-							action: ACTION.VISITED,
-							actionSubject: ACTION_SUBJECT.MEDIA,
-							actionSubjectId: ACTION_SUBJECT_ID.LINK,
-						})(tr);
-						dispatch(tr);
-						return true;
-					}
-				};
+					const openLink = () => {
+						if (editorView) {
+							const {
+								state: { tr },
+								dispatch,
+							} = editorView;
+							pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
+								eventType: EVENT_TYPE.TRACK,
+								action: ACTION.VISITED,
+								actionSubject: ACTION_SUBJECT.MEDIA,
+								actionSubjectId: ACTION_SUBJECT_ID.LINK,
+							})(tr);
+							dispatch(tr);
+							return true;
+						}
+					};
 
-				return (
-					<LinkToolbarAppearance
-						key={idx}
-						editorState={editorView.state}
-						intl={intl}
-						mediaLinkingState={mediaLinkingState}
-						onAddLink={editLink}
-						onEditLink={editLink}
-						onOpenLink={openLink}
-						isInlineNode
-						isViewOnly={options.isViewOnly}
-					/>
-				);
-			}
-			return null;
-		},
-		supportsViewMode: true,
-	});
+					return (
+						<LinkToolbarAppearance
+							key={idx}
+							editorState={editorView.state}
+							intl={intl}
+							mediaLinkingState={mediaLinkingState}
+							onAddLink={editLink}
+							onEditLink={editLink}
+							onOpenLink={openLink}
+							isInlineNode
+							isViewOnly={options.isViewOnly}
+						/>
+					);
+				}
+				return null;
+			},
+			supportsViewMode: true,
+		});
+	}
+
+	if (options.allowAltTextOnImages && !editorExperiment('platform_editor_controls', 'control')) {
+		inlineImageItems.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
+			type: 'separator',
+		});
+	}
+
+	if (!editorExperiment('platform_editor_controls', 'control')) {
+		inlineImageItems.push({
+			id: 'editor.media.delete',
+			type: 'button',
+			appearance: 'danger',
+			focusEditoronEnter: true,
+			icon: DeleteIcon,
+			iconFallback: RemoveIcon,
+			onMouseEnter: hoverDecoration?.(mediaInline, true),
+			onMouseLeave: hoverDecoration?.(mediaInline, false),
+			onFocus: hoverDecoration?.(mediaInline, true),
+			onBlur: hoverDecoration?.(mediaInline, false),
+			title: intl.formatMessage(commonMessages.remove),
+			onClick: removeInlineCard,
+			testId: 'media-toolbar-remove-button',
+		});
+		inlineImageItems.push({ type: 'separator' });
+	}
 
 	//Image Preview
 	if (options.allowImagePreview) {
@@ -338,7 +367,7 @@ const getMediaInlineImageToolbar = (
 		);
 	}
 
-	if (options.allowAltTextOnImages) {
+	if (options.allowAltTextOnImages && editorExperiment('platform_editor_controls', 'control')) {
 		inlineImageItems.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
 			type: 'separator',
 		});
@@ -356,22 +385,24 @@ const getMediaInlineImageToolbar = (
 		],
 	});
 
-	inlineImageItems.push({ type: 'separator' });
-	inlineImageItems.push({
-		id: 'editor.media.delete',
-		type: 'button',
-		appearance: 'danger',
-		focusEditoronEnter: true,
-		icon: DeleteIcon,
-		iconFallback: RemoveIcon,
-		onMouseEnter: hoverDecoration?.(mediaInline, true),
-		onMouseLeave: hoverDecoration?.(mediaInline, false),
-		onFocus: hoverDecoration?.(mediaInline, true),
-		onBlur: hoverDecoration?.(mediaInline, false),
-		title: intl.formatMessage(commonMessages.remove),
-		onClick: removeInlineCard,
-		testId: 'media-toolbar-remove-button',
-	});
+	if (editorExperiment('platform_editor_controls', 'control')) {
+		inlineImageItems.push({ type: 'separator' });
+		inlineImageItems.push({
+			id: 'editor.media.delete',
+			type: 'button',
+			appearance: 'danger',
+			focusEditoronEnter: true,
+			icon: DeleteIcon,
+			iconFallback: RemoveIcon,
+			onMouseEnter: hoverDecoration?.(mediaInline, true),
+			onMouseLeave: hoverDecoration?.(mediaInline, false),
+			onFocus: hoverDecoration?.(mediaInline, true),
+			onBlur: hoverDecoration?.(mediaInline, false),
+			title: intl.formatMessage(commonMessages.remove),
+			onClick: removeInlineCard,
+			testId: 'media-toolbar-remove-button',
+		});
+	}
 
 	return inlineImageItems;
 };

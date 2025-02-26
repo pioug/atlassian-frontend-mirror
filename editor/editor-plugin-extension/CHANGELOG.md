@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 4.0.3
+
+### Patch Changes
+
+- [#117485](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117485)
+  [`e9a8d9ba26963`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9a8d9ba26963) -
+  Reorder icons, and remove some based on new editor controls. Changes under
+  `editor_plugin_controls` experiment.
+
 ## 4.0.2
 
 ### Patch Changes

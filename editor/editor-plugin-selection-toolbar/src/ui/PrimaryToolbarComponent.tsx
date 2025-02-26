@@ -69,13 +69,11 @@ export function PrimaryToolbarComponent({
 				aria-haspopup="dialog"
 				aria-keyshortcuts={getAriaKeyshortcuts(addLink)}
 				aria-label={content}
-				testId={content}
-				spacing="default"
 				title={content}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 				css={buttonStyles}
 			>
-				<ShowMoreHorizontalIcon label="Show more items" />
+				<ShowMoreHorizontalIcon label={content} />
 			</ToolbarButton>
 		</DropdownMenu>
 	);

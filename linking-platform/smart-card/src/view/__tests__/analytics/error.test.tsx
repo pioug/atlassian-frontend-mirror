@@ -164,6 +164,35 @@ describe('smart-card: error analytics', () => {
 		);
 	});
 
+	it('should not fire unresolved-event on UnsupportedError', async () => {
+		class MockClient extends CardClient {
+			async fetchData(url: string): Promise<JsonLd.Response> {
+				throw new APIError(
+					'fatal',
+					new URL(url).hostname,
+					'received unsupported error',
+					'UnsupportedError',
+				);
+			}
+		}
+
+		const client = new MockClient();
+		const onError = jest.fn();
+		render(
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<Provider client={client}>
+					<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+				</Provider>
+			</FabricAnalyticsListeners>,
+		);
+		expect(mockAnalyticsClient.sendOperationalEvent).not.toHaveBeenCalledWith(
+			expect.objectContaining({
+				actionSubject: 'smartLink',
+				action: 'unresolved',
+			}),
+		);
+	});
+
 	it('should throw error on ResolveFailedError', async () => {
 		class MockClient extends CardClient {
 			async fetchData(url: string): Promise<JsonLd.Response> {

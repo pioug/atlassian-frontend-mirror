@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 2.0.2
+
+### Patch Changes
+
+- [#118053](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118053)
+  [`536325e780241`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/536325e780241) -
+  Fix to align with the regular avatar styles
+
 ## 2.0.1
 
 ### Patch Changes

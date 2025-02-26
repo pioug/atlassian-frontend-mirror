@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 100.1.2
+
+### Patch Changes
+
+- [#118657](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118657)
+  [`849aa409da86d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/849aa409da86d) -
+  [ux] ED-26673 Toolbar overflow menu shows active docking preference
+- Updated dependencies
+
 ## 100.1.1
 
 ### Patch Changes

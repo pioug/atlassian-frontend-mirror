@@ -55,6 +55,7 @@ const LozengeNew = ({
 	) : (
 		<AtlaskitLozenge
 			appearance={appearance}
+			{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			testId={`${testId}-lozenge`}

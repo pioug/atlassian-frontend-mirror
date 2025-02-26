@@ -55,6 +55,7 @@ import * as mediaSingleInQuote from './__fixtures__/media-single-in-quote.adf.js
 import * as mediaGroupInQuote from './__fixtures__/media-group-in-quote.adf.json';
 import * as nestedTables from './__fixtures__/nested-tables-extension.adf.json';
 import * as nestedTablesInvalid from './__fixtures__/nested-tables-extension-invalid.adf.json';
+import * as redaction from './__fixtures__/redaction-extension.adf.json';
 
 const defaultTestOpts: EmailSerializerOpts = {
 	isImageStubEnabled: false,
@@ -473,5 +474,10 @@ describe('Renderer - EmailSerializer', () => {
 		const { result } = render(nestedTablesInvalid);
 		expect(result).toMatchSnapshot('nested tables extension invalid');
 		consoleErrorMock.mockRestore();
+	});
+
+	it('should render redaction inlineExtension correctly', () => {
+		const { result } = render(redaction);
+		expect(result).toMatchSnapshot('redaction extension');
 	});
 });

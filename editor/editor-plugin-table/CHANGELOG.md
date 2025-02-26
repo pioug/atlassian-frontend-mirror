@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 10.1.1
+
+### Patch Changes
+
+- [#117485](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117485)
+  [`e9a8d9ba26963`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9a8d9ba26963) -
+  Reorder icons, and remove some based on new editor controls. Changes under
+  `editor_plugin_controls` experiment.
+- [#118754](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118754)
+  [`6a2c861c64366`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a2c861c64366) -
+  [ux] [ED-26739] This change fixes the table drag & drop controls for nested tables so that it no
+  longer jumps into the sticky header of the parent table when the parent table is scrolled.
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

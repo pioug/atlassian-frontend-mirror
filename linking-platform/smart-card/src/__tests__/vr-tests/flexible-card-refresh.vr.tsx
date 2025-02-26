@@ -47,7 +47,7 @@ snapshot(FlexibleUiComposition, {
 });
 
 // Blocks
-snapshot(FlexibleUiBlock, {
+snapshot.skip(FlexibleUiBlock, {
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,

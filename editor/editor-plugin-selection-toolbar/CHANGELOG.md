@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.0.1
+
+### Patch Changes
+
+- [#118657](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118657)
+  [`849aa409da86d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/849aa409da86d) -
+  [ux] ED-26673 Toolbar overflow menu shows active docking preference
+
 ## 2.0.0
 
 ### Major Changes

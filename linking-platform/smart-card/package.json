@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "35.0.2",
+	"version": "35.1.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
 		"@atlaskit/heading": "^5.1.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/icon-file-type": "^7.0.0",
-		"@atlaskit/icon-lab": "^3.1.0",
+		"@atlaskit/icon-lab": "^3.2.0",
 		"@atlaskit/icon-object": "^7.0.0",
 		"@atlaskit/icon-priority": "^6.3.0",
 		"@atlaskit/legacy-custom-icons": "^0.22.0",
@@ -53,7 +53,7 @@
 		"@atlaskit/linking-types": "^9.6.0",
 		"@atlaskit/logo": "^16.0.0",
 		"@atlaskit/lozenge": "^12.0.0",
-		"@atlaskit/menu": "^3.0.0",
+		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/outbound-auth-flow-client": "^3.4.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/analytics-tooling": "*",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",
-		"@atlassian/gemini": "1.16.3",
+		"@atlassian/gemini": "1.16.4",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^13.4.0",
@@ -191,9 +191,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"showOnWebsiteForTransitiveDependencies": true
-		},
-		"linking_platform_show_lozenge_atlassian_state": {
-			"type": "boolean"
 		},
 		"smart_links_for_plans_platform": {
 			"type": "boolean"

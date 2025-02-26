@@ -30,7 +30,7 @@
 		"@atlaskit/ds-lib": "^4.0.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/layering": "^2.0.0",
-		"@atlaskit/menu": "^3.0.0",
+		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/popup": "^2.0.0",
 		"@atlaskit/primitives": "^14.1.0",

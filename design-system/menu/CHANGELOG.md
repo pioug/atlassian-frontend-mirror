@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 3.1.0
+
+### Minor Changes
+
+- [#118691](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118691)
+  [`fe3551cf3dd67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe3551cf3dd67) -
+  We are testing improvements behind a feature flag. Menu items will support icons regardless of
+  their spacing. If this fix is successful it will be available in a later release.
+
 ## 3.0.0
 
 ### Major Changes

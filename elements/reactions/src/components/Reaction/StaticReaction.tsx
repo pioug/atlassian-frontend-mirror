@@ -21,6 +21,7 @@ const staticReactionStyles = xcss({
 	padding: 'space.0',
 	overflow: 'hidden',
 	border: 'none',
+	borderRadius: 'border.radius',
 	':hover': {
 		backgroundColor: 'color.background.neutral.subtle.hovered',
 		cursor: 'default',

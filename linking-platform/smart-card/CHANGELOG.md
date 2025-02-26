@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 35.1.0
+
+### Minor Changes
+
+- [#116662](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/116662)
+  [`323ed1cdbef54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/323ed1cdbef54) -
+  Remove linking_platform_show_lozenge_atlassian_state flag
+
+### Patch Changes
+
+- [#119127](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119127)
+  [`3b91cbd29a8b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b91cbd29a8b9) -
+  Exclude UnsupportedError unresolved events from FE reliability SLO
+
+## 35.0.3
+
+### Patch Changes
+
+- [#118812](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118812)
+  [`574d65e0a2fb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/574d65e0a2fb7) -
+  [ux] Update lozenge color to bold
+- Updated dependencies
+
 ## 35.0.2
 
 ### Patch Changes

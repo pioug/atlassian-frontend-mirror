@@ -5,6 +5,7 @@ import type { IntlShape } from 'react-intl-next';
 import { INPUT_METHOD, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { commentMessages as messages } from '@atlaskit/editor-common/media';
+import { annotationMessages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
 	CommandDispatch,
@@ -15,6 +16,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 
@@ -38,6 +40,8 @@ export const commentButton = (
 	const title = intl.formatMessage(
 		hasActiveComments ? messages.viewCommentsOnMedia : messages.addCommentOnMedia,
 	);
+
+	const buttonLabel = intl.formatMessage(annotationMessages.createComment);
 
 	const onClickHandler = (state: EditorState, dispatch?: CommandDispatch) => {
 		if (api?.annotation && selectMediaNode) {
@@ -71,7 +75,8 @@ export const commentButton = (
 		testId: 'add-comment-media-button',
 		icon: CommentIcon,
 		iconFallback: hasActiveComments ? CommentWithDotIcon : LegacyCommentIcon,
-		title,
+		title: editorExperiment('platform_editor_controls', 'control') ? title : buttonLabel,
+		showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
 		onClick: onClickHandler,
 		tooltipContent: <ToolTipContent description={title} />,
 		supportsViewMode: true,

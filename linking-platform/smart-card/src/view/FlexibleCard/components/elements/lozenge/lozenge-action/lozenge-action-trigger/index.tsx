@@ -66,12 +66,16 @@ const LozengeActionTriggerNew = ({
 	...props
 }: LozengeActionTriggerProps) => {
 	const [isBold, setIsBold] = useState(false);
+
 	const onMouseEnter = useCallback(() => setIsBold(true), []);
 	const onMouseLeave = useCallback(() => setIsBold(false), []);
 
 	const lozenge = useMemo(
 		() => (
-			<Lozenge appearance={appearance} isBold={isBold}>
+			<Lozenge
+				appearance={appearance}
+				isBold={fg('platform-component-visual-refresh') ? true : isBold}
+			>
 				<span css={triggerLozengeStyles}>
 					<span>{text}</span>
 					<Box as="span" xcss={styles.chevronDown}>

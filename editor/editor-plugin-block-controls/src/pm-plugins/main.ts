@@ -16,12 +16,18 @@ import {
 } from '@atlaskit/editor-common/performance-measures';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyDocument, isTextInput } from '@atlaskit/editor-common/utils';
-import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	SelectionRange,
+} from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type Step } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
@@ -748,11 +754,29 @@ export const createPlugin = (
 
 					const isSameNode = !!(nodeTarget && draggable?.eq(nodeTarget));
 
-					const isInSelection =
-						domPos >= state.selection.$from.pos && domPos < state.selection.$to.pos;
+					// CellSelection doesn't expose true from/to positions, we need to query the ranges
+					const selectionRange: SelectionRange =
+						state.selection instanceof CellSelection
+							? state.selection.ranges.reduce(
+									(previousValue, currentValue, _currentIndex, _array): SelectionRange => {
+										return {
+											$from: currentValue.$from.min(previousValue.$from),
+											$to: currentValue.$to.max(previousValue.$to),
+										};
+									},
+								)
+							: { $from: state.selection.$from, $to: state.selection.$to };
+					const expandedSelection = expandSelectionBounds(selectionRange.$from, selectionRange.$to);
+					const expandedAnchor = expandedSelection.$anchor;
+					const expandedHead = expandedSelection.$head;
+					const expandedSelectionFrom = Math.min(expandedAnchor.pos, expandedHead.pos);
+					const expandedSelectionTo = Math.max(expandedAnchor.pos, expandedHead.pos);
 
-					// Prevent the default drop behavior if the position is within the activeNode or Editor selection
-					if (isSameNode || (isInSelection && isMultiSelectEnabled)) {
+					const isInExpandedSelection =
+						domPos >= expandedSelectionFrom && domPos < expandedSelectionTo;
+
+					// Prevent the default drop behavior if the position is within the activeNode or within the expanded selection when multiselect is on
+					if (isSameNode || (isInExpandedSelection && isMultiSelectEnabled)) {
 						event.preventDefault();
 						return true;
 					}

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 2.0.1
+
+### Patch Changes
+
+- [#117485](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117485)
+  [`e9a8d9ba26963`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9a8d9ba26963) -
+  Reorder icons, and remove some based on new editor controls. Changes under
+  `editor_plugin_controls` experiment.
+- [#118657](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118657)
+  [`849aa409da86d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/849aa409da86d) -
+  [ux] ED-26673 Toolbar overflow menu shows active docking preference
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

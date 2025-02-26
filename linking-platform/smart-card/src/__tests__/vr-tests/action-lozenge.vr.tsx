@@ -6,11 +6,23 @@ import ActionTrigger from '../../../examples/vr-flexible-card/vr-action-lozenge-
 import ErrorActtion from '../../../examples/vr-flexible-card/vr-action-lozenge-error-action';
 import ErrorActionWithUrl from '../../../examples/vr-flexible-card/vr-action-lozenge-error-action-with-url';
 
-snapshot(ActionItem);
+snapshot(ActionItem, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+	},
+});
 
-snapshot(ActionTrigger);
+snapshot(ActionTrigger, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+	},
+});
 
-snapshot(ActionItemsGroup);
+snapshot(ActionItemsGroup, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+	},
+});
 
 snapshot(ErrorActtion);
 

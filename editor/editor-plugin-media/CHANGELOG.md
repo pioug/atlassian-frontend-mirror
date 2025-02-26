@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 2.1.0
+
+### Minor Changes
+
+- [#116463](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/116463)
+  [`0c8145ed12aad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c8145ed12aad) -
+  [ux] NARU-2555: conditionally disable toolbar download button, based on mediaClient
+  enforceDataSecurityPolicy config
+
+### Patch Changes
+
+- [#117485](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117485)
+  [`e9a8d9ba26963`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9a8d9ba26963) -
+  Reorder icons, and remove some based on new editor controls. Changes under
+  `editor_plugin_controls` experiment.
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

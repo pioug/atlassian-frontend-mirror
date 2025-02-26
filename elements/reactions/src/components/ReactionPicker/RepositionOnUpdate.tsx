@@ -9,6 +9,7 @@ export type RepositionOnUpdateProps = {
 	settings: {
 		isOpen: boolean;
 		showFullPicker: boolean;
+		useLeftPopperPlacement: boolean;
 	};
 };
 

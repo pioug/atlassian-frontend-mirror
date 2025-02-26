@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Section } from '@atlaskit/menu';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import { IconButtonItem } from './IconButtonItem';
 import type { GroupData } from './ItemType';
@@ -14,14 +15,14 @@ const headingContainerStyles = xcss({
 });
 
 const buttonsContainerStyles = xcss({
-	paddingTop: 'space.0',
-	paddingBottom: 'space.100',
+	paddingTop: 'space.100',
+	paddingBottom: 'space.0',
 	paddingLeft: 'space.200',
 	paddingRight: 'space.200',
 });
 
 export interface IconButtonGroupProps extends GroupData {
-	xcss?: ReturnType<typeof xcss>;
+	hasSeparator?: boolean;
 	onItemSelected?: (index: number, categoryId: string) => void;
 }
 
@@ -29,22 +30,24 @@ export const IconButtonGroup = ({
 	id,
 	label,
 	items,
+	hasSeparator,
 	onItemSelected,
-	xcss: xcssStyles,
 }: IconButtonGroupProps) => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<Stack space="space.025" xcss={xcssStyles}>
-			<Box xcss={[headingContainerStyles]}>
-				<Heading size={'xsmall'}>{label}</Heading>
-			</Box>
+		<Section hasSeparator={hasSeparator}>
+			{label && (
+				<Box xcss={[headingContainerStyles]}>
+					<Heading size={'xsmall'}>{label}</Heading>
+				</Box>
+			)}
 
 			<Box xcss={[buttonsContainerStyles]}>
 				<Inline
 					as="span"
 					// spread="space-between"
 					alignBlock="center"
-					space={'space.100'}
+					space={'space.150'}
 					// grow="fill"
 					shouldWrap={true}
 				>
@@ -65,6 +68,6 @@ export const IconButtonGroup = ({
 					})}
 				</Inline>
 			</Box>
-		</Stack>
+		</Section>
 	);
 };

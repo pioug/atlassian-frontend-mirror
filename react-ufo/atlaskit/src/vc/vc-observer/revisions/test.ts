@@ -1,9 +1,9 @@
-import { revFY25_01Classifier } from './fy25_01';
+import { revFY25_02Classifier } from './fy25_02';
 
 describe('classifier starts', () => {
-	test('fy25.01 starts', () => {
+	test('fy25.02 starts', () => {
 		expect(
-			revFY25_01Classifier.classifyUpdate({
+			revFY25_02Classifier.classifyUpdate({
 				element: document.createElement('a'),
 				type: 'dom',
 				tags: ['not-visible'],

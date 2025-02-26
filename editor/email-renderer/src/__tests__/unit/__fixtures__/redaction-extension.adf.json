@@ -1,0 +1,27 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+      {
+          "type": "paragraph",
+          "content": [
+              {
+                  "type": "text",
+                  "text": "my credit card is "
+              },
+              {
+                  "type": "inlineExtension",
+                  "attrs": {
+                      "extensionKey": "redaction",
+                      "extensionType": "com.atlassian.guard-premium",
+                      "localId": "7a4542a2-3cf8-4a2e-88b5-949ee584055a",
+                      "text": "[REDACTED]",
+                      "parameters": {
+                          "externalRedactionId": "7a4542a2-3cf8-4a2e-88b5-949ee584055a"
+                      }
+                  }
+              }
+          ]
+      }
+  ]
+}

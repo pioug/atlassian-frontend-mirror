@@ -1,67 +1,76 @@
 import React, { useState } from 'react';
 
-import { Stack, xcss } from '@atlaskit/primitives';
+import { Section } from '@atlaskit/menu';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import type { ItemData } from './ItemType';
-import { ListButtonGroup } from './ListButtonGroup';
-import { ViewAllButtonItem } from './ListButtonItem';
+import { ListButtonItem, ViewAllButtonItem } from './ListButtonItem';
 import { ExpandableNavButton } from './NavigationButton';
+
+const headingContainerStyles = xcss({
+	paddingTop: 'space.0',
+	paddingBottom: 'space.025',
+	paddingLeft: 'space.100',
+	paddingRight: 'space.100',
+});
 
 export interface ExpandablePanelProps {
 	id: string;
 	label: string;
 	items: ItemData[];
+	hasSeparator?: boolean;
 	attributes?: { new?: boolean };
-	xcss?: ReturnType<typeof xcss>;
 	onItemSelected?: (index: number, categoryId: string) => void;
 	onViewAllSelected?: (categoryId: string) => void;
 }
-
-const itemContainerStyles = xcss({
-	paddingTop: 'space.100',
-	paddingBottom: 'space.100',
-	paddingLeft: 'space.100',
-	paddingRight: 'space.100',
-});
 
 export const ExpandablePanel = ({
 	id,
 	label,
 	items,
+	hasSeparator,
 	attributes,
-	xcss: xcssStyles,
 	onItemSelected,
 	onViewAllSelected,
 }: ExpandablePanelProps) => {
 	const [isExpanded, setIsExpanded] = useState(true);
 
-	// ensure we always only show max 5 items
-	// TODO should we leave it upto consumer to limit the items?
-	const limitedItems = items.slice(0, 5);
-
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<Stack xcss={xcssStyles}>
-			<ExpandableNavButton
-				id={id}
-				label={label}
-				isExpanded={isExpanded}
-				attributes={attributes}
-				onClick={() => setIsExpanded(!isExpanded)}
-			/>
-			{isExpanded && (
-				<Stack space="space.025" xcss={[itemContainerStyles]}>
-					<ListButtonGroup
+		<Section hasSeparator={hasSeparator}>
+			{label && (
+				<Box xcss={[headingContainerStyles]}>
+					<ExpandableNavButton
 						id={id}
-						items={limitedItems}
-						onItemSelected={onItemSelected}
-					></ListButtonGroup>
+						label={label}
+						isExpanded={isExpanded}
+						attributes={attributes}
+						onClick={() => setIsExpanded(!isExpanded)}
+					/>
+				</Box>
+			)}
+			{isExpanded && (
+				<Stack space="space.025">
+					{items.map((item) => {
+						return (
+							<ListButtonItem
+								key={item.index}
+								index={item.index}
+								title={item.title}
+								description={item.description}
+								showDescription={item.showDescription}
+								attributes={item.attributes}
+								keyshortcut={item.keyshortcut}
+								renderIcon={item.renderIcon}
+								onItemSelected={(index) => onItemSelected?.(index, id)}
+							/>
+						);
+					})}
 					<ViewAllButtonItem
 						label={`View all ${label.toLocaleLowerCase()} options`}
 						onClick={() => onViewAllSelected?.(id)}
 					/>
 				</Stack>
 			)}
-		</Stack>
+		</Section>
 	);
 };

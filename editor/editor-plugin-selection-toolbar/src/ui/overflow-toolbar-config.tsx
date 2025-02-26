@@ -3,13 +3,13 @@
  * @jsx jsx
  * @jsxFrag
  */
-import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+import { jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 
 import type { Command, FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import CheckMarkIcon from '@atlaskit/icon/utility/check-mark';
 import { HeadingItem } from '@atlaskit/menu';
-import { token } from '@atlaskit/tokens';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -29,18 +29,17 @@ export const getOverflowFloatingToolbarConfig = ({
 		type: 'overflow-dropdown',
 		options: [
 			{
-				type: 'separator',
-			},
-			{
 				type: 'overflow-dropdown-heading',
-				title: 'Toolbar position',
+				title: 'Toolbar appears',
 			},
 			{
-				title: 'Contextual',
+				title: 'In-line with text',
 				onClick: () => {
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 				},
 				icon: <ContextualToolbarIcon label="Contextual toolbar" />,
+				selected: true,
+				elemAfter: <CheckMarkIcon label="" />,
 			},
 			{
 				title: 'Fixed at top',
@@ -59,25 +58,21 @@ export const getOverflowPrimaryToolbarConfig = ({
 	{
 		items: [
 			{
-				content: (
-					// eslint-disable-next-line @atlaskit/design-system/use-primitives
-					<div css={headingContainerStyles}>
-						<HeadingItem>Toolbar position</HeadingItem>
-					</div>
-				),
+				content: <HeadingItem>Toolbar appears</HeadingItem>,
 				value: {
 					name: '',
 				},
 				isDisabled: true,
 			},
 			{
-				content: 'Contextual',
+				content: 'In-line with text',
 				value: {
 					name: 'contextual',
 				},
 				onClick: () => {
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 				},
+				elemBefore: <ContextualToolbarIcon label="Contextual toolbar" />,
 			},
 			{
 				content: 'Fixed at top',
@@ -87,12 +82,10 @@ export const getOverflowPrimaryToolbarConfig = ({
 				onClick: () => {
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 				},
+				isActive: true,
+				elemBefore: <FixedToolbarIcon label="Fixed toolbar" />,
+				elemAfter: <CheckMarkIcon label="" />,
 			},
 		],
 	},
 ];
-
-const headingContainerStyles = css({
-	padding: `${token('space.100')} 0`,
-	margin: `${token('space.negative.100')} 0`,
-});

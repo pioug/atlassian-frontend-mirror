@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { disableTTVCOnFirstUserInteraction } from './pm-plugins/disableTTVCOnFirstUserInteraction';
+import { abortUFOMeasurementOnFirstUserInteraction } from './pm-plugins/abortUFOMeasurementOnFirstUserInteraction';
 import type { UfoPlugin } from './ufoPluginType';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -16,8 +16,8 @@ export const ufoPlugin: UfoPlugin = () => ({
 
 		return [
 			{
-				name: 'disableTTVCOnFirstUserInteraction',
-				plugin: disableTTVCOnFirstUserInteraction,
+				name: 'abortUFOMeasurementOnFirstUserInteraction',
+				plugin: abortUFOMeasurementOnFirstUserInteraction,
 			},
 		];
 	},

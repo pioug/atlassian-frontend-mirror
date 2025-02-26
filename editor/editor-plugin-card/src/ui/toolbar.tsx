@@ -58,6 +58,7 @@ import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
 import { changeSelectedCardToText } from '../pm-plugins/doc';
@@ -451,6 +452,7 @@ const generateToolbarItems =
 							testId: 'inline-card-toolbar-comment-button',
 							iconFallback: LegacyCommentIcon,
 							title: intl.formatMessage(annotationMessages.createComment),
+							showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
 							onClick: onCommentButtonClick,
 							disabled:
 								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
@@ -459,49 +461,98 @@ const generateToolbarItems =
 					]
 				: [];
 
-			const toolbarItems: Array<FloatingToolbarItem<Command>> = [
-				...editItems,
-				...commentItems,
-				{
-					id: 'editor.link.openLink',
-					type: 'button',
-					icon: LinkExternalIcon,
-					iconFallback: OpenIcon,
-					metadata: metadata,
-					className: 'hyperlink-open-link',
-					title: intl.formatMessage(linkMessages.openLink),
-					onClick: visitCardLink(editorAnalyticsApi),
-				},
-				{ type: 'separator' },
-				...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
-				{
-					type: 'copy-button',
-					items: [
+			const toolbarItems: Array<FloatingToolbarItem<Command>> = editorExperiment(
+				'platform_editor_controls',
+				'control',
+			)
+				? [
+						...editItems,
+						...commentItems,
 						{
-							state,
-							formatMessage: intl.formatMessage,
-							nodeType: node.type,
+							id: 'editor.link.openLink',
+							type: 'button',
+							icon: LinkExternalIcon,
+							iconFallback: OpenIcon,
+							metadata: metadata,
+							className: 'hyperlink-open-link',
+							title: intl.formatMessage(linkMessages.openLink),
+							onClick: visitCardLink(editorAnalyticsApi),
 						},
-					],
-				},
-				{ type: 'separator' },
-				getSettingsButton(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
-				{ type: 'separator' },
-				{
-					id: 'editor.link.delete',
-					focusEditoronEnter: true,
-					type: 'button',
-					appearance: 'danger',
-					icon: DeleteIcon,
-					iconFallback: RemoveIcon,
-					onMouseEnter: hoverDecoration?.(node.type, true),
-					onMouseLeave: hoverDecoration?.(node.type, false),
-					onFocus: hoverDecoration?.(node.type, true),
-					onBlur: hoverDecoration?.(node.type, false),
-					title: intl.formatMessage(commonMessages.remove),
-					onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-				},
-			];
+						{ type: 'separator' },
+						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
+						{
+							type: 'copy-button',
+							items: [
+								{
+									state,
+									formatMessage: intl.formatMessage,
+									nodeType: node.type,
+								},
+							],
+						},
+						{ type: 'separator' },
+						getSettingsButton(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
+						{ type: 'separator' },
+						{
+							id: 'editor.link.delete',
+							focusEditoronEnter: true,
+							type: 'button',
+							appearance: 'danger',
+							icon: DeleteIcon,
+							iconFallback: RemoveIcon,
+							onMouseEnter: hoverDecoration?.(node.type, true),
+							onMouseLeave: hoverDecoration?.(node.type, false),
+							onFocus: hoverDecoration?.(node.type, true),
+							onBlur: hoverDecoration?.(node.type, false),
+							title: intl.formatMessage(commonMessages.remove),
+							onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+						},
+					]
+				: [
+						...editItems,
+						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
+						getSettingsButton(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
+						{ type: 'separator' },
+						{
+							id: 'editor.link.delete',
+							focusEditoronEnter: true,
+							type: 'button',
+							appearance: 'danger',
+							icon: DeleteIcon,
+							iconFallback: RemoveIcon,
+							onMouseEnter: hoverDecoration?.(node.type, true),
+							onMouseLeave: hoverDecoration?.(node.type, false),
+							onFocus: hoverDecoration?.(node.type, true),
+							onBlur: hoverDecoration?.(node.type, false),
+							title: intl.formatMessage(commonMessages.remove),
+							onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+						},
+						{ type: 'separator' },
+						{
+							id: 'editor.link.openLink',
+							type: 'button',
+							icon: LinkExternalIcon,
+							iconFallback: OpenIcon,
+							metadata: metadata,
+							className: 'hyperlink-open-link',
+							title: intl.formatMessage(linkMessages.openLink),
+							onClick: visitCardLink(editorAnalyticsApi),
+						},
+						{ type: 'separator' },
+						{
+							type: 'copy-button',
+							items: [
+								{
+									state,
+									formatMessage: intl.formatMessage,
+									nodeType: node.type,
+								},
+							],
+						},
+						...(commentItems.length > 1
+							? [{ type: 'separator' } as const, commentItems[0]]
+							: commentItems),
+					];
 
 			if (currentAppearance === 'embed') {
 				const alignmentOptions = buildAlignmentOptions(

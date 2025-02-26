@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.1.1
+
+### Patch Changes
+
+- [#117391](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117391)
+  [`1655b74fcb544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1655b74fcb544) -
+  Fix drop table on table trigger native dnd
+
 ## 3.1.0
 
 ### Minor Changes

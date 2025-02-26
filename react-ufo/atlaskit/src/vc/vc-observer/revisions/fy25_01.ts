@@ -1,44 +1,68 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { ComponentsLogType } from '../../../common/vc/types';
+import type {
+	VCBoxType,
+	VCCalculationMethodArgs,
+	VCCalculationMethodReturn,
+	VCType,
+} from './types';
+import { type FilterArgs, ViewportUpdateClassifier } from './ViewportUpdateClassifier';
 
-import { FY24_01Classifier } from './fy24_01';
-import type { FilterComponentsLogArgs } from './types';
-import type { FilterArgs } from './ViewportUpdateClassifier';
+const legacyIgnoreReasons = [
+	'image',
+	'ssr-hydration',
+	'editor-lazy-node-view',
+	'editor-container-mutation',
+];
 
-export class FY25_01Classifier extends FY24_01Classifier {
+export class FY25_01Classifier extends ViewportUpdateClassifier {
 	revision = 'fy25.01';
 
-	types = ['attr'];
+	types = ['html', 'text'];
 
 	filters = [
 		{
-			name: 'not-visible',
+			name: 'default-ignore-reasons',
 			filter: ({ type, ignoreReason }: FilterArgs) => {
-				return !ignoreReason?.includes('not-visible');
+				return !ignoreReason || !legacyIgnoreReasons.includes(ignoreReason);
 			},
 		},
 	];
 
-	removedFilters = [];
+	VCCalculationMethod({
+		VCParts,
+		entries,
+		totalPainted,
+		componentsLog,
+	}: VCCalculationMethodArgs): VCCalculationMethodReturn {
+		const VC: VCType = {};
+		const VCBox: VCBoxType = {};
 
-	// @todo remove it once fixed as described: https://product-fabric.atlassian.net/browse/AFO-3443
-	filterComponentsLog({ componentsLog, ttai }: FilterComponentsLogArgs) {
-		let _componentsLog: ComponentsLogType = {};
+		entries.reduce((acc = 0, v) => {
+			let VCRatio = v[1] / totalPainted + acc;
+			const time = v[0];
 
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		if (fg('ufo-remove-vc-component-observations-after-ttai')) {
-			Object.entries(componentsLog).forEach(([_timestamp, value]) => {
-				const timestamp = Number(_timestamp);
-				if (ttai > timestamp) {
-					_componentsLog[timestamp] = value;
+			if (fg('platform_ufo_fix_vc_observer_rounding_error')) {
+				// @todo apply fix to include small changes into accumulator
+				const preciseCurrRatio = Math.round(100 * (v[1] / totalPainted));
+				const preciseAccRatio = Math.round(acc * 100);
+				VCRatio = (preciseCurrRatio + preciseAccRatio) / 100;
+			}
+
+			VCParts.forEach((value) => {
+				if ((VC[value] === null || VC[value] === undefined) && VCRatio >= value / 100) {
+					VC[value] = time;
+					VCBox[value] = new Set();
+					componentsLog[time]?.forEach((v) => VCBox[value]?.add(v.targetName));
 				}
 			});
-		} else {
-			_componentsLog = { ...componentsLog };
-		}
+			return VCRatio;
+		}, 0);
 
-		return _componentsLog;
+		return {
+			VC,
+			VCBox,
+		};
 	}
 
 	constructor() {

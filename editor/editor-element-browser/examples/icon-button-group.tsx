@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { makeKeyMapWithCommon } from '@atlaskit/editor-common/keymaps';
+import Heading from '@atlaskit/heading';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 import SpreadsheetIcon from '@atlaskit/icon/core/spreadsheet';
 import TaskIcon from '@atlaskit/icon/core/task';
@@ -12,7 +13,6 @@ import { ItemData } from '../src/ui/ItemType';
 const innerBoxContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 	boxShadow: 'elevation.shadow.overlay',
-	padding: 'space.100',
 });
 
 const outerBoxContainerStyles = xcss({
@@ -86,11 +86,24 @@ export default function CategoryNavButtonExample() {
 	return (
 		<Box xcss={outerBoxContainerStyles}>
 			<Stack space="space.200">
+				<Heading size="xsmall">Without separator</Heading>
 				<Box xcss={innerBoxContainerStyles}>
 					<IconButtonGroup
 						id="suggested"
 						label="Suggested"
 						items={dataItems}
+						onItemSelected={(index, categoryId) => {
+							console.log(`Item ${index} selected in category ${categoryId}`);
+						}}
+					/>
+				</Box>
+				<Heading size="xsmall">With separator</Heading>
+				<Box xcss={innerBoxContainerStyles}>
+					<IconButtonGroup
+						id="suggested"
+						label="Suggested"
+						items={dataItems}
+						hasSeparator
 						onItemSelected={(index, categoryId) => {
 							console.log(`Item ${index} selected in category ${categoryId}`);
 						}}

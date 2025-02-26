@@ -25,10 +25,13 @@ export const styles = `
 `;
 
 export default function inlineExtension({ attrs }: NodeSerializerOpts) {
+	const isRedaction = attrs.extensionKey === 'redaction';
+	// redaction extension wants to skip generic extension styling https://atlassian.slack.com/archives/C03QXBHB7GC/p1740471786226069?thread_ts=1740051744.345479&cid=C03QXBHB7GC
+	const classNameFinal = className + (isRedaction ? '-redaction' : '');
 	const inner = createTag(
 		'span',
-		{ class: className + '-inner' },
-		`&nbsp;${attrs.extensionKey}&nbsp;`,
+		{ class: classNameFinal + '-inner' },
+		`&nbsp;${isRedaction ? '████' : attrs.extensionKey}&nbsp;`,
 	);
-	return createTag('span', { class: className + '-outer' }, inner);
+	return createTag('span', { class: classNameFinal + '-outer' }, inner);
 }

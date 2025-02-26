@@ -21,10 +21,16 @@
 			"path": "../../../design-system/avatar/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"

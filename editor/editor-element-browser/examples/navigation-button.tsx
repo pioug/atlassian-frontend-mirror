@@ -8,7 +8,6 @@ import { ExpandableNavButton, LinkNavButton, BackNavButton } from '../src/ui/Nav
 const innerBoxContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 	boxShadow: 'elevation.shadow.overlay',
-	padding: 'space.100',
 });
 
 const outerBoxContainerStyles = xcss({

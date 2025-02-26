@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LozengeProps } from '../../../types';
 import type { CardActionOptions } from '../../Card/types';
@@ -56,7 +57,9 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 					appearance={appearance}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={lozenge.style}
-					isBold={lozenge.isBold}
+					isBold={
+						fg('platform-component-visual-refresh') ? lozenge.isBold !== false : lozenge.isBold
+					}
 				>
 					{lozenge.text}
 				</Lozenge>

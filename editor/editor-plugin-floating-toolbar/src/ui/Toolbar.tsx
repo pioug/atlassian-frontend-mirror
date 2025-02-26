@@ -557,23 +557,24 @@ const ToolbarItemsCollapsable = React.memo(
 			node.type.name === 'blockCard' ||
 			node.type.name === 'embedCard';
 
-		const updatedItems = isCard
-			? getFormattedItems(
-					items.map((item) => {
-						if (
-							'id' in item &&
-							(item.id === 'editor.link.openLink' ||
-								item.id === 'editor.floatingToolbar.copy' ||
-								item.id === 'editor.link.commentLink')
-						) {
-							return item;
-						}
-						return { ...item, contextualToolbarDefaultVisibility: 'hidden' };
-					}),
-					contextualToolbarState?.isCollapsed ?? false,
-					api,
-				)
-			: items;
+		const updatedItems =
+			isCard && items.length > 1
+				? getFormattedItems(
+						items.map((item) => {
+							if (
+								'id' in item &&
+								(item.id === 'editor.link.openLink' ||
+									item.id === 'editor.floatingToolbar.copy' ||
+									item.id === 'editor.link.commentLink')
+							) {
+								return item;
+							}
+							return { ...item, contextualToolbarDefaultVisibility: 'hidden' };
+						}),
+						contextualToolbarState?.isCollapsed ?? false,
+						api,
+					)
+				: items;
 
 		return (
 			<ToolbarItems

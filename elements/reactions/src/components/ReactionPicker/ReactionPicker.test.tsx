@@ -1,16 +1,23 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { type Stub, replaceRaf } from 'raf-stub';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import { Popper } from '@atlaskit/popper';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../../__tests__/_testing-library';
 import { DefaultReactions } from '../../shared/constants';
 import { ReactionPicker } from '../ReactionPicker';
 import { RENDER_BUTTON_TESTID } from '../EmojiButton';
 import { RENDER_TRIGGER_BUTTON_TESTID } from '../Trigger/Trigger';
-import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
+import {
+	RENDER_REACTIONPICKERPANEL_TESTID,
+	PopperWrapper,
+	PopperWrapperProps,
+} from './ReactionPicker';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
-import { type Stub, replaceRaf } from 'raf-stub';
 
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
@@ -157,5 +164,44 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		});
 		const showMoreButton = await screen.getByTestId(RENDER_SHOWMORE_TESTID);
 		expect(showMoreButton).toHaveFocus();
+	});
+});
+
+// Only want to mock this for the PopperWrapper test
+jest.mock('@atlaskit/popper', () => ({
+	...jest.requireActual('@atlaskit/popper'),
+	Popper: jest.fn(({ children }) => children({ ref: jest.fn(), style: {}, update: jest.fn() })),
+}));
+
+const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings']) => {
+	return render(
+		<PopperWrapper settings={settings}>
+			<div>Mock children</div>
+		</PopperWrapper>,
+	);
+};
+
+const popperWrapperProps: PopperWrapperProps['settings'] = {
+	isOpen: true,
+	showFullPicker: true,
+	useLeftPopperPlacement: true,
+};
+
+describe('PopperWrapper', () => {
+	it('should use left placement when useLeftPopperPlacement is true', async () => {
+		mockRenderPopperWrapper(popperWrapperProps);
+
+		expect(Popper).toHaveBeenCalledWith(
+			expect.objectContaining({ placement: 'left' }),
+			expect.anything(),
+		);
+	});
+
+	it('should use bottom-start placement when useLeftPopperPlacement is false', async () => {
+		mockRenderPopperWrapper({ ...popperWrapperProps, useLeftPopperPlacement: false });
+		expect(Popper).toHaveBeenCalledWith(
+			expect.objectContaining({ placement: 'bottom-start' }),
+			expect.anything(),
+		);
 	});
 });

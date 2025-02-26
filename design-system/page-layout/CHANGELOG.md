@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 4.0.2
+
+### Patch Changes
+
+- [#116443](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/116443)
+  [`88b036ffc4963`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88b036ffc4963) -
+  Update dependencies and remove unused internal exports.
+
 ## 4.0.1
 
 ### Patch Changes

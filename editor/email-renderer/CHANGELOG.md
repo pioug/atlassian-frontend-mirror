@@ -1,5 +1,13 @@
 # @atlaskit/email-renderer
 
+## 9.3.0
+
+### Minor Changes
+
+- [#118549](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118549)
+  [`51d3e4581126d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51d3e4581126d) -
+  CEPS-604: add support for rendering redaction extensions in adf -> email html conversion
+
 ## 9.2.3
 
 ### Patch Changes

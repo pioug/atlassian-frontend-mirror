@@ -20,9 +20,6 @@ const largeButtonStyles = xcss({
 
 	height: `${WIDTH}`, // The width and height of the button are the same for it to appear as square
 	width: `${WIDTH}`,
-	paddingBlock: 'space.075',
-	paddingInlineEnd: 'space.0',
-	paddingInlineStart: 'space.0',
 
 	borderRadius: 'border.radius.100',
 	borderWidth: 'border.width.0',

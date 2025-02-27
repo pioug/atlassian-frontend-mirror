@@ -16,8 +16,6 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getBlockMenuItems, menuItemsCallback } from './block-menu-items';
 import { BLOCK_MENU_WIDTH } from './consts';
 
-const dragHandleSelector = '[data-blocks-drag-handle-container="true"] button';
-
 type BlockMenuProps = {
 	editorView: EditorView | undefined;
 	mountPoint?: HTMLElement;
@@ -35,11 +33,12 @@ const BlockMenu = ({
 	intl: { formatMessage },
 }: BlockMenuProps & WrappedComponentProps) => {
 	const { blockControlsState } = useSharedPluginState(api, ['blockControls']);
+
 	if (!blockControlsState?.isMenuOpen) {
 		return null;
 	}
-
-	const targetHandleRef = document.querySelector(dragHandleSelector);
+	const activeNodeSelector = `[data-drag-handler-anchor-name=${blockControlsState?.menuTriggerBy}]`;
+	const targetHandleRef = document.querySelector(activeNodeSelector);
 	const items = getBlockMenuItems(formatMessage);
 
 	const handleOpenChange = (payload?: { event: PointerEvent | KeyboardEvent; isOpen: boolean }) => {
@@ -55,12 +54,13 @@ const BlockMenu = ({
 				editorView.dispatch,
 				editorView,
 			);
+			api?.core.actions.execute(api?.blockControls.commands.toggleBlockMenu({ closeMenu: true }));
 		}
 	};
 
 	return (
 		<Popup
-			alignX={'right'}
+			alignX={'left'}
 			alignY={'start'}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -69,7 +69,7 @@ const BlockMenu = ({
 			zIndex={akEditorFloatingOverlapPanelZIndex}
 			forcePlacement={true}
 			stick={true}
-			offset={[-18, 8]}
+			offset={[-6, 8]}
 		>
 			<DropdownMenu
 				mountTo={mountPoint}

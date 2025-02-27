@@ -42,6 +42,9 @@
             "path": "../../../media/icon-file-type/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/icon-object/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../helpers/intl-messages-provider/afm-cc/tsconfig.json"
         },
         {

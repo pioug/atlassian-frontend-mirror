@@ -7,13 +7,19 @@ import { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { type NewIconProps } from '@atlaskit/icon';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
-import { iconColor } from './internal/constants';
 import { type Appearance } from './types';
+
+const iconColor: { [key in Appearance]: NewIconProps['color'] } = {
+	danger: token('color.icon.danger', R400),
+	warning: token('color.icon.warning', '#D97008'),
+} as const;
 
 const titleStyles = css({
 	display: 'flex',

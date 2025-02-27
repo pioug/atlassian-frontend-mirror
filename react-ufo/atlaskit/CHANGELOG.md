@@ -1,5 +1,16 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.1.2
+
+### Patch Changes
+
+- [#119178](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119178)
+  [`f0b97fc480d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0b97fc480d38) -
+  dedupe DOM element selectors within VC debug data
+- [#119697](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119697)
+  [`62268803ec9e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62268803ec9e6) -
+  refactor logic to get react ufo version
+
 ## 3.1.1
 
 ### Patch Changes

@@ -21,6 +21,7 @@ import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -249,7 +250,6 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	useLayoutEffect(() => {
 		const focusOut = (event: FocusEvent) => {
 			const { relatedTarget } = event;
-
 			// Given the user is changing the focus
 			// When the target is inside the TypeAhead Popup
 			// Then the popup should stay open
@@ -262,9 +262,37 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 				return;
 			}
 
-			if (!(window.getSelection()?.type === 'Range')) {
-				return;
+			// Handles cases like emoji (:) and mention (@) typeaheads that open new typeaheads
+			const isTextSelected = window.getSelection()?.type === 'Range';
+
+			if (fg('platform_editor_legacy_content_macro_typeahead_fix')) {
+				// Check if new focus point is inside the current editor. If it is not we
+				// want to close the typeahead popup regardless of text selection state
+				const focusNode = window.getSelection()?.focusNode;
+
+				if (focusNode instanceof HTMLElement) {
+					const innerEditor = focusNode.closest('.extension-editable-area');
+					// When there is no related target, we default to not closing the popup
+					let newFocusInsideCurrentEditor = !relatedTarget;
+					if (relatedTarget instanceof HTMLElement) {
+						if (innerEditor) {
+							// check if the new focus is inside inner editor, keep popup opens
+							newFocusInsideCurrentEditor = innerEditor.contains(relatedTarget);
+						} else {
+							// if the new focus contains current focus node, the popup won't close
+							newFocusInsideCurrentEditor = relatedTarget.contains(focusNode);
+						}
+					}
+					if (!isTextSelected && newFocusInsideCurrentEditor) {
+						return;
+					}
+				}
+			} else {
+				if (!isTextSelected) {
+					return;
+				}
 			}
+
 			cancel({
 				addPrefixTrigger: true,
 				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,

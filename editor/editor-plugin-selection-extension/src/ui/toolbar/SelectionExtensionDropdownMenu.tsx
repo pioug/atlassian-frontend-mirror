@@ -8,7 +8,7 @@ import {
 	type MenuItem,
 } from '@atlaskit/editor-common/ui-menu';
 
-import { type MenuItemsType } from '../../selectionExtensionPluginType';
+import { type MenuItemsType } from '../../types';
 
 import { SelectionExtensionDropdownMenuButton } from './SelectionExtensionDropdownMenuButton';
 
@@ -30,8 +30,7 @@ const SelectionExtensionDropdownMenuComponent = React.memo(
 				data-testid="selection-extension-dropdown-menu"
 			>
 				<SelectionExtensionDropdownMenuButton
-					data-testid="selection-extension-dropdown-button"
-					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					onClick={() => setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen)}
 				/>
 			</DropdownMenu>
 		);

@@ -4,26 +4,24 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { jsx } from '@atlaskit/css';
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	expandIconContainerStyle,
-	separatorStyles,
-	triggerWrapperStylesWithPadding,
-} from '@atlaskit/editor-common/styles';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
+import {
+	ToolbarDropdownTriggerWrapper,
+	ToolbarDropdownWrapper,
+	ToolbarExpandIcon,
+	ToolbarSeparator,
+} from '@atlaskit/editor-common/ui';
 import {
 	ArrowKeyNavigationType,
 	DropdownContainer as Dropdown,
 	ToolbarButton,
 } from '@atlaskit/editor-common/ui-menu';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
@@ -35,7 +33,6 @@ import {
 import Alignment from '../Alignment';
 
 import { IconMap } from './icon-map';
-import { triggerWrapper, wrapper } from './styles';
 
 export interface State {
 	isOpen: boolean;
@@ -90,8 +87,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 				: 'none';
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<span css={wrapper}>
+			<ToolbarDropdownWrapper>
 				<Dropdown
 					mountTo={popupsMountPoint}
 					boundariesElement={popupsBoundariesElement}
@@ -115,7 +111,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 							disabled={disabled}
 							selected={isOpen}
 							title={title}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 							className="align-btn"
 							aria-label={title}
 							aria-expanded={isOpen}
@@ -123,30 +119,10 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 							onClick={this.toggleOpen}
 							onKeyDown={this.toggleOpenByKeyboard}
 							iconBefore={
-								<div
-									css={
-										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-										fg('platform-visual-refresh-icons')
-											? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-												triggerWrapperStylesWithPadding
-											: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-												triggerWrapper
-									}
-								>
+								<ToolbarDropdownTriggerWrapper>
 									<IconMap alignment={alignment} />
-									{
-										<span
-											css={[
-												// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-												fg('platform-visual-refresh-icons') &&
-													//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-													expandIconContainerStyle,
-											]}
-										>
-											<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
-										</span>
-									}
-								</div>
+									<ToolbarExpandIcon />
+								</ToolbarDropdownTriggerWrapper>
 							}
 							ref={this.toolbarItemRef}
 						/>
@@ -157,12 +133,8 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 						selectedAlignment={alignment}
 					/>
 				</Dropdown>
-				{!api?.primaryToolbar && (
-					/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					<span css={separatorStyles} />
-				)}
-			</span>
+				{!api?.primaryToolbar && <ToolbarSeparator />}
+			</ToolbarDropdownWrapper>
 		);
 	}
 

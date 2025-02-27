@@ -12,7 +12,7 @@ const SelectionExtensionDropdownMenuButtonComponent = ({
 	onClick,
 }: SelectionExtensionDropdownMenuButtonProps) => {
 	return (
-		<ToolbarButton onClick={onClick}>
+		<ToolbarButton testId="selection-extension-dropdown-button" onClick={onClick}>
 			<AppsIcon label="selection extension dropdown" />
 		</ToolbarButton>
 	);

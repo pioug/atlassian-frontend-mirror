@@ -5,6 +5,10 @@ import { token } from '@atlaskit/tokens';
 
 import { akEditorMobileMaxWidth, relativeFontSizeToBase16 } from '../consts';
 
+/**
+ * @private
+ * @deprecated use `import { Shortcut } from '@atlaskit/editor-common/ui';` instead
+ */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const shortcutStyle = css`
 	background-color: ${token('color.background.neutral')};

@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 23.2.0
+
+### Minor Changes
+
+- [#117986](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117986)
+  [`65187910ea922`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65187910ea922) -
+  [ux] Migrate legacy icons [ENGHEALTH-23682]
+
 ## 23.1.1
 
 ### Patch Changes

@@ -89,9 +89,6 @@
 			"path": "../icon/tsconfig.app.json"
 		},
 		{
-			"path": "../image/tsconfig.app.json"
-		},
-		{
 			"path": "../inline-dialog/tsconfig.app.json"
 		},
 		{

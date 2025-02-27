@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 10.1.2
+
+### Patch Changes
+
+- [#119754](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119754)
+  [`dd36ff28f174a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd36ff28f174a) -
+  [ux] ED-26740 Bugfix to prevent a table with numbered column and a nested table with numbered
+  column from highlighting the nested table's rows when a parent table's row is selected
+- Updated dependencies
+
 ## 10.1.1
 
 ### Patch Changes

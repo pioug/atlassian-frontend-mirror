@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 2.2.0
+
+### Minor Changes
+
+- [#117956](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117956)
+  [`cd2e59e78197e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd2e59e78197e) -
+  Tint transactions as dirty to prevent the change from being recognised as organic change
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

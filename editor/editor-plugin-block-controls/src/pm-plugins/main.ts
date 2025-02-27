@@ -44,6 +44,10 @@ import {
 	findHandleDec,
 } from './decorations-drag-handle';
 import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-target';
+import {
+	findQuickInsertInsertButtonDecoration,
+	quickInsertButtonDecoration,
+} from './decorations-quick-insert-button';
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
@@ -211,7 +215,8 @@ export const newApply = (
 		editorWidthLeft,
 		editorWidthRight,
 		isDragging,
-		isMenuOpen, // NOT USED
+		isMenuOpen,
+		menuTriggerBy,
 		isPMDragging,
 		isShiftDown,
 	} = currentState;
@@ -229,6 +234,9 @@ export const newApply = (
 				pos: mappedPos.pos,
 				anchorName: activeNode.anchorName,
 				nodeType: activeNode.nodeType,
+				rootPos: activeNode.rootPos,
+				rootAnchorName: activeNode.rootAnchorName,
+				rootNodeType: activeNode.rootNodeType,
 			};
 		}
 		if (multiSelectDnD && flags.isMultiSelectEnabled) {
@@ -320,9 +328,18 @@ export const newApply = (
 	if (shouldRemoveHandle) {
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 		decorations = decorations.remove(oldHandle);
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
+				decorations,
+				activeNode?.rootPos,
+				activeNode?.rootPos,
+			);
+			decorations = decorations.remove(oldQuickInsertButton);
+		}
 	} else if (api && shouldRecreateHandle) {
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 		decorations = decorations.remove(oldHandle);
+
 		const handleDec = dragHandleDecoration(
 			api,
 			formatMessage,
@@ -332,7 +349,28 @@ export const newApply = (
 			nodeViewPortalProviderAPI,
 			latestActiveNode?.handleOptions,
 		);
-		decorations = decorations.add(newState.doc, [handleDec]);
+
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
+				decorations,
+				activeNode?.rootPos,
+				activeNode?.rootPos,
+			);
+			decorations = decorations.remove(oldQuickInsertButton);
+			const quickInsertButton = quickInsertButtonDecoration(
+				api,
+				formatMessage,
+				latestActiveNode?.rootPos,
+				latestActiveNode?.anchorName,
+				latestActiveNode?.nodeType,
+				nodeViewPortalProviderAPI,
+				latestActiveNode?.rootAnchorName,
+				latestActiveNode?.rootNodeType,
+			);
+			decorations = decorations.add(newState.doc, [handleDec, quickInsertButton]);
+		} else {
+			decorations = decorations.add(newState.doc, [handleDec]);
+		}
 	}
 
 	// Drop targets may be missing when the node count is being changed during a drag
@@ -375,20 +413,29 @@ export const newApply = (
 			? null
 			: latestActiveNode;
 
-	const isMenuOpenNew = editorExperiment('platform_editor_controls', 'variant1')
-		? meta?.closeMenu
-			? false
-			: meta?.toggleMenu
-				? !isMenuOpen
-				: isMenuOpen
-		: meta?.toggleMenu
-			? !isMenuOpen
-			: isMenuOpen;
+	let isMenuOpenNew = isMenuOpen;
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		if (meta?.closeMenu) {
+			isMenuOpenNew = false;
+		} else if (meta?.toggleMenu) {
+			const isSameAnchor = meta?.toggleMenu.anchorName === menuTriggerBy;
+			isMenuOpenNew =
+				menuTriggerBy === undefined || isSameAnchor || (!isMenuOpen && !isSameAnchor)
+					? !isMenuOpen
+					: isMenuOpen;
+		}
+	} else if (meta?.toggleMenu) {
+		isMenuOpenNew = !isMenuOpen;
+	}
+
 	return {
 		decorations,
 		activeNode: newActiveNode,
 		isDragging: meta?.isDragging ?? isDragging,
 		isMenuOpen: isMenuOpenNew,
+		menuTriggerBy: editorExperiment('platform_editor_controls', 'variant1')
+			? meta?.toggleMenu?.anchorName || menuTriggerBy
+			: undefined,
 		editorHeight: meta?.editorHeight ?? editorHeight,
 		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
 		editorWidthRight: meta?.editorWidthRight ?? editorWidthRight,

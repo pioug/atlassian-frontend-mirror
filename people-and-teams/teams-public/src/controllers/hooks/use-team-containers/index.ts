@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { type Action, createHook, createStore } from 'react-sweet-state';
 
+import { type TeamContainer } from '../../../common/types';
 import { teamsClient } from '../../../services';
 import { type TeamContainers, type UnlinkContainerMutationError } from '../../../services/types';
 
@@ -51,6 +52,17 @@ const actions = {
 				setState({ unlinkError: err as Error });
 			}
 		},
+	addTeamContainer:
+		(teamContainer: TeamContainer): Action<State> =>
+		async ({ setState, getState }) => {
+			const { teamContainers } = getState();
+			const containerExists = teamContainers.some((container) => container.id === teamContainer.id);
+			if (containerExists) {
+				return;
+			}
+
+			setState({ teamContainers: [...teamContainers, teamContainer] });
+		},
 };
 
 const Store = createStore<State, Actions>({
@@ -68,5 +80,5 @@ export const useTeamContainers = (teamId: string) => {
 		actions.fetchTeamContainers(teamId);
 	}, [teamId, actions]);
 
-	return state;
+	return { ...state, addTeamContainer: actions.addTeamContainer };
 };

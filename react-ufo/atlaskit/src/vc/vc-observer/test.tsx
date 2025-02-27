@@ -301,6 +301,172 @@ describe('vc-observer', () => {
 		});
 	});
 
+	test('removes duplicate entries in VC result', () => {
+		vc.start({ startTime: 0 });
+		callbacks.forEach((fn: Callback) => {
+			// Single entries for div#a, div#b, div#c
+			fn(
+				5,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH,
+					height: VIEWPORT_HEIGHT,
+				}),
+				'div#a',
+				document.createElement('div'),
+				'html',
+			);
+			fn(
+				10,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH,
+					height: VIEWPORT_HEIGHT / 2,
+				}),
+				'div#b',
+				document.createElement('div'),
+				'html',
+			);
+			fn(
+				15,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH / 2,
+					height: VIEWPORT_HEIGHT / 2,
+				}),
+				'div#c',
+				document.createElement('div'),
+				'html',
+			);
+			// Duplicate entries for div#d
+			fn(
+				20,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH / 4,
+					height: VIEWPORT_HEIGHT / 4,
+				}),
+				'div#d',
+				document.createElement('div'),
+				'html',
+			);
+			fn(
+				20,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH / 4,
+					height: VIEWPORT_HEIGHT / 4,
+				}),
+				'div#d',
+				document.createElement('div'),
+				'html',
+			);
+			fn(
+				20,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH / 4,
+					height: VIEWPORT_HEIGHT / 4,
+				}),
+				'div#d',
+				document.createElement('div'),
+				'html',
+			);
+			fn(
+				20,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH / 4,
+					height: VIEWPORT_HEIGHT / 4,
+				}),
+				'div#d',
+				document.createElement('div'),
+				'html',
+			);
+		});
+		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		expect(result).toEqual({
+			'vc:state': true,
+			'vc:clean': true,
+			'metrics:vc': {
+				25: 5,
+				50: 5,
+				75: 10,
+				80: 15,
+				85: 15,
+				90: 15,
+				95: 20,
+				98: 20,
+				99: 20,
+			},
+			'vc:next:dom': {
+				25: ['div#a'],
+				50: ['div#a'],
+				75: ['div#b'],
+				80: ['div#c'],
+				85: ['div#c'],
+				90: ['div#c'],
+				95: ['div#d'],
+				98: ['div#d'],
+				99: ['div#d'],
+			},
+			'vc:dom': {
+				25: ['div#a'],
+				50: ['div#a'],
+				75: ['div#b'],
+				80: ['div#c'],
+				85: ['div#c'],
+				90: ['div#c'],
+				95: ['div#d'],
+				98: ['div#d'],
+				99: ['div#d'],
+			},
+			'vc:ratios': {
+				'div#a': 1,
+				'div#b': 0.5,
+				'div#c': 0.25,
+				'div#d': 0.0625,
+			},
+			'vc:size': {
+				w: VIEWPORT_WIDTH,
+				h: VIEWPORT_HEIGHT,
+			},
+			'vc:updates': [
+				{ time: 5, vc: 50, elements: ['div#a'] },
+				{ time: 10, vc: 75, elements: ['div#b'] },
+				{ time: 15, vc: 93.8, elements: ['div#c'] },
+				{ time: 20, vc: 100, elements: ['div#d'] },
+			],
+			'vc:time': expect.any(Number),
+			'vc:total': 10000,
+			'vc:next': {
+				25: 5,
+				50: 5,
+				75: 10,
+				80: 15,
+				85: 15,
+				90: 15,
+				95: 20,
+				98: 20,
+				99: 20,
+			},
+			'vc:next:updates': [
+				{ time: 5, vc: 50, elements: ['div#a'] },
+				{ time: 10, vc: 75, elements: ['div#b'] },
+				{ time: 15, vc: 93.8, elements: ['div#c'] },
+				{ time: 20, vc: 100, elements: ['div#d'] },
+			],
+			'vc:ignored': [],
+		});
+	});
+
 	test('ignores ignored fields properly', () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {

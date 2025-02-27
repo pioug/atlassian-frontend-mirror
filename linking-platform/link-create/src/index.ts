@@ -31,6 +31,6 @@ export {
 export type { Validator, ValidatorMap } from './common/types';
 
 export { FORM_ERROR } from 'final-form';
-export { PageIcon, UrlIcon } from './common/ui/icon';
+export { PageIcon, UrlIcon, LiveDocIcon } from './common/ui/icon';
 
 export { CreateField } from './controllers/create-field/index';

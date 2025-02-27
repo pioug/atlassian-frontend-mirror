@@ -1,10 +1,11 @@
-import React, { forwardRef, memo, type Ref, useMemo } from 'react';
+import React, { forwardRef, memo, useMemo, type Ref } from 'react';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { Box, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { ButtonItemProps } from './ButtonItemType';
+import { IconRenderer } from './IconRenderer';
 
 const WIDTH = '62px';
 
@@ -137,51 +138,58 @@ const LargeIconButtonWithRef = memo(
 	),
 );
 
-export const IconButtonItem = ({
-	index,
-	title,
-	keyshortcut,
-	isSelected,
-	isDisabled,
-	renderIcon,
-	onItemSelected,
-}: ButtonItemProps) => {
-	const iconComponent = useMemo(() => renderIcon?.(), [renderIcon]);
+export const IconButtonItem = memo(
+	({
+		index,
+		title,
+		keyshortcut,
+		isSelected,
+		isDisabled,
+		renderIcon,
+		onItemSelected,
+	}: ButtonItemProps) => {
+		const iconComponent = useMemo(() => {
+			if (!renderIcon) {
+				return null;
+			}
+			return <IconRenderer>{renderIcon()}</IconRenderer>;
+		}, [renderIcon]);
 
-	return (
-		<Tooltip
-			content={<ToolTipContent description={title} keymap={keyshortcut} />}
-			position="top"
-			ignoreTooltipPointerEvents={true}
-		>
-			{(tooltipProps) => (
-				<Stack alignInline="center" space="space.050">
-					<LargeIconButtonWithRef
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...tooltipProps}
-						icon={iconComponent}
-						isSelected={isSelected}
-						isDisabled={isDisabled}
-						onClick={() => onItemSelected?.(index)}
-					/>
-					<Box xcss={textStyles}>
-						<Text
-							align="center"
-							maxLines={1}
-							color={
-								isDisabled
-									? 'color.text.disabled'
-									: isSelected
-										? 'color.text.selected'
-										: 'color.text.subtle'
-							}
-							size="small"
-						>
-							{title}
-						</Text>
-					</Box>
-				</Stack>
-			)}
-		</Tooltip>
-	);
-};
+		return (
+			<Tooltip
+				content={<ToolTipContent description={title} keymap={keyshortcut} />}
+				position="top"
+				ignoreTooltipPointerEvents={true}
+			>
+				{(tooltipProps) => (
+					<Stack alignInline="center" space="space.050">
+						<LargeIconButtonWithRef
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...tooltipProps}
+							icon={iconComponent}
+							isSelected={isSelected}
+							isDisabled={isDisabled}
+							onClick={() => onItemSelected?.(index)}
+						/>
+						<Box xcss={textStyles}>
+							<Text
+								align="center"
+								maxLines={1}
+								color={
+									isDisabled
+										? 'color.text.disabled'
+										: isSelected
+											? 'color.text.selected'
+											: 'color.text.subtle'
+								}
+								size="small"
+							>
+								{title}
+							</Text>
+						</Box>
+					</Stack>
+				)}
+			</Tooltip>
+		);
+	},
+);

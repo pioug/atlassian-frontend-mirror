@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "3.0.2",
+	"version": "4.0.0",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts"
@@ -35,9 +37,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/calendar": "^17.0.0",
+		"@atlaskit/calendar": "^17.1.0",
+		"@atlaskit/css": "^0.10.0",
 		"@atlaskit/date": "^2.0.0",
-		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-common": "^100.2.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-annotation": "2.0.2",
 		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
@@ -52,7 +55,6 @@
 		"@atlaskit/theme": "^17.0.0",
 		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
 		"date-fns": "^2.17.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-loadable": "^5.1.0"
@@ -66,7 +68,7 @@
 		"@atlaskit/editor-plugin-quick-insert": "^2.0.0",
 		"@atlaskit/editor-plugin-selection": "^2.0.0",
 		"@atlaskit/editor-plugin-table": "^10.1.0",
-		"@atlaskit/editor-plugin-tasks-and-decisions": "^3.0.0",
+		"@atlaskit/editor-plugin-tasks-and-decisions": "^4.0.0",
 		"@atlaskit/editor-plugin-type-ahead": "^2.0.0",
 		"@atlaskit/editor-plugin-width": "^3.0.0",
 		"@testing-library/react": "^13.4.0"
@@ -103,8 +105,7 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"styling": [
-				"emotion",
-				"emotion"
+				"compiled"
 			],
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"

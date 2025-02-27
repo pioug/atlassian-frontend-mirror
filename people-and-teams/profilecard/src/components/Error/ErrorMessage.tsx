@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import { IconTile } from '@atlaskit/icon';
+import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 
 import { ErrorTitle, ErrorWrapper } from '../../styled/Error';
@@ -50,9 +53,12 @@ const ErrorMessage = (props: Props) => {
 
 	return (
 		<ErrorWrapper testId="profilecard-error">
-			{/* TODO: https://product-fabric.atlassian.net/browse/DSP-19538 */}
-			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
-			<IconError label="icon error" size="xlarge" />
+			{fg('ptc-migrate-legacy-icons-profilecard') ? (
+				<IconTile icon={CrossCircleIcon} label="icon error" size="48" appearance={'gray'} />
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+				<IconError label="icon error" size="xlarge" />
+			)}
 			{errorContent()}
 			{reload && (
 				<Button appearance="link" onClick={reload}>

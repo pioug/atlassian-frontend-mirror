@@ -133,6 +133,9 @@
 			"path": "../editor-plugin-paste/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-selection-extension/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-selection-marker/tsconfig.app.json"
 		},
 		{
@@ -203,6 +206,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

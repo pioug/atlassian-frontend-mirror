@@ -4,8 +4,7 @@
  */
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { ExitingPersistence } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -289,7 +288,8 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 						testId={testId && `${testId}-anim`}
 					>
 						{(motion) => (
-							<div css={nestingRootStyles} {...motion}>
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+							<div css={nestingRootStyles} {...motion} className={motion.className}>
 								<NestedContext.Provider
 									// This provider is inside the NestingMotion to ensure it keeps a stale
 									// reference to the previous value.

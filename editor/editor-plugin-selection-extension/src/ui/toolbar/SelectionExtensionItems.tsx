@@ -14,11 +14,8 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type {
-	SelectionExtensionPlugin,
-	SelectionExtensionContract,
-	MenuItemsType,
-} from '../../selectionExtensionPluginType';
+import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
+import type { SelectionExtensionContract, MenuItemsType } from '../../types';
 
 import { SelectionExtensionDropdownMenu } from './SelectionExtensionDropdownMenu';
 
@@ -37,6 +34,7 @@ const transformExtensionsToItems = (
 ): MenuItemsType => {
 	const extensionToItems = extensions.map((extension) => {
 		return {
+			key: extension.id,
 			content: extension.name,
 			value: {
 				name: extension.id,

@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 2.1.0
+
+### Minor Changes
+
+- [#117654](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117654)
+  [`7ff489bc159fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ff489bc159fc) -
+  [ux] Update requests to expect subtype field, show live doc icon for live docs in link create
+  modal
+
 ## 2.0.0
 
 ### Major Changes

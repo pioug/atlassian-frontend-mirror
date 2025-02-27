@@ -1,5 +1,13 @@
 # @atlaskit/popper
 
+## 7.0.1
+
+### Patch Changes
+
+- [#117686](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117686)
+  [`6b9372e48276d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b9372e48276d) -
+  Remove old codemod and update dependencies.
+
 ## 7.0.0
 
 ### Major Changes

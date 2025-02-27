@@ -8,12 +8,15 @@ import React, {
 	useLayoutEffect,
 	useRef,
 	useState,
+	useEffect,
 } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
+import { type XCSS } from '@atlaskit/primitives';
+
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import {
 	Manager,
@@ -140,6 +143,10 @@ export interface ReactionPickerProps
 	 * Optional prop for controlling if the picker hover border will be rounded
 	 */
 	showRoundTrigger?: boolean;
+	/**
+	 * Option prop for controlling the reaction picker selection style
+	 */
+	reactionPickerAdditionalStyle?: XCSS;
 }
 
 /**
@@ -163,6 +170,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		subtleReactionsSummaryAndPicker = false,
 		showAddReactionText = false,
 		showRoundTrigger = false,
+		reactionPickerAdditionalStyle = undefined,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -171,6 +179,8 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	 * Container <div /> reference (used by custom hook to detect click outside)
 	 */
 	const wrapperRef = useRef<HTMLDivElement>(null);
+
+	const [selectionStyle, setSelectionStyle] = useState<XCSS | undefined>(undefined);
 
 	const updatePopper = useRef<PopperChildrenProps['update']>();
 
@@ -284,6 +294,17 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		PickerRender.success();
 	};
 
+	useEffect(() => {
+		if (settings.isOpen) {
+			setSelectionStyle(reactionPickerAdditionalStyle);
+		}
+
+		return () => {
+			setSelectionStyle(undefined);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [settings.isOpen]);
+
 	const wrapperClassName = ` ${settings.isOpen ? 'isOpen' : ''} ${
 		miniMode ? 'miniMode' : ''
 	} ${className}`;
@@ -320,6 +341,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 									setTriggerRef(node);
 								}
 							}}
+							selectionStyle={selectionStyle}
 							onClick={onTriggerClick}
 							miniMode={miniMode}
 							disabled={disabled}

@@ -1,29 +1,36 @@
 import React from 'react';
 
 import type { QuickInsertItemId } from '@atlaskit/editor-common/provider-factory';
+import DividerElementIcon from '@atlaskit/icon-lab/core/divider-element';
+import ExpandElementIcon from '@atlaskit/icon-lab/core/expand-element';
+// Status
+import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 // Codeblock
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
+import CalendarIcon from '@atlaskit/icon/core/calendar';
 // Decision
 import DecisionIcon from '@atlaskit/icon/core/decision';
 // Emoji
 import EmojiIcon from '@atlaskit/icon/core/emoji';
+// Table
+import GridIcon from '@atlaskit/icon/core/grid';
 // Media, Media-insert
 import ImageIcon from '@atlaskit/icon/core/image';
+// Temporaty Panel icon
+import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
+// Layout 2-cols
+// import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 // Layout 3-cols
 import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';
-// Layout 2-cols
-import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 // Link
 import LinkIcon from '@atlaskit/icon/core/link';
 // Mention
 import MentionIcon from '@atlaskit/icon/core/mention';
 // Placehoder icon for native elements:
 // Date, Divider (rule), Expand, Layout (1, 4, 5 cols), Panel (all), Status
-import MinusIcon from '@atlaskit/icon/core/minus';
+// import MinusIcon from '@atlaskit/icon/core/minus';
 // Blockquote
 import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
-// Table
-import SpreadsheetIcon from '@atlaskit/icon/core/spreadsheet';
 // Action
 import TaskIcon from '@atlaskit/icon/core/task';
 // Loom
@@ -44,8 +51,7 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <TaskIcon label="" />,
-					category: 'structure',
-					subcategory: 'text structure',
+					categories: ['text structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -53,8 +59,7 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <ImageIcon label="" />,
-					category: 'media',
-					subCategory: undefined,
+					categories: ['media'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -62,8 +67,7 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <MentionIcon label="" />,
-					category: 'collaborate',
-					subCategory: undefined,
+					categories: ['collaborate'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -71,26 +75,23 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <EmojiIcon label="" />,
-					category: 'collaborate',
-					subCategory: undefined,
+					categories: ['media'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
 			case 'expand':
 				return {
 					...item,
-					icon: () => <MinusIcon label="" />,
-					category: 'structure',
-					subCategory: 'page structure',
+					icon: () => <ExpandElementIcon label="" />,
+					categories: ['page structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
 			case 'table':
 				return {
 					...item,
-					icon: () => <SpreadsheetIcon label="" />,
-					category: 'structure',
-					subCategory: 'page structure',
+					icon: () => <GridIcon label="" />,
+					categories: ['page structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -98,40 +99,31 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <AngleBracketsIcon label="" />,
-					category: 'structure',
-					subCategory: 'text structure',
+					categories: ['text structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
 			case 'status':
 				return {
 					...item,
-					icon: () => <MinusIcon label="" />,
-					category: 'structure',
-					subCategory: 'text structure',
+					icon: () => <LozengeIcon label="" />,
+					categories: ['text structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
 			case 'infopanel':
-			case 'notepanel':
-			case 'successpanel':
-			case 'warningpanel':
-			case 'errorpanel':
-			case 'custompanel':
 				return {
 					...item,
-					icon: () => <MinusIcon label="" />,
-					category: 'structure',
-					subCategory: 'page structure',
+					icon: () => <InformationCircleIcon label="" />,
+					categories: ['page structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
 			case 'date':
 				return {
 					...item,
-					icon: () => <MinusIcon label="" />,
-					category: 'data',
-					subCategory: undefined,
+					icon: () => <CalendarIcon label="" />,
+					categories: ['date'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -139,8 +131,7 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <VideoIcon label="" />,
-					category: 'media',
-					subCategory: undefined,
+					categories: ['media'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -148,31 +139,7 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <DecisionIcon label="" />,
-					category: 'structure',
-					subCategory: 'text structure',
-					shouldDisplayAtTop: true,
-					tempKey,
-				};
-			case 'unorderedList':
-			case 'orderedList':
-			case 'heading1':
-			case 'heading2':
-			case 'heading3':
-			case 'heading4':
-			case 'heading5':
-			case 'heading6':
-			case 'helpdialog':
-				return {
-					...item,
-					shouldDisplay: false,
-					tempKey,
-				};
-			case 'twocolumnslayout':
-				return {
-					...item,
-					icon: () => <LayoutTwoColumnsIcon label="" />,
-					category: 'structure',
-					subCategory: 'page structure',
+					categories: ['text structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -180,18 +147,7 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <LayoutThreeColumnsIcon label="" />,
-					category: 'structure',
-					subCategory: 'page structure',
-					shouldDisplayAtTop: true,
-					tempKey,
-				};
-			case 'fourcolumnslayout':
-			case 'fivecolumnslayout':
-				return {
-					...item,
-					icon: () => <MinusIcon label="" />,
-					category: 'structure',
-					subCategory: 'page structure',
+					categories: ['page structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -199,17 +155,15 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <LinkIcon label="" />,
-					category: 'media',
-					subCategory: undefined,
+					categories: ['media'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
 			case 'rule':
 				return {
 					...item,
-					icon: () => <MinusIcon label="" />,
-					category: 'structure',
-					subCategory: 'page structure',
+					icon: () => <DividerElementIcon label="" />,
+					categories: ['page structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -217,8 +171,7 @@ const getItemData = (
 				return {
 					...item,
 					icon: () => <QuotationMarkIcon label="" />,
-					category: 'structure',
-					subCategory: 'text structure',
+					categories: ['text structure'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -228,16 +181,14 @@ const getItemData = (
 			case 'Assets':
 				return {
 					...item,
-					category: 'data',
-					subCategory: undefined,
+					categories: ['data'],
 					tempKey,
 				};
 			case 'Jira Issues':
 			case 'Jira Road Map':
 				return {
 					...item,
-					category: 'data',
-					subCategory: 'jira',
+					categories: ['jira'],
 					tempKey,
 				};
 			case 'Labels List':
@@ -246,13 +197,11 @@ const getItemData = (
 			case 'Popular Labels':
 				return {
 					...item,
-					category: 'data',
-					subCategory: 'labels',
+					categories: ['labels'],
 					tempKey,
 				};
 			case 'Version Report':
 			case 'Time to First Response':
-			case 'Content Report Table':
 			case 'Decision report':
 			case 'Two Dimensional Filter Statistics':
 			case 'Task report':
@@ -260,8 +209,7 @@ const getItemData = (
 			case 'Page Properties Report':
 				return {
 					...item,
-					category: 'data',
-					subCategory: 'reports',
+					categories: ['reports'],
 					tempKey,
 				};
 			case 'Opsgenie Incident Timeline EU':
@@ -272,37 +220,36 @@ const getItemData = (
 			case 'Resolution Time':
 				return {
 					...item,
-					category: 'data',
-					subCategory: 'timelines',
+					categories: ['timelines'],
 					tempKey,
 				};
 			case 'Create database':
+			case 'Filter by label (Content by label)':
+			case 'Chart':
+			case 'Create Jira issue':
+			case 'Content Report Table':
 				return {
 					...item,
-					category: 'data',
-					subCategory: undefined,
+					categories: ['data'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
 			case 'Heat Map':
 			case 'Pie Chart':
 			case 'Time Since Chart':
-			case 'Chart':
 			case 'Recently Created Chart':
 			case 'Created vs. Resolved Chart':
 			case 'Average Age Chart':
 				return {
 					...item,
-					category: 'data',
-					subCategory: 'charts',
+					categories: ['charts'],
 					tempKey,
 				};
 			case 'Agile Wallboard Gadget':
 			case 'Sprint Burndown Gadget':
 				return {
 					...item,
-					category: 'data',
-					subCategory: 'gadgets',
+					categories: ['gadgets'],
 					tempKey,
 				};
 
@@ -311,15 +258,13 @@ const getItemData = (
 			case 'Page Index':
 				return {
 					...item,
-					category: 'structure',
-					subCategory: 'navigation',
+					categories: ['navigation'],
 					tempKey,
 				};
 			case 'Table of contents':
 				return {
 					...item,
-					category: 'structure',
-					subCategory: 'page structure',
+					categories: ['page structure'],
 					tempKey,
 				};
 			case 'Insert Confluence list':
@@ -328,8 +273,7 @@ const getItemData = (
 			case 'Page Tree':
 				return {
 					...item,
-					category: 'structure',
-					subCategory: 'search',
+					categories: ['search'],
 					tempKey,
 				};
 			case 'Excerpt':
@@ -337,8 +281,7 @@ const getItemData = (
 			case 'Create from Template':
 				return {
 					...item,
-					category: 'structure',
-					subCategory: 'connect pages',
+					categories: ['connect pages'],
 					tempKey,
 				};
 			case 'Powerpoint':
@@ -352,15 +295,13 @@ const getItemData = (
 			case 'Widget Connector':
 				return {
 					...item,
-					category: 'media',
-					subCategory: undefined,
+					categories: ['media'],
 					tempKey,
 				};
 			case 'Create whiteboard':
 				return {
 					...item,
-					category: 'media',
-					subCategory: undefined,
+					categories: ['media'],
 					shouldDisplayAtTop: true,
 					tempKey,
 				};
@@ -368,25 +309,22 @@ const getItemData = (
 			case 'Contributors Summary':
 			case 'User List':
 			case 'Voted Issues':
+			case 'User Profile':
 			case 'Spaces List':
 				return {
 					...item,
-					category: 'collaborate',
-					subCategory: undefined,
+					categories: ['collaborate'],
 					tempKey,
 				};
 			case 'Gliffy Diagram':
 				return {
 					...item,
-					category: 'apps',
-					subCategory: undefined,
+					categories: ['apps'],
 					tempKey,
 				};
 			default:
 				return {
 					...item,
-					category: 'apps',
-					subCategory: undefined,
 					tempKey,
 				};
 		}
@@ -394,8 +332,9 @@ const getItemData = (
 
 	return {
 		...item,
-		category: 'apps',
-		subCategory: undefined,
+		categories: ['apps'],
+		// category: 'apps',
+		// subCategory: undefined,
 		tempKey,
 	};
 };

@@ -45,6 +45,9 @@
 			"path": "../../../monorepo-tooling/codemod-utils/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../custom-steps/afm-jira/tsconfig.json"
 		},
 		{

@@ -13,9 +13,12 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
+import GrowHorizontalIcon from '@atlaskit/icon/core/migration/grow-horizontal--editor-expand';
+import ShrinkHorizontalIcon from '@atlaskit/icon/core/migration/shrink-horizontal--editor-collapse';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -58,6 +61,17 @@ export const LayoutButton = ({
 		return null;
 	}
 
+	const collapseIcon = fg('platform-editor-plugin-card-icon-migration') ? (
+		<ShrinkHorizontalIcon label={title} />
+	) : (
+		<CollapseIcon label={title} />
+	);
+	const expandIcon = fg('platform-editor-plugin-card-icon-migration') ? (
+		<GrowHorizontalIcon label={title} />
+	) : (
+		<ExpandIcon label={title} />
+	);
+
 	return (
 		<Popup
 			mountTo={mountPoint}
@@ -75,9 +89,7 @@ export const LayoutButton = ({
 				css={toolbarButtonWrapperStyles}
 				title={title}
 				onClick={handleClick}
-				iconBefore={
-					layout === 'full-width' ? <CollapseIcon label={title} /> : <ExpandIcon label={title} />
-				}
+				iconBefore={layout === 'full-width' ? collapseIcon : expandIcon}
 			/>
 		</Popup>
 	);

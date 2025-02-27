@@ -1,5 +1,13 @@
 # @atlaskit/page-header
 
+## 12.0.1
+
+### Patch Changes
+
+- [#114792](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/114792)
+  [`738f5ba8a7a13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/738f5ba8a7a13) -
+  Update dependencies.
+
 ## 12.0.0
 
 ### Major Changes

@@ -13,6 +13,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { B400 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
@@ -93,6 +94,12 @@ export const factoryDecorations = ({
 
 				typeaheadComponent.style.color = token('color.text.accent.blue', B400);
 				typeaheadComponent.style.backgroundColor = 'transparent';
+
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
+					// As part of controls work, we add placeholder `Search` to quick insert command
+					// This style is to prevent `/Search` being wrapped if it's triggered at the end of the line
+					typeaheadComponent.style.whiteSpace = 'nowrap';
+				}
 
 				const onUndoRedo = (inputType: 'historyUndo' | 'historyRedo'): boolean => {
 					if (!['historyUndo', 'historyRedo'].includes(inputType)) {

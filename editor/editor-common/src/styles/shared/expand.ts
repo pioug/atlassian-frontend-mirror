@@ -8,6 +8,10 @@ export const expandIconWrapperStyle = css({
 	marginLeft: token('space.negative.100', '-8px'),
 });
 
+/**
+ * @private
+ * @deprecated use `import { ToolbarExpandIcon } from '@atlaskit/editor-common/ui';` instead
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const expandIconContainerStyle = css({
 	display: 'flex',

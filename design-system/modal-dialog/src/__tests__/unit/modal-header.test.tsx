@@ -71,10 +71,8 @@ describe('<ModalHeader />', () => {
 	});
 
 	it('should throw an error if modal context not available', () => {
-		/* eslint-disable no-console */
 		const err = console.error;
 		console.error = jest.fn();
-		/* eslint-enable no-console */
 
 		try {
 			render(<ModalHeader>Lone header</ModalHeader>);
@@ -85,7 +83,6 @@ describe('<ModalHeader />', () => {
 		}
 
 		// Restore writing to stderr.
-		/* eslint-disable-next-line no-console */
 		console.error = err;
 	});
 });

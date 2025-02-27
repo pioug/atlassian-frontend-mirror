@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type FC, useEffect, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { type FC, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';

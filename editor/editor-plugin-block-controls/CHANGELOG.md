@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.1.3
+
+### Patch Changes
+
+- [#118581](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118581)
+  [`8e3b48ccfe22f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e3b48ccfe22f) -
+  Persist block menu while mouse moving
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- [#117869](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117869)
+  [`1668bcd621203`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1668bcd621203) -
+  COMPHUB-2622 Added data attributes for editor elements
+
 ## 3.1.1
 
 ### Patch Changes

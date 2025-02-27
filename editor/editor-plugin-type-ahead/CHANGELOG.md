@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.0.1
+
+### Patch Changes
+
+- [#118492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118492)
+  [`cf0944583828b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf0944583828b) -
+  [ED-26542] Fix typeahead popup doesn't close when clicking outside
+- [#119058](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119058)
+  [`4f8ad7d7497be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f8ad7d7497be) -
+  [ux] [ED-26575] Add placeholder to quick insert input field
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

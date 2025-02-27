@@ -42,6 +42,9 @@
 			"path": "../../../media/icon-file-type/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon-object/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../helpers/intl-messages-provider/afm-jira/tsconfig.json"
 		},
 		{

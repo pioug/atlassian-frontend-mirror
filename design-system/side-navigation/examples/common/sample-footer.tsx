@@ -4,16 +4,28 @@
  */
 import { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import Icon from '@atlaskit/icon';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
-import { Anchor, xcss } from '@atlaskit/primitives';
+import { Anchor } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { Footer } from '../../src';
 
 import SampleIcon from './next-gen-project-icon';
+
+const styles = cssMap({
+	descriptionLink: {
+		fontWeight: token('font.weight.medium'),
+		color: token('color.text.subtle'),
+		textDecoration: 'none',
+
+		'&:hover': {
+			color: token('color.text.subtle'),
+		},
+	},
+});
 
 export const CustomItemFooter = ({ children, ...props }: CustomItemComponentProps) => {
 	const Component = props.onClick ? 'a' : 'div';
@@ -27,16 +39,6 @@ export const CustomItemFooter = ({ children, ...props }: CustomItemComponentProp
 	);
 };
 
-const descriptionLinkStyles = xcss({
-	fontWeight: 'font.weight.medium',
-	color: 'color.text.subtle',
-	textDecoration: 'none',
-
-	':hover': {
-		color: 'color.text.subtle',
-	},
-});
-
 // This example footer conforms to a design taken from Jira designs found at
 // https://www.figma.com/file/GA22za6unqO2WsBWM0Ddxk/Jira-navigation-3?node-id=124%3A7194
 const ExampleFooter = () => (
@@ -45,11 +47,11 @@ const ExampleFooter = () => (
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 		description={
 			<Fragment>
-				<Anchor href="/feedback" xcss={descriptionLinkStyles}>
+				<Anchor href="/feedback" xcss={styles.descriptionLink}>
 					Give feedback
 				</Anchor>
 				{' ∙ '}
-				<Anchor href="/learn" xcss={descriptionLinkStyles}>
+				<Anchor href="/learn" xcss={styles.descriptionLink}>
 					Learn more
 				</Anchor>
 			</Fragment>

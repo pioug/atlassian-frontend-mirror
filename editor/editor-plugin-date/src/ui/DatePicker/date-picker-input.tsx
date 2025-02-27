@@ -5,11 +5,10 @@
 import React from 'react';
 import type { FormEvent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { css, jsx } from '@atlaskit/css';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -29,9 +28,16 @@ import { adjustDate, findDateSegmentByPosition, isDatePossiblyValid } from './ut
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const dateTextFieldWrapper = css({
+	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	padding: '22px',
+	paddingTop: '22px',
 	paddingBottom: token('space.150', '12px'),
+	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingLeft: '22px',
+	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingRight: '22px',
 });
 
 export interface InputProps {

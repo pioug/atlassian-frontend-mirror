@@ -42,7 +42,6 @@ const CustomHeader = () => {
 	const { onClose } = useModal();
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<Box>
 			<ModalTitleWithClose onClose={onClose}>
 				<Box xcss={headerStyles}></Box>
@@ -52,7 +51,6 @@ const CustomHeader = () => {
 };
 
 const bodyStyles: React.CSSProperties = {
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	padding: 90,
 	backgroundColor: token('elevation.surface.overlay'),
 	overflowY: 'auto',

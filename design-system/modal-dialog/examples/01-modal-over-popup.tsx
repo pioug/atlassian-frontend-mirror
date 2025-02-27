@@ -16,7 +16,6 @@ import { Box, xcss } from '@atlaskit/primitives';
 import ModalTitleWithClose from './common/modal-title';
 
 const spacerStyles = xcss({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	margin: 'space.100',
 });
 

@@ -16,6 +16,11 @@ export const typeAheadListMessages = defineMessages({
 		defaultMessage: 'Begin typing to search or filter shortcut options',
 		description: 'assisitve text for typeahed input field',
 	},
+	quickInsertInputPlaceholderLabel: {
+		id: 'fabric.editor.typeAhead.quickInsertInputPlaceholderLabel',
+		defaultMessage: 'Search',
+		description: 'placeholder for typeahed input field',
+	},
 	emojiPopupLabel: {
 		id: 'fabric.editor.typeahead.emojiPopupLabel',
 		defaultMessage: 'Emoji shortcuts',

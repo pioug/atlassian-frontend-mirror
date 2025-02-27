@@ -28,7 +28,7 @@ export const getPayloadAttributes = ({
 	},
 	effectiveness: {
 		undoCount: pluginState.actionTypeCount.undoCount,
-		repeatedActionCount: 0,
+		repeatedActionCount: pluginState.repeatedActionCount,
 		safeInsertCount: 0,
 	},
 	contentSizeChanged,
@@ -70,7 +70,7 @@ export const getAnalyticsPayload = ({
 			},
 			effectiveness: {
 				undoCount: pluginState.actionTypeCount.undoCount,
-				repeatedActionCount: 0,
+				repeatedActionCount: pluginState.repeatedActionCount,
 				safeInsertCount: 0,
 			},
 			contentSizeChanged: pluginState.contentSizeChanged,

@@ -782,7 +782,7 @@ const paddingInlineEndMap = cssMap({
  * - [Code](https://atlassian.design/components/primitives/box/code)
  * - [Usage](https://atlassian.design/components/primitives/box/usage)
  */
-export const Box = forwardRef(
+const Box = forwardRef(
 	<T extends CustomElementType>(
 		{
 			as: Component = 'div' as T,

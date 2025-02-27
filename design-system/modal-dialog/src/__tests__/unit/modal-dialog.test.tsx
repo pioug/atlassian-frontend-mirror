@@ -8,7 +8,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives';
 
-import { width } from '../../internal/constants';
+import { width } from '../../internal/utils';
 import ModalBody from '../../modal-body';
 import ModalTransition from '../../modal-transition';
 import ModalDialog from '../../modal-wrapper';
@@ -792,7 +792,9 @@ describe('multiple modals', () => {
 			</>,
 		);
 
-		expect(screen.getByTestId('back--positioner')).toHaveStyle('--modal-dialog-translate-y: 8px;');
+		expect(screen.getByTestId('back--positioner')).toHaveStyle(
+			'--modal-dialog-translate-y: calc(1px * var(--ds-space-100, 8px));',
+		);
 		expect(screen.getByTestId('back--positioner')).toHaveStyleDeclaration(
 			'transform',
 			'translateY(var(--modal-dialog-translate-y))',

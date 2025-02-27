@@ -2,20 +2,41 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css as cssUnbounded } from '@compiled/react';
 import { injectIntl } from 'react-intl-next';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 
+import { css, jsx } from '@atlaskit/css';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import { alignCenter, alignLeft, alignRight } from '@atlaskit/editor-common/keymaps';
 import { alignmentMessages } from '@atlaskit/editor-common/messages';
+import { token } from '@atlaskit/tokens';
 
 import type { AlignmentState } from '../../pm-plugins/types';
 import { IconMap } from '../ToolbarAlignment/icon-map';
 
 import AlignmentButton from './AlignmentButton';
-import { alignmentWrapper } from './styles';
+
+const alignmentWrapper = css({
+	display: 'flex',
+	paddingTop: token('space.0', '0px'),
+	paddingBottom: token('space.0', '0px'),
+	paddingLeft: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
+	maxWidth: `${3 * 32 + 2 * 2}px`, // 3 buttons * 32px + 2 * 2px gap
+	columnGap: token('space.025'), // add gap between buttons, so they don't crunch each other
+});
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- This rule thinks this isn't a `css()` call due to the name mapping
+const alignmentWrapperStylesUnbounded = cssUnbounded({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([disabled])::after': {
+			border: 'none', // remove blue border when an item has been selected
+		},
+	},
+});
 
 export interface Props {
 	selectedAlignment?: string;
@@ -48,8 +69,8 @@ function Alignment({ onClick, selectedAlignment, className, intl }: Props & Wrap
 	return (
 		<div
 			data-testid="alignment-buttons"
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={alignmentWrapper}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+			css={[alignmentWrapper, alignmentWrapperStylesUnbounded]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 		>

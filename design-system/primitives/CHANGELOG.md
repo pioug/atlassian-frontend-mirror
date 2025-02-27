@@ -1,5 +1,21 @@
 # @atlaskit/primitives
 
+## 14.1.2
+
+### Patch Changes
+
+- [#119650](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119650)
+  [`51704d016e269`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51704d016e269) -
+  Fix typo in documentation.
+
+## 14.1.1
+
+### Patch Changes
+
+- [#119116](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119116)
+  [`96ff1753a7299`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96ff1753a7299) -
+  Update dependencies and remove unused internal exports.
+
 ## 14.1.0
 
 ### Minor Changes

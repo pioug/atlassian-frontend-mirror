@@ -9,12 +9,6 @@ import {
 	Selection,
 	EditorState,
 } from '@atlaskit/editor-prosemirror/state';
-import {
-	AddMarkStep,
-	ReplaceAroundStep,
-	ReplaceStep,
-	type Step,
-} from '@atlaskit/editor-prosemirror/transform';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type MetricsPlugin } from '../metricsPluginType';
@@ -28,6 +22,7 @@ import {
 	shouldSkipTr,
 } from './utils/check-tr-action-type';
 import { isNonTextUndo } from './utils/is-non-text-undo';
+import { isTrWithDocChanges } from './utils/is-tr-with-doc-changes';
 
 export const metricsKey = new PluginKey('metricsPlugin');
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
@@ -43,6 +38,7 @@ export type MetricsState = {
 	shouldPersistActiveSession?: boolean;
 	initialContent?: Fragment;
 	previousTrType?: TrActionType;
+	repeatedActionCount: number;
 };
 
 export type ActionByType = {
@@ -70,6 +66,7 @@ export const initialPluginState: MetricsState = {
 		nodeDeletionCount: 0,
 		undoCount: 0,
 	},
+	repeatedActionCount: 0,
 };
 
 export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined) => {
@@ -105,14 +102,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				const shouldPersistActiveSession =
 					meta?.shouldPersistActiveSession ?? pluginState.shouldPersistActiveSession;
 
-				const hasDocChanges =
-					tr.steps.length > 0 &&
-					tr.steps?.some(
-						(step: Step) =>
-							step instanceof ReplaceStep ||
-							step instanceof ReplaceAroundStep ||
-							step instanceof AddMarkStep,
-					);
+				const hasDocChanges = isTrWithDocChanges(tr);
 
 				let intentToStartEditTime =
 					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
@@ -232,6 +222,21 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 						newTextInputCount = actionTypeCount.textInputCount;
 					}
 
+					let newNodeAttrCount = actionTypeCount.nodeAttributeChangeCount;
+					let newRepeatedActionCount = pluginState.repeatedActionCount;
+
+					if (trType?.type === ActionType.CHANGING_ATTRS) {
+						newNodeAttrCount = newNodeAttrCount + 1;
+						if (previousTrType?.type === ActionType.CHANGING_ATTRS) {
+							const { attr: newAttr, from: newFrom, to: newTo } = trType.extraData;
+							const { attr: prevAttr, from: prevFrom, to: prevTo } = previousTrType.extraData;
+							newRepeatedActionCount =
+								newAttr === prevAttr && newFrom === prevFrom && newTo === prevTo
+									? newRepeatedActionCount + 1
+									: newRepeatedActionCount;
+						}
+					}
+
 					const newPluginState = {
 						...pluginState,
 						activeSessionTime: now - intentToStartEditTime,
@@ -243,10 +248,12 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 						actionTypeCount: {
 							...newActionTypeCount,
 							textInputCount: newTextInputCount,
+							nodeAttributeChangeCount: newNodeAttrCount,
 						},
 						intentToStartEditTime,
 						shouldPersistActiveSession,
 						previousTrType: trType,
+						repeatedActionCount: newRepeatedActionCount,
 					};
 					return newPluginState;
 				}

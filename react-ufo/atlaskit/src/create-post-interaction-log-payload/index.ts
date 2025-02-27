@@ -1,6 +1,6 @@
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
-import { REACT_UFO_VERSION } from '../common/constants';
+import { getReactUFOVersion } from '../common/constants';
 import { type VCEntryType } from '../common/vc/types';
 import { getConfig, getPostInteractionRate } from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
@@ -217,7 +217,7 @@ export default function createPostInteractionLogPayload({
 				'event:schema': '1.0.0',
 				'event:source': {
 					name: 'react-ufo/web',
-					version: REACT_UFO_VERSION,
+					version: getReactUFOVersion(lastInteractionFinish.type),
 					payloadSource: 'platform',
 				},
 				'event:region': config.region || 'unknown',

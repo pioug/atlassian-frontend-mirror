@@ -95,7 +95,7 @@ export const updateAllMediaNodesAttrs =
 	};
 
 export const updateCurrentMediaNodeAttrs =
-	(attrs: object, mediaNode: MediaNodeWithPosHandler): Command =>
+	(attrs: object, mediaNode: MediaNodeWithPosHandler, tintDirtyTr?: boolean): Command =>
 	(state, dispatch) => {
 		const pos = mediaNode.getPos();
 		if (
@@ -109,6 +109,10 @@ export const updateCurrentMediaNodeAttrs =
 		const tr = state.tr;
 		tr.step(new SetAttrsStep(pos, attrs));
 		tr.setMeta('addToHistory', false);
+
+		if (tintDirtyTr) {
+			tintDirtyTransaction(tr);
+		}
 
 		if (dispatch) {
 			dispatch(tr);

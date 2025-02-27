@@ -7,7 +7,7 @@ import TaskIcon from '@atlaskit/icon/core/task';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { QuickInsertPanelItem } from '../src/types';
-import { SideInsertPanelNew } from '../src/ui/SideInsertPanel';
+import { SideInsertPanel } from '../src/ui/SideInsertPanel';
 
 const outerBoxContainerStyles = xcss({
 	width: '320px',
@@ -85,22 +85,9 @@ const items: QuickInsertPanelItem[] = [
 ];
 
 export default function ElementBrowserExample() {
-	// temporary example to mark items as new and suggested
-	// mark top 3 items as suggested
-	// mark 4th item as new
-	items.forEach((item, index) => {
-		if (index < 3) {
-			items[index].isSuggested = true;
-		} else if (index === 3) {
-			items[index].isNew = true;
-		} else {
-			return false;
-		}
-	});
-
 	return (
 		<Box xcss={outerBoxContainerStyles}>
-			<SideInsertPanelNew items={items} onItemInsert={() => {}} />
+			<SideInsertPanel items={items} onItemInsert={() => {}} />
 		</Box>
 	);
 }

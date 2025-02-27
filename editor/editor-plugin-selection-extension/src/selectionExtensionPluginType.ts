@@ -1,29 +1,18 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import { type MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type {
-	ContentMode,
-	EditorViewModePlugin,
-	ViewMode,
-} from '@atlaskit/editor-plugin-editor-viewmode';
+	NextEditorPlugin,
+	OptionalPlugin,
+	EditorCommand,
+} from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
-export type MenuItemsType = Array<{
-	items: MenuItem[];
-}>;
-
-export type SelectionExtensionContract = {
-	name: string;
-	onClick: (params: { text: string; selection: { from: number; to: number } }) => void;
-	validator?: (value: unknown) => boolean;
-};
-
-type SelectionExtensionModes = ViewMode | ContentMode;
-
-type SelectionExtensionPluginConfiguration = {
-	pageModes?: SelectionExtensionModes | SelectionExtensionModes[];
-	extensions?: SelectionExtensionContract[];
-};
+import type {
+	SelectionExtensionPluginConfiguration,
+	SelectionExtensionPluginState,
+	SelectionExtensionContract,
+	SelectionExtensionSelectType,
+} from './types';
 
 export type SelectionExtensionPlugin = NextEditorPlugin<
 	'selectionExtension',
@@ -34,5 +23,16 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorViewModePlugin>,
 			SelectionToolbarPlugin,
 		];
+		sharedState: SelectionExtensionPluginState | null;
+		commands: {
+			setActiveExtension: ({
+				extension,
+				selection,
+			}: {
+				extension: SelectionExtensionContract;
+				selection: SelectionExtensionSelectType;
+			}) => EditorCommand;
+			clearActiveExtension: () => EditorCommand;
+		};
 	}
 >;

@@ -30,6 +30,10 @@ export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
  */
 export const DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH = 3;
 
+export const QUICK_INSERT_HEIGHT = 24;
+export const QUICK_INSERT_WIDTH = 24;
+export const QUICK_INSERT_DIMENSIONS = { width: QUICK_INSERT_WIDTH, height: QUICK_INSERT_HEIGHT };
+
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 
 export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
@@ -45,6 +49,19 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 	}
 	if (nodeTypeExcludeList.includes(nodeType)) {
 		return DRAG_HANDLE_MAX_GAP;
+	}
+
+	return DRAG_HANDLE_DEFAULT_GAP;
+};
+
+// use for returning hap only for root level elements
+export const rootElementGap = (nodeType: string) => {
+	if (nodeTypeExcludeList.includes(nodeType)) {
+		return DRAG_HANDLE_MAX_GAP;
+	}
+
+	if (nodeType === 'layoutSection') {
+		return DRAG_HANDLE_MAX_GAP + 12;
 	}
 
 	return DRAG_HANDLE_DEFAULT_GAP;

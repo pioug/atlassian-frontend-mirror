@@ -118,7 +118,7 @@ export default function CategoryNavButtonExample() {
 								console.log(`Item ${index} selected in category ${categoryId}`);
 							}}
 						/>
-					</Box>{' '}
+					</Box>
 				</Stack>
 			</Stack>
 		</Box>

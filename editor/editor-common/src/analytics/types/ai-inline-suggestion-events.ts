@@ -19,6 +19,7 @@ type BaseLineSuggestionPayload = {
 	/* TODO - matchedFormat only exist for date suggestion, need to revisit
 	 * & use discriminated unions in the future to narrow down */
 	matchedFormat?: string;
+	inlineSuggestionSessionId?: string | null;
 };
 
 type InsertSuggestionAEP = TrackAEP<

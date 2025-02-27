@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 2.0.2
+
+### Patch Changes
+
+- [#118581](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118581)
+  [`8e3b48ccfe22f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e3b48ccfe22f) -
+  Persist block menu while mouse moving
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

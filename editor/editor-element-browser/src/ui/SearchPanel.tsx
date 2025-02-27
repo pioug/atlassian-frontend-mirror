@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import Search from '@atlaskit/icon/core/search';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -21,7 +21,7 @@ const searchIconStyles = xcss({
 	paddingRight: 'space.0',
 });
 
-export const SearchPanel = ({ onChange }: { onChange: OnChangeType }) => {
+export const SearchPanel = memo(({ onChange }: { onChange: OnChangeType }) => {
 	return (
 		<Box xcss={[searchPanelStyles]}>
 			<Textfield
@@ -37,4 +37,4 @@ export const SearchPanel = ({ onChange }: { onChange: OnChangeType }) => {
 			/>
 		</Box>
 	);
-};
+});

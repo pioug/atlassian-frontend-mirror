@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag jsx
+ */
+import { useEffect, useState } from 'react';
 
+import { css as cssUnbounded } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { css, cssMap, jsx } from '@atlaskit/css';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -29,7 +36,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import Popup from '@atlaskit/popup';
-import { Box, Pressable, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
@@ -61,44 +68,59 @@ type TaskItemWrapperProps = {
 
 const TRYING_REQUEST_TIMEOUT = 3000;
 
-const wrapperStyles = xcss({
+const wrapperStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	maxWidth: '333px',
-	paddingTop: 'space.200',
-	paddingRight: 'space.300',
-	paddingBottom: 'space.200',
-	paddingLeft: 'space.300',
+	paddingTop: token('space.200'),
+	paddingRight: token('space.300'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.300'),
 });
 
-const wrapperBoxStyles = xcss({
+const wrapperBoxStyles = css({
 	display: 'flex',
-	gap: 'space.050',
-	color: 'color.text.disabled',
+	alignItems: 'center',
+	gap: token('space.050'),
+	color: token('color.text.disabled'),
 });
 
-const dotStyles = xcss({
-	margin: 'space.100',
+const dotStyles = css({
+	marginTop: token('space.100'),
+	marginBottom: token('space.100'),
+	marginLeft: token('space.100'),
+	marginRight: token('space.100'),
 	display: 'inline-block',
 	width: '2px',
 	height: '2px',
-	backgroundColor: 'color.background.accent.blue.bolder',
-	borderRadius: '50%',
-	transform: 'translateY(2px)',
+	backgroundColor: token('color.background.accent.blue.bolder'),
 });
 
-const pressableStyles = xcss({
-	color: 'color.text.brand',
-	backgroundColor: 'color.background.neutral.subtle',
-	':hover': {
-		textDecoration: 'underline',
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- This rule thinks this isn't a `css()` call due to the name mapping
+const dotStylesUnbounded = cssUnbounded({
+	borderRadius: '50%',
+});
+
+const pressableStyles = cssMap({
+	pressable: {
+		paddingTop: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		paddingRight: token('space.0'),
+		// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: '14px',
+		color: token('color.text.brand'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:hover': {
+			textDecoration: 'underline',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:active': {
+			color: token('color.link.pressed'),
+		},
 	},
-	':active': {
-		color: 'color.text.information',
-	},
-	padding: 'space.0',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontSize: '14px',
 });
 
 const RequestedMessage = () => {
@@ -115,7 +137,7 @@ const RequestToEditButton = ({ onClick }: { onClick?: () => void; isDisabled?: b
 	const { formatMessage } = useIntl();
 	return (
 		<Box>
-			<Pressable onClick={onClick} xcss={pressableStyles}>
+			<Pressable onClick={onClick} xcss={pressableStyles.pressable}>
 				{formatMessage(tasksAndDecisionsMessages.requestToEdit)}
 			</Pressable>
 		</Box>
@@ -242,13 +264,13 @@ const TaskItemWrapper = ({
 			isOpen={isOpen}
 			onClose={() => onHandleDismiss(api?.analytics?.actions)}
 			content={() => (
-				<Box xcss={wrapperStyles}>
+				<div css={wrapperStyles}>
 					<Stack space="space.150">
 						<Heading size="xsmall">
 							{formatMessage(tasksAndDecisionsMessages.editAccessTitle)}
 						</Heading>
 						<div>{formatMessage(tasksAndDecisionsMessages.requestToEditDescription)}</div>
-						<Box xcss={wrapperBoxStyles}>
+						<div css={wrapperBoxStyles}>
 							{tryingRequest || requested ? (
 								<RequestedMessage />
 							) : (
@@ -260,18 +282,18 @@ const TaskItemWrapper = ({
 									}
 								/>
 							)}
-							<Box xcss={dotStyles}></Box>
+							<div css={[dotStyles, dotStylesUnbounded]}></div>
 							<Box>
 								<Pressable
 									onClick={() => onHandleDismiss(api?.analytics?.actions)}
-									xcss={pressableStyles}
+									xcss={pressableStyles.pressable}
 								>
 									{formatMessage(tasksAndDecisionsMessages.dismiss)}
 								</Pressable>
 							</Box>
-						</Box>
+						</div>
 					</Stack>
-				</Box>
+				</div>
 			)}
 			trigger={(triggerProps) => {
 				return (

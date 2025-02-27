@@ -10,32 +10,133 @@ import { find } from './search';
 
 const transformBrowserElementItem = (item: InsertPanelItem): ItemData => {
 	return {
-		index: item.index,
+		index: item.tempKey,
 		title: item.title,
 		description: item.description,
-		showDescription: item.showDescription,
+		showDescription: Boolean(item?.id) && item.id !== 'datasource' ? false : true,
 		keyshortcut: item.keyshortcut ? makeKeyMapWithCommon('', item.keyshortcut) : undefined,
-		attributes: { new: item.isNew },
 		renderIcon: item.icon,
 	};
 };
 
-const capitalizeFirstLetter = (val: string) => {
-	return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+// TODO: Title will need to be i18n
+type CategoryData = {
+	id: string;
+	title: string;
+	subcategories: { id: string; title: string }[] | [];
+	defautltItems: string[] | [];
 };
+export const CategoriesStructure: CategoryData[] = [
+	{
+		id: 'media',
+		title: 'Media',
+		subcategories: [],
+		// defaultItems and array or native elements' ids or titles of an extensions
+		// TODO: how should we identify extensions in prod?
+		// Note: only 'media' or 'media-insert' will be available, so we'll display only 5 default items
+		defautltItems: ['media', 'media-insert', 'emoji', 'hyperlink', 'loom', 'Create whiteboard'],
+	},
+	{
+		id: 'structure',
+		title: 'Structure',
+		subcategories: [
+			{ id: 'text structure', title: 'Text structure' },
+			{ id: 'page structure', title: 'Page structure' },
+			{ id: 'connect pages', title: 'Connect pages' },
+			{ id: 'navigation', title: 'Navigation' },
+			{ id: 'search', title: 'Search' },
+		],
+		defautltItems: ['date', 'decision', 'status', 'table', 'Table of contents'],
+	},
+	{
+		id: 'data',
+		title: 'Data',
+		subcategories: [
+			{ id: 'charts', title: 'Charts' },
+			{ id: 'gadgets', title: 'Gadgets' },
+			{ id: 'jira', title: 'Jira' },
+			{ id: 'labels', title: 'Labels' },
+			{ id: 'reports', title: 'Reports' },
+			{ id: 'timelines', title: 'Timelines' },
+		],
+		defautltItems: [
+			'Create database',
+			'Filter by label (Content by label)',
+			'Chart',
+			'Create Jira issue',
+			'Content Report Table',
+		],
+	},
+	{
+		id: 'collaborate',
+		title: 'Collaborate',
+		subcategories: [],
+		defautltItems: [
+			'mention',
+			'Contributors',
+			'Contributors Summary',
+			'User Profile',
+			'Spaces List',
+		],
+	},
+	{ id: 'ai', title: 'Atlassian Intelligence', subcategories: [], defautltItems: [] },
+	{ id: 'apps', title: 'Apps', subcategories: [], defautltItems: [] },
+];
+
+export const PredefinedCategories = new Map();
+CategoriesStructure.forEach((categoryData) => {
+	PredefinedCategories.set(categoryData.id, categoryData);
+
+	categoryData.subcategories.forEach((subcategoryData) => {
+		PredefinedCategories.set(subcategoryData.id, subcategoryData);
+	});
+});
+
+const parseCategories = (itemCategories: string[] | undefined): string[] => {
+	if (!itemCategories) {
+		return ['apps'];
+	}
+
+	const filteredCategories = itemCategories.filter((category) => {
+		return PredefinedCategories.has(category.toLocaleLowerCase());
+	});
+
+	return filteredCategories.length > 0 ? filteredCategories : ['apps'];
+};
+
+export interface CategoryRegistry {
+	[key: string]: ItemData[];
+}
+
+export interface ItemsRegistry {
+	[key: string]: ItemData;
+}
+
+const suggestedTitels = [
+	'Table',
+	'Action item',
+	'Code snippet',
+	'Info panel',
+	'Emoji',
+	'Layouts',
+	'Divider',
+	'Expand',
+];
 
 // slices items from the QuickInsertPanelItem[] into suggested, categories and search result items
 export const useItems = (
 	quickInsertPanelItems: QuickInsertPanelItem[],
+	query?: string,
 ): {
 	suggested?: GroupData;
-	topFiveItemsByCategory?: GroupData[];
-	selectedCategoryItems?: GroupData;
+	categoryRegistry: CategoryRegistry;
+	itemsRegistry: ItemsRegistry;
+	selectedCategory?: string;
 	searchItems?: ItemData[];
 	setSearchText: (searchText: string | undefined) => void;
 	setSelectedCategory: (categoryId: string | undefined) => void;
 } => {
-	const [searchText, setSearchText] = useState<string | undefined>();
+	const [searchText, setSearchText] = useState<string | undefined>(query);
 	const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
 
 	const insertPanelItems = useMemo(
@@ -45,60 +146,49 @@ export const useItems = (
 
 	const suggested: GroupData = insertPanelItems.reduce(
 		(acc: GroupData, item) => {
-			if (item.isSuggested) {
+			if (suggestedTitels.includes(item.title)) {
 				acc.items.push(transformBrowserElementItem(item));
 			}
 			return acc;
 		},
-		{ id: 'suggested', label: 'Suggested', items: [] }, // TODO define the id and label as constants
+		{ id: 'suggested', label: 'Suggestions', items: [] }, // TODO define the id and label as constants
 	);
 
-	const categories: GroupData[] = insertPanelItems.reduce((acc: GroupData[], item) => {
-		const category: string = item.category || 'Uncategorised';
-		if (!item.isSuggested) {
-			const categoryData = acc.find((groupData) => groupData.id === category);
-			if (categoryData) {
-				categoryData.items.push(transformBrowserElementItem(item));
+	const categoryRegistry: CategoryRegistry = {};
+	const itemsRegistry: ItemsRegistry = {};
+	insertPanelItems.forEach((item) => {
+		const categories = parseCategories(item.categories);
+		const preparedItem = transformBrowserElementItem(item);
+		categories.forEach((category) => {
+			category = category.toLocaleLowerCase();
+			if (categoryRegistry[category]) {
+				categoryRegistry[category].push(preparedItem);
 			} else {
-				acc.push({
-					id: category,
-					label: capitalizeFirstLetter(category),
-					items: [transformBrowserElementItem(item)],
-				});
+				categoryRegistry[category] = [preparedItem];
 			}
-		}
-		return acc;
-	}, []);
-
-	const topFiveItemsByCategory = useMemo(() => {
-		return categories.map((category) => {
-			const topFiveItems = category.items.slice(0, 5); // TODO - needs better algorithm for identifying top five items
-			return {
-				...category,
-				items: topFiveItems,
-			};
 		});
-	}, [categories]);
+		const itemKey = item.id || item.title;
+		itemsRegistry[itemKey] = preparedItem;
+	});
 
-	const selectedCategoryItems = useMemo(() => {
-		if (!selectedCategory) {
-			return undefined;
-		}
-		return categories.find((category) => category.id === selectedCategory) || undefined;
-	}, [categories, selectedCategory]);
+	// when query gets updated from the prop drilling it won't cause a re-render of the hook
+	// as it will be treated only as default state, so for now combinbing searchText and query here
+	// we need to find a better more performant solution for the search (after the demo)
+	const combinedSearchText = useMemo(() => searchText || query, [query, searchText]);
 
 	const searchItems = useMemo(() => {
-		if (!searchText) {
+		if (!combinedSearchText) {
 			return undefined;
 		}
-		const filteredItems = find(searchText, insertPanelItems);
+		const filteredItems = find(combinedSearchText, insertPanelItems);
 		return filteredItems.map((item) => transformBrowserElementItem(item));
-	}, [insertPanelItems, searchText]);
+	}, [insertPanelItems, combinedSearchText]);
 
 	return {
 		suggested,
-		topFiveItemsByCategory,
-		selectedCategoryItems,
+		categoryRegistry,
+		itemsRegistry,
+		selectedCategory,
 		searchItems,
 		setSearchText,
 		setSelectedCategory,

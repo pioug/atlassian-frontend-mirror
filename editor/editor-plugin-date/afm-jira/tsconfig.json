@@ -21,6 +21,9 @@
 			"path": "../../../design-system/calendar/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/date/afm-jira/tsconfig.json"
 		},
 		{

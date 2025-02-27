@@ -15,9 +15,10 @@ import noop from '@atlaskit/ds-lib/noop';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 import FocusRing from '@atlaskit/focus-ring';
 import { media } from '@atlaskit/primitives';
+import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { keylineColor, keylineHeight } from '../constants';
+const keylineColor = token('color.border', N30);
 
 const baseStyles = css({
 	display: 'inherit',
@@ -33,14 +34,14 @@ const baseStyles = css({
 	},
 });
 
+const keylineHeight = 2;
+
 const topKeylineStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderBlockStart: `${keylineHeight}px solid ${keylineColor}`,
+	borderBlockStart: `${token('border.width.outline')} solid ${keylineColor}`,
 });
 
 const bottomKeylineStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderBlockEnd: `${keylineHeight}px solid ${keylineColor}`,
+	borderBlockEnd: `${token('border.width.outline')} solid ${keylineColor}`,
 });
 
 interface ScrollContainerProps {

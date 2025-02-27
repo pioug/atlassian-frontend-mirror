@@ -2,10 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
 import { decisionList, taskItem, taskList } from '@atlaskit/adf-schema';
+import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';

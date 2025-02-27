@@ -6,8 +6,7 @@ import { cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/utility/cross';
 import Image from '@atlaskit/image';
 import Link from '@atlaskit/link';
-import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../../common/types';
@@ -27,24 +26,40 @@ const styles = cssMap({
 		paddingLeft: token('space.150'),
 		color: token('color.text'),
 	},
-	iconWrapper: { width: '24px', height: '24px' },
+	card: {
+		alignItems: 'center',
+		width: '100%',
+	},
+	iconWrapper: {
+		width: '32px',
+		height: '32px',
+		minWidth: '32px',
+		minHeight: '32px',
+	},
+	crossIconWrapper: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+		marginLeft: 'auto',
+	},
 });
 
 interface LinkedContainerCardProps {
 	containerType: ContainerTypes;
 	title: string;
-	containerIcon: string;
-	link: string;
+	containerIcon?: string;
+	link?: string;
 	onDisconnectButtonClick: () => void;
 }
 
-interface CustomItemComponentPropsWithHref extends CustomItemComponentProps {
+interface CustomItemComponentPropsWithHref {
 	href: string;
 	handleMouseEnter: () => void;
 	handleMouseLeave: () => void;
+	children: React.ReactNode;
 }
 
-const CustomItemInner = ({
+const LinkedCardWrapper = ({
 	children,
 	href,
 	handleMouseEnter,
@@ -86,21 +101,28 @@ export const LinkedContainerCard = ({
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 
 	return (
-		<CustomItem
-			iconBefore={
+		<LinkedCardWrapper
+			href={link || '#'}
+			handleMouseEnter={() => setShowCloseIcon(true)}
+			handleMouseLeave={() => setShowCloseIcon(false)}
+		>
+			<Inline space="space.100" xcss={styles.card}>
 				<Box xcss={styles.iconWrapper}>
 					<Image src={containerIcon} alt="" testId="linked-container-icon" />
 				</Box>
-			}
-			description={
-				<Inline space="space.050">
-					{icon}
-					{description}
-				</Inline>
-			}
-			iconAfter={
-				showCloseIcon && (
-					<Box>
+				<Stack>
+					<Text maxLines={1} weight="medium" color="color.text">
+						{title}
+					</Text>
+					<Flex gap="space.050">
+						{icon}
+						<Text size="small" color="color.text.subtle">
+							{description}
+						</Text>
+					</Flex>
+				</Stack>
+				{showCloseIcon && (
+					<Box xcss={styles.crossIconWrapper}>
 						<IconButton
 							label={`disconnect the container ${title}`}
 							appearance="subtle"
@@ -117,14 +139,8 @@ export const LinkedContainerCard = ({
 							}}
 						/>
 					</Box>
-				)
-			}
-			href={link}
-			handleMouseEnter={() => setShowCloseIcon(true)}
-			handleMouseLeave={() => setShowCloseIcon(false)}
-			component={CustomItemInner}
-		>
-			{title}
-		</CustomItem>
+				)}
+			</Inline>
+		</LinkedCardWrapper>
 	);
 };

@@ -103,99 +103,53 @@ test.describe('Default Inline Edit', () => {
 });
 
 test.describe('Inline Edit with Datepicker', () => {
-	test.describe('Selecting a date in a datepicker using keyboard should return to edit view', () => {
-		test('ff on', async ({ page, skipAxeCheck }) => {
-			await page.visitExample('design-system', 'inline-edit', 'inline-edit-with-datepicker', {
-				featureFlag: 'dst-a11y-add-year-buttons-to-calendar',
-			});
-			const edit = page.getByRole('button', { name: /Select date and time/ });
-			await edit.focus();
-			const dtpEditView = page.locator('[data-testid="datetimepicker"]');
+	test('Selecting a date in a datepicker using keyboard should return to edit view', async ({
+		page,
+		skipAxeCheck,
+	}) => {
+		await page.visitExample('design-system', 'inline-edit', 'inline-edit-with-datepicker');
+		const edit = page.getByRole('button', { name: /Select date and time/ });
+		await edit.focus();
+		const dtpEditView = page.locator('[data-testid="datetimepicker"]');
 
-			// Test that we are not yet in edit view
-			await expect(dtpEditView).toBeHidden();
+		// Test that we are not yet in edit view
+		await expect(dtpEditView).toBeHidden();
 
-			// Enter edit mode
-			await page.keyboard.press('Enter');
-			await expect(dtpEditView).toBeVisible();
+		// Enter edit mode
+		await page.keyboard.press('Enter');
+		await expect(dtpEditView).toBeVisible();
 
-			// Tab to calendar button
-			await page.keyboard.press('Tab');
-			await page.keyboard.press('Tab');
-			// Open calendar using button
-			await page.keyboard.press('Enter');
+		// Tab to calendar button
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
+		// Open calendar using button
+		await page.keyboard.press('Enter');
 
-			// Tab to date
-			await page.keyboard.press('Tab'); // Prev year
-			await page.keyboard.press('Tab'); // Prev month
-			await page.keyboard.press('Tab'); // Next month
-			await page.keyboard.press('Tab'); // Next year
-			await page.keyboard.press('Tab'); // Date
-			// Select different date
-			await page.keyboard.press('ArrowLeft');
-			await page.keyboard.press('ArrowLeft');
-			await page.keyboard.press('Enter');
-			// Tab to time picker
-			await page.keyboard.press('Tab');
+		// Tab to date
+		await page.keyboard.press('Tab'); // Prev year
+		await page.keyboard.press('Tab'); // Prev month
+		await page.keyboard.press('Tab'); // Next month
+		await page.keyboard.press('Tab'); // Next year
+		await page.keyboard.press('Tab'); // Date
+		// Select different date
+		await page.keyboard.press('ArrowLeft');
+		await page.keyboard.press('ArrowLeft');
+		await page.keyboard.press('Enter');
+		// Tab to time picker
+		await page.keyboard.press('Tab');
 
-			// Is not the same for Safari
-			const timePicker = page.locator(
-				'[data-testid="datetimepicker--timepicker--container"] [aria-autocomplete="both"]',
-			);
-			await expect(timePicker).toBeFocused();
+		// Is not the same for Safari
+		const timePicker = page.locator(
+			'[data-testid="datetimepicker--timepicker--container"] [aria-autocomplete="both"]',
+		);
+		await expect(timePicker).toBeFocused();
 
-			// Test that we are still in edit view
-			await expect(dtpEditView).toBeVisible();
+		// Test that we are still in edit view
+		await expect(dtpEditView).toBeVisible();
 
-			// Received:
-			// Scrollable region must have keyboard access (scrollable-region-focusable) in reference to the
-			// Time picker's list of times. Since focus never really moves into this area, this test is not valid.
-			skipAxeCheck();
-		});
-
-		test('ff off', async ({ page, skipAxeCheck }) => {
-			await page.visitExample('design-system', 'inline-edit', 'inline-edit-with-datepicker');
-			const edit = page.getByRole('button', { name: /Select date and time/ });
-			await edit.focus();
-			const dtpEditView = page.locator('[data-testid="datetimepicker"]');
-
-			// Test that we are not yet in edit view
-			await expect(dtpEditView).toBeHidden();
-
-			// Enter edit mode
-			await page.keyboard.press('Enter');
-			await expect(dtpEditView).toBeVisible();
-
-			// Tab to calendar button
-			await page.keyboard.press('Tab');
-			await page.keyboard.press('Tab');
-			// Open calendar using button
-			await page.keyboard.press('Enter');
-
-			// Tab to date
-			await page.keyboard.press('Tab'); // Prev month
-			await page.keyboard.press('Tab'); // Next month
-			await page.keyboard.press('Tab'); // Date
-			// Select different date
-			await page.keyboard.press('ArrowLeft');
-			await page.keyboard.press('ArrowLeft');
-			await page.keyboard.press('Enter');
-			// Tab to time picker
-			await page.keyboard.press('Tab');
-
-			// Is not the same for Safari
-			const timePicker = page.locator(
-				'[data-testid="datetimepicker--timepicker--container"] [aria-autocomplete="both"]',
-			);
-			await expect(timePicker).toBeFocused();
-
-			// Test that we are still in edit view
-			await expect(dtpEditView).toBeVisible();
-
-			// Received:
-			// Scrollable region must have keyboard access (scrollable-region-focusable) in reference to the
-			// Time picker's list of times. Since focus never really moves into this area, this test is not valid.
-			skipAxeCheck();
-		});
+		// Received:
+		// Scrollable region must have keyboard access (scrollable-region-focusable) in reference to the
+		// Time picker's list of times. Since focus never really moves into this area, this test is not valid.
+		skipAxeCheck();
 	});
 });

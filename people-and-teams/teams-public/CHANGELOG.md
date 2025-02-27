@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.6.0
+
+### Minor Changes
+
+- [#118229](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118229)
+  [`bc2dbf27cd24c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc2dbf27cd24c) -
+  [ux] Update team container list on add new container
+
 ## 0.5.2
 
 ### Patch Changes

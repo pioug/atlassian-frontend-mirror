@@ -71,10 +71,8 @@ describe('<ModalFooter />', () => {
 	});
 
 	it('should throw an error if modal context not available', () => {
-		/* eslint-disable no-console */
 		const err = console.error;
 		console.error = jest.fn();
-		/* eslint-enable no-console */
 
 		try {
 			render(<ModalFooter>Lone footer</ModalFooter>);

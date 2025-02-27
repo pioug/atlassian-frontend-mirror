@@ -1,7 +1,5 @@
 import { expect, test } from '@af/integration-testing';
 
-import { gutter } from '../../internal/constants';
-
 const openModalBtn = 'modal-trigger';
 const modalDialog = 'modal';
 const modalScrollable = 'modal--scrollable';
@@ -114,7 +112,8 @@ test.describe('Modal Dialog Scroll', () => {
 		await open.click();
 
 		// Click to the side of the modal.
-		await page.mouse.click(0, gutter * 2);
+		// 60 is the size of the gutter, as defined in `packages/design-system/modal-dialog/src/internal/components/positioner.tsx`
+		await page.mouse.click(0, 60 * 2);
 
 		// Ensure it's been closed.
 		await expect(page.getByTestId(modalDialog)).toBeHidden();

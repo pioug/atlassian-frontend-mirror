@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
@@ -93,83 +93,85 @@ interface ButtonBaseProps {
 	onClick?: (id: string) => void;
 }
 
-const ButtonBase = ({
-	id,
-	mode,
-	label,
-	isSelected,
-	isDisabled,
-	isExpanded,
-	attributes,
-	onClick,
-}: ButtonBaseProps) => {
-	const iconComponent = useMemo(() => {
-		let Icon: typeof ChevronUpIcon | typeof ChevronDownIcon | typeof ChevronRightIcon;
-		let iconLabel: string;
-		switch (mode) {
-			case 'expandable':
-				Icon = isExpanded ? ChevronUpIcon : ChevronDownIcon;
-				iconLabel = isExpanded ? `Collapse ${label} inserts` : `Expand ${label} inserts`;
-				break;
-			default:
-				Icon = ChevronRightIcon;
-				iconLabel = `View all ${label} inserts`;
-		}
-		return <Icon label={iconLabel} />;
-	}, [isExpanded, label, mode]);
+const ButtonBase = memo(
+	({
+		id,
+		mode,
+		label,
+		isSelected,
+		isDisabled,
+		isExpanded,
+		attributes,
+		onClick,
+	}: ButtonBaseProps) => {
+		const iconComponent = useMemo(() => {
+			let Icon: typeof ChevronUpIcon | typeof ChevronDownIcon | typeof ChevronRightIcon;
+			let iconLabel: string;
+			switch (mode) {
+				case 'expandable':
+					Icon = isExpanded ? ChevronUpIcon : ChevronDownIcon;
+					iconLabel = isExpanded ? `Collapse ${label} inserts` : `Expand ${label} inserts`;
+					break;
+				default:
+					Icon = ChevronRightIcon;
+					iconLabel = `View all ${label} inserts`;
+			}
+			return <Icon label={iconLabel} />;
+		}, [isExpanded, label, mode]);
 
-	return (
-		<Tooltip content={label} position="top" ignoreTooltipPointerEvents={true}>
-			{(tooltipProps) => (
-				<Pressable
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...tooltipProps}
-					type="button"
-					isDisabled={isDisabled}
-					onClick={() => onClick?.(id)}
-					xcss={[
-						buttonStyles,
-						isSelected && selectedButtonStyles,
-						isDisabled && disabledButtonStyles,
-					]}
-				>
-					<Inline
-						as="span"
-						spread="space-between"
-						alignBlock="center"
-						space={'space.100'}
-						grow="fill"
-						shouldWrap={false}
+		return (
+			<Tooltip content={label} position="top" ignoreTooltipPointerEvents={true}>
+				{(tooltipProps) => (
+					<Pressable
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...tooltipProps}
+						type="button"
+						isDisabled={isDisabled}
+						onClick={() => onClick?.(id)}
+						xcss={[
+							buttonStyles,
+							isSelected && selectedButtonStyles,
+							isDisabled && disabledButtonStyles,
+						]}
 					>
-						<Inline alignBlock="center" space="space.100" shouldWrap={false}>
-							<Box xcss={headingContainerStyles}>
-								<Heading size={'xsmall'}>{label}</Heading>
-							</Box>
-							{attributes?.new && (
-								<Box>
-									<Lozenge appearance="new">New</Lozenge>
+						<Inline
+							as="span"
+							spread="space-between"
+							alignBlock="center"
+							space={'space.100'}
+							grow="fill"
+							shouldWrap={false}
+						>
+							<Inline alignBlock="center" space="space.100" shouldWrap={false}>
+								<Box xcss={headingContainerStyles}>
+									<Heading size={'xsmall'}>{label}</Heading>
 								</Box>
-							)}
+								{attributes?.new && (
+									<Box>
+										<Lozenge appearance="new">New</Lozenge>
+									</Box>
+								)}
+							</Inline>
+							<Box>{iconComponent}</Box>
 						</Inline>
-						<Box>{iconComponent}</Box>
-					</Inline>
-				</Pressable>
-			)}
-		</Tooltip>
-	);
-};
+					</Pressable>
+				)}
+			</Tooltip>
+		);
+	},
+);
 
-export const LinkNavButton = (props: Omit<ButtonBaseProps, 'mode' | 'isExpanded'>) => (
+export const LinkNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isExpanded'>) => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	<ButtonBase mode="navigation" {...props}></ButtonBase>
-);
+));
 
-export const ExpandableNavButton = (props: Omit<ButtonBaseProps, 'mode' | 'isSelected'>) => (
+export const ExpandableNavButton = memo((props: Omit<ButtonBaseProps, 'mode' | 'isSelected'>) => (
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	<ButtonBase mode="expandable" {...props}></ButtonBase>
-);
+));
 
-export const BackNavButton = ({ label, onClick }: { label: string; onClick: () => void }) => {
+export const BackNavButton = memo(({ label, onClick }: { label: string; onClick: () => void }) => {
 	return (
 		<Tooltip content={label} position="top" ignoreTooltipPointerEvents={true}>
 			{(tooltipProps) => (
@@ -185,4 +187,4 @@ export const BackNavButton = ({ label, onClick }: { label: string; onClick: () =
 			)}
 		</Tooltip>
 	);
-};
+});

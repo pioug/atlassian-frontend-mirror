@@ -48,7 +48,7 @@
 	},
 	"devDependencies": {
 		"@af/analytics-codegen": "^0.1.0",
-		"@atlaskit/link-picker": "^2.0.0",
+		"@atlaskit/link-picker": "^2.1.0",
 		"@atlaskit/link-test-helpers": "^8.0.0",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",

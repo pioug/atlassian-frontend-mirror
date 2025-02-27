@@ -18,6 +18,9 @@
     ],
     "references": [
         {
+            "path": "../../../design-system/css/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {

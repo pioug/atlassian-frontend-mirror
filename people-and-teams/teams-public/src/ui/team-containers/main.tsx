@@ -105,15 +105,15 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 	return (
 		<>
 			<Stack space="space.200">
-				<Grid templateColumns="1fr 1fr" gap="space.100" autoFlow="row">
+				<Grid templateColumns="repeat(2, 1fr)" gap="space.100">
 					{teamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 						return (
 							<LinkedContainerCard
 								key={container.id}
 								containerType={container.type}
 								title={container.name}
-								containerIcon={container.icon}
-								link={container.link}
+								containerIcon={container.icon || undefined}
+								link={container.link || undefined}
 								onDisconnectButtonClick={() =>
 									handleOpenDisconnectDialog({
 										containerId: container.id,
@@ -143,8 +143,8 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 									key={container.id}
 									containerType={container.type}
 									title={container.name}
-									containerIcon={container.icon}
-									link={container.link}
+									containerIcon={container.icon || undefined}
+									link={container.link || undefined}
 									onDisconnectButtonClick={() => setIsDisconnectDialogOpen(true)}
 								/>
 							);

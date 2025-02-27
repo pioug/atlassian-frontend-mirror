@@ -6,7 +6,9 @@ snapshot(Example, {
 	variants: [
 		{
 			name: 'go-back-item',
-			environment: {},
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });

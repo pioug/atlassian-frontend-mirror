@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -69,14 +69,20 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/code": "^16.0.0",
+		"@atlaskit/docs": "*",
+		"@atlaskit/form": "^12.0.0",
+		"@atlaskit/heading": "^5.0.0",
 		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/link": "^3.0.0",
+		"@atlaskit/modal-dialog": "^13.0.0",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@compiled/react": "^0.18.2",
-		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
@@ -84,7 +90,6 @@
 		"jscodeshift": "^0.13.0",
 		"raf-stub": "^2.0.1",
 		"react-dom": "^18.2.0",
-		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

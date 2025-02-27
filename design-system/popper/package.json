@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popper",
-	"version": "7.0.0",
+	"version": "7.0.1",
 	"description": "A wrapper for React Popper for situations which require a bespoke popup where other ADS components are deemed unsuitable",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,16 +36,18 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/tokens": "^4.1.0",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
-		"@types/jscodeshift": "^0.11.0",
-		"ast-types": "^0.13.3",
-		"jscodeshift": "^0.13.0",
 		"react-dom": "^18.2.0",
 		"react-lorem-component": "^0.13.0",
 		"typescript": "~5.4.2"

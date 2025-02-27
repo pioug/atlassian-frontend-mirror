@@ -557,6 +557,7 @@ export function ReactEditorView(props: EditorViewProps) {
 					// Block stale transactions:
 					// Prevent runtime exeptions from async transactions that would attempt to
 					// update the DOM after React has unmounted the Editor.
+
 					if (canDispatchTransactions.current) {
 						dispatchTransaction(viewRef.current, tr);
 					}

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 5.0.3
+
+### Patch Changes
+
+- [#118829](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118829)
+  [`7c89303bd91d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c89303bd91d3) -
+  [ux] Migrate to new ADS icon
+- [#118799](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118799)
+  [`11c8209cb910d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11c8209cb910d) -
+  Fixes missing dependency declarations in package.json
+- Updated dependencies
+
 ## 5.0.2
 
 ### Patch Changes

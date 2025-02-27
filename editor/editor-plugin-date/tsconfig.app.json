@@ -38,6 +38,9 @@
 			"path": "../../design-system/calendar/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/date/tsconfig.app.json"
 		},
 		{

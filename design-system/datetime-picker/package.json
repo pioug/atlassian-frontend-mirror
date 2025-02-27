@@ -43,7 +43,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/calendar": "^17.0.0",
+		"@atlaskit/calendar": "^17.1.0",
 		"@atlaskit/ds-lib": "^4.0.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/layering": "^2.0.0",
@@ -80,7 +80,6 @@
 		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/testing-library__jest-dom": "^5.14.5",

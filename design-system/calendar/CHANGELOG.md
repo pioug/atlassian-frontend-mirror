@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 17.1.0
+
+### Minor Changes
+
+- [#114797](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/114797)
+  [`abf693fdd9167`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abf693fdd9167) -
+  Add year buttons to calendar. This removes the feature flag related to this change.
+
 ## 17.0.0
 
 ### Major Changes

@@ -1,16 +1,42 @@
 import React from 'react';
 
 import type { Command, FloatingToolbarCustom } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type {
-	SelectionExtensionPlugin,
-	SelectionExtensionContract,
-} from './selectionExtensionPluginType';
+import { selectionExtensionPluginKey, createPlugin } from './pm-plugins/main';
+import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
+import type { SelectionExtensionContract } from './types';
+import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
+import { getBoundingBoxFromSelection } from './ui/getBoundingBoxFromSelection';
 import { SelectionExtensionItems } from './ui/toolbar/SelectionExtensionItems';
 
 export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config }) => {
 	return {
 		name: 'selectionExtension',
+		getSharedState(editorState) {
+			if (!editorState) {
+				return null;
+			}
+			return selectionExtensionPluginKey.getState(editorState) || null;
+		},
+		commands: {
+			setActiveExtension:
+				(extension) =>
+				({ tr }) => {
+					return tr.setMeta(selectionExtensionPluginKey, {
+						type: 'set-active-extension',
+						extension,
+					});
+				},
+			clearActiveExtension:
+				() =>
+				({ tr }) => {
+					return tr.setMeta(selectionExtensionPluginKey, { type: 'clear-active-extension' });
+				},
+		},
+		contentComponent: ({ editorView }) => {
+			return <SelectionExtensionComponentWrapper editorView={editorView} api={api} />;
+		},
 		pluginsOptions: {
 			selectionToolbar: (state) => {
 				if (!config) {
@@ -52,15 +78,29 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					}
 				}
 
-				const handleOnExtensionClick = (extension: SelectionExtensionContract) => {
-					const { selection } = state;
-					const { from, to } = selection;
+				const handleOnExtensionClick =
+					(view: EditorView) => (extension: SelectionExtensionContract) => {
+						const { selection: currentSelection } = state;
+						const { from, to } = currentSelection;
 
-					const text = state.doc.textBetween(from, to, '\n');
+						const text = state.doc.textBetween(from, to, '\n');
+						const coords = getBoundingBoxFromSelection(view, from, to);
+						const selection = { text, selection: { from, to }, coords };
 
-					// TODO: Probably some validator logic here
-					extension.onClick({ text, selection: { from, to } });
-				};
+						// Render component here
+						if (extension.component) {
+							api?.core.actions.execute(
+								api?.selectionExtension.commands.setActiveExtension({
+									extension,
+									selection,
+								}),
+							);
+						}
+
+						if (extension.onClick) {
+							extension.onClick(selection);
+						}
+					};
 
 				/**
 				 * Renders custom dropdown menu with active selection extensions
@@ -79,7 +119,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 								editorView={view}
 								editorAnalyticsAPI={api?.analytics?.actions}
 								extensions={extensions}
-								onExtensionClick={handleOnExtensionClick}
+								onExtensionClick={handleOnExtensionClick(view)}
 							/>
 						);
 					},
@@ -93,5 +133,11 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				};
 			},
 		},
+		pmPlugins: () => [
+			{
+				name: 'selectionExtension',
+				plugin: () => createPlugin(),
+			},
+		],
 	};
 };

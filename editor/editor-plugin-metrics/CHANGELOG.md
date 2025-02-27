@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.2.3
+
+### Patch Changes
+
+- [#118316](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118316)
+  [`642dc2d7b337a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/642dc2d7b337a) -
+  ED-26237 Update ease of use metrics to check nodeAttribute changes
+- Updated dependencies
+
 ## 3.2.2
 
 ### Patch Changes

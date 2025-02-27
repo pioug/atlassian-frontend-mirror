@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/portal",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"description": "A wrapper for rendering components in React portals.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,8 +52,18 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/code": "^16.0.0",
+		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/flag": "^16.1.0",
+		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/inline-dialog": "^17.0.0",
+		"@atlaskit/link": "^3.0.0",
 		"@atlaskit/modal-dialog": "^13.0.0",
+		"@atlaskit/onboarding": "^13.0.1",
+		"@atlaskit/primitives": "^14.1.0",
+		"@atlaskit/section-message": "^8.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tokens": "^4.2.0",
 		"@atlaskit/tooltip": "^20.0.0",
@@ -64,7 +74,6 @@
 		"@testing-library/react-hooks": "^8.0.1",
 		"bind-event-listener": "^3.0.0",
 		"raf-stub": "^2.0.1",
-		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

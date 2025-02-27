@@ -39,9 +39,6 @@
 			"path": "../../../design-system/logo/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/menu/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
 		},
 		{

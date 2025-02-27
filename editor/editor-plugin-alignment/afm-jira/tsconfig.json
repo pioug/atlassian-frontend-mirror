@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		},
 		{

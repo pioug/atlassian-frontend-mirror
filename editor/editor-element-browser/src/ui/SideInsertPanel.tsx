@@ -4,23 +4,26 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { Stack } from '@atlaskit/primitives';
 
 import type { SideInsertPanelProps } from '../types';
-import { useItems } from '../utils/use-items';
+import { CategoriesStructure, useItems, PredefinedCategories } from '../utils/use-items';
+import type { CategoryRegistry, ItemsRegistry } from '../utils/use-items';
 
 import { ExpandablePanel } from './ExpandablePanel';
 import { IconButtonGroup } from './IconButtonGroup';
 import type { GroupData, ItemData } from './ItemType';
-import { ListButtonGroup } from './ListButtonGroup';
+import { ListButtonGroup, ListButtonGroupWithHeading } from './ListButtonGroup';
 import { SearchPanel } from './SearchPanel';
 import { SubPanelWithBackButton } from './SubPanel';
 
 const DefaultView = ({
 	suggested,
-	categories,
+	itemsRegistry,
+	categoryRegistry,
 	onItemSelected,
 	onCategorySelected,
 }: {
 	suggested?: GroupData;
-	categories?: GroupData[];
+	itemsRegistry: ItemsRegistry;
+	categoryRegistry: CategoryRegistry;
 	onItemSelected: (index: number) => void;
 	onCategorySelected: (categoryId: string) => void;
 }) => {
@@ -34,41 +37,77 @@ const DefaultView = ({
 					onItemSelected={onItemSelected}
 				/>
 			)}
-			{categories &&
-				categories.map((category) => {
-					return (
+			{CategoriesStructure.map((category) => {
+				const { defautltItems } = category;
+				const items =
+					defautltItems.length > 0
+						? defautltItems
+								.map((itemIdOrTitle) => itemsRegistry[itemIdOrTitle])
+								.filter((item) => item)
+						: categoryRegistry[category.id]
+							? categoryRegistry[category.id].slice(0, 5)
+							: [];
+
+				return (
+					items.length > 0 && (
 						<ExpandablePanel
 							key={category.id}
 							id={category.id}
-							label={category.label}
-							items={category.items}
+							label={category.title}
+							items={items}
 							hasSeparator
 							onItemSelected={onItemSelected}
 							onViewAllSelected={onCategorySelected}
 						/>
-					);
-				})}
+					)
+				);
+			})}
 		</Stack>
 	);
 };
 
 const CategoryView = ({
-	category,
+	categoryRegistry,
+	selectedCategory,
 	onItemSelected,
 	onBackButtonClicked,
 }: {
-	category: GroupData;
+	categoryRegistry: CategoryRegistry;
+	selectedCategory: string;
 	onItemSelected: (index: number) => void;
 	onBackButtonClicked: () => void;
 }) => {
+	const categoryData = PredefinedCategories.get(selectedCategory);
+
+	const categoryLevelItems = categoryRegistry[selectedCategory] || [];
+
 	return (
 		<Stack>
 			<SubPanelWithBackButton
-				label={category.label}
+				label={categoryData.title}
 				buttonLabel="Back to all items"
 				onClick={onBackButtonClicked}
 			>
-				<ListButtonGroup id={category.id} items={category.items} onItemSelected={onItemSelected} />
+				{categoryLevelItems.length > 0 && (
+					<ListButtonGroup
+						id={categoryData.id}
+						items={categoryLevelItems}
+						onItemSelected={onItemSelected}
+					/>
+				)}
+				{categoryData &&
+					categoryData.subcategories.map(({ id, title }: { id: string; title: string }) => {
+						return (
+							categoryRegistry[id] && (
+								<ListButtonGroupWithHeading
+									id={id}
+									label={title}
+									items={categoryRegistry[id]}
+									onItemSelected={onItemSelected}
+								/>
+							)
+						);
+					})}
 			</SubPanelWithBackButton>
 		</Stack>
 	);
@@ -84,7 +123,7 @@ const SearchView = ({
 	return <ListButtonGroup id={'search'} items={items} onItemSelected={onItemSelected} />;
 };
 
-export const SideInsertPanelNew = ({ items, onItemInsert }: SideInsertPanelProps) => {
+export const SideInsertPanel = ({ items, onItemInsert }: SideInsertPanelProps) => {
 	const onItemSelect = useCallback(
 		(index: number) => {
 			onItemInsert(SelectItemMode.SELECTED, index);
@@ -94,8 +133,9 @@ export const SideInsertPanelNew = ({ items, onItemInsert }: SideInsertPanelProps
 
 	const {
 		suggested,
-		topFiveItemsByCategory,
-		selectedCategoryItems,
+		categoryRegistry,
+		itemsRegistry,
+		selectedCategory,
 		searchItems,
 		setSearchText,
 		setSelectedCategory,
@@ -103,16 +143,18 @@ export const SideInsertPanelNew = ({ items, onItemInsert }: SideInsertPanelProps
 
 	const view = searchItems ? (
 		<SearchView items={searchItems} onItemSelected={onItemSelect} />
-	) : selectedCategoryItems ? (
+	) : selectedCategory ? (
 		<CategoryView
-			category={selectedCategoryItems}
+			categoryRegistry={categoryRegistry}
+			selectedCategory={selectedCategory}
 			onItemSelected={onItemSelect}
 			onBackButtonClicked={() => setSelectedCategory(undefined)}
 		/>
 	) : (
 		<DefaultView
 			suggested={suggested}
-			categories={topFiveItemsByCategory}
+			itemsRegistry={itemsRegistry}
+			categoryRegistry={categoryRegistry}
 			onItemSelected={onItemSelect}
 			onCategorySelected={(categoryId) => {
 				setSelectedCategory(categoryId);
@@ -130,8 +172,4 @@ export const SideInsertPanelNew = ({ items, onItemInsert }: SideInsertPanelProps
 			{view}
 		</Stack>
 	);
-};
-
-export const SideInsertPanel = ({ items, onItemInsert }: SideInsertPanelProps) => {
-	return <div>Editor Controls Side panel</div>;
 };

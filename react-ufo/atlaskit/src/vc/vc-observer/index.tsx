@@ -482,7 +482,7 @@ export class VCObserver {
 				const value = parseInt(key, 10);
 				if ((VC[key] === null || VC[key] === undefined) && VCRatio >= value / 100) {
 					VC[key] = time;
-					VCBox[key] = componentsLog[time]?.map((v) => v.targetName);
+					VCBox[key] = [...new Set(componentsLog[time]?.map((v) => v.targetName))];
 				}
 			});
 			return VCRatio;
@@ -496,7 +496,7 @@ export class VCObserver {
 			) => {
 				const currentlyPainted = entryPainted + (acc.abs[i - 1]?.[1] || 0);
 				const currentlyPaintedRatio = Math.round((currentlyPainted / totalPainted) * 1000) / 10;
-				const logEntry = componentsLog[timestamp]?.map((v) => v.targetName);
+				const logEntry = [...new Set(componentsLog[timestamp]?.map((v) => v.targetName))];
 
 				const ratioDelta = (currentlyPaintedRatio - (acc.rel[i - 1]?.vc ?? 0)) / 100;
 

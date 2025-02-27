@@ -1,12 +1,10 @@
 /**
  * @jsxRuntime classic
+ * @jsxFrag React.Fragment
  * @jsx jsx
  */
-/**
- * @jsxFrag React.Fragment
- */
 
-import React, {
+import {
 	createContext,
 	Fragment,
 	memo,
@@ -19,15 +17,13 @@ import React, {
 	useState,
 } from 'react';
 
-import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
-import { easeInOut } from '@atlaskit/motion/curves';
-import { durations } from '@atlaskit/motion/durations';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
@@ -86,40 +82,37 @@ interface DraggableItemProps {
 	onDrop: (sourceIndex: number, destinationIndex: number) => void;
 }
 
-const itemStyles = css({
-	boxSizing: 'border-box',
-	width: '100%',
-	backgroundColor: 'elevation.surface.raised',
-	borderRadius: 'border.radius.100',
-	boxShadow: 'elevation.shadow.raised',
-	objectFit: 'cover',
-	paddingBlockEnd: 'space.050',
-	paddingBlockStart: 'space.050',
-	paddingInlineEnd: 'space.050',
-	paddingInlineStart: 'space.050',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	transition: `all ${durations.small}ms ${easeInOut}`,
-	WebkitTouchCallout: 'none',
-});
-
-type ItemState = 'idle' | 'dragging' | 'over';
-
-const itemStateStyles: Record<ItemState, any> = {
-	idle: css({
+const styles = cssMap({
+	root: {
+		boxSizing: 'border-box',
+		width: '100%',
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		backgroundColor: token('elevation.surface.raised'),
+		borderRadius: token('border.radius.100'),
+		boxShadow: token('elevation.shadow.raised'),
+		objectFit: 'cover',
+		transition: 'all 100ms cubic-bezier(0.15,1,0.3,1)',
+	},
+	idle: {
 		'&:hover': {
-			background: token('elevation.surface.overlay', '#FFF'),
-			boxShadow: token('elevation.shadow.overlay', 'none'),
+			backgroundColor: token('elevation.surface.overlay.hovered'),
+			boxShadow: token('elevation.shadow.overlay'),
 		},
-	}),
-	dragging: css({
+	},
+	dragging: {
 		filter: 'grayscale(0.8)',
-	}),
-	over: css({
+	},
+	over: {
 		boxShadow: token('elevation.shadow.overlay', 'none'),
 		filter: 'brightness(1.15)',
 		transform: 'scale(1.1) rotate(8deg)',
-	}),
-};
+	},
+});
+
+type ItemState = 'idle' | 'dragging' | 'over';
 
 function DraggableItem({
 	item,
@@ -173,8 +166,8 @@ function DraggableItem({
 
 	return (
 		<Fragment>
-			<Box ref={ref} xcss={itemStateStyles[state]}>
-				<Box xcss={itemStyles}>
+			<Box ref={ref} xcss={styles[state]}>
+				<Box xcss={styles.root}>
 					<Grid alignItems="center" columnGap="space.050" templateColumns="auto 1fr auto">
 						<DropdownMenu
 							shouldRenderToParent
@@ -204,6 +197,7 @@ function DraggableItem({
 						{item.renderItem({ ref: null, onDrop, ...restProps })}
 					</Grid>
 				</Box>
+
 				{closestEdge && <DropIndicator edge={closestEdge} gap="1px" />}
 			</Box>
 		</Fragment>
@@ -228,7 +222,7 @@ const DraggableList = ({
 	itemCount: number;
 }) => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			{items.map((item: CustomDraggable, index: number) => (
 				<DraggableItem
 					key={item.key}
@@ -242,7 +236,7 @@ const DraggableList = ({
 					itemCount={itemCount}
 				/>
 			))}
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
@@ -470,7 +464,7 @@ const generateDraggableCats = (): CustomDraggable[] => {
 
 		const altText = `Draggable cat image ${index + 1}`;
 
-		return <img css={[itemStyles, itemStateStyles[state]]} ref={ref} src={src} alt={altText} />;
+		return <img css={[styles.root, styles[state]]} ref={ref} src={src} alt={altText} />;
 	});
 
 	return urls.map((url, index) => ({

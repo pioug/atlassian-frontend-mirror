@@ -129,6 +129,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 					node: this.node,
 					getPos,
 				},
+				true,
 			)(this.view.state, this.view.dispatch);
 		}
 	};

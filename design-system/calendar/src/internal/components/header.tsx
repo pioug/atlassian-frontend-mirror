@@ -7,9 +7,6 @@ import ChevronDoubleLeftIcon from '@atlaskit/icon/utility/chevron-double-left';
 import ChevronDoubleRightIcon from '@atlaskit/icon/utility/chevron-double-right';
 import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
-import ChevronOldLeftIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
-import ChevronOldRightIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 import { type TabIndex } from '../../types';
@@ -95,38 +92,26 @@ const Header = memo<HeaderProps>(function Header({
 	return (
 		<Box paddingInline="space.100">
 			<Inline space="space.0" alignBlock="center" spread="space-between">
-				{fg('dst-a11y-add-year-buttons-to-calendar') ? (
-					<Inline space="space.100" alignBlock="start">
-						<IconButton
-							appearance="subtle"
-							spacing="compact"
-							tabIndex={tabIndex}
-							onClick={handlePrevYearInteraction}
-							testId={testId && `${testId}--previous-year`}
-							icon={ChevronDoubleLeftIcon}
-							label={`${previousYearLabel}, ${previousYearHeading}`}
-						/>
-						<IconButton
-							appearance="subtle"
-							spacing="compact"
-							tabIndex={tabIndex}
-							onClick={handlePrevMonthInteraction}
-							testId={testId && `${testId}--previous-month`}
-							icon={ChevronLeftIcon}
-							label={`${previousMonthLabel}, ${previousMonthHeading}`}
-						/>
-					</Inline>
-				) : (
+				<Inline space="space.100" alignBlock="start">
+					<IconButton
+						appearance="subtle"
+						spacing="compact"
+						tabIndex={tabIndex}
+						onClick={handlePrevYearInteraction}
+						testId={testId && `${testId}--previous-year`}
+						icon={ChevronDoubleLeftIcon}
+						label={`${previousYearLabel}, ${previousYearHeading}`}
+					/>
 					<IconButton
 						appearance="subtle"
 						spacing="compact"
 						tabIndex={tabIndex}
 						onClick={handlePrevMonthInteraction}
 						testId={testId && `${testId}--previous-month`}
-						icon={ChevronOldLeftIcon}
+						icon={ChevronLeftIcon}
 						label={`${previousMonthLabel}, ${previousMonthHeading}`}
 					/>
-				)}
+				</Inline>
 				{/* This is required to ensure that the new month/year is announced when the previous/next month buttons are activated */}
 				<Box
 					aria-live={hasInteractedWithMonthOrYear ? 'polite' : undefined}
@@ -142,38 +127,26 @@ const Header = memo<HeaderProps>(function Header({
 						{`${monthLongTitle} ${year}`}
 					</Heading>
 				</Box>
-				{fg('dst-a11y-add-year-buttons-to-calendar') ? (
-					<Inline space="space.100" alignBlock="end">
-						<IconButton
-							appearance="subtle"
-							spacing="compact"
-							tabIndex={tabIndex}
-							onClick={handleNextMonthInteraction}
-							testId={testId && `${testId}--next-month`}
-							icon={ChevronRightIcon}
-							label={`${nextMonthLabel}, ${nextMonthHeading}`}
-						/>
-						<IconButton
-							appearance="subtle"
-							spacing="compact"
-							tabIndex={tabIndex}
-							onClick={handleNextYearInteraction}
-							testId={testId && `${testId}--next-year`}
-							icon={ChevronDoubleRightIcon}
-							label={`${nextYearLabel}, ${nextYearHeading}`}
-						/>
-					</Inline>
-				) : (
+				<Inline space="space.100" alignBlock="end">
 					<IconButton
 						appearance="subtle"
 						spacing="compact"
 						tabIndex={tabIndex}
 						onClick={handleNextMonthInteraction}
 						testId={testId && `${testId}--next-month`}
-						icon={ChevronOldRightIcon}
+						icon={ChevronRightIcon}
 						label={`${nextMonthLabel}, ${nextMonthHeading}`}
 					/>
-				)}
+					<IconButton
+						appearance="subtle"
+						spacing="compact"
+						tabIndex={tabIndex}
+						onClick={handleNextYearInteraction}
+						testId={testId && `${testId}--next-year`}
+						icon={ChevronDoubleRightIcon}
+						label={`${nextYearLabel}, ${nextYearHeading}`}
+					/>
+				</Inline>
 			</Inline>
 		</Box>
 	);

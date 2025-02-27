@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "3.0.3",
+	"version": "4.0.0",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts"
@@ -37,7 +39,8 @@
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/analytics-namespaced-context": "^7.0.0",
 		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/editor-common": "^100.2.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-context-identifier": "^2.0.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "3.0.0",
@@ -46,14 +49,14 @@
 		"@atlaskit/heading": "5.1.0",
 		"@atlaskit/icon": "24.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/popup": "2.0.0",
-		"@atlaskit/primitives": "14.1.0",
+		"@atlaskit/popup": "2.0.1",
+		"@atlaskit/primitives": "14.1.2",
 		"@atlaskit/prosemirror-input-rules": "^3.3.0",
 		"@atlaskit/task-decision": "^19.0.0",
 		"@atlaskit/tmp-editor-statsig": "^3.2.0",
 		"@atlaskit/tokens": "4.2.0",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -98,8 +101,7 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"styling": [
-				"emotion",
-				"emotion"
+				"compiled"
 			],
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"

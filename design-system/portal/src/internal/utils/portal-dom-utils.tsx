@@ -57,7 +57,7 @@ export const appendPortalContainerIfNotAppended = (container: HTMLDivElement): v
 	}
 };
 
-export const isDocumentDefined = () => {
+const isDocumentDefined = () => {
 	return document !== undefined;
 };
 

@@ -243,7 +243,8 @@ export const DragHandle = ({
 				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
 					tr = selectNode(tr, startPos, nodeType);
 					if (editorExperiment('platform_editor_controls', 'variant1')) {
-						api?.blockControls?.commands.toggleBlockMenu()({ tr });
+						api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
+						e.stopPropagation();
 					}
 				} else if (
 					isTopLevelNode &&
@@ -289,6 +290,7 @@ export const DragHandle = ({
 			multiSelectDnD?.anchor,
 			isTopLevelNode,
 			nodeType,
+			anchorName,
 		],
 	);
 
@@ -798,6 +800,7 @@ export const DragHandle = ({
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			onDrop={handleOnDrop}
 			disabled={dragHandleDisabled}
+			data-editor-block-ctrl-drag-handle
 			data-testid="block-ctrl-drag-handle"
 		>
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */}

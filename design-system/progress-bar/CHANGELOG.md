@@ -1,5 +1,13 @@
 # @atlaskit/progress-bar
 
+## 4.0.1
+
+### Patch Changes
+
+- [#119549](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119549)
+  [`5064e4be0bc02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5064e4be0bc02) -
+  Update dependencies.
+
 ## 4.0.0
 
 ### Major Changes

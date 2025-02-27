@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 100.2.0
+
+### Minor Changes
+
+- [#119131](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119131)
+  [`c7344c34474f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7344c34474f9) -
+  [EDF-2500] Added sessionid for each analytics event for inline suggestion
+- [#117947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117947)
+  [`2c672e958d395`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c672e958d395) -
+  [ux] EDF-2346 - [MD] Remove emotion references
+- [#119058](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119058)
+  [`4f8ad7d7497be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f8ad7d7497be) -
+  [ux] [ED-26575] Add placeholder to quick insert input field
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 100.1.2
 
 ### Patch Changes

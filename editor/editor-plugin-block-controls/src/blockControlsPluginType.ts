@@ -20,6 +20,9 @@ export type ActiveNode = {
 	anchorName: string;
 	nodeType: string;
 	handleOptions?: HandleOptions;
+	rootPos?: number;
+	rootAnchorName?: string;
+	rootNodeType?: string;
 };
 
 export type MultiSelectDnD = {
@@ -35,6 +38,7 @@ export interface PluginState {
 	decorations: DecorationSet;
 	isDragging: boolean;
 	isMenuOpen?: boolean;
+	menuTriggerBy?: string;
 	editorHeight: number;
 	editorWidthLeft: number;
 	editorWidthRight: number;
@@ -58,6 +62,7 @@ export type ReleaseHiddenDecoration = () => boolean | undefined;
 export type BlockControlsSharedState =
 	| {
 			isMenuOpen: boolean;
+			menuTriggerBy?: string;
 			activeNode?: ActiveNode;
 			isDragging: boolean;
 			isPMDragging: boolean;
@@ -113,8 +118,11 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				anchorName: string,
 				nodeType: string,
 				handleOptions?: HandleOptions,
+				rootPos?: number,
+				rootAnchorName?: string,
+				rootNodeType?: string,
 			) => EditorCommand;
-			toggleBlockMenu: (options?: { closeMenu?: boolean }) => EditorCommand;
+			toggleBlockMenu: (options?: { closeMenu?: boolean; anchorName?: string }) => EditorCommand;
 			setNodeDragged: (
 				getPos: () => number | undefined,
 				anchorName: string,

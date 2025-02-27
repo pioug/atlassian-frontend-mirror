@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 26.3.2
+
+### Patch Changes
+
+- [#118247](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118247)
+  [`e1a483946dc0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1a483946dc0d) -
+  [ux] Passing additional prop named reactionPickerAdditionalStyle to enable selected state on the
+  reaction picker
+
+## 26.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.3.0
 
 ### Minor Changes

@@ -67,8 +67,24 @@ const items = [
 		renderIcon: () => <Table size="xlarge" label="" />,
 	},
 	{
-		exampleTitle: 'With NEW label',
+		exampleTitle: 'With big image',
 		index: 5,
+		title: 'Decision Helper',
+		description: 'Workflows and notifications for decision making',
+		showDescription: true,
+		keyshortcut: undefined,
+		renderIcon: () => (
+			<img
+				data-testid="macro-custom-icon-img"
+				alt="Decision Helper"
+				src="https://icon.cdn.prod.atlassian-dev.net/d31527a9-9b37-4734-916a-eb6170e5e701/d9cf229a-4c39-4f0d-96a7-90986570c551/8e8b96b2-4a12-401d-8430-29f38041a859/main/images/macro-icon.png"
+				width="100%"
+			/>
+		),
+	},
+	{
+		exampleTitle: 'With NEW label',
+		index: 6,
 		title: 'Codeblock',
 		description: 'Display code with syntax highlighting',
 		keyshortcut: makeKeyMapWithCommon('', '```'),
@@ -77,7 +93,7 @@ const items = [
 	},
 	{
 		exampleTitle: 'Selected',
-		index: 6,
+		index: 7,
 		title: 'Actions',
 		description: 'Create and assign action items',
 		keyshortcut: makeKeyMapWithCommon('', '[]'),
@@ -86,7 +102,7 @@ const items = [
 	},
 	{
 		exampleTitle: 'Disabled',
-		index: 7,
+		index: 8,
 		title: 'Actions',
 		description: 'Create and assign action items',
 		keyshortcut: makeKeyMapWithCommon('', '[]'),
@@ -95,7 +111,7 @@ const items = [
 	},
 	{
 		exampleTitle: 'No Icon',
-		index: 7,
+		index: 9,
 		title: 'Actions',
 		description: 'Create and assign action items',
 	},

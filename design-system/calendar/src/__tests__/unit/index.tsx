@@ -6,8 +6,6 @@ import userEvent from '@testing-library/user-event';
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import Calendar, { type CalendarProps } from '../../index';
 import dateToString from '../../internal/utils/date-to-string';
 import { type TabIndex, type WeekDay } from '../../types';
@@ -127,103 +125,63 @@ describe('Calendar', () => {
 			expect(headingContainer).toHaveAttribute('aria-live');
 		});
 
-		describe('should include accessible text for previous and next arrow buttons', () => {
-			ffTest(
-				'dst-a11y-add-year-buttons-to-calendar',
-				() => {
-					const firstMonth = 1;
-					const lastMonth = 12;
+		it('should include accessible text for previous and next arrow buttons', () => {
+			const firstMonth = 1;
+			const lastMonth = 12;
 
-					const { unmount } = setup({
-						month: firstMonth,
-					});
+			const { unmount } = setup({
+				month: firstMonth,
+			});
 
-					const firstMonthPreviousYearDescriptiveText = screen.getByText(/, January 2018$/);
-					expect(firstMonthPreviousYearDescriptiveText).toBeInTheDocument();
+			const firstMonthPreviousYearDescriptiveText = screen.getByText(/, January 2018$/);
+			expect(firstMonthPreviousYearDescriptiveText).toBeInTheDocument();
 
-					const firstMonthPreviousMonthDescriptiveText = screen.getByText(/, December 2018$/);
-					expect(firstMonthPreviousMonthDescriptiveText).toBeInTheDocument();
+			const firstMonthPreviousMonthDescriptiveText = screen.getByText(/, December 2018$/);
+			expect(firstMonthPreviousMonthDescriptiveText).toBeInTheDocument();
 
-					const firstMonthNextMonthDescriptiveText = screen.getByText(/, February 2019$/);
-					expect(firstMonthNextMonthDescriptiveText).toBeInTheDocument();
+			const firstMonthNextMonthDescriptiveText = screen.getByText(/, February 2019$/);
+			expect(firstMonthNextMonthDescriptiveText).toBeInTheDocument();
 
-					const firstMonthNextYearDescriptiveText = screen.getByText(/, January 2020$/);
-					expect(firstMonthNextYearDescriptiveText).toBeInTheDocument();
+			const firstMonthNextYearDescriptiveText = screen.getByText(/, January 2020$/);
+			expect(firstMonthNextYearDescriptiveText).toBeInTheDocument();
 
-					unmount();
+			unmount();
 
-					setup({
-						month: lastMonth,
-					});
+			setup({
+				month: lastMonth,
+			});
 
-					const lastMonthPreviousYearDescriptiveText = screen.getByText(/, December 2018$/);
-					expect(lastMonthPreviousYearDescriptiveText).toBeInTheDocument();
+			const lastMonthPreviousYearDescriptiveText = screen.getByText(/, December 2018$/);
+			expect(lastMonthPreviousYearDescriptiveText).toBeInTheDocument();
 
-					const lastMonthPreviousMonthDescriptiveText = screen.getByText(/, November 2019$/);
-					expect(lastMonthPreviousMonthDescriptiveText).toBeInTheDocument();
+			const lastMonthPreviousMonthDescriptiveText = screen.getByText(/, November 2019$/);
+			expect(lastMonthPreviousMonthDescriptiveText).toBeInTheDocument();
 
-					const lastMonthNextMonthDescriptiveText = screen.getByText(/, January 2020$/);
-					expect(lastMonthNextMonthDescriptiveText).toBeInTheDocument();
+			const lastMonthNextMonthDescriptiveText = screen.getByText(/, January 2020$/);
+			expect(lastMonthNextMonthDescriptiveText).toBeInTheDocument();
 
-					const lastMonthNextYearDescriptiveText = screen.getByText(/, December 2020$/);
-					expect(lastMonthNextYearDescriptiveText).toBeInTheDocument();
-				},
-				() => {
-					const firstMonth = 1;
-					const lastMonth = 12;
-
-					const { unmount } = setup({
-						month: firstMonth,
-					});
-
-					const firstMonthPreviousMonthDescriptiveText = screen.getByText(/, December 2018$/);
-					expect(firstMonthPreviousMonthDescriptiveText).toBeInTheDocument();
-
-					const firstMonthNextMonthDescriptiveText = screen.getByText(/, February 2019$/);
-					expect(firstMonthNextMonthDescriptiveText).toBeInTheDocument();
-
-					unmount();
-
-					setup({
-						month: lastMonth,
-					});
-
-					const lastMonthPreviousMonthDescriptiveText = screen.getByText(/, November 2019$/);
-					expect(lastMonthPreviousMonthDescriptiveText).toBeInTheDocument();
-
-					const lastMonthNextMonthDescriptiveText = screen.getByText(/, January 2020$/);
-					expect(lastMonthNextMonthDescriptiveText).toBeInTheDocument();
-				},
-			);
+			const lastMonthNextYearDescriptiveText = screen.getByText(/, December 2020$/);
+			expect(lastMonthNextYearDescriptiveText).toBeInTheDocument();
 		});
 
-		describe('should switch to previous year when clicked on previous year button', () => {
-			ffTest(
-				'dst-a11y-add-year-buttons-to-calendar',
-				async () => {
-					const user = userEvent.setup();
-					const { props } = setup();
+		it('should switch to previous year when clicked on previous year button', async () => {
+			const user = userEvent.setup();
+			const { props } = setup();
 
-					await user.click(screen.getByTestId(`${testId}--previous-year`));
+			await user.click(screen.getByTestId(`${testId}--previous-year`));
 
-					expect(screen.getByTestId(`${testId}--current-month-year`)).toHaveTextContent(
-						`December ${defaultYear - 1}`,
-					);
+			expect(screen.getByTestId(`${testId}--current-month-year`)).toHaveTextContent(
+				`December ${defaultYear - 1}`,
+			);
 
-					expect(props.onChange).toHaveBeenCalledWith(
-						makeHandlerObject({
-							day: defaultDay,
-							month: defaultMonth,
-							year: defaultYear - 1,
-							type: 'prevYear',
-						}),
-						expect.anything(),
-					);
-				},
-				() => {
-					// DO nothing, no years if FF off
-					expect(true).toBe(true);
-				},
+			expect(props.onChange).toHaveBeenCalledWith(
+				makeHandlerObject({
+					day: defaultDay,
+					month: defaultMonth,
+					year: defaultYear - 1,
+					type: 'prevYear',
+				}),
+				expect.anything(),
 			);
 		});
 
@@ -269,98 +227,55 @@ describe('Calendar', () => {
 			);
 		});
 
-		describe('should switch to next year when clicked on next year button', () => {
-			ffTest(
-				'dst-a11y-add-year-buttons-to-calendar',
-				async () => {
-					const user = userEvent.setup();
-					const { props } = setup();
+		it('should switch to next year when clicked on next year button', async () => {
+			const user = userEvent.setup();
+			const { props } = setup();
 
-					await user.click(screen.getByTestId(`${testId}--next-year`));
+			await user.click(screen.getByTestId(`${testId}--next-year`));
 
-					expect(screen.getByTestId(`${testId}--current-month-year`)).toHaveTextContent(
-						`December ${defaultYear + 1}`,
-					);
+			expect(screen.getByTestId(`${testId}--current-month-year`)).toHaveTextContent(
+				`December ${defaultYear + 1}`,
+			);
 
-					expect(props.onChange).toHaveBeenCalledWith(
-						makeHandlerObject({
-							day: defaultDay,
-							month: defaultMonth,
-							type: 'nextYear',
-							year: defaultYear + 1,
-						}),
-						expect.anything(),
-					);
-				},
-				() => {
-					// Do nothing, year buttons not available when FF off
-					expect(true).toBe(true);
-				},
+			expect(props.onChange).toHaveBeenCalledWith(
+				makeHandlerObject({
+					day: defaultDay,
+					month: defaultMonth,
+					type: 'nextYear',
+					year: defaultYear + 1,
+				}),
+				expect.anything(),
 			);
 		});
 
-		describe('should have month and year buttons accessible by keyboard', () => {
-			ffTest(
-				'dst-a11y-add-year-buttons-to-calendar',
-				() => {
-					setup();
+		it('should have month and year buttons accessible by keyboard', () => {
+			setup();
 
-					expect(screen.getByTestId(`${testId}--previous-year`)).toHaveAttribute(
-						'tabindex',
-						String(defaultTabIndex),
-					);
-					expect(screen.getByTestId(`${testId}--previous-month`)).toHaveAttribute(
-						'tabindex',
-						String(defaultTabIndex),
-					);
-					expect(screen.getByTestId(`${testId}--next-month`)).toHaveAttribute(
-						'tabindex',
-						String(defaultTabIndex),
-					);
-					expect(screen.getByTestId(`${testId}--next-year`)).toHaveAttribute(
-						'tabindex',
-						String(defaultTabIndex),
-					);
-				},
-				() => {
-					setup();
-
-					expect(screen.getByTestId(`${testId}--previous-month`)).toHaveAttribute(
-						'tabindex',
-						String(defaultTabIndex),
-					);
-					expect(screen.getByTestId(`${testId}--next-month`)).toHaveAttribute(
-						'tabindex',
-						String(defaultTabIndex),
-					);
-				},
+			expect(screen.getByTestId(`${testId}--previous-year`)).toHaveAttribute(
+				'tabindex',
+				String(defaultTabIndex),
+			);
+			expect(screen.getByTestId(`${testId}--previous-month`)).toHaveAttribute(
+				'tabindex',
+				String(defaultTabIndex),
+			);
+			expect(screen.getByTestId(`${testId}--next-month`)).toHaveAttribute(
+				'tabindex',
+				String(defaultTabIndex),
+			);
+			expect(screen.getByTestId(`${testId}--next-year`)).toHaveAttribute(
+				'tabindex',
+				String(defaultTabIndex),
 			);
 		});
 
-		describe('should have hidden span elements on month/year arrow buttons for representing labels', () => {
-			ffTest(
-				'dst-a11y-add-year-buttons-to-calendar',
-				() => {
-					setup();
+		it('should have hidden span elements on month/year arrow buttons for representing labels', () => {
+			setup();
 
-					expect(screen.getByTestId(`${testId}--previous-year`)).toHaveTextContent(
-						/^Previous year/,
-					);
-					expect(screen.getByTestId(`${testId}--previous-month`)).toHaveTextContent(
-						/^Previous month/,
-					);
-					expect(screen.getByTestId(`${testId}--next-month`)).toHaveTextContent(/^Next month/);
-					expect(screen.getByTestId(`${testId}--next-year`)).toHaveTextContent(/^Next year/);
-				},
-				() => {
-					setup();
-
-					expect(screen.getByTestId(`${testId}--previous-month`)).toHaveTextContent(
-						/^Previous month/,
-					);
-					expect(screen.getByTestId(`${testId}--next-month`)).toHaveTextContent(/^Next month/);
-				},
-			);
+			expect(screen.getByTestId(`${testId}--previous-year`)).toHaveTextContent(/^Previous year/);
+			expect(screen.getByTestId(`${testId}--previous-month`)).toHaveTextContent(/^Previous month/);
+			expect(screen.getByTestId(`${testId}--next-month`)).toHaveTextContent(/^Next month/);
+			expect(screen.getByTestId(`${testId}--next-year`)).toHaveTextContent(/^Next year/);
 		});
 	});
 
@@ -508,40 +423,22 @@ describe('Calendar', () => {
 		});
 	});
 
-	describe('should propagate tabindex to all interactive elements', () => {
-		ffTest(
-			'dst-a11y-add-year-buttons-to-calendar',
-			() => {
-				[-1 as TabIndex, 0 as TabIndex].forEach((tabIndexValue) => {
-					const { unmount } = setup({ tabIndex: tabIndexValue });
+	it('should propagate tabindex to all interactive elements', () => {
+		[-1 as TabIndex, 0 as TabIndex].forEach((tabIndexValue) => {
+			const { unmount } = setup({ tabIndex: tabIndexValue });
 
-					// Header
-					const previousYearButton = screen.getByTestId(`${testId}--previous-year`);
-					const previousMonthButton = screen.getByTestId(`${testId}--previous-month`);
-					const nextMonthButton = screen.getByTestId(`${testId}--next-month`);
-					const nextYearButton = screen.getByTestId(`${testId}--next-year`);
+			// Header
+			const previousYearButton = screen.getByTestId(`${testId}--previous-year`);
+			const previousMonthButton = screen.getByTestId(`${testId}--previous-month`);
+			const nextMonthButton = screen.getByTestId(`${testId}--next-month`);
+			const nextYearButton = screen.getByTestId(`${testId}--next-year`);
 
-					expect(previousYearButton).toHaveAttribute('tabindex', String(tabIndexValue));
-					expect(previousMonthButton).toHaveAttribute('tabindex', String(tabIndexValue));
-					expect(nextMonthButton).toHaveAttribute('tabindex', String(tabIndexValue));
-					expect(nextYearButton).toHaveAttribute('tabindex', String(tabIndexValue));
-					unmount();
-				});
-			},
-			() => {
-				[-1 as TabIndex, 0 as TabIndex].forEach((tabIndexValue) => {
-					const { unmount } = setup({ tabIndex: tabIndexValue });
-
-					// Header
-					const previousMonthButton = screen.getByTestId(`${testId}--previous-month`);
-					const nextMonthButton = screen.getByTestId(`${testId}--next-month`);
-
-					expect(previousMonthButton).toHaveAttribute('tabindex', String(tabIndexValue));
-					expect(nextMonthButton).toHaveAttribute('tabindex', String(tabIndexValue));
-					unmount();
-				});
-			},
-		);
+			expect(previousYearButton).toHaveAttribute('tabindex', String(tabIndexValue));
+			expect(previousMonthButton).toHaveAttribute('tabindex', String(tabIndexValue));
+			expect(nextMonthButton).toHaveAttribute('tabindex', String(tabIndexValue));
+			expect(nextYearButton).toHaveAttribute('tabindex', String(tabIndexValue));
+			unmount();
+		});
 	});
 
 	it('dates container should not have unnecessary tab stop for keyboard users', () => {

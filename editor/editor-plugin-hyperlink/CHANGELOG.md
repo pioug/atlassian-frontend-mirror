@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.0.3
+
+### Patch Changes
+
+- [#118799](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118799)
+  [`d2c3610a2c050`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2c3610a2c050) -
+  Fixes missing dependency declarations in package.json
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

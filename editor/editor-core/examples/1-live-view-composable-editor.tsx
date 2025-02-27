@@ -15,7 +15,7 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 // Commented out - see below
-//import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
+import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
@@ -25,6 +25,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
+import { ExampleForgeApp } from '../example-helpers/ExampleForgeApp';
 import enMessages from '../src/i18n/en';
 
 const smartLinksProvider = new ConfluenceCardProvider('staging');
@@ -144,13 +145,18 @@ function ComposableEditorPage() {
 					: { initialContentMode: 'live-edit' },
 			])
 			.add(selectionMarkerPlugin)
-			.add(codeBlockAdvancedPlugin);
-		/* Commented out - master build is failing - https://atlassian.slack.com/archives/CL6HC337Z/p1740169035917969t pu
+			.add(codeBlockAdvancedPlugin)
 			.add([
 				selectionExtensionPlugin,
 				{
-					pageModes: ['view', 'live-view-only', 'live-view'],
+					pageModes: ['view', 'live-view'],
 					extensions: [
+						{
+							name: 'Selection Extension Component Example',
+							component: ({ closeExtension, selection }) => {
+								return <ExampleForgeApp closeExtension={closeExtension} selection={selection} />;
+							},
+						},
 						{
 							name: 'Selection Extension Example',
 							onClick: (params) => {
@@ -169,7 +175,6 @@ function ComposableEditorPage() {
 					],
 				},
 			]);
-			*/
 
 		// The only things that cause a re-creation of the preset is something in the
 		// universal preset to be consistent with current behaviour (ie. this could

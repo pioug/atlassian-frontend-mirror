@@ -22,7 +22,7 @@ import type { BasePrimitiveProps } from './types';
 
 export type GridProps<T extends ElementType = 'div'> = {
 	/**
-	 * The DOM element to render as the Flex. Defaults to `div`.
+	 * The DOM element to render as the Grid. Defaults to `div`.
 	 */
 	as?: 'div' | 'span' | 'ul' | 'ol';
 

@@ -10,15 +10,13 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
-import { keylineHeight } from './internal/constants';
 
 const headerStyles = css({
 	display: 'flex',
 	position: 'relative',
 	alignItems: 'center',
 	justifyContent: 'space-between',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	marginBlockEnd: -keylineHeight,
+	marginBlockEnd: `calc(-1 * ${token('border.width.outline')})`,
 	paddingBlockEnd: token('space.200'),
 	paddingBlockStart: token('space.300'),
 	paddingInline: token('space.300'),

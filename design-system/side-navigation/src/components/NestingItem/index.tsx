@@ -4,8 +4,7 @@
  */
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right--arrow-right-circle';
 import {
@@ -15,7 +14,7 @@ import {
 	type Overrides,
 } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -31,8 +30,10 @@ import { useChildIdsEffect } from '../utils/hooks';
 
 import { nestingItemStyle } from './styles';
 
-const iconContainerStyles = xcss({
-	display: 'inline',
+const styles = cssMap({
+	iconContainer: {
+		display: 'inline',
+	},
 });
 
 interface NestingItemOverrides extends Overrides {
@@ -290,11 +291,11 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 		iconAfter: (
 			<Fragment>
 				{iconAfter ? (
-					<Box xcss={iconContainerStyles} data-custom-icon as="span">
+					<Box xcss={styles.iconContainer} data-custom-icon as="span">
 						{iconAfter}
 					</Box>
 				) : null}
-				<Box data-right-arrow xcss={iconContainerStyles} as="span">
+				<Box data-right-arrow xcss={styles.iconContainer} as="span">
 					<ArrowRightIcon
 						testId={testId && `${testId}--item--right-arrow`}
 						color="currentColor"

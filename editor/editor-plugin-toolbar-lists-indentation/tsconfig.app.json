@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -57,9 +60,6 @@
 		},
 		{
 			"path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"

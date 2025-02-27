@@ -2,7 +2,7 @@ import { type default as React, type RefObject } from 'react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import type { WidthNames } from './internal/constants';
+export type WidthNames = 'small' | 'medium' | 'large' | 'x-large';
 
 export type KeyboardOrMouseEvent = React.MouseEvent<any> | React.KeyboardEvent<any> | KeyboardEvent;
 

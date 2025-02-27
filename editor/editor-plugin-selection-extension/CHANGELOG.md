@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 2.1.0
+
+### Minor Changes
+
+- [#115116](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115116)
+  [`344eb36211daa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/344eb36211daa) -
+  [ux] ED-26394 support component rendering in editor selection plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

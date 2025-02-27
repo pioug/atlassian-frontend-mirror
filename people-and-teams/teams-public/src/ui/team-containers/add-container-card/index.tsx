@@ -3,14 +3,17 @@ import React, { useState } from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/utility/add';
-import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../../common/types';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 const styles = cssMap({
+	card: {
+		alignItems: 'center',
+		width: '100%',
+	},
 	container: {
 		paddingTop: token('space.150'),
 		paddingRight: token('space.150'),
@@ -36,7 +39,7 @@ interface AddContainerCardProps {
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const CustomItemInner = ({ children }: CustomItemComponentProps) => {
+const LinkedCardWrapper = ({ children }: { children: React.ReactNode }) => {
 	const [hovered, setHovered] = useState(false);
 	const handleMouseEnter = () => setHovered(true);
 	const handleMouseLeave = () => setHovered(false);
@@ -59,8 +62,8 @@ export const AddContainerCard = ({
 	const { description, icon, title } = getContainerProperties(containerType);
 
 	return (
-		<CustomItem
-			iconBefore={
+		<LinkedCardWrapper>
+			<Inline space="space.100" xcss={styles.card}>
 				<Box xcss={styles.iconWrapper}>
 					<IconButton
 						label="Add a container"
@@ -71,16 +74,18 @@ export const AddContainerCard = ({
 						onClick={(e) => onAddAContainerClick(e)}
 					/>
 				</Box>
-			}
-			component={CustomItemInner}
-			description={
-				<Inline space="space.050">
-					{icon}
-					{description}
-				</Inline>
-			}
-		>
-			{title}
-		</CustomItem>
+				<Stack>
+					<Text maxLines={1} weight="medium" color="color.text">
+						{title}
+					</Text>
+					<Flex gap="space.050">
+						{icon}
+						<Text size="small" color="color.text.subtle">
+							{description}
+						</Text>
+					</Flex>
+				</Stack>
+			</Inline>
+		</LinkedCardWrapper>
 	);
 };

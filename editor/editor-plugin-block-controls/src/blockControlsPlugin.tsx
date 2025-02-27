@@ -34,26 +34,42 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		moveNode: moveNode(api),
 		moveToLayout: moveToLayout(api),
 		showDragHandleAt:
-			(pos: number, anchorName: string, nodeType: string, handleOptions?: HandleOptions) =>
+			(
+				pos: number,
+				anchorName: string,
+				nodeType: string,
+				handleOptions?: HandleOptions,
+				rootPos?: number,
+				rootAnchorName?: string,
+				rootNodeType?: string,
+			) =>
 			({ tr }: { tr: Transaction }) => {
 				const currMeta = tr.getMeta(key);
 
 				tr.setMeta(key, {
 					...currMeta,
-					activeNode: { pos, anchorName, nodeType, handleOptions },
+					activeNode: {
+						pos,
+						anchorName,
+						nodeType,
+						handleOptions,
+						rootPos,
+						rootAnchorName,
+						rootNodeType,
+					},
 					closeMenu: editorExperiment('platform_editor_controls', 'variant1') ? true : undefined,
 				});
 				return tr;
 			},
 		toggleBlockMenu:
-			(options?: { closeMenu?: boolean }) =>
+			(options?: { closeMenu?: boolean; anchorName?: string }) =>
 			({ tr }: { tr: Transaction }) => {
 				const currMeta = tr.getMeta(key);
 				if (options?.closeMenu) {
 					tr.setMeta(key, { ...currMeta, closeMenu: true });
 					return tr;
 				}
-				tr.setMeta(key, { ...currMeta, toggleMenu: true });
+				tr.setMeta(key, { ...currMeta, toggleMenu: { anchorName: options?.anchorName } });
 				return tr;
 			},
 		setNodeDragged:
@@ -129,6 +145,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		}
 		return {
 			isMenuOpen: key.getState(editorState)?.isMenuOpen ?? false,
+			menuTriggerBy: key.getState(editorState)?.menuTriggerBy ?? undefined,
 			activeNode: key.getState(editorState)?.activeNode ?? undefined,
 			isDragging: key.getState(editorState)?.isDragging ?? false,
 			isPMDragging: key.getState(editorState)?.isPMDragging ?? false,

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.0.2
+
+### Patch Changes
+
+- [#118799](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118799)
+  [`11c8209cb910d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11c8209cb910d) -
+  Fixes missing dependency declarations in package.json
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

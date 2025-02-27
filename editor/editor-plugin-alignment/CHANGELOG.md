@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-alignment
 
+## 3.0.0
+
+### Major Changes
+
+- [#117947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117947)
+  [`2c672e958d395`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c672e958d395) -
+  [ux] EDF-2346 - [MD] Remove emotion references
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

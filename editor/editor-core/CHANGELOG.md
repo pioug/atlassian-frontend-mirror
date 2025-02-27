@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 204.2.0
+
+### Minor Changes
+
+- [#117956](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117956)
+  [`cd2e59e78197e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd2e59e78197e) -
+  Tint transactions as dirty to prevent the change from being recognised as organic change
+
+### Patch Changes
+
+- [#118799](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118799)
+  [`d2c3610a2c050`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2c3610a2c050) -
+  Fixes missing dependency declarations in package.json
+- [#115116](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115116)
+  [`344eb36211daa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/344eb36211daa) -
+  [ux] ED-26394 support component rendering in editor selection plugin
+- Updated dependencies
+
+## 204.1.1
+
+### Patch Changes
+
+- [#117869](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117869)
+  [`1668bcd621203`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1668bcd621203) -
+  COMPHUB-2622 Added data attributes for editor elements
+
 ## 204.1.0
 
 ### Minor Changes

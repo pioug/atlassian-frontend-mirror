@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 2.0.1
+
+### Patch Changes
+
+- [#118418](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118418)
+  [`d2e804df6bf9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2e804df6bf9c) -
+  Update dependencies and remove old codemod and unused internal exports.
+
 ## 2.0.0
 
 ### Major Changes

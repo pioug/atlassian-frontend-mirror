@@ -41,7 +41,7 @@
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-listeners": "^9.0.0",
-		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/editor-common": "^100.2.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/feature-gate-js-client": "^4.26.0",

@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import { getRowHeights } from '../../../pm-plugins/utils/row-controls';
@@ -135,15 +136,24 @@ export default class NumberColumn extends Component<Props, any> {
 	};
 
 	private getClassNames = (index: number, isButtonDisabled = false) => {
-		const { hoveredRows, editorView, isInDanger, isResizing } = this.props;
+		const { hoveredRows, editorView, isInDanger, isResizing, tableActive } = this.props;
+
 		const isActive =
 			isRowSelected(index)(editorView.state.selection) ||
 			((hoveredRows || []).indexOf(index) !== -1 && !isResizing);
 
-		return classnames(ClassName.NUMBERED_COLUMN_BUTTON, {
-			[ClassName.NUMBERED_COLUMN_BUTTON_DISABLED]: isButtonDisabled,
-			[ClassName.HOVERED_CELL_IN_DANGER]: isActive && isInDanger,
-			[ClassName.HOVERED_CELL_ACTIVE]: isActive,
-		});
+		if (fg('platform_editor_nested_tables_number_column_fixes')) {
+			return classnames(ClassName.NUMBERED_COLUMN_BUTTON, {
+				[ClassName.NUMBERED_COLUMN_BUTTON_DISABLED]: isButtonDisabled,
+				[ClassName.HOVERED_CELL_IN_DANGER]: tableActive && isActive && isInDanger,
+				[ClassName.HOVERED_CELL_ACTIVE]: tableActive && isActive,
+			});
+		} else {
+			return classnames(ClassName.NUMBERED_COLUMN_BUTTON, {
+				[ClassName.NUMBERED_COLUMN_BUTTON_DISABLED]: isButtonDisabled,
+				[ClassName.HOVERED_CELL_IN_DANGER]: isActive && isInDanger,
+				[ClassName.HOVERED_CELL_ACTIVE]: isActive,
+			});
+		}
 	};
 }

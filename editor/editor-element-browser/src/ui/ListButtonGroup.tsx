@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Section } from '@atlaskit/menu';
@@ -21,69 +21,58 @@ interface ListButtonGroupProps extends Optional<GroupData, 'label'> {
 	onItemSelected?: (index: number, categoryId: string) => void;
 }
 
-const ListButtonGroupBase = ({
-	id,
-	label,
-	items,
-	hasSeparator,
-	onItemSelected,
-}: ListButtonGroupProps) => {
-	return (
-		<Section hasSeparator={hasSeparator}>
-			{label && (
-				<Box xcss={[headingContainerStyles]}>
-					<Heading size={'xsmall'}>{label}</Heading>
-				</Box>
-			)}
-			{items.map((item) => {
-				return (
-					<ListButtonItem
-						key={item.index}
-						index={item.index}
-						title={item.title}
-						description={item.description}
-						showDescription={item.showDescription}
-						attributes={item.attributes}
-						keyshortcut={item.keyshortcut}
-						renderIcon={item.renderIcon}
-						onItemSelected={(index) => onItemSelected?.(index, id)}
-					/>
-				);
-			})}
-		</Section>
-	);
-};
+const ListButtonGroupBase = memo(
+	({ id, label, items, hasSeparator, onItemSelected }: ListButtonGroupProps) => {
+		return (
+			<Section hasSeparator={hasSeparator}>
+				{label && (
+					<Box xcss={[headingContainerStyles]}>
+						<Heading size={'xsmall'}>{label}</Heading>
+					</Box>
+				)}
+				{items.map((item) => {
+					return (
+						<ListButtonItem
+							key={item.index}
+							index={item.index}
+							title={item.title}
+							description={item.description}
+							showDescription={item.showDescription}
+							attributes={item.attributes}
+							keyshortcut={item.keyshortcut}
+							renderIcon={item.renderIcon}
+							onItemSelected={(index) => onItemSelected?.(index, id)}
+						/>
+					);
+				})}
+			</Section>
+		);
+	},
+);
 
-export const ListButtonGroupWithHeading = ({
-	id,
-	label,
-	items,
-	hasSeparator,
-	onItemSelected,
-}: ListButtonGroupProps) => {
-	return (
-		<ListButtonGroupBase
-			id={id}
-			label={label}
-			items={items}
-			hasSeparator={hasSeparator}
-			onItemSelected={onItemSelected}
-		/>
-	);
-};
+export const ListButtonGroupWithHeading = memo(
+	({ id, label, items, hasSeparator, onItemSelected }: ListButtonGroupProps) => {
+		return (
+			<ListButtonGroupBase
+				id={id}
+				label={label}
+				items={items}
+				hasSeparator={hasSeparator}
+				onItemSelected={onItemSelected}
+			/>
+		);
+	},
+);
 
-export const ListButtonGroup = ({
-	id,
-	items,
-	hasSeparator,
-	onItemSelected,
-}: Omit<ListButtonGroupProps, 'label'>) => {
-	return (
-		<ListButtonGroupBase
-			id={id}
-			items={items}
-			hasSeparator={hasSeparator}
-			onItemSelected={onItemSelected}
-		/>
-	);
-};
+export const ListButtonGroup = memo(
+	({ id, items, hasSeparator, onItemSelected }: Omit<ListButtonGroupProps, 'label'>) => {
+		return (
+			<ListButtonGroupBase
+				id={id}
+				items={items}
+				hasSeparator={hasSeparator}
+				onItemSelected={onItemSelected}
+			/>
+		);
+	},
+);

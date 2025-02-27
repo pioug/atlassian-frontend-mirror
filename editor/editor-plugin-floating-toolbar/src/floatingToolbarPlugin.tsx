@@ -289,6 +289,10 @@ export function ContentComponent({
 		return null;
 	}
 
+	if (blockControlsState?.isMenuOpen && editorExperiment('platform_editor_controls', 'variant1')) {
+		return null;
+	}
+
 	const { config, node } = configWithNodeInfo;
 	let { items } = config;
 	const { groupLabel } = config;

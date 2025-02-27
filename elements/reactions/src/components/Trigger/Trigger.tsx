@@ -7,7 +7,7 @@ import { defineMessages, useIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Pressable, Box, xcss } from '@atlaskit/primitives';
+import { Pressable, Box, xcss, type XCSS } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
@@ -58,6 +58,10 @@ export interface TriggerProps {
 	 * Optional prop for controlling if the picker hover border will be rounded
 	 */
 	showRoundTrigger?: boolean;
+	/**
+	 * Option prop for controlling the reaction picker selection style
+	 */
+	selectionStyle?: XCSS;
 }
 
 const i18n = defineMessages({
@@ -159,6 +163,7 @@ export const Trigger = React.forwardRef(
 			showAddReactionText = false,
 			subtleReactionsSummaryAndPicker = false,
 			showRoundTrigger = false,
+			selectionStyle,
 		} = props;
 
 		const handleMouseDown = (
@@ -186,6 +191,8 @@ export const Trigger = React.forwardRef(
 						miniMode && miniModeStyles,
 						fg('platform-component-visual-refresh') && triggerStylesRefresh,
 						showRoundTrigger && roundTriggerStyles,
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						selectionStyle,
 					]}
 					onClick={handleMouseDown}
 					isDisabled={disabled}

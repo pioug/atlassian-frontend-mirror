@@ -4,13 +4,12 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import Calendar from '@atlaskit/calendar';
 import type { WeekDay } from '@atlaskit/calendar/types';
+import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
@@ -21,7 +20,6 @@ import {
 import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { N0, N60A } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import type { DateType } from '../../types';
@@ -32,9 +30,11 @@ import DatePickerInput from './date-picker-input';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const popupContentWrapper = css({
-	padding: token('space.025', '2px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	paddingTop: token('space.025', '2px'),
+	paddingBottom: token('space.025', '2px'),
+	paddingLeft: token('space.025', '2px'),
+	paddingRight: token('space.025', '2px'),
+	borderRadius: token('border.radius', '3px'),
 	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`),
 	backgroundColor: token('elevation.surface.overlay', N0),
 });

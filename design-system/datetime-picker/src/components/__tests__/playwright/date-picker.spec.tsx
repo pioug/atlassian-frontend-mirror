@@ -4,10 +4,10 @@ const datePicker = '[data-testid="datepicker-1--container"]';
 const tabcheckOuterDatePicker = datePicker;
 const tabcheckInnerDatePicker = '[data-testid^="jql-builder-basic-datetime"]';
 const calendar = `[aria-label='calendar']`;
-// const previousYearButton = 'button[data-testid$="previous-year"]';
+const previousYearButton = 'button[data-testid$="previous-year"]';
 const previousMonthButton = 'button[data-testid$="previous-month"]';
 const nextMonthButton = 'button[data-testid$="next-month"]';
-// const nextYearButton = 'button[data-testid$="next-year"]';
+const nextYearButton = 'button[data-testid$="next-year"]';
 const date = '[role=gridcell]:nth-child(6)';
 const focusedDate = '[data-focused="true"]';
 const input = 'input#react-select-datepicker-1-input';
@@ -157,14 +157,13 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckInnerCalendarButton).first()).toBeFocused();
 		await page.keyboard.press('Enter');
-		// Uncomment when FF 'dst-a11y-add-year-buttons-to-calendar' is rolled out
-		// await expect(page.locator(previousYearButton).first()).toBeFocused();
-		// await page.keyboard.press('Tab');
+		await expect(page.locator(previousYearButton).first()).toBeFocused();
+		await page.keyboard.press('Tab');
 		await expect(page.locator(previousMonthButton).first()).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(nextMonthButton).first()).toBeFocused();
-		// await page.keyboard.press('Tab');
-		// await expect(page.locator(nextYearButton).first()).toBeFocused();
+		await page.keyboard.press('Tab');
+		await expect(page.locator(nextYearButton).first()).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(focusedDate).first()).toBeFocused();
 		await page.keyboard.press('Tab');
@@ -381,9 +380,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		// Opens calendar picker
 		await page.keyboard.press('Enter');
 		await expect(page.locator(tabcheckOuterCalendarButton)).not.toBeFocused();
-		// Uncomment when FF 'dst-a11y-add-year-buttons-to-calendar' is rolled out
-		// await expect(page.locator(previousYearButton)).toBeFocused();
-		await expect(page.locator(previousMonthButton)).toBeFocused();
+		await expect(page.locator(previousYearButton)).toBeFocused();
 	});
 
 	test(`(ff ${ffValue}) When activating the open calendar button using the keyboard and the calendar is closed using escape, focus should move back to trigger`, async ({
@@ -412,9 +409,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		// Opens calendar picker
 		await page.keyboard.press('Enter');
 		await expect(page.locator(tabcheckOuterCalendarButton)).not.toBeFocused();
-		// Uncomment when FF 'dst-a11y-add-year-buttons-to-calendar' is rolled out
-		// await expect(page.locator(previousYearButton)).toBeFocused();
-		await expect(page.locator(previousMonthButton)).toBeFocused();
+		await expect(page.locator(previousYearButton)).toBeFocused();
 		// Close calendar picker
 		await page.keyboard.press('Escape');
 		await expect(page.locator(tabcheckOuterCalendarButton)).toBeFocused();

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-alignment",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Alignment plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,16 +12,24 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: AI",
 		"singleton": true,
 		"runReact18": true
 	},
+	"platform-feature-flags": {
+		"platform-visual-refresh-icons": {
+			"type": "boolean"
+		}
+	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
-		"@atlaskit/editor-common": "^100.1.0",
+		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/editor-common": "^100.2.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^3.0.0",
 		"@atlaskit/editor-plugin-selection-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -31,7 +39,7 @@
 		"@atlaskit/tmp-editor-statsig": "^3.2.0",
 		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -77,8 +85,7 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"styling": [
-				"emotion",
-				"emotion"
+				"compiled"
 			],
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"

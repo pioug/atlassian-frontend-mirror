@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 13.0.2
+
+### Patch Changes
+
+- [#116010](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/116010)
+  [`1b66beb10e972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b66beb10e972) -
+  Update dependencies.
+- [#118470](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118470)
+  [`687094c7a76b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/687094c7a76b3) -
+  Internal refactoring to reduce singleton exports.
+
 ## 13.0.1
 
 ### Patch Changes

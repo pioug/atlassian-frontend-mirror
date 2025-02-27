@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { REACT_UFO_VERSION } from '../../../common/constants';
+import { getReactUFOVersion } from '../../../common/constants';
 import type { LabelStack, SegmentLabel } from '../../../interaction-context';
 
 export type SegmentItem = {
@@ -58,8 +57,11 @@ export function labelStackStartWith(labelStack: LabelStack, startWith: LabelStac
 	return stringifyLabelStackFully(labelStack).startsWith(stringifyLabelStackFully(startWith));
 }
 
-export function optimizeLabelStack(labelStack: LabelStack) {
-	return REACT_UFO_VERSION === '2.0.0'
+export function optimizeLabelStack(
+	labelStack: LabelStack,
+	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
+) {
+	return reactUFOVersion
 		? getLabelStackReference(labelStack)
 		: labelStack.map((ls) => ({
 				n: ls.name,

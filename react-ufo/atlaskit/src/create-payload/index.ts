@@ -7,7 +7,7 @@ import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
-import { REACT_UFO_VERSION } from '../common/constants';
+import { getReactUFOVersion } from '../common/constants';
 import type { MultiHeatmapPayload, VCResult } from '../common/vc/types';
 import {
 	type Config,
@@ -445,7 +445,7 @@ function optimizeCustomData(interaction: InteractionMetrics) {
 		const value = result.get(label)?.data ?? {};
 
 		result.set(label, {
-			labelStack: optimizeLabelStack(labelStack),
+			labelStack: optimizeLabelStack(labelStack, getReactUFOVersion(interaction.type)),
 			data: Object.assign(value, data),
 		});
 
@@ -460,7 +460,7 @@ function optimizeCustomData(interaction: InteractionMetrics) {
 					const label = stringifyLabelStackFully([]);
 					const labelValue = result.get(label)?.data ?? {};
 					result.set(label, {
-						labelStack: optimizeLabelStack([]),
+						labelStack: optimizeLabelStack([], getReactUFOVersion(interaction.type)),
 						data: Object.assign(labelValue, { [key]: value }),
 					});
 				}
@@ -475,6 +475,7 @@ function optimizeCustomData(interaction: InteractionMetrics) {
 function optimizeReactProfilerTimings(
 	reactProfilerTimings: InteractionMetrics['reactProfilerTimings'],
 	interactionStart: number,
+	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
 ) {
 	const reactProfilerTimingsMap = reactProfilerTimings.reduce(
 		(result, { labelStack, startTime, commitTime, actualDuration, type }) => {
@@ -484,7 +485,7 @@ function optimizeReactProfilerTimings(
 				const end = Math.round(commitTime);
 
 				const timing = result.get(label) || {
-					labelStack: optimizeLabelStack(labelStack),
+					labelStack: optimizeLabelStack(labelStack, reactUFOVersion),
 					startTime: start,
 					endTime: end,
 					mountCount: 0,
@@ -546,7 +547,11 @@ function optimizeRedirects(redirects: InteractionMetrics['redirects'], interacti
 	return updatedRedirects;
 }
 
-function optimizeHoldInfo(holdInfo: InteractionMetrics['holdInfo'], interactionStart: number) {
+function optimizeHoldInfo(
+	holdInfo: InteractionMetrics['holdInfo'],
+	interactionStart: number,
+	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
+) {
 	const holdInfoMap = holdInfo.reduce((result, hold) => {
 		const { labelStack, name, start, end, ignoreOnSubmit } = hold;
 
@@ -556,7 +561,7 @@ function optimizeHoldInfo(holdInfo: InteractionMetrics['holdInfo'], interactionS
 			const endTime = Math.round(end);
 
 			const timing = result.get(label) || {
-				labelStack: optimizeLabelStack([...labelStack, { name }]),
+				labelStack: optimizeLabelStack([...labelStack, { name }], reactUFOVersion),
 				startTime,
 				endTime,
 			};
@@ -577,14 +582,18 @@ function optimizeHoldInfo(holdInfo: InteractionMetrics['holdInfo'], interactionS
 	return [...holdInfoMap.values()];
 }
 
-function optimizeSpans(spans: InteractionMetrics['spans'], interactionStart: number) {
+function optimizeSpans(
+	spans: InteractionMetrics['spans'],
+	interactionStart: number,
+	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
+) {
 	const updatedSpans = spans.reduce(
 		(result, span) => {
 			const { labelStack, type, name, start, end } = span;
 
 			if (labelStack && start >= interactionStart) {
 				result.push({
-					labelStack: optimizeLabelStack([...labelStack, { name }]),
+					labelStack: optimizeLabelStack([...labelStack, { name }], reactUFOVersion),
 					startTime: Math.round(start),
 					endTime: Math.round(end),
 					type,
@@ -607,6 +616,7 @@ function optimizeSpans(spans: InteractionMetrics['spans'], interactionStart: num
 function optimizeRequestInfo(
 	requestInfo: InteractionMetrics['requestInfo'],
 	interactionStart: number,
+	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
 ) {
 	const updatedRequestInfo = requestInfo.reduce(
 		(result, reqInfo) => {
@@ -616,7 +626,7 @@ function optimizeRequestInfo(
 
 			if (labelStack && start >= interactionStart && endTime) {
 				result.push({
-					labelStack: optimizeLabelStack([...labelStack, { name }]),
+					labelStack: optimizeLabelStack([...labelStack, { name }], reactUFOVersion),
 					startTime: Math.round(startTime),
 					endTime: Math.round(endTime),
 				});
@@ -660,19 +670,22 @@ function optimizeCustomTimings(
 	);
 }
 
-function optimizeMarks(marks: InteractionMetrics['marks']) {
+function optimizeMarks(
+	marks: InteractionMetrics['marks'],
+	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
+) {
 	return marks.map(({ labelStack, time, ...others }) => ({
 		...others,
-		labelStack: labelStack && optimizeLabelStack(labelStack),
+		labelStack: labelStack && optimizeLabelStack(labelStack, reactUFOVersion),
 		time: Math.round(time),
 	}));
 }
 
-function optimizeApdex(apdex: ApdexType[]) {
+function optimizeApdex(apdex: ApdexType[], reactUFOVersion: ReturnType<typeof getReactUFOVersion>) {
 	return apdex.map(({ stopTime, labelStack, ...others }) => ({
 		...others,
 		stopTime: Math.round(stopTime),
-		...(labelStack ? { labelStack: optimizeLabelStack(labelStack) } : {}),
+		...(labelStack ? { labelStack: optimizeLabelStack(labelStack, reactUFOVersion) } : {}),
 	}));
 }
 
@@ -833,7 +846,7 @@ function createInteractionMetricsPayload(
 
 	const segments = config.killswitchNestedSegments ? [] : knownSegments;
 	const segmentTree =
-		REACT_UFO_VERSION === '2.0.0'
+		getReactUFOVersion(interaction.type) === '2.0.0'
 			? buildSegmentTree(segments.map((segment) => segment.labelStack))
 			: {};
 	const isDetailedPayload = pageVisibilityAtTTAI === 'visible';
@@ -850,7 +863,12 @@ function createInteractionMetricsPayload(
 		: null;
 
 	const labelStack: { labelStack?: OptimizedLabelStack } = interaction.labelStack
-		? { labelStack: optimizeLabelStack(interaction.labelStack) }
+		? {
+				labelStack: optimizeLabelStack(
+					interaction.labelStack,
+					getReactUFOVersion(interaction.type),
+				),
+			}
 		: {};
 	// Page Load
 	const getPageLoadInteractionMetrics = () => {
@@ -880,16 +898,22 @@ function createInteractionMetricsPayload(
 		return {
 			errors: interaction.errors.map(({ labelStack, ...others }) => ({
 				...others,
-				labelStack: labelStack && optimizeLabelStack(labelStack),
+				labelStack:
+					labelStack && optimizeLabelStack(labelStack, getReactUFOVersion(interaction.type)),
 			})),
 			holdActive: [...interaction.holdActive.values()],
 			redirects: optimizeRedirects(interaction.redirects, start),
 			holdInfo: optimizeHoldInfo(
 				experimental ? interaction.holdExpInfo : interaction.holdInfo,
 				start,
+				getReactUFOVersion(interaction.type),
 			),
-			spans: optimizeSpans(spans, start),
-			requestInfo: optimizeRequestInfo(interaction.requestInfo, start),
+			spans: optimizeSpans(spans, start, getReactUFOVersion(interaction.type)),
+			requestInfo: optimizeRequestInfo(
+				interaction.requestInfo,
+				start,
+				getReactUFOVersion(interaction.type),
+			),
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
 			resourceTimings: objectToArray(resourceTimings),
@@ -933,8 +957,7 @@ function createInteractionMetricsPayload(
 				'event:sizeInKb': 0,
 				'event:source': {
 					name: 'react-ufo/web',
-					version: REACT_UFO_VERSION,
-					payloadSource: 'platform',
+					version: getReactUFOVersion(interaction.type),
 				},
 				'event:region': config.region || 'unknown',
 				'experience:key': experimental
@@ -976,21 +999,22 @@ function createInteractionMetricsPayload(
 					abortedByInteractionName,
 
 					// performance
-					apdex: optimizeApdex(interaction.apdex),
+					apdex: optimizeApdex(interaction.apdex, getReactUFOVersion(interaction.type)),
 					end: Math.round(end),
 					start: Math.round(start),
 					segments:
-						REACT_UFO_VERSION === '2.0.0'
+						getReactUFOVersion(interaction.type) === '2.0.0'
 							? segmentTree
 							: segments.map(({ labelStack, ...others }) => ({
 									...others,
-									labelStack: optimizeLabelStack(labelStack),
+									labelStack: optimizeLabelStack(labelStack, getReactUFOVersion(interaction.type)),
 								})),
-					marks: optimizeMarks(interaction.marks),
+					marks: optimizeMarks(interaction.marks, getReactUFOVersion(interaction.type)),
 					customData: optimizeCustomData(interaction),
 					reactProfilerTimings: optimizeReactProfilerTimings(
 						interaction.reactProfilerTimings,
 						start,
+						getReactUFOVersion(interaction.type),
 					),
 					...labelStack,
 					...getPageLoadInteractionMetrics(),

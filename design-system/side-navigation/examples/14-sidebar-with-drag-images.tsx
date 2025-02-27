@@ -1,11 +1,7 @@
 /**
  * @jsxRuntime classic
- */
-/**
- * @jsxRuntime classic
  * @jsx jsx
  */
-
 import {
 	createContext,
 	Fragment,
@@ -17,7 +13,7 @@ import {
 	useState,
 } from 'react';
 
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
@@ -33,7 +29,7 @@ import {
 	draggable,
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { Box, Grid, xcss } from '@atlaskit/primitives';
+import { Box, Grid } from '@atlaskit/primitives/compiled';
 import {
 	HeadingItem,
 	NavigationHeader,
@@ -41,6 +37,7 @@ import {
 	NestingItem,
 	SideNavigation,
 } from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
@@ -48,40 +45,40 @@ import SampleHeader from './common/sample-header';
 const InstanceIdContext = createContext<symbol | null>(null);
 const ListContext = createContext<any>(null);
 
-const itemStyles = xcss({
-	boxSizing: 'border-box',
-	width: '100%',
-	paddingBlockStart: 'space.050',
-	paddingInlineEnd: 'space.050',
-	paddingBlockEnd: 'space.050',
-	paddingInlineStart: 'space.050',
-	backgroundColor: 'elevation.surface.raised',
-	borderRadius: 'border.radius.100',
-	boxShadow: 'elevation.shadow.raised',
-	objectFit: 'cover',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	transition: `all ${durations.small}ms ${easeInOut}`,
-	WebkitTouchCallout: 'none',
+const styles = cssMap({
+	item: {
+		boxSizing: 'border-box',
+		width: '100%',
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		backgroundColor: token('elevation.surface.raised'),
+		borderRadius: token('border.radius.100'),
+		boxShadow: token('elevation.shadow.raised'),
+		objectFit: 'cover',
+		WebkitTouchCallout: 'none',
+	},
+	idle: {
+		'&:hover': {
+			backgroundColor: token('elevation.surface.overlay'),
+			boxShadow: token('elevation.shadow.overlay'),
+		},
+	},
+	dragging: {
+		filter: 'grayscale(0.8)',
+	},
+	over: {
+		boxShadow: token('elevation.shadow.overlay'),
+		filter: 'brightness(1.15)',
+		transform: 'scale(1.1) rotate(8deg)',
+	},
+	grid: {
+		gridTemplateColumns: 'auto 1fr auto',
+	},
 });
 
 type ItemState = 'idle' | 'dragging' | 'over';
-
-const itemStateStyles: Record<ItemState, any> = {
-	idle: xcss({
-		':hover': {
-			backgroundColor: 'elevation.surface.overlay',
-			boxShadow: 'elevation.shadow.overlay',
-		},
-	}),
-	dragging: xcss({
-		filter: 'grayscale(0.8)',
-	}),
-	over: xcss({
-		boxShadow: 'elevation.shadow.overlay',
-		filter: 'brightness(1.15)',
-		transform: 'scale(1.1) rotate(8deg)',
-	}),
-};
 
 function DraggableItem({
 	item,
@@ -146,9 +143,15 @@ function DraggableItem({
 
 	return (
 		<Fragment>
-			<Box ref={ref} xcss={itemStateStyles[state]}>
-				<Box xcss={itemStyles}>
-					<Grid alignItems="center" columnGap="space.050" templateColumns="auto 1fr auto">
+			<Box ref={ref} xcss={styles[state] as any}>
+				<Box
+					xcss={styles.item as any}
+					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						transition: `all ${durations.small}ms ${easeInOut}`,
+					}}
+				>
+					<Grid alignItems="center" columnGap="space.050" xcss={styles.grid}>
 						<DropdownMenu
 							shouldRenderToParent
 							trigger={({ triggerRef, ...triggerProps }) => (

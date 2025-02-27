@@ -15,11 +15,10 @@ import { useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { media } from '@atlaskit/primitives';
-import { N0, N30A, N60A } from '@atlaskit/theme/colors';
+import { N0, N30A, N60A, N900 } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
-import { borderRadius, textColor } from '../constants';
 import { ModalContext, ScrollContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
 import { disableDraggingToCrossOriginIFramesForElement } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
@@ -45,15 +44,14 @@ const dialogStyles = css({
 
 	backgroundColor: token('elevation.surface.overlay', N0),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: textColor,
+	color: token('color.text', N900),
 	[CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
 	pointerEvents: 'auto',
 
 	[media.above.xs]: {
 		width: 'var(--modal-dialog-width)',
 		maxWidth: 'inherit',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		borderRadius: borderRadius,
+		borderRadius: token('border.radius', '3px'),
 		boxShadow: token(
 			'elevation.shadow.overlay',
 			`0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,

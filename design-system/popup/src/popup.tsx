@@ -139,5 +139,3 @@ export const Popup: FC<PopupProps> = memo(
 		return popupContent;
 	},
 );
-
-export default Popup;

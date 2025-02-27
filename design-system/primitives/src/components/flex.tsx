@@ -64,10 +64,10 @@ export type FlexProps<T extends ElementType = 'div'> = {
 	ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
 
-export type AlignItems = keyof typeof alignItemsMap;
-export type JustifyContent = keyof typeof justifyContentMap;
-export type Direction = keyof typeof flexDirectionMap;
-export type Wrap = keyof typeof flexWrapMap;
+type AlignItems = keyof typeof alignItemsMap;
+type JustifyContent = keyof typeof justifyContentMap;
+type Direction = keyof typeof flexDirectionMap;
+type Wrap = keyof typeof flexWrapMap;
 
 const justifyContentMap = {
 	start: css({ justifyContent: 'start' }),

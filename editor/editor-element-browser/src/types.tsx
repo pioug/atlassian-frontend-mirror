@@ -21,8 +21,6 @@ export type InsertPanelItem = TypeAheadItem & {
 	shouldDisplayAtTop?: boolean; // some elements have to be displayed at the top of the category/subcategory
 	shouldDisplay?: boolean; // some items should not be displayed in new Quick Insert and Right Rail (AI, lists)
 	tempKey: number; // index in the items array
-	isNew?: boolean; // indicates that the element is new and should have NEW label
-	isSuggested?: boolean; // indicates that the element should be promoted in the suggested panel
 };
 
 export interface QuickInsertPanelProps {

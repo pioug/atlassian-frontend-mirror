@@ -17,6 +17,8 @@ import { type Placement } from '@atlaskit/popper';
 import { fg } from '@atlaskit/platform-feature-flags';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 
+import { type XCSS } from '@atlaskit/primitives';
+
 import {
 	createAndFireSafe,
 	createPickerButtonClickedEvent,
@@ -185,6 +187,10 @@ export interface ReactionsProps
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
 	isViewOnly?: boolean;
+	/**
+	 * Option prop for controlling the reaction picker selection style
+	 */
+	reactionPickerAdditionalStyle?: XCSS;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -246,6 +252,7 @@ export const Reactions = React.memo(
 		onlyRenderPicker = false,
 		showRoundTrigger = false,
 		isViewOnly = false,
+		reactionPickerAdditionalStyle,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -487,6 +494,7 @@ export const Reactions = React.memo(
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							showRoundTrigger={showRoundTrigger}
+							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
 						/>
 					)}
 					<ModalTransition>

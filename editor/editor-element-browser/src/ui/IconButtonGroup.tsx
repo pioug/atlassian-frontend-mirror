@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Section } from '@atlaskit/menu';
@@ -26,48 +26,44 @@ export interface IconButtonGroupProps extends GroupData {
 	onItemSelected?: (index: number, categoryId: string) => void;
 }
 
-export const IconButtonGroup = ({
-	id,
-	label,
-	items,
-	hasSeparator,
-	onItemSelected,
-}: IconButtonGroupProps) => {
-	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<Section hasSeparator={hasSeparator}>
-			{label && (
-				<Box xcss={[headingContainerStyles]}>
-					<Heading size={'xsmall'}>{label}</Heading>
-				</Box>
-			)}
+export const IconButtonGroup = memo(
+	({ id, label, items, hasSeparator, onItemSelected }: IconButtonGroupProps) => {
+		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			<Section hasSeparator={hasSeparator}>
+				{label && (
+					<Box xcss={[headingContainerStyles]}>
+						<Heading size={'xsmall'}>{label}</Heading>
+					</Box>
+				)}
 
-			<Box xcss={[buttonsContainerStyles]}>
-				<Inline
-					as="span"
-					// spread="space-between"
-					alignBlock="center"
-					space={'space.150'}
-					// grow="fill"
-					shouldWrap={true}
-				>
-					{items.map((item) => {
-						return (
-							<IconButtonItem
-								key={item.index}
-								index={item.index}
-								title={item.title}
-								description={item.description}
-								showDescription={item.showDescription}
-								attributes={item.attributes}
-								keyshortcut={item.keyshortcut}
-								renderIcon={item.renderIcon}
-								onItemSelected={(index) => onItemSelected?.(index, id)}
-							/>
-						);
-					})}
-				</Inline>
-			</Box>
-		</Section>
-	);
-};
+				<Box xcss={[buttonsContainerStyles]}>
+					<Inline
+						as="span"
+						// spread="space-between"
+						alignBlock="center"
+						space={'space.150'}
+						// grow="fill"
+						shouldWrap={true}
+					>
+						{items.map((item) => {
+							return (
+								<IconButtonItem
+									key={item.index}
+									index={item.index}
+									title={item.title}
+									description={item.description}
+									showDescription={item.showDescription}
+									attributes={item.attributes}
+									keyshortcut={item.keyshortcut}
+									renderIcon={item.renderIcon}
+									onItemSelected={(index) => onItemSelected?.(index, id)}
+								/>
+							);
+						})}
+					</Inline>
+				</Box>
+			</Section>
+		);
+	},
+);

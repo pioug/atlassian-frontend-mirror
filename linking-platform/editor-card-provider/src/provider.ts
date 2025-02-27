@@ -112,6 +112,10 @@ const isRovoAgentProfilePage = (url: string) => {
 	return false;
 };
 
+const isCustomer360LandingPage = (url: string) => {
+	return url.match(/^https:\/\/customer\.atlassian\.com\/.*$/);
+};
+
 export class EditorCardProvider implements CardProvider {
 	private baseUrl: string;
 	private resolverUrl: string;
@@ -284,7 +288,8 @@ export class EditorCardProvider implements CardProvider {
 			isJiraVersion(url) ||
 			isJiraPlanEvaluated ||
 			isJiraFormEvaluated ||
-			isJiraSummaryEvaluated
+			isJiraSummaryEvaluated ||
+			isCustomer360LandingPage(url)
 		) {
 			return 'embed';
 		}

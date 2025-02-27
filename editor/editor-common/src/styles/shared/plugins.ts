@@ -3,6 +3,10 @@ import { css } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+/**
+ * @private
+ * @deprecated use `import { ToolbarButtonGroup } from '@atlaskit/editor-common/ui';` instead
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, -- Ignored via go/DSP-18766
 export const buttonGroupStyleBeforeVisualRefresh = css({
 	display: 'inline-flex',
@@ -20,6 +24,10 @@ export const buttonGroupStyleBeforeVisualRefresh = css({
 	},
 });
 
+/**
+ * @private
+ * @deprecated use `import { ToolbarButtonGroup } from '@atlaskit/editor-common/ui';` instead
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const buttonGroupStyle = css({
 	display: 'inline-flex',
@@ -42,6 +50,10 @@ export const buttonGroupStyle = css({
 	},
 });
 
+/**
+ * @private
+ * @deprecated use `import { ToolbarSeparator } from '@atlaskit/editor-common/ui';` instead
+ */
 // If you make change here, change in above file as well.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const separatorStyles = css({
@@ -53,6 +65,10 @@ export const separatorStyles = css({
 	userSelect: 'none',
 });
 
+/**
+ * @private
+ * @deprecated use `import { ToolbarDropdownWrapper } from '@atlaskit/editor-common/ui';` instead
+ */
 // If you make change here, change in above file as well.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperStyle = css({
@@ -77,6 +93,10 @@ export const wrapperStyle = css({
 	},
 });
 
+/**
+ * @private
+ * @deprecated use `import { ToolbarDropdownTriggerWrapper } from '@atlaskit/editor-common/ui';` instead
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const triggerWrapperStyles = css({
 	display: 'flex',
@@ -89,6 +109,10 @@ export const triggerWrapperStyles = css({
 	},
 });
 
+/**
+ * @private
+ * @deprecated use `import { ToolbarDropdownTriggerWrapper } from '@atlaskit/editor-common/ui';` instead
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const triggerWrapperStylesWithPadding = css({
 	display: 'flex',

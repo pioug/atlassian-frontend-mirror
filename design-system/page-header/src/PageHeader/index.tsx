@@ -13,7 +13,7 @@ import {
 	TitleWrapper,
 } from './styled';
 
-export type PageHeaderProps = {
+type PageHeaderProps = {
 	/**
 	 * Contents of the action bar to be rendered next to the page title.
 	 */

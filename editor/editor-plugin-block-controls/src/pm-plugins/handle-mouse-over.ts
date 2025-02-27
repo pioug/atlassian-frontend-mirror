@@ -123,18 +123,49 @@ export const handleMouseOver = (
 			return false;
 		}
 
-		let rootPos: number;
+		let targetPos: number;
+
 		if (editorExperiment('nested-dnd', true)) {
-			rootPos = view.state.doc.resolve(pos).pos;
+			targetPos = view.state.doc.resolve(pos).pos;
 		} else {
-			rootPos = view.state.doc.resolve(pos).start(1) - 1;
+			targetPos = view.state.doc.resolve(pos).start(1) - 1;
+		}
+
+		let rootAnchorName;
+		let rootNodeType;
+		let rootPos;
+
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			rootPos = view.state.doc.resolve(pos).before(1);
+			if (targetPos !== rootPos) {
+				const rootDOM = view.nodeDOM(rootPos);
+				if (rootDOM instanceof HTMLElement) {
+					rootAnchorName = rootDOM.getAttribute('data-drag-handler-anchor-name') ?? undefined;
+					rootNodeType = rootDOM.getAttribute('data-drag-handler-node-type') ?? undefined;
+				}
+			}
 		}
 
 		const nodeType = rootElement.getAttribute('data-drag-handler-node-type');
+
 		if (nodeType) {
-			api?.core?.actions.execute(
-				api?.blockControls?.commands.showDragHandleAt(rootPos, anchorName, nodeType),
-			);
+			if (editorExperiment('platform_editor_controls', 'variant1')) {
+				api?.core?.actions.execute(
+					api?.blockControls?.commands.showDragHandleAt(
+						targetPos,
+						anchorName,
+						nodeType,
+						undefined,
+						rootPos ?? targetPos,
+						rootAnchorName ?? anchorName,
+						rootNodeType ?? nodeType,
+					),
+				);
+			} else {
+				api?.core?.actions.execute(
+					api?.blockControls?.commands.showDragHandleAt(targetPos, anchorName, nodeType),
+				);
+			}
 		}
 	}
 };

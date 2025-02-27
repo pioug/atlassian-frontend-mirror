@@ -15,6 +15,7 @@ import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/t
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -25,6 +26,24 @@ import {
 import { getPluginState } from '../pm-plugins/utils';
 
 import { AssistiveText } from './AssistiveText';
+
+const placeholderStyles = css({
+	'&::after': {
+		content: 'attr(data-place-holder)',
+		color: token('color.text.subtlest'),
+		position: 'relative',
+		padding: token('space.025'),
+		left: token('space.negative.050'),
+		backgroundColor: token('color.background.neutral'),
+		borderRadius: '3px',
+	},
+});
+
+const queryWithoutPlaceholderStyles = css({
+	'&::after': {
+		content: `''`,
+	},
+});
 
 const querySpanStyles = css({
 	outline: 'none',
@@ -119,6 +138,10 @@ export const InputQuery = React.memo(
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
+		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+		const [showPlaceholder, setShowPlaceholder] = useState(
+			isEditorControlsEnabled && triggerQueryPrefix === '/',
+		);
 
 		const cleanedInputContent = useCallback(() => {
 			const raw = ref.current?.textContent || '';
@@ -133,6 +156,13 @@ export const InputQuery = React.memo(
 			},
 			[onQueryChange, cleanedInputContent],
 		);
+
+		const onInput = useCallback(() => {
+			if (cleanedInputContent()) {
+				setShowPlaceholder(false);
+			}
+		}, [cleanedInputContent]);
+
 		const [isInFocus, setInFocus] = useState(false);
 
 		const checkKeyEvent = useCallback(
@@ -494,11 +524,16 @@ export const InputQuery = React.memo(
 				{triggerQueryPrefix}
 				{/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
 				<span
-					css={querySpanStyles}
+					css={[
+						querySpanStyles,
+						isEditorControlsEnabled && queryWithoutPlaceholderStyles,
+						showPlaceholder && placeholderStyles,
+					]}
 					contentEditable={true}
 					ref={ref}
 					onKeyUp={onKeyUp}
 					onClick={onClick}
+					onInput={isEditorControlsEnabled ? onInput : undefined}
 					role="combobox"
 					aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}
 					aria-autocomplete="list"
@@ -506,6 +541,9 @@ export const InputQuery = React.memo(
 					aria-labelledby={assistiveHintID}
 					suppressContentEditableWarning
 					data-query-prefix={triggerQueryPrefix}
+					data-place-holder={intl.formatMessage(
+						typeAheadListMessages.quickInsertInputPlaceholderLabel,
+					)}
 				>
 					{query === null ? (
 						<input

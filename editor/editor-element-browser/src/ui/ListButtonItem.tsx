@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 
 import { ToolTipContent, formatShortcut } from '@atlaskit/editor-common/keymaps';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
@@ -8,6 +8,7 @@ import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { ButtonItemProps } from './ButtonItemType';
+import { IconRenderer } from './IconRenderer';
 
 const shortcutStyles = xcss({
 	color: 'color.text.subtle',
@@ -31,49 +32,56 @@ interface ListButtonItemBaseProps extends ButtonItemProps {
 	renderElementAfter?: () => React.ReactNode;
 }
 
-const ListButtonItemBase = ({
-	index,
-	title,
-	description,
-	keyshortcut,
-	isSelected,
-	isDisabled,
-	showDescription = false,
-	renderContent,
-	renderIcon,
-	renderElementAfter,
-	onItemSelected,
-}: ListButtonItemBaseProps) => {
-	const beforeElement = useMemo(() => renderIcon?.(), [renderIcon]);
-	const afterElement = useMemo(() => renderElementAfter?.(), [renderElementAfter]);
-	const content = useMemo(() => renderContent?.(), [renderContent]);
+const ListButtonItemBase = memo(
+	({
+		index,
+		title,
+		description,
+		keyshortcut,
+		isSelected,
+		isDisabled,
+		showDescription = false,
+		renderContent,
+		renderIcon,
+		renderElementAfter,
+		onItemSelected,
+	}: ListButtonItemBaseProps) => {
+		const beforeElement = useMemo(() => {
+			if (!renderIcon) {
+				return null;
+			}
+			return <IconRenderer>{renderIcon()}</IconRenderer>;
+		}, [renderIcon]);
+		const afterElement = useMemo(() => renderElementAfter?.(), [renderElementAfter]);
+		const content = useMemo(() => renderContent?.(), [renderContent]);
 
-	return (
-		<Tooltip
-			content={<ToolTipContent description={title} keymap={keyshortcut} />}
-			position="top"
-			ignoreTooltipPointerEvents={true}
-		>
-			{(tooltipProps) => (
-				<ButtonItem
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...tooltipProps}
-					iconBefore={beforeElement}
-					iconAfter={afterElement}
-					description={showDescription ? description : undefined}
-					shouldDescriptionWrap
-					isSelected={isSelected}
-					isDisabled={isDisabled}
-					onClick={() => onItemSelected?.(index)}
-				>
-					{content}
-				</ButtonItem>
-			)}
-		</Tooltip>
-	);
-};
+		return (
+			<Tooltip
+				content={<ToolTipContent description={title} keymap={keyshortcut} />}
+				position="top"
+				ignoreTooltipPointerEvents={true}
+			>
+				{(tooltipProps) => (
+					<ButtonItem
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...tooltipProps}
+						iconBefore={beforeElement}
+						iconAfter={afterElement}
+						description={showDescription ? description : undefined}
+						shouldDescriptionWrap
+						isSelected={isSelected}
+						isDisabled={isDisabled}
+						onClick={() => onItemSelected?.(index)}
+					>
+						{content}
+					</ButtonItem>
+				)}
+			</Tooltip>
+		);
+	},
+);
 
-export const ListButtonItem = (props: ButtonItemProps) => {
+export const ListButtonItem = memo((props: ButtonItemProps) => {
 	const shortcutComponent = useCallback(() => {
 		const shortcut = props.keyshortcut && formatShortcut(props.keyshortcut);
 		if (!shortcut) {
@@ -111,14 +119,14 @@ export const ListButtonItem = (props: ButtonItemProps) => {
 			renderElementAfter={shortcutComponent}
 		/>
 	);
-};
+});
 
 export interface ViewAllButtonItemProps {
 	label: string;
 	onClick: () => void;
 }
 
-export const ViewAllButtonItem = ({ label, onClick }: ViewAllButtonItemProps) => {
+export const ViewAllButtonItem = memo(({ label, onClick }: ViewAllButtonItemProps) => {
 	const contentComponent = useCallback(() => {
 		return (
 			<Inline space="space.100" alignBlock={'center'}>
@@ -138,4 +146,4 @@ export const ViewAllButtonItem = ({ label, onClick }: ViewAllButtonItemProps) =>
 			renderContent={contentComponent}
 		/>
 	);
-};
+});

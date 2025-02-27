@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 
 import { Section } from '@atlaskit/menu';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
@@ -24,53 +24,55 @@ export interface ExpandablePanelProps {
 	onViewAllSelected?: (categoryId: string) => void;
 }
 
-export const ExpandablePanel = ({
-	id,
-	label,
-	items,
-	hasSeparator,
-	attributes,
-	onItemSelected,
-	onViewAllSelected,
-}: ExpandablePanelProps) => {
-	const [isExpanded, setIsExpanded] = useState(true);
+export const ExpandablePanel = memo(
+	({
+		id,
+		label,
+		items,
+		hasSeparator,
+		attributes,
+		onItemSelected,
+		onViewAllSelected,
+	}: ExpandablePanelProps) => {
+		const [isExpanded, setIsExpanded] = useState(true);
 
-	return (
-		<Section hasSeparator={hasSeparator}>
-			{label && (
-				<Box xcss={[headingContainerStyles]}>
-					<ExpandableNavButton
-						id={id}
-						label={label}
-						isExpanded={isExpanded}
-						attributes={attributes}
-						onClick={() => setIsExpanded(!isExpanded)}
-					/>
-				</Box>
-			)}
-			{isExpanded && (
-				<Stack space="space.025">
-					{items.map((item) => {
-						return (
-							<ListButtonItem
-								key={item.index}
-								index={item.index}
-								title={item.title}
-								description={item.description}
-								showDescription={item.showDescription}
-								attributes={item.attributes}
-								keyshortcut={item.keyshortcut}
-								renderIcon={item.renderIcon}
-								onItemSelected={(index) => onItemSelected?.(index, id)}
-							/>
-						);
-					})}
-					<ViewAllButtonItem
-						label={`View all ${label.toLocaleLowerCase()} options`}
-						onClick={() => onViewAllSelected?.(id)}
-					/>
-				</Stack>
-			)}
-		</Section>
-	);
-};
+		return (
+			<Section hasSeparator={hasSeparator}>
+				{label && (
+					<Box xcss={[headingContainerStyles]}>
+						<ExpandableNavButton
+							id={id}
+							label={label}
+							isExpanded={isExpanded}
+							attributes={attributes}
+							onClick={() => setIsExpanded(!isExpanded)}
+						/>
+					</Box>
+				)}
+				{isExpanded && (
+					<Stack space="space.025">
+						{items.map((item) => {
+							return (
+								<ListButtonItem
+									key={item.index}
+									index={item.index}
+									title={item.title}
+									description={item.description}
+									showDescription={item.showDescription}
+									attributes={item.attributes}
+									keyshortcut={item.keyshortcut}
+									renderIcon={item.renderIcon}
+									onItemSelected={(index) => onItemSelected?.(index, id)}
+								/>
+							);
+						})}
+						<ViewAllButtonItem
+							label={`View all ${label.toLocaleLowerCase()} options`}
+							onClick={() => onViewAllSelected?.(id)}
+						/>
+					</Stack>
+				)}
+			</Section>
+		);
+	},
+);

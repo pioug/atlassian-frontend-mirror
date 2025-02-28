@@ -4,11 +4,8 @@
  */
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { EmptyStateOld } from './old';
 
 const styles = cssMap({
 	container: {
@@ -25,7 +22,7 @@ type EmptyStateProps = {
 	renderImage?: () => React.ReactNode;
 };
 
-export const EmptyStateNew = ({ testId, header, description, renderImage }: EmptyStateProps) => {
+export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {
 	return (
 		<Flex
 			xcss={styles.container}
@@ -47,11 +44,4 @@ export const EmptyStateNew = ({ testId, header, description, renderImage }: Empt
 			</Flex>
 		</Flex>
 	);
-};
-
-export const EmptyState = (props: EmptyStateProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <EmptyStateNew {...props} />;
-	}
-	return <EmptyStateOld {...props} />;
 };

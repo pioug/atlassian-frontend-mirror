@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/code": "^16.0.0",
-		"@atlaskit/editor-common": "^100.2.0",
+		"@atlaskit/editor-common": "^100.3.0",
 		"@atlaskit/editor-markdown-transformer": "^5.15.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-annotation": "^2.0.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/media-client": "^32.0.0",
 		"@atlaskit/media-common": "^12.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/tmp-editor-statsig": "^3.2.0",
+		"@atlaskit/tmp-editor-statsig": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"uuid": "^3.1.0"

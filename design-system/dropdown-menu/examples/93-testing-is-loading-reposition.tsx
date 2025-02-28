@@ -17,7 +17,11 @@ export default () => {
 				isOpen
 				testId="dropdown"
 				isLoading={isLoading}
-				placement="bottom-end"
+				// Using a centered placement (not `bottom-start` or `bottom-end`) to better show repositioning,
+				// as the start and end placements don't actually need to change the styles when the content changes.
+				// This is because `bottom-start` positions relative to the left side of the screen,
+				// and `bottom-end` positions relative to the right side of the screen.
+				placement="bottom"
 				shouldRenderToParent
 			>
 				<DropdownItemGroup>

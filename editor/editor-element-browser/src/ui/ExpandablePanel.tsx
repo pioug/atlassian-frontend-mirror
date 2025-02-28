@@ -8,10 +8,17 @@ import { ListButtonItem, ViewAllButtonItem } from './ListButtonItem';
 import { ExpandableNavButton } from './NavigationButton';
 
 const headingContainerStyles = xcss({
+	paddingTop: 'space.100',
+	paddingBottom: 'space.075',
+	paddingLeft: 'space.300',
+	paddingRight: 'space.300',
+});
+
+const itemsContainerStyles = xcss({
 	paddingTop: 'space.0',
-	paddingBottom: 'space.025',
-	paddingLeft: 'space.100',
-	paddingRight: 'space.100',
+	paddingBottom: 'space.150',
+	paddingLeft: 'space.200',
+	paddingRight: 'space.200',
 });
 
 export interface ExpandablePanelProps {
@@ -50,7 +57,7 @@ export const ExpandablePanel = memo(
 					</Box>
 				)}
 				{isExpanded && (
-					<Stack space="space.025">
+					<Stack space="space.025" xcss={[itemsContainerStyles]}>
 						{items.map((item) => {
 							return (
 								<ListButtonItem

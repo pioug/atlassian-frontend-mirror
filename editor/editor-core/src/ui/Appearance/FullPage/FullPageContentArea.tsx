@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 import React, { useImperativeHandle, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, type Theme, useTheme } from '@emotion/react';
+import { jsx, useTheme, type Theme } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -39,6 +39,7 @@ import PluginSlot from '../../PluginSlot';
 import {
 	contentArea,
 	contentAreaHeightNoToolbar,
+	contentAreaReducedHeaderSpace,
 	contentAreaWrapper,
 	editorContentAreaStyle,
 	editorContentGutterStyle,
@@ -137,11 +138,16 @@ const Content = React.forwardRef<
 				>
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							css={editorContentAreaStyle({
-								fullWidthMode,
-								layoutMaxWidth: theme.layoutMaxWidth,
-							})}
+							css={[
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+								...editorContentAreaStyle({
+									fullWidthMode,
+									layoutMaxWidth: theme.layoutMaxWidth,
+								}),
+								editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+									contentAreaReducedHeaderSpace,
+							]}
 							role="region"
 							aria-label={props.intl.formatMessage(messages.editableContentLabel)}
 							ref={contentAreaRef}

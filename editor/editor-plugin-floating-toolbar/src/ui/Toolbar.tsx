@@ -7,8 +7,8 @@ import React, { Component } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -22,28 +22,22 @@ import {
 	FloatingToolbarButton as Button,
 	FloatingToolbarSeparator as Separator,
 } from '@atlaskit/editor-common/ui';
-import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
 import {
 	ColorPickerButton,
 	ToolbarArrowKeyNavigationProvider,
 } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditIcon from '@atlaskit/icon/core/edit';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import type {
-	FloatingToolbarPlugin,
-	FloatingToolbarPluginNext,
-} from '../floatingToolbarPluginType';
+import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 import { checkShouldForceFocusAndApply, forceFocusSelector } from '../pm-plugins/force-focus';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
 
@@ -72,7 +66,6 @@ export interface Props {
 	scrollable?: boolean;
 	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 	mediaAssistiveMessage?: string;
-	forceStaticToolbar?: boolean;
 }
 
 type GroupedItems = (Item | Item[])[];
@@ -457,161 +450,6 @@ const ToolbarItems = React.memo(
 	},
 );
 
-const getFormattedItems = (
-	items: Array<Item>,
-	isCollapsed: boolean,
-	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined,
-) => {
-	if (isCollapsed) {
-		const updatedItems = items
-			.filter(
-				(item) =>
-					item.type === 'separator' ||
-					('contextualToolbarDefaultVisibility' in item &&
-						item.contextualToolbarDefaultVisibility === 'visible') ||
-					!('contextualToolbarDefaultVisibility' in item),
-			)
-			.filter(
-				(item, index, items) =>
-					item.type !== 'separator' ||
-					(index > 0 && index < items.length - 1 && items[index - 1].type !== 'separator'),
-			);
-
-		if (updatedItems[updatedItems.length - 1].type === 'separator') {
-			updatedItems.pop();
-		}
-
-		updatedItems.unshift({ type: 'separator' });
-		updatedItems.unshift({
-			type: 'button',
-			icon: EditIcon,
-			title: 'Show items',
-			onClick: () => {
-				if (api) {
-					api.core.actions.execute(
-						(
-							api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
-						).floatingToolbar.commands.updateContextualToolbar({
-							type: 'expand-toolbar',
-						}),
-					);
-				}
-			},
-		});
-
-		return updatedItems;
-	}
-
-	items.unshift({ type: 'separator' });
-	items.unshift({
-		type: 'button',
-		icon: ChevronRightIcon,
-		title: 'Hide items',
-		onClick: () => {
-			if (api) {
-				api.core.actions.execute(
-					(
-						api as unknown as ExtractInjectionAPI<FloatingToolbarPluginNext>
-					).floatingToolbar.commands.updateContextualToolbar({
-						type: 'collapse-toolbar',
-					}),
-				);
-			}
-		},
-	});
-
-	return items;
-};
-
-const ToolbarItemsCollapsable = React.memo(
-	({
-		items,
-		groupLabel,
-		dispatchCommand,
-		popupsMountPoint,
-		popupsBoundariesElement,
-		editorView,
-		dispatchAnalyticsEvent,
-		popupsScrollableElement,
-		scrollable,
-		providerFactory,
-		extensionsProvider,
-		node,
-		setDisableScroll,
-		mountRef,
-		mounted,
-		api,
-	}: Props & {
-		setDisableScroll?: (disable: boolean) => void;
-		mountRef: React.RefObject<HTMLDivElement>;
-		mounted: boolean;
-	}) => {
-		const contextualToolbarState = useSharedPluginStateSelector(
-			api as ExtractInjectionAPI<FloatingToolbarPluginNext> | undefined,
-			'floatingToolbar.contextualToolbar',
-		);
-
-		// NOTE: Unsure if collapse/expand logic will be needed, for now hard code for cards
-		const isCard =
-			node.type.name === 'inlineCard' ||
-			node.type.name === 'blockCard' ||
-			node.type.name === 'embedCard';
-
-		const updatedItems =
-			isCard && items.length > 1
-				? getFormattedItems(
-						items.map((item) => {
-							if (
-								'id' in item &&
-								(item.id === 'editor.link.openLink' ||
-									item.id === 'editor.floatingToolbar.copy' ||
-									item.id === 'editor.link.commentLink')
-							) {
-								return item;
-							}
-							return { ...item, contextualToolbarDefaultVisibility: 'hidden' };
-						}),
-						contextualToolbarState?.isCollapsed ?? false,
-						api,
-					)
-				: items;
-
-		return (
-			<ToolbarItems
-				items={updatedItems}
-				groupLabel={groupLabel}
-				dispatchCommand={dispatchCommand}
-				popupsMountPoint={popupsMountPoint}
-				popupsBoundariesElement={popupsBoundariesElement}
-				editorView={editorView}
-				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-				popupsScrollableElement={popupsScrollableElement}
-				scrollable={scrollable}
-				providerFactory={providerFactory}
-				extensionsProvider={extensionsProvider}
-				node={node}
-				setDisableScroll={setDisableScroll}
-				mountRef={mountRef}
-				mounted={mounted}
-				api={api}
-			/>
-		);
-	},
-	(prevProps, nextProps) => {
-		if (!nextProps.node) {
-			return false;
-		}
-		// only rerender toolbar items if the node is different
-		// otherwise it causes an issue where multiple popups stays open
-		return !(
-			prevProps.node.type !== nextProps.node.type ||
-			prevProps.node.attrs.localId !== nextProps.node.attrs.localId ||
-			!areSameItems(prevProps.items, nextProps.items) ||
-			!prevProps.mounted !== !nextProps.mounted
-		);
-	},
-);
-
 const buttonGroupStyles = css({
 	display: 'flex',
 	gap: token('space.050', '4px'),
@@ -670,6 +508,11 @@ const toolbarContainer = (
 							paddingLeft: token('space.050', '4px'),
 						}),
 				),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		editorExperiment('platform_editor_controls', 'variant1')
+			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				css({ height: token('space.500') })
+			: undefined,
 	);
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -883,25 +726,14 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 								paddingFeatureFlag: fg('platform_editor_floating_toolbar_padding_fix'),
 							})}
 						>
-							{editorExperiment('platform_editor_controls', 'control') ? (
-								<ToolbarItems
-									// Ignored via go/ees005
-									// eslint-disable-next-line react/jsx-props-no-spreading
-									{...this.props}
-									setDisableScroll={this.setDisableScroll.bind(this)}
-									mountRef={this.mountRef}
-									mounted={this.state.mounted}
-								/>
-							) : (
-								<ToolbarItemsCollapsable
-									// Ignored via go/ees005
-									// eslint-disable-next-line react/jsx-props-no-spreading
-									{...this.props}
-									setDisableScroll={this.setDisableScroll.bind(this)}
-									mountRef={this.mountRef}
-									mounted={this.state.mounted}
-								/>
-							)}
+							<ToolbarItems
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...this.props}
+								setDisableScroll={this.setDisableScroll.bind(this)}
+								mountRef={this.mountRef}
+								mounted={this.state.mounted}
+							/>
 						</div>
 						{scrollable && (
 							<ScrollButtons

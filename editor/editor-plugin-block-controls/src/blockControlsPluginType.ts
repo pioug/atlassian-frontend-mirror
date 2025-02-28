@@ -55,6 +55,7 @@ export interface PluginState {
 	isPMDragging: boolean;
 	multiSelectDnD?: MultiSelectDnD;
 	isShiftDown?: boolean;
+	lastDragCancelled: boolean;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;

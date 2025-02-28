@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -17,41 +16,36 @@ const paletteLegacy: [
 	borderColor: string,
 	iconColor: string,
 ][] = [
-	[
-		'neutral',
-		token('color.background.neutral', colors.N40),
-		token('color.border.bold', colors.N400),
-		token('color.icon', colors.N400),
-	],
+	['neutral', token('color.background.neutral'), token('color.border.bold'), token('color.icon')],
 	[
 		'purple',
-		token('color.background.discovery', colors.P50),
-		token('color.border.discovery', colors.P400),
-		token('color.icon.discovery', colors.P400),
+		token('color.background.discovery'),
+		token('color.border.discovery'),
+		token('color.icon.discovery'),
 	],
 	[
 		'blue',
-		token('color.background.information', colors.B50),
-		token('color.border.information', colors.B400),
-		token('color.icon.information', colors.B400),
+		token('color.background.information'),
+		token('color.border.information'),
+		token('color.icon.information'),
 	],
 	[
 		'red',
-		token('color.background.danger', colors.R50),
-		token('color.border.danger', colors.R400),
-		token('color.icon.danger', colors.R400),
+		token('color.background.danger'),
+		token('color.border.danger'),
+		token('color.icon.danger'),
 	],
 	[
 		'yellow',
-		token('color.background.warning', colors.Y50),
-		token('color.border.warning', colors.Y400),
-		token('color.icon.warning', colors.Y400),
+		token('color.background.warning'),
+		token('color.border.warning'),
+		token('color.icon.warning'),
 	],
 	[
 		'green',
-		token('color.background.success', colors.G50),
-		token('color.border.success', colors.G400),
-		token('color.icon.success', colors.G400),
+		token('color.background.success'),
+		token('color.border.success'),
+		token('color.icon.success'),
 	],
 ];
 
@@ -63,39 +57,39 @@ const paletteRefreshed: [
 ][] = [
 	[
 		'neutral',
-		token('color.background.accent.gray.subtler', colors.N300),
-		token('color.border.bold', colors.N400),
-		token('color.icon', colors.N400),
+		token('color.background.accent.gray.subtler'),
+		token('color.border.bold'),
+		token('color.icon'),
 	],
 	[
 		'blue',
-		token('color.background.information.pressed', colors.B300),
-		token('color.border.information', colors.B400),
-		token('color.icon', colors.N400),
+		token('color.background.information.pressed'),
+		token('color.border.information'),
+		token('color.icon'),
 	],
 	[
 		'green',
-		token('color.background.success.pressed', colors.G300),
-		token('color.border.success', colors.G400),
-		token('color.icon', colors.N400),
+		token('color.background.success.pressed'),
+		token('color.border.success'),
+		token('color.icon'),
 	],
 	[
 		'yellow',
-		token('color.background.warning.pressed', colors.Y300),
-		token('color.border.warning', colors.Y400),
-		token('color.icon', colors.N400),
+		token('color.background.warning.pressed'),
+		token('color.border.warning'),
+		token('color.icon'),
 	],
 	[
 		'red',
-		token('color.background.danger.pressed', colors.R300),
-		token('color.border.danger', colors.R400),
-		token('color.icon', colors.R400),
+		token('color.background.danger.pressed'),
+		token('color.border.danger'),
+		token('color.icon'),
 	],
 	[
 		'purple',
-		token('color.background.discovery.pressed', colors.P300),
-		token('color.border.discovery', colors.P400),
-		token('color.icon', colors.N400),
+		token('color.background.discovery.pressed'),
+		token('color.border.discovery'),
+		token('color.icon'),
 	],
 ];
 
@@ -107,7 +101,7 @@ const palette = getPalette();
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const colorPaletteWrapperStyles = css`
 	padding-left: 0px;
-	margin: ${token('space.100', '8px')} ${token('space.100', '8px')} 0 ${token('space.100', '8px')};
+	margin: ${token('space.100')} ${token('space.100')} 0 ${token('space.100')};
 	/* Firefox bug fix: https://product-fabric.atlassian.net/browse/ED-1789 */
 	display: flex;
 	flex-wrap: wrap;

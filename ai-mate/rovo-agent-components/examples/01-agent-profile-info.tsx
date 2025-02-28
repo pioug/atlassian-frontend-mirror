@@ -1,23 +1,34 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { IntlProvider } from 'react-intl-next';
 
-import { Box, Grid, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Grid } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { AgentProfileCreator, AgentProfileInfo } from '../src/ui/agent-profile-info';
 import { AgentStarCount } from '../src/ui/agent-profile-info/agent-star-count';
 
-const wrapperStyles = xcss({
-	width: '280px',
-	margin: 'space.200',
-	marginBottom: 'space.500',
+const styles = cssMap({
+	wrapper: {
+		width: '280px',
+		marginTop: token('space.200'),
+		marginRight: token('space.200'),
+		marginBottom: token('space.500'),
+		marginLeft: token('space.200'),
+	},
+	gridWrapper: {
+		gridTemplateColumns: '1fr 1fr 1fr',
+	},
 });
 
 export default function () {
 	return (
 		<IntlProvider locale="en">
-			<Grid templateColumns="1fr 1fr 1fr" gap="space.200">
-				<Box xcss={wrapperStyles}>
+			<Grid xcss={styles.gridWrapper} gap="space.200">
+				<Box xcss={styles.wrapper}>
 					<AgentProfileInfo
 						agentName="Gday Bot Agent"
 						isStarred={true}
@@ -38,7 +49,7 @@ export default function () {
 					/>
 				</Box>
 
-				<Box xcss={wrapperStyles}>
+				<Box xcss={styles.wrapper}>
 					<AgentProfileInfo
 						agentName="Agent Name"
 						isStarred={true}
@@ -62,7 +73,7 @@ export default function () {
 					/>
 				</Box>
 
-				<Box xcss={wrapperStyles}>
+				<Box xcss={styles.wrapper}>
 					<AgentProfileInfo
 						agentName="Test agent with long name Test agent with long name and loading"
 						isStarred={true}
@@ -82,7 +93,7 @@ export default function () {
 					/>
 				</Box>
 
-				<Box xcss={wrapperStyles}>
+				<Box xcss={styles.wrapper}>
 					<AgentProfileInfo
 						agentName="Agent without creator and description"
 						isStarred={false}
@@ -101,7 +112,7 @@ export default function () {
 					/>
 				</Box>
 
-				<Box xcss={wrapperStyles}>
+				<Box xcss={styles.wrapper}>
 					<AgentProfileInfo
 						agentName="Forge agent example"
 						isStarred={false}
@@ -123,7 +134,7 @@ export default function () {
 					/>
 				</Box>
 
-				<Box xcss={wrapperStyles}>
+				<Box xcss={styles.wrapper}>
 					<AgentProfileInfo
 						agentName="Agent with deactivated creator"
 						isStarred={false}

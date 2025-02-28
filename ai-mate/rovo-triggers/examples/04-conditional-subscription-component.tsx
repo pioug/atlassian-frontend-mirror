@@ -1,90 +1,103 @@
-import React, { useRef, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useRef, useState } from 'react';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { Subscriber, type Topic, usePublish } from '../src';
 
-const contentStyles = xcss({
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
-	justifyContent: 'center',
-	width: '100vw',
-	background: '#eff7f6',
-	height: '100vh',
-	textAlign: 'center',
-});
+const styles = cssMap({
+	content: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: '100%',
+		textAlign: 'center',
+	},
 
-const descriptionStyles = xcss({
-	padding: 'space.300',
-});
+	description: {
+		paddingTop: token('space.300'),
+		paddingRight: token('space.300'),
+		paddingBottom: token('space.300'),
+		paddingLeft: token('space.300'),
+	},
 
-const publisherStyles = xcss({
-	display: 'flex',
-	flexDirection: 'row',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flex: '1',
-	width: '100%',
-});
+	publisher: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: 1,
+		width: '100%',
+	},
 
-const subscriberStyles = xcss({
-	display: 'flex',
-	flexDirection: 'row',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flex: '1',
-	width: '100%',
-});
+	subscriber: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: 1,
+		width: '100%',
+	},
 
-const subscriberChildStyles = xcss({
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flex: '1',
-	background: '#7bdff2',
-	height: '100%',
-});
+	subscriberChild: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: 1,
+		height: '100%',
+	},
 
-const buttonStyles = xcss({
-	marginTop: 'space.300',
-	borderRadius: 'border.radius.300',
-	paddingTop: 'space.100',
-	paddingBottom: 'space.100',
-	paddingLeft: 'space.150',
-	paddingRight: 'space.150',
-	background: '#eff7f6',
-	border: '4px solid rgba(0,0,0,0.1)',
-});
+	button: {
+		marginTop: token('space.300'),
+		borderRadius: token('border.radius.300'),
+		paddingTop: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.150'),
+		paddingRight: token('space.150'),
+		backgroundColor: token('color.background.accent.gray.subtlest'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+	},
 
-const publisherMateStyles = xcss({
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flex: '1',
-	background: '#f7d6e0',
-	height: '100%',
-});
+	publisherMate: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: 1,
+		height: '100%',
+	},
 
-const publisherSainStyles = xcss({
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flex: '1',
-	background: '#f2b5d4',
-	height: '100%',
-});
+	publisherSain: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: 1,
+		height: '100%',
+	},
 
-const resultStyles = xcss({
-	background: 'rgba(0,0,0,0.05)',
-	padding: 'space.150',
-	borderRadius: 'border.radius.050',
-	marginTop: 'space.300',
-	border: '1px solid rgba(0,0,0,0.3)',
+	result: {
+		paddingTop: token('space.150'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+		borderRadius: token('border.radius.050'),
+		marginTop: token('space.300'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+	},
 });
 
 const Publisher = ({ topic, message }: { topic: Topic; message: string }) => {
@@ -92,7 +105,14 @@ const Publisher = ({ topic, message }: { topic: Topic; message: string }) => {
 	const mountedTime = useRef(new Date().toLocaleTimeString());
 
 	return (
-		<Box xcss={topic === 'ai-mate' ? publisherMateStyles : publisherSainStyles}>
+		<Box
+			xcss={topic === 'ai-mate' ? styles.publisherMate : styles.publisherSain}
+			backgroundColor={
+				topic === 'ai-mate'
+					? 'color.background.accent.red.subtlest'
+					: 'color.background.accent.red.subtler'
+			}
+		>
 			<Heading size="medium">
 				Publisher
 				<br />
@@ -101,7 +121,7 @@ const Publisher = ({ topic, message }: { topic: Topic; message: string }) => {
 				<small>Mounted time: {mountedTime.current}</small>
 			</Heading>
 			<Pressable
-				xcss={buttonStyles}
+				xcss={styles.button}
 				onClick={() => {
 					publish({ type: 'message-send', data: { prompt: message }, source: 'my-source' });
 				}}
@@ -117,7 +137,7 @@ const Sub = ({ topic }: { topic: Topic }) => {
 	const [checked, setChecked] = useState(false);
 
 	return (
-		<Box xcss={subscriberChildStyles}>
+		<Box xcss={styles.subscriberChild} backgroundColor="color.background.accent.blue.subtler">
 			<Heading size="medium">
 				Subscriber
 				<br />
@@ -137,9 +157,9 @@ const Sub = ({ topic }: { topic: Topic }) => {
 				</small>
 			</Heading>
 			{count <= 0 ? (
-				<Box xcss={resultStyles}>No events</Box>
+				<Box xcss={styles.result}>No events</Box>
 			) : (
-				<Box xcss={resultStyles}>
+				<Box xcss={styles.result}>
 					{msg}
 					<br />
 					<small>
@@ -167,18 +187,18 @@ const Sub = ({ topic }: { topic: Topic }) => {
 
 export default function () {
 	return (
-		<Box xcss={contentStyles}>
-			<Stack space="space.150" xcss={descriptionStyles}>
+		<Box xcss={styles.content} backgroundColor="color.background.accent.gray.subtler">
+			<Stack space="space.150" xcss={styles.description}>
 				<Heading size="medium">Description</Heading>
 				<Text as="p">
 					⤵ Demonstrates a subscriber conditionally subscribing with the React component pattern.
 				</Text>
 				<Text as="p">Subscriber will only begin receiving events when checkbox is checked.</Text>
 			</Stack>
-			<Box xcss={subscriberStyles}>
+			<Box xcss={styles.subscriber}>
 				<Sub topic="ai-mate" />
 			</Box>
-			<Box xcss={publisherStyles}>
+			<Box xcss={styles.publisher}>
 				<Publisher topic="ai-mate" message="Hi, Mate!" />
 			</Box>
 		</Box>

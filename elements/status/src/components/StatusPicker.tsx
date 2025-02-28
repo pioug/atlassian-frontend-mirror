@@ -11,15 +11,14 @@ import { css, jsx } from '@emotion/react';
 import ColorPalette from './internal/color-palette';
 import { type Color } from './Status';
 import { messages } from './i18n';
-import { N80A } from '@atlaskit/theme/colors';
 
 export type ColorType = Color;
 
 const fieldTextWrapperStyles = css({
-	margin: `0 ${token('space.100', '8px')}`,
+	margin: `0 ${token('space.100')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& [data-ds--text-field--container]': {
-		borderColor: token('color.border.bold', N80A),
+		borderColor: token('color.border.bold'),
 	},
 });
 

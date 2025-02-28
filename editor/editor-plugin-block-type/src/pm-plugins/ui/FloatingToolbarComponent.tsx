@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import type { TextBlockTypes } from '../block-types';
@@ -51,7 +52,11 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 		<ToolbarBlockType
 			isSmall={FloatingToolbarSettings.isSmall}
 			isDisabled={FloatingToolbarSettings.disabled}
-			isReducedSpacing={FloatingToolbarSettings.isToolbarReducedSpacing}
+			isReducedSpacing={
+				editorExperiment('platform_editor_controls', 'variant1')
+					? false
+					: FloatingToolbarSettings.isToolbarReducedSpacing
+			}
 			setTextLevel={boundSetBlockType}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

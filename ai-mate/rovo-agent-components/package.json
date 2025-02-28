@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,6 +42,7 @@
 		"@atlaskit/analytics-next": "11.0.0",
 		"@atlaskit/avatar": "^23.0.0",
 		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/css": "^0.10.0",
 		"@atlaskit/dropdown-menu": "^13.0.0",
 		"@atlaskit/heading": "^5.1.0",
 		"@atlaskit/icon": "^24.1.0",
@@ -53,6 +54,7 @@
 		"@atlaskit/tokens": "^4.2.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.2",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-magnetic-di": "^3.1.4"
 	},

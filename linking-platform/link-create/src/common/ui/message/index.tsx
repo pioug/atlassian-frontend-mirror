@@ -9,11 +9,8 @@ import { css, jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
 import SuccessIcon from '@atlaskit/icon/utility/check-circle';
 import ErrorIcon from '@atlaskit/icon/utility/error';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { MessageOld } from './old';
 
 const styles = cssMap({
 	message: {
@@ -62,7 +59,7 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 	valid: <SuccessIcon color={token('color.text.success', '#216E4E')} label="success" />,
 };
 
-const MessageNew = ({ children, appearance = 'default', id, testId }: MessageProps) => {
+export const Message = ({ children, appearance = 'default', id, testId }: MessageProps) => {
 	const icon = messageIcons[appearance];
 
 	/**
@@ -81,11 +78,4 @@ const MessageNew = ({ children, appearance = 'default', id, testId }: MessagePro
 			{content}
 		</Box>
 	);
-};
-
-export const Message = (props: MessageProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <MessageNew {...props} />;
-	}
-	return <MessageOld {...props} />;
 };

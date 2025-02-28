@@ -4,8 +4,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { token } from '@atlaskit/tokens';
-
 import AtlaskitRadioSelect from '../../../RadioSelect';
 
 const user = userEvent.setup();
@@ -43,22 +41,16 @@ describe('Radio Select', () => {
 	it('should mark option as selected on user click', async () => {
 		render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
-		const radioToBeSelected = screen.getAllByRole('presentation', {
-			hidden: true,
-		})[1];
-
-		// eslint-disable-next-line testing-library/no-node-access
-		expect(radioToBeSelected.parentElement).toHaveStyle(`--icon-secondary-color: transparent`);
-
-		await user.click(screen.getByText('0'));
-
-		const selectedOption = screen.getAllByRole('presentation', {
-			hidden: true,
-		})[1];
-		// eslint-disable-next-line testing-library/no-node-access
-		expect(selectedOption.parentElement).toHaveStyle(
-			`--icon-secondary-color: ${token('elevation.surface', '#FFFFFF')}`,
-		);
+		const opt0 = screen.getByRole('option', { name: '0' });
+		const opt1 = screen.getByRole('option', { name: '1' });
+		expect(opt0).toHaveAttribute('aria-selected', 'false');
+		expect(opt1).toHaveAttribute('aria-selected', 'false');
+		await user.click(opt0);
+		expect(opt0).toHaveAttribute('aria-selected', 'true');
+		expect(opt1).toHaveAttribute('aria-selected', 'false');
+		await user.click(opt1);
+		expect(opt0).toHaveAttribute('aria-selected', 'false');
+		expect(opt1).toHaveAttribute('aria-selected', 'true');
 	});
 
 	it('should not allow to select multiple options', async () => {

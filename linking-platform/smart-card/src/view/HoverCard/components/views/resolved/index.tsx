@@ -38,7 +38,7 @@ const hiddenSnippetStyles = css({
 	position: 'absolute',
 });
 
-const metadataBlockCss = css({
+const metadataBlockCssOld = css({
 	gap: '0px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-smart-element-group]:nth-of-type(1)': {
@@ -69,7 +69,7 @@ const metadataBlockCss = css({
 /**
  * Moved from HoverCardContent.tsx due to CompiledCSS migration.
  */
-const titleBlockStyle = css({
+const titleBlockStyleOld = css({
 	gap: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-separator] + [data-separator]::before': {
@@ -92,6 +92,27 @@ const titleBlockStyle = css({
 	"[data-smart-element='Title']": {
 		fontWeight: token('font.weight.semibold'),
 	},
+});
+
+const titleBlockStyles = css({
+	gap: token('space.100'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	"[data-smart-element='Title']": {
+		fontWeight: token('font.weight.semibold'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-smart-element-group]': {
+		gap: token('space.0'),
+		display: 'flex',
+	},
+});
+
+const snippetBlockCss = css({
+	paddingTop: token('space.050'),
+});
+
+const actionBlockCss = css({
+	paddingBottom: token('space.050'),
 });
 
 const HoverCardResolvedViewNew = ({
@@ -139,7 +160,12 @@ const HoverCardResolvedViewNew = ({
 		data: data,
 		fallbackElementHeight: snippetHeight.current,
 	});
-	const snippet = imagePreview ? null : <SnippetBlock status={SmartLinkStatus.Resolved} />;
+	const snippet = imagePreview ? null : (
+		<SnippetBlock
+			status={SmartLinkStatus.Resolved}
+			css={[fg('platform-linking-visual-refresh-v1') && snippetBlockCss]}
+		/>
+	);
 	const aiSummaryMinHeight = snippet ? snippetHeight.current : 0;
 
 	return (
@@ -149,12 +175,12 @@ const HoverCardResolvedViewNew = ({
 				{...titleBlockProps}
 				metadataPosition={SmartLinkPosition.Top}
 				status={SmartLinkStatus.Resolved}
-				css={titleBlockStyle}
+				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockStyles : titleBlockStyleOld]}
 			/>
 			<MetadataBlock
 				primary={primary}
 				secondary={secondary}
-				css={metadataBlockCss}
+				css={[!fg('platform-linking-visual-refresh-v1') && metadataBlockCssOld]}
 				maxLines={1}
 				size={SmartLinkSize.Medium}
 				status={SmartLinkStatus.Resolved}
@@ -175,7 +201,11 @@ const HoverCardResolvedViewNew = ({
 				css={hiddenSnippetStyles}
 				status={SmartLinkStatus.Resolved}
 			/>
-			<ActionBlock onClick={onActionClick} spaceInline="space.100" />
+			<ActionBlock
+				onClick={onActionClick}
+				spaceInline="space.100"
+				css={[fg('platform-linking-visual-refresh-v1') && actionBlockCss]}
+			/>
 			<AIFooterBlock />
 		</FlexibleCard>
 	);

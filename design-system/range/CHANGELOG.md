@@ -1,5 +1,13 @@
 # @atlaskit/range
 
+## 9.0.1
+
+### Patch Changes
+
+- [#120300](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120300)
+  [`c7e29fd764fdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7e29fd764fdc) -
+  Remove old codemod and update dependencies.
+
 ## 9.0.0
 
 ### Major Changes

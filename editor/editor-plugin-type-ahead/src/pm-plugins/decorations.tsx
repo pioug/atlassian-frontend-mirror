@@ -95,7 +95,7 @@ export const factoryDecorations = ({
 				typeaheadComponent.style.color = token('color.text.accent.blue', B400);
 				typeaheadComponent.style.backgroundColor = 'transparent';
 
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
+				if (editorExperiment('platform_editor_insertion', 'variant1')) {
 					// As part of controls work, we add placeholder `Search` to quick insert command
 					// This style is to prevent `/Search` being wrapped if it's triggered at the end of the line
 					typeaheadComponent.style.whiteSpace = 'nowrap';

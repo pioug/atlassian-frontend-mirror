@@ -87,6 +87,7 @@ const ActionBlockNew = ({
 	onClick: onClickCallback,
 	size,
 	spaceInline,
+	className,
 	testId = 'smart-block-action',
 }: ActionBlockProps) => {
 	di(ActionFooter);
@@ -152,11 +153,14 @@ const ActionBlockNew = ({
 	return actions ? (
 		<div
 			css={[
-				!fg('platform-linking-visual-refresh-v1') && ignoreContainerPaddingStylesOld,
-				fg('platform-linking-visual-refresh-v1') && ignoreContainerPaddingStyles,
+				fg('platform-linking-visual-refresh-v1')
+					? ignoreContainerPaddingStyles
+					: ignoreContainerPaddingStylesOld,
 			]}
 			ref={blockRef}
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			{actions}
 			<ActionFooter message={message} testId={testId} />

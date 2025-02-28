@@ -31,10 +31,22 @@ export type SelectionExtensionPluginConfiguration = {
 
 export type SelectionExtensionCoords = { left: number; right: number; top: number; bottom: number };
 
+export enum SelectionExtensionActionTypes {
+	SET_ACTIVE_EXTENSION = 'set-active-extension',
+	UPDATE_ACTIVE_EXTENSION_COORDS = 'update-active-extension-coords',
+	CLEAR_ACTIVE_EXTENSION = 'clear-active-extension',
+}
+
 export type UpdateActiveExtensionAction =
-	| { type: 'set-active-extension'; extension: SelectionExtensionContract }
-	| { type: 'update-active-extension-coords'; coords: SelectionExtensionCoords }
-	| { type: 'clear-active-extension' };
+	| {
+			type: SelectionExtensionActionTypes.SET_ACTIVE_EXTENSION;
+			extension: SelectionExtensionContract;
+	  }
+	| {
+			type: SelectionExtensionActionTypes.UPDATE_ACTIVE_EXTENSION_COORDS;
+			coords: SelectionExtensionCoords;
+	  }
+	| { type: SelectionExtensionActionTypes.CLEAR_ACTIVE_EXTENSION };
 
 export type SelectionExtensionPluginState = {
 	activeExtension?: {

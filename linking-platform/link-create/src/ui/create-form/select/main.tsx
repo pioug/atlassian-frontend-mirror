@@ -2,7 +2,6 @@ import React, { type PropsWithChildren } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline } from '@atlaskit/primitives/compiled';
 import AkSelect, {
 	components,
@@ -16,12 +15,6 @@ import { UrlIcon } from '../../../common/ui/icon';
 import { CreateField } from '../../../controllers/create-field';
 
 import { messages } from './messages';
-import {
-	SelectOld,
-	SitePickerOptionOld,
-	SitePickerSingleValueOld,
-	SiteSelectOld,
-} from './old/main';
 import { type SelectProps, type SitePickerOptionType } from './types';
 
 export const TEST_ID = 'link-create-select';
@@ -32,7 +25,7 @@ export const TEST_ID = 'link-create-select';
  * errors returned by the handleSubmit function passed to the form <Form> that
  * have a key matching the `name` of this field are shown below the field.
  */
-function SelectNew<T = OptionType>({
+export function Select<T = OptionType>({
 	id,
 	name,
 	label,
@@ -59,32 +52,25 @@ function SelectNew<T = OptionType>({
 	);
 }
 
-export function Select<T = OptionType>(props: SelectProps<T>) {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <SelectNew {...props} />;
-	}
-	return <SelectOld {...props} />;
-}
-
 export type SiteSelectProps = {
 	testId?: string;
 	options?: SitePickerOptionType[];
 	name?: string;
 };
 
-const SiteSelectNew = ({ options, name, testId }: SiteSelectProps): JSX.Element => {
+export const SiteSelect = ({ options, name, testId }: SiteSelectProps): JSX.Element => {
 	const intl = useIntl();
 	const siteTestId = testId ? testId : 'link-create-site-picker';
 	return (
-		<SelectOld<SitePickerOptionType>
+		<Select<SitePickerOptionType>
 			isRequired
 			isSearchable
 			name={name ?? 'site'}
 			options={options}
 			label={intl.formatMessage(messages.siteLabel)}
 			components={{
-				Option: SitePickerOptionNew,
-				SingleValue: SitePickerSingleValueNew,
+				Option: SitePickerOption,
+				SingleValue: SitePickerSingleValue,
 			}}
 			testId={siteTestId}
 			styles={{
@@ -100,13 +86,6 @@ const SiteSelectNew = ({ options, name, testId }: SiteSelectProps): JSX.Element 
 	);
 };
 
-export const SiteSelect = (props: SiteSelectProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <SiteSelectNew {...props} />;
-	}
-	return <SiteSelectOld {...props} />;
-};
-
 const SiteRow = ({ avatarUrl, children }: PropsWithChildren<{ avatarUrl?: string }>) => (
 	<Inline space="space.100" alignBlock="center">
 		{avatarUrl ? <UrlIcon url={avatarUrl} /> : null}
@@ -114,7 +93,7 @@ const SiteRow = ({ avatarUrl, children }: PropsWithChildren<{ avatarUrl?: string
 	</Inline>
 );
 
-const SitePickerOptionNew = ({
+export const SitePickerOption = ({
 	children,
 	...props
 }: PropsWithChildren<OptionProps<SitePickerOptionType, false>>): JSX.Element => (
@@ -123,16 +102,7 @@ const SitePickerOptionNew = ({
 	</components.Option>
 );
 
-export const SitePickerOption = (
-	props: PropsWithChildren<OptionProps<SitePickerOptionType, false>>,
-) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <SitePickerOptionNew {...props} />;
-	}
-	return <SitePickerOptionOld {...props} />;
-};
-
-const SitePickerSingleValueNew = ({
+export const SitePickerSingleValue = ({
 	children,
 	...props
 }: PropsWithChildren<SingleValueProps<SitePickerOptionType, false>>): JSX.Element => (
@@ -140,12 +110,3 @@ const SitePickerSingleValueNew = ({
 		<SiteRow avatarUrl={props.data.value.avatarUrl}>{children}</SiteRow>
 	</components.SingleValue>
 );
-
-export const SitePickerSingleValue = (
-	props: PropsWithChildren<SingleValueProps<SitePickerOptionType, false>>,
-) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <SitePickerSingleValueNew {...props} />;
-	}
-	return <SitePickerSingleValueOld {...props} />;
-};

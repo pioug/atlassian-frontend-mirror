@@ -95,9 +95,38 @@ describe('onParticpantUpdated', () => {
 			emit,
 		});
 
-		it('should not call emit', async () => {
-			await participantsService.onParticipantUpdated(payload);
-			expect(emit).not.toBeCalled();
+		describe('when participant activity is not changed', () => {
+			it('should not call emit', async () => {
+				const participantPayload: PresencePayload = { ...payload };
+
+				await participantsService.onParticipantUpdated({
+					...participantPayload,
+					presenceActivity: undefined,
+				}); // Change to unknown (default), no change
+
+				expect(emit).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('when participant activity is changed', () => {
+			it('should call emit', async () => {
+				const participantPayload: PresencePayload = { ...payload };
+
+				await participantsService.onParticipantUpdated({
+					...participantPayload,
+					presenceActivity: 'editor',
+				}); // Change to editor
+				await participantsService.onParticipantUpdated({
+					...participantPayload,
+					presenceActivity: 'viewer',
+				}); // Change to viewer
+				await participantsService.onParticipantUpdated({
+					...participantPayload,
+					presenceActivity: undefined,
+				}); // Change to unknown (default)
+
+				expect(emit).toHaveBeenCalledTimes(3);
+			});
 		});
 	});
 

@@ -1,12 +1,9 @@
 import React from 'react';
 
 import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX } from '../../constants';
 import { ErrorBoundaryUI } from '../error-boundary-ui';
-
-import { ErrorBoundaryModalOld } from './old';
 
 /**
  * ErrorBoundaryModal props are the same as those passed to LinkCreate, which
@@ -17,7 +14,7 @@ type ErrorBoundaryModalProps = {
 	onClose?: () => void;
 };
 
-const ErrorBoundaryModalNew = ({ active, onClose }: ErrorBoundaryModalProps): JSX.Element => {
+export const ErrorBoundaryModal = ({ active, onClose }: ErrorBoundaryModalProps): JSX.Element => {
 	return (
 		<ModalTransition>
 			{active && (
@@ -34,11 +31,4 @@ const ErrorBoundaryModalNew = ({ active, onClose }: ErrorBoundaryModalProps): JS
 			)}
 		</ModalTransition>
 	);
-};
-
-export const ErrorBoundaryModal = (props: ErrorBoundaryModalProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <ErrorBoundaryModalNew {...props} />;
-	}
-	return <ErrorBoundaryModalOld {...props} />;
 };

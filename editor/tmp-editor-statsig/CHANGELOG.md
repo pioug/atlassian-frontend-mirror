@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 3.3.0
+
+### Minor Changes
+
+- [#120426](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120426)
+  [`1fc7b1519dbcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fc7b1519dbcf) -
+  Uses a separate FF for the new QuickInsert and Right rail to split them from the other Editor
+  Controls features.
+
 ## 3.2.0
 
 ### Minor Changes

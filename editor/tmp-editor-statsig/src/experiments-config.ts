@@ -326,4 +326,13 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
+	// Added 28-02-2025
+	platform_editor_insertion: {
+		productKeys: {
+			confluence: 'platform_editor_insertion',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'variant1']),
+		defaultValue: 'control' as 'control' | 'variant1',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

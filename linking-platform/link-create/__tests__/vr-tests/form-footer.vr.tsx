@@ -21,19 +21,10 @@ const options: OptionsType = {
 
 snapshot(CreateFormFooterWithErrorMessage, {
 	...options,
-	featureFlags: {
-		'platform_bandicoots-link-create-css': [true, false],
-	},
 });
 snapshot(CreateFormFooterWithoutEdit, {
 	...options,
-	featureFlags: {
-		'platform_bandicoots-link-create-css': [true, false],
-	},
 });
 snapshot(CreateFormFooterDefault, {
 	...options,
-	featureFlags: {
-		'platform_bandicoots-link-create-css': [true, false],
-	},
 });

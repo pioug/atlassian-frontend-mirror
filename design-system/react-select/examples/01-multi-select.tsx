@@ -17,7 +17,6 @@ const MultiExample = () => (
 			isMulti
 			isSearchable={false}
 			placeholder="Choose a City"
-			menuIsOpen
 		/>
 	</>
 );

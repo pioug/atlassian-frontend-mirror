@@ -7,7 +7,6 @@ import { Fragment, type KeyboardEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
@@ -17,7 +16,6 @@ import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../com
 
 import { LinkSearchError, testIds as searchErrorTestIds } from './link-search-error';
 import { LinkSearchList, testIds as listTestIds } from './link-search-list';
-import { SearchResultsOld } from './old';
 import { ScrollingTabList } from './scrolling-tabs';
 import { SearchResultsContainer } from './search-results-container';
 import { TrackTabViewed } from './track-tab-viewed';
@@ -67,7 +65,7 @@ export type SearchResultsProps = {
 	retry: () => void;
 };
 
-export const SearchResultsNew = ({
+export const SearchResults = ({
 	tabs,
 	activeTab,
 	activePlugin,
@@ -156,11 +154,4 @@ export const SearchResultsNew = ({
 			)}
 		</SearchResultsContainer>
 	);
-};
-
-export const SearchResults = (props: SearchResultsProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <SearchResultsNew {...props} />;
-	}
-	return <SearchResultsOld {...props} />;
 };

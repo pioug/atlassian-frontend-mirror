@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.1.0
+
+### Minor Changes
+
+- [#119332](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119332)
+  [`b1b3d91f244e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1b3d91f244e2) -
+  Migrate package to compiled
+
 ## 2.0.1
 
 ### Patch Changes

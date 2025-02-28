@@ -40,6 +40,7 @@ export { helpDialogMessages } from './help-dialog';
 export { highlightMessages } from './highlight';
 export { messages as blockControlsMessages } from './block-controls';
 export { mediaInsertMessages } from './media-insert';
+export { selectionExtensionMessages } from './selection-extension';
 
 export default defineMessages({
 	layoutFixedWidth: {

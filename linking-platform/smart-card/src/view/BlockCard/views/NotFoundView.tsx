@@ -1,5 +1,10 @@
-import React, { useMemo } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useMemo } from 'react';
 
+import { css, jsx } from '@compiled/react';
 import { type JsonLd } from 'json-ld-types';
 import { useIntl } from 'react-intl-next';
 
@@ -13,9 +18,14 @@ import { token } from '@atlaskit/tokens';
 import { messages } from '../../../messages';
 import Text from '../../FlexibleCard/components/elements/text';
 
+import { NotFoundViewOld } from './NotFoundViewOld';
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
+
+const textStyles = css({
+	color: token('color.text'),
+});
 
 /**
  * This view represents a Block Card with a 'Not_Found' status.
@@ -23,7 +33,7 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
  * @see SmartLinkStatus
  * @see FlexibleCardProps
  */
-const NotFoundView = ({
+const NotFoundViewNew = ({
 	testId = 'smart-block-not-found-view',
 	...props
 }: FlexibleBlockCardProps) => {
@@ -70,9 +80,21 @@ const NotFoundView = ({
 					testId={`${testId}-lock-icon`}
 				/>
 			)}
-			<Text message={description} testId={`${testId}-message`} maxLines={3} />
+			<Text
+				message={description}
+				testId={`${testId}-message`}
+				maxLines={3}
+				css={[fg('platform-linking-visual-refresh-v1') && textStyles]}
+			/>
 		</UnresolvedView>
 	);
 };
 
+const NotFoundView = (props: FlexibleBlockCardProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <NotFoundViewNew {...props} />;
+	} else {
+		return <NotFoundViewOld {...props} />;
+	}
+};
 export default withFlexibleUIBlockCardStyle(NotFoundView);

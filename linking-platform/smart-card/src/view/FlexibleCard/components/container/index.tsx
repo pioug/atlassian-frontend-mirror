@@ -311,20 +311,20 @@ const previewOnLeftStyleMapOld = cssMap({
 
 const previewOnLeftStyleMap = cssMap({
 	xlarge: {
+		paddingLeft: `calc(var(--preview-block-width) + ${token('space.300')})`,
+		'--container-gap-left': token('space.300'),
+	},
+	large: {
 		paddingLeft: `calc(var(--preview-block-width) + ${token('space.250')})`,
 		'--container-gap-left': token('space.250'),
 	},
-	large: {
+	medium: {
 		paddingLeft: `calc(var(--preview-block-width) + ${token('space.200')})`,
 		'--container-gap-left': token('space.200'),
 	},
-	medium: {
+	small: {
 		paddingLeft: `calc(var(--preview-block-width) + ${token('space.100')})`,
 		'--container-gap-left': token('space.100'),
-	},
-	small: {
-		paddingLeft: `calc(var(--preview-block-width) + ${token('space.050')})`,
-		'--container-gap-left': token('space.050'),
 	},
 });
 
@@ -350,20 +350,20 @@ const previewOnRightStyleMapOld = cssMap({
 
 const previewOnRightStyleMap = cssMap({
 	xlarge: {
+		paddingRight: `calc(var(--preview-block-width) + ${token('space.300')})`,
+		'--container-gap-right': token('space.300'),
+	},
+	large: {
 		paddingRight: `calc(var(--preview-block-width) + ${token('space.250')})`,
 		'--container-gap-right': token('space.250'),
 	},
-	large: {
+	medium: {
 		paddingRight: `calc(var(--preview-block-width) + ${token('space.200')})`,
 		'--container-gap-right': token('space.200'),
 	},
-	medium: {
+	small: {
 		paddingRight: `calc(var(--preview-block-width) + ${token('space.100')})`,
 		'--container-gap-right': token('space.100'),
-	},
-	small: {
-		paddingRight: `calc(var(--preview-block-width) + ${token('space.050')})`,
-		'--container-gap-right': token('space.050'),
 	},
 });
 

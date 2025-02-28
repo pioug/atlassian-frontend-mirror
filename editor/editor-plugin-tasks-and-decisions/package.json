@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/analytics-namespaced-context": "^7.0.0",
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/editor-common": "^100.2.0",
+		"@atlaskit/editor-common": "^100.3.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-context-identifier": "^2.0.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "3.0.0",
@@ -53,7 +53,7 @@
 		"@atlaskit/primitives": "14.1.2",
 		"@atlaskit/prosemirror-input-rules": "^3.3.0",
 		"@atlaskit/task-decision": "^19.0.0",
-		"@atlaskit/tmp-editor-statsig": "^3.2.0",
+		"@atlaskit/tmp-editor-statsig": "^3.3.0",
 		"@atlaskit/tokens": "4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"

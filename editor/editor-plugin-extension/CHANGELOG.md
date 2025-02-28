@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-extension
 
+## 4.0.6
+
+### Patch Changes
+
+- [#119979](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119979)
+  [`97bfadcfddb29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97bfadcfddb29) -
+  ED-26342 - Legacy content macro has it's own 'fabric-editor-popup-scroll-parent' class. We want to
+  make the toolbar positioning ignore it if the given extension it's trying to create a toolbar for
+  is within the LCM.
+
+## 4.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

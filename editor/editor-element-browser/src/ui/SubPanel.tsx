@@ -8,8 +8,8 @@ import { BackNavButton } from './NavigationButton';
 const itemContainerStyles = xcss({
 	paddingTop: 'space.100',
 	paddingBottom: 'space.025',
-	paddingLeft: 'space.100',
-	paddingRight: 'space.100',
+	paddingLeft: 'space.250',
+	paddingRight: 'space.250',
 });
 
 interface SubPanelWithBackButtonProps {
@@ -21,7 +21,7 @@ interface SubPanelWithBackButtonProps {
 export const SubPanelWithBackButton = memo(
 	({ label, buttonLabel, onClick, children }: SubPanelWithBackButtonProps) => {
 		return (
-			<Stack space="space.100">
+			<Stack space="space.0">
 				<Inline
 					alignBlock="center"
 					alignInline="start"
@@ -29,7 +29,9 @@ export const SubPanelWithBackButton = memo(
 					xcss={itemContainerStyles}
 				>
 					<BackNavButton onClick={onClick} label={buttonLabel} />
-					<Heading size={'xsmall'}>{label}</Heading>
+					<Heading size={'xsmall'} as="span">
+						{label}
+					</Heading>
 				</Inline>
 				{children}
 			</Stack>

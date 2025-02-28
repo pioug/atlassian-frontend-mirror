@@ -107,8 +107,6 @@ const titleStyles = css({
 	},
 });
 
-export type { ProgressTrackerStageProps };
-
 export default class ProgressTrackerStage extends PureComponent<ProgressTrackerStageProps, State> {
 	nodeRefMarker = createRef<HTMLElement>();
 	nodeRefBar = createRef<HTMLElement>();

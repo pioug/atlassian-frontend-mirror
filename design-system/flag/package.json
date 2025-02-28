@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "16.1.0",
+	"version": "16.1.1",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

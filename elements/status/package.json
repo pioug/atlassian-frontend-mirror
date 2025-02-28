@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,6 +20,9 @@
 		},
 		"runReact18": true
 	},
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"config": {
 		"access": "public"
 	},
@@ -28,11 +31,12 @@
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/lozenge": "^12.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/platform-feature-flags-react": "^0.1.0",
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/textfield": "^8.0.0",
-		"@atlaskit/theme": "^17.0.0",
 		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
@@ -43,6 +47,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/elements-test-helpers": "^0.9.0",
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^13.4.0",
 		"enzyme": "^3.10.0",
@@ -61,6 +66,9 @@
 		"@repo/internal": {
 			"design-tokens": [
 				"color"
+			],
+			"styling": [
+				"compiled"
 			]
 		}
 	},

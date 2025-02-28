@@ -21,11 +21,23 @@ import { FlexibleCardUiOptions, PreviewBlockOptions, titleBlockOptions } from '.
 import { type UnresolvedViewProps } from './types';
 import UnresolvedViewOld from './UnresolvedViewOld';
 
-const customBlockStyles = css({
+const customBlockStylesOld = css({
 	alignItems: 'flex-start',
 });
 
-const titleBlockCss = css({
+const customBlockStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'> div': {
+		marginTop: 0,
+		color: token('color.text'),
+	},
+	gap: token('space.050'),
+	display: 'flex',
+	alignItems: 'flex-start',
+	alignSelf: 'stretch',
+});
+
+const titleBlockCssOld = css({
 	gap: token('space.100', '0.5em'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"[data-smart-element='Title']": {
@@ -33,7 +45,16 @@ const titleBlockCss = css({
 	},
 });
 
-const footerBlockCss = css({
+const titleBlockCss = css({
+	gap: token('space.100'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	"[data-smart-element='Title']": {
+		fontWeight: token('font.weight.semibold'),
+		color: token('color.link'),
+	},
+});
+
+const footerBlockCssOld = css({
 	height: '1.5rem',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.actions-button-group': {
@@ -43,6 +64,14 @@ const footerBlockCss = css({
 			fontSize: '0.875rem',
 		},
 	},
+});
+
+const footerBlockCss = css({
+	height: '1.5rem',
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'flex-end',
+	alignSelf: 'stretch',
 });
 
 const UnresolvedView = ({
@@ -72,17 +101,20 @@ const UnresolvedView = ({
 			{...titleBlockOptions}
 			hideIcon={!!title}
 			text={title}
-			css={titleBlockCss}
+			css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
 			status={cardState.status as SmartLinkStatus}
 		/>
-		<CustomBlock css={customBlockStyles} status={cardState.status as SmartLinkStatus}>
+		<CustomBlock
+			css={[fg('platform-linking-visual-refresh-v1') ? customBlockStyles : customBlockStylesOld]}
+			status={cardState.status as SmartLinkStatus}
+		>
 			{children}
 		</CustomBlock>
 		{showPreview && (
 			<PreviewBlock {...PreviewBlockOptions} status={cardState.status as SmartLinkStatus} />
 		)}
 		<InternalFooterBlock
-			css={footerBlockCss}
+			css={[fg('platform-linking-visual-refresh-v1') ? footerBlockCss : footerBlockCssOld]}
 			actions={actions}
 			testId="smart-block-card-footer"
 			status={cardState.status as SmartLinkStatus}

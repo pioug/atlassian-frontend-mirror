@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 10.0.1
+
+### Patch Changes
+
+- [#119565](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119565)
+  [`a7f1d79b42b68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7f1d79b42b68) -
+  Update dependencies and remove unused internal export.
+
 ## 10.0.0
 
 ### Major Changes

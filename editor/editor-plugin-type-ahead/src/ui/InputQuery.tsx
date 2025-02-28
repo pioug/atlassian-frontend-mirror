@@ -138,7 +138,7 @@ export const InputQuery = React.memo(
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
-		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+		const isEditorControlsEnabled = editorExperiment('platform_editor_insertion', 'variant1');
 		const [showPlaceholder, setShowPlaceholder] = useState(
 			isEditorControlsEnabled && triggerQueryPrefix === '/',
 		);

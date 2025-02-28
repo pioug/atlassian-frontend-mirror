@@ -7,7 +7,6 @@ import { forwardRef, Fragment, type KeyboardEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { B100, B400, B50, N20, N200, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -15,8 +14,6 @@ import { token } from '@atlaskit/tokens';
 import { type LinkSearchListItemData } from '../../../../../common/types';
 /* eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports */
 import { transformTimeStamp } from '../../../transformTimeStamp';
-
-import { LinkSearchListItemOld } from './old';
 
 export const testIds = {
 	searchResultItem: 'link-search-list-item',
@@ -174,7 +171,7 @@ const listItemFocusStyles = css({
 	},
 });
 
-export const LinkSearchListItemNew = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
+export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
 	(
 		{
 			item,
@@ -223,14 +220,5 @@ export const LinkSearchListItemNew = forwardRef<HTMLDivElement, LinkSearchListIt
 				</div>
 			</div>
 		);
-	},
-);
-
-export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
-	(props: LinkSearchListItemProps, ref) => {
-		if (fg('platform_bandicoots-link-picker-css')) {
-			return <LinkSearchListItemNew {...props} ref={ref} />;
-		}
-		return <LinkSearchListItemOld {...props} ref={ref} />;
 	},
 );

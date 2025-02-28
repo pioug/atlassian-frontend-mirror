@@ -412,8 +412,10 @@ export interface FloatingToolbarConfig {
 	mediaAssistiveMessage?: string;
 	stick?: boolean;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
-	 * Used in `platform_editor_controls` experiment - force new contextual toolbar to display without collapse and expand functionality
+	 * @deprecated Unused property to support collapse/expand feature for editor controls
+	 * @see clean up ticket ED-26803
 	 */
 	forceStaticToolbar?: boolean;
 }

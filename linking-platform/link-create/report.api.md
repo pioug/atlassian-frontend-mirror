@@ -21,7 +21,7 @@
 import { AsyncSelectProps as AsyncSelectProps_2 } from '@atlaskit/select';
 import { FORM_ERROR } from 'final-form';
 import { GroupType } from '@atlaskit/select';
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 import { MemoExoticComponent } from 'react';
 import { ModalDialogProps } from '@atlaskit/modal-dialog';
 import { OptionType } from '@atlaskit/select';

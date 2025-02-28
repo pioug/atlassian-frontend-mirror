@@ -1,53 +1,62 @@
-import React, { type CSSProperties, type FunctionComponent } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type CSSProperties, Fragment, type FunctionComponent } from 'react';
+
+import { cssMap, cx, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type ClearIndicatorProps, type OptionType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import { cities } from '../common/data';
 
-const clearIndicatorStyles = xcss({
-	paddingInline: 'space.050',
+const clearIndicatorStyles = cssMap({
+	default: {
+		paddingInline: token('space.050'),
+		color: token('color.text', 'black'),
+	},
+	focus: {
+		color: token('color.text.brand', 'blue'),
+	},
 });
 
-const CustomClearText: FunctionComponent = () => <>clear all</>;
+const CustomClearText: FunctionComponent = () => <Fragment>clear all</Fragment>;
 
 const ClearIndicator = (props: ClearIndicatorProps<OptionType, true>) => {
 	const {
 		children = <CustomClearText />,
 		getStyles,
 		innerProps: { ref, ...restInnerProps },
+		isFocused,
 	} = props;
+
 	return (
 		<div
 			{...restInnerProps}
 			ref={ref}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={getStyles('clearIndicator', props) as CSSProperties}
 		>
-			<Box xcss={clearIndicatorStyles}>{children}</Box>
+			<Box xcss={cx(clearIndicatorStyles.default, isFocused && clearIndicatorStyles.focus)}>
+				{children}
+			</Box>
 		</div>
 	);
 };
 
-const ClearIndicatorStyles = (base: any, state: ClearIndicatorProps<OptionType>) => ({
-	...base,
-	cursor: 'pointer',
-	color: state.isFocused ? token('color.text.brand', 'blue') : token('color.text', 'black'),
-});
-
 export default () => (
-	<>
+	<Fragment>
 		<Label htmlFor="indicators-clear">What city do you live in?</Label>
 		<Select
 			inputId="indicators-clear"
 			closeMenuOnSelect={false}
 			components={{ ClearIndicator }}
-			styles={{ clearIndicator: ClearIndicatorStyles }}
 			defaultValue={[cities[4], cities[5]]}
 			isMulti
 			options={cities}
 		/>
-	</>
+	</Fragment>
 );

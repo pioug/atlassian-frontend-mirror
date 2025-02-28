@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 204.3.1
+
+### Patch Changes
+
+- [#119729](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119729)
+  [`beae885f06562`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beae885f06562) -
+  ED-26710 add analytics events to selection extension plugin
+- Updated dependencies
+
+## 204.3.0
+
+### Minor Changes
+
+- [#117777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117777)
+  [`6d31e7761757c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d31e7761757c) -
+  [ux] ED-26722 Update header area spacing to avoid layout shift when hiding top toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 204.2.0
 
 ### Minor Changes

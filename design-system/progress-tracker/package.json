@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-tracker",
-	"version": "10.0.0",
+	"version": "10.0.1",
 	"description": "A progress tracker displays the steps and progress through a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,8 +39,14 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "^0.5.8",
 		"@af/visual-regression": "*",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

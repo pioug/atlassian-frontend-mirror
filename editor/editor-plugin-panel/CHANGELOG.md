@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.1.0
+
+### Minor Changes
+
+- [#119765](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119765)
+  [`5a27b842be965`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a27b842be965) -
+  Add deprecated label to `forceStaticToolbar` in floating toolbar property and remove its usage
+  across plugins
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

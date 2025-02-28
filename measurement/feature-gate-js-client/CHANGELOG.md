@@ -1,5 +1,23 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.26.4
+
+### Patch Changes
+
+- [#120085](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120085)
+  [`2175282f6acb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2175282f6acb9) -
+  Make check for window more robust and prevent issues in Node.
+
+## 4.26.3
+
+### Patch Changes
+
+- [#119319](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119319)
+  [`132c887d3d1a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/132c887d3d1a0) -
+  Enabling `localMode` will now also disable exposure logging and storage capabilities. This brings
+  it inline with version 4.23.x and below (and was an unintentional change in 4.24.0). This prevents
+  warnings like `[Statsig] Failed to flush events` from being logged when run in local mode.
+
 ## 4.26.2
 
 ### Patch Changes

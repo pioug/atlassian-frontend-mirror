@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "14.0.0",
+	"version": "14.0.3",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/checkbox": "^16.0.0",
+		"@atlaskit/checkbox": "^17.0.0",
 		"@atlaskit/flag": "^16.1.0",
 		"@atlaskit/form": "^12.0.0",
 		"@atlaskit/icon": "^24.1.0",
@@ -53,7 +53,7 @@
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/section-message": "^8.0.0",
-		"@atlaskit/select": "^19.0.0",
+		"@atlaskit/select": "^20.0.0",
 		"@atlaskit/textarea": "^8.0.0",
 		"@atlaskit/theme": "^17.0.0",
 		"@atlaskit/tokens": "^4.2.0",

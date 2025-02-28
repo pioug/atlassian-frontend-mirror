@@ -1467,8 +1467,9 @@ describe('IssueLikeDataTableView', () => {
 			await dragAndDrop(dragHandle, dropTarget);
 
 			const { allOptions } = await openColumnPicker();
-
-			const pickerOptionTitles = Array.from(allOptions).map((el) => (el as HTMLElement).innerText);
+			const pickerOptionTitles = Array.from(allOptions).map(
+				(el) => (el as HTMLElement).textContent,
+			);
 			expect(pickerOptionTitles).toEqual(['task', 'id', 'emoji', 'assignee', 'summary']);
 		});
 

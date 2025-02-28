@@ -151,6 +151,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			isPMDragging: key.getState(editorState)?.isPMDragging ?? false,
 			multiSelectDnD: key.getState(editorState)?.multiSelectDnD ?? undefined,
 			isShiftDown: key.getState(editorState)?.isShiftDown ?? undefined,
+			lastDragCancelled: key.getState(editorState)?.lastDragCancelled ?? false,
 		};
 	},
 

@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import Section from '@atlaskit/menu/section';
-import { Stack, Text } from '@atlaskit/primitives';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import type { QuickInsertPanelProps } from '../types';
 import {
@@ -17,6 +17,13 @@ import type { GroupData, ItemData } from './ItemType';
 import { ListButtonGroup, ListButtonGroupWithHeading } from './ListButtonGroup';
 import { LinkNavButton } from './NavigationButton';
 import { SubPanelWithBackButton } from './SubPanel';
+
+const navButtonContainerStyles = xcss({
+	paddingTop: 'space.0',
+	paddingBottom: 'space.0',
+	paddingLeft: 'space.200',
+	paddingRight: 'space.200',
+});
 
 const DefaultView = ({
 	suggested,
@@ -55,7 +62,13 @@ const DefaultView = ({
 				return (
 					items.length > 0 && (
 						<Section key={category.id} hasSeparator>
-							<LinkNavButton id={category.id} label={category.title} onClick={onCategorySelected} />
+							<Box xcss={navButtonContainerStyles}>
+								<LinkNavButton
+									id={category.id}
+									label={category.title}
+									onClick={onCategorySelected}
+								/>
+							</Box>
 						</Section>
 					)
 				);

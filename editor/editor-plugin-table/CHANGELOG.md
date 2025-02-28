@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-table
 
+## 10.2.0
+
+### Minor Changes
+
+- [#119765](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119765)
+  [`5a27b842be965`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a27b842be965) -
+  Add deprecated label to `forceStaticToolbar` in floating toolbar property and remove its usage
+  across plugins
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.4
+
+### Patch Changes
+
+- [#115629](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115629)
+  [`4c512c4a6282c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c512c4a6282c) -
+  [ux] [ED-26544] Fix issue where sorting decorations were not being removed on edit mode on live
+  pages. Also ensured sorting decorations are reapplied in view mode. Added live page option to
+  integration testing page.
+
+## 10.1.3
+
+### Patch Changes
+
+- [#119903](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119903)
+  [`f943d17e6a5ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f943d17e6a5ef) -
+  [ux] [ED-26799] This change fixes a bug that was causing nested tables with numbered columns to
+  break when the parent table is scrolled and has a sticky header.
+
 ## 10.1.2
 
 ### Patch Changes

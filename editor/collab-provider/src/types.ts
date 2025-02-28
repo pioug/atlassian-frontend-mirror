@@ -9,7 +9,6 @@ import type {
 	CollabSendableSelection,
 	Metadata,
 	UserPermitType,
-	Activity,
 	PresenceActivity,
 } from '@atlaskit/editor-common/collab';
 import { type CatchupEventReason } from './helpers/const';
@@ -167,7 +166,7 @@ export type BroadcastIncomingPayload = {
 	timestamp?: number;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	data: PresencePayload | TelepointerPayload | StepsPayload | ActivityPayload | any; // broadcasted data from NCS, any added as a fallback
+	data: PresencePayload | TelepointerPayload | StepsPayload | any; // broadcasted data from NCS, any added as a fallback
 };
 
 export type PresenceData = {
@@ -184,12 +183,6 @@ export type PresencePayload = PresenceData & {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data?: Record<string, any>;
-};
-
-export type ActivityPayload = {
-	userId: string | undefined;
-	activity: Activity;
-	sessionId: string;
 };
 
 export type TelepointerPayload = PresencePayload & {
@@ -245,8 +238,6 @@ export type ChannelEvent = {
 	'presence:joined': PresencePayload;
 	presence: PresencePayload;
 	'participant:left': PresencePayload;
-	'participant:activity-join': ActivityPayload;
-	'participant:activity-ack': ActivityPayload;
 	'participant:telepointer': TelepointerPayload;
 	'participant:updated': PresencePayload;
 	'steps:commit': StepsPayload & { userId: string; collabMode: string; forcePublish?: boolean };

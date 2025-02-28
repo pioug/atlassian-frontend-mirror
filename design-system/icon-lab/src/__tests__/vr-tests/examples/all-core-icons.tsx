@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::fb7dcc9e78b73b839791d55fb808028a>>
+ * @codegen <<SignedSource::123989b1d18186fdf2e45e8d223dcc92>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -31,6 +31,7 @@ import BookOpenIcon from '../../../../core/book-open';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
+import ContinueWhenIcon from '../../../../core/continue-when';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
 import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
@@ -67,6 +68,7 @@ import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
 import SpeedometerIcon from '../../../../core/speedometer';
+import SplitParallelIcon from '../../../../core/split-parallel';
 import StampIcon from '../../../../core/stamp';
 import StickerIcon from '../../../../core/sticker';
 import StrokeCurvatureCurvedIcon from '../../../../core/stroke-curvature-curved';
@@ -78,6 +80,7 @@ import StrokeStyleDottedIcon from '../../../../core/stroke-style-dotted';
 import StrokeStyleSolidIcon from '../../../../core/stroke-style-solid';
 import SunsetIcon from '../../../../core/sunset';
 import SwapIcon from '../../../../core/swap';
+import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TemplateIcon from '../../../../core/template';
@@ -88,6 +91,7 @@ import VulnerabilityIcon from '../../../../core/vulnerability';
 import WalletIcon from '../../../../core/wallet';
 import WebhookIcon from '../../../../core/webhook';
 import WelcomeFeedIcon from '../../../../core/welcome-feed';
+import WorkflowControlsIcon from '../../../../core/workflow-controls';
 import WrenchIcon from '../../../../core/wrench';
 
 const Icons = [
@@ -106,6 +110,7 @@ const Icons = [
 	CloudOfflineIcon,
 	CloudSavedIcon,
 	CoinsIcon,
+	ContinueWhenIcon,
 	CrossOctagonIcon,
 	CursorIcon,
 	CursorStrikethroughIcon,
@@ -142,6 +147,7 @@ const Icons = [
 	ShapeTriangleInvertedIcon,
 	SignatureIcon,
 	SpeedometerIcon,
+	SplitParallelIcon,
 	StampIcon,
 	StickerIcon,
 	StrokeCurvatureCurvedIcon,
@@ -153,6 +159,7 @@ const Icons = [
 	StrokeStyleSolidIcon,
 	SunsetIcon,
 	SwapIcon,
+	SwitchCaseIcon,
 	SyncIcon,
 	TakeoutContainerIcon,
 	TemplateIcon,
@@ -163,6 +170,7 @@ const Icons = [
 	WalletIcon,
 	WebhookIcon,
 	WelcomeFeedIcon,
+	WorkflowControlsIcon,
 	WrenchIcon,
 ];
 

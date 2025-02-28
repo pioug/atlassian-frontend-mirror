@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import SmartUserPicker from '@atlaskit/smart-user-picker';
 
 import { CreateField } from '../../../controllers/create-field';
 
-import { UserPickerOld } from './old/main';
 import { type UserPickerProps } from './types';
 
 export const TEST_ID = 'link-create-user-picker';
@@ -15,7 +13,7 @@ const UserPickerWidth = '100%';
 /**
  * A user picker utilising the SmartUserPicker.
  */
-const UserPickerNew = ({
+export const UserPicker = ({
 	productKey,
 	siteId,
 	name,
@@ -49,11 +47,4 @@ const UserPickerNew = ({
 			}}
 		</CreateField>
 	);
-};
-
-export const UserPicker = (props: UserPickerProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <UserPickerNew {...props} />;
-	}
-	return <UserPickerOld {...props} />;
 };

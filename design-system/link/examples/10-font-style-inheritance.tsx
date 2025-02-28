@@ -6,6 +6,8 @@ import Link from '@atlaskit/link';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
+import GlobalStyleSimulator from './utils/global-style-simulator';
+
 const styles = cssMap({
 	fontFamily: {
 		fontFamily: 'var(--ds-font-family-body)',
@@ -36,33 +38,36 @@ const textContent = (
 
 export default function InlineTextExample() {
 	return (
-		<Stack space="space.100">
-			<Text size="small" as="p">
-				{textContent}
-			</Text>
-			<Text size="medium" as="p">
-				{textContent}
-			</Text>
-			<Text size="large" as="p">
-				{textContent}
-			</Text>
-			<Heading size="xlarge">{textContent}</Heading>
-			<Heading size="xxlarge">{textContent}</Heading>
-			<Text as="p">
-				<strong>{textContent}</strong>
-			</Text>
-			<Text as="p">
-				<em>{textContent}</em>
-			</Text>
-			<Text weight="bold" color="color.text.accent.magenta" as="p">
-				{textContent}
-			</Text>
-			<Box as="p" xcss={styles.fontFamily}>
-				{textContent}
-			</Box>
-			<Box as="p" xcss={styles.letterSpacing}>
-				{textContent}
-			</Box>
-		</Stack>
+		<>
+			<GlobalStyleSimulator />
+			<Stack space="space.100">
+				<Text size="small" as="p">
+					{textContent}
+				</Text>
+				<Text size="medium" as="p">
+					{textContent}
+				</Text>
+				<Text size="large" as="p">
+					{textContent}
+				</Text>
+				<Heading size="xlarge">{textContent}</Heading>
+				<Heading size="xxlarge">{textContent}</Heading>
+				<Text as="p">
+					<strong>{textContent}</strong>
+				</Text>
+				<Text as="p">
+					<em>{textContent}</em>
+				</Text>
+				<Text weight="bold" color="color.text.accent.magenta" as="p">
+					{textContent}
+				</Text>
+				<Box as="p" xcss={styles.fontFamily}>
+					{textContent}
+				</Box>
+				<Box as="p" xcss={styles.letterSpacing}>
+					{textContent}
+				</Box>
+			</Stack>
+		</>
 	);
 }

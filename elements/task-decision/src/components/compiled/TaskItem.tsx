@@ -5,7 +5,8 @@
 import React, { type RefObject, useMemo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
+import CheckboxCheckedIcon from '@atlaskit/icon/core/checkbox-checked';
+import CheckboxUncheckedIcon from '@atlaskit/icon/core/checkbox-unchecked';
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../../types';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -257,9 +258,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 				onKeyPress={handleOnKeyPress}
 				ref={inputRef}
 			/>
-			{/* Migrate to new icon design in DSP-21076 */}
-			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons*/}
-			<CheckboxIcon label="" isFacadeDisabled={true} />
+			{isDone ? <CheckboxCheckedIcon label="" /> : <CheckboxUncheckedIcon label="" />}
 		</span>
 	);
 

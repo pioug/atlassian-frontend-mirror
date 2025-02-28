@@ -44,9 +44,9 @@ describe('<LinkSearchList />', () => {
 
 	it('should render the list items and no loading when loaded', () => {
 		const { component, items } = setup();
-		const list = component.getByTestId('link-search-list');
+		const list = component.getAllByTestId('link-search-list-item');
 
-		expect(list.children).toHaveLength(items!.length);
+		expect(list).toHaveLength(items!.length);
 		expect(() => component.getByTestId(testIds.searchResultLoadingIndicator)).toThrow();
 	});
 
@@ -73,10 +73,10 @@ describe('<LinkSearchList />', () => {
 			isLoading: true,
 		});
 		const spinner = component.getByTestId(testIds.searchResultLoadingIndicator);
-		const list = component.getByTestId('link-search-list');
+		const list = component.getAllByTestId('link-search-list-item');
 
 		expect(spinner).toBeDefined();
-		expect(list.children).toHaveLength(items!.length);
+		expect(list).toHaveLength(items!.length);
 	});
 
 	it('should not render list when there are no items', () => {
@@ -88,10 +88,10 @@ describe('<LinkSearchList />', () => {
 		const { component } = setup({
 			selectedIndex: 1,
 		});
-		const list = component.getByTestId('link-search-list');
+		const list = component.getAllByTestId('link-search-list-item');
 
-		expect(list.children[0].getAttribute('aria-selected')).toBe('false');
-		expect(list.children[1].getAttribute('aria-selected')).toBe('true');
+		expect(list[0].getAttribute('aria-selected')).toBe('false');
+		expect(list[1].getAttribute('aria-selected')).toBe('true');
 	});
 
 	it('should select the item when focused', async () => {

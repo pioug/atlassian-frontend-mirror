@@ -15,6 +15,10 @@ const innerBoxContainerStyles = xcss({
 	boxShadow: 'elevation.shadow.overlay',
 });
 
+const innerBoxContainerNarrowStyles = xcss({
+	marginInline: 'space.100',
+});
+
 const outerBoxContainerStyles = xcss({
 	width: '320px',
 	margin: 'auto',
@@ -73,13 +77,13 @@ const dataItems: ItemData[] = [
 		keyshortcut: makeKeyMapWithCommon('', '```'),
 		renderIcon: () => <AngleBracketsIcon label="Codeblock" />,
 	},
-	/*{
+	{
 		index: 7,
 		title: 'Actions',
 		description: 'Create and assign action items',
 		keyshortcut: makeKeyMapWithCommon('', '[]'),
 		renderIcon: () => <TaskIcon label="Actions" />,
-	},*/
+	},
 ];
 
 export default function CategoryNavButtonExample() {
@@ -104,6 +108,17 @@ export default function CategoryNavButtonExample() {
 						label="Suggested"
 						items={dataItems}
 						hasSeparator
+						onItemSelected={(index, categoryId) => {
+							console.log(`Item ${index} selected in category ${categoryId}`);
+						}}
+					/>
+				</Box>
+				<Heading size="xsmall">Narrow space</Heading>
+				<Box xcss={[innerBoxContainerStyles, innerBoxContainerNarrowStyles]}>
+					<IconButtonGroup
+						id="suggested"
+						label="Suggested"
+						items={dataItems}
 						onItemSelected={(index, categoryId) => {
 							console.log(`Item ${index} selected in category ${categoryId}`);
 						}}

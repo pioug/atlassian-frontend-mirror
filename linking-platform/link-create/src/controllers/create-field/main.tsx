@@ -7,20 +7,18 @@ import { css, jsx } from '@compiled/react';
 import { Field } from 'react-final-form';
 
 import { Label, RequiredAsterisk } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { Message } from '../../common/ui/message';
 import { shouldShowValidationErrors } from '../../common/utils/form';
 
-import { CreateFieldOld } from './old/main';
 import { type CreateFieldProps } from './types';
 
 const fieldWrapperStyles = css({
 	marginTop: token('space.100', '8px'),
 });
 
-const CreateFieldNew = ({
+export const CreateField = ({
 	id,
 	name,
 	label,
@@ -88,11 +86,4 @@ const CreateFieldNew = ({
 			}}
 		</Field>
 	);
-};
-
-export const CreateField = (props: CreateFieldProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <CreateFieldNew {...props} />;
-	}
-	return <CreateFieldOld {...props} />;
 };

@@ -8,10 +8,10 @@ import { token } from '@atlaskit/tokens';
 type OnChangeType = React.ComponentProps<typeof Textfield>['onChange'];
 
 const searchPanelStyles = xcss({
-	paddingTop: 'space.200',
-	paddingBottom: 'space.100',
-	paddingLeft: 'space.200',
-	paddingRight: 'space.200',
+	paddingTop: 'space.025',
+	paddingBottom: 'space.150',
+	paddingLeft: 'space.300',
+	paddingRight: 'space.300',
 });
 
 const searchIconStyles = xcss({
@@ -27,7 +27,7 @@ export const SearchPanel = memo(({ onChange }: { onChange: OnChangeType }) => {
 			<Textfield
 				name="search"
 				id="search-textfield"
-				placeholder="Find or describe"
+				placeholder="Find or describe..."
 				elemBeforeInput={
 					<Box xcss={searchIconStyles}>
 						<Search label="search" color={token('color.text.subtlest')} />

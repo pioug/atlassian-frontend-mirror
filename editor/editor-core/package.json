@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "204.2.0",
+	"version": "204.3.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,13 +44,13 @@
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/editor-common": "^100.2.0",
+		"@atlaskit/editor-common": "^100.3.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-performance-metrics": "2.0.2",
-		"@atlaskit/editor-plugin-quick-insert": "2.0.0",
+		"@atlaskit/editor-plugin-quick-insert": "2.0.1",
 		"@atlaskit/editor-plugins": "^8.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "^3.3.0",
+		"@atlaskit/editor-shared-styles": "^3.4.0",
 		"@atlaskit/emoji": "^68.0.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/media-card": "^79.0.0",
@@ -58,7 +58,7 @@
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/react-ufo": "^3.1.0",
 		"@atlaskit/task-decision": "^19.0.0",
-		"@atlaskit/tmp-editor-statsig": "^3.2.0",
+		"@atlaskit/tmp-editor-statsig": "^3.3.0",
 		"@atlaskit/tokens": "^4.2.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/width-detector": "^5.0.0",

@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.0.0
+
+### Major Changes
+
+- [#119958](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119958)
+  [`1bbf4edee5013`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bbf4edee5013) -
+  Remove emotion dependency, clean up compiled migration ff. Bump up major version for visibility
+
 ## 2.1.0
 
 ### Minor Changes

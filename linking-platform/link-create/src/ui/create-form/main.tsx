@@ -10,7 +10,6 @@ import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
 import { RequiredAsterisk } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -22,7 +21,6 @@ import { useFormContext } from '../../controllers/form-context';
 
 import { CreateFormFooter } from './form-footer';
 import { CreateFormLoader } from './form-loader';
-import { CreateFormOld } from './old/main';
 
 const formStyles = css({
 	maxWidth: `480px`,
@@ -91,7 +89,7 @@ export interface CreateFormProps<FormData> {
 
 export const TEST_ID = 'link-create-form';
 
-const CreateFormNew = <FormData extends Record<string, any> = {}>({
+export const CreateForm = <FormData extends Record<string, any> = {}>({
 	children,
 	testId = TEST_ID,
 	onSubmit,
@@ -220,13 +218,4 @@ const CreateFormNew = <FormData extends Record<string, any> = {}>({
 			}}
 		</Form>
 	);
-};
-
-export const CreateForm = <FormData extends Record<string, any> = {}>(
-	props: CreateFormProps<FormData>,
-) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <CreateFormNew {...props} />;
-	}
-	return <CreateFormOld {...props} />;
 };

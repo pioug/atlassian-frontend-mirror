@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.0.1
+
+### Patch Changes
+
+- [#119942](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119942)
+  [`d5163d608020e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5163d608020e) -
+  "Modify the no-unsafe-design-token-usage rule to exclude the getTokenValue function when used in
+  'none' mode for fallbackUsage. This adjustment is necessary because the getTokenValue function is
+  not covered by the build-time @atlaskit/tokens/babel-plugin by design. As a result, using this
+  function without a fallback can be unsafe, as it defaults to a blank value if applied on a webpage
+  where the ADS theme is not enabled."
+
 ## 13.0.0
 
 ### Major Changes

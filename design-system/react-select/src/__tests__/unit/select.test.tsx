@@ -2024,7 +2024,10 @@ cases(
 	'accessibility > passes through labelId (aria-labelledby) prop',
 	({ props = { ...BASIC_PROPS, labelId: 'testing' } }) => {
 		render(<Select {...props} />);
-		expect(screen.getByRole('combobox')).toHaveAttribute('aria-labelledby', 'testing');
+		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAttribute(
+			'aria-labelledby',
+			'testing',
+		);
 	},
 	{
 		'single select > should pass labelId (aria-labelledby) prop down to input': {},
@@ -2042,7 +2045,7 @@ cases(
 	'accessibility > passes through descriptionId (aria-describedby) prop',
 	({ props = { ...BASIC_PROPS, descriptionId: 'testing' } }) => {
 		render(<Select {...props} />);
-		expect(screen.getByRole('combobox')).toHaveAttribute(
+		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAttribute(
 			'aria-describedby',
 			expect.stringContaining('testing'),
 		);
@@ -2063,7 +2066,7 @@ cases(
 	'accessibility > passes through isRequired (aria-required) prop',
 	({ props = { ...BASIC_PROPS, isRequired: true } }) => {
 		render(<Select {...props} />);
-		expect(screen.getByRole('combobox')).toBeRequired();
+		expect(screen.getByTestId(`${testId}-select--input`)!).toBeRequired();
 	},
 	{
 		'single select > should pass isRequired (aria-required) prop down to input': {},
@@ -2118,7 +2121,7 @@ cases(
 	({ props = { ...BASIC_PROPS, isInvalid: true } }) => {
 		render(<Select {...props} />);
 
-		expect(screen.getByRole('combobox')).toBeInvalid();
+		expect(screen.getByTestId(`${testId}-select--input`)!).toBeInvalid();
 	},
 	{
 		'single select > should pass isInvalid (aria-invalid) prop down to input': {},
@@ -2154,7 +2157,7 @@ cases(
 	'accessibility > passes through label (aria-label) prop',
 	({ props = { ...BASIC_PROPS, label: 'testing' } }) => {
 		render(<Select {...props} />);
-		expect(screen.getByRole('combobox')).toHaveAttribute('aria-label', 'testing');
+		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAttribute('aria-label', 'testing');
 	},
 	{
 		'single select > should pass label (aria-label) prop down to input': {},
@@ -2167,6 +2170,47 @@ cases(
 		},
 	},
 );
+
+cases(
+	'accessibility > options have aria-selected',
+	({ props = { ...BASIC_PROPS } }) => {
+		render(<Select {...props} menuIsOpen />);
+
+		screen.getAllByRole('option').forEach((option) => {
+			expect(option).toHaveAttribute('aria-selected', 'false');
+		});
+	},
+	{
+		'single select > should have aria-selected on options': {},
+		'multi select > should have aria-selected on options': {
+			props: {
+				...BASIC_PROPS,
+				isMulti: true,
+			},
+		},
+	},
+);
+
+describe('accessibility > options set aria-disabled properly', () => {
+	ffTest(
+		'design_system_select-a11y-improvement',
+		() => {
+			render(<Select {...BASIC_PROPS} menuIsOpen options={OPTIONS_DISABLED} />);
+
+			expect(screen.getByRole('option', { name: '0' })).not.toHaveAttribute('aria-disabled');
+			expect(screen.getByRole('option', { name: '1' })).toHaveAttribute('aria-disabled');
+		},
+		() => {
+			render(<Select {...BASIC_PROPS} menuIsOpen options={OPTIONS_DISABLED} />);
+
+			screen.getAllByRole('option').forEach((option) => {
+				expect(option).toHaveAttribute('aria-disabled');
+			});
+			expect(screen.getByRole('option', { name: '0' })).toHaveAttribute('aria-disabled', 'false');
+			expect(screen.getByRole('option', { name: '1' })).toHaveAttribute('aria-disabled', 'true');
+		},
+	);
+});
 
 describe('accessibility > to show the number of options available in A11yText when the menu is Open', () => {
 	ffTest(
@@ -2414,9 +2458,6 @@ test('accessibility > A11yTexts can be provided through ariaLiveMessages prop', 
 	const liveRegionEventId = '#aria-selection';
 
 	expect(container.querySelector(liveRegionEventId)!).toBeNull();
-
-	const user = userEvent.setup();
-
 	fireEvent.focus(screen.getByTestId(`${testId}-select--input`)!);
 
 	let menu = screen.getByTestId(`${testId}-select--listbox-container`)!;
@@ -3033,8 +3074,8 @@ test('multi select > with multi character delimiter', () => {
 		'zero===&===one',
 	);
 });
-// Skipping until the full fix is complete
-test.skip('multi select > described as having multiple selections available', () => {
+
+test('multi select > described as having multiple selections available', () => {
 	render(<Select {...BASIC_PROPS} isMulti />);
 	expect(screen.getByText(/, multiple selections available,/)).toBeInTheDocument();
 	expect(screen.getByTestId(`${testId}-select--input`)).toHaveAttribute(

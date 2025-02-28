@@ -71,7 +71,7 @@
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/section-message": "^8.0.0",
-		"@atlaskit/select": "^19.0.0",
+		"@atlaskit/select": "^20.0.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^13.4.0",
 		"@types/react-node-resolver": "^2.0.0",

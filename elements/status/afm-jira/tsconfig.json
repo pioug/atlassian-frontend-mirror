@@ -30,13 +30,13 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags-react/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/textfield/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"

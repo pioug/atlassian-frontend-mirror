@@ -6,11 +6,7 @@ import { useLayoutEffect, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';
-
-import { SearchResultsContainerOld } from './old';
 
 const flexColumn = css({
 	display: 'flex',
@@ -26,7 +22,7 @@ type SearchResultsContainerProps = {
 	children?: React.ReactNode;
 };
 
-export const SearchResultsContainerNew = ({
+export const SearchResultsContainer = ({
 	hasTabs,
 	adaptiveHeight,
 	isLoadingResults,
@@ -51,11 +47,4 @@ export const SearchResultsContainerNew = ({
 			{children}
 		</MinHeightContainer>
 	);
-};
-
-export const SearchResultsContainer = (props: SearchResultsContainerProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <SearchResultsContainerNew {...props} />;
-	}
-	return <SearchResultsContainerOld {...props} />;
 };

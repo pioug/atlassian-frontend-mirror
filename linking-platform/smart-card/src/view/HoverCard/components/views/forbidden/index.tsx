@@ -22,13 +22,19 @@ import { CustomBlock, PreviewBlock } from '../../../../FlexibleCard/components/b
 import HoverCardForbiddenViewOld from './HoverCardForbiddenViewOld';
 import { type HoverCardForbiddenProps } from './types';
 
-const titleBlockStyles = css({
+const titleBlockStylesOld = css({
 	justifyContent: 'center',
 	fontWeight: token('font.weight.semibold'),
 	marginTop: token('space.100', '8px'),
 });
 
-const mainTextStyles = css({
+const titleBlockStyles = css({
+	justifyContent: 'center',
+	fontWeight: token('font.weight.semibold'),
+	marginTop: token('space.100'),
+});
+
+const mainTextStylesOld = css({
 	display: 'inline',
 	justifyContent: 'center',
 	marginTop: token('space.0', '0px'),
@@ -36,15 +42,34 @@ const mainTextStyles = css({
 	textAlign: 'center',
 });
 
-const connectButtonStyles = css({
+const mainTextStyles = css({
+	display: 'inline',
+	justifyContent: 'center',
+	marginTop: token('space.0'),
+	font: token('font.body.UNSAFE_small'),
+	textAlign: 'center',
+});
+
+const connectButtonStylesOld = css({
 	justifyContent: 'center',
 	marginTop: token('space.100', '8px'),
 });
 
-const basePreviewStyles = css({
+const connectButtonStyles = css({
+	justifyContent: 'center',
+	marginTop: token('space.100'),
+});
+
+const basePreviewStylesOld = css({
 	borderTopLeftRadius: token('border.radius.200', '8px'),
 	borderTopRightRadius: token('border.radius.200', '8px'),
 	marginBottom: token('space.100', '0.5rem'),
+});
+
+const basePreviewStyles = css({
+	borderTopLeftRadius: token('border.radius.200'),
+	borderTopRightRadius: token('border.radius.200'),
+	marginBottom: token('space.100'),
 });
 
 const HoverCardForbiddenViewNew = ({
@@ -74,19 +99,19 @@ const HoverCardForbiddenViewNew = ({
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
 			<PreviewBlock
 				ignoreContainerPadding={true}
-				css={[basePreviewStyles]}
+				css={[fg('platform-linking-visual-refresh-v1') ? basePreviewStyles : basePreviewStylesOld]}
 				testId={testId}
 				status={SmartLinkStatus.Forbidden}
 			/>
 			<CustomBlock
-				css={titleBlockStyles}
+				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockStyles : titleBlockStylesOld]}
 				testId={`${testId}-title`}
 				status={SmartLinkStatus.Forbidden}
 			>
 				<FormattedMessage {...messages[titleMessageKey]} values={{ product }} />
 			</CustomBlock>
 			<CustomBlock
-				css={mainTextStyles}
+				css={[fg('platform-linking-visual-refresh-v1') ? mainTextStyles : mainTextStylesOld]}
 				testId={`${testId}-content`}
 				status={SmartLinkStatus.Forbidden}
 			>
@@ -94,7 +119,12 @@ const HoverCardForbiddenViewNew = ({
 			</CustomBlock>
 
 			{action && (
-				<CustomBlock css={connectButtonStyles} status={SmartLinkStatus.Forbidden}>
+				<CustomBlock
+					css={[
+						fg('platform-linking-visual-refresh-v1') ? connectButtonStyles : connectButtonStylesOld,
+					]}
+					status={SmartLinkStatus.Forbidden}
+				>
 					<Button
 						testId={`${testId}-button`}
 						onClick={action?.promise}

@@ -18,7 +18,6 @@ import { handleNavKeyDown } from '../../../../common/utils/handleNavKeyDown';
 
 import { NoResults, testIds as noResultsTestIds } from './link-search-no-results';
 import { LinkSearchListItem, testIds as searchResultItemTestIds } from './list-item';
-import { LinkSearchListOld } from './old';
 import { useTrackResultsShown } from './use-track-results-shown';
 
 const styles = cssMap({
@@ -117,7 +116,7 @@ export interface LinkSearchListProps
 	activePlugin?: LinkPickerPlugin;
 }
 
-export const LinkSearchListNew = forwardRef<HTMLDivElement, LinkSearchListProps>(
+export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 	(
 		{
 			onChange,
@@ -280,14 +279,5 @@ export const LinkSearchListNew = forwardRef<HTMLDivElement, LinkSearchListProps>
 				{loadingContent}
 			</div>
 		);
-	},
-);
-
-export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
-	(props: LinkSearchListProps, ref) => {
-		if (fg('platform_bandicoots-link-picker-css')) {
-			return <LinkSearchListNew {...props} ref={ref} />;
-		}
-		return <LinkSearchListOld {...props} ref={ref} />;
 	},
 );

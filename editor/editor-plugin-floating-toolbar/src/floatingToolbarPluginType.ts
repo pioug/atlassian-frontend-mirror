@@ -1,5 +1,4 @@
 import type {
-	EditorCommand,
 	FloatingToolbarConfig,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -15,11 +14,6 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-
-import type {
-	ContextualToolbarActions,
-	ContextualToolbarState,
-} from './pm-plugins/contextual-toolbar/types';
 
 export type ConfigWithNodeInfo = {
 	config: FloatingToolbarConfig | undefined;
@@ -64,24 +58,5 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
 					floatingToolbarData: FloatingToolbarPluginData | undefined;
 			  }
 			| undefined;
-	}
->;
-
-// Experimental - use for new Editor Controls
-export type FloatingToolbarPluginNext = NextEditorPlugin<
-	'floatingToolbar',
-	{
-		dependencies: FloatingToolbarPluginDependencies;
-		actions: { forceFocusSelector: ForceFocusSelector };
-		sharedState:
-			| {
-					configWithNodeInfo: ConfigWithNodeInfo | undefined;
-					floatingToolbarData: FloatingToolbarPluginData | undefined;
-					contextualToolbar: ContextualToolbarState | undefined;
-			  }
-			| undefined;
-		commands: {
-			updateContextualToolbar: (action: ContextualToolbarActions) => EditorCommand;
-		};
 	}
 >;

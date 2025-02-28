@@ -18,7 +18,7 @@
 ```ts
 /// <reference types="react" />
 
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 import { MessageDescriptor } from 'react-intl-next';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';

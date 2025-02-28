@@ -1,5 +1,13 @@
 # @atlaskit/status
 
+## 3.0.0
+
+### Major Changes
+
+- [#119926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119926)
+  [`78902a8e16a37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78902a8e16a37) -
+  [ux] Migrates styles from emotion to compiled
+
 ## 2.0.0
 
 ### Major Changes

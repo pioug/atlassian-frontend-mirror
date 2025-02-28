@@ -1,5 +1,14 @@
 # @atlaskit/link
 
+## 3.0.1
+
+### Patch Changes
+
+- [#119262](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119262)
+  [`f5d20f9d90df2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5d20f9d90df2) -
+  [ux] `color` and `text-decoration` style specificity have been increased to reduce the probability
+  of global `<a>` tag styles interfering with link styles.
+
 ## 3.0.0
 
 ### Major Changes

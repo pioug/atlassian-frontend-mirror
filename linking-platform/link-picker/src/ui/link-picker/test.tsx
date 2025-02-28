@@ -1331,7 +1331,6 @@ describe('<LinkPicker />', () => {
 			});
 
 			const items = screen.queryAllByTestId(testIds.searchResultItem);
-			const list = screen.getByTestId(testIds.searchResultList);
 
 			// Press arrow down on first item
 			fireEvent.keyDown(items[0], {
@@ -1339,7 +1338,7 @@ describe('<LinkPicker />', () => {
 			});
 
 			// First item should be selected
-			expect(list.children[0].getAttribute('aria-selected')).toBe('true');
+			expect(items[0].getAttribute('aria-selected')).toBe('true');
 
 			// Press arrow down on first item
 			fireEvent.keyDown(items[0], {
@@ -1347,7 +1346,7 @@ describe('<LinkPicker />', () => {
 			});
 
 			// Second item should now be selected
-			expect(list.children[1].getAttribute('aria-selected')).toBe('true');
+			expect(items[1].getAttribute('aria-selected')).toBe('true');
 
 			// Press arrow up on second item
 			fireEvent.keyDown(items[1], {
@@ -1355,7 +1354,7 @@ describe('<LinkPicker />', () => {
 			});
 
 			// First item should now be selected
-			expect(list.children[0].getAttribute('aria-selected')).toBe('true');
+			expect(items[0].getAttribute('aria-selected')).toBe('true');
 
 			// Press end key
 			fireEvent.keyDown(items[0], {
@@ -1363,10 +1362,10 @@ describe('<LinkPicker />', () => {
 			});
 
 			// Last item should now be selected
-			expect(list.children[list.children.length - 1].getAttribute('aria-selected')).toBe('true');
+			expect(items[items.length - 1].getAttribute('aria-selected')).toBe('true');
 
 			// Press enter key
-			fireEvent.keyDown(items[list.children.length - 1], {
+			fireEvent.keyDown(items[items.length - 1], {
 				keyCode: 13,
 			});
 

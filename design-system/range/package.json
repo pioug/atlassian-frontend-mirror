@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/range",
-	"version": "9.0.0",
+	"version": "9.0.1",
 	"description": "A range lets users choose an approximate value on a slider.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,17 +39,19 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/checkbox": "^16.0.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/checkbox": "^17.0.0",
+		"@atlaskit/docs": "*",
+		"@atlaskit/form": "^12.0.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/primitives": "^14.1.2",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tooltip": "^20.0.0",
-		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
-		"@types/jscodeshift": "^0.11.0",
-		"jscodeshift": "^0.13.0",
 		"lodash": "^4.17.21",
 		"react-dom": "^18.2.0",
-		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

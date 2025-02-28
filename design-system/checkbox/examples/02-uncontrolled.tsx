@@ -4,19 +4,23 @@
  */
 import { type ChangeEvent, type MouseEvent, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
 import { Checkbox } from '@atlaskit/checkbox';
+import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 const resultStyles = css({
-	margin: token('space.100', '8px'),
-	padding: token('space.100', '8px'),
-	borderColor: '#ccc',
+	borderColor: token('color.border'),
 	borderStyle: 'dashed',
 	borderWidth: token('border.width', '1px'),
-	color: '#ccc',
+	color: token('color.text.subtle'),
+	marginBlockEnd: token('space.100', '8px'),
+	marginBlockStart: token('space.100', '8px'),
+	marginInlineEnd: token('space.100', '8px'),
+	marginInlineStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.100', '8px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 export default function UncontrolledExample() {

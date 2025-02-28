@@ -35,7 +35,13 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				},
 		},
 		contentComponent: ({ editorView }) => {
-			return <SelectionExtensionComponentWrapper editorView={editorView} api={api} />;
+			return (
+				<SelectionExtensionComponentWrapper
+					editorView={editorView}
+					api={api}
+					editorAnalyticsAPI={api?.analytics?.actions}
+				/>
+			);
 		},
 		pluginsOptions: {
 			selectionToolbar: (state) => {
@@ -76,6 +82,16 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					if (!showOnModesCollection.includes(editorContentMode)) {
 						return;
 					}
+				}
+
+				/**
+				 * Active Extension
+				 *
+				 * Check if there is an active extension and hide the selection extension dropdown
+				 */
+				const selectionExtensionState = selectionExtensionPluginKey.getState(state);
+				if (selectionExtensionState?.activeExtension) {
+					return;
 				}
 
 				const handleOnExtensionClick =

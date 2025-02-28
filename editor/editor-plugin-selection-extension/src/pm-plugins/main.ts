@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import { SelectionExtensionPluginState } from '../types';
+import { SelectionExtensionPluginState, SelectionExtensionActionTypes } from '../types';
 
 export const selectionExtensionPluginKey = new PluginKey<SelectionExtensionPluginState>(
 	'selectionExtensionPlugin',
@@ -20,13 +20,13 @@ export const createPlugin = () => {
 				const meta = tr.getMeta(selectionExtensionPluginKey);
 
 				switch (meta?.type) {
-					case 'set-active-extension':
+					case SelectionExtensionActionTypes.SET_ACTIVE_EXTENSION:
 						return {
 							...pluginState,
 							activeExtension: meta.extension,
 						};
 
-					case 'clear-active-extension':
+					case SelectionExtensionActionTypes.CLEAR_ACTIVE_EXTENSION:
 						return {
 							...pluginState,
 							activeExtension: undefined,

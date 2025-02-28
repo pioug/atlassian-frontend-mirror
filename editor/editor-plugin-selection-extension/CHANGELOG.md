@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 2.1.2
+
+### Patch Changes
+
+- [#120385](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120385)
+  [`0974c164df21e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0974c164df21e) -
+  [ux] ED-26440 minor cosmetic updates to selection extension plugin
+- Updated dependencies
+
+## 2.1.1
+
+### Patch Changes
+
+- [#119729](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119729)
+  [`beae885f06562`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beae885f06562) -
+  ED-26710 add analytics events to selection extension plugin
+
 ## 2.1.0
 
 ### Minor Changes

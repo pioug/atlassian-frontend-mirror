@@ -48,13 +48,10 @@
 			"path": "../elements-test-helpers/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/lozenge/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/textfield/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

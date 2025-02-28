@@ -61,7 +61,7 @@ export function optimizeLabelStack(
 	labelStack: LabelStack,
 	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
 ) {
-	return reactUFOVersion
+	return reactUFOVersion === '2.0.0'
 		? getLabelStackReference(labelStack)
 		: labelStack.map((ls) => ({
 				n: ls.name,

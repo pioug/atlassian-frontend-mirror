@@ -28,7 +28,7 @@ describe('Checkbox analytics', () => {
 				</AnalyticsListener>
 			</AnalyticsListener>,
 		);
-		const checkbox: HTMLElement = screen.getByLabelText('test');
+		const checkbox: HTMLElement = screen.getByLabelText(/test/);
 		fireEvent.click(checkbox);
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {
@@ -67,7 +67,7 @@ describe('Checkbox analytics', () => {
 			</AnalyticsListener>,
 		);
 
-		const checkbox: HTMLElement = screen.getByLabelText('test');
+		const checkbox: HTMLElement = screen.getByLabelText(/test/);
 		fireEvent.click(checkbox);
 
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
@@ -100,7 +100,7 @@ describe('Checkbox analytics', () => {
 
 		render(<Checkbox name="test" value="test" label="test" />);
 
-		const checkbox: HTMLElement = screen.getByLabelText('test');
+		const checkbox: HTMLElement = screen.getByLabelText(/test/);
 		fireEvent.click(checkbox);
 
 		expect(error).not.toHaveBeenCalled();

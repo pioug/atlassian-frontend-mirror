@@ -9,11 +9,9 @@ import { css, jsx } from '@compiled/react';
 import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
 import ChevronLeftIcon from '@atlaskit/icon/utility/migration/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { ScrollingTabListOld } from './old';
 import {
 	calculateConditionalButtons,
 	type ConditionalButtons,
@@ -98,7 +96,7 @@ const nextButtonStyles = css({
 });
 
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
-export const ScrollingTabListNew = (props: ScrollingTabListProps): JSX.Element => {
+export const ScrollingTabList = (props: ScrollingTabListProps): JSX.Element => {
 	const ref = useRef<HTMLDivElement>(null);
 	const [conditionalButtons, setConditionalButtons] = useState<ConditionalButtons>(
 		initialConditionalButtonsState,
@@ -218,11 +216,4 @@ export const ScrollingTabListNew = (props: ScrollingTabListProps): JSX.Element =
 			)}
 		</div>
 	);
-};
-
-export const ScrollingTabList = (props: ScrollingTabListProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <ScrollingTabListNew {...props} />;
-	}
-	return <ScrollingTabListOld {...props} />;
 };

@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 3.21.4
+
+### Patch Changes
+
+- [#119218](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119218)
+  [`daea2d5025d50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daea2d5025d50) -
+  [ux] Update lozenge to be bold by default with ADS component refresh
+
+## 3.21.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.21.2
 
 ### Patch Changes

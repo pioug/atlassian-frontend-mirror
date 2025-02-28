@@ -13,9 +13,9 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	type DispatchAnalyticsEvent,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
@@ -27,8 +27,8 @@ import {
 	triggerWrapperStylesWithPadding,
 } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
+import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
@@ -121,7 +121,7 @@ const FloatingToolbarHighlightColor = ({
 					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-imported-style-values
 					css={disableBlueBorderStyles}
 					buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
-					spacing={'compact'}
+					spacing={editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'}
 					disabled={highlightState.disabled}
 					selected={isDropdownOpen}
 					aria-label={title}

@@ -6,14 +6,10 @@ import { type ReactNode, type RefCallback } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
-
-import A11yText from './internal/a11y-text';
 
 export interface OptionProps<
 	Option = unknown,
@@ -119,8 +115,6 @@ const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 	props: OptionProps<Option, IsMulti, Group>,
 ) => {
 	const { children, isDisabled, isFocused, isSelected, innerRef, innerProps } = props;
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	const isVoiceOver = isAppleDevice() && fg('design_system_select-a11y-improvement');
 
 	return (
 		<div
@@ -135,13 +129,6 @@ const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 			tabIndex={-1}
 		>
 			{children}
-			{/* Funny story, aria-selected does not work very well with VoiceOver, so it needs to be removed but we still need to express selected state
-			https://bugs.webkit.org/show_bug.cgi?id=209076
-			VoiceOver does not announce aria-disabled the first time, so going this route
-			*/}
-			{isVoiceOver && (isSelected || isDisabled) && (
-				<A11yText>{`${isSelected ? ',selected' : ''}${isDisabled ? ',dimmed' : ''}`}</A11yText>
-			)}
 		</div>
 	);
 };

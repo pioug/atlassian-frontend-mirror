@@ -4,7 +4,6 @@ import { useIntl } from 'react-intl-next';
 
 import { Layering } from '@atlaskit/layering';
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX, DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
@@ -28,7 +27,6 @@ import { FormContextProvider } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
 
 import { messages } from './messages';
-import LinkCreateModalOld from './old/main';
 
 const LinkCreateWithModal = ({
 	active,
@@ -103,7 +101,7 @@ const LinkCreateWithModal = ({
 	);
 };
 
-const LinkCreateModalNew = (props: LinkCreateWithModalProps) => {
+const LinkCreateModal = (props: LinkCreateWithModalProps) => {
 	const shouldCallCloseComplete = useRef(!props.active);
 
 	// modal calls onCloseComplete in a useEffect(), so we can track whether
@@ -157,13 +155,6 @@ const LinkCreateModalNew = (props: LinkCreateWithModalProps) => {
 			)}
 		</LinkCreatePluginsProvider>
 	);
-};
-
-const LinkCreateModal = (props: LinkCreateWithModalProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <LinkCreateModalNew {...props} />;
-	}
-	return <LinkCreateModalOld {...props} />;
 };
 
 export default LinkCreateModal;

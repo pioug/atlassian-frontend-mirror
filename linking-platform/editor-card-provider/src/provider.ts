@@ -112,9 +112,8 @@ const isRovoAgentProfilePage = (url: string) => {
 	return false;
 };
 
-const isCustomer360LandingPage = (url: string) => {
-	return url.match(/^https:\/\/customer\.atlassian\.com\/.*$/);
-};
+const isCustomer360LandingPage = (url: string) =>
+	url.match(/^https:\/\/customer\.atlassian\.com\/.*$/);
 
 export class EditorCardProvider implements CardProvider {
 	private baseUrl: string;

@@ -7,14 +7,12 @@ import { useIntl } from 'react-intl-next';
 
 import { ButtonGroup } from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { Button } from '../../../common/ui/Button';
 
 import { EditButton } from './edit-button';
 import { messages } from './messages';
-import { CreateFormFooterOld } from './old/main';
 import { SubmitButton } from './submit-button';
 
 const formFooterWrapperStyles = css({
@@ -39,7 +37,7 @@ export interface CreateFormFooterProps {
  * and form error messages. This component is unmounted if
  * hideFooter is true in the Create Form.
  */
-const CreateFormFooterNew = ({
+export const CreateFormFooter = ({
 	formErrorMessage,
 	handleCancel,
 	testId,
@@ -76,11 +74,4 @@ const CreateFormFooterNew = ({
 			</ButtonGroup>
 		</footer>
 	);
-};
-
-export const CreateFormFooter = (props: CreateFormFooterProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <CreateFormFooterNew {...props} />;
-	}
-	return <CreateFormFooterOld {...props} />;
 };

@@ -1,5 +1,26 @@
 # @atlaskit/feedback-collector
 
+## 14.0.3
+
+### Patch Changes
+
+- [#118604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118604)
+  [`7c7d655f4449b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c7d655f4449b) -
+  [ux] Fixes experience with feedback collector where it cuts off in viewport by passing
+  shouldScrollInViewport to Modal component
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

@@ -54,7 +54,7 @@ class FeatureGates {
 		try {
 			// Check if the CRITERION override mechanism is available
 			if (
-				window &&
+				typeof window !== 'undefined' &&
 				window.__CRITERION__ &&
 				typeof window.__CRITERION__.getFeatureFlagOverride === 'function'
 			) {

@@ -4,6 +4,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	getIndentationButtonsState,
@@ -73,7 +74,11 @@ export function FloatingToolbarComponent({
 		<ToolbarListsIndentation
 			featureFlags={featureFlags}
 			isSmall={FloatingToolbarSettings.isSmall}
-			isReducedSpacing={FloatingToolbarSettings.isToolbarReducedSpacing}
+			isReducedSpacing={
+				editorExperiment('platform_editor_controls', 'variant1')
+					? false
+					: FloatingToolbarSettings.isToolbarReducedSpacing
+			}
 			disabled={FloatingToolbarSettings.disabled}
 			editorView={editorView}
 			// Ignored via go/ees005

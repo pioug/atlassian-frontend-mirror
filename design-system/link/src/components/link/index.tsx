@@ -24,6 +24,9 @@ const styles = cssMap({
 		'&:visited:active': {
 			color: token('color.link.visited.pressed'),
 		},
+		'&:visited:focus': {
+			color: token('color.link.visited'),
+		},
 	},
 
 	defaultAppearance: {
@@ -37,9 +40,11 @@ const styles = cssMap({
 
 		'&:active': {
 			color: token('color.link.pressed'),
+			textDecoration: 'none',
 		},
 
 		'&:focus': {
+			color: token('color.link'),
 			textDecoration: 'underline',
 		},
 	},
@@ -56,12 +61,24 @@ const styles = cssMap({
 		'&:active': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			color: token('color.text') as any,
+			textDecoration: 'underline',
+		},
+
+		'&:focus': {
+			color: token('color.text.subtle'),
+			textDecoration: 'none',
 		},
 	},
 
 	inverseAppearance: {
 		textDecoration: 'underline',
 		color: token('color.text.inverse'),
+
+		// Inverse links don't have visited styles,
+		// so this needs to be reinforced to prevent global overrides.
+		'&:visited': {
+			color: token('color.text.inverse'),
+		},
 
 		'&:hover': {
 			color: token('color.text.inverse'),
@@ -71,10 +88,12 @@ const styles = cssMap({
 		'&:active': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			color: token('color.text.inverse') as any,
+			textDecoration: 'none',
 		},
 
 		'&:focus': {
 			textDecoration: 'underline',
+			color: token('color.text.inverse'),
 		},
 	},
 

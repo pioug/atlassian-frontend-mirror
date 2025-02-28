@@ -239,6 +239,11 @@ tester.run('no-unsafe-design-token-usage', rule, {
       \`
     `,
 		},
+		// the rule shouldn't apply to getTokenValue function for the 'none' mode
+		{
+			options: [{ fallbackUsage: 'none' }],
+			code: `fontWeight: getTokenValue('font.weight.bold', '700')`,
+		},
 	],
 	invalid: [
 		{
@@ -336,6 +341,13 @@ tester.run('no-unsafe-design-token-usage', rule, {
 			options: [{ fallbackUsage: 'forced' }],
 			code: `css({ color: token('color.text') })`,
 			output: `css({ color: token('color.text', '#172B4D') })`,
+			errors: [{ messageId: 'tokenFallbackEnforced' }],
+		},
+		// should apply the rule to getTokenValue function in 'forced' mode
+		{
+			options: [{ fallbackUsage: 'forced' }],
+			code: `fontWeight: getTokenValue('color.text')`,
+			output: `fontWeight: getTokenValue('color.text', '#172B4D')`,
 			errors: [{ messageId: 'tokenFallbackEnforced' }],
 		},
 	],

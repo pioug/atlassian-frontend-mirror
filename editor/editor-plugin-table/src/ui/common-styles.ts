@@ -359,21 +359,36 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 
 	${dragCornerControlButton()}
 
-    /* Delete button */
-    ${DeleteButton()}
-    /* Ends Delete button */
+	/* Delete button */
+	${DeleteButton()}
+	/* Ends Delete button */
 
-    /* sticky styles */
+	/* sticky styles */
+	${fg('platform_editor_nested_tables_sticky_header_bug')
+		? `
+		.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+			margin-top: ${stickyRowOffsetTop + 2}px;
+			width: ${akEditorTableNumberColumnWidth}px;
+
+			position: fixed !important;
+			z-index: ${akEditorStickyHeaderZIndex} !important;
+			box-shadow: 0px -${stickyRowOffsetTop}px ${token('elevation.surface', 'white')};
+			border-right: 0 none;
+			/* top set by NumberColumn component */
+		}
+		`
+		: `
     .${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-		margin-top: ${stickyRowOffsetTop + 2}px;
-		width: ${akEditorTableNumberColumnWidth}px;
+			margin-top: ${stickyRowOffsetTop + 2}px;
+			width: ${akEditorTableNumberColumnWidth}px;
 
-		position: fixed !important;
-		z-index: ${akEditorStickyHeaderZIndex} !important;
-		box-shadow: 0px -${stickyRowOffsetTop}px ${token('elevation.surface', 'white')};
-		border-right: 0 none;
-		/* top set by NumberColumn component */
-	}
+			position: fixed !important;
+			z-index: ${akEditorStickyHeaderZIndex} !important;
+			box-shadow: 0px -${stickyRowOffsetTop}px ${token('elevation.surface', 'white')};
+			border-right: 0 none;
+			/* top set by NumberColumn component */
+		}
+		`}
 
 	.${ClassName.TABLE_STICKY} .${ClassName.CORNER_CONTROLS}.sticky {
 		position: fixed !important;
@@ -511,11 +526,21 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		padding-top: ${tableControlsSpacing}px;
 	}
 
-	.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
-		.${ClassName.NUMBERED_COLUMN}
-		.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-		margin-top: ${tableControlsSpacing + 2}px;
-	}
+	${fg('platform_editor_nested_tables_sticky_header_bug')
+		? `
+		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+			.${ClassName.NUMBERED_COLUMN}
+			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+			margin-top: ${tableControlsSpacing + 2}px;
+		}
+		`
+		: `
+		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
+			.${ClassName.NUMBERED_COLUMN}
+			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+			margin-top: ${tableControlsSpacing + 2}px;
+		}
+		`}
 
 	.${ClassName.CORNER_CONTROLS}.sticky {
 		border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid
@@ -915,20 +940,39 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 
 	// add a background above the first numbered column cell when sticky header is engaged
 	// which hides the table when scrolling
-	.${ClassName.TABLE_STICKY} {
-		.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
-			content: '';
-			display: block;
-			height: 33px;
-			width: 100%;
-			background-color: ${token('elevation.surface', 'white')};
-			position: absolute;
+	${fg('platform_editor_nested_tables_sticky_header_bug')
+		? `
+		.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
+			.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
+				content: '';
+				display: block;
+				height: 33px;
+				width: 100%;
+				background-color: ${token('elevation.surface', 'white')};
+				position: absolute;
 
-			// the extra pixel is accounting for borders
-			top: -34px;
-			left: -1px;
+				// the extra pixel is accounting for borders
+				top: -34px;
+				left: -1px;
+			}
 		}
-	}
+		`
+		: `
+		.${ClassName.TABLE_STICKY} {
+			.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
+				content: '';
+				display: block;
+				height: 33px;
+				width: 100%;
+				background-color: ${token('elevation.surface', 'white')};
+				position: absolute;
+
+				// the extra pixel is accounting for borders
+				top: -34px;
+				left: -1px;
+			}
+		}
+		`}
 
 	.${ClassName.WITH_CONTROLS} {
 		.${ClassName.CORNER_CONTROLS}, .${ClassName.ROW_CONTROLS} {

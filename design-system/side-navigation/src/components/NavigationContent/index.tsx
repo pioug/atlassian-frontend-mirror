@@ -39,10 +39,10 @@ const outerContainerCSS = css({
 		position: 'absolute',
 		zIndex: 1,
 		backgroundColor: `var(--ds-menu-seperator-color, ${token('color.border')})`,
-		borderRadius: `${token('border.radius.050')}`,
+		borderRadius: token('border.radius.050'),
 		content: "''",
 		insetInlineEnd: 8,
-		insetInlineStart: `${token('space.100')}`,
+		insetInlineStart: token('space.100'),
 	},
 	'&::after': {
 		display: 'block',
@@ -51,11 +51,11 @@ const outerContainerCSS = css({
 		zIndex: 1,
 		flexShrink: 0,
 		backgroundColor: `var(--ds-menu-seperator-color, ${token('color.border')})`,
-		borderRadius: `${token('border.radius.050')}`,
+		borderRadius: token('border.radius.050'),
 		content: "''",
 		insetBlockEnd: 0,
 		insetInlineEnd: 8,
-		insetInlineStart: `${token('space.100')}`,
+		insetInlineStart: token('space.100'),
 	},
 });
 
@@ -74,7 +74,7 @@ const innerContainerCSS = cssMap({
 			zIndex: 2,
 			flexShrink: 0,
 			backgroundColor: `var(--ds-menu-scroll-indicator-color, ${token('elevation.surface')})`,
-			borderRadius: `${token('border.radius.050')}`,
+			borderRadius: token('border.radius.050'),
 			content: "''",
 			marginBlockStart: 'auto',
 		},
@@ -86,7 +86,7 @@ const innerContainerCSS = cssMap({
 			position: 'absolute',
 			zIndex: 2,
 			backgroundColor: `var(--ds-menu-scroll-indicator-color, ${token('elevation.surface')})`,
-			borderRadius: `${token('border.radius.050')}`,
+			borderRadius: token('border.radius.050'),
 			content: "''",
 			insetInlineEnd: 0,
 			insetInlineStart: 0,
@@ -97,13 +97,13 @@ const innerContainerCSS = cssMap({
 const containerCSS = cssMap({
 	basic: {
 		position: 'relative',
-		marginInlineEnd: `${token('space.100')}`,
-		marginInlineStart: `${token('space.100')}`,
+		marginInlineEnd: token('space.100'),
+		marginInlineStart: token('space.100'),
 		marginBlockStart: 0,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& [data-ds--menu--heading-item]': {
-			marginBlockEnd: `${token('space.075')}`,
-			marginBlockStart: `${token('space.200')}`,
+			marginBlockEnd: token('space.075'),
+			marginBlockStart: token('space.200'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& [data-ds--menu--skeleton-heading-item]': {
@@ -113,7 +113,7 @@ const containerCSS = cssMap({
 			marginBlockStart: 25,
 		},
 	},
-	marginBlockStart: { marginBlockStart: `${token('space.025')}` },
+	marginBlockStart: { marginBlockStart: token('space.025') },
 });
 
 /**

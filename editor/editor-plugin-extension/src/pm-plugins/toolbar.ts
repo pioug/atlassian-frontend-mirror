@@ -250,6 +250,9 @@ export const getToolbarConfig =
 					const isBodiedExtensionInsideMBE =
 						possibleMbeParent && extensionNode?.node.type.name === 'bodiedExtension';
 
+					let scrollWrapper =
+						editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
+
 					if (fg('platform_editor_legacy_content_macro')) {
 						if (!extensionNode) {
 							return nextPos;
@@ -261,13 +264,20 @@ export const getToolbarConfig =
 						if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
 							return nextPos;
 						}
+
+						if (isInsideEditableExtensionArea && scrollWrapper.parentElement) {
+							// The editable extension area may have its own scroll wrapper, so we want to keep searching up the tree for the page level scroll wrapper.
+
+							scrollWrapper =
+								scrollWrapper.parentElement.closest('.fabric-editor-popup-scroll-parent') ||
+								scrollWrapper;
+						}
 					} else {
 						if (!isBodiedExtensionInsideMBE) {
 							return nextPos;
 						}
 					}
-					const scrollWrapper =
-						editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
+
 					// Ignored via go/ees005
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const nestedBodiedExtensionDomElement = editorView.nodeDOM(

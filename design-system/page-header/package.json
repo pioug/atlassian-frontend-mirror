@@ -47,7 +47,7 @@
 		"@atlaskit/link": "*",
 		"@atlaskit/page": "^13.0.0",
 		"@atlaskit/section-message": "*",
-		"@atlaskit/select": "^19.0.0",
+		"@atlaskit/select": "^20.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/visual-regression": "*",

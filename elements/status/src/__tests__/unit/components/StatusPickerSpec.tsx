@@ -1,123 +1,240 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
-import { mountWithIntl } from '../helpers/_enzyme';
-import TextField from '@atlaskit/textfield';
+import { fireEvent, screen } from '@testing-library/react';
+import { renderWithIntl } from '../helpers/_testing-library';
 import React from 'react';
 import { StatusPicker } from '../../..';
-import ColorPalette from '../../../components/internal/color-palette';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('StatusPicker', () => {
-	it('should render color palette', () => {
-		const onColorClick = jest.fn();
-		const onColorHover = jest.fn();
-
-		const component = mountWithIntl(
-			<StatusPicker
-				selectedColor="red"
-				text=""
-				onColorClick={onColorClick}
-				onColorHover={onColorHover}
-				onTextChanged={() => {}}
-				onEnter={() => {}}
-			/>,
-		);
-		const colorPalette = component.find(ColorPalette);
-		expect(colorPalette.length).toBe(1);
-		expect(colorPalette.prop('selectedColor')).toBe('red');
-		expect(colorPalette.prop('onClick')).toBe(onColorClick);
-		expect(colorPalette.prop('onHover')).toBe(onColorHover);
-	});
-
-	it('should render field text', () => {
-		const component = mountWithIntl(
-			<StatusPicker
-				selectedColor="red"
-				text="In progress"
-				onColorClick={() => {}}
-				onTextChanged={() => {}}
-				onEnter={() => {}}
-			/>,
-		);
-
-		expect(component.find(TextField).length).toBe(1);
-		expect(component.find(TextField).prop('value')).toBe('In progress');
-		expect(component.find(TextField).prop('autoComplete')).toBe('off');
-		expect(component.find(TextField).prop('spellCheck')).toBe(false);
-	});
-
-	describe('autofocus', () => {
-		beforeEach(() => {
-			jest.useFakeTimers();
+	ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
+		it('should render color palette', () => {
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text=""
+					onColorClick={() => {}}
+					onColorHover={() => {}}
+					onTextChanged={() => {}}
+					onEnter={() => {}}
+				/>,
+			);
+			const buttons = screen.getAllByRole('button');
+			expect(buttons.length).toBe(6);
+			const checkedButton = screen.getByRole('button', { name: 'Red' });
+			expect(checkedButton).toHaveAttribute('aria-pressed', 'true');
 		});
 
-		afterEach(() => {
-			jest.useRealTimers();
-		});
-
-		it('should defer autofocus', function () {
-			const component = mountWithIntl(
+		it('should render field text', () => {
+			renderWithIntl(
 				<StatusPicker
 					selectedColor="red"
 					text="In progress"
 					onColorClick={() => {}}
 					onTextChanged={() => {}}
 					onEnter={() => {}}
-					autoFocus={true}
 				/>,
 			);
 
-			const input = component.find('input').getDOMNode() as HTMLElement;
-			const spyFocus = jest.spyOn(input, 'focus');
+			const textField = screen.getByRole('textbox');
+			expect(textField).toHaveValue('In progress');
+			expect(textField).toHaveAttribute('autoComplete', 'off');
+			expect(textField).toHaveAttribute('spellCheck', 'false');
+		});
 
-			jest.runAllTimers();
-			expect(spyFocus).toHaveBeenCalled();
+		describe('autofocus', () => {
+			beforeEach(() => {
+				jest.useFakeTimers();
+			});
+
+			afterEach(() => {
+				jest.useRealTimers();
+			});
+
+			it('should defer autofocus', function () {
+				renderWithIntl(
+					<StatusPicker
+						selectedColor="red"
+						text="In progress"
+						onColorClick={() => {}}
+						onTextChanged={() => {}}
+						onEnter={() => {}}
+						autoFocus={true}
+					/>,
+				);
+
+				const input = screen.getByRole('textbox');
+				const spyFocus = jest.spyOn(input, 'focus');
+
+				jest.runAllTimers();
+				expect(spyFocus).toHaveBeenCalled();
+			});
+		});
+
+		it('should call onColorClick when clicking on a color', () => {
+			const onColorClick = jest.fn();
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text=""
+					onColorClick={onColorClick}
+					onTextChanged={() => {}}
+					onEnter={() => {}}
+				/>,
+			);
+
+			const component = screen.getByRole('button', { name: 'Blue' });
+			fireEvent.click(component);
+			expect(onColorClick).toHaveBeenCalled();
+		});
+
+		it('should call onTextChanged on text field change', () => {
+			const onTextChanged = jest.fn();
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text=""
+					onColorClick={() => {}}
+					onTextChanged={onTextChanged}
+					onEnter={() => {}}
+				/>,
+			);
+
+			const textField = screen.getByRole('textbox');
+			fireEvent.change(textField, { target: { value: 'Done' } });
+			expect(onTextChanged).toHaveBeenCalledWith('Done');
+		});
+
+		it('should call onEnter on enter in text field', () => {
+			const onEnter = jest.fn();
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text="bob"
+					onColorClick={() => {}}
+					onTextChanged={() => {}}
+					onEnter={onEnter}
+				/>,
+			);
+
+			const textField = screen.getByRole('textbox');
+			fireEvent.keyPress(textField, { key: 'Enter', keyCode: 13 });
+			expect(onEnter).toHaveBeenCalled();
 		});
 	});
 
-	it('should pass onColorClick handler prop to color palette', () => {
-		const onColorClick = () => {};
-		const component = mountWithIntl(
-			<StatusPicker
-				selectedColor="red"
-				text=""
-				onColorClick={onColorClick}
-				onTextChanged={() => {}}
-				onEnter={() => {}}
-			/>,
-		);
+	ffTest.off('platform_editor_css_migrate_stage_1', 'with fg off', () => {
+		it('should render color palette', () => {
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text=""
+					onColorClick={() => {}}
+					onColorHover={() => {}}
+					onTextChanged={() => {}}
+					onEnter={() => {}}
+				/>,
+			);
+			const buttons = screen.getAllByRole('button');
+			expect(buttons.length).toBe(6);
+			const checkedButton = screen.getByRole('button', { name: 'Red' });
+			expect(checkedButton).toHaveAttribute('aria-pressed', 'true');
+		});
 
-		expect(component.find(ColorPalette).prop('onClick')).toBe(onColorClick);
-	});
+		it('should render field text', () => {
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text="In progress"
+					onColorClick={() => {}}
+					onTextChanged={() => {}}
+					onEnter={() => {}}
+				/>,
+			);
 
-	it('should call onTextChanged on text field change', () => {
-		const onTextChanged = jest.fn();
-		const component = mountWithIntl(
-			<StatusPicker
-				selectedColor="red"
-				text=""
-				onColorClick={() => {}}
-				onTextChanged={onTextChanged}
-				onEnter={() => {}}
-			/>,
-		);
-		component
-			.find(TextField)
-			.props()
-			.onChange({ target: { value: 'Done' } });
-		expect(onTextChanged).toHaveBeenCalledWith('Done');
-	});
+			const textField = screen.getByRole('textbox');
+			expect(textField).toHaveValue('In progress');
+			expect(textField).toHaveAttribute('autoComplete', 'off');
+			expect(textField).toHaveAttribute('spellCheck', 'false');
+		});
 
-	it('should call onEnter on enter in text field', () => {
-		const onEnter = jest.fn();
-		const component = mountWithIntl(
-			<StatusPicker
-				selectedColor="red"
-				text=""
-				onColorClick={() => {}}
-				onTextChanged={() => {}}
-				onEnter={onEnter}
-			/>,
-		);
-		component.find(TextField).props().onKeyPress({ key: 'Enter' });
-		expect(onEnter).toHaveBeenCalled();
+		describe('autofocus', () => {
+			beforeEach(() => {
+				jest.useFakeTimers();
+			});
+
+			afterEach(() => {
+				jest.useRealTimers();
+			});
+
+			it('should defer autofocus', function () {
+				renderWithIntl(
+					<StatusPicker
+						selectedColor="red"
+						text="In progress"
+						onColorClick={() => {}}
+						onTextChanged={() => {}}
+						onEnter={() => {}}
+						autoFocus={true}
+					/>,
+				);
+
+				const input = screen.getByRole('textbox');
+				const spyFocus = jest.spyOn(input, 'focus');
+
+				jest.runAllTimers();
+				expect(spyFocus).toHaveBeenCalled();
+			});
+		});
+
+		it('should call onColorClick when clicking on a color', () => {
+			const onColorClick = jest.fn();
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text=""
+					onColorClick={onColorClick}
+					onTextChanged={() => {}}
+					onEnter={() => {}}
+				/>,
+			);
+
+			const component = screen.getByRole('button', { name: 'Blue' });
+			fireEvent.click(component);
+			expect(onColorClick).toHaveBeenCalled();
+		});
+
+		it('should call onTextChanged on text field change', () => {
+			const onTextChanged = jest.fn();
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text=""
+					onColorClick={() => {}}
+					onTextChanged={onTextChanged}
+					onEnter={() => {}}
+				/>,
+			);
+
+			const textField = screen.getByRole('textbox');
+			fireEvent.change(textField, { target: { value: 'Done' } });
+			expect(onTextChanged).toHaveBeenCalledWith('Done');
+		});
+
+		it('should call onEnter on enter in text field', () => {
+			const onEnter = jest.fn();
+			renderWithIntl(
+				<StatusPicker
+					selectedColor="red"
+					text="bob"
+					onColorClick={() => {}}
+					onTextChanged={() => {}}
+					onEnter={onEnter}
+				/>,
+			);
+
+			const textField = screen.getByRole('textbox');
+			fireEvent.keyPress(textField, { key: 'Enter', keyCode: 13 });
+			expect(onEnter).toHaveBeenCalled();
+		});
 	});
 });

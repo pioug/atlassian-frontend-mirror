@@ -10,7 +10,6 @@ import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next
 import Button, { ButtonGroup } from '@atlaskit/button';
 import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
 import EditorAddIcon from '@atlaskit/icon/utility/add';
-import { fg } from '@atlaskit/platform-feature-flags';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -21,7 +20,6 @@ import {
 import { UnauthenticatedError } from '../../../common/utils/errors';
 
 import { LinkPickerSubmitButton } from './link-picker-submit-button';
-import { FormFooterOld } from './old';
 
 const formFooterStyles = css({
 	display: 'flex',
@@ -70,7 +68,7 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
 	hideSubmitButton?: boolean;
 }
 
-export const FormFooterNew = memo(
+export const FormFooter = memo(
 	({
 		isLoading,
 		isSubmitting = false,
@@ -159,10 +157,3 @@ export const FormFooterNew = memo(
 		);
 	},
 );
-
-export const FormFooter = (props: FormFooterProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <FormFooterNew {...props} />;
-	}
-	return <FormFooterOld {...props} />;
-};

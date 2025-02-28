@@ -9,16 +9,16 @@ import type { GroupData } from './ItemType';
 
 const headingContainerStyles = xcss({
 	paddingTop: 'space.0',
-	paddingBottom: 'space.100',
-	paddingLeft: 'space.200',
-	paddingRight: 'space.200',
+	paddingBottom: 'space.075',
+	paddingLeft: 'space.300',
+	paddingRight: 'space.300',
 });
 
 const buttonsContainerStyles = xcss({
-	paddingTop: 'space.100',
-	paddingBottom: 'space.0',
-	paddingLeft: 'space.200',
-	paddingRight: 'space.200',
+	paddingTop: 'space.150',
+	paddingBottom: 'space.200',
+	paddingLeft: 'space.300',
+	paddingRight: 'space.300',
 });
 
 export interface IconButtonGroupProps extends GroupData {
@@ -33,17 +33,20 @@ export const IconButtonGroup = memo(
 			<Section hasSeparator={hasSeparator}>
 				{label && (
 					<Box xcss={[headingContainerStyles]}>
-						<Heading size={'xsmall'}>{label}</Heading>
+						<Heading size={'xsmall'} as="span">
+							{label}
+						</Heading>
 					</Box>
 				)}
 
 				<Box xcss={[buttonsContainerStyles]}>
 					<Inline
 						as="span"
-						// spread="space-between"
+						spread="space-between"
 						alignBlock="center"
-						space={'space.150'}
-						// grow="fill"
+						space="space.050"
+						rowSpace="space.150"
+						grow="fill"
 						shouldWrap={true}
 					>
 						{items.map((item) => {

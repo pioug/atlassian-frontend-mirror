@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 4.0.1
+
+### Patch Changes
+
+- [#120242](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120242)
+  [`80fab00c4221b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80fab00c4221b) -
+  Set embed to default for C360 smartlinks
+
 ## 4.0.0
 
 ### Major Changes

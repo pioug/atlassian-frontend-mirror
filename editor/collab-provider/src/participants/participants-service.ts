@@ -8,12 +8,11 @@ import type {
 	PresenceData,
 	PresencePayload,
 	TelepointerPayload,
-	ActivityPayload,
 } from '../types';
 import type {
-	CollabActivityData,
 	CollabEventPresenceData,
 	CollabTelepointerPayload,
+	CollabPresenceActivityChangePayload,
 	ProviderParticipant,
 	StepJson,
 	UserPermitType,
@@ -47,12 +46,8 @@ export class ParticipantsService {
 		private analyticsHelper: AnalyticsHelper | undefined,
 		private participantsState: ParticipantsState = new ParticipantsState(),
 		private emit: (
-			evt: 'presence' | 'telepointer' | 'disconnected' | 'activity:join' | 'activity:ack',
-			data:
-				| CollabEventPresenceData
-				| CollabTelepointerPayload
-				| CollabEventDisconnectedData
-				| CollabActivityData,
+			evt: 'presence' | 'telepointer' | 'disconnected' | 'presence:changed',
+			data: CollabEventPresenceData | CollabTelepointerPayload | CollabEventDisconnectedData | CollabPresenceActivityChangePayload,
 		) => void,
 		private getUser: GetUserType,
 		private channelBroadcast: <K extends keyof ChannelEvent>(
@@ -65,6 +60,10 @@ export class ParticipantsService {
 		private setUserId: (id: string) => void,
 		private getAIProviderActiveIds?: () => string[],
 	) {}
+
+	sendPresenceActivityChanged = () => {
+		this.sendPresence();
+	};
 
 	sendAIProviderChanged = (payload: {
 		userId: string;
@@ -122,6 +121,10 @@ export class ParticipantsService {
 		}
 	};
 
+	private hasPresenceActivityChanged = (previous: ProviderParticipant, current: ProviderParticipant) => {
+		return previous.presenceActivity !== current.presenceActivity
+	};
+
 	/**
 	 * Carries out 3 things: 1) enriches the participant with user data, 2) updates the participantsState, 3) emits the presence event
 	 * @param payload Payload from incoming socket event
@@ -152,13 +155,21 @@ export class ParticipantsService {
 			return;
 		}
 
-		const isNewParticipant = this.participantsState.doesntHave(participant.sessionId);
+		const previousParticipant = this.participantsState.getBySessionId(participant.sessionId);
+
 		this.participantsState.setBySessionId(participant.sessionId, participant);
 
-		if (!isNewParticipant) {
+		if (previousParticipant) {
+			if (this.hasPresenceActivityChanged(previousParticipant, participant)) {
+				this.emitPresenceActivityChange({
+						type: 'participant:activity',
+						activity: participant.presenceActivity,
+					}, 'handling participant activity changed event');
+			}
 			return;
 		}
-
+		
+		// Only emit the joined presence event if this is a new participant
 		this.emitPresence({ joined: [participant] }, 'handling participant updated event');
 	};
 
@@ -336,6 +347,20 @@ export class ParticipantsService {
 	};
 
 	/**
+	 * Wrapper function to emit with error handling and analytics
+	 * @param data Data to emit
+	 * @param errorMessage Error message for analytics
+	 */
+	private emitPresenceActivityChange(data: CollabPresenceActivityChangePayload, errorMessage: string): void {
+		try {
+			this.emit('presence:changed', data);
+		} catch (error) {
+			// We don't want to throw errors for Presence features as they tend to self-restore
+			this.analyticsHelper?.sendErrorEvent(error, `Error while ${errorMessage}`);
+		}
+	}
+
+	/**
 	 * Used when the provider is disconnected or destroyed to prevent perpetual timers from continuously running
 	 */
 	clearTimers = () => {
@@ -359,32 +384,6 @@ export class ParticipantsService {
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while sending presence');
-		}
-	};
-
-	/**
-	 * sending new joiner's activity to existing participants
-	 */
-	onParticipantActivityJoin = (payload: ActivityPayload) => {
-		try {
-			logger('New participant joined: ', payload.activity);
-			this.emit('activity:join', payload);
-		} catch (error) {
-			// We don't want to throw errors for Presence features as they tend to self-restore
-			this.analyticsHelper?.sendErrorEvent(error, `Error while sending 'activity:join'`);
-		}
-	};
-
-	/**
-	 * respond to new joiner with existing participant's activity
-	 */
-	onParticipantActivityAck = (payload: ActivityPayload) => {
-		try {
-			logger('Existing participants ack: ', payload.activity);
-			this.emit('activity:ack', payload);
-		} catch (error) {
-			// We don't want to throw errors for Presence features as they tend to self-restore
-			this.analyticsHelper?.sendErrorEvent(error, `Error while sending 'activity:ack'`);
 		}
 	};
 

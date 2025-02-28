@@ -13,8 +13,7 @@ import type {
 	Metadata,
 	CollabInitPayload,
 	SyncUpErrorFunction,
-	CollabActivityJoinPayload,
-	CollabActivityAckPayload,
+	CollabPresenceActivityChangePayload,
 	CollabActivityAIProviderChangedPayload,
 	UserPermitType,
 	PresenceActivity,
@@ -260,8 +259,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			.on('participant:telepointer', (payload) =>
 				this.participantsService.onParticipantTelepointer(payload, this.sessionId),
 			)
-			.on('participant:activity-join', this.participantsService.onParticipantActivityJoin)
-			.on('participant:activity-ack', this.participantsService.onParticipantActivityAck)
 			.on('presence:joined', this.participantsService.onPresenceJoined)
 			.on('presence', this.participantsService.onPresence)
 			.on('participant:left', this.participantsService.onParticipantLeft)
@@ -295,6 +292,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			presenceId: this.presenceId,
 			presenceActivity: this.presenceActivity,
 		};
+	};
+
+	private setPresenceActivity = (activity: PresenceActivity | undefined) => {
+		this.presenceActivity = activity;
 	};
 
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
@@ -508,9 +509,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	sendMessage(
 		data:
 			| CollabTelepointerPayload
-			| CollabActivityJoinPayload
-			| CollabActivityAckPayload
-			| CollabActivityAIProviderChangedPayload,
+			| CollabActivityAIProviderChangedPayload
+			| CollabPresenceActivityChangePayload,
 	) {
 		const basePayload = {
 			// Ignored via go/ees005
@@ -534,20 +534,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					},
 					shouldTelepointerBeSampled() ? telepointerCallback(this.config.documentAri) : undefined,
 				);
-			} else if (data?.type === 'activity:join' || data?.type === 'activity:ack') {
-				this.channel.broadcast(
-					data?.type === 'activity:join' ? 'participant:activity-join' : 'participant:activity-ack',
-					{
-						...basePayload,
-						activity: data.activity,
-					},
-					activityCallback(),
-				);
 			} else if (data?.type === 'ai-provider:change') {
 				this.participantsService.sendAIProviderChanged({
 					...basePayload,
 					...data,
 				});
+			} else if (data?.type === 'participant:activity') {
+				this.setPresenceActivity(data.activity);
+				this.participantsService.sendPresenceActivityChanged();
 			}
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
@@ -754,22 +748,5 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
 	getSessionId = () => {
 		return this.sessionId;
-	};
-}
-
-/**
- * Callback for handling the broadcast response of participant activity.
- * This example assumes a simple logging mechanism. It could be expanded to handle errors or other responses.
- *
- * @param activity The activity that was broadcast.
- * @returns A function that handles the response from the broadcast operation.
- */
-function activityCallback() {
-	return (error: Error) => {
-		if (error) {
-			// Log or handle the error. This could involve retrying the broadcast or notifying the user.
-			logger('Error broadcasting participant activity:', error);
-			return;
-		}
 	};
 }

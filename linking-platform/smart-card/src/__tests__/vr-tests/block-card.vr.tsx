@@ -23,6 +23,7 @@ snapshot(BlockCardErrorView, {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': true,
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardErrorView, {
@@ -36,15 +37,21 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view with compiled FF only',
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
-snapshot(BlockCardErrorView);
+snapshot(BlockCardErrorView, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF and compiled FF on',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': true,
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardForbiddenView, {
@@ -58,6 +65,7 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with compiled FF only',
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardForbiddenView);
@@ -67,6 +75,7 @@ snapshot(BlockCardNotFoundView, {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': true,
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardNotFoundView, {
@@ -80,12 +89,18 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with compiled FF only',
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
-snapshot(BlockCardNotFoundView);
+snapshot(BlockCardNotFoundView, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
 snapshot(BlockCardNotFoundSiteAccessExists, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardUnauthorisedView, {
@@ -105,36 +120,43 @@ snapshot(BlockCardUnauthorisedView, {
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardForbiddenViews, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcons, {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.21.2",
+	"version": "3.21.4",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -76,7 +76,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^2.0.0",
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/react-select": "^2.0.0",
-		"@atlaskit/select": "^19.0.0",
+		"@atlaskit/select": "^20.0.0",
 		"@atlaskit/smart-card": "^35.1.0",
 		"@atlaskit/smart-user-picker": "8.0.0",
 		"@atlaskit/spinner": "^18.0.0",
@@ -192,6 +192,9 @@
 			"type": "boolean"
 		},
 		"bandicoots-compiled-migration-link-datasource": {
+			"type": "boolean"
+		},
+		"platform-component-visual-refresh": {
 			"type": "boolean"
 		}
 	}

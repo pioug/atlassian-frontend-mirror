@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::1d1ebec75ee9bc7e475dbb1677ad433e>>
+ * @codegen <<SignedSource::a3e465431b2746a63afc0d110a78358b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -354,6 +354,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+	},
+	'continue-when': {
+		keywords: ['continue-when', 'continuewhen', 'icon', 'icon-lab', 'core'],
+		componentName: 'ContinueWhenIcon',
+		package: '@atlaskit/icon-lab/core/continue-when',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for continue when delay in automation.',
+		team: 'Automation',
+		slackChannel: '#help-automation-design',
 	},
 	'cross-octagon': {
 		keywords: [
@@ -913,6 +923,16 @@ const metadata: Record<string, metadata> = {
 		usage: 'Multi purpose',
 		team: 'Design System Team',
 	},
+	'split-parallel': {
+		keywords: ['split-parallel', 'splitparallel', 'icon', 'icon-lab', 'core', 'router', 'branches'],
+		componentName: 'SplitParallelIcon',
+		package: '@atlaskit/icon-lab/core/split-parallel',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for split parallel branches in Automation',
+		team: 'Automation',
+		slackChannel: '#help-automation-design',
+	},
 	stamp: {
 		keywords: ['stamp', 'icon', 'icon-lab', 'core', 'stamp', 'rubber stamp', 'handstamp'],
 		componentName: 'StampIcon',
@@ -1105,6 +1125,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Swapping between Jira tickets in Whiteboard smart section',
 		team: 'Whiteboards',
 	},
+	'switch-case': {
+		keywords: [
+			'switch-case',
+			'switchcase',
+			'icon',
+			'icon-lab',
+			'core',
+			'conditions',
+			'if',
+			'else',
+			'else if',
+		],
+		componentName: 'SwitchCaseIcon',
+		package: '@atlaskit/icon-lab/core/switch-case',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for switch case conditions in automation',
+		team: 'Automations',
+		slackChannel: '#help-automation-design',
+	},
 	sync: {
 		keywords: [
 			'sync',
@@ -1245,6 +1285,23 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Intro blog feed picker on Hello',
 		team: 'Insights',
 		slackChannel: '#cc-insights-and-reporting',
+	},
+	'workflow-controls': {
+		keywords: [
+			'workflow-controls',
+			'workflowcontrols',
+			'icon',
+			'icon-lab',
+			'core',
+			'orchestration',
+		],
+		componentName: 'WorkflowControlsIcon',
+		package: '@atlaskit/icon-lab/core/workflow-controls',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for workflow controls in automation',
+		team: 'Automation',
+		slackChannel: '#help-automation-design',
 	},
 	wrench: {
 		keywords: ['wrench', 'icon', 'icon-lab', 'core', 'wrench', 'spanner', 'tool'],

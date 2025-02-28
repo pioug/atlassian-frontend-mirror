@@ -57,6 +57,7 @@ const styles = cssMap({
 		paddingRight: token('space.050'),
 		paddingBottom: token('space.025'),
 		paddingLeft: token('space.050'),
+		font: token('font.body'),
 	},
 	iconWrapperStyle: {
 		position: 'absolute',
@@ -73,6 +74,9 @@ const styles = cssMap({
 		color: token('color.text.subtlest'),
 		font: token('font.body'),
 		marginLeft: token('space.050'),
+	},
+	titleWrapperStyle: {
+		font: token('font.body'),
 	},
 });
 
@@ -272,25 +276,14 @@ const IconAndTitleLayoutNew = ({
 			)}
 
 			{fg('platform-linking-visual-refresh-v1') ? (
-				<Box
-					as="span"
-					style={{ color: titleTextColor }}
-					{...(!fg('platform-linking-visual-refresh-v1')
-						? {
-								className: TitleWrapperClassNameOldVisualRefresh,
-							}
-						: {})}
-				>
+				<Box as="span" style={{ color: titleTextColor }} xcss={styles.titleWrapperStyle}>
 					{title}
 				</Box>
 			) : (
 				<span
 					style={{ color: titleTextColor }}
-					{...(!fg('platform-linking-visual-refresh-v1')
-						? {
-								className: TitleWrapperClassNameOldVisualRefresh,
-							}
-						: {})}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={TitleWrapperClassNameOldVisualRefresh}
 				>
 					{title}
 				</span>

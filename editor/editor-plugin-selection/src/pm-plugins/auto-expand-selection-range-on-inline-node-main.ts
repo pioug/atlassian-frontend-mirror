@@ -1,5 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { autoExpandSelectionRangeOnInlineNodePluginKey } from './auto-expand-selection-range-on-inline-node-key';
@@ -21,9 +22,21 @@ export const createAutoExpandSelectionRangeOnInlineNodePlugin = () => {
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const mouseUpElement = event.target as HTMLElement;
 
-					// terminate early if mouse down and mouse up elements are the same -> e.g a click event
-					if (mouseDownElement === mouseUpElement) {
-						return;
+					if (fg('platform_editor_lcm_inline_node_selection_fix')) {
+						// terminate early if mouse down and mouse up elements are the same -> e.g a click event
+						// or mouse down doesn't trigger
+						if (!mouseDownElement || mouseDownElement === mouseUpElement) {
+							mouseDownElement = null;
+							return;
+						}
+						// reset mouse down element after mouse up event
+						// so that we can detect the next mouse down event is triggered right after mouse up event or not
+						mouseDownElement = null;
+					} else {
+						// terminate early if mouse down and mouse up elements are the same -> e.g a click event
+						if (mouseDownElement === mouseUpElement) {
+							return;
+						}
 					}
 
 					// terminate early if mouse up event is not fired on inline node

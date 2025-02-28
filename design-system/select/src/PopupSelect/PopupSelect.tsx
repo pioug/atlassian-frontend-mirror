@@ -618,11 +618,10 @@ export default class PopupSelect<
 			>
 				{({ placement, ref, style }) => (
 					<MenuDialog
+						// There is not a limited amount of values for the widths, so they need to remain dynamic.
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={style}
+						style={{ ...style, maxWidth: maxMenuWidth, minWidth: minMenuWidth }}
 						data-placement={placement}
-						minWidth={minMenuWidth}
-						maxWidth={maxMenuWidth}
 						id={id}
 						testId={testId}
 						ref={this.resolveMenuRef(ref)}

@@ -133,6 +133,26 @@ typescriptEslintTester.run(
       `,
 			},
 			{
+				name: 'Identifier with a BinaryExpression from props using length',
+				code: `
+					const SERIES_HEIGHT = 20;
+					function Component ({ data }) {
+						const canvasHeight = data.length * SERIES_HEIGHT;
+						return <Component style={{ height: canvasHeight }} />
+					}
+				`,
+			},
+			{
+				name: 'Identifier with a ConditionalExpression from props using length',
+				code: `
+					const SERIES_HEIGHT = 20;
+					function Component ({ data }) {
+						const canvasHeight = data.length ? data.length : SERIES_HEIGHT * 2;
+						return <Component style={{ height: canvasHeight }} />
+					}
+				`,
+			},
+			{
 				name: 'Ignore state variables',
 				code: `
         const Component = () => {
@@ -323,6 +343,46 @@ typescriptEslintTester.run(
           return <div style={{ paddingBottom: token('space.150', '12px') }} />;
         }
       `,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'static Identifier with a BinaryExpression mixed with static length accessor',
+				code: `
+					const SERIES_HEIGHT = 20;
+					const data = [1,2];
+
+					function Component (props) {
+						const canvasHeight = SERIES_HEIGHT * data.length;
+						return <Component style={{ height: canvasHeight }} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'static Identifier with a BinaryExpression',
+				code: `
+					const SERIES_HEIGHT = 20;
+					function Component (props) {
+						const canvasHeight = SERIES_HEIGHT * 2.5;
+						return <Component style={{ height: canvasHeight }} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'static Identifier with a ConditionalExpression',
+				code: `
+					const SERIES_HEIGHT = 20;
+					function Component (props) {
+						const canvasHeight = SERIES_HEIGHT > 5
+							? 2.5
+							: SERIES_HEIGHT
+								? 10
+								: 5;
+
+						return <Component style={{ height: canvasHeight }} />
+					}
+				`,
 				errors: [{ messageId: 'enforce-style-prop' }],
 			},
 		],

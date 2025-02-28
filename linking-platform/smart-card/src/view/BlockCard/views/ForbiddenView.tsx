@@ -1,5 +1,10 @@
-import React, { useMemo } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useMemo } from 'react';
 
+import { css, jsx } from '@compiled/react';
 import { type JsonLd } from 'json-ld-types';
 import { useIntl } from 'react-intl-next';
 
@@ -20,9 +25,14 @@ import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
 import Text from '../../FlexibleCard/components/elements/text';
 import { ForbiddenAction } from '../actions/ForbiddenAction';
 
+import { ForbiddenViewOld } from './ForbiddenViewOld';
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
+
+const textStyles = css({
+	color: token('color.text'),
+});
 
 /**
  * This view represent a Block Card with the 'Forbidden' status.
@@ -31,7 +41,7 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
  * @see SmartLinkStatus
  * @see FlexibleCardProps
  */
-const ForbiddenView = ({
+const ForbiddenViewNew = ({
 	testId = 'smart-block-forbidden-view',
 	...props
 }: FlexibleBlockCardProps) => {
@@ -121,8 +131,17 @@ const ForbiddenView = ({
 					),
 					values: messageContext,
 				}}
+				css={[fg('platform-linking-visual-refresh-v1') && textStyles]}
 			/>
 		</UnresolvedView>
 	);
+};
+
+const ForbiddenView = (props: FlexibleBlockCardProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ForbiddenViewNew {...props} />;
+	} else {
+		return <ForbiddenViewOld {...props} />;
+	}
 };
 export default withFlexibleUIBlockCardStyle(ForbiddenView);

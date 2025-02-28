@@ -303,6 +303,7 @@ export enum ACTION_SUBJECT {
 	MEDIA_VIEWER = 'mediaViewer',
 	DECORATION = 'decoration',
 	EDITOR_PLUGIN_AI = 'editorPluginAI',
+	EDITOR_PLUGIN_SELECTION_EXTENSION = 'editorPluginSelectionExtension',
 	AI_DEFINITIONS = 'aiDefinitions',
 }
 
@@ -455,6 +456,9 @@ export enum ACTION_SUBJECT_ID {
 	ON_UNSUPPORTED_BLOCK = 'onUnsupportedBlock',
 	MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
 	UPLOAD_MEDIA = 'uploadMedia',
+	EDITOR_PLUGIN_SELECTION_EXTENSION_DROPDOWN = 'editorPluginSelectionExtensionDropdown',
+	EDITOR_PLUGIN_SELECTION_EXTENSION_ITEM = 'editorPluginSelectionExtensionItem',
+	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

@@ -11,8 +11,9 @@ import { injectIntl } from 'react-intl-next';
 
 import { type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { type ExtractInjectionAPI, ToolbarSize } from '@atlaskit/editor-common/types';
+import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
@@ -78,7 +79,11 @@ const FloatingToolbarTextFormat = ({
 					items: MenuIconItem[];
 				}[]
 			}
-			isReducedSpacing={FloatingToolbarSettings.isReducedSpacing}
+			isReducedSpacing={
+				editorExperiment('platform_editor_controls', 'variant1')
+					? false
+					: FloatingToolbarSettings.isReducedSpacing
+			}
 			moreButtonLabel={FloatingToolbarSettings.moreButtonLabel}
 			hasFormattingActive={FloatingToolbarSettings.hasMoreButton}
 			hasMoreButton={FloatingToolbarSettings.hasMoreButton}

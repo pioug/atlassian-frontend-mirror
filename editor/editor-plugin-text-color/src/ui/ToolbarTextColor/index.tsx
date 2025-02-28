@@ -5,7 +5,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -54,6 +54,7 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { changeColor as changeColorWithAnalytics } from '../../pm-plugins/commands/change-color';
@@ -180,7 +181,11 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 					trigger={
 						<ToolbarButton
 							buttonId={TOOLBAR_BUTTON.TEXT_COLOR}
-							spacing={isReducedSpacing ? reducedSpacing : 'default'}
+							spacing={
+								!isReducedSpacing || editorExperiment('platform_editor_controls', 'variant1')
+									? 'default'
+									: reducedSpacing
+							}
 							disabled={disabled || pluginState.disabled}
 							selected={isOpen}
 							aria-label={labelTextColor}

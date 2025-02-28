@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "35.0.3",
+	"version": "35.0.4",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/checkbox": "^16.0.0",
+		"@atlaskit/checkbox": "^17.0.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/locale": "^3.0.0",
 		"@atlaskit/media-client": "^32.0.0",

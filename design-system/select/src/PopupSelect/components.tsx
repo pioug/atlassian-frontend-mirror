@@ -4,8 +4,7 @@
  */
 import { type CSSProperties, type FC, forwardRef, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import { components } from '@atlaskit/react-select';
@@ -26,8 +25,6 @@ import {
 // Styled Components
 // ==============================
 interface MenuDialogProps {
-	maxWidth?: number | string;
-	minWidth?: number | string;
 	style: CSSProperties;
 	children: ReactNode;
 	id: string;
@@ -44,30 +41,22 @@ const menuDialogStyles = css({
 /**
  * __Menu dialog__
  * Wrapper for PopupSelect component.
- *
  */
 export const MenuDialog = forwardRef<HTMLDivElement, MenuDialogProps>(
-	({ maxWidth, minWidth, children, id, style, testId }, ref) => (
-		<div
-			ref={ref}
-			css={[
-				menuDialogStyles,
-				// There is not a limited amount of values for the widths, so they need
-				// to remain dynamic.
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				{
-					maxWidth,
-					minWidth,
-				},
-			]}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={style}
-			id={id}
-			data-testid={testId && `${testId}--menu`}
-		>
-			{children}
-		</div>
-	),
+	({ children, id, style, testId }, ref) => {
+		return (
+			<div
+				ref={ref}
+				css={menuDialogStyles}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={style}
+				id={id}
+				data-testid={testId && `${testId}--menu`}
+			>
+				{children}
+			</div>
+		);
+	},
 );
 
 // ==============================
@@ -87,7 +76,10 @@ const DropdownIndicator = () => (
 );
 
 const controlStyles = css({
-	padding: `${token('space.100', '8px')} ${token('space.100', '8px')} ${token('space.050', '4px')}`,
+	paddingBlockEnd: token('space.050', '4px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, ...props }) => (
@@ -102,6 +94,7 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, 
  */
 export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
 	<VisuallyHidden>
+		{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
 		<components.Control {...props} />
 	</VisuallyHidden>
 );
@@ -111,9 +104,11 @@ const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>) => (
 	<div {...innerProps}>{children}</div>
 );
 
+// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 const ClearIndicator = (props: ClearIndicatorProps) => <components.ClearIndicator {...props} />;
 
 const MultiValueRemove = (props: MultiValueRemoveProps) => (
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<components.MultiValueRemove {...props} />
 );
 

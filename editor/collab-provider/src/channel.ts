@@ -178,12 +178,6 @@ export class Channel extends Emitter<ChannelEvent> {
 			// data is TelepointerPayload without timestamp
 			this.emit('participant:telepointer', { timestamp, ...data });
 		});
-		this.socket.on('participant:activity-ack', ({ data }: BroadcastIncomingPayload) => {
-			this.emit('participant:activity-ack', data);
-		});
-		this.socket.on('participant:activity-join', ({ data }: BroadcastIncomingPayload) => {
-			this.emit('participant:activity-join', data);
-		});
 		this.socket.on('presence:joined', (data: PresencePayload) => {
 			this.emit('presence:joined', data);
 		});

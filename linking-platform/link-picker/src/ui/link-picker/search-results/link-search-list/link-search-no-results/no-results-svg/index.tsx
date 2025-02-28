@@ -4,10 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { NoResultsSVGOld } from './old';
-
 const HEIGHT = 120;
 
 const noResultsSVGStyles = css({
@@ -15,7 +11,7 @@ const noResultsSVGStyles = css({
 	display: 'block',
 });
 
-export const NoResultsSVGNew = (): JSX.Element => {
+export const NoResultsSVG = (): JSX.Element => {
 	const id = 'link-picker-ui-no-results-svg';
 
 	return (
@@ -72,11 +68,4 @@ export const NoResultsSVGNew = (): JSX.Element => {
 			</defs>
 		</svg>
 	);
-};
-
-export const NoResultsSVG = (props: React.SVGProps<SVGSVGElement>) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <NoResultsSVGNew {...props} />;
-	}
-	return <NoResultsSVGOld {...props} />;
 };

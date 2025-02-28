@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import {
 	B200,
@@ -76,10 +75,7 @@ const labelStyles = css({
 export default function Label({ children, isDisabled, testId, label, id, xcss }: LabelProps) {
 	return (
 		<label
-			// Because we're using Emotion local jsx namespace we have to coerce xcss prop to a string.
-			// When we're fully on Compiled its local jsx namespace accepts the output of xcss prop.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- This rule still fails because of the TS assertion
-			className={xcss as string}
+			className={xcss}
 			css={[baseStyles, label && textLabelLayoutStyles, isDisabled && disabledStyles, labelStyles]}
 			data-testid={testId}
 			data-disabled={isDisabled || undefined}

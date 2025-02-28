@@ -1,11 +1,15 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useIntl } from 'react-intl-next';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { AtlassianIcon, RovoIcon } from '@atlaskit/logo';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { HiddenIcon } from '../../common/ui/hidden-icon';
@@ -13,20 +17,37 @@ import { StarIconButton } from '../../common/ui/star-icon-button';
 
 import { messages } from './messages';
 
-const clickableItemStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	gap: 'space.050',
-});
+const styles = cssMap({
+	clickableItem: {
+		display: 'flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+	},
 
-const nameStyles = xcss({
-	justifyContent: 'space-between',
-	alignItems: 'flex-start',
-});
+	name: {
+		justifyContent: 'space-between',
+		alignItems: 'flex-start',
+	},
 
-const descriptionStyles = xcss({
-	marginTop: 'space.0',
-	marginBottom: 'space.100',
+	description: {
+		marginTop: token('space.0'),
+		marginBottom: token('space.100'),
+	},
+
+	wrapper: {
+		marginBottom: token('space.100'),
+	},
+
+	tooltipWrapper: {
+		display: 'inline-flex',
+		marginInline: token('space.100'),
+		position: 'relative',
+		bottom: token('space.025'),
+	},
+
+	headingWrapper: {
+		position: 'relative',
+	},
 });
 
 export const AgentProfileCreator = ({
@@ -114,27 +135,12 @@ export const AgentProfileCreator = ({
 	const creatorRender = getCreatorRender();
 
 	return creatorRender ? (
-		<Box xcss={clickableItemStyles}>
+		<Box xcss={styles.clickableItem}>
 			<RovoIcon appearance="brand" size="small" />
 			{creatorRender}
 		</Box>
 	) : null;
 };
-
-const wrapperStyles = xcss({
-	marginBottom: 'space.100',
-});
-
-const tooltipWrapperStyles = xcss({
-	display: 'inline-flex',
-	marginInline: 'space.100',
-	position: 'relative',
-	bottom: 'space.025',
-});
-
-const headingWrapperStyles = xcss({
-	position: 'relative',
-});
 
 export const AgentProfileInfo = ({
 	agentName,
@@ -155,14 +161,14 @@ export const AgentProfileInfo = ({
 }) => {
 	const { formatMessage } = useIntl();
 	return (
-		<Stack space="space.100" xcss={wrapperStyles}>
-			<Inline xcss={nameStyles} space="space.100" alignBlock="center">
-				<Box xcss={headingWrapperStyles}>
+		<Stack space="space.100" xcss={styles.wrapper}>
+			<Inline xcss={styles.name} space="space.100" alignBlock="center">
+				<Box xcss={styles.headingWrapper}>
 					<Heading as="span" size="xlarge">
 						{agentName}
 					</Heading>
 					{isHidden && (
-						<Box xcss={tooltipWrapperStyles}>
+						<Box xcss={styles.tooltipWrapper}>
 							<Tooltip content={formatMessage(messages.hiddenTooltip)} position="top">
 								<HiddenIcon label={formatMessage(messages.hiddenIcon)} />
 							</Tooltip>
@@ -173,7 +179,7 @@ export const AgentProfileInfo = ({
 			</Inline>
 			{creatorRender}
 			{!!agentDescription && (
-				<Box xcss={descriptionStyles} as="p">
+				<Box xcss={styles.description} as="p">
 					{agentDescription}
 				</Box>
 			)}

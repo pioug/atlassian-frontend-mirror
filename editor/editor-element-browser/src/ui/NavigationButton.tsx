@@ -2,8 +2,8 @@ import React, { memo, useMemo } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
+import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
-import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import ChevronUpIcon from '@atlaskit/icon/utility/chevron-up';
 import Lozenge from '@atlaskit/lozenge';
@@ -144,7 +144,9 @@ const ButtonBase = memo(
 						>
 							<Inline alignBlock="center" space="space.100" shouldWrap={false}>
 								<Box xcss={headingContainerStyles}>
-									<Heading size={'xsmall'}>{label}</Heading>
+									<Heading size={'xsmall'} as="span">
+										{label}
+									</Heading>
 								</Box>
 								{attributes?.new && (
 									<Box>
@@ -179,7 +181,7 @@ export const BackNavButton = memo(({ label, onClick }: { label: string; onClick:
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...tooltipProps}
 					label={label}
-					icon={ChevronLeftIcon}
+					icon={ArrowLeftIcon}
 					appearance="subtle"
 					spacing="compact"
 					onClick={onClick}

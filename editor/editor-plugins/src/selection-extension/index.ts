@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
-export type { SelectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
+export type {
+	SelectionExtensionPlugin,
+	SelectionExtensionComponentProps,
+} from '@atlaskit/editor-plugin-selection-extension';

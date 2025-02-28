@@ -9,6 +9,7 @@ import { type JsonLd } from 'json-ld-types';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractProvider } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -22,9 +23,15 @@ import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
-const contentStyles = css({
+const contentStylesOld = css({
 	color: token('color.text.subtlest', '#626F86'),
 	marginTop: token('space.100', '0.5rem'),
+	font: token('font.body.UNSAFE_small'),
+});
+
+const contentStyles = css({
+	color: token('color.text'),
+	marginTop: token('space.100'),
 	font: token('font.body.UNSAFE_small'),
 });
 
@@ -80,7 +87,10 @@ const UnauthorisedView = ({
 
 	return (
 		<UnresolvedView {...props} actions={actions} testId={testId}>
-			<div css={contentStyles} data-testid={`${testId}-content`}>
+			<div
+				css={[fg('platform-linking-visual-refresh-v1') ? contentStyles : contentStylesOld]}
+				data-testid={`${testId}-content`}
+			>
 				{content}
 			</div>
 		</UnresolvedView>

@@ -4,8 +4,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { token } from '@atlaskit/tokens';
-
 import AtlaskitCheckboxSelect from '../../../CheckboxSelect';
 
 const user = userEvent.setup();
@@ -59,23 +57,12 @@ describe('Checkbox Select', () => {
 	it('should mark option as selected on user click', async () => {
 		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
-		const checkboxToBeSelected = screen.getAllByRole('presentation', {
-			hidden: true,
-		})[1];
-
-		// eslint-disable-next-line testing-library/no-node-access
-		expect(checkboxToBeSelected.parentElement).toHaveStyle(`--icon-secondary-color: transparent`);
-
-		await user.click(screen.getByText('0'));
-
-		const selectedOption = screen.getAllByRole('presentation', {
-			hidden: true,
-		})[1];
-
-		// eslint-disable-next-line testing-library/no-node-access
-		expect(selectedOption.parentElement).toHaveStyle(
-			`--icon-secondary-color: ${token('elevation.surface', '#FFFFFF')}`,
-		);
+		const option = screen.getByRole('option', { name: '0' });
+		expect(option).toHaveAttribute('aria-selected', 'false');
+		await user.click(option);
+		expect(option).toHaveAttribute('aria-selected', 'true');
+		await user.click(option);
+		expect(option).toHaveAttribute('aria-selected', 'false');
 	});
 
 	it('should allow multi selection of checkboxes', async () => {

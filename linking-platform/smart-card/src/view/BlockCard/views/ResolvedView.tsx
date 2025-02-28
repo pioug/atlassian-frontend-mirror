@@ -31,7 +31,7 @@ import {
 } from './utils';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
-const titleBlockCss = css({
+const titleBlockCssOld = css({
 	gap: token('space.100', '0.5rem'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"[data-smart-element='Title']": {
@@ -39,7 +39,16 @@ const titleBlockCss = css({
 	},
 });
 
-const footerBlockCss = css({
+const titleBlockCss = css({
+	gap: token('space.100'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	"[data-smart-element='Title']": {
+		fontWeight: token('font.weight.semibold'),
+		color: token('color.link'),
+	},
+});
+
+const footerBlockCssOld = css({
 	height: '1.5rem',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.actions-button-group': {
@@ -51,7 +60,15 @@ const footerBlockCss = css({
 	},
 });
 
-const metadataBlockCss = css({
+const footerBlockCss = css({
+	height: '1.5rem',
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'flex-end',
+	alignSelf: 'stretch',
+});
+
+const metadataBlockCssOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span[data-smart-element-avatar-group]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -120,20 +137,20 @@ const ResolvedView = ({
 				metadata={titleMetadata}
 				subtitle={[{ name: ElementName.Location }]}
 				metadataPosition={SmartLinkPosition.Top}
-				css={titleBlockCss}
+				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
 				status={status}
 			/>
 			<MetadataBlock
 				primary={topMetadata}
 				maxLines={1}
-				css={metadataBlockCss}
+				css={[!fg('platform-linking-visual-refresh-v1') && metadataBlockCssOld]}
 				status={SmartLinkStatus.Resolved}
 			/>
 			<SnippetBlock />
 			<MetadataBlock
 				primary={bottomMetadata}
 				maxLines={1}
-				css={metadataBlockCss}
+				css={[!fg('platform-linking-visual-refresh-v1') && metadataBlockCssOld]}
 				status={SmartLinkStatus.Resolved}
 			/>
 			{!isPreviewBlockErrored ? (
@@ -145,7 +162,11 @@ const ResolvedView = ({
 					status={SmartLinkStatus.Resolved}
 				/>
 			) : null}
-			<FooterBlock css={footerBlockCss} actions={footerActions} status={SmartLinkStatus.Resolved} />
+			<FooterBlock
+				css={[fg('platform-linking-visual-refresh-v1') ? footerBlockCss : footerBlockCssOld]}
+				actions={footerActions}
+				status={SmartLinkStatus.Resolved}
+			/>
 		</FlexibleCard>
 	);
 };

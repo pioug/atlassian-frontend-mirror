@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 4.0.1
+
+### Patch Changes
+
+- [#119045](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119045)
+  [`47b940a098a8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47b940a098a8c) -
+  [ux] EDF-2511 - Iconography uplift
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

@@ -418,7 +418,6 @@ export const getToolbarConfig = (
 			items,
 			scrollable: true,
 			groupLabel: formatMessage(messages.panelsGroup),
-			forceStaticToolbar: true,
 		};
 	}
 	return;

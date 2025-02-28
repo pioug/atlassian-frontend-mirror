@@ -1,16 +1,24 @@
-import React, { type KeyboardEvent, type MouseEvent } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag jsx
+ */
+import { type KeyboardEvent, type MouseEvent } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import messages from './messages';
 
-const hiddenStyles = xcss({
-	opacity: 0,
+const styles = cssMap({
+	hidden: {
+		opacity: 0,
+	},
 });
 
 export const LinkIconButton = ({
@@ -24,7 +32,7 @@ export const LinkIconButton = ({
 
 	return (
 		<>
-			<Box xcss={[!visible && hiddenStyles]}>
+			<Box xcss={cx(!visible && styles.hidden)}>
 				<IconButton
 					type="button"
 					onClick={handleCopy}

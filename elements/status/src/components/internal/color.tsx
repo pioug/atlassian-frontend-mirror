@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
-import { N50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import React, { PureComponent } from 'react';
@@ -32,14 +31,14 @@ const buttonStyles = xcss({
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const buttonWrapperStyles = css`
 	border: 1px solid transparent;
-	margin: 0 ${token('space.025', '2px')};
+	margin: 0 ${token('space.025')};
 	font-size: 0;
 	display: flex;
 	align-items: center;
 	padding: 1px;
-	border-radius: ${token('space.075', '6px')};
+	border-radius: ${token('space.075')};
 	&:hover {
-		border: 1px solid ${token('color.border', N50)};
+		border: 1px solid ${token('color.border')};
 	}
 `;
 

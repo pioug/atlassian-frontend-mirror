@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.0.0
+
+### Major Changes
+
+- [#119765](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119765)
+  [`328d167524d8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/328d167524d8d) -
+  WHAT Removed `contextualToolbar` from floating toolbar plugin, which removes `contextualToolbar`
+  from `sharedState`, removes `updateContextualToolbar` from commands. WHY These properties were
+  supporting experimental features for new editor controls which will not be released and is no
+  longer needed. HOW These properties where not exposed on the default types and were only used
+  internally to the plugin, this should not create any friction or issues
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

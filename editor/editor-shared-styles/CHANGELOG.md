@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 3.4.0
+
+### Minor Changes
+
+- [#117777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117777)
+  [`6d31e7761757c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d31e7761757c) -
+  [ux] ED-26722 Update header area spacing to avoid layout shift when hiding top toolbar
+
 ## 3.3.1
 
 ### Patch Changes

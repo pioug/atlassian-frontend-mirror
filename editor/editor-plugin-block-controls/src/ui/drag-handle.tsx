@@ -249,7 +249,8 @@ export const DragHandle = ({
 				} else if (
 					isTopLevelNode &&
 					$anchor.depth <= DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH &&
-					e.shiftKey
+					e.shiftKey &&
+					fg('platform_editor_elements_dnd_shift_click_select')
 				) {
 					const alignAnchorHeadToSel = alignAnchorHeadInDirectionOfPos(tr.selection, startPos);
 					const selectionWithExpandedHead = expandSelectionHeadToNodeAtPos(
@@ -641,7 +642,12 @@ export const DragHandle = ({
 	}, [start, selection, view.state, isMultiSelect]);
 
 	useEffect(() => {
-		if (!isMultiSelect || isShiftDown === undefined || view.state.selection.empty) {
+		if (
+			!isMultiSelect ||
+			isShiftDown === undefined ||
+			view.state.selection.empty ||
+			!fg('platform_editor_elements_dnd_shift_click_select')
+		) {
 			return;
 		}
 

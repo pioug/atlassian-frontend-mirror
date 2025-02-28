@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 16.1.1
+
+### Patch Changes
+
+- [#119202](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119202)
+  [`903841d1b85ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/903841d1b85ba) -
+  Removes the explicit return type on withFlagsProvider to allow typescript to infer the real type.
+  This allows consumers to have a better typescript experience and not have to cast the
+  withFlagsProvider type in storybook.
+
 ## 16.1.0
 
 ### Minor Changes

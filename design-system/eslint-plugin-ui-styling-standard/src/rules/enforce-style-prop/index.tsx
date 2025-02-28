@@ -1,6 +1,6 @@
 import type { Rule, Scope } from 'eslint';
 import { type Identifier, isNodeOfType, type Node } from 'eslint-codemod-utils';
-import type { ObjectExpression, Property, SpreadElement } from 'estree-jsx';
+import type { ObjectExpression, Property, SpreadElement, VariableDeclarator } from 'estree-jsx';
 
 import {
 	getAllowedFunctionCalls,
@@ -14,19 +14,6 @@ import { createLintRule } from '../utils/create-rule';
 type ObjProperty = Property | SpreadElement;
 type IdentifierWithParent = Scope.Reference['identifier'] & Rule.NodeParentExtension;
 
-const isParameter = (context: Rule.RuleContext, identifier: Identifier): boolean => {
-	const definitions = findVariable({
-		sourceCode: getSourceCode(context),
-		identifier: identifier,
-	})?.defs;
-	if (!definitions || !definitions.length) {
-		return false;
-	}
-
-	const result = definitions[0];
-	return result.type === 'Parameter';
-};
-
 const isIdentifierAllowed = (context: Rule.RuleContext, identifier: Identifier): boolean => {
 	const variable = findVariable({
 		sourceCode: getSourceCode(context),
@@ -37,46 +24,86 @@ const isIdentifierAllowed = (context: Rule.RuleContext, identifier: Identifier):
 		return false;
 	}
 
-	const variableDefinition = variable.defs[0].node;
-
 	// If identifier is a RestElement, report warning
 	if ((variable.identifiers[0] as IdentifierWithParent)?.parent?.type === 'RestElement') {
 		return false;
 	}
 
-	// Checking if identifier has been destructured from props within function
-	if (variableDefinition.type === 'VariableDeclarator') {
-		// If it's a let variable, ignore
-		if (variableDefinition.parent.kind === 'let') {
-			return true;
-		}
-
-		// Allow for `const { width } = props as Props` (etc)
-		let init = variableDefinition.init;
-		if (init?.type === 'TSAsExpression') {
-			init = init.expression;
-		}
-
-		// If it's initialised by a call expression, ignore
-		if (init?.type === 'CallExpression') {
-			return true;
-		}
-		// Destructured from member expression
-		// e.g. const width = props.width
-		if (init?.type === 'MemberExpression') {
-			return isParameter(context, init.object);
-		}
-		// Destructured from an asserted
-		// e.g. const width = props.width
-		if (init?.type === 'MemberExpression') {
-			return isParameter(context, init.object);
-		}
-		// Destructured from object pattern
-		// e.g. const { width } = props
-		return isParameter(context, init);
+	const firstDef = variable.defs[0];
+	if (firstDef.type === 'Parameter') {
+		// This ultimately comes from a function parameter, eg. `const value = props.value`
+		// ultimately finds this `function (props)` or `function({ width })` and those are parameters
+		return true;
 	}
-	// If identifier has not been deconstructed from parameter or is a RestElement, report warning
-	return isParameter(context, identifier);
+
+	if (firstDef.type !== 'Variable') {
+		// If this isn't a variable, eg. not `const value = props.value`, it's not an identifier we can track
+		return false;
+	}
+
+	const variableDefinition = firstDef.node as VariableDeclarator & Rule.NodeParentExtension;
+	if (variableDefinition.type !== 'VariableDeclarator') {
+		return false;
+	}
+
+	// Checking if identifier has been destructured from props within function
+	// If it's a `let var = …`, ignore, we assume it's dynamically set (but it could be static)
+	if ('kind' in variableDefinition.parent && variableDefinition.parent.kind === 'let') {
+		return true;
+	}
+
+	// Allow for `const { width } = props as Props` (etc)
+	let init = variableDefinition.init!;
+
+	// This is not typed for TS types
+	if (
+		init.type === ('TSAsExpression' as string) &&
+		'expression' in init &&
+		typeof init.expression !== 'boolean'
+	) {
+		init = init.expression;
+	}
+
+	// If it's initialised by a call expression, ignore
+	if (init.type === 'CallExpression') {
+		return true;
+	}
+
+	if (init.type === 'BinaryExpression') {
+		// If it's initialized like `const var = 1 * props.value`, validate either side
+		if (init.left.type === 'MemberExpression') {
+			return isIdentifierAllowed(context, init.left.object as Identifier);
+		}
+
+		if (init.right.type === 'MemberExpression') {
+			return isIdentifierAllowed(context, init.right.object as Identifier);
+		}
+	}
+
+	if (init.type === 'ConditionalExpression') {
+		// If it's initialized like `const var = props.value ? 42 : 1`, validate either side
+		if (init.test.type === 'MemberExpression') {
+			return isIdentifierAllowed(context, init.test.object as Identifier);
+		}
+
+		if (init.consequent.type === 'MemberExpression') {
+			return isIdentifierAllowed(context, init.consequent.object as Identifier);
+		}
+
+		if (init.alternate.type === 'MemberExpression') {
+			return isIdentifierAllowed(context, init.alternate.object as Identifier);
+		}
+	}
+
+	// Destructured from member expression
+	// e.g. const width = props.width
+	if (init.type === 'MemberExpression') {
+		return isIdentifierAllowed(context, init.object as Identifier);
+	}
+
+	// Destructured from object pattern
+	// e.g. const { width } = props
+	return isIdentifierAllowed(context, init as Identifier);
 };
 
 function isPropertyValueAllowed(property: ObjProperty, context: Rule.RuleContext): boolean {

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
@@ -19,7 +18,6 @@ import { FormContextProvider } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
 
 import { InlineAnalytics } from './inline-analytics';
-import InlineCreateOld from './old/main';
 
 const InlineCreateContent = ({
 	onCreate,
@@ -68,7 +66,7 @@ const InlineCreateContent = ({
 	);
 };
 
-const InlineCreateNew = (props: LinkCreateProps) => {
+const InlineCreate = (props: LinkCreateProps) => {
 	return (
 		<LinkCreatePluginsProvider plugins={props.plugins} entityKey={props.entityKey}>
 			{(pluginsProvider) => (
@@ -104,13 +102,6 @@ const InlineCreateNew = (props: LinkCreateProps) => {
 			)}
 		</LinkCreatePluginsProvider>
 	);
-};
-
-const InlineCreate = (props: LinkCreateProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <InlineCreateNew {...props} />;
-	}
-	return <InlineCreateOld {...props} />;
 };
 
 export default InlineCreate;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
 	tableCell,
@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
@@ -769,6 +770,19 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 			)(pluginConfig(options?.tableOptions)),
+		},
+		usePluginHook({ editorView }) {
+			const { editorViewModeState } = useSharedPluginState(api, ['editorViewMode']);
+			const mode = editorViewModeState?.mode;
+
+			useEffect(() => {
+				const { state, dispatch } = editorView;
+				const tr = state.tr;
+				tr.setMeta('viewModeState', mode);
+				if (dispatch) {
+					dispatch(tr);
+				}
+			}, [editorView, mode]);
 		},
 	};
 };

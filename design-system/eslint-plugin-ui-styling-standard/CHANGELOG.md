@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.4.2
+
+### Patch Changes
+
+- [#120084](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120084)
+  [`ee978d7b2ba83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee978d7b2ba83) -
+  Support BinaryExpression and ConditionalExpression logic when inspecting if an Identifier is
+  static.
+
 ## 1.4.1
 
 ### Patch Changes

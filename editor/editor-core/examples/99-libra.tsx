@@ -38,6 +38,7 @@ type MountEditorOptions = {
 		shouldMockORSBatch?: boolean;
 		shouldMockAssets?: boolean;
 	};
+	isLivePage?: boolean;
 };
 
 type LibraReactPerformanceEntry = {

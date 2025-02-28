@@ -38,7 +38,6 @@ snapshot(DefaultExample, {
 	...allVariantsOptions,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DefaultExample, {
@@ -46,7 +45,6 @@ snapshot(DefaultExample, {
 	...allVariantsOptions,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -54,7 +52,6 @@ snapshot(WithCancelExample, {
 	...allVariantsOptions,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(WithCancelExample, {
@@ -62,7 +59,6 @@ snapshot(WithCancelExample, {
 	description: 'WithCancelExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -82,7 +78,6 @@ snapshot(ErrorBoundaryExample, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -103,7 +98,6 @@ snapshot(ErrorBoundaryExample, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -111,7 +105,6 @@ snapshot(PluginErrorExample, {
 	...allVariantsOptions,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(PluginErrorExample, {
@@ -119,7 +112,6 @@ snapshot(PluginErrorExample, {
 	description: 'PluginErrorExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -127,7 +119,6 @@ snapshot(UnauthenticatedErrorExample, {
 	...allVariantsOptions,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(UnauthenticatedErrorExample, {
@@ -136,7 +127,6 @@ snapshot(UnauthenticatedErrorExample, {
 		'UnauthenticatedErrorExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -144,20 +134,17 @@ snapshot(UnauthenticatedErrorExample, {
 snapshot(DisableWidthExample, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DisableWidthExample, {
 	description: 'DisableWidthExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DisableWidthWithPluginsExample, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DisableWidthWithPluginsExample, {
@@ -165,13 +152,11 @@ snapshot(DisableWidthWithPluginsExample, {
 		'DisableWidthWithPluginsExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DisableWidth500Example, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DisableWidth500Example, {
@@ -179,13 +164,11 @@ snapshot(DisableWidth500Example, {
 		'DisableWidth500Example - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DisableWidth300Example, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(DisableWidth300Example, {
@@ -193,7 +176,6 @@ snapshot(DisableWidth300Example, {
 		'DisableWidth300Example - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -201,14 +183,12 @@ snapshot(DisableWidth300Example, {
 snapshot(ZeroPaddingExample, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(ZeroPaddingExample, {
 	description: 'ZeroPaddingExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(LargePaddingUsingTokensExample, {
@@ -222,7 +202,6 @@ snapshot(LargePaddingUsingTokensExample, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(LargePaddingUsingTokensExample, {
@@ -238,14 +217,12 @@ snapshot(LargePaddingUsingTokensExample, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
 snapshot(VaryingPaddingsExample, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(VaryingPaddingsExample, {
@@ -253,7 +230,6 @@ snapshot(VaryingPaddingsExample, {
 		'VaryingPaddingsExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -261,7 +237,6 @@ snapshot(VaryingPaddingsExample, {
 snapshot(CustomEmptyStateExample, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(CustomEmptyStateExample, {
@@ -269,13 +244,11 @@ snapshot(CustomEmptyStateExample, {
 		'CustomEmptyStateExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
 
@@ -284,6 +257,5 @@ snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
 		'CustomEmptyStateWithAdaptiveHeightExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
-		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });

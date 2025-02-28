@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.1.3
+
+### Patch Changes
+
+- [#120623](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120623)
+  [`c225bc1a5daf7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c225bc1a5daf7) -
+  fix ufo labelstack formatting by version
+
 ## 3.1.2
 
 ### Patch Changes

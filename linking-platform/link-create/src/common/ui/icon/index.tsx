@@ -9,12 +9,10 @@ import { useIntl } from 'react-intl-next';
 
 import Document16Icon from '@atlaskit/icon-file-type/glyph/document/16';
 import PageLiveDoc16Icon from '@atlaskit/icon-object/glyph/page-live-doc/16';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N20A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { iconLabelMessages } from './messages';
-import { UrlIconOld } from './old';
 
 const baseStyles = css({
 	backgroundColor: token('color.skeleton', N20A),
@@ -31,7 +29,7 @@ type UrlIconProps = {
 	children?: React.ReactNode;
 };
 
-const UrlIconNew = ({ url, children }: UrlIconProps): JSX.Element => {
+export const UrlIcon = ({ url, children }: UrlIconProps): JSX.Element => {
 	return (
 		<div
 			css={baseStyles}
@@ -42,13 +40,6 @@ const UrlIconNew = ({ url, children }: UrlIconProps): JSX.Element => {
 			{children}
 		</div>
 	);
-};
-
-export const UrlIcon = (props: UrlIconProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <UrlIconNew {...props} />;
-	}
-	return <UrlIconOld {...props} />;
 };
 
 export const PageIcon = () => {

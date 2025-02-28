@@ -41,14 +41,13 @@ export const BlockCard = ({
 	switch (status) {
 		case 'pending':
 		case 'resolving':
-			return <ResolvedView {...blockCardProps} testId={'smart-block-resolving-view'} />;
+			return <ResolvedView {...blockCardProps} testId="smart-block-resolving-view" />;
 		case 'resolved':
 			return <ResolvedView {...blockCardProps} />;
 		case 'unauthorized':
 			return <UnauthorisedView {...blockCardProps} onAuthorize={handleAuthorize} />;
 		case 'forbidden':
 			return <ForbiddenView {...blockCardProps} onAuthorize={handleAuthorize} />;
-
 		case 'not_found':
 			return <NotFoundView {...blockCardProps} onAuthorize={handleAuthorize} />;
 		case 'fallback':

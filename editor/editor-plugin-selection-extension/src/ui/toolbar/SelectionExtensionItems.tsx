@@ -9,7 +9,13 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import { v4 as uuid } from 'uuid';
 
-import { type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+	type EditorAnalyticsAPI,
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -47,6 +53,7 @@ const transformExtensionsToItems = (
 export const SelectionExtensionItemsComponent = ({
 	extensions,
 	onExtensionClick,
+	editorAnalyticsAPI,
 }: SelectionExtensionItemsProps) => {
 	const extensionsWithIdentifier = useMemo(
 		() => extensions.map((extension) => ({ ...extension, id: uuid() })),
@@ -61,10 +68,24 @@ export const SelectionExtensionItemsComponent = ({
 		const extension = extensionsWithIdentifier.find((ext) => ext.id === item.value.name);
 		if (extension) {
 			onExtensionClick(extension);
+			if (editorAnalyticsAPI) {
+				editorAnalyticsAPI.fireAnalyticsEvent({
+					action: ACTION.CLICKED,
+					actionSubject: ACTION_SUBJECT.BUTTON,
+					actionSubjectId: ACTION_SUBJECT_ID.EDITOR_PLUGIN_SELECTION_EXTENSION_ITEM,
+					eventType: EVENT_TYPE.TRACK,
+				});
+			}
 		}
 	};
 
-	return <SelectionExtensionDropdownMenu items={items} onItemActivated={handleOnItemActivated} />;
+	return (
+		<SelectionExtensionDropdownMenu
+			editorAnalyticsAPI={editorAnalyticsAPI}
+			items={items}
+			onItemActivated={handleOnItemActivated}
+		/>
+	);
 };
 
 export const SelectionExtensionItems = injectIntl(SelectionExtensionItemsComponent);

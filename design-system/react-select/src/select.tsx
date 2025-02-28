@@ -11,7 +11,7 @@ import React, {
 	type TouchEventHandler,
 } from 'react';
 
-import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
+import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
@@ -1405,16 +1405,17 @@ export default class Select<
 			? this.getElementId('live-region')
 			: this.getElementId('placeholder');
 
-		if (selectValue.length && action !== 'initial-input-focus') {
+		if (!isMulti && selectValue.length && action !== 'initial-input-focus') {
 			return;
 		}
 
-		if (isMulti && isAppleDevice() && !isSafari()) {
-			// chrome only friends
+		if (isMulti) {
+			const multiMessage = this.getElementId('multi-message');
+
 			return {
 				'aria-describedby': descriptionProp
-					? [descriptionProp, defaultDescription, this.getElementId('multi-message')].join(' ')
-					: [defaultDescription, this.getElementId('multi-message')].join(' '),
+					? [descriptionProp, defaultDescription, multiMessage].join(' ')
+					: [defaultDescription, multiMessage].join(' '),
 			};
 		} else {
 			return {
@@ -1922,11 +1923,6 @@ export default class Select<
 			'aria-required': required || isRequired,
 			role: 'combobox',
 			'aria-activedescendant': this.state.focusedOptionId || undefined,
-			// Safari needs aria-owns in order for aria-activedescendant to work properly
-			'aria-owns':
-				isSafari() && fg('design_system_select-a11y-improvement')
-					? this.getElementId('listbox')
-					: undefined,
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
@@ -2195,17 +2191,10 @@ export default class Select<
 				onMouseMove: onHover,
 				onMouseOver: onHover,
 				role: 'option',
-				// We don't want aria-selected on Apple devices or if it's false. It does nasty things.
-				'aria-selected':
-					(!commonProps.isMulti || this.isVoiceOver || !isSelected) &&
-					fg('design_system_select-a11y-improvement')
-						? undefined
-						: isSelected,
-				// We don't want aria-disabled on Apple devices or if it's false. It's just noisy.
+				'aria-selected': isSelected,
+				// We don't want aria-disabled if it's false. It's just noisy.
 				'aria-disabled':
-					(isAppleDevice() || !isDisabled) && fg('design_system_select-a11y-improvement')
-						? undefined
-						: isDisabled,
+					!isDisabled && fg('design_system_select-a11y-improvement') ? undefined : isDisabled,
 				'aria-describedby': fg('design_system_select-a11y-improvement') ? headingId : undefined,
 				...(testId && {
 					'data-testid': `${testId}-select--option-${id}`,
@@ -2343,7 +2332,7 @@ export default class Select<
 										// add aditional label on listbox when ff is on
 										...(fg('design_system_select-a11y-improvement') && {
 											'aria-label': label,
-											'aria-labelledby': `${labelId || this.inputRef?.id || this.getElementId('input')} ${commonProps.isMulti && isSafari() ? this.getElementId('multi-message') : ''}`,
+											'aria-labelledby': `${labelId || this.inputRef?.id || this.getElementId('input')}`,
 										}),
 									}}
 									isLoading={isLoading}

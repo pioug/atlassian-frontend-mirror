@@ -10,11 +10,12 @@ import HoverCard from '../../../examples/vr-hover-card-standalone/vr-hover-card-
 import HoverCardWithPreview from '../../../examples/vr-hover-card-standalone/vr-hover-card-with-image-preview';
 
 snapshot(HoverCard, {
-	description: 'standalone hover card deafult',
+	description: 'standalone hover card default',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -24,6 +25,7 @@ snapshot(HoverCardWithPreview, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -33,6 +35,7 @@ snapshot(HoverCardForSlackMessage, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -42,24 +45,27 @@ snapshot(HoverCardConfluence, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
 snapshot(HoverCardAssignedJiraIssue, {
-	description: 'standalone hover card for Assigned Jira Issie',
+	description: 'standalone hover card for Assigned Jira Issue',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
 snapshot(HoverCardUnassignedJiraIssue, {
-	description: 'standalone hover card for Unassigned Jira Issie',
+	description: 'standalone hover card for Unassigned Jira Issue',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -69,11 +75,12 @@ snapshot(HoverCardJiraProject, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
 snapshot(HoverCardForbiddenJira, {
-	description: 'standalone hover card forbidden view with direct_access context for Jira ',
+	description: 'standalone hover card forbidden view with direct_access context for Jira',
 	states: [
 		{
 			state: 'hovered',
@@ -83,6 +90,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -97,6 +105,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -111,6 +120,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -125,6 +135,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -140,6 +151,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -155,6 +167,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -164,5 +177,6 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });

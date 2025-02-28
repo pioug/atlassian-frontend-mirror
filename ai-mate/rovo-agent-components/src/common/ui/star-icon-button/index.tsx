@@ -1,23 +1,33 @@
-import React, { type KeyboardEvent, type MouseEvent, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type KeyboardEvent, type MouseEvent, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import StarIconMigration from '@atlaskit/icon/core/migration/star-starred--star-filled';
 import StarUnstarredIconMigration from '@atlaskit/icon/core/migration/star-unstarred--star';
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import messages from './messages';
 
-const pressableStarIconStyles = xcss({
-	background: 'transparent',
-	padding: 'space.0',
-	height: '24px',
-	width: '24px',
-});
+const styles = cssMap({
+	pressableStarIcon: {
+		backgroundColor: 'transparent',
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		height: '24px',
+		width: '24px',
+	},
 
-const hiddenStyles = xcss({
-	opacity: 0,
+	hidden: {
+		opacity: 0,
+	},
 });
 
 export const StarIconButton = ({
@@ -34,7 +44,7 @@ export const StarIconButton = ({
 
 	return (
 		<Pressable
-			xcss={[pressableStarIconStyles, !visible && hiddenStyles]}
+			xcss={cx(styles.pressableStarIcon, !visible && styles.hidden)}
 			onClick={handleToggle}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}

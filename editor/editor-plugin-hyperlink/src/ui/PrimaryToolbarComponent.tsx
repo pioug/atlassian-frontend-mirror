@@ -1,12 +1,12 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
-
 import { useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -16,6 +16,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import LinkIcon from '@atlaskit/icon/core/link';
+import { token } from '@atlaskit/tokens';
 
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 
@@ -38,20 +39,24 @@ const PrimaryToolbarComponentWithIntl = ({
 	}, [api]);
 
 	return (
-		<div>
-			<ToolbarButton
-				onClick={onClick}
-				aria-haspopup="dialog"
-				aria-keyshortcuts={getAriaKeyshortcuts(addLink)}
-				aria-label={content}
-				testId={content}
-				spacing="default"
-				title={content}
-			>
-				<LinkIcon label="" color="currentColor" spacing="none" />
-			</ToolbarButton>
-		</div>
+		<ToolbarButton
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+			css={buttonStyles}
+			onClick={onClick}
+			aria-haspopup="dialog"
+			aria-keyshortcuts={getAriaKeyshortcuts(addLink)}
+			aria-label={content}
+			testId={content}
+			spacing="none"
+			title={content}
+		>
+			<LinkIcon label="" color="currentColor" spacing="none" />
+		</ToolbarButton>
 	);
 };
+
+const buttonStyles = css({
+	padding: `${token('space.075')} ${token('space.100')}`,
+});
 
 export const PrimaryToolbarComponent = injectIntl(PrimaryToolbarComponentWithIntl);

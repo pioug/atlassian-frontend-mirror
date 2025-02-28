@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 21.1.1
+
+### Patch Changes
+
+- [#119753](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119753)
+  [`6a1bfec451e30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a1bfec451e30) -
+  [ux] `color` and `text-decoration` style specificity have been increased to reduce the probability
+  of global `<a>` tag styles interfering with button styles.
+
 ## 21.1.0
 
 ### Minor Changes

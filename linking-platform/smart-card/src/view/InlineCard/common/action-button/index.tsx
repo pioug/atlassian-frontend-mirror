@@ -54,6 +54,7 @@ const actionButtonStyle = xcss({
 
 const internalButtonStyle = xcss({
 	font: 'font.body',
+	fontWeight: 'font.weight.medium',
 });
 
 const actionButtonNotDisabledStyle = xcss({

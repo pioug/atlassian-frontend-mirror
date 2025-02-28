@@ -13,7 +13,7 @@ const containerStyles = xcss({
 });
 
 export default () => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
 
 	return (
 		<Fragment>
@@ -30,6 +30,7 @@ export default () => {
 							zIndex={610}
 							testId="dropdown"
 							shouldRenderToParent
+							defaultOpen
 						>
 							<DropdownItemGroup>
 								<DropdownItem>Move</DropdownItem>

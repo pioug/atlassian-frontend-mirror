@@ -26,7 +26,6 @@ import {
 	ConditionalSpotlightTargetWrapper,
 	type ConditionalSpotlightTargetWrapperProps,
 } from './conditional-spotlight-target-wrapper';
-import { TextInputOld } from './old';
 import { isRedoEvent, isUndoEvent } from './utils';
 
 const styles = cssMap({
@@ -80,7 +79,7 @@ export const testIds = {
 	clearUrlButton: 'clear-text',
 };
 
-export const TextInputNew = ({
+export const TextInput = ({
 	name,
 	label,
 	autoFocus,
@@ -175,11 +174,4 @@ export const TextInputNew = ({
 			</Field>
 		</div>
 	);
-};
-
-export const TextInput = (props: TextInputProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <TextInputNew {...props} />;
-	}
-	return <TextInputOld {...props} />;
 };

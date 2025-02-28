@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "3.1.0",
+	"version": "4.0.0",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/select": "^19.0.0",
+		"@atlaskit/select": "^20.0.0",
 		"@atlaskit/smart-user-picker": "^8.0.0",
 		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/textfield": "^8.0.0",
@@ -63,8 +63,6 @@
 		"@atlaskit/tokens": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
-		"@emotion/react": "^11.7.1",
-		"@emotion/styled": "^11.0.0",
 		"debounce-promise": "^3.1.2",
 		"final-form": "^4.20.3",
 		"react-final-form": "^6.5.3"
@@ -123,17 +121,11 @@
 			],
 			"styling": [
 				"static",
-				"emotion",
 				"compiled"
 			],
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform_bandicoots-link-create-css": {
-			"type": "boolean"
 		}
 	}
 }

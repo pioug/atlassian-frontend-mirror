@@ -247,6 +247,12 @@ function shouldAddExtensionItemForNode(item: ContextualToolbar, node: ADFEntity)
 	if (item.context.type !== 'extension' || node.type !== item.context.nodeType) {
 		return false;
 	}
+
+	// in cases where we need custom exclusion depending on the node
+	if (item.context.shouldExclude) {
+		return item.context.shouldExclude(node);
+	}
+
 	const { extensionType, extensionKey } = item.context;
 	// if extension type is given - should match extension type
 	if (extensionType && extensionType !== node.attrs?.extensionType) {

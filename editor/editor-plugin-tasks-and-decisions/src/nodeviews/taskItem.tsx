@@ -31,7 +31,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import Heading from '@atlaskit/heading';
-import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
+import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import { fg } from '@atlaskit/platform-feature-flags';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
@@ -128,7 +128,7 @@ const RequestedMessage = () => {
 	return (
 		<>
 			{formatMessage(tasksAndDecisionsMessages.requestToEdit)}
-			<EditorDoneIcon label="requested-to-edit" primaryColor={token('color.icon.disabled')} />
+			<EditorDoneIcon label="requested-to-edit" color={token('color.icon.disabled')} />
 		</>
 	);
 };

@@ -4,10 +4,8 @@
  */
 import { type ChangeEvent, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
 import { Checkbox } from '@atlaskit/checkbox';
+import { jsx } from '@atlaskit/css';
 import { Box, xcss } from '@atlaskit/primitives';
 
 type Checkboxes = Record<string, boolean>;

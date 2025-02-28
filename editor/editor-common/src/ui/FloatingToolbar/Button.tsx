@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
@@ -123,9 +124,10 @@ export default ({
 					<Pulse pulse={pulse || spotlightConfig?.pulse}>
 						{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 						<Button
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 							className={className}
 							ref={(buttonElement) => setSpotlightReferenceElement(buttonElement)}
+							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 							theme={(adgTheme, themeProps) => {
 								const { buttonStyles, ...rest } = adgTheme(themeProps);
 								return {
@@ -148,7 +150,9 @@ export default ({
 							role={isRadioButton ? 'radio' : undefined}
 							aria-expanded={ariaHasPopup ? selected : undefined}
 							aria-controls={ariaHasPopup ? areaControls : undefined}
-							spacing={'compact'}
+							spacing={
+								editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
+							}
 							href={href}
 							target={target}
 							appearance={appearance}

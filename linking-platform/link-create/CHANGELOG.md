@@ -1,5 +1,20 @@
 # @atlaskit/link-create
 
+## 4.0.0
+
+### Major Changes
+
+- [#119733](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119733)
+  [`cba9cf4f58de0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba9cf4f58de0) -
+  ff clean up for emotion to compiled migration. Also removed emotion dependencies. Bump up major
+  version for visibility
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

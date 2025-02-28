@@ -51,6 +51,7 @@ export type ExtensionNodeContext = {
 	nodeType: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
 	extensionKey: string | string[];
 	extensionType?: string;
+	shouldExclude?: (node: ADFEntity) => boolean;
 };
 
 export type StandardNodeContext = {

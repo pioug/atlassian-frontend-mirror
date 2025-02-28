@@ -22,7 +22,7 @@ import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '.
 import { FullPageContentArea } from './FullPageContentArea';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
-import { fullPageEditorWrapper } from './StyledComponents';
+import { fullPageEditorWrapper, primaryToolbarReservedSpace } from './StyledComponents';
 import { type ScrollContainerRefs } from './types';
 
 const useShowKeyline = (contentAreaRef: React.MutableRefObject<ScrollContainerRefs | null>) => {
@@ -141,8 +141,14 @@ export const FullPageEditor = (props: ComponentProps) => {
 	return (
 		<ContextPanelWidthProvider>
 			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={fullPageEditorWrapper}
+				css={[
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					fullPageEditorWrapper,
+					isEditorToolbarHidden &&
+						editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						primaryToolbarReservedSpace,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="akEditor"
 				ref={wrapperElementRef}

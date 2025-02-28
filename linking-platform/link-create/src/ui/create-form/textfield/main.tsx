@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import AkTextfield from '@atlaskit/textfield';
 
 import { CreateField } from '../../../controllers/create-field';
 
-import { TextFieldOld } from './old/main';
 import { type TextFieldProps } from './types';
 
 export const TEST_ID = 'link-create-text-field';
@@ -16,7 +14,7 @@ export const TEST_ID = 'link-create-text-field';
  * the handleSubmit function passed to the form <Form> that have a key matching the `name`
  * of this text field are shown above the field.
  */
-const TextFieldNew = ({
+export const TextField = ({
 	id,
 	name,
 	label,
@@ -41,11 +39,4 @@ const TextFieldNew = ({
 			}}
 		</CreateField>
 	);
-};
-
-export const TextField = (props: TextFieldProps) => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <TextFieldNew {...props} />;
-	}
-	return <TextFieldOld {...props} />;
 };

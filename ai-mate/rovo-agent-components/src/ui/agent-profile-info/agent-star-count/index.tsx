@@ -1,21 +1,26 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useIntl } from 'react-intl-next';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import StarIcon from '@atlaskit/icon/utility/migration/star-unstarred--star';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
 import { formatNumber } from './utils';
 
-const countStyles = xcss({
-	font: token('font.body.small'),
-	display: 'flex',
-	alignItems: 'center',
-	gap: 'space.050',
-	paddingInlineStart: 'space.025',
+const styles = cssMap({
+	count: {
+		font: token('font.body.small'),
+		display: 'flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+		paddingInlineStart: token('space.025'),
+	},
 });
 
 export const AgentStarCount = ({
@@ -32,7 +37,7 @@ export const AgentStarCount = ({
 	}
 
 	return (
-		<Box xcss={countStyles}>
+		<Box xcss={styles.count}>
 			<StarIcon
 				LEGACY_margin={`0 ${token('space.negative.025')}`}
 				color="currentColor"

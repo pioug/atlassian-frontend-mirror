@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 3.3.0
+
+### Minor Changes
+
+- [#120135](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120135)
+  [`be3eb3ea91920`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be3eb3ea91920) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `continue-when`
+  - `split-parallel`
+  - `switch-case`
+  - `workflow-controls`
+
 ## 3.2.0
 
 ### Minor Changes

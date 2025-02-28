@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 100.3.0
+
+### Minor Changes
+
+- [#119765](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119765)
+  [`5a27b842be965`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a27b842be965) -
+  Add deprecated label to `forceStaticToolbar` in floating toolbar property and remove its usage
+  across plugins
+
+### Patch Changes
+
+- [#120385](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120385)
+  [`0974c164df21e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0974c164df21e) -
+  [ux] ED-26440 minor cosmetic updates to selection extension plugin
+
+## 100.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 100.2.1
+
+### Patch Changes
+
+- [#119729](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119729)
+  [`beae885f06562`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beae885f06562) -
+  ED-26710 add analytics events to selection extension plugin
+- [#119091](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119091)
+  [`582463628e275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/582463628e275) -
+  Add hasBeenAutoConverted parameter in extension node and isExcluded prop in ContextualToolbar
+- Updated dependencies
+
 ## 100.2.0
 
 ### Minor Changes

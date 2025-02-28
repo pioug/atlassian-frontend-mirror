@@ -17,14 +17,10 @@ const options: OptionsType = {
 
 snapshot(DefaultSelect, {
 	...options,
-	featureFlags: {
-		'platform_bandicoots-link-create-css': [true, false],
-	},
 });
 snapshot(SelectorAllProps, {
 	...options,
 	featureFlags: {
 		'linking-platform-create-field-error-association': [true, false],
-		'platform_bandicoots-link-create-css': [true, false],
 	},
 });

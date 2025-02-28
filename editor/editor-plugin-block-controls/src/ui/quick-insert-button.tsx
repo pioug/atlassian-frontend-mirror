@@ -29,7 +29,7 @@ const buttonStyles = xcss({
 	height: token('space.300'),
 	width: token('space.300'),
 	border: 'none',
-	backgroundColor: 'color.background.neutral',
+	backgroundColor: 'color.background.neutral.subtle',
 	borderRadius: '50%',
 	color: 'color.text.accent.gray',
 	zIndex: 'card',
@@ -65,6 +65,18 @@ type Props = {
 	rootNodeType: string;
 };
 
+const isSelectionInNode = (start: number, view: EditorView) => {
+	const node = view.state.doc.nodeAt(start);
+	if (node === null) {
+		return false;
+	}
+	const endPos = start + node.nodeSize;
+	const startPos = start;
+	const { $from, $to } = view.state.selection;
+
+	return $from.pos >= startPos && endPos >= $to.pos;
+};
+
 export const TypeAheadControl = ({
 	view,
 	api,
@@ -80,7 +92,7 @@ export const TypeAheadControl = ({
 		'featureFlags.macroInteractionUpdates',
 	);
 
-	const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({});
+	const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({ display: 'none' });
 
 	// Adapted from `src/ui/drag-handle.tsx` as positioning logic is similar
 	// CHANGES - added an offset so quick insert button can be positioned beside drag handle
@@ -184,13 +196,21 @@ export const TypeAheadControl = ({
 					aria-label={formatMessage(messages.insert)}
 					xcss={[buttonStyles]}
 					onClick={() => {
-						api?.core?.actions.execute(({ tr }) => {
-							const start = getPos();
-							if (!start) {
-								return null;
-							}
-							return tr.setSelection(TextSelection.create(tr.doc, start));
-						});
+						// if the selection is not within the node this decoration is rendered at
+						// then insert a newline and trigger quick insert
+						const start = getPos();
+						if (start !== undefined && !isSelectionInNode(start, view)) {
+							api.core.actions.execute(({ tr }) => {
+								const nodeSize = tr.doc.nodeAt(start)?.nodeSize;
+								if (nodeSize === undefined) {
+									return tr;
+								}
+								const position = start + nodeSize;
+								tr.insert(position, tr.doc.type.schema.nodes.paragraph.create());
+								return tr.setSelection(TextSelection.create(tr.doc, position));
+							});
+						}
+
 						api?.quickInsert?.actions.openTypeAhead('blockControl');
 					}}
 				>

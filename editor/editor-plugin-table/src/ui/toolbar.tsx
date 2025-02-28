@@ -639,7 +639,6 @@ export const getToolbarConfig =
 				offset: [0, 18],
 				absoluteOffset: { top: -6 },
 				zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
-				forceStaticToolbar: true,
 				items: [
 					menu,
 					separator(menu.hidden),

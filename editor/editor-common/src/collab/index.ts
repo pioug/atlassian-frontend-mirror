@@ -452,26 +452,17 @@ export interface CollabSendableSelection {
 	head?: number | string;
 }
 
-export type Activity = 'VIEWING' | 'EDITING';
+export type PresenceActivity = 'viewer' | 'editor';
 
-export type CollabActivityData = {
-	activity: Activity;
-	sessionId: string;
-	userId?: string;
-};
-
-export type CollabActivityJoinPayload = CollabActivityData & {
-	type: 'activity:join';
-};
-
-export type CollabActivityAckPayload = CollabActivityData & {
-	type: 'activity:ack';
-};
-
-export type CollabActivityAIProviderChangedPayload = CollabActivityData & {
+export type CollabActivityAIProviderChangedPayload = {
 	type: 'ai-provider:change';
 	action: 'add' | 'remove';
 	providerId?: string;
+};
+
+export type CollabPresenceActivityChangePayload = {
+	type: 'participant:activity';
+	activity?: PresenceActivity;
 };
 
 export interface CollabEventTelepointerData {
@@ -487,8 +478,6 @@ type ProviderParticipantPermitLevel = {
 	isPermittedToComment?: boolean;
 	isPermittedToEdit?: boolean;
 };
-
-export type PresenceActivity = 'viewer' | 'editor';
 
 export interface CollabParticipant {
 	lastActive: number;
@@ -544,21 +533,6 @@ export interface CollabEventConflictPayload {
 }
 
 export interface CollabEvents {
-	/**
-	 * Experimental Only: Teammate Presence (Confluence Land and Onboarding)
-	 *
-	 * This event is emitted when a new collaborator joins the session. The event carries information about
-	 * the action the new collaborator is currently doing in the session, such as viewing or editing.
-	 */
-	'activity:join': CollabActivityJoinPayload;
-	/**
-	 * Experimental Only: Teammate Presence (Confluence Land and Onboarding)
-	 *
-	 * This event is emitted by the existing collaborators in response to a new collaborator joining.
-	 * It is used to inform the new collaborator about the current actions or states of the existing
-	 * collaborators, such as viewing or editing.
-	 */
-	'activity:ack': CollabActivityAckPayload;
 	'metadata:changed': Metadata;
 	init: CollabInitPayload;
 	connected: CollabConnectedPayload;
@@ -576,6 +550,7 @@ export interface CollabEvents {
 	'commit-status': CollabCommitStatusEventPayload;
 	'namespace-lock:check': CollabNamespaceLockCheckPayload;
 	'data:conflict': CollabEventConflictPayload;
+	'presence:changed': CollabPresenceActivityChangePayload;
 }
 
 export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;

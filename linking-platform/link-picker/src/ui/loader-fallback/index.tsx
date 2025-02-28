@@ -4,12 +4,9 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 
 import { MinHeightContainer } from '../../common/ui/min-height-container';
-
-import { LoaderFallbackOld } from './old';
 
 const styles = css({
 	alignItems: 'center',
@@ -68,7 +65,7 @@ const getEstimatedMinHeight = ({
  * Loader / skeleton for the Link Picker. Takes LoaderFallbackProps (hideDisplayText, isLoadingPlugins, plugins)
  * to determine the height to prevent jumps in height when loading
  */
-export const LoaderFallbackNew = (props: LoaderFallbackProps): JSX.Element => {
+export const LoaderFallback = (props: LoaderFallbackProps): JSX.Element => {
 	const minHeight = getEstimatedMinHeight(props);
 	return (
 		<MinHeightContainer
@@ -83,11 +80,4 @@ export const LoaderFallbackNew = (props: LoaderFallbackProps): JSX.Element => {
 			/>
 		</MinHeightContainer>
 	);
-};
-
-export const LoaderFallback = (props: LoaderFallbackProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <LoaderFallbackNew {...props} />;
-	}
-	return <LoaderFallbackOld {...props} />;
 };

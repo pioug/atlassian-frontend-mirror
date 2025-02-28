@@ -44,7 +44,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			return Promise.resolve(
 				getQuickInsertSuggestions(
 					{
-						query: editorExperiment('platform_editor_controls', 'control') ? query : queryAllItems,
+						query: editorExperiment('platform_editor_insertion', 'control') ? query : queryAllItems,
 						disableDefaultItems: options?.disableDefaultItems,
 						prioritySortingFn: options?.prioritySortingFn,
 					},

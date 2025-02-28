@@ -56,6 +56,7 @@ import type { NodeEventPayload } from './node-events';
 import type { PasteEventPayload } from './paste-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
 import type { SelectionEventPayload } from './selection-events';
+import type { SelectionExtensionEventPayload } from './selection-extension-events';
 import type { SubstituteEventPayload } from './substitute-events';
 import type { TableEventPayload } from './table-events';
 import type { TypeAheadPayload } from './type-ahead';
@@ -127,7 +128,8 @@ export type AnalyticsEventPayload<T = void> =
 	| AIUnifiedEventPayload
 	| BreakoutEventPayload
 	| ActiveSessionEventPayload
-	| AIInlineSuggestionPayload;
+	| AIInlineSuggestionPayload
+	| SelectionExtensionEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

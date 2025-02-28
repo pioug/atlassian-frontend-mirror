@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 35.1.4
+
+### Patch Changes
+
+- [#119985](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119985)
+  [`7f921d5d72c34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f921d5d72c34) -
+  [ux] Hovercard token ui redesign under FF
+- Updated dependencies
+
+## 35.1.3
+
+### Patch Changes
+
+- [#119983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119983)
+  [`7b2a5d6ec9bb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b2a5d6ec9bb3) -
+  [ux] Block card UI refresh token and override css changes
+
+## 35.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.1.0
 
 ### Minor Changes

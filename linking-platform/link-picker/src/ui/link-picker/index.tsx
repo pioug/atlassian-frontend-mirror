@@ -48,7 +48,6 @@ import { Announcer } from './announcer';
 import { FormFooter, testIds as formFooterTestIds } from './form-footer';
 import { LinkPickerSubmitButton } from './form-footer/link-picker-submit-button';
 import { formMessages, linkMessages, linkTextMessages, searchMessages } from './messages';
-import { LinkPickerOld } from './old';
 import { SearchResults, testIds as searchTestIds } from './search-results';
 import { testIds as textFieldTestIds, TextInput } from './text-input';
 import { TrackMount } from './track-mount';
@@ -131,7 +130,7 @@ const LinkInputField = withInputFieldTracking(TextInput, 'link', (event, attribu
 
 const DisplayTextInputField = withInputFieldTracking(TextInput, 'displayText');
 
-export const LinkPickerNew = withLinkPickerAnalyticsContext(
+export const LinkPicker = withLinkPickerAnalyticsContext(
 	memo(
 		({
 			onSubmit,
@@ -576,10 +575,3 @@ export const LinkPickerNew = withLinkPickerAnalyticsContext(
 		},
 	),
 );
-
-export const LinkPicker = (props: LinkPickerProps) => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <LinkPickerNew {...props} />;
-	}
-	return <LinkPickerOld {...props} />;
-};

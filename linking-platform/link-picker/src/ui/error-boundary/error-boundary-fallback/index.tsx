@@ -13,8 +13,6 @@ import { GenericErrorSVG } from '../../../common/generic-error-svg';
 import { EmptyState } from '../../../common/ui/empty-state';
 import { MinHeightContainer } from '../../../common/ui/min-height-container';
 
-import { ErrorBoundaryFallbackOld } from './old';
-
 const errorBoundaryFallbackStyles = css({
 	font: token('font.heading.xxsmall'),
 });
@@ -36,7 +34,7 @@ const messages = defineMessages({
 	},
 });
 
-export const ErrorBoundaryFallbackNew = () => {
+export const ErrorBoundaryFallback = () => {
 	const intl = useIntl();
 	const header = intl.formatMessage(messages.heading);
 	const description = intl.formatMessage(messages.description);
@@ -58,11 +56,4 @@ export const ErrorBoundaryFallbackNew = () => {
 			/>
 		</MinHeightContainer>
 	);
-};
-
-export const ErrorBoundaryFallback = () => {
-	if (fg('platform_bandicoots-link-picker-css')) {
-		return <ErrorBoundaryFallbackNew />;
-	}
-	return <ErrorBoundaryFallbackOld />;
 };

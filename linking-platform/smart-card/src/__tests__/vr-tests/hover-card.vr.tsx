@@ -25,6 +25,7 @@ snapshot(HoverCard, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -39,6 +40,7 @@ snapshot(HoverCardActions, {
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -53,6 +55,7 @@ snapshot(HoverCardActions, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -96,6 +99,7 @@ snapshot(HoverCardSSRLoading, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -109,6 +113,7 @@ snapshot(HoverCardSSRError, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -123,6 +128,7 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -137,6 +143,7 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 
@@ -151,5 +158,6 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });

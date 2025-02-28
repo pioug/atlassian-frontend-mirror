@@ -1,40 +1,47 @@
-import React, { useEffect, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../../common/ui/chat-icon';
 
 import messages from './messages';
 
-const chatToAgentButtonContainer = xcss({
-	width: '100%',
-});
+const styles = cssMap({
+	chatToAgentButtonContainer: {
+		width: '100%',
+	},
 
-const chatToAgentButtonWrapper = xcss({
-	display: 'flex',
-	justifyContent: 'center',
-	lineHeight: '20px',
-	fontWeight: 'font.weight.medium',
-});
+	chatToAgentButtonWrapper: {
+		display: 'flex',
+		justifyContent: 'center',
+		fontWeight: token('font.weight.medium'),
+	},
 
-const chatPillButtonInlineStyles = xcss({ paddingInline: 'space.025' });
+	chatPillButtonInline: { paddingInline: token('space.025') },
 
-const chatPillTextStyles = xcss({
-	wordBreak: 'break-word',
-	textAlign: 'left',
-	whiteSpace: 'pre-wrap',
-});
+	chatPillText: {
+		wordBreak: 'break-word',
+		textAlign: 'left',
+		whiteSpace: 'pre-wrap',
+	},
 
-const chatPillIconWrapper = xcss({
-	minWidth: '20px',
-	height: '20px',
+	chatPillIconWrapper: {
+		minWidth: '20px',
+		height: '20px',
+	},
 });
 
 type ChatToAgentButtonProps = {
@@ -45,14 +52,14 @@ export const ChatToAgentButton = ({ onClick }: ChatToAgentButtonProps) => {
 	const { formatMessage } = useIntl();
 
 	return (
-		<Box xcss={chatToAgentButtonContainer}>
+		<Box xcss={styles.chatToAgentButtonContainer}>
 			<Button testId="view-agent-modal-chat-to-agent-button" shouldFitContainer onClick={onClick}>
-				<Box xcss={chatToAgentButtonWrapper}>
-					<Inline space="space.050" xcss={chatPillButtonInlineStyles}>
-						<Box xcss={chatPillIconWrapper}>
+				<Box xcss={styles.chatToAgentButtonWrapper}>
+					<Inline space="space.050" xcss={styles.chatPillButtonInline}>
+						<Box xcss={styles.chatPillIconWrapper}>
 							<ChatPillIcon />
 						</Box>
-						<Box xcss={chatPillTextStyles}>{formatMessage(messages.chatToAgentButton)}</Box>
+						<Box xcss={styles.chatPillText}>{formatMessage(messages.chatToAgentButton)}</Box>
 					</Inline>
 				</Box>
 			</Button>

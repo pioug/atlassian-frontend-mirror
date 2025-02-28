@@ -3,11 +3,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
 import { groupedCountries } from './data/countries';
 import Select from './Select';

@@ -126,8 +126,8 @@ export const migrateInitializationOptions = <T extends FeatureGateOptions>(
 		includeCurrentPageUrlWithEvents: !disableCurrentPageLogging,
 		loggingIntervalMs: loggingIntervalMillis,
 		loggingBufferMaxSize,
-		disableStorage: disableLocalStorage,
-		disableLogging: disableAllLogging,
+		disableStorage: disableLocalStorage === undefined ? localMode : disableLocalStorage,
+		disableLogging: disableAllLogging === undefined ? localMode : disableAllLogging,
 	};
 };
 

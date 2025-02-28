@@ -7,7 +7,7 @@ import Tooltip from '@atlaskit/tooltip';
 import type { ButtonItemProps } from './ButtonItemType';
 import { IconRenderer } from './IconRenderer';
 
-const WIDTH = '62px';
+const WIDTH = '60px';
 
 const largeButtonStyles = xcss({
 	display: 'inline-flex',

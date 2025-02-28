@@ -16,18 +16,12 @@ import {
 } from '@atlaskit/editor-common/performance-measures';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyDocument, isTextInput } from '@atlaskit/editor-common/utils';
-import type {
-	EditorState,
-	ReadonlyTransaction,
-	SelectionRange,
-} from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type Step } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection } from '@atlaskit/editor-tables';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
@@ -53,6 +47,7 @@ import { boundKeydownHandler } from './keymap';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
 import { getMultiSelectAnalyticsAttributes } from './utils/analytics';
 import { AnchorRectCache, isAnchorSupported } from './utils/anchor-utils';
+import { selectNode } from './utils/getSelection';
 import { getSelectedSlicePosition } from './utils/selection';
 import { getTrMetadata } from './utils/transactions';
 
@@ -134,10 +129,23 @@ const destroyFn = (
 							const expandedSelectionUnchanged =
 								multiSelectDnD.textAnchor === tr.selection.anchor &&
 								multiSelectDnD.textHead === tr.selection.head;
+
 							if (expandedSelectionUnchanged) {
-								tr.setSelection(
-									TextSelection.create(tr.doc, multiSelectDnD.userAnchor, multiSelectDnD.userHead),
-								);
+								const $anchor = tr.doc.resolve(multiSelectDnD.userAnchor);
+								const $head = tr.doc.resolve(multiSelectDnD.userHead);
+
+								if ($head.node() === $anchor.node()) {
+									const $from = $anchor.min($head);
+									selectNode(tr, $from.pos, $from.node().type.name);
+								} else {
+									tr.setSelection(
+										TextSelection.create(
+											tr.doc,
+											multiSelectDnD.userAnchor,
+											multiSelectDnD.userHead,
+										),
+									);
+								}
 							}
 						}
 						api?.selection?.commands.clearManualSelection()({ tr });
@@ -145,7 +153,8 @@ const destroyFn = (
 
 					const { start } = source.data as ElementDragSource;
 					// if no drop targets are rendered, assume that drop is invalid
-					if (location.current.dropTargets.length === 0) {
+					const lastDragCancelled = location.current.dropTargets.length === 0;
+					if (lastDragCancelled) {
 						let nodeTypes, hasSelectedMultipleNodes;
 						if (isMultiSelect && api) {
 							const position = getSelectedSlicePosition(start, tr, api);
@@ -168,7 +177,12 @@ const destroyFn = (
 							},
 						})(tr);
 					}
-					return tr.setMeta(key, { ...tr.getMeta(key), isDragging: false, isPMDragging: false });
+					return tr.setMeta(key, {
+						...tr.getMeta(key),
+						isDragging: false,
+						isPMDragging: false,
+						lastDragCancelled,
+					});
 				});
 			},
 		}),
@@ -189,6 +203,7 @@ const initialState: PluginState = {
 	isDocSizeLimitEnabled: null,
 	isPMDragging: false,
 	multiSelectDnD: undefined,
+	lastDragCancelled: false,
 };
 
 export interface FlagType {
@@ -219,6 +234,7 @@ export const newApply = (
 		menuTriggerBy,
 		isPMDragging,
 		isShiftDown,
+		lastDragCancelled,
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
@@ -444,6 +460,7 @@ export const newApply = (
 		isPMDragging: meta?.isPMDragging ?? isPMDragging,
 		multiSelectDnD,
 		isShiftDown: meta?.isShiftDown ?? isShiftDown,
+		lastDragCancelled: meta?.lastDragCancelled ?? lastDragCancelled,
 	};
 };
 
@@ -468,6 +485,7 @@ export const oldApply = (
 		editorWidthRight,
 		isDragging,
 		isPMDragging,
+		lastDragCancelled,
 	} = currentState;
 	let { decorations, isResizerResizing } = currentState;
 
@@ -688,6 +706,7 @@ export const oldApply = (
 		isResizerResizing: isResizerResizing,
 		isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 		isPMDragging: meta?.isPMDragging ?? isPMDragging,
+		lastDragCancelled: meta?.lastDragCancelled ?? lastDragCancelled,
 	};
 };
 
@@ -763,15 +782,22 @@ export const createPlugin = (
 			},
 			handleDOMEvents: {
 				drop(view: EditorView, event: DragEvent) {
-					// prosemirror has sends a default transaction on drop (meta where uiEvent is 'drop'),
-					// this duplicates an empty version of the node it was dropping,
-					// Adding some check here to prevent that if drop position is within activeNode
-					const { state, dispatch, dragging } = view;
-					const pluginState = key.getState(state);
-
-					if (pluginState?.isPMDragging) {
-						dispatch(state.tr.setMeta(key, { ...state.tr.getMeta(key), isPMDragging: false }));
+					// Prevent native DnD from triggering if we are in drag
+					const { dispatch, dragging, state } = view;
+					const tr = state.tr;
+					let pluginState = key.getState(state);
+					const dndDragCancelled = pluginState?.lastDragCancelled;
+					if (pluginState?.isPMDragging || (dndDragCancelled && isMultiSelectEnabled)) {
+						dispatch(
+							tr.setMeta(key, {
+								...tr.getMeta(key),
+								isPMDragging: false,
+								lastDragCancelled: false,
+							}),
+						);
 					}
+
+					pluginState = key.getState(view.state);
 
 					if (!(event.target instanceof HTMLElement) || !pluginState?.activeNode) {
 						return false;
@@ -779,10 +805,10 @@ export const createPlugin = (
 					// Currently we can only drag one node at a time
 					// so we only need to check first child
 					const draggable = dragging?.slice.content.firstChild;
-
 					if (
-						draggable?.type.name === 'layoutColumn' &&
-						fg('platform_editor_advanced_layouts_post_fix_patch_1')
+						(dndDragCancelled && isMultiSelectEnabled) ||
+						(draggable?.type.name === 'layoutColumn' &&
+							fg('platform_editor_advanced_layouts_post_fix_patch_1'))
 					) {
 						// we prevent native DnD for layoutColumn to prevent single column layout.
 						event.preventDefault();
@@ -801,29 +827,7 @@ export const createPlugin = (
 
 					const isSameNode = !!(nodeTarget && draggable?.eq(nodeTarget));
 
-					// CellSelection doesn't expose true from/to positions, we need to query the ranges
-					const selectionRange: SelectionRange =
-						state.selection instanceof CellSelection
-							? state.selection.ranges.reduce(
-									(previousValue, currentValue, _currentIndex, _array): SelectionRange => {
-										return {
-											$from: currentValue.$from.min(previousValue.$from),
-											$to: currentValue.$to.max(previousValue.$to),
-										};
-									},
-								)
-							: { $from: state.selection.$from, $to: state.selection.$to };
-					const expandedSelection = expandSelectionBounds(selectionRange.$from, selectionRange.$to);
-					const expandedAnchor = expandedSelection.$anchor;
-					const expandedHead = expandedSelection.$head;
-					const expandedSelectionFrom = Math.min(expandedAnchor.pos, expandedHead.pos);
-					const expandedSelectionTo = Math.max(expandedAnchor.pos, expandedHead.pos);
-
-					const isInExpandedSelection =
-						domPos >= expandedSelectionFrom && domPos < expandedSelectionTo;
-
-					// Prevent the default drop behavior if the position is within the activeNode or within the expanded selection when multiselect is on
-					if (isSameNode || (isInExpandedSelection && isMultiSelectEnabled)) {
+					if (isSameNode) {
 						event.preventDefault();
 						return true;
 					}
@@ -896,11 +900,14 @@ export const createPlugin = (
 							}
 						}
 
-						if (!event.repeat && event.shiftKey) {
+						if (
+							!event.repeat &&
+							event.shiftKey &&
+							fg('platform_editor_elements_dnd_shift_click_select')
+						) {
 							view.dispatch(
 								view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: true }),
 							);
-							return true;
 						}
 						return false;
 					} else {

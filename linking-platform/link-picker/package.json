@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "2.1.0",
+	"version": "3.0.0",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -42,9 +42,6 @@
 		"./i18n/*": "./src/i18n/*.ts"
 	},
 	"platform-feature-flags": {
-		"platform_bandicoots-link-picker-css": {
-			"type": "boolean"
-		},
 		"platform-linking-visual-refresh-v1": {
 			"type": "boolean"
 		}
@@ -76,7 +73,6 @@
 		"@atlaskit/visually-hidden": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
-		"@emotion/react": "^11.7.1",
 		"@react-loosely-lazy/manifest": "^1.0.0",
 		"date-fns": "^2.17.0",
 		"react-loosely-lazy": "^1.0.0",

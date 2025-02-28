@@ -20,9 +20,9 @@ const ImagePreviewNew = ({ data, fallbackElementHeight }: ImagePreviewProps) => 
 		if (previewBlockRef.current) {
 			const previewHeight = previewBlockRef.current?.getBoundingClientRect().height;
 			setDynamicStyles({
-				borderTopLeftRadius: token('border.radius.200', '8px'),
-				borderTopRightRadius: token('border.radius.200', '8px'),
-				marginBottom: '0.5rem',
+				borderTopLeftRadius: token('border.radius.200'),
+				borderTopRightRadius: token('border.radius.200'),
+				marginBottom: fg('platform-linking-visual-refresh-v1') ? token('space.100') : '0.5rem',
 				...(previewHeight ? { height: `${previewHeight}px` } : {}),
 			});
 		}

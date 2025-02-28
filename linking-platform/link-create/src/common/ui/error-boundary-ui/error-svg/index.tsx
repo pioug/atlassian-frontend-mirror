@@ -4,10 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import ErrorSVGOld from './old';
 
 const WIDTH = 82;
 
@@ -22,7 +19,7 @@ const errorStyles = css({
 
 const id = 'link-create-error-svg';
 
-const ErrorSVGNew = (): JSX.Element => (
+const ErrorSVG = (): JSX.Element => (
 	<svg
 		height="90"
 		viewBox="0 0 164 212"
@@ -62,12 +59,5 @@ const ErrorSVGNew = (): JSX.Element => (
 		</defs>
 	</svg>
 );
-
-const ErrorSVG = () => {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <ErrorSVGNew />;
-	}
-	return <ErrorSVGOld />;
-};
 
 export default ErrorSVG;

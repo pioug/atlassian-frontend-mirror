@@ -5,11 +5,11 @@ import { decisionListSelector, taskListSelector } from '@atlaskit/adf-schema';
 import { tableFullPageEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/consts';
 import {
+	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPaddingDynamic,
 	akEditorSwoopCubicBezier,
 	akLayoutGutterOffset,
-	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -242,3 +242,18 @@ export const editorContentGutterStyle = () => {
 		padding: padding,
 	});
 };
+
+// An additional padding applied at the top of the page reserving space when the primary toolbar is hidden
+// which is used to avoid layout shift when the toolbar is toggled under the editor controls feature
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const primaryToolbarReservedSpace = css({
+	// extra 1px to account for the bottom border on the toolbar
+	paddingTop: `calc(${token('space.500', '40px')} + 1px)`,
+});
+
+// A reduced top padding to be applied to the content area to compensate for the reserved space at the top
+// of the page when the primary toolbar is hidden under the editor controls feature
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const contentAreaReducedHeaderSpace = css({
+	paddingTop: token('space.400', '32px'),
+});

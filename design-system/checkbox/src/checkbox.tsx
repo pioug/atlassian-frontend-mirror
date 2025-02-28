@@ -13,8 +13,7 @@ import {
 	useState,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
@@ -25,24 +24,20 @@ import { token } from '@atlaskit/tokens';
 import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
 import type { CheckboxProps } from './types';
 
-/* eslint-disable @atlaskit/design-system/no-nested-styles */
 const checkboxStyles = css({
 	width: '100%',
 	height: '100%',
-	margin: token('space.0', '0px'),
 	appearance: 'none',
 	border: 'none',
 	gridArea: '1 / 1 / 2 / 2',
+	marginBlockEnd: token('space.0', '0px'),
+	marginBlockStart: token('space.0', '0px'),
+	marginInlineEnd: token('space.0', '0px'),
+	marginInlineStart: token('space.0', '0px'),
 	opacity: 0,
 	outline: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& + svg': {
-		/**
-		 *  Change the variables --checkbox-background-color, --checkbox-border-color
-		 *  and --checkbox-tick-color according to user interactions.
-		 *  All other variables are constant.
-		 *  All styles from the input target the sibling svg.
-		 */
 		'--checkbox-background-color': 'var(--local-background)',
 		'--checkbox-border-color': 'var(--local-border)',
 		'--checkbox-tick-color': 'var(--local-tick-rest)',
@@ -51,55 +46,55 @@ const checkboxStyles = css({
 		gridArea: '1 / 1 / 2 / 2',
 		pointerEvents: 'none',
 		transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'rect:first-of-type': {
 			stroke: 'var(--checkbox-border-color)',
 			strokeWidth: token('border.width', '1px'),
 			transition: 'stroke 0.2s ease-in-out',
 		},
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
 	'&&:focus + svg, &&:checked:focus + svg': {
 		borderRadius: token('border.radius', '0.25rem'),
 		outline: `${token('border.width.outline', '2px')} solid ${token('color.border.focused', B200)}`,
 		outlineOffset: token('space.negative.025', '-2px'),
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:hover + svg': {
 		'--checkbox-background-color': 'var(--local-background-hover)',
 		'--checkbox-border-color': 'var(--local-border-hover)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:checked:hover + svg': {
 		'--checkbox-background-color': 'var(--local-background-checked-hover)',
 		'--checkbox-border-color': 'var(--local-border-checked-hover)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:checked + svg': {
 		'--checkbox-background-color': 'var(--local-background-checked)',
 		'--checkbox-border-color': 'var(--local-border-checked)',
 		'--checkbox-tick-color': 'var(--local-tick-checked)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-invalid] + svg': {
 		'--checkbox-border-color': 'var(--local-border-invalid)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:checked[data-invalid] + svg': {
 		'--checkbox-border-color': 'var(--local-border-checked-invalid)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:active + svg': {
 		'--checkbox-background-color': 'var(--local-background-active)',
 		'--checkbox-border-color': 'var(--local-border-active)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:checked:active + svg': {
 		'--checkbox-background-color': 'var(--local-background-active)',
 		'--checkbox-border-color': 'var(--local-border-active)',
 		'--checkbox-tick-color': 'var(--local-tick-active)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg':
 		{
 			'--checkbox-background-color': 'var(--local-background-disabled)',
@@ -107,52 +102,48 @@ const checkboxStyles = css({
 			cursor: 'not-allowed',
 			pointerEvents: 'none',
 		},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:disabled:checked + svg': {
 		'--checkbox-tick-color': 'var(--local-tick-disabled)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-19551
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:indeterminate + svg': {
 		'--checkbox-background-color': 'var(--local-background-checked)',
 		'--checkbox-border-color': 'var(--local-border-checked)',
 		'--checkbox-tick-color': 'var(--local-tick-checked)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-19551
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:disabled:indeterminate + svg': {
 		'--checkbox-background-color': 'var(--local-background-disabled)',
 		'--checkbox-border-color': 'var(--local-border-disabled)',
 		'--checkbox-tick-color': 'var(--local-tick-disabled)',
 	},
 	'@media screen and (forced-colors: active)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
 		'& + svg': {
 			'--checkbox-background-color': 'Canvas',
 			'--checkbox-border-color': 'CanvasText',
 			'--checkbox-tick-color': 'CanvasText',
 		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:checked + svg, &:checked:hover + svg': {
 			'--checkbox-background-color': 'Canvas',
 			'--checkbox-border-color': 'CanvasText',
 			'--checkbox-tick-color': 'CanvasText',
 		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:focus + svg rect:first-of-type': {
 			stroke: 'Highlight',
 		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
 		'&[data-invalid] + svg': {
 			'--checkbox-border-color': 'Highlight',
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:checked[data-invalid] + svg': {
 			'--checkbox-border-color': 'Highlight',
 		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg':
 			{
 				'--checkbox-background-color': 'Canvas',
@@ -161,7 +152,6 @@ const checkboxStyles = css({
 			},
 	},
 });
-/* eslint-enable @atlaskit/design-system/no-nested-styles */
 
 /**
  * __Checkbox__
@@ -188,6 +178,7 @@ const Checkbox = memo(
 			isRequired,
 			testId,
 			xcss,
+			className,
 			...rest
 		} = props;
 
@@ -249,6 +240,8 @@ const Checkbox = memo(
 					name={name}
 					required={isRequired}
 					css={checkboxStyles}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={className}
 					onChange={onChangeAnalytics}
 					aria-invalid={isInvalid ? 'true' : undefined}
 					data-testid={testId && `${testId}--hidden-checkbox`}

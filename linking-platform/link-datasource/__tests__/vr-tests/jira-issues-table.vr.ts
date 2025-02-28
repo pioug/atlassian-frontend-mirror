@@ -13,5 +13,6 @@ snapshot(JiraIssuesTable, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-link-datasource': [true, false],
+		'platform-component-visual-refresh': [true, false],
 	},
 });

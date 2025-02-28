@@ -149,6 +149,14 @@ token('color.background.blanket');
 					return;
 				}
 
+				const isGetTokenValueCall =
+					isNodeOfType(node.callee, 'Identifier') && node.callee.name === 'getTokenValue';
+
+				// Skip processing if it's a `getTokenValue` call and config.fallbackUsage is `none`
+				if (isGetTokenValueCall && config.fallbackUsage === 'none') {
+					return;
+				}
+
 				if (node.arguments.length < 2 && config.fallbackUsage === 'forced') {
 					let fix: Rule.ReportFixer | undefined;
 

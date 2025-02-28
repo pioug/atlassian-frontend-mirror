@@ -1,5 +1,21 @@
 # @atlaskit/react-select
 
+## 2.0.2
+
+### Patch Changes
+
+- [#119038](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119038)
+  [`5c68906e5ab22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c68906e5ab22) -
+  [ux] Update accessible description for when multiple selections are available
+
+## 2.0.1
+
+### Patch Changes
+
+- [#119843](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119843)
+  [`7bd0d851d1c39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bd0d851d1c39) -
+  [ux] Clean up ARIA props that are no longer needed
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,7 +1,33 @@
-import React, { lazy, Suspense } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { lazy, Suspense } from 'react';
 
 import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+
+const styles = cssMap({
+	image: {
+		objectFit: 'cover',
+		height: '100%',
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+
+	banner: {
+		width: '100%',
+	},
+
+	bannerFillSpace: {
+		width: '100%',
+		height: '100%',
+		objectFit: 'cover',
+	},
+});
 
 const AutoDevAvatar = lazy(
 	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-AutoDevAvatar"*/ './assets/auto-dev'),
@@ -156,15 +182,6 @@ type GeneratedAvatarProps = {
 	size: SizeType;
 };
 
-const imageStyles = xcss({
-	objectFit: 'cover',
-	height: '100%',
-	width: '100%',
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-});
-
 const outOfTheBoxAgentAvatar: {
 	[key: string]: { getRender: (size: SizeType) => React.ReactNode; color: Color };
 } = {
@@ -307,16 +324,6 @@ const getAvatarRender = ({
 	};
 };
 
-const bannerStyles = xcss({
-	width: '100%',
-});
-
-const bannerFillSpaceStyles = xcss({
-	width: '100%',
-	height: '100%',
-	objectFit: 'cover',
-});
-
 export const AgentBanner = ({
 	agentNamedId,
 	agentId,
@@ -336,7 +343,7 @@ export const AgentBanner = ({
 
 	return (
 		<Box
-			xcss={[bannerStyles, fillSpace ? bannerFillSpaceStyles : undefined]}
+			xcss={cx(styles.banner, fillSpace ? styles.bannerFillSpace : undefined)}
 			style={{ backgroundColor: color.primary, height: height ? `${height}px` : undefined }}
 		/>
 	);
@@ -347,7 +354,7 @@ export const GeneratedAvatar = (props: GeneratedAvatarProps) => {
 
 	return (
 		<Box
-			xcss={imageStyles}
+			xcss={styles.image}
 			style={{
 				backgroundColor: color.primary,
 			}}

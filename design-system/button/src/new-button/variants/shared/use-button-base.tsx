@@ -136,6 +136,21 @@ const defaultStyles = xcss({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text', colors.N500),
 	},
+	':hover': {
+		// @ts-expect-error — using tokens for explicit fallback usage.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
+		color: token('color.text', colors.N500),
+	},
+	':active': {
+		// @ts-expect-error — using tokens for explicit fallback usage.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
+		color: token('color.text', colors.N500),
+	},
+	':focus': {
+		// @ts-expect-error — using tokens for explicit fallback usage.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
+		color: token('color.text', colors.N500),
+	},
 });
 
 const defaultRefreshedStyles = xcss({
@@ -148,15 +163,31 @@ const defaultRefreshedStyles = xcss({
 	':visited': {
 		color: 'color.text.subtle',
 	},
+	':hover': {
+		color: 'color.text.subtle',
+	},
+	':active': {
+		color: 'color.text.subtle',
+	},
+	':focus': {
+		color: 'color.text.subtle',
+	},
 });
 
 const primaryStyles = xcss({
 	background: token('color.background.brand.bold', '#0052CC'),
-	// @ts-expect-error
-	color: token('color.text.inverse'),
+	color: 'color.text.inverse',
 	':visited': {
-		// @ts-expect-error
-		color: token('color.text.inverse'),
+		color: 'color.text.inverse',
+	},
+	':hover': {
+		color: 'color.text.inverse',
+	},
+	':active': {
+		color: 'color.text.inverse',
+	},
+	':focus': {
+		color: 'color.text.inverse',
 	},
 });
 
@@ -181,6 +212,18 @@ const warningStyles = xcss({
 		// @ts-expect-error
 		color: token('color.text.warning.inverse', '#172B4D'),
 	},
+	':hover': {
+		// @ts-expect-error
+		color: token('color.text.warning.inverse', '#172B4D'),
+	},
+	':active': {
+		// @ts-expect-error
+		color: token('color.text.warning.inverse', '#172B4D'),
+	},
+	':focus': {
+		// @ts-expect-error
+		color: token('color.text.warning.inverse', '#172B4D'),
+	},
 });
 
 const warningInteractiveStyles = xcss({
@@ -202,6 +245,15 @@ const dangerStyles = xcss({
 	':visited': {
 		color: 'color.text.inverse',
 	},
+	':hover': {
+		color: 'color.text.inverse',
+	},
+	':active': {
+		color: 'color.text.inverse',
+	},
+	':focus': {
+		color: 'color.text.inverse',
+	},
 });
 
 const dangerInteractiveStyles = xcss({
@@ -219,6 +271,15 @@ const discoveryStyles = xcss({
 	background: token('color.background.discovery.bold', '#5243AA'),
 	color: 'color.text.inverse',
 	':visited': {
+		color: 'color.text.inverse',
+	},
+	':hover': {
+		color: 'color.text.inverse',
+	},
+	':active': {
+		color: 'color.text.inverse',
+	},
+	':focus': {
 		color: 'color.text.inverse',
 	},
 });
@@ -242,12 +303,33 @@ const subtleStyles = xcss({
 		// @ts-expect-error
 		color: token('color.text', '#42526E'),
 	},
+	':hover': {
+		// @ts-expect-error
+		color: token('color.text', '#42526E'),
+	},
+	':active': {
+		// @ts-expect-error
+		color: token('color.text', '#42526E'),
+	},
+	':focus': {
+		// @ts-expect-error
+		color: token('color.text', '#42526E'),
+	},
 });
 
 const subtleRefreshedStyles = xcss({
 	background: token('color.background.neutral.subtle', 'transparent'),
 	color: 'color.text.subtle',
 	':visited': {
+		color: 'color.text.subtle',
+	},
+	':hover': {
+		color: 'color.text.subtle',
+	},
+	':active': {
+		color: 'color.text.subtle',
+	},
+	':focus': {
 		color: 'color.text.subtle',
 	},
 });
@@ -276,34 +358,40 @@ const subtleInteractiveRefreshedStyles = xcss({
 	},
 });
 
-// Required due to Jira's AUI CSS reset: https://product-fabric.atlassian.net/browse/DSP-15687
-const linkDecorationUnsetStyles = xcss({
+// Reinforce existing styles with higher specificity
+// to defend against global anchor styles from products,
+// preventing issues in Jira and Confluence.
+const linkDefensiveStyles = xcss({
 	textDecoration: 'none',
 	':hover': { textDecoration: 'none' },
 	':active': { textDecoration: 'none' },
 	':focus': { textDecoration: 'none' },
+	':visited': { textDecoration: 'none' },
 });
 
 const disabledStyles = xcss({
 	cursor: 'not-allowed',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	background: token('color.background.disabled', colors.N20A),
-	// @ts-expect-error
-	color: token('color.text.disabled'),
+	color: 'color.text.disabled',
+	'::after': {
+		content: 'none',
+	},
+	':visited': {
+		color: 'color.text.disabled',
+	},
 	':hover': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		background: token('color.background.disabled', colors.N20A),
-		// @ts-expect-error
-		color: token('color.text.disabled'),
+		color: 'color.text.disabled',
 	},
 	':active': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		background: token('color.background.disabled', colors.N20A),
-		// @ts-expect-error
-		color: token('color.text.disabled'),
+		color: 'color.text.disabled',
 	},
-	'::after': {
-		content: 'none',
+	':focus': {
+		color: 'color.text.disabled',
 	},
 });
 
@@ -318,6 +406,21 @@ const selectedStyles = xcss({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.selected', colors.N20),
 	},
+	':hover': {
+		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		color: token('color.text.selected', colors.N20),
+	},
+	':active': {
+		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		color: token('color.text.selected', colors.N20),
+	},
+	':focus': {
+		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		color: token('color.text.selected', colors.N20),
+	},
 });
 
 const selectedRefreshedStyles = xcss({
@@ -328,6 +431,15 @@ const selectedRefreshedStyles = xcss({
 		borderColor: 'color.border.selected',
 	},
 	':visited': {
+		color: 'color.text.selected',
+	},
+	':hover': {
+		color: 'color.text.selected',
+	},
+	':active': {
+		color: 'color.text.selected',
+	},
+	':focus': {
 		color: 'color.text.selected',
 	},
 });
@@ -481,6 +593,7 @@ const loadingOverlayStyles = xcss({
 const useButtonBase = <TagName extends HTMLElement>({
 	appearance: propAppearance = 'default',
 	autoFocus = false,
+	buttonType,
 	isDisabled: propIsDisabled = false,
 	isLoading = false,
 	isSelected: propIsSelected = false,
@@ -555,7 +668,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 				(fg('platform-component-visual-refresh')
 					? subtleInteractiveRefreshedStyles
 					: subtleInteractiveStyles),
-			linkDecorationUnsetStyles,
+			buttonType === 'link' && linkDefensiveStyles,
 			isSelected &&
 				(fg('platform-component-visual-refresh') ? selectedRefreshedStyles : selectedStyles),
 			isSelected && isSplitButton && selectedInsideSplitButtonStyles,

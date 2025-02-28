@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.0.4
+
+### Patch Changes
+
+- [#120517](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120517)
+  [`cfcd496e4d6f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfcd496e4d6f2) -
+  [ED-26790] Fix selecting an Emoji or Mention Selects All LCMs
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

@@ -149,7 +149,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/avatar": "^23.0.0",
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/checkbox": "^16.0.0",
+		"@atlaskit/checkbox": "^17.0.0",
 		"@atlaskit/code": "^16.0.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/dropdown-menu": "^13.0.0",

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.0.1
+
+### Patch Changes
+
+- [#120426](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120426)
+  [`1fc7b1519dbcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1fc7b1519dbcf) -
+  Uses a separate FF for the new QuickInsert and Right rail to split them from the other Editor
+  Controls features.
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

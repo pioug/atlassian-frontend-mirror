@@ -4,7 +4,6 @@ import debounce from 'debounce-promise';
 import { useForm } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { AsyncSelect as AkAsyncSelect, type GroupType, type OptionType } from '@atlaskit/select';
 
 import messages from '../../../common/messages';
@@ -12,7 +11,6 @@ import { useLinkCreateCallback } from '../../../controllers/callback-context';
 import { CreateField } from '../../../controllers/create-field';
 import { useFormContext } from '../../../controllers/form-context';
 
-import { AsyncSelectOld } from './old/main';
 import { type AsyncSelectProps } from './types';
 
 export const TEST_ID = 'link-create-async-select';
@@ -23,7 +21,7 @@ export const TEST_ID = 'link-create-async-select';
  * errors returned by the handleSubmit function passed to the form <Form> that
  * have a key matching the `name` of this field are shown below the field.
  */
-function AsyncSelectNew<T = OptionType>({
+export function AsyncSelect<T = OptionType>({
 	id,
 	name,
 	label,
@@ -143,11 +141,4 @@ function AsyncSelectNew<T = OptionType>({
 			}}
 		</CreateField>
 	);
-}
-
-export function AsyncSelect<T = OptionType>(props: AsyncSelectProps<T>) {
-	if (fg('platform_bandicoots-link-create-css')) {
-		return <AsyncSelectNew {...props} />;
-	}
-	return <AsyncSelectOld {...props} />;
 }

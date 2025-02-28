@@ -15,9 +15,6 @@ snapshot(DefaultExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform_bandicoots-link-picker-css': [true, false],
-	},
 });
 snapshot(SelectedExample, {
 	variants: [
@@ -32,7 +29,4 @@ snapshot(SelectedExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform_bandicoots-link-picker-css': [true, false],
-	},
 });

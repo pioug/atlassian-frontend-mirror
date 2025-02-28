@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.1.6
+
+### Patch Changes
+
+- [#120473](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120473)
+  [`6d0a06b4b6689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d0a06b4b6689) -
+  Put DnD shift-select behind FG
+- [#119967](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119967)
+  [`9c072f388dcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c072f388dcaa) -
+  Add check for selection before triggering quick insert, and move selection if not within target
+  node
+
+## 3.1.5
+
+### Patch Changes
+
+- [#119444](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119444)
+  [`853538e68d556`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/853538e68d556) -
+  Fix cancelled drag causing layout duplication and locked handle
+- Updated dependencies
+
+## 3.1.4
+
+### Patch Changes
+
+- [#120000](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120000)
+  [`a021079ba8f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a021079ba8f13) -
+  [ux] Remove copy/delete button from block menu
+
 ## 3.1.3
 
 ### Patch Changes

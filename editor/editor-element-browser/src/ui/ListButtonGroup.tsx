@@ -8,8 +8,15 @@ import type { GroupData } from './ItemType';
 import { ListButtonItem } from './ListButtonItem';
 
 const headingContainerStyles = xcss({
+	paddingTop: 'space.075',
+	paddingBottom: 'space.150',
+	paddingLeft: 'space.300',
+	paddingRight: 'space.300',
+});
+
+const itemsContainerStyles = xcss({
 	paddingTop: 'space.0',
-	paddingBottom: 'space.100',
+	paddingBottom: 'space.0',
 	paddingLeft: 'space.200',
 	paddingRight: 'space.200',
 });
@@ -27,24 +34,28 @@ const ListButtonGroupBase = memo(
 			<Section hasSeparator={hasSeparator}>
 				{label && (
 					<Box xcss={[headingContainerStyles]}>
-						<Heading size={'xsmall'}>{label}</Heading>
+						<Heading size={'xsmall'} as="span">
+							{label}
+						</Heading>
 					</Box>
 				)}
-				{items.map((item) => {
-					return (
-						<ListButtonItem
-							key={item.index}
-							index={item.index}
-							title={item.title}
-							description={item.description}
-							showDescription={item.showDescription}
-							attributes={item.attributes}
-							keyshortcut={item.keyshortcut}
-							renderIcon={item.renderIcon}
-							onItemSelected={(index) => onItemSelected?.(index, id)}
-						/>
-					);
-				})}
+				<Box xcss={[itemsContainerStyles]}>
+					{items.map((item) => {
+						return (
+							<ListButtonItem
+								key={item.index}
+								index={item.index}
+								title={item.title}
+								description={item.description}
+								showDescription={item.showDescription}
+								attributes={item.attributes}
+								keyshortcut={item.keyshortcut}
+								renderIcon={item.renderIcon}
+								onItemSelected={(index) => onItemSelected?.(index, id)}
+							/>
+						);
+					})}
+				</Box>
 			</Section>
 		);
 	},

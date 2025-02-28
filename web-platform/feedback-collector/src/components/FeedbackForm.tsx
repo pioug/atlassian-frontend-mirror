@@ -152,6 +152,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 			onClose={onClose}
 			testId="feedbackCollectorModalDialog"
 			shouldReturnFocus={shouldReturnFocusRef}
+			shouldScrollInViewport
 		>
 			<Form
 				onSubmit={async () => {

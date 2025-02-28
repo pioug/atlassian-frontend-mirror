@@ -15,7 +15,4 @@ snapshot(ErrorBoundary, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform_bandicoots-link-picker-css': [true, false],
-	},
 });

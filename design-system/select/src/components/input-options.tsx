@@ -2,66 +2,49 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
-import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
 import { type IconProps } from '@atlaskit/icon';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import RadioIcon from '@atlaskit/icon/glyph/radio';
 import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type OptionProps, type OptionType } from '../types';
 
-const getPrimitiveStyles = (props: Omit<OptionProps, 'children' | 'innerProps' | 'innerRef'>) => {
-	const { cx, className, getStyles, isDisabled, isFocused, isSelected } = props;
-
-	const baseStyles = {
-		alignItems: 'center',
-		backgroundColor: isFocused ? token('color.background.neutral.subtle.hovered') : 'transparent',
-		color: isDisabled ? token('color.text.disabled', 'inherit') : 'inherit',
+const optionStyles = cssMap({
+	default: {
 		display: 'flex ',
-		paddingBottom: token('space.050', '4px'),
-		paddingLeft: token('space.200', '16px'),
-		paddingTop: token('space.050', '4px'),
-		// This 'none' needs to be present to ensure that style is not applied when
-		// the option is selected but not focused.
-		boxShadow: isFocused ? `inset 2px 0px 0px ${token('color.border.focused')}` : 'none',
-
-		':active': {
+		alignItems: 'center',
+		width: '100%',
+		userSelect: 'none',
+		WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
+		boxSizing: 'border-box',
+		paddingBlockEnd: token('space.050', '4px'),
+		paddingBlockStart: token('space.050', '4px'),
+		paddingInlineStart: token('space.200', '16px'),
+		paddingInlineEnd: token('space.150', '12px'),
+		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
-
+		backgroundColor: 'transparent',
+		boxShadow: 'inherit',
+		color: 'inherit',
+	},
+	focused: {
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+		boxShadow: `inset 2px 0px 0px ${token('color.border.focused')}`,
 		'@media screen and (-ms-high-contrast: active)': {
-			borderLeft: isFocused ? '2px solid transparent' : '',
+			borderInlineStart: '2px solid transparent',
 		},
-	};
-
-	const augmentedStyles = css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		...getStyles('option', props),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		...baseStyles,
-	});
-
-	const bemClasses = {
-		option: true,
-		'option--is-disabled': isDisabled,
-		'option--is-focused': isFocused,
-		'option--is-selected': isSelected,
-	};
-
-	// maintain react-select API
-	return {
-		styles: augmentedStyles,
-		classes: cx(bemClasses, className) as string,
-	};
-};
+	},
+	disabled: {
+		color: token('color.text.disabled', 'inherit'),
+	},
+});
 
 // state of the parent option
 interface ControlProps {
@@ -72,7 +55,7 @@ interface ControlProps {
 }
 
 // the primary color represents the outer or background element
-const getPrimaryColor = ({ isActive, isDisabled, isFocused, isSelected }: ControlProps): string => {
+const getPrimaryColor = ({ isActive, isDisabled, isFocused, isSelected }: ControlProps) => {
 	if (isDisabled) {
 		return token('color.background.disabled');
 	} else if (isSelected && isActive) {
@@ -91,11 +74,9 @@ const getPrimaryColor = ({ isActive, isDisabled, isFocused, isSelected }: Contro
 };
 
 // the secondary color represents the radio dot or checkmark
-const getSecondaryColor = ({ isActive, isDisabled, isSelected }: ControlProps): string => {
+const getSecondaryColor = ({ isDisabled, isSelected }: ControlProps) => {
 	if (isDisabled && isSelected) {
 		return token('color.text.disabled');
-	} else if (isActive && isSelected && !isDisabled) {
-		return token('elevation.surface');
 	} else if (!isSelected) {
 		return 'transparent';
 	}
@@ -103,14 +84,20 @@ const getSecondaryColor = ({ isActive, isDisabled, isSelected }: ControlProps): 
 	return token('elevation.surface');
 };
 
-// the border color surrounds the checkbox/radio
-const getBorderColor = ({ isActive, isDisabled, isSelected }: ControlProps): string => {
-	if (isSelected || isActive || isDisabled) {
-		return 'currentColor';
-	}
-
-	return token('color.border.input');
-};
+const iconStyles = cssMap({
+	inherit: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& svg rect, & svg circle:first-of-type': {
+			stroke: 'currentColor',
+		},
+	},
+	default: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& svg rect, & svg circle:first-of-type': {
+			stroke: token('color.border.input'),
+		},
+	},
+});
 
 const baseIconStyles = css({
 	display: 'flex ',
@@ -140,29 +127,41 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 	const onMouseDown = useCallback(() => setIsActive(true), []);
 	const onMouseUp = useCallback(() => setIsActive(false), []);
 
-	const { getStyles, Icon, children, innerProps, innerRef, ...rest } = props;
-	const { isDisabled, isSelected, isFocused } = props;
+	const { Icon, children, innerProps, innerRef, cx, className, isDisabled, isSelected, isFocused } =
+		props;
 
-	// prop assignment
-	const newProps = {
-		...innerProps,
-		onMouseDown: onMouseDown,
-		onMouseUp: onMouseUp,
-		onMouseLeave: onMouseUp,
-	};
-
-	const { styles, classes } = getPrimitiveStyles({ getStyles, ...rest });
-
-	const isVoiceOver =
-		isAppleDevice() &&
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		fg('design_system_select-a11y-improvement');
+	const classNames = useMemo(
+		() =>
+			cx(
+				{
+					option: true,
+					'option--is-disabled': isDisabled,
+					'option--is-focused': isFocused,
+					'option--is-selected': isSelected,
+				},
+				className,
+			),
+		[cx, isDisabled, isFocused, isSelected, className],
+	);
 
 	return (
 		// These need to remain this way because `react-select` passes props with
 		// styles inside, and that must be done dynamically.
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<div css={styles} className={classes} ref={innerRef} {...newProps}>
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		<div
+			css={[
+				optionStyles.default,
+				isFocused && optionStyles.focused,
+				isDisabled && optionStyles.disabled,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={classNames}
+			ref={innerRef}
+			onMouseDown={onMouseDown}
+			onMouseUp={onMouseUp}
+			onMouseLeave={onMouseUp}
+			{...innerProps}
+		>
 			<div
 				css={[
 					baseIconStyles,
@@ -170,38 +169,19 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 					// This is an a11y fix for Select only for now but it may be rolled
 					// into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-					{
-						// This can eventually be changed to static styles that are
-						// applied conditionally (e.g. `isActive && activeBorderStyles`),
-						// but considering there are multiple instances of `react-select`
-						// requiring styles to be generated dynamically, it seemed like a
-						// low priority.
-						// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-						'& svg rect, & svg circle:first-of-type': {
-							stroke: getBorderColor({ isActive, isDisabled, isSelected }),
-						},
-					},
+					isSelected || isActive || isDisabled ? iconStyles.inherit : iconStyles.default,
 				]}
 			>
 				{!!Icon ? (
 					<Icon
 						label=""
 						primaryColor={getPrimaryColor({ isDisabled, isSelected, isFocused, isActive })}
-						secondaryColor={getSecondaryColor({ isDisabled, isSelected, isActive })}
+						secondaryColor={getSecondaryColor({ isDisabled, isSelected })}
 						isFacadeDisabled={true}
 					/>
 				) : null}
 			</div>
-			<div css={baseOptionStyles}>
-				{children}
-				{/* Funny story, aria-selected does not work very well with VoiceOver, so it needs to be removed but we still need to express selected state
-					https://bugs.webkit.org/show_bug.cgi?id=209076
-					VoiceOver does not announce aria-disabled the first time, so going this route
-					*/}
-				{isVoiceOver && (isSelected || isDisabled) && (
-					<VisuallyHidden>{`${isSelected ? ',selected' : ''}${isDisabled ? ',dimmed' : ''}`}</VisuallyHidden>
-				)}
-			</div>
+			<div css={baseOptionStyles}>{children}</div>
 		</div>
 	);
 };
@@ -236,7 +216,6 @@ const NewRadioIcon = (props: IconProps) => (
  */
 export const CheckboxOption = <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
-	// ): JSX.Element => <ControlOption<OptionT, true> Icon={CheckboxIcon} {...props} />;
 ): JSX.Element => (
 	<ControlOption<OptionT, true>
 		Icon={

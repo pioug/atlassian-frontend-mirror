@@ -64,7 +64,7 @@ interface PlacementArgs {
 	controlHeight: number;
 }
 
-export function getMenuPlacement({
+function getMenuPlacement({
 	maxHeight: preferredMaxHeight,
 	menuEl,
 	minHeight,
@@ -227,7 +227,7 @@ export function getMenuPlacement({
 // Menu Component
 // ------------------------------
 
-export interface MenuPlacementProps {
+interface MenuPlacementProps {
 	/**
 	 * Set the minimum height of the menu.
 	 */
@@ -280,7 +280,7 @@ interface ChildrenProps {
 	placerProps: PlacerProps;
 }
 
-export interface MenuPlacerProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>>
+interface MenuPlacerProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 	extends CommonProps<Option, IsMulti, Group>,
 		MenuPlacementProps {
 	/**

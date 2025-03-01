@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useEffect } from 'react';
 
 import { ToolTipContent, formatShortcut } from '@atlaskit/editor-common/keymaps';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
@@ -82,8 +82,9 @@ const ListButtonItemBase = memo(
 );
 
 export const ListButtonItem = memo((props: ButtonItemProps) => {
+	const { keyshortcut, isSelected, isDisabled, attributes, title, setSelectedItem, index } = props;
 	const shortcutComponent = useCallback(() => {
-		const shortcut = props.keyshortcut && formatShortcut(props.keyshortcut);
+		const shortcut = keyshortcut && formatShortcut(keyshortcut);
 		if (!shortcut) {
 			return null;
 		}
@@ -93,23 +94,29 @@ export const ListButtonItem = memo((props: ButtonItemProps) => {
 				paddingBlock="space.025"
 				xcss={[
 					shortcutStyles,
-					props.isSelected && selectedColorStyles,
-					props.isDisabled && disabledShortcutStyles,
+					isSelected && selectedColorStyles,
+					isDisabled && disabledShortcutStyles,
 				]}
 			>
 				{shortcut}
 			</Box>
 		);
-	}, [props.isDisabled, props.isSelected, props.keyshortcut]);
+	}, [isDisabled, isSelected, keyshortcut]);
 
 	const contentComponent = useCallback(() => {
 		return (
 			<Inline space="space.100" alignBlock={'center'}>
-				<Text>{props.title}</Text>
-				{props.attributes?.new && <Lozenge appearance="new">New</Lozenge>}
+				<Text>{title}</Text>
+				{attributes?.new && <Lozenge appearance="new">New</Lozenge>}
 			</Inline>
 		);
-	}, [props.attributes?.new, props.title]);
+	}, [attributes?.new, title]);
+
+	useEffect(() => {
+		if (isSelected) {
+			setSelectedItem?.({ index });
+		}
+	}, [isSelected, setSelectedItem, index]);
 
 	return (
 		<ListButtonItemBase

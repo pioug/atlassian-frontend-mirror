@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 20.0.1
+
+### Patch Changes
+
+- [#120713](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120713)
+  [`acea5ba3fdbdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acea5ba3fdbdb) -
+  Remove old codemod and update dependencies.
+
 ## 20.0.0
 
 ### Major Changes

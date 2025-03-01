@@ -40,7 +40,7 @@
 		"@atlaskit/calendar": "^17.1.0",
 		"@atlaskit/css": "^0.10.0",
 		"@atlaskit/date": "^2.0.0",
-		"@atlaskit/editor-common": "^100.3.0",
+		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-annotation": "2.0.2",
 		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",

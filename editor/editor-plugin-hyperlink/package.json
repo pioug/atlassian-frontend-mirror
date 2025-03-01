@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/editor-common": "^100.3.0",
+		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-card": "5.0.4",
 		"@atlaskit/editor-plugin-connectivity": "^2.0.0",

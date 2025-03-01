@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "20.0.0",
+	"version": "20.0.1",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -64,7 +64,6 @@
 		"@popperjs/core": "^2.11.8",
 		"bind-event-listener": "^3.0.0",
 		"react-focus-lock": "^2.9.5",
-		"react-node-resolver": "^1.0.1",
 		"react-popper": "^2.3.0",
 		"shallow-equal": "^3.1.0"
 	},
@@ -76,19 +75,24 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
+		"@atlaskit/button": "^21.1.1",
 		"@atlaskit/checkbox": "^17.0.0",
+		"@atlaskit/docs": "*",
+		"@atlaskit/drawer": "^10.0.1",
+		"@atlaskit/form": "^12.0.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/logo": "^16.0.0",
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/radio": "^8.0.0",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
-		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"ast-types": "^0.13.3",
+		"jest-in-case": "^1.0.2",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^18.2.0",
 		"react-select-event": "^5.5.0",
-		"react-value": "^0.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

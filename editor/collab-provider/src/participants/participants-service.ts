@@ -47,7 +47,11 @@ export class ParticipantsService {
 		private participantsState: ParticipantsState = new ParticipantsState(),
 		private emit: (
 			evt: 'presence' | 'telepointer' | 'disconnected' | 'presence:changed',
-			data: CollabEventPresenceData | CollabTelepointerPayload | CollabEventDisconnectedData | CollabPresenceActivityChangePayload,
+			data:
+				| CollabEventPresenceData
+				| CollabTelepointerPayload
+				| CollabEventDisconnectedData
+				| CollabPresenceActivityChangePayload,
 		) => void,
 		private getUser: GetUserType,
 		private channelBroadcast: <K extends keyof ChannelEvent>(
@@ -121,8 +125,11 @@ export class ParticipantsService {
 		}
 	};
 
-	private hasPresenceActivityChanged = (previous: ProviderParticipant, current: ProviderParticipant) => {
-		return previous.presenceActivity !== current.presenceActivity
+	private hasPresenceActivityChanged = (
+		previous: ProviderParticipant,
+		current: ProviderParticipant,
+	) => {
+		return previous.presenceActivity !== current.presenceActivity;
 	};
 
 	/**
@@ -161,14 +168,17 @@ export class ParticipantsService {
 
 		if (previousParticipant) {
 			if (this.hasPresenceActivityChanged(previousParticipant, participant)) {
-				this.emitPresenceActivityChange({
+				this.emitPresenceActivityChange(
+					{
 						type: 'participant:activity',
 						activity: participant.presenceActivity,
-					}, 'handling participant activity changed event');
+					},
+					'handling participant activity changed event',
+				);
 			}
 			return;
 		}
-		
+
 		// Only emit the joined presence event if this is a new participant
 		this.emitPresence({ joined: [participant] }, 'handling participant updated event');
 	};
@@ -351,7 +361,10 @@ export class ParticipantsService {
 	 * @param data Data to emit
 	 * @param errorMessage Error message for analytics
 	 */
-	private emitPresenceActivityChange(data: CollabPresenceActivityChangePayload, errorMessage: string): void {
+	private emitPresenceActivityChange(
+		data: CollabPresenceActivityChangePayload,
+		errorMessage: string,
+	): void {
 		try {
 			this.emit('presence:changed', data);
 		} catch (error) {

@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 26.4.0
+
+### Minor Changes
+
+- [#117805](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117805)
+  [`1eed800de1541`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eed800de1541) -
+  added conditional styles for container wrap and positioning
+
 ## 26.3.2
 
 ### Patch Changes

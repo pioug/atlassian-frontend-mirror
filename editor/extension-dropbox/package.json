@@ -50,7 +50,7 @@
 	"dependencies": {
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/editor-common": "^100.3.0",
+		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/heading": "5.1.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/modal-dialog": "^13.0.0",

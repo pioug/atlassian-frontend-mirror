@@ -8,7 +8,6 @@ import React, {
 import Select from './select';
 import { type GroupBase } from './types';
 import useStateManager, { type StateManagerProps } from './use-state-manager';
-export type { StateManagerProps };
 
 /**
  * __StateManagedSelect__

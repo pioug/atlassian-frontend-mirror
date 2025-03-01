@@ -12,4 +12,9 @@ describe('Progress Bar', () => {
 		const progressBarElement = screen.getByTestId('progress-bar');
 		expect(progressBarElement).toHaveAttribute('aria-label', ariaLabel);
 	});
+
+	it('should not be focusable', () => {
+		render(<ProgressBar value={0.4} />);
+		expect(screen.getByTestId('progress-bar')).not.toHaveAttribute('tabIndex');
+	});
 });

@@ -170,6 +170,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	private stickyScrollbar?: TableStickyScrollbar;
 
 	private isInitialOverflowSent: boolean;
+	private isNestedInTable: boolean;
 	private initialOverflowCaptureTimerId?: ReturnType<typeof setTimeout>;
 	private resizeObserver?: ResizeObserver;
 
@@ -185,6 +186,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const { options, containerWidth, getNode } = props;
 		this.node = getNode();
 		this.containerWidth = containerWidth;
+
+		const tablePos = props.getPos();
+
+		this.isNestedInTable =
+			tablePos && fg('nested_table_control_padding_with_css')
+				? getParentOfTypeCount(props.view.state.schema.nodes.table)(
+						props.view.state.doc.resolve(tablePos),
+					) > 0
+				: false;
 
 		this.isInitialOverflowSent = false;
 
@@ -293,8 +303,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				passive: true,
 			});
 
-			if (this.table) {
-				this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
+			if (fg('disable-sticky-scrollbar-for-nested-tables')) {
+				if (this.table && !this.isNestedInTable) {
+					this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
+				}
+			} else {
+				if (this.table) {
+					this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
+				}
 			}
 
 			if (isDragAndDropEnabled) {
@@ -909,10 +925,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 
 		const isNested = isTableNested(view.state, tablePos);
-		const isNestedInTable =
-			tablePos && fg('nested_table_control_padding_with_css')
-				? getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(tablePos)) > 0
-				: false;
 
 		const topShadowPadding = isDragAndDropEnabled ? 0 : shadowPadding;
 		const topOffset = 0;
@@ -934,7 +946,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					[ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
 					[ClassName.HOVERED_DELETE_BUTTON]: isInDanger,
 					[ClassName.TABLE_SELECTED]: isTableSelected(selection ?? view.state.selection),
-					[ClassName.NESTED_TABLE_WITH_CONTROLS]: tableActive && allowControls && isNestedInTable,
+					[ClassName.NESTED_TABLE_WITH_CONTROLS]:
+						tableActive && allowControls && this.isNestedInTable,
 				})}
 				editorView={view}
 				getPos={getPos}
@@ -961,11 +974,22 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					className={ClassName.TABLE_STICKY_SENTINEL_TOP}
 					data-testid="sticky-sentinel-top"
 				/>
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
-					data-testid="sticky-scrollbar-sentinel-top"
-				/>
+				{fg('disable-sticky-scrollbar-for-nested-tables') ? (
+					!this.isNestedInTable && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
+							data-testid="sticky-scrollbar-sentinel-top"
+						/>
+					)
+				) : (
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
+						data-testid="sticky-scrollbar-sentinel-top"
+					/>
+				)}
+
 				{allowControls && rowControls}
 				{isDragAndDropEnabled && (
 					<ExternalDropTargets
@@ -1019,26 +1043,59 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				>
 					{allowControls && colControls}
 				</div>
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						display: 'none',
-						// prevent unwanted scroll during table resize without removing scrollbar container from the dom
-						width: isResizing ? token('space.0', '0px') : '100%',
-					}}
-				>
+				{fg('disable-sticky-scrollbar-for-nested-tables') ? (
+					!this.isNestedInTable ? (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+							style={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								display: 'none',
+								// prevent unwanted scroll during table resize without removing scrollbar container from the dom
+								width: isResizing ? token('space.0', '0px') : '100%',
+							}}
+						>
+							<div
+								style={{
+									width: tableRef?.clientWidth,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									height: '100%',
+								}}
+							></div>
+						</div>
+					) : (
+						<div
+							style={{
+								width: tableRef?.clientWidth,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								height: '100%',
+							}}
+						></div>
+					)
+				) : (
 					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
 						style={{
-							width: tableRef?.clientWidth,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: '100%',
+							height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							display: 'none',
+							// prevent unwanted scroll during table resize without removing scrollbar container from the dom
+							width: isResizing ? token('space.0', '0px') : '100%',
 						}}
-					></div>
-				</div>
+					>
+						<div
+							style={{
+								width: tableRef?.clientWidth,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								height: '100%',
+							}}
+						></div>
+					</div>
+				)}
 				<div
 					contentEditable={false}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -1070,16 +1127,27 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						/>
 					</div>
 				)}
+
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM}
 					data-testid="sticky-sentinel-bottom"
 				/>
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
-					data-testid="sticky-scrollbar-sentinel-bottom"
-				/>
+				{fg('disable-sticky-scrollbar-for-nested-tables') ? (
+					!this.isNestedInTable && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
+							data-testid="sticky-scrollbar-sentinel-bottom"
+						/>
+					)
+				) : (
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
+						data-testid="sticky-scrollbar-sentinel-bottom"
+					/>
+				)}
 			</TableContainer>
 		);
 	}

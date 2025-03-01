@@ -16,7 +16,6 @@ import type {
 // ==============================
 
 export const noop = () => {};
-export const emptyString = () => '';
 
 // ==============================
 // Class Name Prefixer
@@ -288,21 +287,6 @@ export function getBoundingClientObj(element: HTMLElement) {
 		width: rect.width,
 	};
 }
-export interface Rect {
-	left: number;
-	right: number;
-	bottom: number;
-	height: number;
-	width: number;
-}
-
-// ==============================
-// String to Key (kebabify)
-// ==============================
-
-export function toKey(str: string) {
-	return str.replace(/\W/g, '-');
-}
 
 // ==============================
 // Touch Capability Detector
@@ -358,7 +342,7 @@ export function notNullish<T>(item: T | null | undefined): item is T {
 	return item != null;
 }
 
-export function isArray<T>(arg: unknown): arg is readonly T[] {
+function isArray<T>(arg: unknown): arg is readonly T[] {
 	return Array.isArray(arg);
 }
 

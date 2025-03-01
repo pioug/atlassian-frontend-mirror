@@ -177,11 +177,7 @@ export interface MultiValueGenericProps<
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MultiValueGeneric = <
-	Option,
-	IsMulti extends boolean,
-	Group extends GroupBase<Option>,
->({
+const MultiValueGeneric = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	children,
 	innerProps,
 }: MultiValueGenericProps<Option, IsMulti, Group>) => <div {...innerProps}>{children}</div>;

@@ -23,6 +23,8 @@ export type InsertPanelItem = TypeAheadItem & {
 	tempKey: number; // index in the items array
 };
 
+export type OnSelectItem = (props: { index: number }) => void;
+
 export interface QuickInsertPanelProps {
 	/**
 	 * The full list of items that can be displayed in the QuickInsertPanel
@@ -41,6 +43,8 @@ export interface QuickInsertPanelProps {
 	 * string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests */
 	testId?: string;
+
+	setSelectedItem?: OnSelectItem;
 }
 
 export type SideInsertPanelProps = {

@@ -29,7 +29,7 @@
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/code": "^16.0.0",
-		"@atlaskit/editor-common": "^100.3.0",
+		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-palette": "2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",

@@ -127,11 +127,11 @@ export class TableStickyScrollbar {
 			?.getElementsByClassName(ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP)
 			?.item(0) as HTMLElement;
 
-		[this.sentinels.bottom, this.sentinels.top].forEach((el) =>
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			this.intersectionObserver!.observe(el),
-		);
+		[this.sentinels.bottom, this.sentinels.top].forEach((el) => {
+			if (el !== null && this.intersectionObserver) {
+				this.intersectionObserver.observe(el);
+			}
+		});
 	}
 
 	private deleteIntersectionObserver() {

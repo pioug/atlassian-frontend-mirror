@@ -4,6 +4,7 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { updateSelectedIndex } from '../../pm-plugins/commands/update-selected-index';
 import type { CloseSelectionOptions } from '../../pm-plugins/constants';
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import type { PopupMountPointReference, TypeAheadPluginSharedState } from '../../types';
@@ -31,6 +32,15 @@ export const TypeAheadMenu = React.memo(
 			editorView,
 			items,
 			api,
+		);
+
+		const setSelectedItem = React.useCallback(
+			({ index: nextIndex }: { index: number }) => {
+				queueMicrotask(() => {
+					updateSelectedIndex(nextIndex, api)(editorView.state, editorView.dispatch);
+				});
+			},
+			[editorView, api],
 		);
 
 		const insertItem = React.useCallback(
@@ -78,7 +88,7 @@ export const TypeAheadMenu = React.memo(
 				items={items}
 				errorInfo={errorInfo}
 				// selectedIndex={selectedIndex}
-				// setSelectedItem={setSelectedItem}
+				setSelectedItem={setSelectedItem}
 				onItemInsert={insertItem}
 				decorationSet={decorationSet}
 				isEmptyQuery={!query}

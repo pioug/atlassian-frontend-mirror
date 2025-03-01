@@ -1,5 +1,13 @@
 # @atlaskit/editor-element-browser
 
+## 0.1.3
+
+### Patch Changes
+
+- [#120431](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120431)
+  [`17173ce340cdc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17173ce340cdc) -
+  [ED-26763] Support inserting selected item by Enter
+
 ## 0.1.2
 
 ### Patch Changes

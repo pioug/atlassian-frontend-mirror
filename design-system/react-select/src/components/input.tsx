@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { cleanCommonProps, getStyleProps } from '../utils';
 
-export interface InputSpecificProps<
+interface InputSpecificProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
 	Group extends GroupBase<Option> = GroupBase<Option>,

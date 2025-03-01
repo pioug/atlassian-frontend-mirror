@@ -73,6 +73,7 @@ type TypeAheadPopupProps = {
 		forceFocusOnEditor: boolean;
 	}) => void;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	setSelectedItem?: (props: { index: number }) => void;
 };
 
 const OFFSET = [0, 8];
@@ -90,6 +91,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		cancel,
 		api,
 		query,
+		setSelectedItem,
 	} = props;
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
@@ -345,7 +347,12 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 					<TypeAheadErrorFallback />
 				) : (
 					<React.Fragment>
-						<QuickInsertPanel items={items} onItemInsert={onItemInsert} query={query} />
+						<QuickInsertPanel
+							items={items}
+							onItemInsert={onItemInsert}
+							query={query}
+							setSelectedItem={setSelectedItem}
+						/>
 
 						{api?.contextPanel && (
 							<ViewAllButton

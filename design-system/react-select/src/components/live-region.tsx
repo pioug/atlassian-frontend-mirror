@@ -18,7 +18,7 @@ import A11yText from './internal/a11y-text';
 // Root Container
 // ==============================
 
-export interface LiveRegionProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>>
+interface LiveRegionProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 	extends CommonProps<Option, IsMulti, Group> {
 	children: ReactNode;
 	innerProps: { className?: string };

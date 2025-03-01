@@ -43,6 +43,7 @@ import Option, { type OptionProps } from './option';
 import Placeholder, { type PlaceholderProps } from './placeholder';
 import SingleValue, { type SingleValueProps } from './single-value';
 
+// Required export for external packages
 export interface SelectComponents<
 	Option,
 	IsMulti extends boolean,
@@ -103,7 +104,7 @@ export const components = {
 	ValueContainer: ValueContainer,
 };
 
-export type SelectComponentsGeneric = typeof components;
+type SelectComponentsGeneric = typeof components;
 
 interface ComponentsProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
 	components: SelectComponentsConfig<Option, IsMulti, Group>;

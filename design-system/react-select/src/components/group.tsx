@@ -20,7 +20,7 @@ import {
 } from '../types';
 import { cleanCommonProps, getStyleProps } from '../utils';
 
-export interface ForwardedHeadingProps<Option, Group extends GroupBase<Option>> {
+interface ForwardedHeadingProps<Option, Group extends GroupBase<Option>> {
 	id: string;
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	data: Group;

@@ -44,7 +44,7 @@
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/editor-common": "^100.3.0",
+		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-performance-metrics": "2.0.2",
 		"@atlaskit/editor-plugin-quick-insert": "2.0.1",
@@ -86,7 +86,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-listeners": "^9.0.0",
-		"@atlaskit/collab-provider": "10.7.3",
+		"@atlaskit/collab-provider": "10.8.0",
 		"@atlaskit/editor-plugin-annotation": "2.0.2",
 		"@atlaskit/editor-plugin-card": "^5.0.0",
 		"@atlaskit/editor-plugin-list": "^4.0.0",
@@ -473,6 +473,34 @@
 			"referenceOnly": true
 		},
 		"platform_editor_nested_tables_column_drag_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_nested_tables_resizing": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_disable_drag_handle_nested_tables": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_nested_tables_bottom_sentinel": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_sort_decoration_fix_on_live_page": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_nested_table_drag_controls": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_querySelector_fix_table_renderer": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"disable-sticky-scrollbar-for-nested-tables": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

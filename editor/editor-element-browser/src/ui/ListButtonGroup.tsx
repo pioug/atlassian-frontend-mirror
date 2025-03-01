@@ -4,6 +4,8 @@ import Heading from '@atlaskit/heading';
 import { Section } from '@atlaskit/menu';
 import { Box, xcss } from '@atlaskit/primitives';
 
+import type { OnSelectItem } from '../types';
+
 import type { GroupData } from './ItemType';
 import { ListButtonItem } from './ListButtonItem';
 
@@ -26,10 +28,11 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 interface ListButtonGroupProps extends Optional<GroupData, 'label'> {
 	hasSeparator?: boolean;
 	onItemSelected?: (index: number, categoryId: string) => void;
+	setSelectedItem?: OnSelectItem;
 }
 
 const ListButtonGroupBase = memo(
-	({ id, label, items, hasSeparator, onItemSelected }: ListButtonGroupProps) => {
+	({ id, label, items, hasSeparator, onItemSelected, setSelectedItem }: ListButtonGroupProps) => {
 		return (
 			<Section hasSeparator={hasSeparator}>
 				{label && (
@@ -52,6 +55,7 @@ const ListButtonGroupBase = memo(
 								keyshortcut={item.keyshortcut}
 								renderIcon={item.renderIcon}
 								onItemSelected={(index) => onItemSelected?.(index, id)}
+								setSelectedItem={setSelectedItem}
 							/>
 						);
 					})}
@@ -62,7 +66,7 @@ const ListButtonGroupBase = memo(
 );
 
 export const ListButtonGroupWithHeading = memo(
-	({ id, label, items, hasSeparator, onItemSelected }: ListButtonGroupProps) => {
+	({ id, label, items, hasSeparator, onItemSelected, setSelectedItem }: ListButtonGroupProps) => {
 		return (
 			<ListButtonGroupBase
 				id={id}
@@ -70,19 +74,27 @@ export const ListButtonGroupWithHeading = memo(
 				items={items}
 				hasSeparator={hasSeparator}
 				onItemSelected={onItemSelected}
+				setSelectedItem={setSelectedItem}
 			/>
 		);
 	},
 );
 
 export const ListButtonGroup = memo(
-	({ id, items, hasSeparator, onItemSelected }: Omit<ListButtonGroupProps, 'label'>) => {
+	({
+		id,
+		items,
+		hasSeparator,
+		onItemSelected,
+		setSelectedItem,
+	}: Omit<ListButtonGroupProps, 'label'>) => {
 		return (
 			<ListButtonGroupBase
 				id={id}
 				items={items}
 				hasSeparator={hasSeparator}
 				onItemSelected={onItemSelected}
+				setSelectedItem={setSelectedItem}
 			/>
 		);
 	},

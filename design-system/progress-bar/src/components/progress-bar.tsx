@@ -93,7 +93,6 @@ const ProgressBar = ({
 			aria-valuemin={MIN_VALUE}
 			aria-valuenow={valueParsed}
 			aria-valuemax={MAX_VALUE}
-			tabIndex={0}
 			data-testid={testId}
 		>
 			{isIndeterminate ? (

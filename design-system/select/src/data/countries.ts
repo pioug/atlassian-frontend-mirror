@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 interface Country {
 	abbr: string;
 	code: string;
@@ -6,7 +7,7 @@ interface Country {
 	suggested?: boolean;
 }
 
-export const allCountries: Array<Country> = [
+const allCountries: Array<Country> = [
 	{ icon: '🇦🇫', name: 'Afghanistan', abbr: 'AF', code: '93' },
 	{ icon: '🇦🇽', name: 'Alland Islands', abbr: 'AX', code: '358' },
 	{ icon: '🇦🇱', name: 'Albania', abbr: 'AL', code: '355' },

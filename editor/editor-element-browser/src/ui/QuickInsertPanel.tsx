@@ -4,7 +4,7 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import Section from '@atlaskit/menu/section';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
-import type { QuickInsertPanelProps } from '../types';
+import type { OnSelectItem, QuickInsertPanelProps } from '../types';
 import {
 	CategoriesStructure,
 	type CategoryRegistry,
@@ -31,12 +31,14 @@ const DefaultView = ({
 	categoryRegistry,
 	onItemSelected,
 	onCategorySelected,
+	setSelectedItem,
 }: {
 	suggested?: GroupData;
 	itemsRegistry: ItemsRegistry;
 	categoryRegistry: CategoryRegistry;
 	onItemSelected: (index: number) => void;
 	onCategorySelected: (categoryId: string) => void;
+	setSelectedItem?: OnSelectItem;
 }) => {
 	return (
 		<Stack>
@@ -46,6 +48,7 @@ const DefaultView = ({
 					items={suggested.items}
 					label={suggested.label}
 					onItemSelected={onItemSelected}
+					setSelectedItem={setSelectedItem}
 				/>
 			)}
 			{CategoriesStructure.map((category) => {
@@ -127,11 +130,20 @@ const CategoryView = ({
 const SearchView = ({
 	items,
 	onItemSelected,
+	setSelectedItem,
 }: {
 	items: ItemData[];
 	onItemSelected: (index: number) => void;
+	setSelectedItem?: OnSelectItem;
 }) => {
-	return <ListButtonGroup id={'search'} items={items} onItemSelected={onItemSelected} />;
+	return (
+		<ListButtonGroup
+			id={'search'}
+			items={items}
+			onItemSelected={onItemSelected}
+			setSelectedItem={setSelectedItem}
+		/>
+	);
 };
 
 const EmptySearchView = () => {
@@ -147,45 +159,52 @@ const EmptySearchView = () => {
 	);
 };
 
-export const QuickInsertPanel = memo(({ items, onItemInsert, query }: QuickInsertPanelProps) => {
-	const onItemSelect = useCallback(
-		(index: number) => {
-			onItemInsert(SelectItemMode.SELECTED, index);
-		},
-		[onItemInsert],
-	);
+export const QuickInsertPanel = memo(
+	({ items, onItemInsert, query, setSelectedItem }: QuickInsertPanelProps) => {
+		const onItemSelect = useCallback(
+			(index: number) => {
+				onItemInsert(SelectItemMode.SELECTED, index);
+			},
+			[onItemInsert],
+		);
 
-	const {
-		suggested,
-		categoryRegistry,
-		itemsRegistry,
-		selectedCategory,
-		searchItems,
-		setSelectedCategory,
-	} = useItems(items, query);
+		const {
+			suggested,
+			categoryRegistry,
+			itemsRegistry,
+			selectedCategory,
+			searchItems,
+			setSelectedCategory,
+		} = useItems(items, query);
 
-	return searchItems ? (
-		searchItems.length > 0 ? (
-			<SearchView items={searchItems} onItemSelected={onItemSelect} />
+		return searchItems ? (
+			searchItems.length > 0 ? (
+				<SearchView
+					items={searchItems}
+					onItemSelected={onItemSelect}
+					setSelectedItem={setSelectedItem}
+				/>
+			) : (
+				<EmptySearchView />
+			)
+		) : selectedCategory ? (
+			<CategoryView
+				categoryRegistry={categoryRegistry}
+				selectedCategory={selectedCategory}
+				onItemSelected={onItemSelect}
+				onBackButtonClicked={() => setSelectedCategory(undefined)}
+			/>
 		) : (
-			<EmptySearchView />
-		)
-	) : selectedCategory ? (
-		<CategoryView
-			categoryRegistry={categoryRegistry}
-			selectedCategory={selectedCategory}
-			onItemSelected={onItemSelect}
-			onBackButtonClicked={() => setSelectedCategory(undefined)}
-		/>
-	) : (
-		<DefaultView
-			suggested={suggested}
-			itemsRegistry={itemsRegistry}
-			categoryRegistry={categoryRegistry}
-			onItemSelected={onItemSelect}
-			onCategorySelected={(categoryId) => {
-				setSelectedCategory(categoryId);
-			}}
-		/>
-	);
-});
+			<DefaultView
+				suggested={suggested}
+				itemsRegistry={itemsRegistry}
+				categoryRegistry={categoryRegistry}
+				onItemSelected={onItemSelect}
+				onCategorySelected={(categoryId) => {
+					setSelectedCategory(categoryId);
+				}}
+				setSelectedItem={setSelectedItem}
+			/>
+		);
+	},
+);

@@ -16,7 +16,7 @@ import {
 } from './types';
 import { cleanValue, valueTernary } from './utils';
 
-export interface Accessors<Option> {
+interface Accessors<Option> {
 	getOptionValue: GetOptionValue<Option>;
 	getOptionLabel: GetOptionLabel<Option>;
 }

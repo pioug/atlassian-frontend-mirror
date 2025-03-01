@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 100.4.0
+
+### Minor Changes
+
+- [#117768](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117768)
+  [`d55a8d95dd68a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d55a8d95dd68a) -
+  Add support for presenceActivity changes within collab provider. Remove unused code from original
+  presence experiment.
+
 ## 100.3.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/progress-bar
 
+## 4.0.2
+
+### Patch Changes
+
+- [#115959](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115959)
+  [`411d12fff3a21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/411d12fff3a21) -
+  [ux] Remove tabindex from Progress Bar container to reduce unecessary tab stops.
+
 ## 4.0.1
 
 ### Patch Changes

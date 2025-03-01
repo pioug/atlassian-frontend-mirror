@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.0.3
+
+### Patch Changes
+
+- [#120299](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120299)
+  [`8e94f6d9a4d9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e94f6d9a4d9f) -
+  Remove unused internal exports and functions and update dependencies.
+
 ## 2.0.2
 
 ### Patch Changes

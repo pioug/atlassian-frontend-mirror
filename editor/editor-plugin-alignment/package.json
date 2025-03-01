@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/editor-common": "^100.3.0",
+		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^3.0.0",
 		"@atlaskit/editor-plugin-selection-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",

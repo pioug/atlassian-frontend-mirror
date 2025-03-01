@@ -38,7 +38,7 @@
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/custom-steps": "^0.10.0",
-		"@atlaskit/editor-common": "^100.3.0",
+		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-base": "^2.2.0",
 		"@atlaskit/editor-plugin-connectivity": "^2.0.0",

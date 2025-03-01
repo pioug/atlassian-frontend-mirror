@@ -16,7 +16,7 @@ interface AppearanceIconSchema {
 	Icon: ComponentType<any>;
 }
 
-export const appearanceIconSchema: {
+const appearanceIconSchema: {
 	[key in Appearance]: AppearanceIconSchema;
 } = {
 	information: {

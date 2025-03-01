@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -16,6 +16,7 @@ import {
 import { type Placement } from '@atlaskit/popper';
 import { fg } from '@atlaskit/platform-feature-flags';
 import UFOSegment from '@atlaskit/react-ufo/segment';
+import { token } from '@atlaskit/tokens';
 
 import { type XCSS } from '@atlaskit/primitives';
 
@@ -45,7 +46,26 @@ import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
 import { type SelectorProps } from '../Selector';
 import { ReactionSummaryView } from '../ReactionSummary/';
 
-import { reactionPickerStyle, wrapperStyle } from './styles';
+import { reactionPickerStyle } from './styles';
+
+const wrapperStyle = css({
+	display: 'flex',
+	flexWrap: 'wrap',
+	position: 'relative',
+	alignItems: 'center',
+	borderRadius: '15px',
+	marginTop: token('space.negative.050', '-4px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'> :first-of-type > :first-of-type': { marginLeft: 0 },
+});
+
+const noFlexWrapStyles = css({
+	flexWrap: 'nowrap',
+});
+
+const noContainerPositionStyles = css({
+	position: 'initial',
+});
 
 /**
  * Set of all available UFO experiences relating to Reactions Dialog
@@ -191,6 +211,14 @@ export interface ReactionsProps
 	 * Option prop for controlling the reaction picker selection style
 	 */
 	reactionPickerAdditionalStyle?: XCSS;
+	/*
+	 * Optional prop for disabling the wrap behavior on the reactions container
+	 */
+	noWrap?: boolean;
+	/**
+	 * Optional prop for using your own container for relative positioning for emoji picker popup
+	 */
+	noRelativeContainer?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -253,6 +281,8 @@ export const Reactions = React.memo(
 		showRoundTrigger = false,
 		isViewOnly = false,
 		reactionPickerAdditionalStyle,
+		noWrap = false,
+		noRelativeContainer = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -435,7 +465,14 @@ export const Reactions = React.memo(
 		return (
 			<UFOSegment name="reactions">
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
+				<div
+					css={[
+						wrapperStyle,
+						noWrap && noFlexWrapStyles,
+						noRelativeContainer && noContainerPositionStyles,
+					]}
+					data-testid={RENDER_REACTIONS_TESTID}
+				>
 					{!onlyRenderPicker &&
 						(shouldShowSummaryView ? (
 							<div data-testid={RENDER_REACTIONS_SUMMARY_TESTID}>

@@ -92,7 +92,7 @@
 		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/switcher": "^35.2.0",
+		"@atlassian/switcher": "^35.3.0",
 		"@atlassian/switcher-test-utils": "^4.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",

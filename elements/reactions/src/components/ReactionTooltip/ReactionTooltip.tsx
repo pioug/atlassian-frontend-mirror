@@ -58,6 +58,12 @@ export const ReactionTooltip = ({
 	handleOpenReactionsDialog,
 	dismissTooltip,
 }: ReactionTooltipProps) => {
+	const handleClick = () => {
+		if (allowUserDialog && handleOpenReactionsDialog) {
+			dismissTooltip();
+			handleOpenReactionsDialog();
+		}
+	};
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, jsx-a11y/no-noninteractive-tabindex -- Ignored via go/DSP-18766
@@ -74,12 +80,8 @@ export const ReactionTooltip = ({
 					<li
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={allowUserDialog ? [footerStyle, underlineStyle] : footerStyle}
-						onClick={() => {
-							if (allowUserDialog && handleOpenReactionsDialog) {
-								dismissTooltip();
-								handleOpenReactionsDialog();
-							}
-						}}
+						onMouseDown={handleClick}
+						onClick={handleClick}
 					>
 						{users.length > maxReactions && (
 							<FormattedMessage

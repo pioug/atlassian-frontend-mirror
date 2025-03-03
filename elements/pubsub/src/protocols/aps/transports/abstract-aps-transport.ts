@@ -40,14 +40,14 @@ export default abstract class AbstractApsTransport implements APSTransport {
 		});
 	}
 
-	protected async reconnectWithBackoff<T>(reconnectFn: () => Promise<T>) {
+	protected async reconnectWithBackoff<T>(isHidden: boolean, reconnectFn: () => Promise<T>) {
 		if (!this.lastSeenSequenceNumber) {
 			// will replay messages that were supposed to be received while we were retrying
 			this.lastSeenSequenceNumber = getTimestampBasedSequenceNumber();
 		}
 
 		return backOff(reconnectFn, {
-			...reconnectBackoffOptions(),
+			...reconnectBackoffOptions(isHidden),
 			retry: (e, count) => {
 				this.analyticsClient.sendEvent(this.analyticsSubject(), 'retrying reconnect', {
 					errorMessage: e?.message || 'unknown',

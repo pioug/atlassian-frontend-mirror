@@ -109,6 +109,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bitte senden Sie eine Zugriffsanfrage oder versuchen Sie, die Vorschau über ein anderes Konto anzusehen.',
   'fabric.linking.join_to_view': '{context} beitreten, um diesen Vorgang anzuzeigen',
+  'fabric.linking.join_to_view-issue-term-refresh': '{context} beitreten, um diesen Vorgang anzuzeigen',
   'fabric.linking.learn_more_about_connecting_account':
     'Weitere Informationen zum Verbinden Ihres Kontos mit Atlassian-Produkten',
   'fabric.linking.learn_more_about_smart_links': 'Mehr über intelligente Links erfahren',
@@ -123,6 +124,7 @@ export default {
     'Die Seite existiert nicht oder sie hat sich möglicherweise geändert, nachdem dieser Link hinzugefügt wurde.',
   'fabric.linking.not_found_title': 'Diese {product}-Seite kann nicht angezeigt werden',
   'fabric.linking.open_issue_in_jira': 'Vorgang in Jira öffnen',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Vorgang in Jira öffnen',
   'fabric.linking.open_link_in_a_new_tab': 'Link in neuer Registerkarte öffnen',
   'fabric.linking.owned_by': 'Besitzer: {context}',
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
@@ -163,6 +165,8 @@ export default {
     'Ihre Zugriffsanfrage für {hostname} wartet auf die Genehmigung durch den Administrator.',
   'fabric.linking.request_access_pending_title': 'Zugriff auf {product} ausstehend',
   'fabric.linking.request_access_to_view': 'Zugriff auf {context} anfordern, um diesen Vorgang anzuzeigen',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Zugriff auf {context} anfordern, um diesen Vorgang anzuzeigen',
   'fabric.linking.request_denied': 'Ihre Zugriffsanfrage wurde abgelehnt.',
   'fabric.linking.request_denied_description':
     'Ihr Administrator hat Ihre Anfrage zur Anzeige der {product}-Seiten von {hostname} nicht genehmigt.',
@@ -175,6 +179,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Original anzeigen',
   'fabric.linking.status_change_load_error': 'Status und Übergänge konnten nicht geladen werden',
   'fabric.linking.status_change_permission_error': 'Sie sind nicht berechtigt, diesen Vorgang weiterzugeben.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Sie sind nicht berechtigt, diesen Vorgang weiterzugeben.',
   'fabric.linking.status_change_update_error': 'Der Status konnte nicht aktualisiert werden',
   'fabric.linking.try_again': 'Versuchen Sie es erneut.',
   'fabric.linking.try_another_account': 'Versuchen Sie es mit einem anderen Konto erneut.',

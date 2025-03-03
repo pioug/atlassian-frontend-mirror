@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "23.2.0",
+	"version": "23.2.2",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -64,7 +64,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/atlassian-context": "^0.2.0",
-		"@atlaskit/avatar": "^23.0.0",
+		"@atlaskit/avatar": "^24.0.0",
 		"@atlaskit/avatar-group": "^12.0.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/css": "^0.10.0",
@@ -73,7 +73,7 @@
 		"@atlaskit/focus-ring": "^3.0.0",
 		"@atlaskit/give-kudos": "^4.0.0",
 		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/lozenge": "^12.0.0",
+		"@atlaskit/lozenge": "^12.1.0",
 		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/people-teams-ui-public": "^3.0.0",
@@ -84,7 +84,7 @@
 		"@atlaskit/rovo-triggers": "^2.1.0",
 		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
@@ -168,5 +168,8 @@
 		"ptc-migrate-legacy-icons-profilecard": {
 			"type": "boolean"
 		}
-	}
+	},
+	"sideEffects": [
+		"*.compiled.css"
+	]
 }

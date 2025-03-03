@@ -106,6 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
   'fabric.linking.join_to_view': 'Deltag i {context} for at se denne sag',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Deltag i {context} for at se denne sag',
   'fabric.linking.learn_more_about_connecting_account':
     'Få mere at vide om, hvordan du knytter din konto til Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Få mere at vide om intelligente links.',
@@ -120,6 +121,7 @@ export default {
     'Siden findes ikke, eller den kan være ændret, efter at linket blev tilføjet.',
   'fabric.linking.not_found_title': 'Vi kan ikke vise dig denne {product}-side',
   'fabric.linking.open_issue_in_jira': 'Åbn sag i Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Åbn sag i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åbn link i en ny fane',
   'fabric.linking.owned_by': 'Ejet af {context}',
   'fabric.linking.pending_request': 'Din anmodning om adgang afventer behandling',
@@ -160,6 +162,7 @@ export default {
     'Din anmodning om adgang til {hostname} afventer administratorens godkendelse.',
   'fabric.linking.request_access_pending_title': 'Afventer adgang til {product}',
   'fabric.linking.request_access_to_view': 'Anmod om adgang til {context} for at se denne sag',
+  'fabric.linking.request_access_to_view-issue-term-refresh': 'Anmod om adgang til {context} for at se denne sag',
   'fabric.linking.request_denied': 'Din anmodning om adgang blev afvist',
   'fabric.linking.request_denied_description':
     'Din administrator godkendte ikke din anmodning om at få vist {product}-sider fra {hostname}.',
@@ -172,6 +175,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Vis original',
   'fabric.linking.status_change_load_error': 'Vi kunne ikke indlæse statusser og overførsler',
   'fabric.linking.status_change_permission_error': 'Du har ikke tilladelse til at overføre denne sag.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Du har ikke tilladelse til at overføre denne sag.',
   'fabric.linking.status_change_update_error': 'Vi kunne ikke opdatere statussen',
   'fabric.linking.try_again': 'Prøv igen',
   'fabric.linking.try_another_account': 'Prøv en anden konto',

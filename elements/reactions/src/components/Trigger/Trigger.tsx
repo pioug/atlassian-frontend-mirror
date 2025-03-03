@@ -11,6 +11,8 @@ import { Pressable, Box, xcss, type XCSS } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+
 import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
@@ -62,6 +64,10 @@ export interface TriggerProps {
 	 * Option prop for controlling the reaction picker selection style
 	 */
 	selectionStyle?: XCSS;
+	/**
+	 * Optional prop for controlling if Trigger displays the ... show more emoji UI
+	 */
+	showMoreEmojiTriggerUI?: boolean;
 }
 
 const i18n = defineMessages({
@@ -69,6 +75,11 @@ const i18n = defineMessages({
 		id: 'reaction-picker-trigger.add.reaction.message',
 		description: 'Message displayed when there are no page reactions existing on the page.',
 		defaultMessage: 'Add a reaction',
+	},
+	showMore: {
+		id: 'reaction-picker-trigger.more.emojis.message',
+		description: 'Message displayed on button to show more emojis.',
+		defaultMessage: 'More emojis',
 	},
 });
 
@@ -164,6 +175,7 @@ export const Trigger = React.forwardRef(
 			subtleReactionsSummaryAndPicker = false,
 			showRoundTrigger = false,
 			selectionStyle,
+			showMoreEmojiTriggerUI,
 		} = props;
 
 		const handleMouseDown = (
@@ -176,7 +188,10 @@ export const Trigger = React.forwardRef(
 		};
 
 		return (
-			<Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
+			<Tooltip
+				testId={RENDER_TOOLTIP_TRIGGER_TESTID}
+				content={showMoreEmojiTriggerUI ? formatMessage(i18n.showMore) : tooltipContent}
+			>
 				<Pressable
 					testId={RENDER_TRIGGER_BUTTON_TESTID}
 					xcss={[
@@ -199,12 +214,21 @@ export const Trigger = React.forwardRef(
 					ref={ref}
 					{...ariaAttributes}
 				>
-					{/* TODO: https://product-fabric.atlassian.net/browse/DSP-21007  */}
-					<EmojiAddIcon
-						color={disabled ? token('color.icon.disabled') : token('color.icon')}
-						LEGACY_size="small"
-						label="Add reaction"
-					/>
+					{showMoreEmojiTriggerUI ? (
+						<ShowMoreHorizontalIcon
+							testId="show-more-emojis-icon"
+							label={formatMessage(i18n.showMore)}
+							color={disabled ? token('color.icon.disabled') : token('color.icon')}
+						/>
+					) : (
+						// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
+						<EmojiAddIcon
+							testId="emoji-add-icon"
+							color={disabled ? token('color.icon.disabled') : token('color.icon')}
+							LEGACY_size="small"
+							label="Add reaction"
+						/>
+					)}
 					{showAddReactionText && (
 						<Box xcss={addReactionMessageStyles}>{formatMessage(i18n.addReaction)}</Box>
 					)}

@@ -21,7 +21,8 @@ import type {
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -965,9 +966,9 @@ export class DocumentService implements DocumentServiceInterface {
 		// we need to lock them to ensure they don't get
 		// mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
 		if (fg('platform_editor_merge_unconfirmed_steps')) {
-			unconfirmedStepsData.steps.forEach((s) => {
-				if (isLockable(s)) {
-					s.lockStep?.();
+			unconfirmedStepsData.origins.forEach((origin) => {
+				if (origin instanceof Transaction) {
+					return origin.setMeta('mergeIsLocked', true);
 				}
 			});
 		}
@@ -995,13 +996,4 @@ export class DocumentService implements DocumentServiceInterface {
 			forcePublish,
 		});
 	}
-}
-
-// Based on: packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts
-interface LockableProseMirrorStep extends ProseMirrorStep {
-	lockStep?: () => void;
-}
-
-function isLockable(step: ProseMirrorStep): step is LockableProseMirrorStep {
-	return (step as LockableProseMirrorStep)?.lockStep !== undefined;
 }

@@ -62,7 +62,7 @@
 		"@atlaskit/editor-test-helpers": "^22.0.0",
 		"@atlaskit/mention": "^24.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "4.2.0",
+		"@atlaskit/tokens": "4.3.0",
 		"@atlaskit/util-data-test": "^18.0.0",
 		"@emotion/react": "^11.7.1",
 		"typescript": "~5.4.2"

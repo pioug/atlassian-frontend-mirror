@@ -211,6 +211,8 @@ export const nodeMargins: { [key: string]: { top: number; bottom: number } } = {
 	heading6: { top: 18, bottom: 0 },
 	layoutSection: { top: 8, bottom: 0 },
 	blockquote: { top: 12, bottom: 0 },
+	expand: { top: 4, bottom: 0 },
+	nestedExpand: { top: 1, bottom: 0 },
 	default: { top: 0, bottom: 0 },
 };
 

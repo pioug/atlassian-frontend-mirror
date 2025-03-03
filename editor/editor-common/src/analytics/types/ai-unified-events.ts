@@ -14,6 +14,7 @@ export type AIUnifiedCommonAttributes = {
 	userGeneratedAI: 0 | 1;
 	isAIFeature: 1;
 	aiExperienceName?: string;
+	traceIds?: string[];
 };
 
 type AIInteractionInitiatedAEP = TrackAEP<

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "204.3.1",
+	"version": "204.3.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor",
@@ -47,7 +49,7 @@
 		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-performance-metrics": "2.0.2",
-		"@atlaskit/editor-plugin-quick-insert": "2.0.1",
+		"@atlaskit/editor-plugin-quick-insert": "2.0.2",
 		"@atlaskit/editor-plugins": "^8.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.4.0",
@@ -59,7 +61,7 @@
 		"@atlaskit/react-ufo": "^3.1.0",
 		"@atlaskit/task-decision": "^19.0.0",
 		"@atlaskit/tmp-editor-statsig": "^3.3.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/width-detector": "^5.0.0",
 		"@babel/runtime": "^7.0.0",
@@ -86,7 +88,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-listeners": "^9.0.0",
-		"@atlaskit/collab-provider": "10.8.0",
+		"@atlaskit/collab-provider": "10.8.1",
 		"@atlaskit/editor-plugin-annotation": "2.0.2",
 		"@atlaskit/editor-plugin-card": "^5.0.0",
 		"@atlaskit/editor-plugin-list": "^4.0.0",
@@ -106,7 +108,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.27.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.39",
+		"@atlassian/search-provider": "3.0.40",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^13.4.0",
@@ -505,6 +507,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_nested_tables_number_column_fixes": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_elements_dnd_multi_select_patch_1": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

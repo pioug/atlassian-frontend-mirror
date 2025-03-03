@@ -1,51 +1,25 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Transform as ProseMirrorTransform } from '@atlaskit/editor-prosemirror/transform';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
 
-function isLockable(
-	step: ProseMirrorStep | LockableProseMirrorStep,
-): step is LockableProseMirrorStep {
-	return (step as LockableProseMirrorStep)?.lockStep !== undefined;
-}
-
-const createLockableProseMirrorStep = (
-	step: ProseMirrorStep | LockableProseMirrorStep,
-): LockableProseMirrorStep => {
-	let stepIsLocked = false;
-	if (isLockable(step)) {
-		return step;
-	}
-	return new Proxy<LockableProseMirrorStep>(step as LockableProseMirrorStep, {
-		get(target, prop, receiver) {
-			if (prop === 'lockStep') {
-				return () => {
-					stepIsLocked = true;
-				};
-			} else if (prop === 'isLocked') {
-				return () => {
-					return stepIsLocked;
-				};
-			}
-			return Reflect.get(target, prop, receiver);
-		},
-	});
-};
-
 // Based on: `packages/editor/prosemirror-collab/src/index.ts`
 class LockableRebaseable {
 	constructor(
-		readonly step: LockableProseMirrorStep,
+		readonly step: ProseMirrorStep,
 		readonly inverted: ProseMirrorStep,
 		readonly origin: ProseMirrorTransform,
 	) {}
 }
 
-abstract class LockableProseMirrorStep extends ProseMirrorStep {
-	lockStep?: () => void;
-	isLocked?: () => boolean;
-}
+const isLocked = (step: LockableRebaseable) => {
+	if (step.origin instanceof Transaction) {
+		return step.origin.getMeta('mergeIsLocked');
+	}
+	return false;
+};
 
 /**
  * Merge a set of steps together to reduce the total number of steps stored in memory.
@@ -67,8 +41,8 @@ export function mergeUnconfirmedSteps(
 		if (
 			api?.connectivity?.sharedState.currentState()?.mode === 'offline' &&
 			lastStep &&
-			lastStep.step.isLocked?.() !== true &&
-			rebaseable.step.isLocked?.() !== true
+			!isLocked(lastStep) &&
+			!isLocked(rebaseable)
 		) {
 			const mergedStep = lastStep.step.merge(rebaseable.step);
 			const inverted = rebaseable.inverted.merge(lastStep.inverted);
@@ -79,20 +53,12 @@ export function mergeUnconfirmedSteps(
 			const origin = lastStep.origin;
 
 			if (mergedStep && inverted) {
-				acc[acc.length - 1] = new LockableRebaseable(
-					createLockableProseMirrorStep(mergedStep),
-					inverted,
-					origin,
-				);
+				acc[acc.length - 1] = new LockableRebaseable(mergedStep, inverted, origin);
 				return acc;
 			}
 		}
 		return acc.concat(
-			new LockableRebaseable(
-				createLockableProseMirrorStep(rebaseable.step),
-				rebaseable.inverted,
-				rebaseable.origin,
-			),
+			new LockableRebaseable(rebaseable.step, rebaseable.inverted, rebaseable.origin),
 		);
 	}, [] as LockableRebaseable[]);
 	return mergedSteps;

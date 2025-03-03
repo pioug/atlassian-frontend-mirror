@@ -10,6 +10,7 @@ import {
 	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	AtlassianUrlShortenerClient,
@@ -370,6 +371,7 @@ export class ShareDialogContainerInternal extends React.Component<
 			shareeAction,
 			product,
 			productAttributes,
+			customHeader,
 			customFooter,
 			onTriggerButtonClick,
 			onUserSelectionChange,
@@ -429,6 +431,7 @@ export class ShareDialogContainerInternal extends React.Component<
 						}
 						product={product!}
 						productAttributes={productAttributes}
+						customHeader={fg('platform_share_custom_header_prop') && customHeader}
 						customFooter={customFooter}
 						onUserSelectionChange={onUserSelectionChange}
 						shareFieldsFooter={shareFieldsFooter}

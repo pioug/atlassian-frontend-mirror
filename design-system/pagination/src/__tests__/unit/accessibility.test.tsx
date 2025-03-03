@@ -4,7 +4,6 @@ import { fireEvent, render, type RenderResult, screen } from '@testing-library/r
 
 import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/standard-button';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Pagination, { type PaginationPropTypes } from '../../index';
 
@@ -132,23 +131,5 @@ describe('Pagination Accessibility', () => {
 
 		const container = screen.getByTestId('pagination');
 		await axe(container);
-	});
-
-	describe('should have the page navigators as part of the page list', () => {
-		ffTest(
-			'jfp-a11y-team_pagination_list-markup',
-			async () => {
-				setup();
-				const container = screen.getByTestId('pagination');
-				const listItems = screen.getAllByRole('listitem');
-				expect(listItems.length).toBe(9);
-				await axe(container);
-			},
-			() => {
-				setup();
-				const listItems = screen.getAllByRole('listitem');
-				expect(listItems.length).toBe(7);
-			},
-		);
 	});
 });

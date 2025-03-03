@@ -62,7 +62,7 @@ export default () => {
 					))}
 					{Object.values(SmartLinkSize).map((size, idx) => (
 						// eslint-disable-next-line jsx-a11y/alt-text
-						<LinkIcon key={idx} render={() => <img src={smallImage} />} size={size} />
+						<LinkIcon key={idx} render={() => <img src={smallImage} alt="" />} size={size} />
 					))}
 				</HorizontalWrapper>
 				<h5>Override CSS</h5>

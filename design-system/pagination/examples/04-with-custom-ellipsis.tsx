@@ -6,7 +6,6 @@ import Pagination from '@atlaskit/pagination';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
-import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
 
 const styles = cssMap({
 	customEllipsis: {
@@ -46,9 +45,3 @@ export default function CustomEllipsisExample() {
 		</Stack>
 	);
 }
-
-CustomEllipsisExample.decorators = [
-	withPlatformFeatureFlags({
-		'jfp-a11y-team_pagination_list-markup': true,
-	}),
-];

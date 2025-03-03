@@ -1,4 +1,3 @@
-import { AvatarItem } from '@atlaskit/avatar';
 import { shallow } from 'enzyme';
 import { render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
@@ -69,10 +68,9 @@ describe('SingleValue', () => {
 
 	it('should render SingleValue', () => {
 		const component = shallowSingleValue();
-		expect(component.find(AvatarItem).props()).toMatchObject({
-			backgroundColor: 'transparent',
-			primaryText: 'Jace Beleren',
-			avatar: <SizeableAvatar src="http://avatars.atlassian.com/jace.png" appearance="normal" />,
+		expect(component.find(SizeableAvatar).props()).toMatchObject({
+			src: 'http://avatars.atlassian.com/jace.png',
+			appearance: 'normal',
 		});
 	});
 
@@ -82,10 +80,9 @@ describe('SingleValue', () => {
 				appearance: 'compact',
 			},
 		});
-		expect(component.find(AvatarItem).props()).toMatchObject({
-			backgroundColor: 'transparent',
-			primaryText: 'Jace Beleren',
-			avatar: <SizeableAvatar src="http://avatars.atlassian.com/jace.png" appearance="compact" />,
+		expect(component.find(SizeableAvatar).props()).toMatchObject({
+			src: 'http://avatars.atlassian.com/jace.png',
+			appearance: 'compact',
 		});
 	});
 

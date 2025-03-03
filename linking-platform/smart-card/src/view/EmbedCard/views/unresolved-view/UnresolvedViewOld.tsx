@@ -87,8 +87,7 @@ const UnresolvedViewOld = ({
 
 		const imageTestId = `${testId}-unresolved-image`;
 		if (typeof imageUrlOrElement === 'string') {
-			// eslint-disable-next-line jsx-a11y/alt-text
-			return <img css={imageStyles} data-testid={imageTestId} src={imageUrlOrElement} />;
+			return <img css={imageStyles} data-testid={imageTestId} src={imageUrlOrElement} alt="" />;
 		}
 
 		return (

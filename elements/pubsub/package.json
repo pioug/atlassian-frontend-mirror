@@ -47,6 +47,7 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
@@ -61,5 +62,13 @@
 		"jest-extended": "^4.0.2",
 		"sinon": "^2.2.0",
 		"typescript": "~5.4.2"
+	},
+	"platform-feature-flags": {
+		"platform-delay-retries-for-clients-on-fps": {
+			"type": "boolean"
+		},
+		"platform-delay-retries-on-first-connect-fps": {
+			"type": "boolean"
+		}
 	}
 }

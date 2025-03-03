@@ -71,6 +71,7 @@ const renderReaction = (
 	showParticleEffect: boolean = false,
 	showOpaqueBackground: boolean = false,
 	isViewOnly: boolean = false,
+	showSubtleStyle: boolean = false,
 ) =>
 	renderWithIntl(
 		<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
@@ -83,6 +84,7 @@ const renderReaction = (
 				showParticleEffect={showParticleEffect}
 				showOpaqueBackground={showOpaqueBackground}
 				isViewOnly={isViewOnly}
+				showSubtleStyle={showSubtleStyle}
 			/>
 		</AnalyticsListener>,
 	);
@@ -196,6 +198,34 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 			showParticleEffect,
 			showOpaqueBackground,
 			isViewOnly,
+		);
+		const reactionContainer = await screen.findByTestId('render_reaction_wrapper');
+		expect(reactionContainer).toBeInTheDocument();
+		expect(reactionContainer).toHaveCompiledCss('border', 'none');
+	});
+
+	it('should not render with border if showSubtleStyle is true', async () => {
+		const count = 3;
+		const reacted = false;
+		const onClickSpy = jest.fn();
+		const onMouseEnterSpy = jest.fn();
+		const enableFlash = false;
+		const onEventSpy = jest.fn();
+		const users: User[] = [];
+		const showParticleEffect = false;
+		const showOpaqueBackground = true;
+		const showSubtleStyle = true;
+		renderReaction(
+			reacted,
+			count,
+			onClickSpy,
+			onMouseEnterSpy,
+			enableFlash,
+			onEventSpy,
+			users,
+			showParticleEffect,
+			showOpaqueBackground,
+			showSubtleStyle,
 		);
 		const reactionContainer = await screen.findByTestId('render_reaction_wrapper');
 		expect(reactionContainer).toBeInTheDocument();

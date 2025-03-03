@@ -1,5 +1,32 @@
 # @atlaskit/reactions
 
+## 26.5.0
+
+### Minor Changes
+
+- [#119713](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119713)
+  [`d0beb32e29ba5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0beb32e29ba5) -
+  [ux] Adds two new optional props to Reactions package to control subtle styling for default
+  reactions and update the Trigger UI/tooltip for the ... UI. Also exports the closeManager.
+
+## 26.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.4.1
+
+### Patch Changes
+
+- [#120533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120533)
+  [`f1bec731e278f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1bec731e278f) -
+  Adds a `sideEffects` field to ensure this package does not have Compiled styles tree-shaken in the
+  future to avoid an accidental regression.
+
+  This is related to
+  https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953
+
 ## 26.4.0
 
 ### Minor Changes

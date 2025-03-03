@@ -1,5 +1,27 @@
 # @atlaskit/user-picker
 
+## 11.0.4
+
+### Patch Changes
+
+- [#119746](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119746)
+  [`e669148287cf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e669148287cf3) -
+  Internal refactor for compatibility with the latest version of @atlaskit/avatar. The UI remains
+  consistent.
+- Updated dependencies
+
+## 11.0.3
+
+### Patch Changes
+
+- [#120533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120533)
+  [`f1bec731e278f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1bec731e278f) -
+  Adds a `sideEffects` field to ensure this package does not have Compiled styles tree-shaken in the
+  future to avoid an accidental regression.
+
+  This is related to
+  https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953
+
 ## 11.0.2
 
 ### Patch Changes

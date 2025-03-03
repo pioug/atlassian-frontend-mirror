@@ -1,4 +1,4 @@
-import React, { type FC, type ReactNode } from 'react';
+import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -91,19 +91,6 @@ describe('Avatar', () => {
 
 		expect(element.tagName).toEqual('A');
 		expect(element).not.toHaveAttribute('rel');
-	});
-
-	it('should render a custom component if supplied', () => {
-		const MyComponent: FC<{ children: ReactNode; testId?: string }> = ({ testId, children }) => (
-			<div data-testid={testId}>{children}</div>
-		);
-
-		render(
-			<AvatarItem avatar={<Avatar />} testId={'avatar'} href={'https://atlaskit.atlassian.com/'}>
-				{({ ref, ...props }) => <MyComponent {...props} />}
-			</AvatarItem>,
-		);
-		expect(screen.getByTestId('avatar--itemInner').tagName).toEqual('DIV');
 	});
 
 	it('should not call onclick if disabled', () => {

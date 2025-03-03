@@ -109,6 +109,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
   'fabric.linking.join_to_view': 'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
   'fabric.linking.learn_more_about_connecting_account':
     'További információ a fiók csatlakoztatásáról az Atlassian-termékekhez.',
   'fabric.linking.learn_more_about_smart_links': 'További információ az okoslinkekről.',
@@ -122,6 +123,7 @@ export default {
   'fabric.linking.not_found_description': 'Az oldal nem létezik, vagy módosították a link hozzáadása óta.',
   'fabric.linking.not_found_title': 'Nem tudjuk megjeleníteni ezt a(z) {product}-oldalt',
   'fabric.linking.open_issue_in_jira': 'Ügy megnyitása a Jirában',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Ügy megnyitása a Jirában',
   'fabric.linking.open_link_in_a_new_tab': 'Link megnyitása új lapon',
   'fabric.linking.owned_by': 'Tulajdonos: {context}',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
@@ -162,6 +164,8 @@ export default {
     'A következőre vonatkozó hozzáférési kérelmed még adminisztrátori jóváhagyásra vár: {hostname}.',
   'fabric.linking.request_access_pending_title': 'Függőben van a(z) {product}-hozzáférés',
   'fabric.linking.request_access_to_view': 'Az ügy megtekintése érdekében kérj hozzáférést ehhez: {context}',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Az ügy megtekintése érdekében kérj hozzáférést ehhez: {context}',
   'fabric.linking.request_denied': 'A hozzáférési kérelmedet elutasították',
   'fabric.linking.request_denied_description':
     'Az adminisztrátorod nem hagyta jóvá a kérelmed, hogy megtekinthess {product}-oldalakat innen: {hostname}.',
@@ -174,6 +178,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Eredeti megtekintése',
   'fabric.linking.status_change_load_error': 'Nem sikerült betölteni az állapotokat és az átviteleket',
   'fabric.linking.status_change_permission_error': 'Nem vagy jogosult végrehajtani az átvitelt ennél az ügynél.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Nem vagy jogosult végrehajtani az átvitelt ennél az ügynél.',
   'fabric.linking.status_change_update_error': 'Nem sikerült frissíteni az állapotot',
   'fabric.linking.try_again': 'Próbáld újra',
   'fabric.linking.try_another_account': 'Próbálkozz másik fiókkal',

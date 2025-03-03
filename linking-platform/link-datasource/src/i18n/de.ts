@@ -44,6 +44,7 @@ export default {
   'linkDataSource.column-picker.search': 'Nach Feldern suchen',
   'linkDataSource.column-picker.tooltip': 'Spalten konfigurieren',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Mit Stichwörtern nach Vorgängen suchen',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Mit Stichwörtern nach Vorgängen suchen',
   'linkDataSource.configmodal.cancelButtonText': 'Abbrechen',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Abbrechen',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'Nach {date}',
@@ -99,10 +100,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Für diese Anfrage können Sie nicht in den Standardmodus wechseln.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Standard',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Mit Stichwörtern nach Vorgängen suchen',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Site wählen',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vorgänge einfügen',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-Vorgänge einfügen',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira-Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von folgender Site einfügen:',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Jira-Vorgänge von folgender Site einfügen:',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Zeigen Sie die Anzahl der Suchergebnisse als intelligenten Inline-Link an.',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-Link',

@@ -2,7 +2,7 @@ export { default } from './avatar';
 export type { AvatarPropTypes } from './avatar';
 export { AvatarContent } from './avatar-content';
 export { default as AvatarItem } from './avatar-item';
-export type { AvatarItemProps, CustomAvatarItemProps } from './avatar-item';
+export type { AvatarItemProps } from './avatar-item';
 export { default as Presence } from './presence';
 export type { PresenceProps } from './presence';
 export { default as Status } from './status';

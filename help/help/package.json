@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "8.0.3",
+	"version": "8.0.4",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
@@ -61,7 +63,7 @@
 		"@atlaskit/textarea": "^8.0.0",
 		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

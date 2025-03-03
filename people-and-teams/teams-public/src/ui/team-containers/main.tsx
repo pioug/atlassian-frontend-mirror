@@ -36,7 +36,11 @@ interface SelectedContainerDetails {
 	containerName: string;
 }
 
-export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerProps) => {
+export const TeamContainers = ({
+	teamId,
+	onAddAContainerClick,
+	components,
+}: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
 	const [_, actions] = useTeamContainersHook();
@@ -79,6 +83,8 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 		[createAnalyticsEvent],
 	);
 
+	const LinkedContainerCardComponent = components?.ContainerCard || LinkedContainerCard;
+
 	const handleDisconnect = useCallback(
 		async (containerId: string) => {
 			await actions.unlinkTeamContainers(teamId, containerId);
@@ -105,10 +111,10 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 	return (
 		<>
 			<Stack space="space.200">
-				<Grid templateColumns="repeat(2, 1fr)" gap="space.100">
+				<Grid templateColumns="repeat(auto-fill, minmax(270px, 1fr))" gap="space.100">
 					{teamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 						return (
-							<LinkedContainerCard
+							<LinkedContainerCardComponent
 								key={container.id}
 								containerType={container.type}
 								title={container.name}
@@ -139,7 +145,7 @@ export const TeamContainers = ({ teamId, onAddAContainerClick }: TeamContainerPr
 					{showMore &&
 						teamContainers.slice(MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 							return (
-								<LinkedContainerCard
+								<LinkedContainerCardComponent
 									key={container.id}
 									containerType={container.type}
 									title={container.name}

@@ -105,6 +105,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.linking.join_to_view': 'Tham gia {context} để xem vấn đề này',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Tham gia {context} để xem vấn đề này',
   'fabric.linking.learn_more_about_connecting_account':
     'Tìm hiểu thêm về cách kết nối tài khoản với các sản phẩm của Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Tìm hiểu thêm về Liên kết Thông minh.',
@@ -119,6 +120,7 @@ export default {
     'Trang này không tồn tại hoặc có thể đã thay đổi sau khi liên kết này được thêm vào.',
   'fabric.linking.not_found_title': 'Chúng tôi không thể hiển thị cho bạn trang {product} này',
   'fabric.linking.open_issue_in_jira': 'Mở vấn đề trong Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Mở vấn đề trong Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Mở liên kết trong tab mới',
   'fabric.linking.owned_by': 'Sở hữu bởi {context}',
   'fabric.linking.pending_request': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
@@ -159,6 +161,7 @@ export default {
     'Yêu cầu quyền truy cập {hostname} của bạn đang chờ quản trị viên phê duyệt.',
   'fabric.linking.request_access_pending_title': 'Đang chờ cấp quyền truy cập {product}',
   'fabric.linking.request_access_to_view': 'Yêu cầu quyền truy cập vào {context} để xem vấn đề này',
+  'fabric.linking.request_access_to_view-issue-term-refresh': 'Yêu cầu quyền truy cập vào {context} để xem vấn đề này',
   'fabric.linking.request_denied': 'Yêu cầu quyền truy cập của bạn đã bị từ chối',
   'fabric.linking.request_denied_description':
     'Quản trị viên không chấp thuận yêu cầu xem các trang {product} từ {hostname} của bạn.',
@@ -171,6 +174,7 @@ export default {
   'fabric.linking.srclinkunknown': 'Xem bản gốc',
   'fabric.linking.status_change_load_error': 'Chúng tôi không thể tải trạng thái và quy trình chuyển đổi',
   'fabric.linking.status_change_permission_error': 'Bạn không có quyền chuyển đổi vấn đề này.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh': 'Bạn không có quyền chuyển đổi vấn đề này.',
   'fabric.linking.status_change_update_error': 'Chúng tôi không thể cập nhật trạng thái',
   'fabric.linking.try_again': 'Thử lại',
   'fabric.linking.try_another_account': 'Thử một tài khoản khác',

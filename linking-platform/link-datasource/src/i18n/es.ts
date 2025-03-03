@@ -43,6 +43,7 @@ export default {
   'linkDataSource.column-picker.search': 'Buscar campos',
   'linkDataSource.column-picker.tooltip': 'Configurar columnas',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Buscar incidencias por palabra clave',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Buscar actividades por palabra clave',
   'linkDataSource.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'después del {date}',
@@ -98,10 +99,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'No puedes cambiar a Básica esta consulta.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Básica',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Buscar actividades por palabra clave',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Elegir sitio',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insertar incidencias',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Insertar actividades',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insertar incidencias de Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Insertar actividades de Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insertar incidencias de Jira desde',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Insertar actividades de Jira desde',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Mostrar el número de resultados de búsqueda como un enlace inteligente insertado',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Enlace insertado',

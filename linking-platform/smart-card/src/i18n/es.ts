@@ -105,6 +105,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Deberás solicitar el acceso o probar con otra cuenta para obtener esta vista previa.',
   'fabric.linking.join_to_view': 'Únete a {context} para ver esta incidencia',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Únete a {context} para ver esta actividad',
   'fabric.linking.learn_more_about_connecting_account':
     'Obtén más información sobre cómo conectar tu cuenta a los productos de Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Más información sobre los enlaces inteligentes.',
@@ -118,6 +119,7 @@ export default {
   'fabric.linking.not_found_description': 'La página no existe o puede haberse cambiado después de añadir este enlace.',
   'fabric.linking.not_found_title': 'No podemos mostrarte esta página de {product}',
   'fabric.linking.open_issue_in_jira': 'Abrir incidencia en Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Abrir actividad en Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Abrir enlace en una nueva pestaña',
   'fabric.linking.owned_by': 'Propiedad de {context}',
   'fabric.linking.pending_request': 'Tu solicitud de acceso está pendiente',
@@ -158,6 +160,7 @@ export default {
     'Tu solicitud para acceder a {hostname} está pendiente de la aprobación del administrador.',
   'fabric.linking.request_access_pending_title': 'El acceso a {product} está pendiente',
   'fabric.linking.request_access_to_view': 'Solicita acceso a {context} para ver esta incidencia',
+  'fabric.linking.request_access_to_view-issue-term-refresh': 'Solicita acceso a {context} para ver esta actividad',
   'fabric.linking.request_denied': 'Se ha denegado tu solicitud de acceso',
   'fabric.linking.request_denied_description':
     'El administrador no ha aprobado tu solicitud para ver las páginas de {product} de {hostname}.',
@@ -170,6 +173,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Ver original',
   'fabric.linking.status_change_load_error': 'No hemos podido cargar los estados ni las transiciones',
   'fabric.linking.status_change_permission_error': 'No tienes permiso para realizar la transición de esta incidencia.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'No tienes permiso para realizar la transición de esta actividad.',
   'fabric.linking.status_change_update_error': 'No hemos podido actualizar el estado',
   'fabric.linking.try_again': 'Volver a intentarlo',
   'fabric.linking.try_another_account': 'Probar otra cuenta',

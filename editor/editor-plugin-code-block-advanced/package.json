@@ -43,7 +43,7 @@
 		"@atlaskit/editor-plugin-selection": "^2.0.0",
 		"@atlaskit/editor-plugin-selection-marker": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@codemirror/autocomplete": "6.18.4",
 		"@codemirror/commands": "6.7.1",

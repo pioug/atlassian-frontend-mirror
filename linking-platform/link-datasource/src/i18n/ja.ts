@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'フィールドを検索',
   'linkDataSource.column-picker.tooltip': '列を設定',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'キーワードで課題を検索',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'キーワードで作業項目を検索',
   'linkDataSource.configmodal.cancelButtonText': 'キャンセル',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'キャンセル',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': '{date} より後',
@@ -95,10 +96,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'このクエリを基本モードに切り替えることはできません。',
   'linkDataSource.jira-issues.configmodal.basicModeText': '基本',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'キーワードで作業項目を検索',
   'linkDataSource.site-selector.configmodal.chooseSite': 'サイトを選択',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '課題を挿入',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': '作業項目を挿入',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 課題を挿入する',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira 作業項目を挿入する',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '次のサイトから Jira 課題を挿入する',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    '次のサイトから Jira 作業項目を挿入する',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     '検索結果の件数をインライン スマート リンクとして表示します',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'インライン リンク',

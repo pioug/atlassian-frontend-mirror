@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 import { Box } from '@atlaskit/primitives/compiled';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
@@ -34,6 +35,7 @@ export type LazyShareFormProps = Pick<
 	| 'submitButtonLabel'
 	| 'product'
 	| 'productAttributes'
+	| 'customHeader'
 	| 'customFooter'
 	| 'enableSmartUserPicker'
 	| 'loggedInAccountId'
@@ -84,6 +86,9 @@ const styles = cssMap({
 		marginBottom: token('space.negative.200', '-16px'),
 		marginLeft: token('space.negative.300', '-24px'),
 	},
+	headerCustomStyles: {
+		marginBottom: token('space.200', '16px'),
+	},
 });
 
 /**
@@ -103,6 +108,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 		submitButtonLabel,
 		product,
 		productAttributes,
+		customHeader,
 		customFooter,
 		enableSmartUserPicker,
 		loggedInAccountId,
@@ -138,6 +144,8 @@ function LazyShareForm(props: LazyShareFormProps) {
 		isSubmitShareDisabled,
 	} = props;
 
+	const header = customHeader ? <Box xcss={styles.headerCustomStyles}>{customHeader}</Box> : null;
+
 	const footer = (
 		<div>
 			{bottomMessage ? (
@@ -157,6 +165,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 
 	return (
 		<ShareFormWrapper
+			header={fg('platform_share_custom_header_prop') && header}
 			footer={footer}
 			// form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
 			// so we don't need to show title via ShareFormWrapper

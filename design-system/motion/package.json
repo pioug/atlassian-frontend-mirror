@@ -77,7 +77,7 @@
 		"@atlaskit/logo": "^16.0.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",

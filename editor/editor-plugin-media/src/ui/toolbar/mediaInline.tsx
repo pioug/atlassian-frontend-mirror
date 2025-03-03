@@ -16,7 +16,9 @@ import commonMessages, {
 } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
+	DropdownOptionT,
 	ExtractInjectionAPI,
+	FloatingToolbarDropdown,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
@@ -215,11 +217,86 @@ const getMediaInlineImageToolbar = (
 		inlineImageItems.push({ type: 'separator' });
 	}
 
-	inlineImageItems.push(
-		{
-			id: 'editor.media.convert.mediainline',
-			type: 'button',
-			title: mediaInlineImageTitle,
+	// For Editor Controls: show options to convert from 'Inline' to 'Original size' via dropdown
+	if (editorExperiment('platform_editor_controls', 'control')) {
+		inlineImageItems.push(
+			{
+				id: 'editor.media.convert.mediainline',
+				type: 'button',
+				title: mediaInlineImageTitle,
+				icon: () => (
+					<ImageInlineIcon
+						color="currentColor"
+						spacing="spacious"
+						label={mediaInlineImageTitle}
+						LEGACY_size="medium"
+						LEGACY_fallbackIcon={IconInline}
+					/>
+				),
+				onClick: () => {
+					return true;
+				},
+				selected: true,
+			},
+			{
+				id: 'editor.media.convert.mediasingle',
+				type: 'button',
+				title: mediaSingleTitle,
+				icon: () => (
+					<ImageFullscreenIcon
+						color="currentColor"
+						spacing="spacious"
+						label={mediaSingleTitle}
+						LEGACY_size="medium"
+						LEGACY_fallbackIcon={IconEmbed}
+					/>
+				),
+				onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
+			},
+			{ type: 'separator' },
+		);
+	} else {
+		const options: DropdownOptionT<Command>[] = [
+			{
+				id: 'editor.media.convert.mediainline',
+				title: mediaInlineImageTitle,
+				onClick: () => {
+					return true;
+				},
+				selected: true,
+				disabled: false,
+				icon: (
+					<ImageInlineIcon
+						color="currentColor"
+						spacing="spacious"
+						label={mediaInlineImageTitle}
+						LEGACY_size="medium"
+						LEGACY_fallbackIcon={IconInline}
+					/>
+				),
+			},
+			{
+				id: 'editor.media.convert.mediasingle',
+				title: mediaSingleTitle,
+				onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
+				icon: (
+					<ImageFullscreenIcon
+						color="currentColor"
+						spacing="spacious"
+						label={mediaSingleTitle}
+						LEGACY_size="medium"
+						LEGACY_fallbackIcon={IconEmbed}
+					/>
+				),
+			},
+		];
+
+		const switchFromInlineToBlock: FloatingToolbarDropdown<Command> = {
+			id: 'media-inline-to-block-toolbar-item',
+			testId: 'media-inline-to-block-dropdown',
+			type: 'dropdown',
+			options: options,
+			title: intl.formatMessage(messages.sizeOptions),
 			icon: () => (
 				<ImageInlineIcon
 					color="currentColor"
@@ -229,28 +306,10 @@ const getMediaInlineImageToolbar = (
 					LEGACY_fallbackIcon={IconInline}
 				/>
 			),
-			onClick: () => {
-				return true;
-			},
-			selected: true,
-		},
-		{
-			id: 'editor.media.convert.mediasingle',
-			type: 'button',
-			title: mediaSingleTitle,
-			icon: () => (
-				<ImageFullscreenIcon
-					color="currentColor"
-					spacing="spacious"
-					label={mediaSingleTitle}
-					LEGACY_size="medium"
-					LEGACY_fallbackIcon={IconEmbed}
-				/>
-			),
-			onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
-		},
-		{ type: 'separator' },
-	);
+		};
+
+		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator' });
+	}
 
 	// TODO: editor controls move to overflow menu
 	if (editorExperiment('platform_editor_controls', 'control')) {

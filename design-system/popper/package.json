@@ -43,7 +43,7 @@
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.1.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",

@@ -106,6 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
   'fabric.linking.join_to_view': 'Rejoignez {context} pour consulter ce ticket',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Rejoignez {context} pour consulter ce ticket',
   'fabric.linking.learn_more_about_connecting_account':
     'En savoir plus sur la connexion de votre compte aux produits Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'En savoir plus sur les liens intelligents.',
@@ -119,6 +120,7 @@ export default {
   'fabric.linking.not_found_description': "La page n'existe pas ou elle a peut-être changé après l'ajout de ce lien.",
   'fabric.linking.not_found_title': "Impossible d'afficher cette page {product}",
   'fabric.linking.open_issue_in_jira': 'Ouvrir le ticket dans Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Ouvrir le ticket dans Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Ouvrir le lien dans un nouvel onglet',
   'fabric.linking.owned_by': 'Propriétaire : {context}',
   'fabric.linking.pending_request': "Votre demande d'accès est en attente",
@@ -159,6 +161,7 @@ export default {
     "Votre demande d'accès à {hostname} attend l'approbation de l'administrateur.",
   'fabric.linking.request_access_pending_title': "L'accès à {product} est en attente",
   'fabric.linking.request_access_to_view': 'Demandez un accès à {context} pour consulter ce ticket',
+  'fabric.linking.request_access_to_view-issue-term-refresh': 'Demandez un accès à {context} pour consulter ce ticket',
   'fabric.linking.request_denied': "Votre demande d'accès a été refusée",
   'fabric.linking.request_denied_description':
     "Votre administrateur n'a pas approuvé votre demande de consultation des pages {product} depuis {hostname}.",
@@ -171,6 +174,8 @@ export default {
   'fabric.linking.srclinkunknown': "Afficher l'original",
   'fabric.linking.status_change_load_error': 'Impossible de charger les états et les transitions',
   'fabric.linking.status_change_permission_error': "Vous n'avez pas l'autorisation de transitionner ce ticket.",
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    "Vous n'avez pas l'autorisation de transitionner ce ticket.",
   'fabric.linking.status_change_update_error': "Impossible de mettre à jour l'état",
   'fabric.linking.try_again': 'Réessayez',
   'fabric.linking.try_another_account': 'Essayez un autre compte',

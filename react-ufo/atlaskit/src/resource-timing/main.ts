@@ -7,14 +7,14 @@ import type { ResourceEntry, ResourceTiming, ResourceTimings } from './common/ty
 import { getConfig } from './common/utils/config';
 import { filterResourceTimings } from './common/utils/resource-timing-buffer';
 
-const cacheableTypes = ['script', 'link'];
+const alwaysCacheableTypes = ['script', 'link'];
 const resourceTypes = ['fetch', 'xmlhttprequest'];
 const CACHE_NETWORK = 'network';
 const CACHE_MEMORY = 'memory';
 const CACHE_DISK = 'disk';
 
 const isCacheableType = (url: string, type: string) => {
-	if (cacheableTypes.includes(type)) {
+	if (alwaysCacheableTypes.includes(type)) {
 		return true;
 	}
 
@@ -113,7 +113,7 @@ const getNetworkData = (
 		return {};
 	}
 
-	if (cacheableTypes.includes(initiatorType)) {
+	if (isCacheableType(name, initiatorType)) {
 		const transferType = calculateTransferType(name, initiatorType, duration, transferSize);
 
 		return {

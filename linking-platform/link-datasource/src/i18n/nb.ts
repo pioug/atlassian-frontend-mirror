@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Søk etter felt',
   'linkDataSource.column-picker.tooltip': 'Konfigurer kolonner',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Søk etter saker med nøkkelord',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Søk etter arbeider med nøkkelord',
   'linkDataSource.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'etter {date}',
@@ -96,10 +97,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Du kan ikke bytte til grunnleggende for denne spørringen.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Grunnleggende',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Søk etter arbeider med nøkkelord',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Velg nettsted',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Sett inn saker',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Sett inn arbeider',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Sett inn Jira-saker',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Sett inn Jira-arbeider',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Sett inn Jira-saker fra',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Sett inn Jira-arbeider fra',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Vis antall søkeresultater som en innebygd smartkobling',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Innebygd kobling',

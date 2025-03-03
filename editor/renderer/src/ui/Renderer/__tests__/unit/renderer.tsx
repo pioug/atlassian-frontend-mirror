@@ -9,6 +9,8 @@ import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui'
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import {
 	SEVERITY,
 	stopMeasure,
@@ -21,12 +23,14 @@ import RendererDefaultComponent, {
 	NORMAL_SEVERITY_THRESHOLD,
 	__RendererClassComponent as Renderer,
 } from '../../';
+import { ValidationContextProvider } from '../../ValidationContext';
 import { Paragraph } from '../../../../react/nodes';
 import { AnnotationsContextWrapper } from '../../../annotations/wrapper';
 import type { RendererAppearance } from '../../types';
 import { IntlProvider } from 'react-intl-next';
+import { adfNestedTableData } from '../__fixtures__/mockData';
 
-let mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+const mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
 jest.mock('@atlaskit/editor-common/ui', () => {
 	const WithCreateAnalyticsEventMock = (props: any) => props.render(mockCreateAnalyticsEvent);
@@ -330,7 +334,7 @@ describe('unsupported content levels severity', () => {
 		jest.useFakeTimers();
 		jest.resetModules();
 		jest.isolateModules(() => {
-			let { __RendererClassComponent } = require('../..');
+			const { __RendererClassComponent } = require('../..');
 			RendererIsolated = __RendererClassComponent;
 		});
 	});
@@ -653,7 +657,7 @@ describe('unsupported content levels severity', () => {
 				}));
 
 				jest.isolateModules(() => {
-					let { __RendererClassComponent } = require('../..');
+					const { __RendererClassComponent } = require('../..');
 					RendererIsolated = __RendererClassComponent;
 				});
 
@@ -796,6 +800,76 @@ describe('severity', () => {
 				action: 'rendered',
 				actionSubject: 'renderer',
 			}),
+		);
+	});
+});
+
+describe('ValidationContext', () => {
+	describe('render nested content in functional and class render under validation context', () => {
+		ffTest(
+			'platform_editor_react18_renderer',
+			() => {
+				const wrapper = mount(
+					<ValidationContextProvider value={{ skipValidation: true }}>
+						<IntlProvider locale="en">
+							<RendererDefaultComponent
+								document={adfNestedTableData as DocNode}
+								useSpecBasedValidator={true}
+							/>
+						</IntlProvider>
+					</ValidationContextProvider>,
+				);
+				expect(wrapper.find('table')).toHaveLength(2);
+				wrapper.unmount();
+			},
+			() => {
+				const wrapper = mount(
+					<ValidationContextProvider value={{ skipValidation: true }}>
+						<IntlProvider locale="en">
+							<RendererDefaultComponent
+								document={adfNestedTableData as DocNode}
+								useSpecBasedValidator={true}
+							/>
+						</IntlProvider>
+					</ValidationContextProvider>,
+				);
+				expect(wrapper.find('table')).toHaveLength(2);
+				wrapper.unmount();
+			},
+		);
+	});
+
+	describe('do not render nested content in functional and class render under validation context if skipValidation is false', () => {
+		ffTest(
+			'platform_editor_react18_renderer',
+			() => {
+				const wrapper = mount(
+					<ValidationContextProvider value={{ skipValidation: false }}>
+						<IntlProvider locale="en">
+							<RendererDefaultComponent
+								document={adfNestedTableData as DocNode}
+								useSpecBasedValidator={true}
+							/>
+						</IntlProvider>
+					</ValidationContextProvider>,
+				);
+				expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
+				wrapper.unmount();
+			},
+			() => {
+				const wrapper = mount(
+					<ValidationContextProvider value={{ skipValidation: false }}>
+						<IntlProvider locale="en">
+							<RendererDefaultComponent
+								document={adfNestedTableData as DocNode}
+								useSpecBasedValidator={true}
+							/>
+						</IntlProvider>
+					</ValidationContextProvider>,
+				);
+				expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
+				wrapper.unmount();
+			},
 		);
 	});
 });

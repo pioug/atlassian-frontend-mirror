@@ -23,6 +23,7 @@ import {
 
 export { ReactionServiceClient } from './client';
 export { Reaction, ReactionPicker, Reactions } from './components';
+export { useCloseManager } from './hooks/useCloseManager';
 export { ConnectedReactionPicker, ConnectedReactionsView } from './containers';
 export { MemoryReactionsStore, ReactionConsumer } from './store';
 // TODO: Convert all calls for ReactionRequest to Request, RequestClient to Client and ReactionsStore to Store
@@ -33,7 +34,6 @@ export type {
 	StorePropInput,
 	State,
 } from './types';
-
 export { ReactionUpdateType, ReactionStatus } from './types';
 
 export const constants = {

@@ -31,6 +31,7 @@ import commonMessages, {
 import type {
 	Command,
 	DropdownOptions,
+	DropdownOptionT,
 	ExtractInjectionAPI,
 	FloatingToolbarConfig,
 	FloatingToolbarDropdown,
@@ -51,7 +52,9 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
@@ -383,44 +386,102 @@ const generateMediaSingleFloatingToolbar = (
 				const floatingSwitcherTitle = intl.formatMessage(
 					mediaAndEmbedToolbarMessages.changeToMediaSingle,
 				);
-				toolbarButtons.push(
-					{
-						type: 'button',
-						id: 'editor.media.image.view.switcher.inline',
-						title: inlineSwitcherTitle,
-						icon: () => (
-							<ImageInlineIcon
-								color="currentColor"
-								spacing="spacious"
-								label={inlineSwitcherTitle}
-								LEGACY_size="medium"
-								LEGACY_fallbackIcon={IconInline}
-							/>
-						),
-						onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
-						testId: 'image-inline-appearance',
-					},
-					{
-						type: 'button',
-						id: 'editor.media.image.view.switcher.floating',
-						title: floatingSwitcherTitle,
+
+				if (editorExperiment('platform_editor_controls', 'control')) {
+					toolbarButtons.push(
+						{
+							type: 'button',
+							id: 'editor.media.image.view.switcher.inline',
+							title: inlineSwitcherTitle,
+							icon: () => (
+								<ImageInlineIcon
+									color="currentColor"
+									spacing="spacious"
+									label={inlineSwitcherTitle}
+									LEGACY_size="medium"
+									LEGACY_fallbackIcon={IconInline}
+								/>
+							),
+							onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
+							testId: 'image-inline-appearance',
+						},
+						{
+							type: 'button',
+							id: 'editor.media.image.view.switcher.floating',
+							title: floatingSwitcherTitle,
+							icon: () => (
+								<ImageFullscreenIcon
+									color="currentColor"
+									spacing="spacious"
+									label={floatingSwitcherTitle}
+									LEGACY_size="medium"
+									LEGACY_fallbackIcon={IconEmbed}
+								/>
+							),
+							onClick: () => {
+								return true;
+							},
+							testId: 'image-floating-appearance',
+							selected: true,
+						},
+						{ type: 'separator' },
+					);
+				} else {
+					const options: DropdownOptionT<Command>[] = [
+						{
+							id: 'editor.media.convert.mediainline',
+							title: inlineSwitcherTitle,
+							onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
+							icon: (
+								<ImageInlineIcon
+									color="currentColor"
+									spacing="spacious"
+									label={inlineSwitcherTitle}
+									LEGACY_size="medium"
+									LEGACY_fallbackIcon={IconInline}
+								/>
+							),
+						},
+						{
+							id: 'editor.media.convert.mediasingle',
+							title: floatingSwitcherTitle,
+							selected: true,
+							onClick: () => {
+								return true;
+							},
+							icon: (
+								<ImageFullscreenIcon
+									color="currentColor"
+									spacing="spacious"
+									label={floatingSwitcherTitle}
+									LEGACY_size="medium"
+									LEGACY_fallbackIcon={IconEmbed}
+								/>
+							),
+						},
+					];
+
+					const switchFromBlockToInline: FloatingToolbarDropdown<Command> = {
+						id: 'media-block-to-inline-toolbar-item',
+						testId: 'media-inline-to-block-dropdown',
+						type: 'dropdown',
+						options: options,
+						title: intl.formatMessage(messages.sizeOptions),
 						icon: () => (
 							<ImageFullscreenIcon
 								color="currentColor"
 								spacing="spacious"
-								label={floatingSwitcherTitle}
+								label={intl.formatMessage(messages.sizeOptions)}
 								LEGACY_size="medium"
 								LEGACY_fallbackIcon={IconEmbed}
 							/>
 						),
-						onClick: () => {
-							return true;
-						},
-						testId: 'image-floating-appearance',
-						selected: true,
-					},
-					{ type: 'separator' },
-				);
+					};
+
+					toolbarButtons.push(switchFromBlockToInline, {
+						type: 'separator',
+					});
+				}
 			}
 		}
 
@@ -682,10 +743,6 @@ const generateMediaSingleFloatingToolbar = (
 	};
 
 	if (!editorExperiment('platform_editor_controls', 'control')) {
-		toolbarButtons.push(removeButton);
-
-		toolbarButtons.push({ type: 'separator', supportsViewMode: false });
-
 		// Preview Support
 		if (allowAdvancedToolBarOptions && allowImagePreview) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
@@ -717,19 +774,21 @@ const generateMediaSingleFloatingToolbar = (
 			}
 		}
 
-		toolbarButtons.push({
-			type: 'copy-button',
-			items: [
+		isViewOnly &&
+			toolbarButtons.push(
 				{
-					state,
-					formatMessage: intl.formatMessage,
-					nodeType: mediaSingle,
+					type: 'copy-button',
+					items: [
+						{
+							state,
+							formatMessage: intl.formatMessage,
+							nodeType: mediaSingle,
+						},
+					],
+					supportsViewMode: true,
 				},
-			],
-			supportsViewMode: true,
-		});
-
-		toolbarButtons.push({ type: 'separator', supportsViewMode: true });
+				{ type: 'separator', supportsViewMode: true },
+			);
 
 		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
 			// TODO: add separator when overflow menu is added
@@ -879,6 +938,40 @@ export const floatingToolbar = (
 			mediaLinkingState,
 			pluginInjectionApi,
 		);
+	}
+
+	if (items.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
+		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+			{ type: 'separator', supportsViewMode: true },
+			{
+				type: 'overflow-dropdown',
+				options: [
+					{
+						title: 'Resize',
+						onClick: () => {
+							// TODO open resize dialog?
+							return true;
+						},
+						icon: <GrowHorizontalIcon label="Resize" />,
+					},
+					{ type: 'separator' },
+					{
+						title: 'Copy',
+						onClick: () => {
+							// TODO replace with copy-button plugin
+							return true;
+						},
+						icon: <CopyIcon label="Copy" />,
+					},
+					{
+						title: 'Delete',
+						onClick: remove,
+						icon: <DeleteIcon label="Delete" />,
+					},
+				],
+			},
+		];
+		items.push(...overflowMenuConfig);
 	}
 
 	// Ignored via go/ees005

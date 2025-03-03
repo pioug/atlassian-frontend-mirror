@@ -1,5 +1,13 @@
 # @atlaskit/pagination
 
+## 16.0.1
+
+### Patch Changes
+
+- [#119674](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119674)
+  [`796d5838394c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/796d5838394c2) -
+  revert the changes for pagination page navigator markup
+
 ## 16.0.0
 
 ### Major Changes

@@ -41,6 +41,7 @@ export default {
   'linkDataSource.column-picker.search': 'Hae kenttiä',
   'linkDataSource.column-picker.tooltip': 'Määritä sarakkeet',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Hae asioita avainsanoilla',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Hae työtehtäviä avainsanoilla',
   'linkDataSource.configmodal.cancelButtonText': 'Peruuta',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Peruuta',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': '{date} jälkeen',
@@ -97,10 +98,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Et voi vaihtaa perustilaan tässä kyselyssä.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Perus',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Hae työtehtäviä avainsanoilla',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Valitse sivusto',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Lisää asiat',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Lisää työtehtävät',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Lisää Jira-asioita',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Lisää Jira-työtehtäviä',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Lisää Jira-asioita sivulta',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Lisää Jira-työtehtäviä sivulta',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Näytä hakutulosten lukumäärä tekstiin sitoutuvana Smart Linkinä',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Tekstiin sitoutuva linkki',

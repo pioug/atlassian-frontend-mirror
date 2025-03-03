@@ -26,6 +26,7 @@ snapshot(Basic, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'platform-lozenge-custom-letterspacing': [true, false],
 	},
 });
 
@@ -44,6 +45,7 @@ snapshot(BasicCompiled, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'platform-lozenge-custom-letterspacing': [true, false],
 	},
 });
 

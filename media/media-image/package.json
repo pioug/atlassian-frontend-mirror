@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "20.0.0",
+	"version": "20.0.1",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
@@ -63,7 +65,7 @@
 		"@atlaskit/media-test-data": "^3.0.0",
 		"@atlaskit/media-test-helpers": "^35.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^13.4.0",

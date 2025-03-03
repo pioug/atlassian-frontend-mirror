@@ -26,7 +26,6 @@ import {
 } from '@atlaskit/media-common';
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
-import ReactDOM from 'react-dom';
 import { useMergeRefs } from 'use-callback-ref';
 import { MediaCardError } from '../errors';
 import {
@@ -68,15 +67,6 @@ import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { useIntl } from 'react-intl-next';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-const MediaViewerComponent = (props: React.ComponentProps<typeof MediaViewer>) => {
-	if (fg('media_viewer_integrates_ds_portal')) {
-		return <MediaViewer {...props} />;
-	} else {
-		return ReactDOM.createPortal(<MediaViewer {...props} />, document.body);
-	}
-};
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -869,7 +859,7 @@ export const FileCard = ({
 				renderCard()
 			)}
 			{mediaViewerSelectedItem ? (
-				<MediaViewerComponent
+				<MediaViewer
 					collectionName={collectionName}
 					items={mediaViewerItems || []}
 					mediaClientConfig={mediaClient.config}

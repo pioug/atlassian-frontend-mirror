@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Zoek naar velden',
   'linkDataSource.column-picker.tooltip': 'Kolommen configureren',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Zoek naar issues met trefwoorden',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Zoek naar werkitems met trefwoorden',
   'linkDataSource.configmodal.cancelButtonText': 'Annuleren',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annuleren',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'na {date}',
@@ -96,10 +97,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Je kunt niet overschakelen naar basis voor deze query.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Basis',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Zoek naar werkitems met trefwoorden',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Site kiezen',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Issues invoegen',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Werkitems invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-issues invoegen',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira-werkitems invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-issues invoegen van',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Jira-werkitems invoegen van',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Het aantal zoekresultaten weergeven als een inline Smart Link',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-link',

@@ -43,6 +43,8 @@ export default {
   'linkDataSource.column-picker.search': 'Wyszukaj pola',
   'linkDataSource.column-picker.tooltip': 'Konfiguruj kolumny',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Wyszukaj zgłoszenia według słów kluczowych',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Wyszukaj zgłoszenia według słów kluczowych',
   'linkDataSource.configmodal.cancelButtonText': 'Anuluj',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Anuluj',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'po {date}',
@@ -97,10 +99,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Nie można przełączyć na tryb podstawowy w przypadku tego zapytania.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Podstawowe',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Wyszukaj zgłoszenia według słów kluczowych',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Wybierz witrynę',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Wstaw zgłoszenia',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Wstaw zgłoszenia',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Wstaw zgłoszenia Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Wstaw zgłoszenia Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Wstaw zgłoszenia Jira z witryny',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Wstaw zgłoszenia Jira z witryny',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Wyświetl liczbę wyników wyszukiwania jako śródwierszowe inteligentne łącze',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Łącze śródwierszowe',

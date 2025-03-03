@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -41,6 +42,7 @@ export type LazyShareFormProps = Pick<
 	| 'submitButtonLabel'
 	| 'product'
 	| 'productAttributes'
+	| 'customHeader'
 	| 'customFooter'
 	| 'enableSmartUserPicker'
 	| 'loggedInAccountId'
@@ -93,6 +95,10 @@ const footerCustomStyles = css({
 	)} ${token('space.negative.300', '-24px')}`,
 });
 
+const headerCustomStyles = css({
+	marginBottom: `${token('space.200', '16px')}`,
+});
+
 /**
  * A Share form content which is lazy-loaded.
  * Make sure this component is not exported inside main entry points `src/index.ts`
@@ -110,6 +116,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 		submitButtonLabel,
 		product,
 		productAttributes,
+		customHeader,
 		customFooter,
 		enableSmartUserPicker,
 		loggedInAccountId,
@@ -145,6 +152,8 @@ function LazyShareForm(props: LazyShareFormProps) {
 		isSubmitShareDisabled,
 	} = props;
 
+	const header = customHeader ? <div css={headerCustomStyles}>{customHeader}</div> : null;
+
 	const footer = (
 		<div>
 			{bottomMessage ? <div css={footerBottomMessageStyles}>{bottomMessage}</div> : null}
@@ -162,6 +171,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 
 	return (
 		<ShareFormWrapper
+			header={fg('platform_share_custom_header_prop') && header}
 			footer={footer}
 			// form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
 			// so we don't need to show title via ShareFormWrapper

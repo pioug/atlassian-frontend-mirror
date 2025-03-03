@@ -121,6 +121,7 @@ export class IconAndTitleLayoutOld extends React.Component<IconAndTitleLayoutPro
 						className="smart-link-icon"
 						src={url}
 						data-testid={`${testId}-image`}
+						alt=""
 					/>
 				}
 				errored={errored}

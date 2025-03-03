@@ -2,69 +2,92 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
-	createElement,
-	forwardRef,
-	Fragment,
-	type MouseEventHandler,
-	type ReactNode,
-	type Ref,
-} from 'react';
+import { type CSSProperties, forwardRef, Fragment, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { ClassNames, css, jsx } from '@emotion/react';
-import { type CSSInterpolation } from '@emotion/serialize';
+import { css, jsx } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 import { B200, B50, N30 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { BORDER_WIDTH } from './constants';
 import { type AvatarClickEventHandler } from './types';
-import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
+import { getCustomElement } from './utilities';
 
-const avatarItemStyles = css({
-	minWidth: 0,
-	maxWidth: '100%',
-	flex: '1 1 100%',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: '1.4',
-	paddingInlineStart: token('space.100', '8px'),
-});
+const bgColorCssVar = '--avatar-item-bg-color';
 
-const secondaryTextOldStyles = css({
-	color: token('color.text.subtlest'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontSize: '0.85em',
-});
-
-const baseTextStyles = css({
-	display: 'block',
-	color: token('color.text'),
-});
-
-const truncationStyles = css({
-	overflowX: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-});
-
-export interface CustomAvatarItemProps {
-	testId?: string;
-	onClick?: MouseEventHandler;
-	className?: string;
-	href?: string;
-	children: ReactNode;
-	ref: Ref<HTMLElement>;
-	/**
-	 * This is used in render props so is okay to be defined.
-	 * eslint-disable-next-line consistent-props-definitions
-	 */
-	'aria-label'?: string;
-	'aria-disabled'?: boolean | 'false' | 'true' | undefined;
-}
+const styles = {
+	root: css({
+		display: 'flex',
+		boxSizing: 'border-box',
+		width: '100%',
+		alignItems: 'center',
+		backgroundColor: `var(${bgColorCssVar})`,
+		borderColor: 'transparent',
+		borderRadius: '3px',
+		borderStyle: 'solid',
+		borderWidth: token('border.width.outline', '2px'),
+		color: 'inherit',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: 'inherit',
+		fontStyle: 'normal',
+		fontWeight: token('font.weight.regular'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '1',
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
+		outline: 'none',
+		paddingBlockEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
+		textAlign: 'left',
+		textDecoration: 'none',
+	}),
+	rootDisabled: css({
+		cursor: 'not-allowed',
+		opacity: token('opacity.disabled', '0.5'),
+		pointerEvents: 'none',
+	}),
+	rootInteractive: css({
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+			cursor: 'pointer',
+			textDecoration: 'none',
+		},
+		'&:focus': {
+			borderColor: token('color.border.focused', B200),
+			outline: 'none',
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed', B50),
+		},
+	}),
+	avatarItem: css({
+		minWidth: 0,
+		maxWidth: '100%',
+		flex: '1 1 100%',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '1.4',
+		paddingInlineStart: token('space.100'),
+	}),
+	baseText: css({
+		display: 'block',
+		color: token('color.text'),
+	}),
+	truncation: css({
+		overflowX: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+	}),
+	secondaryTextLegacy: css({
+		color: token('color.text.subtlest'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: '0.85em',
+	}),
+};
 
 export interface AvatarItemProps {
 	/**
@@ -81,10 +104,6 @@ export interface AvatarItemProps {
 	 * Change background color.
 	 */
 	backgroundColor?: string;
-	/**
-	 * Use a custom component instead of the default span.
-	 */
-	children?: (props: CustomAvatarItemProps) => ReactNode;
 	/**
 	 * URL for avatars being used as a link.
 	 */
@@ -119,64 +138,6 @@ export interface AvatarItemProps {
 	testId?: string;
 }
 
-const getStyles = (
-	css: (template: TemplateStringsArray, ...args: Array<CSSInterpolation>) => string,
-	{
-		backgroundColor,
-		isInteractive,
-		isDisabled,
-	}: {
-		backgroundColor: string;
-		isInteractive: boolean;
-		isDisabled?: boolean;
-	},
-) =>
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @repo/internal/react/no-css-string-literals
-	css`
-		align-items: center;
-		background-color: ${backgroundColor};
-		border-radius: ${borderRadius()}px;
-		border: ${BORDER_WIDTH}px solid transparent;
-		box-sizing: border-box;
-		color: inherit;
-		display: flex;
-		font-size: inherit;
-		font-style: normal;
-		font-weight: ${token('font.weight.regular')};
-		line-height: 1;
-		outline: none;
-		margin: ${token('space.0', '0px')};
-		padding: ${token('space.050', '4px')};
-		text-align: left;
-		text-decoration: none;
-		width: 100%;
-
-		${isInteractive &&
-		`
-        :hover {
-          background-color: ${token('color.background.neutral.subtle.hovered', N30)};
-          cursor: pointer;
-          text-decoration: none;
-        }
-
-        :focus {
-          outline: none;
-          border-color: ${token('color.border.focused', B200)};
-        }
-
-        :active {
-          background-color: ${token('color.background.neutral.subtle.pressed', B50)};
-        }
-      `}
-
-		${isDisabled &&
-		`
-        cursor: not-allowed;
-        opacity: ${token('opacity.disabled', '0.5')};
-        pointer-events: none;
-      `}
-	`;
-
 /**
  * __Avatar item__
  *
@@ -190,7 +151,6 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
 		{
 			avatar,
 			backgroundColor = 'transparent',
-			children,
 			isTruncationDisabled,
 			href,
 			isDisabled,
@@ -203,75 +163,60 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
 		},
 		ref,
 	) => {
-		const getTestId = (testId?: string, children?: AvatarItemProps['children']) =>
-			!children ? { 'data-testid': `${testId}--itemInner` } : { testId: `${testId}--itemInner` };
-
-		const componentProps = () => {
-			if (isDisabled) {
-				return { disabled: true };
-			}
-
-			// return only relevant props for either anchor or button elements
-			return {
-				...(href && getLinkProps(href, target)),
-				...(onClick && !href ? getButtonProps(onClick) : { onClick }),
-			};
-		};
+		const Container = getCustomElement(isDisabled, href, onClick);
+		const isInteractive = Boolean(onClick || href);
 
 		return (
-			<ClassNames>
-				{({ css }) => {
-					const props: CustomAvatarItemProps = {
-						ref,
-						className: getStyles(css, {
-							backgroundColor,
-							isInteractive: Boolean(onClick || href),
-							isDisabled,
-						}),
-						...componentProps(),
-						...(testId && getTestId(testId, children)),
-						...((onClick || href) && { 'aria-label': label }),
-						children: (
-							<Fragment>
-								{avatar}
-								<div css={avatarItemStyles}>
-									{fg('platform.design-system-team.avatar-item-font-size_830x6') ? (
-										<Fragment>
-											<Text maxLines={isTruncationDisabled ? undefined : 1}>{primaryText}</Text>
-											<Text
-												color="color.text.subtlest"
-												maxLines={isTruncationDisabled! ? undefined : 1}
-												size="UNSAFE_small"
-											>
-												{secondaryText}
-											</Text>
-										</Fragment>
-									) : (
-										<Fragment>
-											<span css={[baseTextStyles, !isTruncationDisabled && truncationStyles]}>
-												{primaryText}
-											</span>
-											<span
-												css={[
-													baseTextStyles,
-													secondaryTextOldStyles,
-													!isTruncationDisabled && truncationStyles,
-												]}
-											>
-												{secondaryText}
-											</span>
-										</Fragment>
-									)}
-								</div>
-							</Fragment>
-						),
-					};
-
-					return children
-						? children(props)
-						: createElement(getCustomElement(isDisabled, href, onClick), props);
-				}}
-			</ClassNames>
+			<Container
+				css={[
+					styles.root,
+					isInteractive && styles.rootInteractive,
+					isDisabled && styles.rootDisabled,
+				]}
+				style={{ [bgColorCssVar]: backgroundColor } as CSSProperties}
+				ref={ref as React.Ref<HTMLAnchorElement & HTMLButtonElement & HTMLSpanElement>}
+				aria-label={isInteractive ? label : undefined}
+				onClick={onClick}
+				disabled={isDisabled}
+				data-testid={testId ? `${testId}--itemInner` : undefined}
+				type={Container === 'button' ? 'button' : undefined}
+				{...(href && {
+					href,
+					target,
+					rel: target === '_blank' ? 'noopener noreferrer' : undefined,
+				})}
+			>
+				{avatar}
+				<div css={styles.avatarItem}>
+					{fg('platform.design-system-team.avatar-item-font-size_830x6') ? (
+						<Fragment>
+							<Text maxLines={isTruncationDisabled ? undefined : 1}>{primaryText}</Text>
+							<Text
+								color="color.text.subtlest"
+								maxLines={isTruncationDisabled! ? undefined : 1}
+								size="UNSAFE_small"
+							>
+								{secondaryText}
+							</Text>
+						</Fragment>
+					) : (
+						<Fragment>
+							<span css={[styles.baseText, !isTruncationDisabled && styles.truncation]}>
+								{primaryText}
+							</span>
+							<span
+								css={[
+									styles.baseText,
+									styles.secondaryTextLegacy,
+									!isTruncationDisabled && styles.truncation,
+								]}
+							>
+								{secondaryText}
+							</span>
+						</Fragment>
+					)}
+				</div>
+			</Container>
 		);
 	},
 );

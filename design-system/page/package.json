@@ -76,7 +76,7 @@
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",

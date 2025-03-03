@@ -78,9 +78,17 @@ export interface ReactionProps {
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
 	isViewOnly?: boolean;
+	/**
+	 * Optional prop for controlling if the reaction displayed is a default one and should not have a border
+	 */
+	showSubtleStyle?: boolean;
 }
 const containerStyles = xcss({
 	position: 'relative',
+});
+
+const borderlessStyle = xcss({
+	border: 'none',
 });
 
 const reactedStyles = xcss({
@@ -119,6 +127,7 @@ export const Reaction = ({
 	allowUserDialog,
 	handleOpenReactionsDialog,
 	isViewOnly = false,
+	showSubtleStyle,
 }: ReactionProps) => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
@@ -184,8 +193,10 @@ export const Reaction = ({
 		setIsTooltipEnabled(false);
 	};
 
-	const buttonStyles = showOpaqueBackground ? [opaqueBackgroundStyles] : [];
-
+	const buttonStyles = [
+		...(showOpaqueBackground ? [opaqueBackgroundStyles] : []),
+		...(showSubtleStyle ? [borderlessStyle] : []),
+	];
 	const emojiAndCount = (
 		<Inline>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}

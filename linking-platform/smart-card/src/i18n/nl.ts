@@ -106,6 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
   'fabric.linking.join_to_view': 'Word lid van {context} om deze issue te bekijken',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Word lid van {context} om dit werkitem te bekijken',
   'fabric.linking.learn_more_about_connecting_account':
     'Meer informatie over het koppelen van je account aan Atlassian-producten.',
   'fabric.linking.learn_more_about_smart_links': 'Meer informatie over Smart Links.',
@@ -120,6 +121,7 @@ export default {
     'Deze pagina bestaat niet of is mogelijk gewijzigd nadat deze link is toegevoegd.',
   'fabric.linking.not_found_title': 'We kunnen deze {product}-pagina niet weergeven',
   'fabric.linking.open_issue_in_jira': 'Open issue in Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Open werkitem in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Open de link in een nieuw tabblad',
   'fabric.linking.owned_by': 'Eigendom van {context}',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
@@ -160,6 +162,8 @@ export default {
     'Je aanvraag voor toegang tot {hostname} is in afwachting van goedkeuring van de beheerder.',
   'fabric.linking.request_access_pending_title': 'Toegang tot {product} is in afwachting',
   'fabric.linking.request_access_to_view': 'Vraag toegang aan tot {context} om deze issue te bekijken',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Vraag toegang aan tot {context} om dit werkitem te bekijken',
   'fabric.linking.request_denied': 'Je toegangsaanvraag is afgewezen',
   'fabric.linking.request_denied_description':
     "Je beheerder heeft je aanvraag om {product}-pagina's te bekijken van {hostname} niet goedgekeurd.",
@@ -172,6 +176,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Bekijk Origineel',
   'fabric.linking.status_change_load_error': 'We konden de statussen en transities niet laden',
   'fabric.linking.status_change_permission_error': 'Je hebt geen rechten om deze issue over te zetten.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Je hebt geen rechten om dit werkitem over te zetten.',
   'fabric.linking.status_change_update_error': 'We konden de status niet bijwerken',
   'fabric.linking.try_again': 'Opnieuw proberen',
   'fabric.linking.try_another_account': 'Gebruik een ander account',

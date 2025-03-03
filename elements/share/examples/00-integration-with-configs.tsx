@@ -13,6 +13,7 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
 import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
+import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import { type OptionData } from '@atlaskit/smart-user-picker';
@@ -186,6 +187,7 @@ type ExampleState = {
 	useUrlShortener: boolean;
 	shortLinkData?: ShortenRequest;
 	product: ProductName;
+	hasHeader: boolean;
 	hasFooter: boolean;
 	enableSmartUserPicker: boolean;
 	hasShareFieldsFooter: boolean;
@@ -245,6 +247,12 @@ const FieldsFooterWrapper = ({ children }: PropsWithChildren<{}>) => (
 	>
 		{children}
 	</div>
+);
+
+const CustomHeader = () => (
+	<SectionMessage appearance="discovery" title="Header">
+		<p>This is a sample header for the Share dialog</p>
+	</SectionMessage>
 );
 
 const CustomFooter = () => (
@@ -339,6 +347,7 @@ const defaultProps: State = {
 	triggerButtonStyle: triggerButtonStyleOptions[0].value,
 	triggerButtonTooltipPosition: triggerButtonTooltipPositionOptions[0].value,
 	product: 'confluence',
+	hasHeader: false,
 	hasFooter: false,
 	enableSmartUserPicker: false,
 	hasShareFieldsFooter: false,
@@ -439,6 +448,7 @@ export default function Example() {
 									useUrlShortener={state.useUrlShortener}
 									shortLinkData={state.shortLinkData}
 									product={state.product}
+									customHeader={state.hasHeader ? <CustomHeader /> : undefined}
 									customFooter={state.hasFooter ? <CustomFooter /> : undefined}
 									onUserSelectionChange={console.log}
 									shareFieldsFooter={state.hasShareFieldsFooter ? <ShareFieldsFooter /> : undefined}
@@ -675,6 +685,15 @@ export default function Example() {
 										}
 									/>
 								</WrapperWithMarginTop>
+								{fg('platform_share_custom_header_prop') ? (
+									<WrapperWithMarginTop>
+										Custom Header
+										<Toggle
+											isChecked={state.hasHeader}
+											onChange={() => setState({ ...state, hasHeader: !state.hasHeader })}
+										/>
+									</WrapperWithMarginTop>
+								) : null}
 								<WrapperWithMarginTop>
 									Custom Footer
 									<Toggle

@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import ModalSpinner from '../viewers/modalSpinner';
 import type { MediaViewerWithMediaClientConfigProps } from './types';
 import { MediaViewerPortal } from './portal';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const MediaViewer = lazy(() =>
 	import(
@@ -13,13 +12,9 @@ const MediaViewer = lazy(() =>
 export default function AsyncMediaViewer(props: MediaViewerWithMediaClientConfigProps) {
 	return (
 		<Suspense fallback={<ModalSpinner />}>
-			{fg('media_viewer_integrates_ds_portal') ? (
-				<MediaViewerPortal>
-					<MediaViewer {...props} />
-				</MediaViewerPortal>
-			) : (
+			<MediaViewerPortal>
 				<MediaViewer {...props} />
-			)}
+			</MediaViewerPortal>
 		</Suspense>
 	);
 }

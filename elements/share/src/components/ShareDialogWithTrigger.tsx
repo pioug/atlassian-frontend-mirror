@@ -585,6 +585,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 			submitButtonLabel,
 			product,
 			productAttributes,
+			customHeader,
 			customFooter,
 			enableSmartUserPicker,
 			loggedInAccountId,
@@ -628,6 +629,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 								copyLink={copyLink}
 								showIntegrationForm={showIntegrationForm}
 								bottomMessage={bottomMessage}
+								customHeader={fg('platform_share_custom_header_prop') && customHeader}
 								customFooter={footer}
 								loadOptions={loadUserOptions}
 								isSharing={isSharing}

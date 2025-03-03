@@ -31,7 +31,7 @@
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"lodash": "^4.17.21"

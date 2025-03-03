@@ -42,6 +42,8 @@ export default {
   'linkDataSource.column-picker.search': 'Vyhledat pole',
   'linkDataSource.column-picker.tooltip': 'Konfigurovat sloupce',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Vyhledat požadavky pomocí klíčového slova',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Vyhledat požadavky pomocí klíčového slova',
   'linkDataSource.configmodal.cancelButtonText': 'Zrušit',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Zrušit',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'po {date}',
@@ -95,10 +97,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'U tohoto dotazu nemůžete přepnout na základní režim.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Základní',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Vyhledat požadavky pomocí klíčového slova',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Vyberte web.',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vložit požadavky',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Vložit požadavky',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Vložit požadavky Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Vložit požadavky Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Vložit požadavky Jira z:',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Vložit požadavky Jira z:',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Zobrazit počet výsledků vyhledávání jako vložený chytrý odkaz',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Vložený odkaz',

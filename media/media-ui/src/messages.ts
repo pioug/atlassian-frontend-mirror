@@ -128,6 +128,7 @@ export type MessageKey =
 	| 'playbackSpeed'
 	| 'skipBackward'
 	| 'skipForward'
+	| 'sizeOptions'
 	| 'volumeMuteButtonAria'
 	| 'volumeLevelControlAria'
 	| 'playbackDefaultSpeed'
@@ -804,6 +805,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Forward 10 seconds',
 		description:
 			'In the context of a video player, it allows user to skip 10 seconds of play time forward.',
+	},
+	sizeOptions: {
+		id: 'fabric.media.size_options',
+		defaultMessage: 'Size options',
+		description:
+			'A dropdown with buttons that allow to convert an image to an inline or to an image or original size',
 	},
 	volumeLevelControlAria: {
 		id: 'fabric.media.volume_level',

@@ -106,6 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
   'fabric.linking.join_to_view': 'Bu konuyu görüntülemek için {context} ürününe katılın',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Bu bileti görüntülemek için {context} ürününe katılın',
   'fabric.linking.learn_more_about_connecting_account':
     'Hesabınızı Atlassian ürünlerine bağlamak hakkında daha fazla bilgi edinin.',
   'fabric.linking.learn_more_about_smart_links': 'Akıllı Bağlantılar hakkında daha fazla bilgi edinin.',
@@ -119,6 +120,7 @@ export default {
   'fabric.linking.not_found_description': 'Bu sayfa mevcut değil veya bu bağlantı eklendikten sonra değişmiş olabilir.',
   'fabric.linking.not_found_title': 'Bu {product} sayfası gösterilemiyor',
   'fabric.linking.open_issue_in_jira': "Konuyu Jira'da aç",
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': "Biletyu Jira'da aç",
   'fabric.linking.open_link_in_a_new_tab': 'Bağlantıyı yeni sekmede aç',
   'fabric.linking.owned_by': 'Sahibi: {context}',
   'fabric.linking.pending_request': 'Erişim talebiniz beklemede',
@@ -158,6 +160,8 @@ export default {
   'fabric.linking.request_access_pending_description': '{hostname} adresine erişme talebiniz yönetici onayı bekliyor.',
   'fabric.linking.request_access_pending_title': '{product} ürününe erişim bekleniyor',
   'fabric.linking.request_access_to_view': 'Bu konuyu görüntülemek için {context} ürününe erişim talep edin',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Bu bileti görüntülemek için {context} ürününe erişim talep edin',
   'fabric.linking.request_denied': 'Erişim talebiniz reddedildi',
   'fabric.linking.request_denied_description':
     'Yöneticiniz {hostname} üzerinde {product} sayfalarını görüntüleme talebinizi onaylamadı.',
@@ -170,6 +174,7 @@ export default {
   'fabric.linking.srclinkunknown': 'Orijinalini Görüntüleyin',
   'fabric.linking.status_change_load_error': 'Durumlar ve durum değişiklikleri yüklenemedi',
   'fabric.linking.status_change_permission_error': 'Bu konunun durumunu değiştirme izniniz yok.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh': 'Bu biletnun durumunu değiştirme izniniz yok.',
   'fabric.linking.status_change_update_error': 'Durum güncellenemedi',
   'fabric.linking.try_again': 'Yeniden dene',
   'fabric.linking.try_another_account': 'Başka bir hesapla deneyin',

@@ -106,6 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
+  'fabric.linking.join_to_view-issue-term-refresh': '{context}に参加してこの作業項目を見る',
   'fabric.linking.learn_more_about_connecting_account': 'アカウントをアトラシアン製品に接続する方法をご確認ください。',
   'fabric.linking.learn_more_about_smart_links': 'スマート リンクの詳細',
   'fabric.linking.link_safety_warning_message':
@@ -118,6 +119,7 @@ export default {
   'fabric.linking.not_found_description': 'ページが存在しないか、このリンクの追加後に変更された可能性があります。',
   'fabric.linking.not_found_title': 'この {product} のページは表示できません',
   'fabric.linking.open_issue_in_jira': 'Jira で課題を開く',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Jira で作業項目を開く',
   'fabric.linking.open_link_in_a_new_tab': 'リンクを新しいタブで開く',
   'fabric.linking.owned_by': '所有者: {context}',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
@@ -157,6 +159,8 @@ export default {
   'fabric.linking.request_access_pending_description': '{hostname} へのアクセス権のリクエストは管理者の承認待ちです。',
   'fabric.linking.request_access_pending_title': '{product} へのアクセス権は保留中です',
   'fabric.linking.request_access_to_view': 'この課題を表示するには、{context}へのアクセスをリクエストします。',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'この作業項目を表示するには、{context}へのアクセスをリクエストします。',
   'fabric.linking.request_denied': 'アクセス リクエストが拒否されました。',
   'fabric.linking.request_denied_description':
     '{hostname} の {product} ページを閲覧するリクエストが管理者によって承認されませんでした。',
@@ -169,6 +173,8 @@ export default {
   'fabric.linking.srclinkunknown': 'リンク元を表示',
   'fabric.linking.status_change_load_error': 'ステータスとトランジションを読み込めませんでした。',
   'fabric.linking.status_change_permission_error': 'この課題をトランジションする権限がありません。',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'この作業項目をトランジションする権限がありません。',
   'fabric.linking.status_change_update_error': 'ステータスを更新できませんでした。',
   'fabric.linking.try_again': '再試行',
   'fabric.linking.try_another_account': '別のアカウントでお試しください',

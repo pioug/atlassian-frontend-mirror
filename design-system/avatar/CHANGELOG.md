@@ -1,5 +1,15 @@
 # @atlaskit/avatar
 
+## 24.0.0
+
+### Major Changes
+
+- [#119746](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119746)
+  [`42617a5e15cd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42617a5e15cd2) -
+  Removes the `children` prop from `AvatarItem`, along with the `CustomAvatarItemProps` type.
+  Limiting the amount of customization that can be applied. This change is in preparation for the
+  migration from `@emotion/react` to Compiled CSS-in-JS.
+
 ## 23.0.0
 
 ### Major Changes

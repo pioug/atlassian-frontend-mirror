@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 100.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 100.4.1
+
+### Patch Changes
+
+- [#120533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120533)
+  [`f1bec731e278f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1bec731e278f) -
+  Adds a `sideEffects` field to ensure this package does not have Compiled styles tree-shaken in the
+  future to avoid an accidental regression.
+
+  This is related to
+  https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953
+
+- [#120574](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120574)
+  [`a5bfdddffd096`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5bfdddffd096) -
+  EDF-2527 Added traceIds in editor ai analytics events fired after getting ai response.
+- [#120675](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120675)
+  [`0fae2935821fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fae2935821fd) -
+  Update expandSelectionBounds to hoist selection to top level when anchor/head depth differs
+- Updated dependencies
+
 ## 100.4.0
 
 ### Minor Changes

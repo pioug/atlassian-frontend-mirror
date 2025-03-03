@@ -105,6 +105,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Você precisa solicitar o acesso ou tentar usar outra conta para poder visualizar.',
   'fabric.linking.join_to_view': 'Entre em {context} para ver esse item',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Entre em {context} para ver esse ticket',
   'fabric.linking.learn_more_about_connecting_account':
     'Saiba mais sobre como conectar a conta aos produtos Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Saiba mais sobre os links inteligentes.',
@@ -119,6 +120,7 @@ export default {
     'A página não existe ou pode ter sido alterada depois que esse link foi adicionado.',
   'fabric.linking.not_found_title': 'Não é possível exibir esta página {product}',
   'fabric.linking.open_issue_in_jira': 'Abrir item no Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Abrir ticket no Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Abrir link em uma nova guia',
   'fabric.linking.owned_by': 'Pertence a {context}',
   'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
@@ -159,6 +161,7 @@ export default {
     'A solicitação de acesso a {hostname} está aguardando aprovação do administrador.',
   'fabric.linking.request_access_pending_title': 'O acesso a {product} está pendente',
   'fabric.linking.request_access_to_view': 'Solicite acesso a {context} para ver esse item',
+  'fabric.linking.request_access_to_view-issue-term-refresh': 'Solicite acesso a {context} para ver esse ticket',
   'fabric.linking.request_denied': 'A solicitação de acesso foi negada',
   'fabric.linking.request_denied_description':
     'O administrador não aprovou a solicitação para visualizar páginas {product} de {hostname}.',
@@ -171,6 +174,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Ver o original',
   'fabric.linking.status_change_load_error': 'Não foi possível carregar os status ou as transições',
   'fabric.linking.status_change_permission_error': 'Você não tem permissão para fazer a transição desse item.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Você não tem permissão para fazer a transição desse ticket.',
   'fabric.linking.status_change_update_error': 'Não foi possível atualizar o status',
   'fabric.linking.try_again': 'Tentar novamente',
   'fabric.linking.try_another_account': 'Experimente uma outra conta',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-grid",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Grid plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,7 +17,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts"

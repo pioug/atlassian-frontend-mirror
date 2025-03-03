@@ -18,7 +18,10 @@ describe('ResolvedView', () => {
 
 	it('should render an icon when one is provided', async () => {
 		render(<InlineCardResolvedView icon="some-link-to-icon" title="some text content" />);
-		expect(await screen.findByRole('img')).toHaveAttribute('src', 'some-link-to-icon');
+		expect(await screen.findByTestId('inline-card-icon-and-title-image')).toHaveAttribute(
+			'src',
+			'some-link-to-icon',
+		);
 	});
 
 	it('should not render icon when one is not provided', async () => {

@@ -165,6 +165,14 @@ export function canMoveSliceToIndex(
 		return false;
 	}
 
+	// Multiple layout columns do not drop correctly.
+	if (
+		slice.content.firstChild?.type.name === 'layoutColumn' &&
+		fg('platform_editor_elements_dnd_multi_select_patch_1')
+	) {
+		return false;
+	}
+
 	for (let i = 0; i < slice.content.childCount; i++) {
 		const node = slice.content.maybeChild(i);
 		if (i === 0) {

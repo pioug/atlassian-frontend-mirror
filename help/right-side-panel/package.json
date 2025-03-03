@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/right-side-panel",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "A cross-product right-side-panel component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts"
@@ -37,7 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",
 		"exenv": "^1.2.2",

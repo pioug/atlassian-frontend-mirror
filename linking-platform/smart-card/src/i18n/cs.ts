@@ -105,6 +105,8 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup nebo vyzkoušejte jiný účet.',
   'fabric.linking.join_to_view': 'Chcete-li si zobrazit tento požadavek, připojte se ke službě {context}.',
+  'fabric.linking.join_to_view-issue-term-refresh':
+    'Chcete-li si zobrazit tento požadavek, připojte se ke službě {context}.',
   'fabric.linking.learn_more_about_connecting_account': 'Další informace o propojení účtu s produkty Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Další informace o chytrých odkazech',
   'fabric.linking.link_safety_warning_message':
@@ -117,6 +119,7 @@ export default {
   'fabric.linking.not_found_description': 'Stránka neexistuje nebo se po přidání tohoto odkazu mohla změnit.',
   'fabric.linking.not_found_title': 'Tuto stránku {product} vám nemůžeme zobrazit',
   'fabric.linking.open_issue_in_jira': 'Otevřít požadavek v Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Otevřít požadavek v Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Otevřít odkaz na nové kartě',
   'fabric.linking.owned_by': 'Vlastník: {context}',
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
@@ -156,6 +159,8 @@ export default {
   'fabric.linking.request_access_pending_title': 'Přístup k {product} čeká na vyřízení',
   'fabric.linking.request_access_to_view':
     'Chcete-li si zobrazit tento požadavek, požádejte o přístup ke službě {context}.',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Chcete-li si zobrazit tento požadavek, požádejte o přístup ke službě {context}.',
   'fabric.linking.request_denied': 'Vaše žádost o přístup byla odmítnuta.',
   'fabric.linking.request_denied_description':
     'Správce neschválil vaši žádost o zobrazení stránek {product} z {hostname}.',
@@ -168,6 +173,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Zobrazit originál',
   'fabric.linking.status_change_load_error': 'Načtení stavů a přechodů se nezdařilo',
   'fabric.linking.status_change_permission_error': 'K provedení přechodu tohoto požadavku nemáte oprávnění.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'K provedení přechodu tohoto požadavku nemáte oprávnění.',
   'fabric.linking.status_change_update_error': 'Aktualizace stavu se nezdařila',
   'fabric.linking.try_again': 'Zkusit znovu',
   'fabric.linking.try_another_account': 'Zkuste jiný účet',

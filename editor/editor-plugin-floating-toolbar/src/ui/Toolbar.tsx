@@ -567,6 +567,19 @@ const toolbarOverflow = ({
 							},
 						},
 					},
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+					editorExperiment('platform_editor_controls', 'variant1')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							css({
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+								'> div': {
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+									'> div:has(+ [data-editor-popup="true"]:last-of-type)': {
+										marginRight: token('space.100', '8px'),
+									},
+								},
+							})
+						: undefined,
 				)
 			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css({ display: 'flex' }),

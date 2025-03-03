@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/util-data-test",
-	"version": "18.0.12",
+	"version": "18.0.14",
 	"description": "Shared test and story data",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -115,14 +115,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/emoji": "68.0.0",
+		"@atlaskit/emoji": "68.0.1",
 		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/mention": "24.0.1",
+		"@atlaskit/mention": "24.0.3",
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/profilecard": "^23.2.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.2.0",
-		"@atlaskit/user-picker": "11.0.2",
+		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/user-picker": "11.0.4",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
@@ -143,5 +143,8 @@
 		"test",
 		"data",
 		"sample"
+	],
+	"sideEffects": [
+		"*.compiled.css"
 	]
 }

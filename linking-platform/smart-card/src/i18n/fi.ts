@@ -107,6 +107,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
   'fabric.linking.join_to_view': 'Liity palveluun {context} niin voit tarkastella asiaa',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Liity palveluun {context} niin voit tarkastella työtehtävää',
   'fabric.linking.learn_more_about_connecting_account': 'Lisätietoja tilisi yhdistämisestä Atlassian-tuotteisiin.',
   'fabric.linking.learn_more_about_smart_links': 'Lue lisää Smart Link -linkeistä.',
   'fabric.linking.link_safety_warning_message':
@@ -120,6 +121,7 @@ export default {
     'Sivua ei ole olemassa, tai sitä on saatettu muuttaa tämän linkin lisäämisen jälkeen.',
   'fabric.linking.not_found_title': 'Tätä {product}-sivua ei voida näyttää',
   'fabric.linking.open_issue_in_jira': 'Avaa asia Jirassa',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Avaa työtehtävä Jirassa',
   'fabric.linking.open_link_in_a_new_tab': 'Avaa linkki uudessa välilehdessä',
   'fabric.linking.owned_by': 'Omistaja: {context}',
   'fabric.linking.pending_request': 'Käyttöoikeuspyyntösi on vireillä',
@@ -160,6 +162,8 @@ export default {
     'Oikeuspyyntösi kohteelle {hostname} odottaa ylläpitäjän hyväksyntää.',
   'fabric.linking.request_access_pending_title': 'Oikeus tuotteeseen {product} odottaa',
   'fabric.linking.request_access_to_view': 'Pyydä palvelun {context} käyttöoikeutta tämän asian tarkastelua varten',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Pyydä palvelun {context} käyttöoikeutta tämän työtehtävän tarkastelua varten',
   'fabric.linking.request_denied': 'Käyttöoikeuspyyntösi evättiin',
   'fabric.linking.request_denied_description':
     'Ylläpitäjä ei hyväksynyt pyyntöäsi tarkastella {product}-sivuja kohteesta {hostname}.',
@@ -172,6 +176,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Näytä alkuperäinen',
   'fabric.linking.status_change_load_error': 'Tiloja ja siirtymiä ei voitu ladata',
   'fabric.linking.status_change_permission_error': 'Sinulla ei ole oikeuksia siirtää tätä asiaa.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Sinulla ei ole oikeuksia siirtää tätä työtehtävää.',
   'fabric.linking.status_change_update_error': 'Tilan päivitys epäonnistui',
   'fabric.linking.try_again': 'Yritä uudelleen',
   'fabric.linking.try_another_account': 'Kokeile toista tiliä',

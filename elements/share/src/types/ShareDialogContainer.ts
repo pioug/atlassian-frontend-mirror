@@ -147,6 +147,10 @@ export type ShareDialogContainerProps = {
 	/* attributes that apply to the product */
 	productAttributes?: SmartUserPickerProps['productAttributes'];
 	/**
+	 * Header for the share dialog.
+	 */
+	customHeader?: React.ReactNode;
+	/**
 	 * Footer for the share dialog.
 	 */
 	customFooter?: React.ReactNode;

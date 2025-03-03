@@ -38,9 +38,7 @@ const stylesOld = cssMap({
 // NOTE: This is isolated to avoid breaking the bounded `stylesOld` interface as they do not fall within the Design System.
 const stylesOldUnbounded = cssMapUnbounded({
 	text: {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontFamily:
-			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+		fontFamily: token('font.family.body'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '11px',
 		fontStyle: 'normal',
@@ -52,6 +50,10 @@ const stylesOldUnbounded = cssMapUnbounded({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		textTransform: 'uppercase',
 		whiteSpace: 'nowrap',
+	},
+	customLetterspacing: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		letterSpacing: 0.165,
 	},
 });
 
@@ -105,6 +107,10 @@ const stylesNew = cssMapUnbounded({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		textTransform: 'uppercase',
 		whiteSpace: 'nowrap',
+	},
+	customLetterspacing: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		letterSpacing: 0.165,
 	},
 	'bg.bold.default': { backgroundColor: '#DDDEE1' },
 	'bg.bold.inprogress': { backgroundColor: '#8FB8F6' },
@@ -229,7 +235,11 @@ const Lozenge = memo(
 					data-testid={testId}
 				>
 					<span
-						css={[stylesNew.text, stylesNew[`text.${appearanceStyle}`]]}
+						css={[
+							stylesNew.text,
+							fg('platform-lozenge-custom-letterspacing') && stylesNew.customLetterspacing,
+							stylesNew[`text.${appearanceStyle}`],
+						]}
 						style={{
 							color: style?.color,
 							// to negate paddingInline specified on Box above
@@ -258,7 +268,11 @@ const Lozenge = memo(
 				testId={testId}
 			>
 				<span
-					css={[stylesOldUnbounded.text, stylesOld[`text.${appearanceStyle}.${appearanceType}`]]}
+					css={[
+						stylesOldUnbounded.text,
+						fg('platform-lozenge-custom-letterspacing') && stylesOldUnbounded.customLetterspacing,
+						stylesOld[`text.${appearanceStyle}.${appearanceType}`],
+					]}
 					style={{
 						color: style?.color,
 						// to negate paddingInline specified on Box above

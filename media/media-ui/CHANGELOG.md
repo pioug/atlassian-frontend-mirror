@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 28.0.2
+
+### Patch Changes
+
+- [#120999](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120999)
+  [`3d280e8a1e183`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d280e8a1e183) -
+  [ux] Moves media floating toolbar options to convert image from block to inline and back to a
+  dropdown.
+
 ## 28.0.1
 
 ### Patch Changes

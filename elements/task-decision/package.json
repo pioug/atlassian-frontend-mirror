@@ -52,7 +52,7 @@
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/platform-feature-flags-react": "^0.1.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",

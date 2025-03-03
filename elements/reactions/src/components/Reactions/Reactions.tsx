@@ -219,6 +219,14 @@ export interface ReactionsProps
 	 * Optional prop for using your own container for relative positioning for emoji picker popup
 	 */
 	noRelativeContainer?: boolean;
+	/**
+	 * Optional prop for controlling if Trigger displays the ... show more emoji UI
+	 */
+	showMoreEmojiTriggerUI?: boolean;
+	/**
+	 * Optional prop for controlling if default reactions are subtle
+	 */
+	showSubtleDefaultReactions?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -283,6 +291,8 @@ export const Reactions = React.memo(
 		reactionPickerAdditionalStyle,
 		noWrap = false,
 		noRelativeContainer = false,
+		showMoreEmojiTriggerUI,
+		showSubtleDefaultReactions,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -509,6 +519,7 @@ export const Reactions = React.memo(
 									allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
 									handleOpenReactionsDialog={handleOpenReactionsDialog}
 									isViewOnly={isViewOnly}
+									showSubtleStyle={showSubtleDefaultReactions && reactions.length === 0}
 								/>
 							))
 						))}
@@ -531,6 +542,7 @@ export const Reactions = React.memo(
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							showRoundTrigger={showRoundTrigger}
+							showMoreEmojiTriggerUI={showMoreEmojiTriggerUI}
 							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
 						/>
 					)}

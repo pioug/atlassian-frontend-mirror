@@ -166,8 +166,10 @@ const IconAndTitleLayoutNew = ({
 			return (
 				<ImageLoader
 					src={icon}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					loaded={<Icon className="smart-link-icon" src={icon} data-testid={`${testId}-image`} />}
+					loaded={
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						<Icon className="smart-link-icon" src={icon} data-testid={`${testId}-image`} alt="" />
+					}
 					errored={errored}
 					loading={<Shimmer testId={`${testId}-loading`} />}
 				/>

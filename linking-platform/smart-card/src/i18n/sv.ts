@@ -105,6 +105,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Anslut till {context} för att visa arbetsuppgiften',
   'fabric.linking.learn_more_about_connecting_account': 'Läs mer om att ansluta ditt konto till Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Läs mer om smarta länkar.',
   'fabric.linking.link_safety_warning_message':
@@ -118,6 +119,7 @@ export default {
     'Sidan finns inte eller så har den ändrats efter att den här länken lades till.',
   'fabric.linking.not_found_title': 'Vi kan inte visa dig den här {product}-sidan.',
   'fabric.linking.open_issue_in_jira': 'Öppna ärendet i Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Öppna arbetsuppgiften i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Öppna länk i en ny flik',
   'fabric.linking.owned_by': 'Ägs av {context}',
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
@@ -158,6 +160,8 @@ export default {
     'Din begäran om åtkomst till {hostname} väntar på godkännande från administratören.',
   'fabric.linking.request_access_pending_title': 'Väntar på åtkomst till {product}',
   'fabric.linking.request_access_to_view': 'Be om åtkomst till {context} för att visa ärendet',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Be om åtkomst till {context} för att visa arbetsuppgiften',
   'fabric.linking.request_denied': 'Din åtkomstförfrågan har nekats',
   'fabric.linking.request_denied_description':
     'Din administratör godkände inte din begäran om att visa {product}-sidor från {hostname}.',
@@ -170,6 +174,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Visa original',
   'fabric.linking.status_change_load_error': 'Vi kunde inte läsa in statusar och övergångar',
   'fabric.linking.status_change_permission_error': 'Du har inte behörighet att ändra ärendets status.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Du har inte behörighet att ändra arbetets status.',
   'fabric.linking.status_change_update_error': 'Vi kunde inte uppdatera statusen',
   'fabric.linking.try_again': 'Försök igen',
   'fabric.linking.try_another_account': 'Försök med ett annat konto',

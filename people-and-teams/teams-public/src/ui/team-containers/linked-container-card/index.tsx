@@ -44,7 +44,7 @@ const styles = cssMap({
 	},
 });
 
-interface LinkedContainerCardProps {
+export interface LinkedContainerCardProps {
 	containerType: ContainerTypes;
 	title: string;
 	containerIcon?: string;
@@ -75,17 +75,17 @@ const LinkedCardWrapper = ({
 		setHovered(false);
 	};
 	return (
-		<Link href={href} appearance="subtle">
-			<Box
-				backgroundColor={hovered ? 'color.background.input.hovered' : 'color.background.input'}
-				xcss={styles.container}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
-				testId="linked-container-card-inner"
-			>
+		<Box
+			backgroundColor={hovered ? 'color.background.input.hovered' : 'color.background.input'}
+			xcss={styles.container}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			testId="linked-container-card-inner"
+		>
+			<Link href={href} appearance="subtle">
 				{children}
-			</Box>
-		</Link>
+			</Link>
+		</Box>
 	);
 };
 

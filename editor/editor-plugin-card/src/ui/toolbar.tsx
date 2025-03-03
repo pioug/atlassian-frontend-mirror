@@ -17,8 +17,8 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { buildLayoutButtons, commandWithMetadata } from '@atlaskit/editor-common/card';
 import type { CardOptions } from '@atlaskit/editor-common/card';
+import { buildLayoutButtons, commandWithMetadata } from '@atlaskit/editor-common/card';
 import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link';
 import commonMessages, {
 	annotationMessages,
@@ -47,6 +47,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import CommentIcon from '@atlaskit/icon/core/comment';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
@@ -514,21 +515,6 @@ const generateToolbarItems =
 						getSettingsButton(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
 						{ type: 'separator' },
 						{
-							id: 'editor.link.delete',
-							focusEditoronEnter: true,
-							type: 'button',
-							appearance: 'danger',
-							icon: DeleteIcon,
-							iconFallback: RemoveIcon,
-							onMouseEnter: hoverDecoration?.(node.type, true),
-							onMouseLeave: hoverDecoration?.(node.type, false),
-							onFocus: hoverDecoration?.(node.type, true),
-							onBlur: hoverDecoration?.(node.type, false),
-							title: intl.formatMessage(commonMessages.remove),
-							onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-						},
-						{ type: 'separator' },
-						{
 							id: 'editor.link.openLink',
 							type: 'button',
 							icon: LinkExternalIcon,
@@ -537,17 +523,6 @@ const generateToolbarItems =
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
 							onClick: visitCardLink(editorAnalyticsApi),
-						},
-						{ type: 'separator' },
-						{
-							type: 'copy-button',
-							items: [
-								{
-									state,
-									formatMessage: intl.formatMessage,
-									nodeType: node.type,
-								},
-							],
 						},
 						...(commentItems.length > 1
 							? [{ type: 'separator' } as const, commentItems[0]]
@@ -619,6 +594,31 @@ const generateToolbarItems =
 						type: 'separator',
 					},
 				);
+			}
+
+			if (toolbarItems.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
+				const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+					{ type: 'separator', supportsViewMode: true },
+					{
+						type: 'overflow-dropdown',
+						options: [
+							{
+								title: 'Copy',
+								onClick: () => {
+									// TODO replace with copy-button plugin
+									return true;
+								},
+								icon: <CopyIcon label="Copy" />,
+							},
+							{
+								title: 'Delete',
+								onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+								icon: <DeleteIcon label="Delete" />,
+							},
+						],
+					},
+				];
+				toolbarItems.push(...overflowMenuConfig);
 			}
 
 			return toolbarItems;

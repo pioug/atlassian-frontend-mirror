@@ -26,7 +26,7 @@
 		"@atlaskit/editor-tables": "^2.9.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/tmp-editor-statsig": "3.3.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

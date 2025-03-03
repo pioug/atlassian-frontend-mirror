@@ -7,6 +7,8 @@
  */
 //English (United Kingdom)
 export default {
+  'link-create.live-doc-icon-label': 'Live Doc',
+  'link-create.page-icon-label': 'Page',
   'link-create.unknown-error.description':
     'Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.',
   'link-create.unknown-error.heading': 'Something went wrong.',

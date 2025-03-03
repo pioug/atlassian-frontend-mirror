@@ -45,6 +45,7 @@ export default {
   'linkDataSource.column-picker.search': 'Поиск полей',
   'linkDataSource.column-picker.tooltip': 'Настроить столбцы',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Поиск задач по ключевому слову',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Поиск задач по ключевому слову',
   'linkDataSource.configmodal.cancelButtonText': 'Отмена',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Отмена',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'после {date}',
@@ -98,10 +99,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Для этого запроса невозможно переключиться на базовый режим поиска.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Базовый',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Поиск задач по ключевому слову',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Выберите сайт',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставить задачи',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Вставить задачи',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставка задач Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Вставка задач Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставка задач Jira с сайта',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Вставка задач Jira с сайта',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Отображение количества результатов поиска в виде встроенной интеллектуальной ссылки',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Встроенная ссылка',

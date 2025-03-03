@@ -38,8 +38,7 @@ const ImageIcon = ({
 				}
 			: {
 					loading: <LoadingSkeletonOld testId={`${testId}-loading`} />,
-					// eslint-disable-next-line jsx-a11y/alt-text
-					loaded: <img src={url} data-testid={`${testId}-image`} />,
+					loaded: <img src={url} data-testid={`${testId}-image`} alt="" />,
 				})}
 		errored={defaultIcon}
 		onError={onError}

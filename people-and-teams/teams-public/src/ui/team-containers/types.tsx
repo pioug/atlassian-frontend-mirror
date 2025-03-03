@@ -1,4 +1,6 @@
-import type { TeamContainer } from '../../common/types';
+import { type ComponentType } from 'react';
+
+import { type LinkedContainerCardProps } from './linked-container-card';
 
 export interface TeamContainerProps {
 	/**
@@ -9,5 +11,12 @@ export interface TeamContainerProps {
 	 * The function to call when the add a container button is clicked
 	 */
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-	addedTeamContainer?: TeamContainer;
+	/**
+	 * The component to replace current components
+	 */
+	components?: TeamContainersComponent;
+}
+
+export interface TeamContainersComponent {
+	ContainerCard: ComponentType<LinkedContainerCardProps>;
 }

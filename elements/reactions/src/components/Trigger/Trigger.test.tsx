@@ -79,4 +79,30 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		expect(button).not.toHaveCompiledCss('height', '2rem');
 		expect(button).not.toHaveCompiledCss('width', '2rem');
 	});
+
+	it('should have proper tooltip and icon if showMoreEmojiTriggerUI is true', async () => {
+		renderWithIntl(<Trigger tooltipContent="" showMoreEmojiTriggerUI={true} />);
+
+		const button = await screen.findByTestId('render-trigger-button');
+		expect(button).toBeInTheDocument();
+		const icon = await screen.findByTestId('show-more-emojis-icon');
+		expect(icon).toBeInTheDocument();
+
+		fireEvent.mouseOver(button);
+		const tooltip = await screen.findByTestId('render-tooltip-trigger');
+		expect(tooltip).toHaveTextContent('More emojis');
+	});
+
+	it('should have default tooltip and icon if showMoreEmojiTriggerUI is false', async () => {
+		renderWithIntl(<Trigger tooltipContent="tooltip" showMoreEmojiTriggerUI={false} />);
+
+		const button = await screen.findByTestId('render-trigger-button');
+		expect(button).toBeInTheDocument();
+		const icon = await screen.findByTestId('emoji-add-icon');
+		expect(icon).toBeInTheDocument();
+
+		fireEvent.mouseOver(button);
+		const tooltip = await screen.findByTestId('render-tooltip-trigger');
+		expect(tooltip).toHaveTextContent('tooltip');
+	});
 });

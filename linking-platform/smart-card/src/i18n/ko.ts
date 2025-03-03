@@ -103,6 +103,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     '이 미리 보기를 확인하려면 액세스를 요청하거나 다른 계정으로 시도해야 합니다.',
   'fabric.linking.join_to_view': '{context}에 참여하여 이 이슈 보기',
+  'fabric.linking.join_to_view-issue-term-refresh': '{context}에 참여하여 이 업무 항목 보기',
   'fabric.linking.learn_more_about_connecting_account':
     '계정을 Atlassian 제품에 연결하는 방법에 대해 자세히 알아보세요.',
   'fabric.linking.learn_more_about_smart_links': '스마트 링크에 대해 자세히 알아보세요.',
@@ -116,6 +117,7 @@ export default {
   'fabric.linking.not_found_description': '페이지가 존재하지 않거나 이 링크를 추가한 후 변경되었을 수 있습니다.',
   'fabric.linking.not_found_title': '{product} 페이지를 표시할 수 없습니다',
   'fabric.linking.open_issue_in_jira': 'Jira에서 이슈 열기',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Jira에서 업무 항목 열기',
   'fabric.linking.open_link_in_a_new_tab': '새 탭에서 링크 열기',
   'fabric.linking.owned_by': '소유자: {context}',
   'fabric.linking.pending_request': '액세스 요청이 보류 중입니다',
@@ -156,6 +158,8 @@ export default {
     '{hostname}에 대한 액세스 요청이 관리자 승인을 기다리는 중입니다.',
   'fabric.linking.request_access_pending_title': '{product}에 대한 액세스 보류 중',
   'fabric.linking.request_access_to_view': '이 이슈를 보려면 {context}에 대한 액세스를 요청하세요',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    '이 업무 항목를 보려면 {context}에 대한 액세스를 요청하세요',
   'fabric.linking.request_denied': '액세스 요청이 거부되었습니다',
   'fabric.linking.request_denied_description':
     '관리자가 {hostname}에서 {product} 페이지를 보기 위한 요청을 승인하지 않았습니다.',
@@ -168,6 +172,7 @@ export default {
   'fabric.linking.srclinkunknown': '원래 보기',
   'fabric.linking.status_change_load_error': '상태 및 전환을 로드할 수 없습니다',
   'fabric.linking.status_change_permission_error': '이 이슈를 전환할 수 있는 권한이 없습니다.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh': '이 업무 항목를 전환할 수 있는 권한이 없습니다.',
   'fabric.linking.status_change_update_error': '상태를 업데이트할 수 없습니다',
   'fabric.linking.try_again': '다시 시도',
   'fabric.linking.try_another_account': '다른 계정으로 시도해 보세요.',

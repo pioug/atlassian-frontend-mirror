@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "100.4.0",
+	"version": "100.4.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -229,7 +229,7 @@
 		"@atlaskit/media-file-preview": "^0.11.0",
 		"@atlaskit/media-picker": "^68.0.0",
 		"@atlaskit/media-ui": "^28.0.0",
-		"@atlaskit/media-viewer": "51.0.1",
+		"@atlaskit/media-viewer": "52.0.0",
 		"@atlaskit/mention": "^24.0.0",
 		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/onboarding": "^13.0.0",
@@ -244,7 +244,7 @@
 		"@atlaskit/task-decision": "^19.0.0",
 		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/tmp-editor-statsig": "^3.3.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/width-detector": "^5.0.0",
 		"@babel/runtime": "^7.0.0",
@@ -406,6 +406,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_column_drag_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_elements_dnd_multi_select_patch_1": {
 			"type": "boolean"
 		}
 	}

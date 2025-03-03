@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Sök efter fält',
   'linkDataSource.column-picker.tooltip': 'Konfigurera kolumner',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Sök efter ärenden med nyckelord',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Sök efter arbetsuppgifter med nyckelord',
   'linkDataSource.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'efter {date}',
@@ -96,10 +97,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Du kan inte växla till grundläggande för den här frågan.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Grundläggande',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Sök efter arbetsuppgifter med nyckelord',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Välj webbplats',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Infoga ärende',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Infoga arbetsuppgift',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Infoga Jira-ärenden',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Infoga Jira-arbetsuppgifter',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Infoga Jira-ärenden från',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Infoga Jira-arbetsuppgifter från',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Visa antalet sökresultat som en smart inline-länk',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-länk',

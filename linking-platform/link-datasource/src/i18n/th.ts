@@ -41,6 +41,7 @@ export default {
   'linkDataSource.column-picker.search': 'ค้นหาฟิลด์',
   'linkDataSource.column-picker.tooltip': 'กำหนดค่าคอลัมน์',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'ค้นหาปัญหาตามคำสำคัญ',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'ค้นหาปัญหาตามคำสำคัญ',
   'linkDataSource.configmodal.cancelButtonText': 'ยกเลิก',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'ยกเลิก',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'หลังจากวันที่ {date}',
@@ -94,10 +95,14 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'คุณไม่สามารถเปลี่ยนไปเป็นแบบพื้นฐานสำหรับแบบสอบถามนี้',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'พื้นฐาน',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'ค้นหาปัญหาตามคำสำคัญ',
   'linkDataSource.site-selector.configmodal.chooseSite': 'เลือกเว็บไซต์',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'แทรกปัญหา',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'แทรกปัญหา',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'แทรกปัญหา Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'แทรกปัญหา Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'แทรกปัญหา Jira จาก',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'แทรกปัญหา Jira จาก',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'แสดงจำนวนผลการค้นหาเป็นสมาร์ทลิงก์ (ลิงก์อัจฉริยะ) แบบบรรทัดเดียว',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'ลิงก์บรรทัดเดียว',

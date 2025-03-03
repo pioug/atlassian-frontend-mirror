@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-notifications",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"description": "Notifications for Atlassian products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Work Platform: Incoming Work",

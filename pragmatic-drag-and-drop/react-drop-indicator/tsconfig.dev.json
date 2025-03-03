@@ -38,10 +38,19 @@
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../core/tsconfig.app.json"
 		},
 		{
 			"path": "../hitbox/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../util-service-support/afm-jira/tsconfig.json"
 		}
 	]

@@ -2,9 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { AvatarItem } from '@atlaskit/avatar';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { type Option } from '../types';
 import { components, type SingleValueProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
@@ -12,24 +10,27 @@ import { getAvatarUrl, isTeam } from './utils';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Inline } from '@atlaskit/primitives';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 
-const avatarItemComponent = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-	border: 'none !important',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-	padding: `${token('space.0', '0px')} !important`,
-	width: 'auto',
-	overflow: 'hidden',
-	minWidth: '100px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > span': {
-		boxSizing: 'border-box',
+const styles = cssMap({
+	avatarItem: {
+		alignItems: 'center',
+		overflow: 'hidden',
+		minWidth: '100px',
 	},
-	'&:hover': {
-		width: 'auto',
-		padding: 0,
-		border: 'none',
+	avatarItemTextWrapper: {
+		minWidth: '0px',
+		maxWidth: '100%',
+		flex: '1 1 100%',
+		paddingInlineStart: token('space.100'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '1.4',
+	},
+	avatarItemText: {
+		color: token('color.text'),
+		overflowX: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
 	},
 });
 
@@ -56,28 +57,27 @@ export const SingleValue = (props: Props) => {
 
 	return !isFocused ? (
 		<components.SingleValue {...props}>
-			<AvatarItem
-				backgroundColor="transparent"
-				avatar={
-					<SizeableAvatar
-						src={getAvatarUrl(data)}
-						appearance={appearance}
-						type={isTeam(data) && fg('verified-team-in-user-picker') ? 'team' : 'person'}
-					/>
-				}
-				primaryText={
-					fg('verified-team-in-user-picker') ? (
-						<Inline alignBlock="center">
-							{label}
-							<ElementAfter {...props} />
-						</Inline>
-					) : (
-						label
-					)
-				}
-			>
-				{({ ref, ...props }) => <div css={avatarItemComponent} {...props} />}
-			</AvatarItem>
+			<Flex xcss={styles.avatarItem}>
+				<SizeableAvatar
+					src={getAvatarUrl(data)}
+					appearance={appearance}
+					type={isTeam(data) && fg('verified-team-in-user-picker') ? 'team' : 'person'}
+				/>
+				<Box xcss={styles.avatarItem}>
+					<div css={styles.avatarItemTextWrapper}>
+						<Box xcss={styles.avatarItemText}>
+							{fg('verified-team-in-user-picker') ? (
+								<Inline alignBlock="center">
+									{label}
+									<ElementAfter {...props} />
+								</Inline>
+							) : (
+								label
+							)}
+						</Box>
+					</div>
+				</Box>
+			</Flex>
 		</components.SingleValue>
 	) : null;
 };

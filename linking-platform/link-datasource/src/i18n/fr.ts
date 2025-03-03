@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Rechercher des champs',
   'linkDataSource.column-picker.tooltip': 'Configurer les colonnes',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Rechercher des tickets par mot clé',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Rechercher des tickets par mot clé',
   'linkDataSource.configmodal.cancelButtonText': 'Annuler',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annuler',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'après {date}',
@@ -98,10 +99,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Vous ne pouvez pas passer en mode De base pour cette requête.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'De base',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Rechercher des tickets par mot clé',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Choisissez un site',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insérer des tickets',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Insérer des tickets',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insérer des tickets Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Insérer des tickets Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insérer des tickets Jira à partir de',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Insérer des tickets Jira à partir de',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Affichez le nombre de résultats de recherche sous forme de lien intelligent contextuel',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Lien contextuel',

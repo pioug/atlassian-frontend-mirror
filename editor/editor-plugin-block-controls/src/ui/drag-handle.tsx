@@ -168,6 +168,18 @@ const getNodeSpacingForPreview = (node?: PMNode) => {
 	return spacingBetweenNodesForPreview[nodeTypeName] || spacingBetweenNodesForPreview['default'];
 };
 
+const getNodeMargins = (node?: PMNode): { top: number; bottom: number } => {
+	if (!node) {
+		return nodeMargins['default'];
+	}
+	const nodeTypeName = node.type.name;
+	if (nodeTypeName === 'heading') {
+		return nodeMargins[`heading${node.attrs.level}`] || nodeMargins['default'];
+	}
+
+	return nodeMargins[nodeTypeName] || nodeMargins['default'];
+};
+
 export const DragHandle = ({
 	view,
 	api,
@@ -196,7 +208,6 @@ export const DragHandle = ({
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
-	const multiSelectDnD = useSharedPluginStateSelector(api, 'blockControls.multiSelectDnD');
 	const isLayoutColumn = nodeType === 'layoutColumn';
 	const isMultiSelect = editorExperiment(
 		'platform_editor_element_drag_and_drop_multiselect',
@@ -236,10 +247,9 @@ export const DragHandle = ({
 				if (startPos === undefined) {
 					return tr;
 				}
+				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
 				const $anchor =
-					multiSelectDnD?.anchor !== undefined
-						? tr.doc.resolve(multiSelectDnD?.anchor)
-						: tr.selection.$anchor;
+					mSelect?.anchor !== undefined ? tr.doc.resolve(mSelect?.anchor) : tr.selection.$anchor;
 				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
 					tr = selectNode(tr, startPos, nodeType);
 					if (editorExperiment('platform_editor_controls', 'variant1')) {
@@ -283,12 +293,12 @@ export const DragHandle = ({
 		[
 			isMultiSelect,
 			api?.core?.actions,
-			api?.analytics?.actions,
+			api?.blockControls.sharedState,
 			api?.blockControls?.commands,
+			api?.analytics?.actions,
 			view,
 			dragHandleSelected,
 			getPos,
-			multiSelectDnD?.anchor,
 			isTopLevelNode,
 			nodeType,
 			anchorName,
@@ -362,12 +372,21 @@ export const DragHandle = ({
 						if (typeof handlePos !== 'number') {
 							return tr;
 						}
+						const oldHandlePosCheck =
+							handlePos >= tr.selection.$from.start() - 1 && handlePos <= tr.selection.to;
+						const newHandlePosCheck =
+							handlePos >=
+								(tr.selection.$from.depth ? tr.selection.$from.before() : tr.selection.from) &&
+							handlePos < tr.selection.to;
 						if (
 							!tr.selection.empty &&
-							handlePos >= tr.selection.$from.start() - 1 &&
-							handlePos <= tr.selection.to
+							(fg('platform_editor_elements_dnd_multi_select_patch_1')
+								? newHandlePosCheck
+								: oldHandlePosCheck)
 						) {
 							api?.blockControls?.commands.setMultiSelectPositions()({ tr });
+						} else if (fg('platform_editor_elements_dnd_select_node_on_drag')) {
+							tr = selectNode(tr, handlePos, nodeType);
 						}
 
 						return tr;
@@ -379,8 +398,9 @@ export const DragHandle = ({
 				const { doc, selection } = state;
 				let sliceFrom = selection.from;
 				let sliceTo = selection.to;
-				if (multiSelectDnD) {
-					const { anchor, head } = multiSelectDnD;
+				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
+				if (mSelect) {
+					const { anchor, head } = mSelect;
 					sliceFrom = Math.min(anchor, head);
 					sliceTo = Math.max(anchor, head);
 				}
@@ -425,8 +445,7 @@ export const DragHandle = ({
 									) as HTMLElement;
 									const maybeCurrentNode = expandedSlice.content.maybeChild(i);
 									const currentNodeSpacing = maybeCurrentNode
-										? nodeMargins[maybeCurrentNode.type.name].top +
-											nodeMargins[maybeCurrentNode.type.name].bottom
+										? getNodeMargins(maybeCurrentNode).top + getNodeMargins(maybeCurrentNode).bottom
 										: 0;
 									domElementsHeightBeforeHandle =
 										domElementsHeightBeforeHandle +
@@ -435,9 +454,7 @@ export const DragHandle = ({
 								} else {
 									// when the node is after the handle, calculate the top margin of the active node
 									const maybeNextNode = expandedSlice.content.maybeChild(i);
-									activeNodeMarginTop = maybeNextNode
-										? nodeMargins[maybeNextNode.type.name].top
-										: 0;
+									activeNodeMarginTop = maybeNextNode ? getNodeMargins(maybeNextNode).top : 0;
 									break;
 								}
 							}
@@ -459,7 +476,7 @@ export const DragHandle = ({
 						} else {
 							const domAtPos = view.domAtPos.bind(view);
 							const previewContent: DragPreviewContent[] = [];
-							expandedSlice.content.descendants((node, pos, parent, index) => {
+							expandedSlice.content.descendants((node, pos, _parent, _index) => {
 								// Get the dom element of the node
 								//eslint-disable-next-line @atlaskit/editor/no-as-casting
 								const nodeDomElement = findDomRefAtPos(sliceFrom + pos, domAtPos) as HTMLElement;
@@ -487,12 +504,9 @@ export const DragHandle = ({
 					let nodeTypes, hasSelectedMultipleNodes;
 					const resolvedMovingNode = tr.doc.resolve(start);
 					const maybeNode = resolvedMovingNode.nodeAfter;
-					if (multiSelectDnD) {
-						const attributes = getMultiSelectAnalyticsAttributes(
-							tr,
-							multiSelectDnD.anchor,
-							multiSelectDnD.head,
-						);
+					const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
+					if (mSelect) {
+						const attributes = getMultiSelectAnalyticsAttributes(tr, mSelect.anchor, mSelect.head);
 						nodeTypes = attributes.nodeTypes;
 						hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
 					} else {
@@ -521,7 +535,7 @@ export const DragHandle = ({
 				view.focus();
 			},
 		});
-	}, [anchorName, api, getPos, isMultiSelect, multiSelectDnD, nodeType, start, view]);
+	}, [anchorName, api, getPos, isMultiSelect, nodeType, start, view]);
 
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 
@@ -650,10 +664,10 @@ export const DragHandle = ({
 		) {
 			return;
 		}
-
+		const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
 		const $anchor =
-			multiSelectDnD?.anchor !== undefined
-				? view.state.doc.resolve(multiSelectDnD?.anchor)
+			mSelect?.anchor !== undefined
+				? view.state.doc.resolve(mSelect?.anchor)
 				: view.state.selection.$anchor;
 		if (
 			isShiftDown &&
@@ -664,10 +678,10 @@ export const DragHandle = ({
 			setDragHandleDisabled(false);
 		}
 	}, [
+		api?.blockControls.sharedState,
 		isMultiSelect,
 		isShiftDown,
 		isTopLevelNode,
-		multiSelectDnD?.anchor,
 		view.state.doc,
 		view.state.selection,
 	]);

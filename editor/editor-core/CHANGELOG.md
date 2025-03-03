@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 204.3.3
+
+### Patch Changes
+
+- [#121098](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121098)
+  [`61ec93eced435`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61ec93eced435) -
+  Revert autofocus setTimeout changes.
+- Updated dependencies
+
+## 204.3.2
+
+### Patch Changes
+
+- [#120533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120533)
+  [`f1bec731e278f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1bec731e278f) -
+  Adds a `sideEffects` field to ensure this package does not have Compiled styles tree-shaken in the
+  future to avoid an accidental regression.
+
+  This is related to
+  https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953
+
+- Updated dependencies
+
 ## 204.3.1
 
 ### Patch Changes

@@ -18,6 +18,7 @@ import { InlineDialogContentWrapper, InlineDialogFormWrapper } from './styled';
 export type ShareFormWrapperProps = Pick<ShareDialogWithTriggerProps, 'shareFormTitle'> & {
 	shouldShowTitle?: boolean;
 	children?: ReactNode;
+	header?: ReactNode;
 	footer?: ReactNode;
 	integrationMode?: IntegrationMode;
 	isMenuItemSelected?: boolean;
@@ -27,6 +28,7 @@ const ShareFormWrapper = ({
 	shareFormTitle,
 	shouldShowTitle,
 	children = null,
+	header = null,
 	footer = null,
 	integrationMode = 'off',
 	isMenuItemSelected = false,
@@ -42,6 +44,7 @@ const ShareFormWrapper = ({
 
 	return (
 		<ContentWrapper label={formatMessage(messages.formTitle)}>
+			{fg('platform_share_custom_header_prop') && header}
 			<FormWrapper integrationMode={integrationMode} isMenuItemSelected={isMenuItemSelected}>
 				{shouldShowTitle && <ShareHeader title={shareFormTitle} />}
 				{children}

@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.1.8
+
+### Patch Changes
+
+- [#120895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120895)
+  [`d38911e66c554`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d38911e66c554) -
+  Select nodes on drag
+
+## 3.1.7
+
+### Patch Changes
+
+- [#120533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120533)
+  [`f1bec731e278f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1bec731e278f) -
+  Adds a `sideEffects` field to ensure this package does not have Compiled styles tree-shaken in the
+  future to avoid an accidental regression.
+
+  This is related to
+  https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953
+
+- [#120887](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120887)
+  [`ab17c525aee48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab17c525aee48) -
+  Fix multi-select drag previews
+- [#120893](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120893)
+  [`8070e79030a9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8070e79030a9b) -
+  Prevent multi-select layoutColumns from dropping
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

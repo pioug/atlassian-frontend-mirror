@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::a3e465431b2746a63afc0d110a78358b>>
+ * @codegen <<SignedSource::a855e3dd5b9a928da883751d8dffcd79>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -700,6 +700,44 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for QR code experiences.',
 		team: 'Assets',
+	},
+	'queue-pop-in': {
+		keywords: [
+			'queue-pop-in',
+			'queuepopin',
+			'icon',
+			'icon-lab',
+			'core',
+			'Queues',
+			'pop-in',
+			'pop in',
+			'move back to sidebar',
+		],
+		componentName: 'QueuePopInIcon',
+		package: '@atlaskit/icon-lab/core/queue-pop-in',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for JSM queue navigation to move back to sidebar',
+		team: 'JSM core capabilities',
+	},
+	'queue-pop-out': {
+		keywords: [
+			'queue-pop-out',
+			'queuepopout',
+			'icon',
+			'icon-lab',
+			'core',
+			'pop-out',
+			'pop out',
+			'Queues',
+			'Move out from sidebar',
+		],
+		componentName: 'QueuePopOutIcon',
+		package: '@atlaskit/icon-lab/core/queue-pop-out',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for JSM queue navigation to pop out from sidebar',
+		team: 'JSM core capabilities',
 	},
 	'roadmaps-plan': {
 		keywords: [

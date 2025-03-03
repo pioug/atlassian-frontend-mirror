@@ -1,5 +1,20 @@
 # @atlaskit/icon-lab
 
+## 3.4.0
+
+### Minor Changes
+
+- [#119848](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119848)
+  [`7663324edf87e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7663324edf87e) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `queue-pop-in`
+  - `queue-pop-out`
+
 ## 3.3.0
 
 ### Minor Changes

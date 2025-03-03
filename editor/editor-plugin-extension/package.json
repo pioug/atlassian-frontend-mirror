@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "4.0.6",
+	"version": "4.0.8",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,7 +17,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts"
@@ -29,7 +31,7 @@
 		"@atlaskit/adf-schema": "^47.2.1",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/avatar": "^23.0.0",
+		"@atlaskit/avatar": "^24.0.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/checkbox": "^17.0.0",
 		"@atlaskit/datetime-picker": "^16.0.0",
@@ -61,7 +63,7 @@
 		"@atlaskit/theme": "^17.0.0",
 		"@atlaskit/tmp-editor-statsig": "^3.3.0",
 		"@atlaskit/toggle": "^15.0.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

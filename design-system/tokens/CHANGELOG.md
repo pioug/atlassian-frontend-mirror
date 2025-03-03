@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.3.0
+
+### Minor Changes
+
+- [#121081](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121081)
+  [`90c226d24a7ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90c226d24a7ac) -
+  Expand dimension type in @atlaskit/css to include vw/vh and percentage values.
+
 ## 4.2.0
 
 ### Minor Changes

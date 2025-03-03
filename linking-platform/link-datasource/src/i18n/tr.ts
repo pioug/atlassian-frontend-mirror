@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Alan arayın',
   'linkDataSource.column-picker.tooltip': 'Sütunları yapılandır',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Konuları anahtar kelimeye göre arayın',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Biletları anahtar kelimeye göre arayın',
   'linkDataSource.configmodal.cancelButtonText': 'İptal',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'İptal',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': '{date} sonrası',
@@ -95,10 +96,16 @@ export default {
     "Bağlantınızı kontrol edip sayfayı yenileyin veya incelemek için <a>bu sorguyu Jira'da açın.</a>",
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText': 'Bu sorgu için temel moda geçemezsiniz.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Temel',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Biletları anahtar kelimeye göre arayın',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Site seçin',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Konu ekle',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Konu ekle',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira konuları ekleyin',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira biletleri ekleyin',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Şuradan Jira konuları ekleyin:',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Şuradan Jira biletleri ekleyin:',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Arama sonucu sayısını satır içi bir Akıllı Bağlantı olarak gösterin',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Satır içi bağlantı',

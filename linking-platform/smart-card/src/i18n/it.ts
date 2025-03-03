@@ -105,6 +105,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
   'fabric.linking.join_to_view': 'Unisciti a {context} per visualizzare questo ticket',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Unisciti a {context} per visualizzare questo ticket',
   'fabric.linking.learn_more_about_connecting_account':
     'Scopri di più sulla connessione del tuo account ai prodotti Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Scopri di più sui Link intelligenti.',
@@ -119,6 +120,7 @@ export default {
     "La pagina non esiste o potrebbe essere stata spostata dopo l'aggiunta di questo link.",
   'fabric.linking.not_found_title': 'Non possiamo mostrarti questa pagina {product}',
   'fabric.linking.open_issue_in_jira': 'Apri il ticket in Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Apri il ticket in Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Apri link in una nuova scheda',
   'fabric.linking.owned_by': 'Di proprietà di {context}',
   'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
@@ -159,6 +161,8 @@ export default {
     "La tua richiesta di accesso a {hostname} è in attesa di approvazione dell'amministratore.",
   'fabric.linking.request_access_pending_title': "L'accesso a {product} è in sospeso",
   'fabric.linking.request_access_to_view': "Richiedi l'accesso a {context} per visualizzare questo ticket",
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    "Richiedi l'accesso a {context} per visualizzare questo ticket",
   'fabric.linking.request_denied': 'La richiesta di accesso è stata rifiutata',
   'fabric.linking.request_denied_description':
     "L'amministratore non ha approvato la tua richiesta di visualizzazione delle pagine {product} di {hostname}.",
@@ -171,6 +175,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Mostra originale',
   'fabric.linking.status_change_load_error': 'Impossibile caricare stati e transizioni',
   'fabric.linking.status_change_permission_error':
+    "Non disponi dell'autorizzazione per eseguire la transizione di questo ticket.",
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
     "Non disponi dell'autorizzazione per eseguire la transizione di questo ticket.",
   'fabric.linking.status_change_update_error': 'Impossibile aggiornare lo stato',
   'fabric.linking.try_again': 'Riprova',

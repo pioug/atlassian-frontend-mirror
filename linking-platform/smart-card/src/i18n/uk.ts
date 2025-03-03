@@ -107,6 +107,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Надішліть запит на доступ або ввійдіть в інший обліковий запис для попереднього перегляду.',
   'fabric.linking.join_to_view': 'Можна приєднатися до {context}, щоб переглянути цю проблему',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Можна приєднатися до {context}, щоб переглянути цю проблему',
   'fabric.linking.learn_more_about_connecting_account':
     'Докладніше про підключення облікового запису до продуктів Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Докладніше про смарт-посилання.',
@@ -120,6 +121,7 @@ export default {
   'fabric.linking.not_found_description': 'Сторінка не існує або, можливо, змінилася після додавання цього посилання.',
   'fabric.linking.not_found_title': 'Не вдається відобразити цю сторінку {product}',
   'fabric.linking.open_issue_in_jira': 'Відкрити завдання в Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Відкрити завдання в Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Відкрити посилання в новій вкладці',
   'fabric.linking.owned_by': 'Власник: {context}',
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
@@ -160,6 +162,8 @@ export default {
     'Ваш запит на доступ до {hostname} очікує на схвалення адміністратора.',
   'fabric.linking.request_access_pending_title': 'Очікується надання доступу до {product}',
   'fabric.linking.request_access_to_view': 'Надішліть запит на доступ до {context}, щоб переглянути завдання',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Надішліть запит на доступ до {context}, щоб переглянути завдання',
   'fabric.linking.request_denied': 'Ваш запит на надання доступу відхилено',
   'fabric.linking.request_denied_description':
     'Ваш адміністратор не схвалив запит на перегляд сторінок {product} з {hostname}.',
@@ -172,6 +176,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Переглянути оригінал',
   'fabric.linking.status_change_load_error': 'Не вдалося завантажити стани і їх зміни',
   'fabric.linking.status_change_permission_error': 'У вас немає дозволу на зміну стану цього завдання.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'У вас немає дозволу на зміну стану цього завдання.',
   'fabric.linking.status_change_update_error': 'Не вдалось оновити стан',
   'fabric.linking.try_again': 'Повторити спробу',
   'fabric.linking.try_another_account': 'Увійти з іншим обліковим запитом',

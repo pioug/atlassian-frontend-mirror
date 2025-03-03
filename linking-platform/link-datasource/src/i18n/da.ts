@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Søg efter felter',
   'linkDataSource.column-picker.tooltip': 'Konfigurer kolonner',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Søg efter sager efter søgeord',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Søg efter sager efter søgeord',
   'linkDataSource.configmodal.cancelButtonText': 'Annuller',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annuller',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'efter {date}',
@@ -95,10 +96,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Du kan ikke skifte til basis for denne forespørgsel.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Basis',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Søg efter sager efter søgeord',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Vælg website',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Indsæt sager',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Indsæt sager',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Indsæt Jira-sager',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Indsæt Jira-sager',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Indsæt Jira-sager fra',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Indsæt Jira-sager fra',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Vis antallet af søgeresultater som et intelligent link på samme linje',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Link på samme linje',

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::123989b1d18186fdf2e45e8d223dcc92>>
+ * @codegen <<SignedSource::bd9f0083fdc7ef1b85a1572a5960483e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -55,6 +55,8 @@ import PageLiveDocIcon from '../../../../core/page-live-doc';
 import PaintBrushIcon from '../../../../core/paint-brush';
 import PaintRollerIcon from '../../../../core/paint-roller';
 import QrCodeIcon from '../../../../core/qr-code';
+import QueuePopInIcon from '../../../../core/queue-pop-in';
+import QueuePopOutIcon from '../../../../core/queue-pop-out';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import SectionIcon from '../../../../core/section';
@@ -134,6 +136,8 @@ const Icons = [
 	PaintBrushIcon,
 	PaintRollerIcon,
 	QrCodeIcon,
+	QueuePopInIcon,
+	QueuePopOutIcon,
 	RoadmapsPlanIcon,
 	RoadmapsServiceIcon,
 	SectionIcon,

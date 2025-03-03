@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.1.4
+
+### Patch Changes
+
+- [#121016](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121016)
+  [`1e57491bd2e34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e57491bd2e34) -
+  Allowing 'other' type of requests with .js to have information of cache calculated
+
 ## 3.1.3
 
 ### Patch Changes

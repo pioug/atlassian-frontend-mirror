@@ -55,6 +55,7 @@ export type ShareDialogWithTriggerProps = Pick<
 	| 'bottomMessage'
 	| 'product'
 	| 'productAttributes'
+	| 'customHeader'
 	| 'customFooter'
 	| 'isCopyDisabled'
 	| 'isPublicLink'

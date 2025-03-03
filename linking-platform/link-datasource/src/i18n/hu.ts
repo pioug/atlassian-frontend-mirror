@@ -42,6 +42,7 @@ export default {
   'linkDataSource.column-picker.search': 'Mezők keresése',
   'linkDataSource.column-picker.tooltip': 'Oszlopok konfigurálása',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Ügyek keresése kulcsszavak alapján',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Ügyek keresése kulcsszavak alapján',
   'linkDataSource.configmodal.cancelButtonText': 'Mégse',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Mégse',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': '{date} után',
@@ -98,10 +99,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Ennél a lekérdezésnél nem válthatsz normál módra.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Normál',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Ügyek keresése kulcsszavak alapján',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Webhely kiválasztása',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Ügyek beszúrása',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-ügyek beszúrása',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira-ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-ügyek beszúrása innen:',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Jira-ügyek beszúrása innen:',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Keresési találatok számának beágyazott okoslinkként való megjelenítése',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Beágyazott link',

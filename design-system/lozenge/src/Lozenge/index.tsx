@@ -92,6 +92,11 @@ const textStyles = css({
 	whiteSpace: 'nowrap',
 });
 
+const customLetterspacingStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	letterSpacing: 0.165,
+});
+
 export type ThemeAppearance = 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
 
 export interface LozengeProps {
@@ -174,7 +179,11 @@ const Lozenge = memo(
 					data-testid={testId}
 				>
 					<span
-						css={[textStyles, styles.text[appearanceStyle]]}
+						css={[
+							textStyles,
+							fg('platform-lozenge-custom-letterspacing') && customLetterspacingStyles,
+							styles.text[appearanceStyle],
+						]}
 						style={{
 							color: style?.color,
 							// to negate paddingInline specified on Box above
@@ -205,7 +214,11 @@ const Lozenge = memo(
 				testId={testId}
 			>
 				<span
-					css={[textStyles, textColorsOld[appearanceStyle][appearanceType]]}
+					css={[
+						textStyles,
+						fg('platform-lozenge-custom-letterspacing') && customLetterspacingStyles,
+						textColorsOld[appearanceStyle][appearanceType],
+					]}
 					style={{
 						color: style?.color,
 						// to negate paddingInline specified on Box above

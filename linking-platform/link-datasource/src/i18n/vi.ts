@@ -41,6 +41,7 @@ export default {
   'linkDataSource.column-picker.search': 'Tìm kiếm trường',
   'linkDataSource.column-picker.tooltip': 'Đặt cấu hình cột',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Tìm kiếm vấn đề theo từ khóa',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Tìm kiếm vấn đề theo từ khóa',
   'linkDataSource.configmodal.cancelButtonText': 'Hủy',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Hủy',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'sau {date}',
@@ -93,10 +94,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Bạn không thể chuyển sang chế độ cơ bản cho truy vấn này.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Cơ bản',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Tìm kiếm vấn đề theo từ khóa',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Chọn trang web',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Chèn vấn đề',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Chèn vấn đề',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Chèn vấn đề Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Chèn vấn đề Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Chèn vấn đề Jira từ',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Chèn vấn đề Jira từ',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Hiển thị số lượng kết quả tìm kiếm dưới dạng Liên kết thông minh nội tuyến',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Liên kết nội tuyến',

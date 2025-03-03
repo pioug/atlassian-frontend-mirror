@@ -39,7 +39,7 @@ interface AddContainerCardProps {
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const LinkedCardWrapper = ({ children }: { children: React.ReactNode }) => {
+const AddContainerCardWrapper = ({ children }: { children: React.ReactNode }) => {
 	const [hovered, setHovered] = useState(false);
 	const handleMouseEnter = () => setHovered(true);
 	const handleMouseLeave = () => setHovered(false);
@@ -62,7 +62,7 @@ export const AddContainerCard = ({
 	const { description, icon, title } = getContainerProperties(containerType);
 
 	return (
-		<LinkedCardWrapper>
+		<AddContainerCardWrapper>
 			<Inline space="space.100" xcss={styles.card}>
 				<Box xcss={styles.iconWrapper}>
 					<IconButton
@@ -86,6 +86,6 @@ export const AddContainerCard = ({
 					</Flex>
 				</Stack>
 			</Inline>
-		</LinkedCardWrapper>
+		</AddContainerCardWrapper>
 	);
 };

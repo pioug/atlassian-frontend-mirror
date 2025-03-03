@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "5.0.4",
+	"version": "5.0.6",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts"
@@ -64,7 +66,7 @@
 		"@atlaskit/smart-card": "^35.1.0",
 		"@atlaskit/theme": "^17.0.0",
 		"@atlaskit/tmp-editor-statsig": "^3.3.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"lodash": "^4.17.21",

@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "2.4.1",
+	"version": "2.4.2",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "Build Infra",
@@ -25,7 +25,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
 		".": "./src/index.tsx"

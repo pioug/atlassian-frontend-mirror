@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.1.1
+
+### Patch Changes
+
+- [#120905](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120905)
+  [`4194ea903d7d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4194ea903d7d6) -
+  Refactor step merging while offline.
+
 ## 3.1.0
 
 ### Minor Changes

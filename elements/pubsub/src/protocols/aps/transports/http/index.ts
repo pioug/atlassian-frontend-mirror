@@ -13,12 +13,19 @@ export default class HttpTransport extends AbstractApsTransport {
 	private networkUp: boolean = false;
 	private abortController: AbortController | null = null;
 
+	private isHidden = false;
+	private visibilityChangeListener = this.onVisibilityChange.bind(this);
+
 	constructor(params: APSTransportParams) {
 		super(params);
 	}
 
 	transportType() {
 		return APSTransportType.HTTP;
+	}
+
+	onVisibilityChange() {
+		this.isHidden = document.visibilityState === 'hidden';
 	}
 
 	subscribe(channels: Set<string>): Promise<void> {
@@ -78,6 +85,7 @@ export default class HttpTransport extends AbstractApsTransport {
 	private async makeHttpRequest(urlWithParams: URL): Promise<void> {
 		// AbortController allows us to abort the HTTP request - in case the "close" function is called, or the list of
 		// subscribed channels change.
+		document.addEventListener('visibilitychange', this.visibilityChangeListener);
 		this.abortController = new AbortController();
 
 		// @ts-ignore "fetch" should be able to take a URL as parameter. https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
@@ -91,7 +99,7 @@ export default class HttpTransport extends AbstractApsTransport {
 		} catch (error: any) {
 			if (!this.isAbortError(error)) {
 				this.analyticsClient.sendEvent('aps-http', 'reconnecting');
-				return this.reconnectWithBackoff(() => this.reconnect(urlWithParams));
+				return this.reconnectWithBackoff(this.isHidden, () => this.reconnect(urlWithParams));
 			}
 		}
 	}

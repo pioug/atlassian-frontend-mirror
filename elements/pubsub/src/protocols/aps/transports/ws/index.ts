@@ -20,6 +20,8 @@ export default class WebsocketTransport extends AbstractApsTransport {
 	private closedByClient = false;
 	private state: State = State.CLOSED;
 	private websocketClient?: WebsocketClient;
+	private isHidden = false;
+	private visibilityChangeListener = this.onVisibilityChange.bind(this);
 	readonly url: URL;
 
 	constructor(params: APSTransportParams) {
@@ -31,7 +33,12 @@ export default class WebsocketTransport extends AbstractApsTransport {
 		return APSTransportType.WEBSOCKET;
 	}
 
+	onVisibilityChange() {
+		this.isHidden = document.visibilityState === 'hidden';
+	}
+
 	private async initClient(channels: string[]): Promise<WebsocketClient> {
+		document.addEventListener('visibilitychange', this.visibilityChangeListener);
 		return new Promise((resolve, reject) => {
 			const ws = new WebsocketClient({
 				url: this.url,
@@ -98,10 +105,12 @@ export default class WebsocketTransport extends AbstractApsTransport {
 	private async reconnect(channels: string[]) {
 		this.state = State.RECONNECTING;
 
-		return this.reconnectWithBackoff(async () => this.initClient(channels)).then((ws) => {
-			this.state = State.OPEN;
-			return ws;
-		});
+		return this.reconnectWithBackoff(this.isHidden, async () => this.initClient(channels)).then(
+			(ws) => {
+				this.state = State.OPEN;
+				return ws;
+			},
+		);
 	}
 
 	async subscribe(channels: Set<string>): Promise<void> {

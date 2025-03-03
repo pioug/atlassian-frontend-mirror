@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste-options-toolbar",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Paste options toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
@@ -43,7 +45,7 @@
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.4.0",
 		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/tokens": "^4.2.0",
+		"@atlaskit/tokens": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-intl-next": "npm:react-intl@^5.18.1"

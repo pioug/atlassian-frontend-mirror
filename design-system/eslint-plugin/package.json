@@ -49,7 +49,7 @@
 	"dependencies": {
 		"@atlaskit/eslint-utils": "^2.0.0",
 		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/icon-lab": "^3.3.0",
+		"@atlaskit/icon-lab": "^3.4.0",
 		"@atlaskit/tokens": "*",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^7.1.0",

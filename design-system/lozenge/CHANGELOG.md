@@ -1,5 +1,14 @@
 # @atlaskit/lozenge
 
+## 12.1.0
+
+### Minor Changes
+
+- [#117377](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117377)
+  [`f6fa74e4221cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6fa74e4221cd) -
+  [ux] We are increasing the letter spacing behind a feature flag. If testing successful, this
+  change will be made available in a later release.
+
 ## 12.0.0
 
 ### Major Changes

@@ -106,6 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Musisz poprosić o dostęp lub spróbować innego konta, aby zobaczyć ten podgląd.',
   'fabric.linking.join_to_view': 'Dołącz do {context}, aby wyświetlić to zgłoszenie',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Dołącz do {context}, aby wyświetlić to zgłoszenie',
   'fabric.linking.learn_more_about_connecting_account': 'Dowiedz się więcej o łączeniu konta z  produktami Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Dowiedz się więcej o inteligentnych łączach.',
   'fabric.linking.link_safety_warning_message':
@@ -118,6 +119,7 @@ export default {
   'fabric.linking.not_found_description': 'Strona nie istnieje lub mogła ulec zmianie po dodaniu tego łącza.',
   'fabric.linking.not_found_title': 'Nie można wyświetlić tej strony {product}',
   'fabric.linking.open_issue_in_jira': 'Otwórz zgłoszenie w systemie Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Otwórz zgłoszenie w systemie Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Otwórz łącze na nowej karcie',
   'fabric.linking.owned_by': 'Właściciel: {context}',
   'fabric.linking.pending_request': 'Twój wniosek o dostęp oczekuje na rozpatrzenie',
@@ -158,6 +160,8 @@ export default {
     'Twoja prośba o dostęp do witryny {hostname} oczekuje na zatwierdzenie przez administratora.',
   'fabric.linking.request_access_pending_title': 'Oczekiwanie na dostęp do {product}',
   'fabric.linking.request_access_to_view': 'Poproś o dostęp do {context}, aby wyświetlić to zgłoszenie',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Poproś o dostęp do {context}, aby wyświetlić to zgłoszenie',
   'fabric.linking.request_denied': 'Twój wniosek o dostęp został odrzucony',
   'fabric.linking.request_denied_description':
     'Administrator nie zatwierdził Twojej prośby o dostęp do stron {product} w witrynie {hostname}.',
@@ -170,6 +174,8 @@ export default {
   'fabric.linking.srclinkunknown': 'Wyświetl oryginał',
   'fabric.linking.status_change_load_error': 'Nie można załadować statusów ani zmian statusów',
   'fabric.linking.status_change_permission_error': 'Nie masz uprawnień do zmiany statusu tego zgłoszenia.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh':
+    'Nie masz uprawnień do zmiany statusu tego zgłoszenia.',
   'fabric.linking.status_change_update_error': 'Nie można zaktualizować statusu',
   'fabric.linking.try_again': 'Spróbuj ponownie',
   'fabric.linking.try_another_account': 'Spróbuj użyć innego konta',

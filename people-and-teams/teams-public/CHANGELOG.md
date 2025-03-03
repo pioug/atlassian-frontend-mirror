@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.7.0
+
+### Minor Changes
+
+- [#121085](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121085)
+  [`56290b97f918e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56290b97f918e) -
+  [ux] Allow consumer to override container card component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.6.0
 
 ### Minor Changes

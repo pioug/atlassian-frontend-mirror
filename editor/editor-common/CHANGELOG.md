@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 100.4.3
+
+### Patch Changes
+
+- [#121092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121092)
+  [`8cd08b738070d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cd08b738070d) -
+  [ux] Implemented full height separator as per design for media and card
+- [#120931](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120931)
+  [`624b97c021fea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/624b97c021fea) -
+  [ux] ED-26676 revert to existing primary toolbar components
+
 ## 100.4.2
 
 ### Patch Changes

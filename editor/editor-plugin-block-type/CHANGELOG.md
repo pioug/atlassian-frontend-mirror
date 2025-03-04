@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.0.2
+
+### Patch Changes
+
+- [#120931](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120931)
+  [`624b97c021fea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/624b97c021fea) -
+  [ux] ED-26676 revert to existing primary toolbar components
+
 ## 5.0.1
 
 ### Patch Changes

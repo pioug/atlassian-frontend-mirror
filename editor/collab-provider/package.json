@@ -71,7 +71,7 @@
 		}
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"typescript": "~5.4.2"
 	},

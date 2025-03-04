@@ -1,6 +1,7 @@
 import type { InteractionMetrics } from '../common';
 import { getPageVisibilityState } from '../hidden-timing';
-import { VCObserver, type VCObserverOptions } from '../vc/vc-observer';
+import type { VCObserverOptions } from '../vc/types';
+import { VCObserver } from '../vc/vc-observer';
 
 type InteractionMetricsHandler = (
 	interactionId: string,
@@ -68,11 +69,11 @@ export class ExperimentalVCMetrics {
 
 export const experimentalVC = new ExperimentalVCMetrics();
 
-export const getExperimentalVCMetrics = (interaction: InteractionMetrics) => {
+export const getExperimentalVCMetrics = async (interaction: InteractionMetrics) => {
 	if (experimentalVC.vcObserver) {
 		const prefix = 'ufo-experimental';
 
-		const result = experimentalVC.vcObserver.getVCResult({
+		const result = await experimentalVC.vcObserver.getVCResult({
 			start: interaction.start,
 			stop: interaction.end,
 			tti: interaction.apdex?.[0]?.stopTime,

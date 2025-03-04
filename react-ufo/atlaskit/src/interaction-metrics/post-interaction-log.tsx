@@ -6,7 +6,8 @@ import {
 import type { VCResult } from '../common/vc/types';
 import { getConfig } from '../config';
 import type { LabelStack } from '../interaction-context';
-import { VCObserver, type VCObserverOptions } from '../vc/vc-observer';
+import type { VCObserverOptions } from '../vc/types';
+import { VCObserver } from '../vc/vc-observer';
 
 const POST_INTERACTION_LOG_SEND_DEFAULT_TIMEOUT = 3000;
 
@@ -101,7 +102,7 @@ export default class PostInteractionLog {
 	/**
 	 * Send the log if there is data
 	 */
-	sendPostInteractionLog() {
+	async sendPostInteractionLog() {
 		if (!this.hasData() || !this.lastInteractionFinish || !this.sinkHandlerFn) {
 			this.reset();
 			if (getConfig()?.experimentalInteractionMetrics?.enabled) {
@@ -110,7 +111,7 @@ export default class PostInteractionLog {
 			return;
 		}
 
-		const postInteractionFinishVCResult = this.vcObserver?.getVCResult({
+		const postInteractionFinishVCResult = await this.vcObserver?.getVCResult({
 			start: this.lastInteractionFinish.start,
 			stop: performance.now(),
 			tti: -1, // no need for TTI value here
@@ -167,8 +168,8 @@ export default class PostInteractionLog {
 			getConfig()?.timeWindowForLateMutationsInMilliseconds ||
 			POST_INTERACTION_LOG_SEND_DEFAULT_TIMEOUT;
 
-		this.sinkTimeoutId = window.setTimeout(() => {
-			this.sendPostInteractionLog();
+		this.sinkTimeoutId = window.setTimeout(async () => {
+			await this.sendPostInteractionLog();
 		}, timeout);
 	}
 

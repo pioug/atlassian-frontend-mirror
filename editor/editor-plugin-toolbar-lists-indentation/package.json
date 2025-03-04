@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar-lists-indentation",
-	"version": "3.0.2",
+	"version": "3.0.3",
 	"description": "Toolbar lists and indentation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -62,7 +62,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/editor-plugin-base": "^2.2.0",
 		"@atlaskit/editor-plugin-text-formatting": "^2.0.0",

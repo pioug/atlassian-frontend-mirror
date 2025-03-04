@@ -15,7 +15,11 @@ describe('Icon Type', () => {
 		const { queryByTestId, queryByRole } = setup({});
 
 		const imgContainer = queryByTestId(ICON_TYPE_TEST_ID);
-		const img = queryByRole('img');
+		/**
+		 * If the element has a blank alt attribute i.e. alt='' it will have the role presentation.
+		 * See https://www.w3.org/TR/html-aria/#docconformance for more info
+		 */
+		const img = queryByRole('presentation');
 
 		expect(imgContainer).toBeInTheDocument();
 		expect(img).toBeInTheDocument();

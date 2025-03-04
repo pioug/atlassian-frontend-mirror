@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { bulletList, listItemWithTask, orderedListWithOrder } from '@atlaskit/adf-schema';
+import {
+	bulletList,
+	listItem,
+	orderedListWithOrder,
+	listItemWithoutNonBodiedMacros,
+} from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -11,6 +16,7 @@ import {
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ListPlugin } from './listPluginType';
 import {
@@ -61,7 +67,9 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 		},
 
 		nodes() {
-			const listItemNode = listItemWithTask;
+			const listItemNode = editorExperiment('platform_editor_nested_non_bodied_macros', 'test')
+				? listItem
+				: listItemWithoutNonBodiedMacros;
 			return [
 				{ name: 'bulletList', node: bulletList },
 				{
@@ -90,72 +98,72 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'unorderedList',
-					title: formatMessage(messages.unorderedList),
-					description: formatMessage(messages.unorderedListDescription),
-					keywords: ['ul', 'unordered'],
-					priority: 1100,
-					keyshortcut: tooltip(toggleBulletList),
-					icon: () => <IconList />,
-					action(insert, state) {
-						const tr = insert(
-							state.schema.nodes.bulletList.createChecked(
-								{},
-								state.schema.nodes.listItem.createChecked(
-									{},
-									state.schema.nodes.paragraph.createChecked(),
-								),
-							),
-						);
-
-						editorAnalyticsAPI?.attachAnalyticsEvent({
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.LIST,
-							actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
-							eventType: EVENT_TYPE.TRACK,
-							attributes: {
-								inputMethod: INPUT_METHOD.QUICK_INSERT,
+			...(editorExperiment('platform_editor_insertion', 'control') && {
+				quickInsert: ({ formatMessage }) => {
+					return [
+						{
+							id: 'unorderedList',
+							title: formatMessage(messages.unorderedList),
+							description: formatMessage(messages.unorderedListDescription),
+							keywords: ['ul', 'unordered'],
+							priority: 1100,
+							keyshortcut: tooltip(toggleBulletList),
+							icon: () => <IconList />,
+							action(insert, state) {
+								const tr = insert(
+									state.schema.nodes.bulletList.createChecked(
+										{},
+										state.schema.nodes.listItem.createChecked(
+											{},
+											state.schema.nodes.paragraph.createChecked(),
+										),
+									),
+								);
+								editorAnalyticsAPI?.attachAnalyticsEvent({
+									action: ACTION.INSERTED,
+									actionSubject: ACTION_SUBJECT.LIST,
+									actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
+									eventType: EVENT_TYPE.TRACK,
+									attributes: {
+										inputMethod: INPUT_METHOD.QUICK_INSERT,
+									},
+								})(tr);
+								return tr;
 							},
-						})(tr);
-
-						return tr;
-					},
-				},
-				{
-					id: 'orderedList',
-					title: formatMessage(messages.orderedList),
-					description: formatMessage(messages.orderedListDescription),
-					keywords: ['ol', 'ordered'],
-					priority: 1200,
-					keyshortcut: tooltip(toggleOrderedList),
-					icon: () => <IconListNumber />,
-					action(insert, state) {
-						const tr = insert(
-							state.schema.nodes.orderedList.createChecked(
-								{},
-								state.schema.nodes.listItem.createChecked(
-									{},
-									state.schema.nodes.paragraph.createChecked(),
-								),
-							),
-						);
-
-						editorAnalyticsAPI?.attachAnalyticsEvent({
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.LIST,
-							actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
-							eventType: EVENT_TYPE.TRACK,
-							attributes: {
-								inputMethod: INPUT_METHOD.QUICK_INSERT,
+						},
+						{
+							id: 'orderedList',
+							title: formatMessage(messages.orderedList),
+							description: formatMessage(messages.orderedListDescription),
+							keywords: ['ol', 'ordered'],
+							priority: 1200,
+							keyshortcut: tooltip(toggleOrderedList),
+							icon: () => <IconListNumber />,
+							action(insert, state) {
+								const tr = insert(
+									state.schema.nodes.orderedList.createChecked(
+										{},
+										state.schema.nodes.listItem.createChecked(
+											{},
+											state.schema.nodes.paragraph.createChecked(),
+										),
+									),
+								);
+								editorAnalyticsAPI?.attachAnalyticsEvent({
+									action: ACTION.INSERTED,
+									actionSubject: ACTION_SUBJECT.LIST,
+									actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+									eventType: EVENT_TYPE.TRACK,
+									attributes: {
+										inputMethod: INPUT_METHOD.QUICK_INSERT,
+									},
+								})(tr);
+								return tr;
 							},
-						})(tr);
-
-						return tr;
-					},
+						},
+					];
 				},
-			],
+			}),
 		},
 	};
 };

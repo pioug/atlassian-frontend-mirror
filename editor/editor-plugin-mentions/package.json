@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/css": "^0.10.0",
 		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
@@ -117,9 +117,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_offline_editing_ga": {
-			"type": "boolean"
-		},
-		"platform_editor_lego__inline_node_virtualization": {
 			"type": "boolean"
 		}
 	}

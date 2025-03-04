@@ -148,7 +148,12 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 			}
 		}
 
-		const anchorStyles = `anchor-name: ${anchorName};`;
+		const anchorStyles =
+			pos === 0 && editorExperiment('platform_editor_controls', 'variant1')
+				? // why margin-top:0? well it's not possible using CSS to select the first node in the document while excluding n number of nodes, in this case
+					// we're rendering quick insert button and drag handle. For now override margin-top to 0
+					`anchor-name: ${anchorName};margin-top:0px;`
+				: `anchor-name: ${anchorName};`;
 
 		decs.push(
 			Decoration.node(

@@ -217,19 +217,6 @@ const topLevelNodeMarginStyles = css({
 	},
 });
 
-// when quick insert is rendered there are 2 widgets before the first block node
-const topLevelNodeMarginWithQuickInsertStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> .ProseMirror-widget:nth-child(-n + 2) + .ProseMirror-gapcursor + *:not([data-layout-section="true"]), > .ProseMirror-widget:nth-child(-n + 2) + *:not([data-layout-section="true"])':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				marginTop: '0 !important',
-			},
-	},
-});
-
 const withDividerInPanelStyleFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`${dividerBodiedInCustomPanelWithNoIconSelector}`]: {
@@ -339,9 +326,7 @@ export const GlobalStylesWrapper = () => {
 				withDividerInPanelStyleFix,
 				withFormatInLayoutStyleFix,
 				withRelativePosStyle,
-				editorExperiment('platform_editor_controls', 'variant1')
-					? topLevelNodeMarginWithQuickInsertStyles
-					: topLevelNodeMarginStyles,
+				topLevelNodeMarginStyles,
 				editorExperiment('nested-dnd', true)
 					? withAnchorNameZindexNestedStyle
 					: withAnchorNameZindexStyle,

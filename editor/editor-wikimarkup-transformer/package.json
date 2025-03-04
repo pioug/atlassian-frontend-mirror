@@ -30,7 +30,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/theme": "^17.0.0",

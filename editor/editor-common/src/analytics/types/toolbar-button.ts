@@ -14,6 +14,7 @@ export enum TOOLBAR_ACTION_SUBJECT_ID {
 	BACKGROUND_COLOR = 'backgroundColor',
 	TEXT_FORMATTING_STRONG = 'strong',
 	TEXT_FORMATTING_ITALIC = 'italic',
+	TEXT_FORMATTING_UNDERLINE = 'underline',
 	UNDO = 'undo',
 	REDO = 'redo',
 	INDENT = 'indent',

@@ -12,33 +12,17 @@ import type {
 	VCRawDataType,
 	VCResult,
 } from '../../common/vc/types';
+import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
 import { getViewportHeight, getViewportWidth } from './getViewport';
 import { MultiRevisionHeatmap } from './heatmap/heatmap';
-import { type ObservedMutationType, Observers, type SelectorConfig } from './observers';
+import { type ObservedMutationType, Observers } from './observers';
 import { getRevisions } from './revisions/revisions';
 
 type PixelsToMap = { l: number; t: number; r: number; b: number };
 
 type AbortReasonEnum = { [key: string]: VCAbortReason };
-
-type GetVCResultType = {
-	start: number;
-	stop: number;
-	tti: number;
-	prefix?: string;
-	ssr?: number;
-	vc?: VCRawDataType | null;
-};
-
-export type VCObserverOptions = {
-	heatmapSize?: number | undefined;
-	oldDomUpdates?: boolean | undefined;
-	devToolsEnabled?: boolean | undefined;
-	selectorConfig?: SelectorConfig | undefined;
-	isPostInteraction?: boolean;
-};
 
 type onUpdateArgs = {
 	timestamp: number;
@@ -70,7 +54,7 @@ function filterComponentsLog(log: ComponentsLogType) {
 	);
 }
 
-export class VCObserver {
+export class VCObserver implements VCObserverInterface {
 	/* abort logic */
 	abortReason: VCAbortReasonType = {
 		reason: null,
@@ -212,7 +196,14 @@ export class VCObserver {
 			.map(({ targetName, ignoreReason }) => ({ targetName, ignoreReason }));
 	}
 
-	getVCResult = ({ start, stop, tti, prefix, ssr, vc }: GetVCResultType): VCResult => {
+	getVCResult = async ({
+		start,
+		stop,
+		tti,
+		prefix,
+		ssr,
+		vc,
+	}: GetVCResultType): Promise<VCResult> => {
 		const startTime = performance.now();
 		// add local measurement
 		const fullPrefix = prefix !== undefined && prefix !== '' ? `${prefix}:` : '';
@@ -632,10 +623,6 @@ export class VCObserver {
 			},
 		});
 	};
-
-	public abortObservation(abortReason: VCAbortReason = 'custom') {
-		this.setAbortReason(abortReason, performance.now());
-	}
 
 	private setAbortReason(abort: VCAbortReason, timestamp: number, info = '') {
 		if (this.abortReason.reason === null || this.abortReason.blocking === false) {

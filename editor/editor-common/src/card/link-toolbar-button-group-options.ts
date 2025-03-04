@@ -15,7 +15,7 @@ import { IconEmbed } from './ui/assets/embed';
 import { IconInline } from './ui/assets/inline';
 import { IconUrl } from './ui/assets/url';
 
-const appearancePropsMap = {
+export const appearancePropsMap = {
 	url: {
 		title: messages.urlTitle,
 		icon: MinusIcon,

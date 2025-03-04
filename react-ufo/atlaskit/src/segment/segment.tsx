@@ -47,6 +47,9 @@ import {
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 import generateId from '../short-id';
+
+import scheduleOnPaint from './schedule-on-paint';
+
 type Props = { name: string; children: ReactNode };
 
 let tryCompleteHandle: number | undefined;
@@ -294,8 +297,14 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 						startTime,
 						commitTime,
 					);
-
-					this.complete(commitTime);
+					if (fg('platform_ufo_vc_ttai_on_paint')) {
+						scheduleOnPaint(() => {
+							const paintedTime = performance.now();
+							this.complete(paintedTime);
+						});
+					} else {
+						this.complete(commitTime);
+					}
 				}
 			},
 			_internalHold,

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 2.2.5
+
+### Patch Changes
+
+- [#121092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121092)
+  [`8cd08b738070d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cd08b738070d) -
+  [ux] Implemented full height separator as per design for media and card
+
 ## 2.2.4
 
 ### Patch Changes

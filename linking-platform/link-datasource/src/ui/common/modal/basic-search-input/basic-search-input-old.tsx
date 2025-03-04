@@ -95,6 +95,7 @@ export const BasicSearchInputOld = ({
 				placeholder={formatMessage(placeholder)}
 				testId={`${testId}--basic-search-input`}
 				value={searchTerm}
+				aria-label={formatMessage(placeholder)}
 			/>
 		</form>
 	);

@@ -117,6 +117,7 @@ const getItemData = (
 					icon: () => <InformationCircleIcon label="" />,
 					categories: ['page structure'],
 					shouldDisplayAtTop: true,
+					title: 'Panel',
 					tempKey,
 				};
 			case 'date':
@@ -149,6 +150,7 @@ const getItemData = (
 					icon: () => <LayoutThreeColumnsIcon label="" />,
 					categories: ['page structure'],
 					shouldDisplayAtTop: true,
+					title: 'Layout',
 					tempKey,
 				};
 			case 'hyperlink':

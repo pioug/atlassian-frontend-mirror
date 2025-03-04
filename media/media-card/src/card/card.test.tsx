@@ -4362,107 +4362,6 @@ describe('Card ', () => {
 			});
 		});
 
-		describe('should fire a screen event ', () => {
-			it('when the file status is complete', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
-				const { mediaApi } = createMockedMediaApi(fileItem);
-
-				render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<CardLoader
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-						/>
-					</MockedMediaClientProvider>,
-				);
-
-				// simulate that the file has been fully loaded by the browser
-				const img = await screen.findByTestId(imgTestId);
-				await waitFor(async () => expect(img.getAttribute('src')).toBeTruthy());
-
-				await simulateImageLoadDelay();
-				fireEvent.load(img);
-
-				// card should completely process the file
-				await waitFor(async () =>
-					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-						'data-test-status',
-						'complete',
-					),
-				);
-
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'screen',
-					action: 'viewed',
-					actionSubject: 'mediaCardRenderScreen',
-					name: 'mediaCardRenderScreen',
-					attributes: {
-						type: fileItem.details.mediaType,
-						fileAttributes: {
-							fileMediatype: fileItem.details.mediaType,
-							fileMimetype: fileItem.details.mimeType,
-							fileId: fileItem.id,
-							fileSize: fileItem.details.size,
-							fileStatus: 'processed',
-						},
-					},
-				});
-
-				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
-				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
-			});
-
-			it('when the file is a video and has a preview', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingVideo();
-				const { mediaApi } = createMockedMediaApi(fileItem);
-
-				render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<CardLoader
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-						/>
-					</MockedMediaClientProvider>,
-				);
-
-				// simulate that the file has been fully loaded by the browser
-				const img = await screen.findByTestId(imgTestId);
-				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
-				await simulateImageLoadDelay();
-				fireEvent.load(img);
-
-				// card should completely process the file
-				await waitFor(async () =>
-					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-						'data-test-status',
-						'complete',
-					),
-				);
-
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'screen',
-					action: 'viewed',
-					actionSubject: 'mediaCardRenderScreen',
-					name: 'mediaCardRenderScreen',
-					attributes: {
-						type: fileItem.details.mediaType,
-						fileAttributes: {
-							fileMediatype: fileItem.details.mediaType,
-							fileMimetype: fileItem.details.mimeType,
-							fileId: fileItem.id,
-							fileSize: fileItem.details.size,
-							fileStatus: 'processed',
-						},
-					},
-				});
-
-				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
-				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
-			});
-		});
-
 		describe('should fire an operational event', () => {
 			it('when the card status changes (file identifier)', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
@@ -4535,7 +4434,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledTimes(1);
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -4595,7 +4494,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledTimes(1);
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 

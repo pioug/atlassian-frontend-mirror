@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.1.9
+
+### Patch Changes
+
+- [#121235](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121235)
+  [`fd5c842595a2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd5c842595a2f) -
+  [ux] Adds moveLeft and moveRight items to the Block menu and updates the tooltip
+
 ## 3.1.8
 
 ### Patch Changes

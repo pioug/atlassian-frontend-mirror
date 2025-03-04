@@ -1,0 +1,59 @@
+import getViewportWidth from './get-viewport-width';
+
+describe('getViewportWidth', () => {
+  beforeEach(() => {
+    // Reset the mock implementations before each test
+    jest.clearAllMocks();
+  });
+
+  it('should return the clientWidth when it is greater than window.innerWidth', () => {
+    const mockDocument = {
+      documentElement: {
+        clientWidth: 800,
+      },
+    };
+
+    // Mock the window object
+    Object.defineProperty(window, 'innerWidth', {
+      value: 600,
+      writable: true,
+    });
+
+    expect(getViewportWidth(mockDocument as any)).toBe(800);
+  });
+
+  it('should return window.innerWidth when it is greater than clientWidth', () => {
+    const mockDocument = {
+      documentElement: {
+        clientWidth: 500,
+      },
+    };
+
+    // Mock the window object
+    Object.defineProperty(window, 'innerWidth', {
+      value: 700,
+      writable: true,
+    });
+
+    expect(getViewportWidth(mockDocument as any)).toBe(700);
+  });
+
+  it('should return 0 if an error occurs and both clientWidth and innerWidth are 0', () => {
+    const mockDocument = {
+      documentElement: {
+        // Simulate an error
+        get clientWidth() {
+          throw new Error('Access error');
+        },
+      },
+    };
+
+    // Mock the window object
+    Object.defineProperty(window, 'innerWidth', {
+      value: 0,
+      writable: true,
+    });
+
+    expect(getViewportWidth(mockDocument as any)).toBe(0);
+  });
+});

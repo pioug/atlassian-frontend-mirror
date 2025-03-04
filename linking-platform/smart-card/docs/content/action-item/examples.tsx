@@ -71,19 +71,6 @@ ${(
 	/>
 )}
 
-### Override CSS
-
-Use \`overrideCss\` to override the styles of the block.
-Although let us know what we’re missing in the spirit of improving platform components for everyone!
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/action-override-css').default}
-		highlight="9"
-		source={require('!!raw-loader!../../../examples/content/action-override-css')}
-	/>
-)}
-
 ### Custom action
 
 Create a unique action for your application with CustomAction by defining its icon and content.

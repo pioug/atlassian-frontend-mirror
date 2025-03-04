@@ -3,7 +3,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import tokens, { type CSSTokenMap } from './artifacts/token-names';
 import { TOKEN_NOT_FOUND_CSS_VAR } from './constants';
-import { recordTokenCall } from './get-token-analytics';
 
 type Tokens = typeof tokens;
 
@@ -30,9 +29,6 @@ type Tokens = typeof tokens;
  *
  */
 function token<T extends keyof Tokens>(path: T, fallback?: string): CSSTokenMap[T] {
-	if (fg('platform-token-runtime-call-tracking')) {
-		recordTokenCall(path, fallback);
-	}
 	let token: Tokens[keyof Tokens] | typeof TOKEN_NOT_FOUND_CSS_VAR = tokens[path];
 
 	if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {

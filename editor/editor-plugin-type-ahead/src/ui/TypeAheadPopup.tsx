@@ -35,8 +35,10 @@ import type { OnSelectItem, TypeAheadErrorInfo } from '../types';
 
 import { TypeAheadErrorFallback } from './TypeAheadErrorFallback';
 import { TypeAheadList } from './TypeAheadList';
+import { ViewMore } from './ViewMore';
 
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 380;
+const VIEWMORE_BUTTON_HEIGHT = 53;
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW = 480;
 
 const ITEM_PADDING = 12;
@@ -52,8 +54,14 @@ const typeAheadContent = css({
 	MsOverflowStyle: '-ms-autohiding-scrollbar',
 	position: 'relative',
 });
+
 const typeAheadContentOverride = css({
 	maxHeight: `${DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW}px`,
+});
+
+const typeAheadWrapperWithViewMoreOverride = css({
+	display: 'flex',
+	flexDirection: 'column',
 });
 
 type TypeAheadPopupProps = {
@@ -76,6 +84,7 @@ type TypeAheadPopupProps = {
 		forceFocusOnEditor: boolean;
 	}) => void;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	showViewMore?: boolean;
 };
 
 type HighlightProps = {
@@ -106,6 +115,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		isEmptyQuery,
 		cancel,
 		api,
+		showViewMore,
 	} = props;
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
@@ -183,6 +193,14 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	]);
 
 	const [fitHeight, setFitHeight] = useState(defaultMenuHeight);
+
+	const fitHeightWithViewMore = useMemo(() => {
+		if (showViewMore) {
+			return fitHeight - VIEWMORE_BUTTON_HEIGHT;
+		}
+
+		return fitHeight;
+	}, [fitHeight, showViewMore]);
 
 	const getFitHeight = useCallback(() => {
 		if (!anchorElement || !popupsMountPoint) {
@@ -335,6 +353,21 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		};
 	}, [ref, cancel]);
 
+	// @ts-ignore
+	const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
+
+	const onViewMoreClick = useCallback(() => {
+		// TODO: when clean up, remove config in quick insert plugin
+		// platform/packages/editor/editor-plugin-quick-insert/src/quickInsertPlugin.tsx (typeAhead.openElementBrowserModal)
+		openElementBrowserModal?.();
+
+		cancel({
+			addPrefixTrigger: false,
+			setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
+			forceFocusOnEditor: false,
+		});
+	}, [openElementBrowserModal, cancel]);
+
 	return (
 		<Popup
 			zIndex={akEditorFloatingDialogZIndex}
@@ -349,7 +382,11 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			preventOverflow={true}
 		>
 			<div
-				css={[typeAheadContent, moreElementsInQuickInsertViewEnabled && typeAheadContentOverride]}
+				css={[
+					typeAheadContent,
+					moreElementsInQuickInsertViewEnabled && typeAheadContentOverride,
+					showViewMore && typeAheadWrapperWithViewMoreOverride,
+				]}
 				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 				tabIndex={0}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -365,13 +402,15 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 							items={items}
 							selectedIndex={selectedIndex}
 							onItemClick={onItemInsert}
-							fitHeight={fitHeight}
+							fitHeight={fitHeightWithViewMore}
 							editorView={editorView}
 							decorationElement={anchorElement}
 							triggerHandler={triggerHandler}
 							moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
 							api={api}
+							showViewMore={showViewMore}
 						/>
+						{showViewMore && <ViewMore onClick={onViewMoreClick} />}
 					</React.Fragment>
 				)}
 			</div>

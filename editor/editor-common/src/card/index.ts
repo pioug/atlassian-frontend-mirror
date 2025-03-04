@@ -20,7 +20,8 @@ export type {
 	CardReplacementInputMethod,
 } from './types';
 export { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
-export { getButtonGroupOption } from './link-toolbar-button-group-options';
+export { appearancePropsMap, getButtonGroupOption } from './link-toolbar-button-group-options';
+export { getDropdownOption } from './link-toolbar-dropdown-options';
 export const DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inner-wrap';
 export { IconCard } from './ui/assets/card';
 export { IconInline } from './ui/assets/inline';

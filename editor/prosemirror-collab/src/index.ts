@@ -189,8 +189,16 @@ export function syncFromAnotherSource(
 	const tr = state.tr;
 	const doc = state.schema.nodeFromJSON(docJSON);
 
-	const selection = TextSelection.create(state.doc, 0, state.doc.content.size);
-	tr.setSelection(selection).replaceSelectionWith(doc, false);
+	const { from, to } = tr.selection;
+
+	tr.replaceWith(0, state.doc.content.size, doc);
+	tr.setSelection(
+		TextSelection.create(
+			tr.doc,
+			Math.min(tr.mapping.map(from), tr.doc.nodeSize),
+			Math.min(tr.mapping.map(to), tr.doc.nodeSize),
+		),
+	);
 
 	// apply new unconfirmed steps to doc
 	for (let i = 0; i < unconfirmedSteps.length; i++) {

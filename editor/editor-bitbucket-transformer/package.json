@@ -37,7 +37,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/editor-json-transformer": "^8.23.0",
 		"@atlaskit/editor-test-helpers": "^22.0.0",
 		"typescript": "~5.4.2"

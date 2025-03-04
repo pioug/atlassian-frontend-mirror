@@ -37,7 +37,7 @@ const DefaultView = ({
 					onItemSelected={onItemSelected}
 				/>
 			)}
-			{CategoriesStructure.map((category) => {
+			{CategoriesStructure.map((category, i) => {
 				const { defautltItems } = category;
 				const items =
 					defautltItems.length > 0
@@ -48,6 +48,8 @@ const DefaultView = ({
 							? categoryRegistry[category.id].slice(0, 5)
 							: [];
 
+				const shoudldShowSeparator = i === 0 && !suggested ? false : true;
+
 				return (
 					items.length > 0 && (
 						<ExpandablePanel
@@ -55,7 +57,7 @@ const DefaultView = ({
 							id={category.id}
 							label={category.title}
 							items={items}
-							hasSeparator
+							hasSeparator={shoudldShowSeparator}
 							onItemSelected={onItemSelected}
 							onViewAllSelected={onCategorySelected}
 						/>
@@ -132,7 +134,6 @@ export const SideInsertPanel = ({ items, onItemInsert }: SideInsertPanelProps) =
 	);
 
 	const {
-		suggested,
 		categoryRegistry,
 		itemsRegistry,
 		selectedCategory,
@@ -152,7 +153,7 @@ export const SideInsertPanel = ({ items, onItemInsert }: SideInsertPanelProps) =
 		/>
 	) : (
 		<DefaultView
-			suggested={suggested}
+			suggested={undefined}
 			itemsRegistry={itemsRegistry}
 			categoryRegistry={categoryRegistry}
 			onItemSelected={onItemSelect}

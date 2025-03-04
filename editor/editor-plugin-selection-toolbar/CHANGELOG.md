@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.0.4
+
+### Patch Changes
+
+- [#121249](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121249)
+  [`d14ccaecc153a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ccaecc153a) -
+  ED-26862 contextual toolbar minor updates
+
 ## 2.0.3
 
 ### Patch Changes

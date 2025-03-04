@@ -51,7 +51,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 			test(`section nine should exist inside the ufo:vc:update`, async ({
 				page,
 				waitForReactUFOPayload,
-				getSectionVisibleAt,
+				getSectionDOMAddedAt,
 			}) => {
 				const mainDiv = page.locator('[data-testid="main"]');
 				const sections = page.locator('[data-testid="main"] > div');
@@ -59,7 +59,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 				await expect(mainDiv).toBeVisible();
 				await expect(sections.nth(9)).toBeVisible();
 
-				const sectionNineVisibleAt = await getSectionVisibleAt('sectionNine');
+				const sectionNineVisibleAt = await getSectionDOMAddedAt('sectionNine');
 				expect(sectionNineVisibleAt).toBeDefined();
 
 				const reactUFOPayload = await waitForReactUFOPayload();
@@ -84,7 +84,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 			test(`VC90 should matches when the section nine was visible`, async ({
 				page,
 				waitForReactUFOPayload,
-				getSectionVisibleAt,
+				getSectionDOMAddedAt,
 			}) => {
 				const mainDiv = page.locator('[data-testid="main"]');
 				const sections = page.locator('[data-testid="main"] > div');
@@ -92,7 +92,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 				await expect(mainDiv).toBeVisible();
 				await expect(sections.nth(9)).toBeVisible();
 
-				const sectionNineVisibleAt = await getSectionVisibleAt('sectionNine');
+				const sectionNineVisibleAt = await getSectionDOMAddedAt('sectionNine');
 				expect(sectionNineVisibleAt).toBeDefined();
 
 				const reactUFOPayload = await waitForReactUFOPayload();
@@ -121,7 +121,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 			test('section three should exist inside the ufo:vc:update', async ({
 				page,
 				waitForReactUFOPayload,
-				getSectionVisibleAt,
+				getSectionDOMAddedAt,
 			}) => {
 				const mainDiv = page.locator('[data-testid="main"]');
 				const sections = page.locator('[data-testid="main"] > div');
@@ -129,7 +129,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 				await expect(mainDiv).toBeVisible();
 				await expect(sections.nth(2)).toBeVisible();
 
-				const sectionThreeVisibleAt = await getSectionVisibleAt('sectionThree');
+				const sectionThreeVisibleAt = await getSectionDOMAddedAt('sectionThree');
 				expect(sectionThreeVisibleAt).toBeDefined();
 
 				const reactUFOPayload = await waitForReactUFOPayload();
@@ -154,7 +154,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 			test('VC90 should matches when the section three was visible', async ({
 				page,
 				waitForReactUFOPayload,
-				getSectionVisibleAt,
+				getSectionDOMAddedAt,
 			}) => {
 				const mainDiv = page.locator('[data-testid="main"]');
 				const sections = page.locator('[data-testid="main"] > div');
@@ -162,7 +162,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 				await expect(mainDiv).toBeVisible();
 				await expect(sections.nth(2)).toBeVisible();
 
-				const sectionThreeVisibleAt = await getSectionVisibleAt('sectionThree');
+				const sectionThreeVisibleAt = await getSectionDOMAddedAt('sectionThree');
 				expect(sectionThreeVisibleAt).toBeDefined();
 
 				const reactUFOPayload = await waitForReactUFOPayload();
@@ -225,7 +225,7 @@ test.describe('TTVC: basic page (100 congruent sections)', () => {
 			test('VC90 should matches when the section 90 was visible', async ({
 				page,
 				waitForReactUFOPayload,
-				getSectionVisibleAt,
+				getSectionDOMAddedAt,
 			}) => {
 				const mainDiv = page.locator('[data-testid="main"]');
 				await expect(mainDiv).toBeVisible();
@@ -233,7 +233,7 @@ test.describe('TTVC: basic page (100 congruent sections)', () => {
 				const sections = page.locator('[data-testid="main"] > div');
 				await expect(sections.nth(99)).toBeVisible();
 
-				const sectionNinetyRenderTime = await getSectionVisibleAt('section90');
+				const sectionNinetyRenderTime = await getSectionDOMAddedAt('section90');
 				expect(sectionNinetyRenderTime).toBeDefined();
 
 				const reactUFOPayload = await waitForReactUFOPayload();

@@ -39,7 +39,7 @@
 		"uuid": "^3.1.0"
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "^47.2.1"
+		"@atlaskit/adf-schema": "^47.6.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

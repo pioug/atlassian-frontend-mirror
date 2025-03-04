@@ -36,18 +36,6 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
-		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-			return (
-				<FloatingToolbarComponent
-					editorView={editorView}
-					featureFlags={featureFlags}
-					pluginInjectionApi={api}
-					showIndentationButtons={showIndentationButtons}
-					allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
-				/>
-			);
-		}
-
 		return (
 			<PrimaryToolbarComponent
 				featureFlags={featureFlags}

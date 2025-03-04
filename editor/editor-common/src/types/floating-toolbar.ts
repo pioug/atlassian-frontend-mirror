@@ -286,6 +286,7 @@ export type FloatingToolbarSelect<T extends Object> =
 export type FloatingToolbarSeparator = {
 	type: 'separator';
 	hidden?: boolean;
+	fullHeight?: boolean;
 	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 

@@ -89,6 +89,7 @@ export const SiteSelectorOld = (props: SiteSelectorProps) => {
 						}}
 						testId={testId}
 						value={selectedSiteOption}
+						label={formatMessage(siteSelectorMessages.chooseSite)}
 					/>
 				</span>
 			)}

@@ -9,7 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditorAddIcon from '@atlaskit/icon/glyph/editor/add';
+import AddIcon from '@atlaskit/icon/utility/add';
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -186,11 +186,7 @@ export const TypeAheadControl = ({
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		<Box style={positionStyles} xcss={[containerStaticStyles]}>
-			<Tooltip
-				content={
-					<ToolTipContent description={formatMessage(messages.insert)} shortcutOverride="/" />
-				}
-			>
+			<Tooltip content={<ToolTipContent description={formatMessage(messages.insert)} />}>
 				<Pressable
 					type="button"
 					aria-label={formatMessage(messages.insert)}
@@ -214,7 +210,7 @@ export const TypeAheadControl = ({
 						api?.quickInsert?.actions.openTypeAhead('blockControl');
 					}}
 				>
-					<EditorAddIcon label="add" size="medium" />
+					<AddIcon label="add" />
 				</Pressable>
 			</Tooltip>
 		</Box>

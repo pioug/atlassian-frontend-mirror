@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "100.4.2",
+	"version": "100.4.3",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -200,7 +200,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.5.0",
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-listeners": "^9.0.0",
 		"@atlaskit/analytics-namespaced-context": "^7.0.0",
@@ -346,9 +346,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_typography_ugc": {
-			"type": "boolean"
-		},
-		"platform_editor_lego__inline_node_virtualization": {
 			"type": "boolean"
 		},
 		"platform_editor_heading_margin_fix": {

@@ -1,9 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -13,12 +8,13 @@ import {
 } from '../../src/view/EmbedCard/components/ExpandedFrame';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-const wrapperStyles = css({
-	padding: token('space.250', '20px'),
-});
-
 const VREmbedFrame = (props: Partial<ExpandedFrameProps>) => (
-	<VRTestWrapper overrideCss={wrapperStyles}>
+	<VRTestWrapper
+		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			padding: token('space.250', '20px'),
+		}}
+	>
 		<ExpandedFrame text="frame text" testId="vr-embed-card-frame" {...props}>
 			<div></div>
 		</ExpandedFrame>

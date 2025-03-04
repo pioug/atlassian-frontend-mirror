@@ -167,7 +167,9 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 		},
 		pluginsOptions: {
 			floatingToolbar(state, intl, providerFactory) {
-				const { selectionStable, hide } = selectionToolbarPluginKey.getState(state);
+				const { selectionStable, hide, toolbarDocking } = selectionToolbarPluginKey.getState(
+					state,
+				) as SelectionToolbarPluginState;
 
 				if (
 					state.selection.empty ||
@@ -233,7 +235,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				}
 
 				if (items.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
-					items.push(...getOverflowFloatingToolbarConfig({ api }));
+					items.push(...getOverflowFloatingToolbarConfig({ api, toolbarDocking }));
 				}
 
 				const calcToolbarPosition = config.preferenceToolbarAboveSelection

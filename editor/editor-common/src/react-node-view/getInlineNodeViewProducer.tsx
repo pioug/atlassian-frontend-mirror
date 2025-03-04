@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -47,9 +47,39 @@ type CreateNodeViewOptions<ExtraComponentProps> = {
 
 export const inlineNodeViewClassname = 'inlineNodeView';
 
+// number of initial nodes to allow React to render before switching to fallback
+let initialReactRenderedNodeCount = 0;
+
 const canRenderFallback = (node: PMNode): boolean => {
-	return node.type.isInline && node.type.isAtom && node.type.isLeaf;
+	return (
+		node.type.isInline &&
+		node.type.isAtom &&
+		node.type.isLeaf
+	);
 };
+
+const virtualisationConfiguration = () => {
+	let enableVirtualization = false;
+	let reactRenderedDocumentPositionThreshold = 0;
+
+	if (editorExperiment("platform_editor_inline_node_virtualization", "off")) {
+		enableVirtualization = false;
+	} else if (editorExperiment("platform_editor_inline_node_virtualization", "fallbackall")) {
+		enableVirtualization = true;
+		reactRenderedDocumentPositionThreshold = 0;
+	} else if (editorExperiment("platform_editor_inline_node_virtualization", "fallbackoffscreen")) {
+		enableVirtualization = true;
+		reactRenderedDocumentPositionThreshold = 100;
+	}
+
+
+	return {
+		enableVirtualization,
+		reactRenderedDocumentPositionThreshold,
+		virtualizeCurrentNode: () => enableVirtualization && !(initialReactRenderedNodeCount < reactRenderedDocumentPositionThreshold),
+	};
+
+}
 
 function createNodeView<ExtraComponentProps>({
 	nodeViewParams,
@@ -58,7 +88,9 @@ function createNodeView<ExtraComponentProps>({
 	extraComponentProps,
 	extraNodeViewProps,
 }: CreateNodeViewOptions<ExtraComponentProps>) {
-	const shouldVirtualize = fg('platform_editor_lego__inline_node_virtualization');
+	const { enableVirtualization, virtualizeCurrentNode } = virtualisationConfiguration();
+
+  const virtualizeNode = virtualizeCurrentNode();
 	// We set a variable for the current node which is
 	// used for comparisions when doing updates, before being
 	// overwritten to the updated node.
@@ -134,7 +166,7 @@ function createNodeView<ExtraComponentProps>({
 		}
 	}
 
-	if (shouldVirtualize) {
+	if (virtualizeNode) {
 		renderFallback();
 		// allow the fallback to render first before attaching the observer.
 		// Will tweak this in a follow up PR to optimise rendering of visible
@@ -143,6 +175,7 @@ function createNodeView<ExtraComponentProps>({
 			attachNodeViewObserver();
 		}, 0);
 	} else {
+		initialReactRenderedNodeCount = initialReactRenderedNodeCount + 1;
 		const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
 			nodeViewParams.view,
 		);
@@ -163,10 +196,10 @@ function createNodeView<ExtraComponentProps>({
 
 	const extraNodeViewPropsWithStopEvent = {
 		...extraNodeViewProps,
-		...(fg('platform_editor_lego__inline_node_virtualization')
+		...(enableVirtualization
 			? {
 					// This is not related to virtualization, but it's something we should fix/handle
-					// Remove this comment when `platform_editor_lego__inline_node_virtualization` FF is cleaned up
+					// Remove this comment when virtualization experiment is cleaned up
 					stopEvent(event: Event) {
 						const maybeStopEvent = extraNodeViewProps?.stopEvent;
 						if (typeof maybeStopEvent === 'function') {
@@ -210,7 +243,7 @@ function createNodeView<ExtraComponentProps>({
 
 			currentNode = nextNode;
 
-			if (shouldVirtualize) {
+			if (virtualizeNode) {
 				if (didRenderComponentWithIntersectionObserver) {
 					renderComponent();
 				}
@@ -221,7 +254,7 @@ function createNodeView<ExtraComponentProps>({
 			return true;
 		},
 		destroy() {
-			if (shouldVirtualize) {
+			if (virtualizeNode) {
 				removeIntersectionObserver();
 			}
 
@@ -234,7 +267,7 @@ function createNodeView<ExtraComponentProps>({
 			// been destroyed no other consumers should still be using it.
 			domRef = undefined;
 
-			if (shouldVirtualize) {
+			if (virtualizeNode) {
 				destroyed = true;
 			}
 		},

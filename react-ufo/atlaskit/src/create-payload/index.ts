@@ -195,9 +195,9 @@ const getTTAI = (interaction: InteractionMetrics) => {
 		: undefined;
 };
 
-const getVCMetrics = (
+const getVCMetrics = async (
 	interaction: InteractionMetrics,
-): VCResult & { 'metric:vc90'?: number | null } => {
+): Promise<VCResult & { 'metric:vc90'?: number | null }> => {
 	const config = getConfig();
 	if (!config?.vc?.enabled) {
 		return {};
@@ -215,7 +215,7 @@ const getVCMetrics = (
 
 	const tti = interaction.apdex?.[0]?.stopTime;
 	const prefix = 'ufo';
-	const result = getVCObserver().getVCResult({
+	const result = await getVCObserver().getVCResult({
 		start: interaction.start,
 		stop: interaction.end,
 		tti,
@@ -817,7 +817,7 @@ function getErrorCounts(interaction: InteractionMetrics) {
 	};
 }
 
-function createInteractionMetricsPayload(
+async function createInteractionMetricsPayload(
 	interaction: InteractionMetrics,
 	interactionId: string,
 	experimental?: boolean,
@@ -942,6 +942,11 @@ function createInteractionMetricsPayload(
 	const newUFOName = sanitizeUfoName(ufoName);
 	const resourceTimings = getResourceTimings(start, end);
 
+	const [vcMetrics, experimentalMetrics] = await Promise.all([
+		getVCMetrics(interaction),
+		experimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
+	]);
+
 	const payload = {
 		actionSubject: 'experience',
 		action: 'measured',
@@ -972,8 +977,8 @@ function createInteractionMetricsPayload(
 				...getPPSMetrics(interaction),
 				...getPaintMetrics(type),
 				...getNavigationMetrics(type),
-				...getVCMetrics(interaction),
-				...(experimental ? getExperimentalVCMetrics(interaction) : undefined),
+				...vcMetrics,
+				...experimentalMetrics,
 				...config.additionalPayloadData?.(interaction),
 				...getTracingContextData(interaction),
 				...getStylesheetMetrics(),
@@ -1038,10 +1043,10 @@ function createInteractionMetricsPayload(
 	return payload;
 }
 
-export function createPayloads(interactionId: string, interaction: InteractionMetrics) {
+export async function createPayloads(interactionId: string, interaction: InteractionMetrics) {
 	const ufoNameOverride = getUfoNameOverride(interaction);
 	const modifiedInteraction = { ...interaction, ufoName: ufoNameOverride };
-	const interactionMetricsPayload = createInteractionMetricsPayload(
+	const interactionMetricsPayload = await createInteractionMetricsPayload(
 		modifiedInteraction,
 		interactionId,
 	);

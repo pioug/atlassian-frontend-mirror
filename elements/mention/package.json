@@ -40,6 +40,7 @@
 		"@atlaskit/lozenge": "^12.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/primitives": "^14.1.0",
+		"@atlaskit/teams-avatar": "^2.1.0",
 		"@atlaskit/theme": "^17.0.0",
 		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
@@ -102,6 +103,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_ai_remove_mentions_record": {
+			"type": "boolean"
+		},
+		"team-avatar-in-mention-picker": {
 			"type": "boolean"
 		}
 	},

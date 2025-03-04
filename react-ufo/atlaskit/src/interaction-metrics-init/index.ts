@@ -42,21 +42,27 @@ interface WindowWithUfoDevToolExtension extends Window {
 function sinkInteraction(
 	instance: GenericAnalyticWebClientInstance,
 	payloadPackage: {
-		createPayloads: (interactionId: string, interaction: InteractionMetrics) => any[];
+		createPayloads: (interactionId: string, interaction: InteractionMetrics) => Promise<any[]>;
 	},
 ) {
 	sinkInteractionHandler((interactionId: string, interaction: InteractionMetrics) => {
 		scheduleCallback(idlePriority, () => {
-			const payloads = payloadPackage.createPayloads(interactionId, interaction);
-			const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-				.__ufo_devtool_onUfoPayload;
-			payloads?.forEach((payload: UFOPayload) => {
-				if (typeof devToolObserver === 'function') {
-					devToolObserver?.(payload);
-				}
+			payloadPackage
+				.createPayloads(interactionId, interaction)
+				.then((payloads) => {
+					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+						.__ufo_devtool_onUfoPayload;
+					payloads?.forEach((payload: UFOPayload) => {
+						if (typeof devToolObserver === 'function') {
+							devToolObserver?.(payload);
+						}
 
-				instance.sendOperationalEvent(payload);
-			});
+						instance.sendOperationalEvent(payload);
+					});
+				})
+				.catch((error) => {
+					throw error;
+				});
 		});
 	});
 }

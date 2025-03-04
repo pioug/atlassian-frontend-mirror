@@ -57,6 +57,35 @@ export const test = base.extend<{
 	featureFlags: string[];
 	examplePage: string;
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+	/*
+	 * ATTENTION: This function uses a `performance.now()` from the DOMMutation callback.
+	 * This is not valid for the last ReactUFO TTVC version,
+	 * the new versions uses the IntersectionObserver `entry.time`.
+	 * Please, if you are writting a new test, then use the `getSectionVisibleAt`
+	 *
+	 * Usage:
+	 *
+	 * Best way to found out when a Section div was "rendered".
+	 *
+	 * When a DOM Element with `data-testid` is added into the DOM for the first time,
+	 * we save the timestamp in a map.
+	 *
+	 * This function will wait until the given Element testId is added into an internal map.
+	 * It does that by using a `expect.poll`.
+	 *
+	 */
+	getSectionDOMAddedAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
+
+	/*
+	 * Usage:
+	 *
+	 * Best way to found out when a Section div was "painted".
+	 *
+	 * When a DOM Element with `data-testid` is painted for the first time,
+	 *
+	 * This function will wait until the given Element testId is added into an internal map.
+	 * It does that by using a `expect.poll`.
+	 */
 	getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
 }>({
 	viewport: {
@@ -70,8 +99,23 @@ export const test = base.extend<{
 		const context = await browser.newContext();
 		const page = await context.newPage();
 
+		//page.on('console', (msg) => console.log(msg.text()));
 		await page.addInitScript(() => {
 			(window as WindowWithReactUFOTestGlobals).__sectionAddedAt = new Map();
+			(window as WindowWithReactUFOTestGlobals).__sectionVisibleAt = new Map();
+
+			const intersectionObserver = new IntersectionObserver((entries) => {
+				for (const entry of entries) {
+					const { target } = entry;
+
+					const testId = target.getAttribute('data-testid');
+					if (testId) {
+						(window as WindowWithReactUFOTestGlobals).__sectionVisibleAt.set(testId, entry.time);
+						intersectionObserver.unobserve(target);
+					}
+				}
+			});
+
 			// setup integration testing globals
 			const observer = new MutationObserver((records) => {
 				for (const record of records) {
@@ -79,12 +123,18 @@ export const test = base.extend<{
 						if (addedNode instanceof HTMLElement) {
 							const testId = addedNode.getAttribute('data-testid');
 							if (testId) {
+								intersectionObserver.observe(addedNode);
+
 								(window as WindowWithReactUFOTestGlobals).__sectionAddedAt.set(
 									testId,
 									performance.now(),
 								);
 							}
 						}
+					}
+
+					if (record.type === 'attributes' && record.target instanceof HTMLElement) {
+						intersectionObserver.observe(record.target);
 					}
 				}
 			});
@@ -95,6 +145,7 @@ export const test = base.extend<{
 					observer.observe(divExamples, {
 						childList: true,
 						subtree: true,
+						attributes: true,
 					});
 				}
 			});
@@ -141,7 +192,7 @@ export const test = base.extend<{
 			// See: website/src/metrics.ts
 			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
 
-			await expect(mainDivAfterTTVCFinished).toBeVisible();
+			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
 
 			let reactUFOPayload: ReactUFOPayload | null = null;
 			await expect
@@ -173,7 +224,7 @@ export const test = base.extend<{
 
 		await use(reset);
 	},
-	getSectionVisibleAt: async ({ page }, use) => {
+	getSectionDOMAddedAt: async ({ page }, use) => {
 		const getValue = async (sectionTestId: string) => {
 			let result: number | null = null;
 			await expect
@@ -189,6 +240,34 @@ export const test = base.extend<{
 					},
 					{
 						message: `React UFO payload never received.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return result;
+		};
+
+		await use(getValue);
+	},
+
+	getSectionVisibleAt: async ({ page }, use) => {
+		const getValue = async (sectionTestId: string) => {
+			let result: number | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate((_sectionTestId) => {
+							const myMap = (window as WindowWithReactUFOTestGlobals).__sectionVisibleAt;
+							return myMap.get(_sectionTestId) || null;
+						}, sectionTestId);
+
+						result = value;
+						return value;
+					},
+					{
+						message: `Element [data-testid="${sectionTestId}"] isn't visible.`,
 						intervals: [500],
 						timeout: 10000,
 					},
@@ -239,3 +318,26 @@ const customMatchers = {
 };
 
 export const expect = baseExpect.extend(customMatchers);
+
+export const viewports = [
+	{
+		width: 1920,
+		height: 1080,
+	},
+	{
+		width: 1536,
+		height: 864,
+	},
+	{
+		width: 2560,
+		height: 1440,
+	},
+	{
+		width: 1280,
+		height: 720,
+	},
+	{
+		width: 1728,
+		height: 1117,
+	},
+];

@@ -82,6 +82,7 @@ import {
 import { EditToolbarButton } from './EditToolbarButton';
 import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
+import { getLinkAppearanceDropdown } from './LinkToolbarAppearanceDropdown';
 import { ToolbarViewedEvent } from './ToolbarViewedEvent';
 
 export const removeCard = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
@@ -512,8 +513,6 @@ const generateToolbarItems =
 				: [
 						...editItems,
 						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
-						getSettingsButton(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
-						{ type: 'separator' },
 						{
 							id: 'editor.link.openLink',
 							type: 'button',
@@ -525,7 +524,7 @@ const generateToolbarItems =
 							onClick: visitCardLink(editorAnalyticsApi),
 						},
 						...(commentItems.length > 1
-							? [{ type: 'separator' } as const, commentItems[0]]
+							? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
 							: commentItems),
 					];
 
@@ -554,24 +553,40 @@ const generateToolbarItems =
 
 				toolbarItems.unshift(
 					...getToolbarViewedItem(url, currentAppearance),
-					{
-						type: 'custom',
-						fallback: [],
-						render: (editorView) => (
-							<LinkToolbarAppearance
-								key="link-appearance"
-								url={url}
-								intl={intl}
-								currentAppearance={currentAppearance}
-								editorView={editorView}
-								editorState={state}
-								allowEmbeds={allowEmbeds}
-								allowBlockCards={allowBlockCards}
-								editorAnalyticsApi={editorAnalyticsApi}
-								showUpgradeDiscoverability={showUpgradeDiscoverability}
-							/>
-						),
-					},
+					editorExperiment('platform_editor_controls', 'control')
+						? {
+								type: 'custom',
+								fallback: [],
+								render: (editorView) => (
+									<LinkToolbarAppearance
+										key="link-appearance"
+										url={url}
+										intl={intl}
+										currentAppearance={currentAppearance}
+										editorView={editorView}
+										editorState={state}
+										allowEmbeds={allowEmbeds}
+										allowBlockCards={allowBlockCards}
+										editorAnalyticsApi={editorAnalyticsApi}
+										showUpgradeDiscoverability={showUpgradeDiscoverability}
+									/>
+								),
+							}
+						: getLinkAppearanceDropdown({
+								url,
+								intl,
+								currentAppearance,
+								editorState: state,
+								allowEmbeds,
+								allowBlockCards: allowBlockCards,
+								editorAnalyticsApi,
+								showUpgradeDiscoverability: showUpgradeDiscoverability,
+								settingsConfig: getSettingsButton(
+									intl,
+									editorAnalyticsApi,
+									cardOptions.userPreferencesLink,
+								),
+							}),
 					...(showDatasourceAppearance
 						? [
 								{
@@ -596,16 +611,19 @@ const generateToolbarItems =
 				);
 			}
 
-			if (toolbarItems.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
+			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-					{ type: 'separator', supportsViewMode: true },
+					{ type: 'separator', fullHeight: true },
 					{
 						type: 'overflow-dropdown',
 						options: [
 							{
 								title: 'Copy',
 								onClick: () => {
-									// TODO replace with copy-button plugin
+									pluginInjectionApi?.core?.actions.execute(
+										// @ts-ignore
+										pluginInjectionApi?.floatingToolbar?.commands.copyNode(node.type),
+									);
 									return true;
 								},
 								icon: <CopyIcon label="Copy" />,
@@ -692,27 +710,46 @@ const getDatasourceButtonGroup = (
 		const { url } = metadata;
 
 		toolbarItems.push(
-			{
-				type: 'custom',
-				fallback: [],
-				render: (editorView) => {
-					return (
-						<LinkToolbarAppearance
-							key="link-appearance"
-							url={url}
-							intl={intl}
-							currentAppearance={currentAppearance}
-							editorView={editorView}
-							editorState={state}
-							allowEmbeds={allowEmbeds}
-							allowBlockCards={allowBlockCards}
-							editorAnalyticsApi={editorAnalyticsApi}
-							showUpgradeDiscoverability={showUpgradeDiscoverability}
-							isDatasourceView
-						/>
-					);
-				},
-			},
+			editorExperiment('platform_editor_controls', 'control')
+				? {
+						type: 'custom',
+						fallback: [],
+						render: (editorView) => {
+							return (
+								<LinkToolbarAppearance
+									key="link-appearance"
+									url={url}
+									intl={intl}
+									currentAppearance={currentAppearance}
+									editorView={editorView}
+									editorState={state}
+									allowEmbeds={allowEmbeds}
+									allowBlockCards={allowBlockCards}
+									editorAnalyticsApi={editorAnalyticsApi}
+									showUpgradeDiscoverability={showUpgradeDiscoverability}
+									isDatasourceView
+								/>
+							);
+						},
+					}
+				: getLinkAppearanceDropdown({
+						url,
+						intl,
+						currentAppearance,
+						editorState: state,
+						allowEmbeds,
+						allowBlockCards: allowBlockCards,
+						editorAnalyticsApi,
+						showUpgradeDiscoverability: showUpgradeDiscoverability,
+						// TODO: find a way to inject editorView here
+						// editorView: view,
+						settingsConfig: getSettingsButton(
+							intl,
+							editorAnalyticsApi,
+							cardOptions.userPreferencesLink,
+						),
+					}),
+
 			{
 				type: 'custom',
 				fallback: [],

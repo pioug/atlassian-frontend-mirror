@@ -4,8 +4,8 @@ import { date } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { timestampToString } from '@atlaskit/editor-common/utils';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N30A, N800 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -18,7 +18,7 @@ let intl: ReturnType<typeof createIntl> | undefined;
  * @returns
  */
 export const dateNodeSpec = () => {
-	if (isSSR || !fg('platform_editor_lego__inline_node_virtualization')) {
+	if (isSSR || editorExperiment("platform_editor_inline_node_virtualization", "off")) {
 		return date;
 	}
 

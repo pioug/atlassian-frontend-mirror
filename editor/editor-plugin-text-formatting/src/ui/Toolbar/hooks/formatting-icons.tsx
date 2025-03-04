@@ -8,8 +8,8 @@ import React, { useMemo } from 'react';
 import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 
-import { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import {
 	getAriaKeyshortcuts,
@@ -35,6 +35,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
 import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
+import UnderlineIcon from '@atlaskit/icon/core/text-underline';
 
 import {
 	toggleCodeWithAnalytics,
@@ -87,9 +88,11 @@ const IconButtons = (
 		component: () => <ItalicIcon color="currentColor" spacing="spacious" label="" />,
 	},
 	underline: {
+		buttonId: TOOLBAR_ACTION_SUBJECT_ID.TEXT_FORMATTING_UNDERLINE,
 		command: withInputMethod(toolbarType, toggleUnderlineWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.underline,
 		tooltipKeymap: toggleUnderline,
+		component: () => <UnderlineIcon color="currentColor" spacing="spacious" label="" />,
 	},
 	strike: {
 		command: withInputMethod(toolbarType, toggleStrikeWithAnalytics(editorAnalyticsAPI)),

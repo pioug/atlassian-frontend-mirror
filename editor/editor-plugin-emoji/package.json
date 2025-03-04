@@ -22,7 +22,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/editor-plugin-analytics": "^2.0.0",
 		"@atlaskit/editor-plugin-annotation": "2.0.2",
@@ -112,9 +112,6 @@
 			"type": "boolean"
 		},
 		"platform_inline_node_as_valid_annotation_selection": {
-			"type": "boolean"
-		},
-		"platform_editor_lego__inline_node_virtualization": {
 			"type": "boolean"
 		},
 		"platform_editor_preload_emoji_picker": {

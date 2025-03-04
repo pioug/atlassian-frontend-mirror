@@ -5,6 +5,7 @@ import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import Lozenge from '@atlaskit/lozenge';
 import { ButtonItem } from '@atlaskit/menu';
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { ButtonItemProps } from './ButtonItemType';
@@ -25,6 +26,18 @@ const selectedColorStyles = xcss({
 const disabledShortcutStyles = xcss({
 	color: 'color.text.disabled',
 	backgroundColor: 'color.background.disabled',
+});
+
+const viewAllStyles = xcss({
+	background: token('elevation.surface.overlay'),
+
+	position: 'sticky',
+	bottom: '-4px',
+
+	width: '100%',
+	height: '40px',
+
+	borderTop: `1px solid ${token('color.border')}`,
 });
 
 interface ListButtonItemBaseProps extends ButtonItemProps {
@@ -131,26 +144,39 @@ export const ListButtonItem = memo((props: ButtonItemProps) => {
 export interface ViewAllButtonItemProps {
 	label: string;
 	onClick: () => void;
+	isViewAllInserts?: boolean;
 }
 
-export const ViewAllButtonItem = memo(({ label, onClick }: ViewAllButtonItemProps) => {
-	const contentComponent = useCallback(() => {
-		return (
-			<Inline space="space.100" alignBlock={'center'}>
-				<Text color={'color.text.selected'}>{label}</Text>
-				<Box xcss={[selectedColorStyles]}>
-					<ChevronRightIcon label={label} />
-				</Box>
-			</Inline>
-		);
-	}, [label]);
+export const ViewAllButtonItem = memo(
+	({ label, onClick, isViewAllInserts = false }: ViewAllButtonItemProps) => {
+		const contentComponent = useCallback(() => {
+			return (
+				<Inline space="space.100" alignBlock={'center'}>
+					<Text color={'color.text.selected'}>{label}</Text>
+					<Box xcss={[selectedColorStyles]}>
+						<ChevronRightIcon label={label} />
+					</Box>
+				</Inline>
+			);
+		}, [label]);
 
-	return (
-		<ListButtonItemBase
-			index={-1}
-			title={label}
-			onItemSelected={onClick}
-			renderContent={contentComponent}
-		/>
-	);
-});
+		return isViewAllInserts ? (
+			<Box xcss={viewAllStyles}>
+				<ListButtonItemBase
+					index={-1}
+					title={label}
+					onItemSelected={onClick}
+					renderContent={contentComponent}
+					isViewAll={true}
+				/>
+			</Box>
+		) : (
+			<ListButtonItemBase
+				index={-1}
+				title={label}
+				onItemSelected={onClick}
+				renderContent={contentComponent}
+			/>
+		);
+	},
+);

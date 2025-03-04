@@ -6,6 +6,11 @@ export const altTextMessages = defineMessages({
 		defaultMessage: 'Alt text',
 		description: 'Add an alt text for this image',
 	},
+	addAltText: {
+		id: 'fabric.editor.addUpdatedAltText',
+		defaultMessage: 'Add alt text',
+		description: 'Add an alt text for this image',
+	},
 	editAltText: {
 		id: 'fabric.editor.editAltText',
 		defaultMessage: 'Edit alt text',

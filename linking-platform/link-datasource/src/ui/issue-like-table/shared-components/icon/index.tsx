@@ -29,15 +29,14 @@ interface SharedIconComponentProps {
 	 * Used for icon alt.
 	 */
 	label?: string;
-
 	testId: string;
 }
 
 /**
- * Renders a icon and text label.
- * If the text is undefined, will not render the text label.
- */
-export function SharedIconComponentNew({ iconUrl, label, text, testId }: SharedIconComponentProps) {
+  * Renders a icon and text label.
+  * If the text is undefined, will not render the text label.
+  */
+export function SharedIconComponentNew({ iconUrl, label = '', text, testId }: SharedIconComponentProps) {
 	return (
 		<Flex gap="space.100" alignItems="center" testId={testId}>
 			<Inline>

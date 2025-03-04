@@ -43,6 +43,9 @@ export const ExpandablePanel = memo(
 	}: ExpandablePanelProps) => {
 		const [isExpanded, setIsExpanded] = useState(true);
 
+		// Dirty fix for AI label
+		const shortAIlabel = label === 'Atlassian Intelligence';
+
 		return (
 			<Section hasSeparator={hasSeparator}>
 				{label && (
@@ -74,7 +77,7 @@ export const ExpandablePanel = memo(
 							);
 						})}
 						<ViewAllButtonItem
-							label={`View all ${label.toLocaleLowerCase()} options`}
+							label={`View all ${shortAIlabel ? 'AI' : label.toLocaleLowerCase()} options`}
 							onClick={() => onViewAllSelected?.(id)}
 						/>
 					</Stack>

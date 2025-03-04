@@ -63,6 +63,19 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 
 			return result;
 		},
+
+		// @ts-ignore
+		// This is used by typeahead plugin to trigger element browser modal without introducing circular dependency.
+		// Given it's only temporarily needed to roll out toolbar&menus separate to quick insert/right rail change
+		// skip updating `TypeAheadHandler` to avoid unnecessary breaking change.
+		openElementBrowserModal: options?.enableElementBrowser
+			? () => {
+					api?.core.actions.execute(({ tr }) => {
+						openElementBrowserModal({ tr });
+						return tr;
+					});
+				}
+			: undefined,
 	};
 
 	let intl: IntlShape;

@@ -1,5 +1,6 @@
 import Avatar from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import React from 'react';
 import { token } from '@atlaskit/tokens';
@@ -28,6 +29,7 @@ import {
 import { renderHighlight } from './MentionHighlightHelpers';
 import MentionDescriptionByline from '../MentionDescriptionByline';
 import MessagesIntlProvider from '../MessagesIntlProvider';
+import { MentionAvatar } from '../MentionAvatar';
 
 export { MENTION_ITEM_HEIGHT } from './styles';
 
@@ -117,7 +119,11 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 				>
 					<RowStyle>
 						<AvatarStyle restricted={restricted}>
-							<Avatar src={avatarUrl} size="medium" presence={status} borderColor={borderColor} />
+							{fg('team-avatar-in-mention-picker') ? (
+								<MentionAvatar selected={selected} mention={mention} />
+							) : (
+								<Avatar src={avatarUrl} size="medium" presence={status} borderColor={borderColor} />
+							)}
 						</AvatarStyle>
 						<NameSectionStyle restricted={restricted}>
 							{renderHighlight(FullNameStyle, name, nameHighlights)}

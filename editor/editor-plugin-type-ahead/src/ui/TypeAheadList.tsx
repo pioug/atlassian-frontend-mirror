@@ -13,10 +13,12 @@ import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs
 import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
+import { Text, Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
@@ -45,6 +47,7 @@ type TypeAheadListProps = {
 	triggerHandler?: TypeAheadHandler;
 	moreElementsInQuickInsertViewEnabled?: boolean;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	showViewMore?: boolean;
 } & WrappedComponentProps;
 
 const TypeaheadAssistiveTextPureComponent = React.memo(
@@ -75,6 +78,7 @@ const TypeAheadListComponent = React.memo(
 		triggerHandler,
 		moreElementsInQuickInsertViewEnabled,
 		api,
+		showViewMore,
 	}: TypeAheadListProps) => {
 		const listRef = useRef<List>() as React.MutableRefObject<List>;
 		const listContainerRef = useRef<HTMLDivElement>(null);
@@ -344,40 +348,57 @@ const TypeAheadListComponent = React.memo(
 				.querySelector<HTMLInputElement>(`[role='combobox']`)
 				?.getAttribute('aria-controls') || TYPE_AHEAD_DECORATION_ELEMENT_ID;
 
+		const EmptyResultView = (
+			<Box paddingBlock="space.150" paddingInline="space.250">
+				<Text align="center" as="p">
+					{intl.formatMessage(typeAheadListMessages.emptySearchResults)}
+				</Text>
+				<Text align="center" as="p">
+					{intl.formatMessage(typeAheadListMessages.emptySearchResultsSuggestion, {
+						buttonName: <Text weight="medium">{intl.formatMessage(messages.viewMore)}</Text>,
+					})}
+				</Text>
+			</Box>
+		);
+
+		const ListContent = (
+			<List
+				rowRenderer={renderRow}
+				ref={listRef}
+				rowCount={items.length}
+				rowHeight={cache.rowHeight}
+				onRowsRendered={onItemsRendered}
+				width={LIST_WIDTH}
+				onScroll={onScroll}
+				height={height}
+				overscanRowCount={3}
+				// We need to make this walkaround to make TS happy, cannot pass undefined otherwise ReactVirualized will make it equal to "grid" which we want to avoid
+				// https://github.com/bvaughn/react-virtualized/blob/master/source/Grid/Grid.js#L260
+				aria-label={null as unknown as string}
+				containerRole="presentation"
+				role="listbox"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css={[
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+						button: {
+							padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+							'span:last-child span:last-child': {
+								whiteSpace: 'normal',
+							},
+						},
+					}),
+					moreElementsInQuickInsertViewEnabled && list,
+				]}
+			/>
+		);
 		return (
 			<MenuGroup aria-label={popupAriaLabel} aria-relevant="additions removals">
 				<div id={menuGroupId} ref={listContainerRef}>
-					<List
-						rowRenderer={renderRow}
-						ref={listRef}
-						rowCount={items.length}
-						rowHeight={cache.rowHeight}
-						onRowsRendered={onItemsRendered}
-						width={LIST_WIDTH}
-						onScroll={onScroll}
-						height={height}
-						overscanRowCount={3}
-						// We need to make this walkaround to make TS happy, cannot pass undefined otherwise ReactVirualized will make it equal to "grid" which we want to avoid
-						// https://github.com/bvaughn/react-virtualized/blob/master/source/Grid/Grid.js#L260
-						aria-label={null as unknown as string}
-						containerRole="presentation"
-						role="listbox"
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={[
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							css({
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-								button: {
-									padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-									'span:last-child span:last-child': {
-										whiteSpace: 'normal',
-									},
-								},
-							}),
-							moreElementsInQuickInsertViewEnabled && list,
-						]}
-					/>
+					{!showViewMore || items.length ? ListContent : EmptyResultView}
+
 					<TypeaheadAssistiveTextPureComponent numberOfResults={items.length.toString()} />
 				</div>
 			</MenuGroup>

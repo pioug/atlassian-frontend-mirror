@@ -51,6 +51,7 @@ export const JiraJQLEditor = ({
 			isSearching={isSearching}
 			inputRef={inputRef}
 			query={query}
+			aria-label="JQL Query Editor"
 		/>
 	);
 };

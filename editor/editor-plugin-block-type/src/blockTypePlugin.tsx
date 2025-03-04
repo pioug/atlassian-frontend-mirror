@@ -2,7 +2,12 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import { blockquoteWithNestedCodeblockOrMedia, hardBreak, heading } from '@atlaskit/adf-schema';
+import {
+	extendedBlockquote,
+	blockquoteWithoutNonBodiedMacros,
+	hardBreak,
+	heading,
+} from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -141,10 +146,6 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
-		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-			return <FloatingToolbarComponent api={api} />;
-		}
-
 		let isSmall =
 			options && options.isUndoRedoButtonsEnabled
 				? toolbarSize < ToolbarSize.XXL
@@ -167,6 +168,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			/>
 		);
 	};
+
 	api?.primaryToolbar?.actions.registerComponent({
 		name: 'blockType',
 		component: primaryToolbarComponent,
@@ -176,11 +178,17 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		name: 'blockType',
 
 		nodes() {
+			const blockquote = editorExperiment('platform_editor_nested_non_bodied_macros', 'test', {
+				exposure: false,
+			})
+				? extendedBlockquote
+				: blockquoteWithoutNonBodiedMacros;
+
 			const nodes: BlockTypeNode[] = [
 				{ name: 'heading', node: heading },
 				{
 					name: 'blockquote',
-					node: blockquoteWithNestedCodeblockOrMedia,
+					node: blockquote,
 				},
 				{ name: 'hardBreak', node: hardBreak },
 			];
@@ -295,21 +303,28 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 					return undefined;
 				}
 			},
-			quickInsert: (intl) => {
-				const exclude =
-					options && options.allowBlockType && options.allowBlockType.exclude
-						? options.allowBlockType.exclude
-						: [];
 
-				return [
-					...blockquotePluginOptions(
-						intl,
-						exclude.indexOf('blockquote') === -1,
-						api?.analytics?.actions,
-					),
-					...headingPluginOptions(intl, exclude.indexOf('heading') === -1, api?.analytics?.actions),
-				];
-			},
+			...(editorExperiment('platform_editor_insertion', 'control') && {
+				quickInsert: (intl) => {
+					const exclude =
+						options && options.allowBlockType && options.allowBlockType.exclude
+							? options.allowBlockType.exclude
+							: [];
+
+					return [
+						...blockquotePluginOptions(
+							intl,
+							exclude.indexOf('blockquote') === -1,
+							api?.analytics?.actions,
+						),
+						...headingPluginOptions(
+							intl,
+							exclude.indexOf('heading') === -1,
+							api?.analytics?.actions,
+						),
+					];
+				},
+			}),
 		},
 	};
 };

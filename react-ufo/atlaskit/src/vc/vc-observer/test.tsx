@@ -85,16 +85,7 @@ describe('vc-observer', () => {
 		enabledFeatureGateStore.splice(0, enabledFeatureGateStore.length);
 	});
 
-	test('is aborted when abortCalculation is called', () => {
-		vc.start({ startTime: 0 });
-		vc.abortObservation();
-		const result = vc.getVCResult({ start: 0, stop: 1000, tti: 3, prefix: '' });
-		expect(result).toHaveProperty('vc:state', false);
-		expect(result).toHaveProperty('vc:abort:reason', 'custom');
-		expect(result).not.toHaveProperty('metrics:vc');
-	});
-
-	test('handles full screen updates', () => {
+	test('handles full screen updates', async () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {
 			fn(
@@ -110,7 +101,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -173,7 +164,7 @@ describe('vc-observer', () => {
 		});
 	});
 
-	test('reports progress properly in entries', () => {
+	test('reports progress properly in entries', async () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {
 			fn(
@@ -225,7 +216,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -301,7 +292,7 @@ describe('vc-observer', () => {
 		});
 	});
 
-	test('removes duplicate entries in VC result', () => {
+	test('removes duplicate entries in VC result', async () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {
 			// Single entries for div#a, div#b, div#c
@@ -391,7 +382,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -467,7 +458,7 @@ describe('vc-observer', () => {
 		});
 	});
 
-	test('ignores ignored fields properly', () => {
+	test('ignores ignored fields properly', async () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {
 			fn(
@@ -520,7 +511,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -599,7 +590,7 @@ describe('vc-observer', () => {
 		});
 	});
 
-	test('updates attributes only in the new field', () => {
+	test('updates attributes only in the new field', async () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {
 			fn(
@@ -651,7 +642,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -727,7 +718,7 @@ describe('vc-observer', () => {
 		});
 	});
 
-	test('supports multiple starts properly', () => {
+	test('supports multiple starts properly', async () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {
 			fn(
@@ -743,7 +734,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -820,7 +811,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const resultTransition = vc.getVCResult({ start: 100, stop: 200, tti: 3, prefix: '' });
+		const resultTransition = await vc.getVCResult({ start: 100, stop: 200, tti: 3, prefix: '' });
 		expect(resultTransition).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -883,7 +874,7 @@ describe('vc-observer', () => {
 		});
 	});
 
-	test('applies SSR timings properly', () => {
+	test('applies SSR timings properly', async () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {
 			fn(
@@ -899,7 +890,7 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '', ssr: 3 });
+		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '', ssr: 3 });
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -968,7 +959,7 @@ describe('vc-observer', () => {
 		});
 	});
 
-	test('handles cases where IntersectionObserver or MutationObserver is not browser supported', () => {
+	test('handles cases where IntersectionObserver or MutationObserver is not browser supported', async () => {
 		(Observers as unknown as jest.MockedClass<any>).mockImplementation(() => ({
 			...VCObserverMockImplementation,
 			isBrowserSupported() {
@@ -983,7 +974,7 @@ describe('vc-observer', () => {
 
 		vc.start({ startTime: 0 });
 
-		expect(vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' })).toEqual({
+		expect(await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' })).toEqual({
 			'vc:state': false,
 			'vc:abort:reason': 'not-supported',
 			'vc:abort:timestamp': 0,
@@ -994,7 +985,7 @@ describe('vc-observer', () => {
 			beforeEach(() => {
 				enableFeatureGate('ufo-calc-speed-index');
 			});
-			test('it calculate speed index correctly', () => {
+			test('it calculate speed index correctly', async () => {
 				vc.start({ startTime: 0 });
 				const elementWidth = VIEWPORT_WIDTH / 4;
 				callbacks.forEach((fn: Callback) => {
@@ -1048,7 +1039,7 @@ describe('vc-observer', () => {
 						'html',
 					);
 				});
-				const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+				const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 				const speedIndex = result['ufo:speedIndex'];
 
 				expect(speedIndex).toEqual(Math.round(5 * 0.25 + 10 * 0.25 + 15 * 0.25 + 20 * 0.25));
@@ -1060,7 +1051,7 @@ describe('vc-observer', () => {
 			beforeEach(() => {
 				disableFeatureGate('ufo-calc-speed-index');
 			});
-			test('it does not output speed index', () => {
+			test('it does not output speed index', async () => {
 				vc.start({ startTime: 0 });
 				const elementWidth = VIEWPORT_WIDTH / 4;
 				callbacks.forEach((fn: Callback) => {
@@ -1114,7 +1105,7 @@ describe('vc-observer', () => {
 						'html',
 					);
 				});
-				const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+				const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
 
 				expect(result['ufo:speedIndex']).toBeUndefined();
 				expect(result['ufo:next:speedIndex']).toBeUndefined();

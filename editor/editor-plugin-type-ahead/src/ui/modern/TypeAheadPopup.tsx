@@ -1,14 +1,18 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
+import { useIntl } from 'react-intl-next';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { elementInsertSidePanel } from '@atlaskit/editor-common/messages';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type {
 	ExtractInjectionAPI,
@@ -16,9 +20,10 @@ import type {
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
-import { QuickInsertPanel } from '@atlaskit/editor-element-browser';
+import { SideInsertPanel, QuickInsertPanel } from '@atlaskit/editor-element-browser';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import AddIcon from '@atlaskit/icon/core/add';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -32,12 +37,11 @@ import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import type { TypeAheadErrorInfo } from '../../types';
 import { TypeAheadErrorFallback } from '../TypeAheadErrorFallback';
 
-import { ViewAllButton } from './ViewAllButton';
-
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 520;
 // const DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW = 480;
 
 const ITEM_PADDING = 12;
+const INSERT_PANEL_WIDTH = 320;
 
 const typeAheadContent = css({
 	background: token('elevation.surface.overlay', N0),
@@ -95,6 +99,8 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	} = props;
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
+
+	const { formatMessage } = useIntl();
 
 	const defaultMenuHeight = DEFAULT_TYPEAHEAD_MENU_HEIGHT;
 
@@ -312,15 +318,35 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		};
 	}, [ref, cancel]);
 
-	const handlePanelOpen = useCallback(
-		() =>
-			cancel({
-				addPrefixTrigger: true,
-				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
-				forceFocusOnEditor: true,
-			}),
-		[cancel],
-	);
+	const handleViewAllItemsClick = useCallback(() => {
+		const showContextPanel = api?.contextPanel?.actions?.showPanel;
+		if (!showContextPanel || !items) {
+			return;
+		}
+
+		// Opens main editor controls side panel
+		showContextPanel(
+			{
+				id: 'editor-element-insert-sidebar-panel',
+				headerComponentElements: {
+					headerLabel: elementInsertSidePanel.title,
+					HeaderIcon: () => <AddIcon label={formatMessage(elementInsertSidePanel.title)} />,
+				},
+				BodyComponent: () => {
+					return <SideInsertPanel items={items} onItemInsert={onItemInsert} />;
+				},
+			},
+			'push',
+			INSERT_PANEL_WIDTH,
+		);
+
+		// Closes typeahead
+		cancel({
+			addPrefixTrigger: true,
+			setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
+			forceFocusOnEditor: true,
+		});
+	}, [api, cancel, formatMessage, items, onItemInsert]);
 
 	return (
 		<Popup
@@ -352,16 +378,8 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 							onItemInsert={onItemInsert}
 							query={query}
 							setSelectedItem={setSelectedItem}
+							onViewAllItemsClick={Boolean(api?.contextPanel) ? handleViewAllItemsClick : undefined}
 						/>
-
-						{api?.contextPanel && (
-							<ViewAllButton
-								items={items}
-								editorApi={api}
-								onItemInsert={onItemInsert}
-								onPanelOpen={handlePanelOpen}
-							/>
-						)}
 					</React.Fragment>
 				)}
 			</div>

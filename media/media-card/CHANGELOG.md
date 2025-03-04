@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.0.4
+
+### Patch Changes
+
+- [#121036](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121036)
+  [`bcc65151d39a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcc65151d39a7) -
+  Removed unused mediaCardRender screen event
+
 ## 79.0.3
 
 ### Patch Changes

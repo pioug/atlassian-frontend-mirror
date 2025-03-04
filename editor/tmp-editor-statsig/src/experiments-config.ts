@@ -335,4 +335,13 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'variant1']),
 		defaultValue: 'control' as 'control' | 'variant1',
 	},
+	// Added 2025-02-25
+	platform_editor_inline_node_virtualization: {
+		productKeys: {
+			confluence: 'platform_editor_inline_node_virtualization',
+		},
+		param: 'variant',
+		typeGuard: oneOf(['control', 'fallbackall', 'fallbackoffscreen']),
+		defaultValue: 'control',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

@@ -16,8 +16,6 @@ import {
 	type WithPerformanceAttributes,
 	type SuccessAttributes,
 	type FailureAttributes,
-	type ScreenEventPayload,
-	type ScreenAttributes,
 	type MediaTraceContext,
 	type WithTraceContext,
 	sanitiseAnalyticsPayload,
@@ -212,22 +210,11 @@ export type CopiedFileEventPayload = UIEventPayload<{}, 'copied', string>;
 
 export type ClickedEventPayload = UIEventPayload<{ label?: string }, 'clicked', string>;
 
-export type RenderScreenEventPayload = Omit<
-	ScreenEventPayload<ScreenAttributes, 'mediaCardRenderScreen'>,
-	'attributes'
-> & {
-	attributes: {
-		type: string | undefined;
-		fileAttributes: FileAttributes;
-	};
-};
-
 export type MediaCardAnalyticsEventPayload =
 	| RenderSucceededEventPayload
 	| RenderFailedEventPayload
 	| CopiedFileEventPayload
 	| ClickedEventPayload
-	| RenderScreenEventPayload
 	| CacheHitEventPayload
 	| RemoteSuccessEventPayload
 	| ErrorEventPayload
@@ -247,19 +234,6 @@ export const getFileAttributes = (
 	fileId: metadata.id,
 	fileSize: metadata.size,
 	fileStatus,
-});
-
-export const getRenderPreviewableCardPayload = (
-	fileAttributes: FileAttributes,
-): RenderScreenEventPayload => ({
-	eventType: 'screen',
-	action: 'viewed',
-	actionSubject: 'mediaCardRenderScreen',
-	name: 'mediaCardRenderScreen',
-	attributes: {
-		type: fileAttributes.fileMediatype,
-		fileAttributes,
-	},
 });
 
 export const getRenderSucceededEventPayload = (

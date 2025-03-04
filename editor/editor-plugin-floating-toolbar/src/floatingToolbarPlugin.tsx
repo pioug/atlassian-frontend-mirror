@@ -30,6 +30,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
 import { Popup } from '@atlaskit/editor-common/ui';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -44,6 +45,7 @@ import type {
 	FloatingToolbarPlugin,
 	FloatingToolbarPluginState,
 } from './floatingToolbarPluginType';
+import { copyNode } from './pm-plugins/commands';
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import { hideConfirmDialog } from './pm-plugins/toolbar-data/commands';
 import { createPlugin as floatingToolbarDataPluginFactory } from './pm-plugins/toolbar-data/plugin';
@@ -186,6 +188,9 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 
 		actions: {
 			forceFocusSelector,
+		},
+		commands: {
+			copyNode: (nodeType: NodeType | NodeType[]) => copyNode(nodeType),
 		},
 
 		getSharedState(editorState) {

@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 2.0.2
+
+### Patch Changes
+
+- [#121410](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121410)
+  [`b26d53ac2517a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b26d53ac2517a) -
+  Prevent onClick handler gets called when popup is open on Firefox
+
 ## 2.0.1
 
 ### Patch Changes

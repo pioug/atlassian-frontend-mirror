@@ -46,11 +46,11 @@
 		"./validatorTypes": "./src/types/validatorTypes.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
-		"@atlassian/adf-schema-json": "^1.27.0",
+		"@atlassian/adf-schema-json": "^1.31.0",
 		"react": "^18.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

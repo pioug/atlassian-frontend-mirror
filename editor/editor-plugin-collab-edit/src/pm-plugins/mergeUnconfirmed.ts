@@ -37,13 +37,9 @@ export function mergeUnconfirmedSteps(
 ): LockableRebaseable[] {
 	const mergedSteps = steps.reduce((acc, rebaseable) => {
 		const lastStep = acc[acc.length - 1];
+		const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
 
-		if (
-			api?.connectivity?.sharedState.currentState()?.mode === 'offline' &&
-			lastStep &&
-			!isLocked(lastStep) &&
-			!isLocked(rebaseable)
-		) {
+		if (isOffline && lastStep && !isLocked(lastStep) && !isLocked(rebaseable)) {
 			const mergedStep = lastStep.step.merge(rebaseable.step);
 			const inverted = rebaseable.inverted.merge(lastStep.inverted);
 			// Always take the origin of the new step.
@@ -53,12 +49,22 @@ export function mergeUnconfirmedSteps(
 			const origin = lastStep.origin;
 
 			if (mergedStep && inverted) {
-				acc[acc.length - 1] = new LockableRebaseable(mergedStep, inverted, origin);
+				acc[acc.length - 1] = new LockableRebaseable(
+					mergedStep,
+					inverted,
+					origin instanceof Transaction ? origin.setMeta('isOffline', isOffline) : origin,
+				);
 				return acc;
 			}
 		}
 		return acc.concat(
-			new LockableRebaseable(rebaseable.step, rebaseable.inverted, rebaseable.origin),
+			new LockableRebaseable(
+				rebaseable.step,
+				rebaseable.inverted,
+				rebaseable.origin instanceof Transaction
+					? rebaseable.origin.setMeta('isOffline', isOffline)
+					: rebaseable.origin,
+			),
 		);
 	}, [] as LockableRebaseable[]);
 	return mergedSteps;

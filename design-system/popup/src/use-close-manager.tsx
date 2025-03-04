@@ -199,18 +199,34 @@ export const useCloseManager = ({
 				options: { capture },
 			});
 		}
-
-		const unbind = bindAll(window, [
-			{
-				type: 'click',
-				listener: onClick,
-				options: { capture },
-			},
-			{
-				type: 'keydown',
-				listener: onKeyDown,
-			},
-		]);
+		let unbind = noop;
+		if (fg('popup-onclose-fix')) {
+			setTimeout(() => {
+				unbind = bindAll(window, [
+					{
+						type: 'click',
+						listener: onClick,
+						options: { capture },
+					},
+					{
+						type: 'keydown',
+						listener: onKeyDown,
+					},
+				]);
+			}, 0);
+		} else {
+			unbind = bindAll(window, [
+				{
+					type: 'click',
+					listener: onClick,
+					options: { capture },
+				},
+				{
+					type: 'keydown',
+					listener: onKeyDown,
+				},
+			]);
+		}
 
 		// bind onBlur event listener to fix popup not close when clicking on iframe outside
 		let unbindBlur = noop;
@@ -225,8 +241,14 @@ export const useCloseManager = ({
 		});
 
 		return () => {
+			if (fg('popup-onclose-fix')) {
+				setTimeout(() => {
+					unbind();
+				}, 0);
+			} else {
+				unbind();
+			}
 			cancelAllFrames();
-			unbind();
 			parentUnbind?.();
 			unbindBlur();
 		};

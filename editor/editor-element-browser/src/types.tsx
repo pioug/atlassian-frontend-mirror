@@ -38,6 +38,8 @@ export interface QuickInsertPanelProps {
 
 	onItemInsert: (mode: SelectItemMode, index: number) => void;
 
+	onViewAllItemsClick?: () => void;
+
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique
 	 * string that appears as a data attribute `data-testid` in the rendered code,

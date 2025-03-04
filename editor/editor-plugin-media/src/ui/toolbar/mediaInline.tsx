@@ -128,7 +128,7 @@ export const generateMediaInlineFloatingToolbar = (
 				return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 			},
 		},
-		{ type: 'separator' },
+		{ type: 'separator', fullHeight: editorExperiment('platform_editor_controls', 'variant1') },
 		{
 			id: 'editor.media.card.download',
 			type: 'button',
@@ -308,7 +308,7 @@ const getMediaInlineImageToolbar = (
 			),
 		};
 
-		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator' });
+		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator', fullHeight: true });
 	}
 
 	// TODO: editor controls move to overflow menu
@@ -362,31 +362,6 @@ const getMediaInlineImageToolbar = (
 		});
 	}
 
-	if (options.allowAltTextOnImages && !editorExperiment('platform_editor_controls', 'control')) {
-		inlineImageItems.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
-			type: 'separator',
-		});
-	}
-
-	if (!editorExperiment('platform_editor_controls', 'control')) {
-		inlineImageItems.push({
-			id: 'editor.media.delete',
-			type: 'button',
-			appearance: 'danger',
-			focusEditoronEnter: true,
-			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
-			onMouseEnter: hoverDecoration?.(mediaInline, true),
-			onMouseLeave: hoverDecoration?.(mediaInline, false),
-			onFocus: hoverDecoration?.(mediaInline, true),
-			onBlur: hoverDecoration?.(mediaInline, false),
-			title: intl.formatMessage(commonMessages.remove),
-			onClick: removeInlineCard,
-			testId: 'media-toolbar-remove-button',
-		});
-		inlineImageItems.push({ type: 'separator' });
-	}
-
 	//Image Preview
 	if (options.allowImagePreview) {
 		inlineImageItems.push(
@@ -405,6 +380,7 @@ const getMediaInlineImageToolbar = (
 			{
 				type: 'separator',
 				supportsViewMode: true,
+				fullHeight: editorExperiment('platform_editor_controls', 'variant1'),
 			},
 		);
 	}
@@ -432,17 +408,19 @@ const getMediaInlineImageToolbar = (
 		});
 	}
 
-	inlineImageItems.push({
-		type: 'copy-button',
-		supportsViewMode: true,
-		items: [
-			{
-				state,
-				formatMessage: intl.formatMessage,
-				nodeType: mediaInline,
-			},
-		],
-	});
+	if (options.isViewOnly || editorExperiment('platform_editor_controls', 'control')) {
+		inlineImageItems.push({
+			type: 'copy-button',
+			supportsViewMode: true,
+			items: [
+				{
+					state,
+					formatMessage: intl.formatMessage,
+					nodeType: mediaInline,
+				},
+			],
+		});
+	}
 
 	if (editorExperiment('platform_editor_controls', 'control')) {
 		inlineImageItems.push({ type: 'separator' });

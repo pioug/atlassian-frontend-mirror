@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
-import { type AlignmentState, ToolbarType } from '../pm-plugins/types';
+import { ToolbarType, type AlignmentState } from '../pm-plugins/types';
 
 import ToolbarAlignment from './ToolbarAlignment';
 
@@ -18,6 +18,7 @@ interface PrimaryToolbarComponentProps {
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	isToolbarReducedSpacing: boolean;
+	toolbarSize?: ToolbarSize;
 }
 
 export function PrimaryToolbarComponent({
@@ -28,6 +29,7 @@ export function PrimaryToolbarComponent({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	isToolbarReducedSpacing,
+	toolbarSize = ToolbarSize.XXL,
 }: PrimaryToolbarComponentProps) {
 	const { alignmentState } = useSharedPluginState(api, ['alignment']);
 	const changeAlignmentCallback = useCallback(
@@ -48,6 +50,7 @@ export function PrimaryToolbarComponent({
 			popupsScrollableElement={popupsScrollableElement}
 			api={api}
 			toolbarType={ToolbarType.PRIMARY}
+			toolbarSize={toolbarSize}
 		/>
 	);
 }

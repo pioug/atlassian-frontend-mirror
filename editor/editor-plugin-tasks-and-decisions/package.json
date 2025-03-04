@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "4.0.3",
+	"version": "4.0.4",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/analytics-namespaced-context": "^7.0.0",
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/css": "^0.10.0",
@@ -49,7 +49,7 @@
 		"@atlaskit/heading": "5.1.0",
 		"@atlaskit/icon": "24.1.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/popup": "2.0.1",
+		"@atlaskit/popup": "2.0.2",
 		"@atlaskit/primitives": "14.1.2",
 		"@atlaskit/prosemirror-input-rules": "^3.3.0",
 		"@atlaskit/task-decision": "^19.0.0",

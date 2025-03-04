@@ -29,7 +29,7 @@ import {
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { usePrevious } from '../utils/usePrevious';
-import { fireOperationalEvent, fireScreenEvent } from './cardAnalytics';
+import { fireOperationalEvent } from './cardAnalytics';
 import { CardView } from './cardView';
 import { performanceNow } from './performance';
 
@@ -169,10 +169,6 @@ export const ExternalImageCard = ({
 			);
 	});
 
-	const fireScreenEventRef = useCurrentValueRef(() => {
-		createAnalyticsEvent && fireScreenEvent(createAnalyticsEvent, fileAttributes);
-	});
-
 	const fireAbortedEventRef = useCurrentValueRef(() => {
 		// UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
 		if (shouldSendPerformanceEventRef.current) {
@@ -205,14 +201,6 @@ export const ExternalImageCard = ({
 			setStatus('complete');
 		}
 	}, [previewDidRender, status]);
-
-	useEffect(() => {
-		if (prevStatus !== undefined && status !== prevStatus) {
-			if (status === 'complete') {
-				fireScreenEventRef.current();
-			}
-		}
-	}, [fireScreenEventRef, prevStatus, status]);
 
 	useEffect(() => {
 		return () => {

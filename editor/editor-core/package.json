@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.5.0",
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/analytics-namespaced-context": "^7.0.0",
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
@@ -106,7 +106,7 @@
 		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/util-data-test": "^18.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/adf-schema-json": "^1.27.0",
+		"@atlassian/adf-schema-json": "^1.31.0",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@atlassian/search-provider": "3.0.40",
 		"@emotion/jest": "^11.8.0",
@@ -404,10 +404,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_lego__inline_node_virtualization": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_advanced_layouts_accessibility": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -511,6 +507,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_elements_dnd_multi_select_patch_1": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_table_column_selected_state_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

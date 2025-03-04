@@ -15,5 +15,11 @@ const separator = css({
 	alignSelf: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-export default () => <div css={separator} className="separator" />;
+const separatorFullHeight = css({
+	height: '40px',
+});
+
+export default ({ fullHeight }: { fullHeight?: boolean }) => (
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+	<div css={[separator, fullHeight && separatorFullHeight]} className="separator" />
+);

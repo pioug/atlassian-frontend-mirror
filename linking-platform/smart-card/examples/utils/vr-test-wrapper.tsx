@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
@@ -15,12 +9,11 @@ import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCar
 
 import { global } from './vr-test';
 
-const styles = css({
+const defaultStyle: React.CSSProperties = {
 	// We are keeping this padding as a hardcoded variable as it is not a standard token size and needs
 	// to be thoroughly checked with a designer so that we do not miss an unintended visual change
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	padding: '10px',
-});
+};
 
 const iframeContent = `
 <html>
@@ -47,17 +40,17 @@ const dependencies = [MockIFrame, mockHoverCardControl, mockHoverCardComponent];
 
 export type VRTestWrapperProps = PropsWithChildren<{
 	/**
-	 * @deprecated, remove on FF clean up bandicoots-compiled-migration-smartcard
-	 * use css instead
+	 * Add / override additional CSS styles
 	 */
-	overrideCss?: SerializedStyles;
+	style?: React.CSSProperties;
 }>;
-const VRTestWrapper = ({ children, overrideCss }: VRTestWrapperProps) => {
+
+const VRTestWrapper = ({ children, style }: VRTestWrapperProps) => {
 	return (
 		<DiProvider use={dependencies}>
 			<IntlProvider locale="en">
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<div className="vr-test-wrapper" css={[styles, overrideCss]}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop */}
+				<div className="vr-test-wrapper" style={{ ...defaultStyle, ...style }}>
 					{global}
 					{children}
 				</div>

@@ -36,16 +36,6 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		dispatchAnalyticsEvent,
 		disabled,
 	}) => {
-		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-			return (
-				<FloatingToolbarComponent
-					editorView={editorView}
-					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-					api={api}
-				/>
-			);
-		}
-
 		return (
 			<PrimaryToolbarComponent
 				isReducedSpacing={isToolbarReducedSpacing}
@@ -59,6 +49,7 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 			/>
 		);
 	};
+
 	api?.primaryToolbar?.actions.registerComponent({
 		name: 'textColor',
 		component: primaryToolbarComponent,

@@ -121,8 +121,27 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 				return tr;
 			};
 
-			return editorExperiment('advanced_layouts', true)
-				? [
+			if (editorExperiment('advanced_layouts', true)) {
+				if (editorExperiment('platform_editor_insertion', 'variant1')) {
+					return [
+						{
+							id: 'threecolumnslayout',
+							title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'three',
+							}),
+							keywords: ['layout', 'column', 'section', 'three column'],
+							priority: 1100,
+							icon: () => <IconThreeColumnLayout />,
+							action(insert, state) {
+								const tr = insert(createMultiColumnLayoutSection(state, 3));
+								withInsertLayoutAnalytics(tr);
+								return tr;
+							},
+						},
+					];
+				} else {
+					return [
 						{
 							id: 'twocolumnslayout',
 							title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
@@ -183,30 +202,33 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 								return tr;
 							},
 						},
-					]
-				: [
-						{
-							id: 'layout',
-							title: formatMessage(messages.columns),
-							description: formatMessage(messages.columnsDescription),
-							keywords: ['column', 'section'],
-							priority: 1100,
-							icon: () => <IconLayout />,
-							action(insert, state) {
-								const tr = insert(createDefaultLayoutSection(state));
-								api?.analytics?.actions?.attachAnalyticsEvent({
-									action: ACTION.INSERTED,
-									actionSubject: ACTION_SUBJECT.DOCUMENT,
-									actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
-									attributes: {
-										inputMethod: INPUT_METHOD.QUICK_INSERT,
-									},
-									eventType: EVENT_TYPE.TRACK,
-								})(tr);
-								return tr;
-							},
-						},
 					];
+				}
+			} else {
+				return [
+					{
+						id: 'layout',
+						title: formatMessage(messages.columns),
+						description: formatMessage(messages.columnsDescription),
+						keywords: ['column', 'section'],
+						priority: 1100,
+						icon: () => <IconLayout />,
+						action(insert, state) {
+							const tr = insert(createDefaultLayoutSection(state));
+							api?.analytics?.actions?.attachAnalyticsEvent({
+								action: ACTION.INSERTED,
+								actionSubject: ACTION_SUBJECT.DOCUMENT,
+								actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
+								attributes: {
+									inputMethod: INPUT_METHOD.QUICK_INSERT,
+								},
+								eventType: EVENT_TYPE.TRACK,
+							})(tr);
+							return tr;
+						},
+					},
+				];
+			}
 		},
 	},
 	contentComponent() {

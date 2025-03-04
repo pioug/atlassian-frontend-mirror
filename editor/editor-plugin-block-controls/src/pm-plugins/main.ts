@@ -214,6 +214,19 @@ export interface FlagType {
 export const getDecorations = (state: EditorState): DecorationSet | undefined =>
 	key.getState(state)?.decorations;
 
+const getDecorationAtPos = (decorations: DecorationSet, pos: number, to: number) => {
+	// Find the newly minted node decs that touch the active node
+	const findNewNodeDecs = findNodeDecs(decorations, pos - 1, to);
+
+	// Find the specific dec that the active node corresponds to
+	const nodeDecsAtActivePos = findNewNodeDecs.filter((dec: Decoration) => dec?.from === pos);
+
+	// If multiple decorations at the active node pos, we want the last one
+	const nodeDecAtActivePos = nodeDecsAtActivePos.pop();
+
+	return nodeDecAtActivePos;
+};
+
 export const newApply = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	formatMessage: IntlShape['formatMessage'],
@@ -246,14 +259,29 @@ export const newApply = (
 		if (activeNode) {
 			const mappedPos = tr.mapping.mapResult(activeNode.pos);
 			isActiveNodeDeleted = mappedPos.deleted;
-			activeNode = {
-				pos: mappedPos.pos,
-				anchorName: activeNode.anchorName,
-				nodeType: activeNode.nodeType,
-				rootPos: activeNode.rootPos,
-				rootAnchorName: activeNode.rootAnchorName,
-				rootNodeType: activeNode.rootNodeType,
-			};
+
+			if (editorExperiment('platform_editor_controls', 'control')) {
+				activeNode = {
+					pos: mappedPos.pos,
+					anchorName: activeNode.anchorName,
+					nodeType: activeNode.nodeType,
+				};
+			} else {
+				// for editor controls, remap the rootPos as well
+				let mappedRootPos;
+				if (activeNode.rootPos !== undefined) {
+					mappedRootPos = tr.mapping.mapResult(activeNode.rootPos);
+				}
+
+				activeNode = {
+					pos: mappedPos.pos,
+					anchorName: activeNode.anchorName,
+					nodeType: activeNode.nodeType,
+					rootPos: mappedRootPos?.pos ?? activeNode.rootPos,
+					rootAnchorName: activeNode.rootAnchorName,
+					rootNodeType: activeNode.rootNodeType,
+				};
+			}
 		}
 		if (multiSelectDnD && flags.isMultiSelectEnabled) {
 			multiSelectDnD.anchor = tr.mapping.map(multiSelectDnD.anchor);
@@ -296,22 +324,46 @@ export const newApply = (
 		decorations = decorations.add(newState.doc, newNodeDecs);
 
 		if (latestActiveNode && !isActiveNodeDeleted) {
-			// Find the newly minted node decs that touch the active node
-			const findNewNodeDecs = findNodeDecs(decorations, latestActiveNode.pos - 1, to);
+			if (editorExperiment('platform_editor_controls', 'control')) {
+				// Find the newly minted node decs that touch the active node
+				const findNewNodeDecs = findNodeDecs(decorations, latestActiveNode.pos - 1, to);
 
-			// Find the specific dec that the active node corresponds to
-			const nodeDecsAtActivePos = findNewNodeDecs.filter(
-				(dec: Decoration) => dec?.from === latestActiveNode.pos,
-			);
+				// Find the specific dec that the active node corresponds to
+				const nodeDecsAtActivePos = findNewNodeDecs.filter(
+					(dec: Decoration) => dec?.from === latestActiveNode.pos,
+				);
 
-			// If multiple decorations at the active node pos, we want the last one
-			const nodeDecAtActivePos = nodeDecsAtActivePos.pop();
+				// If multiple decorations at the active node pos, we want the last one
+				const nodeDecAtActivePos = nodeDecsAtActivePos.pop();
 
-			// Update the active node anchor-name and type for accurate positioning
-			if (nodeDecAtActivePos) {
-				isActiveNodeModified = true;
-				latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
-				latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
+				// Update the active node anchor-name and type for accurate positioning
+				if (nodeDecAtActivePos) {
+					isActiveNodeModified = true;
+					latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
+					latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
+				}
+			} else {
+				const nodeDecAtActivePos = getDecorationAtPos(decorations, latestActiveNode.pos, to);
+				const rootNodeDecAtActivePos = getDecorationAtPos(
+					decorations,
+					latestActiveNode.rootPos,
+					to,
+				);
+
+				if (nodeDecAtActivePos || rootNodeDecAtActivePos) {
+					isActiveNodeModified = true;
+				}
+
+				// Update the active node anchor-name and type for accurate positioning
+				if (nodeDecAtActivePos) {
+					latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
+					latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
+				}
+
+				if (rootNodeDecAtActivePos) {
+					latestActiveNode.rootAnchorName = rootNodeDecAtActivePos.spec.anchorName;
+					latestActiveNode.rootNodeType = rootNodeDecAtActivePos.spec.nodeType;
+				}
 			}
 		}
 	}
@@ -663,7 +715,7 @@ export const oldApply = (
 				api,
 				formatMessage,
 				nodeViewPortalProviderAPI,
-				isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
+				isNestedEnabled ? (meta?.activeNode ?? mappedActiveNodePos) : meta?.activeNode,
 				anchorRectCache,
 			);
 			decorations = decorations.add(newState.doc, decs);
@@ -693,7 +745,7 @@ export const oldApply = (
 		(!meta?.activeNode &&
 			decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle').length === 0)
 			? null
-			: meta?.activeNode ?? mappedActiveNodePos;
+			: (meta?.activeNode ?? mappedActiveNodePos);
 
 	return {
 		decorations,

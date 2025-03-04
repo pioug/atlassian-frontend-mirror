@@ -742,7 +742,9 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		display: grid;
 		align-items: center;
 		position: absolute;
-		z-index: ${akEditorUnitZIndex};
+		z-index: ${fg('platform_editor_table_column_selected_state_fix') 
+			? rowControlsZIndex + 4
+			: akEditorUnitZIndex};
 
 		.${ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER} {
 			position: absolute;
@@ -1124,7 +1126,9 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		position: absolute;
 		margin-top: ${tableMarginTop}px;
 		left: -${tableToolbarSize + 1}px;
-		z-index: ${rowControlsZIndex + 4};
+		${fg('platform_editor_table_column_selected_state_fix') 
+			? '' 
+			: `z-index: ${rowControlsZIndex + 4}`}
 	}
 
 	.${ClassName.ROW_CONTROLS_WRAPPER} {

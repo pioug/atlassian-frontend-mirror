@@ -12,6 +12,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import RefreshIcon from '@atlaskit/icon/core/migration/refresh';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 import { N0, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -101,7 +102,7 @@ export const TableFooterOld = ({
 					</Flex>
 				)}
 				{datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID ? (
-					<PoweredByJSMAssets text={intl.formatMessage(footerMessages.powerByJSM)} />
+					<PoweredByJSMAssets text={intl.formatMessage(fg('assets_as_an_app_v2')? footerMessages.poweredByAssets: footerMessages.powerByJSM)} />
 				) : null}
 
 				<SyncWrapper>

@@ -4,8 +4,9 @@ import VRTestWrapper, { type VRTestWrapperProps } from '../utils/vr-test-wrapper
 
 import CardView, { type CardViewProps } from './card-view';
 
-const VRCardView = ({ overrideCss, ...props }: CardViewProps & VRTestWrapperProps) => (
-	<VRTestWrapper overrideCss={overrideCss}>
+const VRCardView = ({ style, ...props }: CardViewProps & VRTestWrapperProps) => (
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+	<VRTestWrapper style={style}>
 		<CardView {...props} />
 	</VRTestWrapper>
 );

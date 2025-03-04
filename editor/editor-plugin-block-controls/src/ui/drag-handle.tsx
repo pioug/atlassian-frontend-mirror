@@ -782,6 +782,14 @@ export const DragHandle = ({
 				];
 	}
 
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		helpDescriptors = [
+			{
+				description: formatMessage(blockControlsMessages.dragToMove),
+			},
+		];
+	}
+
 	const message = helpDescriptors
 		.map((descriptor) => {
 			return descriptor.keymap
@@ -839,6 +847,7 @@ export const DragHandle = ({
 		<Tooltip
 			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 			ignoreTooltipPointerEvents={true}
+			position={editorExperiment('platform_editor_controls', 'variant1') ? 'top' : undefined}
 			onShow={() => {
 				api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 			}}

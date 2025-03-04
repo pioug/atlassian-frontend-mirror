@@ -7,9 +7,9 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { jsx } from '@atlaskit/css';
+import { css, jsx } from '@atlaskit/css';
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import {
 	ToolbarDropdownTriggerWrapper,
@@ -23,12 +23,13 @@ import {
 	ToolbarButton,
 } from '@atlaskit/editor-common/ui-menu';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { token } from '@atlaskit/tokens';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 import {
+	ToolbarType,
 	type AlignmentPluginState,
 	type AlignmentState,
-	ToolbarType,
 } from '../../pm-plugins/types';
 import Alignment from '../Alignment';
 
@@ -48,6 +49,7 @@ export interface Props {
 	disabled?: boolean;
 	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
 	toolbarType: ToolbarType;
+	toolbarSize?: ToolbarSize;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -70,6 +72,8 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 			disabled,
 			intl,
 			api,
+			toolbarType,
+			toolbarSize,
 		} = this.props;
 		const alignment = pluginState?.align ?? 'start';
 
@@ -85,6 +89,20 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 			})
 				? 'compact'
 				: 'none';
+
+		if (
+			toolbarType === ToolbarType.PRIMARY &&
+			toolbarSize &&
+			toolbarSize > ToolbarSize.XL &&
+			editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+		) {
+			return (
+				<Alignment
+					css={alignmentToolbarStyles}
+					onClick={(align) => this.changeAlignment(align, false)}
+				/>
+			);
+		}
 
 		return (
 			<ToolbarDropdownWrapper>
@@ -187,5 +205,12 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 		this.toolbarItemRef?.current?.focus();
 	};
 }
+
+const alignmentToolbarStyles = css({
+	paddingTop: token('space.0'),
+	paddingRight: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.0'),
+});
 
 export default injectIntl(AlignmentToolbar);

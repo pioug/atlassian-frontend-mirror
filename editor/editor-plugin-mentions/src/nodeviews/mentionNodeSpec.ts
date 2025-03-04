@@ -1,8 +1,8 @@
 import { mention } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N30A } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -14,7 +14,7 @@ const isSSR = Boolean(process.env.REACT_SSR);
  * @returns
  */
 export const mentionNodeSpec = () => {
-	if (isSSR || !fg('platform_editor_lego__inline_node_virtualization')) {
+	if (isSSR || editorExperiment("platform_editor_inline_node_virtualization", "off")) {
 		return mention;
 	}
 	return {

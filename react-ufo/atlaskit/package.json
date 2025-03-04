@@ -174,6 +174,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_ufo_canvas_heatmap_full_precision": {
+			"type": "boolean"
+		},
 		"platform_ufo_fix_vc_observer_rounding_error": {
 			"type": "boolean"
 		},
@@ -208,6 +211,12 @@
 			"type": "boolean"
 		},
 		"ufo_support_other_resource_type_js": {
+			"type": "boolean"
+		},
+		"platform_ufo_vc_observer_new": {
+			"type": "boolean"
+		},
+		"platform_ufo_vc_ttai_on_paint": {
 			"type": "boolean"
 		}
 	}

@@ -93,20 +93,7 @@ const textColorGroup: ToolbarElementConfig[] = [
 			componentRegistry.has('textColor') || componentRegistry.has('highlight'),
 	},
 ];
-const alignmentAndListGroup: ToolbarElementConfig[] = [
-	{
-		name: 'alignment',
-	},
-	{
-		name: 'toolbarListsIndentation',
-	},
-	{
-		name: 'separator',
-		enabled: (componentRegistry) =>
-			componentRegistry.has('toolbarListsIndentation') || componentRegistry.has('alignment'),
-	},
-];
-const listFormatting: ToolbarElementConfig[] = [
+const listFormattingGroup: ToolbarElementConfig[] = [
 	{
 		name: 'toolbarListsIndentation',
 	},
@@ -155,7 +142,7 @@ const toolbarConfiguration: ToolbarElementConfig[] = [
 	...textFormattingGroup,
 	...alignmentGroup,
 	...textColorGroup,
-	...listFormatting,
+	...listFormattingGroup,
 	...insertBlockGroup,
 	...others,
 ];
@@ -164,7 +151,8 @@ const toolbarConfigurationV2: ToolbarElementConfig[] = [
 	...blockTypeGroup,
 	...textFormattingGroup,
 	...textColorGroup,
-	...alignmentAndListGroup,
+	...alignmentGroup,
+	...listFormattingGroup,
 	...hyperlinkGroup,
 	{
 		name: 'overflowMenu',

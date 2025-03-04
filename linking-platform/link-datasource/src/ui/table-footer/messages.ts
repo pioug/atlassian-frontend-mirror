@@ -21,4 +21,9 @@ export const footerMessages = defineMessages({
 		description: 'Displayed on the issue like table footer to increase JSM Assets visibility',
 		defaultMessage: 'Powered by Assets in Jira Service Management',
 	},
+	poweredByAssets: {
+		id: 'linkDataSource.table-footer.powered-by-assets',
+		description: 'Displayed on the issue like table footer to increase Assets visibility',
+		defaultMessage: 'Powered by Assets',
+	},
 });

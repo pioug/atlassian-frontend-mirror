@@ -83,7 +83,10 @@ export type BlockProps = {
  */
 export type ElementItem = {
 	/**
-	 * Any additional CSS properties to apply to the element.
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
+	 * No planned alternative.
+	 *
+	 * Additional CSS properties on the element.
 	 */
 	overrideCss?: SerializedStyles;
 
@@ -136,6 +139,8 @@ export type BaseActionItem = {
 	content?: React.ReactNode;
 
 	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
+	 * No planned alternative.
 	 * Additional CSS properties on the Action.
 	 */
 	overrideCss?: SerializedStyles;
@@ -185,6 +190,9 @@ export type BaseDataActionItem = {
 	onClick?: () => any;
 
 	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
+	 * No planned alternative.
+	 *
 	 * Additional CSS properties on the Action.
 	 */
 	overrideCss?: SerializedStyles;

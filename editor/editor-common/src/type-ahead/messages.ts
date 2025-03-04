@@ -95,4 +95,15 @@ export const typeAheadListMessages = defineMessages({
 		description:
 			'a text on a button that opens a side panel with a list of all insertable editor elements',
 	},
+	emptySearchResults: {
+		id: 'fabric.editor.emptySearchResults',
+		defaultMessage: "We couldn't find any results.",
+		description: 'a message displayed when there are no search results',
+	},
+	emptySearchResultsSuggestion: {
+		id: 'fabric.editor.emptySearchResultsSuggestion',
+		defaultMessage: 'Select {buttonName} to browse inserts.',
+		description:
+			'a prompt to suggest user to click a button to browse inserts when there are no search results',
+	},
 });

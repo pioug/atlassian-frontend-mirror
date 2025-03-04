@@ -26,7 +26,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/editor-common": "^100.4.0",
 		"@atlaskit/icon": "^24.1.0",

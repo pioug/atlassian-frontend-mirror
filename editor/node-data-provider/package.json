@@ -36,7 +36,7 @@
 		"./get-confluence-page-providers": "./src/get-providers/confluence-page.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/emoji": "^68.0.0",
 		"@babel/runtime": "^7.0.0"

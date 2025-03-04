@@ -1,5 +1,14 @@
 # @atlaskit/editor-element-browser
 
+## 0.1.4
+
+### Patch Changes
+
+- [#121049](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121049)
+  [`0c8ca53dace33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c8ca53dace33) -
+  [ux] Uses ViewAllButtonItem from the editor-element-browser package instead of custom Pressable
+  button
+
 ## 0.1.3
 
 ### Patch Changes

@@ -28,7 +28,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/avatar": "^24.0.0",

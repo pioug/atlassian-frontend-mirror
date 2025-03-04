@@ -112,15 +112,15 @@ export interface ItemsRegistry {
 	[key: string]: ItemData;
 }
 
-const suggestedTitels = [
-	'Table',
-	'Action item',
-	'Code snippet',
-	'Info panel',
-	'Emoji',
-	'Layouts',
-	'Divider',
-	'Expand',
+const suggestedIds = [
+	'table',
+	'action',
+	'codeblock',
+	'infopanel',
+	'threecolumnslayout',
+	'emoji',
+	'rule',
+	'expand',
 ];
 
 // slices items from the QuickInsertPanelItem[] into suggested, categories and search result items
@@ -144,18 +144,9 @@ export const useItems = (
 		[quickInsertPanelItems],
 	);
 
-	const suggested: GroupData = insertPanelItems.reduce(
-		(acc: GroupData, item) => {
-			if (suggestedTitels.includes(item.title)) {
-				acc.items.push(transformBrowserElementItem(item));
-			}
-			return acc;
-		},
-		{ id: 'suggested', label: 'Suggestions', items: [] }, // TODO define the id and label as constants
-	);
-
 	const categoryRegistry: CategoryRegistry = {};
 	const itemsRegistry: ItemsRegistry = {};
+	const suggestedItems: ItemData[] = [];
 	insertPanelItems.forEach((item) => {
 		const categories = parseCategories(item.categories);
 		const preparedItem = transformBrowserElementItem(item);
@@ -169,7 +160,16 @@ export const useItems = (
 		});
 		const itemKey = item.id || item.title;
 		itemsRegistry[itemKey] = preparedItem;
+
+		for (let i = 0; i < suggestedIds.length; i++) {
+			const realSuggestedItems = suggestedItems.filter((item) => item);
+			if (realSuggestedItems.length < suggestedIds.length && itemKey === suggestedIds[i]) {
+				suggestedItems[i] = preparedItem;
+			}
+		}
 	});
+
+	const suggested: GroupData = { id: 'suggested', label: 'Suggestions', items: suggestedItems }; // TODO define the id and label as constants
 
 	// when query gets updated from the prop drilling it won't cause a re-render of the hook
 	// as it will be treated only as default state, so for now combinbing searchText and query here

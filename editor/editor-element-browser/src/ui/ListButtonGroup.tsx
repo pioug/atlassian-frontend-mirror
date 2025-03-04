@@ -29,10 +29,19 @@ interface ListButtonGroupProps extends Optional<GroupData, 'label'> {
 	hasSeparator?: boolean;
 	onItemSelected?: (index: number, categoryId: string) => void;
 	setSelectedItem?: OnSelectItem;
+	startingIndex?: number;
 }
 
 const ListButtonGroupBase = memo(
-	({ id, label, items, hasSeparator, onItemSelected, setSelectedItem }: ListButtonGroupProps) => {
+	({
+		id,
+		label,
+		items,
+		hasSeparator,
+		onItemSelected,
+		setSelectedItem,
+		startingIndex = 0,
+	}: ListButtonGroupProps) => {
 		return (
 			<Section hasSeparator={hasSeparator}>
 				{label && (
@@ -43,11 +52,12 @@ const ListButtonGroupBase = memo(
 					</Box>
 				)}
 				<Box xcss={[itemsContainerStyles]}>
-					{items.map((item) => {
+					{items.map((item, index) => {
 						return (
 							<ListButtonItem
 								key={item.index}
 								index={item.index}
+								isSelected={startingIndex + index === 0}
 								title={item.title}
 								description={item.description}
 								showDescription={item.showDescription}
@@ -66,7 +76,15 @@ const ListButtonGroupBase = memo(
 );
 
 export const ListButtonGroupWithHeading = memo(
-	({ id, label, items, hasSeparator, onItemSelected, setSelectedItem }: ListButtonGroupProps) => {
+	({
+		id,
+		label,
+		items,
+		hasSeparator,
+		onItemSelected,
+		setSelectedItem,
+		startingIndex,
+	}: ListButtonGroupProps) => {
 		return (
 			<ListButtonGroupBase
 				id={id}
@@ -75,6 +93,7 @@ export const ListButtonGroupWithHeading = memo(
 				hasSeparator={hasSeparator}
 				onItemSelected={onItemSelected}
 				setSelectedItem={setSelectedItem}
+				startingIndex={startingIndex}
 			/>
 		);
 	},
@@ -87,6 +106,7 @@ export const ListButtonGroup = memo(
 		hasSeparator,
 		onItemSelected,
 		setSelectedItem,
+		startingIndex,
 	}: Omit<ListButtonGroupProps, 'label'>) => {
 		return (
 			<ListButtonGroupBase
@@ -95,6 +115,7 @@ export const ListButtonGroup = memo(
 				hasSeparator={hasSeparator}
 				onItemSelected={onItemSelected}
 				setSelectedItem={setSelectedItem}
+				startingIndex={startingIndex}
 			/>
 		);
 	},

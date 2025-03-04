@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 
 import type { ToolbarSize } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	DefaultButtonsMenu,
+	DefaultButtonsMenuNext,
 	DefaultButtonsToolbar,
+	DefaultButtonsToolbarNext,
 	ResponsiveCustomButtonToolbar as ResponsiveCustomButtonToolbarLegacy,
 	ResponsiveCustomButtonToolbarNext,
 	ResponsiveCustomMenu as ResponsiveCustomMenuLegacy,
@@ -20,7 +22,7 @@ export const useResponsiveIconTypeButtons = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const ResponsiveCustomButtonToolbar = fg('platform_editor_toolbar_responsive_fixes')
+	const ResponsiveCustomButtonToolbar = editorExperiment('platform_editor_controls', 'variant1')
 		? ResponsiveCustomButtonToolbarNext
 		: ResponsiveCustomButtonToolbarLegacy;
 	const iconTypeList = useMemo(
@@ -28,7 +30,13 @@ export const useResponsiveIconTypeButtons = ({
 		[toolbarSize, ResponsiveCustomButtonToolbar],
 	);
 
-	return responsivenessEnabled ? iconTypeList : DefaultButtonsToolbar;
+	if (responsivenessEnabled) {
+		return iconTypeList;
+	}
+
+	return editorExperiment('platform_editor_controls', 'variant1')
+		? DefaultButtonsToolbarNext
+		: DefaultButtonsToolbar;
 };
 
 export const useResponsiveIconTypeMenu = ({
@@ -38,7 +46,7 @@ export const useResponsiveIconTypeMenu = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const ResponsiveCustomMenu = fg('platform_editor_toolbar_responsive_fixes')
+	const ResponsiveCustomMenu = editorExperiment('platform_editor_controls', 'variant1')
 		? ResponsiveCustomMenuNext
 		: ResponsiveCustomMenuLegacy;
 	const iconTypeList = useMemo(
@@ -46,7 +54,13 @@ export const useResponsiveIconTypeMenu = ({
 		[toolbarSize, ResponsiveCustomMenu],
 	);
 
-	return responsivenessEnabled ? iconTypeList : DefaultButtonsMenu;
+	if (responsivenessEnabled) {
+		return iconTypeList;
+	}
+
+	return editorExperiment('platform_editor_controls', 'variant1')
+		? DefaultButtonsMenuNext
+		: DefaultButtonsMenu;
 };
 
 type IconsPositions = {

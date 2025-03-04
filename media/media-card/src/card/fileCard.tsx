@@ -54,7 +54,6 @@ import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import {
 	fireNonCriticalErrorEvent,
 	fireOperationalEvent,
-	fireScreenEvent,
 	fireDownloadSucceededEvent,
 	fireDownloadFailedEvent,
 } from './cardAnalytics';
@@ -447,10 +446,6 @@ export const FileCard = ({
 		}
 	}, [nonCriticalError, fireNonCriticalErrorEventRef]);
 
-	const fireScreenEventRef = useCurrentValueRef(() => {
-		createAnalyticsEvent && fireScreenEvent(createAnalyticsEvent, fileAttributes);
-	});
-
 	const startUfoExperienceRef = useCurrentValueRef(() => {
 		if (shouldSendPerformanceEventRef.current) {
 			startUfoExperience(internalOccurrenceKey);
@@ -626,21 +621,6 @@ export const FileCard = ({
 		finalStatus,
 		useInlinePlayer,
 	]);
-
-	//----------------------------------------------------------------//
-	//----------------- fireScreenEvent ------------------------------//
-	//----------------------------------------------------------------//
-
-	useEffect(() => {
-		if (prevStatus !== undefined && finalStatus !== prevStatus) {
-			if (
-				finalStatus === 'complete' ||
-				(fileAttributes.fileMediatype === 'video' && !!preview && finalStatus === 'processing')
-			) {
-				fireScreenEventRef.current();
-			}
-		}
-	}, [finalStatus, prevStatus, fileAttributes, preview, fireScreenEventRef]);
 
 	//----------------------------------------------------------------//
 	//----------------- abort UFO experience -------------------------//

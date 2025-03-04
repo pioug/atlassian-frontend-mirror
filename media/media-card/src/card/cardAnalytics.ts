@@ -10,7 +10,6 @@ import {
 	getRenderErrorEventPayload,
 	getRenderFailedFileStatusPayload,
 	type MediaCardAnalyticsEventPayload,
-	getRenderPreviewableCardPayload,
 	type SSRStatus,
 	getErrorEventPayload,
 	getDownloadSucceededEventPayload,
@@ -68,13 +67,6 @@ export const fireOperationalEvent = (
 			);
 			break;
 	}
-};
-
-export const fireScreenEvent = (
-	createAnalyticsEvent: CreateUIAnalyticsEvent,
-	fileAttributes: FileAttributes,
-) => {
-	fireMediaCardEvent(getRenderPreviewableCardPayload(fileAttributes), createAnalyticsEvent);
 };
 
 export const fireNonCriticalErrorEvent = (

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.0.2
+
+### Patch Changes
+
+- [#121092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121092)
+  [`8cd08b738070d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cd08b738070d) -
+  [ux] Implemented full height separator as per design for media and card
+- [#121249](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121249)
+  [`d14ccaecc153a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d14ccaecc153a) -
+  ED-26862 contextual toolbar minor updates
+
 ## 3.0.1
 
 ### Patch Changes

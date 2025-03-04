@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.0.7
+
+### Patch Changes
+
+- [#120931](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120931)
+  [`624b97c021fea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/624b97c021fea) -
+  [ux] ED-26676 revert to existing primary toolbar components
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

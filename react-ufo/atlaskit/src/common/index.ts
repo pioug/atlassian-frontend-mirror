@@ -31,6 +31,10 @@ export type {
 	LastInteractionFinishInfo,
 } from './common/types';
 
+export type {
+	MultiHeatmapPayload,
+} from './vc/types';
+
 /**
  * @deprecated Prefer import from @atlaskit/react-ufo/interaction-context
  */

@@ -98,6 +98,7 @@ export const AssetsObjectSchemaSelect = ({
 						onChange={(newOption) => newOption && onChange(newOption)}
 						{...selectInAModalStyleFixProps}
 						{...restFieldProps}
+						label={formatMessage(objectSchemaSelectMessages.placeholder)}
 					/>
 				)}
 			</Field>

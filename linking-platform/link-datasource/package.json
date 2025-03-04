@@ -37,7 +37,7 @@
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^47.2.1",
+		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/atlassian-context": "^0.2.0",
 		"@atlaskit/avatar": "^24.0.0",
@@ -195,6 +195,9 @@
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {
+			"type": "boolean"
+		},
+		"assets_as_an_app_v2": {
 			"type": "boolean"
 		}
 	}

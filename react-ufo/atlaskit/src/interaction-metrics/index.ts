@@ -620,12 +620,12 @@ export function tryComplete(interactionId: string, endTime?: number) {
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
 		const noMoreExpHolds = interaction.holdExpActive.size === 0;
 
-		const postInteraction = () => {
+		const postInteraction = async () => {
 			if (getConfig()?.postInteractionLog?.enabled) {
 				let experimentalVC90;
 				let experimentalTTAI;
 				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
-					experimentalVC90 = getExperimentalVCMetrics(interaction)?.[
+					experimentalVC90 = (await getExperimentalVCMetrics(interaction))?.[
 						'metric:experimental:vc90'
 					] as number;
 					const { start, end } = interaction;

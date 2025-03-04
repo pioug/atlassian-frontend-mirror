@@ -1,9 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
 import RelatedLinksBaseModal from '../../src/view/RelatedLinksModal/components/RelatedLinksBaseModal';
 import RelatedLinksResolvingView from '../../src/view/RelatedLinksModal/views/resolving';
@@ -11,9 +6,10 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 
 export default () => (
 	<VRTestWrapper
-		overrideCss={css({
+		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			height: '700px',
-		})}
+		}}
 	>
 		<RelatedLinksBaseModal onClose={() => {}} showModal={true}>
 			<RelatedLinksResolvingView />

@@ -400,7 +400,7 @@ const ToolbarItems = React.memo(
 						/>
 					);
 				case 'separator':
-					return <Separator key={idx} />;
+					return <Separator key={idx} fullHeight={item.fullHeight} />;
 			}
 		};
 
@@ -511,7 +511,7 @@ const toolbarContainer = (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		editorExperiment('platform_editor_controls', 'variant1')
 			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				css({ height: token('space.500') })
+				css({ minHeight: token('space.500') })
 			: undefined,
 	);
 
@@ -571,8 +571,13 @@ const toolbarOverflow = ({
 					editorExperiment('platform_editor_controls', 'variant1')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							css({
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+								padding: paddingFeatureFlag
+									? `${token('space.0', '0')} 0 ${token('space.050', '4px')}`
+									: `${token('space.0', '0')} 0 ${token('space.600', '48px')}`,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 								'> div': {
+									minHeight: token('space.500'),
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 									'> div:has(+ [data-editor-popup="true"]:last-of-type)': {
 										marginRight: token('space.100', '8px'),
@@ -681,6 +686,12 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		event.stopPropagation();
 	};
 
+	private handleMouseDown = (event: React.MouseEvent) => {
+		// Prevents selection toolbar from closing when clicking on the toolbar
+		event.stopPropagation();
+		event.preventDefault();
+	};
+
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
 
@@ -716,6 +727,11 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 						data-testid="editor-floating-toolbar"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}
+						onMouseDown={
+							editorExperiment('platform_editor_controls', 'variant1')
+								? this.handleMouseDown
+								: undefined
+						}
 					>
 						<Announcer
 							text={

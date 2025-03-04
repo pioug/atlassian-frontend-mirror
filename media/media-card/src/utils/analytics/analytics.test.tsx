@@ -26,7 +26,6 @@ import {
 	getRenderErrorErrorDetail,
 	getRenderErrorRequestMetadata,
 	getRenderErrorEventPayload,
-	getRenderPreviewableCardPayload,
 	extractErrorInfo,
 	type SSRStatus,
 } from './analytics';
@@ -150,26 +149,6 @@ describe('Media Analytics', () => {
 					request: getRenderErrorRequestMetadata(error),
 					traceContext,
 				},
-			});
-		});
-	});
-
-	describe('getRenderPreviewableCardPayload', () => {
-		const fileAttributes: FileAttributes = {
-			fileId: 'some-id',
-			fileSize: 10,
-			fileMediatype: 'video',
-			fileMimetype: 'video/webm',
-			fileStatus: 'processed',
-		};
-
-		it('should be a screen event returning mediaCardRenderScreen as the actionSubject and name', () => {
-			expect(getRenderPreviewableCardPayload(fileAttributes)).toMatchObject({
-				eventType: 'screen',
-				action: 'viewed',
-				actionSubject: 'mediaCardRenderScreen',
-				name: 'mediaCardRenderScreen',
-				attributes: { fileAttributes },
 			});
 		});
 	});

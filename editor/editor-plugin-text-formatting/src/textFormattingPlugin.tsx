@@ -45,16 +45,6 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 		toolbarSize,
 		disabled,
 	}) => {
-		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-			return (
-				<FloatingToolbarComponent
-					api={api}
-					editorView={editorView}
-					editorAnalyticsAPI={api?.analytics?.actions}
-				/>
-			);
-		}
-
 		return (
 			<PrimaryToolbarComponent
 				api={api}

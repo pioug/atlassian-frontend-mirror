@@ -9,7 +9,6 @@ var _warnOnce = _interopRequireDefault(require("@atlaskit/ds-lib/warn-once"));
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _tokenNames = _interopRequireDefault(require("./artifacts/token-names"));
 var _constants = require("./constants");
-var _getTokenAnalytics = require("./get-token-analytics");
 /**
  * Takes a dot-separated token name and an optional fallback, and returns the CSS custom property for the corresponding token.
  * This should be used to implement design decisions throughout your application.
@@ -33,9 +32,6 @@ var _getTokenAnalytics = require("./get-token-analytics");
  *
  */
 function token(path, fallback) {
-  if ((0, _platformFeatureFlags.fg)('platform-token-runtime-call-tracking')) {
-    (0, _getTokenAnalytics.recordTokenCall)(path, fallback);
-  }
   var token = _tokenNames.default[path];
   if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
     if (!token) {

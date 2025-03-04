@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
@@ -45,7 +44,7 @@ export default () => (
 					onClick: () => {},
 				},
 			]}
-			overrideCss={styles}
+			css={styles}
 		/>
 	</ExampleContainer>
 );

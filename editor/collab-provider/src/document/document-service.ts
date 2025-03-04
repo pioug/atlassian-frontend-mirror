@@ -1,3 +1,5 @@
+import throttle from 'lodash/throttle';
+
 import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	ResolvedEditorState,
@@ -6,10 +8,14 @@ import type {
 	CollabInitPayload,
 	StepJson,
 } from '@atlaskit/editor-common/collab';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import type AnalyticsHelper from '../analytics/analytics-helper';
-import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
-import type { MetadataService } from '../metadata/metadata-service';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+
 import type {
 	Catchupv2Response,
 	ChannelEvent,
@@ -17,16 +23,9 @@ import type {
 	ReconnectionMetadata,
 	StepsPayload,
 } from '../types';
-
-import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
-
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
-
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import throttle from 'lodash/throttle';
+import type { MetadataService } from '../metadata/metadata-service';
+import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
+import type AnalyticsHelper from '../analytics/analytics-helper';
 import { MEASURE_NAME, startMeasure, stopMeasure } from '../analytics/performance';
 import type { InternalError } from '../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
@@ -41,9 +40,10 @@ import {
 import type { ParticipantsService } from '../participants/participants-service';
 import { MAX_STEP_REJECTED_ERROR, MAX_STEP_REJECTED_ERROR_AGGRESSIVE } from '../provider';
 import { commitStepQueue } from '../provider/commit-step';
+import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
+
 import { catchupv2 } from './catchupv2';
 import { StepQueueState } from './step-queue-state';
-import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
 import { type DocumentServiceInterface } from './interface-document-service';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
@@ -542,7 +542,7 @@ export class DocumentService implements DocumentServiceInterface {
 							hasTitle: !!metadata?.title,
 							clientId: this.clientId,
 							targetClientId,
-							triggeredByCatchup: targetClientId ? true : false,
+							triggeredByCatchup: !!targetClientId,
 						},
 					);
 
@@ -578,7 +578,7 @@ export class DocumentService implements DocumentServiceInterface {
 					useReconcile,
 					clientId: this.clientId,
 					targetClientId,
-					triggeredByCatchup: targetClientId ? true : false,
+					triggeredByCatchup: !!targetClientId,
 				},
 			);
 		} catch (restoreError) {
@@ -590,7 +590,7 @@ export class DocumentService implements DocumentServiceInterface {
 					useReconcile,
 					clientId: this.clientId,
 					targetClientId,
-					triggeredByCatchup: targetClientId ? true : false,
+					triggeredByCatchup: !!targetClientId,
 				},
 			);
 			this.analyticsHelper?.sendErrorEvent(
@@ -971,6 +971,12 @@ export class DocumentService implements DocumentServiceInterface {
 					return origin.setMeta('mergeIsLocked', true);
 				}
 			});
+			const offlineSteps = unconfirmedStepsData?.origins.some((tr) => {
+				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
+			});
+			if (offlineSteps) {
+				return;
+			}
 		}
 
 		// Avoid reference issues using a

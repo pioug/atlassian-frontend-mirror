@@ -19,13 +19,11 @@ export type {
 	RemoteSuccessEventPayload,
 	CopiedFileEventPayload,
 	ClickedEventPayload,
-	RenderScreenEventPayload,
 	MediaCardAnalyticsEventPayload,
 } from './analytics';
 
 export {
 	getFileAttributes,
-	getRenderPreviewableCardPayload,
 	getRenderSucceededEventPayload,
 	getCacheHitEventPayload,
 	getRemoteSuccessEventPayload,

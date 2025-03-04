@@ -15,6 +15,7 @@ import {
 
 import type { GroupData, ItemData } from './ItemType';
 import { ListButtonGroup, ListButtonGroupWithHeading } from './ListButtonGroup';
+import { ViewAllButtonItem } from './ListButtonItem';
 import { LinkNavButton } from './NavigationButton';
 import { SubPanelWithBackButton } from './SubPanel';
 
@@ -45,7 +46,7 @@ const DefaultView = ({
 			{suggested && (
 				<ListButtonGroupWithHeading
 					id={suggested.id}
-					items={suggested.items}
+					items={suggested.items.slice(0, 6)}
 					label={suggested.label}
 					onItemSelected={onItemSelected}
 					setSelectedItem={setSelectedItem}
@@ -95,6 +96,8 @@ const CategoryView = ({
 
 	const categoryLevelItems = categoryRegistry[selectedCategory] || [];
 
+	let startingIndex = categoryLevelItems.length;
+
 	return (
 		<Stack>
 			<SubPanelWithBackButton
@@ -111,16 +114,20 @@ const CategoryView = ({
 				)}
 				{categoryData &&
 					categoryData.subcategories.map(({ id, title }: { id: string; title: string }) => {
-						return (
-							categoryRegistry[id] && (
+						if (categoryRegistry[id]) {
+							const list = (
 								<ListButtonGroupWithHeading
 									id={id}
 									label={title}
 									items={categoryRegistry[id]}
 									onItemSelected={onItemSelected}
+									startingIndex={startingIndex}
 								/>
-							)
-						);
+							);
+							startingIndex += categoryRegistry[id].length;
+
+							return list;
+						}
 					})}
 			</SubPanelWithBackButton>
 		</Stack>
@@ -148,19 +155,21 @@ const SearchView = ({
 
 const EmptySearchView = () => {
 	return (
-		<Stack>
-			<Text align="center" as="p">
-				We couldn't find any results.
-			</Text>
-			<Text align="center" as="p">
-				Select <Text weight="medium">View all</Text> to browser inserts.
-			</Text>
-		</Stack>
+		<Box padding="space.300">
+			<Stack space="space.0">
+				<Text align="center" as="p">
+					We couldn't find any results.
+				</Text>
+				<Text align="center" as="p">
+					Select <Text weight="medium">View all</Text> to browser inserts.
+				</Text>
+			</Stack>
+		</Box>
 	);
 };
 
 export const QuickInsertPanel = memo(
-	({ items, onItemInsert, query, setSelectedItem }: QuickInsertPanelProps) => {
+	({ items, onItemInsert, onViewAllItemsClick, query, setSelectedItem }: QuickInsertPanelProps) => {
 		const onItemSelect = useCallback(
 			(index: number) => {
 				onItemInsert(SelectItemMode.SELECTED, index);
@@ -177,7 +186,9 @@ export const QuickInsertPanel = memo(
 			setSelectedCategory,
 		} = useItems(items, query);
 
-		return searchItems ? (
+		const showViewAllItems = Boolean(onViewAllItemsClick);
+
+		const view = searchItems ? (
 			searchItems.length > 0 ? (
 				<SearchView
 					items={searchItems}
@@ -206,5 +217,22 @@ export const QuickInsertPanel = memo(
 				setSelectedItem={setSelectedItem}
 			/>
 		);
+
+		if (showViewAllItems) {
+			return (
+				<>
+					{view}
+					{showViewAllItems && (
+						<ViewAllButtonItem
+							isViewAllInserts={true}
+							label={'View all inserts'} // TODO: add i18n
+							onClick={onViewAllItemsClick ? onViewAllItemsClick : () => {}}
+						/>
+					)}
+				</>
+			);
+		} else {
+			return view;
+		}
 	},
 );

@@ -5,10 +5,15 @@
  */
 import { jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 
-import type { Command, FloatingToolbarItem } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	FloatingToolbarItem,
+	FloatingToolbarOverflowDropdownOptions,
+} from '@atlaskit/editor-common/types';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import CheckMarkIcon from '@atlaskit/icon/utility/check-mark';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
 import { HeadingItem } from '@atlaskit/menu';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
@@ -18,16 +23,39 @@ import { FixedToolbarIcon } from './icons/FixedToolbarIcon';
 
 type OverflowToobarConfigOptions = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
+	toolbarDocking?: 'top' | 'none';
 };
 
 // New editor controls
 export const getOverflowFloatingToolbarConfig = ({
 	api,
-}: OverflowToobarConfigOptions): FloatingToolbarItem<Command>[] => [
-	{ type: 'separator' },
-	{
-		type: 'overflow-dropdown',
-		options: [
+	toolbarDocking,
+}: OverflowToobarConfigOptions): FloatingToolbarItem<Command>[] => {
+	const dropdownOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
+		{
+			title: 'Create Jira issue',
+			onClick: () => {
+				return false;
+			},
+			elemAfter: <ChevronRightIcon spacing="spacious" label="" />,
+		},
+		{
+			title: 'Define',
+			onClick: () => {
+				return false;
+			},
+		},
+		{
+			title: 'Apps',
+			onClick: () => {
+				return false;
+			},
+			elemAfter: <ChevronRightIcon spacing="spacious" label="" />,
+		},
+	];
+
+	if (toolbarDocking === 'none') {
+		dropdownOptions.push(
 			{
 				type: 'overflow-dropdown-heading',
 				title: 'Toolbar appears',
@@ -48,9 +76,18 @@ export const getOverflowFloatingToolbarConfig = ({
 				},
 				icon: <FixedToolbarIcon label="Fixed toolbar" />,
 			},
-		],
-	},
-];
+		);
+	}
+
+	return [
+		{ type: 'separator' },
+		{
+			type: 'overflow-dropdown',
+			dropdownWidth: 240,
+			options: dropdownOptions,
+		},
+	];
+};
 
 export const getOverflowPrimaryToolbarConfig = ({
 	api,

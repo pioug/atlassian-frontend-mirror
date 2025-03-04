@@ -106,10 +106,7 @@ const isJiraSummary = (url: string) => {
 };
 
 const isRovoAgentProfilePage = (url: string) => {
-	if (fg('rovo_agent_profile_page_default_embed')) {
-		return url.match(/^https:\/\/.*?\/people\/agent\/.+$/);
-	}
-	return false;
+	return url.match(/^https:\/\/.*?\/people\/agent\/.+$/);
 };
 
 const isCustomer360LandingPage = (url: string) =>

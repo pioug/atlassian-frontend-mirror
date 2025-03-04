@@ -18,6 +18,7 @@ import {
 	layoutToMessages,
 	wrappingIcons,
 } from '@atlaskit/editor-common/card';
+import { altTextMessages } from '@atlaskit/editor-common/media';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
 	calcMinWidth,
@@ -36,6 +37,7 @@ import type {
 	FloatingToolbarConfig,
 	FloatingToolbarDropdown,
 	FloatingToolbarItem,
+	FloatingToolbarSeparator,
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
@@ -60,6 +62,7 @@ import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
+import TextIcon from '@atlaskit/icon/core/text';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
@@ -70,6 +73,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { MediaSingleNodeSelector } from '../../nodeviews/styles';
 import { getPluginState as getMediaAltTextPluginState } from '../../pm-plugins/alt-text';
+import { openMediaAltTextMenu } from '../../pm-plugins/alt-text/commands';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
 import { getMediaLinkingState } from '../../pm-plugins/linking';
 import type { MediaLinkingState } from '../../pm-plugins/linking/types';
@@ -480,6 +484,7 @@ const generateMediaSingleFloatingToolbar = (
 
 					toolbarButtons.push(switchFromBlockToInline, {
 						type: 'separator',
+						fullHeight: true,
 					});
 				}
 			}
@@ -719,7 +724,7 @@ const generateMediaSingleFloatingToolbar = (
 		);
 	}
 
-	if (allowAltTextOnImages) {
+	if (allowAltTextOnImages && editorExperiment('platform_editor_controls', 'control')) {
 		toolbarButtons.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
 			type: 'separator',
 		});
@@ -742,7 +747,7 @@ const generateMediaSingleFloatingToolbar = (
 		supportsViewMode: false,
 	};
 
-	if (!editorExperiment('platform_editor_controls', 'control')) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		// Preview Support
 		if (allowAdvancedToolBarOptions && allowImagePreview) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
@@ -769,6 +774,7 @@ const generateMediaSingleFloatingToolbar = (
 					{
 						type: 'separator',
 						supportsViewMode: true,
+						fullHeight: true,
 					},
 				);
 			}
@@ -940,38 +946,51 @@ export const floatingToolbar = (
 		);
 	}
 
-	if (items.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
-		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-			{ type: 'separator', supportsViewMode: true },
-			{
-				type: 'overflow-dropdown',
-				options: [
-					{
-						title: 'Resize',
-						onClick: () => {
-							// TODO open resize dialog?
-							return true;
-						},
-						icon: <GrowHorizontalIcon label="Resize" />,
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		if (items[items.length - 1].type === 'separator') {
+			const separatorItem = items[items.length - 1] as unknown as FloatingToolbarSeparator;
+			separatorItem.fullHeight = true;
+		} else {
+			items.push({ type: 'separator', fullHeight: true });
+		}
+
+		const altTextTitle = intl.formatMessage(altTextMessages.addAltText);
+
+		items.push({
+			type: 'overflow-dropdown',
+			options: [
+				{
+					title: altTextTitle,
+					onClick: openMediaAltTextMenu(pluginInjectionApi?.analytics?.actions),
+					icon: <TextIcon label={altTextTitle} />,
+				},
+				{
+					title: 'Resize',
+					onClick: () => {
+						// TODO open resize dialog?
+						return true;
 					},
-					{ type: 'separator' },
-					{
-						title: 'Copy',
-						onClick: () => {
-							// TODO replace with copy-button plugin
-							return true;
-						},
-						icon: <CopyIcon label="Copy" />,
+					icon: <GrowHorizontalIcon label="Resize" />,
+				},
+				{ type: 'separator' },
+				{
+					title: 'Copy',
+					onClick: () => {
+						pluginInjectionApi?.core?.actions.execute(
+							// @ts-ignore
+							pluginInjectionApi?.floatingToolbar?.commands.copyNode(nodeType),
+						);
+						return true;
 					},
-					{
-						title: 'Delete',
-						onClick: remove,
-						icon: <DeleteIcon label="Delete" />,
-					},
-				],
-			},
-		];
-		items.push(...overflowMenuConfig);
+					icon: <CopyIcon label="Copy" />,
+				},
+				{
+					title: 'Delete',
+					onClick: remove,
+					icon: <DeleteIcon label="Delete" />,
+				},
+			],
+		});
 	}
 
 	// Ignored via go/ees005

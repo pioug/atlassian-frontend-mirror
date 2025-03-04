@@ -57,9 +57,6 @@
 		"smart_links_for_plans_platform": {
 			"type": "boolean"
 		},
-		"rovo_agent_profile_page_default_embed": {
-			"type": "boolean"
-		},
 		"smartlink_jira_software_form": {
 			"type": "boolean"
 		}

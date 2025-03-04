@@ -1,9 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import type { CardState } from '@atlaskit/linking-common';
@@ -35,9 +30,10 @@ const initialState = Object.entries({
 
 export default () => (
 	<VRTestWrapper
-		overrideCss={css({
+		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			height: '700px',
-		})}
+		}}
 	>
 		<Provider storeOptions={{ initialState }}>
 			<RelatedLinksBaseModal onClose={() => {}} showModal={true}>

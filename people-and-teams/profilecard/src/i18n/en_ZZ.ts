@@ -76,6 +76,10 @@ export default {
     '{count, plural, one {⁣⁢Team • {count} member, including you⁮⁭⁡⁠‍⁡⁯‌⁠⁯⁬⁭⁪؜⁬⁫⁪⁡⁭⁪⁫⁪⁣⁤} other {⁣⁢Team • {count} members, including you⁮⁭⁡⁠‍⁡⁯‌⁠⁯⁬⁭⁪؜⁬⁫⁪⁡⁭⁪⁫⁪⁣⁤}}',
   'pt.team-profile-card.team.member.many': '⁣⁢Team • 50+ members؜⁬⁬⁠⁬⁭⁯؜‌⁭⁫؜⁪؜؜⁠‌⁠⁣⁤',
   'pt.team-profile-card.team.member.many-including-you': '⁣⁢Team • 50+ members, including you⁭⁠⁪⁪‍⁪⁭⁡⁮؜‌⁬⁪⁪⁡⁪⁬⁠⁣⁤',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {⁣⁢+{count} more members⁫⁬⁡‌⁠⁠⁭⁡؜‌‌⁠⁬⁪⁠⁪‍⁯⁮⁫⁬⁡⁣⁤} other {⁣⁢+{count} more members⁫⁬⁡‌⁠⁠⁭⁡؜‌‌⁠⁬⁪⁠⁪‍⁯⁮⁫⁬⁡⁣⁤}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {⁣⁢+{count} more profile⁫⁫⁯⁠‍⁫⁬⁪⁯⁭⁡⁮⁡⁮؜⁮⁡⁪⁬⁡⁣⁤} other {⁣⁢+{count} more profiles⁫⁫⁯⁠‍⁫⁬⁪⁯⁭⁡⁮⁡⁮؜⁮⁡⁪⁬⁡⁣⁤}}',
   'ptc-directory.agent-profile.action.dropdown.chat-to-agent.nonfinal': '⁣⁢Chat to Agent⁫⁭⁠⁫‍⁬⁭⁯‌‌⁭⁬⁭؜⁡⁠⁯⁫⁬⁮⁣⁤',
   'ptc-directory.agent-profile.action.dropdown.copy-link.nonfinal': '⁣⁢Copy link‌؜‍⁭‍⁪؜⁮‌⁯⁮⁪⁮⁫⁫⁭؜⁯‌⁫⁬‍⁪؜⁣⁤',
   'ptc-directory.agent-profile.action.dropdown.delete.nonfinal': '⁣⁢Delete Agent⁮؜⁫‌⁪⁠⁮؜⁫‌‌⁠‌⁮⁫⁡⁮⁬‍‍⁣⁤',

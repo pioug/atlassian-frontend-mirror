@@ -5,6 +5,7 @@ import type {
 	VCIgnoreReason,
 	VCRatioType,
 } from '../../../common/vc/types';
+import { getPageVisibilityState } from '../../../hidden-timing';
 import type { ObservedMutationType } from '../observers/types';
 import type {
 	FilterComponentsLogType,
@@ -37,6 +38,8 @@ type ProcessDataArgs = {
 	VCParts: number[];
 	VCCalculationMethods: VCCalculationMethodType[];
 	clean: boolean;
+	isEventAborted: boolean;
+	interactionStart: number;
 	ttai: number;
 	filterComponentsLog: FilterComponentsLogType[];
 	ssr?: number;
@@ -142,6 +145,8 @@ export class MultiRevisionHeatmap {
 	}
 
 	getPayloadShapedData(args: ProcessDataArgs): MultiHeatmapPayload {
+		const pageVisibilityUpToTTAI = getPageVisibilityState(args.interactionStart, args.ttai);
+
 		const result = this.processData(args);
 		const payload = this.revisions.map((rev, i) => {
 			const vcDetails: { [key: string]: { t: number; e: string[] } } = {};
@@ -156,7 +161,10 @@ export class MultiRevisionHeatmap {
 				revision: rev.name,
 				vcDetails,
 				clean: args.clean,
-				'metric:vc90': null, // will be set or not in the payload generator
+				'metric:vc90':
+					args.clean && !args.isEventAborted && pageVisibilityUpToTTAI === 'visible'
+						? vcDetails?.['90']?.t
+						: null,
 			};
 		});
 		return payload;

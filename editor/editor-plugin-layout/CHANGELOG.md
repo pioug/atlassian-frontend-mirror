@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- [#120007](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120007)
+  [`e87df0a8c73c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e87df0a8c73c6) -
+  [ux] Do not add headings, lists, layouts, panels in the new QuickInsert menu
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

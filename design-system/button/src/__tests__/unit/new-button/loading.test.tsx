@@ -66,10 +66,10 @@ variants.forEach(({ name, Component, elementType }) => {
 
 						// Check for visually hidden styles
 						const hiddenText = screen.getByText(LOADING_LABEL);
-						expect(hiddenText).toHaveStyleDeclaration('width', '1px');
-						expect(hiddenText).toHaveStyleDeclaration('height', '1px');
-						expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
-						expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+						expect(hiddenText).toHaveCompiledCss('width', '1px');
+						expect(hiddenText).toHaveCompiledCss('height', '1px');
+						expect(hiddenText).toHaveCompiledCss('position', 'absolute');
+						expect(hiddenText).toHaveCompiledCss('clip', 'rect(1px,1px,1px,1px)');
 					});
 					// IconButton does not accept `aria-label`, it uses `label` instead
 					if (name !== 'IconButton') {
@@ -125,10 +125,10 @@ variants.forEach(({ name, Component, elementType }) => {
 
 							// Check for visually hidden styles
 							const hiddenText = screen.getByText(LOADING_LABEL);
-							expect(hiddenText).toHaveStyleDeclaration('width', '1px');
-							expect(hiddenText).toHaveStyleDeclaration('height', '1px');
-							expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
-							expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+							expect(hiddenText).toHaveCompiledCss('width', '1px');
+							expect(hiddenText).toHaveCompiledCss('height', '1px');
+							expect(hiddenText).toHaveCompiledCss('position', 'absolute');
+							expect(hiddenText).toHaveCompiledCss('clip', 'rect(1px,1px,1px,1px)');
 
 							// Ensure label has not been added elsewhere
 							expect(button).not.toHaveAttribute('aria-label', `Foo ${LOADING_LABEL}`);

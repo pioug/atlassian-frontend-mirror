@@ -202,7 +202,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 	}
 }
 
-const getUnavailableMessage = (state: EditorState, intl: IntlShape): string => {
+export const getUnavailableMessage = (state: EditorState, intl: IntlShape): string => {
 	try {
 		const parentNode = state.selection.$from.node(1);
 		const parentName = intl.formatMessage(

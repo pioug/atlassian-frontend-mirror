@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 23.2.3
+
+### Patch Changes
+
+- [#121658](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121658)
+  [`87935efc5eab4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87935efc5eab4) -
+  PTC-20 Clean up verified teams feature gate
+
 ## 23.2.2
 
 ### Patch Changes

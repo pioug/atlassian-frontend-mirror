@@ -24,7 +24,7 @@ const mainStyles = css({
 const contentDivStyle = css({
 	backgroundColor: '#f9f9f9',
 	height: '20vh',
-  minWidth: '100vw',
+	minWidth: '100vw',
 	boxShadow: '0 0 5px rgba(0,0,0,0.1)',
 });
 
@@ -75,11 +75,11 @@ const SectionContentTwo = () => {
 
 export default function Example() {
 	return (
-    <UFOSegment name="app-root">
-		  <main data-testid="main" css={mainStyles}>
-		  	<SectionContentOne />
-		  	<SectionContentTwo />
-		  </main>
+		<UFOSegment name="app-root">
+			<main data-testid="main" css={mainStyles}>
+				<SectionContentOne />
+				<SectionContentTwo />
+			</main>
 		</UFOSegment>
 	);
 }

@@ -71,6 +71,11 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Add content',
 		description: 'Add placeholder text for empty layout',
 	},
+	controlslayoutPlaceholder: {
+		id: 'fabric.editor.layout.controls.placeholder',
+		defaultMessage: '/ to insert',
+		description: 'Add placeholder text for empty layout',
+	},
 	columnOption: {
 		id: 'fabric.editor.layout.columnOption',
 		defaultMessage: '{count, plural, one { Column} other {{count} Columns}}',

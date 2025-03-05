@@ -23,7 +23,9 @@ import CardViewSection from './card-view-section';
 const CardViewExample = ({
 	url,
 	...props
-}: Omit<React.ComponentProps<typeof CardView>, 'client'>) => (
+}: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
+	fontSize?: React.CSSProperties['fontSize'];
+}) => (
 	<React.Fragment>
 		<CardViewSection {...props} client={new ResolvingClient()} title="[Resolving]" />
 		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" url={url} />
@@ -37,7 +39,7 @@ const CardViewExample = ({
 		<CardViewSection
 			{...props}
 			client={new ForbiddenWithSitePendingRequestClient()}
-			description="I don't have access to the site, but I’ve already requested access and I’m waiting"
+			description="I don't have access to the site, but I've already requested access and I'm waiting"
 			title="[Forbidden] Site - Pending Request"
 		/>
 		<CardViewSection
@@ -61,7 +63,7 @@ const CardViewExample = ({
 		<CardViewSection
 			{...props}
 			client={new ForbiddenWithSiteForbiddenClient()}
-			description="When you don't have access to the site, and you can’t request access"
+			description="When you don't have access to the site, and you can't request access"
 			title="[Forbidden] Forbidden"
 		/>
 		<CardViewSection {...props} client={new NotFoundClient()} title="[Not Found] Default" />

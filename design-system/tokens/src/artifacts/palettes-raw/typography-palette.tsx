@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e159597b9fc66518a84a3aeaf2f08709>>
+ * @codegen <<SignedSource::c4ada678a4605209a273f3250ad0a333>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -45,14 +45,14 @@ const tokens = [
     ]
   },
   {
-    "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
     "attributes": {
       "group": "fontFamily"
     },
     "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+      "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
       "attributes": {
         "group": "fontFamily"
       }
@@ -65,14 +65,14 @@ const tokens = [
     ]
   },
   {
-    "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
     "attributes": {
       "group": "fontFamily"
     },
     "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+      "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
       "attributes": {
         "group": "fontFamily"
       }
@@ -125,14 +125,14 @@ const tokens = [
     ]
   },
   {
-    "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
     "attributes": {
       "group": "fontFamily"
     },
     "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+      "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
       "attributes": {
         "group": "fontFamily"
       }
@@ -145,14 +145,14 @@ const tokens = [
     ]
   },
   {
-    "value": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "value": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
     "attributes": {
       "group": "fontFamily"
     },
     "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+      "value": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
       "attributes": {
         "group": "fontFamily"
       }

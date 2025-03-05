@@ -10,6 +10,7 @@ import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibi
 import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -93,6 +94,8 @@ export type BlockControlsPluginDependencies = [
 	 */
 	OptionalPlugin<QuickInsertPlugin>,
 	OptionalPlugin<SelectionPlugin>,
+	// For ease of use metrics to track transactions where content was moved
+	OptionalPlugin<MetricsPlugin>,
 ];
 
 export type BlockControlsPlugin = NextEditorPlugin<

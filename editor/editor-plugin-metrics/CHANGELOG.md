@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.4.0
+
+### Minor Changes
+
+- [#120928](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120928)
+  [`01cb5ca9596cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01cb5ca9596cf) -
+  [ED-26316] Refactor checkTrActionType functions to be in it's own file to help with readability,
+  add check for safe insert count and update it in analytics event fired
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.3
 
 ### Patch Changes

@@ -98,7 +98,7 @@ ffTest.off('bandicoots-compiled-migration-smartcard', '', () => {
 					const element = await screen.findByTestId('smart-element-link');
 
 					expect(element).toHaveStyle(
-						'font: var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif)',
+						'font: var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
 					);
 				});
 
@@ -114,7 +114,7 @@ ffTest.off('bandicoots-compiled-migration-smartcard', '', () => {
 					const element = await screen.findByTestId('smart-element-link');
 
 					expect(element).toHaveStyle(
-						'font: var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif)',
+						'font: var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
 					);
 				});
 			});
@@ -283,7 +283,7 @@ ffTest.on('bandicoots-compiled-migration-smartcard', '', () => {
 					const element = await screen.findByTestId('smart-element-link');
 
 					expect(element).toHaveStyle(
-						'font: var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif);',
+						'font: var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
 					);
 				});
 
@@ -299,7 +299,7 @@ ffTest.on('bandicoots-compiled-migration-smartcard', '', () => {
 					const element = await screen.findByTestId('smart-element-link');
 
 					expect(element).toHaveStyle(
-						'font: var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif);',
+						'font: var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
 					);
 				});
 			});

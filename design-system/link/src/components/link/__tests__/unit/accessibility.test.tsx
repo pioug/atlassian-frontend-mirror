@@ -33,10 +33,10 @@ describe(`Accessibility:`, () => {
 
 			// Check for visually hidden styles
 			const hiddenText = screen.getByText(OPENS_NEW_WINDOW_LABEL);
-			expect(hiddenText).toHaveStyleDeclaration('width', '1px');
-			expect(hiddenText).toHaveStyleDeclaration('height', '1px');
-			expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
-			expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+			expect(hiddenText).toHaveCompiledCss('width', '1px');
+			expect(hiddenText).toHaveCompiledCss('height', '1px');
+			expect(hiddenText).toHaveCompiledCss('position', 'absolute');
+			expect(hiddenText).toHaveCompiledCss('clip', 'rect(1px,1px,1px,1px)');
 		});
 		it('to `aria-label`', () => {
 			render(
@@ -85,10 +85,10 @@ describe(`Accessibility:`, () => {
 
 			// Check for visually hidden styles
 			const hiddenText = screen.getByText(`, ${I18N_LABEL}`);
-			expect(hiddenText).toHaveStyleDeclaration('width', '1px');
-			expect(hiddenText).toHaveStyleDeclaration('height', '1px');
-			expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
-			expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+			expect(hiddenText).toHaveCompiledCss('width', '1px');
+			expect(hiddenText).toHaveCompiledCss('height', '1px');
+			expect(hiddenText).toHaveCompiledCss('position', 'absolute');
+			expect(hiddenText).toHaveCompiledCss('clip', 'rect(1px,1px,1px,1px)');
 		});
 		it('to `aria-label`', () => {
 			render(

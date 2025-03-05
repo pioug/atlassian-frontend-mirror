@@ -45,7 +45,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@atlaskit/visually-hidden": "^2.0.0",
+		"@atlaskit/visually-hidden": "^3.0.0",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",

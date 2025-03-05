@@ -15,6 +15,14 @@ export interface TeamContainerProps {
 	 * The component to replace current components
 	 */
 	components?: TeamContainersComponent;
+	/**
+	 * The user id of the current user
+	 */
+	userId: string;
+	/**
+	 * The cloud id of the current site
+	 */
+	cloudId: string;
 }
 
 export interface TeamContainersComponent {

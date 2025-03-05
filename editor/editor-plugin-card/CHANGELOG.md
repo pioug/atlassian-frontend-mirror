@@ -1,5 +1,46 @@
 # @atlaskit/editor-plugin-card
 
+## 5.2.0
+
+### Minor Changes
+
+- [#121851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121851)
+  [`71823ac860883`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71823ac860883) -
+  Add 'state' as an optional param to GetStartingToolbarItems type, display new appearance dropdown
+  for url nodes
+
+### Patch Changes
+
+- [#122152](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122152)
+  [`c3187eef09138`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3187eef09138) -
+  [ux] Update editor floating toolbar icons
+- Updated dependencies
+
+## 5.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- [#121533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121533)
+  [`9efef36af09aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9efef36af09aa) -
+  Wire up the copy functionality in floating toolbar overflow menu
+- [#121044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121044)
+  [`048ca2b813e3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/048ca2b813e3a) -
+  Add new dropdown menu to change link appearance and visit settings preferences, under
+  platform_editor_controls
+- Updated dependencies
+
 ## 5.0.7
 
 ### Patch Changes

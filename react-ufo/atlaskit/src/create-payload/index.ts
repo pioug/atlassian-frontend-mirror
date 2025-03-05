@@ -8,7 +8,7 @@ import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
 import { getReactUFOVersion } from '../common/constants';
-import type { MultiHeatmapPayload, VCResult } from '../common/vc/types';
+import type { VCResult } from '../common/vc/types';
 import {
 	type Config,
 	getConfig,
@@ -215,12 +215,17 @@ const getVCMetrics = async (
 
 	const tti = interaction.apdex?.[0]?.stopTime;
 	const prefix = 'ufo';
+
+	const interactionStatus = getInteractionStatus(interaction);
+	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
+
 	const result = await getVCObserver().getVCResult({
 		start: interaction.start,
 		stop: interaction.end,
 		tti,
 		prefix,
 		vc: interaction.vc,
+		isEventAborted: interactionStatus.originalInteractionStatus !== 'SUCCEEDED',
 		...ssr,
 	});
 
@@ -238,22 +243,11 @@ const getVCMetrics = async (
 		return result;
 	}
 
-	const interactionStatus = getInteractionStatus(interaction);
-	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
-
 	if (
 		interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
 		pageVisibilityUpToTTAI !== 'visible'
 	) {
 		return result;
-	}
-
-	if (fg('ufo_vc_multiheatmap')) {
-		(result[`${prefix}:vc:rev`] as MultiHeatmapPayload)?.forEach((element) => {
-			if (element.vcDetails?.['90']?.t) {
-				element['metric:vc90'] = element.vcDetails['90']?.t;
-			}
-		});
 	}
 
 	return {

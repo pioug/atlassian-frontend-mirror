@@ -13,6 +13,6 @@ snapshot(AssetsObjectsTable, {
 	],
 	featureFlags: {
 		'bandicoots-compiled-migration-link-datasource': [true, false],
-		'assets_as_an_app_v2': [true, false]
+		assets_as_an_app_v2: [true, false],
 	},
 });

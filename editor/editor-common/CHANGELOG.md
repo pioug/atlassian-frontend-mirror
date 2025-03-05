@@ -1,5 +1,66 @@
 # @atlaskit/editor-common
 
+## 101.1.0
+
+### Minor Changes
+
+- [#121851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121851)
+  [`71823ac860883`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71823ac860883) -
+  Add 'state' as an optional param to GetStartingToolbarItems type, display new appearance dropdown
+  for url nodes
+
+### Patch Changes
+
+- [#120928](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120928)
+  [`01cb5ca9596cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01cb5ca9596cf) -
+  [ED-26316] Refactor checkTrActionType functions to be in it's own file to help with readability,
+  add check for safe insert count and update it in analytics event fired
+
+## 101.0.0
+
+### Major Changes
+
+- [#118193](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118193)
+  [`16b99655206cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16b99655206cf) -
+  [EDF-2501] Migrated i18n messages from editor-plugin-ai to editor-common
+
+  ## Major Changes
+
+  ### Moved ai related messages from `@atlaskit/editor-common/messages` to `@atlaskit/editor-common/ai-messages`
+
+  `aiDefinitionMessages`, `aiProactiveMessages`, `aiProactiveSettingMessages`,
+  `aiProactiveTransformMessages` have been moved to `@atlaskit/editor-common/ai-messages`
+
+  ### Removed i18n export from `@atlassian/editor-plugin-ai`
+
+  All messages in `editor-plugin-ai` have been relocated to `@atlaskit/editor-common/ai-messages`
+
+## 100.5.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+- [#121044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121044)
+  [`1c7ee40e1cf44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c7ee40e1cf44) -
+  Add getDropdownOption and export appearancePropsMap from card directory
+
+### Patch Changes
+
+- [#121822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121822)
+  [`2316af8fbe07d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2316af8fbe07d) -
+  [ux] Updates floating toolbar of the inline and media single by moving alt text option to the
+  overflow menu.
+- [#119706](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119706)
+  [`42fd258ba482e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42fd258ba482e) -
+  ED-26704: enables editor node virtualization experiment
+- [#121073](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121073)
+  [`9c197731fcbf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c197731fcbf8) -
+  [ux] [ED-26824] When platform_editor_controls is enabled, add 'View more' button to quick
+  insertpopup to open element browser modal
+- Updated dependencies
+
 ## 100.4.3
 
 ### Patch Changes

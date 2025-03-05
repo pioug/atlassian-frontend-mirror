@@ -66,7 +66,7 @@ describe('Element: Badge', () => {
 
 			expect(text).toHaveStyleDeclaration(
 				'font',
-				'var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif)',
+				'var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
 			);
 		});
 	});

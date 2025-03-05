@@ -66,4 +66,8 @@ export default {
     '{count, plural, one {Team • {count} Mitglied, einschließlich Ihnen} other {Team • {count} Mitglieder, einschließlich Ihnen}}',
   'pt.team-profile-card.team.member.many': 'Team • über 50 Mitglieder',
   'pt.team-profile-card.team.member.many-including-you': 'Team • über 50 Mitglieder, einschließlich Ihnen',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {+ {count} weiteres Mitglied} other {+ {count} weitere Mitglieder}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+ {count} weiteres Profil} other {+ {count} weitere Profile}}',
 };

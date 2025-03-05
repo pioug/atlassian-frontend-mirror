@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-jira-transformer",
-	"version": "10.0.0",
+	"version": "10.1.1",
 	"description": "Editor JIRA transformer's",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "^100.4.0",
+		"@atlaskit/editor-common": "^101.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0",
 		"collapse-whitespace": "^1.1.6"
@@ -57,12 +57,12 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "^1.0.1",
-		"@atlaskit/editor-core": "^204.3.0",
-		"@atlaskit/editor-json-transformer": "^8.23.0",
-		"@atlaskit/editor-test-helpers": "^22.0.0",
-		"@atlaskit/mention": "^24.0.0",
+		"@atlaskit/editor-core": "^204.4.0",
+		"@atlaskit/editor-json-transformer": "^8.24.0",
+		"@atlaskit/editor-test-helpers": "^22.1.0",
+		"@atlaskit/mention": "^24.1.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tokens": "4.3.0",
+		"@atlaskit/tokens": "4.3.2",
 		"@atlaskit/util-data-test": "^18.0.0",
 		"@emotion/react": "^11.7.1",
 		"typescript": "~5.4.2"

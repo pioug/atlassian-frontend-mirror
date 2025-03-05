@@ -27,18 +27,23 @@ import {
 	TitleWrapperClassNameOldVisualRefresh,
 } from './styled';
 
+const iconWrapperStyleSVG = css({
+	position: 'absolute',
+	display: 'inline-flex',
+	alignItems: 'center',
+	boxSizing: 'border-box',
+	top: token('space.0'),
+	left: token('space.0'),
+	bottom: token('space.0'),
+	width: '16px',
+	userSelect: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& svg': {
+		display: 'block',
+	},
+});
+
 const styles = cssMap({
-	lozengeInternalWrapperStyle: {
-		paddingBottom: token('space.025'),
-	},
-	lozengeWrapperStyle: {
-		display: 'inline-block',
-		verticalAlign: 'bottom',
-		marginTop: token('space.0'),
-		marginRight: token('space.050'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.025'),
-	},
 	iconEmptyStyle: {
 		width: '16px',
 		display: 'inline-block',
@@ -57,7 +62,6 @@ const styles = cssMap({
 		paddingRight: token('space.050'),
 		paddingBottom: token('space.025'),
 		paddingLeft: token('space.050'),
-		font: token('font.body'),
 	},
 	iconWrapperStyle: {
 		position: 'absolute',
@@ -72,11 +76,7 @@ const styles = cssMap({
 	},
 	noLinkAppearanceStyle: {
 		color: token('color.text.subtlest'),
-		font: token('font.body'),
 		marginLeft: token('space.050'),
-	},
-	titleWrapperStyle: {
-		font: token('font.body'),
 	},
 });
 
@@ -139,9 +139,9 @@ const IconAndTitleLayoutNew = ({
 		}
 		if (fg('platform-linking-visual-refresh-v1')) {
 			return (
-				<Box as="span" xcss={styles.iconWrapperStyle} testId="icon-atlaskit-icon-wrapper">
+				<span css={[iconWrapperStyleSVG]} data-testId="icon-atlaskit-icon-wrapper">
 					{icon}
-				</Box>
+				</span>
 			);
 		}
 		return <IconWrapperOldVisualRefresh>{icon}</IconWrapperOldVisualRefresh>;
@@ -278,7 +278,7 @@ const IconAndTitleLayoutNew = ({
 			)}
 
 			{fg('platform-linking-visual-refresh-v1') ? (
-				<Box as="span" style={{ color: titleTextColor }} xcss={styles.titleWrapperStyle}>
+				<Box as="span" style={{ color: titleTextColor }}>
 					{title}
 				</Box>
 			) : (
@@ -368,13 +368,6 @@ const LozengeWrapperOldVisualRefresh = styled.span({
 });
 
 export const LozengeWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
-	if (fg('platform-linking-visual-refresh-v1')) {
-		return (
-			<Box as="span" xcss={styles.lozengeWrapperStyle}>
-				<Box xcss={styles.lozengeInternalWrapperStyle} {...props} />
-			</Box>
-		);
-	}
 	// note: This is just to get the types to work due to compiled css weirdness.
 	return <LozengeWrapperOldVisualRefresh {...(props as any)} />;
 };

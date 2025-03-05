@@ -742,7 +742,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		display: grid;
 		align-items: center;
 		position: absolute;
-		z-index: ${fg('platform_editor_table_column_selected_state_fix') 
+		z-index: ${fg('platform_editor_table_column_selected_state_fix')
 			? rowControlsZIndex + 4
 			: akEditorUnitZIndex};
 
@@ -1126,8 +1126,8 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		position: absolute;
 		margin-top: ${tableMarginTop}px;
 		left: -${tableToolbarSize + 1}px;
-		${fg('platform_editor_table_column_selected_state_fix') 
-			? '' 
+		${fg('platform_editor_table_column_selected_state_fix')
+			? ''
 			: `z-index: ${rowControlsZIndex + 4}`}
 	}
 

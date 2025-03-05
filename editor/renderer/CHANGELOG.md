@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 113.1.2
+
+### Patch Changes
+
+- [#118536](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/118536)
+  [`b46814682ebf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b46814682ebf8) -
+  [ux] [ED-26716] Review and fix usage of querySelectors in renderer table
+- Updated dependencies
+
+## 113.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 113.1.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 113.0.3
 
 ### Patch Changes

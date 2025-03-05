@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 2.0.2
+
+### Patch Changes
+
+- [#121254](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121254)
+  [`3cff2a93c194b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cff2a93c194b) -
+  [ux] ED-26844 Add placeholder text to empty lines, table cells, expands, panels and layoutColumns
+
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

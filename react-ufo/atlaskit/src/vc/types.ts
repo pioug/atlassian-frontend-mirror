@@ -4,6 +4,7 @@ export type GetVCResultType = {
 	start: number;
 	stop: number;
 	tti: number;
+	isEventAborted: boolean;
 	prefix?: string;
 	ssr?: number;
 	vc?: VCRawDataType | null;

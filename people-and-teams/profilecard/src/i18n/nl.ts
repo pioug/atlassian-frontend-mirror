@@ -59,4 +59,7 @@ export default {
     '{count, plural, one {Team • {count} lid, inclusief jezelf} other {Team •{count} leden, inclusief jezelf}}',
   'pt.team-profile-card.team.member.many': 'Team • 50+ leden',
   'pt.team-profile-card.team.member.many-including-you': 'Team • 50+ leden, inclusief jezelf.',
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, one {+{count} lid} other {+{count} leden}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+{count} profiel} other {+{count} profielen}}',
 };

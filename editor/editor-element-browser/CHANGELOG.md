@@ -1,5 +1,43 @@
 # @atlaskit/editor-element-browser
 
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.7
+
+### Patch Changes
+
+- [#122087](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122087)
+  [`c16a791049de0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c16a791049de0) -
+  Update dependencies (add: @atlaskit/button, @atlaskit/heading, @atlaskit/lozenge, @atlaskit/menu,
+  @atlaskit/textfield, @atlaskit/tooltip, @emotion/react; remove: @atlaskit/css, @compiled/react)
+
+## 0.1.6
+
+### Patch Changes
+
+- [#121985](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121985)
+  [`3fec8781d53c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fec8781d53c1) -
+  Add missing @atlaskit/icon, @atlaskit/icon-lab dependency
+
+## 0.1.5
+
+### Patch Changes
+
+- [#121509](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121509)
+  [`1cb9d8787b00b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cb9d8787b00b) -
+  [ED-26763] Update isSelected prop for ListButtonItem so the first item appeared as selected
+- [#121795](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121795)
+  [`accdfeecd6a86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/accdfeecd6a86) -
+  Add missing @atlaskit/icon, @atlaskit/icon-lab dependency
+- [#121677](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121677)
+  [`dbce46badc11a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbce46badc11a) -
+  [ux] Updates suggestions category for the QuickInsert and removes it from the Right rail
+- Updated dependencies
+
 ## 0.1.4
 
 ### Patch Changes

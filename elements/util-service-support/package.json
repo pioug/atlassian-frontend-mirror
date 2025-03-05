@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/react-ufo": "^3.1.0",
+		"@atlaskit/react-ufo": "^3.3.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

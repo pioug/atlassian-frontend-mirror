@@ -77,6 +77,7 @@ export const getExperimentalVCMetrics = async (interaction: InteractionMetrics) 
 			start: interaction.start,
 			stop: interaction.end,
 			tti: interaction.apdex?.[0]?.stopTime,
+			isEventAborted: !!interaction.abortReason,
 			prefix,
 			vc: interaction.vc,
 		});

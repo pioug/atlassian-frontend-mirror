@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/custom-steps",
-	"version": "0.10.1",
+	"version": "0.11.0",
 	"description": "Editor Custom Steps",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

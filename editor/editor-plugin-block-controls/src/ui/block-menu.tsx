@@ -8,7 +8,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { ArrowKeyNavigationType, DropdownMenu } from '@atlaskit/editor-common/ui-menu';
-import { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';

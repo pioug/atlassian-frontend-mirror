@@ -119,6 +119,17 @@ export type ForgeAppAuthFailure = PayloadCore<
 	}
 >;
 
+/** Inserts a prompt into the chat input - either:
+ * - A prompt without a placeholder - sends as a message
+ * - A prompt with a placeholder - inserts the prompt into the chat input
+ */
+export type InsertPromptPayload = PayloadCore<
+	'insert-prompt',
+	{
+		prompt: string;
+	}
+>;
+
 export type Payload =
 	| MessageSendPayload
 	| ChatNewPayload
@@ -130,7 +141,8 @@ export type Payload =
 	| EditorAgentChangedPayload
 	| BrowserContextPayload
 	| ForgeAppAuthSuccess
-	| ForgeAppAuthFailure;
+	| ForgeAppAuthFailure
+	| InsertPromptPayload;
 
 export type Callback = (payload: Payload) => void;
 

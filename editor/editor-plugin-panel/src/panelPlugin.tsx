@@ -37,8 +37,9 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 	name: 'panel',
 
 	nodes() {
-		const panelNode = editorExperiment('platform_editor_nested_non_bodied_macros', 'test') ?
-			extendedPanel(!!options.allowCustomPanel) : panelWithoutNestedNonBodiedMacros(!!options.allowCustomPanel);
+		const panelNode = editorExperiment('platform_editor_nested_non_bodied_macros', 'test')
+			? extendedPanel(!!options.allowCustomPanel)
+			: panelWithoutNestedNonBodiedMacros(!!options.allowCustomPanel);
 		return [{ name: 'panel', node: panelNode }];
 	},
 

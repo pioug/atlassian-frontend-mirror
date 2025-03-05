@@ -59,4 +59,8 @@ export default {
     '{count, plural, one {Tým • {count} člen včetně vás} few {Tým • {count} členové včetně vás} many {Tým • {count} člena včetně vás} other {Tým • {count} členů včetně vás}}',
   'pt.team-profile-card.team.member.many': 'Tým • 50 a více členů',
   'pt.team-profile-card.team.member.many-including-you': 'Tým • 50 a více členů včetně vás',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {+{count} další člen} few {+{count} další členové} many {+{count} dalšího člena} other {+{count} dalších členů}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+{count} další profil} few {+{count} další profily} many {+{count} dalšího profilu} other {+{count} dalších profilů}}',
 };

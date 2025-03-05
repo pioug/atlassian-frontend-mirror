@@ -981,7 +981,7 @@ const getAlignmentOptionsConfig = (
 				/>
 			);
 		},
-		width: 60,
+		width: 74,
 		height: 32,
 	};
 

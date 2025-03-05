@@ -62,4 +62,8 @@ export default {
     '{count, plural, one {Zespół z {count} członkiem, łącznie z Tobą} few {Zespół z {count} członkami, łącznie z Tobą} many {Zespół z {count} członkami, łącznie z Tobą} other {Zespół z {count} członka, łącznie z Tobą}}',
   'pt.team-profile-card.team.member.many': 'Zespół z ponad 50 członkami',
   'pt.team-profile-card.team.member.many-including-you': 'Zespół z ponad 50 członkami, łącznie z Tobą',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {i jeszcze {count} członek} few {i jeszcze {count} członków} many {i jeszcze {count} członków} other {i jeszcze {count} członka}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {i jeszcze {count} profil} few {i jeszcze {count} profile} many {i jeszcze {count} profile} other {i jeszcze {count} profilu}}',
 };

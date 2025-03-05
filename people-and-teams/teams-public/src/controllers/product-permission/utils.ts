@@ -1,4 +1,9 @@
-import type { ProductPermissionsResponse, UserProductPermissions } from './types';
+import type {
+	ProductPermissionRequestBodyType,
+	ProductPermissionsResponse,
+	ProductPermissionsType,
+	UserProductPermissions,
+} from './types';
 
 export const transformPermissions = (
 	permissions: ProductPermissionsResponse[],
@@ -16,21 +21,44 @@ export const transformPermissions = (
 export const getProductPermissionRequestBody = (
 	cloudId: string,
 	userId: string,
-	permissionId: string,
+	permissionIds: Array<keyof ProductPermissionsType>,
 ): string => {
-	const body = [
-		{
+	const body = permissionIds.reduce((acc: ProductPermissionRequestBodyType[], permissionId) => {
+		const permission: ProductPermissionRequestBodyType = {
 			permissionId,
-			resourceId: `ari:cloud:confluence::site/${cloudId}`,
+			resourceId: '',
 			principalId: `ari:cloud:identity::user/${userId}`,
 			dontRequirePrincipalInSite: true,
-		},
-		{
-			permissionId,
-			resourceId: `ari:cloud:jira-software::site/${cloudId}`,
-			principalId: `ari:cloud:identity::user/${userId}`,
-			dontRequirePrincipalInSite: true,
-		},
-	];
+		};
+
+		return [
+			...acc,
+			{
+				...permission,
+				resourceId: `ari:cloud:confluence::site/${cloudId}`,
+			},
+			{
+				...permission,
+				resourceId: `ari:cloud:jira-software::site/${cloudId}`,
+			},
+		];
+	}, []);
+
 	return JSON.stringify(body);
+};
+
+export const hasProductPermission = (
+	permissions: UserProductPermissions,
+	product: keyof UserProductPermissions,
+	permissionIds?: Array<keyof ProductPermissionsType>,
+) => {
+	if (!permissions[product]) {
+		return false;
+	}
+
+	if ((!permissionIds || permissionIds.length === 0) && permissions[product]) {
+		return Object.values(permissions[product] || {}).some((value) => value === true);
+	}
+
+	return permissionIds?.some((permissionId) => permissions[product]?.[permissionId]);
 };

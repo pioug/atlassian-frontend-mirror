@@ -353,9 +353,7 @@ const TeamProfilecardContent = ({
 				<Tooltip content={team.displayName}>
 					<Inline>
 						<TeamName>{team.displayName}</TeamName>
-						{team.isVerified && fg('show_verified_team_icon_in_profile_card') && (
-							<VerifiedTeamIcon />
-						)}
+						{team.isVerified && <VerifiedTeamIcon />}
 					</Inline>
 				</Tooltip>
 				<TeamMembers

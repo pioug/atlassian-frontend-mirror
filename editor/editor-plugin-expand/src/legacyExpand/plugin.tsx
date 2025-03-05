@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { expand, expandWithNestedExpand, nestedExpand, nestedExpandWithoutNonBodiedMacros } from '@atlaskit/adf-schema';
+import {
+	expand,
+	expandWithNestedExpand,
+	nestedExpand,
+	nestedExpandWithoutNonBodiedMacros,
+} from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -33,8 +38,9 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 		api?.featureFlags?.sharedState.currentState()?.nestedExpandInExpandEx ||
 		fg('platform_editor_nest_nested_expand_in_expand_jira');
 
-	const nestedExpandNode = editorExperiment('platform_editor_nested_non_bodied_macros', 'test') ?
-		nestedExpand : nestedExpandWithoutNonBodiedMacros;
+	const nestedExpandNode = editorExperiment('platform_editor_nested_non_bodied_macros', 'test')
+		? nestedExpand
+		: nestedExpandWithoutNonBodiedMacros;
 
 	return {
 		name: 'expand',

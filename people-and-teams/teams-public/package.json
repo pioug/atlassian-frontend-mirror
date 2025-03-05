@@ -36,6 +36,7 @@
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/heading": "^5.1.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/image": "^2.0.0",
 		"@atlaskit/link": "^3.0.0",
@@ -106,7 +107,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

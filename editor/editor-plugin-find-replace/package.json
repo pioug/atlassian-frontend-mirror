@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,8 +37,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/editor-common": "^100.4.0",
-		"@atlaskit/editor-plugin-analytics": "^2.0.0",
+		"@atlaskit/editor-common": "^101.1.0",
+		"@atlaskit/editor-plugin-analytics": "^2.1.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^3.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.4.0",
@@ -57,8 +57,8 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/editor-plugin-block-type": "^5.0.0",
-		"@atlaskit/editor-plugin-text-formatting": "^2.0.0",
+		"@atlaskit/editor-plugin-block-type": "^5.1.0",
+		"@atlaskit/editor-plugin-text-formatting": "^2.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"mockdate": "^3.0.5",

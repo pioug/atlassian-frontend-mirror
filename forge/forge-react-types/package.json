@@ -27,7 +27,7 @@
 		"team": "Forge UI"
 	},
 	"dependencies": {
-		"@atlaskit/badge": "^18.0.0",
+		"@atlaskit/badge": "^18.1.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/calendar": "^17.1.0",
 		"@atlaskit/checkbox": "^17.0.0",
@@ -46,7 +46,7 @@
 		"@atlaskit/progress-tracker": "10.0.1",
 		"@atlaskit/radio": "^8.0.0",
 		"@atlaskit/range": "^9.0.0",
-		"@atlaskit/renderer": "^113.0.0",
+		"@atlaskit/renderer": "^113.1.0",
 		"@atlaskit/section-message": "^8.0.0",
 		"@atlaskit/select": "^20.0.0",
 		"@atlaskit/spinner": "^18.0.0",

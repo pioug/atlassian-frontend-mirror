@@ -123,13 +123,11 @@ export class VCObserver implements VCObserverInterface {
 		});
 		this.heatmap = this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
-		if (fg('ufo_vc_multiheatmap')) {
-			this.multiHeatmap = new MultiRevisionHeatmap({
-				viewport: this.viewport,
-				revisions: getRevisions(),
-				devToolsEnabled: this.devToolsEnabled,
-			});
-		}
+		this.multiHeatmap = new MultiRevisionHeatmap({
+			viewport: this.viewport,
+			revisions: getRevisions(),
+			devToolsEnabled: this.devToolsEnabled,
+		});
 		this.isPostInteraction = options.isPostInteraction || false;
 	}
 
@@ -203,6 +201,7 @@ export class VCObserver implements VCObserverInterface {
 		prefix,
 		ssr,
 		vc,
+		isEventAborted,
 	}: GetVCResultType): Promise<VCResult> => {
 		const startTime = performance.now();
 		// add local measurement
@@ -356,12 +355,12 @@ export class VCObserver implements VCObserverInterface {
 			/*  do nothing */
 		}
 
-		const isMultiHeatmapEnabled = fg('ufo_vc_multiheatmap');
+		const isMultiHeatmapEnabled = !fg('platform_ufo_multiheatmap_killswitch');
 
 		const revisionsData =
 			isMultiHeatmapEnabled && multiHeatmap !== null
 				? {
-						[`${fullPrefix}vc:rev`]: multiHeatmap.getPayloadShapedData({
+						[`${fullPrefix}vc:rev`]: multiHeatmap?.getPayloadShapedData({
 							VCParts: VCObserver.VCParts.map((v) => parseInt(v)),
 							VCCalculationMethods: getRevisions().map(
 								({ classifier }) => classifier.VCCalculationMethod,
@@ -369,6 +368,8 @@ export class VCObserver implements VCObserverInterface {
 							filterComponentsLog: getRevisions().map(
 								({ classifier }) => classifier.filterComponentsLog,
 							),
+							isEventAborted,
+							interactionStart: start,
 							ttai: stop,
 							ssr,
 							clean: !abortReasonInfo,
@@ -377,6 +378,10 @@ export class VCObserver implements VCObserverInterface {
 				: null;
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
+		const speedIndex = {
+			[`ufo:speedIndex`]: VCEntries.speedIndex,
+			[`ufo:next:speedIndex`]: vcNext.VCEntries.speedIndex,
+		};
 
 		return {
 			'metrics:vc': VC,
@@ -395,8 +400,7 @@ export class VCObserver implements VCObserverInterface {
 			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 			...revisionsData,
-			[`ufo:speedIndex`]: isCalcSpeedIndexEnabled ? VCEntries.speedIndex : undefined,
-			[`ufo:next:speedIndex`]: isCalcSpeedIndexEnabled ? vcNext.VCEntries.speedIndex : undefined,
+			...(isCalcSpeedIndexEnabled ? speedIndex : {}),
 		};
 	};
 
@@ -535,16 +539,14 @@ export class VCObserver implements VCObserverInterface {
 		this.measureStart();
 
 		this.legacyHandleUpdate(rawTime, intersectionRect, targetName, element, type, ignoreReason);
-		if (fg('ufo_vc_multiheatmap')) {
-			this.onViewportChangeDetected({
-				timestamp: rawTime,
-				intersectionRect,
-				targetName,
-				element,
-				type,
-				ignoreReason,
-			});
-		}
+		this.onViewportChangeDetected({
+			timestamp: rawTime,
+			intersectionRect,
+			targetName,
+			element,
+			type,
+			ignoreReason,
+		});
 
 		this.measureStop();
 	};
@@ -646,15 +648,11 @@ export class VCObserver implements VCObserverInterface {
 		this.detachAbortListeners();
 		this.heatmap = this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
-
-		if (fg('ufo_vc_multiheatmap')) {
-			this.multiHeatmap = new MultiRevisionHeatmap({
-				viewport: this.viewport,
-				revisions: getRevisions(),
-				devToolsEnabled: this.devToolsEnabled,
-			});
-		}
-
+		this.multiHeatmap = new MultiRevisionHeatmap({
+			viewport: this.viewport,
+			revisions: getRevisions(),
+			devToolsEnabled: this.devToolsEnabled,
+		});
 		this.totalTime = 0;
 		this.componentsLog = {};
 		this.vcRatios = {};

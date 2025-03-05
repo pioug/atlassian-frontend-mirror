@@ -115,6 +115,7 @@ export default class PostInteractionLog {
 			start: this.lastInteractionFinish.start,
 			stop: performance.now(),
 			tti: -1, // no need for TTI value here
+			isEventAborted: !!this.lastInteractionFinish.abortReason,
 			prefix: 'ufo',
 			...this.vcObserverSSRConfig,
 		});

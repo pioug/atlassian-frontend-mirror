@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const getInlineNodePos = (
 	tr: Transaction,
@@ -72,6 +73,8 @@ export const getSelection = (tr: Transaction, start: number) => {
 		nodeName === 'mediaGroup'
 	) {
 		return new NodeSelection($startPos);
+	} else if (nodeName === 'taskList' && fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+		return TextSelection.create(tr.doc, start, start + nodeSize);
 	} else {
 		const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
 		return new TextSelection(tr.doc.resolve(inlineNodePos), tr.doc.resolve(inlineNodeEndPos));
@@ -122,22 +125,46 @@ export const isHandleCorrelatedToSelection = (
 	if (selection.empty) {
 		return false;
 	}
+	let nodeStart: number;
 	const $selectionFrom = selection.$from;
-	const selectionFrom = $selectionFrom.pos;
-	let nodeStart = $selectionFrom.depth ? $selectionFrom.before() : selectionFrom;
-	const $resolvedNodePos = state.doc.resolve(nodeStart);
+	if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+		nodeStart = $selectionFrom.before($selectionFrom.sharedDepth(selection.to) + 1);
 
-	if (['tableRow', 'tableCell', 'tableHeader'].includes($resolvedNodePos.node().type.name)) {
-		const parentNodeFindRes = findParentNodeOfType(state.schema.nodes['table'])(selection);
-		const tablePos = parentNodeFindRes?.pos;
-		nodeStart = typeof tablePos === 'undefined' ? nodeStart : tablePos;
-	} else if (['listItem'].includes($resolvedNodePos.node().type.name)) {
-		nodeStart = $resolvedNodePos.before(rootListDepth($resolvedNodePos));
-	} else if (['taskList'].includes($resolvedNodePos.node().type.name)) {
-		const listdepth = rootTaskListDepth($resolvedNodePos);
-		nodeStart = $resolvedNodePos.before(listdepth);
-	} else if (['blockquote'].includes($resolvedNodePos.node().type.name)) {
-		nodeStart = $resolvedNodePos.before();
+		if (nodeStart === $selectionFrom.pos) {
+			nodeStart = $selectionFrom.depth ? $selectionFrom.before() : $selectionFrom.pos;
+		}
+
+		const $resolvedNodePos = state.doc.resolve(nodeStart);
+
+		if (['tableRow', 'tableCell', 'tableHeader'].includes($resolvedNodePos.node().type.name)) {
+			const parentNodeFindRes = findParentNodeOfType(state.schema.nodes['table'])(selection);
+			const tablePos = parentNodeFindRes?.pos;
+			nodeStart = typeof tablePos === 'undefined' ? nodeStart : tablePos;
+		} else if (['listItem'].includes($resolvedNodePos.node().type.name)) {
+			nodeStart = $resolvedNodePos.before(rootListDepth($resolvedNodePos));
+		} else if (['taskList'].includes($resolvedNodePos.node().type.name)) {
+			const listdepth = rootTaskListDepth($resolvedNodePos);
+			nodeStart = $resolvedNodePos.before(listdepth);
+		} else if (['blockquote'].includes($resolvedNodePos.node().type.name)) {
+			nodeStart = $resolvedNodePos.before();
+		}
+	} else {
+		const selectionFrom = $selectionFrom.pos;
+		nodeStart = $selectionFrom.depth ? $selectionFrom.before() : selectionFrom;
+		const $resolvedNodePos = state.doc.resolve(nodeStart);
+
+		if (['tableRow', 'tableCell', 'tableHeader'].includes($resolvedNodePos.node().type.name)) {
+			const parentNodeFindRes = findParentNodeOfType(state.schema.nodes['table'])(selection);
+			const tablePos = parentNodeFindRes?.pos;
+			nodeStart = typeof tablePos === 'undefined' ? nodeStart : tablePos;
+		} else if (['listItem'].includes($resolvedNodePos.node().type.name)) {
+			nodeStart = $resolvedNodePos.before(rootListDepth($resolvedNodePos));
+		} else if (['taskList'].includes($resolvedNodePos.node().type.name)) {
+			const listdepth = rootTaskListDepth($resolvedNodePos);
+			nodeStart = $resolvedNodePos.before(listdepth);
+		} else if (['blockquote'].includes($resolvedNodePos.node().type.name)) {
+			nodeStart = $resolvedNodePos.before();
+		}
 	}
 
 	return Boolean(handlePos < selection.$to.pos && handlePos >= nodeStart);

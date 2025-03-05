@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo } from 'react';
+import { memo, type ReactNode } from 'react';
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
@@ -10,7 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, type TextColor } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { formatValue } from './internal/utils';
+import { formatValue, formatValueWithNegativeSupport } from './internal/utils';
 import type { BadgeProps, ThemeAppearance } from './types';
 
 const boxStyles = cssMapUnbound({
@@ -78,6 +78,20 @@ const styles = cssMapUnbound({
 	},
 });
 
+const badgeValueWithNegativeNumberSupported = (
+	children?: number | ReactNode,
+	max?: number | false,
+) => {
+	// Use this flag for allowing negative values(numbers) in badge component when custom number field is used
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+	if (fg('platform_ken_2029_negative_numbers_badge')) {
+		return typeof children === 'number' && typeof max === 'number'
+			? formatValueWithNegativeSupport(children, max)
+			: children;
+	}
+	return typeof children === 'number' && max ? formatValue(children, max) : children;
+};
+
 /**
  * __Badge__
  *
@@ -103,7 +117,7 @@ const Badge = memo(function Badge({
 				style={{ background: style?.backgroundColor, color: style?.color }}
 			>
 				<Text size="small" align="center" color="inherit">
-					{typeof children === 'number' && max ? formatValue(children, max) : children}
+					{badgeValueWithNegativeNumberSupported(children, max)}
 				</Text>
 			</span>
 		);
@@ -120,7 +134,7 @@ const Badge = memo(function Badge({
 				align="center"
 				color={style?.color ? 'inherit' : textColors[appearance]}
 			>
-				{typeof children === 'number' && max ? formatValue(children, max) : children}
+				{badgeValueWithNegativeNumberSupported(children, max)}
 			</Text>
 		</span>
 	);

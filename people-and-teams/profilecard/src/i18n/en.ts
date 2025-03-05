@@ -59,6 +59,9 @@ export default {
     'Team • {count} {count, plural, one {member} other {members}}, including you',
   'pt.team-profile-card.team.member.many': 'Team • 50+ members',
   'pt.team-profile-card.team.member.many-including-you': 'Team • 50+ members, including you',
+  'pt.team.profile-card.members.more-icon-label': '+{count} more {count, plural, one {members} other {members}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '+{count} more {count, plural, one {profile} other {profiles}}',
   'ptc-directory.agent-profile.action.dropdown.chat-to-agent.nonfinal': 'Chat to Agent',
   'ptc-directory.agent-profile.action.dropdown.copy-link.nonfinal': 'Copy link',
   'ptc-directory.agent-profile.action.dropdown.delete.nonfinal': 'Delete Agent',

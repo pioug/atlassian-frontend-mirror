@@ -54,6 +54,7 @@ export type GetStartingToolbarItems = (
 	link: string,
 	onEditLink: Command,
 	metadata: { url: string; title: string },
+	state?: EditorState,
 ) => FloatingToolbarItem<Command>[];
 
 export type GetEndingToolbarItems = (

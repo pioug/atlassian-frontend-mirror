@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useProductPermissionsStore } from '../../../product-permission/main';
+import { useProductPermissionsStore } from '../../product-permission/main';
 
 import { useProductPermissions } from './index';
 
-jest.mock('../../../product-permission/main', () => ({
+jest.mock('../../product-permission/main', () => ({
 	useProductPermissionsStore: jest.fn(),
 }));
 
@@ -33,7 +33,10 @@ describe('useProductPermissionsService', () => {
 		]);
 
 		const { result } = renderHook(() =>
-			useProductPermissions('user-id', 'cloud-id', 'write', { enabled: true }),
+			useProductPermissions(
+				{ userId: 'user-id', cloudId: 'cloud-id', permissionIds: ['manage'] },
+				{ enabled: true },
+			),
 		);
 
 		expect(result.current.loading).toBe(true);
@@ -47,7 +50,10 @@ describe('useProductPermissionsService', () => {
 		]);
 
 		const { result } = renderHook(() =>
-			useProductPermissions('user-id', 'cloud-id', 'write', { enabled: true }),
+			useProductPermissions(
+				{ userId: 'user-id', cloudId: 'cloud-id', permissionIds: ['manage'] },
+				{ enabled: true },
+			),
 		);
 
 		expect(result.current.error).toBe(error);

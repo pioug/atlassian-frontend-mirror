@@ -1,4 +1,5 @@
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type SentinelState = 'above' | 'visible' | 'below';
 
@@ -42,9 +43,16 @@ export class TableStickyScrollbar {
 			return;
 		}
 
-		this.stickyScrollbarContainerElement = this.wrapper.parentElement?.querySelector(
+		const scrollbarContainers = this.wrapper.parentElement?.querySelectorAll(
 			`.${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}`,
 		);
+
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
+		this.stickyScrollbarContainerElement = fg('platform_editor_querySelector_fix_table_renderer')
+			? (scrollbarContainers?.item(scrollbarContainers.length - 1) as HTMLDivElement)
+			: this.wrapper.parentElement?.querySelector(
+					`.${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}`,
+				);
 
 		if (this.stickyScrollbarContainerElement) {
 			// Ignored via go/ees005
@@ -92,11 +100,17 @@ export class TableStickyScrollbar {
 			{ root: this.rendererScrollableElement },
 		);
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		this.sentinels.bottom = this.wrapper?.parentElement
-			?.getElementsByClassName(TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM)
-			?.item(0) as HTMLElement;
+		const bottomSentinels = this.wrapper?.parentElement?.getElementsByClassName(
+			TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM,
+		);
+
+		this.sentinels.bottom = fg('platform_editor_querySelector_fix_table_renderer')
+			? // eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(bottomSentinels?.item(bottomSentinels.length - 1) as HTMLElement)
+			: // eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(this.wrapper?.parentElement
+					?.getElementsByClassName(TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM)
+					?.item(0) as HTMLElement);
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting

@@ -67,7 +67,7 @@ export class ViewportCanvas {
 		}
 
 		this.ctx = ctx;
-    this.ctx.globalCompositeOperation = "source-over";
+		this.ctx.globalCompositeOperation = 'source-over';
 		this.clear();
 	}
 
@@ -120,12 +120,7 @@ export class ViewportCanvas {
 		this.ctx.fillStyle = color;
 
 		if (this.scaleFactor === 1) {
-			return this.ctx.fillRect(
-				rect.x,
-				rect.y,
-				rect.width,
-				rect.height,
-			)
+			return this.ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
 		const scaledX = rect.x * this.scaleX;
 		const scaledY = rect.y * this.scaleY;

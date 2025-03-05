@@ -99,7 +99,7 @@ const isAndroidChromium =
  * @returns
  */
 export const statusNodeSpec = () => {
-	if (isSSR || editorExperiment("platform_editor_inline_node_virtualization", "off")) {
+	if (isSSR || editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
 		return status;
 	}
 

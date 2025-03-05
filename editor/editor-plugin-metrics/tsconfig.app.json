@@ -36,9 +36,6 @@
 		},
 		{
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-plugin-block-controls/tsconfig.app.json"
 		}
 	],
 	"files": []

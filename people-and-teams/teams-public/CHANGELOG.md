@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.8.0
+
+### Minor Changes
+
+- [#120425](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120425)
+  [`ada759ba3140e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ada759ba3140e) -
+  [ux] Emprty state for no product access
+
 ## 0.7.0
 
 ### Minor Changes

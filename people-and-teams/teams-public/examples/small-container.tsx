@@ -29,7 +29,12 @@ export default function Basic() {
 		<Router>
 			<IntlProvider key={locale} locale={locale}>
 				<Box xcss={styles.root}>
-					<TeamContainers teamId="team-id" onAddAContainerClick={() => {}} />
+					<TeamContainers
+						teamId="team-id"
+						onAddAContainerClick={() => {}}
+						userId={'user-id'}
+						cloudId={'cloud-id'}
+					/>
 				</Box>
 			</IntlProvider>
 		</Router>

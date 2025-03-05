@@ -15,14 +15,10 @@ import { type MetricsPlugin } from '../metricsPluginType';
 
 import { ActiveSessionTimer } from './utils/active-session-timer';
 import { getAnalyticsPayload } from './utils/analytics';
-import {
-	ActionType,
-	type TrActionType,
-	checkTrActionType,
-	shouldSkipTr,
-} from './utils/check-tr-action-type';
-import { isNonTextUndo } from './utils/is-non-text-undo';
+import { type TrActionType } from './utils/check-tr-actions/types';
+import { getNewPluginState } from './utils/get-new-plugin-state';
 import { isTrWithDocChanges } from './utils/is-tr-with-doc-changes';
+import { shouldSkipTr } from './utils/should-skip-tr';
 
 export const metricsKey = new PluginKey('metricsPlugin');
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
@@ -39,6 +35,7 @@ export type MetricsState = {
 	initialContent?: Fragment;
 	previousTrType?: TrActionType;
 	repeatedActionCount: number;
+	safeInsertCount: number;
 };
 
 export type ActionByType = {
@@ -48,6 +45,8 @@ export type ActionByType = {
 	contentMovedCount: number;
 	nodeDeletionCount: number;
 	undoCount: number;
+	markChangeCount: number;
+	contentDeletedCount: number;
 };
 
 export const initialPluginState: MetricsState = {
@@ -65,8 +64,11 @@ export const initialPluginState: MetricsState = {
 		contentMovedCount: 0,
 		nodeDeletionCount: 0,
 		undoCount: 0,
+		markChangeCount: 0,
+		contentDeletedCount: 0,
 	},
 	repeatedActionCount: 0,
+	safeInsertCount: 0,
 };
 
 export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined) => {
@@ -88,6 +90,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				oldState: EditorState,
 				newState: EditorState,
 			): MetricsState {
+				// Return if transaction is remote or replaceDocument is set
 				if (tr.getMeta('isRemote') || tr.getMeta('replaceDocument')) {
 					return pluginState;
 				}
@@ -108,16 +111,18 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
 
 				const now = performance.now();
+				// If there is no intentToStartEditTime and there are no doc changes, return the plugin state
 				if (!intentToStartEditTime && !hasDocChanges && !tr.storedMarksSet) {
 					return pluginState;
 				}
 
+				// Set intentToStartEditTime if it is not set and there are doc changes or marks are set
 				if (!intentToStartEditTime && (hasDocChanges || tr.storedMarksSet)) {
 					intentToStartEditTime = now;
 				}
 
-				// Start active session timer if intentToStartEditTime is set and shouldStartTimer is true
-				// shouldPersistActiveSession is set to true when dragging block controls and when insert menu is open
+				// Start active session timer if intentToStartEditTime is defined, shouldStartTimer is true and shouldPersistActiveSession is false
+				// shouldPersistActiveSession is true when dragging block controls and when insert menu is open as user is interacting with the editor without making doc changes
 				// Timer should start when menu closes or dragging stops
 				if (
 					intentToStartEditTime &&
@@ -127,134 +132,23 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					timer.startTimer();
 				}
 
-				const undoCount = isNonTextUndo(tr) ? 1 : 0;
-
-				const newActionTypeCount: ActionByType = pluginState.actionTypeCount
-					? {
-							...pluginState.actionTypeCount,
-							undoCount: pluginState.actionTypeCount.undoCount + undoCount,
-						}
-					: {
-							...initialPluginState.actionTypeCount,
-							undoCount,
-						};
-
 				if (hasDocChanges) {
 					timer.startTimer();
-
-					const { actionTypeCount, timeOfLastTextInput, totalActionCount, previousTrType } =
-						pluginState;
 
 					if (shouldSkipTr(tr)) {
 						return pluginState;
 					}
 
-					const trType = checkTrActionType(tr);
-
-					let shouldNotIncrementActionCount = false;
-					let shouldSetTimeOfLastTextInput = false;
-					let isTextInput = false;
-
-					if (trType) {
-						const isNotNewStatus =
-							trType.type === ActionType.UPDATING_STATUS &&
-							previousTrType?.type === ActionType.UPDATING_STATUS &&
-							trType?.extraData?.statusId === previousTrType?.extraData?.statusId;
-
-						const isAddingTextToListNode =
-							trType.type === ActionType.TEXT_INPUT &&
-							!!previousTrType &&
-							[
-								ActionType.UPDATING_NEW_LIST_TYPE_ITEM,
-								ActionType.INSERTING_NEW_LIST_TYPE_NODE,
-							].includes(previousTrType.type);
-
-						const isAddingNewListItemAfterTextInput =
-							!!previousTrType &&
-							previousTrType.type === ActionType.TEXT_INPUT &&
-							[ActionType.UPDATING_NEW_LIST_TYPE_ITEM].includes(trType.type);
-
-						// Check if tr is textInput and only increment textInputCount if previous action was not textInput
-						isTextInput = [ActionType.TEXT_INPUT, ActionType.EMPTY_LINE_ADDED_OR_DELETED].includes(
-							trType.type,
-						);
-
-						// timeOfLastTextInput should be set if tr includes continuous text input on the same node
-						shouldSetTimeOfLastTextInput =
-							[
-								ActionType.TEXT_INPUT,
-								ActionType.EMPTY_LINE_ADDED_OR_DELETED,
-								ActionType.UPDATING_NEW_LIST_TYPE_ITEM,
-								ActionType.INSERTING_NEW_LIST_TYPE_NODE,
-								ActionType.UPDATING_STATUS,
-							].includes(trType.type) || isNotNewStatus;
-
-						// Should not increase action count if tr is text input,
-						// empty line added or deleted, updating new list item or is updating same status node
-
-						shouldNotIncrementActionCount =
-							isTextInput ||
-							isNotNewStatus ||
-							isAddingTextToListNode ||
-							isAddingNewListItemAfterTextInput;
-					}
-
-					let newTextInputCount = isTextInput
-						? actionTypeCount.textInputCount + 1
-						: actionTypeCount.textInputCount;
-					let newTotalActionCount = totalActionCount + 1;
-
-					if (timeOfLastTextInput && shouldNotIncrementActionCount) {
-						newTotalActionCount = totalActionCount;
-					}
-
-					if (
-						timeOfLastTextInput &&
-						isTextInput &&
-						previousTrType &&
-						[
-							ActionType.TEXT_INPUT,
-							ActionType.EMPTY_LINE_ADDED_OR_DELETED,
-							ActionType.UPDATING_NEW_LIST_TYPE_ITEM,
-							ActionType.INSERTING_NEW_LIST_TYPE_NODE,
-						].includes(previousTrType.type)
-					) {
-						newTextInputCount = actionTypeCount.textInputCount;
-					}
-
-					let newNodeAttrCount = actionTypeCount.nodeAttributeChangeCount;
-					let newRepeatedActionCount = pluginState.repeatedActionCount;
-
-					if (trType?.type === ActionType.CHANGING_ATTRS) {
-						newNodeAttrCount = newNodeAttrCount + 1;
-						if (previousTrType?.type === ActionType.CHANGING_ATTRS) {
-							const { attr: newAttr, from: newFrom, to: newTo } = trType.extraData;
-							const { attr: prevAttr, from: prevFrom, to: prevTo } = previousTrType.extraData;
-							newRepeatedActionCount =
-								newAttr === prevAttr && newFrom === prevFrom && newTo === prevTo
-									? newRepeatedActionCount + 1
-									: newRepeatedActionCount;
-						}
-					}
-
-					const newPluginState = {
-						...pluginState,
-						activeSessionTime: now - intentToStartEditTime,
-						totalActionCount: newTotalActionCount,
-						timeOfLastTextInput: shouldSetTimeOfLastTextInput ? now : undefined,
-						contentSizeChanged:
-							pluginState.contentSizeChanged +
-							(newState.doc.content.size - oldState.doc.content.size),
-						actionTypeCount: {
-							...newActionTypeCount,
-							textInputCount: newTextInputCount,
-							nodeAttributeChangeCount: newNodeAttrCount,
-						},
+					const newPluginState = getNewPluginState({
+						now,
 						intentToStartEditTime,
 						shouldPersistActiveSession,
-						previousTrType: trType,
-						repeatedActionCount: newRepeatedActionCount,
-					};
+						tr,
+						pluginState,
+						oldState,
+						newState,
+					});
+
 					return newPluginState;
 				}
 
@@ -262,30 +156,11 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					...pluginState,
 					lastSelection: meta?.newSelection || pluginState.lastSelection,
 					intentToStartEditTime,
-					actionTypeCount: newActionTypeCount,
 					shouldPersistActiveSession,
 				};
 			},
 		},
 		view(view: EditorView) {
-			const handleIsDraggingChanged = api?.blockControls?.sharedState.onChange(
-				({ nextSharedState, prevSharedState }) => {
-					if (nextSharedState) {
-						api?.core.actions.execute(({ tr }) => {
-							if (!prevSharedState?.isDragging && nextSharedState.isDragging) {
-								api?.metrics.commands.handleIntentToStartEdit({
-									shouldStartTimer: false,
-									shouldPersistActiveSession: true,
-								})({ tr });
-							} else if (prevSharedState?.isDragging && !nextSharedState.isDragging) {
-								api?.metrics.commands.startActiveSessionTimer()({ tr });
-							}
-							return tr;
-						});
-					}
-				},
-			);
-
 			const fireAnalyticsEvent = () => {
 				const pluginState = metricsKey.getState(view.state);
 				if (!pluginState) {
@@ -297,7 +172,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				});
 
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
-					api?.analytics.actions.fireAnalyticsEvent(payloadToSend, undefined, { immediate: true });
+					api?.analytics?.actions.fireAnalyticsEvent(payloadToSend, undefined, { immediate: true });
 				}
 			};
 
@@ -313,7 +188,6 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					fireAnalyticsEvent();
 					timer.cleanupTimer();
 					unbindBeforeUnload();
-					handleIsDraggingChanged?.();
 				},
 			};
 		},

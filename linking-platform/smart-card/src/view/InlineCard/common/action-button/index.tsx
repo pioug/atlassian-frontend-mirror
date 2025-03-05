@@ -41,9 +41,8 @@ const actionButtonStyle = xcss({
 	borderBottomLeftRadius: '0px',
 	backgroundClip: 'padding-box',
 	boxDecorationBreak: 'clone',
-	font: 'font.body.large',
-	paddingTop: 'space.025',
 	paddingLeft: 'space.075',
+	paddingTop: 'space.025',
 	paddingBottom: 'space.025',
 	paddingRight: 'space.075',
 	whiteSpace: 'nowrap',
@@ -53,7 +52,6 @@ const actionButtonStyle = xcss({
 });
 
 const internalButtonStyle = xcss({
-	font: 'font.body',
 	fontWeight: 'font.weight.medium',
 });
 

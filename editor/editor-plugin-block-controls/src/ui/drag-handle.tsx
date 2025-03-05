@@ -374,10 +374,11 @@ export const DragHandle = ({
 						}
 						const oldHandlePosCheck =
 							handlePos >= tr.selection.$from.start() - 1 && handlePos <= tr.selection.to;
-						const newHandlePosCheck =
-							handlePos >=
-								(tr.selection.$from.depth ? tr.selection.$from.before() : tr.selection.from) &&
-							handlePos < tr.selection.to;
+						const newHandlePosCheck = isHandleCorrelatedToSelection(
+							view.state,
+							tr.selection,
+							handlePos,
+						);
 						if (
 							!tr.selection.empty &&
 							(fg('platform_editor_elements_dnd_multi_select_patch_1')

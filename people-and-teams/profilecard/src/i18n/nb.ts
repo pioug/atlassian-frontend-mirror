@@ -60,4 +60,8 @@ export default {
     '{count, plural, one {Team • {count} medlem, inkludert deg} other {Team • {count} medlemmer, inkludert deg}}',
   'pt.team-profile-card.team.member.many': 'Team • flere enn 50 medlemmer',
   'pt.team-profile-card.team.member.many-including-you': 'Team • flere enn 50 medlemmer, inkludert deg',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {{count} medlem til} other {{count} medlemmer til}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {{count} profil til} other {{count} profiler til}}',
 };

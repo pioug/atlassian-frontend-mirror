@@ -4,35 +4,12 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	type ActiveSessionEventPayload,
-	type ActiveSessionEventAttributes,
 } from '@atlaskit/editor-common/analytics';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { MetricsState } from '../main';
 
 import { getNodeChanges } from './get-node-changes';
-
-type Props = {
-	pluginState: MetricsState;
-	contentSizeChanged: number;
-};
-
-export const getPayloadAttributes = ({
-	pluginState,
-	contentSizeChanged,
-}: Props): ActiveSessionEventAttributes => ({
-	efficiency: {
-		totalActiveTime: pluginState.activeSessionTime,
-		totalActionCount: pluginState.totalActionCount,
-		actionByTypeCount: pluginState.actionTypeCount,
-	},
-	effectiveness: {
-		undoCount: pluginState.actionTypeCount.undoCount,
-		repeatedActionCount: pluginState.repeatedActionCount,
-		safeInsertCount: 0,
-	},
-	contentSizeChanged,
-});
 
 export const getAnalyticsPayload = ({
 	currentContent,
@@ -42,6 +19,15 @@ export const getAnalyticsPayload = ({
 	pluginState: MetricsState;
 }): ActiveSessionEventPayload => {
 	const nodeChanges = getNodeChanges({ currentContent, pluginState });
+
+	const getActionCountByTypeSum = () => {
+		let actionCountByTypeSum = 0;
+		Object.entries(pluginState.actionTypeCount).forEach(([_actionType, count]) => {
+			actionCountByTypeSum += count;
+		});
+
+		return pluginState.totalActionCount - actionCountByTypeSum;
+	};
 
 	let nodeInsertionCount = 0;
 	let nodeDeletionCount = 0;
@@ -66,12 +52,13 @@ export const getAnalyticsPayload = ({
 					...(pluginState.actionTypeCount ?? {}),
 					nodeDeletionCount,
 					nodeInsertionCount,
+					other: getActionCountByTypeSum(),
 				},
 			},
 			effectiveness: {
 				undoCount: pluginState.actionTypeCount.undoCount,
 				repeatedActionCount: pluginState.repeatedActionCount,
-				safeInsertCount: 0,
+				safeInsertCount: pluginState.safeInsertCount,
 			},
 			contentSizeChanged: pluginState.contentSizeChanged,
 		},

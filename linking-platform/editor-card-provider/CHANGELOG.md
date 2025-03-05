@@ -1,5 +1,16 @@
 # @atlaskit/editor-card-provider
 
+## 4.1.0
+
+### Minor Changes
+
+- [#121167](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121167)
+  [`ee11687395d4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee11687395d4d) -
+  FF Clean up: rovo_chat_append_org_id_to_atlas_url, linking_platform_show_lozenge_atlassian_state,
+  rovo_profile_card_open_chat_sidebar, rovo_chat_fix_pubsub_init_race_condition,
+  rovo_agent_profile_page_default_embed, rovo_refocus_use_visibilitychange, and
+  rovo_chat_pubsub_flush
+
 ## 4.0.2
 
 ### Patch Changes

@@ -63,4 +63,7 @@ export default {
     '{count, plural, one {Takım • Siz de dahil olmak üzere {count} üye} other {Takım • Siz de dahil olmak üzere {count} üye}}',
   'pt.team-profile-card.team.member.many': "Takım • 50'den fazla üye",
   'pt.team-profile-card.team.member.many-including-you': "Takım • Siz de dahil olmak üzere 50'den fazla üye",
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, one {+{count} üye daha} other {+{count} üye daha}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+{count} profil daha} other {+{count} profil daha}}',
 };

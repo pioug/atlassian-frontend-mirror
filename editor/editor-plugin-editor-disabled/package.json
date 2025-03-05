@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-disabled",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Editor disabled plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,7 +26,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^100.4.0",
+		"@atlaskit/editor-common": "^101.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0",
 		"raf-schd": "^4.0.3"

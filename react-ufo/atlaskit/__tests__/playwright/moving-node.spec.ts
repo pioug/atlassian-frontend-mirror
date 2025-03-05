@@ -6,10 +6,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - moving-node', () => {
 	test.use({
 		examplePage: 'moving-node',
-		featureFlags: [
-			'platform_ufo_vc_observer_new',
-			'platform_ufo_vc_ttai_on_paint',
-		],
+		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
 	});
 
 	for (const viewport of viewports) {

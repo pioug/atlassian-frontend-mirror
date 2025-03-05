@@ -1,5 +1,21 @@
 # @atlaskit/tokens
 
+## 4.3.2
+
+### Patch Changes
+
+- [#120305](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120305)
+  [`1f9d819229019`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f9d819229019) -
+  Remove system-ui from theme font stacks
+
+## 4.3.1
+
+### Patch Changes
+
+- [#121762](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121762)
+  [`a7fdeca193df1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7fdeca193df1) -
+  Remove analytics tracking from the token function
+
 ## 4.3.0
 
 ### Minor Changes

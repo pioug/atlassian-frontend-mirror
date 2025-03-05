@@ -5,7 +5,7 @@
 import { Fragment, type ReactNode, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';

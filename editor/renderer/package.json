@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "113.0.3",
+	"version": "113.1.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,21 +25,21 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/adf-utils": "^19.18.0",
+		"@atlaskit/adf-utils": "^19.19.0",
 		"@atlaskit/analytics-listeners": "^9.0.0",
 		"@atlaskit/analytics-namespaced-context": "^7.0.0",
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/code": "^16.0.0",
-		"@atlaskit/editor-common": "^100.4.0",
-		"@atlaskit/editor-json-transformer": "^8.23.0",
+		"@atlaskit/editor-common": "^101.1.0",
+		"@atlaskit/editor-json-transformer": "^8.24.0",
 		"@atlaskit/editor-palette": "2.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.4.0",
 		"@atlaskit/emoji": "^68.0.0",
 		"@atlaskit/feature-gate-js-client": "^4.26.0",
 		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/link-datasource": "^3.21.0",
+		"@atlaskit/link-datasource": "^3.22.0",
 		"@atlaskit/media-card": "^79.0.0",
 		"@atlaskit/media-client": "^32.0.0",
 		"@atlaskit/media-client-react": "^4.0.0",
@@ -52,10 +52,10 @@
 		"@atlaskit/status": "^3.0.0",
 		"@atlaskit/task-decision": "^19.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tmp-editor-statsig": "^3.3.0",
+		"@atlaskit/tmp-editor-statsig": "^3.4.0",
 		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
-		"@atlaskit/visually-hidden": "^2.0.0",
+		"@atlaskit/visually-hidden": "^3.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"lodash": "^4.17.21",
@@ -82,7 +82,7 @@
 		"@atlaskit/media-core": "^35.0.0",
 		"@atlaskit/media-integration-test-helpers": "^4.0.0",
 		"@atlaskit/media-test-helpers": "^35.0.0",
-		"@atlaskit/mention": "^24.0.0",
+		"@atlaskit/mention": "^24.1.0",
 		"@atlaskit/navigation-next": "patch:@atlaskit/navigation-next@npm%3A9.0.17#~/.yarn/patches/@atlaskit-navigation-next-npm-9.0.17-d1445f2f74.patch",
 		"@atlaskit/util-data-test": "^18.0.0",
 		"@atlaskit/visual-regression": "*",
@@ -195,6 +195,9 @@
 		"bandicoots-compiled-migration-smartcard": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_querySelector_fix_table_renderer": {
+			"type": "boolean"
 		}
 	},
 	"af:exports": {

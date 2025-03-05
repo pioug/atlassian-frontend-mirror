@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
@@ -10,6 +11,10 @@ import { Pulse } from '../Pulse/Pulse';
 
 import { ButtonSpotlightCard } from './ButtonSpotlightCard';
 import { getButtonStyles, iconOnlySpacing } from './styles';
+
+const minWidthStyle = {
+	minWidth: token('space.400', '32px'),
+};
 
 export interface Props {
 	title?: string;
@@ -140,6 +145,9 @@ export default ({
 												state: themeProps.state,
 												mode: themeProps.mode,
 											})),
+										...(editorExperiment('platform_editor_controls', 'variant1')
+											? minWidthStyle
+											: {}),
 									},
 									...rest,
 								};

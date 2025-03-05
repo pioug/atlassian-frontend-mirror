@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.2
+
+### Patch Changes
+
+- [#122152](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122152)
+  [`c3187eef09138`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3187eef09138) -
+  [ux] Update editor floating toolbar icons
+- Updated dependencies
+
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- [#121822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121822)
+  [`2316af8fbe07d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2316af8fbe07d) -
+  [ux] Updates floating toolbar of the inline and media single by moving alt text option to the
+  overflow menu.
+- [#121533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121533)
+  [`9efef36af09aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9efef36af09aa) -
+  Wire up the copy functionality in floating toolbar overflow menu
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

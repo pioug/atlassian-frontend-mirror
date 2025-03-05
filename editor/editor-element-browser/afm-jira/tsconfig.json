@@ -18,16 +18,37 @@
 	],
 	"references": [
 		{
-			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/textfield/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
 		}
 	]
 }

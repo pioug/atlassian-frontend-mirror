@@ -27,11 +27,10 @@ describe('CodeBidiWarning', () => {
 		expect(visuallyHiddenMark).toHaveStyle({
 			width: '1px',
 			height: '1px',
-			padding: 0,
+			padding: '0px 0px 0px 0px',
 			position: 'absolute',
 			border: '0',
 			clip: 'rect(1px, 1px, 1px, 1px)',
-			overflow: 'hidden',
 			'white-space': 'nowrap',
 		});
 	});

@@ -1,5 +1,12 @@
 import type { StoreActionApi } from 'react-sweet-state';
 
+export type ProductPermissionRequestBodyType = {
+	permissionId: keyof ProductPermissionsType;
+	resourceId: string;
+	principalId: string;
+	dontRequirePrincipalInSite: boolean;
+};
+
 export type ProductPermissionsResponse = {
 	permissionId: string;
 	resourceId: string;
@@ -9,6 +16,7 @@ export type ProductPermissionsResponse = {
 export type ProductPermissionsType = {
 	write?: boolean;
 	read?: boolean;
+	manage?: boolean;
 };
 
 export type UserProductPermissions = {
@@ -20,12 +28,14 @@ export type ProductPermissionsServiceResult = {
 	loading: boolean;
 	error?: Error;
 	data?: UserProductPermissions;
-} & ProductPermissionsStore;
+};
 
 export type ProductPermissions = (
-	userId?: string,
-	cloudId?: string,
-	permissionId?: string,
+	params: {
+		userId?: string;
+		cloudId?: string;
+		permissionIds?: Array<keyof ProductPermissionsType>;
+	},
 	options?: {
 		enabled: boolean;
 	},
@@ -50,6 +60,6 @@ export type ProductPermissionsActions = {
 		userId?: string;
 		cloudId?: string;
 		enabled: boolean;
-		permissionId: string;
+		permissionIds: Array<keyof ProductPermissionsType>;
 	}) => Action;
 };

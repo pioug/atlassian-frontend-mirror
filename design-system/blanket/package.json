@@ -58,7 +58,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/is-hoisted-product": "*",
-		"@atlaskit/badge": "^18.0.0",
+		"@atlaskit/badge": "^18.1.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/heading": "^5.1.0",

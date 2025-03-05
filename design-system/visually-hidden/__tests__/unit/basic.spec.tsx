@@ -1,9 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import * as React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
 import VisuallyHidden from '../../src';
@@ -29,9 +25,9 @@ describe('Visually Hidden', () => {
 		render(<VisuallyHidden>Hidden</VisuallyHidden>);
 
 		const element = screen.getByText('Hidden');
-		expect(element).toHaveStyleDeclaration('width', '1px');
-		expect(element).toHaveStyleDeclaration('height', '1px');
-		expect(element).toHaveStyleDeclaration('position', 'absolute');
-		expect(element).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+		expect(element).toHaveCompiledCss('width', '1px');
+		expect(element).toHaveCompiledCss('height', '1px');
+		expect(element).toHaveCompiledCss('position', 'absolute');
+		expect(element).toHaveCompiledCss('clip', 'rect(1px,1px,1px,1px)');
 	});
 });

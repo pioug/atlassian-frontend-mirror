@@ -18,7 +18,7 @@ let intl: ReturnType<typeof createIntl> | undefined;
  * @returns
  */
 export const dateNodeSpec = () => {
-	if (isSSR || editorExperiment("platform_editor_inline_node_virtualization", "off")) {
+	if (isSSR || editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
 		return date;
 	}
 

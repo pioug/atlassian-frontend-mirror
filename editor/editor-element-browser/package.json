@@ -31,12 +31,19 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/editor-common": "^100.4.0",
+		"@atlaskit/button": "^21.1.0",
+		"@atlaskit/editor-common": "^101.1.0",
+		"@atlaskit/heading": "^5.1.0",
+		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/icon-lab": "^3.4.0",
+		"@atlaskit/lozenge": "^12.1.0",
+		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/primitives": "^14.1.0",
+		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@emotion/react": "^11.7.1",
 		"fuse.js": "^6.6.2"
 	},
 	"peerDependencies": {
@@ -45,8 +52,6 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/icon-lab": "^3.4.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",
@@ -89,7 +94,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-element-browser",
-	"version": "0.1.4",
+	"version": "0.1.8",
 	"description": "New UI for the QuickInsert menu and Right rail",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,5 +1,14 @@
 # @atlaskit/badge
 
+## 18.1.0
+
+### Minor Changes
+
+- [#117557](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117557)
+  [`c76a9ef9c9363`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c76a9ef9c9363) -
+  [ux] Add Support for showing negative numbers in Badge Component for Custom Number fields with max
+  prop supported
+
 ## 18.0.0
 
 ### Major Changes

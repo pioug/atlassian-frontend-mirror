@@ -57,4 +57,6 @@ export default {
   'pt.team-profile-card.team.member.count-including-you': '{count, plural, other {ทีม • สมาชิก {count} คน รวมคุณด้วย}}',
   'pt.team-profile-card.team.member.many': 'ทีม • สมาชิกมากกว่า 50 คน',
   'pt.team-profile-card.team.member.many-including-you': 'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, other {สมาชิกอีก {count} คน}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {โปรไฟล์อีก {count} รายการ}}',
 };

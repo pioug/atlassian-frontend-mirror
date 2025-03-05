@@ -59,4 +59,8 @@ export default {
     '{count, plural, one {Team • {count} membro, te compreso} other {Team • {count} membri, te compreso}}',
   'pt.team-profile-card.team.member.many': 'Team • 50+ membri',
   'pt.team-profile-card.team.member.many-including-you': 'Team • 50+ membri, te compreso',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {+{count} altro membro} other {+{count} altri membri}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+{count} altro profilo} other {+{count} altri profili}}',
 };

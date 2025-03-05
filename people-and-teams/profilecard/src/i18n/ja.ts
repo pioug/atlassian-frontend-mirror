@@ -59,4 +59,6 @@ export default {
     '{count, plural, other {チーム • {count} 人のメンバー (あなたを含む)}}',
   'pt.team-profile-card.team.member.many': 'チーム • 50 人以上のメンバー',
   'pt.team-profile-card.team.member.many-including-you': 'チーム • 50 人以上のメンバー (あなたを含む)',
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, other {他 {count} 人のメンバー}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {他 {count} 人のプロファイル}}',
 };

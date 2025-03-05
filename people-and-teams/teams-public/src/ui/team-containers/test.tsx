@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { fireOperationalEvent, fireTrackEvent } from '../../common/utils/analytics';
 import { getContainerProperties, messages } from '../../common/utils/get-container-properties';
+import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import {
 	useTeamContainers,
 	useTeamContainersHook,
@@ -17,6 +18,10 @@ jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
 	useTeamContainers: jest.fn(),
 	useTeamContainersHook: jest.fn().mockReturnValue([]),
+}));
+
+jest.mock('../../controllers/hooks/use-product-permission', () => ({
+	useProductPermissions: jest.fn(),
 }));
 
 jest.mock('../../common/utils/analytics', () => ({
@@ -72,23 +77,57 @@ describe('TeamContainers', () => {
 
 	const renderTeamContainers = (teamId: string) => {
 		return renderWithIntl(
-			<TeamContainers teamId={teamId} onAddAContainerClick={mockOnAddAContainerClick} />,
+			<TeamContainers
+				teamId={teamId}
+				onAddAContainerClick={mockOnAddAContainerClick}
+				userId={'test-user-id'}
+				cloudId={'test-cloud-id'}
+			/>,
 		);
 	};
 
 	beforeEach(() => {
+		(useProductPermissions as jest.Mock).mockReturnValue({
+			loading: false,
+			data: {
+				jira: { manage: true },
+				confluence: { manage: true },
+			},
+			error: null,
+		});
 		jest.clearAllMocks();
 	});
 
-	it('should render add Jira and Confluence container card when the team has no Jira project and Confluence space linked', () => {
+	it('should render add Jira and Confluence container card when the team has no Jira project and Confluence space linked and has product access', () => {
 		(useTeamContainers as jest.Mock).mockReturnValue({
 			teamContainers: [],
 		});
+
 		renderTeamContainers(teamId);
 
 		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
 		expect(
 			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
+	});
+
+	it('should render add Jira and Confluence container card when the team has no Jira project and Confluence space linked and has no product access', async () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [],
+		});
+
+		(useProductPermissions as jest.Mock).mockReturnValue({
+			loading: false,
+			data: {
+				jira: {},
+				confluence: {},
+			},
+			error: null,
+		});
+
+		renderTeamContainers(teamId);
+		expect(
+			await screen.findByTestId('team-containers-no-product-access-state'),
 		).toBeInTheDocument();
 	});
 
@@ -157,7 +196,15 @@ describe('TeamContainers', () => {
 
 	it('should call onAddAContainerClick when add container card is clicked', () => {
 		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [],
+			teamContainers: [
+				{
+					id: 'id',
+					type: 'ConfluenceSpace',
+					name: `Confluence Space Name`,
+					icon: 'icon',
+					link: 'link',
+				},
+			],
 		});
 		renderTeamContainers(teamId);
 

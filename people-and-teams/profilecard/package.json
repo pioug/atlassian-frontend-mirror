@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "23.2.2",
+	"version": "23.2.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,7 +81,7 @@
 		"@atlaskit/popup": "^2.0.0",
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/rovo-agent-components": "^2.1.0",
-		"@atlaskit/rovo-triggers": "^2.1.0",
+		"@atlaskit/rovo-triggers": "^2.2.0",
 		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/theme": "^17.0.0",
 		"@atlaskit/tokens": "^4.3.0",
@@ -148,9 +148,6 @@
 			"type": "boolean"
 		},
 		"rovo_use_agent_permissions": {
-			"type": "boolean"
-		},
-		"show_verified_team_icon_in_profile_card": {
 			"type": "boolean"
 		},
 		"team_id_to_ari_safe": {

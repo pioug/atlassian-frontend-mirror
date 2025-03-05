@@ -48,6 +48,7 @@ import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	editInsertedLink,
@@ -213,6 +214,7 @@ export const getToolbarConfig =
 						link,
 						editInsertedLink(editorAnalyticsApi),
 						metadata,
+						editorExperiment('platform_editor_controls', 'variant1') ? state : undefined,
 					) ?? [
 						{
 							id: 'editor.link.edit',

@@ -9,6 +9,7 @@ test.describe('ReactUFO: Revisions - replacement node', () => {
 		featureFlags: [
 			'platform_ufo_vc_observer_new',
 			'platform_ufo_vc_ttai_on_paint',
+			'platform_ufo_multiheatmap_killswitch',
 		],
 	});
 

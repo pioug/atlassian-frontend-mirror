@@ -4,7 +4,6 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { MetricsState } from './pm-plugins/main';
@@ -18,9 +17,10 @@ type handleIntentToStartEditProps = {
 export type MetricsPlugin = NextEditorPlugin<
 	'metrics',
 	{
-		dependencies: [AnalyticsPlugin, OptionalPlugin<BlockControlsPlugin>];
+		dependencies: [OptionalPlugin<AnalyticsPlugin>];
 		sharedState: MetricsState;
 		commands: {
+			setContentMoved: () => EditorCommand;
 			startActiveSessionTimer: () => EditorCommand;
 			stopActiveSession: () => EditorCommand;
 			handleIntentToStartEdit: ({

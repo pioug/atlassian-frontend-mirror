@@ -100,7 +100,7 @@ export const dragHandleDecoration = (
 			// temporarily re-instating ReactDOM.render to fix drag handle focus issue, fix to
 			// follow via ED-26546
 
-			// if (fg('platform_editor_react18_plugin_portalprovider')) {
+			// previous under platform_editor_react18_plugin_portalprovider
 			// 	nodeViewPortalProviderAPI.render(
 			// 		() =>
 			// 			createElement(DragHandle, {
@@ -116,7 +116,7 @@ export const dragHandleDecoration = (
 			// 		element,
 			// 		key,
 			// 	);
-			// } else {
+
 			ReactDOM.render(
 				createElement(DragHandle, {
 					view,

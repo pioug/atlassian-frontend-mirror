@@ -60,4 +60,8 @@ export default {
     '{count, plural, one {Команда • {count} участник, включая вас} few {Команда • {count} участника, включая вас} many {Команда • {count} участников, включая вас} other {Команда • {count} участника, включая вас}}',
   'pt.team-profile-card.team.member.many': 'Команда • более 50 участников',
   'pt.team-profile-card.team.member.many-including-you': 'Команда • более 50 участников, включая вас',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {и еще {count} участник} few {и еще {count} участника} many {и еще {count} участников} other {и еще {count} участника}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {и еще {count} профиль} few {и еще {count} профиля} many {и еще {count} профилей} other {и еще {count} профиля}}',
 };

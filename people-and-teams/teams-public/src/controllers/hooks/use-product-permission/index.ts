@@ -1,19 +1,17 @@
 import { useCallback, useEffect } from 'react';
 
-import { useProductPermissionsStore } from '../../../product-permission/main';
-import { type ProductPermissions } from '../../../product-permission/types';
+import { useProductPermissionsStore } from '../../product-permission/main';
+import { type ProductPermissions } from '../../product-permission/types';
 
 export const useProductPermissions: ProductPermissions = (
-	userId,
-	cloudId,
-	permissionId = 'read',
+	{ userId, cloudId, permissionIds = ['manage', 'write'] },
 	{ enabled } = { enabled: true },
 ) => {
 	const [state, { getPermissions }] = useProductPermissionsStore();
 
 	const fetchData = useCallback(async () => {
-		getPermissions({ cloudId, userId, enabled, permissionId });
-	}, [cloudId, enabled, getPermissions, userId, permissionId]);
+		getPermissions({ cloudId, userId, enabled, permissionIds });
+	}, [cloudId, enabled, getPermissions, userId, permissionIds]);
 
 	useEffect(() => {
 		fetchData();
@@ -23,6 +21,5 @@ export const useProductPermissions: ProductPermissions = (
 		loading: state.isLoading,
 		data: state.permissions,
 		error: state.error,
-		...state,
 	};
 };

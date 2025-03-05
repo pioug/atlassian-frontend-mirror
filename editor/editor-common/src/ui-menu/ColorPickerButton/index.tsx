@@ -16,6 +16,7 @@ import LegacyExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss, Inline } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -307,7 +308,9 @@ const ColorPickerButton = (props: Props) => {
 								ref={buttonRef}
 								aria-label={title}
 								aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
-								spacing="compact"
+								spacing={
+									editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
+								}
 								onClick={togglePopup}
 								onKeyDown={(event: React.KeyboardEvent) => {
 									if (event.key === 'Enter' || event.key === ' ') {

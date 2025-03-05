@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/badge": "^18.0.0",
+		"@atlaskit/badge": "^18.1.0",
 		"@atlaskit/notification-log-client": "^6.2.0",
 		"@babel/runtime": "^7.0.0"
 	},

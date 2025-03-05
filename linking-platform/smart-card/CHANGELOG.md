@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 35.1.7
+
+### Patch Changes
+
+- [#121168](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121168)
+  [`2d37a36f1a843`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d37a36f1a843) -
+  [ux] Unset inline card font size for design refresh
+
+## 35.1.6
+
+### Patch Changes
+
+- [#121115](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121115)
+  [`3a14e5f9f3d6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a14e5f9f3d6e) -
+  Deprecate overrideCss props exported publicly
+
 ## 35.1.5
 
 ### Patch Changes

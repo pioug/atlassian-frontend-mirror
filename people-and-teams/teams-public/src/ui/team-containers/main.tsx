@@ -15,6 +15,8 @@ import {
 	fireOperationalEvent,
 	fireTrackEvent,
 } from '../../common/utils/analytics';
+import { hasProductPermission } from '../../controllers';
+import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import {
 	useTeamContainers,
 	useTeamContainersHook,
@@ -23,6 +25,7 @@ import {
 import { AddContainerCard } from './add-container-card';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { LinkedContainerCard } from './linked-container-card';
+import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
 import { type TeamContainerProps } from './types';
 
@@ -40,6 +43,8 @@ export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
 	components,
+	userId,
+	cloudId,
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
@@ -52,6 +57,11 @@ export const TeamContainers = ({
 		SelectedContainerDetails | undefined
 	>();
 
+	const { data: productPermissions, loading: productPermissionIsLoading } = useProductPermissions({
+		userId,
+		cloudId,
+	});
+
 	useEffect(() => {
 		if (teamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW) {
 			setShowAddJiraContainer(false);
@@ -61,10 +71,18 @@ export const TeamContainers = ({
 			const hasConfluenceSpace = teamContainers.some(
 				(container) => container.type === 'ConfluenceSpace',
 			);
-			setShowAddJiraContainer(!hasJiraProject);
-			setShowAddConfluenceContainer(!hasConfluenceSpace);
+			setShowAddJiraContainer(
+				!hasJiraProject &&
+					!!productPermissions &&
+					!!hasProductPermission(productPermissions, 'jira'),
+			);
+			setShowAddConfluenceContainer(
+				!hasConfluenceSpace &&
+					!!productPermissions &&
+					!!hasProductPermission(productPermissions, 'confluence'),
+			);
 		}
-	}, [teamContainers]);
+	}, [productPermissions, teamContainers]);
 
 	const handleShowMore = () => {
 		setShowMore(!showMore);
@@ -104,8 +122,20 @@ export const TeamContainers = ({
 		[actions, createAnalyticsEvent, teamId, unlinkError],
 	);
 
-	if (loading) {
+	if (loading || productPermissionIsLoading) {
 		return <TeamContainersSkeleton numberOfContainers={MAX_NUMBER_OF_CONTAINERS_TO_SHOW} />;
+	}
+
+	if (
+		teamContainers.length === 0 &&
+		(!productPermissions ||
+			!(
+				productPermissions &&
+				(hasProductPermission(productPermissions, 'jira') ||
+					hasProductPermission(productPermissions, 'confluence'))
+			))
+	) {
+		return <NoProductAccessState />;
 	}
 
 	return (

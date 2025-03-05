@@ -13,6 +13,13 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 		return [{ name: 'metrics', plugin: () => createPlugin(api) }];
 	},
 	commands: {
+		setContentMoved:
+			() =>
+			({ tr }) => {
+				return tr.setMeta(metricsKey, {
+					contentMoved: true,
+				});
+			},
 		startActiveSessionTimer:
 			() =>
 			({ tr }) => {
@@ -43,7 +50,7 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 						currentContent: tr.doc.content,
 						pluginState,
 					});
-					api?.analytics.actions.attachAnalyticsEvent(payloadToSend)(tr);
+					api?.analytics?.actions.attachAnalyticsEvent(payloadToSend)(tr);
 				}
 
 				tr.setMeta(metricsKey, {

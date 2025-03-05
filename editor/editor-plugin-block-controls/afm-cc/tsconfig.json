@@ -33,6 +33,9 @@
             "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-metrics/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-quick-insert/afm-cc/tsconfig.json"
         },
         {

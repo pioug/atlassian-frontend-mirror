@@ -1,9 +1,15 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { bracketTyped, browser, isEmptyDocument } from '@atlaskit/editor-common/utils';
+import {
+	bracketTyped,
+	browser,
+	isEmptyDocument,
+	isEmptyParagraph,
+} from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
 
@@ -19,6 +25,14 @@ function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 	return pluginKey.getState(editorState);
 }
 export const placeholderTestId = 'placeholder-test-id';
+
+// TODO: Use i18n for new placeholders
+export const SHORT_NODE_PLACEHOLDER_TEXT = '/ to insert';
+export const NODE_PLACEHOLDER_TEXT = 'Type "/" to insert elements';
+export const EMPTY_LINE_PLACEHOLDER_TEXT = 'Select + or type “/” to insert elements';
+
+export const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
+export const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
 
 export function createPlaceholderDecoration(
 	editorState: EditorState,
@@ -89,6 +103,32 @@ function createPlaceHolderStateFrom(
 		return setPlaceHolderState(defaultPlaceholderText);
 	}
 
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		const { $from, $to } = editorState.selection;
+
+		if ($from.pos !== $to.pos) {
+			return emptyPlaceholder(defaultPlaceholderText);
+		}
+
+		const isEmptyLine = isEmptyParagraph($from.parent);
+		const parentNode = $from.node($from.depth - 1);
+		const parentType = parentNode?.type.name;
+
+		if (parentType === 'doc' && isEmptyLine) {
+			return setPlaceHolderState(EMPTY_LINE_PLACEHOLDER_TEXT, $from.pos);
+		}
+
+		const isEmptyNode = parentNode?.childCount === 1 && parentNode.firstChild?.content.size === 0;
+		if (nodeTypesWithShortPlaceholderText.includes(parentType) && isEmptyNode) {
+			return setPlaceHolderState(SHORT_NODE_PLACEHOLDER_TEXT, $from.pos);
+		}
+
+		if (nodeTypesWithLongPlaceholderText.includes(parentType) && isEmptyNode) {
+			return setPlaceHolderState(NODE_PLACEHOLDER_TEXT, $from.pos);
+		}
+
+		return emptyPlaceholder(defaultPlaceholderText);
+	}
 	if (bracketPlaceholderText && bracketTyped(editorState) && isEditorFocused) {
 		const { $from } = editorState.selection;
 		// Space is to account for positioning of the bracket

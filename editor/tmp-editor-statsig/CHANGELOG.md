@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 3.4.0
+
+### Minor Changes
+
+- [#119706](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/119706)
+  [`42fd258ba482e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42fd258ba482e) -
+  ED-26704: enables editor node virtualization experiment
+
 ## 3.3.0
 
 ### Minor Changes

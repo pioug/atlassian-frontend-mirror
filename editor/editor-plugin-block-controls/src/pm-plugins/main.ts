@@ -177,6 +177,10 @@ const destroyFn = (
 							},
 						})(tr);
 					}
+					if (fg('platform_editor_ease_of_use_metrics')) {
+						api?.metrics?.commands.startActiveSessionTimer()({ tr });
+					}
+
 					return tr.setMeta(key, {
 						...tr.getMeta(key),
 						isDragging: false,
@@ -715,7 +719,7 @@ export const oldApply = (
 				api,
 				formatMessage,
 				nodeViewPortalProviderAPI,
-				isNestedEnabled ? (meta?.activeNode ?? mappedActiveNodePos) : meta?.activeNode,
+				isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
 				anchorRectCache,
 			);
 			decorations = decorations.add(newState.doc, decs);
@@ -745,7 +749,7 @@ export const oldApply = (
 		(!meta?.activeNode &&
 			decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle').length === 0)
 			? null
-			: (meta?.activeNode ?? mappedActiveNodePos);
+			: meta?.activeNode ?? mappedActiveNodePos;
 
 	return {
 		decorations,
@@ -840,6 +844,10 @@ export const createPlugin = (
 					let pluginState = key.getState(state);
 					const dndDragCancelled = pluginState?.lastDragCancelled;
 					if (pluginState?.isPMDragging || (dndDragCancelled && isMultiSelectEnabled)) {
+						if (fg('platform_editor_ease_of_use_metrics')) {
+							api?.metrics?.commands.startActiveSessionTimer()({ tr });
+						}
+
 						dispatch(
 							tr.setMeta(key, {
 								...tr.getMeta(key),
@@ -867,7 +875,7 @@ export const createPlugin = (
 						return false;
 					}
 
-					const nodeElement = event.target?.closest('[data-drag-handler-anchor-name]');
+					const nodeElement = event.target?.closest?.('[data-drag-handler-anchor-name]');
 					if (!nodeElement) {
 						return false;
 					}
@@ -923,7 +931,12 @@ export const createPlugin = (
 					const { state, dispatch } = view;
 
 					if (key.getState(state)?.isPMDragging) {
-						dispatch(state.tr.setMeta(key, { ...state.tr.getMeta(key), isPMDragging: false }));
+						const tr = state.tr;
+						tr.setMeta(key, { ...state.tr.getMeta(key), isPMDragging: false });
+						if (fg('platform_editor_ease_of_use_metrics')) {
+							api?.metrics?.commands.startActiveSessionTimer()({ tr });
+						}
+						dispatch(tr);
 					}
 				},
 				mouseover: (view: EditorView, event: Event) => {

@@ -62,4 +62,8 @@ export default {
     '{count, plural, one {Tiimi • {count} jäsen sinä mukaan lukien} other {Tiimi • {count} jäsentä sinä mukaan lukien}}',
   'pt.team-profile-card.team.member.many': 'Tiimi • 50+ jäsentä',
   'pt.team-profile-card.team.member.many-including-you': 'Tiimi • 50+ jäsentä sinä mukaan lukien',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {+{count} jäsen lisää} other {+{count} jäsentä lisää}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+{count} profiili lisää} other {+{count} profiilia lisää}}',
 };

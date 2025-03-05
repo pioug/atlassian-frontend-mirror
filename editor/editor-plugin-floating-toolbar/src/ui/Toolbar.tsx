@@ -44,7 +44,7 @@ import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
 import Dropdown from './Dropdown';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
-import { InputNew, InputOld } from './Input';
+import { Input } from './Input';
 import { ScrollButtons } from './ScrollButtons';
 import Select from './Select';
 
@@ -221,22 +221,8 @@ const ToolbarItems = React.memo(
 					);
 
 				case 'input':
-					if (fg('platform_editor_react18_phase2_v2')) {
-						return (
-							<InputNew
-								key={idx}
-								mountPoint={popupsMountPoint}
-								boundariesElement={popupsBoundariesElement}
-								defaultValue={item.defaultValue}
-								placeholder={item.placeholder}
-								onSubmit={(value) => dispatchCommand(item.onSubmit(value))}
-								onBlur={(value) => dispatchCommand(item.onBlur(value))}
-							/>
-						);
-					}
-
 					return (
-						<InputOld
+						<Input
 							key={idx}
 							mountPoint={popupsMountPoint}
 							boundariesElement={popupsBoundariesElement}
@@ -407,7 +393,7 @@ const ToolbarItems = React.memo(
 		const groupedItems = groupItems(items.filter((item) => !item.hidden));
 
 		return (
-			<ButtonGroup>
+			<ButtonGroup testId="editor-floating-toolbar-items">
 				{groupedItems.map((element, index) => {
 					const isGroup = Array.isArray(element);
 
@@ -417,9 +403,14 @@ const ToolbarItems = React.memo(
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/no-array-index-key
 								key={index}
-								css={buttonGroupStyles}
+								css={
+									editorExperiment('platform_editor_controls', 'variant1')
+										? buttonGroupStylesNew
+										: buttonGroupStyles
+								}
 								role="radiogroup"
 								aria-label={groupLabel ?? undefined}
+								data-testid="editor-floating-toolbar-grouped-buttons"
 							>
 								{element.map((element) => {
 									const indexInAllItems = items.findIndex((item) => item === element);
@@ -453,6 +444,11 @@ const ToolbarItems = React.memo(
 const buttonGroupStyles = css({
 	display: 'flex',
 	gap: token('space.050', '4px'),
+});
+
+const buttonGroupStylesNew = css({
+	display: 'flex',
+	gap: token('space.075', '6px'),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -572,15 +568,18 @@ const toolbarOverflow = ({
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							css({
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-								padding: paddingFeatureFlag
-									? `${token('space.0', '0')} 0 ${token('space.050', '4px')}`
-									: `${token('space.0', '0')} 0 ${token('space.600', '48px')}`,
+								padding: `${token('space.0', '0')} 4px ${token('space.600', '48px')} 4px`,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 								'> div': {
 									minHeight: token('space.500'),
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-									'> div:has(+ [data-editor-popup="true"]:last-of-type)': {
-										marginRight: token('space.100', '8px'),
+									gap: token('space.075', '6px'),
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+									'> div:first-child': {
+										marginLeft: 0,
+									},
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+									'> div:last-child': {
+										marginRight: 0,
 									},
 								},
 							})

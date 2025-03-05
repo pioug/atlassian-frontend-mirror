@@ -102,7 +102,13 @@ export const TableFooterOld = ({
 					</Flex>
 				)}
 				{datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID ? (
-					<PoweredByJSMAssets text={intl.formatMessage(fg('assets_as_an_app_v2')? footerMessages.poweredByAssets: footerMessages.powerByJSM)} />
+					<PoweredByJSMAssets
+						text={intl.formatMessage(
+							fg('assets_as_an_app_v2')
+								? footerMessages.poweredByAssets
+								: footerMessages.powerByJSM,
+						)}
+					/>
 				) : null}
 
 				<SyncWrapper>

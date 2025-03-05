@@ -59,4 +59,8 @@ export default {
     '{count, plural, one {Csapat • {count} tag veled együtt} other {Csapat • {count} tag veled együtt}}',
   'pt.team-profile-card.team.member.many': 'Csapat • 50+ tag',
   'pt.team-profile-card.team.member.many-including-you': 'Csapat • 50+ tag veled együtt',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {+{count} további tag} other {+{count} további tag}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+{count} további profil} other {+{count} további profil}}',
 };

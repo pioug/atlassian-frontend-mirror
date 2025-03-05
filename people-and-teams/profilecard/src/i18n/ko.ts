@@ -58,4 +58,6 @@ export default {
     '{count, plural, other {팀 • 자신을 포함하여 구성원 {count}명}}',
   'pt.team-profile-card.team.member.many': '팀 • 구성원 50명 이상',
   'pt.team-profile-card.team.member.many-including-you': '팀 • 자신을 포함하여 구성원 50명 이상',
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, other {+{count}명의 구성원}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {+{count}개의 프로필}}',
 };

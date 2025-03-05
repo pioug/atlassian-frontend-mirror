@@ -184,7 +184,7 @@ export default function Example() {
 					display: 'flex',
 					width: '100vw',
 					height: '100vh',
-			    flexDirection: 'column',
+					flexDirection: 'column',
 				}}
 			>
 				{sectionNumbers.map((num) => (

@@ -76,7 +76,6 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 );
 
 const baseWrapperStylesNew = css({
-	font: token('font.body'),
 	// TODO (AFB-874): Disabling due to overriding of @compiled/property-shorthand-sorting
 	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: `${token('space.025')} 0px`,

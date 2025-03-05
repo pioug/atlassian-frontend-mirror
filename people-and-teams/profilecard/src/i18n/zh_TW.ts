@@ -55,4 +55,6 @@ export default {
   'pt.team-profile-card.team.member.count-including-you': '{count, plural, other {團隊 • {count} 名成員，包含您}}',
   'pt.team-profile-card.team.member.many': '團隊 • 50 名以上的成員',
   'pt.team-profile-card.team.member.many-including-you': '團隊 • 50 名以上的成員，包含您',
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, other {+其他 {count} 位成員}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {+其他 {count} 個設定檔}}',
 };

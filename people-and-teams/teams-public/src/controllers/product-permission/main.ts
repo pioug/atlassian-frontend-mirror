@@ -9,10 +9,21 @@ import { getProductPermissionRequestBody, transformPermissions } from './utils';
 
 const actions: ProductPermissionsActions = {
 	getPermissions:
-		({ userId, cloudId, enabled, permissionId }) =>
+		({ userId, cloudId, enabled, permissionIds }) =>
 		async ({ setState, getState, dispatch }) => {
-			const { hasLoaded, isLoading } = getState();
-			if (hasLoaded || isLoading || !userId || !cloudId || !enabled) {
+			const { hasLoaded, isLoading, permissions } = getState();
+			if (isLoading || !userId || !cloudId || !enabled) {
+				return;
+			}
+			const shouldFetch =
+				!hasLoaded ||
+				permissionIds.some(
+					(permissionId) =>
+						permissions.confluence?.[permissionId] === undefined ||
+						permissions.jira?.[permissionId] === undefined,
+				);
+
+			if (!shouldFetch) {
 				return;
 			}
 			try {
@@ -23,7 +34,7 @@ const actions: ProductPermissionsActions = {
 					},
 					method: 'POST',
 					credentials: 'include',
-					body: getProductPermissionRequestBody(cloudId, userId, permissionId),
+					body: getProductPermissionRequestBody(cloudId, userId, permissionIds),
 				});
 
 				if (!response.ok) {

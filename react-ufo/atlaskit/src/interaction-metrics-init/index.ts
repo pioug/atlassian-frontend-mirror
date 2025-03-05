@@ -3,6 +3,8 @@ import {
 	unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
 import { type Config, setUFOConfig } from '../config';
@@ -50,6 +52,7 @@ function sinkInteraction(
 			payloadPackage
 				.createPayloads(interactionId, interaction)
 				.then((payloads) => {
+					// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
 					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
 						.__ufo_devtool_onUfoPayload;
 					payloads?.forEach((payload: UFOPayload) => {
@@ -80,6 +83,16 @@ function sinkExperimentalInteractionMetrics(
 		scheduleCallback(idlePriority, () => {
 			const payload = payloadPackage.createExperimentalMetricsPayload(interactionId, interaction);
 			if (payload) {
+				if (fg('enable_ufo_devtools_api_for_extra_events')) {
+					// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
+					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+						.__ufo_devtool_onUfoPayload;
+
+					if (typeof devToolObserver === 'function') {
+						devToolObserver?.(payload);
+					}
+				}
+
 				instance.sendOperationalEvent(payload);
 			}
 		});
@@ -94,6 +107,16 @@ function sinkPostInteractionLog(
 		scheduleCallback(idlePriority, () => {
 			const payload = createPostInteractionLogPayload(logOutput);
 			if (payload) {
+				// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
+				if (fg('enable_ufo_devtools_api_for_extra_events')) {
+					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+						.__ufo_devtool_onUfoPayload;
+
+					if (typeof devToolObserver === 'function') {
+						devToolObserver?.(payload);
+					}
+				}
+
 				instance.sendOperationalEvent(payload);
 			}
 		});

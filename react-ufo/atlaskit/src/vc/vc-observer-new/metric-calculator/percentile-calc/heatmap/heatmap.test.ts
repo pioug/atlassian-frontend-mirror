@@ -141,7 +141,7 @@ describe('Heatmap', () => {
 		});
 	});
 
-    describe('getVCPercentMetrics', () => {
+	describe('getVCPercentMetrics', () => {
 		let heatmap: Heatmap;
 		beforeEach(() => {
 			heatmap = new Heatmap({
@@ -182,10 +182,10 @@ describe('Heatmap', () => {
 			expect(metrics['50'].t).toEqual(100);
 			expect(metrics['50'].e).toEqual(['container']);
 
-            expect(metrics['51'].t).toEqual(200);
+			expect(metrics['51'].t).toEqual(200);
 			expect(metrics['51'].e).toEqual(['section1']);
 
-            expect(metrics['75'].t).toEqual(200);
+			expect(metrics['75'].t).toEqual(200);
 			expect(metrics['75'].e).toEqual(['section1']);
 
 			expect(metrics['90'].t).toEqual(200);

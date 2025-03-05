@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 3.0.3
+
+### Patch Changes
+
+- [#122140](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122140)
+  [`3f7b2bc0c6ef0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f7b2bc0c6ef0) -
+  Add missing dependencies to the package.json file
+- Updated dependencies
+
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

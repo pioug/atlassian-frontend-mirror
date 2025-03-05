@@ -46,7 +46,7 @@
 		"@atlaskit/popper": "^7.0.0",
 		"@atlaskit/popup": "2.0.2",
 		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/react-ufo": "^3.1.0",
+		"@atlaskit/react-ufo": "^3.3.0",
 		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/tabs": "^18.0.0",
 		"@atlaskit/theme": "^17.0.0",

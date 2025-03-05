@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- [#121073](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121073)
+  [`9c197731fcbf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c197731fcbf8) -
+  [ux] [ED-26824] When platform_editor_controls is enabled, add 'View more' button to quick
+  insertpopup to open element browser modal
+- Updated dependencies
+
 ## 2.0.5
 
 ### Patch Changes

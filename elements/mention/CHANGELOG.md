@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 24.1.0
+
+### Minor Changes
+
+- [#121564](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121564)
+  [`3de01b4441aaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3de01b4441aaf) -
+  Team refreshed avatar support
+
 ## 24.0.3
 
 ### Patch Changes

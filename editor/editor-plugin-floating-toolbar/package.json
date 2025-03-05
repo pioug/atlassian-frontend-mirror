@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "3.0.2",
+	"version": "3.1.2",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,20 +28,20 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-utils": "^19.18.0",
+		"@atlaskit/adf-utils": "^19.19.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/checkbox": "^17.0.0",
-		"@atlaskit/editor-common": "^100.4.0",
+		"@atlaskit/editor-common": "^101.1.0",
 		"@atlaskit/editor-palette": "2.0.0",
-		"@atlaskit/editor-plugin-block-controls": "^3.1.0",
+		"@atlaskit/editor-plugin-block-controls": "^3.3.0",
 		"@atlaskit/editor-plugin-context-panel": "^3.0.0",
 		"@atlaskit/editor-plugin-copy-button": "^2.0.0",
 		"@atlaskit/editor-plugin-decorations": "^2.0.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^3.0.0",
-		"@atlaskit/editor-plugin-emoji": "^3.0.0",
-		"@atlaskit/editor-plugin-extension": "^4.0.0",
-		"@atlaskit/editor-plugin-table": "^10.2.0",
+		"@atlaskit/editor-plugin-emoji": "^3.1.0",
+		"@atlaskit/editor-plugin-extension": "^4.1.0",
+		"@atlaskit/editor-plugin-table": "^10.3.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/emoji": "^68.0.0",
 		"@atlaskit/icon": "^24.1.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/select": "^20.0.0",
 		"@atlaskit/theme": "^17.0.0",
-		"@atlaskit/tmp-editor-statsig": "^3.3.0",
+		"@atlaskit/tmp-editor-statsig": "^3.4.0",
 		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@babel/runtime": "^7.0.0",
@@ -116,9 +116,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_react18_phase2_v2": {
-			"type": "boolean"
-		},
 		"platform_editor_floating_toolbar_padding_fix": {
 			"type": "boolean"
 		},

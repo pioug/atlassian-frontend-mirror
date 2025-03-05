@@ -1,5 +1,9 @@
 import type { ProductPermissionsResponse, UserProductPermissions } from './types';
-import { getProductPermissionRequestBody, transformPermissions } from './utils';
+import {
+	getProductPermissionRequestBody,
+	hasProductPermission,
+	transformPermissions,
+} from './utils';
 
 describe('transformPermissions', () => {
 	it('should return true for jira and confluence when write permissions are granted', () => {
@@ -82,9 +86,21 @@ describe('getProductPermissionRequestBody', () => {
 		const cloudId = 'cloud-id';
 		const userId = 'user-id';
 
-		const result = getProductPermissionRequestBody(cloudId, userId, 'write');
+		const result = getProductPermissionRequestBody(cloudId, userId, ['manage', 'write']);
 
 		const expectedBody = JSON.stringify([
+			{
+				permissionId: 'manage',
+				resourceId: `ari:cloud:confluence::site/${cloudId}`,
+				principalId: `ari:cloud:identity::user/${userId}`,
+				dontRequirePrincipalInSite: true,
+			},
+			{
+				permissionId: 'manage',
+				resourceId: `ari:cloud:jira-software::site/${cloudId}`,
+				principalId: `ari:cloud:identity::user/${userId}`,
+				dontRequirePrincipalInSite: true,
+			},
 			{
 				permissionId: 'write',
 				resourceId: `ari:cloud:confluence::site/${cloudId}`,
@@ -100,5 +116,52 @@ describe('getProductPermissionRequestBody', () => {
 		]);
 
 		expect(result).toBe(expectedBody);
+	});
+});
+
+describe('hasProductPermission', () => {
+	it('should return false if the product does not exist in permissions', () => {
+		const permissions = {};
+		expect(hasProductPermission(permissions, 'jira')).toBe(false);
+	});
+
+	it('should return true if no permissionIds are provided and at least one permission is true', () => {
+		const permissions = {
+			jira: {
+				write: true,
+				read: false,
+			},
+		};
+		expect(hasProductPermission(permissions, 'jira')).toBe(true);
+	});
+
+	it('should return false if no permissionIds are provided and all permissions are false', () => {
+		const permissions = {
+			jira: {
+				write: false,
+				read: false,
+			},
+		};
+		expect(hasProductPermission(permissions, 'jira')).toBe(false);
+	});
+
+	it('should return true if at least one of the provided permissionIds is true', () => {
+		const permissions = {
+			jira: {
+				write: false,
+				read: true,
+			},
+		};
+		expect(hasProductPermission(permissions, 'jira', ['read'])).toBe(true);
+	});
+
+	it('should return false if none of the provided permissionIds are true', () => {
+		const permissions = {
+			jira: {
+				write: false,
+				read: false,
+			},
+		};
+		expect(hasProductPermission(permissions, 'jira', ['read'])).toBe(false);
 	});
 });

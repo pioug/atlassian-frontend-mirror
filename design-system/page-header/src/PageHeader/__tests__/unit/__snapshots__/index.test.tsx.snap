@@ -32,10 +32,10 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
         <style
           data-cmpld="true"
         >
-          ._11c81p5s{font:var(--ds-font-heading-large,normal 500 24px/28px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif)}._12ji1r31{outline-color:currentColor}._1qu2glyw{outline-style:none}._12y31o36{outline-width:medium}._syaz1fxt{color:var(--ds-text,#172b4d)}._1dyz4jg8{letter-spacing:normal}._1pfhidpf{margin-block-start:0}._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._1bto1l2s{text-overflow:ellipsis}._o5721q9c{white-space:nowrap}
+          ._11c8nf1z{font:var(--ds-font-heading-large,normal 500 24px/28px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._12ji1r31{outline-color:currentColor}._1qu2glyw{outline-style:none}._12y31o36{outline-width:medium}._syaz1fxt{color:var(--ds-text,#172b4d)}._1dyz4jg8{letter-spacing:normal}._1pfhidpf{margin-block-start:0}._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._1bto1l2s{text-overflow:ellipsis}._o5721q9c{white-space:nowrap}
         </style>
         <h1
-          class="_11c81p5s _12ji1r31 _1qu2glyw _12y31o36 _syaz1fxt _1dyz4jg8 _1pfhidpf"
+          class="_11c8nf1z _12ji1r31 _1qu2glyw _12y31o36 _syaz1fxt _1dyz4jg8 _1pfhidpf"
           tabindex="-1"
         >
           Test

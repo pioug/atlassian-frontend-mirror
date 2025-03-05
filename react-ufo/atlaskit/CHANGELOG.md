@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.3.1
+
+### Patch Changes
+
+- [#122115](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122115)
+  [`b39ca387a9eb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b39ca387a9eb6) -
+  Remove VC multiheatmap FG
+
+## 3.3.0
+
+### Minor Changes
+
+- [#120083](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120083)
+  [`25a022df71ba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25a022df71ba2) -
+  add UFO devtools chrome extension api for more events
+
+## 3.2.0
+
+### Minor Changes
+
+- [#121664](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121664)
+  [`20d171c15fa73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d171c15fa73) -
+  Adding foundations for TTVC v3
+
 ## 3.1.4
 
 ### Patch Changes

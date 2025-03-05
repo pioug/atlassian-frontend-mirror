@@ -392,6 +392,10 @@ export const moveToLayout =
 			return tr;
 		}
 
+		if (fg('platform_editor_ease_of_use_metrics')) {
+			api?.metrics?.commands.setContentMoved()({ tr });
+		}
+
 		const isMultiSelect = editorExperiment(
 			'platform_editor_element_drag_and_drop_multiselect',
 			true,

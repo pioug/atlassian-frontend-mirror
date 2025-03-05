@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-engagement-platform",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Engagement platform plugin for @atlaskit/editor-core“",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,8 +36,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^100.4.0",
-		"@atlaskit/editor-plugin-analytics": "^2.0.0",
+		"@atlaskit/editor-common": "^101.1.0",
+		"@atlaskit/editor-plugin-analytics": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

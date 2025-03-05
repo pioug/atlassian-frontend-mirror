@@ -28,6 +28,9 @@
 		},
 		{
 			"path": "../../input-rules/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
 		}
 	]
 }

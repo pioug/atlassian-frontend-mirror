@@ -13,7 +13,6 @@ import { expandSelectionBounds, GapCursorSelection } from '@atlaskit/editor-comm
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/dist/types/transform';
 import {
 	Fragment,
 	type NodeType,
@@ -21,6 +20,7 @@ import {
 	type Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
 	findParentNodeOfType,
 	findParentNodeOfTypeClosestToPos,
@@ -134,23 +134,31 @@ export const moveNodeViaShortcut = (
 		const expandedSelection = expandSelectionBounds(selection.$anchor, selection.$head);
 		const expandedAnchor = expandedSelection.$anchor.pos;
 		const expandedHead = expandedSelection.$head.pos;
-		const currentNodePos =
-			isMultiSelectEnabled && !getFocusedHandle(state)
-				? Math.min(expandedAnchor, expandedHead)
-				: getCurrentNodePos(state);
 
+		let hoistedPos;
+		const from = Math.min(expandedAnchor, expandedHead);
+		// Nodes like lists nest within themselves, we need to find the top most position
+		if (isParentNodeOfTypeLayout && fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+			const LAYOUT_COL_DEPTH = 3;
+			hoistedPos = state.doc.resolve(from).before(LAYOUT_COL_DEPTH);
+		}
+
+		const currentNodePos =
+			isMultiSelectEnabled && !getFocusedHandle(state) && !selection.empty
+				? hoistedPos ?? from
+				: getCurrentNodePos(state);
 		if (currentNodePos > -1) {
-			const $pos = state.doc.resolve(currentNodePos);
+			const $currentNodePos = state.doc.resolve(currentNodePos);
 			const nodeAfterPos =
 				isMultiSelectEnabled && !getFocusedHandle(state)
 					? Math.max(expandedAnchor, expandedHead)
-					: $pos.posAtIndex($pos.index() + 1);
+					: $currentNodePos.posAtIndex($currentNodePos.index() + 1);
 
-			const isTopLevelNode = $pos.depth === 0;
+			const isTopLevelNode = $currentNodePos.depth === 0;
 
 			let moveToPos = -1;
 
-			const nodeIndex = $pos.index();
+			const nodeIndex = $currentNodePos.index();
 
 			const isLayoutColumnSelected =
 				selection instanceof NodeSelection && selection.node.type.name === 'layoutColumn';
@@ -161,7 +169,7 @@ export const moveNodeViaShortcut = (
 					editorExperiment('advanced_layouts', true) &&
 					fg('platform_editor_advanced_layouts_accessibility')
 				) {
-					const nodeBefore = $pos.nodeBefore;
+					const nodeBefore = $currentNodePos.nodeBefore;
 
 					if (nodeBefore) {
 						moveToPos = currentNodePos - nodeBefore.nodeSize;
@@ -186,7 +194,7 @@ export const moveNodeViaShortcut = (
 
 					return true;
 				} else if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
-					moveToPos = selection.from - ($pos.nodeBefore?.nodeSize || 1);
+					moveToPos = selection.from - ($currentNodePos.nodeBefore?.nodeSize || 1);
 
 					api?.core?.actions.execute(
 						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
@@ -195,15 +203,15 @@ export const moveNodeViaShortcut = (
 					);
 					return true;
 				} else {
-					if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
+					if ($currentNodePos.depth < 2 || !isParentNodeOfTypeLayout) {
 						return false;
 					}
 
 					// get the previous layoutSection node
-					const index = $pos.index($pos.depth - 1);
-					const grandParent = $pos.node($pos.depth - 1);
+					const index = $currentNodePos.index($currentNodePos.depth - 1);
+					const grandParent = $currentNodePos.node($currentNodePos.depth - 1);
 					const previousNode = grandParent ? grandParent.maybeChild(index - 1) : null;
-					moveToPos = $pos.start() - (previousNode?.nodeSize || 1);
+					moveToPos = $currentNodePos.start() - (previousNode?.nodeSize || 1);
 				}
 			} else if (direction === DIRECTION.RIGHT && shouldEnableNestedDndA11y) {
 				if (
@@ -211,9 +219,8 @@ export const moveNodeViaShortcut = (
 					editorExperiment('advanced_layouts', true) &&
 					fg('platform_editor_advanced_layouts_accessibility')
 				) {
-					const endOfDoc = $pos.end();
-					moveToPos = $pos.posAtIndex($pos.index() + 1);
-
+					const endOfDoc = $currentNodePos.end();
+					moveToPos = $currentNodePos.posAtIndex($currentNodePos.index() + 1);
 					if (moveToPos >= endOfDoc) {
 						return false;
 					}
@@ -231,8 +238,8 @@ export const moveNodeViaShortcut = (
 
 					return true;
 				} else if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
-					const index = $pos.index($pos.depth);
-					const parent = $pos.node($pos.depth);
+					const index = $currentNodePos.index($currentNodePos.depth);
+					const parent = $currentNodePos.node($currentNodePos.depth);
 					// get the next layoutColumn node
 					const nextNode = parent ? parent.maybeChild(index + 1) : null;
 
@@ -243,7 +250,9 @@ export const moveNodeViaShortcut = (
 					}
 
 					const moveToEnd = index === parent.childCount - 2;
-					moveToPos = moveToEnd ? $pos.before() : selection.to + (nextNode?.nodeSize || 1);
+					moveToPos = moveToEnd
+						? $currentNodePos.before()
+						: selection.to + (nextNode?.nodeSize || 1);
 					api?.core?.actions.execute(
 						api?.blockControls?.commands?.moveToLayout(currentNodePos, moveToPos, {
 							moveToEnd,
@@ -253,27 +262,27 @@ export const moveNodeViaShortcut = (
 
 					return true;
 				} else {
-					if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
+					if ($currentNodePos.depth < 2 || !isParentNodeOfTypeLayout) {
 						return false;
 					}
 
-					moveToPos = $pos.after($pos.depth) + 1;
+					moveToPos = $currentNodePos.after($currentNodePos.depth) + 1;
 				}
 			} else if (direction === DIRECTION.UP) {
 				if (isLayoutColumnSelected && fg('platform_editor_advanced_layouts_accessibility')) {
-					moveToPos = $pos.start() - 1;
+					moveToPos = $currentNodePos.start() - 1;
 				} else {
 					const nodeBefore =
-						$pos.depth > 1 && nodeIndex === 0 && shouldEnableNestedDndA11y
-							? $pos.node($pos.depth)
-							: $pos.nodeBefore;
+						$currentNodePos.depth > 1 && nodeIndex === 0 && shouldEnableNestedDndA11y
+							? $currentNodePos.node($currentNodePos.depth)
+							: $currentNodePos.nodeBefore;
 
 					if (nodeBefore) {
 						moveToPos = currentNodePos - nodeBefore.nodeSize;
 					}
 				}
 			} else {
-				const endOfDoc = $pos.end();
+				const endOfDoc = $currentNodePos.end();
 
 				if (nodeAfterPos > endOfDoc) {
 					return false;
@@ -295,14 +304,29 @@ export const moveNodeViaShortcut = (
 			// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
 			const shouldMoveNode =
 				(shouldEnableNestedDndA11y
-					? (moveToPos > -1 && $pos.depth === state.doc.resolve(moveToPos).depth) ||
+					? (moveToPos > -1 && $currentNodePos.depth === state.doc.resolve(moveToPos).depth) ||
 						nodeType === 'layoutColumn'
 					: moveToPos > -1) ||
 				(nodeType === 'layoutColumn' && fg('platform_editor_advanced_layouts_accessibility'));
 
+			const { $anchor: $newAnchor, $head: $newHead } = expandSelectionBounds(
+				$currentNodePos,
+				selection.$to,
+			);
 			if (shouldMoveNode) {
 				api?.core?.actions.execute(({ tr }) => {
-					api?.blockControls.commands.setMultiSelectPositions(expandedAnchor, expandedHead)({ tr });
+					if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+						api?.blockControls.commands.setMultiSelectPositions(
+							$newAnchor.pos,
+							$newHead.pos,
+						)({ tr });
+					} else {
+						api?.blockControls.commands.setMultiSelectPositions(
+							expandedAnchor,
+							expandedHead,
+						)({ tr });
+					}
+
 					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.SHORTCUT, formatMessage)({ tr });
 					tr.scrollIntoView();
 					return tr;
@@ -318,7 +342,18 @@ export const moveNodeViaShortcut = (
 				return true;
 			} else if (isMultiSelectEnabled) {
 				api?.core?.actions.execute(({ tr }) => {
-					api.blockControls.commands.setMultiSelectPositions(expandedAnchor, expandedHead)({ tr });
+					if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+						api?.blockControls.commands.setMultiSelectPositions(
+							$newAnchor.pos,
+							$newHead.pos,
+						)({ tr });
+					} else {
+						api?.blockControls.commands.setMultiSelectPositions(
+							expandedAnchor,
+							expandedHead,
+						)({ tr });
+					}
+
 					tr.scrollIntoView();
 					return tr;
 				});
@@ -360,6 +395,10 @@ export const moveNode =
 				exposure: true,
 			},
 		);
+
+		if (fg('platform_editor_ease_of_use_metrics')) {
+			api?.metrics?.commands.setContentMoved()({ tr });
+		}
 
 		const slicePosition = getSelectedSlicePosition(start, tr, api);
 

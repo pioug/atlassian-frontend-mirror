@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.2.0
+
+### Minor Changes
+
+- [#121851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121851)
+  [`71823ac860883`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71823ac860883) -
+  Add 'state' as an optional param to GetStartingToolbarItems type, display new appearance dropdown
+  for url nodes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.7
 
 ### Patch Changes

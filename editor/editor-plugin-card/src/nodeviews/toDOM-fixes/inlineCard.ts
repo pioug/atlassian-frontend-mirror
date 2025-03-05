@@ -22,6 +22,7 @@ export const inlineCardSpecWithFixedToDOM = () => {
 				class: 'inlineCardView-content-wrap inlineNodeView',
 			};
 			const cardAttrs = {
+				'aria-busy': 'true',
 				class: 'card',
 			};
 			const attrs = {

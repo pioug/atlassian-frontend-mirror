@@ -61,4 +61,8 @@ export default {
     '{count, plural, one {Équipe • {count} membre, dont vous} other {Équipe • {count} membres, dont vous}}',
   'pt.team-profile-card.team.member.many': 'Équipe • Plus de 50 membres',
   'pt.team-profile-card.team.member.many-including-you': 'Équipe • Plus de 50 membres, dont vous',
+  'pt.team.profile-card.members.more-icon-label':
+    '{count, plural, one {+{count} membre supplémentaire} other {+{count} membres supplémentaires}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label':
+    '{count, plural, one {+{count} profil supplémentaire} other {+{count} profils supplémentaires}}',
 };

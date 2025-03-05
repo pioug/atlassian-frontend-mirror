@@ -5,6 +5,10 @@ import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-d
 import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inline-card-default-truncate';
 import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
 import InlineCardErrorTruncate from '../../../examples/vr-inline-card/vr-inline-card-error-truncate';
+import InlineCardFontSize16 from '../../../examples/vr-inline-card/vr-inline-card-font-size-16';
+import InlineCardFontSize24 from '../../../examples/vr-inline-card/vr-inline-card-font-size-24';
+import InlineCardFontSize32 from '../../../examples/vr-inline-card/vr-inline-card-font-size-32';
+import InlineCardFontSizeDefault from '../../../examples/vr-inline-card/vr-inline-card-font-size-default';
 import InlineCardForbidden from '../../../examples/vr-inline-card/vr-inline-card-forbidden';
 import InlineCardForbiddenDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-forbidden-default-icon';
 import InlineCardForbiddenRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-request-access';
@@ -275,6 +279,38 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 	description: `inline card unauthorised view with no auth`,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+
+snapshot(InlineCardFontSizeDefault, {
+	description: 'inline card with default font size',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+
+snapshot(InlineCardFontSize32, {
+	description: 'inline card with 32 font size',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+
+snapshot(InlineCardFontSize24, {
+	description: 'inline card with 24 font size',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+
+snapshot(InlineCardFontSize16, {
+	description: 'inline card with 16 font size',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 

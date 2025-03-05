@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 2.2.0
+
+### Minor Changes
+
+- [#122105](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122105)
+  [`73e1118517615`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73e1118517615) - -
+  Support new pubsub event to send a placeholder prompt
+  - Remove `rovo_conversation_starters_use_placeholder` FG
+
 ## 2.1.0
 
 ### Minor Changes

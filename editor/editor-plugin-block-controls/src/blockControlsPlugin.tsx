@@ -6,6 +6,7 @@ import {
 	type EditorState,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, HandleOptions, MultiSelectDnD } from './blockControlsPluginType';
@@ -86,6 +87,14 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					isDragging: true,
 					activeNode: { pos, anchorName, nodeType },
 				});
+
+				if (fg('platform_editor_ease_of_use_metrics')) {
+					api?.metrics?.commands.handleIntentToStartEdit({
+						shouldStartTimer: false,
+						shouldPersistActiveSession: true,
+					})({ tr });
+				}
+
 				return tr;
 			},
 		setMultiSelectPositions:

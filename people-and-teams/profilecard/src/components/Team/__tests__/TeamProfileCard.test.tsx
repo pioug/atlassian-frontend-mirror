@@ -59,35 +59,22 @@ const renderComponent = (props = {}) => {
 };
 
 describe('TeamProfileCard', () => {
-	ffTest.on('show_verified_team_icon_in_profile_card', 'with verified icon enabled', () => {
-		test('renders the verified team icon when team is verified', () => {
-			renderComponent();
+	test('renders the verified team icon when team is verified', () => {
+		renderComponent();
 
-			expect(screen.getByTestId('team-profilecard')).toBeInTheDocument();
-			expect(screen.getByText('Test Team')).toBeInTheDocument();
-			expect(screen.getByText('This is a test team')).toBeInTheDocument();
-			expect(screen.getByText('VerifiedTeamIcon')).toBeInTheDocument();
-		});
-
-		test('does not render the verified team icon when team is not verified', () => {
-			renderComponent({ team: { ...createTeam(), isVerified: false } });
-
-			expect(screen.getByTestId('team-profilecard')).toBeInTheDocument();
-			expect(screen.getByText('Test Team')).toBeInTheDocument();
-			expect(screen.getByText('This is a test team')).toBeInTheDocument();
-			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
-		});
+		expect(screen.getByTestId('team-profilecard')).toBeInTheDocument();
+		expect(screen.getByText('Test Team')).toBeInTheDocument();
+		expect(screen.getByText('This is a test team')).toBeInTheDocument();
+		expect(screen.getByText('VerifiedTeamIcon')).toBeInTheDocument();
 	});
 
-	ffTest.off('show_verified_team_icon_in_profile_card', 'with verified icon disable', () => {
-		test('does not render the verified team icon', () => {
-			renderComponent();
+	test('does not render the verified team icon when team is not verified', () => {
+		renderComponent({ team: { ...createTeam(), isVerified: false } });
 
-			expect(screen.getByTestId('team-profilecard')).toBeInTheDocument();
-			expect(screen.getByText('Test Team')).toBeInTheDocument();
-			expect(screen.getByText('This is a test team')).toBeInTheDocument();
-			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
-		});
+		expect(screen.getByTestId('team-profilecard')).toBeInTheDocument();
+		expect(screen.getByText('Test Team')).toBeInTheDocument();
+		expect(screen.getByText('This is a test team')).toBeInTheDocument();
+		expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
 	});
 
 	ffTest.on('platform_profilecard-enable_reporting_lines_label', 'with aria label enabled', () => {

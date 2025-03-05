@@ -47,6 +47,8 @@ export default function Basic() {
 						teamId="team-id"
 						onAddAContainerClick={() => {}}
 						components={{ ContainerCard: CustomContainerCard }}
+						userId={'user-id'}
+						cloudId={'cloud-id'}
 					/>
 				</Box>
 			</IntlProvider>

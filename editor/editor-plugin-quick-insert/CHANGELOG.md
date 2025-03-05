@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.3
+
+### Patch Changes
+
+- [#121073](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121073)
+  [`9c197731fcbf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c197731fcbf8) -
+  [ux] [ED-26824] When platform_editor_controls is enabled, add 'View more' button to quick
+  insertpopup to open element browser modal
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

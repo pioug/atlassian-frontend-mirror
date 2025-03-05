@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "3.1.4",
+	"version": "3.3.1",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -198,9 +198,6 @@
 		"ufo-remove-vc-component-observations-after-ttai": {
 			"type": "boolean"
 		},
-		"ufo_vc_multiheatmap": {
-			"type": "boolean"
-		},
 		"ufo-calc-speed-index": {
 			"type": "boolean"
 		},
@@ -217,6 +214,12 @@
 			"type": "boolean"
 		},
 		"platform_ufo_vc_ttai_on_paint": {
+			"type": "boolean"
+		},
+		"enable_ufo_devtools_api_for_extra_events": {
+			"type": "boolean"
+		},
+		"platform_ufo_multiheatmap_killswitch": {
 			"type": "boolean"
 		}
 	}

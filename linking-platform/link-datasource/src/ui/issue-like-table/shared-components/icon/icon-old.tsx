@@ -30,7 +30,12 @@ interface SharedIconComponentProps {
  * Renders a icon and text label.
  * If the text is undefined, will not render the text label.
  */
-export function SharedIconComponentOld({ iconUrl, label = '', text, testId }: SharedIconComponentProps) {
+export function SharedIconComponentOld({
+	iconUrl,
+	label = '',
+	text,
+	testId,
+}: SharedIconComponentProps) {
 	return (
 		<Flex gap="space.100" alignItems="center" testId={testId}>
 			<Inline>

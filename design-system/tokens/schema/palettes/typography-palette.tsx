@@ -220,14 +220,14 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
 	fontFamily: {
 		FontFamilyCharlieDisplay: {
 			value:
-				'"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+				'"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 			attributes: {
 				group: 'fontFamily',
 			},
 		},
 		FontFamilyCharlieText: {
 			value:
-				'"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+				'"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 			attributes: {
 				group: 'fontFamily',
 			},
@@ -244,13 +244,13 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
 		 * @see https://fonts.google.com/knowledge/glossary/system_font_web_safe_font
 		 */
 		FontFamilyWebSans: {
-			value: `ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif`,
+			value: `ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif`,
 			attributes: {
 				group: 'fontFamily',
 			},
 		},
 		FontFamilyWebSansRefreshed: {
-			value: `\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif`,
+			value: `\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif`,
 			attributes: {
 				group: 'fontFamily',
 			},

@@ -56,6 +56,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
@@ -203,7 +204,9 @@ const generateMediaCardFloatingToolbar = (
 			id: 'editor.media.viewer',
 			testId: 'file-preview-toolbar-button',
 			type: 'button',
-			icon: MaximizeIcon,
+			icon: editorExperiment('platform_editor_controls', 'variant1')
+				? GrowDiagonalIcon
+				: MaximizeIcon,
 			iconFallback: FilePreviewIcon,
 			title: intl.formatMessage(messages.preview),
 			onClick: () => {
@@ -355,7 +358,7 @@ const generateMediaSingleFloatingToolbar = (
 							/>
 						);
 					},
-					width: 156,
+					width: 188,
 					height: 32,
 				};
 				const trigger: FloatingToolbarDropdown<Command> = {
@@ -613,9 +616,10 @@ const generateMediaSingleFloatingToolbar = (
 				}
 				return [sizeInput];
 			}
-
-			toolbarButtons.push(sizeInput);
-			toolbarButtons.push({ type: 'separator' });
+			if (editorExperiment('platform_editor_controls', 'control')) {
+				toolbarButtons.push(sizeInput);
+				toolbarButtons.push({ type: 'separator' });
+			}
 		}
 
 		if (editorExperiment('platform_editor_controls', 'control')) {
@@ -684,7 +688,9 @@ const generateMediaSingleFloatingToolbar = (
 							id: 'editor.media.viewer',
 							testId: 'file-preview-toolbar-button',
 							type: 'button',
-							icon: MaximizeIcon,
+							icon: editorExperiment('platform_editor_controls', 'variant1')
+								? GrowDiagonalIcon
+								: MaximizeIcon,
 							iconFallback: FilePreviewIcon,
 							title: intl.formatMessage(messages.preview),
 							onClick: () => {
@@ -758,7 +764,9 @@ const generateMediaSingleFloatingToolbar = (
 						id: 'editor.media.viewer',
 						testId: 'file-preview-toolbar-button',
 						type: 'button',
-						icon: MaximizeIcon,
+						icon: editorExperiment('platform_editor_controls', 'variant1')
+							? GrowDiagonalIcon
+							: MaximizeIcon,
 						iconFallback: FilePreviewIcon,
 						title: intl.formatMessage(messages.preview),
 						onClick: () => {

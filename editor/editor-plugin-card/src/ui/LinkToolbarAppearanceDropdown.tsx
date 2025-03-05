@@ -1,7 +1,5 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
-
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	appearancePropsMap,
@@ -9,7 +7,7 @@ import {
 	getDropdownOption,
 	type OptionConfig,
 } from '@atlaskit/editor-common/card';
-import nodeNames, { cardMessages as messages } from '@atlaskit/editor-common/messages';
+import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
 	DropdownOptions,
@@ -18,15 +16,14 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { ButtonItem, LinkItem, MenuGroup, Section } from '@atlaskit/menu';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 
-import type { LinkToolbarAppearanceProps } from './LinkToolbarAppearance';
+import { getUnavailableMessage, type LinkToolbarAppearanceProps } from './LinkToolbarAppearance';
 
-const AppearanceMenu = ({
+export const LinkAppearanceMenu = ({
 	url,
 	intl,
 	currentAppearance,
@@ -190,7 +187,7 @@ export const getLinkAppearanceDropdown = ({
 	const alignmentItemOptions: DropdownOptions<Command> = {
 		render: (props) => {
 			return (
-				<AppearanceMenu
+				<LinkAppearanceMenu
 					url={url}
 					intl={intl}
 					currentAppearance={currentAppearance}
@@ -221,21 +218,4 @@ export const getLinkAppearanceDropdown = ({
 	};
 
 	return alignmentToolbarItem;
-};
-
-const getUnavailableMessage = (state: EditorState, intl: IntlShape): string => {
-	try {
-		const parentNode = state.selection.$from.node(1);
-		const parentName = intl.formatMessage(
-			nodeNames[parentNode.type.name as keyof typeof nodeNames],
-		);
-		const tooltip = intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
-			node: parentName,
-		});
-		return tooltip;
-	} catch (e) {
-		return intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
-			node: intl.formatMessage(nodeNames.defaultBlockNode),
-		});
-	}
 };

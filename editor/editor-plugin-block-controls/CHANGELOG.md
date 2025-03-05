@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.0
+
+### Minor Changes
+
+- [#120928](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120928)
+  [`01cb5ca9596cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01cb5ca9596cf) -
+  [ED-26316] Refactor checkTrActionType functions to be in it's own file to help with readability,
+  add check for safe insert count and update it in analytics event fired
+
+### Patch Changes
+
+- [#121803](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121803)
+  [`41a43b5d95052`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41a43b5d95052) -
+  Fix logic for determining drag handle corresponding to selection, shortcuts
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [#120472](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120472)
+  [`73c800ab5f2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c800ab5f2fc) -
+  ED-26766 update adf-schema from 47.2.1 to 47.6.0 and adf-schema-json from 1.27.0 to 1.31.0
+
+### Patch Changes
+
+- [#121077](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121077)
+  [`a41495c81457e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a41495c81457e) -
+  remap root anchor name and node type when document changes to fix quick insert button positioning
+  issues
+- Updated dependencies
+
 ## 3.1.9
 
 ### Patch Changes

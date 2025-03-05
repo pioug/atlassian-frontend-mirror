@@ -101,7 +101,13 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({
+			start: 0,
+			stop: 100,
+			tti: 3,
+			prefix: '',
+			isEventAborted: false,
+		});
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -161,6 +167,94 @@ describe('vc-observer', () => {
 			},
 			'vc:next:updates': [{ time: 5, vc: 100, elements: ['body > div'] }],
 			'vc:ignored': [],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 5,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'50': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'75': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'80': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'85': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'90': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'95': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'98': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'99': {
+							e: ['body > div'],
+							t: 5,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 5,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'50': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'75': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'80': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'85': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'90': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'95': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'98': {
+							e: ['body > div'],
+							t: 5,
+						},
+						'99': {
+							e: ['body > div'],
+							t: 5,
+						},
+					},
+				},
+			],
 		});
 	});
 
@@ -216,7 +310,13 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({
+			start: 0,
+			stop: 100,
+			tti: 3,
+			prefix: '',
+			isEventAborted: false,
+		});
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -289,6 +389,94 @@ describe('vc-observer', () => {
 				{ time: 20, vc: 100, elements: ['div#d'] },
 			],
 			'vc:ignored': [],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+			],
 		});
 	});
 
@@ -382,7 +570,13 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({
+			start: 0,
+			stop: 100,
+			tti: 3,
+			prefix: '',
+			isEventAborted: false,
+		});
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -455,6 +649,94 @@ describe('vc-observer', () => {
 				{ time: 20, vc: 100, elements: ['div#d'] },
 			],
 			'vc:ignored': [],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+			],
 		});
 	});
 
@@ -511,7 +793,13 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({
+			start: 0,
+			stop: 100,
+			tti: 3,
+			prefix: '',
+			isEventAborted: false,
+		});
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -587,6 +875,94 @@ describe('vc-observer', () => {
 					ignoreReason: 'image',
 				},
 			],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+			],
 		});
 	});
 
@@ -642,7 +1018,13 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({
+			start: 0,
+			stop: 100,
+			tti: 3,
+			prefix: '',
+			isEventAborted: false,
+		});
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -715,6 +1097,94 @@ describe('vc-observer', () => {
 				{ time: 20, vc: 100, elements: ['div#d'] },
 			],
 			'vc:ignored': [],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 15,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'85': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'90': {
+							e: ['div#c'],
+							t: 15,
+						},
+						'95': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'98': {
+							e: ['div#d'],
+							t: 20,
+						},
+						'99': {
+							e: ['div#d'],
+							t: 20,
+						},
+					},
+				},
+			],
 		});
 	});
 
@@ -734,7 +1204,13 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		const result = await vc.getVCResult({
+			start: 0,
+			stop: 100,
+			tti: 3,
+			prefix: '',
+			isEventAborted: false,
+		});
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -794,6 +1270,94 @@ describe('vc-observer', () => {
 			},
 			'vc:next:updates': [{ time: 5, vc: 100, elements: ['div#a'] }],
 			'vc:ignored': [],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 5,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'80': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'85': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'90': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'95': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'98': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'99': {
+							e: ['div#a'],
+							t: 5,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 5,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'50': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'75': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'80': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'85': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'90': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'95': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'98': {
+							e: ['div#a'],
+							t: 5,
+						},
+						'99': {
+							e: ['div#a'],
+							t: 5,
+						},
+					},
+				},
+			],
 		});
 
 		vc.start({ startTime: 100 });
@@ -811,7 +1375,13 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const resultTransition = await vc.getVCResult({ start: 100, stop: 200, tti: 3, prefix: '' });
+		const resultTransition = await vc.getVCResult({
+			start: 100,
+			stop: 200,
+			tti: 3,
+			prefix: '',
+			isEventAborted: false,
+		});
 		expect(resultTransition).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -871,6 +1441,94 @@ describe('vc-observer', () => {
 			},
 			'vc:next:updates': [{ time: 10, vc: 100, elements: ['div#b'] }],
 			'vc:ignored': [],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 10,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'50': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'85': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'90': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'95': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'98': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'99': {
+							e: ['div#b'],
+							t: 10,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 10,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'50': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'85': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'90': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'95': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'98': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'99': {
+							e: ['div#b'],
+							t: 10,
+						},
+					},
+				},
+			],
 		});
 	});
 
@@ -890,7 +1548,14 @@ describe('vc-observer', () => {
 				'html',
 			);
 		});
-		const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '', ssr: 3 });
+		const result = await vc.getVCResult({
+			start: 0,
+			stop: 100,
+			tti: 3,
+			prefix: '',
+			ssr: 3,
+			isEventAborted: false,
+		});
 		expect(result).toEqual({
 			'vc:state': true,
 			'vc:clean': true,
@@ -956,6 +1621,94 @@ describe('vc-observer', () => {
 				{ time: 10, vc: 100, elements: ['div#b'] },
 			],
 			'vc:ignored': [],
+			'vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 10,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['SSR'],
+							t: 3,
+						},
+						'50': {
+							e: ['SSR'],
+							t: 3,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'85': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'90': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'95': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'98': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'99': {
+							e: ['div#b'],
+							t: 10,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 10,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['SSR'],
+							t: 3,
+						},
+						'50': {
+							e: ['SSR'],
+							t: 3,
+						},
+						'75': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'80': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'85': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'90': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'95': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'98': {
+							e: ['div#b'],
+							t: 10,
+						},
+						'99': {
+							e: ['div#b'],
+							t: 10,
+						},
+					},
+				},
+			],
 		});
 	});
 
@@ -974,7 +1727,9 @@ describe('vc-observer', () => {
 
 		vc.start({ startTime: 0 });
 
-		expect(await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' })).toEqual({
+		expect(
+			await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '', isEventAborted: false }),
+		).toEqual({
 			'vc:state': false,
 			'vc:abort:reason': 'not-supported',
 			'vc:abort:timestamp': 0,
@@ -1039,7 +1794,13 @@ describe('vc-observer', () => {
 						'html',
 					);
 				});
-				const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
 				const speedIndex = result['ufo:speedIndex'];
 
 				expect(speedIndex).toEqual(Math.round(5 * 0.25 + 10 * 0.25 + 15 * 0.25 + 20 * 0.25));
@@ -1105,7 +1866,13 @@ describe('vc-observer', () => {
 						'html',
 					);
 				});
-				const result = await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
 
 				expect(result['ufo:speedIndex']).toBeUndefined();
 				expect(result['ufo:next:speedIndex']).toBeUndefined();

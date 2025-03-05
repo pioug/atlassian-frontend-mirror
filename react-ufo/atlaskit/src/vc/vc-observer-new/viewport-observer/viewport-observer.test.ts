@@ -305,7 +305,7 @@ describe('ViewportObserver', () => {
 				mutationData: null,
 			});
 			onAttributeMutation({ target, attributeName: 'class' });
-			
+
 			expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 				target,
 				expect.any(Function),
@@ -317,7 +317,7 @@ describe('ViewportObserver', () => {
 			// Test with a new rect
 			const newRect = new DOMRect(0, 0, 20, 20);
 			const taggedMutationType = tagFn({ target, rect: newRect });
-			
+
 			expect(isContainedWithinMediaWrapper).toHaveBeenCalledWith(target);
 			expect(typeof taggedMutationType).toEqual('object');
 			if (typeof taggedMutationType !== 'object') {

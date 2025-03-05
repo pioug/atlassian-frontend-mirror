@@ -12,6 +12,9 @@ export type ActiveSessionEventAttributes = {
 			contentMovedCount: number;
 			nodeDeletionCount: number;
 			undoCount: number;
+			markChangeCount: number;
+			contentDeletedCount: number;
+			other: number;
 		};
 	};
 	effectiveness: {

@@ -58,4 +58,6 @@ export default {
     '{count, plural, other {Nhóm • {count} thành viên, bao gồm cả bạn}}',
   'pt.team-profile-card.team.member.many': 'Nhóm • 50+ thành viên',
   'pt.team-profile-card.team.member.many-including-you': 'Nhóm • 50+ thành viên, bao gồm cả bạn',
+  'pt.team.profile-card.members.more-icon-label': '{count, plural, other {+{count} thành viên khác}}',
+  'pt.user-profile-card.reporting-lines.more-icon-label': '{count, plural, other {+{count} hồ sơ khác}}',
 };

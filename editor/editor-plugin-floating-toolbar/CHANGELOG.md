@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.1.2
+
+### Patch Changes
+
+- [#122243](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122243)
+  [`cd1572955dd3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd1572955dd3b) -
+  FD-80149: cleans up platform_editor_react18_phase2_v2 in floating toolbar
+- Updated dependencies
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#121533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121533)
+  [`9efef36af09aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9efef36af09aa) -
+  Wire up the copy functionality in floating toolbar overflow menu
+
+### Patch Changes
+
+- [#121662](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121662)
+  [`9b32bffcee007`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b32bffcee007) -
+  [ux] [ED-26870] Allow toolbar height to expand
+- Updated dependencies
+
 ## 3.0.2
 
 ### Patch Changes

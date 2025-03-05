@@ -89,21 +89,20 @@ export default function Example() {
 		}
 
 		setTimeout(() => {
-		if (!contentRef.current) {
-			return;
-		}
+			if (!contentRef.current) {
+				return;
+			}
 
-		VanillaJSApp(contentRef.current, () => {
-			setIsLoading(false);
-		});
+			VanillaJSApp(contentRef.current, () => {
+				setIsLoading(false);
+			});
 		}, 200);
 	}, []);
 
 	return (
-    <UFOSegment name="app-root">
+		<UFOSegment name="app-root">
 			<UFOLoadHold name="app-to-replace" hold={isLoading} />
-		  <div data-testid="main" ref={contentRef} css={mainStyles}>
-		  </div>
+			<div data-testid="main" ref={contentRef} css={mainStyles}></div>
 		</UFOSegment>
 	);
 }

@@ -49,6 +49,7 @@ import { findDomRefAtPos, removeSelectedNode } from '@atlaskit/editor-prosemirro
 import CommentIcon from '@atlaskit/icon/core/comment';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import LinkIcon from '@atlaskit/icon/core/link';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import SettingsIcon from '@atlaskit/icon/core/settings';
@@ -81,6 +82,7 @@ import {
 } from './EditLinkToolbar';
 import { EditToolbarButton } from './EditToolbarButton';
 import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
+import { getHyperlinkAppearanceDropdown } from './HyperlinkToolbarAppearanceDropdown';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 import { getLinkAppearanceDropdown } from './LinkToolbarAppearanceDropdown';
 import { ToolbarViewedEvent } from './ToolbarViewedEvent';
@@ -511,7 +513,17 @@ const generateToolbarItems =
 						},
 					]
 				: [
-						...editItems,
+						{
+							id: 'editor.link.edit',
+							type: 'button',
+							selected: false,
+							metadata: metadata,
+							title: intl.formatMessage(linkToolbarMessages.editLink),
+							icon: LinkIcon,
+							testId: 'link-toolbar-edit-link-button',
+							onClick: getEditLinkCallback(editorAnalyticsApi, true),
+						},
+						{ type: 'separator' },
 						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
 						{
 							id: 'editor.link.openLink',
@@ -741,8 +753,6 @@ const getDatasourceButtonGroup = (
 						allowBlockCards: allowBlockCards,
 						editorAnalyticsApi,
 						showUpgradeDiscoverability: showUpgradeDiscoverability,
-						// TODO: find a way to inject editorView here
-						// editorView: view,
 						settingsConfig: getSettingsButton(
 							intl,
 							editorAnalyticsApi,
@@ -857,6 +867,7 @@ export const getStartingToolbarItems = (
 		link: string,
 		onEditLink: Command,
 		metadata: { url: string; title: string },
+		state?: EditorState,
 	): FloatingToolbarItem<Command>[] => {
 		const editLinkItem: FloatingToolbarItem<Command>[] = options.allowDatasource
 			? [
@@ -895,6 +906,63 @@ export const getStartingToolbarItems = (
 						type: 'separator',
 					},
 				];
+
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			return [
+				{
+					type: 'custom',
+					fallback: [],
+					render: (editorView) => (
+						<ToolbarViewedEvent
+							key="edit.link.menu.viewed"
+							url={link}
+							display="url"
+							editorView={editorView}
+						/>
+					),
+				},
+				getHyperlinkAppearanceDropdown({
+					url: link,
+					intl,
+					editorState: state,
+					editorAnalyticsApi: api?.analytics?.actions,
+					editorPluginApi: api,
+					cardOptions: options,
+					settingsConfig: getSettingsButton(
+						intl,
+						api?.analytics?.actions,
+						options.userPreferencesLink,
+					),
+				}),
+				...(options?.allowDatasource
+					? [
+							{
+								type: 'custom',
+								fallback: [],
+								render: (editorView) => {
+									if (!editorView) {
+										return null;
+									}
+
+									return (
+										<DatasourceAppearanceButton
+											intl={intl}
+											editorAnalyticsApi={api?.analytics?.actions}
+											url={link}
+											editorView={editorView}
+											editorState={editorView.state}
+											inputMethod={INPUT_METHOD.FLOATING_TB}
+										/>
+									);
+								},
+							} satisfies FloatingToolbarItem<never>,
+						]
+					: []),
+				{ type: 'separator' },
+				...editLinkItem,
+			];
+		}
+
 		return [
 			{
 				type: 'custom',
@@ -929,6 +997,7 @@ export const getStartingToolbarItems = (
 					);
 				},
 			},
+
 			...editLinkItem,
 		];
 	};
@@ -941,7 +1010,10 @@ export const getEndingToolbarItems =
 		 * Require either provider to be supplied (controls link preferences)
 		 * Or explicit user preferences config in order to enable button
 		 */
-		if (options.provider || options.userPreferencesLink) {
+		if (
+			(options.provider || options.userPreferencesLink) &&
+			editorExperiment('platform_editor_controls', 'control')
+		) {
 			return [
 				{ type: 'separator' },
 				getSettingsButton(intl, api?.analytics?.actions, options.userPreferencesLink),

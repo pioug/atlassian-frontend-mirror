@@ -98,7 +98,11 @@ export const RENDER_REACTIONS_SUMMARY_TESTID = 'reaction-summary-view';
 export interface ReactionsProps
 	extends Pick<
 			ReactionPickerProps,
-			'allowAllEmojis' | 'emojiProvider' | 'emojiPickerSize' | 'miniMode'
+			| 'allowAllEmojis'
+			| 'emojiProvider'
+			| 'emojiPickerSize'
+			| 'miniMode'
+			| 'reactionPickerTriggerIcon'
 		>,
 		Pick<SelectorProps, 'pickerQuickReactionEmojiIds'> {
 	/**
@@ -220,13 +224,13 @@ export interface ReactionsProps
 	 */
 	noRelativeContainer?: boolean;
 	/**
-	 * Optional prop for controlling if Trigger displays the ... show more emoji UI
-	 */
-	showMoreEmojiTriggerUI?: boolean;
-	/**
 	 * Optional prop for controlling if default reactions are subtle
 	 */
 	showSubtleDefaultReactions?: boolean;
+	/**
+	 * Optional prop for controlling tooltip content of the trigger button
+	 */
+	reactionPickerTriggerToolipContent?: string;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -237,7 +241,7 @@ export interface OpenReactionsDialogOptions {
 /**
  * Get content of the tooltip
  */
-export function getTooltip(status: ReactionStatus, errorMessage?: string) {
+export function getTooltip(status: ReactionStatus, errorMessage?: string, tooltipContent?: string) {
 	switch (status) {
 		case ReactionStatus.error:
 			return errorMessage || <FormattedMessage {...messages.unexpectedError} />;
@@ -248,7 +252,7 @@ export function getTooltip(status: ReactionStatus, errorMessage?: string) {
 		case ReactionStatus.loading:
 			return <FormattedMessage {...messages.loadingReactions} />;
 		case ReactionStatus.ready:
-			return <FormattedMessage {...messages.addReaction} />;
+			return !!tooltipContent ? tooltipContent : <FormattedMessage {...messages.addReaction} />;
 	}
 }
 
@@ -291,8 +295,9 @@ export const Reactions = React.memo(
 		reactionPickerAdditionalStyle,
 		noWrap = false,
 		noRelativeContainer = false,
-		showMoreEmojiTriggerUI,
 		showSubtleDefaultReactions,
+		reactionPickerTriggerToolipContent,
+		reactionPickerTriggerIcon,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -535,14 +540,14 @@ export const Reactions = React.memo(
 							onOpen={handlePickerOpen}
 							onCancel={handleOnCancel}
 							onShowMore={handleOnMore}
-							tooltipContent={getTooltip(status, errorMessage)}
+							tooltipContent={getTooltip(status, errorMessage, reactionPickerTriggerToolipContent)}
 							emojiPickerSize={emojiPickerSize}
 							miniMode={miniMode}
 							showOpaqueBackground={showOpaqueBackground}
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							showRoundTrigger={showRoundTrigger}
-							showMoreEmojiTriggerUI={showMoreEmojiTriggerUI}
+							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
 						/>
 					)}

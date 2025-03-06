@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalTransitionProps
  *
- * @codegen <<SignedSource::9d4490cd7b1938efec7181c83258a4c5>>
+ * @codegen <<SignedSource::fbd2e79db623371d79d173ce8c807737>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-transition.partial.tsx <<SignedSource::7f1f7ea64369d3e65533dffbbcec26d7>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-transition.partial.tsx <<SignedSource::9a5d35aaedbe614414c801acffdbeeff>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,6 @@ export type ModalTransitionProps = Pick<
 >;
 
 /**
- * A modal dialog displays content that requires user interaction, in a layer above the page.
+ * A modal transition wraps a modal to provide a fluid transition upon opening and closing.
  */
 export type TModalTransition<T> = (props: ModalTransitionProps) => T;

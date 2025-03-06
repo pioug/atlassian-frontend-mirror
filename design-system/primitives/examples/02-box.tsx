@@ -1,8 +1,10 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { type BackgroundColor, Box, Inline, type Space, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 const spacingValues: Space[] = [
 	'space.0',
@@ -24,14 +26,16 @@ const spacingValues: Space[] = [
 const backgroundColors: BackgroundColor[] = [
 	'color.background.discovery.bold',
 	'color.background.success.bold',
-	'color.background.warning.bold',
 	'color.background.danger.bold',
 	'color.background.information.bold',
 	'color.background.brand.bold',
 ];
 
 const layerContainerStyles = xcss({ position: 'relative' });
-const colorStyles = xcss({ color: 'color.text.inverse' });
+const styles = cssMap({
+	inverse: { color: token('color.text.inverse') },
+	warningInverse: { color: token('color.text.warning.inverse') },
+});
 const baseBorderStyles = xcss({
 	borderStyle: 'solid',
 	borderWidth: 'border.width',
@@ -92,11 +96,19 @@ export default () => {
 							key={backgroundColor}
 							backgroundColor={backgroundColor}
 							padding="space.400"
-							xcss={colorStyles}
+							xcss={styles.inverse}
 						>
 							<Box>{backgroundColor}</Box>
 						</Box>
 					))}
+
+					<Box
+						backgroundColor={'color.background.warning.bold'}
+						padding="space.400"
+						xcss={styles.warningInverse}
+					>
+						<Box>color.background.warning</Box>
+					</Box>
 				</Inline>
 			</Stack>
 

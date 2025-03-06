@@ -1,5 +1,11 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.22.0
 
 ### Minor Changes

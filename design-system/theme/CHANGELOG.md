@@ -1,5 +1,21 @@
 # @atlaskit/theme
 
+## 18.0.0
+
+### Major Changes
+
+- [#122237](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122237)
+  [`7724194406976`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7724194406976) -
+  After a long deprecation process, removes the following APIs that are no longer used in known
+  products and applications:
+
+  - `AtlaskitThemeProvider` component
+  - `useThemeResetStyles` hook
+  - The `@atlaskit/theme/deprecated-provider-please-do-not-use` entrypoint
+
+  Please directly use `@atlaskit/tokens` and refer to
+  https://atlassian.design/tokens/migrate-to-tokens
+
 ## 17.0.0
 
 ### Major Changes

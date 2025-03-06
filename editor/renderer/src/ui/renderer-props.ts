@@ -9,7 +9,7 @@ import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import type { RendererContext } from '../';
-import type { TextHighlighter } from '../react/types';
+import type { TextHighlighter, ExtensionViewportSize } from '../react/types';
 import type { RenderOutputStat } from '../render-document';
 import type { MediaOptions } from '../types/mediaOptions';
 import type { SmartLinksOptions } from '../types/smartLinksOptions';
@@ -58,6 +58,7 @@ export interface RendererProps {
 	media?: MediaOptions;
 	emojiResourceConfig?: EmojiResourceConfig;
 	smartLinks?: SmartLinksOptions;
+	extensionViewportSizes?: ExtensionViewportSize[];
 	allowAnnotations?: boolean;
 	annotationProvider?: AnnotationProviders | null;
 	innerRef?: React.RefObject<HTMLDivElement>;

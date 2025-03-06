@@ -97,7 +97,12 @@ import {
 import { commentButton } from './comments';
 import { shouldShowImageBorder } from './imageBorder';
 import { LayoutGroup } from './layout-group';
-import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
+import {
+	getLinkingDropdownOptions,
+	getLinkingToolbar,
+	getOpenLinkToolbarButtonOption,
+	shouldShowMediaLinkToolbar,
+} from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import { generateMediaInlineFloatingToolbar } from './mediaInline';
 import {
@@ -788,6 +793,23 @@ const generateMediaSingleFloatingToolbar = (
 			}
 		}
 
+		// open link
+		if (
+			allowLinking &&
+			shouldShowMediaLinkToolbar(state) &&
+			mediaLinkingState &&
+			mediaLinkingState.editable
+		) {
+			toolbarButtons.push(
+				getOpenLinkToolbarButtonOption(intl, mediaLinkingState, pluginInjectionApi),
+				{
+					type: 'separator',
+					supportsViewMode: true,
+					fullHeight: true,
+				},
+			);
+		}
+
 		isViewOnly &&
 			toolbarButtons.push(
 				{
@@ -955,11 +977,13 @@ export const floatingToolbar = (
 	}
 
 	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		if (items[items.length - 1].type === 'separator') {
-			const separatorItem = items[items.length - 1] as unknown as FloatingToolbarSeparator;
-			separatorItem.fullHeight = true;
-		} else {
-			items.push({ type: 'separator', fullHeight: true });
+		if (items.length) {
+			if (items[items.length - 1].type === 'separator') {
+				const separatorItem = items[items.length - 1] as unknown as FloatingToolbarSeparator;
+				separatorItem.fullHeight = true;
+			} else {
+				items.push({ type: 'separator', fullHeight: true });
+			}
 		}
 
 		const altTextTitle = intl.formatMessage(altTextMessages.addAltText);
@@ -967,6 +991,14 @@ export const floatingToolbar = (
 		items.push({
 			type: 'overflow-dropdown',
 			options: [
+				...getLinkingDropdownOptions(
+					state,
+					intl,
+					mediaLinkingState,
+					allowMediaInline && selectedNodeType && selectedNodeType === mediaInline,
+					allowLinking,
+					isViewOnly,
+				),
 				{
 					title: altTextTitle,
 					onClick: openMediaAltTextMenu(pluginInjectionApi?.analytics?.actions),

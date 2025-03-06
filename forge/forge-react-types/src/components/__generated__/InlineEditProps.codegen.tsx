@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - InlineEditProps
  *
- * @codegen <<SignedSource::a9f12cdb3310eb05479934fb78d94123>>
+ * @codegen <<SignedSource::450b0aa0943b6519e89ee7c91f4124ad>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::9f519f258e72d24157290a0844371df9>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::23f59ce10b527efc04d36919c24aa2b0>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -29,3 +29,8 @@ export type InlineEditProps<V = string> = Omit<
 	onConfirm: (value: V) => void;
 	editView: (fieldProps: EditViewFieldProps<V>) => React.ReactNode;
 };
+
+/**
+ * An inline edit displays a custom input component that switches between reading and editing on the same page.
+ */
+export type TInlineEdit<T> = (props: InlineEditProps) => T;

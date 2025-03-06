@@ -38,6 +38,7 @@ import type {
 	MarkMeta,
 	AnnotationMarkMeta,
 	TextHighlighter,
+	ExtensionViewportSize,
 } from './types';
 import {
 	insideBlockNode,
@@ -78,6 +79,7 @@ export interface ReactSerializerInit {
 	media?: MediaOptions;
 	emojiResourceConfig?: EmojiResourceConfig;
 	smartLinks?: SmartLinksOptions;
+	extensionViewportSizes?: ExtensionViewportSize[];
 	allowCopyToClipboard?: boolean;
 	allowWrapCodeBlock?: boolean;
 	allowPlaceholderText?: boolean;
@@ -183,6 +185,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private media?: MediaOptions;
 	private emojiResourceConfig?: EmojiResourceConfig;
 	private smartLinks?: SmartLinksOptions;
+	private extensionViewportSizes?: ExtensionViewportSize[];
 	private allowAnnotations: boolean = false;
 	private allowSelectAllTrap?: boolean;
 	private nodeComponents?: NodeComponentsProps;
@@ -225,6 +228,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.media = init.media;
 		this.emojiResourceConfig = init.emojiResourceConfig;
 		this.smartLinks = init.smartLinks;
+		this.extensionViewportSizes = init.extensionViewportSizes;
 		this.allowSelectAllTrap = init.allowSelectAllTrap;
 		this.nodeComponents = init.nodeComponents;
 		this.allowWindowedCodeBlock = init.allowWindowedCodeBlock;
@@ -242,7 +246,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
 	private getNodeProps(node: Node, parentInfo?: ParentInfo) {
 		const path = parentInfo ? parentInfo.path : undefined;
-
 		switch (node.type.name) {
 			case 'date':
 				return this.getDateProps(node, parentInfo, path);
@@ -254,6 +257,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 				return this.getMediaProps(node, path);
 			case 'emoji':
 				return this.getEmojiProps(node);
+			case 'extension':
+			case 'bodiedExtension':
+				return this.getExtensionProps(node, path);
 			case 'mediaGroup':
 				return this.getMediaGroupProps(node);
 			case 'mediaInline':
@@ -593,6 +599,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			ssr: this.media?.ssr,
 			// surroundTextNodesWithTextWrapper checks inlineComment.allowDraftMode
 			allowAnnotationsDraftMode: this.surroundTextNodesWithTextWrapper,
+		};
+	}
+
+	private getExtensionProps(node: Node, path: Array<Node> = []) {
+		return {
+			...this.getProps(node, path),
+			extensionViewportSizes: this.extensionViewportSizes,
 		};
 	}
 

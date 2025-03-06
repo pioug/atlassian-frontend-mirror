@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "204.4.1",
+	"version": "204.4.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,7 +49,7 @@
 		"@atlaskit/editor-common": "^101.1.0",
 		"@atlaskit/editor-json-transformer": "^8.24.0",
 		"@atlaskit/editor-performance-metrics": "2.0.2",
-		"@atlaskit/editor-plugin-quick-insert": "2.0.4",
+		"@atlaskit/editor-plugin-quick-insert": "2.0.5",
 		"@atlaskit/editor-plugins": "^8.0.0",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "^3.4.0",
@@ -100,8 +100,8 @@
 		"@atlaskit/media-test-helpers": "^35.0.0",
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/renderer": "^113.1.0",
-		"@atlaskit/smart-card": "^35.1.0",
+		"@atlaskit/renderer": "^113.2.0",
+		"@atlaskit/smart-card": "^35.2.0",
 		"@atlaskit/synchrony-test-helpers": "^3.1.0",
 		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/util-data-test": "^18.0.0",

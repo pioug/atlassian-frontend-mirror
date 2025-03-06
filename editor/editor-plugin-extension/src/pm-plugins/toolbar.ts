@@ -49,6 +49,29 @@ import { getPluginState } from './plugin-factory';
 import { getSelectedExtension } from './utils';
 import type { Position } from './utils';
 
+// non-bodied extensions nested inside panels, blockquotes and lists do not support layouts
+const isNestedNBM = (state: EditorState, selectedExtNode: { pos: number; node: PMNode }) => {
+	const {
+		schema: {
+			nodes: { extension, panel, blockquote, listItem },
+		},
+		selection,
+	} = state;
+
+	if (!editorExperiment('platform_editor_nested_non_bodied_macros', 'test')) {
+		return false;
+	}
+
+	if (!selectedExtNode) {
+		return false;
+	}
+
+	return (
+		selectedExtNode.node.type === extension &&
+		hasParentNodeOfType([panel, blockquote, listItem].filter(Boolean))(selection)
+	);
+};
+
 const isLayoutSupported = (state: EditorState, selectedExtNode: { pos: number; node: PMNode }) => {
 	const {
 		schema: {
@@ -88,7 +111,12 @@ const breakoutOptions = (
 	const nodeWithPos = getSelectedExtension(state, true);
 
 	// we should only return breakout options when breakouts are enabled and the node supports them
-	if (nodeWithPos && breakoutEnabled && isLayoutSupported(state, nodeWithPos)) {
+	if (
+		nodeWithPos &&
+		breakoutEnabled &&
+		isLayoutSupported(state, nodeWithPos) &&
+		!isNestedNBM(state, nodeWithPos)
+	) {
 		const { layout } = nodeWithPos.node.attrs;
 		return [
 			{

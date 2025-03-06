@@ -36,7 +36,7 @@
 		"@atlaskit/heading": "^5.1.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/icon-lab": "^3.4.0",
-		"@atlaskit/lozenge": "^12.1.0",
+		"@atlaskit/lozenge": "^12.2.0",
 		"@atlaskit/menu": "^3.1.0",
 		"@atlaskit/primitives": "^14.1.0",
 		"@atlaskit/textfield": "^8.0.0",

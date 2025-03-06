@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.1.2
+
+### Patch Changes
+
+- [#122467](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122467)
+  [`c8953846d7bc3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8953846d7bc3) -
+  Fix copying the code block on safari.
+
 ## 2.1.1
 
 ### Patch Changes

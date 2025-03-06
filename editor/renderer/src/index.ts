@@ -17,7 +17,7 @@ export type {
 	NodeComponentsProps,
 } from './ui/Renderer/types';
 export type { RendererProps } from './ui/renderer-props';
-export type { RendererContext, NodeProps } from './react/types';
+export type { RendererContext, NodeProps, ExtensionViewportSize } from './react/types';
 export { ADFEncoder } from './utils';
 
 export { renderDocument } from './render-document';

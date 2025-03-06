@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.0.2
+
+### Patch Changes
+
+- [#122698](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122698)
+  [`ad8e98f0a31f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad8e98f0a31f2) -
+  Updating roles in examples to fix a11y violations for aria-selected attribute
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

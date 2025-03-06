@@ -18,5 +18,5 @@ const separatorStyles = css({
 });
 
 export function ToolbarSeparator() {
-	return <span css={separatorStyles} />;
+	return <span css={separatorStyles} data-testid="editor-toolbar-seperator" />;
 }

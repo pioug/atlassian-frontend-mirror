@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-navigation",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"description": "A horizontal navigation component for Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -61,7 +61,7 @@
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/popup": "^2.0.0",
 		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/theme": "^18.0.0",
 		"@atlaskit/tokens": "^4.3.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/width-detector": "^5.0.0",
@@ -92,7 +92,7 @@
 		"@atlaskit/spinner": "^18.0.0",
 		"@atlaskit/textfield": "^8.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/switcher": "^35.4.0",
+		"@atlassian/switcher": "^35.5.0",
 		"@atlassian/switcher-test-utils": "^4.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",

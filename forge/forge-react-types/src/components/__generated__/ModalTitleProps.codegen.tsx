@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalTitleProps
  *
- * @codegen <<SignedSource::18cc7e23ba187aae2f8e2d8631801b53>>
+ * @codegen <<SignedSource::1742968eb34a6998cf335abcdb9ecd22>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-title.partial.tsx <<SignedSource::996c8299a68e072c936b0023b61bdc20>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-title.partial.tsx <<SignedSource::8f0848e3fabd3cf3660c08e2b1863bd9>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,6 @@ export type ModalTitleProps = Pick<
 >;
 
 /**
- * A modal dialog displays content that requires user interaction, in a layer above the page.
+ * A modal title is used to display a title within a modal.
  */
 export type TModalTitle<T> = (props: ModalTitleProps) => T;

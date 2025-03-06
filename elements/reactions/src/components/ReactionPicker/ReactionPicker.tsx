@@ -148,9 +148,9 @@ export interface ReactionPickerProps
 	 */
 	reactionPickerAdditionalStyle?: XCSS;
 	/**
-	 * Optional prop for controlling if Trigger displays the ... show more emoji UI
+	 * Optional prop for controlling icon inside Trigger
 	 */
-	showMoreEmojiTriggerUI?: boolean;
+	reactionPickerTriggerIcon?: React.ReactNode;
 }
 
 /**
@@ -175,7 +175,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		showAddReactionText = false,
 		showRoundTrigger = false,
 		reactionPickerAdditionalStyle = undefined,
-		showMoreEmojiTriggerUI,
+		reactionPickerTriggerIcon,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -355,7 +355,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							showRoundTrigger={showRoundTrigger}
-							showMoreEmojiTriggerUI={showMoreEmojiTriggerUI}
+							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 						/>
 					)}
 				</Reference>

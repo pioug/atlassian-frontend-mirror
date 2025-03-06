@@ -116,34 +116,34 @@ describe('UserPicker', () => {
 			const component = shallowUserPicker({ options }).dive();
 			const select = component.find(Select);
 			expect(select).toHaveLength(1);
-			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined);
+			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined, false);
 		});
 
 		it('should set width', () => {
 			shallowUserPicker({ width: 500 });
-			expect(getStylesMock).toHaveBeenCalledWith(500, false, false, undefined, undefined);
+			expect(getStylesMock).toHaveBeenCalledWith(500, false, false, undefined, undefined, false);
 		});
 
 		it('should set compact styles', () => {
 			shallowUserPicker({ appearance: 'compact' });
-			expect(getStylesMock).toHaveBeenCalledWith(350, false, true, undefined, undefined);
+			expect(getStylesMock).toHaveBeenCalledWith(350, false, true, undefined, undefined, false);
 		});
 
 		it('should set invalid styles', () => {
 			shallowUserPicker({ isInvalid: true });
-			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, true);
+			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, true, false);
 		});
 
 		it('should call getComponents with false if single picker', () => {
 			shallowUserPicker({ isMulti: false });
 			expect(getComponents).toHaveBeenCalledWith(false, undefined);
-			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined);
+			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined, false);
 		});
 
 		it('should call getComponents with true if multi picker', () => {
 			shallowUserPicker({ isMulti: true });
 			expect(getComponents).toHaveBeenCalledWith(true, undefined);
-			expect(getStylesMock).toHaveBeenCalledWith(350, true, false, undefined, undefined);
+			expect(getStylesMock).toHaveBeenCalledWith(350, true, false, undefined, undefined, false);
 		});
 	});
 

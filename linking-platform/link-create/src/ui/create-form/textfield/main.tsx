@@ -35,7 +35,9 @@ export const TextField = ({
 			testId={testId}
 		>
 			{({ fieldId, ...fieldProps }) => {
-				return <AkTextfield id={fieldId} {...fieldProps} {...restProps} />;
+				return (
+					<AkTextfield id={fieldId} aria-label={label ?? name} {...fieldProps} {...restProps} />
+				);
 			}}
 		</CreateField>
 	);

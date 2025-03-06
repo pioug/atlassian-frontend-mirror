@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 27.0.0
+
+### Major Changes
+
+- [#122626](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122626)
+  [`28c2e5656229f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28c2e5656229f) -
+  Updates the API by removing the optional boolean prop showMoreEmojiTriggerUI and instead adds two
+  new props reactionPickerTriggerIcon and reactionPickerTriggerTooltipContent to have more control
+  for displaying changes in the Trigger. Currently only Confluence was using this prop so the change
+  should be non-breaking but still marking as major since it's an API update.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.5.1
 
 ### Patch Changes

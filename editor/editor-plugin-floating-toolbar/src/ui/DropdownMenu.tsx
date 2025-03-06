@@ -16,7 +16,7 @@ import type {
 	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
+import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem, HeadingItem } from '@atlaskit/menu';
 import { B400 } from '@atlaskit/theme/colors';
@@ -280,9 +280,10 @@ const SelectedIconBefore = ({ itemSelected, intl, showSelected }: SelectedIconBe
 		return (
 			<span aria-hidden="true">
 				<EditorDoneIcon
-					primaryColor={token('color.icon.selected', B400)}
-					size="small"
+					LEGACY_primaryColor={token('color.icon.selected', B400)}
+					LEGACY_size="small"
 					label={intl.formatMessage(messages.confirmModalOK)}
+					spacing="none"
 				/>
 			</span>
 		);

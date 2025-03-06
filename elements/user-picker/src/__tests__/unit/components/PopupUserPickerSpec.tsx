@@ -43,12 +43,12 @@ describe('PopupUserPicker', () => {
 			const component = shallowPopupUserPicker().dive();
 			const select = component.find(PopupSelect);
 			expect(select).toHaveLength(1);
-			expect(getPopupStyles).toHaveBeenCalledWith(300, false, undefined);
+			expect(getPopupStyles).toHaveBeenCalledWith(300, false, undefined, false);
 		});
 
 		it('should set width', () => {
 			shallowPopupUserPicker({ width: 500 });
-			expect(getPopupStyles).toHaveBeenCalledWith(500, false, undefined);
+			expect(getPopupStyles).toHaveBeenCalledWith(500, false, undefined, false);
 		});
 
 		it('should override styles', () => {
@@ -61,7 +61,7 @@ describe('PopupUserPicker', () => {
 			const component = shallowPopupUserPicker({ styles: mockStyles }).dive();
 			const select = component.find(PopupSelect);
 			expect(select).toHaveLength(1);
-			expect(getPopupStyles).toHaveBeenCalledWith(300, false, mockStyles);
+			expect(getPopupStyles).toHaveBeenCalledWith(300, false, mockStyles, false);
 		});
 
 		it('should add custom Control if popupTitle is passed in', () => {

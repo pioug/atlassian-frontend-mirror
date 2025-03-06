@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.3.2
+
+### Patch Changes
+
+- [#122372](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122372)
+  [`888a32882ccad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/888a32882ccad) -
+  [ED-26327] Disable corner control on live page view mode
+- Updated dependencies
+
 ## 10.3.1
 
 ### Patch Changes

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TooltipProps
  *
- * @codegen <<SignedSource::d67c937dcf799eb3d57dc35b62b52bd4>>
+ * @codegen <<SignedSource::4b27e1c130769985576ab4c910715b03>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tooltip/__generated__/index.partial.tsx <<SignedSource::f5b26159e3b08ac61199d599900f523d>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tooltip/__generated__/index.partial.tsx <<SignedSource::e3e388170520502310149f23b8defa27>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,6 @@ export type TooltipProps = Pick<
 >;
 
 /**
- * A tooltip is a floating, non-actionable label used to explain a user interface element or feature.
+ * A `Tooltip` is a floating, non-actionable label used to explain a user interface element or feature.
  */
 export type TTooltip<T> = (props: TooltipProps) => T;

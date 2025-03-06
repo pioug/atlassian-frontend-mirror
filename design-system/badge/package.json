@@ -60,7 +60,7 @@
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/theme": "^18.0.0",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",

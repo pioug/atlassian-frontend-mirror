@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.1.2
+
+### Patch Changes
+
+- [#122304](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122304)
+  [`55aeeb7141654`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55aeeb7141654) -
+  [HOT-115591] Fix emoji popup close when scrolling
+- [#122337](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122337)
+  [`2775fb4a3b7d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2775fb4a3b7d6) -
+  [ux] [ED-26824] Add keyboard support (up/down to navigate, enter to insert) to view more button
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

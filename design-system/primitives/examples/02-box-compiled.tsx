@@ -29,7 +29,7 @@ const spacingValues = [
 const backgroundColors = [
 	'color.background.discovery.bold',
 	'color.background.success.bold',
-	'color.background.warning.bold',
+	'color.background.selected.bold',
 	'color.background.danger.bold',
 	'color.background.information.bold',
 	'color.background.brand.bold',
@@ -51,6 +51,7 @@ const elevations = [
 
 const styles = cssMap({
 	inverse: { color: token('color.text.inverse') },
+	warningInverse: { color: token('color.text.warning.inverse') },
 	bordered: {
 		borderStyle: 'solid',
 		borderWidth: token('border.width'),
@@ -125,6 +126,13 @@ export default () => {
 							<Box>{backgroundColor}</Box>
 						</Box>
 					))}
+					<Box
+						backgroundColor={'color.background.warning.bold'}
+						padding="space.400"
+						xcss={styles.warningInverse}
+					>
+						<Box>color.background.warning</Box>
+					</Box>
 				</Inline>
 			</Stack>
 			<Stack space="space.200" testId="box-with-borderColor">

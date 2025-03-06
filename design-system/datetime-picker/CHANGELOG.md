@@ -1,5 +1,19 @@
 # @atlaskit/datetime-picker
 
+## 16.1.0
+
+### Minor Changes
+
+- [#115611](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115611)
+  [`5f9efb77e9d97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f9efb77e9d97) -
+  Adds a new prop to allow wrapping the DatePicker calendar, for internal use only.
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

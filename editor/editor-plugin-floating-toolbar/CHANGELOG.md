@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.1.3
+
+### Patch Changes
+
+- [#122186](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122186)
+  [`c629cdfe00a84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c629cdfe00a84) -
+  migrated icons to new design systems library
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

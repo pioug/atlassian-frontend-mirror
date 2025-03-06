@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^11.0.0",
 		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/lozenge": "^12.1.0",
+		"@atlaskit/lozenge": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^1.1.0",
 		"@atlaskit/platform-feature-flags-react": "^0.1.0",
 		"@atlaskit/primitives": "^14.1.0",

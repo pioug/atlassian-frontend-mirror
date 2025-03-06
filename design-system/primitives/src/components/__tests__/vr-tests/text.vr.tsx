@@ -8,7 +8,9 @@ snapshot(Basic, {
 	variants: [
 		{
 			name: 'text default',
-			environment: {},
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });
@@ -19,7 +21,9 @@ snapshot(Color, {
 	variants: [
 		{
 			name: 'text color',
-			environment: {},
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });
@@ -27,7 +31,9 @@ snapshot(Truncation, {
 	variants: [
 		{
 			name: 'text truncation',
-			environment: {},
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });

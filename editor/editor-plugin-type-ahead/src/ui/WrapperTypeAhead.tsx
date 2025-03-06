@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { updateQuery } from '../pm-plugins/commands/update-query';
 import type { CloseSelectionOptions } from '../pm-plugins/constants';
@@ -46,11 +47,18 @@ export const WrapperTypeAhead = React.memo(
 		onUndoRedo,
 		api,
 	}: WrapperProps) => {
+		// @ts-ignore
+		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
+		const showViewMore =
+			triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT &&
+			!!openElementBrowserModal &&
+			editorExperiment('platform_editor_controls', 'variant1');
+
 		const [closed, setClosed] = useState(false);
 		const [query, setQuery] = useState<string>(reopenQuery || '');
 		const queryRef = useRef(query);
 		const editorViewRef = useRef(editorView);
-		const items = useLoadItems(triggerHandler, editorView, query);
+		const items = useLoadItems(triggerHandler, editorView, query, showViewMore);
 
 		useLayoutEffect(() => {
 			queryRef.current = query;

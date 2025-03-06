@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.4
+
+### Patch Changes
+
+- [#122831](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122831)
+  [`002ac06bd6251`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/002ac06bd6251) -
+  [ED-26937] Fix broken typeaheads in inline comment editor
+- [#122309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122309)
+  [`7042c11d59f4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7042c11d59f4c) -
+  [ux] Add linking buttons to media
+- Updated dependencies
+
+## 2.3.3
+
+### Patch Changes
+
+- [#122379](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122379)
+  [`e0df50f1d4692`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0df50f1d4692) -
+  [ux] Not show pixel entry on media floating toolbar under editor control experiment
+
 ## 2.3.2
 
 ### Patch Changes

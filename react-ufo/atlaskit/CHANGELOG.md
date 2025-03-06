@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.3.2
+
+### Patch Changes
+
+- [#122448](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122448)
+  [`e3c0eec530ab2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3c0eec530ab2) -
+  do not produce VC info on failed, aborted, or non active tab events
+
 ## 3.3.1
 
 ### Patch Changes

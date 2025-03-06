@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TextAreaProps
  *
- * @codegen <<SignedSource::9a728b21f878b7d2411d9ea96c367054>>
+ * @codegen <<SignedSource::4735e4d09b0b6c4a75fe1c08151b6054>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/textarea/index.tsx <<SignedSource::cb1d758c7c2bb0e325bf9f7e3d6ae09d>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/textarea/index.tsx <<SignedSource::282c20421c108bd52e5341ba0ee4293c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -41,3 +41,8 @@ export type TextAreaProps = Pick<
 	| 'name'
 > &
 	Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;
+
+/**
+ * A text area lets users enter long form text which spans over multiple lines.
+ */
+export type TTextArea<T> = (props: TextAreaProps) => T;

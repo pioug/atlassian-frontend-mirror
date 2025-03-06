@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.4.1
+
+### Patch Changes
+
+- [#122391](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122391)
+  [`09f8f912e177c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09f8f912e177c) -
+  ED-26931 Update totalActiveTime to be in seconds and contentChanged to take in absolute value
+
 ## 3.4.0
 
 ### Minor Changes

@@ -46,7 +46,7 @@ export const getAnalyticsPayload = ({
 		actionSubjectId: ACTION_SUBJECT_ID.ACTIVITY,
 		attributes: {
 			efficiency: {
-				totalActiveTime: pluginState.activeSessionTime,
+				totalActiveTime: pluginState.activeSessionTime / 1000,
 				totalActionCount: pluginState.totalActionCount,
 				actionByTypeCount: {
 					...(pluginState.actionTypeCount ?? {}),

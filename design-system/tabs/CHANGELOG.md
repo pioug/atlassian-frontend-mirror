@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.0
 
 ### Major Changes

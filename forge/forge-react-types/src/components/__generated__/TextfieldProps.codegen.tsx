@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TextfieldProps
  *
- * @codegen <<SignedSource::53927afe8c8adcca03f0cfa65f9b44dc>>
+ * @codegen <<SignedSource::4f0a7b04b3a23a5889553b2bfaf7f454>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/index.tsx <<SignedSource::3cab13a24ee050b7fe926e8e6a19858b>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/index.tsx <<SignedSource::03b967815639a5a5aae4f79da283d410>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -44,3 +44,8 @@ export type TextfieldProps = Pick<
 	| 'name'
 > &
 	Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;
+
+/**
+ * A text field is an input that allows a user to write or edit text.
+ */
+export type TTextfield<T> = (props: TextfieldProps) => T;

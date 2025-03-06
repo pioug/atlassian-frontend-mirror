@@ -38,9 +38,6 @@
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
-			"path": "../button/tsconfig.app.json"
-		},
-		{
 			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
 		},
 		{
@@ -50,16 +47,10 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

@@ -15,6 +15,7 @@ import {
 	UfoErrorBoundary,
 } from '../util/ufoExperiences';
 import { v4 as uuidv4 } from 'uuid';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps> {
 	ufoId: string;
@@ -105,6 +106,8 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 								this.props.appearance === 'compact',
 								this.props.styles,
 								this.props.isInvalid,
+								// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
+								fg('platform-component-visual-refresh') && fg('visual-refresh-user-picker'),
 							)}
 							components={getComponents(isMulti, anchor)}
 							pickerProps={pickerProps}

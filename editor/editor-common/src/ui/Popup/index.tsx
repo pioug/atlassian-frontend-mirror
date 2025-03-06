@@ -6,7 +6,6 @@ import rafSchedule from 'raf-schd';
 import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Position } from './utils';
 import {
@@ -240,16 +239,6 @@ export default class Popup extends React.Component<Props, State> {
 
 	onResize = () => this.scheduledUpdatePosition(this.props);
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/no-unsafe
-	UNSAFE_componentWillReceiveProps(newProps: Props) {
-		// We are delaying `updatePosition` otherwise it happens before the children
-		// get rendered and we end up with a wrong position
-		if (!fg('platform_editor_react18_phase2_v2')) {
-			this.scheduledUpdatePosition(newProps);
-		}
-	}
-
 	resizeObserver = window?.ResizeObserver
 		? new ResizeObserver(() => {
 				this.scheduledUpdatePosition(this.props);
@@ -309,10 +298,8 @@ export default class Popup extends React.Component<Props, State> {
 	componentDidUpdate(prevProps: Props) {
 		this.handleChangedFocusTrapProp(prevProps);
 
-		if (fg('platform_editor_react18_phase2_v2')) {
-			if (this.props !== prevProps) {
-				this.scheduledUpdatePosition(prevProps);
-			}
+		if (this.props !== prevProps) {
+			this.scheduledUpdatePosition(prevProps);
 		}
 	}
 

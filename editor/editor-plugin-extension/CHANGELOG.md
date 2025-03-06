@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-extension
 
+## 4.1.2
+
+### Patch Changes
+
+- [#121993](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121993)
+  [`296e666dbaca2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/296e666dbaca2) -
+  [ux] [ED-26819] This change removes the breakout options from the floating toolbar for non-bodied
+  macros that are nested inside blockquotes, lists and panels. This change is behind an experiment
+  flag.
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

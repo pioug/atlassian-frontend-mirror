@@ -161,7 +161,7 @@
 		"@atlaskit/image": "^2.0.0",
 		"@atlaskit/link": "^3.0.0",
 		"@atlaskit/logo": "^16.0.0",
-		"@atlaskit/lozenge": "^12.1.0",
+		"@atlaskit/lozenge": "^12.2.0",
 		"@atlaskit/motion": "^5.0.0",
 		"@atlaskit/range": "^9.0.0",
 		"@atlaskit/section-message": "*",

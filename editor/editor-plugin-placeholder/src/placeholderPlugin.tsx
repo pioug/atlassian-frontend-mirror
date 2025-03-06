@@ -28,8 +28,8 @@ export const placeholderTestId = 'placeholder-test-id';
 
 // TODO: Use i18n for new placeholders
 export const SHORT_NODE_PLACEHOLDER_TEXT = '/ to insert';
-export const NODE_PLACEHOLDER_TEXT = 'Type "/" to insert elements';
-export const EMPTY_LINE_PLACEHOLDER_TEXT = 'Select + or type “/” to insert elements';
+export const NODE_PLACEHOLDER_TEXT = 'Type / to insert elements';
+export const EMPTY_LINE_PLACEHOLDER_TEXT = 'Select + or type / to insert elements';
 
 export const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
 export const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];

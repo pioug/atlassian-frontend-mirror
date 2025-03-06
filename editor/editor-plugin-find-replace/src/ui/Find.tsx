@@ -15,7 +15,7 @@ import { injectIntl } from 'react-intl-next';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 import { Label } from '@atlaskit/form';
-import MatchCaseIcon from '@atlaskit/icon/glyph/emoji/keyboard';
+import MatchCaseIcon from '@atlaskit/icon/core/migration/text-style--emoji-keyboard';
 import Textfield from '@atlaskit/textfield';
 
 import type { MatchCaseProps } from '../types';
@@ -225,6 +225,10 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 		}
 	};
 
+	matchCaseIconEle = () => {
+		return <MatchCaseIcon LEGACY_size={'small'} label={this.matchCase} />;
+	};
+
 	render() {
 		const {
 			findText,
@@ -254,9 +258,8 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 					<FindReplaceTooltipButton
 						title={this.matchCase}
 						appearance="default"
-						icon={MatchCaseIcon}
+						icon={this.matchCaseIconEle}
 						iconLabel={this.matchCase}
-						iconSize={'small'}
 						onClick={this.handleMatchCaseClick}
 						isPressed={shouldMatchCase}
 					/>

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 35.2.0
+
+### Minor Changes
+
+- [#121758](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121758)
+  [`55938165e3b61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55938165e3b61) -
+  [ux] Reverting change to icon button appearance for ff 'platform-linking-visual-refresh-v1'
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.1.7
 
 ### Patch Changes

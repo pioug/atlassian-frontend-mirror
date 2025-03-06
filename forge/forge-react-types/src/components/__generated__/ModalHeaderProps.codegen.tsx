@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalHeaderProps
  *
- * @codegen <<SignedSource::c3bc5fde61f2e698aba9b95565c0d268>>
+ * @codegen <<SignedSource::d870076a8f40ef1ca2f514ccccd8d14c>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-header.partial.tsx <<SignedSource::932c9f34f6cd6919fe5b8bcf072745dc>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-header.partial.tsx <<SignedSource::9102fefee5c2fe6cbee65bf860d29652>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,6 @@ export type ModalHeaderProps = Pick<
 >;
 
 /**
- * A modal dialog displays content that requires user interaction, in a layer above the page.
+ * A modal header contains the title of the modal and can contain other React elements such as a close button.
  */
 export type TModalHeader<T> = (props: ModalHeaderProps) => T;

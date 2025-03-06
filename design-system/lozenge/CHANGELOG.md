@@ -1,5 +1,18 @@
 # @atlaskit/lozenge
 
+## 12.2.0
+
+### Minor Changes
+
+- [#122758](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122758)
+  [`d5c8218ff84d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5c8218ff84d4) -
+  Internally test the @atlaskit/lozenge/compiled variant replacing the current Emotion variant,
+  behind a feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

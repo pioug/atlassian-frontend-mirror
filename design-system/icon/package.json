@@ -98,7 +98,7 @@
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^8.0.0",
-		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/theme": "^18.0.0",
 		"@atlaskit/toggle": "^15.0.0",
 		"@atlaskit/tooltip": "^20.0.0",
 		"@atlaskit/visual-regression": "*",

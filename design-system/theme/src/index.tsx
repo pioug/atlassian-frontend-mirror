@@ -1,11 +1,10 @@
 import * as colorPalettes from './color-palettes';
 import * as colors from './colors';
-import AtlaskitThemeProvider from './components/atlaskit-theme-provider';
 import * as typography from './typography';
 import getTheme from './utils/get-theme';
 import themed from './utils/themed';
 
-export { colors, colorPalettes, typography, getTheme, themed, AtlaskitThemeProvider };
+export { colors, colorPalettes, typography, getTheme, themed };
 
 export {
 	CHANNEL,

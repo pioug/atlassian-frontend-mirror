@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { RendererContext } from '../types';
+import type { RendererContext, ExtensionViewportSize } from '../types';
 import type { Serializer } from '../../serializer';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -36,12 +36,20 @@ interface Props {
 	localId?: string;
 	marks?: PMMark[];
 	startPos: number;
+	extensionViewportSizes?: ExtensionViewportSize[];
 }
 
 const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
-	const { children, layout = 'default', path = [], extensionKey, extensionType } = props;
+	const {
+		children,
+		layout = 'default',
+		path = [],
+		extensionKey,
+		extensionType,
+		parameters,
+		extensionViewportSizes,
+	} = props;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-
 	const removeOverflow = React.Children.toArray(children)
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,6 +85,8 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 										isTopLevel: path.length < 1,
 									},
 									removeOverflow,
+									parameters?.extensionId,
+									extensionViewportSizes,
 								);
 							}
 						} catch (e) {
@@ -92,6 +102,8 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 								isTopLevel: path.length < 1,
 							},
 							removeOverflow,
+							parameters?.extensionId,
+							extensionViewportSizes,
 						);
 					}}
 				</ExtensionRenderer>

@@ -6,6 +6,7 @@ import { getPopupComponents } from './components';
 import { getPopupStyles } from './styles';
 import { getPopupProps } from './popup';
 import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface State {
 	flipped: boolean;
@@ -53,7 +54,14 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 			styles,
 		} = this.props;
 		const width = this.props.width as string | number;
-		const selectStyles = getPopupStyles(width, isMulti, styles);
+
+		const selectStyles = getPopupStyles(
+			width,
+			isMulti,
+			styles,
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
+			fg('platform-component-visual-refresh') && fg('visual-refresh-user-picker'),
+		);
 
 		return (
 			<BaseUserPickerWithoutAnalytics

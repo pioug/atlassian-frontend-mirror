@@ -235,7 +235,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		}
 		// If we have selected the node we should not stop these events
 		if (
-			e instanceof KeyboardEvent &&
+			(e instanceof KeyboardEvent || e instanceof ClipboardEvent) &&
 			this.view.state.selection instanceof NodeSelection &&
 			this.view.state.selection.from === this.getPos?.()
 		) {

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormHeaderProps
  *
- * @codegen <<SignedSource::74a8285c7ae5a0c5db7b8cafa4d8226b>>
+ * @codegen <<SignedSource::7ef542fd2e0804c707145ab13db81db1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-header.partial.tsx <<SignedSource::038ad7a850af23fb1c9b30de39ab0552>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-header.partial.tsx <<SignedSource::8791c333c19a64caa8dd6b7461a53082>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,8 @@ export type FormHeaderProps = Pick<
 >;
 
 /**
- * A form allows users to input information.
+ * Use a form header to describe the contents of the form. This is the title and description of the form.
+ * If your form contains required fields, the form header is also where you should include a legend
+ * for sighted users to know that * indicates a required field.
  */
 export type TFormHeader<T> = (props: FormHeaderProps) => T;

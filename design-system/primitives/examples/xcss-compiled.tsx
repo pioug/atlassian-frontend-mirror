@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		color: 'var(--ds-text-accent-lime)',
+		color: 'var(--ds-text)',
 	},
 	bg: {
 		backgroundColor: 'var(--ds-background-accent-lime-subtle)',

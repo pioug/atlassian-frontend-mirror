@@ -4,8 +4,8 @@ import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
 
 import { ChevronContainer } from './styled';
 

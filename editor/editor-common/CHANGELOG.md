@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 101.1.1
+
+### Patch Changes
+
+- [#122317](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122317)
+  [`95cee3591ab39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95cee3591ab39) -
+  [ux] [ED-26905] This change allows NBMs to be nested inside blockquotes at full width by
+  overriding the display styling for NBMs that happen to be the last child of a blockquote.
+- [#122347](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122347)
+  [`8d2ed43cc291b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d2ed43cc291b) -
+  Migrating from using emotion css to compiled
+- [#122344](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122344)
+  [`3c4b4acd41ca1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c4b4acd41ca1) -
+  FD-80149: cleans up platform_editor_react18_phase2_v2 in editor-common ui comps
+- [#122260](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122260)
+  [`10eabde04f773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10eabde04f773) -
+  FD-80149: cleans up platform_editor_react18_phase2_v2 from with_editor_actions
+- Updated dependencies
+
 ## 101.1.0
 
 ### Minor Changes

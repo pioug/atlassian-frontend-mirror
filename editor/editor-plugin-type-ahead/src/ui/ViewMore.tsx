@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useEffect, useRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
@@ -17,18 +19,58 @@ const buttonStyles = css({
 	'& > button:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
 	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > button:focus': {
+		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		outline: 'none',
+	},
 });
 
-export const ViewMore = ({
-	onClick,
-}: {
-	onClick: (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
-}) => {
+export const ViewMore = ({ onClick, isFocused }: { onClick: () => void; isFocused: boolean }) => {
 	const { formatMessage } = useIntl();
+	const ref = useRef<HTMLElement>(null);
+
+	useEffect(() => {
+		if (isFocused && ref.current) {
+			ref.current.focus();
+		}
+	}, [isFocused]);
+
+	useEffect(() => {
+		if (!ref.current) {
+			return;
+		}
+
+		const { current: element } = ref;
+
+		const handleEnter = (e: KeyboardEvent) => {
+			if (e.key === 'Enter') {
+				onClick();
+				// Prevent keydown listener in TypeaheadList from handling Enter pressed
+				e.stopPropagation();
+			} else if (e.key === 'Tab') {
+				// TypeaheadList will try to insert selected item on Tab press
+				// hence stop propagation to prevent that and treat this as noop
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		};
+
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		element?.addEventListener('keydown', handleEnter);
+		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			element?.removeEventListener('keydown', handleEnter);
+		};
+	});
 	return (
 		<Section hasSeparator>
 			<span css={buttonStyles}>
 				<ButtonItem
+					ref={ref}
 					onClick={onClick}
 					iconBefore={<ShowMoreHorizontalIcon label="" />}
 					aria-describedby={formatMessage(messages.viewMore)}

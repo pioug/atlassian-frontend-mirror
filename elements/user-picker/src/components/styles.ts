@@ -14,6 +14,8 @@ export const getStyles = memoizeOne(
 		isCompact?: boolean,
 		overrideStyles?: StylesConfig,
 		isInvalid?: boolean,
+		isVisualRefresh?: boolean,
+		isPopupStyles?: boolean,
 	): StylesConfig => {
 		let styles = {
 			menu: (css: any, state: any) => ({
@@ -147,10 +149,20 @@ export const getStyles = memoizeOne(
 					textOverflow: 'ellipsis',
 				};
 			},
-			option: (css: any) => ({
-				...css,
-				overflow: 'hidden',
-			}),
+			option: (css: any) => {
+				if (isVisualRefresh) {
+					return {
+						...css,
+						overflow: 'hidden',
+						paddingLeft: isPopupStyles ? token('space.200', '16px') : token('space.100', '8px'),
+						paddingRight: isPopupStyles ? token('space.200', '16px') : token('space.100', '8px'),
+					};
+				}
+				return {
+					...css,
+					overflow: 'hidden',
+				};
+			},
 			input: (css: any, state: any) => ({
 				...css,
 				gridArea: '1/2/2/3',
@@ -184,8 +196,13 @@ export const getStyles = memoizeOne(
 );
 
 export const getPopupStyles = memoizeOne(
-	(width: string | number, isMulti?: boolean, overrideStyles?: StylesConfig): StylesConfig =>
+	(
+		width: string | number,
+		isMulti?: boolean,
+		overrideStyles?: StylesConfig,
+		isVisualRefresh?: boolean,
+	): StylesConfig =>
 		({
-			...getStyles(width, isMulti, false, overrideStyles),
+			...getStyles(width, isMulti, false, overrideStyles, false, isVisualRefresh, true),
 		}) as StylesConfig,
 );

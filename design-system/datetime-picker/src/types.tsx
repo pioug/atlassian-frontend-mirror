@@ -288,6 +288,11 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 * - `6` saturday
 	 */
 	weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+	/**
+	 * This overrides the inner wrapper the Calendar.
+	 * @private Please use this with extreme caution, this API may be changed in the future.
+	 */
+	menuInnerWrapper?: React.ComponentType<{ children: React.ReactNode }>;
 }
 
 export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSelectProps {

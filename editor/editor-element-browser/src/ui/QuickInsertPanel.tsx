@@ -50,6 +50,7 @@ const DefaultView = ({
 					label={suggested.label}
 					onItemSelected={onItemSelected}
 					setSelectedItem={setSelectedItem}
+					startingIndex={0}
 				/>
 			)}
 			{CategoriesStructure.map((category) => {
@@ -110,6 +111,7 @@ const CategoryView = ({
 						id={categoryData.id}
 						items={categoryLevelItems}
 						onItemSelected={onItemSelected}
+						startingIndex={0}
 					/>
 				)}
 				{categoryData &&
@@ -149,6 +151,7 @@ const SearchView = ({
 			items={items}
 			onItemSelected={onItemSelected}
 			setSelectedItem={setSelectedItem}
+			startingIndex={0}
 		/>
 	);
 };

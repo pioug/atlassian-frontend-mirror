@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.0.2
+
+### Patch Changes
+
+- [#122186](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122186)
+  [`c629cdfe00a84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c629cdfe00a84) -
+  migrated icons to new design systems library
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

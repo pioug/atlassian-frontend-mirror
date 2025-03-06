@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type MouseEventHandler } from 'react';
+import { Fragment, type MouseEventHandler } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
@@ -50,7 +50,7 @@ const menuStyles = css({
  * This is the menu used in the select of the date picker.
  */
 export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
-	const { calendarValue, calendarView } = selectProps;
+	const { calendarValue, calendarView, menuInnerWrapper: MenuInnerWrapper } = selectProps;
 	const { day, month, year } = getValidDate([calendarValue, calendarView]);
 
 	const onMenuMouseDown: MouseEventHandler<HTMLDivElement> = (event) => {
@@ -60,6 +60,8 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 		event.stopPropagation();
 		event.preventDefault();
 	};
+
+	const Wrapper = typeof MenuInnerWrapper === 'function' ? MenuInnerWrapper : Fragment;
 
 	return (
 		<Layering isDisabled={false}>
@@ -75,25 +77,27 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 					// pass it in *after* the `innerProps` spread.
 					// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 					<div css={menuStyles} {...innerProps} onMouseDown={onMenuMouseDown}>
-						<Calendar
-							day={day}
-							month={month}
-							year={year}
-							disabled={selectProps.calendarDisabled}
-							disabledDateFilter={selectProps.calendarDisabledDateFilter}
-							minDate={selectProps.calendarMinDate}
-							maxDate={selectProps.calendarMaxDate}
-							nextMonthLabel={selectProps.nextMonthLabel}
-							onChange={selectProps.onCalendarChange}
-							onSelect={selectProps.onCalendarSelect}
-							previousMonthLabel={selectProps.previousMonthLabel}
-							ref={selectProps.calendarRef}
-							selected={[selectProps.calendarValue]}
-							shouldSetFocusOnCurrentDay={selectProps.shouldSetFocusOnCurrentDay}
-							locale={selectProps.calendarLocale}
-							testId={selectProps.testId && `${selectProps.testId}--calendar`}
-							weekStartDay={selectProps.calendarWeekStartDay}
-						/>
+						<Wrapper>
+							<Calendar
+								day={day}
+								month={month}
+								year={year}
+								disabled={selectProps.calendarDisabled}
+								disabledDateFilter={selectProps.calendarDisabledDateFilter}
+								minDate={selectProps.calendarMinDate}
+								maxDate={selectProps.calendarMaxDate}
+								nextMonthLabel={selectProps.nextMonthLabel}
+								onChange={selectProps.onCalendarChange}
+								onSelect={selectProps.onCalendarSelect}
+								previousMonthLabel={selectProps.previousMonthLabel}
+								ref={selectProps.calendarRef}
+								selected={[selectProps.calendarValue]}
+								shouldSetFocusOnCurrentDay={selectProps.shouldSetFocusOnCurrentDay}
+								locale={selectProps.calendarLocale}
+								testId={selectProps.testId && `${selectProps.testId}--calendar`}
+								weekStartDay={selectProps.calendarWeekStartDay}
+							/>
+						</Wrapper>
 					</div>
 				}
 				testId={selectProps.testId}

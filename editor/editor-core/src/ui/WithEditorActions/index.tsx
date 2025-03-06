@@ -1,9 +1,6 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
 import { EditorContext } from '@atlaskit/editor-common/UNSAFE_do_not_use_editor_context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../actions';
 
@@ -19,14 +16,9 @@ export default class WithEditorActions extends React.Component<WithEditorActions
 	}
 
 	render() {
-		if (fg('platform_editor_react18_phase2_v2')) {
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			return <WithEditorActionsNew {...this.props} />;
-		}
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading
-		return <WithEditorActionsOld {...this.props} />;
+		return <WithEditorActionsNew {...this.props} />;
 	}
 }
 
@@ -51,34 +43,5 @@ class WithEditorActionsInner extends React.Component<
 
 	render() {
 		return this.props.render(this.props.editorActions);
-	}
-}
-
-// Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components
-class WithEditorActionsOld extends React.Component<WithEditorActionsProps> {
-	static contextTypes = {
-		editorActions: PropTypes.object.isRequired,
-	};
-
-	context!: {
-		editorActions: EditorActions;
-	};
-
-	componentDidMount() {
-		this.context.editorActions._privateSubscribe(this.onContextUpdate);
-	}
-
-	componentWillUnmount() {
-		this.context.editorActions._privateUnsubscribe(this.onContextUpdate);
-	}
-
-	private onContextUpdate = () => {
-		// Re-render actions when editorActions changes...
-		this.forceUpdate();
-	};
-
-	render() {
-		return this.props.render(this.context.editorActions);
 	}
 }

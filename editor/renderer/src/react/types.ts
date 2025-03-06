@@ -86,3 +86,8 @@ export type TextHighlighter = {
 		startPos: number;
 	}>;
 };
+
+export interface ExtensionViewportSize {
+	extensionId?: string;
+	viewportSize?: string;
+}

@@ -513,6 +513,11 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 		calendarLocale: locale,
 		calendarWeekStartDay: weekStartDay,
 		shouldSetFocusOnCurrentDay,
+		/**
+		 * This overrides the inner wrapper the Calendar.
+		 * @private Please use this with extreme caution, this API may be changed in the future.
+		 */
+		menuInnerWrapper: props?.menuInnerWrapper,
 	};
 
 	// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'.
@@ -623,6 +628,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 				onCalendarSelect={calendarProps.onCalendarSelect}
 				previousMonthLabel={previousMonthLabel}
 				shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
+				menuInnerWrapper={calendarProps.menuInnerWrapper}
 			/>
 			{shouldShowCalendarButton && !isDisabled ? (
 				<Box

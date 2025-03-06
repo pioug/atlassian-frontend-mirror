@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalBodyProps
  *
- * @codegen <<SignedSource::f6704cd3ad5b9e900de7e400b133ad53>>
+ * @codegen <<SignedSource::8999036a80e16ad1e4655a8fec69ccdd>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-body.partial.tsx <<SignedSource::0fe5715703e89dfc44882777af179380>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-body.partial.tsx <<SignedSource::627540a6559205080b7e35c17eb83204>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,6 @@ export type ModalBodyProps = Pick<
 >;
 
 /**
- * A modal dialog displays content that requires user interaction, in a layer above the page.
+ * A modal body is used to display the main content of a modal.
  */
 export type TModalBody<T> = (props: ModalBodyProps) => T;

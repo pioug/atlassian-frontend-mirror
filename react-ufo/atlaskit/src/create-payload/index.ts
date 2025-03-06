@@ -8,28 +8,18 @@ import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
 import { getReactUFOVersion } from '../common/constants';
-import type { VCResult } from '../common/vc/types';
-import {
-	type Config,
-	getConfig,
-	getExperimentalInteractionRate,
-	getUfoNameOverrides,
-} from '../config';
+import { getConfig, getExperimentalInteractionRate, getUfoNameOverrides } from '../config';
 import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
 import { getBm3Timings } from '../custom-timings';
 import { getGlobalErrorCount } from '../global-error-handler';
 import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
-import {
-	interactionSpans as atlaskitInteractionSpans,
-	postInteractionLog,
-} from '../interaction-metrics';
+import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
 import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
 import { roundEpsilon } from '../round-number';
 import * as ssr from '../ssr';
-import { getVCObserver } from '../vc';
 
 import type { OptimizedLabelStack } from './common/types';
 import {
@@ -39,6 +29,10 @@ import {
 	sanitizeUfoName,
 	stringifyLabelStackFully,
 } from './common/utils';
+import getInteractionStatus from './utils/get-interaction-status';
+import getPageVisibilityUpToTTAI from './utils/get-page-visibility-up-to-ttai';
+import getSSRDoneTimeValue from './utils/get-ssr-done-time-value';
+import getVCMetrics from './utils/get-vc-metrics';
 
 function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
@@ -89,11 +83,6 @@ const getPageVisibilityUpToTTI = (interaction: InteractionMetrics) => {
 	const { start } = interaction;
 	const bm3EndTimeOrInteractionEndTime = getBm3EndTimeOrFallbackValue(interaction);
 	return getPageVisibilityState(start, bm3EndTimeOrInteractionEndTime);
-};
-
-const getPageVisibilityUpToTTAI = (interaction: InteractionMetrics) => {
-	const { start, end } = interaction;
-	return getPageVisibilityState(start, end);
 };
 
 const getVisibilityStateFromPerformance = (stop: number) => {
@@ -150,15 +139,6 @@ const getMoreAccuratePageVisibilityUpToTTAI = (interaction: InteractionMetrics) 
 	return old;
 };
 
-const getInteractionStatus = (interaction: InteractionMetrics) => {
-	const originalInteractionStatus = interaction.abortReason ? 'ABORTED' : 'SUCCEEDED';
-
-	const hasBm3TTI = interaction.apdex.length > 0;
-	const overrideStatus = hasBm3TTI ? 'SUCCEEDED' : originalInteractionStatus;
-
-	return { originalInteractionStatus, overrideStatus } as const;
-};
-
 const getResourceTimings = (start: number, end: number) =>
 	resourceTiming.getResourceTimings(start, end) ?? undefined;
 
@@ -193,67 +173,6 @@ const getTTAI = (interaction: InteractionMetrics) => {
 	return !interaction.abortReason && pageVisibilityUpToTTAI === 'visible'
 		? Math.round(end - start)
 		: undefined;
-};
-
-const getVCMetrics = async (
-	interaction: InteractionMetrics,
-): Promise<VCResult & { 'metric:vc90'?: number | null }> => {
-	const config = getConfig();
-	if (!config?.vc?.enabled) {
-		return {};
-	}
-	if (interaction.type !== 'page_load' && interaction.type !== 'transition') {
-		return {};
-	}
-
-	const isSSREnabled = config?.ssr || config?.vc.ssrWhitelist?.includes(interaction.ufoName);
-
-	const ssr =
-		interaction.type === 'page_load' && isSSREnabled ? { ssr: getSSRDoneTimeValue(config) } : null;
-
-	postInteractionLog.setVCObserverSSRConfig(ssr);
-
-	const tti = interaction.apdex?.[0]?.stopTime;
-	const prefix = 'ufo';
-
-	const interactionStatus = getInteractionStatus(interaction);
-	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
-
-	const result = await getVCObserver().getVCResult({
-		start: interaction.start,
-		stop: interaction.end,
-		tti,
-		prefix,
-		vc: interaction.vc,
-		isEventAborted: interactionStatus.originalInteractionStatus !== 'SUCCEEDED',
-		...ssr,
-	});
-
-	if (config.experimentalInteractionMetrics?.enabled) {
-		getVCObserver().stop();
-	}
-
-	postInteractionLog.setLastInteractionFinishVCResult(result);
-
-	const VC = result?.['metrics:vc'] as {
-		[key: string]: number | null;
-	};
-
-	if (!VC || !result?.[`${prefix}:vc:clean`]) {
-		return result;
-	}
-
-	if (
-		interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
-		pageVisibilityUpToTTAI !== 'visible'
-	) {
-		return result;
-	}
-
-	return {
-		...result,
-		'metric:vc90': VC['90'],
-	};
 };
 
 const getNavigationMetrics = (type: InteractionType) => {
@@ -745,10 +664,6 @@ function getBm3TrackerTimings(interaction: InteractionMetrics) {
 		})
 		.filter((item) => !!item.type);
 	return { legacyMetrics };
-}
-
-function getSSRDoneTimeValue(config: Config | undefined): number | undefined {
-	return config?.ssr?.getSSRDoneTime ? config?.ssr?.getSSRDoneTime() : ssr.getSSRDoneTime();
 }
 
 function getPayloadSize(payload: object): number {

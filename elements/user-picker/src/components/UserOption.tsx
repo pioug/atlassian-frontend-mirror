@@ -12,6 +12,7 @@ import { AvatarItemOption, textWrapper } from './AvatarItemOption';
 import { HighlightText } from './HighlightText';
 import { SizeableAvatar } from './SizeableAvatar';
 import { hasValue } from './utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type UserOptionProps = {
 	user: User;
@@ -79,7 +80,19 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 			user: { avatarUrl },
 			status,
 		} = this.props;
-		return <SizeableAvatar appearance="big" src={avatarUrl} presence={status} />;
+
+		return (
+			<SizeableAvatar
+				appearance={
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-component-visual-refresh') && fg('visual-refresh-user-picker')
+						? 'medium'
+						: 'big'
+				}
+				src={avatarUrl}
+				presence={status}
+			/>
+		);
 	};
 
 	private getLozengeProps = () =>

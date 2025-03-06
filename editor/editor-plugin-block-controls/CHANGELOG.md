@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.1
+
+### Patch Changes
+
+- [#122490](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122490)
+  [`6ec36bc622c47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ec36bc622c47) -
+  Check for undefined on root pos before inserting
+
 ## 3.3.0
 
 ### Minor Changes

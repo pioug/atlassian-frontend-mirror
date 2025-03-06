@@ -526,6 +526,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			calendarLocale: locale,
 			calendarWeekStartDay: weekStartDay,
 			shouldSetFocusOnCurrentDay: this.state.shouldSetFocusOnCurrentDay,
+			menuInnerWrapper: this.props.menuInnerWrapper,
 		};
 
 		// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'.
@@ -629,6 +630,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					onCalendarSelect={calendarProps.onCalendarSelect}
 					previousMonthLabel={previousMonthLabel}
 					shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
+					menuInnerWrapper={calendarProps.menuInnerWrapper}
 				/>
 				{shouldShowCalendarButton && !isDisabled ? (
 					<IdProvider prefix="open-calendar-label--">

@@ -1,5 +1,20 @@
 # @atlaskit/table-tree
 
+## 11.1.0
+
+### Minor Changes
+
+- [#122917](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122917)
+  [`676bb1889e74d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/676bb1889e74d) -
+  Updated expand buttons to use new icons. This change is behind a feature flag and will be
+  available in a later release.
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

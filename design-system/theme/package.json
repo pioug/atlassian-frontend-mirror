@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "17.0.0",
+	"version": "18.0.0",
 	"description": "Theme contains solutions for global theming, colors, and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,6 @@
 		"jest-in-case": "^1.0.2",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^18.2.0",
-		"styled-components": "^3.2.6",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [
@@ -87,7 +86,6 @@
 		}
 	},
 	"af:exports": {
-		"./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
 		"./color-palettes": "./src/color-palettes.tsx",
 		"./colors": "./src/colors.tsx",
 		"./components": "./src/components.tsx",
@@ -96,7 +94,6 @@
 		"./typography": "./src/typography.tsx"
 	},
 	"exports": {
-		"./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
 		"./color-palettes": "./src/color-palettes.tsx",
 		"./colors": "./src/colors.tsx",
 		"./components": "./src/components.tsx",

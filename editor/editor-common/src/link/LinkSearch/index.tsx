@@ -3,7 +3,6 @@ import React, { type KeyboardEvent } from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { type ActivityItem, type ActivityProvider } from '@atlaskit/activity-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { INPUT_METHOD } from '../../analytics';
 
@@ -38,39 +37,18 @@ class RecentLink extends React.Component<
 		limit: DEFAULT_ITEMS_LIMIT,
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/no-unsafe
-	UNSAFE_componentWillReceiveProps(nextProps: RecentSearchProps) {
-		if (!fg('platform_editor_react18_phase2_v2')) {
-			if (this.props.defaultUrl !== nextProps.defaultUrl) {
-				this.setState((state: RecentSearchState) => {
-					if (state.url !== nextProps.defaultUrl) {
-						return {
-							items: [],
-							selectedIndex: -1,
-							url: nextProps.defaultUrl || '',
-						};
-					}
-					return null;
-				});
-			}
-		}
-	}
-
 	componentDidUpdate(prevProps: RecentSearchProps) {
-		if (fg('platform_editor_react18_phase2_v2')) {
-			if (prevProps.defaultUrl !== this.props.defaultUrl) {
-				this.setState((state: RecentSearchState) => {
-					if (state.url !== this.props.defaultUrl) {
-						return {
-							items: [],
-							selectedIndex: -1,
-							url: this.props.defaultUrl || '',
-						};
-					}
-					return null;
-				});
-			}
+		if (prevProps.defaultUrl !== this.props.defaultUrl) {
+			this.setState((state: RecentSearchState) => {
+				if (state.url !== this.props.defaultUrl) {
+					return {
+						items: [],
+						selectedIndex: -1,
+						url: this.props.defaultUrl || '',
+					};
+				}
+				return null;
+			});
 		}
 	}
 

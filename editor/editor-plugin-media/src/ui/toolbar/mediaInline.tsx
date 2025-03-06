@@ -54,6 +54,7 @@ import {
 	toggleBorderMark,
 } from './commands';
 import { shouldShowImageBorder } from './imageBorder';
+import { getOpenLinkToolbarButtonOption, shouldShowMediaLinkToolbar } from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import { downloadMedia } from './utils';
 
@@ -381,6 +382,24 @@ const getMediaInlineImageToolbar = (
 				type: 'separator',
 				supportsViewMode: true,
 				fullHeight: editorExperiment('platform_editor_controls', 'variant1'),
+			},
+		);
+	}
+
+	// open link
+	if (
+		options.allowLinking &&
+		shouldShowMediaLinkToolbar(state) &&
+		mediaLinkingState &&
+		mediaLinkingState.editable &&
+		editorExperiment('platform_editor_controls', 'variant1')
+	) {
+		inlineImageItems.push(
+			getOpenLinkToolbarButtonOption(intl, mediaLinkingState, pluginInjectionApi),
+			{
+				type: 'separator',
+				supportsViewMode: true,
+				fullHeight: true,
 			},
 		);
 	}

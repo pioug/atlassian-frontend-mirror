@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ValidMessageProps
  *
- * @codegen <<SignedSource::40ef2ece49a84181a994ff221e42cc39>>
+ * @codegen <<SignedSource::4cc4d2511f92d5cb8969eb03a63cb079>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/valid-message.partial.tsx <<SignedSource::5460cf891302777898b53c0b4ae8b610>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/valid-message.partial.tsx <<SignedSource::7c24bfd118e399bb212709c31585209b>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,7 @@ export type ValidMessageProps = Pick<
 >;
 
 /**
- * A form allows users to input information.
+ * A valid message is used to tell a user that the field input is valid.
+ * For example, a helper message could be "Nice one, this username is available".
  */
 export type TValidMessage<T> = (props: ValidMessageProps) => T;

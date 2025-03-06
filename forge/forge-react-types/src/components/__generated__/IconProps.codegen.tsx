@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - IconProps
  *
- * @codegen <<SignedSource::b20b7ee253d00fb37c349ea914f0f796>>
+ * @codegen <<SignedSource::b24cc22d6f60b86f1646a75a0bafc7cd>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/icon/index.tsx <<SignedSource::e8d3a49d7c0faccdf54a1e1ef3ec8d5b>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/icon/index.tsx <<SignedSource::54a87ae131386a26a52d09234f67aa98>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -375,11 +375,31 @@ type Glyph = Icon;
 export type IconColor = Extract<ActiveTokens, `color.icon.${string}`> | 'color.icon';
 
 export interface IconProps {
+	/**
+	 * There are three icon sizes – `small` (16px), `medium` (24px), `large` (32px), and `xlarge` (48px).
+	 * This pixel size refers to the canvas the icon sits on, not the size of the icon shape itself.
+	 */
 	size?: 'small' | 'medium' | 'large';
+	/**
+	 * Text used to describe what the icon is in context. A label is needed when there is no pairing visible text next to the icon.
+	 * An empty string marks the icon as presentation only.
+	 */
 	label: string;
+	/**
+	 * Name of the icon to be rendered.
+	 */
 	glyph: Glyph;
+	/**
+	 * Primary color for the icon. Inherits the current font color by default.
+	 */
 	primaryColor?: IconColor;
+	/**
+	 * Secondary color for the icon. Defaults to the page background for an icon that supports two colors.
+	 */
 	secondaryColor?: IconColor;
 }
 
+/**
+ * An icon is a visual representation of a command, device, directory, or common action.
+ */
 export type TIcon<T> = (props: IconProps) => T;

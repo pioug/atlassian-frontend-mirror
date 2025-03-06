@@ -1,5 +1,14 @@
 # @atlaskit/link-create
 
+## 4.0.1
+
+### Patch Changes
+
+- [#122245](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122245)
+  [`42c3b7e791c88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42c3b7e791c88) -
+  EDM-11905 adding aria-label to make forms accessible in link-create
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

@@ -3,8 +3,6 @@ import React, { Component, type ReactNode } from 'react';
 import Popper, { type Boundary, type Data } from 'popper.js'; // eslint-disable-line import/extensions
 import rafSchedule from 'raf-schd';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { positionPropToPopperPosition } from './internal/helpers';
 
 export type Props = {
@@ -78,18 +76,10 @@ export default class Layer extends Component<Props, State> {
 		this.applyPopper(this.props);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/no-unsafe
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (!fg('platform_editor_react18_phase2_v2')) {
-			this.applyPopper(nextProps);
-		}
-	}
-
 	componentDidUpdate(prevProps: Props, prevState: State) {
 		const { onPositioned } = this.props;
 		const { hasExtractedStyles } = this.state;
-		if (this.props !== prevProps && fg('platform_editor_react18_phase2_v2')) {
+		if (this.props !== prevProps) {
 			this.applyPopper(this.props);
 		}
 

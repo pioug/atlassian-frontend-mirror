@@ -29,6 +29,7 @@ import type { TypeAheadHandler } from '../types';
 
 import { AssistiveText } from './AssistiveText';
 import { TypeAheadListItem } from './TypeAheadListItem';
+import { ViewMore } from './ViewMore';
 const LIST_ITEM_ESTIMATED_HEIGHT = 64;
 const LIST_WIDTH = 320;
 
@@ -48,6 +49,7 @@ type TypeAheadListProps = {
 	moreElementsInQuickInsertViewEnabled?: boolean;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 	showViewMore?: boolean;
+	onViewMoreClick?: () => void;
 } & WrappedComponentProps;
 
 const TypeaheadAssistiveTextPureComponent = React.memo(
@@ -79,6 +81,7 @@ const TypeAheadListComponent = React.memo(
 		moreElementsInQuickInsertViewEnabled,
 		api,
 		showViewMore,
+		onViewMoreClick,
 	}: TypeAheadListProps) => {
 		const listRef = useRef<List>() as React.MutableRefObject<List>;
 		const listContainerRef = useRef<HTMLDivElement>(null);
@@ -89,7 +92,10 @@ const TypeAheadListComponent = React.memo(
 			stopIndex: 0,
 		});
 
-		const estimatedHeight = items.length * LIST_ITEM_ESTIMATED_HEIGHT;
+		// Exclude view more item from the count
+		const itemsLength = showViewMore ? items.length - 1 : items.length;
+
+		const estimatedHeight = itemsLength * LIST_ITEM_ESTIMATED_HEIGHT;
 
 		const [height, setHeight] = useState(Math.min(estimatedHeight, fitHeight));
 
@@ -166,8 +172,11 @@ const TypeAheadListComponent = React.memo(
 				// to calculate each height. THen, we can schedule a new frame when this one finishs.
 				requestAnimationFrame(() => {
 					requestAnimationFrame(() => {
+						const isViewMoreSelected = showViewMore && selectedIndex === itemsLength;
 						const isSelectedItemVisible =
-							selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex;
+							(selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex) ||
+							// view more is always visible, hence no scrolling
+							isViewMoreSelected;
 
 						//Should scroll to the list item only when the selectedIndex >= 0 and item is not visible
 						if (!isSelectedItemVisible && selectedIndex !== -1) {
@@ -178,7 +187,7 @@ const TypeAheadListComponent = React.memo(
 					});
 				});
 			},
-			[selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex],
+			[selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex, itemsLength, showViewMore],
 		);
 
 		const onMouseMove = (event: React.MouseEvent, index: number) => {
@@ -194,8 +203,11 @@ const TypeAheadListComponent = React.memo(
 			if (!listRef.current) {
 				return;
 			}
+			const isViewMoreSelected = showViewMore && selectedIndex === itemsLength;
 			const isSelectedItemVisible =
-				selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex;
+				(selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex) ||
+				// view more is always visible, hence no scrolling
+				isViewMoreSelected;
 
 			//Should scroll to the list item only when the selectedIndex >= 0 and item is not visible
 			if (!isSelectedItemVisible && selectedIndex !== -1) {
@@ -203,7 +215,7 @@ const TypeAheadListComponent = React.memo(
 			} else if (selectedIndex === -1) {
 				listRef.current.scrollToRow(0);
 			}
-		}, [selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex]);
+		}, [selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex, itemsLength, showViewMore]);
 
 		useLayoutEffect(() => {
 			setCache(
@@ -224,14 +236,16 @@ const TypeAheadListComponent = React.memo(
 		}, [items]);
 
 		useLayoutEffect(() => {
+			// Exclude view more item from the count
+			const itemsToRender = showViewMore ? items.slice(0, -1) : items;
 			const height = Math.min(
-				items.reduce((prevValue, currentValue, index) => {
+				itemsToRender.reduce((prevValue, currentValue, index) => {
 					return prevValue + cache.rowHeight({ index: index });
 				}, 0),
 				fitHeight,
 			);
 			setHeight(height);
-		}, [items, cache, fitHeight]);
+		}, [items, cache, fitHeight, showViewMore]);
 
 		useLayoutEffect(() => {
 			if (!listContainerRef.current) {
@@ -298,7 +312,7 @@ const TypeAheadListComponent = React.memo(
 			selectPreviousItem,
 			selectedIndex,
 			onItemClick,
-			items.length,
+			itemsLength,
 		]);
 
 		const firstOnlineSupportedRow = useMemo(() => {
@@ -320,7 +334,7 @@ const TypeAheadListComponent = React.memo(
 								key={items[index].title}
 								item={currentItem}
 								firstOnlineSupportedIndex={firstOnlineSupportedRow}
-								itemsLength={items.length}
+								itemsLength={itemsLength}
 								itemIndex={index}
 								selectedIndex={selectedIndex}
 								onItemClick={actions.onItemClick}
@@ -365,7 +379,8 @@ const TypeAheadListComponent = React.memo(
 			<List
 				rowRenderer={renderRow}
 				ref={listRef}
-				rowCount={items.length}
+				// Skip rendering the view more button in the list
+				rowCount={itemsLength}
 				rowHeight={cache.rowHeight}
 				onRowsRendered={onItemsRendered}
 				width={LIST_WIDTH}
@@ -397,9 +412,11 @@ const TypeAheadListComponent = React.memo(
 		return (
 			<MenuGroup aria-label={popupAriaLabel} aria-relevant="additions removals">
 				<div id={menuGroupId} ref={listContainerRef}>
-					{!showViewMore || items.length ? ListContent : EmptyResultView}
-
-					<TypeaheadAssistiveTextPureComponent numberOfResults={items.length.toString()} />
+					{!showViewMore || itemsLength ? ListContent : EmptyResultView}
+					{showViewMore && onViewMoreClick && (
+						<ViewMore onClick={onViewMoreClick} isFocused={selectedIndex === itemsLength} />
+					)}
+					<TypeaheadAssistiveTextPureComponent numberOfResults={itemsLength.toString()} />
 				</div>
 			</MenuGroup>
 		);

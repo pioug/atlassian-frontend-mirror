@@ -7,6 +7,8 @@ import { Trigger } from './Trigger';
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
 
+const mockIcon = <div>CoolIcon</div>;
+
 describe('@atlaskit/reactions/components/Trigger', () => {
 	mockReactDomWarningGlobal();
 	it('should render a button', async () => {
@@ -80,29 +82,27 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		expect(button).not.toHaveCompiledCss('width', '2rem');
 	});
 
-	it('should have proper tooltip and icon if showMoreEmojiTriggerUI is true', async () => {
-		renderWithIntl(<Trigger tooltipContent="" showMoreEmojiTriggerUI={true} />);
+	it('should render custom icon if reactionPickerTriggerIcon is passed in', async () => {
+		renderWithIntl(<Trigger tooltipContent="" reactionPickerTriggerIcon={mockIcon} />);
 
 		const button = await screen.findByTestId('render-trigger-button');
 		expect(button).toBeInTheDocument();
-		const icon = await screen.findByTestId('show-more-emojis-icon');
-		expect(icon).toBeInTheDocument();
+		const customIcon = await screen.findByText('CoolIcon');
+		expect(customIcon).toBeInTheDocument();
 
-		fireEvent.mouseOver(button);
-		const tooltip = await screen.findByTestId('render-tooltip-trigger');
-		expect(tooltip).toHaveTextContent('More emojis');
+		const defaultIcon = screen.queryByTestId('emoji-add-icon');
+		expect(defaultIcon).not.toBeInTheDocument();
 	});
 
-	it('should have default tooltip and icon if showMoreEmojiTriggerUI is false', async () => {
-		renderWithIntl(<Trigger tooltipContent="tooltip" showMoreEmojiTriggerUI={false} />);
+	it('should render default icon reactionPickerTriggerIcon is not passed in', async () => {
+		renderWithIntl(<Trigger tooltipContent="" />);
 
 		const button = await screen.findByTestId('render-trigger-button');
 		expect(button).toBeInTheDocument();
 		const icon = await screen.findByTestId('emoji-add-icon');
 		expect(icon).toBeInTheDocument();
 
-		fireEvent.mouseOver(button);
-		const tooltip = await screen.findByTestId('render-tooltip-trigger');
-		expect(tooltip).toHaveTextContent('tooltip');
+		const customIcon = screen.queryByText('CoolIcon');
+		expect(customIcon).not.toBeInTheDocument();
 	});
 });

@@ -54,7 +54,7 @@ export const getNewPluginState = ({
 		...pluginState,
 		activeSessionTime: now - intentToStartEditTime,
 		contentSizeChanged:
-			contentSizeChanged + (newState.doc.content.size - oldState.doc.content.size),
+			contentSizeChanged + Math.abs(newState.doc.content.size - oldState.doc.content.size),
 		intentToStartEditTime,
 		shouldPersistActiveSession,
 	};

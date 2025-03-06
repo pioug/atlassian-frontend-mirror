@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormSectionProps
  *
- * @codegen <<SignedSource::bb91841c1913229e7eb66d61b4ab693d>>
+ * @codegen <<SignedSource::2d079615b76393e9241b054b75fde5f3>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-section.partial.tsx <<SignedSource::7b30101c26550bb11c0f4ca6d4cf46fc>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-section.partial.tsx <<SignedSource::0dd9401d75f62dec7336bdea43302961>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,7 @@ export type FormSectionProps = Pick<
 >;
 
 /**
- * A form allows users to input information.
+ * Use a form section to group related information together, so that longer forms are easier to understand.
+ * There can be multiple form sections in one form.
  */
 export type TFormSection<T> = (props: FormSectionProps) => T;

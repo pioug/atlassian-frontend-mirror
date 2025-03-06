@@ -51,7 +51,7 @@
 		"@atlaskit/editor-plugin-guideline": "^2.0.0",
 		"@atlaskit/editor-plugin-selection": "^2.0.0",
 		"@atlaskit/editor-plugin-width": "^3.0.0",
-		"@atlaskit/renderer": "^113.1.0"
+		"@atlaskit/renderer": "^113.2.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

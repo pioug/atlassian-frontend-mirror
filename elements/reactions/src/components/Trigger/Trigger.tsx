@@ -11,7 +11,6 @@ import { Pressable, Box, xcss, type XCSS } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -65,9 +64,9 @@ export interface TriggerProps {
 	 */
 	selectionStyle?: XCSS;
 	/**
-	 * Optional prop for controlling if Trigger displays the ... show more emoji UI
+	 * Optional prop for controlling icon inside Trigger
 	 */
-	showMoreEmojiTriggerUI?: boolean;
+	reactionPickerTriggerIcon?: React.ReactNode;
 }
 
 const i18n = defineMessages({
@@ -75,11 +74,6 @@ const i18n = defineMessages({
 		id: 'reaction-picker-trigger.add.reaction.message',
 		description: 'Message displayed when there are no page reactions existing on the page.',
 		defaultMessage: 'Add a reaction',
-	},
-	showMore: {
-		id: 'reaction-picker-trigger.more.emojis.message',
-		description: 'Message displayed on button to show more emojis.',
-		defaultMessage: 'More emojis',
 	},
 });
 
@@ -175,7 +169,7 @@ export const Trigger = React.forwardRef(
 			subtleReactionsSummaryAndPicker = false,
 			showRoundTrigger = false,
 			selectionStyle,
-			showMoreEmojiTriggerUI,
+			reactionPickerTriggerIcon,
 		} = props;
 
 		const handleMouseDown = (
@@ -188,10 +182,7 @@ export const Trigger = React.forwardRef(
 		};
 
 		return (
-			<Tooltip
-				testId={RENDER_TOOLTIP_TRIGGER_TESTID}
-				content={showMoreEmojiTriggerUI ? formatMessage(i18n.showMore) : tooltipContent}
-			>
+			<Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
 				<Pressable
 					testId={RENDER_TRIGGER_BUTTON_TESTID}
 					xcss={[
@@ -214,12 +205,8 @@ export const Trigger = React.forwardRef(
 					ref={ref}
 					{...ariaAttributes}
 				>
-					{showMoreEmojiTriggerUI ? (
-						<ShowMoreHorizontalIcon
-							testId="show-more-emojis-icon"
-							label={formatMessage(i18n.showMore)}
-							color={disabled ? token('color.icon.disabled') : token('color.icon')}
-						/>
+					{!!reactionPickerTriggerIcon ? (
+						reactionPickerTriggerIcon
 					) : (
 						// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
 						<EmojiAddIcon

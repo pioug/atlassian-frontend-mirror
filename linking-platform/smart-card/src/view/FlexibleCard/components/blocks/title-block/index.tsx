@@ -94,7 +94,6 @@ const TitleBlockNew = ({
 	);
 	const actionGroup = actions.length > 0 && (
 		<ActionGroup
-			{...(fg('platform-linking-visual-refresh-v1') && { appearance: 'default' })}
 			items={actions}
 			visibleButtonsNum={showActionOnHover ? 1 : 2}
 			onDropdownOpenChange={onDropdownOpenChange}

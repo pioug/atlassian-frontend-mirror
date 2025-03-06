@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TabPanelProps
  *
- * @codegen <<SignedSource::d880c7eaf445179245b8aea2d70ea39e>>
+ * @codegen <<SignedSource::6ff302a008a6520f4b1b03de50bfe530>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tabpanel.partial.tsx <<SignedSource::1bbc05ad9425e3df25423076ab0a0acf>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tabpanel.partial.tsx <<SignedSource::e7936c96c90f8f4682c85a00f85a23f4>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,6 @@ export type TabPanelProps = Pick<
 >;
 
 /**
- * Tabs are used to organize content by grouping similar information on the same page.
+ * A `TabPanel` houses the contents of a `Tab`.
  */
 export type TTabPanel<T> = (props: TabPanelProps) => T;

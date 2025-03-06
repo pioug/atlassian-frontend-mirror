@@ -12,8 +12,8 @@ import type { IntlShape } from 'react-intl-next';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -28,12 +28,8 @@ const toolbarScrollButtons = css({
 	alignItems: 'center',
 });
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const LeftIcon = ChevronLeftLargeIcon as React.ComponentClass<any>;
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const RightIcon = ChevronRightLargeIcon as React.ComponentClass<any>;
+const LeftIcon = ChevronLeftLargeIcon;
+const RightIcon = ChevronRightLargeIcon;
 
 interface ScrollButtonsProps {
 	intl: IntlShape;

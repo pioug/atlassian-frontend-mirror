@@ -40,7 +40,7 @@ const ListButtonGroupBase = memo(
 		hasSeparator,
 		onItemSelected,
 		setSelectedItem,
-		startingIndex = 0,
+		startingIndex,
 	}: ListButtonGroupProps) => {
 		return (
 			<Section hasSeparator={hasSeparator}>
@@ -57,7 +57,7 @@ const ListButtonGroupBase = memo(
 							<ListButtonItem
 								key={item.index}
 								index={item.index}
-								isSelected={startingIndex + index === 0}
+								isSelected={startingIndex === undefined ? undefined : startingIndex + index === 0}
 								title={item.title}
 								description={item.description}
 								showDescription={item.showDescription}

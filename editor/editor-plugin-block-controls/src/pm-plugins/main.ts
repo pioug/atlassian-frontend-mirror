@@ -401,11 +401,7 @@ export const newApply = (
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 		decorations = decorations.remove(oldHandle);
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
-				decorations,
-				activeNode?.rootPos,
-				activeNode?.rootPos,
-			);
+			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(decorations);
 			decorations = decorations.remove(oldQuickInsertButton);
 		}
 	} else if (api && shouldRecreateHandle) {
@@ -423,26 +419,24 @@ export const newApply = (
 		);
 
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
-				decorations,
-				activeNode?.rootPos,
-				activeNode?.rootPos,
-			);
-			decorations = decorations.remove(oldQuickInsertButton);
-			const quickInsertButton = quickInsertButtonDecoration(
-				api,
-				formatMessage,
-				latestActiveNode?.rootPos,
-				latestActiveNode?.anchorName,
-				latestActiveNode?.nodeType,
-				nodeViewPortalProviderAPI,
-				latestActiveNode?.rootAnchorName,
-				latestActiveNode?.rootNodeType,
-			);
-			decorations = decorations.add(newState.doc, [handleDec, quickInsertButton]);
-		} else {
-			decorations = decorations.add(newState.doc, [handleDec]);
+			if (latestActiveNode?.rootPos !== undefined) {
+				const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(decorations);
+				decorations = decorations.remove(oldQuickInsertButton);
+
+				const quickInsertButton = quickInsertButtonDecoration(
+					api,
+					formatMessage,
+					latestActiveNode?.rootPos,
+					latestActiveNode?.anchorName,
+					latestActiveNode?.nodeType,
+					nodeViewPortalProviderAPI,
+					latestActiveNode?.rootAnchorName,
+					latestActiveNode?.rootNodeType,
+				);
+				decorations = decorations.add(newState.doc, [quickInsertButton]);
+			}
 		}
+		decorations = decorations.add(newState.doc, [handleDec]);
 	}
 
 	// Drop targets may be missing when the node count is being changed during a drag

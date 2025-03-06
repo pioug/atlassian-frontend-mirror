@@ -12,6 +12,7 @@ export const useLoadItems = (
 	triggerHandler: TypeAheadHandler,
 	editorView: EditorView,
 	query: string,
+	showViewMore?: boolean,
 ): Array<TypeAheadItem> => {
 	const [items, setItems] = useState<Array<TypeAheadItem>>(EMPTY_LIST_ITEM);
 	const componentIsMounted = useRef(true);
@@ -37,8 +38,15 @@ export const useLoadItems = (
 					setItems(list);
 				}
 
+				const viewMoreItem: TypeAheadItem = {
+					title: 'View more',
+				};
+
 				queueMicrotask(() => {
-					updateListItem(list)(view.state, view.dispatch);
+					updateListItem(showViewMore ? list.concat(viewMoreItem) : list)(
+						view.state,
+						view.dispatch,
+					);
 				});
 			})
 			.catch((e) => {

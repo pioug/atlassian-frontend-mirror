@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 113.2.0
+
+### Minor Changes
+
+- [#112653](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/112653)
+  [`73371f1e55712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73371f1e55712) -
+  Accepts extension viewport size list as a prop from confluence FE in order to render this size on
+  SSR.
+
+### Patch Changes
+
+- [#122260](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122260)
+  [`10eabde04f773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10eabde04f773) -
+  FD-80149: cleans up platform_editor_react18_phase2_v2 from with_editor_actions
+- Updated dependencies
+
 ## 113.1.2
 
 ### Patch Changes

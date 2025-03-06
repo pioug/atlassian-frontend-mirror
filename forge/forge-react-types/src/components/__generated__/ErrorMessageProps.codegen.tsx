@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ErrorMessageProps
  *
- * @codegen <<SignedSource::3d3da7aa33a6ac0adb1524f89ee28208>>
+ * @codegen <<SignedSource::059ea63aef7f094365447bb300fed9f6>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/error-message.partial.tsx <<SignedSource::9e1a8d256d8d999a689140fbcda430fa>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/error-message.partial.tsx <<SignedSource::3758488a0115c629a624fcaae1f524c7>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,7 @@ export type ErrorMessageProps = Pick<
 >;
 
 /**
- * A form allows users to input information.
+ * An error message is used to tell a user that the field input is invalid.
+ * For example, an error message could be "Invalid username, needs to be more than 4 characters".
  */
 export type TErrorMessage<T> = (props: ErrorMessageProps) => T;

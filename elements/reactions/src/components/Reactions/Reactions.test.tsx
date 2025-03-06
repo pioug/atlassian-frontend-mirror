@@ -284,6 +284,12 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			expect(element).toBeDefined();
 		});
 
+		it('when status is ready, returns custom tooltip content if it is passed in', async () => {
+			renderWithIntl(getTooltip(ReactionStatus.ready, '', 'Custom tooltip') as JSX.Element);
+			const element = screen.queryByText('Custom tooltip');
+			expect(element).toBeDefined();
+		});
+
 		it('status is set to notLoaded', async () => {
 			renderWithIntl(getTooltip(ReactionStatus.notLoaded) as JSX.Element);
 			const element = screen.queryByText(messages.loadingReactions.defaultMessage);

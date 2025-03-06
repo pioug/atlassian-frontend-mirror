@@ -5,10 +5,7 @@
  */
 {
   "testExamples": [
-    "atlaskit-theme-provider.tsx",
     "colors.tsx"
   ],
-  "exampleDependencies": [
-    "styled-components"
-  ]
+  "exampleDependencies": []
 }

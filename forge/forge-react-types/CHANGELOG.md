@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 0.37.8
+
+### Patch Changes
+
+- [#122965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122965)
+  [`398f570fbc446`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/398f570fbc446) -
+  Export UI Kit Component types with JSDoc comments
+
+## 0.37.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.37.6
 
 ### Patch Changes

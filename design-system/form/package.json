@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "12.0.0",
+	"version": "12.0.1",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		"@atlaskit/heading": "^5.1.0",
 		"@atlaskit/icon": "^24.1.0",
 		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/theme": "^17.0.0",
+		"@atlaskit/theme": "^18.0.0",
 		"@atlaskit/tokens": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
@@ -50,10 +50,10 @@
 		"@atlaskit/banner": "^13.0.0",
 		"@atlaskit/button": "^21.1.0",
 		"@atlaskit/checkbox": "^17.0.0",
-		"@atlaskit/datetime-picker": "^16.0.0",
+		"@atlaskit/datetime-picker": "^16.1.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/link": "^3.0.0",
-		"@atlaskit/lozenge": "^12.1.0",
+		"@atlaskit/lozenge": "^12.2.0",
 		"@atlaskit/modal-dialog": "^13.0.0",
 		"@atlaskit/radio": "^8.0.0",
 		"@atlaskit/range": "^9.0.0",

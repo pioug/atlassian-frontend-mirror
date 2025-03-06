@@ -16,6 +16,8 @@ const createExample = (props: Partial<LinkSearchListItemProps> = {}) => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					['--link-picker-padding-right' as string]: '16px',
 				}}
+				role="listbox"
+				title="exampleList"
 			>
 				<LinkSearchListItem
 					item={{
@@ -32,6 +34,7 @@ const createExample = (props: Partial<LinkSearchListItemProps> = {}) => {
 					onSelect={NOOP}
 					onKeyDown={NOOP}
 					onFocus={NOOP}
+					role="option"
 					{...props}
 				/>
 			</div>

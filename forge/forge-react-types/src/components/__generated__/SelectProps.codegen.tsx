@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SelectProps
  *
- * @codegen <<SignedSource::124f2ef00704a09ec7335b035929681c>>
+ * @codegen <<SignedSource::27434c8de7f2e3082a44901a80c594a9>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/select/index.tsx <<SignedSource::a2510e0de095c3d94007eb9c6488aa55>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/select/index.tsx <<SignedSource::f7eed13874b04c56ded5f3434e03c70e>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -44,3 +44,8 @@ export type SelectProps = Pick<
 	| 'value'
 	| 'isRequired'
 >;
+
+/**
+ * Select allows users to make a single selection or multiple selections from a list of options.
+ */
+export type TSelect<T> = (props: SelectProps) => T;

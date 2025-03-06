@@ -1,5 +1,14 @@
 # @atlaskit/user-picker
 
+## 11.0.5
+
+### Patch Changes
+
+- [#121751](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121751)
+  [`fa503e3c2f7af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa503e3c2f7af) -
+  [ux] Update avatar size on user picker
+- Updated dependencies
+
 ## 11.0.4
 
 ### Patch Changes

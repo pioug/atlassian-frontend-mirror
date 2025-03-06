@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 204.4.2
+
+### Patch Changes
+
+- [#122260](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122260)
+  [`10eabde04f773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10eabde04f773) -
+  FD-80149: cleans up platform_editor_react18_phase2_v2 from with_editor_actions
+- Updated dependencies
+
 ## 204.4.1
 
 ### Patch Changes

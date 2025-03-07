@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7bd99930550f5cde51fc2e868728f289>>
+ * @codegen <<SignedSource::c87f420865896fb6e26f89bc542f7461>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _quotationMark = _interopRequireDefault(require("@atlaskit/icon/core/quotati
 var _quote = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/quote"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for QuotationMarkIcon.
  * This component is QuotationMarkIcon, with `UNSAFE_fallbackIcon` set to "EditorQuoteIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6117b5ef3160e6ef8549df874d1af3cc>>
+ * @codegen <<SignedSource::c8fa221250b83c43ee02d1f495b15234>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,9 +13,6 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- * Please reach out in #icon-contributions before using these in production.
- *
  * Icon: "Sticker".
  * Category: multi-purpose
  * Location: @atlaskit/icon-lab

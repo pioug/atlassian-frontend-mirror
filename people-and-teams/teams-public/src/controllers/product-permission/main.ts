@@ -9,7 +9,7 @@ import { getProductPermissionRequestBody, transformPermissions } from './utils';
 
 const actions: ProductPermissionsActions = {
 	getPermissions:
-		({ userId, cloudId, enabled, permissionIds }) =>
+		({ userId, cloudId, enabled, permissionIds = ['manage', 'write'] }) =>
 		async ({ setState, getState, dispatch }) => {
 			const { hasLoaded, isLoading, permissions } = getState();
 			if (isLoading || !userId || !cloudId || !enabled) {

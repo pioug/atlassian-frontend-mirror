@@ -63,9 +63,9 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/adf-utils": "^19.19.0",
+		"@atlaskit/adf-utils": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/theme": "^18.0.0",
+		"@atlaskit/theme": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"date-fns": "^2.17.0",
 		"juice": "^7.0.0",

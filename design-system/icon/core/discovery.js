@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0bbfe81f147120090325e09b8113563c>>
+ * @codegen <<SignedSource::a16cdaa2dddc42770afb4ef27432b5d4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,9 +13,6 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- * Please reach out in #icon-contributions before using these in production.
- *
  * Icon: "Discovery".
  * Category: single-purpose
  * Location: @atlaskit/icon

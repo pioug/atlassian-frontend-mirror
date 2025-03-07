@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1cf327bc25b611aa0591b78464df2d4e>>
+ * @codegen <<SignedSource::1bf36c434727ed24235fa0a1cb0b2040>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _checkboxIndeterminate = _interopRequireDefault(require("@atlaskit/icon/core
 var _checkboxIndeterminate2 = _interopRequireDefault(require("@atlaskit/icon/glyph/checkbox-indeterminate"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CheckboxIndeterminateIcon.
  * This component is CheckboxIndeterminateIcon, with `UNSAFE_fallbackIcon` set to "CheckboxIndeterminateIcon".
  *

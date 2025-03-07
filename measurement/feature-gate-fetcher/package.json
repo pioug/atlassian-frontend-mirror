@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/feature-gate-js-client": "4.26.4",
+		"@atlaskit/feature-gate-js-client": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"statsig-js-lite": "^1.6.0"
 	},

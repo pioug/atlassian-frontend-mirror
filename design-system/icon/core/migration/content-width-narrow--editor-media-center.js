@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::09fdc651c7b2a0bd10f5f74efe1f0417>>
+ * @codegen <<SignedSource::4bffd2c31421d867f4fb3d45c9b7f986>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _contentWidthNarrow = _interopRequireDefault(require("@atlaskit/icon/core/co
 var _mediaCenter = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/media-center"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ContentWidthNarrowIcon.
  * This component is ContentWidthNarrowIcon, with `UNSAFE_fallbackIcon` set to "EditorMediaCenterIcon".
  *

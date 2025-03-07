@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7abb6cf17310710e3a4ea7d0c8b8ff28>>
+ * @codegen <<SignedSource::674005a56be0a472c5b4e43be73a4c7d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _volumeLow = _interopRequireDefault(require("@atlaskit/icon/core/volume-low"
 var _vidVolumeHalf = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-volume-half"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VolumeLowIcon.
  * This component is VolumeLowIcon, with `UNSAFE_fallbackIcon` set to "VidVolumeHalfIcon".
  *

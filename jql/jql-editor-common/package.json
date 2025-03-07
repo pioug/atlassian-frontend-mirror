@@ -37,8 +37,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/jql-autocomplete": "^2.0.0",
+		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/jql-autocomplete": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"rxjs": "^5.5.0"
 	},
@@ -47,9 +47,9 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "*",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",

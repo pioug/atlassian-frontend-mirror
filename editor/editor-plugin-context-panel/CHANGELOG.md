@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 4.0.0
+
+### Major Changes
+
+- [#122281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122281)
+  [`8c84e6db9b94f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c84e6db9b94f) -
+  EDF-2539 Integrated object sidebar api through context-panel plugin in extensions to show panel.
+
 ## 3.0.1
 
 ### Patch Changes

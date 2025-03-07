@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::57dad3eab41abf2788ca551c2d5d8b35>>
+ * @codegen <<SignedSource::81e14a9be74c416e30d0dbd20319a2d1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,9 +13,6 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- * Please reach out in #icon-contributions before using these in production.
- *
  * Icon: "Capture".
  * Category: multi-purpose
  * Location: @atlaskit/icon

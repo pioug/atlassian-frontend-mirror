@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.9.0
+
+### Minor Changes
+
+- [#123459](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123459)
+  [`9fb998c6c9f1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fb998c6c9f1f) -
+  Check user's access to all jira products
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.1
 
 ### Patch Changes

@@ -35,23 +35,23 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "^101.1.0",
-		"@atlaskit/editor-plugin-analytics": "^2.1.0",
-		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
+		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-plugin-analytics": "workspace:*",
+		"@atlaskit/editor-plugin-editor-disabled": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-copy-button": "^2.0.0",
-		"@atlaskit/editor-plugin-decorations": "^2.0.0",
-		"@atlaskit/editor-plugin-feature-flags": "^1.3.0",
-		"@atlaskit/editor-plugin-floating-toolbar": "^3.1.0",
-		"@atlaskit/editor-plugin-focus": "^1.5.0",
-		"@atlaskit/editor-plugin-grid": "^2.0.0",
-		"@atlaskit/editor-plugin-guideline": "^2.0.0",
-		"@atlaskit/editor-plugin-selection": "^2.0.0",
-		"@atlaskit/editor-plugin-width": "^3.0.0",
-		"@atlaskit/renderer": "^113.2.0"
+		"@atlaskit/editor-plugin-copy-button": "workspace:*",
+		"@atlaskit/editor-plugin-decorations": "workspace:*",
+		"@atlaskit/editor-plugin-feature-flags": "workspace:*",
+		"@atlaskit/editor-plugin-floating-toolbar": "workspace:*",
+		"@atlaskit/editor-plugin-focus": "workspace:*",
+		"@atlaskit/editor-plugin-grid": "workspace:*",
+		"@atlaskit/editor-plugin-guideline": "workspace:*",
+		"@atlaskit/editor-plugin-selection": "workspace:*",
+		"@atlaskit/editor-plugin-width": "workspace:*",
+		"@atlaskit/renderer": "workspace:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

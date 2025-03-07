@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b9bee8f8ae083279c06610fb9b6caa7>>
+ * @codegen <<SignedSource::810dc5f208f8f9fa7461676d2437fc6b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _page = _interopRequireDefault(require("@atlaskit/icon/core/page"));
 var _note = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/note"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PageIcon.
  * This component is PageIcon, with `UNSAFE_fallbackIcon` set to "EditorNoteIcon".
  *

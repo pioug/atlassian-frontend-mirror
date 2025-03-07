@@ -2,31 +2,30 @@ import React, { useEffect } from 'react';
 
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 
-import ExitingPersistence, { useExitingPersistence } from '../../../entering/exiting-persistence';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import { isReducedMotion } from '../../../utils/accessibility';
 
 jest.mock('../../../utils/accessibility');
 
-const Motion = (props: { id: string; color?: string; onRender?: Function }) => {
-	const exiting = useExitingPersistence();
+const Motion = ({ id, color, onRender }: { id: string; color?: string; onRender?: Function }) => {
 	useEffect(() => {
-		props.onRender && props.onRender();
-
-		const id = setTimeout(() => exiting.isExiting && exiting.onFinish && exiting.onFinish(), 100);
-
-		return () => {
-			clearTimeout(id);
-		};
-	});
+		onRender?.();
+	}, [onRender]);
 	return (
-		<div data-testid={props.id} data-color={props.color}>
-			hello, world
-		</div>
+		<KeyframesMotion animationTimingFunction="linear" duration="large" enteringAnimation="fade-in">
+			{(props) => (
+				<div {...props} data-testid={id} data-color={color}>
+					hello, world
+				</div>
+			)}
+		</KeyframesMotion>
 	);
 };
 
-describe('<ExitingPersistence />', () => {
+ffTest.both('platform_design_system_motion_on_finish_fix', '<ExitingPersistence />', () => {
 	beforeEach(() => {
 		(isReducedMotion as jest.Mock).mockReturnValue(false);
 	});
@@ -317,7 +316,7 @@ describe('<ExitingPersistence />', () => {
 	});
 
 	it('should splice new children added at the same time as some are exiting', () => {
-		const { rerender } = render(
+		const { container, rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="element1" />,
@@ -337,10 +336,20 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		const element3 = screen.getByTestId('element3');
-		const element4 = screen.getByTestId('element4');
+		/**
+		 * The children, in order, with <style> tags filtered out.
+		 */
 		// eslint-disable-next-line testing-library/no-node-access
-		expect(element3.nextElementSibling).toBe(element4);
+		const nonStyleChildren = Array.from(container.children).filter(
+			(child) => child.tagName !== 'STYLE',
+		);
+
+		expect(nonStyleChildren).toEqual([
+			screen.getByTestId('element1'),
+			screen.getByTestId('element2'),
+			screen.getByTestId('element3'),
+			screen.getByTestId('element4'),
+		]);
 	});
 
 	it('should persist an element when switching to and from during an inflight motion', () => {

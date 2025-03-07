@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::36aee0df89bf865eb17a63eafd7a4e78>>
+ * @codegen <<SignedSource::5263752ab7d6d0b624b02ca95af4129a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _bookWithBookmark = _interopRequireDefault(require("@atlaskit/icon/core/book
 var _book = _interopRequireDefault(require("@atlaskit/icon/glyph/book"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BookWithBookmarkIcon.
  * This component is BookWithBookmarkIcon, with `UNSAFE_fallbackIcon` set to "BookIcon".
  *

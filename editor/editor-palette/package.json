@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

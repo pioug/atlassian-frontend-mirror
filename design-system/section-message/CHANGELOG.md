@@ -1,5 +1,14 @@
 # @atlaskit/section-message
 
+## 8.1.0
+
+### Minor Changes
+
+- [#122958](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122958)
+  [`e46a10ea5b483`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e46a10ea5b483) -
+  Updated to use new icons. This change is behind a feature flag and will be available in a later
+  release.
+
 ## 8.0.2
 
 ### Patch Changes

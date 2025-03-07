@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0e1115bddbfa0cb5d22a2f79866a1b26>>
+ * @codegen <<SignedSource::746afd86dff7a846534476462b8fe4e7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _copy = _interopRequireDefault(require("@atlaskit/icon/core/copy"));
 var _copy2 = _interopRequireDefault(require("@atlaskit/icon/glyph/copy"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CopyIcon.
  * This component is CopyIcon, with `UNSAFE_fallbackIcon` set to "CopyIcon".
  *

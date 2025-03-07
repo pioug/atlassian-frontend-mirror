@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9fa85b82ff76a0679a620dfbd7a4d8af>>
+ * @codegen <<SignedSource::c635a2f2e69a7d56a90070d44e636799>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _shortcut = _interopRequireDefault(require("@atlaskit/icon/core/shortcut"));
 var _addItem = _interopRequireDefault(require("@atlaskit/icon/glyph/add-item"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ShortcutIcon.
  * This component is ShortcutIcon, with `UNSAFE_fallbackIcon` set to "AddItemIcon".
  *

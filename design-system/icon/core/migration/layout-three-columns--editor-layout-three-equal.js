@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a50b39922ba23527cd2664948304a150>>
+ * @codegen <<SignedSource::72072af5b471c7bedc305a162ce95825>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _layoutThreeColumns = _interopRequireDefault(require("@atlaskit/icon/core/la
 var _layoutThreeEqual = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/layout-three-equal"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LayoutThreeColumnsIcon.
  * This component is LayoutThreeColumnsIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutThreeEqualIcon".
  *

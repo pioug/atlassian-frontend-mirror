@@ -15,6 +15,8 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	protected abstract isVCClean(filteredEntries: ReadonlyArray<VCObserverEntry>): boolean;
 
 	async calculate({
+		startTime,
+		stopTime,
 		orderedEntries,
 	}: VCCalculatorParam): Promise<RevisionPayloadEntry | undefined> {
 		const filteredEntries = orderedEntries.filter((entry) => {
@@ -35,6 +37,8 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 				width: getViewportWidth(),
 				height: getViewportHeight(),
 			},
+			startTime,
+			stopTime,
 			orderedEntries: filteredEntries,
 			percentiles: [25, 50, 75, 80, 85, 90, 95, 98, 99],
 		});

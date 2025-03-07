@@ -32,12 +32,12 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/motion": "^5.0.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
-		"@atlaskit/tooltip": "^20.0.0",
-		"@atlaskit/visually-hidden": "^3.0.0",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/motion": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/tooltip": "workspace:*",
+		"@atlaskit/visually-hidden": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -46,7 +46,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/visual-regression": "*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2"
 	},

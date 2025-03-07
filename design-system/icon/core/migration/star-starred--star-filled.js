@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::242e612e93627bf1ae40440e3e2d4842>>
+ * @codegen <<SignedSource::3b98083f7180ee5a6483375174c0842e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _starStarred = _interopRequireDefault(require("@atlaskit/icon/core/star-star
 var _starFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/star-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for StarStarredIcon.
  * This component is StarStarredIcon, with `UNSAFE_fallbackIcon` set to "StarFilledIcon".
  *

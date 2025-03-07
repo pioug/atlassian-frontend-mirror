@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::980468f720de67e44e700795aed02102>>
+ * @codegen <<SignedSource::be250dc323835261269e340f2dab55b9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,9 +13,6 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- * Please reach out in #icon-contributions before using these in production.
- *
  * Icon: "ArrowDown".
  * Category: multi-purpose
  * Location: @atlaskit/icon

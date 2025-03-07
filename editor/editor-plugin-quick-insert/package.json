@@ -36,16 +36,16 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/editor-common": "^101.1.0",
-		"@atlaskit/editor-plugin-connectivity": "^2.0.0",
-		"@atlaskit/editor-plugin-type-ahead": "^2.1.0",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-plugin-connectivity": "workspace:*",
+		"@atlaskit/editor-plugin-type-ahead": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/modal-dialog": "^13.0.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tmp-editor-statsig": "^3.4.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/modal-dialog": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tmp-editor-statsig": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -55,9 +55,9 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "*",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

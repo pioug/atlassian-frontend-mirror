@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a1d33bde888d1953f950217280b5dce4>>
+ * @codegen <<SignedSource::e4278cede1b75ce1f6bae493dae404a5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _compass = _interopRequireDefault(require("@atlaskit/icon/core/compass"));
 var _discover = _interopRequireDefault(require("@atlaskit/icon/glyph/discover"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CompassIcon.
  * This component is CompassIcon, with `UNSAFE_fallbackIcon` set to "DiscoverIcon".
  *

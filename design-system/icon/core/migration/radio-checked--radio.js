@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d8ffb901ef16241c56d763e749520cbf>>
+ * @codegen <<SignedSource::502c5079aca3ec31626ab3ad3ff851ea>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _radioChecked = _interopRequireDefault(require("@atlaskit/icon/core/radio-ch
 var _radio = _interopRequireDefault(require("@atlaskit/icon/glyph/radio"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for RadioCheckedIcon.
  * This component is RadioCheckedIcon, with `UNSAFE_fallbackIcon` set to "RadioIcon".
  *

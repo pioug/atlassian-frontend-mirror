@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ac99b65b738a35f0ecd4e442ea27aef6>>
+ * @codegen <<SignedSource::87e7af881897ed302561350d986556a5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _personAvatar = _interopRequireDefault(require("@atlaskit/icon/core/person-a
 var _userAvatarCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/user-avatar-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PersonAvatarIcon.
  * This component is PersonAvatarIcon, with `UNSAFE_fallbackIcon` set to "UserAvatarCircleIcon".
  *

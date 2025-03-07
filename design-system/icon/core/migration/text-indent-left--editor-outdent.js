@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2427111b12afb72faf36ac0da1c30993>>
+ * @codegen <<SignedSource::7cfc24eaf4e4adefa1f0381c065b9d5c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _textIndentLeft = _interopRequireDefault(require("@atlaskit/icon/core/text-i
 var _outdent = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/outdent"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TextIndentLeftIcon.
  * This component is TextIndentLeftIcon, with `UNSAFE_fallbackIcon` set to "EditorOutdentIcon".
  *

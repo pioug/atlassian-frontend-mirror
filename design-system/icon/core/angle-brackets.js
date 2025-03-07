@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5b2c7e1e533a7e29269686bb7edaa84d>>
+ * @codegen <<SignedSource::446fd3c1e4697e214e4f6209f66c7eee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,9 +13,6 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- * Please reach out in #icon-contributions before using these in production.
- *
  * Icon: "AngleBrackets".
  * Category: multi-purpose
  * Location: @atlaskit/icon

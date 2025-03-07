@@ -29,9 +29,12 @@ export const LevelContext = createContext(0);
  */
 export const TopLevelContext = createContext<{
 	topLevelRef: MutableRefObject<number | null>;
+	// Set to required on FG cleanup plan_timeline_layering_wrapper
+	layerList?: MutableRefObject<string[] | null>;
 	setTopLevel: (level: number) => void;
 }>({
 	topLevelRef: { current: null },
+	layerList: { current: null },
 	setTopLevel: __noop,
 });
 
@@ -46,34 +49,51 @@ const LevelProvider: FC<{
 	children: ReactNode;
 	currentLevel: number;
 }> = ({ children, currentLevel }) => {
-	const { setTopLevel, topLevelRef } = useContext(TopLevelContext);
+	const { setTopLevel, topLevelRef, layerList } = useContext(TopLevelContext);
+	// This is not unstable, it will run once for ref creation.
+	// eslint-disable-next-line  @repo/internal/react/disallow-unstable-values
+	const id = useRef(fg('layering-top-level-use-array') ? Math.random().toString(36) : '');
 
-	if (!fg('plan_timeline_layering_wrapper')) {
+	if (!fg('layering-top-level-use-array')) {
 		if (topLevelRef.current === null || currentLevel > topLevelRef.current) {
 			setTopLevel(currentLevel);
 		}
 	}
 
-	useEffect(() => {
-		if (fg('plan_timeline_layering_wrapper')) {
-			if (topLevelRef.current === null || currentLevel > topLevelRef.current) {
-				setTopLevel(currentLevel);
-			}
-		}
-
-		return () => {
-			if (fg('plan_timeline_layering_wrapper')) {
-				setTopLevel(currentLevel - 1);
-			} else {
+	if (!fg('layering-top-level-use-array')) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useEffect(() => {
+			return () => {
 				// avoid immediate cleanup using setTimeout when component unmount
 				// this will make sure non-top layer components can get the correct top level value
 				// when multiple layers trigger onClose in sequence
 				setTimeout(() => {
 					setTopLevel(currentLevel - 1);
 				}, 0);
+			};
+		}, [setTopLevel, currentLevel, topLevelRef]);
+	}
+
+	if (fg('layering-top-level-use-array')) {
+		// Remove eslint error on FG cleanup
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useEffect(() => {
+			const safeLayerList = layerList?.current;
+			const safeId = id.current;
+
+			if (!safeLayerList) {
+				return;
 			}
-		};
-	}, [setTopLevel, currentLevel, topLevelRef]);
+
+			safeLayerList.push(safeId);
+			return () => {
+				const index = safeLayerList.indexOf(safeId);
+				if (index > -1) {
+					safeLayerList.splice(index, 1);
+				}
+			};
+		}, [layerList, id]);
+	}
 
 	return <LevelContext.Provider value={currentLevel}>{children}</LevelContext.Provider>;
 };
@@ -89,6 +109,7 @@ const LayeringProvider: FC<{
 	children: ReactNode;
 }> = ({ children }) => {
 	const topLevelRef = useRef(0);
+	const layerList = useRef<string[]>([]);
 
 	const value = useMemo(
 		() => ({
@@ -96,6 +117,7 @@ const LayeringProvider: FC<{
 			setTopLevel: (level: number) => {
 				topLevelRef.current = level;
 			},
+			...(fg('layering-top-level-use-array') ? { layerList } : {}),
 		}),
 		[topLevelRef],
 	);

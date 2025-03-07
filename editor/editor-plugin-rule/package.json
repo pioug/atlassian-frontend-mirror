@@ -35,10 +35,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "^101.1.0",
-		"@atlaskit/editor-plugin-analytics": "^2.1.0",
+		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-plugin-analytics": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/prosemirror-input-rules": "^3.3.0",
+		"@atlaskit/prosemirror-input-rules": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

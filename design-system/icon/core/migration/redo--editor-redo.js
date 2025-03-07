@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54fdc2d0a66ff84d8c2d9eab8613723c>>
+ * @codegen <<SignedSource::4f375128a838b076cebb916cd3f5b8bc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _redo = _interopRequireDefault(require("@atlaskit/icon/core/redo"));
 var _redo2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/redo"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for RedoIcon.
  * This component is RedoIcon, with `UNSAFE_fallbackIcon` set to "EditorRedoIcon".
  *

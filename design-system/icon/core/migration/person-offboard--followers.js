@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::697920b16c95a77e5dc68d5266f69141>>
+ * @codegen <<SignedSource::e67ad9eb2d986a954a3ad998596ed151>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _personOffboard = _interopRequireDefault(require("@atlaskit/icon/core/person
 var _followers = _interopRequireDefault(require("@atlaskit/icon/glyph/followers"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PersonOffboardIcon.
  * This component is PersonOffboardIcon, with `UNSAFE_fallbackIcon` set to "FollowersIcon".
  *

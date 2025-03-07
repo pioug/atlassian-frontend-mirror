@@ -61,7 +61,7 @@ const IconEditType = (props: IconEditTypeProps) => {
 				autoFocus
 				blurInputOnSelect
 				defaultMenuIsOpen
-				// We can't update the status if we don't have an ID - however the ID
+				// We can't update this field if we don't have an ID - however the ID
 				// is typed optional.
 				options={
 					fg('platform-datasources-inline-edit-id-checks')

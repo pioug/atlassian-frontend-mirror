@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2ad2c3c8621e0ce0c7a8527656630900>>
+ * @codegen <<SignedSource::4b4f7ab8b5658b8ac17876b86421aa64>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _questionCircle = _interopRequireDefault(require("@atlaskit/icon/core/questi
 var _questionCircle2 = _interopRequireDefault(require("@atlaskit/icon/glyph/question-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for QuestionCircleIcon.
  * This component is QuestionCircleIcon, with `UNSAFE_fallbackIcon` set to "QuestionCircleIcon".
  *

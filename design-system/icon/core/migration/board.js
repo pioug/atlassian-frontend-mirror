@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e8a6539851fa7260f56544fbb69d0f89>>
+ * @codegen <<SignedSource::2d6de69f6e8d23d80c647d0a6d3ecd7a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _board = _interopRequireDefault(require("@atlaskit/icon/core/board"));
 var _board2 = _interopRequireDefault(require("@atlaskit/icon/glyph/board"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BoardIcon.
  * This component is BoardIcon, with `UNSAFE_fallbackIcon` set to "BoardIcon".
  *

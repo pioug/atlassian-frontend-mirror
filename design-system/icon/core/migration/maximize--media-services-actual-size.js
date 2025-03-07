@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::19a9039ea00f6877e4c276732b572925>>
+ * @codegen <<SignedSource::0b9ae168ef63f71d206fc0dfe493f8c8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _maximize = _interopRequireDefault(require("@atlaskit/icon/core/maximize"));
 var _actualSize = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/actual-size"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MaximizeIcon.
  * This component is MaximizeIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesActualSizeIcon".
  *

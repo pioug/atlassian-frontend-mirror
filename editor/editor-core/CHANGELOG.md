@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 204.4.3
+
+### Patch Changes
+
+- [#123543](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123543)
+  [`2e2c5201aac9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e2c5201aac9a) -
+  [ux] ED-26983 add feature gate to disable context panel animation
+- Updated dependencies
+
 ## 204.4.2
 
 ### Patch Changes

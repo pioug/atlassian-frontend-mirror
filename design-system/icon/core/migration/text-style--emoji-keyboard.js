@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9d307996bbb653a7feb7e6f4af7c7818>>
+ * @codegen <<SignedSource::4c233746bd487a6e34541b8d93fb3d1b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _textStyle = _interopRequireDefault(require("@atlaskit/icon/core/text-style"
 var _keyboard = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/keyboard"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TextStyleIcon.
  * This component is TextStyleIcon, with `UNSAFE_fallbackIcon` set to "EmojiKeyboardIcon".
  *

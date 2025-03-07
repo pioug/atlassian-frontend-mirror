@@ -34,3 +34,5 @@ export type ShowObjectSidebar = (
 ) => void;
 
 export type HideObjectSidebar = () => void;
+
+export type HideObjectSidebarById = (id: ObjectSidebarPanel['id']) => void;

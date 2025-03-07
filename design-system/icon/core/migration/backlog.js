@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::55f5d1887f2979238ab14223313c7f5c>>
+ * @codegen <<SignedSource::b8757186054f9d759a1f776986ffd32d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _backlog = _interopRequireDefault(require("@atlaskit/icon/core/backlog"));
 var _backlog2 = _interopRequireDefault(require("@atlaskit/icon/glyph/backlog"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BacklogIcon.
  * This component is BacklogIcon, with `UNSAFE_fallbackIcon` set to "BacklogIcon".
  *

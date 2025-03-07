@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { IntlShape } from 'react-intl-next';
 
 import { PanelType } from '@atlaskit/adf-schema';
@@ -21,14 +23,15 @@ import type {
 	FloatingToolbarEmojiPicker,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
-import { DEFAULT_BORDER_COLOR, panelBackgroundPalette } from '@atlaskit/editor-common/ui-color';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import { DEFAULT_BORDER_COLOR, panelBackgroundPalette } from '@atlaskit/editor-common/ui-color';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import DiscoveryIcon from '@atlaskit/icon/core/discovery';
@@ -76,6 +79,7 @@ export const getToolbarItems = (
 	activePanelColor?: string,
 	activePanelIcon?: string,
 	state?: EditorState,
+	api?: ExtractInjectionAPI<PanelPlugin>,
 ): FloatingToolbarItem<Command>[] => {
 	// TODO: ED-14403 investigate why these titles are not getting translated for the tooltips
 	const items: FloatingToolbarItem<Command>[] = [
@@ -338,36 +342,31 @@ export const getToolbarItems = (
 			},
 		);
 	} else {
-		items.push(
+		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+			{ type: 'separator', fullHeight: true },
 			{
-				type: 'separator',
+				type: 'overflow-dropdown',
+				options: [
+					{
+						title: 'Copy',
+						onClick: () => {
+							api?.core?.actions.execute(
+								// @ts-ignore
+								api?.floatingToolbar?.commands.copyNode(panelNodeType),
+							);
+							return true;
+						},
+						icon: <CopyIcon label="Copy" />,
+					},
+					{
+						title: 'Delete',
+						onClick: removePanel(editorAnalyticsAPI),
+						icon: <DeleteIcon label="Delete" />,
+					},
+				],
 			},
-			{
-				id: 'editor.panel.delete',
-				type: 'button',
-				appearance: 'danger',
-				focusEditoronEnter: true,
-				icon: DeleteIcon,
-				iconFallback: RemoveIcon,
-				onClick: removePanel(editorAnalyticsAPI),
-				onMouseEnter: hoverDecoration?.(panelNodeType, true),
-				onMouseLeave: hoverDecoration?.(panelNodeType, false),
-				onFocus: hoverDecoration?.(panelNodeType, true),
-				onBlur: hoverDecoration?.(panelNodeType, false),
-				title: formatMessage(commonMessages.remove),
-				tabIndex: null,
-			},
-		);
-
-		if (state) {
-			items.push({
-				type: 'separator',
-			});
-			items.push({
-				type: 'copy-button',
-				items: [{ state, formatMessage, nodeType: panelNodeType }],
-			});
-		}
+		];
+		items.push(...overflowMenuConfig);
 	}
 
 	return items;
@@ -403,6 +402,7 @@ export const getToolbarConfig = (
 			options.allowCustomPanel ? panelColor : undefined,
 			options.allowCustomPanel ? panelIcon || isStandardPanel(panelType) : undefined,
 			state,
+			editorExperiment('platform_editor_controls', 'variant1') ? api : undefined,
 		);
 
 		const getDomRef = (editorView: EditorView) => {

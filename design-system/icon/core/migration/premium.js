@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35fc0665c32efa211e173d67cf3d956d>>
+ * @codegen <<SignedSource::0b007f69ad81895a86b02f3ac63c0846>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _premium = _interopRequireDefault(require("@atlaskit/icon/core/premium"));
 var _premium2 = _interopRequireDefault(require("@atlaskit/icon/glyph/premium"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PremiumIcon.
  * This component is PremiumIcon, with `UNSAFE_fallbackIcon` set to "PremiumIcon".
  *

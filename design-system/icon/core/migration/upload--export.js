@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dee6396e12806214e5fd6f6b74ec1829>>
+ * @codegen <<SignedSource::2d5f7514cb392dc767c819058ee1ff0e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _upload = _interopRequireDefault(require("@atlaskit/icon/core/upload"));
 var _export = _interopRequireDefault(require("@atlaskit/icon/glyph/export"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for UploadIcon.
  * This component is UploadIcon, with `UNSAFE_fallbackIcon` set to "ExportIcon".
  *

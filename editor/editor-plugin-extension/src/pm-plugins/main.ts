@@ -256,7 +256,7 @@ export const createPlugin = (
 								if (
 									event.key === 'ArrowUp' ||
 									(event.key === 'ArrowLeft' &&
-										isSelectionAtStartOfNode($head, maybeBodiedExtension))
+										isSelectionAtStartOfNode($head, maybeBodiedExtension?.node))
 								) {
 									const anchor = end + 1;
 
@@ -276,7 +276,7 @@ export const createPlugin = (
 								if (
 									event.key === 'ArrowDown' ||
 									(event.key === 'ArrowRight' &&
-										isSelectionAtEndOfNode($head, maybeBodiedExtension))
+										isSelectionAtEndOfNode($head, maybeBodiedExtension?.node))
 								) {
 									const anchor = maybeBodiedExtension.pos - 1;
 									const head = end + 1;

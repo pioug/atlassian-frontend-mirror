@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::48588c0810ded82c181ddc557931115b>>
+ * @codegen <<SignedSource::42c8cbadd0c6c4821b19a8f8797a996a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _marketplace = _interopRequireDefault(require("@atlaskit/icon/core/marketpla
 var _marketplace2 = _interopRequireDefault(require("@atlaskit/icon/glyph/marketplace"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MarketplaceIcon.
  * This component is MarketplaceIcon, with `UNSAFE_fallbackIcon` set to "MarketplaceIcon".
  *

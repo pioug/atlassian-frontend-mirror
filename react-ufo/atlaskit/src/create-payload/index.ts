@@ -963,7 +963,7 @@ export async function createPayloads(interactionId: string, interaction: Interac
 	return [interactionMetricsPayload];
 }
 
-export function createExperimentalMetricsPayload(
+export async function createExperimentalMetricsPayload(
 	interactionId: string,
 	interaction: InteractionMetrics,
 ) {
@@ -986,5 +986,7 @@ export function createExperimentalMetricsPayload(
 		return null;
 	}
 
-	return createInteractionMetricsPayload(interaction, interactionId, true);
+	const result = await createInteractionMetricsPayload(interaction, interactionId, true);
+
+	return result;
 }

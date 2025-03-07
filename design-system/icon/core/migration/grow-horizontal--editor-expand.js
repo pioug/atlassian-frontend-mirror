@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::887dcff02fed551b029d80f2452d9cbd>>
+ * @codegen <<SignedSource::f66a5317b716408a42d96f72b3784ae4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _growHorizontal = _interopRequireDefault(require("@atlaskit/icon/core/grow-h
 var _expand = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/expand"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for GrowHorizontalIcon.
  * This component is GrowHorizontalIcon, with `UNSAFE_fallbackIcon` set to "EditorExpandIcon".
  *

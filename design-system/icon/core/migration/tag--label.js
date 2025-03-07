@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bc3e2ac12fe298d80752bca3205608ad>>
+ * @codegen <<SignedSource::f496fbd618fe5795b7e6b61ffefa90fc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _tag = _interopRequireDefault(require("@atlaskit/icon/core/tag"));
 var _label = _interopRequireDefault(require("@atlaskit/icon/glyph/label"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TagIcon.
  * This component is TagIcon, with `UNSAFE_fallbackIcon` set to "LabelIcon".
  *

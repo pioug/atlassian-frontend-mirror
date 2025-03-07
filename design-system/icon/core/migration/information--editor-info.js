@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1024a19411feb917e1461158c5c654bf>>
+ * @codegen <<SignedSource::c283363b764d34f6b30155eda3eaef46>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _information = _interopRequireDefault(require("@atlaskit/icon/core/informati
 var _info = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/info"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for InformationIcon.
  * This component is InformationIcon, with `UNSAFE_fallbackIcon` set to "EditorInfoIcon".
  *

@@ -17,6 +17,7 @@ import {
 	akEditorContextPanelWidth,
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export type Props = {
@@ -42,6 +43,10 @@ export const panel = css({
 	transition: `width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier}`,
 	overflow: 'hidden',
 	boxShadow: `inset 2px 0 0 0 ${token('color.border')}`,
+});
+
+const disablePanelAnimation = css({
+	transition: 'none',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -111,9 +116,11 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 			return;
 		}
 
+		const animSpeedMs = fg('platform_editor_disable_context_panel_animation') ? 0 : ANIM_SPEED_MS;
+
 		return (
 			<Transition
-				timeout={this.state.mounted ? ANIM_SPEED_MS : 0}
+				timeout={this.state.mounted ? animSpeedMs : 0}
 				in={!!pluginContent}
 				mountOnEnter
 				unmountOnExit
@@ -131,9 +138,11 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 			return;
 		}
 
+		const animSpeedMs = fg('platform_editor_disable_context_panel_animation') ? 0 : ANIM_SPEED_MS;
+
 		return (
 			<Transition
-				timeout={this.state.mounted ? ANIM_SPEED_MS : 0}
+				timeout={this.state.mounted ? animSpeedMs : 0}
 				in={isVisible}
 				mountOnEnter
 				unmountOnExit
@@ -168,6 +177,7 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
 								this.props.customWidth && customPanelWidthStyles,
 								!visible && panelHidden,
+								fg('platform_editor_disable_context_panel_animation') && disablePanelAnimation,
 							]}
 							data-testid="context-panel-panel"
 							aria-labelledby="context-panel-title"
@@ -181,6 +191,7 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
 									this.props.customWidth && customPanelWidthStyles,
 									!visible && panelHidden,
+									fg('platform_editor_disable_context_panel_animation') && disablePanelAnimation,
 								]}
 							>
 								{this.showPluginContent() || this.showProvidedContent(userVisible)}

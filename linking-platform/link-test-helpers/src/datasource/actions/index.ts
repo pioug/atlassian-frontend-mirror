@@ -75,7 +75,7 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 									fieldKey: 'priority',
 									type: 'string' as const,
 									inputs: {
-										issueId: {
+										projectId: {
 											type: 'string' as const,
 										},
 									},

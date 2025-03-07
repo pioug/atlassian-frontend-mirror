@@ -503,6 +503,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 				pluginInjectionApi={pluginInjectionApi}
 				onClickCallback={onClickCallback}
+				id={this.id}
 			/>
 		);
 	}

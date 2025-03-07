@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d041ab2f9e4a981eaa8c762be8ed9e47>>
+ * @codegen <<SignedSource::e25fa526c0658720d6f2766d6bdbde06>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _close = _interopRequireDefault(require("@atlaskit/icon/core/close"));
 var _cross = _interopRequireDefault(require("@atlaskit/icon/glyph/cross"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CloseIcon.
  * This component is CloseIcon, with `UNSAFE_fallbackIcon` set to "CrossIcon".
  *

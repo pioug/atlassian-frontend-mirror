@@ -18,6 +18,7 @@ import {
 import type createEventPayload from '../../../src/analytics/generated/create-event-payload';
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import useErrorLogger from '../../hooks/useErrorLogger';
+import { useDatasourceItem } from '../index';
 
 type IntegrationKey = string;
 type FieldKey = string;
@@ -246,6 +247,7 @@ export const useAtomicUpdateActionSchema = createHook(ActionsStore, {
 export type ExecuteFetch = <E>(
 	inputs: AtomicActionExecuteRequest['parameters']['inputs'],
 ) => Promise<E>;
+
 /**
  * Given an ARI + fieldKey + integrationKey
  * Returns an executable action that updates a field on the entity if the user has permissions to do so
@@ -270,6 +272,10 @@ export const useExecuteAtomicAction = ({
 	executeFetch?: ExecuteFetch;
 } => {
 	const [{ schema, fetchSchema }] = useAtomicUpdateActionSchema({ ari, fieldKey, integrationKey });
+	const item = fg('enable_datasource_fetch_action_inputs')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useDatasourceItem({ id: ari })
+		: undefined;
 
 	const { executeAtomicAction: executeAction, invalidateDatasourceDataCacheByAri } =
 		useDatasourceClientExtension();
@@ -322,9 +328,42 @@ export const useExecuteAtomicAction = ({
 	);
 
 	const executeFetch = useCallback(
-		<E,>(inputs: AtomicActionExecuteRequest['parameters']['inputs']) => {
+		<E,>(controlledInputs: AtomicActionExecuteRequest['parameters']['inputs']) => {
 			if (!fetchSchema) {
 				throw new Error('No supporting action schema found.');
+			}
+
+			/**
+			 * controlled inputs are useful for search fields, where a variable query is passed to the fetchAction
+			 */
+			let inputs = controlledInputs;
+			/**
+			 * When FF is on and `controlledInputs` are not provided we look for required inputs in the fetchSchema
+			 */
+			if (
+				!Object.keys(inputs).length &&
+				fetchSchema.inputs &&
+				!!Object.keys(fetchSchema.inputs).length &&
+				fg('enable_datasource_fetch_action_inputs')
+			) {
+				const inputKeys = Object.keys(fetchSchema.inputs);
+				/**
+				 * If present return the input value from the datasource item
+				 * e.g. this could be the issueKey or projectId of a Jira issue
+				 */
+				inputs = inputKeys.reduce<AtomicActionExecuteRequest['parameters']['inputs']>(
+					(acc, key: string) => {
+						const value = item?.data?.[key]?.data;
+						if (typeof value === 'string' || typeof value === 'number') {
+							acc[key] = value;
+						}
+						/**
+						 * This allows for the schema and data from the BE to dynamically set the action inputs
+						 */
+						return acc;
+					},
+					{},
+				);
 			}
 
 			// A generic type can allow us here to define the inputs and outputs
@@ -347,7 +386,7 @@ export const useExecuteAtomicAction = ({
 					throw error;
 				});
 		},
-		[fetchSchema, executeAction, integrationKey, ari, fireEvent, captureError],
+		[fetchSchema, executeAction, integrationKey, ari, item, fireEvent, captureError],
 	);
 
 	return {

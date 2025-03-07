@@ -213,7 +213,6 @@ export async function calculateDrawnPixelsRaw(
 	arraySize: number,
 ): Promise<Uint32Array> {
 	const data = imageData.data;
-	const scaleCompensation = Math.round(1 / (scaleFactor * scaleFactor));
 	const arr = new Uint32Array(arraySize);
 
 	for (let i = 0; i < data.length; i += 4) {
@@ -226,7 +225,7 @@ export async function calculateDrawnPixelsRaw(
 			// The | operator combines all bits together
 			const color = (data[i] << 16) | (data[i + 1] << 8) | data[i + 2];
 			const colorIndex = color - 1;
-			arr[colorIndex] = (arr[colorIndex] || 0) + scaleCompensation;
+			arr[colorIndex] = (arr[colorIndex] || 0) + 1;
 		}
 
 		if (i % 10000 === 0) {

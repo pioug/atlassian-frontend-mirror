@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4110a8a58401e1d53beaa2f91c7123fc>>
+ * @codegen <<SignedSource::23abdef56045225c72ffa19368031ad5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _crossCircle = _interopRequireDefault(require("@atlaskit/icon/utility/cross-
 var _crossCircle2 = _interopRequireDefault(require("@atlaskit/icon/glyph/cross-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CrossCircleIcon.
  * This component is CrossCircleIcon, with `UNSAFE_fallbackIcon` set to "CrossCircleIcon".
  *

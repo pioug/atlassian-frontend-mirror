@@ -125,6 +125,8 @@ export type ExtensionPlugin = NextEditorPlugin<
 		sharedState:
 			| {
 					showContextPanel: boolean | undefined;
+					extensionProvider?: ExtensionState['extensionProvider'];
+					processParametersAfter?: ExtensionState['processParametersAfter'];
 			  }
 			| undefined;
 		actions: ExtensionPluginActions;

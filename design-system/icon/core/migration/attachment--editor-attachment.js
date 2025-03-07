@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::13be534e96a436413f461fdfd9d68386>>
+ * @codegen <<SignedSource::af2215f0de170a24cb5f18526e71a6ea>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _attachment = _interopRequireDefault(require("@atlaskit/icon/core/attachment
 var _attachment2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/attachment"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AttachmentIcon.
  * This component is AttachmentIcon, with `UNSAFE_fallbackIcon` set to "EditorAttachmentIcon".
  *

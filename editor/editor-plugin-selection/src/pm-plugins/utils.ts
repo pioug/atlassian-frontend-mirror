@@ -292,7 +292,7 @@ export const findLastChildNodeToSelect = (parent: PmNode): NodeWithPos | undefin
 };
 
 export const isSelectionAtStartOfParentNode = ($pos: ResolvedPos, selection: Selection) =>
-	isSelectionAtStartOfNode($pos, findSelectableContainerParent(selection));
+	isSelectionAtStartOfNode($pos, findSelectableContainerParent(selection)?.node);
 
 export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selection) => {
 	const isAtTheEndOfCurrentLevel = $pos.parent.content.size === $pos.parentOffset;

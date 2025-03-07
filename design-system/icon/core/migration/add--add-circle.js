@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::274a3d745c0c6824dba97f9232f7df06>>
+ * @codegen <<SignedSource::9cc38bfe1b4312fadc16f386d4b77f24>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _add = _interopRequireDefault(require("@atlaskit/icon/core/add"));
 var _addCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/add-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AddIcon.
  * This component is AddIcon, with `UNSAFE_fallbackIcon` set to "AddCircleIcon".
  *

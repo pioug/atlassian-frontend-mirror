@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ebd5aebbb31c43aee254b7a88a4f3238>>
+ * @codegen <<SignedSource::b34d7d17224c47dbf743afe51a06a375>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _thumbsUp = _interopRequireDefault(require("@atlaskit/icon/core/thumbs-up"))
 var _like = _interopRequireDefault(require("@atlaskit/icon/glyph/like"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ThumbsUpIcon.
  * This component is ThumbsUpIcon, with `UNSAFE_fallbackIcon` set to "LikeIcon".
  *

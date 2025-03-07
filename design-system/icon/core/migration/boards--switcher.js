@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6890d8266eea38ee39c5425dfc77ae02>>
+ * @codegen <<SignedSource::5b897b2ce2a13d32e1a5cc9d6fdc4caf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _boards = _interopRequireDefault(require("@atlaskit/icon/core/boards"));
 var _switcher = _interopRequireDefault(require("@atlaskit/icon/glyph/switcher"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BoardsIcon.
  * This component is BoardsIcon, with `UNSAFE_fallbackIcon` set to "SwitcherIcon".
  *

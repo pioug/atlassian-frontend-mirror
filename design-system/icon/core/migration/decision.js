@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5409452739c15839cfc1ab65615763f9>>
+ * @codegen <<SignedSource::da7925a92d0035ca21e9ca94be989f70>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _decision = _interopRequireDefault(require("@atlaskit/icon/core/decision"));
 var _decision2 = _interopRequireDefault(require("@atlaskit/icon/glyph/decision"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DecisionIcon.
  * This component is DecisionIcon, with `UNSAFE_fallbackIcon` set to "DecisionIcon".
  *

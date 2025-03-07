@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 3.22.2
+
+### Patch Changes
+
+- [#122399](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122399)
+  [`cbaab3690564b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbaab3690564b) -
+  Behind FF: `enable_datasource_fetch_action_inputs` introduce logic to find fetchAction inputs from
+  the fetchSchema and its value from datasource item data
+- Updated dependencies
+
 ## 3.22.1
 
 ### Patch Changes

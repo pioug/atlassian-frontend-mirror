@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::533a0b0060281b627137cedcca46d0cf>>
+ * @codegen <<SignedSource::01602fb49c3451f8884e2ed4b4e67e9f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _notification = _interopRequireDefault(require("@atlaskit/icon/core/notifica
 var _notification2 = _interopRequireDefault(require("@atlaskit/icon/glyph/notification"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for NotificationIcon.
  * This component is NotificationIcon, with `UNSAFE_fallbackIcon` set to "NotificationIcon".
  *

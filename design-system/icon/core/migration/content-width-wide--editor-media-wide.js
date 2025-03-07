@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4c59186aba001fe94e9b789c0ee0bd14>>
+ * @codegen <<SignedSource::2716122b6a537da8b4672ec6f364530a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _contentWidthWide = _interopRequireDefault(require("@atlaskit/icon/core/cont
 var _mediaWide = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/media-wide"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ContentWidthWideIcon.
  * This component is ContentWidthWideIcon, with `UNSAFE_fallbackIcon` set to "EditorMediaWideIcon".
  *

@@ -32,6 +32,9 @@
 	},
 	"references": [
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

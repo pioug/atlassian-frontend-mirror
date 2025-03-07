@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::293c69063b1edabe2c55d8883ff3815b>>
+ * @codegen <<SignedSource::d92ee8885a3bd0486e697aace29ae839>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _screen = _interopRequireDefault(require("@atlaskit/icon/core/screen"));
 var _screen2 = _interopRequireDefault(require("@atlaskit/icon/glyph/screen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ScreenIcon.
  * This component is ScreenIcon, with `UNSAFE_fallbackIcon` set to "ScreenIcon".
  *

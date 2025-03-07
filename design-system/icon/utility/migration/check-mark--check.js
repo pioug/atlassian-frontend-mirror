@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5f90e3c1b0cf224c139961e364df30b9>>
+ * @codegen <<SignedSource::9db35ecad695c835ed46bfa4bbde0dff>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _checkMark = _interopRequireDefault(require("@atlaskit/icon/utility/check-ma
 var _check = _interopRequireDefault(require("@atlaskit/icon/glyph/check"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CheckMarkIcon.
  * This component is CheckMarkIcon, with `UNSAFE_fallbackIcon` set to "CheckIcon".
  *

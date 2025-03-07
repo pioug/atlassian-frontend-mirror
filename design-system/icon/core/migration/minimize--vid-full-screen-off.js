@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6b25070297cadb0ea689f53556ef8801>>
+ * @codegen <<SignedSource::36eb5ef1bacb73fef85eb3201d2f60e3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _minimize = _interopRequireDefault(require("@atlaskit/icon/core/minimize"));
 var _vidFullScreenOff = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-full-screen-off"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MinimizeIcon.
  * This component is MinimizeIcon, with `UNSAFE_fallbackIcon` set to "VidFullScreenOffIcon".
  *

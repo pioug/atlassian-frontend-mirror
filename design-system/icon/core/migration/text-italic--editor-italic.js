@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aec5db239618c2d64fd149e10e1727f3>>
+ * @codegen <<SignedSource::01488cb5e537ee4cbe66cd301abeebd1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _textItalic = _interopRequireDefault(require("@atlaskit/icon/core/text-itali
 var _italic = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/italic"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TextItalicIcon.
  * This component is TextItalicIcon, with `UNSAFE_fallbackIcon` set to "EditorItalicIcon".
  *

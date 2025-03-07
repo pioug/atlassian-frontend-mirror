@@ -8,6 +8,8 @@ import React, {
 	useState,
 } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { isReducedMotion } from '../utils/accessibility';
 
 /**
@@ -150,6 +152,16 @@ const getMissingKeys = (current: ElementWithKey[], previous: ElementWithKey[]) =
 };
 
 /**
+ * How does this component work?
+ *
+ * It looks at changes in its children to see what is removed.
+ *
+ * If a child is removed it clones it and wraps it with context providing an `onFinish` callback.
+ *
+ * The cloned child will call the `onFinish` when it finishes its exit animation,
+ * which lets `ExitingPersistence` know to stop rendering it.
+ */
+/**
  * __ExitingPersistence__
  *
  * Useful for enabling elements to persist and animate away when they are removed from the DOM.
@@ -174,7 +186,11 @@ const ExitingPersistence = memo(
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, []);
 
-		if (isReducedMotion()) {
+		if (isReducedMotion() && !fg('platform_design_system_motion_on_finish_fix')) {
+			/**
+			 * We still want to use the `ExitingPersistence` with reduced motion,
+			 * otherwise the exiting `onFinish` is not called.
+			 */
 			return children;
 		}
 

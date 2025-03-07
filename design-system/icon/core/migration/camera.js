@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a490c36d955e61064bb1a8916a7ef7a0>>
+ * @codegen <<SignedSource::1d9e44e295be45c70ba0f2606ada20fe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _camera = _interopRequireDefault(require("@atlaskit/icon/core/camera"));
 var _camera2 = _interopRequireDefault(require("@atlaskit/icon/glyph/camera"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CameraIcon.
  * This component is CameraIcon, with `UNSAFE_fallbackIcon` set to "CameraIcon".
  *

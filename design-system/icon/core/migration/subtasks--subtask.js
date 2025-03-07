@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f64337ae0d00548d01421731dcee684f>>
+ * @codegen <<SignedSource::e8b2ac5ae16c813093b2c4846d09d911>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _subtasks = _interopRequireDefault(require("@atlaskit/icon/core/subtasks"));
 var _subtask = _interopRequireDefault(require("@atlaskit/icon/glyph/subtask"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for SubtasksIcon.
  * This component is SubtasksIcon, with `UNSAFE_fallbackIcon` set to "SubtaskIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::31739d658087d626115b99927952d6c8>>
+ * @codegen <<SignedSource::d1972450c0341e7d499070b7c31d250a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _alignImageLeft = _interopRequireDefault(require("@atlaskit/icon/core/align-
 var _alignImageLeft2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/align-image-left"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AlignImageLeftIcon.
  * This component is AlignImageLeftIcon, with `UNSAFE_fallbackIcon` set to "EditorAlignImageLeftIcon".
  *

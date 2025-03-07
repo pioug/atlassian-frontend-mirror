@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "24.1.0",
+	"version": "24.1.1",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,12 +52,40 @@
 				{
 					"title": "Custom icon (legacy)",
 					"id": "custom-icon",
-					"sortKey": 3
+					"sortKey": 3,
+					"status": {
+						"type": "intent-to-deprecate",
+						"description": "We are planning on deprecating custom icon. We recommend using either an existing icon from @atlaskit/icon or @atlaskit/icon-lab, or contributing to @atlaskit/icon-lab directly. For third party logos, use an SVG element along with a label.",
+						"actions": [
+							{
+								"text": "View available icons",
+								"href": "/components/icon/"
+							},
+							{
+								"text": "Contribute an icon (Atlassians only)",
+								"href": "https://go.atlassian.com/ads-icon-contribution"
+							}
+						]
+					}
 				},
 				{
 					"title": "Custom SVG",
 					"id": "custom-svg",
-					"sortKey": 4
+					"sortKey": 4,
+					"status": {
+						"type": "intent-to-deprecate",
+						"description": "We are planning on deprecating custom SVG. We recommend using either an existing icon from @atlaskit/icon or @atlaskit/icon-lab, or contributing to @atlaskit/icon-lab directly. For third party logos, use an SVG element along with a label.",
+						"actions": [
+							{
+								"text": "View available icons",
+								"href": "/components/icon/"
+							},
+							{
+								"text": "Contribute an icon (Atlassians only)",
+								"href": "https://go.atlassian.com/ads-icon-contribution"
+							}
+						]
+					}
 				}
 			]
 		},
@@ -67,8 +95,8 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/register": "^7.25.9",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
@@ -77,31 +105,31 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "*",
-		"@af/icon-build-process": "^2.4.0",
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/code": "^16.0.0",
-		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/form": "^12.0.0",
-		"@atlaskit/heading": "^5.1.0",
-		"@atlaskit/icon-file-type": "^7.0.0",
-		"@atlaskit/icon-object": "^7.0.0",
-		"@atlaskit/link": "^3.0.0",
-		"@atlaskit/logo": "^16.0.0",
-		"@atlaskit/menu": "^3.1.0",
-		"@atlaskit/modal-dialog": "^13.0.0",
-		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/section-message": "*",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/textfield": "^8.0.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/toggle": "^15.0.0",
-		"@atlaskit/tooltip": "^20.0.0",
-		"@atlaskit/visual-regression": "*",
+		"@af/accessibility-testing": "workspace:*",
+		"@af/icon-build-process": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/code": "workspace:*",
+		"@atlaskit/css": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/form": "workspace:*",
+		"@atlaskit/heading": "workspace:*",
+		"@atlaskit/icon-file-type": "workspace:*",
+		"@atlaskit/icon-object": "workspace:*",
+		"@atlaskit/link": "workspace:*",
+		"@atlaskit/logo": "workspace:*",
+		"@atlaskit/menu": "workspace:*",
+		"@atlaskit/modal-dialog": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/textfield": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/toggle": "workspace:*",
+		"@atlaskit/tooltip": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@babel/core": "7.24.9",
 		"@codeshift/utils": "^0.2.4",
 		"@compiled/react": "^0.18.2",

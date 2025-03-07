@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::782437a88f1235d5bac94f8a04b3bcb1>>
+ * @codegen <<SignedSource::e97962a641ed95eb219dd8e918f4682d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _minus = _interopRequireDefault(require("@atlaskit/icon/core/minus"));
 var _horizontalRule = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/horizontal-rule"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MinusIcon.
  * This component is MinusIcon, with `UNSAFE_fallbackIcon` set to "EditorHorizontalRuleIcon".
  *

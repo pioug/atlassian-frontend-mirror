@@ -147,6 +147,7 @@ export const SearchResults = ({
 							hasSearchTerm={!!queryState?.query.length}
 							activePlugin={activePlugin}
 							adaptiveHeight={adaptiveHeight}
+							tabPanelId={`${testIds.tabList}-${activeTab}-tab`}
 						/>
 					)}
 					{error ? activePlugin?.errorFallback?.(error, retry) ?? <LinkSearchError /> : null}

@@ -37,21 +37,21 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/icon-lab": "^3.4.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/icon-lab": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/formatting": "*",
-		"@af/icon-build-process": "^2.4.0",
-		"@atlaskit/textfield": "^8.0.0",
-		"@atlaskit/tooltip": "^20.0.0",
-		"@atlaskit/visual-regression": "*",
-		"@atlassian/codegen": "^0.1.2",
+		"@af/formatting": "workspace:*",
+		"@af/icon-build-process": "workspace:*",
+		"@atlaskit/textfield": "workspace:*",
+		"@atlaskit/tooltip": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
+		"@atlassian/codegen": "workspace:*",
 		"@emotion/styled": "^11.0.0",
 		"fs-extra": "^4.0.2",
 		"pkg-dir": "^4.2.0",

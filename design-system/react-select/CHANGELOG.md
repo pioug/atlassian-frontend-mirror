@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.0.4
+
+### Patch Changes
+
+- [#122557](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122557)
+  [`d8b5709e3f003`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8b5709e3f003) -
+  Fix aria-label on multi select remove button to support non-string content
+
 ## 2.0.3
 
 ### Patch Changes

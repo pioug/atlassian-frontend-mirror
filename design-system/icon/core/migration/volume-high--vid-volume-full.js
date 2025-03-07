@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6f4324a90dad52ea461c83a4de9ee215>>
+ * @codegen <<SignedSource::014f62569a447d85bae83867a0a443f0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _volumeHigh = _interopRequireDefault(require("@atlaskit/icon/core/volume-hig
 var _vidVolumeFull = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-volume-full"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VolumeHighIcon.
  * This component is VolumeHighIcon, with `UNSAFE_fallbackIcon` set to "VidVolumeFullIcon".
  *

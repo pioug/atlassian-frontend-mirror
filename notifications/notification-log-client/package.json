@@ -33,7 +33,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/util-service-support": "^6.2.0",
+		"@atlaskit/util-service-support": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

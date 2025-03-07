@@ -28,7 +28,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
@@ -36,10 +36,10 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "*",
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/visual-regression": "*",
+		"@af/accessibility-testing": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

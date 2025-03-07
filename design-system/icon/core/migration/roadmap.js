@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ffd2641a6b56fefbd0602c377d754830>>
+ * @codegen <<SignedSource::478474977414af6f20354d0841ac3249>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _roadmap = _interopRequireDefault(require("@atlaskit/icon/core/roadmap"));
 var _roadmap2 = _interopRequireDefault(require("@atlaskit/icon/glyph/roadmap"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for RoadmapIcon.
  * This component is RoadmapIcon, with `UNSAFE_fallbackIcon` set to "RoadmapIcon".
  *

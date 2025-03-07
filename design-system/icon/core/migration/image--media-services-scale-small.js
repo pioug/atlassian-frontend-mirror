@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1863fa227afb0d7324385ef8513689a4>>
+ * @codegen <<SignedSource::78f3aae245570b352f325c1faa188102>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _image = _interopRequireDefault(require("@atlaskit/icon/core/image"));
 var _scaleSmall = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/scale-small"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ImageIcon.
  * This component is ImageIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesScaleSmallIcon".
  *

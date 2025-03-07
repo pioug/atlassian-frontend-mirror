@@ -17,11 +17,19 @@ export type AIUnifiedCommonAttributes = {
 	traceIds?: string[];
 };
 
+type AIUnifiedAgentAttributes = {
+	agentName?: string;
+	agentId?: string;
+	agentCreatorType?: string;
+	agentExternalConfigReference?: string;
+	agentIsDefault?: boolean;
+};
+
 type AIInteractionInitiatedAEP = TrackAEP<
 	ACTION.INITIATED,
 	ACTION_SUBJECT.AI_INTERACTION,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	AIUnifiedCommonAttributes,
+	AIUnifiedCommonAttributes & AIUnifiedAgentAttributes,
 	undefined
 >;
 
@@ -29,7 +37,7 @@ type AIInteractionDismissedAEP = TrackAEP<
 	ACTION.DISMISSED,
 	ACTION_SUBJECT.AI_INTERACTION,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	AIUnifiedCommonAttributes,
+	AIUnifiedCommonAttributes & AIUnifiedAgentAttributes,
 	undefined
 >;
 
@@ -37,7 +45,7 @@ type AIResultViewedAEP = TrackAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	AIUnifiedCommonAttributes,
+	AIUnifiedCommonAttributes & AIUnifiedAgentAttributes,
 	undefined
 >;
 
@@ -45,11 +53,12 @@ type AIResultActionedAEP = TrackAEP<
 	ACTION.ACTIONED,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	AIUnifiedCommonAttributes & {
-		promptType?: string;
-		refinementCount?: number;
-		aiResultAction: string;
-	},
+	AIUnifiedCommonAttributes &
+		AIUnifiedAgentAttributes & {
+			promptType?: string;
+			refinementCount?: number;
+			aiResultAction: string;
+		},
 	undefined
 >;
 
@@ -57,10 +66,11 @@ type AIResultErrorAEP = TrackAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	AIUnifiedCommonAttributes & {
-		aiErrorMessage?: string;
-		aiErrorCode?: number;
-	},
+	AIUnifiedCommonAttributes &
+		AIUnifiedAgentAttributes & {
+			aiErrorMessage?: string;
+			aiErrorCode?: number;
+		},
 	undefined
 >;
 
@@ -68,9 +78,10 @@ type AIFeedbackSubmittedAEP = TrackAEP<
 	ACTION.SUBMITTED,
 	ACTION_SUBJECT.AI_FEEDBACK,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	AIUnifiedCommonAttributes & {
-		aiFeedbackResult: 'up' | 'down';
-	},
+	AIUnifiedCommonAttributes &
+		AIUnifiedAgentAttributes & {
+			aiFeedbackResult: 'up' | 'down';
+		},
 	undefined
 >;
 

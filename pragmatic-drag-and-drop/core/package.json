@@ -92,8 +92,8 @@
 		"raf-schd": "^4.0.3"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "*",
-		"@atlaskit/visual-regression": "*",
+		"@af/integration-testing": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",

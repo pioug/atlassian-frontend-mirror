@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d659eb116e50eefd7699c4c7f8dbef57>>
+ * @codegen <<SignedSource::28ab7079c96146d7816d2f4365b5e18c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _heart = _interopRequireDefault(require("@atlaskit/icon/core/heart"));
 var _symbols = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/symbols"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for HeartIcon.
  * This component is HeartIcon, with `UNSAFE_fallbackIcon` set to "EmojiSymbolsIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::14cd93ac32719b4fcb1a6af75a1ef7b0>>
+ * @codegen <<SignedSource::06e8e30e16bc26ff309c040ffdd07415>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _starUnstarred = _interopRequireDefault(require("@atlaskit/icon/core/star-un
 var _starLarge = _interopRequireDefault(require("@atlaskit/icon/glyph/star-large"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for StarUnstarredIcon.
  * This component is StarUnstarredIcon, with `UNSAFE_fallbackIcon` set to "StarLargeIcon".
  *

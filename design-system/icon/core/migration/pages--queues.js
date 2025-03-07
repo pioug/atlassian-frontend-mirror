@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d295d005d8a6db953179dc6b7573a8bc>>
+ * @codegen <<SignedSource::82b9f55a530bbe318018956e9ca6b2dc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _pages = _interopRequireDefault(require("@atlaskit/icon/core/pages"));
 var _queues = _interopRequireDefault(require("@atlaskit/icon/glyph/queues"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PagesIcon.
  * This component is PagesIcon, with `UNSAFE_fallbackIcon` set to "QueuesIcon".
  *

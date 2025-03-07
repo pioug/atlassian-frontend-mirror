@@ -1,5 +1,14 @@
 # @atlaskit/icon-lab
 
+## 3.4.1
+
+### Patch Changes
+
+- [#123148](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123148)
+  [`cc1e03ba8571e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc1e03ba8571e) -
+  Removes 'Experimental' tag from the description of icons.
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

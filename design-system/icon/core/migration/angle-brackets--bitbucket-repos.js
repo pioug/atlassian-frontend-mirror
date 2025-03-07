@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::79ef7e08f33e3d216dc13b14a93def2a>>
+ * @codegen <<SignedSource::340bcadd881ea3f70da65ee3157f54dc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _angleBrackets = _interopRequireDefault(require("@atlaskit/icon/core/angle-b
 var _repos = _interopRequireDefault(require("@atlaskit/icon/glyph/bitbucket/repos"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AngleBracketsIcon.
  * This component is AngleBracketsIcon, with `UNSAFE_fallbackIcon` set to "BitbucketReposIcon".
  *

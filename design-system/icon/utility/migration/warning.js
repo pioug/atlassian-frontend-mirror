@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::71ee3f04529b2d3a175bbac0826f033c>>
+ * @codegen <<SignedSource::25255b73c374f1a1c424eeee2ba346f9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _warning = _interopRequireDefault(require("@atlaskit/icon/utility/warning"))
 var _warning2 = _interopRequireDefault(require("@atlaskit/icon/glyph/warning"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for WarningIcon.
  * This component is WarningIcon, with `UNSAFE_fallbackIcon` set to "WarningIcon".
  *

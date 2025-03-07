@@ -23,6 +23,9 @@ export default class WindowEventObserver {
 		const unbindCallback = bind(window, {
 			type,
 			listener: (event: Event) => {
+				if (!event.isTrusted) {
+					return;
+				}
 				this.onEvent({
 					time: event.timeStamp,
 					type,
@@ -31,10 +34,12 @@ export default class WindowEventObserver {
 			},
 			options: {
 				passive: true,
+				once: true,
 			},
 		});
 		this.unbindFns.push(unbindCallback);
 	}
+
 	start() {
 		this.bindEvent('wheel');
 		this.bindEvent('scroll');

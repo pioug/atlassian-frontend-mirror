@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1e7305b7a80dd81883f747fbed5a39fb>>
+ * @codegen <<SignedSource::b2014ecb862bd114df9c4eca3bb7d0c3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _email = _interopRequireDefault(require("@atlaskit/icon/core/email"));
 var _email2 = _interopRequireDefault(require("@atlaskit/icon/glyph/email"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for EmailIcon.
  * This component is EmailIcon, with `UNSAFE_fallbackIcon` set to "EmailIcon".
  *

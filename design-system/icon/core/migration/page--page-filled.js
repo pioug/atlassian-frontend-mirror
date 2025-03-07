@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e3c0b683488f8c9110603181025eb28>>
+ * @codegen <<SignedSource::5ef5ee672c9c8d3a4fb9f4c158f332c6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _page = _interopRequireDefault(require("@atlaskit/icon/core/page"));
 var _pageFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/page-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PageIcon.
  * This component is PageIcon, with `UNSAFE_fallbackIcon` set to "PageFilledIcon".
  *

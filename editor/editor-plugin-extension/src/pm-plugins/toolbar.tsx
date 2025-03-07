@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -25,6 +27,7 @@ import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-pros
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ContentWidthNarrowIcon from '@atlaskit/icon/core/content-width-narrow';
 import ContentWidthWideIcon from '@atlaskit/icon/core/content-width-wide';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
@@ -329,16 +332,16 @@ export const getToolbarConfig =
 				items: [
 					...editButtonArray,
 					...breakoutButtonArray,
-					{
-						type: 'separator',
-						hidden: editButtonArray.length === 0 && breakoutButtonArray.length === 0,
-					},
-					{
-						type: 'extensions-placeholder',
-						separator: 'end',
-					},
 					...(editorExperiment('platform_editor_controls', 'control')
 						? [
+								{
+									type: 'separator',
+									hidden: editButtonArray.length === 0 && breakoutButtonArray.length === 0,
+								},
+								{
+									type: 'extensions-placeholder',
+									separator: 'end',
+								},
 								{
 									type: 'copy-button',
 									items: [
@@ -368,30 +371,25 @@ export const getToolbarConfig =
 								},
 							]
 						: [
+								{ type: 'separator', fullHeight: true },
 								{
-									id: 'editor.extension.delete',
-									type: 'button',
-									icon: DeleteIcon,
-									iconFallback: RemoveIcon,
-									appearance: 'danger',
-									onClick: removeExtension(editorAnalyticsAPI),
-									onMouseEnter: hoverDecoration?.(nodeType, true),
-									onMouseLeave: hoverDecoration?.(nodeType, false),
-									onFocus: hoverDecoration?.(nodeType, true),
-									onBlur: hoverDecoration?.(nodeType, false),
-									focusEditoronEnter: true,
-									title: formatMessage(commonMessages.remove),
-									tabIndex: null,
-									confirmDialog,
-								},
-								{ type: 'separator' },
-								{
-									type: 'copy-button',
-									items: [
+									type: 'overflow-dropdown',
+									options: [
 										{
-											state,
-											formatMessage: intl.formatMessage,
-											nodeType,
+											title: 'Copy',
+											onClick: () => {
+												extensionApi?.core?.actions.execute(
+													// @ts-ignore
+													extensionApi?.floatingToolbar?.commands.copyNode(nodeType),
+												);
+												return true;
+											},
+											icon: <CopyIcon label="Copy" />,
+										},
+										{
+											title: 'Delete',
+											onClick: removeExtension(editorAnalyticsAPI),
+											icon: <DeleteIcon label="Delete" />,
 										},
 									],
 								},

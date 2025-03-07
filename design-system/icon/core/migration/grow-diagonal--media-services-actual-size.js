@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a044223350e041031a35374685e9a4f>>
+ * @codegen <<SignedSource::95f2961def649e58284c9134f09a8716>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _growDiagonal = _interopRequireDefault(require("@atlaskit/icon/core/grow-dia
 var _actualSize = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/actual-size"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for GrowDiagonalIcon.
  * This component is GrowDiagonalIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesActualSizeIcon".
  *

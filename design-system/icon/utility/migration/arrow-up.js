@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d7ccc8cee76bed5d9c745c4f35de503e>>
+ * @codegen <<SignedSource::2a032ed88c5d0864c0eb599d8ffde445>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _arrowUp = _interopRequireDefault(require("@atlaskit/icon/utility/arrow-up")
 var _arrowUp2 = _interopRequireDefault(require("@atlaskit/icon/glyph/arrow-up"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ArrowUpIcon.
  * This component is ArrowUpIcon, with `UNSAFE_fallbackIcon` set to "ArrowUpIcon".
  *

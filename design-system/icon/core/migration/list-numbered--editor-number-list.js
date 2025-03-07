@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8a0e3e1283e1c42ab697313cbdc5d0bb>>
+ * @codegen <<SignedSource::8d9257174e1ec184f9c71eb94b7f72bd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _listNumbered = _interopRequireDefault(require("@atlaskit/icon/core/list-num
 var _numberList = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/number-list"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ListNumberedIcon.
  * This component is ListNumberedIcon, with `UNSAFE_fallbackIcon` set to "EditorNumberListIcon".
  *

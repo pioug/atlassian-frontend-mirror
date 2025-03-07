@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::db17750e2ede7e5062415ef38861df82>>
+ * @codegen <<SignedSource::1668aeb52b83d3feb63d8a5085957ee1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _alignImageCenter = _interopRequireDefault(require("@atlaskit/icon/core/alig
 var _alignImageCenter2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/align-image-center"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AlignImageCenterIcon.
  * This component is AlignImageCenterIcon, with `UNSAFE_fallbackIcon` set to "EditorAlignImageCenterIcon".
  *

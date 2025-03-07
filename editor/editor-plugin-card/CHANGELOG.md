@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 5.2.2
+
+### Patch Changes
+
+- [#123042](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123042)
+  [`c21eaf81cd674`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c21eaf81cd674) -
+  Fix card state on embed card which was never removed if the card was deleted or changed.
+
 ## 5.2.1
 
 ### Patch Changes

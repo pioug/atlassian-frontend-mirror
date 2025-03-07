@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9a4bef4e2f8ebcdb968a8bc41545c852>>
+ * @codegen <<SignedSource::db57c0beca179f6e569d7e61d992b9a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _send = _interopRequireDefault(require("@atlaskit/icon/core/send"));
 var _send2 = _interopRequireDefault(require("@atlaskit/icon/glyph/send"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for SendIcon.
  * This component is SendIcon, with `UNSAFE_fallbackIcon` set to "SendIcon".
  *

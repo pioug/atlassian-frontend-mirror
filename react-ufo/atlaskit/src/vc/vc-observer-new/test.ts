@@ -63,7 +63,7 @@ describe('VCObserverNew', () => {
 
 	describe('start/stop methods', () => {
 		it('should start viewport and window event observers', () => {
-			vcObserver.start();
+			vcObserver.start({ startTime: 100 });
 			// @ts-expect-error
 			expect(mockViewportObserver.prototype.start).toHaveBeenCalled();
 			// @ts-expect-error
@@ -159,6 +159,8 @@ describe('VCObserverNew', () => {
 			});
 			expect(VCCalculator_FY25_03.prototype.calculate).toHaveBeenCalledWith({
 				orderedEntries: mockEntries,
+				startTime: 0,
+				stopTime: 1000,
 			});
 			expect(result).toEqual([mockResult]);
 		});

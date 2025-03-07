@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/section-message",
-	"version": "8.0.2",
+	"version": "8.1.0",
 	"description": "A section message is used to alert users to a particular section of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,33 +45,33 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/heading": "^5.1.0",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/codemod-utils": "workspace:*",
+		"@atlaskit/css": "workspace:*",
+		"@atlaskit/heading": "workspace:*",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "*",
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/code": "^16.0.0",
-		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/form": "^12.0.0",
-		"@atlaskit/link": "*",
-		"@atlaskit/range": "^9.0.0",
-		"@atlaskit/ssr": "*",
-		"@atlassian/feature-flags-test-utils": "*",
+		"@af/accessibility-testing": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/code": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/form": "workspace:*",
+		"@atlaskit/link": "workspace:*",
+		"@atlaskit/range": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlassian/feature-flags-test-utils": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

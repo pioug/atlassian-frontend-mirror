@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3e439b002f43a5f4e3cda4db0d114175>>
+ * @codegen <<SignedSource::00cea2ae6faa0de55ee8d1dcf59fae37>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _sidebarRight = _interopRequireDefault(require("@atlaskit/icon/core/sidebar-
 var _detailView = _interopRequireDefault(require("@atlaskit/icon/glyph/detail-view"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for SidebarRightIcon.
  * This component is SidebarRightIcon, with `UNSAFE_fallbackIcon` set to "DetailViewIcon".
  *

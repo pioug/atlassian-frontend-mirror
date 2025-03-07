@@ -155,7 +155,7 @@ describe('Layering', () => {
 
 	describe('With FG', () => {
 		beforeEach(() => {
-			setBooleanFeatureFlagResolver((key: string) => key === 'plan_timeline_layering_wrapper');
+			setBooleanFeatureFlagResolver((key: string) => key === 'layering-top-level-use-array');
 		});
 
 		const mockCallback = jest.fn();
@@ -165,11 +165,11 @@ describe('Layering', () => {
 		}: {
 			callback?: (currentLevel: number, topLevel: number | null) => void;
 		}) => {
-			const { currentLevel, topLevelRef } = useLayering();
+			const { currentLevel, layerList } = useLayering();
 
 			const onClick = useCallback(() => {
-				callback(currentLevel, topLevelRef.current ?? null);
-			}, [callback, currentLevel, topLevelRef]);
+				callback(currentLevel, layerList?.current?.length ?? null);
+			}, [callback, currentLevel, layerList]);
 
 			return (
 				<button type="button" onClick={onClick}>

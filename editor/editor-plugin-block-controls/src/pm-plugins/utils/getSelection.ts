@@ -49,6 +49,17 @@ const isNodeWithMedia = (tr: Transaction, start: number, nodeSize: number) => {
 	return hasMedia;
 };
 
+const isNodeWithMediaOrExtension = (tr: Transaction, start: number, nodeSize: number) => {
+	const $startPos = tr.doc.resolve(start);
+	let hasMediaOrExtension = false;
+	tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n) => {
+		if (['media', 'extension'].includes(n.type.name)) {
+			hasMediaOrExtension = true;
+		}
+	});
+	return hasMediaOrExtension;
+};
+
 export const getSelection = (tr: Transaction, start: number) => {
 	const node = tr.doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
@@ -56,10 +67,14 @@ export const getSelection = (tr: Transaction, start: number) => {
 	const $startPos = tr.doc.resolve(start);
 	const nodeName = node?.type.name;
 	const isBlockQuoteWithMedia = nodeName === 'blockquote' && isNodeWithMedia(tr, start, nodeSize);
+	const isBlockQuoteWithMediaOrExtension =
+		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
 
 	if (
 		(isNodeSelection && nodeName !== 'blockquote') ||
-		isBlockQuoteWithMedia ||
+		(fg('platform_editor_non_macros_copy_and_paste_fix')
+			? isBlockQuoteWithMediaOrExtension
+			: isBlockQuoteWithMedia) ||
 		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
 		['decisionList', 'layoutColumn'].includes(nodeName || '')
 	) {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::21de9b15a5ba924b4f851777fef523ad>>
+ * @codegen <<SignedSource::f94e073d76bc490a4f7b3dc7496f79e8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _contentAlignRight = _interopRequireDefault(require("@atlaskit/icon/core/con
 var _alignImageRight = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/align-image-right"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ContentAlignRightIcon.
  * This component is ContentAlignRightIcon, with `UNSAFE_fallbackIcon` set to "EditorAlignImageRightIcon".
  *

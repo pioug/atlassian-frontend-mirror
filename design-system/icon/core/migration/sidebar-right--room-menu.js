@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::277cd1421acc84582013d646c10f41f8>>
+ * @codegen <<SignedSource::665cedeca88a2eec6e1135109f4035d1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _sidebarRight = _interopRequireDefault(require("@atlaskit/icon/core/sidebar-
 var _roomMenu = _interopRequireDefault(require("@atlaskit/icon/glyph/room-menu"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for SidebarRightIcon.
  * This component is SidebarRightIcon, with `UNSAFE_fallbackIcon` set to "RoomMenuIcon".
  *

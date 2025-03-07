@@ -121,8 +121,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/interaction-context": "^3.0.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/interaction-context": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
 		"bowser-ultralight": "^1.0.6",
@@ -133,7 +133,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "*",
+		"@af/integration-testing": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"@types/is-ci": "^3.0.0",
 		"is-ci": "^3.0.1"

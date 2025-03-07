@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -59,8 +59,9 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/css": "^0.10.0",
-		"@atlaskit/ds-lib": "^4.0.0",
+		"@atlaskit/css": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"bind-event-listener": "^3.0.0"
@@ -69,16 +70,17 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/docs": "*",
-		"@atlaskit/focus-ring": "^3.0.0",
-		"@atlaskit/form": "^12.0.0",
-		"@atlaskit/link": "*",
-		"@atlaskit/logo": "^16.0.0",
-		"@atlaskit/section-message": "*",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/tokens": "^4.3.0",
-		"@atlaskit/visual-regression": "*",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/focus-ring": "workspace:*",
+		"@atlaskit/form": "workspace:*",
+		"@atlaskit/link": "workspace:*",
+		"@atlaskit/logo": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
+		"@atlassian/feature-flags-test-utils": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"raf-stub": "^2.0.1",
@@ -114,5 +116,9 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/motion/",
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"platform_design_system_motion_on_finish_fix": {
+			"type": "boolean"
+		}
+	}
 }

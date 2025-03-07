@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::90697709c8b27de32cbf7e71f38ae1b3>>
+ * @codegen <<SignedSource::7df9b7434eaa983c6d903caf98563229>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _listBulleted = _interopRequireDefault(require("@atlaskit/icon/core/list-bul
 var _bulletList = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/bullet-list"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ListBulletedIcon.
  * This component is ListBulletedIcon, with `UNSAFE_fallbackIcon` set to "EditorBulletListIcon".
  *

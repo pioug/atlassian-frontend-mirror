@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::256a7838c06b0fb117b2e3d975619c3e>>
+ * @codegen <<SignedSource::8c9411407c1f042ec99fb06f89567549>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _officeBuilding = _interopRequireDefault(require("@atlaskit/icon/core/office
 var _officeBuildingFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/office-building-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for OfficeBuildingIcon.
  * This component is OfficeBuildingIcon, with `UNSAFE_fallbackIcon` set to "OfficeBuildingFilledIcon".
  *

@@ -32,12 +32,12 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "*",
-		"@af/integration-testing": "*",
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^15.0.0",
-		"@atlaskit/visual-regression": "^0.10.0",
+		"@af/accessibility-testing": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/toggle": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

@@ -32,17 +32,17 @@
 		"dist/icons-sprite.svg"
 	],
 	"dependencies": {
-		"@atlaskit/theme": "^18.0.0"
+		"@atlaskit/theme": "workspace:*"
 	},
 	"peerDependencies": {
-		"@atlaskit/css-reset": "^7.0.0",
+		"@atlaskit/css-reset": "workspace:*",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/yarn-utils": "*",
-		"@atlaskit/docs": "*",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/section-message": "^8.0.0",
+		"@af/yarn-utils": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
 		"css-loader": "^2.0.0",
 		"glob": "9.0.0",
 		"jsdom": "^22.0.0",

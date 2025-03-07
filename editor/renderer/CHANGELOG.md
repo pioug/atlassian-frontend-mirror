@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 113.2.1
+
+### Patch Changes
+
+- [#121139](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121139)
+  [`3c8656ffcdb03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c8656ffcdb03) -
+  refactor emotion styles
+
 ## 113.2.0
 
 ### Minor Changes

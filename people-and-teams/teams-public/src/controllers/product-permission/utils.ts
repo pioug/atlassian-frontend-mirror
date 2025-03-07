@@ -9,7 +9,7 @@ export const transformPermissions = (
 	permissions: ProductPermissionsResponse[],
 ): UserProductPermissions => {
 	return permissions.reduce((acc: UserProductPermissions, permission) => {
-		if (permission.resourceId.includes('jira-software')) {
+		if (permission.resourceId.includes('jira')) {
 			acc['jira'] = { ...acc['jira'], [permission.permissionId]: permission.permitted };
 		} else if (permission.resourceId.includes('confluence')) {
 			acc['confluence'] = { ...acc['confluence'], [permission.permissionId]: permission.permitted };
@@ -39,7 +39,7 @@ export const getProductPermissionRequestBody = (
 			},
 			{
 				...permission,
-				resourceId: `ari:cloud:jira-software::site/${cloudId}`,
+				resourceId: `ari:cloud:jira::site/${cloudId}`,
 			},
 		];
 	}, []);

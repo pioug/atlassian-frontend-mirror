@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d31f04a0ba664a86d886d8b6fc1902e5>>
+ * @codegen <<SignedSource::3adb5707f672fa7e134541695cd5f2df>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _deviceMobile = _interopRequireDefault(require("@atlaskit/icon/core/device-m
 var _mobile = _interopRequireDefault(require("@atlaskit/icon/glyph/mobile"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DeviceMobileIcon.
  * This component is DeviceMobileIcon, with `UNSAFE_fallbackIcon` set to "MobileIcon".
  *

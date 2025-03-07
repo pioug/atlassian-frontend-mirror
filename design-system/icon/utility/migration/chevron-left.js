@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4921a5f5d2bd15795c12deee4a34e513>>
+ * @codegen <<SignedSource::50eb0536eed3191cdc1ef30e9478909d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _chevronLeft = _interopRequireDefault(require("@atlaskit/icon/utility/chevro
 var _chevronLeft2 = _interopRequireDefault(require("@atlaskit/icon/glyph/chevron-left"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ChevronLeftIcon.
  * This component is ChevronLeftIcon, with `UNSAFE_fallbackIcon` set to "ChevronLeftIcon".
  *

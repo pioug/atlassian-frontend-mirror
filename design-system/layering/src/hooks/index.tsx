@@ -2,6 +2,8 @@ import { useCallback, useContext, useEffect, useRef } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { LevelContext, TopLevelContext } from '../components/layering-context';
 
 const ESCAPE = 'Escape';
@@ -72,9 +74,18 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
  */
 export function useLayering() {
 	const currentLevel = useContext(LevelContext);
-	const { topLevelRef } = useContext(TopLevelContext);
+	const { topLevelRef, layerList } = useContext(TopLevelContext);
 	const isLayerDisabled: () => boolean = useCallback(() => {
+		if (fg('layering-top-level-use-array')) {
+			return (layerList?.current?.length ?? 0) !== currentLevel;
+		}
+
 		return !!topLevelRef.current && currentLevel !== topLevelRef.current;
-	}, [currentLevel, topLevelRef]);
-	return { currentLevel, topLevelRef, isLayerDisabled };
+	}, [currentLevel, topLevelRef, layerList]);
+	return {
+		currentLevel,
+		topLevelRef,
+		isLayerDisabled,
+		...(fg('layering-top-level-use-array') ? { layerList } : {}),
+	};
 }

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d998a5de8137cc47ae7a6899a2b67e70>>
+ * @codegen <<SignedSource::625e9b14bed69a7182f0ece24fa2120b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _arrowRight = _interopRequireDefault(require("@atlaskit/icon/utility/arrow-r
 var _arrowRight2 = _interopRequireDefault(require("@atlaskit/icon/glyph/arrow-right"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ArrowRightIcon.
  * This component is ArrowRightIcon, with `UNSAFE_fallbackIcon` set to "ArrowRightIcon".
  *

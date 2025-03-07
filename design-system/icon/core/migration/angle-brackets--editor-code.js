@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::903cae0934df1def35a17b0d8160301c>>
+ * @codegen <<SignedSource::7e519cf0978c0b8571eb278151e6a33c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _angleBrackets = _interopRequireDefault(require("@atlaskit/icon/core/angle-b
 var _code = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/code"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AngleBracketsIcon.
  * This component is AngleBracketsIcon, with `UNSAFE_fallbackIcon` set to "EditorCodeIcon".
  *

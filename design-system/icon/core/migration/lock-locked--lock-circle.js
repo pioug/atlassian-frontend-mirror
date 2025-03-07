@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6bc365d79edf3cd9b35a04b8a0bf538e>>
+ * @codegen <<SignedSource::f9b59a9cd9fad5a57712fab4f0866229>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _lockLocked = _interopRequireDefault(require("@atlaskit/icon/core/lock-locke
 var _lockCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/lock-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LockLockedIcon.
  * This component is LockLockedIcon, with `UNSAFE_fallbackIcon` set to "LockCircleIcon".
  *

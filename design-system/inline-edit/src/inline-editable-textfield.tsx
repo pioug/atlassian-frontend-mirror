@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
@@ -71,7 +71,11 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
 						elemAfterInput={
 							isInvalid && (
 								<Box xcss={errorIconContainerStyles.root}>
-									<ErrorIcon label="error" primaryColor={token('color.icon.danger', R400)} />
+									<ErrorIcon
+										label="error"
+										LEGACY_primaryColor={token('color.icon.danger', R400)}
+										color={token('color.icon.danger')}
+									/>
 								</Box>
 							)
 						}

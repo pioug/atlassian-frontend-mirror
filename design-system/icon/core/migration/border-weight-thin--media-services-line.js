@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8ad1982715d7533c76782858cfe83ae9>>
+ * @codegen <<SignedSource::93e6e19651ada7306bb6a5fa80edf8fa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _borderWeightThin = _interopRequireDefault(require("@atlaskit/icon/core/bord
 var _line = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/line"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BorderWeightThinIcon.
  * This component is BorderWeightThinIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesLineIcon".
  *

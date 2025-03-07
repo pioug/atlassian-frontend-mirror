@@ -27,6 +27,7 @@ import EmbedCardNotFoundViewFrameHide from '../../../examples/vr-embed-card/vr-e
 import EmbedCardNotFoundSiteAccessExists from '../../../examples/vr-embed-card/vr-embed-card-not-found-site-access-exists';
 import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved';
 import EmbedCardResolvedViewNoPreview from '../../../examples/vr-embed-card/vr-embed-card-resolved-no-preview';
+import EmbedCardResolvedSmall from '../../../examples/vr-embed-card/vr-embed-card-resolved-small';
 import EmbedCardResolvingView from '../../../examples/vr-embed-card/vr-embed-card-resolving';
 import EmbedCardSelected from '../../../examples/vr-embed-card/vr-embed-card-selected';
 import EmbedCardUnauthorisedView from '../../../examples/vr-embed-card/vr-embed-card-unauthorised';
@@ -113,6 +114,12 @@ snapshot(EmbedCardNotFoundSiteAccessExists, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': true,
+	},
+});
+snapshot(EmbedCardResolvedSmall, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(EmbedCardResolvedView, {

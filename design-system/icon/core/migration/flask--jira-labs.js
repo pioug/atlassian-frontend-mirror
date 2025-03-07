@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e25cc67ffb11e4180bfbc9e4b832f109>>
+ * @codegen <<SignedSource::6db6826bf1c339bcc85bc37ed1f8d3c1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _flask = _interopRequireDefault(require("@atlaskit/icon/core/flask"));
 var _labs = _interopRequireDefault(require("@atlaskit/icon/glyph/jira/labs"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for FlaskIcon.
  * This component is FlaskIcon, with `UNSAFE_fallbackIcon` set to "JiraLabsIcon".
  *

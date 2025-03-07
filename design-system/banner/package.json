@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/banner",
-	"version": "13.0.1",
+	"version": "14.0.0",
 	"description": "A banner displays a prominent message at the top of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,26 +39,27 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "*",
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/link": "*",
-		"@atlaskit/section-message": "*",
-		"@atlaskit/ssr": "*",
+		"@af/accessibility-testing": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/link": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^18.2.0",

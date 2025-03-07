@@ -76,25 +76,31 @@ function sinkExperimentalInteractionMetrics(
 		createExperimentalMetricsPayload: (
 			interactionId: string,
 			interaction: InteractionMetrics,
-		) => any;
+		) => Promise<any>;
 	},
 ) {
 	sinkExperimentalHandler((interactionId: string, interaction: InteractionMetrics) => {
 		scheduleCallback(idlePriority, () => {
-			const payload = payloadPackage.createExperimentalMetricsPayload(interactionId, interaction);
-			if (payload) {
-				if (fg('enable_ufo_devtools_api_for_extra_events')) {
-					// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
-					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-						.__ufo_devtool_onUfoPayload;
+			const payloadPromise = payloadPackage.createExperimentalMetricsPayload(
+				interactionId,
+				interaction,
+			);
 
-					if (typeof devToolObserver === 'function') {
-						devToolObserver?.(payload);
+			payloadPromise.then((payload) => {
+				if (payload) {
+					if (fg('enable_ufo_devtools_api_for_extra_events')) {
+						// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
+						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+							.__ufo_devtool_onUfoPayload;
+
+						if (typeof devToolObserver === 'function') {
+							devToolObserver?.(payload);
+						}
 					}
-				}
 
-				instance.sendOperationalEvent(payload);
-			}
+					instance.sendOperationalEvent(payload);
+				}
+			});
 		});
 	});
 }

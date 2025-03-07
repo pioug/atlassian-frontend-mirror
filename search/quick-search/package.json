@@ -29,12 +29,12 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/analytics": "^9.0.0",
-		"@atlaskit/avatar": "^24.0.0",
-		"@atlaskit/menu": "^3.1.0",
-		"@atlaskit/spinner": "^18.0.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/analytics": "workspace:*",
+		"@atlaskit/avatar": "workspace:*",
+		"@atlaskit/menu": "workspace:*",
+		"@atlaskit/spinner": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"keycode": "^2.1.7"
 	},

@@ -42,7 +42,6 @@ import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import memoizeOne from 'memoize-one';
 import uuid from 'uuid/v4';
 import type { MediaSSR, RendererContext } from '../../';
@@ -67,10 +66,12 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
 import { isInteractiveElement } from './click-to-edit';
 import { countNodes } from './count-nodes';
-import { TELEPOINTER_ID, rendererStyles } from './style';
+import { TELEPOINTER_ID } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import type { RendererAppearance } from './types';
 import { ValidationContext } from './ValidationContext';
+import { RendererStyleContainer } from './RendererStyleContainer';
+import { getBaseFontSize } from './get-base-font-size';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -1103,7 +1104,7 @@ export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 	</FabricEditorAnalyticsContext>
 ));
 
-type RendererWrapperProps = {
+export type RendererWrapperProps = {
 	allowAnnotations?: boolean;
 	appearance: RendererAppearance;
 	innerRef?: React.RefObject<HTMLDivElement>;
@@ -1210,29 +1211,22 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 			data-appearance={appearance}
 			shouldCheckExistingValue={isInsideOfInlineExtension}
 		>
-			<BaseTheme
-				baseFontSize={
-					appearance && appearance !== 'comment' ? akEditorFullPageDefaultFontSize : undefined
-				}
-			>
+			<BaseTheme baseFontSize={getBaseFontSize(appearance)}>
 				<EditorMediaClientProvider ssr={ssr}>
 					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-					<div
-						ref={innerRef}
+					<RendererStyleContainer
+						innerRef={innerRef}
 						onClick={onClick}
 						onMouseDown={onMouseDown}
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={rendererStyles({
-							appearance,
-							allowNestedHeaderLinks,
-							allowColumnSorting: !!allowColumnSorting,
-							useBlockRenderForCodeBlock,
-							allowAnnotations: props.allowAnnotations,
-							allowTableResizing: allowTableResizing,
-						})}
+						appearance={appearance}
+						allowNestedHeaderLinks={allowNestedHeaderLinks}
+						allowColumnSorting={!!allowColumnSorting}
+						useBlockRenderForCodeBlock={useBlockRenderForCodeBlock}
+						allowAnnotations={props.allowAnnotations}
+						allowTableResizing={allowTableResizing}
 					>
 						{children}
-					</div>
+					</RendererStyleContainer>
 				</EditorMediaClientProvider>
 			</BaseTheme>
 		</WidthProvider>

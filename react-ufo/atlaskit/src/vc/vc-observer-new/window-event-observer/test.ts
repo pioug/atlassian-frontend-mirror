@@ -34,6 +34,7 @@ describe('WindowEventObserver', () => {
 				type: 'wheel',
 				options: {
 					passive: true,
+					once: true,
 				},
 			}),
 		);
@@ -43,6 +44,7 @@ describe('WindowEventObserver', () => {
 				type: 'scroll',
 				options: {
 					passive: true,
+					once: true,
 				},
 			}),
 		);
@@ -52,6 +54,7 @@ describe('WindowEventObserver', () => {
 				type: 'keydown',
 				options: {
 					passive: true,
+					once: true,
 				},
 			}),
 		);
@@ -61,6 +64,7 @@ describe('WindowEventObserver', () => {
 				type: 'resize',
 				options: {
 					passive: true,
+					once: true,
 				},
 			}),
 		);
@@ -73,7 +77,7 @@ describe('WindowEventObserver', () => {
 		const { bind } = require('bind-event-listener');
 		const mockListener = bind.mock.calls[0][1].listener;
 
-		const mockEvent = { timeStamp: 1234 } as Event;
+		const mockEvent = { timeStamp: 1234, isTrusted: true } as Event;
 		mockListener(mockEvent);
 
 		expect(onEventCallback).toHaveBeenCalledWith({
@@ -81,6 +85,19 @@ describe('WindowEventObserver', () => {
 			type: 'wheel', // The type can vary depending on which test case we're simulating
 			event: mockEvent,
 		});
+	});
+
+	test('should call onEvent callback when an syntethic event occurs', () => {
+		const observer = new WindowEventObserver({ onEvent: onEventCallback });
+		observer.start();
+
+		const { bind } = require('bind-event-listener');
+		const mockListener = bind.mock.calls[0][1].listener;
+
+		const mockEvent = { timeStamp: 1234, isTrusted: false } as Event;
+		mockListener(mockEvent);
+
+		expect(onEventCallback).not.toHaveBeenCalled();
 	});
 
 	test('should unbind events on stop', () => {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ca6de88f6e16cefe07cae368c9c27484>>
+ * @codegen <<SignedSource::ff23a711b4b109cded01cd0a5945034a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _peopleGroup = _interopRequireDefault(require("@atlaskit/icon/core/people-gr
 var _people = _interopRequireDefault(require("@atlaskit/icon/glyph/people"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PeopleGroupIcon.
  * This component is PeopleGroupIcon, with `UNSAFE_fallbackIcon` set to "PeopleIcon".
  *

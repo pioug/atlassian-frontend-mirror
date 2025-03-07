@@ -54,6 +54,8 @@ export const pixelEntryHiddenSubmit = css({
 	visibility: 'hidden',
 	width: 0,
 	height: 0,
+	// this is needed so that this button doesn't contribute to scroll width of media floating toolbar and display scroll buttons unnecessarily
+	padding: 0,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::39cdeadbc80d0eea4916b02d4489f545>>
+ * @codegen <<SignedSource::8409f38ed68c9a894a999066e56af160>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _textStyle = _interopRequireDefault(require("@atlaskit/icon/core/text-style"
 var _textStyle2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/text-style"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TextStyleIcon.
  * This component is TextStyleIcon, with `UNSAFE_fallbackIcon` set to "EditorTextStyleIcon".
  *

@@ -41,6 +41,10 @@ export const mockJiraData = {
 				displayName: 'Scott Farquhar',
 				source: profile,
 			},
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(4),
 			priority: {
 				label: 'major',
@@ -69,6 +73,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1173',
 			summary: "Audio in meeting room K909 doesn't work",
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(3),
 			priority: {
 				label: 'high',
@@ -96,6 +104,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1174',
 			summary: 'In the underground area, under three Rotating spheres',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(2),
 			priority: {
 				label: 'medium',
@@ -123,6 +135,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1175',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(1),
 			priority: {
 				label: 'low',
@@ -154,6 +170,10 @@ export const mockJiraData = {
 				displayName: 'Scott Farquhar',
 				source: profile,
 			},
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: undefined,
 			priority: {
 				label: 'trivial',
@@ -181,6 +201,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1177',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(10),
 			priority: {
 				label: 'blocker',
@@ -208,6 +232,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1178',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(12),
 			priority: {
 				label: 'high',
@@ -237,6 +265,10 @@ export const mockJiraData = {
 				displayName: 'Scott Farquhar',
 				source: profile,
 			},
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(0),
 			priority: {
 				label: 'high',
@@ -263,6 +295,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1180',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(5),
 			priority: {
 				label: 'high',
@@ -289,6 +325,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1181',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(6),
 			priority: {
 				label: 'high',
@@ -317,6 +357,10 @@ export const mockJiraData = {
 			assignee: {
 				displayName: 'Scott Farquhar',
 				source: profile,
+			},
+			project: {
+				name: 'EDM',
+				id: '10000',
 			},
 			people: generateMockPeopleResponse(8),
 			priority: {
@@ -347,6 +391,10 @@ export const mockJiraData = {
 				displayName: 'Scott Farquhar',
 				source: profile,
 			},
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(20),
 			priority: {
 				label: 'major',
@@ -373,6 +421,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1184',
 			summary: "Audio in meeting room K909 doesn't work",
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(2),
 			priority: {
 				label: 'high',
@@ -399,6 +451,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1185',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(3),
 			priority: {
 				label: 'low',
@@ -429,6 +485,10 @@ export const mockJiraData = {
 				displayName: 'Scott Farquhar',
 				source: profile,
 			},
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(3),
 			priority: {
 				label: 'trivial',
@@ -455,6 +515,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1187',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(4),
 			priority: {
 				label: 'blocker',
@@ -481,6 +545,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1188',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(2),
 			priority: {
 				label: 'high',
@@ -510,6 +578,10 @@ export const mockJiraData = {
 				displayName: 'Scott Farquhar',
 				source: profile,
 			},
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(7),
 			priority: {
 				label: 'high',
@@ -536,6 +608,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1190',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(5),
 			priority: {
 				label: 'high',
@@ -562,6 +638,10 @@ export const mockJiraData = {
 			issueNumber: 'DONUT-1191',
 			summary: 'This level is hard',
 			assignee: undefined,
+			project: {
+				name: 'EDM',
+				id: '10000',
+			},
 			people: generateMockPeopleResponse(1),
 			priority: {
 				label: 'high',
@@ -590,6 +670,10 @@ export const mockJiraData = {
 			assignee: {
 				displayName: 'Scott Farquhar',
 				source: profile,
+			},
+			project: {
+				name: 'EDM',
+				id: '10000',
 			},
 			people: generateMockPeopleResponse(4),
 			priority: {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e729cff048265e2c05f037874b246efd>>
+ * @codegen <<SignedSource::93e2a5ab601f6cc4b6e4995c107737be>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _lockUnlocked = _interopRequireDefault(require("@atlaskit/icon/core/lock-unl
 var _unlockFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/unlock-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LockUnlockedIcon.
  * This component is LockUnlockedIcon, with `UNSAFE_fallbackIcon` set to "UnlockFilledIcon".
  *

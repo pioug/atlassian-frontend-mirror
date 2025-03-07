@@ -52,7 +52,7 @@
 		"./test-utils": "./src/test-utils/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
@@ -60,10 +60,10 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "*",
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/primitives": "^14.1.0",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^13.4.0",
 		"@types/jscodeshift": "^0.11.0",

@@ -5,8 +5,10 @@ import { defaultRegistry } from 'react-sweet-state';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { captureException } from '@atlaskit/linking-common/sentry';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ActionsStore, type ActionsStoreState, useExecuteAtomicAction } from '../actions';
+import { Store } from '../index';
 
 const mockUseDatasourceClientExtension: jest.Mock = jest.fn();
 const mockUseDatasourceAnalyticsEvents: jest.Mock = jest.fn();
@@ -42,6 +44,7 @@ const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
 	<SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
 );
 
+const store = defaultRegistry.getStore(Store);
 const actionsStore = defaultRegistry.getStore(ActionsStore);
 
 const mockActionsStoreState: Partial<ActionsStoreState> = {
@@ -68,7 +71,7 @@ const mockActionsStoreState: Partial<ActionsStoreState> = {
 					actionKey: 'atlassian:work-item:get:priorities',
 					type: 'string',
 					inputs: {
-						issueId: {
+						projectId: {
 							type: 'string',
 						},
 					},
@@ -82,6 +85,9 @@ const mockActionsStoreState: Partial<ActionsStoreState> = {
 				isEditable: true,
 			},
 			status: {
+				isEditable: true,
+			},
+			priority: {
 				isEditable: true,
 			},
 		},
@@ -146,6 +152,192 @@ describe('useExecuteAtomicAction', () => {
 		actionsStore.storeState.setState(mockActionsStoreState);
 		const { result } = setup();
 		expect(result.current.executeFetch).toBe(undefined);
+	});
+
+	ffTest.on('enable_datasource_fetch_action_inputs', 'when ff on', () => {
+		it('should call fetch action with input from schema', async () => {
+			store.storeState.setState({
+				items: {
+					'some-test-ari': {
+						ari: 'some-test-ari',
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: { projectId: { data: '1000' }, issueId: { data: '123' } },
+					},
+				},
+			});
+			actionsStore.storeState.setState(mockActionsStoreState);
+			mockExecuteAction.mockResolvedValue({});
+
+			const { result } = setup({ fieldKey: 'priority' });
+
+			const executeFetch = result.current.executeFetch;
+			executeFetch && (await executeFetch({}));
+			expect(mockExecuteAction).toHaveBeenCalledTimes(1);
+			expect(mockExecuteAction).toHaveBeenCalledWith({
+				integrationKey: 'jira',
+				actionKey: 'atlassian:work-item:get:priorities',
+				parameters: { inputs: { projectId: '1000' }, target: { ari: 'some-test-ari' } },
+			});
+		});
+
+		it('should call fetch action with input type number from schema', async () => {
+			store.storeState.setState({
+				items: {
+					'some-test-ari': {
+						ari: 'some-test-ari',
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: { generic: { data: '123' }, id: { data: 123 } },
+					},
+				},
+			});
+			const mockActionsStoreState: Partial<ActionsStoreState> = {
+				actionsByIntegration: {
+					jira: {
+						priority: {
+							actionKey: 'atlassian:work-item:update:priority',
+							fetchAction: {
+								actionKey: 'atlassian:work-item:get:priorities',
+								inputs: {
+									id: {
+										type: 'number',
+									},
+								},
+								type: 'string',
+							},
+							type: 'string',
+						},
+					},
+				},
+				permissions: {
+					'some-test-ari': {
+						priority: {
+							isEditable: true,
+						},
+					},
+				},
+			};
+			actionsStore.storeState.setState(mockActionsStoreState);
+			mockExecuteAction.mockResolvedValue({});
+
+			const { result } = setup({ fieldKey: 'priority' });
+
+			const executeFetch = result.current.executeFetch;
+			executeFetch && (await executeFetch({}));
+			expect(mockExecuteAction).toHaveBeenCalledTimes(1);
+			expect(mockExecuteAction).toHaveBeenCalledWith({
+				integrationKey: 'jira',
+				actionKey: 'atlassian:work-item:get:priorities',
+				parameters: { inputs: { id: 123 }, target: { ari: 'some-test-ari' } },
+			});
+		});
+
+		it('should not use input from data when it does not match the schema types', async () => {
+			store.storeState.setState({
+				items: {
+					'some-test-ari': {
+						ari: 'some-test-ari',
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: { generic: { data: '123' }, id: { data: false } },
+					},
+				},
+			});
+			const mockActionsStoreState: Partial<ActionsStoreState> = {
+				actionsByIntegration: {
+					jira: {
+						priority: {
+							actionKey: 'atlassian:work-item:update:priority',
+							fetchAction: {
+								actionKey: 'atlassian:work-item:get:priorities',
+								inputs: {
+									id: {
+										type: 'number',
+									},
+								},
+								type: 'string',
+							},
+							type: 'string',
+						},
+					},
+				},
+				permissions: {
+					'some-test-ari': {
+						priority: {
+							isEditable: true,
+						},
+					},
+				},
+			};
+			actionsStore.storeState.setState(mockActionsStoreState);
+			mockExecuteAction.mockResolvedValue({});
+
+			const { result } = setup({ fieldKey: 'priority' });
+
+			const executeFetch = result.current.executeFetch;
+			executeFetch && (await executeFetch({}));
+			expect(mockExecuteAction).toHaveBeenCalledTimes(1);
+			expect(mockExecuteAction).toHaveBeenCalledWith({
+				integrationKey: 'jira',
+				actionKey: 'atlassian:work-item:get:priorities',
+				parameters: { inputs: {}, target: { ari: 'some-test-ari' } },
+			});
+		});
+	});
+
+	ffTest.off('enable_datasource_fetch_action_inputs', 'when ff on', () => {
+		it('should not call fetch action with input from schema', async () => {
+			store.storeState.setState({
+				items: {
+					'some-test-ari': {
+						ari: 'some-test-ari',
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: { projectId: { data: '1000' }, issueId: { data: '123' } },
+					},
+				},
+			});
+			actionsStore.storeState.setState(mockActionsStoreState);
+			mockExecuteAction.mockResolvedValue({});
+
+			const { result } = setup({ fieldKey: 'priority' });
+
+			const executeFetch = result.current.executeFetch;
+			executeFetch && (await executeFetch({}));
+			expect(mockExecuteAction).toHaveBeenCalledTimes(1);
+			expect(mockExecuteAction).toHaveBeenCalledWith({
+				integrationKey: 'jira',
+				actionKey: 'atlassian:work-item:get:priorities',
+				parameters: { inputs: {}, target: { ari: 'some-test-ari' } },
+			});
+		});
+	});
+
+	it('should always prefer call fetch action with controlled input', async () => {
+		store.storeState.setState({
+			items: {
+				'some-test-ari': {
+					ari: 'some-test-ari',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { projectId: { data: '1000' }, issueId: { data: '123' } },
+				},
+			},
+		});
+		actionsStore.storeState.setState(mockActionsStoreState);
+		mockExecuteAction.mockResolvedValue({});
+
+		const { result } = setup({ fieldKey: 'priority' });
+
+		const executeFetch = result.current.executeFetch;
+		executeFetch && (await executeFetch({ projectId: '123' }));
+		expect(mockExecuteAction).toHaveBeenCalledTimes(1);
+		expect(mockExecuteAction).toHaveBeenCalledWith({
+			integrationKey: 'jira',
+			actionKey: 'atlassian:work-item:get:priorities',
+			parameters: { inputs: { projectId: '123' }, target: { ari: 'some-test-ari' } },
+		});
 	});
 
 	describe('analytics', () => {

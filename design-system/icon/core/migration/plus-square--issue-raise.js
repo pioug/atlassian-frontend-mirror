@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dc639c02f4de0af79c2f2ec01e96d222>>
+ * @codegen <<SignedSource::c8829fbe18d9ef0b7a6c5c1521961961>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _plusSquare = _interopRequireDefault(require("@atlaskit/icon/core/plus-squar
 var _issueRaise = _interopRequireDefault(require("@atlaskit/icon/glyph/issue-raise"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PlusSquareIcon.
  * This component is PlusSquareIcon, with `UNSAFE_fallbackIcon` set to "IssueRaiseIcon".
  *

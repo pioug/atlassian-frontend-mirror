@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cdbc673522c6bc8690e33483f21d93d5>>
+ * @codegen <<SignedSource::2bce2e8cefeb7a1e23af480e5534534d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _delete = _interopRequireDefault(require("@atlaskit/icon/core/delete"));
 var _remove = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/remove"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DeleteIcon.
  * This component is DeleteIcon, with `UNSAFE_fallbackIcon` set to "EditorRemoveIcon".
  *

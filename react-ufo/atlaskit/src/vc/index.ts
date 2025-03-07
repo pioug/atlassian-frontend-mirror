@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MultiHeatmapPayload, VCRawDataType, VCResult } from '../common/vc/types';
+import { getConfig } from '../config';
 
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './types';
 import { VCObserver } from './vc-observer';
@@ -18,7 +19,8 @@ class VCObserverWrapper implements VCObserverInterface {
 		this.oldVCObserver = new VCObserver(opts);
 
 		this.newVCObserver = null;
-		const isNewVCObserverEnabled = fg('platform_ufo_vc_observer_new');
+		const isNewVCObserverEnabled =
+			fg('platform_ufo_vc_observer_new') || getConfig()?.vc?.enableVCObserverNew;
 		if (isNewVCObserverEnabled) {
 			this.newVCObserver = new VCObserverNew({
 				selectorConfig: opts.selectorConfig,
@@ -27,7 +29,7 @@ class VCObserverWrapper implements VCObserverInterface {
 	}
 	start(startArg: { startTime: number }): void {
 		this.oldVCObserver?.start(startArg);
-		this.newVCObserver?.start();
+		this.newVCObserver?.start({ startTime: startArg.startTime });
 	}
 	stop(): void {
 		this.oldVCObserver?.stop();

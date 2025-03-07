@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1b27bbe42d34af1be31caf714463da52>>
+ * @codegen <<SignedSource::0bfa1b029acd867a2dba7e13279799e7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _inbox = _interopRequireDefault(require("@atlaskit/icon/core/inbox"));
 var _tray = _interopRequireDefault(require("@atlaskit/icon/glyph/tray"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for InboxIcon.
  * This component is InboxIcon, with `UNSAFE_fallbackIcon` set to "TrayIcon".
  *

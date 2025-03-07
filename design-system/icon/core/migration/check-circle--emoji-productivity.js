@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f5f2f65d1f0562e92303c727c15ab66e>>
+ * @codegen <<SignedSource::7f9ad5812ba23ca8aa4f397c637fb80a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _checkCircle = _interopRequireDefault(require("@atlaskit/icon/core/check-cir
 var _productivity = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/productivity"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CheckCircleIcon.
  * This component is CheckCircleIcon, with `UNSAFE_fallbackIcon` set to "EmojiProductivityIcon".
  *

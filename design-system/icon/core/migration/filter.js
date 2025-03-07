@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8e2042019672d5613c2fb4b554dc4ee8>>
+ * @codegen <<SignedSource::289d4f542a1ed26db6d28b87ad2efcf4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _filter = _interopRequireDefault(require("@atlaskit/icon/core/filter"));
 var _filter2 = _interopRequireDefault(require("@atlaskit/icon/glyph/filter"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for FilterIcon.
  * This component is FilterIcon, with `UNSAFE_fallbackIcon` set to "FilterIcon".
  *

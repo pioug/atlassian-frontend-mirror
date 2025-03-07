@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9af21fe67c79950014f02edbb68b85b0>>
+ * @codegen <<SignedSource::083750d66f8ddafc04b4d764ea361b41>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _discovery = _interopRequireDefault(require("@atlaskit/icon/core/discovery")
 var _note = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/note"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DiscoveryIcon.
  * This component is DiscoveryIcon, with `UNSAFE_fallbackIcon` set to "EditorNoteIcon".
  *

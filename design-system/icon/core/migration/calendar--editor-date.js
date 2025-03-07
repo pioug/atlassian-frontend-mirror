@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc0f5c834e7564cb04ad854cfb03f487>>
+ * @codegen <<SignedSource::f88b1ea3518cb3ea6d0e4d6285a798cc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _calendar = _interopRequireDefault(require("@atlaskit/icon/core/calendar"));
 var _date = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/date"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CalendarIcon.
  * This component is CalendarIcon, with `UNSAFE_fallbackIcon` set to "EditorDateIcon".
  *

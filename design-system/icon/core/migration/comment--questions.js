@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::30b9ed9ada166b12b5e8f7a5346782dd>>
+ * @codegen <<SignedSource::6bf94f57860cdfd1b187b1e7b20e025b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _comment = _interopRequireDefault(require("@atlaskit/icon/core/comment"));
 var _questions = _interopRequireDefault(require("@atlaskit/icon/glyph/questions"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CommentIcon.
  * This component is CommentIcon, with `UNSAFE_fallbackIcon` set to "QuestionsIcon".
  *

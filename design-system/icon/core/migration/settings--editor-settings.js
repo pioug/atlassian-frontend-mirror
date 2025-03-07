@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::79faa641c17edf9cccb3b2fc1945698b>>
+ * @codegen <<SignedSource::2a96776728836c727b5d4d4945e79e50>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _settings = _interopRequireDefault(require("@atlaskit/icon/core/settings"));
 var _settings2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/settings"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for SettingsIcon.
  * This component is SettingsIcon, with `UNSAFE_fallbackIcon` set to "EditorSettingsIcon".
  *

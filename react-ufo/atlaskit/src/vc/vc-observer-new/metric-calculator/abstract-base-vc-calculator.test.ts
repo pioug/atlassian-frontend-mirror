@@ -42,6 +42,8 @@ describe('AbstractVCCalculatorBase', () => {
 
 		const result = await mockCalculator.calculate({
 			orderedEntries: [],
+			startTime: 0,
+			stopTime: 1000,
 		});
 
 		expect(result).toEqual({
@@ -72,6 +74,8 @@ describe('AbstractVCCalculatorBase', () => {
 
 		const result = await calculator.calculate({
 			orderedEntries: [mockEntry],
+			startTime: 0,
+			stopTime: 1000,
 		});
 
 		expect(result).toEqual({
@@ -111,7 +115,7 @@ describe('AbstractVCCalculatorBase', () => {
 			},
 		];
 
-		await mockCalculator.calculate({ orderedEntries: entries });
+		await mockCalculator.calculate({ orderedEntries: entries, startTime: 0, stopTime: 1000 });
 
 		expect(calculateTTVCPercentiles.default).toHaveBeenCalledWith(
 			expect.objectContaining({

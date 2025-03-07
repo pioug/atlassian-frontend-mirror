@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cfed86d5e3bb2ba31fa288f9c894432d>>
+ * @codegen <<SignedSource::df9f54c5ab53475ca091cb575b7018b6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _menu = _interopRequireDefault(require("@atlaskit/icon/core/menu"));
 var _menu2 = _interopRequireDefault(require("@atlaskit/icon/glyph/menu"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MenuIcon.
  * This component is MenuIcon, with `UNSAFE_fallbackIcon` set to "MenuIcon".
  *

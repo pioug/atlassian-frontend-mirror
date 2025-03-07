@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1e8917d3a5aac4b99b0f55b24958842a>>
+ * @codegen <<SignedSource::51b314e985f858eff3d9d6d05ad7554f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _refresh = _interopRequireDefault(require("@atlaskit/icon/core/refresh"));
 var _refresh2 = _interopRequireDefault(require("@atlaskit/icon/glyph/refresh"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for RefreshIcon.
  * This component is RefreshIcon, with `UNSAFE_fallbackIcon` set to "RefreshIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cac5a72d7466b1013dda7da8cfdf1ce3>>
+ * @codegen <<SignedSource::b8885bef15e1a4f555216c56b9995340>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _calendar = _interopRequireDefault(require("@atlaskit/icon/core/calendar"));
 var _calendarFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/calendar-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CalendarIcon.
  * This component is CalendarIcon, with `UNSAFE_fallbackIcon` set to "CalendarFilledIcon".
  *

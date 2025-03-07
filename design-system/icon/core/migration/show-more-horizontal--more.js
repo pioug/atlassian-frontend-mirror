@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::384f31b6891d11603b1a7b84cc388cca>>
+ * @codegen <<SignedSource::9b775822095ff11ff1cfe3f316db8614>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _showMoreHorizontal = _interopRequireDefault(require("@atlaskit/icon/core/sh
 var _more = _interopRequireDefault(require("@atlaskit/icon/glyph/more"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ShowMoreHorizontalIcon.
  * This component is ShowMoreHorizontalIcon, with `UNSAFE_fallbackIcon` set to "MoreIcon".
  *

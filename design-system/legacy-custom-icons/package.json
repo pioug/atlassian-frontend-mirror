@@ -312,20 +312,20 @@
 		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
-		"@atlassian/codegen": "0.1.4",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
+		"@atlassian/codegen": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"enquirer": "^2.3.4",
 		"fs-extra": "^4.0.2",

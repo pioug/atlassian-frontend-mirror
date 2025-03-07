@@ -5,28 +5,29 @@
  */
 import React, { type CSSProperties, forwardRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
-import { type BackgroundColor, Box, Inline, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { type BackgroundColor, Box, Inline } from '@atlaskit/primitives/compiled';
 import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const CSS_VAR_TEXT_COLOR = '--banner-text-color';
 
-const inlineStyles = xcss({ minWidth: '0' });
+const inlineStyles = cssMap({ root: { minWidth: '0px' } });
 
-const textStyles = css({
-	color: `var(${CSS_VAR_TEXT_COLOR})`,
-	font: token('font.body'),
-	fontWeight: token('font.weight.medium'),
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
-	'a, a:visited, a:hover, a:focus, a:active': {
-		color: 'currentColor',
-		textDecoration: 'underline',
+const textStyles = cssMap({
+	root: {
+		// @ts-expect-error
+		color: `var(${CSS_VAR_TEXT_COLOR})`,
+		font: token('font.body'),
+		fontWeight: token('font.weight.medium'),
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+		'a, a:visited, a:hover, a:focus, a:active': {
+			color: 'currentColor',
+			textDecoration: 'underline',
+		},
 	},
 });
 
@@ -50,19 +51,23 @@ const tokenTextColors: Record<Appearance, string> = {
 
 type Appearance = 'warning' | 'error' | 'announcement';
 
-const containerStyles = xcss({
-	height: '3rem',
-	alignItems: 'center',
-	display: 'flex',
+const containerStyles = cssMap({
+	root: {
+		height: '3rem',
+		alignItems: 'center',
+		display: 'flex',
+	},
 });
 
-const iconWrapperStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	width: '1.5rem',
-	height: '1.5rem', // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
-	flexShrink: '0',
+const iconWrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '1.5rem',
+		height: '1.5rem', // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
+		flexShrink: '0',
+	},
 });
 
 export interface BannerProps {
@@ -99,18 +104,18 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
 
 		return (
 			<Box
-				xcss={containerStyles}
+				xcss={containerStyles.root}
 				backgroundColor={backgroundColors[appearanceType]}
 				padding="space.150"
 				testId={testId}
 				ref={ref}
 				role="alert"
 			>
-				<Inline space="space.050" alignBlock="center" alignInline="start" xcss={inlineStyles}>
+				<Inline space="space.050" alignBlock="center" alignInline="start" xcss={inlineStyles.root}>
 					{icon ? (
 						<Box
 							as="span"
-							xcss={iconWrapperStyles}
+							xcss={iconWrapperStyles.root}
 							style={{
 								fill: tokenBackgroundColors[appearanceType],
 								color: tokenTextColors[appearanceType],
@@ -127,7 +132,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							} as CSSProperties
 						}
-						css={textStyles}
+						css={textStyles.root}
 					>
 						{children}
 					</span>

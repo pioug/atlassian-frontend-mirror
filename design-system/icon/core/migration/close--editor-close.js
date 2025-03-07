@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e966e44e10d4af587c95b714fe3851cf>>
+ * @codegen <<SignedSource::e514a79fafb6c57d068e94d2350d1008>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _close = _interopRequireDefault(require("@atlaskit/icon/core/close"));
 var _close2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/close"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CloseIcon.
  * This component is CloseIcon, with `UNSAFE_fallbackIcon` set to "EditorCloseIcon".
  *

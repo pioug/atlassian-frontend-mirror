@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::40593711b26197c57261c5345b6d6cc5>>
+ * @codegen <<SignedSource::bc9ca86dc3d7916919414cea3f7ddc7f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _linkExternal = _interopRequireDefault(require("@atlaskit/icon/core/link-ext
 var _shortcut = _interopRequireDefault(require("@atlaskit/icon/glyph/shortcut"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LinkExternalIcon.
  * This component is LinkExternalIcon, with `UNSAFE_fallbackIcon` set to "ShortcutIcon".
  *

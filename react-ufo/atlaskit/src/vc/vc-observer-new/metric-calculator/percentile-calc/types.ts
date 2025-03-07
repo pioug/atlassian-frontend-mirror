@@ -5,6 +5,8 @@ export type CalcTTVCPercentilesArg = {
 		width: number;
 		height: number;
 	};
+	startTime: DOMHighResTimeStamp;
+	stopTime: DOMHighResTimeStamp;
 	orderedEntries: ReadonlyArray<VCObserverEntry>;
 	percentiles: number[];
 };

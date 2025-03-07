@@ -213,7 +213,10 @@ class Heatmap {
 		}
 	}
 
-	async getVCPercentMetrics(vcPercentCheckpoint: number[]): Promise<HeatmapCheckpointMetrics> {
+	async getVCPercentMetrics(
+		vcPercentCheckpoint: number[],
+		startTime: DOMHighResTimeStamp,
+	): Promise<HeatmapCheckpointMetrics> {
 		const sortedCheckpoints = [...vcPercentCheckpoint].sort((a, b) => a - b);
 		const flattenHeatmap = this.map.flat();
 
@@ -275,7 +278,7 @@ class Heatmap {
 				}
 				matchesAnyCheckpoints = true;
 				result[checkpoint.toString()] = {
-					t: timestamp,
+					t: Math.round(timestamp - startTime),
 					e: domElements,
 				};
 			}
@@ -295,10 +298,12 @@ export default async function calculateTTVCPercentiles({
 	orderedEntries,
 	viewport,
 	percentiles,
+	startTime,
 }: {
 	orderedEntries: ReadonlyArray<VCObserverEntry>;
 	viewport: Viewport;
 	percentiles: number[];
+	startTime: DOMHighResTimeStamp;
 }): Promise<RevisionPayloadVCDetails> {
 	const heatmap = new Heatmap({
 		viewport,
@@ -307,6 +312,6 @@ export default async function calculateTTVCPercentiles({
 
 	await heatmap.applyEntriesToHeatmap(orderedEntries);
 
-	const vcDetails = await heatmap.getVCPercentMetrics(percentiles);
+	const vcDetails = await heatmap.getVCPercentMetrics(percentiles, startTime);
 	return vcDetails;
 }

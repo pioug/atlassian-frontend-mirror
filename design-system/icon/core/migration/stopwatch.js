@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bef99f1a2edb80cb2c217355be84450e>>
+ * @codegen <<SignedSource::4f8fa98d5af7aa71848cf5218e04fd5c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _stopwatch = _interopRequireDefault(require("@atlaskit/icon/core/stopwatch")
 var _stopwatch2 = _interopRequireDefault(require("@atlaskit/icon/glyph/stopwatch"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for StopwatchIcon.
  * This component is StopwatchIcon, with `UNSAFE_fallbackIcon` set to "StopwatchIcon".
  *

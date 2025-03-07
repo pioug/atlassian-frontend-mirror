@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::91a01d33cc7af1035e55865deb46f8ce>>
+ * @codegen <<SignedSource::35f1f566a5895dbf1d622ae725fb7d79>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _bug = _interopRequireDefault(require("@atlaskit/icon/core/bug"));
 var _testSession = _interopRequireDefault(require("@atlaskit/icon/glyph/jira/test-session"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BugIcon.
  * This component is BugIcon, with `UNSAFE_fallbackIcon` set to "JiraTestSessionIcon".
  *

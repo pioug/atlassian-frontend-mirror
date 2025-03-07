@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::14569e52fa2f78ab0273d29608a8174b>>
+ * @codegen <<SignedSource::15069c31a0410504ca6fc11c34278f93>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _location = _interopRequireDefault(require("@atlaskit/icon/core/location"));
 var _location2 = _interopRequireDefault(require("@atlaskit/icon/glyph/location"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LocationIcon.
  * This component is LocationIcon, with `UNSAFE_fallbackIcon` set to "LocationIcon".
  *

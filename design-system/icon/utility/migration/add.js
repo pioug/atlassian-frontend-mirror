@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7504da630d356c04ae574a6c0e45555e>>
+ * @codegen <<SignedSource::74d83c2aa5d04fe082b57740799c92a0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _add = _interopRequireDefault(require("@atlaskit/icon/utility/add"));
 var _add2 = _interopRequireDefault(require("@atlaskit/icon/glyph/add"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AddIcon.
  * This component is AddIcon, with `UNSAFE_fallbackIcon` set to "AddIcon".
  *

@@ -36,14 +36,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "^101.1.0",
-		"@atlaskit/editor-plugin-code-block": "^4.1.0",
-		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
-		"@atlaskit/editor-plugin-find-replace": "^2.0.0",
-		"@atlaskit/editor-plugin-selection": "^2.0.0",
-		"@atlaskit/editor-plugin-selection-marker": "^2.0.0",
+		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-plugin-code-block": "workspace:*",
+		"@atlaskit/editor-plugin-editor-disabled": "workspace:*",
+		"@atlaskit/editor-plugin-find-replace": "workspace:*",
+		"@atlaskit/editor-plugin-selection": "workspace:*",
+		"@atlaskit/editor-plugin-selection-marker": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@codemirror/autocomplete": "6.18.4",
 		"@codemirror/commands": "6.7.1",
@@ -59,7 +59,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/code": "^16.0.0",
+		"@atlaskit/code": "workspace:*",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

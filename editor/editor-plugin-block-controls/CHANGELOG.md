@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.4
+
+### Patch Changes
+
+- [#122078](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122078)
+  [`b0ffa0b719b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0ffa0b719b38) -
+  [ux] ED-26811 fixing the copy and paste issue for copy and paste
+- Updated dependencies
+
+## 3.3.3
+
+### Patch Changes
+
+- [#122983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122983)
+  [`ac18d90e27592`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac18d90e27592) -
+  Update transformSourceSlice to search entire slice
+
 ## 3.3.2
 
 ### Patch Changes

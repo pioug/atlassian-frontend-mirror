@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5a98d0fddef0c1de79879968369a6016>>
+ * @codegen <<SignedSource::3936aafd310227c7b7019e93c50879a7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _logOut = _interopRequireDefault(require("@atlaskit/icon/core/log-out"));
 var _signOut = _interopRequireDefault(require("@atlaskit/icon/glyph/sign-out"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LogOutIcon.
  * This component is LogOutIcon, with `UNSAFE_fallbackIcon` set to "SignOutIcon".
  *

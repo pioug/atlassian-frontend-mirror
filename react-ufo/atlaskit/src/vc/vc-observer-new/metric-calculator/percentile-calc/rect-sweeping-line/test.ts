@@ -27,6 +27,7 @@ describe('visualCompletionCalc', () => {
 			orderedEntries,
 			viewport,
 			percentiles: [10, 50, 90],
+			startTime: 0,
 		});
 		expect(checkpoints).toBeDefined();
 
@@ -80,6 +81,7 @@ describe('visualCompletionCalc', () => {
 			orderedEntries,
 			viewport,
 			percentiles: [10, 50, 90, 95, 99, 100],
+			startTime: 0,
 		});
 		expect(checkpoints).toBeDefined();
 

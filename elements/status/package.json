@@ -27,14 +27,14 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/lozenge": "^12.2.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/platform-feature-flags-react": "^0.1.0",
-		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/textfield": "^8.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/lozenge": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/platform-feature-flags-react": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/textfield": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1"
@@ -44,10 +44,10 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "*",
-		"@atlaskit/elements-test-helpers": "^0.9.0",
-		"@atlaskit/visual-regression": "*",
-		"@atlassian/feature-flags-test-utils": "*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/elements-test-helpers": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
+		"@atlassian/feature-flags-test-utils": "workspace:*",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^13.4.0",
 		"enzyme": "^3.10.0",

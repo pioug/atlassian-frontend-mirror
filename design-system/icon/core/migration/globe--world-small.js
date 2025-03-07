@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5c65d2ed9c06e9050fb974ecc02c9958>>
+ * @codegen <<SignedSource::1816955fc70f3b0c91cbf12c45c79425>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _globe = _interopRequireDefault(require("@atlaskit/icon/core/globe"));
 var _worldSmall = _interopRequireDefault(require("@atlaskit/icon/glyph/world-small"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for GlobeIcon.
  * This component is GlobeIcon, with `UNSAFE_fallbackIcon` set to "WorldSmallIcon".
  *

@@ -26,19 +26,19 @@
 		"build-css": "run-ts build/js-to-css.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "*",
-		"@atlaskit/docs": "*",
-		"@atlaskit/link": "*",
-		"@atlaskit/section-message": "*",
-		"@atlassian/ts-loader": "*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/link": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
+		"@atlassian/ts-loader": "workspace:*",
 		"mkdirp": "^0.5.1",
 		"typescript": "~5.4.2"
 	},

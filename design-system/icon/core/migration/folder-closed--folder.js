@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a9acf3d234878182d3f456007f5be086>>
+ * @codegen <<SignedSource::e2f90a428e27c19a23210f4827b99818>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _folderClosed = _interopRequireDefault(require("@atlaskit/icon/core/folder-c
 var _folder = _interopRequireDefault(require("@atlaskit/icon/glyph/folder"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for FolderClosedIcon.
  * This component is FolderClosedIcon, with `UNSAFE_fallbackIcon` set to "FolderIcon".
  *

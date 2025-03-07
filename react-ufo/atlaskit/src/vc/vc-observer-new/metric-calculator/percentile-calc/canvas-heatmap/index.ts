@@ -10,6 +10,7 @@ export default async function calculateTTVCPercentiles({
 	viewport,
 	orderedEntries,
 	percentiles,
+	startTime,
 }: CalcTTVCPercentilesArg): Promise<RevisionPayloadVCDetails> {
 	const canvas = new ViewportCanvas(
 		viewport,
@@ -36,9 +37,10 @@ export default async function calculateTTVCPercentiles({
 
 	// Get pixel counts
 	const timePixelCounts = await canvas.getPixelCounts();
+	const canvasDimenstions = canvas.getScaledDimensions();
+	const totalPixels = canvasDimenstions.width * canvasDimenstions.height;
 
-	const viewportTotalPixels = viewport.width * viewport.height;
-	return calculatePercentiles(timePixelCounts, elementMap, percentiles, viewportTotalPixels);
+	return calculatePercentiles(timePixelCounts, elementMap, percentiles, totalPixels, startTime);
 }
 
 export function calculatePercentiles(
@@ -46,6 +48,7 @@ export function calculatePercentiles(
 	elementMap: ReadonlyMap<DOMHighResTimeStamp, Set<string>>,
 	unorderedPercentiles: number[],
 	totalPixels: number,
+	startTime: DOMHighResTimeStamp,
 ): RevisionPayloadVCDetails {
 	const results: RevisionPayloadVCDetails = {};
 
@@ -69,7 +72,7 @@ export function calculatePercentiles(
 		let matchesAnyCheckpoints = false;
 		while (percentileIndex < percentiles.length && percentCovered >= percentiles[percentileIndex]) {
 			results[`${percentiles[percentileIndex]}`] = {
-				t: Number(time),
+				t: Math.round(Number(time - startTime)),
 				e: Array.from(domElementsBuffer),
 			};
 			percentileIndex++;
@@ -86,11 +89,15 @@ export function calculatePercentiles(
 		}
 	}
 
-	// Fill in any missing percentiles
-	for (const percentile of percentiles) {
+	let previousResult: { t: number; e: string[] } = { t: 0, e: [] };
+	for (let i = 0; i < percentiles.length; i++) {
+		const percentile = percentiles[i];
+
 		if (!(percentile in results)) {
-			results[`${percentile}`] = { t: 0, e: [] };
+			results[`${percentile}`] = previousResult;
 		}
+
+		previousResult = results[`${percentile}`];
 	}
 
 	return results;

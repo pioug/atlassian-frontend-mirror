@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4a0748334c5eee7cae3708e5caccca69>>
+ * @codegen <<SignedSource::d7b9c6249a1eec95e276a40edfd26c3b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _showMoreVertical = _interopRequireDefault(require("@atlaskit/icon/core/show
 var _moreVertical = _interopRequireDefault(require("@atlaskit/icon/glyph/more-vertical"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ShowMoreVerticalIcon.
  * This component is ShowMoreVerticalIcon, with `UNSAFE_fallbackIcon` set to "MoreVerticalIcon".
  *

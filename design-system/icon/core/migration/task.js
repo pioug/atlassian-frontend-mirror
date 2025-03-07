@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::00979895c3ddeaf61ac14f4573e18f5e>>
+ * @codegen <<SignedSource::6235186728ffd6d81eb5818a45d0cd77>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _task = _interopRequireDefault(require("@atlaskit/icon/core/task"));
 var _task2 = _interopRequireDefault(require("@atlaskit/icon/glyph/task"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TaskIcon.
  * This component is TaskIcon, with `UNSAFE_fallbackIcon` set to "TaskIcon".
  *

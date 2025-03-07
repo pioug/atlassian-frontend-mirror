@@ -85,6 +85,7 @@ export type Config = {
 		readonly ssr?: boolean;
 		readonly ssrWhitelist?: string[];
 		readonly stopVCAtInteractionFinish?: boolean;
+		readonly enableVCObserverNew?: boolean;
 	};
 	readonly postInteractionLog?: {
 		readonly enabled?: boolean;

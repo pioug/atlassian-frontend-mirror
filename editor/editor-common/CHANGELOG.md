@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 101.1.2
+
+### Patch Changes
+
+- [#122281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122281)
+  [`8c84e6db9b94f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c84e6db9b94f) -
+  EDF-2539 Updated extension messages.
+
 ## 101.1.1
 
 ### Patch Changes

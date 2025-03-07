@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::451311f56128c8382cddb87d92f1e4ac>>
+ * @codegen <<SignedSource::1201ab50caa951687977050b2b11e97b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _commit = _interopRequireDefault(require("@atlaskit/icon/core/commit"));
 var _commits = _interopRequireDefault(require("@atlaskit/icon/glyph/bitbucket/commits"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CommitIcon.
  * This component is CommitIcon, with `UNSAFE_fallbackIcon` set to "BitbucketCommitsIcon".
  *

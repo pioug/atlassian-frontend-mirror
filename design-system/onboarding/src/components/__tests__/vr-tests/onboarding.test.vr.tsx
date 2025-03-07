@@ -1,9 +1,9 @@
 import { snapshot } from '@af/visual-regression';
 
-import SpotlightTargetTabs from '../../../../examples/105-spotlight-target-tabs';
+import SpotlightTargetHeight from '../../../../examples/104-spotlight-target-height';
 import { SpotlightBasicChildrenFunctionDefaultOpenExample } from '../../../../examples/11-spotlight-basic-children-function';
 
-snapshot(SpotlightTargetTabs, {
+snapshot(SpotlightTargetHeight, {
 	variants: [
 		{
 			name: 'default',

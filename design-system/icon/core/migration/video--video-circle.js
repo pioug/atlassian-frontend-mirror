@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2657455b65981a3ffb405a9c0cc5ee56>>
+ * @codegen <<SignedSource::57df457c194639b2cfde473873fda9b0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _video = _interopRequireDefault(require("@atlaskit/icon/core/video"));
 var _videoCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/video-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VideoIcon.
  * This component is VideoIcon, with `UNSAFE_fallbackIcon` set to "VideoCircleIcon".
  *

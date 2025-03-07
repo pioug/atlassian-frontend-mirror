@@ -6,17 +6,12 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorPlugin } from '@atlaskit/editor-common/types';
-import {
-	WithPluginState,
-	WithPluginStateInner,
-	WithPluginStateOld,
-} from '@atlaskit/editor-common/with-plugin-state';
+import { WithPluginState, WithPluginStateInner } from '@atlaskit/editor-common/with-plugin-state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
@@ -72,62 +67,60 @@ describe(name, () => {
 	});
 
 	describe('WithPluginState', () => {
-		ffTest.both('platform_editor_react18_phase2_v2', 'react 18', () => {
-			it('should call render with current plugin state', () => {
-				const pluginState = {};
-				const plugin = createPlugin(pluginState, pluginKey);
-				const { editorView } = createEditor({
-					doc: doc(p()),
-					editorPlugins: [plugin],
-				});
-				const wrapper = mount(
-					<WithPluginState
-						editorView={editorView}
-						eventDispatcher={eventDispatcher}
-						plugins={{ currentPluginState: pluginKey }}
-						render={({ currentPluginState }) => {
-							expect(currentPluginState).toEqual(pluginState);
-							return null;
-						}}
-					/>,
-				);
-				wrapper.unmount();
-				editorView.destroy();
+		it('should call render with current plugin state', () => {
+			const pluginState = {};
+			const plugin = createPlugin(pluginState, pluginKey);
+			const { editorView } = createEditor({
+				doc: doc(p()),
+				editorPlugins: [plugin],
+			});
+			const wrapper = mount(
+				<WithPluginState
+					editorView={editorView}
+					eventDispatcher={eventDispatcher}
+					plugins={{ currentPluginState: pluginKey }}
+					render={({ currentPluginState }) => {
+						expect(currentPluginState).toEqual(pluginState);
+						return null;
+					}}
+				/>,
+			);
+			wrapper.unmount();
+			editorView.destroy();
+		});
+
+		it('should call render once after changes in several plugins', async () => {
+			const pluginState = {};
+			const plugin = createPlugin(pluginState, pluginKey);
+			const plugin2 = createPlugin(pluginState, pluginKey2);
+			const { editorView } = createEditor({
+				doc: doc(p()),
+				editorPlugins: [plugin, plugin2],
 			});
 
-			it('should call render once after changes in several plugins', async () => {
-				const pluginState = {};
-				const plugin = createPlugin(pluginState, pluginKey);
-				const plugin2 = createPlugin(pluginState, pluginKey2);
-				const { editorView } = createEditor({
-					doc: doc(p()),
-					editorPlugins: [plugin, plugin2],
-				});
+			const renderMock = jest.fn().mockReturnValue(null);
 
-				const renderMock = jest.fn().mockReturnValue(null);
+			const wrapper = mount(
+				<WithPluginState
+					editorView={editorView}
+					eventDispatcher={eventDispatcher}
+					plugins={{ pluginState: pluginKey, plugin2State: pluginKey2 }}
+					render={renderMock}
+				/>,
+			);
 
-				const wrapper = mount(
-					<WithPluginState
-						editorView={editorView}
-						eventDispatcher={eventDispatcher}
-						plugins={{ pluginState: pluginKey, plugin2State: pluginKey2 }}
-						render={renderMock}
-					/>,
-				);
+			await Promise.all([
+				setTimeoutPromise(() => dispatch(pluginKey, {}), 0),
+				setTimeoutPromise(() => dispatch(pluginKey2, {}), 8),
+				setTimeoutPromise(() => dispatch(pluginKey, {}), 5),
+				setTimeoutPromise(() => dispatch(pluginKey, {}), 0),
+				setTimeoutPromise(() => dispatch(pluginKey2, {}), 8),
+				setTimeoutPromise(() => dispatch(pluginKey, {}), 5),
+			]);
 
-				await Promise.all([
-					setTimeoutPromise(() => dispatch(pluginKey, {}), 0),
-					setTimeoutPromise(() => dispatch(pluginKey2, {}), 8),
-					setTimeoutPromise(() => dispatch(pluginKey, {}), 5),
-					setTimeoutPromise(() => dispatch(pluginKey, {}), 0),
-					setTimeoutPromise(() => dispatch(pluginKey2, {}), 8),
-					setTimeoutPromise(() => dispatch(pluginKey, {}), 5),
-				]);
-
-				expect(renderMock.mock.calls.length).toBeLessThanOrEqual(6);
-				wrapper.unmount();
-				editorView.destroy();
-			});
+			expect(renderMock.mock.calls.length).toBeLessThanOrEqual(6);
+			wrapper.unmount();
+			editorView.destroy();
 		});
 
 		it('should support old plugins with subscribe/unsubscribe methods', () => {
@@ -242,55 +235,26 @@ describe(name, () => {
 		editorView.destroy();
 	});
 
-	ffTest.off('platform_editor_react18_phase2_v2', 'react 18', () => {
-		it('should clean all listeners after unmount', () => {
-			const pluginState = {};
-			const plugin = createPlugin(pluginState, pluginKey);
-			const plugin2 = createPlugin(pluginState, pluginKey2);
-			const { editorView } = createEditor({
-				doc: doc(p()),
-				editorPlugins: [plugin, plugin2],
-			});
-			const wrapper = mount(
-				<WithPluginState
-					editorView={editorView}
-					eventDispatcher={eventDispatcher}
-					plugins={{ pluginState: pluginKey, plugin2State: pluginKey2 }}
-					render={() => null}
-				/>,
-			);
-			const wpsInstance = (wrapper.find(WithPluginStateOld) as any).first().instance();
-
-			wrapper.unmount();
-			editorView.destroy();
-			expect(wpsInstance.listeners).toEqual([]);
+	it('should clean all listeners after unmount', () => {
+		const pluginState = {};
+		const plugin = createPlugin(pluginState, pluginKey);
+		const plugin2 = createPlugin(pluginState, pluginKey2);
+		const { editorView } = createEditor({
+			doc: doc(p()),
+			editorPlugins: [plugin, plugin2],
 		});
+		const wrapper = mount(
+			<WithPluginState
+				editorView={editorView}
+				eventDispatcher={eventDispatcher}
+				plugins={{ pluginState: pluginKey, plugin2State: pluginKey2 }}
+				render={() => null}
+			/>,
+		);
+		const wpsInstance = (wrapper.find(WithPluginStateInner) as any).first().instance();
 
-		ffTest.on('platform_editor_react18_phase2_v2', 'react 18', () => {
-			// Ignored via go/ees005
-			// eslint-disable-next-line jest/no-identical-title
-			it('should clean all listeners after unmount', () => {
-				const pluginState = {};
-				const plugin = createPlugin(pluginState, pluginKey);
-				const plugin2 = createPlugin(pluginState, pluginKey2);
-				const { editorView } = createEditor({
-					doc: doc(p()),
-					editorPlugins: [plugin, plugin2],
-				});
-				const wrapper = mount(
-					<WithPluginState
-						editorView={editorView}
-						eventDispatcher={eventDispatcher}
-						plugins={{ pluginState: pluginKey, plugin2State: pluginKey2 }}
-						render={() => null}
-					/>,
-				);
-				const wpsInstance = (wrapper.find(WithPluginStateInner) as any).first().instance();
-
-				wrapper.unmount();
-				editorView.destroy();
-				expect(wpsInstance.listeners).toEqual([]);
-			});
-		});
+		wrapper.unmount();
+		editorView.destroy();
+		expect(wpsInstance.listeners).toEqual([]);
 	});
 });

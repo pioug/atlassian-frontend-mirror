@@ -2,17 +2,23 @@ import React from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
-import { easeIn, easeOut } from '../../../index';
-import { durations } from '../../../utils/durations';
+import { easeIn, easeOut, isReducedMotion } from '../../../index';
+import { durations, exitingDurations } from '../../../utils/durations';
 
-window.matchMedia = (): any => ({ matches: false });
+jest.mock('../../../utils/accessibility');
+
+const duration = 'large';
+
+beforeEach(() => {
+	(isReducedMotion as jest.Mock).mockReturnValue(false);
+});
 
 describe('<KeyframesMotion />', () => {
-	const duration = 'large';
-
 	beforeEach(() => {
 		jest.useRealTimers();
 	});
@@ -190,6 +196,88 @@ describe('<KeyframesMotion />', () => {
 			);
 
 			expect(callback).toHaveBeenCalledWith('entering');
+		});
+
+		it('should call onFinish correctly when appear is true', () => {
+			jest.useFakeTimers();
+
+			const onFinish = jest.fn();
+
+			const { rerender } = render(
+				<ExitingPersistence appear>
+					<KeyframesMotion
+						animationTimingFunction="linear"
+						duration={duration}
+						enteringAnimation="fade-in"
+						onFinish={onFinish}
+					>
+						{(props) => <div {...props} />}
+					</KeyframesMotion>
+				</ExitingPersistence>,
+			);
+
+			expect(onFinish).not.toHaveBeenCalled();
+
+			act(() => {
+				// `onFinish` is called after the entering duration
+				jest.advanceTimersByTime(durations[duration]);
+			});
+
+			expect(onFinish).toHaveBeenCalledTimes(1);
+			expect(onFinish).toHaveBeenCalledWith('entering');
+			onFinish.mockClear();
+
+			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+
+			expect(onFinish).not.toHaveBeenCalled();
+
+			act(() => {
+				// `onFinish` is called after the exiting duration
+				jest.advanceTimersByTime(exitingDurations[duration]);
+			});
+
+			expect(onFinish).toHaveBeenCalledTimes(1);
+			expect(onFinish).toHaveBeenCalledWith('exiting');
+
+			jest.useRealTimers();
+		});
+
+		it('should call onFinish correctly when appear is false', () => {
+			jest.useFakeTimers();
+
+			const onFinish = jest.fn();
+
+			const { rerender } = render(
+				<ExitingPersistence>
+					<KeyframesMotion
+						animationTimingFunction="linear"
+						duration={duration}
+						enteringAnimation="fade-in"
+						onFinish={onFinish}
+					>
+						{(props) => <div {...props} />}
+					</KeyframesMotion>
+				</ExitingPersistence>,
+			);
+
+			// `onFinish` is called immediately because `appear={false}` means there's no entrance animation
+			expect(onFinish).toHaveBeenCalledTimes(1);
+			expect(onFinish).toHaveBeenCalledWith('entering');
+			onFinish.mockClear();
+
+			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+
+			expect(onFinish).not.toHaveBeenCalled();
+
+			act(() => {
+				// `onFinish` is called after the exiting duration
+				jest.advanceTimersByTime(exitingDurations[duration]);
+			});
+
+			expect(onFinish).toHaveBeenCalledTimes(1);
+			expect(onFinish).toHaveBeenCalledWith('exiting');
+
+			jest.useRealTimers();
 		});
 
 		it('should not animate if appear is false', () => {
@@ -377,5 +465,39 @@ describe('<KeyframesMotion />', () => {
 				easeIn.replace(new RegExp(/0\./, 'g'), '.'),
 			);
 		});
+	});
+});
+
+ffTest.on('platform_design_system_motion_on_finish_fix', '<KeyframesMotion />', () => {
+	it('should call onFinish correctly if reduced motion is preferred', () => {
+		(isReducedMotion as jest.Mock).mockReturnValue(true);
+
+		const onFinish = jest.fn();
+
+		const { rerender } = render(
+			<ExitingPersistence>
+				<KeyframesMotion
+					animationTimingFunction="linear"
+					duration={duration}
+					enteringAnimation="fade-in"
+					onFinish={onFinish}
+				>
+					{(props) => <div {...props} />}
+				</KeyframesMotion>
+			</ExitingPersistence>,
+		);
+
+		// onFinish is called immediately because reduced motion disables the animation
+
+		expect(onFinish).toHaveBeenCalledTimes(1);
+		expect(onFinish).toHaveBeenCalledWith('entering');
+		onFinish.mockClear();
+
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+
+		// onFinish is called immediately because reduced motion disables the animation
+
+		expect(onFinish).toHaveBeenCalledTimes(1);
+		expect(onFinish).toHaveBeenCalledWith('exiting');
 	});
 });

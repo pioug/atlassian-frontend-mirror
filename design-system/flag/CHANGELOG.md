@@ -1,5 +1,14 @@
 # @atlaskit/flag
 
+## 16.2.0
+
+### Minor Changes
+
+- [#122900](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122900)
+  [`d8df33a58ab3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8df33a58ab3b) -
+  Updated flag dismiss and expand button to use new icons. This change is behind a feature flag and
+  will be available in a later release.
+
 ## 16.1.3
 
 ### Patch Changes

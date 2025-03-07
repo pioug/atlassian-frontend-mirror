@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28ea7cd93eeb01fb4212071976f0b2ab>>
+ * @codegen <<SignedSource::7c1391bf2d626c511a725dd4b3e57a81>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _snippet = _interopRequireDefault(require("@atlaskit/icon/core/snippet"));
 var _snippets = _interopRequireDefault(require("@atlaskit/icon/glyph/bitbucket/snippets"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for SnippetIcon.
  * This component is SnippetIcon, with `UNSAFE_fallbackIcon` set to "BitbucketSnippetsIcon".
  *

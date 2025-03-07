@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54aa126be3176bdd04095584021cad9d>>
+ * @codegen <<SignedSource::b0b09173036d3d94afd21e9d81369a03>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _expandHorizontal = _interopRequireDefault(require("@atlaskit/icon/core/expa
 var _mediaFullWidth = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/media-full-width"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ExpandHorizontalIcon.
  * This component is ExpandHorizontalIcon, with `UNSAFE_fallbackIcon` set to "EditorMediaFullWidthIcon".
  *

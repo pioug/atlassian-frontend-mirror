@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f90754defff898d22f51f3a9f2ac6881>>
+ * @codegen <<SignedSource::e852199415746d2a6741b9d40035a68b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _undo = _interopRequireDefault(require("@atlaskit/icon/core/undo"));
 var _undo2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/undo"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for UndoIcon.
  * This component is UndoIcon, with `UNSAFE_fallbackIcon` set to "EditorUndoIcon".
  *

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 2.0.3
+
+### Patch Changes
+
+- [#122838](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122838)
+  [`ebcf63371e09c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebcf63371e09c) -
+  ED-26952 Update placeholder text to remove quotes around /
+
 ## 2.0.2
 
 ### Patch Changes

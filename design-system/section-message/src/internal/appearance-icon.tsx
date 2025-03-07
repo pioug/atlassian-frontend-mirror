@@ -1,10 +1,10 @@
 import React, { type ComponentType } from 'react';
 
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import InfoIcon from '@atlaskit/icon/glyph/info';
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import InfoIcon from '@atlaskit/icon/core/migration/information--info';
+import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { B50, B500, G50, G500, P50, P500, R50, R500, Y50, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -36,7 +36,7 @@ const appearanceIconSchema: {
 	},
 	success: {
 		backgroundColor: token('color.background.success', G50),
-		Icon: CheckCircleIcon,
+		Icon: SuccessIcon,
 		primaryIconColor: token('color.icon.success', G500),
 	},
 	discovery: {
@@ -58,9 +58,11 @@ export function getAppearanceIconStyles(appearance: Appearance, icon: SectionMes
 		secondaryColor: string;
 	}) => (
 		<appearanceIconStyles.Icon
-			size={size}
-			primaryColor={primaryColor}
-			secondaryColor={secondaryColor}
+			LEGACY_size={size}
+			color={primaryColor}
+			spacing="spacious"
+			LEGACY_primaryColor={primaryColor}
+			LEGACY_secondaryColor={secondaryColor}
 			label={appearance}
 		/>
 	);

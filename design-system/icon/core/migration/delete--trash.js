@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::be880210657ce77e679877049cf5478c>>
+ * @codegen <<SignedSource::aba66ada45c058f49805b51f0ffb84ff>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _delete = _interopRequireDefault(require("@atlaskit/icon/core/delete"));
 var _trash = _interopRequireDefault(require("@atlaskit/icon/glyph/trash"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DeleteIcon.
  * This component is DeleteIcon, with `UNSAFE_fallbackIcon` set to "TrashIcon".
  *

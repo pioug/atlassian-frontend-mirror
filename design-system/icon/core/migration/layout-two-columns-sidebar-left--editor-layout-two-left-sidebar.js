@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d714267f784dab97fad7e043a67cf6e6>>
+ * @codegen <<SignedSource::aedd54f602e796866e525a13110f0fee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _layoutTwoColumnsSidebarLeft = _interopRequireDefault(require("@atlaskit/ico
 var _layoutTwoLeftSidebar = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/layout-two-left-sidebar"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LayoutTwoColumnsSidebarLeftIcon.
  * This component is LayoutTwoColumnsSidebarLeftIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutTwoLeftSidebarIcon".
  *

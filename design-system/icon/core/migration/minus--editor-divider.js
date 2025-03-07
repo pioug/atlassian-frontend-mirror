@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4672c42339fc6e042990bac4beef63a0>>
+ * @codegen <<SignedSource::9a645c252c53d964ebf8b2c918a4b52b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _minus = _interopRequireDefault(require("@atlaskit/icon/core/minus"));
 var _divider = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/divider"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MinusIcon.
  * This component is MinusIcon, with `UNSAFE_fallbackIcon` set to "EditorDividerIcon".
  *

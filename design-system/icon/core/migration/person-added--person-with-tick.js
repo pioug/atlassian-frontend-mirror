@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::983834d3dd6726b7b917f0ed6313a913>>
+ * @codegen <<SignedSource::beb72c49a3e44f6234eefb2b97451216>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _personAdded = _interopRequireDefault(require("@atlaskit/icon/core/person-ad
 var _personWithTick = _interopRequireDefault(require("@atlaskit/icon/glyph/person-with-tick"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PersonAddedIcon.
  * This component is PersonAddedIcon, with `UNSAFE_fallbackIcon` set to "PersonWithTickIcon".
  *

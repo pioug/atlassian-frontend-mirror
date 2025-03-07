@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dbfae93167a25d090a93adb983df0b8d>>
+ * @codegen <<SignedSource::3a36a65999ae3c13d3a1917b5e2b052e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _error = _interopRequireDefault(require("@atlaskit/icon/core/error"));
 var _error2 = _interopRequireDefault(require("@atlaskit/icon/glyph/error"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ErrorIcon.
  * This component is ErrorIcon, with `UNSAFE_fallbackIcon` set to "ErrorIcon".
  *

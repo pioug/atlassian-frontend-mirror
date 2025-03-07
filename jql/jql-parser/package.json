@@ -40,7 +40,7 @@
 		"antlr4ts": "0.5.0-alpha.4"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "*",
+		"@atlaskit/docs": "workspace:*",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

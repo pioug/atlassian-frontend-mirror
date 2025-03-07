@@ -28,7 +28,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/ssr": "*",
+		"@atlaskit/ssr": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"@types/react-redux": "^5.0.0",
 		"enzyme": "^3.10.0",

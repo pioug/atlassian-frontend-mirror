@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::09c387b144394f62b516938fb5dc0cfb>>
+ * @codegen <<SignedSource::2aef4f04c1f788d70b0bae68a78435e8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _layoutThreeColumnsSidebars = _interopRequireDefault(require("@atlaskit/icon
 var _layoutThreeWithSidebars = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/layout-three-with-sidebars"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LayoutThreeColumnsSidebarsIcon.
  * This component is LayoutThreeColumnsSidebarsIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutThreeWithSidebarsIcon".
  *

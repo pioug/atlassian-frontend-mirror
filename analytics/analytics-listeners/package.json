@@ -43,9 +43,9 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-gas-types": "^5.1.0",
-		"@atlaskit/analytics-namespaced-context": "^7.0.0",
-		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/analytics-gas-types": "workspace:*",
+		"@atlaskit/analytics-namespaced-context": "workspace:*",
+		"@atlaskit/analytics-next": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21"
 	},
@@ -53,7 +53,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/tokens": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"jest-in-case": "^1.0.2",
 		"typescript": "~5.4.2"

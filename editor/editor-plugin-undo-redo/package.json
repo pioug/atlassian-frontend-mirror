@@ -36,14 +36,14 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^101.1.0",
-		"@atlaskit/editor-plugin-history": "^2.0.0",
-		"@atlaskit/editor-plugin-primary-toolbar": "^3.0.0",
-		"@atlaskit/editor-plugin-type-ahead": "^2.1.0",
+		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-plugin-history": "workspace:*",
+		"@atlaskit/editor-plugin-primary-toolbar": "workspace:*",
+		"@atlaskit/editor-plugin-type-ahead": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/platform-feature-flags": "1.1.0",
-		"@atlaskit/tmp-editor-statsig": "^3.4.0",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/tmp-editor-statsig": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62eb6258a59a975e6d08248c6d017236>>
+ * @codegen <<SignedSource::f6068ce094a58d2a4e41058e6491fe82>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _grid = _interopRequireDefault(require("@atlaskit/icon/core/grid"));
 var _table = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/table"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for GridIcon.
  * This component is GridIcon, with `UNSAFE_fallbackIcon` set to "EditorTableIcon".
  *

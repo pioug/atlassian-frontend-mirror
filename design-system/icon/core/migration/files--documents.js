@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6dc1a5b1450546971bd4971237c7fcf0>>
+ * @codegen <<SignedSource::127ac693ef5c387f1bfbc46e9e7afce4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _files = _interopRequireDefault(require("@atlaskit/icon/core/files"));
 var _documents = _interopRequireDefault(require("@atlaskit/icon/glyph/documents"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for FilesIcon.
  * This component is FilesIcon, with `UNSAFE_fallbackIcon` set to "DocumentsIcon".
  *

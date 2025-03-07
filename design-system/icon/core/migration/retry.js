@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8150eb4ee2d363bbc76bb7ed396ccb06>>
+ * @codegen <<SignedSource::6523555332355b1d4aa6bddc8955e159>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _retry = _interopRequireDefault(require("@atlaskit/icon/core/retry"));
 var _retry2 = _interopRequireDefault(require("@atlaskit/icon/glyph/retry"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for RetryIcon.
  * This component is RetryIcon, with `UNSAFE_fallbackIcon` set to "RetryIcon".
  *

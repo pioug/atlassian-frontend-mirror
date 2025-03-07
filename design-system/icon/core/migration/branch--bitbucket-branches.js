@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::251f52ea8d55c820513a2bcc3fef7c51>>
+ * @codegen <<SignedSource::bf5f697d891cc6bba8e40c46639eb125>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _branch = _interopRequireDefault(require("@atlaskit/icon/core/branch"));
 var _branches = _interopRequireDefault(require("@atlaskit/icon/glyph/bitbucket/branches"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BranchIcon.
  * This component is BranchIcon, with `UNSAFE_fallbackIcon` set to "BitbucketBranchesIcon".
  *

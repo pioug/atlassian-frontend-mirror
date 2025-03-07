@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e721c2947e33cb4d29af61cae3c32db2>>
+ * @codegen <<SignedSource::545cceb35ec45eaa251081b0ec9fada0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _link = _interopRequireDefault(require("@atlaskit/icon/core/link"));
 var _linkFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/link-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LinkIcon.
  * This component is LinkIcon, with `UNSAFE_fallbackIcon` set to "LinkFilledIcon".
  *

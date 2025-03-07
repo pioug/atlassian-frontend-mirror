@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::572be7e200b1e431ad0b7312491ee3c7>>
+ * @codegen <<SignedSource::cc97c7eaf507670d91e48ca2520caf63>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _volumeHigh = _interopRequireDefault(require("@atlaskit/icon/core/volume-hig
 var _outgoingSound = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/outgoing-sound"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VolumeHighIcon.
  * This component is VolumeHighIcon, with `UNSAFE_fallbackIcon` set to "HipchatOutgoingSoundIcon".
  *

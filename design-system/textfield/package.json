@@ -25,10 +25,10 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
@@ -36,14 +36,14 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "*",
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/codemod-utils": "^4.2.3",
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
-		"@atlassian/feature-flags-test-utils": "*",
+		"@af/accessibility-testing": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/codemod-utils": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
+		"@atlassian/feature-flags-test-utils": "workspace:*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"jscodeshift": "^0.13.0",

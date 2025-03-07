@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9b5ce5fb8cdaa9db0232f26f0605faaa>>
+ * @codegen <<SignedSource::aad52e9dcb072191e5185d04bd1632ae>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _shrinkDiagonal = _interopRequireDefault(require("@atlaskit/icon/core/shrink
 var _vidFullScreenOff = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-full-screen-off"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ShrinkDiagonalIcon.
  * This component is ShrinkDiagonalIcon, with `UNSAFE_fallbackIcon` set to "VidFullScreenOffIcon".
  *

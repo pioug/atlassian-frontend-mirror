@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fadf8272c4914ed4349f03b15a40b7eb>>
+ * @codegen <<SignedSource::a3faab1bcefe19c563b672d584f3c7fc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _issues = _interopRequireDefault(require("@atlaskit/icon/core/issues"));
 var _issues2 = _interopRequireDefault(require("@atlaskit/icon/glyph/issues"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for IssuesIcon.
  * This component is IssuesIcon, with `UNSAFE_fallbackIcon` set to "IssuesIcon".
  *

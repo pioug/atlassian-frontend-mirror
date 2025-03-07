@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::264ac321241afa1359b6585d31dcfeca>>
+ * @codegen <<SignedSource::45d9bf27ffeb5d881b5052e3ac923680>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _videoPause = _interopRequireDefault(require("@atlaskit/icon/core/video-paus
 var _vidPause = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-pause"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VideoPauseIcon.
  * This component is VideoPauseIcon, with `UNSAFE_fallbackIcon` set to "VidPauseIcon".
  *

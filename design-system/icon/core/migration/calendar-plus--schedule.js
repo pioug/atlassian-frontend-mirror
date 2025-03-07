@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3fa4e7f620bbaf495e0a5835f8458d13>>
+ * @codegen <<SignedSource::7f56e12a01e9ee7263ad677be6a80715>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _calendarPlus = _interopRequireDefault(require("@atlaskit/icon/core/calendar
 var _schedule = _interopRequireDefault(require("@atlaskit/icon/glyph/schedule"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CalendarPlusIcon.
  * This component is CalendarPlusIcon, with `UNSAFE_fallbackIcon` set to "ScheduleIcon".
  *

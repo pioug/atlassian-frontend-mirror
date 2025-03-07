@@ -483,10 +483,10 @@ const setGapCursorAfterTable =
 	};
 
 const isSelectionAtStartOfTable = ($pos: ResolvedPos, selection: Selection) =>
-	isSelectionAtStartOfNode($pos, findTable(selection));
+	isSelectionAtStartOfNode($pos, findTable(selection)?.node);
 
 const isSelectionAtEndOfTable = ($pos: ResolvedPos, selection: Selection) =>
-	isSelectionAtEndOfNode($pos, findTable(selection));
+	isSelectionAtEndOfNode($pos, findTable(selection)?.node);
 
 export const shiftArrowUpFromTable =
 	(editorSelectionAPI: ExtractInjectionAPI<typeof tablePlugin>['selection'] | undefined) =>

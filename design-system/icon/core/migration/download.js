@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::37f28b4661c3f10f3f040a6e37c48b91>>
+ * @codegen <<SignedSource::647640fe09afef5813e2888b2ce1f074>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _download = _interopRequireDefault(require("@atlaskit/icon/core/download"));
 var _download2 = _interopRequireDefault(require("@atlaskit/icon/glyph/download"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DownloadIcon.
  * This component is DownloadIcon, with `UNSAFE_fallbackIcon` set to "DownloadIcon".
  *

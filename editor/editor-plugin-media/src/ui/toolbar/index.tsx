@@ -37,7 +37,6 @@ import type {
 	FloatingToolbarConfig,
 	FloatingToolbarDropdown,
 	FloatingToolbarItem,
-	FloatingToolbarSeparator,
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
@@ -976,14 +975,12 @@ export const floatingToolbar = (
 		);
 	}
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		if (items.length) {
-			if (items[items.length - 1].type === 'separator') {
-				const separatorItem = items[items.length - 1] as unknown as FloatingToolbarSeparator;
-				separatorItem.fullHeight = true;
-			} else {
-				items.push({ type: 'separator', fullHeight: true });
-			}
+	if (!mediaPluginState.isResizing && editorExperiment('platform_editor_controls', 'variant1')) {
+		const lastItem = items.at(-1);
+		if (lastItem?.type === 'separator') {
+			lastItem.fullHeight = true;
+		} else if (items.length) {
+			items.push({ type: 'separator', fullHeight: true });
 		}
 
 		const altTextTitle = intl.formatMessage(altTextMessages.addAltText);

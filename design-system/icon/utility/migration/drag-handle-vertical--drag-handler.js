@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::982da6b8d9fa048cb33c2c4e5a671523>>
+ * @codegen <<SignedSource::773d3e284dd6aa2dffd7def63d4a5183>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _dragHandleVertical = _interopRequireDefault(require("@atlaskit/icon/utility
 var _dragHandler = _interopRequireDefault(require("@atlaskit/icon/glyph/drag-handler"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DragHandleVerticalIcon.
  * This component is DragHandleVerticalIcon, with `UNSAFE_fallbackIcon` set to "DragHandlerIcon".
  *

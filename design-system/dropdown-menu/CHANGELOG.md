@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 13.0.2
+
+### Patch Changes
+
+- [#120592](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/120592)
+  [`1a5daeece05cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a5daeece05cf) -
+  Fixes bugs with keyboard navigation in dropdown menu
+- Updated dependencies
+
 ## 13.0.1
 
 ### Patch Changes

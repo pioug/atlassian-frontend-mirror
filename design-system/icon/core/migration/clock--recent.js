@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c36c948061cfe7a8e3b9d4fa62c29819>>
+ * @codegen <<SignedSource::271d2db9eb5cbaef3f993286190920ae>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _clock = _interopRequireDefault(require("@atlaskit/icon/core/clock"));
 var _recent = _interopRequireDefault(require("@atlaskit/icon/glyph/recent"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ClockIcon.
  * This component is ClockIcon, with `UNSAFE_fallbackIcon` set to "RecentIcon".
  *

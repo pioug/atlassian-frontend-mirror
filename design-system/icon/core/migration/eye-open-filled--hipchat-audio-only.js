@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::da1697ebf50ca101c664091c18b83c0d>>
+ * @codegen <<SignedSource::39216e061d51a19cc80ff7e1ff420d19>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _eyeOpenFilled = _interopRequireDefault(require("@atlaskit/icon/core/eye-ope
 var _audioOnly = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/audio-only"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for EyeOpenFilledIcon.
  * This component is EyeOpenFilledIcon, with `UNSAFE_fallbackIcon` set to "HipchatAudioOnlyIcon".
  *

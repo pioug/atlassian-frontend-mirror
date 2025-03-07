@@ -303,6 +303,9 @@ const buildDataResponse = ({
 					due: {
 						data: item.due,
 					},
+					projectId: {
+						data: item.project.id,
+					},
 					...(item.labels?.length && {
 						labels: {
 							data: item.labels.map((label) => ({ text: label })),

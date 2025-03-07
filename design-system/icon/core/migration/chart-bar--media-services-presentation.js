@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b76701fdeded2ed2baf8d7b2cda2dab9>>
+ * @codegen <<SignedSource::856a9abd2f2917165082d78a9be3e71c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _chartBar = _interopRequireDefault(require("@atlaskit/icon/core/chart-bar"))
 var _presentation = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/presentation"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ChartBarIcon.
  * This component is ChartBarIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesPresentationIcon".
  *

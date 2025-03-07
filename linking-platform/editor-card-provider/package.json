@@ -36,18 +36,18 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-platform": "2.4.2",
-		"@atlaskit/feature-gate-js-client": "^4.26.0",
-		"@atlaskit/link-client-extension": "^4.0.0",
-		"@atlaskit/link-extractors": "^2.0.0",
-		"@atlaskit/linking-common": "^8.0.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/eslint-plugin-platform": "workspace:*",
+		"@atlaskit/feature-gate-js-client": "workspace:*",
+		"@atlaskit/link-client-extension": "workspace:*",
+		"@atlaskit/link-extractors": "workspace:*",
+		"@atlaskit/linking-common": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"dataloader": "^2.1.0",
 		"json-ld-types": "^4.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^2.0.0",
+		"@atlaskit/link-provider": "workspace:*",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {

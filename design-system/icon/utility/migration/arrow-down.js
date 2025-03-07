@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a38e033507f7a6dc2b7e68df97f57017>>
+ * @codegen <<SignedSource::87c9e8d5968864ded4a50032b17f4598>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _arrowDown = _interopRequireDefault(require("@atlaskit/icon/utility/arrow-do
 var _arrowDown2 = _interopRequireDefault(require("@atlaskit/icon/glyph/arrow-down"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ArrowDownIcon.
  * This component is ArrowDownIcon, with `UNSAFE_fallbackIcon` set to "ArrowDownIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0182fb09e286a7917aeaab9efe27d4ce>>
+ * @codegen <<SignedSource::6e97139806ccf4544d24fa036cbca8b4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _home = _interopRequireDefault(require("@atlaskit/icon/core/home"));
 var _homeCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/home-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for HomeIcon.
  * This component is HomeIcon, with `UNSAFE_fallbackIcon` set to "HomeCircleIcon".
  *

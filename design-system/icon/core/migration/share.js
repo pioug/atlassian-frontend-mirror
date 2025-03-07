@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::238da1d3f1c6691c40bb15e631a6cdbf>>
+ * @codegen <<SignedSource::eddb3c8fd23121248d7a9663e3c0819a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _share = _interopRequireDefault(require("@atlaskit/icon/core/share"));
 var _share2 = _interopRequireDefault(require("@atlaskit/icon/glyph/share"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ShareIcon.
  * This component is ShareIcon, with `UNSAFE_fallbackIcon` set to "ShareIcon".
  *

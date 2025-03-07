@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c9714253d1f9e1fd3a56c8dfee615acc>>
+ * @codegen <<SignedSource::b2e57669c87530c5340ec27ddd546c9d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _basketball = _interopRequireDefault(require("@atlaskit/icon/core/basketball
 var _activity = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/activity"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for BasketballIcon.
  * This component is BasketballIcon, with `UNSAFE_fallbackIcon` set to "EmojiActivityIcon".
  *

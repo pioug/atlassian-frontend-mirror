@@ -10,7 +10,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { captionMessages as messages } from '@atlaskit/editor-common/media';
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -52,31 +51,12 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, CaptionPlace
 
 		// This issue is a temporary fix for users being able to edit captions on edge browsers. This will be removed
 		// replaced with CaptionPlaceholderButton in the near future and this code can be removed.
-		if (fg('platform_editor_fix_edit_caption_on_edge')) {
-			return (
-				// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-				<span
-					ref={ref}
-					css={placeholder}
-					onPointerDown={handlePointerDown}
-					data-id={CAPTION_PLACEHOLDER_ID}
-					data-testid="caption-placeholder"
-				>
-					<FormattedMessage
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...computedPlaceholderMessage}
-					/>
-				</span>
-			);
-		}
-
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<span
 				ref={ref}
 				css={placeholder}
-				onClick={onClick}
+				onPointerDown={handlePointerDown}
 				data-id={CAPTION_PLACEHOLDER_ID}
 				data-testid="caption-placeholder"
 			>

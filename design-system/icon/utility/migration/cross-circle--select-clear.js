@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35e97232317682a60395e2ccf8df4ad7>>
+ * @codegen <<SignedSource::7da2857c3151a92889bed61f5baa1334>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _crossCircle = _interopRequireDefault(require("@atlaskit/icon/utility/cross-
 var _selectClear = _interopRequireDefault(require("@atlaskit/icon/glyph/select-clear"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CrossCircleIcon.
  * This component is CrossCircleIcon, with `UNSAFE_fallbackIcon` set to "SelectClearIcon".
  *

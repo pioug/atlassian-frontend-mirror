@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.5
+
+### Patch Changes
+
+- [#122997](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122997)
+  [`791cc6fffe214`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/791cc6fffe214) -
+  Cleanup FF platform_editor_fix_edit_caption_on_edge
+- [#122924](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122924)
+  [`cf36dece8da78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf36dece8da78) -
+  [ED-26945] Hide overflow menu when resizing media single
+
 ## 2.3.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7362f1539ca2a546dc19a8921f3140fa>>
+ * @codegen <<SignedSource::3ad6c224e2ac1634ed0d868071ff5295>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _minimize = _interopRequireDefault(require("@atlaskit/icon/core/minimize"));
 var _fitToPage = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/fit-to-page"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MinimizeIcon.
  * This component is MinimizeIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesFitToPageIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1e8d2a6756a30a76ab457b82712673bd>>
+ * @codegen <<SignedSource::e6ef8ee7f23189fbc608dca6aab19d53>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _grid = _interopRequireDefault(require("@atlaskit/icon/core/grid"));
 var _table = _interopRequireDefault(require("@atlaskit/icon/glyph/table"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for GridIcon.
  * This component is GridIcon, with `UNSAFE_fallbackIcon` set to "TableIcon".
  *

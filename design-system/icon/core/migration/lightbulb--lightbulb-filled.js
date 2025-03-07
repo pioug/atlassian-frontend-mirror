@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::433aa16357608bee9b35c8f2701348cf>>
+ * @codegen <<SignedSource::0ddb2a0e6c8a33d7611a427658d95f19>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _lightbulb = _interopRequireDefault(require("@atlaskit/icon/core/lightbulb")
 var _lightbulbFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/lightbulb-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LightbulbIcon.
  * This component is LightbulbIcon, with `UNSAFE_fallbackIcon` set to "LightbulbFilledIcon".
  *

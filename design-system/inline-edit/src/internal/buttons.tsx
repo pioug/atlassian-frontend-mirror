@@ -8,8 +8,9 @@
 import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import ConfirmIcon from '@atlaskit/icon/glyph/check';
 import CancelIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/utility/cross';
+import CheckMarkIcon from '@atlaskit/icon/utility/migration/check-mark--check';
 import { B400, N0, N20A, N30A, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -66,7 +67,7 @@ const Buttons = ({
 			<div css={buttonWrapperBaseStyles} tabIndex={-1}>
 				<IconButton
 					type="submit"
-					icon={(iconProps) => <ConfirmIcon {...iconProps} size="small" />}
+					icon={(iconProps) => <CheckMarkIcon {...iconProps} LEGACY_size="small" />}
 					onMouseDown={onMouseDown}
 					label={confirmButtonLabel}
 					testId={testId && `${testId}--confirm`}
@@ -74,7 +75,9 @@ const Buttons = ({
 			</div>
 			<div css={buttonWrapperBaseStyles} tabIndex={-1}>
 				<IconButton
-					icon={(iconProps) => <CancelIcon {...iconProps} size="small" />}
+					icon={(iconProps) => (
+						<CrossIcon {...iconProps} LEGACY_size="small" LEGACY_fallbackIcon={CancelIcon} />
+					)}
 					label={cancelButtonLabel}
 					onClick={onCancelClick}
 					onMouseDown={onMouseDown}
@@ -85,4 +88,5 @@ const Buttons = ({
 	);
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Buttons;

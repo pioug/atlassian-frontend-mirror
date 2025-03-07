@@ -1,5 +1,16 @@
 # @atlaskit/motion
 
+## 5.1.0
+
+### Minor Changes
+
+- [#121186](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121186)
+  [`ee09118dbb2b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee09118dbb2b5) -
+  We are testing a bug fix behind the `platform_design_system_motion_on_finish_fix` feature gate. If
+  this fix is successful it will be available in a later release.
+
+  This fix ensures that the exiting `onFinish` is called even when reduced motion is enabled.
+
 ## 5.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5f50c4cd55787140328acbc8b112e91>>
+ * @codegen <<SignedSource::25091e321a5cc356e731192d00270521>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _shrinkHorizontal = _interopRequireDefault(require("@atlaskit/icon/core/shri
 var _collapse = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/collapse"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ShrinkHorizontalIcon.
  * This component is ShrinkHorizontalIcon, with `UNSAFE_fallbackIcon` set to "EditorCollapseIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d7337f40decced4fdc07aaafc99a093a>>
+ * @codegen <<SignedSource::3cbbd0d6d1aaac61ee97089092149436>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _emoji = _interopRequireDefault(require("@atlaskit/icon/core/emoji"));
 var _emoji2 = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for EmojiIcon.
  * This component is EmojiIcon, with `UNSAFE_fallbackIcon` set to "EmojiIcon".
  *

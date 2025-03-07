@@ -1,5 +1,14 @@
 # @atlaskit/inline-edit
 
+## 15.1.0
+
+### Minor Changes
+
+- [#122932](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122932)
+  [`76112befc0645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76112befc0645) -
+  Updated error validation icon, confirm button, and cancel button to use new icons. This change is
+  behind a feature flag and will be available in a later release.
+
 ## 15.0.2
 
 ### Patch Changes

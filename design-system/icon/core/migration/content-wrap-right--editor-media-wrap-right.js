@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::55a7f1c09c25653217ff074c79cc9853>>
+ * @codegen <<SignedSource::1283f126053160b70e8a99c12d2de470>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _contentWrapRight = _interopRequireDefault(require("@atlaskit/icon/core/cont
 var _mediaWrapRight = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/media-wrap-right"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ContentWrapRightIcon.
  * This component is ContentWrapRightIcon, with `UNSAFE_fallbackIcon` set to "EditorMediaWrapRightIcon".
  *

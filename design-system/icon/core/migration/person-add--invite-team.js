@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::30ee2b534a2bec180cbfd88b8e0511fa>>
+ * @codegen <<SignedSource::0c28ad36bcbed963277bba2e64773578>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _personAdd = _interopRequireDefault(require("@atlaskit/icon/core/person-add"
 var _inviteTeam = _interopRequireDefault(require("@atlaskit/icon/glyph/invite-team"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PersonAddIcon.
  * This component is PersonAddIcon, with `UNSAFE_fallbackIcon` set to "InviteTeamIcon".
  *

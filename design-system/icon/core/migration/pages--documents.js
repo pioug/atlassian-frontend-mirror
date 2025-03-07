@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3f1c968e106a306cd78d2d6baca8a9b7>>
+ * @codegen <<SignedSource::c9b9cd277a5f67bd48c0d2d43a0af7c5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _pages = _interopRequireDefault(require("@atlaskit/icon/core/pages"));
 var _documents = _interopRequireDefault(require("@atlaskit/icon/glyph/documents"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PagesIcon.
  * This component is PagesIcon, with `UNSAFE_fallbackIcon` set to "DocumentsIcon".
  *

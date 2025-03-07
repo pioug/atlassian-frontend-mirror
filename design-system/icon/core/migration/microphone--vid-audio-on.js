@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::760758e58700ead1cd1fda6e8ec1f17c>>
+ * @codegen <<SignedSource::4bda06c6db3de4863c0c25c4b4f94bda>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _microphone = _interopRequireDefault(require("@atlaskit/icon/core/microphone
 var _vidAudioOn = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-audio-on"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for MicrophoneIcon.
  * This component is MicrophoneIcon, with `UNSAFE_fallbackIcon` set to "VidAudioOnIcon".
  *

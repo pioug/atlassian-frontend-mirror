@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::533264e8d378d9dea8e09b6bc0ed1d47>>
+ * @codegen <<SignedSource::ac8ee7dfd9e5ca9b5d73c3de75009b06>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _flag = _interopRequireDefault(require("@atlaskit/icon/core/flag"));
 var _flags = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/flags"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for FlagIcon.
  * This component is FlagIcon, with `UNSAFE_fallbackIcon` set to "EmojiFlagsIcon".
  *

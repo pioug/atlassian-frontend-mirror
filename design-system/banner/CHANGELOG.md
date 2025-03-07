@@ -1,5 +1,23 @@
 # @atlaskit/banner
 
+## 14.0.0
+
+### Major Changes
+
+- [#122255](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122255)
+  [`63035cd95a9b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63035cd95a9b6) -
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR.Please note, in order to
+  use this version of `@atlaskit/banner`, you will need to ensure that your bundler is configured to
+  handle `.css` imports correctly.
+
+  Most bundlers come with built-in support for `.css` imports, so you may notneed to do anything. If
+  you are using a different bundler, please refer to the documentation for that bundler to
+  understand how to handle `.css` imports.
+
+  For more information on the migration,please refer to
+  [RFC-73 Migrating our components toCompiledCSS-in-JS](https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/859)
+
 ## 13.0.1
 
 ### Patch Changes

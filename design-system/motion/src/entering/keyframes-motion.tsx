@@ -3,6 +3,9 @@ import React, { type Ref, useEffect, useState } from 'react';
 import { ClassNames, keyframes } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { isReducedMotion } from '../utils/accessibility';
 import { type Durations, durations, exitingDurations } from '../utils/durations';
 import { useSetTimeout } from '../utils/timer-hooks';
 
@@ -248,19 +251,33 @@ const EnteringMotion = ({
 			return;
 		}
 
+		/**
+		 * Updates relevant state.
+		 * Called when the animation is finished, or immediately with reduced motion.
+		 */
+		const onAnimationEnd = () => {
+			if (state === 'exiting') {
+				// Updates the `ExitingPersistence` to remove this child
+				onExitFinished?.();
+			}
+			if (!isCancelled) {
+				setHasAnimationStyles(false);
+			}
+			onFinishMotion?.(state);
+		};
+
+		if (isReducedMotion() && fg('platform_design_system_motion_on_finish_fix')) {
+			// If there is reduced motion there is no exit animation, so call this immediately
+			onAnimationEnd();
+			return;
+		}
+
 		// Elements may need animation styles back after initial mount (they could animate out)
 		setHasAnimationStyles(true);
 
+		// Queue `onAnimationEnd` for after the animation has finished
 		setTimeout(
-			() => {
-				if (state === 'exiting') {
-					onExitFinished && onExitFinished();
-				}
-				if (!isCancelled) {
-					setHasAnimationStyles(false);
-				}
-				onFinishMotion && onFinishMotion(state);
-			},
+			onAnimationEnd,
 			isExiting ? exitingDurations[duration] : durations[duration] + delay,
 		);
 

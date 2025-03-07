@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 35.2.1
+
+### Patch Changes
+
+- [#123000](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123000)
+  [`3caca201fd851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3caca201fd851) -
+  [ux] Update embed card title to truncate
+- Updated dependencies
+
 ## 35.2.0
 
 ### Minor Changes

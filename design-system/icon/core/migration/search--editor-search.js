@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::96a381bb462d74e92d39bb265721c443>>
+ * @codegen <<SignedSource::bd994b90fa78030d2d1c292998636115>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _search = _interopRequireDefault(require("@atlaskit/icon/core/search"));
 var _search2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/search"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for SearchIcon.
  * This component is SearchIcon, with `UNSAFE_fallbackIcon` set to "EditorSearchIcon".
  *

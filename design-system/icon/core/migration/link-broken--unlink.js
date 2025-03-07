@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8f4bcbf3be79d58e8d29c69c413da605>>
+ * @codegen <<SignedSource::f974263d6792e563f31a788c1da2025e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _linkBroken = _interopRequireDefault(require("@atlaskit/icon/core/link-broke
 var _unlink = _interopRequireDefault(require("@atlaskit/icon/glyph/unlink"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LinkBrokenIcon.
  * This component is LinkBrokenIcon, with `UNSAFE_fallbackIcon` set to "UnlinkIcon".
  *

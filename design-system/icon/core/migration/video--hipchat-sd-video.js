@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d7c297bfc282c7156b5606237c5f61c7>>
+ * @codegen <<SignedSource::e2e5a584e92aacb04861a3dbb1297d0a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _video = _interopRequireDefault(require("@atlaskit/icon/core/video"));
 var _sdVideo = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/sd-video"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VideoIcon.
  * This component is VideoIcon, with `UNSAFE_fallbackIcon` set to "HipchatSdVideoIcon".
  *

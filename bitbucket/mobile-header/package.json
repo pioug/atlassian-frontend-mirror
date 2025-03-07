@@ -36,10 +36,10 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0"
 	},

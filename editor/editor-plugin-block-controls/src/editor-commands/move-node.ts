@@ -56,15 +56,50 @@ import {
 function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null {
 	const srcNode = nodeCopy.content.firstChild;
 	const schema = srcNode?.type.schema;
-	if (srcNode && schema) {
+	if (fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+		if (!schema) {
+			return nodeCopy;
+		}
+
 		const { doc, layoutColumn } = schema.nodes;
-		if (srcNode.type === schema.nodes.nestedExpand && [doc, layoutColumn].includes(destType)) {
-			return transformSliceNestedExpandToExpand(nodeCopy, schema);
-		} else if (srcNode.type === schema.nodes.expand && isInsideTable(destType)) {
+		const destTypeInTable = isInsideTable(destType);
+		const destTypeInDocOrLayoutCol = [doc, layoutColumn].includes(destType);
+
+		// No need to loop over slice content if destination requires no transformations
+		if (!destTypeInTable && !destTypeInDocOrLayoutCol) {
+			return nodeCopy;
+		}
+
+		let containsExpand = false;
+		let containsNestedExpand = false;
+
+		for (let i = 0; i < nodeCopy.content.childCount; i++) {
+			const node = nodeCopy.content.child(i);
+			if (node.type === schema.nodes.expand) {
+				containsExpand = true;
+			} else if (node.type === schema.nodes.nestedExpand) {
+				containsNestedExpand = true;
+			}
+			if (containsExpand && containsNestedExpand) {
+				break;
+			}
+		}
+
+		if (containsExpand && destTypeInTable) {
 			return transformSliceExpandToNestedExpand(nodeCopy);
+		} else if (containsNestedExpand && destTypeInDocOrLayoutCol) {
+			return transformSliceNestedExpandToExpand(nodeCopy, schema);
+		}
+	} else {
+		if (srcNode && schema) {
+			const { doc, layoutColumn } = schema.nodes;
+			if (srcNode.type === schema.nodes.nestedExpand && [doc, layoutColumn].includes(destType)) {
+				return transformSliceNestedExpandToExpand(nodeCopy, schema);
+			} else if (srcNode.type === schema.nodes.expand && isInsideTable(destType)) {
+				return transformSliceExpandToNestedExpand(nodeCopy);
+			}
 		}
 	}
-
 	return nodeCopy;
 }
 

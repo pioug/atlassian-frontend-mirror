@@ -51,8 +51,8 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.15.1",
 		"exenv": "^1.2.2",

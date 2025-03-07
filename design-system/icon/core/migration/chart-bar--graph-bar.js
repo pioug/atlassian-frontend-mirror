@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3d92fed5a956f7f7b093cb4ccc85cf73>>
+ * @codegen <<SignedSource::11aab62d49f71f052487ab6cf09d42c7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _chartBar = _interopRequireDefault(require("@atlaskit/icon/core/chart-bar"))
 var _graphBar = _interopRequireDefault(require("@atlaskit/icon/glyph/graph-bar"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ChartBarIcon.
  * This component is ChartBarIcon, with `UNSAFE_fallbackIcon` set to "GraphBarIcon".
  *

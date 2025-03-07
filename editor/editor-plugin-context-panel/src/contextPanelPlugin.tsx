@@ -74,6 +74,8 @@ export const contextPanelPlugin: ContextPanelPlugin = ({ config }) => ({
 			config?.objectSideBar.showPanel(panel, behavior, panelWidth),
 		closePanel: () =>
 			fg('platform_editor_ai_object_sidebar_injection') && config?.objectSideBar.closePanel(),
+		closePanelById: (id: ObjectSidebarPanel['id']) =>
+			fg('platform_editor_ai_object_sidebar_injection') && config?.objectSideBar.closePanelById(id),
 	},
 
 	getSharedState(state) {

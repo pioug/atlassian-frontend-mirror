@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.0.1
+
+### Patch Changes
+
+- [#123010](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123010)
+  [`de55801631775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de55801631775) -
+  [ux] Move copy/delete to overflow menu on editor floating toolbar
+- Updated dependencies
+
+## 5.0.0
+
+### Major Changes
+
+- [#122281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122281)
+  [`8c84e6db9b94f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c84e6db9b94f) -
+  EDF-2539 Integrated object sidebar api through context-panel plugin in extensions to show panel.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

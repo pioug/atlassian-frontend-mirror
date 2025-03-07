@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f22867da679f273f8c81c37eef954a39>>
+ * @codegen <<SignedSource::95953690df38ef00a14db2c04a212acb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _feedback = _interopRequireDefault(require("@atlaskit/icon/core/feedback"));
 var _feedback2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/feedback"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for FeedbackIcon.
  * This component is FeedbackIcon, with `UNSAFE_fallbackIcon` set to "EditorFeedbackIcon".
  *

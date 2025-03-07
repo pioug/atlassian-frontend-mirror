@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3be954ea5d070f5903d5961389b0e8fb>>
+ * @codegen <<SignedSource::82e1d157ecf30f62ef37497818841c29>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _chartTrend = _interopRequireDefault(require("@atlaskit/icon/core/chart-tren
 var _graphLine = _interopRequireDefault(require("@atlaskit/icon/glyph/graph-line"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ChartTrendIcon.
  * This component is ChartTrendIcon, with `UNSAFE_fallbackIcon` set to "GraphLineIcon".
  *

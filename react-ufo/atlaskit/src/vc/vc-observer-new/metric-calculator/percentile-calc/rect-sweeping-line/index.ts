@@ -28,10 +28,12 @@ export default async function calculateTTVCPercentiles({
 	orderedEntries,
 	viewport,
 	percentiles,
+	startTime,
 }: {
 	orderedEntries: ReadonlyArray<VCObserverEntry>;
 	viewport: Viewport;
 	percentiles: number[];
+	startTime: DOMHighResTimeStamp;
 }): Promise<CheckpointMetrics> {
 	const sortedPercentiles = [...percentiles].sort((a, b) => a - b);
 
@@ -78,7 +80,10 @@ export default async function calculateTTVCPercentiles({
 				break;
 			}
 			matchesAnyCheckpoints = true;
-			checkpoints[checkpoint.toString()] = { t: iEntry.time, e: domElements };
+			checkpoints[checkpoint.toString()] = {
+				t: Math.round(iEntry.time - startTime),
+				e: domElements,
+			};
 		}
 		if (matchesAnyCheckpoints) {
 			domElementsBuffer.clear();

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f8b40ebf56d985476af6f9e7714790ce>>
+ * @codegen <<SignedSource::0e24268a7eaaa36d7bfcec709102a47c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _image = _interopRequireDefault(require("@atlaskit/icon/core/image"));
 var _image2 = _interopRequireDefault(require("@atlaskit/icon/glyph/image"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ImageIcon.
  * This component is ImageIcon, with `UNSAFE_fallbackIcon` set to "ImageIcon".
  *

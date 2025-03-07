@@ -3,8 +3,12 @@ export type {
 	StackBarChartProps,
 	HorizontalStackBarChartProps,
 	HorizontalBarChartProps,
+	TBarChart,
+	TStackBarChart,
+	THorizontalStackBarChart,
+	THorizontalBarChart,
 } from './BarChartProps';
 
-export type { LineChartProps } from './LineChartProps';
-export type { SingleValueChartProps } from './SingleValueChartProps';
-export type { PieChartProps } from './PieChartProps';
+export type { LineChartProps, TLineChart } from './LineChartProps';
+export type { SingleValueChartProps, TSingleValueChart } from './SingleValueChartProps';
+export type { PieChartProps, TPieChart } from './PieChartProps';

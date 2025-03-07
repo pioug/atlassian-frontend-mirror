@@ -19,6 +19,8 @@ import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+import { HelpLink } from './HelpLink';
+
 const iconWidth = 40;
 const buttonWidth = 40;
 const margin = 16;
@@ -103,11 +105,6 @@ type Props = {
 	icon: Icon;
 	onClose: () => void;
 } & WrappedComponentProps;
-
-type HelpLinkProps = {
-	documentationUrl: string;
-	label: string;
-};
 
 const Header = ({
 	icon,
@@ -204,19 +201,6 @@ const Header = ({
 				</Box>
 			)}
 		</Fragment>
-	);
-};
-
-const HelpLink = ({ documentationUrl, label }: HelpLinkProps) => {
-	return (
-		<a
-			target="_blank"
-			rel="noopener noreferrer"
-			href={documentationUrl}
-			data-testid="config-panel-header-documentation-link"
-		>
-			{label}
-		</a>
 	);
 };
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::841308ba6652e6cadc5b4034b5d91cc4>>
+ * @codegen <<SignedSource::055bb4246985020ce80cbdca4337036d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _alignTextRight = _interopRequireDefault(require("@atlaskit/icon/core/align-
 var _alignRight = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/align-right"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AlignTextRightIcon.
  * This component is AlignTextRightIcon, with `UNSAFE_fallbackIcon` set to "EditorAlignRightIcon".
  *

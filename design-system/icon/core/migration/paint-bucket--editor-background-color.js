@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::74446a62dfb685bbffb3d59752960be5>>
+ * @codegen <<SignedSource::b7b72e4cfb1948d4b5694556923ff149>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _paintBucket = _interopRequireDefault(require("@atlaskit/icon/core/paint-buc
 var _backgroundColor = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/background-color"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PaintBucketIcon.
  * This component is PaintBucketIcon, with `UNSAFE_fallbackIcon` set to "EditorBackgroundColorIcon".
  *

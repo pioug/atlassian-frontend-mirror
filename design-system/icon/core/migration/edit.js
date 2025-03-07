@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c0bc716a0db7d939b06b255b25c2b388>>
+ * @codegen <<SignedSource::631c9d525a923bb24b78f7aa2d70d92c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _edit = _interopRequireDefault(require("@atlaskit/icon/core/edit"));
 var _edit2 = _interopRequireDefault(require("@atlaskit/icon/glyph/edit"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for EditIcon.
  * This component is EditIcon, with `UNSAFE_fallbackIcon` set to "EditIcon".
  *

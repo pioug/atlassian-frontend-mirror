@@ -1,22 +1,18 @@
-import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { GapCursorSelection } from './gap-cursor/selection';
 
-export const isSelectionAtStartOfNode = (
-	$pos: ResolvedPos,
-	parentNode?: ContentNodeWithPos,
-): boolean => {
+export const isSelectionAtStartOfNode = ($pos: ResolvedPos, parentNode?: PMNode): boolean => {
 	if (!parentNode) {
 		return false;
 	}
 
 	for (let i = $pos.depth + 1; i > 0; i--) {
 		const node = $pos.node(i);
-		if (node && node.eq(parentNode.node)) {
+		if (node && node.eq(parentNode)) {
 			break;
 		}
 
@@ -28,17 +24,14 @@ export const isSelectionAtStartOfNode = (
 	return true;
 };
 
-export const isSelectionAtEndOfNode = (
-	$pos: ResolvedPos,
-	parentNode?: ContentNodeWithPos,
-): boolean => {
+export const isSelectionAtEndOfNode = ($pos: ResolvedPos, parentNode?: PMNode): boolean => {
 	if (!parentNode) {
 		return false;
 	}
 
 	for (let i = $pos.depth + 1; i > 0; i--) {
 		const node = $pos.node(i);
-		if (node && node.eq(parentNode.node)) {
+		if (node && node.eq(parentNode)) {
 			break;
 		}
 

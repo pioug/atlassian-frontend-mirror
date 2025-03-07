@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::02890be5f23657a8a5ae0b5d4c17a673>>
+ * @codegen <<SignedSource::e476e34ec44b4dd59a1269a5572f39d6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _teams = _interopRequireDefault(require("@atlaskit/icon/core/teams"));
 var _teams2 = _interopRequireDefault(require("@atlaskit/icon/glyph/teams"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TeamsIcon.
  * This component is TeamsIcon, with `UNSAFE_fallbackIcon` set to "TeamsIcon".
  *

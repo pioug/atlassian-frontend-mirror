@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b1e1a64477d8a2bd9bfaf4f0ba07f64c>>
+ * @codegen <<SignedSource::c497053ca61be2fbd5bc61c8cdd1bddc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _video = _interopRequireDefault(require("@atlaskit/icon/core/video"));
 var _videoFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/video-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VideoIcon.
  * This component is VideoIcon, with `UNSAFE_fallbackIcon` set to "VideoFilledIcon".
  *

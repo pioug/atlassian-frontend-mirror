@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::192f7412af00f14160cc90a70d93c4da>>
+ * @codegen <<SignedSource::61b69757778da2d771dbef5df6aae1a3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _department = _interopRequireDefault(require("@atlaskit/icon/core/department
 var _department2 = _interopRequireDefault(require("@atlaskit/icon/glyph/department"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DepartmentIcon.
  * This component is DepartmentIcon, with `UNSAFE_fallbackIcon` set to "DepartmentIcon".
  *

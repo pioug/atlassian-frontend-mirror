@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35cf7698fe185c1be1b9fc5617f3936c>>
+ * @codegen <<SignedSource::30577ec4e1eb084dbdbe0787dd497bd1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _zoomOut = _interopRequireDefault(require("@atlaskit/icon/core/zoom-out"));
 var _zoomOut2 = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/zoom-out"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ZoomOutIcon.
  * This component is ZoomOutIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesZoomOutIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e7890d384aee58b0e8964318b3fb508f>>
+ * @codegen <<SignedSource::dc42c676c93bbd8ebbafcf12a5b740f7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _eyeOpenFilled = _interopRequireDefault(require("@atlaskit/icon/core/eye-ope
 var _watchFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/watch-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for EyeOpenFilledIcon.
  * This component is EyeOpenFilledIcon, with `UNSAFE_fallbackIcon` set to "WatchFilledIcon".
  *

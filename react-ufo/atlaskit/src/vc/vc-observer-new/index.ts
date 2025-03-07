@@ -19,8 +19,6 @@ const DEFAULT_SELECTOR_CONFIG = {
 };
 
 export default class VCObserverNew {
-	startTime = 0;
-
 	private selectorConfig: SelectorConfig;
 	private viewportObserver: ViewportObserver | null = null;
 	private windowEventObserver: WindowEventObserver | null = null;
@@ -69,9 +67,10 @@ export default class VCObserverNew {
 		});
 	}
 
-	start() {
+	start({ startTime }: { startTime: DOMHighResTimeStamp }) {
 		this.viewportObserver?.start();
 		this.windowEventObserver?.start();
+		this.entriesTimeline.clear();
 	}
 
 	stop() {
@@ -88,6 +87,8 @@ export default class VCObserverNew {
 		const orderedEntries = this.entriesTimeline.getOrderedEntries({ start, stop });
 		const fy25_03 = await calculator_fy25_03.calculate({
 			orderedEntries,
+			startTime: start,
+			stopTime: stop,
 		});
 		if (fy25_03) {
 			results.push(fy25_03);

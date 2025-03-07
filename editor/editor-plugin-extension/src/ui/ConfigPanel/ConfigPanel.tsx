@@ -29,10 +29,12 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import Form, { FormFooter } from '@atlaskit/form';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 
 import { ALLOWED_LOGGED_MACRO_PARAMS } from './constants';
+import { DescriptionSummary } from './DescriptionSummary';
 import ErrorMessage from './ErrorMessage';
 import FormContent from './FormContent';
 import { FormErrorBoundary } from './FormErrorBoundary';
@@ -386,6 +388,10 @@ class ConfigPanel extends React.Component<Props, State> {
 
 	// memoized to prevent rerender on new parameters
 	renderHeader = memoizeOne((extensionManifest: ExtensionManifest) => {
+		// If below FG is true then Header will be rendered separately
+		if (fg('platform_editor_ai_object_sidebar_injection')) {
+			return null;
+		}
 		const { onCancel, showHeader } = this.props;
 
 		// Use a temporary allowlist of top 3 macros to test out a new "Documentation" CTA ("Need help?")
@@ -484,6 +490,9 @@ class ConfigPanel extends React.Component<Props, State> {
 										data-testid="extension-config-panel"
 									>
 										{this.renderHeader(extensionManifest)}
+										{fg('platform_editor_ai_object_sidebar_injection') && (
+											<DescriptionSummary extensionManifest={extensionManifest} />
+										)}
 										<ConfigFormIntlWithBoundary
 											api={api}
 											canSave={false}

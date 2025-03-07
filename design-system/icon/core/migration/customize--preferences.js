@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f0471165b1411c9e3d53c4e3bf136cbc>>
+ * @codegen <<SignedSource::59e43c1f00fcc95f49aa5b3733f7f372>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _customize = _interopRequireDefault(require("@atlaskit/icon/core/customize")
 var _preferences = _interopRequireDefault(require("@atlaskit/icon/glyph/preferences"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CustomizeIcon.
  * This component is CustomizeIcon, with `UNSAFE_fallbackIcon` set to "PreferencesIcon".
  *

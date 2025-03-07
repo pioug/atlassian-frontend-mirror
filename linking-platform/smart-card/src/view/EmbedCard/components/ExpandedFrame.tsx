@@ -319,6 +319,7 @@ const styles = cssMap({
 	header: {
 		display: 'flex',
 		alignItems: 'center',
+		font: token('font.heading.xsmall'),
 		height: '20px',
 		gap: token('space.050'),
 		zIndex: 1,
@@ -328,11 +329,16 @@ const styles = cssMap({
 	},
 	headerAnchor: {
 		font: token('font.heading.xsmall'),
+		display: 'block',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
 		'&:hover': {
 			textDecoration: 'none',
 		},
 	},
 	headerIcon: {
+		font: token('font.heading.xsmall'),
 		width: '16px',
 		height: '16px',
 	},

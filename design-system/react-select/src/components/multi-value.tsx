@@ -260,7 +260,7 @@ const MultiValue = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	const { children, components, data, innerProps, isDisabled, removeProps, selectProps } = props;
 
 	const { Container, Label, Remove } = components;
-
+	const ariaLabel = typeof children === 'string' ? children : (data as { label?: string }).label;
 	return (
 		<Container
 			data={data}
@@ -290,7 +290,7 @@ const MultiValue = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 					...getStyleProps(props, 'multiValueRemove', {
 						'multi-value__remove': true,
 					}),
-					'aria-label': `Remove ${children || 'option'}`,
+					'aria-label': `Remove ${ariaLabel || 'option'}`,
 					...removeProps,
 				}}
 				isDisabled={isDisabled}

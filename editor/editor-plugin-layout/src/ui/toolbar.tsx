@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 
@@ -13,6 +13,7 @@ import type {
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
+	FloatingToolbarCopyButton,
 	FloatingToolbarItem,
 	FloatingToolbarSeparator,
 	Icon,
@@ -20,6 +21,7 @@ import type {
 import { type NodeType, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LayoutOneColumnIcon from '@atlaskit/icon/core/layout-one-column';
 import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';
@@ -251,20 +253,12 @@ const getAdvancedLayoutItems = ({
 					buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
 				)
 			: []),
-		separator,
-		{
-			type: 'copy-button',
-			items: [
-				{
-					state,
-					formatMessage: intl.formatMessage,
-					nodeType,
-				},
-			],
-		},
-		separator,
-		deleteButton,
 	] as FloatingToolbarItem<Command>[];
+};
+
+const fullHeightSeparator: FloatingToolbarSeparator = {
+	type: 'separator',
+	fullHeight: true,
 };
 
 export const buildToolbar = (
@@ -305,8 +299,39 @@ export const buildToolbar = (
 			tabIndex: null,
 		};
 
-		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
+		const copyButton: FloatingToolbarCopyButton = {
+			type: 'copy-button',
+			items: [
+				{
+					state,
+					formatMessage: intl.formatMessage,
+					nodeType,
+				},
+			],
+		};
 
+		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
+		const overflowMenu: FloatingToolbarItem<Command> = {
+			type: 'overflow-dropdown',
+			options: [
+				{
+					title: 'Copy',
+					onClick: () => {
+						api?.core?.actions.execute(
+							// @ts-ignore
+							api?.floatingToolbar?.commands.copyNode(nodeType),
+						);
+						return true;
+					},
+					icon: <CopyIcon label="Copy" />,
+				},
+				{
+					title: 'Delete',
+					onClick: deleteActiveLayoutNode(editorAnalyticsAPI),
+					icon: <DeleteIcon label="Delete" />,
+				},
+			],
+		};
 		return {
 			title: layoutToolbarTitle,
 			// Ignored via go/ees005
@@ -314,41 +339,34 @@ export const buildToolbar = (
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
 			nodeType,
 			groupLabel: intl.formatMessage(toolbarMessages.floatingToolbarRadioGroupAriaLabel),
-			items: editorExperiment('advanced_layouts', true)
-				? getAdvancedLayoutItems({
-						addSidebarLayouts,
-						intl,
-						editorAnalyticsAPI,
-						state,
-						nodeType,
-						node,
-						separator,
-						deleteButton,
-						currentLayout,
-					})
-				: [
-						...layoutTypes.map((i) =>
-							buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
-						),
-						...(addSidebarLayouts
-							? SIDEBAR_LAYOUT_TYPES.map((i) =>
-									buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
-								)
-							: []),
-						separator,
-						{
-							type: 'copy-button',
-							items: [
-								{
-									state,
-									formatMessage: intl.formatMessage,
-									nodeType,
-								},
-							],
-						},
-						separator,
-						deleteButton,
-					],
+			items: [
+				...(editorExperiment('advanced_layouts', true)
+					? getAdvancedLayoutItems({
+							addSidebarLayouts,
+							intl,
+							editorAnalyticsAPI,
+							state,
+							nodeType,
+							node,
+							separator,
+							deleteButton,
+							currentLayout,
+						})
+					: [
+							...layoutTypes.map((i) =>
+								buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+							),
+							...(addSidebarLayouts
+								? SIDEBAR_LAYOUT_TYPES.map((i) =>
+										buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+									)
+								: []),
+						]),
+
+				...(editorExperiment('platform_editor_controls', 'variant1')
+					? [fullHeightSeparator, overflowMenu]
+					: [separator, copyButton, separator, deleteButton]),
+			],
 			scrollable: true,
 		};
 	}

@@ -8,7 +8,7 @@ import {
 describe('transformPermissions', () => {
 	it('should return true for jira and confluence when write permissions are granted', () => {
 		const permissions: ProductPermissionsResponse[] = [
-			{ resourceId: 'ari:cloud:jira-software::site/123', permissionId: 'write', permitted: true },
+			{ resourceId: 'ari:cloud:jira::site/123', permissionId: 'write', permitted: true },
 			{ resourceId: 'ari:cloud:confluence::site/123', permissionId: 'write', permitted: true },
 		];
 
@@ -22,7 +22,7 @@ describe('transformPermissions', () => {
 
 	it('should return true for jira and confluence when permissions are granted', () => {
 		const permissions: ProductPermissionsResponse[] = [
-			{ resourceId: 'ari:cloud:jira-software::site/123', permissionId: 'read', permitted: true },
+			{ resourceId: 'ari:cloud:jira::site/123', permissionId: 'read', permitted: true },
 			{ resourceId: 'ari:cloud:confluence::site/123', permissionId: 'write', permitted: true },
 		];
 
@@ -36,7 +36,7 @@ describe('transformPermissions', () => {
 
 	it('should return false for jira and confluence when permissions are not granted', () => {
 		const permissions: ProductPermissionsResponse[] = [
-			{ resourceId: 'ari:cloud:jira-software::site/123', permissionId: 'write', permitted: false },
+			{ resourceId: 'ari:cloud:jira::site/123', permissionId: 'write', permitted: false },
 			{ resourceId: 'ari:cloud:confluence::site/123', permissionId: 'write', permitted: false },
 		];
 
@@ -50,7 +50,7 @@ describe('transformPermissions', () => {
 
 	it('should return true for jira and false for confluence when only jira permission is granted', () => {
 		const permissions: ProductPermissionsResponse[] = [
-			{ resourceId: 'ari:cloud:jira-software::site/123', permissionId: 'write', permitted: true },
+			{ resourceId: 'ari:cloud:jira::site/123', permissionId: 'write', permitted: true },
 			{ resourceId: 'ari:cloud:confluence::site/123', permissionId: 'write', permitted: false },
 		];
 
@@ -64,7 +64,7 @@ describe('transformPermissions', () => {
 
 	it('should return false for jira and true for confluence when only confluence permission is granted', () => {
 		const permissions: ProductPermissionsResponse[] = [
-			{ resourceId: 'ari:cloud:jira-software::site/123', permitted: false, permissionId: 'write' },
+			{ resourceId: 'ari:cloud:jira::site/123', permitted: false, permissionId: 'write' },
 			{
 				resourceId: 'ari:cloud:confluence::site/123',
 				permitted: true,
@@ -97,7 +97,7 @@ describe('getProductPermissionRequestBody', () => {
 			},
 			{
 				permissionId: 'manage',
-				resourceId: `ari:cloud:jira-software::site/${cloudId}`,
+				resourceId: `ari:cloud:jira::site/${cloudId}`,
 				principalId: `ari:cloud:identity::user/${userId}`,
 				dontRequirePrincipalInSite: true,
 			},
@@ -109,7 +109,7 @@ describe('getProductPermissionRequestBody', () => {
 			},
 			{
 				permissionId: 'write',
-				resourceId: `ari:cloud:jira-software::site/${cloudId}`,
+				resourceId: `ari:cloud:jira::site/${cloudId}`,
 				principalId: `ari:cloud:identity::user/${userId}`,
 				dontRequirePrincipalInSite: true,
 			},

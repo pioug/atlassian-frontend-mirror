@@ -1,5 +1,22 @@
 # @atlaskit/forge-react-types
 
+## 0.37.10
+
+### Patch Changes
+
+- [#123531](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123531)
+  [`661b1bc0352d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/661b1bc0352d1) -
+  Exposing UIKit JSDoc enabled chart component types
+- Updated dependencies
+
+## 0.37.9
+
+### Patch Changes
+
+- [#123324](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123324)
+  [`f5904f3eb2d35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5904f3eb2d35) -
+  Export UI Kit Component types for Charts with JSDoc comments
+
 ## 0.37.8
 
 ### Patch Changes

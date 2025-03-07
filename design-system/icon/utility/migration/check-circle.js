@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c14d4c40918182a1213f3d0a91b9ef90>>
+ * @codegen <<SignedSource::ba2be23a763af0dd882f4e155fe8ed18>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _checkCircle = _interopRequireDefault(require("@atlaskit/icon/utility/check-
 var _checkCircle2 = _interopRequireDefault(require("@atlaskit/icon/glyph/check-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CheckCircleIcon.
  * This component is CheckCircleIcon, with `UNSAFE_fallbackIcon` set to "CheckCircleIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eeb8c01a0386c41e7072d5a671a292df>>
+ * @codegen <<SignedSource::cbfaa58603b784789054dd0f73c52c8d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _appSwitcher = _interopRequireDefault(require("@atlaskit/icon/core/app-switc
 var _switcher = _interopRequireDefault(require("@atlaskit/icon/glyph/switcher"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AppSwitcherIcon.
  * This component is AppSwitcherIcon, with `UNSAFE_fallbackIcon` set to "SwitcherIcon".
  *

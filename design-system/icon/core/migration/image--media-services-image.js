@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ab1f207c4846b42cc9389dabe002f1a1>>
+ * @codegen <<SignedSource::98815763e481f2aa4aa65617875b9055>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _image = _interopRequireDefault(require("@atlaskit/icon/core/image"));
 var _image2 = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/image"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ImageIcon.
  * This component is ImageIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesImageIcon".
  *

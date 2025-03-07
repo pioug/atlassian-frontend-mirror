@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.1.2
+
+### Patch Changes
+
+- [#123010](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123010)
+  [`de55801631775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de55801631775) -
+  [ux] Move copy/delete to overflow menu on editor floating toolbar
+
 ## 2.1.1
 
 ### Patch Changes

@@ -17,7 +17,9 @@ const items: LozengeItem[] = [
 export default () => (
 	<VRTestWrapper>
 		<SmartCardProvider>
-			<LozengeActionItemsGroup items={items} />
+			<div role="menu">
+				<LozengeActionItemsGroup items={items} />
+			</div>
 		</SmartCardProvider>
 	</VRTestWrapper>
 );

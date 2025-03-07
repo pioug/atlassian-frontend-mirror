@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b989d27dd80defd532e98f9428628e41>>
+ * @codegen <<SignedSource::fde28e4aa4639b3a4377ab3dfdb022d1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _flagFilled = _interopRequireDefault(require("@atlaskit/icon/core/flag-fille
 var _flagFilled2 = _interopRequireDefault(require("@atlaskit/icon/glyph/flag-filled"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for FlagFilledIcon.
  * This component is FlagFilledIcon, with `UNSAFE_fallbackIcon` set to "FlagFilledIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b06a0a52e1f7985e59148ed411e0ad32>>
+ * @codegen <<SignedSource::05c090b0e76fbcf68581735a3f815639>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _phone = _interopRequireDefault(require("@atlaskit/icon/core/phone"));
 var _dialOut = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/dial-out"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PhoneIcon.
  * This component is PhoneIcon, with `UNSAFE_fallbackIcon` set to "HipchatDialOutIcon".
  *

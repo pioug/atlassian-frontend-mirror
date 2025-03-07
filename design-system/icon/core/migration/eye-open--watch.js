@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::660b18a2880a1d1a461f27f3fa7b8a86>>
+ * @codegen <<SignedSource::a052784e02c39e1ef8b9f184efeeb6e4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _eyeOpen = _interopRequireDefault(require("@atlaskit/icon/core/eye-open"));
 var _watch = _interopRequireDefault(require("@atlaskit/icon/glyph/watch"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for EyeOpenIcon.
  * This component is EyeOpenIcon, with `UNSAFE_fallbackIcon` set to "WatchIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ae359e837304aea8c9a875eda3212033>>
+ * @codegen <<SignedSource::be71f279f35779048bef8bef01210035>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _tree = _interopRequireDefault(require("@atlaskit/icon/core/tree"));
 var _nature = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/nature"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for TreeIcon.
  * This component is TreeIcon, with `UNSAFE_fallbackIcon` set to "EmojiNatureIcon".
  *

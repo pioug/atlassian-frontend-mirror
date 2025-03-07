@@ -41,8 +41,8 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags-react": "^0.1.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/platform-feature-flags-react": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1",
@@ -52,9 +52,9 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "*",
-		"@atlaskit/elements-test-helpers": "^0.9.0",
-		"@atlassian/feature-flags-test-utils": "^0.3.0",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/elements-test-helpers": "workspace:*",
+		"@atlassian/feature-flags-test-utils": "workspace:*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",

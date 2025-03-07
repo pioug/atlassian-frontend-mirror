@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63997df4be32691d0a723cac2e10cd71>>
+ * @codegen <<SignedSource::7a544a05e86bbf31f13f90bd164583a1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _creditCard = _interopRequireDefault(require("@atlaskit/icon/core/credit-car
 var _creditcard = _interopRequireDefault(require("@atlaskit/icon/glyph/creditcard"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CreditCardIcon.
  * This component is CreditCardIcon, with `UNSAFE_fallbackIcon` set to "CreditcardIcon".
  *

@@ -114,6 +114,8 @@ export interface LinkSearchListProps
 	id?: string;
 	hasSearchTerm?: boolean;
 	activePlugin?: LinkPickerPlugin;
+	/** Because we don't use the DST TabPanels component, tabPanelId is needed to set the correct aria-controls for a11y. */
+	tabPanelId?: string;
 }
 
 export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
@@ -135,6 +137,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			activePlugin,
 			adaptiveHeight,
 			className,
+			tabPanelId,
 			...restProps
 		},
 		ref,
@@ -195,11 +198,19 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			if (!hasSearchTerm) {
 				const emptyState = activePlugin?.emptyStateNoResults?.();
 				if (emptyState) {
-					return <div css={styles.emptyStateNoResultsWrapper}>{emptyState}</div>;
+					return (
+						<div id={tabPanelId} css={styles.emptyStateNoResultsWrapper}>
+							{emptyState}
+						</div>
+					);
 				}
 			}
 
-			return <NoResults />;
+			return (
+				<div id={tabPanelId}>
+					<NoResults />
+				</div>
+			);
 		}
 
 		const listItemNameMaxLines = activePlugin?.uiOptions?.listItemNameMaxLines;
@@ -274,7 +285,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			<div ref={ref} css={listContainerStyles} className={className} {...restProps}>
+			<div id={tabPanelId} ref={ref} css={listContainerStyles} className={className} {...restProps}>
 				{itemsContent}
 				{loadingContent}
 			</div>

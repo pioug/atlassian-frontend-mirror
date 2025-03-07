@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cccfef41693edf1b8ce9f2dcb781a3d3>>
+ * @codegen <<SignedSource::542b8587e912458cb1fe6aa28ca83d10>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _archiveBox = _interopRequireDefault(require("@atlaskit/icon/core/archive-bo
 var _archive = _interopRequireDefault(require("@atlaskit/icon/glyph/archive"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ArchiveBoxIcon.
  * This component is ArchiveBoxIcon, with `UNSAFE_fallbackIcon` set to "ArchiveIcon".
  *

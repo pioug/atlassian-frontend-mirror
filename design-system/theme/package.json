@@ -25,17 +25,17 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/codemod-utils": "workspace:*",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",

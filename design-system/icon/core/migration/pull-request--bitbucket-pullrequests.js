@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1784662d857d82de82cdf68670c31525>>
+ * @codegen <<SignedSource::0df86e9f58670341f0be02decae626a5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _pullRequest = _interopRequireDefault(require("@atlaskit/icon/core/pull-requ
 var _pullrequests = _interopRequireDefault(require("@atlaskit/icon/glyph/bitbucket/pullrequests"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PullRequestIcon.
  * This component is PullRequestIcon, with `UNSAFE_fallbackIcon` set to "BitbucketPullrequestsIcon".
  *

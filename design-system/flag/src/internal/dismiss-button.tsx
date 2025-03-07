@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
+import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
 import { Pressable, xcss } from '@atlaskit/primitives';
 
 import { flagTextColorToken } from '../theme';
@@ -37,7 +37,7 @@ const DismissButtonComponent = ({
 	isExpanded,
 	testId,
 }: DismissButtonProps) => {
-	let ButtonIcon = CrossIcon;
+	let ButtonIcon = CloseIcon;
 	let buttonLabel = 'Dismiss';
 
 	let size: 'small' | 'medium' = 'small';
@@ -58,7 +58,12 @@ const DismissButtonComponent = ({
 			testId={buttonTestId}
 			aria-label={buttonLabel}
 		>
-			<ButtonIcon label="" size={size} primaryColor={flagTextColorToken[appearance]} />
+			<ButtonIcon
+				label=""
+				LEGACY_size={size}
+				LEGACY_primaryColor={flagTextColorToken[appearance]}
+				color={flagTextColorToken[appearance]}
+			/>
 		</Pressable>
 	);
 };

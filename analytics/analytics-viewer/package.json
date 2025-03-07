@@ -29,8 +29,8 @@
 		"access": "private"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"styled-components": "^3.2.6"
 	},

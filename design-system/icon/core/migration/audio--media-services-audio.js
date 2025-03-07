@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a36149ace7a447f7f63c9f1ced46daf8>>
+ * @codegen <<SignedSource::686e2bf885aaeb8f5dfa350d07fcbd6b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _audio = _interopRequireDefault(require("@atlaskit/icon/core/audio"));
 var _audio2 = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/audio"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for AudioIcon.
  * This component is AudioIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesAudioIcon".
  *

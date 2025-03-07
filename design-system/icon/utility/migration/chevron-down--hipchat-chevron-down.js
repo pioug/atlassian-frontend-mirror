@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7026b6097ab19088955c98f9452b76e9>>
+ * @codegen <<SignedSource::d03c6653983b99c648f0774c0bc3810c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _chevronDown = _interopRequireDefault(require("@atlaskit/icon/utility/chevro
 var _chevronDown2 = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/chevron-down"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ChevronDownIcon.
  * This component is ChevronDownIcon, with `UNSAFE_fallbackIcon` set to "HipchatChevronDownIcon".
  *

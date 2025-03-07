@@ -29,8 +29,8 @@
 		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^4.0.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/ds-lib": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
 		"tiny-invariant": "^1.2.0"
@@ -39,8 +39,8 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/modal-dialog": "^13.0.0",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/modal-dialog": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
@@ -76,7 +76,7 @@
 		}
 	},
 	"platform-feature-flags": {
-		"plan_timeline_layering_wrapper": {
+		"layering-top-level-use-array": {
 			"type": "boolean"
 		}
 	}

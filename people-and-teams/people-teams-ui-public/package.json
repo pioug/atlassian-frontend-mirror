@@ -39,11 +39,11 @@
 		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^24.1.0",
-		"@atlaskit/legacy-custom-icons": "^0.22.0",
-		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/tokens": "^4.3.0",
-		"@atlaskit/tooltip": "^20.0.0",
+		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/legacy-custom-icons": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/tooltip": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -52,10 +52,10 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"react-dom": "^18.2.0",

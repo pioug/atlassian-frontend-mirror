@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::41e644f429ebc31608f0aa82f694b308>>
+ * @codegen <<SignedSource::1f586aab487d20d6e22a2b29e7419237>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _layoutOneColumn = _interopRequireDefault(require("@atlaskit/icon/core/layou
 var _layoutSingle = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/layout-single"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LayoutOneColumnIcon.
  * This component is LayoutOneColumnIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutSingleIcon".
  *

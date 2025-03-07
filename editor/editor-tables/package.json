@@ -28,8 +28,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/tmp-editor-statsig": "^3.4.0",
+		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/tmp-editor-statsig": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"techstack": {

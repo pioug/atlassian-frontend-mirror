@@ -39,7 +39,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -47,13 +47,13 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "*",
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/button": "^21.1.0",
-		"@atlaskit/docs": "*",
-		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/textfield": "^8.0.0",
+		"@af/accessibility-testing": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/button": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/textfield": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

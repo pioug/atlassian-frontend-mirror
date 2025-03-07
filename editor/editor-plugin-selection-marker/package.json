@@ -34,15 +34,15 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^101.1.0",
-		"@atlaskit/editor-plugin-editor-disabled": "^2.0.0",
-		"@atlaskit/editor-plugin-focus": "^1.5.0",
-		"@atlaskit/editor-plugin-type-ahead": "^2.1.0",
+		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-plugin-editor-disabled": "workspace:*",
+		"@atlaskit/editor-plugin-focus": "workspace:*",
+		"@atlaskit/editor-plugin-type-ahead": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
-		"@atlaskit/primitives": "^14.1.0",
-		"@atlaskit/theme": "^18.0.0",
-		"@atlaskit/tokens": "^4.3.0",
+		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/theme": "workspace:*",
+		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"lodash": "^4.17.21"
@@ -52,10 +52,10 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/ssr": "workspace:*",
+		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

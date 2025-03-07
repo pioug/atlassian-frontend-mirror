@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ef49bd16ec94baf831952fb7911ca099>>
+ * @codegen <<SignedSource::3b31c44090aaef867aaef7692fca9a50>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _page = _interopRequireDefault(require("@atlaskit/icon/core/page"));
 var _document = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/document"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for PageIcon.
  * This component is PageIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesDocumentIcon".
  *

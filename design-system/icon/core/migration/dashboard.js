@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::21ca9175cdab5c0d0acfbb353d0fb4b9>>
+ * @codegen <<SignedSource::7183201509c40b5c08006bcaf851f797>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _dashboard = _interopRequireDefault(require("@atlaskit/icon/core/dashboard")
 var _dashboard2 = _interopRequireDefault(require("@atlaskit/icon/glyph/dashboard"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for DashboardIcon.
  * This component is DashboardIcon, with `UNSAFE_fallbackIcon` set to "DashboardIcon".
  *

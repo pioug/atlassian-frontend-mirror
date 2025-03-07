@@ -12,6 +12,10 @@ const EXCLUDED_PACKAGES = [
 	'@atlaskit/dummy-pkg-a',
 	'@atlaskit/dummy-pkg-b',
 	'@atlassian/dummy-pkg-c',
+	'@atlaskit/react-select',
+	'@atlassian/search-client',
+	'@atlassian/search-page',
+	'@atlassian/data-classification-level',
 ];
 
 /**

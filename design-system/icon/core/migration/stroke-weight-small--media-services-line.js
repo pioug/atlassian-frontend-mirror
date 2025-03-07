@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7939c8f3fdd07450329c48be10d24e3c>>
+ * @codegen <<SignedSource::696a579fbbc7f724d5a9cca4586343d0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _strokeWeightSmall = _interopRequireDefault(require("@atlaskit/icon/core/str
 var _line = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/line"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for StrokeWeightSmallIcon.
  * This component is StrokeWeightSmallIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesLineIcon".
  *

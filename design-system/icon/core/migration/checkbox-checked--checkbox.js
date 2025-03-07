@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8460b4a4853dc0252dfb00d13b13bde7>>
+ * @codegen <<SignedSource::271b576a30c118b0a1b715abd2a4dab1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _checkboxChecked = _interopRequireDefault(require("@atlaskit/icon/core/check
 var _checkbox = _interopRequireDefault(require("@atlaskit/icon/glyph/checkbox"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CheckboxCheckedIcon.
  * This component is CheckboxCheckedIcon, with `UNSAFE_fallbackIcon` set to "CheckboxIcon".
  *

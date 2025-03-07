@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6e403e3a5feb1bf1bbd2fbfda662020c>>
+ * @codegen <<SignedSource::d5db5debf34e76a8ad809bb3a247e273>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _layoutTwoColumns = _interopRequireDefault(require("@atlaskit/icon/core/layo
 var _layoutTwoEqual = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/layout-two-equal"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for LayoutTwoColumnsIcon.
  * This component is LayoutTwoColumnsIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutTwoEqualIcon".
  *

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9fcee7f74c07d89e15f85ecbe185ed53>>
+ * @codegen <<SignedSource::da6815f1e303f26a4e473874c26eef5d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _cloudArrowUp = _interopRequireDefault(require("@atlaskit/icon/core/cloud-ar
 var _upload = _interopRequireDefault(require("@atlaskit/icon/glyph/upload"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for CloudArrowUpIcon.
  * This component is CloudArrowUpIcon, with `UNSAFE_fallbackIcon` set to "UploadIcon".
  *

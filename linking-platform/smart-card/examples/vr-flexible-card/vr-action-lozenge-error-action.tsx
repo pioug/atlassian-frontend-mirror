@@ -10,7 +10,9 @@ const TEXT_ERROR_MESSAGE = 'Custom error message for VR test';
 export default () => (
 	<VRTestWrapper>
 		<SmartCardProvider>
-			<LozengeActionError errorMessage={TEXT_ERROR_MESSAGE} />
+			<div role="menu">
+				<LozengeActionError errorMessage={TEXT_ERROR_MESSAGE} />
+			</div>
 		</SmartCardProvider>
 	</VRTestWrapper>
 );

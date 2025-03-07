@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::04389093055c0f926d7644170caf8459>>
+ * @codegen <<SignedSource::ef3c287fd1ecc2180854973691d76a75>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _chevronRight = _interopRequireDefault(require("@atlaskit/icon/utility/chevr
 var _chevronRightCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/chevron-right-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for ChevronRightIcon.
  * This component is ChevronRightIcon, with `UNSAFE_fallbackIcon` set to "ChevronRightCircleIcon".
  *

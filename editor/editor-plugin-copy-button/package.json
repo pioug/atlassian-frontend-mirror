@@ -34,11 +34,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^101.1.0",
-		"@atlaskit/editor-plugin-analytics": "^2.1.0",
-		"@atlaskit/editor-plugin-decorations": "^2.0.0",
+		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-plugin-analytics": "workspace:*",
+		"@atlaskit/editor-plugin-decorations": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/icon": "^24.1.0",
+		"@atlaskit/icon": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -46,7 +46,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/analytics-next": "^11.0.0",
+		"@atlaskit/analytics-next": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2"
 	},

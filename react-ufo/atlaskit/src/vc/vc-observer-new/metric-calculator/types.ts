@@ -17,6 +17,8 @@ export type RevisionPayloadEntry = {
 export type RevisionPayload = RevisionPayloadEntry[];
 
 export type VCCalculatorParam = {
+	startTime: DOMHighResTimeStamp;
+	stopTime: DOMHighResTimeStamp;
 	orderedEntries: ReadonlyArray<VCObserverEntry>;
 };
 

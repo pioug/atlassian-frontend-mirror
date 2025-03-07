@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { width } from '../../internal/utils';
 import ModalBody from '../../modal-body';
@@ -16,6 +17,23 @@ import { type ModalDialogProps } from '../../types';
 
 jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
+
+type CleanupFn = () => void;
+
+/**
+ * Very basic approach to emulate reduced motion. Can refine as needed.
+ *
+ * Not mocking the `isReducedMotion` from `@atlaskit/motion` because it only seems to work when mocking
+ * the relative path, not through the entrypoints. It also is relying on implementation details in another package.
+ */
+function emulateReducedMotion(): CleanupFn {
+	window.matchMedia = (query: string) =>
+		({ matches: query === '(prefers-reduced-motion: reduce)' }) as MediaQueryList;
+
+	return () => {
+		window.matchMedia = () => ({ matches: false }) as MediaQueryList;
+	};
+}
 
 const testId = 'test-modal';
 
@@ -351,6 +369,24 @@ describe('<ModalDialog />', () => {
 
 			await waitFor(() => expect(spy).toHaveBeenCalledTimes(1));
 		});
+
+		ffTest.on('platform_design_system_motion_on_finish_fix', 'reduced motion fix', () => {
+			it('should be invoked immediately if reduced motion is enabled', () => {
+				const cleanupEmulateReducedMotion = emulateReducedMotion();
+
+				const onOpenComplete = jest.fn();
+
+				render(
+					createModal({
+						onOpenComplete,
+					}),
+				);
+
+				expect(onOpenComplete).toHaveBeenCalledTimes(1);
+
+				cleanupEmulateReducedMotion();
+			});
+		});
 	});
 
 	describe('onCloseComplete', () => {
@@ -380,6 +416,26 @@ describe('<ModalDialog />', () => {
 			});
 
 			await waitFor(() => expect(spy).toHaveBeenCalledTimes(1));
+		});
+
+		ffTest.on('platform_design_system_motion_on_finish_fix', 'reduced motion fix', () => {
+			it('should be invoked immediately if reduced motion is enabled', () => {
+				const cleanupEmulateReducedMotion = emulateReducedMotion();
+
+				const onCloseComplete = jest.fn();
+
+				const ModalWithTransition = ({ isOpen }: { isOpen: boolean }) => (
+					<ModalTransition>{isOpen && createModal({ onCloseComplete })}</ModalTransition>
+				);
+
+				const { rerender } = render(<ModalWithTransition isOpen />);
+
+				rerender(<ModalWithTransition isOpen={false} />);
+
+				expect(onCloseComplete).toHaveBeenCalledTimes(1);
+
+				cleanupEmulateReducedMotion();
+			});
 		});
 	});
 

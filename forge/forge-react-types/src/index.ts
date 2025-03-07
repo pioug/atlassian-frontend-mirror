@@ -133,6 +133,13 @@ export type {
 	LineChartProps,
 	SingleValueChartProps,
 	PieChartProps,
+	TBarChart,
+	TStackBarChart,
+	THorizontalStackBarChart,
+	THorizontalBarChart,
+	TLineChart,
+	TSingleValueChart,
+	TPieChart,
 } from './components/charts';
 
 export type { ChartColorTokens } from './types';

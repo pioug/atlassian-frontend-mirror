@@ -8,6 +8,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	createEditSelectedExtensionAction,
@@ -25,7 +26,9 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import { bodiedExtensionSpecWithFixedToDOM } from './pm-plugins/toDOM-fixes/bodiedExtension';
 import { getToolbarConfig } from './pm-plugins/toolbar';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
+// Remove below line when cleaning up platform_editor_ai_object_sidebar_injection feature flag
 import { getContextPanel } from './ui/context-panel';
+import { useConfigPanelPluginHook } from './ui/useConfigPanelPluginHook';
 
 export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
@@ -71,6 +74,8 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 			const pluginState = pluginKey.getState(state);
 			return {
 				showContextPanel: pluginState?.showContextPanel,
+				extensionProvider: pluginState?.extensionProvider,
+				processParametersAfter: pluginState?.processParametersAfter,
 			};
 		},
 
@@ -197,8 +202,19 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 						hoverDecoration: api?.decorations?.actions.hoverDecoration,
 						applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
 						editorAnalyticsAPI: api?.analytics?.actions,
+						extensionApi: editorExperiment('platform_editor_controls', 'variant1')
+							? api
+							: undefined,
 					}),
-			contextPanel: getContextPanel(() => editorViewRef.current ?? undefined)(api, featureFlags),
+			contextPanel: !fg('platform_editor_ai_object_sidebar_injection')
+				? getContextPanel(() => editorViewRef.current ?? undefined)(api, featureFlags)
+				: undefined,
 		},
+
+		usePluginHook: fg('platform_editor_ai_object_sidebar_injection')
+			? ({ editorView }) => {
+					useConfigPanelPluginHook({ editorView, api });
+				}
+			: undefined,
 	};
 };

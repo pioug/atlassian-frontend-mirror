@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ac788d318a6e02d7eb9d270fcd448a4f>>
+ * @codegen <<SignedSource::e01b3a49828b125b4f7b5aa036782ad5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,8 +14,6 @@ var _videoPlay = _interopRequireDefault(require("@atlaskit/icon/core/video-play"
 var _vidPlay = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-play"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- *
  * Migration Icon component for VideoPlayIcon.
  * This component is VideoPlayIcon, with `UNSAFE_fallbackIcon` set to "VidPlayIcon".
  *

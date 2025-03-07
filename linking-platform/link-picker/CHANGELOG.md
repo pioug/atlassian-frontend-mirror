@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.0.3
+
+### Patch Changes
+
+- [#122927](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122927)
+  [`1a18023f54f1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a18023f54f1c) -
+  EDM-11900 adding a wrapper with correct id so aria-controls can find the right element for a11y
+
 ## 3.0.2
 
 ### Patch Changes

@@ -11,13 +11,15 @@ const TEXT_ERROR_MESSAGE = 'Custom error message for VR test';
 export default () => (
 	<VRTestWrapper>
 		<SmartCardProvider>
-			<LozengeActionError
-				errorMessage={TEXT_ERROR_MESSAGE}
-				invokePreviewAction={{
-					actionFn: () => Promise.resolve(),
-					actionType: ActionName.PreviewAction,
-				}}
-			/>
+			<div role="menu">
+				<LozengeActionError
+					errorMessage={TEXT_ERROR_MESSAGE}
+					invokePreviewAction={{
+						actionFn: () => Promise.resolve(),
+						actionType: ActionName.PreviewAction,
+					}}
+				/>
+			</div>
 		</SmartCardProvider>
 	</VRTestWrapper>
 );

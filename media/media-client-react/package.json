@@ -35,14 +35,14 @@
 		"./test-helpers": "./src/test-helpers/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^32.0.0",
-		"@atlaskit/platform-feature-flags": "^1.1.0",
+		"@atlaskit/media-client": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"zustand": "^4.3.9"
 	},
 	"peerDependencies": {
-		"@atlaskit/analytics-next": "^11.0.0",
-		"@atlaskit/media-state": "^1.4.0",
+		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/media-state": "workspace:*",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
@@ -52,9 +52,9 @@
 		}
 	},
 	"devDependencies": {
-		"@atlaskit/media-state": "^1.5.0",
-		"@atlaskit/media-test-data": "^3.0.0",
-		"@atlassian/feature-flags-test-utils": "^0.3.0",
+		"@atlaskit/media-state": "workspace:*",
+		"@atlaskit/media-test-data": "workspace:*",
+		"@atlassian/feature-flags-test-utils": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",

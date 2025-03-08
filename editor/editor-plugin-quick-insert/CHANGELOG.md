@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.1.0
+
+### Minor Changes
+
+- [#122563](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122563)
+  [`ee7df79353727`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee7df79353727) -
+  Changes dedupe logic to check title and description instead of just title
+
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.5
 
 ### Patch Changes

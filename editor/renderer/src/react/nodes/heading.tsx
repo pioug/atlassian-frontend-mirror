@@ -2,6 +2,7 @@ import React from 'react';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 
 import HeadingAnchor from './heading-anchor';
 import {
@@ -80,7 +81,7 @@ function Heading(
 ) {
 	const { headingId, dataAttributes, allowHeadingAnchorLinks, marks, invisible } = props;
 	const HX = `h${props.level}` as 'h1';
-
+	const mouseEntered = React.useRef(false);
 	const showAnchorLink = !!props.showAnchorLink;
 	const isRightAligned = hasRightAlignmentMark(marks);
 	const enableNestedHeaderLinks =
@@ -88,9 +89,23 @@ function Heading(
 		(allowHeadingAnchorLinks as HeadingAnchorLinksConfig).allowNestedHeaderLinks;
 
 	const headingIdToUse = invisible ? undefined : headingId;
+
+	const mouseEnterHandler = () => {
+		if (showAnchorLink && !mouseEntered.current) {
+			// Abort TTVC calculation when the mouse hovers over heading. Hovering over
+			// heading render heading anchor and inline comment buttons. These user-induced
+			// DOM changes are valid reasons to abort the TTVC calculation.
+			abortAll('new_interaction');
+			mouseEntered.current = true;
+		}
+	};
 	return (
 		<>
-			<HX id={headingIdToUse} data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}>
+			<HX
+				id={headingIdToUse}
+				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
+				onMouseEnter={mouseEnterHandler}
+			>
 				<>
 					{showAnchorLink && headingId && isRightAligned && (
 						<WrappedHeadingAnchor

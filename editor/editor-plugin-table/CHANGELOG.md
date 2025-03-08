@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.3.3
+
+### Patch Changes
+
+- [#123345](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123345)
+  [`31b02e82858e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b02e82858e5) -
+  NO-ISSUE: Update usages of selection utils
+- Updated dependencies
+
 ## 10.3.2
 
 ### Patch Changes

@@ -84,6 +84,9 @@
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/smart-card/afm-jira/tsconfig.json"
 		},
 		{

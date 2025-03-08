@@ -90,6 +90,9 @@
 		"platform_design_system_team_onboarding_noderesolve": {
 			"type": "boolean"
 		},
+		"scroll-lock-replacement": {
+			"type": "boolean"
+		},
 		"design-system-closed-all-when-click-outside": {
 			"type": "boolean",
 			"referenceOnly": true

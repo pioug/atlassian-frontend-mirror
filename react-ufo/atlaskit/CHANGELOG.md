@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.3.3
+
+### Patch Changes
+
+- [#123538](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123538)
+  [`2dd75c16ca0c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2dd75c16ca0c4) -
+  fix handling of potentially invalid selectors in TTVC v3
+
 ## 3.3.2
 
 ### Patch Changes

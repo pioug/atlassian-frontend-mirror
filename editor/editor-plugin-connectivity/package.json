@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-connectivity",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Connectivity plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

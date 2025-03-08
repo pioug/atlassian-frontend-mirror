@@ -84,6 +84,9 @@
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../react-ufo/atlaskit/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/smart-card/afm-post-office/tsconfig.json"
 		},
 		{

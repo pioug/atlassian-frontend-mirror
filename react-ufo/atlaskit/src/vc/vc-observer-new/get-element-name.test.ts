@@ -7,12 +7,22 @@ describe('getElementName', () => {
 		// Set up a simple DOM structure for testing
 		document.body.innerHTML = `
 		<body>
+			<div id="%invalid%"></div> <!-- please don't change position, this relies on container.previousElementSibling to be selected -->
 			<div id="parent" class="container">
 				<div id="child1" class="child" data-vc="vc1"></div>
 				<div class="child" data-testid="test-id"></div>
 				<div class="child" role="button"></div>
 				<div class="child" id="unique-child"></div>
+				<div>
+					<div>
+						<div>
+							<div class="deeply-nested">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+			<div class="%invalid%"></div> <!-- please don't change position, this relies on container.nextElementSibling to be selected -->
 		</body>
     `;
 		container = document.getElementById('parent')!;
@@ -72,5 +82,26 @@ describe('getElementName', () => {
 		const config: SelectorConfig = { id: false, testId: false, role: false, className: false };
 		const result = getElementName(config, element!);
 		expect(result).toBe('unknown');
+	});
+
+	it('should return an :nth-child selector for an element with special characters in the classname', () => {
+		const element = container.nextElementSibling; // element with classname "%invalid%"
+		const config: SelectorConfig = { id: false, testId: false, role: false, className: true };
+		const result = getElementName(config, element!);
+		expect(result).toBe('div:nth-child(3)');
+	});
+
+	it('should return an :nth-child selector for an element with special characters in the id', () => {
+		const element = container.previousElementSibling; // element with id "%invalid%"
+		const config: SelectorConfig = { id: true, testId: false, role: false, className: false };
+		const result = getElementName(config, element!);
+		expect(result).toBe('div:nth-child(1)');
+	});
+
+	it('should return a maximum of 3 parent elements in the selector for a deeply nested element', () => {
+		const element = container.querySelector('.deeply-nested'); // element with id "%invalid%"
+		const config: SelectorConfig = { id: false, testId: false, role: false, className: false };
+		const result = getElementName(config, element!);
+		expect(result).toBe('div > div > div > div:nth-child(1)');
 	});
 });

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.0.7
+
+### Patch Changes
+
+- [#123345](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123345)
+  [`31b02e82858e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b02e82858e5) -
+  NO-ISSUE: Update usages of selection utils
+- Updated dependencies
+
 ## 2.0.6
 
 ### Patch Changes

@@ -115,7 +115,12 @@ export const AgentProfileCreator = ({
 		if (creator.type === 'CUSTOMER') {
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: (
-					<a href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
+					<a
+						aria-label={creator.name || formatMessage(messages.creatorLabel)}
+						href={creator.profileLink}
+						onClick={() => onCreatorLinkClick()}
+						target="_blank"
+					>
 						{creator.name}{' '}
 						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
 					</a>

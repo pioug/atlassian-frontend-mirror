@@ -13,7 +13,16 @@ function getAttributeSelector(element: HTMLElement, attributeName: string): stri
 	if (!attrValue) {
 		return '';
 	}
-	return `[${attributeName}="${encodeURIComponent(attrValue)}"]`;
+	return `[${attributeName}="${attrValue}"]`;
+}
+
+function isValidSelector(selector: string): boolean {
+	try {
+		document.querySelector(selector);
+		return true;
+	} catch (err) {
+		return false;
+	}
 }
 
 function isSelectorUnique(selector: string): boolean {
@@ -24,12 +33,14 @@ function getUniqueSelector(selectorConfig: SelectorConfig, element: HTMLElement)
 	let currentElement: HTMLElement | null = element;
 	const parts: string[] = [];
 
-	while (currentElement && currentElement.localName !== 'body') {
+	const MAX_DEPTH = 3;
+	let currentDepth = 0;
+	while (currentElement && currentElement.localName !== 'body' && currentDepth <= MAX_DEPTH) {
 		const tagName = currentElement.localName;
 		let selectorPart = tagName;
 
-		if (selectorConfig.id && currentElement.id) {
-			selectorPart += `#${encodeURIComponent(currentElement.id)}`;
+		if (selectorConfig.id && currentElement.id && isValidSelector(`#${currentElement.id}`)) {
+			selectorPart += `#${currentElement.id}`;
 		} else if (selectorConfig.dataVC) {
 			selectorPart += getAttributeSelector(currentElement, 'data-vc');
 		} else if (selectorConfig.testId) {
@@ -39,19 +50,21 @@ function getUniqueSelector(selectorConfig: SelectorConfig, element: HTMLElement)
 		} else if (selectorConfig.role) {
 			selectorPart += getAttributeSelector(currentElement, 'role');
 		} else if (selectorConfig.className && currentElement.className) {
-			const classNames = Array.from(currentElement.classList).map(encodeURIComponent).join('.');
+			const classNames = Array.from(currentElement.classList).join('.');
 			if (classNames) {
-				selectorPart += `.${classNames}`;
+				if (isValidSelector(`.${classNames}`)) {
+					selectorPart += `.${classNames}`;
+				}
 			}
 		}
 
 		parts.unshift(selectorPart);
 		const potentialSelector = parts.join(' > ').trim();
-
 		if (potentialSelector && isSelectorUnique(potentialSelector)) {
 			return potentialSelector;
 		}
 		currentElement = currentElement.parentElement;
+		currentDepth++;
 	}
 
 	const potentialSelector = parts.join(' > ').trim();
@@ -78,6 +91,7 @@ export default function getElementName(selectorConfig: SelectorConfig, element: 
 	}
 
 	const uniqueSelector = getUniqueSelector(selectorConfig, element);
+
 	nameCache.set(element, uniqueSelector);
 
 	return uniqueSelector;

@@ -6,6 +6,9 @@ jest.mock('../../../../react/utils/clipboard', () => {
 		copyTextToClipboard: (text: string) => mockCopyTextToClipboard(text),
 	};
 });
+jest.mock('@atlaskit/react-ufo/interaction-metrics', () => ({
+	abortAll: jest.fn(),
+}));
 
 import React from 'react';
 import type { HeadingLevels } from '../../../../react/nodes/heading';
@@ -14,6 +17,8 @@ import Heading from '../../../../react/nodes/heading';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
+import { fireEvent } from '@testing-library/react';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
 import ReactSerializer from '../../../../react';
@@ -168,5 +173,25 @@ describe('<Heading />', () => {
 			const headingAnchors = screen.getAllByTestId('anchor-button');
 			expect(headingAnchors.length).toBe(1);
 		});
+	});
+
+	it('should fire AbortAll function, if user hover over the heading', async () => {
+		const reactSerializer = new ReactSerializer({});
+		const screen = renderWithIntl(
+			<Heading
+				level={1}
+				headingId="heading-id"
+				showAnchorLink
+				dataAttributes={{ 'data-renderer-start-pos': 1 }}
+				marks={[]}
+				nodeType=""
+				serializer={reactSerializer}
+			/>,
+		);
+		const heading = await screen.findByRole('heading');
+		fireEvent.mouseEnter(heading);
+		expect(abortAll).toHaveBeenCalledWith('new_interaction');
+		fireEvent.mouseEnter(heading);
+		expect(abortAll).toHaveBeenCalledTimes(1);
 	});
 });

@@ -3,12 +3,14 @@
  * @jsx jsx
  */
 import { cssMap as cssMapCompiled } from '@compiled/react';
+import { useIntl } from 'react-intl-next';
 
 import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { GeneratedAvatar } from './generated-avatars';
+import { messages } from './messages';
 
 const styles = cssMap({
 	agentAvatar: {
@@ -69,6 +71,8 @@ export const AgentAvatar = ({
 	isForgeAgent,
 	forgeAgentIconUrl,
 }: AgentAvatarProps) => {
+	const { formatMessage } = useIntl();
+
 	const imgUrl = isForgeAgent && forgeAgentIconUrl ? forgeAgentIconUrl : imageUrl;
 	return (
 		<Box
@@ -86,7 +90,12 @@ export const AgentAvatar = ({
 			<div css={stylesCompiled.innerShape}>
 				<Box xcss={styles.avatarContentContainer}>
 					{imgUrl ? (
-						<Box as="img" xcss={styles.image} src={imgUrl} alt={name} />
+						<Box
+							as="img"
+							xcss={styles.image}
+							src={imgUrl}
+							alt={name || label || formatMessage(messages.agentAvatarLabel)}
+						/>
 					) : (
 						<GeneratedAvatar
 							agentId={agentId}

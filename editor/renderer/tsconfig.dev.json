@@ -150,6 +150,9 @@
 			"path": "../../design-system/range/tsconfig.app.json"
 		},
 		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
+		},
+		{
 			"path": "../../linking-platform/smart-card/tsconfig.app.json"
 		},
 		{

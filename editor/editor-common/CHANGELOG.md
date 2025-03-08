@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 102.0.0
+
+### Major Changes
+
+- [#123345](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123345)
+  [`31b02e82858e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31b02e82858e5) -
+  NO-ISSUE: Make selection utils more generic by changing parameters from PMNode to
+  ContentNodeWithPos as only the actual node is being used in the utils.
+
 ## 101.1.2
 
 ### Patch Changes

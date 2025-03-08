@@ -14,7 +14,7 @@ export default function () {
 		<IntlProvider locale="en">
 			<Box padding="space.300" backgroundColor="color.background.accent.purple.subtler.pressed">
 				<Stack alignInline="center">
-					<Heading size="xlarge">Sizes</Heading>
+					<Heading size="medium">Sizes</Heading>
 					<br />
 					<Inline space="space.300" alignBlock="end" alignInline="center">
 						<Stack alignBlock="start" alignInline="center" space="space.200">

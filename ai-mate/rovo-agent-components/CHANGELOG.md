@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.2.0
+
+### Minor Changes
+
+- [#122015](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122015)
+  [`23c02e413685e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23c02e413685e) -
+  Fix a11y violations
+
 ## 2.1.1
 
 ### Patch Changes

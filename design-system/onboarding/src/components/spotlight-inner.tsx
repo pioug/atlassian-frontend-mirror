@@ -112,6 +112,8 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 			top,
 			width,
 			position: 'fixed',
+			// when width is 0, set visibility hidden to avoid the target flashing issue
+			...(width === 0 && fg('scroll-lock-replacement') && { visibility: 'hidden' }),
 		};
 	};
 

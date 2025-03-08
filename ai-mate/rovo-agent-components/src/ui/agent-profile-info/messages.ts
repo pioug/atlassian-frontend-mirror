@@ -31,4 +31,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Star Agent',
 		description: 'Tooltip to explain what star icon does',
 	},
+	creatorLabel: {
+		id: 'ai-mate.agent-profile-info.creator',
+		defaultMessage: 'Creator',
+		description: 'Accessible label for creator link',
+	},
 });

@@ -84,6 +84,9 @@
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../linking-platform/smart-card/afm-cc/tsconfig.json"
         },
         {

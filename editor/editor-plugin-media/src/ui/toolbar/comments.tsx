@@ -59,7 +59,7 @@ export const commentButton = (
 			) {
 				setInlineCommentDraftState(
 					true,
-					// TODO: might need to update to reflect it's from media floating toolbar
+					// TODO: ED-26962 - might need to update to reflect it's from media floating toolbar
 					INPUT_METHOD.FLOATING_TB,
 					'block',
 					selectMediaNode.attrs?.id,

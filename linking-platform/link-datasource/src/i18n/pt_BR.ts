@@ -108,6 +108,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Inserir tickets do Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Inserir itens do Jira de',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Inserir tickets do Jira de',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### tickets',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Mostrar o número de resultados da pesquisa como link inteligente em linha',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Link em linha',
@@ -126,13 +127,20 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Pesquisar páginas do Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Pesquisar itens do Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Pesquise com palavra-chave por tickets a serem inseridos.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Pesquise por palavra-chave as páginas a serem inseridas.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Use a JQL (Linguagem de Consulta do JIRA) para pesquisar por tickets.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Pesquise por tickets do Jira',
   'linkDataSource.render-type.boolean.false': 'Não',
   'linkDataSource.render-type.boolean.true': 'Sim',
   'linkDataSource.render-type.user.default.display.name': 'Sem responsável',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} item} other {{searchCount,number} itens}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} ticket} other {{searchCount,number} tickets}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} item} other {{searchCount,number} itens}}',
   'linkDataSource.search.configmodal.resultCountText':

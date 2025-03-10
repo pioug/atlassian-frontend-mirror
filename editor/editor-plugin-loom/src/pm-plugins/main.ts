@@ -1,4 +1,4 @@
-// FIXME: removed to support TypeScript bundler mode
+// TODO: ED-26959 - removed to support TypeScript bundler mode
 // import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -11,7 +11,7 @@ import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';
 
 // copied from @loomhq/record-sdk
-// FIXME: remove once @loomhq/record-sdk get updated to support "package exports"
+// TODO: ED-26959 - remove once @loomhq/record-sdk get updated to support "package exports"
 enum SDKUnsupportedReasons {
 	IncompatibleBrowser = 'incompatible-browser',
 	ThirdPartyCookiesDisabled = 'third-party-cookies-disabled',

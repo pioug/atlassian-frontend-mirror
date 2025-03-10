@@ -93,14 +93,14 @@ export type InlineCommentViewComponentProps = {
 	clickElementTarget?: HTMLElement;
 
 	deleteAnnotation: (annotationInfo: AnnotationInfo) => ActionResult;
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+	// TODO: Remove this message when the editor_inline_comments_on_inline_nodes FF is removed
 	/**
 	 * Return a list of inline node types, which are wrapped by the annotation,
 	 * for annotation with given ID.
 	 *
 	 * The `undefined` will be returned if `editor_inline_comments_on_inline_nodes` is off.
-	 *
-	 * @todo: Do not forget to remove `undefined` when the
-	 *        `editor_inline_comments_on_inline_nodes` is removed.
 	 */
 	getInlineNodeTypes: (annotationId: string) => string[] | undefined;
 };

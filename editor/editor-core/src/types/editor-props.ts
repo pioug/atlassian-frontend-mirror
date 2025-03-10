@@ -225,6 +225,8 @@ interface EditorBaseProps {
 }
 
 // These are props that are shared between the editor and the plugin components.
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: We should refactor this to ensure these are not shared
 export interface EditorSharedPropsWithPlugins {
 	// Set for an on save callback.

@@ -224,7 +224,7 @@ export const withLazyLoading = <Options>({
 		requestedNodes.set(nodeName, loaderPromise);
 
 		if (typeof node.type?.spec?.toDOM !== 'function') {
-			// TODO: Analytics ED-23982
+			// TODO: ED-23982 - Analytics
 			// dispatchAnalyticsEvent({
 			//   action: ACTION.LAZY_NODE_VIEW_ERROR,
 			//   actionSubject: ACTION_SUBJECT.LAZY_NODE_VIEW,

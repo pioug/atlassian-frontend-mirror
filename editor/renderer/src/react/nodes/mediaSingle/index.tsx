@@ -154,8 +154,6 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 		height = DEFAULT_HEIGHT;
 	}
 
-	// TODO: put appearance-based padding into theme instead
-
 	const isFullPage = rendererAppearance === 'full-page';
 	const isFullWidth = rendererAppearance === 'full-width';
 	const padding = isFullPage ? FullPagePadding * 2 : 0;

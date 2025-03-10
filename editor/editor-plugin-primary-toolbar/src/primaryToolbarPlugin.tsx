@@ -8,7 +8,7 @@ import Separator from './ui/separator';
 export const primaryToolbarPlugin: PrimaryToolbarPlugin = () => {
 	// We use a plugin variable to store the component registry to avoid having to use
 	// effects in each plugin, and to enable rendering the toolbar in SSR
-	// TODO: Replace this with something in plugin state once we have a way to initialise across plugins on plugin initialisation
+	// TODO: ED-26962 - Replace this with something in plugin state once we have a way to initialise across plugins on plugin initialisation
 	const componentRegistry = new Map<string, ToolbarUIComponentFactory>();
 
 	// Pre-fill registry with the separator component

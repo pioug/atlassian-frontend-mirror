@@ -113,7 +113,7 @@ enum ColType {
 	DEST = 'dest',
 }
 
-// TODO: should handle when destIdx:
+// TODO: ED-26961 - should handle when destIdx:
 // - is beyond the range, and then not give it back
 function moveSpaceFrom(
 	state: ResizeState,

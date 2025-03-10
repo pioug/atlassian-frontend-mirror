@@ -22,7 +22,7 @@ import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
  * Basic colors added to prevent content overflow in table cells.
  */
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4135
+// TODO: DSP-4135 - Remove these tokens once the new elevation tokens are available
 export const tableCellBackgroundColor = token('elevation.surface', N0);
 
 export const tableHeaderCellBackgroundColor = token(
@@ -35,7 +35,7 @@ export const tableTextColor = token('color.text.subtlest', N200);
 export const tableBorderColor = token('color.background.accent.gray.subtler', akEditorTableBorder);
 export const tableFloatingControlsColor = token('color.background.neutral', N20);
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4461
+// TODO: DSP-4461 - Remove these tokens once the new elevation tokens are available
 export const tableCellSelectedColor = token(
 	'color.blanket.selected',
 	akEditorTableCellBlanketSelected,

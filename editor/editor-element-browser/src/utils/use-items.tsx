@@ -19,7 +19,7 @@ const transformBrowserElementItem = (item: InsertPanelItem): ItemData => {
 	};
 };
 
-// TODO: Title will need to be i18n
+// TODO: ED-26961 - Title will need to be i18n
 type CategoryData = {
 	id: string;
 	title: string;
@@ -32,7 +32,7 @@ export const CategoriesStructure: CategoryData[] = [
 		title: 'Media',
 		subcategories: [],
 		// defaultItems and array or native elements' ids or titles of an extensions
-		// TODO: how should we identify extensions in prod?
+		// TODO: ED-26961 - how should we identify extensions in prod?
 		// Note: only 'media' or 'media-insert' will be available, so we'll display only 5 default items
 		defautltItems: ['media', 'media-insert', 'emoji', 'hyperlink', 'loom', 'Create whiteboard'],
 	},
@@ -169,6 +169,8 @@ export const useItems = (
 		}
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	const suggested: GroupData = { id: 'suggested', label: 'Suggestions', items: suggestedItems }; // TODO define the id and label as constants
 
 	// when query gets updated from the prop drilling it won't cause a re-render of the hook

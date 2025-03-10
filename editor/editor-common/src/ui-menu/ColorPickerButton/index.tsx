@@ -69,7 +69,7 @@ const colorPickerButtonStyle = css({
 });
 
 // Control the size of color picker buttons and preview
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4134
+// TODO: DSP-4134 - Color picking UI
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const colorPickerWrapper = () =>

@@ -178,7 +178,6 @@ export async function onChangeAction(
 	const unwrappedOldParameters = processParametersBefore
 		? processParametersBefore(oldParameters)
 		: oldParameters;
-	// todo: update to only check parameters which are in the manifest's field definitions
 	if (areParametersEqual(unwrappedOldParameters, updatedParameters)) {
 		return;
 	}

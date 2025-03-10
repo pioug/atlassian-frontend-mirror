@@ -305,7 +305,7 @@ export const DragHandle = ({
 		],
 	);
 
-	// TODO - This needs to be investigated further. Drag preview generation is not always working
+	// TODO: ED-26959 - This needs to be investigated further. Drag preview generation is not always working
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
 	// but ensures the preview is generated correctly.
 	const handleMouseDown = useCallback(() => {

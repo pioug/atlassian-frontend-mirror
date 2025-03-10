@@ -60,7 +60,6 @@ const moveCursorToNextColumn: Command = (state, dispatch) => {
 	return true;
 };
 
-// TODO: Look at memoize-one-ing this fn
 const getNodeDecoration = (pos: number, node: Node) => [
 	Decoration.node(pos, pos + node.nodeSize, { class: 'selected' }),
 ];

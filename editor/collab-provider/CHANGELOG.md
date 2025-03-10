@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 10.9.3
+
+### Patch Changes
+
+- [#122605](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122605)
+  [`1bf1493f744ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bf1493f744ce) -
+  [ux] Add conflict metadata on reconnection
+- Updated dependencies
+
 ## 10.9.2
 
 ### Patch Changes

@@ -18,7 +18,7 @@ import type { PastePlugin } from '../pastePluginType';
 /**
  * Ensure correct layout in nested mode
  *
- * TODO: this func is only used in handlePaste, so layout update won't work for drop event
+ * TODO: ED-26959 - this func is only used in handlePaste, so layout update won't work for drop event
  */
 export function transformSliceForMedia(slice: Slice, schema: Schema) {
 	const { mediaSingle, layoutSection, table, bulletList, orderedList, expand, nestedExpand } =
@@ -60,6 +60,8 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
 	};
 }
 
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO move this to editor-common
 export const isImage = (fileType?: string): boolean => {
 	return !!fileType && (fileType.indexOf('image/') > -1 || fileType.indexOf('video/') > -1);

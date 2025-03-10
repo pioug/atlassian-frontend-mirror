@@ -7,6 +7,8 @@
  */
 //Turkish (Turkey)
 export default {
+  'link-create.live-doc-icon-label': 'Canlı Dosya',
+  'link-create.page-icon-label': 'Sayfa',
   'link-create.unknown-error.description':
     'Sayfayı yenileyin veya sorun devam ederse <a>Atlassian Destek</a> ekibiyle iletişime geçin.',
   'link-create.unknown-error.heading': 'Bir hata oluştu.',

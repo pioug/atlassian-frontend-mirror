@@ -140,7 +140,11 @@ _How_ _about_ _this_?
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO We don't support bgColor for panels, confirm with JIRA
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO We don't support code block within a panel - it will be pulled out to block level - confirm with JIRA
 	describe('panel with mixed content', () => {
 		const WIKI_NOTATION = `* ConfigTest

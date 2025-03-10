@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "10.9.2",
+	"version": "10.9.3",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,6 +53,7 @@
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"lodash": "^4.17.21",
+		"prosemirror-changeset": "^2.2.1",
 		"socket.io-client": "^4.7.5",
 		"uuid": "^3.1.0"
 	},

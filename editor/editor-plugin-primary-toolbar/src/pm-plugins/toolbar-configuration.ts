@@ -127,7 +127,7 @@ const others: ToolbarElementConfig[] = [
 		name: 'findReplace',
 	},
 	{
-		// TODO: Should likely be split into three: spelling & grammar, separator, and AI trigger
+		// TODO: ED-26962 - Should likely be split into three: spelling & grammar, separator, and AI trigger
 		name: 'aiExperience',
 	},
 	{

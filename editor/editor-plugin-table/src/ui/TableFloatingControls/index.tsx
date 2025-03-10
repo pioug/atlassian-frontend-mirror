@@ -75,7 +75,6 @@ export const TableFloatingControls = ({
 	const _selectRow = useCallback(
 		(row: number, expand: boolean) => {
 			const { state, dispatch } = editorView;
-			// fix for issue ED-4665
 			if (browser.ie_version === 11) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -89,7 +88,6 @@ export const TableFloatingControls = ({
 	const _selectRows = useCallback(
 		(rowIndexes: number[]) => {
 			const { state, dispatch } = editorView;
-			// fix for issue ED-4665
 			if (browser.ie_version === 11) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting

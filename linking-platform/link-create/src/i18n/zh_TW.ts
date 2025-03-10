@@ -7,6 +7,8 @@
  */
 //Chinese (Traditional)
 export default {
+  'link-create.live-doc-icon-label': '即時文件',
+  'link-create.page-icon-label': '頁面',
   'link-create.unknown-error.description': '請重新整理頁面，如果持續發生錯誤，請連絡 <a>Atlassian 支援人員</a>。',
   'link-create.unknown-error.heading': '發生錯誤。',
   'linkCreate.CreateConfluencePage.form.site.label': '網站',

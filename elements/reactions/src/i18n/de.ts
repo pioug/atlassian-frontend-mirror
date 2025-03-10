@@ -17,7 +17,6 @@ export default {
   'reaction-picker-trigger.add.reaction.message': 'Eine Reaktion hinzufügen',
   'reactions.dialog.close': 'Schließen',
   'reactions.dialog.left.navigate': 'Nach links navigieren',
-  'reactions.dialog.people-who-reacted.subheader': 'Personen, die mit {emojiShortName} reagiert haben',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} Reaktion insgesamt} other {{count,number} Reaktionen insgesamt}}',
   'reactions.dialog.right.navigate': 'Nach rechts navigieren',

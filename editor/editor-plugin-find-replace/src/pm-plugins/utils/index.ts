@@ -169,7 +169,6 @@ export const removeDecorationsFromSet = (
 	// there is a bug in prosemirror-view where it can't cope with deleting inline
 	// decorations from a set in some cases (where there are multiple levels of nested
 	// children arrays), and it deletes more decorations than it should
-	// todo: ticket link
 	const lostDecorations = findLostAdjacentDecorations(
 		decorationsToRemove,
 		prevDecorations,

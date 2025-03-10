@@ -152,6 +152,8 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 		});
 	}
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// FIXME: This is causing more problems then it's solving. The async check to sniff the browser extensions is block some
 	// react unit tests. Essentially jest never completes and just hangs. This was code was added 3yrs ago so that errors
 	// would detail if the browser had grammarly extension installed or not. I'm not sure if anyone has every inspecting this

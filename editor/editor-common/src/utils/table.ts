@@ -35,6 +35,8 @@ export function getColumnWidths(node: PmNode): number[] {
 }
 
 export function calcTableColumnWidths(node: PmNode): number[] {
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO: replaced with getColumnWidths, which correctly scans entire table for column widths
 	if (fg('platform_editor_table_row_span_fix')) {
 		const firstRow = node.firstChild;

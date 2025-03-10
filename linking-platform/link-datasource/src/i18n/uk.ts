@@ -44,7 +44,8 @@ export default {
   'linkDataSource.column-picker.search': 'Пошук полів',
   'linkDataSource.column-picker.tooltip': 'Налаштувати стовпці',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Пошук завдань за ключовим словом',
-  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Пошук завдань за ключовим словом',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
+    'Пошук елементів завдань за ключовим словом',
   'linkDataSource.configmodal.cancelButtonText': 'Скасувати',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Скасувати',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'після {date}',
@@ -100,14 +101,16 @@ export default {
     'Ви не можете перейти на базовий режим для цього запиту.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Простий',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
-    'Пошук завдань за ключовим словом',
+    'Пошук елементів завдань за ключовим словом',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Вибрати сайт',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставити завдання',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Вставити завдання',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Вставити елементи завдань',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставте завдання Jira',
-  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Вставте завдання Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Вставте елементи завдань Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставте завдання Jira з:',
-  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Вставте завдання Jira з:',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
+    'Вставте елементи завдань Jira з:',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### елем. завдання',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Відображення кількості результатів пошуку у вигляді вбудованого смарт-посилання',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Вбудоване посилання',
@@ -127,13 +130,20 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Бета-версія',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Пошук сторінок Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Пошук завдань Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Шукайте елементи завдання, які потрібно вставити, за ключовим словом.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Шукайте сторінки, які потрібно вставити, за ключовим словом.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Використовуйте JQL (Jira Query Language) для пошуку елементів завдання.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Пошук елементів завдання Jira',
   'linkDataSource.render-type.boolean.false': 'Ні',
   'linkDataSource.render-type.boolean.true': 'Так',
   'linkDataSource.render-type.user.default.display.name': 'Не призначено',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} проблема} few {{searchCount,number} проблеми} many {{searchCount,number} проблем} other {{searchCount,number} проблем}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} елемент завдання} few {{searchCount,number} елементи завдання} many {{searchCount,number} елементів завдання} other {{searchCount,number} елементів завдання}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} елемент} few {{searchCount,number} елементи} many {{searchCount,number} елементів} other {{searchCount,number} елементів}}',
   'linkDataSource.search.configmodal.resultCountText':

@@ -84,7 +84,7 @@ export const handleMouseOver = (
 		}
 
 		// We want to exlude handles from showing for wrapped nodes
-		// TODO We should be able remove these check if we decided to
+		// TODO: ED-26959 - We should be able remove these check if we decided to
 		// go we not decoration for wrapped image solution.
 		if (['wrap-right', 'wrap-left'].includes(rootElement.getAttribute('layout') || '')) {
 			return false;

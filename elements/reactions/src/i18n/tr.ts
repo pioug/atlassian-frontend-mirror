@@ -18,7 +18,6 @@ export default {
   'reactions.dialog.close': 'Kapat',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Sol Gezinme',
-  'reactions.dialog.people-who-reacted.subheader': '{emojiShortName} ile tepki veren kişiler',
   'reactions.dialog.reactions.count':
     '{count, plural, one {Toplam {count,number} tepki} other {Toplam {count,number} tepki}}',
   'reactions.dialog.right.navigate': 'Sağ Gezinme',

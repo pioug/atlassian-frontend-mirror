@@ -109,6 +109,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Wstaw zgłoszenia Jira z witryny',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     'Wstaw zgłoszenia Jira z witryny',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': 'Zgłoszenia (###)',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Wyświetl liczbę wyników wyszukiwania jako śródwierszowe inteligentne łącze',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Łącze śródwierszowe',
@@ -128,13 +129,20 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Wyszukaj strony Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Wyszukaj zgłoszenia Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Wyszukaj strony do wstawienia według słowa kluczowego.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Użyj zapytań w języku JQL (Jira Query Language), aby wyszukiwać zgłoszenia.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Wyszukaj zgłoszenia Jira',
   'linkDataSource.render-type.boolean.false': 'Nie',
   'linkDataSource.render-type.boolean.true': 'Tak',
   'linkDataSource.render-type.user.default.display.name': 'Nieprzydzielone',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} zgłoszenie} few {{searchCount,number} zgłoszenia} many {{searchCount,number} zgłoszeń} other {{searchCount,number} zgłoszenia}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} zgłoszenie} few {{searchCount,number} zgłoszenie} many {{searchCount,number} zgłoszeń} other {{searchCount,number} zgłoszenia}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} element} few {{searchCount,number} elementy} many {{searchCount,number} elementów} other {{searchCount,number} elementu}}',
   'linkDataSource.search.configmodal.resultCountText':

@@ -108,6 +108,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Inserisci ticket Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Inserisci ticket Jira da',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Inserisci ticket Jira da',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### ticket',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Visualizza il numero di risultati della ricerca come link intelligente in linea',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Link in linea',
@@ -126,12 +127,19 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Cerca nelle pagine Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Cerca nei ticket Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Cerca per parola chiave i ticket da inserire.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Cerca mediante parole chiave le pagine da inserire.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Usa JQL (Jira Query Language) per cercare i ticket.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Cerca ticket Jira',
   'linkDataSource.render-type.boolean.false': 'No',
   'linkDataSource.render-type.boolean.true': 'Sì',
   'linkDataSource.render-type.user.default.display.name': 'Non assegnato',
   'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} ticket} other {{searchCount,number} ticket}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
     '{searchCount, plural, one {{searchCount,number} ticket} other {{searchCount,number} ticket}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} elemento} other {{searchCount,number} elementi}}',

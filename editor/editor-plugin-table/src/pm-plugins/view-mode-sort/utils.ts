@@ -40,7 +40,7 @@ const getSortOrderFromTable = (tableNode: PMNode, sortIndex: number, direction: 
 
 	const compareNodesInOrder = createCompareNodes(
 		{
-			// TODO - add inline card support
+			// TODO: ED-26961 - add inline card support
 			getInlineCardTextFromStore() {
 				return null;
 			},

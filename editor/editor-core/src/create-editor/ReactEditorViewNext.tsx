@@ -530,6 +530,8 @@ export function ReactEditorView(props: EditorViewProps) {
 		onEditorViewUpdated,
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO: Remove these when we deprecate these props from editor-props - smartLinks is unfortunately still used in some places, we can sidestep this problem if we move everyone across to ComposableEditor and deprecate Editor
 	const UNSAFE_cards = (props.editorProps as EditorProps).UNSAFE_cards;
 	const smartLinks = (props.editorProps as EditorProps).smartLinks;

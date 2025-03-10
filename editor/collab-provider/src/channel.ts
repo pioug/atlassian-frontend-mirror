@@ -430,7 +430,7 @@ export class Channel extends Emitter<ChannelEvent> {
 				const measure = stopMeasure(MEASURE_NAME.DOCUMENT_INIT, this.analyticsHelper);
 				this.initExperience?.success();
 				this.analyticsHelper?.sendActionEvent(
-					EVENT_ACTION.DOCUMENT_INIT, // TODO: detect when document init fails and fire corresponding event for it
+					EVENT_ACTION.DOCUMENT_INIT, // TODO: ED-26957 - detect when document init fails and fire corresponding event for it
 					EVENT_STATUS.SUCCESS,
 					{
 						latency: measure?.duration,

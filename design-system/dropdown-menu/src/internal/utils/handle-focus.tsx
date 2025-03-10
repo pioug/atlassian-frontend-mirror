@@ -21,12 +21,27 @@ const actionMap: { [key: string]: Action } = {
  * return undefined.
  */
 const getNextFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx: number) => {
-	while (currentFocusedIdx + 1 < refs.length) {
-		const { current: element } = refs[++currentFocusedIdx];
-		const isValid = !!element && !element.hasAttribute('disabled');
+	if (fg('dropdown-menu-disabled-navigation-fix')) {
+		for (let i = 0; i < refs.length - 1; i++) {
+			if (currentFocusedIdx + 1 === refs.length) {
+				currentFocusedIdx = 0;
+			} else {
+				currentFocusedIdx++;
+			}
+			const { current: element } = refs[currentFocusedIdx];
+			const isValid = !!element && !element.hasAttribute('disabled');
+			if (isValid) {
+				return element;
+			}
+		}
+	} else {
+		while (currentFocusedIdx + 1 < refs.length) {
+			const { current: element } = refs[++currentFocusedIdx];
+			const isValid = !!element && !element.hasAttribute('disabled');
 
-		if (isValid) {
-			return element;
+			if (isValid) {
+				return element;
+			}
 		}
 	}
 };
@@ -38,12 +53,27 @@ const getNextFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx:
  * return undefined.
  */
 const getPrevFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx: number) => {
-	while (currentFocusedIdx > 0) {
-		const { current: element } = refs[--currentFocusedIdx];
-		const isValid = !!element && !element.hasAttribute('disabled');
+	if (fg('dropdown-menu-disabled-navigation-fix')) {
+		for (let i = 0; i < refs.length - 1; i++) {
+			if (currentFocusedIdx === 0) {
+				currentFocusedIdx = refs.length - 1;
+			} else {
+				currentFocusedIdx--;
+			}
+			const { current: element } = refs[currentFocusedIdx];
+			const isValid = !!element && !element.hasAttribute('disabled');
+			if (isValid) {
+				return element;
+			}
+		}
+	} else {
+		while (currentFocusedIdx > 0) {
+			const { current: element } = refs[--currentFocusedIdx];
+			const isValid = !!element && !element.hasAttribute('disabled');
 
-		if (isValid) {
-			return element;
+			if (isValid) {
+				return element;
+			}
 		}
 	}
 };
@@ -88,6 +118,14 @@ export default function handleFocus(
 			case 'next':
 				// Always cancelling the event to prevent scrolling
 				e.preventDefault();
+
+				if (fg('dropdown-menu-disabled-navigation-fix')) {
+					const nextFocusableElement = getNextFocusableElement(currentRefs, currentFocusedIdx);
+					nextFocusableElement?.focus();
+					break;
+				}
+
+				// Remove on FG cleanup dropdown-menu-disabled-navigation-fix
 				if (currentFocusedIdx < currentRefs.length - 1) {
 					const nextFocusableElement = getNextFocusableElement(currentRefs, currentFocusedIdx);
 					nextFocusableElement?.focus();
@@ -100,6 +138,14 @@ export default function handleFocus(
 			case 'prev':
 				// Always cancelling the event to prevent scrolling
 				e.preventDefault();
+
+				if (fg('dropdown-menu-disabled-navigation-fix')) {
+					const prevFocusableElement = getPrevFocusableElement(currentRefs, currentFocusedIdx);
+					prevFocusableElement?.focus();
+					break;
+				}
+
+				// Remove on FG cleanup dropdown-menu-disabled-navigation-fix
 				if (currentFocusedIdx > 0) {
 					const prevFocusableElement = getPrevFocusableElement(currentRefs, currentFocusedIdx);
 					prevFocusableElement?.focus();

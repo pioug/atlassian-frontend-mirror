@@ -73,7 +73,7 @@ describe('Snapshot Test: table insert row', () => {
 		await animationFrame(page);
 		// we omit floating toolbar from the snapshot
 		// as its not part of the test focus and appears to flake into/out of appearance.
-		// TODO: remove hideFloatingToolbar() logic and fix flakiness ED-15254
+		// TODO: ED-15254 - remove hideFloatingToolbar() logic and fix flakiness
 		await hideFloatingToolbar(page);
 		await snapshot(page, {}, tableSelectors.tableWrapper);
 	});

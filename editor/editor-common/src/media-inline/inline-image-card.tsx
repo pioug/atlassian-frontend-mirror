@@ -43,6 +43,8 @@ export const InlineImageCard = ({
 		[],
 	);
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO do we need to handle nonCriticalError
 	const {
 		preview,

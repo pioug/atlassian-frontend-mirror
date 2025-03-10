@@ -54,7 +54,6 @@ export const getParentNodeWidth = (
 	}
 	let parentWidth = calcBreakoutNodeWidth(layout, containerWidth, isFullWidthModeEnabled);
 
-	// TODO: ED-15663
 	// Please, do not copy or use this kind of code below
 	// @ts-ignore
 	const contextPanelPluginKey = {

@@ -97,6 +97,8 @@ describe('WikiMarkup Transformer', () => {
 		checkParseEncodeRoundTrips(WIKI_NOTATION, defaultSchema, WIKI_NOTATION, doc(p("(')")));
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Defect - not escaping this
 	describe.skip('non emoji escaped bracket', () => {
 		const WIKI_NOTATION = `\\(-)`;

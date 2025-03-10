@@ -7,6 +7,8 @@
  */
 //German (Germany)
 export default {
+  'link-create.live-doc-icon-label': 'Live-Dokument',
+  'link-create.page-icon-label': 'Seite',
   'link-create.unknown-error.description':
     'Laden Sie die Seite erneut oder wenden Sie sich an den <a>Atlassian Support</a>, falls das Problem weiterhin besteht.',
   'link-create.unknown-error.heading': 'Irgendetwas ist schiefgelaufen.',

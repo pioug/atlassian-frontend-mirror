@@ -17,6 +17,8 @@ export default {
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Empfänger sehen den Namen der Seite und Ihre Nachricht',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Empfänger sehen den Namen des Vorgangs und Ihre Nachricht',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Empfänger sehen den Namen des Vorgangs und Ihre Nachricht',
   'fabric.elements.share.form.no-permissions': 'Sie können keine Elemente teilen.',
   'fabric.elements.share.form.public.send': 'Öffentlichen Link senden',
   'fabric.elements.share.form.public.share': 'Öffentlichen Link teilen',

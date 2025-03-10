@@ -86,7 +86,7 @@ export const ColumnControls = ({
 				width ? (stickyTop ? `${width - 2}px` : `${width - 1}px`) : '0px',
 			)
 			.join(' ') ?? '0px';
-	// TODO: reusing getRowsParams here because it's generic enough to work for columns -> rename
+	// TODO: ED-26961 - reusing getRowsParams here because it's generic enough to work for columns -> rename
 	const columnParams = getRowsParams(colWidths ?? []);
 	const colIndex = hoveredCell?.colIndex;
 	const selectedColIndexes = getSelectedColumns(

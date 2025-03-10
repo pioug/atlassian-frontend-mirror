@@ -2,6 +2,8 @@ import { type Schema } from '@atlaskit/editor-prosemirror/model';
 import { type Token } from './';
 import { type Context } from '../../interfaces';
 
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: Create a type for rawContentProcessor which will be shared among parsers
 export interface MacroOption {
 	// The macro keyword

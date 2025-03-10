@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Er der noget, de bør vide?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Modtagere vil se navnet på siden og din besked',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Modtagere vil se navnet på sagen og din meddelelse',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Modtagere får vist navnet på sagen og din besked',
   'fabric.elements.share.form.no-permissions': 'Du kan ikke dele.',
   'fabric.elements.share.form.public.send': 'Send offentligt link',
   'fabric.elements.share.form.public.share': 'Del offentligt link',

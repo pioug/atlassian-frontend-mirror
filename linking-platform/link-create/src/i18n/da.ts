@@ -7,6 +7,8 @@
  */
 //Danish (Denmark)
 export default {
+  'link-create.live-doc-icon-label': 'Live doc',
+  'link-create.page-icon-label': 'Side',
   'link-create.unknown-error.description':
     'Opdater siden, eller kontakt <a>Atlassian-support</a>, hvis det bliver ved med at ske.',
   'link-create.unknown-error.heading': 'Noget gik galt.',

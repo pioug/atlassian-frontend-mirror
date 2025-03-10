@@ -18,6 +18,8 @@ export default {
     '⁣⁢Recipients will see the name of the page and your message⁯⁠‌‌؜⁠‌⁪⁡؜⁮⁠⁭⁭‌‌⁭‌⁠⁪‌⁣⁤',
   'fabric.elements.share.form.info.message.no.invite.jira':
     '⁣⁢Recipients will see the name of the issue and your message⁬⁬⁯‍⁫‍⁠؜⁡⁭⁪⁫⁪⁭⁮⁭‍⁬⁮⁯⁠⁣⁤',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    '⁣⁢Recipients will see the name of the work item and your message؜⁫‍⁫⁭⁠‍‌‌⁭⁠‌⁮⁫⁮⁠⁯⁠⁭⁠⁯⁫⁫⁣⁤',
   'fabric.elements.share.form.no-permissions': '⁣⁢You do not have the ability to share.⁫⁯؜⁫⁭⁬⁯⁯⁬⁠⁮‍‍‍⁫⁮⁬⁪⁡⁠⁡⁭⁮⁣⁤',
   'fabric.elements.share.form.public.send': '⁣⁢Send public link⁮⁫⁭⁮⁬⁠⁯⁫⁯؜⁠‍⁯⁠⁡⁮؜⁯⁭‌⁭⁡⁫⁠⁣⁤',
   'fabric.elements.share.form.public.share': '⁣⁢Share public link⁠⁡‍⁪⁪‍⁯‍⁫‌⁠⁬؜‍⁬‌⁯⁯‍⁭⁡⁡⁭⁡؜⁮⁣⁤',

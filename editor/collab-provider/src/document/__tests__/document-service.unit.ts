@@ -480,7 +480,7 @@ describe('document-service', () => {
 					json: [{ clientId: THIS_CLIENT, userId: 'test' }],
 					version: 1,
 
-					userIds: [THIS_CLIENT], // TODO: Should this userId be a client id (Socket-io id) or a user-userID?
+					userIds: [THIS_CLIENT], // TODO: ED-26957 - Should this userId be a client id (Socket-io id) or a user-userID?
 				});
 			});
 
@@ -752,7 +752,7 @@ describe('document-service', () => {
 				expect(processStepsSpy).toHaveBeenNthCalledWith(1, step1);
 			});
 
-			// TODO: My assumption around how steps should be processed fails with this unit test
+			// TODO: ED-26957 - My assumption around how steps should be processed fails with this unit test
 			xit('Drops steps from the queue that does not follow the expected version numbers', () => {
 				let version = 5;
 				getCurrentPmVersionMock.mockImplementation(() => version);

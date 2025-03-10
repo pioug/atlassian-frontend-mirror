@@ -241,6 +241,8 @@ h2. header`;
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO We don't support this so it will split the list, confirm with JIRA
 	describe('table in a list', () => {
 		const WIKI_NOTATION = `# Item 1
@@ -359,6 +361,8 @@ h2. header`;
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO We don't support this so it will split the list, confirm with JIRA
 	describe('table between lists', () => {
 		const WIKI_NOTATION = `* List Item 1

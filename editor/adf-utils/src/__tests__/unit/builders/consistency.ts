@@ -37,7 +37,6 @@ const REPO_ROOT = execSync('git rev-parse --show-toplevel', {
 const rootNodeModules = path.join(REPO_ROOT, 'node_modules');
 const platformNodeModules = path.join(REPO_ROOT, 'platform', 'node_modules');
 
-// TODO: https://product-fabric.atlassian.net/browse/ADFEXP-524
 const adfSchemaNodesDir = path.join('@atlaskit', 'adf-schema', 'dist', 'cjs', 'schema', 'nodes');
 
 // Load 'nodes' from Platform's node_modules if available, otherwise from the root node_modules
@@ -58,7 +57,7 @@ const ignoredMarks = [
 	'unsupported-node-attributes',
 ];
 
-// TODO: https://product-fabric.atlassian.net/browse/ADFEXP-524
+// TODO: ADFEXP-524 - Update to correctly refer to adf-schema path
 const adfSchemaMarksDir = path.join('@atlaskit', 'adf-schema', 'dist', 'cjs', 'schema', 'marks');
 
 // Load 'marks' from Platform's node_modules if available, otherwise from the root node_modules

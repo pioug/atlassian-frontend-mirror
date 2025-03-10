@@ -46,7 +46,7 @@ const OpenButtonOverlay = ({
 	url,
 	...props
 }: React.PropsWithChildren<OpenButtonOverlayProps>) => {
-	// TODO add translation
+	// TODO: ED-26961 - add translation
 	const label = 'Open';
 
 	const handleDoubleClick = () => {

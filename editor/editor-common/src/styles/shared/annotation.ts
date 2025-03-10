@@ -68,7 +68,7 @@ export const AnnotationSharedCSSByState = () => {
 				// emotion and token look up
 				background: token('color.background.accent.yellow.subtler'),
 				borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
-				// TODO: https://product-fabric.atlassian.net/browse/DSP-4147
+				// TODO: DSP-4147 - Annotation shadow
 				boxShadow: token('elevation.shadow.overlay'),
 				cursor: 'pointer',
 			}),

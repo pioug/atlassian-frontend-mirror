@@ -4,8 +4,9 @@ import { di } from 'react-magnetic-di';
 
 import { ErrorMessage } from '@atlaskit/form';
 import { JQLSyntaxError } from '@atlaskit/jql-ast';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { JQL_EDITOR_INPUT_ID } from '../../../../common/constants';
+import { JQL_EDITOR_INPUT_ID, JQL_EDITOR_VALIDATION_ID } from '../../../../common/constants';
 import { commonMessages } from '../../../../common/messages';
 import { useEditorThemeContext } from '../../../../hooks/use-editor-theme';
 import { useEditorViewIsInvalid } from '../../../../hooks/use-editor-view-is-invalid';
@@ -85,19 +86,24 @@ export const ErrorMessages = () => {
 	di(useScopedId, useFormattedErrorMessage, useCustomErrorComponent);
 
 	const [editorId] = useScopedId(JQL_EDITOR_INPUT_ID);
+	const [validationId] = useScopedId(JQL_EDITOR_VALIDATION_ID);
 	const errorMessage = useFormattedErrorMessage();
-
-	const testId = 'jql-editor-validation';
 
 	const [CustomErrorComponent] = useCustomErrorComponent();
 
 	const childrenToRender =
 		errorMessage != null ? (
 			<MessageContainer>
-				<ErrorMessage testId={testId}>
-					<span role="alert" aria-describedby={editorId}>
-						{errorMessage}
-					</span>
+				<ErrorMessage testId={JQL_EDITOR_VALIDATION_ID}>
+					{fg('jql_editor_a11y') ? (
+						<span role="alert" id={validationId}>
+							{errorMessage}
+						</span>
+					) : (
+						<span role="alert" aria-describedby={editorId}>
+							{errorMessage}
+						</span>
+					)}
 				</ErrorMessage>
 			</MessageContainer>
 		) : null;
@@ -106,7 +112,7 @@ export const ErrorMessages = () => {
 	if (errorMessage != null && CustomErrorComponent) {
 		return (
 			<CustomComponentDecoratedWithEditorTheme
-				testId={testId}
+				testId={JQL_EDITOR_VALIDATION_ID}
 				editorId={editorId}
 				Component={CustomErrorComponent}
 			>

@@ -21,6 +21,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { SmartLinkSize } from '../../../../../../constants';
+import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
 
@@ -282,10 +283,18 @@ const ActionButtonNew = ({
 	);
 };
 
+const ActionButtonHideLegacyButton = (props: ActionButtonProps): JSX.Element => {
+	const ui = useFlexibleUiOptionContext();
+	if (ui?.hideLegacyButton) {
+		return <ActionButtonRefreshNewWithOverrideCss {...props} />;
+	}
+	return <ActionButtonNew {...props} />;
+};
+
 const ActionButton = (props: ActionButtonProps): JSX.Element => {
 	if (fg('bandicoots-compiled-migration-smartcard')) {
 		return fg('platform-linking-visual-refresh-v1') ? (
-			<ActionButtonRefreshNewWithOverrideCss {...props} />
+			<ActionButtonHideLegacyButton {...props} />
 		) : (
 			<ActionButtonNew {...props} />
 		);

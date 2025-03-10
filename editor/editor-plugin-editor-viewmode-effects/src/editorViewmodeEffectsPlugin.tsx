@@ -32,6 +32,8 @@ const createFilterStepsPlugin =
 				}, []);
 
 				if (viewModeSteps.length === 0 || !api) {
+					// Ignored via go/ees007
+					// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 					// TODO: Do we want to block everything?
 					// If yes, we should return false;
 					return true;
@@ -58,6 +60,8 @@ const createFilterStepsPlugin =
 					}
 				});
 
+				// Ignored via go/ees007
+				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 				// TODO: Follow-up and improve annotation logic so we can filter out transactions here
 				return true;
 			},
@@ -107,6 +111,8 @@ export const editorViewModeEffectsPlugin: EditorViewModeEffectsPlugin = ({ api }
 			const marksSteps: (AddMarkStep | AddNodeMarkStep)[] = tr.steps.reduce<
 				(AddMarkStep | AddNodeMarkStep)[]
 			>((acc, s) => {
+				// Ignored via go/ees007
+				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 				// TODO: We probably want to check the RemoveMarkStep flow too.
 				if (s instanceof AddMarkStep || s instanceof AddNodeMarkStep) {
 					acc.push(s);

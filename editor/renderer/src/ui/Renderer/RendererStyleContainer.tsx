@@ -72,6 +72,8 @@ const TELEPOINTER_ID = 'ai-streaming-telepointer';
 const tableShadowWidth = 32;
 const LAYOUT_BREAKPOINT_RENDERER = 629;
 // originally defined from packages/editor/editor-plugin-table/src/ui/common-styles.ts
+// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: tableRowHeight can be moved into `@atlaskit/editor-common/table`
 const tableRowHeight = 44;
 
@@ -454,6 +456,8 @@ const headingsSharedStyles = css({
 	},
 });
 
+// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: emotion refactor - check if we need UGC token?
 const headingsSharedStylesWithEditorUGC = css({
 	'& h1': {
@@ -984,11 +988,15 @@ const baseOtherStyles = css({
 	/* Breakout for tables and extensions */
 	[`.${RendererCssClassName.DOCUMENT} >`]: {
 		[`*:not([data-mark-type='fragment']) .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
+			// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO - improve inline style logic on table container so important styles aren't required here
 			width: '100% !important',
 			left: '0 !important',
 		},
 		[`[data-mark-type='fragment'] * .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
+			// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO - improve inline style logic on table container so important styles aren't required here
 			width: '100% !important',
 			left: '0 !important',
@@ -1024,6 +1032,8 @@ const baseOtherStyles = css({
 });
 
 const alignedHeadingAnchorStyle = css({
+	// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO Delete this comment after verifying space token -> previous value `margin: 6px`
 	'.fabric-editor-block-mark[data-align] >': {
 		'h1, h2, h3, h4, h5, h6': {
@@ -1048,6 +1058,8 @@ const alignedHeadingAnchorStyle = css({
 	},
 });
 
+// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: emotion refactor - there's a mediaSingleSharedNewStyle, but not originally used in the renderer.
 const mediaSingleSharedStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

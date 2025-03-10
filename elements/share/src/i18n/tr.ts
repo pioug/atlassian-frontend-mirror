@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Bilmeleri gereken bir şey var mı?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Alıcılar sayfanın adını ve mesajınızı görür',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Alıcılar konunun adını ve mesajınızı görür',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Alıcılar biletin adını ve mesajınızı görür',
   'fabric.elements.share.form.no-permissions': 'Paylaşamıyorsunuz.',
   'fabric.elements.share.form.public.send': 'Herkese açık bağlantıyı gönderin',
   'fabric.elements.share.form.public.share': 'Herkese açık bağlantıyı paylaş',

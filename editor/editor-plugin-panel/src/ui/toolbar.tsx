@@ -53,6 +53,8 @@ import type { PanelPlugin } from '../index';
 import type { EmojiInfo, PanelPluginOptions } from '../panelPluginType';
 import { findPanel } from '../pm-plugins/utils/utils';
 
+import { panelTypeDropdown } from './panelTypeDropdown';
+
 export const panelIconMap: {
 	[key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;
 } = {
@@ -81,59 +83,67 @@ export const getToolbarItems = (
 	state?: EditorState,
 	api?: ExtractInjectionAPI<PanelPlugin>,
 ): FloatingToolbarItem<Command>[] => {
-	// TODO: ED-14403 investigate why these titles are not getting translated for the tooltips
-	const items: FloatingToolbarItem<Command>[] = [
-		{
-			id: 'editor.panel.info',
-			type: 'button',
-			icon: InformationIcon,
-			iconFallback: InfoIcon,
-			onClick: changePanelType(editorAnalyticsAPI)(PanelType.INFO),
-			selected: activePanelType === PanelType.INFO,
-			title: formatMessage(messages.info),
-			tabIndex: null,
-		},
-		{
-			id: 'editor.panel.note',
-			type: 'button',
-			icon: DiscoveryIcon,
-			iconFallback: LegacyNoteIcon,
-			onClick: changePanelType(editorAnalyticsAPI)(PanelType.NOTE),
-			selected: activePanelType === PanelType.NOTE,
-			title: formatMessage(messages.note),
-			tabIndex: null,
-		},
-		{
-			id: 'editor.panel.success',
-			type: 'button',
-			icon: SuccessIcon,
-			iconFallback: LegacySuccessIcon,
-			onClick: changePanelType(editorAnalyticsAPI)(PanelType.SUCCESS),
-			selected: activePanelType === PanelType.SUCCESS,
-			title: formatMessage(messages.success),
-			tabIndex: null,
-		},
-		{
-			id: 'editor.panel.warning',
-			type: 'button',
-			icon: WarningIcon,
-			iconFallback: LegacyWarningIcon,
-			onClick: changePanelType(editorAnalyticsAPI)(PanelType.WARNING),
-			selected: activePanelType === PanelType.WARNING,
-			title: formatMessage(messages.warning),
-			tabIndex: null,
-		},
-		{
-			id: 'editor.panel.error',
-			type: 'button',
-			icon: CrossCircleIcon,
-			iconFallback: ErrorIcon,
-			onClick: changePanelType(editorAnalyticsAPI)(PanelType.ERROR),
-			selected: activePanelType === PanelType.ERROR,
-			title: formatMessage(messages.error),
-			tabIndex: null,
-		},
-	];
+	// TODO: ED-14403 - investigate why these titles are not getting translated for the tooltips
+	const items: FloatingToolbarItem<Command>[] = editorExperiment(
+		'platform_editor_controls',
+		'control',
+	)
+		? [
+				{
+					id: 'editor.panel.info',
+					type: 'button',
+					icon: InformationIcon,
+					iconFallback: InfoIcon,
+					onClick: changePanelType(editorAnalyticsAPI)(PanelType.INFO),
+					selected: activePanelType === PanelType.INFO,
+					title: formatMessage(messages.info),
+					tabIndex: null,
+				},
+				{
+					id: 'editor.panel.note',
+					type: 'button',
+					icon: DiscoveryIcon,
+					iconFallback: LegacyNoteIcon,
+					onClick: changePanelType(editorAnalyticsAPI)(PanelType.NOTE),
+					selected: activePanelType === PanelType.NOTE,
+					title: formatMessage(messages.note),
+					tabIndex: null,
+				},
+				{
+					id: 'editor.panel.success',
+					type: 'button',
+					icon: SuccessIcon,
+					iconFallback: LegacySuccessIcon,
+					onClick: changePanelType(editorAnalyticsAPI)(PanelType.SUCCESS),
+					selected: activePanelType === PanelType.SUCCESS,
+					title: formatMessage(messages.success),
+					tabIndex: null,
+				},
+				{
+					id: 'editor.panel.warning',
+					type: 'button',
+					icon: WarningIcon,
+					iconFallback: LegacyWarningIcon,
+					onClick: changePanelType(editorAnalyticsAPI)(PanelType.WARNING),
+					selected: activePanelType === PanelType.WARNING,
+					title: formatMessage(messages.warning),
+					tabIndex: null,
+				},
+				{
+					id: 'editor.panel.error',
+					type: 'button',
+					icon: CrossCircleIcon,
+					iconFallback: ErrorIcon,
+					onClick: changePanelType(editorAnalyticsAPI)(PanelType.ERROR),
+					selected: activePanelType === PanelType.ERROR,
+					title: formatMessage(messages.error),
+					tabIndex: null,
+				},
+			]
+		: [
+				panelTypeDropdown({ activePanelType, editorAnalyticsAPI, formatMessage }),
+				{ type: 'separator' },
+			];
 
 	if (isCustomPanelEnabled) {
 		const changeColor =

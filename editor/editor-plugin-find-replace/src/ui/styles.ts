@@ -5,7 +5,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable */
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4290
 import { css } from '@emotion/react';
 
 import { N40A, N50A, N60A } from '@atlaskit/theme/colors';

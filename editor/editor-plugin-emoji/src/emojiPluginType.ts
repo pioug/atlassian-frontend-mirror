@@ -57,6 +57,7 @@ export type EmojiPluginState = {
 	emojiProvider?: EmojiProvider;
 	emojiResourceConfig?: EmojiResourceConfig;
 	asciiMap?: Map<string, EmojiDescription>;
+	inlineEmojiPopupOpen?: boolean;
 };
 
 export type EmojiPluginSharedState = EmojiPluginState & {

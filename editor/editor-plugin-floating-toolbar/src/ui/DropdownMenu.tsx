@@ -69,7 +69,7 @@ const labelStyles = css({
 	width: '100%',
 });
 
-// TODO: Migrate away from gridSize
+// TODO: ED-26959 - Migrate away from gridSize
 // Recommendation: Replace with 4 as itemSpacing is used in calculations expecting a number
 export const itemSpacing = gridSize() / 2;
 export interface Props {

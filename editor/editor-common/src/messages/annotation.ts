@@ -6,6 +6,8 @@ export const annotationMessages = defineMessages({
 		defaultMessage: 'Comment',
 		description: 'Create/add an inline comment based on the users selection',
 	},
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO: Remove this message when the editor_inline_comments_on_inline_nodes FF is removed
 	createCommentInvalid: {
 		id: 'fabric.editor.createCommentInvalid',

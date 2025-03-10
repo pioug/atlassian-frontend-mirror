@@ -14,6 +14,8 @@ const sanitiseSentryEvents = (
 	_hint?: EventHint,
 ): PromiseLike<SentryEvent | null> | SentryEvent | null => {
 	// Remove URL as it has UGC
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO: Sanitise the URL instead of just removing it
 	if (data.request) {
 		delete data.request.url;

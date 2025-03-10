@@ -74,7 +74,7 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		this.options = Object.assign(defaultOptions, givenOptions || {});
 		this.timeline = timeline;
 		this.vcSections = new WeakSet();
-		// TODO: make sure to get it from config
+		// TODO: ED-26959 - make sure to get it from config
 		const selectorConfig: SelectorConfig = {
 			id: false,
 			testId: true,
@@ -121,6 +121,8 @@ export class EditorPerformanceObserver implements ObserverInterface {
 			timeline: this.timeline,
 			onChange: ({ startTime, elementRef, visible, rect, previousRect, source }) => {
 				if (!visible) {
+					// Ignored via go/ees007
+					// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 					// TODO: when element is not visible we probably wants to add something
 					return;
 				}

@@ -53,7 +53,7 @@ const containerStaticStyles = xcss({
 	zIndex: 'card',
 });
 
-// TODO: Share prop types between DragHandle - generic enough to create a type for block control decoration
+// TODO: ED-26959 - Share prop types between DragHandle - generic enough to create a type for block control decoration
 type Props = {
 	view: EditorView;
 	api: ExtractInjectionAPI<BlockControlsPlugin>;

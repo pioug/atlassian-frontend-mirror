@@ -25,7 +25,7 @@ export interface TablePluginOptions {
 	// this option will eventually be removed, and enabled by default
 	isTableScalingEnabled?: boolean;
 	allowContextualMenu?: boolean;
-	// TODO these two need to be rethought
+	// TODO: ED-26961 - these two need to be rethought
 	fullWidthEnabled?: boolean;
 	wasFullWidthEnabled?: boolean;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
@@ -35,7 +35,7 @@ export interface TablePluginOptions {
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
 
-// TODO: duplicating type instead of importing media plugin causing a circular dependency
+// TODO: ED-26961 - duplicating type instead of importing media plugin causing a circular dependency
 type MediaPlugin = NextEditorPlugin<
 	'media',
 	{

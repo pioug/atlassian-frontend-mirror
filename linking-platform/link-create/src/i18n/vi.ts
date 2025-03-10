@@ -7,6 +7,8 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'link-create.live-doc-icon-label': 'Tài liệu trực tuyến',
+  'link-create.page-icon-label': 'Trang',
   'link-create.unknown-error.description':
     'Làm mới trang hoặc liên hệ với <a>Bộ phận hỗ trợ Atlassian</a> nếu sự cố này vẫn tiếp diễn.',
   'link-create.unknown-error.heading': 'Đã xảy ra lỗi.',

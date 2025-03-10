@@ -71,6 +71,8 @@ describe('CollapsedEditor', () => {
 		);
 		const textbox = screen.getByRole('textbox');
 		textbox.focus();
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
 		// fireEvent.focusIn(textbox); // Removed after upgrading to jest 29
 		expect(onFocus).toHaveBeenCalledTimes(1);
@@ -169,6 +171,8 @@ describe('CollapsedEditor with ComposableEditor', () => {
 		);
 		const textbox = screen.getByRole('textbox');
 		textbox.focus();
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO: Remove once we upgrade to JSDom v16.3.0 that has the fix for focus
 		// fireEvent.focusIn(textbox); // Removed after upgrading to jest 29
 		expect(onFocus).toHaveBeenCalledTimes(1);

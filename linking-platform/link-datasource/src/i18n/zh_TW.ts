@@ -96,6 +96,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': '插入 Jira 工作項目',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '從中插入 Jira 議題：',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': '從中插入 Jira 工作項目：',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### 個工作項目',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription': '將搜尋結果數目顯示為內嵌智慧連結',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': '內嵌連結',
   'linkDataSource.jira-issues.configmodal.viewModeListDescription': '將搜尋結果顯示為列表',
@@ -113,11 +114,17 @@ export default {
   'linkDataSource.modal-initial-state.beta': '測試版',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': '搜尋 Confluence 頁面',
   'linkDataSource.modal-initial-state.jiraSearchTitle': '搜尋 Jira 議題',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh': '按關鍵字搜尋要插入的工作項目。',
   'linkDataSource.modal-initial-state.searchDescription-confluence': '按關鍵字搜尋要插入的頁面。',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    '使用 JQL (Jira 查詢語言) 來搜尋工作項目。',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': '搜尋 Jira 工作項目',
   'linkDataSource.render-type.boolean.false': '否',
   'linkDataSource.render-type.boolean.true': '是',
   'linkDataSource.render-type.user.default.display.name': '未指派',
   'linkDataSource.search.configmodal.issueCountText': '{searchCount, plural, other {{searchCount,number} 個議題}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, other {{searchCount,number} 個工作項目}}',
   'linkDataSource.search.configmodal.itemCountText': '{searchCount, plural, other {{searchCount,number} 個項目}}',
   'linkDataSource.search.configmodal.resultCountText': '{searchCount, plural, other {{searchCount,number} 項結果}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': '剛才已同步',
@@ -125,5 +132,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, other {個項目}}',
   'linkDataSource.table-footer.loading': '正在載入...',
   'linkDataSource.table-footer.power-by-jsm': '由 Jira Service Management 中的 Assets 提供技術支援',
+  'linkDataSource.table-footer.powered-by-assets': '由 Assets 提供技術支援',
   'linkDataSource.table-footer.refresh': '重新整理',
 };

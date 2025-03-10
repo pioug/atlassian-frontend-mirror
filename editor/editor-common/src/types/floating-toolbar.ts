@@ -158,7 +158,7 @@ export type FloatingToolbarCopyButton = {
 	type: 'copy-button';
 	items: Array<FloatingToolbarSeparator | MarkOptions | NodeOptions>;
 	hidden?: boolean;
-	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
+	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 };
 
 export type FloatingToolbarButton<T extends Object> = {
@@ -193,7 +193,7 @@ export type FloatingToolbarButton<T extends Object> = {
 	ariaHasPopup?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
 	tabIndex?: number | null | undefined;
 	focusEditoronEnter?: boolean; // To focus the editor when button is pressed default value - false
-	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
+	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
@@ -236,7 +236,7 @@ export type FloatingToolbarCustom<T extends Object> = {
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	) => React.ReactNode;
 	hidden?: boolean;
-	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
+	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 };
 
 type FloatingToolbarSelectBase<T extends Object, V = SelectOption> = {
@@ -287,7 +287,7 @@ export type FloatingToolbarSeparator = {
 	type: 'separator';
 	hidden?: boolean;
 	fullHeight?: boolean;
-	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
+	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 };
 
 export type FloatingToolbarDropdown<T extends Object> = {

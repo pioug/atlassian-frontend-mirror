@@ -7,6 +7,8 @@
  */
 //Spanish (International)
 export default {
+  'link-create.live-doc-icon-label': 'Documento "vivo"',
+  'link-create.page-icon-label': 'Página',
   'link-create.unknown-error.description':
     'Actualiza la página o ponte en contacto con el <a>soporte de Atlassian</a> si sigue ocurriendo.',
   'link-create.unknown-error.heading': 'Algo ha ido mal.',

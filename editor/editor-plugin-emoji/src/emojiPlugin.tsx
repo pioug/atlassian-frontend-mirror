@@ -38,6 +38,7 @@ import {
 } from '@atlaskit/emoji';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
 import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './emojiPluginType';
@@ -47,9 +48,11 @@ import {
 	ACTIONS,
 	openTypeAhead as openTypeAheadAction,
 	setAsciiMap as setAsciiMapAction,
+	setInlineEmojiPopupOpen,
 	setProvider as setProviderAction,
 } from './pm-plugins/actions';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
+import { InlineEmojiPopup } from './ui/InlineEmojiPopup';
 
 export const emojiToTypeaheadItem = (
 	emoji: EmojiDescription,
@@ -286,7 +289,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			if (!editorState) {
 				return undefined;
 			}
-			const { emojiResourceConfig, asciiMap, emojiProvider } =
+			const { emojiResourceConfig, asciiMap, emojiProvider, inlineEmojiPopupOpen } =
 				emojiPluginKey.getState(editorState) ?? {};
 
 			return {
@@ -294,6 +297,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				asciiMap,
 				typeAheadHandler: typeAhead,
 				emojiProvider,
+				inlineEmojiPopupOpen,
 			};
 		},
 
@@ -314,6 +318,30 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			insertEmoji: insertEmoji(api?.analytics?.actions),
 		},
 
+		contentComponent({
+			editorView,
+			popupsBoundariesElement,
+			popupsMountPoint,
+			popupsScrollableElement,
+		}) {
+			if (!api || editorExperiment('platform_editor_controls', 'control')) {
+				return null;
+			}
+
+			return (
+				<InlineEmojiPopup
+					api={api}
+					editorView={editorView}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsMountPoint={popupsMountPoint}
+					popupsScrollableElement={popupsScrollableElement}
+					onClose={() => {
+						editorView.dispatch(setInlineEmojiPopupOpen(false)(editorView.state.tr));
+					}}
+				/>
+			);
+		},
+
 		pluginsOptions: {
 			quickInsert: ({ formatMessage }) => [
 				{
@@ -324,7 +352,14 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					keyshortcut: ':',
 					isDisabledOffline: fg('platform_editor_preload_emoji_picker') ? false : true,
 					icon: () => <IconEmoji />,
-					action(insert, state) {
+					action(insert) {
+						if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+							// Clear slash
+							let tr = insert('');
+							tr = setInlineEmojiPopupOpen(true)(tr);
+							return tr;
+						}
+
 						const tr = insert(undefined);
 						api?.typeAhead?.actions.openAtTransaction({
 							triggerHandler: typeAhead,
@@ -531,6 +566,13 @@ export function createEmojiPlugin(
 						newPluginState = {
 							...pluginState,
 							asciiMap: params.asciiMap,
+						};
+						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
+						return newPluginState;
+					case ACTIONS.SET_INLINE_POPUP:
+						newPluginState = {
+							...pluginState,
+							inlineEmojiPopupOpen: params.open,
 						};
 						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
 						return newPluginState;

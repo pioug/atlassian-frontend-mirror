@@ -28,6 +28,8 @@ describe('createUniversalPreset', () => {
 		});
 		const plugins = preset.build();
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO: We need to uncomment the modules here in https://product-fabric.atlassian.net/browse/ED-16575
 		// This is because we should allow these modules by default in this ticket for this preset.
 
@@ -91,6 +93,8 @@ describe('createUniversalPreset', () => {
 		});
 
 		it('should add tablePlugin if allowTables is true', () => {
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO: We need to remove the allowTables prop passed here in https://product-fabric.atlassian.net/browse/ED-16575
 			// This is because we should be allow tables by default
 			jest.spyOn(table, 'tablesPlugin');
@@ -111,6 +115,8 @@ describe('createUniversalPreset', () => {
 		});
 
 		it('should add tablePlugin if allowTables is true where previous appearance was full-width', () => {
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO: We need to remove the allowTables prop passed here in https://product-fabric.atlassian.net/browse/ED-16575
 			// This is because we should be allow tables by default
 			jest.spyOn(table, 'tablesPlugin');

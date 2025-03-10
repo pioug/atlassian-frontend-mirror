@@ -49,11 +49,11 @@ function calcContentWidth(
 			// If the text isn't meant to wrap, we should set that as a hard limit.
 			if (parentStyle.whiteSpace === 'nowrap') {
 				// + 3 is for date offset plus cursor
-				// TODO There should be a programmatic way to get this.
+				// TODO: ED-26961 - There should be a programmatic way to get this.
 				colWidths.push(parent.offsetWidth + 3);
 			}
 		} else {
-			// FIXME: doesn't quite work right with spacing
+			// TODO: ED-26961 - doesn't quite work right with spacing
 			const style = getComputedStyle(child);
 
 			if (style.minWidth && style.minWidth.endsWith('px') && style.minWidth !== '0px') {

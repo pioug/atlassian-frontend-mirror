@@ -18,7 +18,7 @@ import type { CardPluginOptions, CardPluginState } from './types';
 
 // Dummpy type of AnnotationPlugin
 // This is used to avoid editor universal preset's inferred type maximum length error
-// TODO: Remove this when the issue is fixed
+// TODO: ED-26961 - Remove this when the issue is fixed
 type DummyAnnotationPlugin = NextEditorPlugin<
 	'annotation',
 	{

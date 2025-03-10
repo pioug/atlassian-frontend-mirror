@@ -80,6 +80,8 @@ describe('Breakout SSR', () => {
 		expect(mockWindow.addEventListener).not.toHaveBeenCalledWith('load', expect.any(Function));
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// FIX-IT: Red Master - https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pipelines/results/966651/steps/%7B80f5ea3d-12b6-4a38-9ea4-1d905e177b89%7D#line=7-65461
 	it.skip('should clear visibility and overflowX after setting the correct width', async () => {
 		const mockWindow = {

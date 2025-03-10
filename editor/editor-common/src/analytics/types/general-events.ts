@@ -349,7 +349,6 @@ type FullWidthModeAEP = TrackAEP<
 	undefined
 >;
 
-// TODO: https://product-fabric.atlassian.net/browse/AFP-1418
 type ExpandToggleAEP = TrackAEP<
 	ACTION.TOGGLE_EXPAND,
 	ACTION_SUBJECT.EXPAND | ACTION_SUBJECT.NESTED_EXPAND,

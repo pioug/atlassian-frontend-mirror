@@ -7,6 +7,8 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'link-create.live-doc-icon-label': 'Інтерактивний документ',
+  'link-create.page-icon-label': 'Сторінка',
   'link-create.unknown-error.description':
     'Якщо помилка виникатиме знову, оновіть сторінку або зверніться до <a>служби підтримки Atlassian</a>.',
   'link-create.unknown-error.heading': 'Сталася помилка.',

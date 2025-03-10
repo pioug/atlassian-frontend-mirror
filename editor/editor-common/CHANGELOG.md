@@ -1,5 +1,42 @@
 # @atlaskit/editor-common
 
+## 102.2.0
+
+### Minor Changes
+
+- [#122605](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122605)
+  [`1bf1493f744ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bf1493f744ce) -
+  [ux] Add conflict metadata on reconnection
+
+### Patch Changes
+
+- [#124036](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124036)
+  [`89e5673ede364`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89e5673ede364) -
+  FD-80149: cleans up platform_editor_react18_phase2_v2 in withproviders
+- [#124061](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124061)
+  [`5a2bf8222411a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a2bf8222411a) -
+  Removed `system-ui` font family from editor UGC tokens to resolve customer issue where certain
+  Japanese characters do not render in Chrome on Windows.
+- [#123966](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123966)
+  [`980562a51a41f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/980562a51a41f) -
+  [ux] ED-26796 Change panel type buttons into dropdown
+
+## 102.1.0
+
+### Minor Changes
+
+- [#122920](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122920)
+  [`18c265545150a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18c265545150a) -
+  [ux] [ED-26914] Emoji quick insert will now open the emoji picker rather than the typeahead when
+  platform_editor_controls is enabled
+
+### Patch Changes
+
+- [#123583](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123583)
+  [`81ea741d7ca80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ea741d7ca80) -
+  Cleanup refactor for element browser state
+- Updated dependencies
+
 ## 102.0.0
 
 ### Major Changes

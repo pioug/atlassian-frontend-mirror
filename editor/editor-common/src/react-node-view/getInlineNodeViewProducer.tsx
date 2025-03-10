@@ -333,7 +333,7 @@ function getPortalChildren<ExtraComponentProps>({
 				</span>
 				<Component
 					view={nodeViewParams.view}
-					// TODO:  ED-13910 - Remove the boolean to fix the prosemirror view type
+					// TODO: ED-13910 - Remove the boolean to fix the prosemirror view type
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					getPos={nodeViewParams.getPos as any}

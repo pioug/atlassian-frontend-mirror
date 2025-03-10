@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Что пользователям следует знать?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Получатели увидят имя страницы и ваше сообщение',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Получатели увидят имя задачи и ваше сообщение',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Получатели увидят имя задачи и ваше сообщение',
   'fabric.elements.share.form.no-permissions': 'У вас нет возможности предоставить общий доступ.',
   'fabric.elements.share.form.public.send': 'Отправить публичную ссылку',
   'fabric.elements.share.form.public.share': 'Поделиться ссылкой общего доступа',

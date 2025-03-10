@@ -128,10 +128,6 @@ const nodeTypes: Record<string, NodeMapping> = {
 	inlineCard: { name: 'inlineCard', attrs: ['url', 'data'] },
 	blockCard: { name: 'blockCard', attrs: ['url', 'data'] },
 
-	// TODO - The attributes of unsupported content is type `any`
-	// unsupportedInline: { name: 'unsupportedInline', attrs: [''] },
-	// unsupportedBlock: { name: 'unsupportedBlock', attrs: [''] },
-
 	//
 	// Marks
 	//

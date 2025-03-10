@@ -61,7 +61,7 @@ const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
 
 const TABLE_SELECTOR_STRING = 'table selector';
 
-// TODO: Jenga team will create a component for a split button using this css
+// TODO: ED-26959 - Jenga team will create a component for a split button using this css
 const getHoverStyles = (selector: string) =>
 	`&:hover ${selector} {
     background: ${token('color.background.neutral.subtle.hovered', N20A)};

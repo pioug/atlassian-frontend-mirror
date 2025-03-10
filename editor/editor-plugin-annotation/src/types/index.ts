@@ -72,6 +72,8 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
 	 * Ordered list of annotation ids as shown in the document
 	 */
 	annotationsList?: string[];
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	/**
 	 * Return a list of inline node types, which are wrapped by the annotation,
 	 * for annotation with given ID.

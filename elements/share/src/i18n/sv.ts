@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Finns det något de behöver veta?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Mottagare ser namnet på sidan och ditt meddelande',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Mottagare ser namnet på ärendet och ditt meddelande',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Mottagare ser namnet på arbetsuppgiften och ditt meddelande',
   'fabric.elements.share.form.no-permissions': 'Du har inte möjlighet att dela.',
   'fabric.elements.share.form.public.send': 'Skicka offentlig länk',
   'fabric.elements.share.form.public.share': 'Dela offentlig länk',

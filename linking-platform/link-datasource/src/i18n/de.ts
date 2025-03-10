@@ -110,6 +110,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von folgender Site einfügen:',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     'Jira-Vorgänge von folgender Site einfügen:',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### Vorgänge',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Zeigen Sie die Anzahl der Suchergebnisse als intelligenten Inline-Link an.',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-Link',
@@ -130,12 +131,19 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Nach Confluence-Seiten suchen',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Nach Jira-Vorgängen suchen',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Suchen Sie nach Vorgängen zum Einfügen, indem Sie ein Schlüsselwort eingeben.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Suchen Sie nach Seiten zum Einfügen, indem Sie ein Stichwort eingeben.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Suchen Sie mithilfe von JQL (Jira-Abfragesprache) nach Vorgängen.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Jira-Vorgänge suchen',
   'linkDataSource.render-type.boolean.false': 'Nein',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Nicht zugewiesen',
   'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} Vorgang} other {{searchCount,number} Vorgänge}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
     '{searchCount, plural, one {{searchCount,number} Vorgang} other {{searchCount,number} Vorgänge}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} Element} other {{searchCount,number} Elemente}}',

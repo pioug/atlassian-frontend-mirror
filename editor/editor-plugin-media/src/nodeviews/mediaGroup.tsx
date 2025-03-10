@@ -146,7 +146,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 					// Because the original code would return NaN on runtime
 					// We are just make it explict now.
 					// We may run a deep investagation on Media code to figure out a better fix. But, for now, we want to keep the current behavior.
-					// TODO: ED-13910 prosemirror-bump leftovers
+					// TODO: ED-13910 - prosemirror-bump leftovers
 					return NaN;
 				}
 
@@ -231,7 +231,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 					// Because the original code would return NaN on runtime
 					// We are just make it explict now.
 					// We may run a deep investagation on Media code to figure out a better fix. But, for now, we want to keep the current behavior.
-					// TODO: ED-13910 prosemirror-bump leftovers
+					// TODO: ED-13910 - prosemirror-bump leftovers
 					return NaN;
 				}
 
@@ -284,7 +284,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 					// Because the original code would return NaN on runtime
 					// We are just make it explict now.
 					// We may run a deep investagation on Media code to figure out a better fix. But, for now, we want to keep the current behavior.
-					// TODO: ED-13910 prosemirror-bump leftovers
+					// TODO: ED-13910 - prosemirror-bump leftovers
 					return NaN;
 				}
 

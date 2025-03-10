@@ -35,7 +35,7 @@ export default new SafePlugin({
 					($click.nodeAfter && code.isInSet($click.nodeAfter.marks)));
 
 			// Find the starting position of the clicked dom-element
-			// TODO: Remove calls to private API
+			// TODO: ED-26962 - Remove calls to private API
 			const clickedDOMElementPosition =
 				event.target &&
 				event.target instanceof Node &&

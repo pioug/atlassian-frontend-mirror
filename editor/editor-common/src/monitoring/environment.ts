@@ -3,6 +3,8 @@ const FEDRAMP_MODERATE = 'fedramp-moderate';
 // To determine whether an instance is a FedRAMP instance
 // Copied from platform/packages/uip/atl-context/src/services/is-fedramp/index.tsx
 // We cannot import the same-named function from @atlassian/atl-context due to editor-common being a public package (and atl-context being private)
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: Seek alternatives
 export function isFedRamp(): boolean {
 	// Ignored via go/ees005

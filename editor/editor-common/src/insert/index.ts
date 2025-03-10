@@ -103,6 +103,8 @@ const insertBeforeOrAfter = (
 	return tr.insert($proposedPosition[lookDirection](), content);
 };
 
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // FIXME: A more sustainable and configurable way to choose when to split
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

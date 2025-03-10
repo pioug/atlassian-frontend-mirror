@@ -18,7 +18,6 @@ export default {
   'reactions.dialog.close': 'ปิด',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'นำทางไปทางซ้าย',
-  'reactions.dialog.people-who-reacted.subheader': 'ผู้ที่แสดงปฏิกิริยาด้วยเอโมจิ {emojiShortName}',
   'reactions.dialog.reactions.count': '{count, plural, other {การโต้ตอบทั้งหมด {count,number} ครั้ง}}',
   'reactions.dialog.right.navigate': 'นำทางไปทางขวา',
   'reactions.dialog.viewall': 'ดูทั้งหมด',

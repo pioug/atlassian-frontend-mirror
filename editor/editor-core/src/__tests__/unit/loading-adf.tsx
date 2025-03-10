@@ -72,7 +72,6 @@ function mountEditorWithAdfDoc({ adfDoc }: { adfDoc: any }) {
 
 	// Work around JSDOM/Node not supporting DOM Selection API
 	if (!('getSelection' in window)) {
-		// TODO JEST-23
 		patchEditorViewForJSDOM(editorView!);
 	}
 
@@ -254,6 +253,8 @@ beforeAll(() => {
 	}).editorView.dom.innerHTML;
 });
 
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // FIXME: Jest upgrade
 // SyntaxError: Unexpected end of JSON input
 describe.skip('editor loading adf', () => {

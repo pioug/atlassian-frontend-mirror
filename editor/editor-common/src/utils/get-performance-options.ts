@@ -16,7 +16,6 @@ export function getPerformanceOptions(view: EditorView): {
 	samplingRate: number;
 	slowThreshold: number;
 } {
-	// TODO: ED-15663
 	// Please, do not copy or use this kind of code below
 	// @ts-ignore
 	const fakePluginKey = {

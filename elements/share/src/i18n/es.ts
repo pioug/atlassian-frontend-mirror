@@ -18,6 +18,8 @@ export default {
     'Los destinatarios verán el nombre de la página y tu mensaje',
   'fabric.elements.share.form.info.message.no.invite.jira':
     'Los destinatarios verán el nombre de la incidencia y tu mensaje',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Los destinatarios verán el nombre de la actividad y tu mensaje',
   'fabric.elements.share.form.no-permissions': 'No puedes compartir.',
   'fabric.elements.share.form.public.send': 'Enviar enlace público',
   'fabric.elements.share.form.public.share': 'Compartir enlace público',

@@ -25,7 +25,7 @@ const shortcutStyle = css({
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- This rule thinks this isn't a `css()` call due to the name mapping
 const shortcutStyleUnbounded = cssUnbounded({
-	// TODO why it's using rem here, can it be replaced with 12px? https://product-fabric.atlassian.net/browse/EDF-2517
+	// TODO: EDF-2517 - why it's using rem here, can it be replaced with 12px?
 	/**
 	 * original fontSize declaration is:
 	 * ```js

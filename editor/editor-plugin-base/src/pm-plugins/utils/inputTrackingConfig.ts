@@ -7,7 +7,7 @@ export const inputTracking: InputTracking = {
 	trackSeverity: true,
 	trackRenderingTime: false,
 	trackSingleKeypress: false,
-	// TODO: change this based on appearance due to SLOs - need to make ticket for both
+	// TODO: ED-26959 - change this based on appearance due to SLOs - need to make ticket for both
 	severityDegradedThreshold: 273,
 	severityNormalThreshold: 143,
 };

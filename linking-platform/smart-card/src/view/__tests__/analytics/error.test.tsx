@@ -7,6 +7,7 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
 import { mocks } from '../../../utils/mocks';
@@ -31,6 +32,8 @@ describe('smart-card: error analytics', () => {
 		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
 	} satisfies AnalyticsWebClient;
 
+	const mockExtensionKey = 'some-provider';
+
 	beforeEach(() => {
 		mockWindowOpen = jest.fn();
 		mockUrl = 'https://my.url';
@@ -42,86 +45,6 @@ describe('smart-card: error analytics', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 		consoleErrorFn.mockRestore();
-	});
-
-	it('should fallback on ResolveBadRequestError', async () => {
-		class MockClient extends CardClient {
-			async fetchData(url: string): Promise<JsonLd.Response> {
-				throw new APIError(
-					'fallback',
-					new URL(url).hostname,
-					'received bad request',
-					'ResolveBadRequestError',
-				);
-			}
-		}
-
-		const client = new MockClient();
-		render(
-			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider client={client}>
-					<Card testId="erroredLink" appearance="inline" url={mockUrl} />
-				</Provider>
-			</FabricAnalyticsListeners>,
-		);
-		const erroredLink = await screen.findByTestId('erroredLink-fallback-view');
-		expect(erroredLink).toBeTruthy();
-		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				actionSubject: 'smartLink',
-				action: 'unresolved',
-				attributes: expect.objectContaining({
-					id: expect.any(String),
-					display: 'inline',
-					definitionId: null,
-					canBeDatasource: false,
-					reason: 'fallback',
-					error: {
-						name: 'APIError',
-						kind: 'fallback',
-						type: 'ResolveBadRequestError',
-					},
-				}),
-			}),
-		);
-	});
-
-	it('should render unauthorized on ResolveAuthError', async () => {
-		class MockClient extends CardClient {
-			async fetchData(url: string): Promise<JsonLd.Response> {
-				throw new APIError(
-					'auth',
-					new URL(url).hostname,
-					'received bad request',
-					'ResolveAuthError',
-				);
-			}
-		}
-
-		const client = new MockClient();
-		render(
-			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider client={client}>
-					<Card testId="erroredLink" appearance="inline" url={mockUrl} />
-				</Provider>
-			</FabricAnalyticsListeners>,
-		);
-		const erroredLink = await screen.findByTestId('erroredLink-unauthorized-view');
-		expect(erroredLink).toBeTruthy();
-		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				actionSubject: 'smartLink',
-				action: 'unresolved',
-				attributes: expect.objectContaining({
-					id: expect.any(String),
-					display: 'inline',
-					definitionId: 'provider-not-found',
-					canBeDatasource: false,
-					reason: 'unauthorized',
-					error: null,
-				}),
-			}),
-		);
 	});
 
 	it('should invoke onError on ResolveUnsupportedError', async () => {
@@ -164,43 +87,15 @@ describe('smart-card: error analytics', () => {
 		);
 	});
 
-	it('should not fire unresolved-event on UnsupportedError', async () => {
+	it('should render unauthorized on ResolveAuthError', async () => {
 		class MockClient extends CardClient {
 			async fetchData(url: string): Promise<JsonLd.Response> {
 				throw new APIError(
-					'fatal',
+					'auth',
 					new URL(url).hostname,
-					'received unsupported error',
-					'UnsupportedError',
-				);
-			}
-		}
-
-		const client = new MockClient();
-		const onError = jest.fn();
-		render(
-			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider client={client}>
-					<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
-				</Provider>
-			</FabricAnalyticsListeners>,
-		);
-		expect(mockAnalyticsClient.sendOperationalEvent).not.toHaveBeenCalledWith(
-			expect.objectContaining({
-				actionSubject: 'smartLink',
-				action: 'unresolved',
-			}),
-		);
-	});
-
-	it('should throw error on ResolveFailedError', async () => {
-		class MockClient extends CardClient {
-			async fetchData(url: string): Promise<JsonLd.Response> {
-				throw new APIError(
-					'error',
-					new URL(url).hostname,
-					'received failure error',
-					'ResolveFailedError',
+					'received bad request',
+					'ResolveAuthError',
+					mockExtensionKey,
 				);
 			}
 		}
@@ -213,7 +108,7 @@ describe('smart-card: error analytics', () => {
 				</Provider>
 			</FabricAnalyticsListeners>,
 		);
-		const erroredLink = await screen.findByTestId('erroredLink-errored-view');
+		const erroredLink = await screen.findByTestId('erroredLink-unauthorized-view');
 		expect(erroredLink).toBeTruthy();
 		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
@@ -222,154 +117,566 @@ describe('smart-card: error analytics', () => {
 				attributes: expect.objectContaining({
 					id: expect.any(String),
 					display: 'inline',
-					definitionId: null,
+					definitionId: 'provider-not-found',
 					canBeDatasource: false,
-					reason: 'errored',
-					error: {
-						name: 'APIError',
-						kind: 'error',
-						type: 'ResolveFailedError',
-					},
+					reason: 'unauthorized',
+					error: null,
 				}),
 			}),
 		);
 	});
 
-	it('should throw error on ResolveTimeoutError', async () => {
-		class MockClient extends CardClient {
-			async fetchData(url: string): Promise<JsonLd.Response> {
-				throw new APIError(
-					'error',
-					new URL(url).hostname,
-					'received timeout error',
-					'ResolveTimeoutError',
-				);
+	ffTest.on('platform_bandicoots-smartlink-unresolved-error-key', 'FF on', () => {
+		beforeEach(() => {
+			mockWindowOpen = jest.fn();
+			mockUrl = 'https://my.url';
+			/// @ts-ignore
+			global.open = mockWindowOpen;
+			consoleErrorFn = jest.spyOn(console, 'error').mockImplementation(() => jest.fn());
+		});
+
+		afterEach(() => {
+			jest.clearAllMocks();
+			consoleErrorFn.mockRestore();
+		});
+
+		it('should fallback on ResolveBadRequestError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'fallback',
+						new URL(url).hostname,
+						'received bad request',
+						'ResolveBadRequestError',
+						mockExtensionKey,
+					);
+				}
 			}
-		}
 
-		const client = new MockClient();
-		render(
-			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider client={client}>
-					<Card testId="erroredLink" appearance="inline" url={mockUrl} />
-				</Provider>
-			</FabricAnalyticsListeners>,
-		);
-		const erroredLink = await screen.findByTestId('erroredLink-errored-view');
-
-		expect(erroredLink).toBeTruthy();
-		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				actionSubject: 'smartLink',
-				action: 'unresolved',
-				attributes: expect.objectContaining({
-					id: expect.any(String),
-					display: 'inline',
-					definitionId: null,
-					canBeDatasource: false,
-					reason: 'errored',
-					error: {
-						name: 'APIError',
-						kind: 'error',
-						type: 'ResolveTimeoutError',
-					},
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-fallback-view');
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'fallback',
+						error: {
+							name: 'APIError',
+							kind: 'fallback',
+							type: 'ResolveBadRequestError',
+						},
+						extensionKey: mockExtensionKey,
+					}),
 				}),
-			}),
-		);
-	});
+			);
+		});
 
-	it('should throw error on InternalServerError', async () => {
-		class MockClient extends CardClient {
-			async fetchData(url: string): Promise<JsonLd.Response> {
-				throw new APIError(
-					'error',
-					new URL(url).hostname,
-					'received internal server error',
-					'InternalServerError',
-				);
+		it('should not fire unresolved-event on UnsupportedError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'fatal',
+						new URL(url).hostname,
+						'received unsupported error',
+						'UnsupportedError',
+						mockExtensionKey,
+					);
+				}
 			}
-		}
 
-		const client = new MockClient();
-		render(
-			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider client={client}>
-					<Card testId="erroredLink" appearance="inline" url={mockUrl} />
-				</Provider>
-			</FabricAnalyticsListeners>,
-		);
-		const erroredLink = await screen.findByTestId('erroredLink-errored-view');
-
-		expect(erroredLink).toBeTruthy();
-		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				actionSubject: 'smartLink',
-				action: 'unresolved',
-				attributes: expect.objectContaining({
-					id: expect.any(String),
-					display: 'inline',
-					definitionId: null,
-					canBeDatasource: false,
-					reason: 'errored',
-					error: {
-						name: 'APIError',
-						kind: 'error',
-						type: 'InternalServerError',
-					},
+			const client = new MockClient();
+			const onError = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			expect(mockAnalyticsClient.sendOperationalEvent).not.toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
 				}),
-			}),
-		);
-	});
+			);
+		});
 
-	it('should throw fatal error on unexpected err', async () => {
-		class MockClient extends CardClient {
-			async fetchData(url: string): Promise<JsonLd.Response> {
-				throw new APIError(
-					'fatal',
-					new URL(url).hostname,
-					'received internal server error',
-					'InternalServerError',
-				);
+		it('should throw error on ResolveFailedError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'error',
+						new URL(url).hostname,
+						'received failure error',
+						'ResolveFailedError',
+						mockExtensionKey,
+					);
+				}
 			}
-		}
 
-		const client = new MockClient();
-		const onError = jest.fn();
-		render(
-			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider client={client}>
-					<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
-				</Provider>
-			</FabricAnalyticsListeners>,
-		);
-		await waitFor(() =>
-			expect(onError).toHaveBeenCalledWith({
-				err: expect.objectContaining({
-					kind: 'fatal',
-					name: 'APIError',
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-errored-view');
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'error',
+							type: 'ResolveFailedError',
+						},
+						extensionKey: mockExtensionKey,
+					}),
 				}),
-				status: 'errored',
-				url: mockUrl,
-			}),
-		);
-		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				actionSubject: 'smartLink',
-				action: 'unresolved',
-				attributes: expect.objectContaining({
-					id: expect.any(String),
-					display: 'inline',
-					definitionId: null,
-					canBeDatasource: false,
-					reason: 'errored',
-					error: {
-						name: 'APIError',
+			);
+		});
+
+		it('should throw error on ResolveTimeoutError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'error',
+						new URL(url).hostname,
+						'received timeout error',
+						'ResolveTimeoutError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-errored-view');
+
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'error',
+							type: 'ResolveTimeoutError',
+						},
+						extensionKey: mockExtensionKey,
+					}),
+				}),
+			);
+		});
+
+		it('should throw error on InternalServerError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'error',
+						new URL(url).hostname,
+						'received internal server error',
+						'InternalServerError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-errored-view');
+
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'error',
+							type: 'InternalServerError',
+						},
+						extensionKey: mockExtensionKey,
+					}),
+				}),
+			);
+		});
+
+		it('should throw fatal error on unexpected err', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'fatal',
+						new URL(url).hostname,
+						'received internal server error',
+						'InternalServerError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			const onError = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			await waitFor(() =>
+				expect(onError).toHaveBeenCalledWith({
+					err: expect.objectContaining({
 						kind: 'fatal',
-						type: 'InternalServerError',
-					},
+						name: 'APIError',
+					}),
+					status: 'errored',
+					url: mockUrl,
 				}),
-			}),
-		);
+			);
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'fatal',
+							type: 'InternalServerError',
+						},
+						extensionKey: mockExtensionKey,
+					}),
+				}),
+			);
+		});
+	});
+
+	// Note: Delete the entire block on FF platform_bandicoots-smartlink-unresolved-error-key clean up
+	ffTest.off('platform_bandicoots-smartlink-unresolved-error-key', 'FF off', () => {
+		beforeEach(() => {
+			mockWindowOpen = jest.fn();
+			mockUrl = 'https://my.url';
+			/// @ts-ignore
+			global.open = mockWindowOpen;
+			consoleErrorFn = jest.spyOn(console, 'error').mockImplementation(() => jest.fn());
+		});
+
+		afterEach(() => {
+			jest.clearAllMocks();
+			consoleErrorFn.mockRestore();
+		});
+
+		it('should fallback on ResolveBadRequestError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'fallback',
+						new URL(url).hostname,
+						'received bad request',
+						'ResolveBadRequestError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-fallback-view');
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'fallback',
+						error: {
+							name: 'APIError',
+							kind: 'fallback',
+							type: 'ResolveBadRequestError',
+						},
+						extensionKey: null,
+					}),
+				}),
+			);
+		});
+
+		it('should not fire unresolved-event on UnsupportedError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'fatal',
+						new URL(url).hostname,
+						'received unsupported error',
+						'UnsupportedError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			const onError = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			expect(mockAnalyticsClient.sendOperationalEvent).not.toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+				}),
+			);
+		});
+
+		it('should throw error on ResolveFailedError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'error',
+						new URL(url).hostname,
+						'received failure error',
+						'ResolveFailedError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-errored-view');
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'error',
+							type: 'ResolveFailedError',
+						},
+						extensionKey: null,
+					}),
+				}),
+			);
+		});
+
+		it('should throw error on ResolveTimeoutError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'error',
+						new URL(url).hostname,
+						'received timeout error',
+						'ResolveTimeoutError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-errored-view');
+
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'error',
+							type: 'ResolveTimeoutError',
+						},
+						extensionKey: null,
+					}),
+				}),
+			);
+		});
+
+		it('should throw error on InternalServerError', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'error',
+						new URL(url).hostname,
+						'received internal server error',
+						'InternalServerError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			const erroredLink = await screen.findByTestId('erroredLink-errored-view');
+
+			expect(erroredLink).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'error',
+							type: 'InternalServerError',
+						},
+						extensionKey: null,
+					}),
+				}),
+			);
+		});
+
+		it('should throw fatal error on unexpected err', async () => {
+			class MockClient extends CardClient {
+				async fetchData(url: string): Promise<JsonLd.Response> {
+					throw new APIError(
+						'fatal',
+						new URL(url).hostname,
+						'received internal server error',
+						'InternalServerError',
+						mockExtensionKey,
+					);
+				}
+			}
+
+			const client = new MockClient();
+			const onError = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={client}>
+						<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			await waitFor(() =>
+				expect(onError).toHaveBeenCalledWith({
+					err: expect.objectContaining({
+						kind: 'fatal',
+						name: 'APIError',
+					}),
+					status: 'errored',
+					url: mockUrl,
+				}),
+			);
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						display: 'inline',
+						definitionId: null,
+						canBeDatasource: false,
+						reason: 'errored',
+						error: {
+							name: 'APIError',
+							kind: 'fatal',
+							type: 'InternalServerError',
+						},
+						extensionKey: null,
+					}),
+				}),
+			);
+		});
 	});
 
 	it('should render with current data on unexpected err', async () => {
@@ -380,6 +687,7 @@ describe('smart-card: error analytics', () => {
 					new URL(url).hostname,
 					'received internal server error',
 					'InternalServerError',
+					mockExtensionKey,
 				);
 			}
 		}

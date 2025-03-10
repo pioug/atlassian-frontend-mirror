@@ -110,6 +110,8 @@ const MultiBodiedExtension = (props: Props) => {
 	const updateActiveChild = React.useCallback(
 		(index: number) => {
 			if (typeof index !== 'number') {
+				// Ignored via go/ees007
+				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 				// TODO: Make sure we log this somewhere if this happens
 				setActiveChildIndex(0);
 				return false;

@@ -14,6 +14,7 @@ import {
 	hasParentNodeOfType,
 	setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 function findParentNode(selection: Selection, nodeType: NodeType): PMNode | null {
 	const parentPosition = findParentNodeOfType(nodeType)(selection);
@@ -43,8 +44,8 @@ export function keymapPlugin(): SafePlugin | undefined {
 				schema: { nodes },
 				tr,
 			} = state;
-			const { panel, blockquote, orderedList, bulletList, mediaSingle, mediaGroup } = nodes;
-
+			const { panel, blockquote, orderedList, bulletList, mediaSingle, mediaGroup, extension } =
+				nodes;
 			const { $from, $to } = selection;
 			// Don't do anything if selection is a range
 			if ($from.pos !== $to.pos) {
@@ -55,9 +56,7 @@ export function keymapPlugin(): SafePlugin | undefined {
 			if ($from.parentOffset !== 0) {
 				return false;
 			}
-
 			const $previousPos = tr.doc.resolve(Math.max(0, $from.before($from.depth) - 1));
-
 			const previousNodeType =
 				$previousPos.pos > 0 && $previousPos.parent && $previousPos.parent.type;
 			const parentNodeType = $from.parent.type;
@@ -67,19 +66,22 @@ export function keymapPlugin(): SafePlugin | undefined {
 
 			const isPreviousNodeMedia =
 				previousNodeType === mediaSingle || previousNodeType === mediaGroup;
-
 			const isPreviousNodeAList =
 				previousNodeType === bulletList || previousNodeType === orderedList;
 
+			// identifies if new position after backspace is at the start of a non-bodied extension node
+			const isPreviousPosAtExtension =
+				fg('platform_editor_nbm_backspace_fixes') && $previousPos.nodeAfter?.type === extension;
+
 			// Stops merging panels when deleting empty paragraph in between
 			// Stops merging blockquotes with panels when deleting from start of blockquote
-
 			if (
-				(isPreviousNodeAPanel && !isParentNodeAPanel) ||
+				(isPreviousNodeAPanel && !isParentNodeAPanel && !isPreviousPosAtExtension) ||
 				isInsideAnEmptyNode(selection, panel, state.schema) ||
 				(hasParentNodeOfType(blockquote)(selection) &&
 					!isPreviousNodeAList &&
-					!isPreviousNodeMedia) ||
+					!isPreviousNodeMedia &&
+					!isPreviousPosAtExtension) ||
 				// Lift line of panel content up and out of the panel, when backspacing
 				// at the start of a panel, if the node before the panel is an 'isolating' node
 				// (for e.g. a table, or an expand), otherwise the default prosemirror backspace
@@ -95,12 +97,10 @@ export function keymapPlugin(): SafePlugin | undefined {
 				}
 				return true;
 			}
-
 			const nodeType = $from.node().type;
 			if (nodeType !== panel) {
 				return false;
 			}
-
 			return true;
 		},
 	};

@@ -3,7 +3,6 @@
 
 import { token } from '@atlaskit/tokens';
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4494
 export const scrollbarStyles = `
   -ms-overflow-style: -ms-autohiding-scrollbar;
 

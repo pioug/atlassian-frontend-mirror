@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.2.6
+
+### Patch Changes
+
+- [#123966](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123966)
+  [`980562a51a41f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/980562a51a41f) -
+  [ux] ED-26796 Change panel type buttons into dropdown
+- Updated dependencies
+
+## 4.2.5
+
+### Patch Changes
+
+- [#123532](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123532)
+  [`ed7bd14b40fef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed7bd14b40fef) -
+  [ux] ED-26941 Prevent backspace in a new paragraph from deleting extension in panel and blockquote
+
 ## 4.2.4
 
 ### Patch Changes

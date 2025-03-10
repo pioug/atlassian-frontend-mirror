@@ -265,7 +265,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 
 		// View should not process a re-render if this is false.
 		// We dont want to destroy the view, so we return true.
-		// TODO: ED-13910 Fix viewShouldUpdate readonly decoration array
+		// TODO: ED-13910 - Fix viewShouldUpdate readonly decoration array
 		if (!this.viewShouldUpdate(node, decorations as Decoration[])) {
 			this.node = node;
 			return true;

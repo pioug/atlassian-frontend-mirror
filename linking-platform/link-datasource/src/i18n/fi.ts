@@ -108,6 +108,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Lisää Jira-asioita sivulta',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     'Lisää Jira-työtehtäviä sivulta',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': 'Työtehtävien määrä',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Näytä hakutulosten lukumäärä tekstiin sitoutuvana Smart Linkinä',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Tekstiin sitoutuva linkki',
@@ -126,12 +127,19 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beeta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Etsi Confluence-sivuja',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Hae Jira-asioita',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Etsi lisättäviä työtehtäviä avainsanan mukaan.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Etsi lisättäviä sivuja avainsanan mukaan.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Käytä JQL:ää (Jira Query Language) työtehtävien hakemiseen.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Hae Jira-työtehtäviä',
   'linkDataSource.render-type.boolean.false': 'Ei',
   'linkDataSource.render-type.boolean.true': 'Kyllä',
   'linkDataSource.render-type.user.default.display.name': 'Määräämätön',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} asia} other {{searchCount,number} asiaa}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} työtehtävä} other {{searchCount,number} työtehtävää}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} kohde} other {{searchCount,number} kohdetta}}',
   'linkDataSource.search.configmodal.resultCountText':

@@ -165,8 +165,8 @@ export function MediaFromURL({
 				});
 			} catch (e) {
 				if (typeof e === 'string' && e === 'Could not download remote file') {
-					// TODO: Make sure this gets good unit test coverage with the actual
-					// media plugin. This hard coded error message could be changed at any
+					// TODO: ED-26962 - Make sure this gets good unit test coverage with the actual media plugin.
+					// This hard coded error message could be changed at any
 					// point and we need a unit test to break to stop people changing it.
 					onUploadFailureAnalytics(e, 'url');
 					dispatch({ type: 'warning', warning: e, url });

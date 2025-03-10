@@ -25,7 +25,7 @@ export function ContentComponent({ api, editorView, popupMountRef }: ContentComp
 	}
 
 	if (
-		// TODO: Also requires a check for editor appearance (needs to be enabled for full-page/full-width editor only ?)
+		// TODO: ED-26959 - Also requires a check for editor appearance (needs to be enabled for full-page/full-width editor only ?)
 		!editorExperiment('platform_editor_insertion', 'control') &&
 		typeAheadState.triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT
 	) {

@@ -7,6 +7,8 @@
  */
 //Thai (Thailand)
 export default {
+  'link-create.live-doc-icon-label': 'เอกสารทำงานและแก้ไขสด',
+  'link-create.page-icon-label': 'หน้าข้อมูล',
   'link-create.unknown-error.description':
     'รีเฟรชหน้าข้อมูล หรือติดต่อฝ่าย <a>สนับสนุน Atlassian</a> หากยังคงมีปัญหานี้เกิดขึ้น',
   'link-create.unknown-error.heading': 'เกิดข้อผิดพลาดบางอย่าง',

@@ -33,11 +33,11 @@ export interface Providers {
 	searchProvider?: Promise<SearchProvider>;
 	activityProvider?: Promise<ActivityProvider>;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// Ignored via go/ees005, go/ees007
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/editor/enforce-todo-comment-format
 	presenceProvider?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8592
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// Ignored via go/ees005, go/ees007
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/editor/enforce-todo-comment-format
 	reactionsStore?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8593
 }
 

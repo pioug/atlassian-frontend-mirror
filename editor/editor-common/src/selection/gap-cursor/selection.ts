@@ -55,7 +55,7 @@ export class GapCursorSelection extends Selection {
 
 		let pos = $pos.pos;
 
-		// TODO: Fix any, potential issue. ED-5048
+		// TODO: ED-5048 - Fix any, potential issue.
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let next: any = null;

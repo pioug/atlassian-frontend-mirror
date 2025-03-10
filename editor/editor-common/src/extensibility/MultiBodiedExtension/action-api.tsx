@@ -94,6 +94,8 @@ export const useMultiBodiedExtensionActions = ({
 			},
 			removeChild(index: number): boolean {
 				const pos = getPos();
+				// Ignored via go/ees007
+				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 				// TODO: Add child index validation here, don't trust this data
 				if (typeof pos !== 'number' || typeof index !== 'number') {
 					throw new Error('Position or index not valid');

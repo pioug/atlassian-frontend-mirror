@@ -28,14 +28,17 @@ import { adjustDate, findDateSegmentByPosition, isDatePossiblyValid } from './ut
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const dateTextFieldWrapper = css({
-	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
+	// TODO: EDF-2517 - should use token here
+	// @ts-expect-error
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingTop: '22px',
 	paddingBottom: token('space.150', '12px'),
-	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
+	// TODO: EDF-2517 - should use token here
+	// @ts-expect-error
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingLeft: '22px',
-	// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
+	// TODO: EDF-2517 - should use token here
+	// @ts-expect-error
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingRight: '22px',
 });
@@ -115,7 +118,6 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 		}
 
 		if (this.inputRef && this.props.autoFocus) {
-			// TODO: Check if input already has focus
 			this.focusInput();
 		}
 

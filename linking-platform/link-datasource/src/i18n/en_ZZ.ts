@@ -196,6 +196,7 @@ export default {
     '{itemCount, plural, one {⁣⁢item⁪⁫‍⁭⁫⁠⁫⁪‌⁬⁮‍⁮⁮⁠⁯⁮؜⁣⁤} other {⁣⁢items⁪⁫‍⁭⁫⁠⁫⁪‌⁬⁮‍⁮⁮⁠⁯⁮؜⁣⁤}}',
   'linkDataSource.table-footer.loading': '⁣⁢Loading...⁠⁠⁠؜؜⁭⁡‍؜‍⁫‍⁠⁬⁭⁬⁬⁠⁬⁡⁠⁮؜⁣⁤',
   'linkDataSource.table-footer.power-by-jsm': '⁣⁢Powered by Assets in Jira Service Management⁪⁫⁡‌؜⁠⁫⁯‍⁯⁯⁭⁠⁡⁮‍⁭‌‍‍⁯⁡⁣⁤',
+  'linkDataSource.table-footer.powered-by-assets': '⁣⁢Powered by Assets‌⁠؜⁮⁠⁪⁫⁮‍⁯⁭⁭؜؜‌⁮‌⁡‌⁠؜‌⁠⁣⁤',
   'linkDataSource.table-footer.refresh': '⁣⁢Refresh⁠⁫⁡⁫‍⁡⁭⁠⁬⁠⁠⁪⁠‌؜‌⁮⁬⁪⁪⁪⁫⁣⁤',
   'linkDataSource.unableToLoadItems': '⁣⁢Unable to load items⁫⁠⁫‌⁠⁬⁪⁬⁠‌⁭‌⁠⁬⁯⁡⁫⁪⁭⁬⁫‌⁣⁤',
   'linkDataSource.unableToLoadResults': '⁣⁢Unable to load results⁬‍؜‍⁪⁠⁠⁪⁠⁪⁬⁯⁪‍؜⁮⁭‍⁡⁭⁬⁣⁤',

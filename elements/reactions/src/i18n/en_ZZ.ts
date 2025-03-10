@@ -19,7 +19,6 @@ export default {
   'reactions.dialog.close': '⁣⁢Close‍⁡⁬⁫⁪‌؜‍⁭⁫⁯⁫⁬⁡‌⁫‌⁭⁮⁫⁯⁫⁣⁤',
   'reactions.dialog.emoji.name': '⁣⁢{emojiName}⁭⁪⁡‌⁪⁫‌‍⁯؜⁠⁡⁪‍⁡؜⁬⁠‌‌‍⁪‍⁡⁣⁤',
   'reactions.dialog.left.navigate': '⁣⁢Left Navigate⁫⁪؜⁯⁯⁫‍⁮‌⁫؜⁪⁠⁭؜⁡‍⁠⁠⁡⁭⁣⁤',
-  'reactions.dialog.people-who-reacted.subheader': '⁣⁢People who reacted with {emojiShortName}⁠⁭⁡‍⁬‌⁯‌⁮‌‍⁭⁭‌‍⁯⁪⁫⁯⁣⁤',
   'reactions.dialog.reactions.count':
     '{count, plural, one {⁣⁢{count,number} total reaction؜⁮⁯‍⁮⁡⁪⁬⁫‌⁮⁠⁯⁮⁭⁮⁠‌⁭⁫⁫⁪‌‌؜⁪⁯⁣⁤} other {⁣⁢{count,number} total reactions؜⁮⁯‍⁮⁡⁪⁬⁫‌⁮⁠⁯⁮⁭⁮⁠‌⁭⁫⁫⁪‌‌؜⁪⁯⁣⁤}}',
   'reactions.dialog.right.navigate': '⁣⁢Right Navigate⁪⁬⁭⁪⁠⁪؜؜⁯⁠⁭⁪⁯⁭⁭‌‌⁡‍⁫⁪‍⁠⁠⁮⁪⁣⁤',

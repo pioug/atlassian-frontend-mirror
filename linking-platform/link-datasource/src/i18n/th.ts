@@ -41,7 +41,7 @@ export default {
   'linkDataSource.column-picker.search': 'ค้นหาฟิลด์',
   'linkDataSource.column-picker.tooltip': 'กำหนดค่าคอลัมน์',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'ค้นหาปัญหาตามคำสำคัญ',
-  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'ค้นหาปัญหาตามคำสำคัญ',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'ค้นหาตั๋วตามคำสำคัญ',
   'linkDataSource.configmodal.cancelButtonText': 'ยกเลิก',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'ยกเลิก',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'หลังจากวันที่ {date}',
@@ -95,14 +95,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'คุณไม่สามารถเปลี่ยนไปเป็นแบบพื้นฐานสำหรับแบบสอบถามนี้',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'พื้นฐาน',
-  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'ค้นหาปัญหาตามคำสำคัญ',
+  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'ค้นหาตั๋วตามคำสำคัญ',
   'linkDataSource.site-selector.configmodal.chooseSite': 'เลือกเว็บไซต์',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'แทรกปัญหา',
-  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'แทรกปัญหา',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'แทรกตั๋ว',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'แทรกปัญหา Jira',
-  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'แทรกปัญหา Jira',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'แทรกตั๋วของ Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'แทรกปัญหา Jira จาก',
-  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'แทรกปัญหา Jira จาก',
+  'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'แทรกตั๋ว Jira จาก',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### ตั๋ว',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'แสดงจำนวนผลการค้นหาเป็นสมาร์ทลิงก์ (ลิงก์อัจฉริยะ) แบบบรรทัดเดียว',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'ลิงก์บรรทัดเดียว',
@@ -121,12 +122,18 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'เบต้า',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'ค้นหาหน้าข้อมูล Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'ค้นหาปัญหา Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh': 'ค้นหาตามคำสำคัญสำหรับตั๋วที่จะแทรก',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'ค้นหาตามคำสำคัญสำหรับหน้าข้อมูลที่จะแทรก',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'ใช้ JQL (Jira Query Language) เพื่อค้นหาตั๋ว',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'ค้นหาตั๋ว Jira',
   'linkDataSource.render-type.boolean.false': 'ไม่ใช่',
   'linkDataSource.render-type.boolean.true': 'ใช่',
   'linkDataSource.render-type.user.default.display.name': 'ยังไม่ได้มอบหมาย',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, other {ปัญหา {searchCount,number} รายการ}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, other {ตั๋ว {searchCount,number} รายการ}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, other {รายการในผลลัพธ์ {searchCount,number} รายการ}}',
   'linkDataSource.search.configmodal.resultCountText':
@@ -136,5 +143,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, other {รายการ}}',
   'linkDataSource.table-footer.loading': 'กำลังโหลด...',
   'linkDataSource.table-footer.power-by-jsm': 'สนับสนุนโดย Assets ใน Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'สนับสนุนโดย Assets',
   'linkDataSource.table-footer.refresh': 'รีเฟรช',
 };

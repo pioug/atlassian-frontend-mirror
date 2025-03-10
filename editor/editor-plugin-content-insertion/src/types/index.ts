@@ -3,7 +3,7 @@ import type { CommandDispatch, EditorCommand } from '@atlaskit/editor-common/typ
 import type { Fragment, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 
-// TODO: Remove type with `platform_editor_use_nested_table_pm_nodes` feature flag
+// TODO: ED-26959 - Remove type with `platform_editor_use_nested_table_pm_nodes` feature flag
 export type InsertNodeActionConfig = {
 	node: PMNode | Fragment;
 	// To avoid race conditions issues during the insertion phase,
@@ -15,14 +15,14 @@ export type InsertNodeActionConfig = {
 		// Why: By design, the node inserted isn't select. This helps with the typing experience, for instance a follow key stroke should not replace the just-added-node but amend the current document. However, there are so cases where you may want to set the selection to the new node (e.g.: the date node, you may want to show the calendar popup.
 		selectNodeInserted: boolean;
 
-		// TODO: ED-14676 This approach to send analytics should be temporary only for the table work
+		// TODO: ED-14676 - This approach to send analytics should be temporary only for the table work
 		analyticsPayload?: AnalyticsEventPayload;
 
 		// What: Override where the node should be inserted.
 		// Why: You may want to insert a node in a different place than the current user selection.
 		insertAt?: Selection;
 
-		// TODO: ED-14676 We will need more options to cover the known insertion edge cases like: date & panel
+		// TODO: ED-14676 - We will need more options to cover the known insertion edge cases like: date & panel
 		/*
 
     // What: Send a custom message using the PluginKey coming from the handler
@@ -44,14 +44,14 @@ export type InsertNodeConfig = {
 		// Why: By design, the node inserted isn't select. This helps with the typing experience, for instance a follow key stroke should not replace the just-added-node but amend the current document. However, there are so cases where you may want to set the selection to the new node (e.g.: the date node, you may want to show the calendar popup.
 		selectNodeInserted: boolean;
 
-		// TODO: ED-14676 This approach to send analytics should be temporary only for the table work
+		// TODO: ED-14676 - This approach to send analytics should be temporary only for the table work
 		analyticsPayload?: AnalyticsEventPayload;
 
 		// What: Override where the node should be inserted.
 		// Why: You may want to insert a node in a different place than the current user selection.
 		insertAt?: Selection;
 
-		// TODO: ED-14676 We will need more options to cover the known insertion edge cases like: date & panel
+		// TODO: ED-14676 - We will need more options to cover the known insertion edge cases like: date & panel
 		/*
 
     // What: Send a custom message using the PluginKey coming from the handler

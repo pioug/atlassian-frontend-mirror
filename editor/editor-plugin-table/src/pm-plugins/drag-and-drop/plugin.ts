@@ -102,7 +102,7 @@ const destroyFn = (
 					return;
 				}
 
-				// TODO: as we drag an element around we are going to want to update the state to acurately reflect the current
+				// TODO: ED-26961 - as we drag an element around we are going to want to update the state to acurately reflect the current
 				// insert location as to where the draggable will most likely be go. For example;
 				const { sourceType, targetAdjustedIndex } = data;
 				const dropTargetType =
@@ -312,7 +312,7 @@ export const createPlugin = (
 
 					if (newTargetCellPosition !== undefined) {
 						const cells = getCellsInRow(dragMenuIndex)(tr.selection);
-						// ED-20673 check if it is a cell selection,
+						// TODO: ED-20673 - check if it is a cell selection,
 						// when true, a drag handle is clicked and isDragMenuOpen is true here
 						// should not close the drag menu.
 						const isCellSelection = tr.selection instanceof CellSelection;

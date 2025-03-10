@@ -228,7 +228,7 @@ export const QuickInsertPanel = memo(
 					{showViewAllItems && (
 						<ViewAllButtonItem
 							isViewAllInserts={true}
-							label={'View all inserts'} // TODO: add i18n
+							label={'View all inserts'} // TODO: ED-26961 - add i18n
 							onClick={onViewAllItemsClick ? onViewAllItemsClick : () => {}}
 						/>
 					)}

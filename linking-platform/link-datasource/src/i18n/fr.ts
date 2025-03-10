@@ -109,6 +109,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insérer des tickets Jira à partir de',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     'Insérer des tickets Jira à partir de',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### tickets',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Affichez le nombre de résultats de recherche sous forme de lien intelligent contextuel',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Lien contextuel',
@@ -128,11 +129,18 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Bêta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Rechercher des pages Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Rechercher des tickets Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Recherchez des tickets à insérer par mot clé.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Recherchez des pages à insérer par mot clé.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Utilisez JQL (Jira Query Language) pour rechercher des tickets.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Rechercher des tickets Jira',
   'linkDataSource.render-type.boolean.false': 'Non',
   'linkDataSource.render-type.boolean.true': 'Oui',
   'linkDataSource.render-type.user.default.display.name': 'Non assigné',
   'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} ticket} other {{searchCount,number} tickets}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
     '{searchCount, plural, one {{searchCount,number} ticket} other {{searchCount,number} tickets}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} tâche} other {{searchCount,number} tâches}}',

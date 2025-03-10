@@ -460,7 +460,7 @@ export const moveNode =
 
 			const sourceNode = $handlePos.nodeAfter;
 
-			//TODO: Does this need to be updated with new selection logic above? ^
+			//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
 			// Move a layout column to top level
 			if (sourceNode && isDragLayoutColumnToTopLevel($handlePos, $to)) {
 				// need update after we support single column layout.

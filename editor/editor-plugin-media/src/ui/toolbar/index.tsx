@@ -826,7 +826,7 @@ const generateMediaSingleFloatingToolbar = (
 			);
 
 		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
-			// TODO: add separator when overflow menu is added
+			// TODO: ED-26962 - add separator when overflow menu is added
 			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi));
 		}
 
@@ -1004,6 +1004,8 @@ export const floatingToolbar = (
 				{
 					title: 'Resize',
 					onClick: () => {
+						// Ignored via go/ees007
+						// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 						// TODO open resize dialog?
 						return true;
 					},

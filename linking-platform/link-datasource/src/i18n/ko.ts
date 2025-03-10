@@ -101,6 +101,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira 업무 항목 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '다음의 Jira 이슈 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': '다음의 Jira 업무 항목 삽입',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### 업무 항목',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     '검색 결과 수를 인라인 스마트 링크로 표시합니다',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': '인라인 링크',
@@ -119,11 +120,18 @@ export default {
   'linkDataSource.modal-initial-state.beta': '베타',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence 페이지 검색',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira 이슈 검색',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    '삽입할 업무 항목을 키워드로 검색합니다.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': '삽입할 페이지를 키워드로 검색합니다.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'JQL(Jira 쿼리 언어)을 사용하여 업무 항목을 검색하세요.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Jira 업무 항목 검색',
   'linkDataSource.render-type.boolean.false': '아니요',
   'linkDataSource.render-type.boolean.true': '예',
   'linkDataSource.render-type.user.default.display.name': '할당되지 않음',
   'linkDataSource.search.configmodal.issueCountText': '{searchCount, plural, other {{searchCount,number}개의 이슈}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, other {{searchCount,number}개의 업무 항목}}',
   'linkDataSource.search.configmodal.itemCountText': '{searchCount, plural, other {{searchCount,number}개의 항목}}',
   'linkDataSource.search.configmodal.resultCountText': '{searchCount, plural, other {{searchCount,number}개의 결과}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': '방금 동기화',

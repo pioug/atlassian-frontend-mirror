@@ -18,7 +18,7 @@ import {
 	removeDecorationsFromSet,
 	removeMatchesFromSet,
 } from './utils';
-import { findUniqueItemsIn } from './utils/array'; // TODO: move into index export
+import { findUniqueItemsIn } from './utils/array'; // TODO: ED-26959 - move into index export
 
 const handleDocChanged = (
 	tr: ReadonlyTransaction,

@@ -26,7 +26,7 @@ type PrimaryToolbarComponentProps = {
 
 const PrimaryToolbarComponentWithIntl = ({
 	api,
-	// TODO - Analytics
+	// TODO: ED-26959 - Analytics
 	// editorAnalyticsAPI,
 	intl,
 }: PrimaryToolbarComponentProps) => {

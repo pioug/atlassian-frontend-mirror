@@ -107,7 +107,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
   'fabric.linking.join_to_view': 'Liity palveluun {context} niin voit tarkastella asiaa',
-  'fabric.linking.join_to_view-issue-term-refresh': 'Liity palveluun {context} niin voit tarkastella työtehtävää',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Liity palveluun {context} voidaksesi tarkastella työtehtävää',
   'fabric.linking.learn_more_about_connecting_account': 'Lisätietoja tilisi yhdistämisestä Atlassian-tuotteisiin.',
   'fabric.linking.learn_more_about_smart_links': 'Lue lisää Smart Link -linkeistä.',
   'fabric.linking.link_safety_warning_message':

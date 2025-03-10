@@ -2,7 +2,6 @@ import type { MediaPluginState } from '@atlaskit/editor-plugins/media/types';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-// TODO: ED-15663
 // Please, do not copy or use this kind of code below
 // @ts-ignore
 const mediaPluginKey = {

@@ -79,6 +79,31 @@ test.describe('Keyboard navigation', () => {
 		// Should move focus to the last element
 		await expect(page.getByRole('menuitem', { name: 'Clone' })).toBeFocused();
 	});
+
+	test('Verify that Dropdown Menu items navigation works on keyUp and keyDown with disabled options', async ({
+		page,
+	}) => {
+		await page.visitExample(
+			'design-system',
+			'dropdown-menu',
+			'testing-keyboard-navigation-disabled-items',
+			{
+				'react-18-mode': 'legacy',
+			},
+		);
+		await page.getByTestId(triggerTestId).press('Enter');
+		// Should set focus on the first non-disabled element (second element)
+		await expect(page.getByRole('menuitem', { name: 'Move' })).toBeFocused();
+		await page.getByRole('menuitem', { name: 'Move' }).press('ArrowDown');
+		// Should move focus to the third element
+		await expect(page.getByRole('menuitem', { name: 'Clone' })).toBeFocused();
+		await page.getByRole('menuitem', { name: 'Clone' }).press('ArrowDown');
+		// Should move focus to the second element
+		await expect(page.getByRole('menuitem', { name: 'Move' })).toBeFocused();
+		await page.getByRole('menuitem', { name: 'Move' }).press('ArrowUp');
+		// Should move focus to the third element
+		await expect(page.getByRole('menuitem', { name: 'Clone' })).toBeFocused();
+	});
 });
 
 test.describe('Nested keyboard navigation', () => {

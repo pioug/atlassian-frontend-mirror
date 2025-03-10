@@ -17,7 +17,6 @@ export default {
   'reaction-picker-trigger.add.reaction.message': 'Lisää reaktio',
   'reactions.dialog.close': 'Sulje',
   'reactions.dialog.left.navigate': 'Navigointi vasemmalle',
-  'reactions.dialog.people-who-reacted.subheader': 'Henkilöt, jotka reagoivat emojilla {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {Yhteensä {count,number} reaktio} other {Yhteensä {count,number} reaktiota}}',
   'reactions.dialog.right.navigate': 'Navigointi oikealle',

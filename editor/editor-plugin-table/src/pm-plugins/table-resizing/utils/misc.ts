@@ -116,7 +116,7 @@ export const getTableMaxWidth = ({
  */
 export const getTableElementWidth = (table: PMNode) => {
 	if (hasTableBeenResized(table)) {
-		// TODO: is there a scenario where ADF columns are SMALLER than container width?
+		// TODO: ED-26961 - is there a scenario where ADF columns are SMALLER than container width?
 		return calcTableColumnWidths(table).reduce((sum, width) => sum + width, 0);
 	}
 

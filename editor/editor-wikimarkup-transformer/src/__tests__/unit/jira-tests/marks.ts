@@ -209,6 +209,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO We don't have a node for this, using blockquote. Confirm with JIRA
 	describe('citation', () => {
 		let WIKI_NOTATION = `??citation text??`;
@@ -245,7 +247,6 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
-	// @TODO JIRA wraps an "ins" element around the text which underlines it, verify this is acceptable
 	describe('underline', () => {
 		let WIKI_NOTATION = `+inserted text+`;
 

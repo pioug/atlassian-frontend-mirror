@@ -7,6 +7,8 @@
  */
 //Czech
 export default {
+  'link-create.live-doc-icon-label': 'Živý dokument',
+  'link-create.page-icon-label': 'Stránka',
   'link-create.unknown-error.description':
     'Obnovte stránku nebo, pokud problém přetrvává, kontaktujte <a>podporu Atlassian</a>.',
   'link-create.unknown-error.heading': 'Něco se pokazilo.',

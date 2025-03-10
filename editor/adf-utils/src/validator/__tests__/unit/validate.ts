@@ -28,6 +28,8 @@ describe('validate valid schema', () => {
 			// Added because of expect.hasAssertions()
 			expect(true).toBe(true);
 
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO: These were mostly oversight, they don't have huge impact.
 			// However we should update the validator to respect the same rule as ADF for this scenario.
 			if (!ignoreList.includes(file.name)) {
@@ -42,6 +44,8 @@ describe('validate valid schema', () => {
 });
 
 describe('validate invalid schema', () => {
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	/**
 	 * Validator doesn't understand `stage-0` or `full`. It depends on the schema and specs
 	 * passed to it. Also, in spec we don't do any distinction between `stage-0` or `full`.
@@ -50,6 +54,8 @@ describe('validate invalid schema', () => {
 	 * TODO: Configure the validate function according to schema
 	 */
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	/**
 	 * TODO: there is a "mutation bug" in the validator
 	 *

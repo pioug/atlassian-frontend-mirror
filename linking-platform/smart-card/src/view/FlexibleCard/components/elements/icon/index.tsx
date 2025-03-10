@@ -290,6 +290,8 @@ const renderAtlaskitIcon = (
 			<AtlaskitIcon
 				icon={icon}
 				testId={`${testId}-icon`}
+				aria-hidden="true"
+				label="" // Since we already set aria-hidden="true", the label should be given an empty string
 				{...(fg('platform-smart-card-icon-migration') && {
 					size,
 				})}

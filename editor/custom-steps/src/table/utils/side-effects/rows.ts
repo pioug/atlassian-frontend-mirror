@@ -283,6 +283,8 @@ export class RowsSideEffectHandler {
 				});
 			} else {
 				// Moving from add to delete keep
+				// Ignored via go/ees007
+				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 				// TODO: I think we need to add the respective cell into the cellSteps...... not sure....
 			}
 		}

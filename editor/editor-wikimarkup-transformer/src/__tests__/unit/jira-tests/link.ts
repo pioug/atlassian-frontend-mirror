@@ -16,6 +16,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('link with inline macro', () => {
 		const WIKI_NOTATION = `[http://www.my{color:red}host{color}.com]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO ADF doesn't support coloured links, confirm with JIRA
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -28,6 +30,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('coloured link', () => {
 		const WIKI_NOTATION = `[{color:red}Text{color}|http://www.myhost.com]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO ADF doesn't support coloured links, confirm with JIRA
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -40,6 +44,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('link tooltip', () => {
 		const WIKI_NOTATION = `[Text|http://www.myhost.com|{color:red}Tooltip{color}]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO ADF doesn't support coloured links, confirm with JIRA
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -102,6 +108,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('image macro with external link', () => {
 		const WIKI_NOTATION = `[!http://example.com/?insection!|http://www.myhost.com]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO ADF doesn't support custom linkable images, confirm with JIRA
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -282,6 +290,8 @@ describe.skip('WikiMarkup Transformer', () => {
 			doc(p('This [] is not a link!')),
 		);
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO error span?
 		WIKI_NOTATION = `An invalid URL: [invalid://nowhere.com/hello]`;
 
@@ -376,6 +386,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('XSS link', () => {
 		const WIKI_NOTATION = `[<script>alert("Haha!")</script>|invalid://nowhere.com/hello]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO error span?
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -392,6 +404,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('XSS macros', () => {
 		let WIKI_NOTATION = `http://[http://onmouseover=alert(0)//]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO error span?
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -408,6 +422,8 @@ describe.skip('WikiMarkup Transformer', () => {
 
 		WIKI_NOTATION = `http://!http://onmouseover=alert(0)//!`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO error span?
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,

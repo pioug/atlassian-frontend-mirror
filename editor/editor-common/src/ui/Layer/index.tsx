@@ -39,7 +39,6 @@ const defaultState = {
 			position: null,
 		},
 	},
-	// fix Safari parent width: https://product-fabric.atlassian.net/browse/ED-1784
 	cssPosition: 'absolute',
 	originalHeight: null,
 	maxHeight: null,

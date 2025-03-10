@@ -1,8 +1,6 @@
 /* eslint-disable @repo/internal/react/no-class-components */
 import { PureComponent } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type ProviderFactory from './provider-factory';
 import { type ProviderName, type Providers } from './types';
 
@@ -26,12 +24,8 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const providers: Record<string, Promise<any> | undefined> = {};
 		this.props.providers.forEach((name) => {
-			if (fg('platform_editor_react18_phase2_v2')) {
-				const providerPromise = props.providerFactory.subscribe(name, this.handleProviderIfMounted);
-				providers[name] = providerPromise;
-			} else {
-				providers[name] = undefined;
-			}
+			const providerPromise = props.providerFactory.subscribe(name, this.handleProviderIfMounted);
+			providers[name] = providerPromise;
 		});
 
 		this.state = {
@@ -41,18 +35,6 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 
 	componentDidMount() {
 		this.mounted = true;
-	}
-
-	// Ignored via go/ees005
-	// eslint-disable-next-line react/no-unsafe
-	UNSAFE_componentWillMount() {
-		if (!fg('platform_editor_react18_phase2_v2')) {
-			const { providers, providerFactory } = this.props;
-
-			providers.forEach((name) => {
-				providerFactory.subscribe(name, this.handleProvider);
-			});
-		}
 	}
 
 	componentWillUnmount() {

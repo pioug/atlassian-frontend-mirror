@@ -142,6 +142,8 @@ describe('Snapshot Test: Media', () => {
 				await pressKey(page, 'ArrowUp');
 			});
 
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// FIXME will be unskipped in https://product-fabric.atlassian.net/servicedesk/customer/portal/99/DTR-167?created=true
 			it.skip('should render right side gap cursor (via arrow left)', async () => {
 				await pressKey(page, 'ArrowLeft');

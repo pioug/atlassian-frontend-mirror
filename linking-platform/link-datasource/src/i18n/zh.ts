@@ -97,6 +97,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '插入以下来源的 Jira 事务：',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     '插入以下来源的 Jira 工作项：',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### 个工作项',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription': '以内联智能链接的形式显示搜索结果的数量',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': '内联链接',
   'linkDataSource.jira-issues.configmodal.viewModeListDescription': '以列表形式显示搜索结果',
@@ -114,11 +115,17 @@ export default {
   'linkDataSource.modal-initial-state.beta': '测试版',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': '搜索 Confluence 页面',
   'linkDataSource.modal-initial-state.jiraSearchTitle': '搜索 Jira 事务',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh': '按关键字搜索要插入的工作项。',
   'linkDataSource.modal-initial-state.searchDescription-confluence': '按关键字搜索要插入的页面。',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    '使用 JQL（Jira 查询语言）来搜索工作项。',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': '搜索 Jira 工作项',
   'linkDataSource.render-type.boolean.false': '否',
   'linkDataSource.render-type.boolean.true': '是',
   'linkDataSource.render-type.user.default.display.name': '未分配',
   'linkDataSource.search.configmodal.issueCountText': '{searchCount, plural, other {{searchCount,number} 个事务}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, other {{searchCount,number} 个工作项}}',
   'linkDataSource.search.configmodal.itemCountText': '{searchCount, plural, other {{searchCount,number} 个项目}}',
   'linkDataSource.search.configmodal.resultCountText': '{searchCount, plural, other {{searchCount,number} 个结果}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': '刚才已同步',
@@ -126,5 +133,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, other {个项目}}',
   'linkDataSource.table-footer.loading': '正在加载...',
   'linkDataSource.table-footer.power-by-jsm': '由 Jira Service Management 中的资产提供支持',
+  'linkDataSource.table-footer.powered-by-assets': '由资产提供支持',
   'linkDataSource.table-footer.refresh': '刷新',
 };

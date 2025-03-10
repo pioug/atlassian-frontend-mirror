@@ -146,7 +146,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 
 				return setInlineCommentDraftState(editorAnalyticsAPI)(true)(state, dispatch);
 			},
-			supportsViewMode: true, // TODO: MODES-3950 Clean up this floating toolbar view mode logic,
+			supportsViewMode: true, // TODO: MODES-3950 - Clean up this floating toolbar view mode logic,
 		};
 
 		const { annotation } = schema.marks;

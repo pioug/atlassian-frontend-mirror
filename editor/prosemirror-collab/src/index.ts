@@ -72,7 +72,8 @@ function unconfirmedFrom(transform: ProseMirrorTransform) {
 	for (let i = 0; i < transform.steps.length; i++) {
 		// Filter out the analytics steps, they don't need to be sent to the collab service
 		// Commented out because it broke undo behaviour
-		// TODO: Figure out how it broke undo
+
+		// TODO: ED-26957 - Figure out how it broke undo
 		// if (transform.steps[i] instanceof AnalyticsStep) {
 		//   continue;
 		// }

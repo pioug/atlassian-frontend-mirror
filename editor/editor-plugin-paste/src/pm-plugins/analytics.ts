@@ -369,7 +369,7 @@ export function createPasteAnalyticsPayload(
 	return createPasteAnalyticsPayloadBySelection(event, slice, pasteContext)(view.state.selection);
 }
 
-// TODO: ED-6612 We should not dispatch only analytics, it's preferred to wrap each command with his own analytics.
+// TODO: ED-6612 - We should not dispatch only analytics, it's preferred to wrap each command with his own analytics.
 // However, handlers like handleMacroAutoConvert dispatch multiple time,
 // so pasteCommandWithAnalytics is useless in this case.
 export const sendPasteAnalyticsEvent =

@@ -85,7 +85,7 @@ const clearColumnWidthOfCells = (cells: CellSelectionRect, rect: Rect, table: Ta
 	}
 
 	for (const cell of overlappingCells) {
-		// TODO: ED-13910 unblock Prosemirror bump
+		// TODO: ED-13910 - unblock Prosemirror bump
 		// @ts-ignore
 		cell.attrs.colwidth = null;
 	}

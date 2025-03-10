@@ -51,7 +51,7 @@ function getDecorationType(
 	if (shouldHideDecorations || isEmptyDocument(tr.doc)) {
 		return 'none';
 	}
-	// TODO: implement "highlight" for AI features
+	// TODO: ED-26961 - implement "highlight" for AI features
 	return 'blur';
 }
 

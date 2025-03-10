@@ -80,8 +80,6 @@ export function getCopyButtonConfig(
 
 		hideTooltipOnClick: false,
 		tabIndex: null,
-		// TODO select and delete styling needs to be removed when keyboard cursor moves away
-		// problem already exist with delete as well
 	};
 }
 

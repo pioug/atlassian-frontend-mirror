@@ -10,7 +10,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PluginInjectionAPI } from '../types';
 
-// TODO: Clean up ED-23976
+// TODO: ED-23976 - Clean up
 import { createTableView } from './table';
 import TableCell from './TableCell';
 import TableRow from './TableRow';

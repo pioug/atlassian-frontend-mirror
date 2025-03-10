@@ -19,6 +19,8 @@ import adfWithMixedContent from './__fixtures__/mixed-content.adf.json';
 
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
 // Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
 describe.skip('Full-width mode', () => {

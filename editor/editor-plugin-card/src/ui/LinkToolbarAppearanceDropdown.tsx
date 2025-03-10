@@ -140,7 +140,7 @@ export const LinkAppearanceMenu = ({
 		Icon = settingsConfig.icon;
 	}
 
-	// TODO: packages/editor/editor-plugin-card/src/ui/LinkToolbarAppearance.tsx supports change boarding via pulse
+	// TODO: ED-26961 - packages/editor/editor-plugin-card/src/ui/LinkToolbarAppearance.tsx supports change boarding via pulse
 	// this implementation doesn't
 	return (
 		<MenuGroup>

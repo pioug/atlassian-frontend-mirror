@@ -30,7 +30,7 @@ const Page = ({ ssr, title, mediaClientConfig }: PageProps) => {
 		media: {
 			ssr: {
 				mode: ssr,
-				config: mediaClientConfig, // TODO: update example to use Media Mock https://product-fabric.atlassian.net/browse/MEX-1260
+				config: mediaClientConfig, // TODO: MEX-1260 - update example to use Media Mock
 			},
 		},
 	};

@@ -108,6 +108,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Вставка задач Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставка задач Jira с сайта',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Вставка задач Jira с сайта',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': 'Задач: ###',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Отображение количества результатов поиска в виде встроенной интеллектуальной ссылки',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Встроенная ссылка',
@@ -126,11 +127,18 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Бета-версия',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Поиск страниц Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Поиск задач Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Ищите задачи для вставки по ключевым словам.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Ищите страницы для вставки по ключевым словам.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Используйте JQL (Jira Query Language) для поиска задач.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Поиск задач Jira',
   'linkDataSource.render-type.boolean.false': 'Нет',
   'linkDataSource.render-type.boolean.true': 'Да',
   'linkDataSource.render-type.user.default.display.name': 'Не назначено',
   'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} задача} few {{searchCount,number} задачи} many {{searchCount,number} задач} other {{searchCount,number} задачи}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
     '{searchCount, plural, one {{searchCount,number} задача} few {{searchCount,number} задачи} many {{searchCount,number} задач} other {{searchCount,number} задачи}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} элемент} few {{searchCount,number} элемента} many {{searchCount,number} элементов} other {{searchCount,number} элемента}}',
@@ -142,5 +150,6 @@ export default {
     '{itemCount, plural, one {элемент} few {элемента} many {элементов} other {элемента}}',
   'linkDataSource.table-footer.loading': 'Загрузка…',
   'linkDataSource.table-footer.power-by-jsm': 'С использованием функции «Активы» в Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'С использованием Активов',
   'linkDataSource.table-footer.refresh': 'Обновить',
 };

@@ -4,9 +4,11 @@ import { Channel } from '../../channel';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 
 import { catchupv2 } from '../../document/catchupv2';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import * as getConflictChanges from '../../document/getConflictChanges';
 
 replaceRaf();
 
@@ -409,6 +411,14 @@ describe('reconnection analytics', () => {
 				sendTrackEvent: jest.fn(),
 				sendUIEvent: jest.fn(),
 			};
+			const remoteSteps = [{ step: 'remoteStep' }, { step: 'remoteStep' }, { step: 'remoteStep' }];
+			// @ts-expect-error
+			jest.spyOn(getConflictChanges, 'getConflictChanges').mockImplementation(() => ({
+				inserted: [{ from: 1, to: 2 }],
+				deleted: [],
+			}));
+			// @ts-expect-error
+			jest.spyOn(ProseMirrorStep, 'fromJSON').mockImplementation(() => remoteSteps);
 			const provider = createSocketIOCollabProvider({
 				...testProviderConfig,
 				analyticsClient: fakeAnalyticsWebClient,
@@ -416,7 +426,7 @@ describe('reconnection analytics', () => {
 			// @ts-expect-error
 			const emitterCallback = jest.spyOn(provider.documentService as any, 'providerEmitCallback');
 			(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
-				onCatchupComplete([{ step: 'remoteStep' }, { step: 'remoteStep' }, { step: 'remoteStep' }]);
+				onCatchupComplete(remoteSteps);
 				return Promise.resolve();
 			});
 			provider.initialize(() => editorState);
@@ -435,6 +445,8 @@ describe('reconnection analytics', () => {
 
 			expect(emitterCallback).toHaveBeenCalledWith('data:conflict', {
 				offlineDoc: expect.any(Object),
+				inserted: expect.any(Array),
+				deleted: expect.any(Array),
 			});
 
 			provider.destroy();

@@ -141,7 +141,6 @@ const addItem =
 				list.create({ localId: listLocalId }, [
 					item.create(
 						{ localId: itemLocalId, ...itemAttrs },
-						// TODO: [ts30] handle void and null properly
 						(tr.doc.nodeAt($from.pos + 1) as Node).content,
 					),
 				]),

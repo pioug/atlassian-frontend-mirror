@@ -266,7 +266,7 @@ export const createPlugin = (
 					slice = transformSliceToAddTableHeaders(slice, schema);
 				}
 
-				// fix for when pasting a table with default layout into comment editor
+				// This fixes pasting a table with default layout into comment editor
 				// table lose width and expand to full width
 				if (
 					!insideTable(editorState) &&

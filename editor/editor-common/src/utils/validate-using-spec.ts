@@ -69,6 +69,8 @@ export const validationErrorHandler = (
 		return { type: 'paragraph', content: [] };
 	}
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO: We can repair missing content like `panel` without a `paragraph`.
 	if (error.code === 'INVALID_CONTENT_LENGTH') {
 		if (error.meta && options.allowUnsupportedBlock && entity.content) {

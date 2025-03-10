@@ -46,6 +46,8 @@ export function checkParseEncodeRoundTrips(
 ) {
 	checkParse(description, schema, [markup], node);
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Uncomment when encoding is implemented
 	// checkEncode(description, schema, markup, node);
 

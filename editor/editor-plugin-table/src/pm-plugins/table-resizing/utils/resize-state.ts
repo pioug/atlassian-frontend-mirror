@@ -302,7 +302,7 @@ export const bulkColumnsResize = (
 		}
 	}
 
-	// fix total table widths by adding missing pixels to columns widths here and there
+	// fixes total table widths by adding missing pixels to columns widths here and there
 	return adjustColumnsWidths(newState, resizeState.maxSize);
 };
 

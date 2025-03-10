@@ -105,6 +105,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Indsæt Jira-sager',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Indsæt Jira-sager fra',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Indsæt Jira-sager fra',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### sager',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Vis antallet af søgeresultater som et intelligent link på samme linje',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Link på samme linje',
@@ -123,12 +124,19 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Søg efter Confluence-sider',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Søg efter Jira-sager',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Brug søgeord til at søge efter sager, der skal indsættes.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Brug søgeord til at søge efter sider, der skal indsættes.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Brug JQL (Jira Query Language) til at søge efter sager.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Søg efter Jira-sager',
   'linkDataSource.render-type.boolean.false': 'Nej',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Ikke tildelt',
   'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} sag} other {{searchCount,number} sager}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
     '{searchCount, plural, one {{searchCount,number} sag} other {{searchCount,number} sager}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} emne} other {{searchCount,number} emner}}',
@@ -139,5 +147,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {element} other {elementer}}',
   'linkDataSource.table-footer.loading': 'Indlæser ...',
   'linkDataSource.table-footer.power-by-jsm': 'Leveret af Aktiver i Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Drevet af Aktiver',
   'linkDataSource.table-footer.refresh': 'Opdater',
 };

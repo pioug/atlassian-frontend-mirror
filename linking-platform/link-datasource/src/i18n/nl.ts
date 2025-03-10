@@ -106,6 +106,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira-werkitems invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-issues invoegen van',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Jira-werkitems invoegen van',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '## werkitems',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Het aantal zoekresultaten weergeven als een inline Smart Link',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-link',
@@ -124,13 +125,20 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Bèta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': "Zoeken naar Confluence-pagina's",
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Zoek naar Jira-issues',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Zoek met trefwoorden naar werkitems om in te voegen.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     "Zoek met trefwoorden naar pagina's om in te voegen.",
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Gebruik JQL (Jira Query Language) om te zoeken naar werkitems.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Zoeken naar Jira-werkitems',
   'linkDataSource.render-type.boolean.false': 'Nee',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Niet-toegewezen',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} issue} other {{searchCount,number} issues}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} werkitem} other {{searchCount,number} werkitems}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} item} other {{searchCount,number} items}}',
   'linkDataSource.search.configmodal.resultCountText':

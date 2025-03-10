@@ -259,10 +259,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			return;
 		}
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO disable (not destroy!) pickers until mediaProvider is resolved
 		try {
 			this.mediaProvider = await mediaProvider;
 
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO [MS-2038]: remove once context api is removed
 			// We want to re assign the view and upload configs if they are missing for backwards compatibility
 			// as currently integrators can pass context || mediaClientConfig

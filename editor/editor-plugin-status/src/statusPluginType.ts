@@ -11,7 +11,7 @@ import type {
 import type { StatusPluginOptions, StatusState } from './types';
 
 // This dummy type is to bypass the typescript compiler maximum length limit error
-// TODO: Fix the type definition of editor-core's createUniversalPreset
+// TODO: ED-26962 - Fix the type definition of editor-core's createUniversalPreset
 type DummyAnnotationPlugin = NextEditorPlugin<
 	'annotation',
 	{
@@ -30,7 +30,7 @@ type DummyAnnotationPlugin = NextEditorPlugin<
 >;
 
 // This dummy type is to bypass the typescript compiler maximum length limit error
-// TODO: Fix the type definition of editor-core's createUniversalPreset
+// TODO: ED-26962 - Fix the type definition of editor-core's createUniversalPreset
 type DummyEditorViewModePlugin = NextEditorPlugin<
 	'editorViewMode',
 	{

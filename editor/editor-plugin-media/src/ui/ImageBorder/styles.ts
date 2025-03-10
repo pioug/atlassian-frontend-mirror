@@ -19,7 +19,7 @@ export const menuItemDimensions = {
 	height: 32,
 };
 
-// TODO: Migrate away from gridSize
+// TODO: ED-26962 - Migrate away from gridSize
 // Recommendation: Replace directly with 4 due to itemSpacing being used in calculations
 export const itemSpacing = gridSize() / 2;
 

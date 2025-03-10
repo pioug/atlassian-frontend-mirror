@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': '사용자가 알아야 할 내용이 있습니까?',
   'fabric.elements.share.form.info.message.no.invite.confluence': '수신자가 페이지 이름과 메시지를 볼 수 있습니다',
   'fabric.elements.share.form.info.message.no.invite.jira': '수신자가 이슈 이름과 메시지를 볼 수 있습니다',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    '수신자가 업무 항목 이름 및 메시지를 볼 수 있습니다',
   'fabric.elements.share.form.no-permissions': '공유할 권한이 없습니다.',
   'fabric.elements.share.form.public.send': '공개 링크 보내기',
   'fabric.elements.share.form.public.share': '공개 링크 공유',

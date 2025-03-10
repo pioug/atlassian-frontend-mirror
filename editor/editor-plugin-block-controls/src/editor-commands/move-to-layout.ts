@@ -292,7 +292,7 @@ const canMoveToLayout = (
 			sourceTo = Math.max(anchor, head);
 			sourceContent = tr.doc.slice(sourceFrom, sourceTo).content;
 
-			// TODO: this might become expensive for large content, consider removing it if check has been done beforehand
+			// TODO: ED-26959 - this might become expensive for large content, consider removing it if check has been done beforehand
 			if (containsNodeOfType(sourceContent, 'layoutSection')) {
 				return;
 			}
@@ -358,7 +358,7 @@ const getBreakoutMode = (content: PMNode | Fragment, breakout: MarkType) => {
 	}
 };
 
-// TODO: As part of platform_editor_element_drag_and_drop_multiselect clean up,
+// TODO: ED-26959 - As part of platform_editor_element_drag_and_drop_multiselect clean up,
 // source content variable that has type of `PMNode | Fragment` should be updated to `Fragment` only
 export const moveToLayout =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>) =>

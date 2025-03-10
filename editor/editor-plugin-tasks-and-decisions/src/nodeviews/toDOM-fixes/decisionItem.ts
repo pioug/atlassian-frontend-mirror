@@ -24,6 +24,8 @@ export const decisionItemSpecWithFixedToDOM = () => {
 				class: 'decisionItemView-content-wrap',
 			};
 
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO: can copy raw SVG from DST later
 			const decisionItemIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 			decisionItemIcon.setAttribute('width', '24');

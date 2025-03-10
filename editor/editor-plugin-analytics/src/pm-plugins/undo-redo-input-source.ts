@@ -2,7 +2,7 @@ import { type AnalyticsPayload } from '@atlaskit/adf-schema/steps';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 
 const getUndoRedoInputSource = (tr: Readonly<Transaction>): string | null => {
-	// TODO: Please, do not copy or use this kind of code below
+	// Please, do not copy or use this kind of code below
 	return tr.getMeta('undoRedoPlugin$') ?? null;
 };
 

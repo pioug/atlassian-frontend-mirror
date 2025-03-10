@@ -276,8 +276,7 @@ export const scaleTable =
 
 			if (tr.docChanged) {
 				tr.setMeta('scrollIntoView', false);
-				// TODO: ED-8995
-				// We need to do this check to reduce the number of race conditions when working with tables.
+				// TODO: ED-8995 - We need to do this check to reduce the number of race conditions when working with tables.
 				// This metadata is been used in the sendTransaction function in the Collab plugin
 				/* Added !layoutChanged check here to solve unnecessary scroll bar after publish when click on breakout button multiple times and publish
            scaleTable is only called once every time a breakout button is clicked, so it is safe not to add the meta 'scaleTable' to the tr.

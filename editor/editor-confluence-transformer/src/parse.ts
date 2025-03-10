@@ -151,7 +151,7 @@ function converter(
 								schema,
 								content,
 								convertedNodesReverted,
-								// TODO: Fix any, potential issue. ED-5048
+								// TODO: ED-5048 - Fix any, potential issue.
 								// Ignored via go/ees005
 								// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								supportedMarks as any,
@@ -380,7 +380,7 @@ function converter(
 							schema,
 							Fragment.from(codeHeader),
 							convertedNodesReverted,
-							// TODO: Fix any, potential issue. ED-5048
+							// TODO: ED-5048 - Fix any, potential issue.
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							supportedMarks as any,
@@ -437,7 +437,7 @@ function convertConfluenceMacro(
 			}
 			return schema.nodes.panel.createChecked(
 				{ panelType: mapPanelTypeToPm(macroName) },
-				// TODO: Fix any, potential issue. ED-5048
+				// TODO: ED-5048 - Fix any, potential issue.
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				panelBody as any,

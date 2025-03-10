@@ -1,6 +1,7 @@
 import React, { PureComponent, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
 
@@ -21,6 +22,12 @@ export interface WithOutsideClickProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	targetRef?: any;
 	closeOnTab?: boolean;
+	/**
+	 * Use when you want the click handler to call on the capture phase instead of during bubbling.
+	 * This is useful when you're in a popup with interative UI elements that may disappear on click
+	 * like when toggling UI states
+	 */
+	captureClick?: boolean;
 }
 
 // Ignored via go/ees005
@@ -38,9 +45,13 @@ class WithOutsideClick extends PureComponent<
 > {
 	componentDidMount() {
 		if (this.props.handleClickOutside) {
+			const options =
+				this.props.captureClick && editorExperiment('platform_editor_controls', 'variant1')
+					? { capture: true }
+					: false;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			document.addEventListener('click', this.handleClick, false);
+			document.addEventListener('click', this.handleClick, options);
 		}
 
 		if (this.props.handleEscapeKeydown) {
@@ -59,9 +70,13 @@ class WithOutsideClick extends PureComponent<
 
 	componentWillUnmount() {
 		if (this.props.handleClickOutside) {
+			const options =
+				this.props.captureClick && editorExperiment('platform_editor_controls', 'variant1')
+					? { capture: true }
+					: false;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			document.removeEventListener('click', this.handleClick, false);
+			document.removeEventListener('click', this.handleClick, options);
 		}
 
 		if (this.props.handleEscapeKeydown) {
@@ -135,6 +150,7 @@ export default function withReactEditorViewOuterListeners<P extends Object>(
 		handleEnterKeydown,
 		handleEscapeKeydown,
 		closeOnTab,
+		captureClick,
 		...props
 	}) => {
 		const isActiveProp = hasIsOpen(props) ? props.isOpen : true;
@@ -168,6 +184,7 @@ export default function withReactEditorViewOuterListeners<P extends Object>(
 							handleEnterKeydown={handleEnterKeydown}
 							handleEscapeKeydown={handleEscapeKeydown}
 							closeOnTab={closeOnTab}
+							captureClick={captureClick}
 						>
 							<Component
 								// Ignored via go/ees005

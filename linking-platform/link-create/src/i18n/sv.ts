@@ -7,6 +7,8 @@
  */
 //Swedish
 export default {
+  'link-create.live-doc-icon-label': 'Live doc',
+  'link-create.page-icon-label': 'Sida',
   'link-create.unknown-error.description':
     'Uppdatera sidan eller kontakta <a>Atlassians support</a> om problemet kvarstår.',
   'link-create.unknown-error.heading': 'Något gick fel.',

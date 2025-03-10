@@ -7,6 +7,8 @@
  */
 //French (France)
 export default {
+  'link-create.live-doc-icon-label': 'Document live',
+  'link-create.page-icon-label': 'Page',
   'link-create.unknown-error.description':
     'Actualisez la page ou contactez le <a>support Atlassian</a> si le problème se reproduit.',
   'link-create.unknown-error.heading': "Une erreur s'est produite.",

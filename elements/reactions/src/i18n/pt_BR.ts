@@ -18,7 +18,6 @@ export default {
   'reactions.dialog.close': 'Fechar',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navegar para a esquerda',
-  'reactions.dialog.people-who-reacted.subheader': 'Pessoas que reagiram com {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} reação total} other {{count,number} reações totais}}',
   'reactions.dialog.right.navigate': 'Navegar para a direita',

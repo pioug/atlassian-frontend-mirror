@@ -135,7 +135,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		}
 
 		const selectedColor = this.getSelectedColor(pluginState);
-		// TODO: This doesn't work, the label isn't translated
+		// TODO: ED-26959 - This doesn't work, the label isn't translated
 		const selectedColorPaletteItemLabel = palette.find(
 			(paletteItem) => paletteItem.value === pluginState.color,
 		)?.label;

@@ -735,6 +735,8 @@ describe('severity', () => {
 		jest.clearAllMocks();
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// FIXME: Jest upgrade
 	// Assertion error
 	it.skip.each`

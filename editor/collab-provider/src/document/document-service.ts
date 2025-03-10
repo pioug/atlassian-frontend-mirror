@@ -45,6 +45,7 @@ import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
 import { catchupv2 } from './catchupv2';
 import { StepQueueState } from './step-queue-state';
 import { type DocumentServiceInterface } from './interface-document-service';
+import { getConflictChanges } from './getConflictChanges';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -119,7 +120,7 @@ export class DocumentService implements DocumentServiceInterface {
 			this.catchupv2(reason, reconnectionMetadata),
 		CATCHUP_THROTTLE,
 		{
-			leading: false, // TODO: why shouldn't this be leading?
+			leading: false, // TODO: ED-26957 - why shouldn't this be leading?
 			trailing: true,
 		},
 	);
@@ -257,10 +258,21 @@ export class DocumentService implements DocumentServiceInterface {
 		const state = this.getState?.();
 		const unconfirmedSteps = state ? getCollabState(state)?.unconfirmed : undefined;
 		if (steps.length > 0 && state && unconfirmedSteps && unconfirmedSteps.length > 0) {
-			// In the future we can determine the type of conflict
-			this.providerEmitCallback('data:conflict', {
-				offlineDoc: state.doc,
+			const { schema, tr } = state;
+			const remoteSteps = steps.map((s) => ProseMirrorStep.fromJSON(schema, s));
+
+			const conflicts = getConflictChanges({
+				localSteps: unconfirmedSteps,
+				remoteSteps,
+				tr,
 			});
+
+			if (conflicts.deleted.length > 0 || conflicts.inserted.length > 0) {
+				this.providerEmitCallback('data:conflict', {
+					offlineDoc: state.doc,
+					...conflicts,
+				});
+			}
 		}
 	}
 

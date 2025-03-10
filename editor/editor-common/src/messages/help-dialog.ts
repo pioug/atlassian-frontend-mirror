@@ -88,6 +88,8 @@ export const helpDialogMessages = defineMessages({
 		defaultMessage: 'Close help dialog',
 		description: '',
 	},
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// TODO: Move it inside quick insert plugin
 	quickInsert: {
 		id: 'fabric.editor.quickInsert',

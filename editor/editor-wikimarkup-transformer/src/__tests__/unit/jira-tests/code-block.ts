@@ -37,6 +37,8 @@ private String sampleAttr;
 			[WIKI_NOTATION],
 			doc(
 				code_block({ language: 'java' })(
+					// Ignored via go/ees007
+					// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 					// @TODO Does it need the error?
 					// https://stash.atlassian.com/projects/JIRACLOUD/repos/jira/browse/jira-components/jira-renderer/src/test/resources/render-tests/code-macro-render-tests.properties
 					'some code',

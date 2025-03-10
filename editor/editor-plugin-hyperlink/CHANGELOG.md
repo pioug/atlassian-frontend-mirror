@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.2.4
+
+### Patch Changes
+
+- [#121182](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121182)
+  [`224d725203e16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/224d725203e16) -
+  [ux] EDF-2445 - Link added via cmd-k above a inline comment will be decorated by the inline
+  comment under FG platform_editor_update_insert_link_mark_end_pos
+
 ## 4.2.3
 
 ### Patch Changes

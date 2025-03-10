@@ -71,7 +71,7 @@ type TypeAheadPopupProps = {
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	items: Array<TypeAheadItem>;
-	errorInfo: TypeAheadErrorInfo; // TODO: shared type
+	errorInfo: TypeAheadErrorInfo;
 	selectedIndex: number;
 	setSelectedItem: OnSelectItem;
 	decorationSet: DecorationSet;
@@ -337,7 +337,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		};
 	}, [ref, cancel]);
 
-	// ED-17443 When you press escape on typeahead panel, it should remove focus and close the panel
+	// TODO: ED-17443 - When you press escape on typeahead panel, it should remove focus and close the panel
 	// This is the expected keyboard behaviour advised by the Accessibility team
 	useLayoutEffect(() => {
 		const escape = (event: KeyboardEvent) => {
@@ -366,7 +366,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
 
 	const onViewMoreClick = useCallback(() => {
-		// TODO: when clean up, remove config in quick insert plugin
+		// TODO: ED-26959 - when clean up, remove config in quick insert plugin
 		// platform/packages/editor/editor-plugin-quick-insert/src/quickInsertPlugin.tsx (typeAhead.openElementBrowserModal)
 		openElementBrowserModal?.();
 

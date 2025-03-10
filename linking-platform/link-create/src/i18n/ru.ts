@@ -7,6 +7,8 @@
  */
 //Russian
 export default {
+  'link-create.live-doc-icon-label': 'Документ в режиме реального времени',
+  'link-create.page-icon-label': 'Страница',
   'link-create.unknown-error.description':
     'Обновите страницу и, если проблема возникнет снова, обратитесь в <a>поддержку Atlassian</a>.',
   'link-create.unknown-error.heading': 'Произошла ошибка.',

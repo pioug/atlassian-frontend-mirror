@@ -180,7 +180,7 @@ const buildLayoutButton = (
 
 export const layoutToolbarTitle = 'Layout floating controls';
 
-const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: Replace with proper icon ED-25466
+const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: ED-25466 - Replace with proper icon
 
 const getAdvancedLayoutItems = ({
 	addSidebarLayouts,

@@ -28,7 +28,7 @@ export function assertColspan(attrs: CellAttributes) {
 	}
 }
 
-// TODO: replace "addColSpan" from table plugin with this function
+// TODO: ED-26961 - replace "addColSpan" from table plugin with this function
 export function addColSpan<T extends CellAttributesWithColSpan>(attrs: T, pos: number, n = 1): T {
 	assertColspan(attrs);
 

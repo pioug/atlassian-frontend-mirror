@@ -55,7 +55,7 @@ import { ConfirmationModal } from './ui/ConfirmationModal';
 import { ExpandButton } from './ui/ExpandButton';
 import { ToolbarLoader } from './ui/ToolbarLoader';
 
-// AFP-2532 TODO: Fix automatic suppressions below
+// TODO: AFP-2532 - Fix automatic suppressions below
 export const getRelevantConfig = (
 	selection: Selection,
 	configs: Array<FloatingToolbarConfig>,
@@ -304,7 +304,7 @@ export function ContentComponent({
 		return null;
 	}
 
-	// TODO: MODES-3950 Update this view mode specific logic once we refactor view mode.
+	// TODO: MODES-3950 - Update this view mode specific logic once we refactor view mode.
 	//       We should inverse the responsibility here: A blacklist for toolbar items in view mode, rather than this white list.
 	//       Also consider moving this logic to the more specific toolbar plugins (media and selection).
 	const iterableItems = Array.isArray(items) ? items : items?.(node);

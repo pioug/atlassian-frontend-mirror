@@ -18,7 +18,6 @@ export default {
   'reactions.dialog.close': 'Sluiten',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigeer naar links',
-  'reactions.dialog.people-who-reacted.subheader': 'Mensen die {emojiShortName} hebben gereageerd',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} totale reactie} other {{count,number} totale reacties}}',
   'reactions.dialog.right.navigate': 'Navigeer naar rechts',

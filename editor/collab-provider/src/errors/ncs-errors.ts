@@ -20,7 +20,7 @@ export enum NCS_ERROR_CODE {
 	PROSEMIRROR_SCHEMA_VALIDATION_ERROR = 'PROSEMIRROR_SCHEMA_VALIDATION_ERROR',
 }
 
-// TODO: Import emitted error codes from NCS
+// TODO: ED-26957 - Import emitted error codes from NCS
 
 // NCS Errors
 // - Step rejection errors

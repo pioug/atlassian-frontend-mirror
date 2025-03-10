@@ -17,6 +17,8 @@ export default {
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Отримувачі побачать назву сторінки та ваше повідомлення',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Отримувачі побачать назву проблеми та ваше повідомлення',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Отримувачі побачать назву елемента завдання та ваше повідомлення',
   'fabric.elements.share.form.no-permissions': 'У вас немає можливості поділитися.',
   'fabric.elements.share.form.public.send': 'Надіслати загальнодоступне посилання',
   'fabric.elements.share.form.public.share': 'Поділитися загальнодоступним посиланням',

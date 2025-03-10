@@ -7,6 +7,11 @@ export const aiMessages = defineMessages({
 		defaultMessage: 'Page title',
 		description: 'A fallback suggested title for the suggest title prompt',
 	},
+	eventHubfallbackSuggestedTitlePrefix: {
+		id: 'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix',
+		defaultMessage: 'Page',
+		description: 'A fallback suggested title prefix for the suggest title prompt',
+	},
 
 	// Toolbar messages
 	aiToolbarTitle: {

@@ -408,7 +408,7 @@ describe('#sendData', () => {
 		jest.spyOn(global.Math, 'random').mockRestore();
 	});
 
-	// FIXME: Jest 29 upgrade - Expected number of calls: 2
+	// TODO: ED-26957 - Jest 29 upgrade Expected number of calls: 2
 	it.skip('handles technical error response when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
@@ -514,6 +514,8 @@ describe('#sendData', () => {
 		jest.spyOn(global.Math, 'random').mockRestore();
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// FIXME: Jest 29 upgrade - Expected number of calls: 2
 	it.skip('emits analytics event on invalid acknowledgement when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({

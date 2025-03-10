@@ -77,10 +77,6 @@ export function createPlugin(
 				// should be replaced with what was just typed. This custom text input handler
 				// is needed to implement that behaviour.
 
-				// TODO: ProseMirror should already do this by default
-				// Tech debt to investigate why we need a custom handler here:
-				// https://product-fabric.atlassian.net/browse/ED-9278
-
 				const { state, dispatch } = view;
 				const { tr } = state;
 				if (

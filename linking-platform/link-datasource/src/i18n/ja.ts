@@ -105,6 +105,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '次のサイトから Jira 課題を挿入する',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     '次のサイトから Jira 作業項目を挿入する',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### 件の作業項目',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     '検索結果の件数をインライン スマート リンクとして表示します',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'インライン リンク',
@@ -123,11 +124,18 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'ベータ版',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence ページを検索',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira の課題を検索',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    '挿入する作業項目をキーワードで検索します。',
   'linkDataSource.modal-initial-state.searchDescription-confluence': '挿入するページをキーワードで検索します。',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'JQL (Jira クエリ言語) を使用して作業項目を検索します。',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Jira 作業項目を検索',
   'linkDataSource.render-type.boolean.false': 'いいえ',
   'linkDataSource.render-type.boolean.true': 'はい',
   'linkDataSource.render-type.user.default.display.name': '未割り当て',
   'linkDataSource.search.configmodal.issueCountText': '{searchCount, plural, other {{searchCount,number} 件の課題}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, other {{searchCount,number} 件の作業項目}}',
   'linkDataSource.search.configmodal.itemCountText': '{searchCount, plural, other {{searchCount,number} 件のアイテム}}',
   'linkDataSource.search.configmodal.resultCountText': '{searchCount, plural, other {{searchCount,number} 件の結果}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'たった今、同期しました',

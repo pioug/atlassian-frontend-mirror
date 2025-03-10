@@ -109,6 +109,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insertar incidencias de Jira desde',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     'Insertar actividades de Jira desde',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### actividades',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Mostrar el número de resultados de búsqueda como un enlace inteligente insertado',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Enlace insertado',
@@ -128,12 +129,19 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Buscar páginas de Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Buscar incidencias de Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Busca por palabras clave para insertar actividades.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Busca por palabras clave para insertar páginas.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Utiliza JQL (Jira Query Language) para buscar actividades.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Busca actividades de Jira',
   'linkDataSource.render-type.boolean.false': 'No',
   'linkDataSource.render-type.boolean.true': 'Sí',
   'linkDataSource.render-type.user.default.display.name': 'Sin asignar',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} incidencia} other {{searchCount,number} incidencias}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} actividad} other {{searchCount,number} actividades}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} elemento} other {{searchCount,number} elementos}}',
   'linkDataSource.search.configmodal.resultCountText':

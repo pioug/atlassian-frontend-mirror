@@ -7,6 +7,8 @@
  */
 //Dutch (Netherlands)
 export default {
+  'link-create.live-doc-icon-label': 'Live doc',
+  'link-create.page-icon-label': 'Pagina',
   'link-create.unknown-error.description':
     'Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.',
   'link-create.unknown-error.heading': 'Er is iets misgegaan.',

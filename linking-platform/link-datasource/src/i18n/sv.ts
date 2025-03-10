@@ -107,6 +107,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Infoga Jira-ärenden från',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh':
     'Infoga Jira-arbetsuppgifter från',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### arbetsuppgifter',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Visa antalet sökresultat som en smart inline-länk',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-länk',
@@ -125,12 +126,19 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Sök efter Confluence-sidor',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Sök efter Jira-ärenden',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Sök på nyckelord för att hitta arbetsuppgifter att infoga.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Sök på nyckelord för att hitta sidor att infoga.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Använd JQL (Jira Query Language) för att söka efter arbetsuppgifter.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Sök efter Jira-arbetsuppgifter',
   'linkDataSource.render-type.boolean.false': 'Nej',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Ej tilldelad',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} ärende} other {{searchCount,number} ärenden}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} arbetsuppgift} other {{searchCount,number} arbetsuppgifter}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} uppgift} other {{searchCount,number} uppgifter}}',
   'linkDataSource.search.configmodal.resultCountText':
@@ -140,5 +148,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {objekt} other {objekt}}',
   'linkDataSource.table-footer.loading': 'Läser in ...',
   'linkDataSource.table-footer.power-by-jsm': 'Drivs av Tilllgångar i Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Drivs av Tillgångar',
   'linkDataSource.table-footer.refresh': 'Uppdatera',
 };

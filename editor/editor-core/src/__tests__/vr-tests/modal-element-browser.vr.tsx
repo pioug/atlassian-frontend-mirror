@@ -9,8 +9,4 @@ import {
 // as a workaround, this symbol has been for this snapshot
 snapshot(ElementBrowserModal);
 
-snapshot(ElementBrowserModalWithDisabled, {
-	featureFlags: {
-		platform_editor_is_disabled_state_element_browser: true,
-	},
-});
+snapshot(ElementBrowserModalWithDisabled);

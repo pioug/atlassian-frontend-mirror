@@ -7,6 +7,8 @@
  */
 //Chinese (Simplified)
 export default {
+  'link-create.live-doc-icon-label': '实时文档',
+  'link-create.page-icon-label': '页面',
   'link-create.unknown-error.description': '如果此问题依然存在，请刷新页面或联系 <a>Atlassian 支持团队</a>。',
   'link-create.unknown-error.heading': '出错了。',
   'linkCreate.CreateConfluencePage.form.site.label': '站点',

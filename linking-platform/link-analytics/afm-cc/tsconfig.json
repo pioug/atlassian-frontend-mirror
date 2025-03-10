@@ -30,6 +30,9 @@
             "path": "../../linking-types/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../link-provider/afm-cc/tsconfig.json"
         }
     ]

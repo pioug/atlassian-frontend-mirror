@@ -396,7 +396,7 @@ const createMediaSingleNode =
 			? {
 					...mediaSingleAttrs,
 					width: getMediaSingleInitialWidth(scaledWidth, maxWidth, minWidth),
-					// TODO: change to use enum
+					// TODO: ED-26962 - change to use enum
 					widthType: 'pixel',
 				}
 			: mediaSingleAttrs;

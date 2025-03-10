@@ -128,7 +128,7 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 		case IconType.Document:
 			return (
 				<DocumentIcon
-					label={label || 'document'}
+					label={label ?? 'document'}
 					testId={testId}
 					{...(fg('platform-smart-card-icon-migration') && {
 						size,
@@ -138,7 +138,7 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 		case IconType.Blog:
 			return (
 				<BlogIcon
-					label={label || 'blog'}
+					label={label ?? 'blog'}
 					testId={testId}
 					{...(fg('platform-smart-card-icon-migration') && {
 						size,
@@ -148,7 +148,7 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 		case IconType.LiveDocument:
 			return (
 				<LiveDocumentIcon
-					label={label || 'live-doc'}
+					label={label ?? 'live-doc'}
 					testId={testId}
 					{...(fg('platform-smart-card-icon-migration') && {
 						size,

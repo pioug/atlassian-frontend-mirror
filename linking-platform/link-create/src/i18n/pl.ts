@@ -7,6 +7,8 @@
  */
 //Polish (Poland)
 export default {
+  'link-create.live-doc-icon-label': 'Dokument online',
+  'link-create.page-icon-label': 'Strona',
   'link-create.unknown-error.description':
     'Odśwież stronę lub skontaktuj się z <a>działem wsparcia Atlassian</a>, jeśli sytuacja będzie się powtarzać.',
   'link-create.unknown-error.heading': 'Coś poszło nie tak.',

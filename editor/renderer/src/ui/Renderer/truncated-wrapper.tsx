@@ -57,7 +57,7 @@ export class TruncatedWrapper extends Component<TruncatedWrapperProps, unknown> 
 		super(props);
 	}
 
-	// TODO: Quality ticket as elevation.surface will be issue when sits top of modal. https://product-fabric.atlassian.net/browse/DSP-4123
+	// TODO: DSP-4123 - Quality ticket as elevation.surface will be issue when sits top of modal.
 	render() {
 		const {
 			height = 95,

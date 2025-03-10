@@ -271,7 +271,7 @@ const TypeAheadListComponent = React.memo(
 							event.stopPropagation();
 							break;
 
-						// TODO DTR-1401: why is this calling item click when hitting tab? fix this in DTR-1401
+						// TODO: DTR-1401 - why is this calling item click when hitting tab? fix this in DTR-1401
 						case 'Tab':
 							//Tab key quick inserts the selected item.
 							onItemClick(SelectItemMode.TAB, selectedIndex);

@@ -7,6 +7,8 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'link-create.live-doc-icon-label': 'Sanntidsdokument',
+  'link-create.page-icon-label': 'Side',
   'link-create.unknown-error.description':
     'Oppdater siden, eller kontakt <a>Atlassian-støtte</a> hvis problemet vedvarer.',
   'link-create.unknown-error.heading': 'Det oppstod en feil.',

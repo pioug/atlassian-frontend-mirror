@@ -465,7 +465,7 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 }
 
 .emotion-0 h1 {
-  font: normal 500 1.71429em/1.16667 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif;
+  font: normal 500 1.71429em/1.16667 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   margin-bottom: 0;
   margin-top: 1.45833em;
 }
@@ -477,7 +477,7 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 
 
 .emotion-0 h2 {
-  font: normal 500 1.42857em/1.2 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif;
+  font: normal 500 1.42857em/1.2 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   margin-top: 1.4em;
   margin-bottom: 0;
 }
@@ -487,7 +487,7 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 }
 
 .emotion-0 h3 {
-  font: normal 600 1.14286em/1.25 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif;
+  font: normal 600 1.14286em/1.25 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   margin-top: 1.31249em;
   margin-bottom: 0;
 }
@@ -497,7 +497,7 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 }
 
 .emotion-0 h4 {
-  font: normal 600 1em/1.14286 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif;
+  font: normal 600 1em/1.14286 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   margin-top: 1.25em;
 }
 
@@ -506,7 +506,7 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 }
 
 .emotion-0 h5 {
-  font: normal 600 0.857143em/1.33333 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif;
+  font: normal 600 0.857143em/1.33333 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   margin-top: 1.45833em;
   text-transform: none;
 }
@@ -516,7 +516,7 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 }
 
 .emotion-0 h6 {
-  font: normal 700 0.785714em/1.45455 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif;
+  font: normal 700 0.785714em/1.45455 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   margin-top: 1.59091em;
   text-transform: none;
 }
@@ -568,7 +568,7 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 }
 
 .emotion-0 p {
-  font: normal 400 1em/1.714 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,system-ui,"Helvetica Neue",sans-serif;
+  font: normal 400 1em/1.714 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   margin-top: 0.75rem;
   margin-bottom: 0;
 }

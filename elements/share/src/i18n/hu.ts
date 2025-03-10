@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Van bármi, amit érdemes tudni?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'A címzettek látják az oldal nevét és az üzenetedet',
   'fabric.elements.share.form.info.message.no.invite.jira': 'A címzettek látják az ügy nevét és az üzenetedet',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'A címzettek látják az ügy nevét és az üzenetedet',
   'fabric.elements.share.form.no-permissions': 'Nincs lehetőséged a megosztásra.',
   'fabric.elements.share.form.public.send': 'Publikus link küldése',
   'fabric.elements.share.form.public.share': 'Nyilvános link megosztása',

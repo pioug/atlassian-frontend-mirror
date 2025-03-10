@@ -50,6 +50,8 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 		}
 
 		if (!this.state.editorModules) {
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO: Proper loading state
 			return <ChromeCollapsed text="Loading..." />;
 		}

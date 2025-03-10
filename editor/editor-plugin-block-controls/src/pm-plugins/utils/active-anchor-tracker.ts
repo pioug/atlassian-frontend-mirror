@@ -48,7 +48,7 @@ export class ActiveAnchorTracker {
 	}
 }
 
-// TODO We should use a scoped ActiveAnchorTracker rather than the global static object.
+// TODO: ED-26959 - We should use a scoped ActiveAnchorTracker rather than the global static object.
 // Move this into the plugin scope once the newApply functions becomes default apply.
 export const defaultActiveAnchorTracker: ActiveAnchorTracker = new ActiveAnchorTracker();
 

@@ -55,7 +55,7 @@ const querySpanStyles = css({
 		background: 'transparent',
 		padding: 0,
 		margin: 0,
-		// ED-17022 Fixes firefox caret position
+		// TODO: ED-17022 - Fixes firefox caret position
 		// Do not migrate font when em is used as unit
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '1em',
@@ -212,7 +212,7 @@ export const InputQuery = React.memo(
 						}
 						break;
 					case 'Enter':
-						// ED-14758 - Under the W3C specification, any keycode sent under IME would return a keycode 229
+						// TODO: ED-14758 - Under the W3C specification, any keycode sent under IME would return a keycode 229
 						// event.isComposing can't be used alone as this also included a virtual keyboard under a keyboardless device, therefore, it seems the best practice would be intercepting the event as below.
 						// Some suggested the other workaround maybe listen on`keypress` instead of `keydown`
 						if (!event.isComposing && event.which !== 229 && event.keyCode !== 229) {
@@ -247,7 +247,7 @@ export const InputQuery = React.memo(
 							selectPreviousItem();
 							selectNextItem();
 						}
-						// TODO DTR-1401: why is this calling select item when hitting tab? fix this in DTR-1401
+						// TODO: DTR-1401 - why is this calling select item when hitting tab? fix this in DTR-1401
 						onItemSelect(SelectItemMode.TAB);
 						break;
 					case 'ArrowDown':

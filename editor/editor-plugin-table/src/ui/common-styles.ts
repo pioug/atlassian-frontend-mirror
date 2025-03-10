@@ -329,8 +329,6 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		td.${ClassName.TABLE_CELL} {
 			background-color: ${tableCellBackgroundColor};
 
-			// ED-15246: Trello card is visible through a border of a table border
-			// This fixes a border issue caused by relative positioned table cells
 			&::after {
 				height: 100%;
 				content: '';
@@ -1088,10 +1086,6 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 			background: ${tableCellDeleteColor};
 			z-index: ${akEditorUnitZIndex * 100};
 		}
-		// ED-15246: Trello card is visible through a border of a table border
-		/* ED-19064: To fix when enable header column in the table,
-       and selection the header column, the right border is not tableBorderSelectedColor
-       when deleting the header column, the right border is not tableToolbarDeleteColor */
 		td.${ClassName.HOVERED_CELL},
 			td.${ClassName.SELECTED_CELL},
 			th.${ClassName.TABLE_HEADER_CELL}.${ClassName.SELECTED_CELL},
@@ -1175,7 +1169,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	}
 `;
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4139
+// TODO: DSP-4139 - Remove this when we have a better solution for the table toolbar
 export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	.ProseMirror {
 		${baseTableStyles(props)}

@@ -8,7 +8,7 @@ import {
 	type OverrideDocumentStepJSON as OverrideDocumentStep,
 } from '@atlaskit/adf-schema/steps';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -270,6 +270,8 @@ export interface Metadata {
 	[key: string]: string | number | boolean;
 }
 
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: Deprecate redundant payload types
 export type CollabMetadataPayload = Metadata;
 
@@ -527,8 +529,19 @@ export type UserPermitType = {
 
 export type CollabPermissionEventPayload = UserPermitType;
 
-// This will be extended in follow-up PRs
-export interface CollabEventConflictPayload {
+export type ConflictChange = {
+	from: number;
+	to: number;
+	local: Slice;
+	remote: Slice;
+};
+
+export type ConflictChanges = {
+	inserted: ConflictChange[];
+	deleted: ConflictChange[];
+};
+
+export interface CollabEventConflictPayload extends ConflictChanges {
 	offlineDoc: PMNode;
 }
 

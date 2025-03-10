@@ -2,11 +2,14 @@ import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef } f
 
 import throttle from 'lodash/throttle';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	JQL_EDITOR_AUTOCOMPLETE_ID,
 	JQL_EDITOR_HELP_CONTENT_ID,
 	JQL_EDITOR_INPUT_ID,
 	JQL_EDITOR_MAIN_ID,
+	JQL_EDITOR_VALIDATION_ID,
 } from '../../common/constants';
 import { useEditorThemeContext } from '../../hooks/use-editor-theme';
 import { useEditorViewIsInvalid } from '../../hooks/use-editor-view-is-invalid';
@@ -42,6 +45,7 @@ const JQLEditorView = ({ inputRef }: { inputRef?: React.Ref<{ focus: () => void 
 	const [autocompleteId] = useScopedId(JQL_EDITOR_AUTOCOMPLETE_ID);
 	const [editorId] = useScopedId(JQL_EDITOR_INPUT_ID);
 	const [helpContentId] = useScopedId(JQL_EDITOR_HELP_CONTENT_ID);
+	const [validationId] = useScopedId(JQL_EDITOR_VALIDATION_ID);
 	const [intl] = useIntl();
 	const portalActions = usePortalActionsContext();
 
@@ -108,7 +112,11 @@ const JQLEditorView = ({ inputRef }: { inputRef?: React.Ref<{ focus: () => void 
 			'aria-label': intl.formatMessage(messages.inputLabel),
 			'aria-controls': autocompleteId,
 			'aria-owns': autocompleteId,
-			'aria-describedby': helpContentId,
+			'aria-describedby': fg('jql_editor_a11y')
+				? editorViewIsInvalid
+					? validationId
+					: helpContentId
+				: helpContentId,
 			...(selectedOptionId && {
 				'aria-activedescendant': selectedOptionId,
 			}),
@@ -121,9 +129,10 @@ const JQLEditorView = ({ inputRef }: { inputRef?: React.Ref<{ focus: () => void 
 		isAutocompleteOpen,
 		intl,
 		autocompleteId,
+		editorViewIsInvalid,
+		validationId,
 		helpContentId,
 		selectedOptionId,
-		editorViewIsInvalid,
 	]);
 
 	// Update attributes on our editor view whenever they have changed

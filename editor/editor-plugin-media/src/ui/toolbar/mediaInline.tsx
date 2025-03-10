@@ -312,7 +312,7 @@ const getMediaInlineImageToolbar = (
 		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator', fullHeight: true });
 	}
 
-	// TODO: editor controls move to overflow menu
+	// TODO: ED-26961 - editor controls move to overflow menu
 	if (editorExperiment('platform_editor_controls', 'control')) {
 		inlineImageItems.push({
 			type: 'custom',

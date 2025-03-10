@@ -874,7 +874,7 @@ export const createPlugin = (
 						return false;
 					}
 
-					// TODO: Review usage of posAtDOM here
+					// TODO: ED-26959 - Review usage of posAtDOM here
 					const domPos = Math.max(view.posAtDOM(nodeElement, 0) - 1, 0);
 
 					const nodeTarget = state.doc.nodeAt(domPos);

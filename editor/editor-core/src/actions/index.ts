@@ -29,7 +29,6 @@ import { isEmptyDocument } from './temp-is-empty-document';
 import { findNodePosByLocalIds } from './temp-nodes-by-localids';
 import { toJSON } from './temp-to-json';
 
-// TODO: ED-21786
 // Please, do not copy or use this kind of code below
 // @ts-ignore
 const fakePluginKey = {

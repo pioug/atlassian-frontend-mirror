@@ -645,7 +645,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 	private makeHeaderRowSticky(tree: TableDOMElements, scrollTop?: number) {
 		// If header row height is more than 50% of viewport height don't do this
-		// TODO: When cleaning up 'nested_table_control_padding_with_css' FG
+		// TODO: ED-26961 - When cleaning up 'nested_table_control_padding_with_css' FG
 		// move this check to the constructor of the TableRow so that we don't subscribe to
 		// clicks and scrolls for nested tables.
 		if (
@@ -658,7 +658,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 		const { table, wrapper } = tree;
 
-		// ED-16035 Make sure sticky header is only applied to first row
+		// TODO: ED-16035 - Make sure sticky header is only applied to first row
 		const tbody = this.dom.parentElement;
 		const isFirstHeader = tbody?.firstChild?.isEqualNode(this.dom);
 		if (!isFirstHeader) {
@@ -730,7 +730,6 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		return Math.round(getTop(wrapper)) + this.getWrapperoffset();
 	}
 
-	// TODO: rename!
 	private getScrolledTableTop(wrapper: HTMLElement): number {
 		return this.getWrapperRefTop(wrapper) - this.topPosEditorElement;
 	}

@@ -11,7 +11,10 @@ export function issueLinkResolver(
 	const { originalLinkText, linkTitle, notLinkBody } = link;
 	if (
 		linkTitle === 'smart-card' ||
-		linkTitle === 'block-link' // TODO: Depricated should be removed in the next major release
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+		// TODO: Depricated should be removed in the next major release
+		linkTitle === 'block-link'
 	) {
 		return [
 			schema.nodes.blockCard.createChecked({

@@ -17,7 +17,7 @@ import { createCommand, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import type { TriggerType } from './types';
 
-// TODO: This command is a placeholder example. Please replace this if required.
+// TODO: ED-26961 - This command is a placeholder example. Please replace this if required.
 const getDecorations = (state: EditorState): DecorationSet => {
 	return pluginKey.getState(state)?.decorationSet || DecorationSet.empty;
 };

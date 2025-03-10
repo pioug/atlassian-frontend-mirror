@@ -108,7 +108,7 @@ export default () => {
 				// blocking shift + arrow left/right selections in safari. When
 				// a shift + arrow left/right event is detected, send meta data to the
 				// plugin to prevent it from creating decorations.
-				// TODO We may be able to remove this when playing the following ticket:
+				// TODO: ED-26959 - We may be able to remove this when playing the following ticket:
 				// https://product-fabric.atlassian.net/browse/ED-14938
 				keydown: (view: EditorView, event: Event) => {
 					if (

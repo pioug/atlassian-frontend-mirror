@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Is er iets ze moet weten?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Ontvangers zien de naam van de pagina en je bericht',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Ontvangers zien de naam van de issue en je bericht',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Ontvangers zien de naam van het werkitem en je bericht',
   'fabric.elements.share.form.no-permissions': 'Je kunt niet delen.',
   'fabric.elements.share.form.public.send': 'Openbare link verzenden',
   'fabric.elements.share.form.public.share': 'Openbare link delen',

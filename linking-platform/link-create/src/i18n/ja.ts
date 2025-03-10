@@ -7,6 +7,8 @@
  */
 //Japanese
 export default {
+  'link-create.live-doc-icon-label': 'リアルタイム文書',
+  'link-create.page-icon-label': 'ページ',
   'link-create.unknown-error.description':
     'ページを更新してください。問題が解決しない場合は、<a>アトラシアン サポート</a>にお問い合わせください。',
   'link-create.unknown-error.heading': '問題が発生しました。',

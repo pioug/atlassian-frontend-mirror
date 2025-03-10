@@ -33,6 +33,11 @@ export const panelMessages = defineMessages({
 		defaultMessage: 'Add emoji',
 		description: 'Select the panel icon',
 	},
+	custom: {
+		id: 'fabric.editor.panel.custom',
+		defaultMessage: 'Custom',
+		description: 'Custom panels where user has selected custom emoji and background color',
+	},
 	backgroundColor: {
 		id: 'fabric.editor.panel.backgroundColor',
 		defaultMessage: 'Background color',

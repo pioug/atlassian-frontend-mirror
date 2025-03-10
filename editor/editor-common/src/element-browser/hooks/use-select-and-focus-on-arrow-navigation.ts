@@ -1,7 +1,6 @@
 import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
@@ -101,30 +100,20 @@ const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState =
 				selectedItemIndex: canFocusViewMore ? undefined : listSize,
 			};
 		} else {
-			if (fg('platform_editor_is_disabled_state_element_browser')) {
-				const newIndex = action.payload.positions
-					? action.payload.positions - (action.payload.step ?? 1)
-					: 0;
-				const safeIndex = ensureSafeIndex(newIndex, state.listSize);
-				const isLastItemFocused = newIndex > listSize;
-				const focusOnSearch = isLastItemFocused && !canFocusViewMore;
-				const focusOnViewMore = isLastItemFocused && !!canFocusViewMore;
-				return {
-					...state,
-					focusOnSearch: focusOnSearch,
-					focusOnViewMore: focusOnViewMore,
-					focusedItemIndex: safeIndex,
-					selectedItemIndex: safeIndex,
-				};
-			} else {
-				return {
-					...state,
-					focusOnSearch: false,
-					focusOnViewMore: false,
-					focusedItemIndex: 0,
-					selectedItemIndex: 0,
-				};
-			}
+			const newIndex = action.payload.positions
+				? action.payload.positions - (action.payload.step ?? 1)
+				: 0;
+			const safeIndex = ensureSafeIndex(newIndex, state.listSize);
+			const isLastItemFocused = newIndex > listSize;
+			const focusOnSearch = isLastItemFocused && !canFocusViewMore;
+			const focusOnViewMore = isLastItemFocused && !!canFocusViewMore;
+			return {
+				...state,
+				focusOnSearch: focusOnSearch,
+				focusOnViewMore: focusOnViewMore,
+				focusedItemIndex: safeIndex,
+				selectedItemIndex: safeIndex,
+			};
 		}
 	}
 
@@ -422,45 +411,27 @@ function useSelectAndFocusOnArrowNavigation(
 					return setFocusOnSearch();
 
 				case 'ArrowRight': {
-					if (fg('platform_editor_is_disabled_state_element_browser')) {
-						const itemIndex = focusOnSearch ? -1 : selectedItemIndex;
-						const nextItem =
-							skipForwardOffsetToSafeItem(itemIndex, listSize, 1, itemIsDisabled) ?? 1;
-						return move(e, nextItem);
-					} else {
-						return move(e, +1);
-					}
+					const itemIndex = focusOnSearch ? -1 : selectedItemIndex;
+					const nextItem = skipForwardOffsetToSafeItem(itemIndex, listSize, 1, itemIsDisabled) ?? 1;
+					return move(e, nextItem);
 				}
 
 				case 'ArrowLeft': {
-					if (fg('platform_editor_is_disabled_state_element_browser')) {
-						const nextItem =
-							skipBackwardOffsetToSafeItem(selectedItemIndex, 1, itemIsDisabled) ?? 1;
-						return move(e, -nextItem);
-					} else {
-						return move(e, -1);
-					}
+					const nextItem = skipBackwardOffsetToSafeItem(selectedItemIndex, 1, itemIsDisabled) ?? 1;
+					return move(e, -nextItem);
 				}
 
 				case 'ArrowDown': {
-					if (fg('platform_editor_is_disabled_state_element_browser')) {
-						const itemIndex = focusOnSearch ? -step : selectedItemIndex;
-						const nextItem =
-							skipForwardOffsetToSafeItem(itemIndex, listSize, step, itemIsDisabled) ?? step;
-						return move(e, +nextItem, step);
-					} else {
-						return move(e, +step);
-					}
+					const itemIndex = focusOnSearch ? -step : selectedItemIndex;
+					const nextItem =
+						skipForwardOffsetToSafeItem(itemIndex, listSize, step, itemIsDisabled) ?? step;
+					return move(e, +nextItem, step);
 				}
 
 				case 'ArrowUp': {
-					if (fg('platform_editor_is_disabled_state_element_browser')) {
-						const nextItem =
-							skipBackwardOffsetToSafeItem(selectedItemIndex, step, itemIsDisabled) ?? step;
-						return move(e, Math.min(-nextItem, -step), step);
-					} else {
-						return move(e, -step, step);
-					}
+					const nextItem =
+						skipBackwardOffsetToSafeItem(selectedItemIndex, step, itemIsDisabled) ?? step;
+					return move(e, Math.min(-nextItem, -step), step);
 				}
 			}
 		},

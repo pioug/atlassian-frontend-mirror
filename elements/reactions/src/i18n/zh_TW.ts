@@ -17,7 +17,6 @@ export default {
   'reaction-picker-trigger.add.reaction.message': '新增回應',
   'reactions.dialog.close': '關閉',
   'reactions.dialog.left.navigate': '左側導覽',
-  'reactions.dialog.people-who-reacted.subheader': '使用 {emojiShortName} 回應的人',
   'reactions.dialog.reactions.count': '{count, plural, other {{count,number} 個回應總計}}',
   'reactions.dialog.right.navigate': '右側導覽',
   'reactions.dialog.viewall': '查看全部',

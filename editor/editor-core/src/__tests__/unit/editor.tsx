@@ -337,6 +337,8 @@ describe(`Editor`, () => {
 			});
 		});
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// FIXME: Jest upgrade raises this issue
 		// Expected done to be called once, but it was called multiple times
 		it.skip('should update appearance used in events when change appearance prop', (done) => {

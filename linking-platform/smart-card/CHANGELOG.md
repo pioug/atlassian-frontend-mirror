@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 35.2.4
+
+### Patch Changes
+
+- [#124093](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124093)
+  [`5c14a206462d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c14a206462d8) -
+  Bugfix for AtlaskitIcon a11y issue
+- Updated dependencies
+
+## 35.2.3
+
+### Patch Changes
+
+- [#122851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122851)
+  [`818fdc04fd7eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/818fdc04fd7eb) -
+  On smartlink unresolved, include extensionKey from error object
+- Updated dependencies
+
+## 35.2.2
+
+### Patch Changes
+
+- [#123971](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123971)
+  [`eb093d08675da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb093d08675da) -
+  [ux] Use new ADS button only on block card and hover card
+
 ## 35.2.1
 
 ### Patch Changes

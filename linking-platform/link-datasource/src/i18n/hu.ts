@@ -108,6 +108,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira-ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-ügyek beszúrása innen:',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Jira-ügyek beszúrása innen:',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### ügy',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Keresési találatok számának beágyazott okoslinkként való megjelenítése',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Beágyazott link',
@@ -126,12 +127,19 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Béta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence-oldalak keresése',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira-ügyek keresése',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Keresd meg kulcsszó alapján a beszúrni kívánt ügyeket.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Keresd meg kulcsszó alapján a beszúrni kívánt oldalakat.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'JQL (Jira Query Language) használata az ügyek keresésére.',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Jira-ügyek keresése',
   'linkDataSource.render-type.boolean.false': 'Nem',
   'linkDataSource.render-type.boolean.true': 'Igen',
   'linkDataSource.render-type.user.default.display.name': 'Nincs hozzárendelve',
   'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} ügy} other {{searchCount,number} ügy}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
     '{searchCount, plural, one {{searchCount,number} ügy} other {{searchCount,number} ügy}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} tétel} other {{searchCount,number} tétel}}',

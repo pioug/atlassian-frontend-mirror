@@ -159,7 +159,7 @@ export default {
   'fabric.linking.request_access_pending_title': '{product}에 대한 액세스 보류 중',
   'fabric.linking.request_access_to_view': '이 이슈를 보려면 {context}에 대한 액세스를 요청하세요',
   'fabric.linking.request_access_to_view-issue-term-refresh':
-    '이 업무 항목를 보려면 {context}에 대한 액세스를 요청하세요',
+    '이 업무 항목을 보려면 {context}에 대한 액세스를 요청하세요',
   'fabric.linking.request_denied': '액세스 요청이 거부되었습니다',
   'fabric.linking.request_denied_description':
     '관리자가 {hostname}에서 {product} 페이지를 보기 위한 요청을 승인하지 않았습니다.',
@@ -172,7 +172,7 @@ export default {
   'fabric.linking.srclinkunknown': '원래 보기',
   'fabric.linking.status_change_load_error': '상태 및 전환을 로드할 수 없습니다',
   'fabric.linking.status_change_permission_error': '이 이슈를 전환할 수 있는 권한이 없습니다.',
-  'fabric.linking.status_change_permission_error-issue-term-refresh': '이 업무 항목를 전환할 수 있는 권한이 없습니다.',
+  'fabric.linking.status_change_permission_error-issue-term-refresh': '이 업무 항목을 전환할 수 있는 권한이 없습니다.',
   'fabric.linking.status_change_update_error': '상태를 업데이트할 수 없습니다',
   'fabric.linking.try_again': '다시 시도',
   'fabric.linking.try_another_account': '다른 계정으로 시도해 보세요.',

@@ -89,9 +89,9 @@ export type FlexibleCardProps = {
 
 	/**
 	 * Determines the appearance of Flexible UI.
-	 * @see FlexibleUiOptions
+	 * @see InternalFlexibleUiOptions
 	 */
-	ui?: FlexibleUiOptions;
+	ui?: InternalFlexibleUiOptions;
 
 	/**
 	 * Determines the URL of the Smart Link.
@@ -108,6 +108,10 @@ export type FlexibleCardProps = {
 	 * Configuration options for hover preview
 	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
+};
+
+export type InternalFlexibleUiOptions = FlexibleUiOptions & {
+	hideLegacyButton?: boolean;
 };
 
 export type FlexibleUiOptions = {

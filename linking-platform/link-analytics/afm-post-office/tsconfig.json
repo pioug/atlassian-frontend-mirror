@@ -30,6 +30,9 @@
 			"path": "../../linking-types/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../link-provider/afm-post-office/tsconfig.json"
 		}
 	]

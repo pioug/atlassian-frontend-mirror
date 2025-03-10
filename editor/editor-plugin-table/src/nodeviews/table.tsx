@@ -207,7 +207,6 @@ export default class TableView extends ReactNodeView<Props> {
 			);
 		}
 
-		// TODO: ED-15663
 		// Please, do not copy or use this kind of code below
 		// @ts-ignore
 		const fakePluginKey = {
@@ -219,7 +218,6 @@ export default class TableView extends ReactNodeView<Props> {
 			},
 		} as PluginKey;
 
-		// TODO: ED-15663
 		// Please, do not copy or use this kind of code below
 		// @ts-ignore
 		const fakeMediaPluginKey = {

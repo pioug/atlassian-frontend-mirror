@@ -300,7 +300,6 @@ export class EmbedCardComponent extends React.PureComponent<
 	saveOriginalDimensionsAttributes = (height: number, width: number | undefined) => {
 		const { view } = this.props;
 
-		// TODO: ED-15663
 		// Please, do not copy or use this kind of code below
 		// @ts-ignore
 		const fakeTableResizePluginKey = {

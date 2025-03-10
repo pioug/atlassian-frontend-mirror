@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Bạn có nội dung gì cần lưu ý người khác không?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Người nhận sẽ thấy tên trang và tin nhắn của bạn',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Người nhận sẽ thấy tên sự cố và tin nhắn của bạn',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Người nhận sẽ thấy tên hạng mục công việc và tin nhắn của bạn',
   'fabric.elements.share.form.no-permissions': 'Bạn không có khả năng chia sẻ.',
   'fabric.elements.share.form.public.send': 'Gửi liên kết công khai',
   'fabric.elements.share.form.public.share': 'Chia sẻ liên kết công khai',

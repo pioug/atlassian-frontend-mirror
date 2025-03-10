@@ -32,8 +32,7 @@ export const sendTransaction =
 
 		const shouldSendStepForSynchronyCollabProvider =
 			!originalTransaction.getMeta('isRemote') &&
-			// TODO: ED-8995
-			// We need to do this check to reduce the number of race conditions when working with tables.
+			// TODO: ED-8995 - We need to do this check to reduce the number of race conditions when working with tables.
 			// This metadata is coming from the scaleTable command in table-resizing plugin
 			!originalTransaction.getMeta('scaleTable') &&
 			docChangedTransaction;

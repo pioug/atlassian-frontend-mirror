@@ -105,7 +105,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
   'fabric.linking.join_to_view': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
-  'fabric.linking.join_to_view-issue-term-refresh': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
+  'fabric.linking.join_to_view-issue-term-refresh': 'เข้าร่วม {context} เพื่อดูตั๋วนี้',
   'fabric.linking.learn_more_about_connecting_account':
     'เรียนรู้เพิ่มเติมเกี่ยวกับการเชื่อมต่อบัญชีของคุณกับผลิตภัณฑ์ของ Atlassian',
   'fabric.linking.learn_more_about_smart_links': 'เรียนรู้เพิ่มเติมเกี่ยวกับสมาร์ทลิงก์ (ลิงก์อัจฉริยะ)',
@@ -119,7 +119,7 @@ export default {
   'fabric.linking.not_found_description': 'หน้าข้อมูลนี้ไม่มีอยู่ หรืออาจมีการเปลี่ยนแปลงหลังจากมีการเพิ่มลิงก์นี้',
   'fabric.linking.not_found_title': 'เราไม่สามารถแสดงหน้า {product} นี้ให้คุณดูได้',
   'fabric.linking.open_issue_in_jira': 'เปิดปัญหาใน Jira',
-  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'เปิดปัญหาใน Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'ตั๋วที่เปิดอยู่ใน Jira',
   'fabric.linking.open_link_in_a_new_tab': 'เปิดลิงก์ในแถบใหม่',
   'fabric.linking.owned_by': 'เจ้าของคือ {context}',
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
@@ -160,7 +160,7 @@ export default {
     'ส่งคำขอการเข้าถึง {hostname} ของคุณกำลังรอการอนุมัติจากผู้ดูแลระบบ',
   'fabric.linking.request_access_pending_title': 'กำลังรอดำเนินการการเข้าถึง {product}',
   'fabric.linking.request_access_to_view': 'ส่งคำขอการเข้าถึงที่ {context} เพื่อดูปัญหานี้',
-  'fabric.linking.request_access_to_view-issue-term-refresh': 'ส่งคำขอการเข้าถึงที่ {context} เพื่อดูปัญหานี้',
+  'fabric.linking.request_access_to_view-issue-term-refresh': 'ส่งคำขอการเข้าถึงที่ {context} เพื่อดูตั๋วนี้',
   'fabric.linking.request_denied': 'คำขอการเข้าถึงของคุณถูกปฏิเสธ',
   'fabric.linking.request_denied_description':
     'ผู้ดูแลระบบของคุณไม่อนุมัติคำขอของคุณในการดูหน้า {product} จาก {hostname}',
@@ -173,7 +173,7 @@ export default {
   'fabric.linking.srclinkunknown': 'ดูต้นฉบับ',
   'fabric.linking.status_change_load_error': 'เราไม่สามารถโหลดสถานะและการเปลี่ยนย้ายได้',
   'fabric.linking.status_change_permission_error': 'คุณไม่มีสิทธิ์ในการเปลี่ยนย้ายปัญหานี้',
-  'fabric.linking.status_change_permission_error-issue-term-refresh': 'คุณไม่มีสิทธิ์ในการเปลี่ยนย้ายปัญหานี้',
+  'fabric.linking.status_change_permission_error-issue-term-refresh': 'คุณไม่มีสิทธิ์ในการเปลี่ยนย้ายตั๋วนี้',
   'fabric.linking.status_change_update_error': 'เราไม่สามารถอัปเดตสถานะได้',
   'fabric.linking.try_again': 'ลองอีกครั้ง',
   'fabric.linking.try_another_account': 'ลองบัญชีอื่น',

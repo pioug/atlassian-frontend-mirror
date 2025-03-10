@@ -48,7 +48,7 @@ import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-// TODO: ED-20519 Needs Macro extraction
+// TODO: ED-20519 - Needs Macro extraction
 
 import {
 	startTrackingPastedMacroPositions,

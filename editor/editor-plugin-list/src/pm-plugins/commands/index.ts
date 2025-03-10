@@ -26,6 +26,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
 import { findPositionOfNodeBefore, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -312,10 +313,18 @@ const deletePreviousEmptyListItem: Command = (state, dispatch) => {
 		return false;
 	}
 
+	const nodeBeforeIsExtension =
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform_editor_nbm_backspace_fixes') &&
+		$cut.nodeBefore.firstChild &&
+		$cut.nodeBefore.firstChild.type.name === 'extension';
+
 	const previousListItemEmpty =
 		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		$cut.nodeBefore.childCount === 1 && $cut.nodeBefore.firstChild!.nodeSize <= 2;
+		$cut.nodeBefore.childCount === 1 &&
+		$cut.nodeBefore.firstChild &&
+		$cut.nodeBefore.firstChild.nodeSize <= 2 &&
+		!nodeBeforeIsExtension;
 
 	if (previousListItemEmpty) {
 		const { tr } = state;

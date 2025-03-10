@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 13.0.3
+
+### Patch Changes
+
+- [#123425](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123425)
+  [`9d24a5a33ee9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d24a5a33ee9e) -
+  Add setTimeout to defer state update on cloned target to avoid content shifting issue when
+  scrollbars are on the page
+
 ## 13.0.2
 
 ### Patch Changes

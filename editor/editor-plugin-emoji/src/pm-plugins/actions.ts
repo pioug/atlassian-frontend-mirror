@@ -13,6 +13,7 @@ export const ACTIONS = {
 	SET_PROVIDER: 'SET_PROVIDER',
 	SET_RESULTS: 'SET_RESULTS',
 	SET_ASCII_MAP: 'SET_ASCII_MAP',
+	SET_INLINE_POPUP: 'SET_INLINE_POPUP',
 };
 
 export const setAsciiMap = (asciiMap: Map<string, EmojiDescription>) => (tr: Transaction) => {
@@ -39,3 +40,6 @@ export const setProvider = (provider?: EmojiProvider) => (tr: Transaction) => {
 		params: { provider },
 	});
 };
+
+export const setInlineEmojiPopupOpen = (open: boolean) => (tr: Transaction) =>
+	tr.setMeta(emojiPluginKey, { action: ACTIONS.SET_INLINE_POPUP, params: { open } });

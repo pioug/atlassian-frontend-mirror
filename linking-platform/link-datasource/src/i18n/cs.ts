@@ -106,6 +106,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Vložit požadavky Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Vložit požadavky Jira z:',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Vložit požadavky Jira z:',
+  'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### požadavky/ů',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Zobrazit počet výsledků vyhledávání jako vložený chytrý odkaz',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Vložený odkaz',
@@ -125,13 +126,20 @@ export default {
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Vyhledat stránky Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Vyhledejte požadavky Jira',
+  'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
+    'Vyhledejte požadavky, které chcete vložit, pomocí klíčového slova.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Vyhledejte stránky, které chcete vložit, pomocí klíčového slova.',
+  'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
+    'Vyhledávejte požadavky pomocí JQL (Jira Query Language).',
+  'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh': 'Vyhledat požadavky Jira',
   'linkDataSource.render-type.boolean.false': 'Ne',
   'linkDataSource.render-type.boolean.true': 'Ano',
   'linkDataSource.render-type.user.default.display.name': 'Nepřiřazeno',
   'linkDataSource.search.configmodal.issueCountText':
     '{searchCount, plural, one {{searchCount,number} požadavek} few {{searchCount,number} požadavky} many {{searchCount,number} požadavku} other {{searchCount,number} požadavků}}',
+  'linkDataSource.search.configmodal.issueCountText-issue-term-refresh':
+    '{searchCount, plural, one {{searchCount,number} požadavek} few {{searchCount,number} požadavky} many {{searchCount,number} požadavku} other {{searchCount,number} požadavků}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} položka} few {{searchCount,number} položky} many {{searchCount,number} položky} other {{searchCount,number} položek}}',
   'linkDataSource.search.configmodal.resultCountText':

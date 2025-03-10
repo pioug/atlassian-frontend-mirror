@@ -38,7 +38,7 @@ export const updateInlineCommentResolvedState =
 
 		const allResolved = Object.values(partialNewState).every((state) => state);
 
-		// FIXME: https://product-fabric.atlassian.net/browse/EDF-716 -- This is nuking the scroll into view which occurs
+		// TODO: EDF-716 - This is nuking the scroll into view which occurs
 		// when a comment is resolved. The problem is this is called when either a collab user or the current user resolves a comment.
 		// and the problem is since cc is just dispatching an event through the provider to resolve the comment and this
 		// is not comming via NCS, we have not way to know if this is a local or remote transaction.

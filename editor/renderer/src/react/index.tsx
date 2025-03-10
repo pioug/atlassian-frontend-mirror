@@ -517,7 +517,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const isInsideMultiBodiedExtension = insideMultiBodiedExtension(path, node.type.schema);
 		const isInsideOfTable = insideTable(path, node.type.schema);
 
-		// TODO: https://product-fabric.atlassian.net/browse/CEMS-1048
+		// TODO: CEMS-1048 - Support sticky headers inside breakout + layout
 		const stickyHeaders =
 			!isInsideOfTable && !insideBreakoutLayout(path) ? this.stickyHeaders : undefined;
 
@@ -914,7 +914,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		) as Mark[];
 	}
 
-	// TODO: ED-9004 Remove unused ReactSerializer.fromSchema in renderer
+	// TODO: ED-9004 - Remove unused ReactSerializer.fromSchema in renderer
 	// https://sourcegraph-frontend.internal.shared-prod.us-west-2.kitt-inf.net/search?q=ReactSerializer.fromSchema&patternType=literal
 	static fromSchema(_: unknown, init: ReactSerializerInit) {
 		if (process.env.NODE_ENV !== 'production') {

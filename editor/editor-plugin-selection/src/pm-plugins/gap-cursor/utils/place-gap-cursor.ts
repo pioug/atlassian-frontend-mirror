@@ -105,7 +105,6 @@ export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
 
 		const layoutMode = node && getLayoutModeFromTargetNode(node);
 
-		// TODO remove this table specific piece. need to figure out margin collapsing logic
 		if (nodeStart !== 0 || layoutMode || node?.type.name === 'table') {
 			gapCursor.style.marginTop = style.getPropertyValue('margin-top');
 		}

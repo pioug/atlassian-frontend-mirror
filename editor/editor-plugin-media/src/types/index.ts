@@ -12,7 +12,7 @@ import type { FileIdentifier } from '@atlaskit/media-client';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { MediaFile, UploadParams } from '@atlaskit/media-picker/types';
-// FIXME: Once we extract the placeholder-text we should import this type again
+// TODO: ED-26962 - Once we extract the placeholder-text we should import this type again
 //import type { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 
 interface PlaceholderTextOptions {

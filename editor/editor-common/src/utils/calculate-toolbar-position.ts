@@ -22,6 +22,8 @@ export const calculateToolbarPositionAboveSelection =
 			return nextPos;
 		}
 		// scroll wrapper for full page, fall back to document body
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO: look into using getScrollGutterOptions()
 		const scrollWrapper =
 			editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
@@ -95,6 +97,8 @@ export const calculateToolbarPositionTrackHead =
 			return nextPos;
 		}
 		// scroll wrapper for full page, fall back to document body
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO: look into using getScrollGutterOptions()
 		const scrollWrapper =
 			editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;

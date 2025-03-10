@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Něco, co by měli vědět?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Příjemci uvidí název stránky a vaši zprávu.',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Příjemci uvidí název požadavku a vaši zprávu.',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Příjemci uvidí název požadavku a vaši zprávu.',
   'fabric.elements.share.form.no-permissions': 'Nemáte možnost sdílet.',
   'fabric.elements.share.form.public.send': 'Odeslat veřejný odkaz',
   'fabric.elements.share.form.public.share': 'Sdílet veřejný odkaz',

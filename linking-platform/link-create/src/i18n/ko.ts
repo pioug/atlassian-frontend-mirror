@@ -7,6 +7,8 @@
  */
 //Korean
 export default {
+  'link-create.live-doc-icon-label': '라이브 문서',
+  'link-create.page-icon-label': '페이지',
   'link-create.unknown-error.description':
     '페이지를 새로 고치거나 문제가 계속 발생하는 경우 <a>Atlassian 고객 지원 팀</a>에 문의하세요.',
   'link-create.unknown-error.heading': '문제가 발생했습니다.',

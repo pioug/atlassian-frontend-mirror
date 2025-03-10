@@ -305,6 +305,8 @@ export class AddColumnStep<S extends Schema = any> extends Step {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	static fromJSON<S extends Schema = any>(schema: S, json: AddColumnStepJson): Step {
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO: Add validation. Return null if it is invalid. Check in review if this is necessary
 		const cells = json.cells.map((cellsJson) => {
 			const cell: CellStep = {

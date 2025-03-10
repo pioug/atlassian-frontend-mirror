@@ -270,7 +270,6 @@ export default class Editor extends React.Component<Props, State> {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const providers: Record<number, any> = {};
 
-		// @TODO Remove and just pass the factory through once AkEditor is updated
 		if (dataProviders) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

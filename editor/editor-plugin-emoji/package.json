@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "3.1.4",
+	"version": "3.2.0",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,6 +30,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:*",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:*",
 		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/editor-shared-styles": "workspace:*",
 		"@atlaskit/emoji": "workspace:*",
 		"@atlaskit/icon": "workspace:*",
 		"@atlaskit/node-data-provider": "workspace:*",

@@ -200,7 +200,7 @@ export const toggleExpandExpanded =
 			}
 
 			// log when people open/close expands
-			// TODO: ED-8523 make platform/mode global attributes?
+			// TODO: ED-8523 - make platform/mode global attributes?
 			const payload: AnalyticsEventPayload = {
 				action: ACTION.TOGGLE_EXPAND,
 				actionSubject:

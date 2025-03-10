@@ -18,7 +18,6 @@ export default {
   'reactions.dialog.close': 'Stäng',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Vänster navigering',
-  'reactions.dialog.people-who-reacted.subheader': 'Personer som reagerade med {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} reaktion} other {{count,number} reaktioner}}',
   'reactions.dialog.right.navigate': 'Höger navigering',

@@ -732,7 +732,6 @@ export default function SSRTableBasic() {
 					advanced: true,
 					allowColumnResizing: true,
 					allowTableResizing: true,
-					// allowTableAlignment: true // TODO: not sure why drigo had this
 				},
 				allowExpand: true,
 				allowLayouts: true,

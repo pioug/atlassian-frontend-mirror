@@ -28,7 +28,7 @@ ${createEditorUseOnlyNotice('Editor Max Content Size Plugin', [
 
 The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\` of the plugin are defined
 below:
-//TODO: update this
+//TODO: ED-26959 - update this
 ${code`
 export type ClipboardPlugin = NextEditorPlugin<'clipboard'>;
 `}

@@ -456,7 +456,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 								)
 							: undefined,
 				},
-				// TODO: should be deprecated and eventually replaced with 'tableAnalyticsPlugin'
+				// TODO: ED-26961 - should be deprecated and eventually replaced with 'tableAnalyticsPlugin'
 				{
 					name: 'tableOverflowAnalyticsPlugin',
 					plugin: ({ dispatch, dispatchAnalyticsEvent }) =>

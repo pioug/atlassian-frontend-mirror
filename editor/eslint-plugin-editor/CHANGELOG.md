@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-editor
 
+## 1.4.0
+
+### Minor Changes
+
+- [#124068](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124068)
+  [`aaed38708f30b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaed38708f30b) -
+  [EDF-2553] Add lint rule to enforce todo comment format
+
 ## 1.3.1
 
 ### Patch Changes

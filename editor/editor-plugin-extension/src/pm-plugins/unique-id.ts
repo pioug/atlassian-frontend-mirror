@@ -7,7 +7,6 @@ const pluginKey = new PluginKey('extensionUniqueIdPlugin');
 
 const createPlugin = () =>
 	new SafePlugin({
-		// TODO: @see ED-8839
 		appendTransaction: (transactions, _oldState, newState) => {
 			const tr = newState.tr;
 			const selectionBookmark = tr.selection.getBookmark();

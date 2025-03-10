@@ -45,7 +45,6 @@ export const getSurroundingSymbols = (
 	return { openingSymbol, closingSymbol };
 };
 
-// TODO This is using strings which makes it potentially a performance bottleneck
 export class StringBuffer {
 	constructor(private buffer: string = '') {}
 

@@ -5,7 +5,8 @@ import { type JsonLd } from 'json-ld-types';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { getUrl } from '@atlaskit/linking-common';
+import { type CardState, getUrl } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type CardType, useSmartCardState as useSmartLinkState } from '../../state/store';
 
@@ -23,13 +24,14 @@ const getExtendedResolvedAttributes = (
 	linkDetails: Parameters<typeof getResolvedAttributes>[0],
 	details?: JsonLd.Response,
 	linkStatus?: CardType,
+	error?: CardState['error'],
 ): ReturnType<typeof getResolvedAttributes> & {
 	definitionId?: string | null;
 	resourceType?: string | null;
 } => ({
 	definitionId: details?.meta?.definitionId ?? null,
 	resourceType: details?.meta?.resourceType ?? null,
-	...getResolvedAttributes(linkDetails, details, linkStatus),
+	...getResolvedAttributes(linkDetails, details, linkStatus, error),
 });
 
 type GetSmartLinkAnalyticsContextParam = {
@@ -39,6 +41,7 @@ type GetSmartLinkAnalyticsContextParam = {
 	response?: JsonLd.Response;
 	status?: CardType;
 	url: string;
+	error?: CardState['error'];
 };
 const getSmartLinkAnalyticsContext = ({
 	display,
@@ -47,8 +50,9 @@ const getSmartLinkAnalyticsContext = ({
 	source,
 	status,
 	url,
+	error,
 }: GetSmartLinkAnalyticsContextParam) => {
-	const resolvedAttributes = getExtendedResolvedAttributes({ url }, response, status);
+	const resolvedAttributes = getExtendedResolvedAttributes({ url }, response, status, error);
 	return {
 		source,
 		attributes: {
@@ -92,8 +96,9 @@ export const useSmartLinkAnalyticsContext = ({
 			source,
 			status: state?.status,
 			url,
+			error: state?.error,
 		});
-	}, [display, id, source, state?.details, state?.status, url]);
+	}, [display, id, source, state?.details, state?.status, url, state?.error]);
 };
 
 /**
@@ -107,7 +112,7 @@ export const SmartLinkAnalyticsContext = ({
 	source,
 	url,
 }: SmartLinkAnalyticsContextProps) => {
-	const { details, status } = useSmartLinkState(url);
+	const { details, status, error } = useSmartLinkState(url);
 	const data = getSmartLinkAnalyticsContext({
 		display,
 		id,
@@ -115,6 +120,7 @@ export const SmartLinkAnalyticsContext = ({
 		source,
 		status,
 		url,
+		error: fg('platform_bandicoots-smartlink-unresolved-error-key') ? error : undefined,
 	});
 
 	return <AnalyticsContext data={data}>{children}</AnalyticsContext>;

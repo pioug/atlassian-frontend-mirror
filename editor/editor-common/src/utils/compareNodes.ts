@@ -222,7 +222,6 @@ function getMetaFromNode(
 			};
 		}
 		case 'mention': {
-			// TODO: Check what should be the fallback when mention does not have a text
 			const text = (firstChild.attrs as MentionAttributes).text || '';
 			return {
 				type: ContentType.MENTION,

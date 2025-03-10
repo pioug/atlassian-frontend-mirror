@@ -435,8 +435,9 @@ export default class RendererActions
 		};
 	}
 
-	// TODO: Do not forget to remove `undefined` when the
-	//       `editor_inline_comments_on_inline_nodes` is removed.
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+	// TODO: Do not forget to remove `undefined` when the `editor_inline_comments_on_inline_nodes` is removed.
 	getInlineNodeTypes(annotationId: string): string[] | undefined {
 		if (!this.doc || !this.schema) {
 			return [];

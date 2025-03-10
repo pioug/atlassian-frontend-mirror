@@ -89,9 +89,9 @@ export default (
 				? inputTracking.samplingRate
 				: DEFAULT_KEYSTROKE_SAMPLING_LIMIT;
 
-		//TODO: get right values here based on appearance
+		// TODO: ED-26959 - get right values here based on appearance
 		const slowThreshold = DEFAULT_SLOW_THRESHOLD;
-		//TODO: get right values here based on appearance
+		// TODO: ED-26959 - get right values here based on appearance
 		const freezeThreshold = DEFAULT_FREEZE_THRESHOLD;
 
 		const allowCountNodes = inputTracking && inputTracking.countNodes;
@@ -256,6 +256,8 @@ export default (
 									browserFreezeTracking?.trackInteractionType ? interactionType : undefined,
 									getAnalyticsEventSeverity(
 										duration,
+										// Ignored via go/ees007
+										// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 										//TODO: get right values here
 										severityThresholdNormal,
 										severityThresholdDegraded,

@@ -42,7 +42,7 @@ export const createPlugin = (
 				allTables: [],
 			}),
 			apply(tr, pluginState: ViewModeSortPluginState, oldState) {
-				// TODO - move this mode check to plugin creation if possible. Right now it's here because the initial state
+				// TODO: ED-26961 - move this mode check to plugin creation if possible. Right now it's here because the initial state
 				// does not appear correct when the plugin is created.
 				const { mode } = api.editorViewMode?.sharedState.currentState() || {};
 				if (mode !== 'view') {
@@ -95,7 +95,7 @@ export const createPlugin = (
 					(spec) => spec.tableId === tableId && spec.type === 'sorting-decoration',
 				);
 
-				// TODO - add support for keyboard only users
+				// TODO: ED-26961 - add support for keyboard only users
 				if (
 					(hoverTableMeta && !isTableInState) ||
 					sortMeta ||
@@ -272,7 +272,7 @@ export const createPlugin = (
 		props: {
 			handleDOMEvents: {
 				keydown: (view, event) => {
-					// TODO - fix the focus issue here, where toggling sort with a keypress loses focus
+					// TODO: ED-26961 - fix the focus issue here, where toggling sort with a keypress loses focus
 					if (event.key === 'Enter' || event.key === ' ') {
 						const pluginState = key.getState(view.state)?.sort || {};
 						toggleSort(view, event, pluginState);

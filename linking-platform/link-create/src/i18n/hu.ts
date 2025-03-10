@@ -7,6 +7,8 @@
  */
 //Hungarian
 export default {
+  'link-create.live-doc-icon-label': 'Élő dokumentum',
+  'link-create.page-icon-label': 'Oldal',
   'link-create.unknown-error.description':
     'Frissítsd az oldalt, vagy vedd fel a kapcsolatot az <a>Atlassian Támogatással</a>, ha ez a későbbiekben is megtörténik.',
   'link-create.unknown-error.heading': 'Hiba történt.',

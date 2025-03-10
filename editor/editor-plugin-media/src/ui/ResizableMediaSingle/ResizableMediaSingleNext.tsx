@@ -170,7 +170,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 			return width / height;
 		}
 
-		// TODO handle this case
+		// TODO: ED-26962 - handle this case
 		return 1;
 	}
 
@@ -431,7 +431,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 	};
 
 	selectCurrentMediaNode = () => {
-		// TODO: if adding !this.props.selected, it doesn't work if media single node is at top postion
+		// TODO: ED-26962 - if adding !this.props.selected, it doesn't work if media single node is at top postion
 		if (this.pos === null) {
 			return;
 		}
@@ -576,7 +576,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 			}
 		});
 
-		// TODO: Clean up where this lives and how it gets generated
+		// TODO: ED-26962 - Clean up where this lives and how it gets generated
 		const className = classnames(
 			richMediaClassName,
 			`image-${layout}`,
@@ -779,7 +779,7 @@ const getAspectRatio = ({ width, height }: { width: number | undefined; height: 
 		return width / height;
 	}
 
-	// TODO handle this case
+	// TODO: ED-26962 - handle this case
 	return 1;
 };
 
@@ -913,7 +913,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	const minViewWidth = isResizing ? minWidth : `min(${minWidth}px, 100%)`;
 
 	const resizerNextClassName = useMemo(() => {
-		// TODO: Clean up where this lives and how it gets generated
+		// TODO: ED-26962 - Clean up where this lives and how it gets generated
 		const classNameNext = classnames(
 			richMediaClassName,
 			`image-${layout}`,

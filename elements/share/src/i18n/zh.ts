@@ -16,6 +16,7 @@ export default {
   'fabric.elements.share.form.comment.placeholder': '对方是否应知道某些信息？',
   'fabric.elements.share.form.info.message.no.invite.confluence': '收件人将看到页面名称和您的消息',
   'fabric.elements.share.form.info.message.no.invite.jira': '收件人将看到事务名称和您的消息',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh': '收件人将看到工作项名称和您的消息',
   'fabric.elements.share.form.no-permissions': '您无法共享。',
   'fabric.elements.share.form.public.send': '发送公共链接',
   'fabric.elements.share.form.public.share': '分享公开链接',

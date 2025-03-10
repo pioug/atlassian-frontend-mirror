@@ -87,7 +87,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			isChromelessEditor,
 		} = this.props;
 
-		// TODO: temporarily disable insert button for first column and row https://atlassian.slack.com/archives/C05U8HRQM50/p1698363744682219?thread_ts=1698209039.104909&cid=C05U8HRQM50
+		// TODO: ED-26961 - temporarily disable insert button for first column and row https://atlassian.slack.com/archives/C05U8HRQM50/p1698363744682219?thread_ts=1698209039.104909&cid=C05U8HRQM50
 		if (isDragAndDropEnabled && (insertColumnButtonIndex === 0 || insertRowButtonIndex === 0)) {
 			return null;
 		}
@@ -182,7 +182,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 
 		const hasNumberedColumns = checkIfNumberColumnEnabled(editorView.state.selection);
 
-		// ED-19336: Fixed the 'add column button' not visible issue when sticky header is enabled
+		// Fixed the 'add column button' not visible issue when sticky header is enabled
 		// By setting the Popup z-index higher than the sticky header z-index ( common-styles.ts tr.sticky)
 		// Only when inserting a column, otherwise set to undefined
 		// Need to set z-index in the Popup, set z-index in the <InsertButton /> will not work

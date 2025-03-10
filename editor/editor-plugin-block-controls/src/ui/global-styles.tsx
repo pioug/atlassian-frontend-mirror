@@ -45,7 +45,7 @@ const extendedHoverZone = () =>
 				zIndex: -1,
 			},
 		},
-		// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
+		// TODO: ED-23995 - this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'hr[data-drag-handler-anchor-name]': {
 			overflow: 'visible',
@@ -122,7 +122,7 @@ const extendedHoverZoneNested = () =>
 				zIndex: 1,
 			},
 		},
-		// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
+		// TODO: ED-23995 - this style override needs to be moved to the Rule styles after FF cleanup packages/editor/editor-common/src/styles/shared/rule.ts
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'hr[data-drag-handler-anchor-name]': {
 			overflow: 'visible',

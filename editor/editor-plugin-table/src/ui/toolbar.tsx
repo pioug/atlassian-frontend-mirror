@@ -647,7 +647,7 @@ export const getToolbarConfig =
 					...cellItems,
 					...columnSettingsItems,
 					...colorPicker,
-					// TODO: editor controls to move to overflow menu
+					// TODO: ED-26961 - editor controls to move to overflow menu
 					{
 						type: 'extensions-placeholder',
 						separator: 'end',

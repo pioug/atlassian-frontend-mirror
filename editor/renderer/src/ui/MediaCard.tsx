@@ -218,7 +218,7 @@ export class MediaCardView extends Component<
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			<div {...dataAttributes} data-node-type="media">
 				<Card
-					// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
+					// TODO: MPT-315 - clean up after we move mediaClientConfig into FileIdentifier
 					// context is not really used when the type is external and we want to render the component asap
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

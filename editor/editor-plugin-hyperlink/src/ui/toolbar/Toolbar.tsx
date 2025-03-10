@@ -197,7 +197,7 @@ export const getToolbarConfig =
 					const labelOpenLink = formatMessage(
 						isValidUrl ? linkMessages.openLink : linkToolbarCommonMessages.unableToOpenLink,
 					);
-					// TODO: ED-14403 investigate why these are not translating?
+					// TODO: ED-14403 - investigate why these are not translating?
 					const labelUnlink = formatMessage(linkToolbarCommonMessages.unlink);
 					const editLink = formatMessage(linkToolbarCommonMessages.editLink);
 					const metadata = {

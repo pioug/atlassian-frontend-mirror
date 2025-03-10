@@ -106,7 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
   'fabric.linking.join_to_view': 'Bli med {context} for å se denne saken',
-  'fabric.linking.join_to_view-issue-term-refresh': 'Bli med {context} for å se denne arbeidet',
+  'fabric.linking.join_to_view-issue-term-refresh': 'Slutt deg til {context} for å se denne arbeidsoppgaven',
   'fabric.linking.learn_more_about_connecting_account': 'Finn ut mer om å koble kontoen din til Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Finn ut mer om smartkoblinger.',
   'fabric.linking.link_safety_warning_message':
@@ -120,7 +120,7 @@ export default {
     'Siden finnes ikke, eller den kan ha blitt endret siden denne koblingen ble lagt til.',
   'fabric.linking.not_found_title': 'Vi kan ikke vise deg denne {product}-siden',
   'fabric.linking.open_issue_in_jira': 'Åpne saken i Jira',
-  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Åpne arbeidet i Jira',
+  'fabric.linking.open_issue_in_jira-issue-term-refresh': 'Åpne arbeidsoppgaven i Jira',
   'fabric.linking.open_link_in_a_new_tab': 'Åpne kobling i en ny fane',
   'fabric.linking.owned_by': 'Eid av {context}',
   'fabric.linking.pending_request': 'Avventer svar på forespørselen din om tilgang',
@@ -161,7 +161,8 @@ export default {
     'Forespørselen din om tilgang til {hostname} venter på godkjenning fra administratoren.',
   'fabric.linking.request_access_pending_title': 'Venter på tilgang til {product}',
   'fabric.linking.request_access_to_view': 'Be om tilgang til {context} for å vise denne saken',
-  'fabric.linking.request_access_to_view-issue-term-refresh': 'Be om tilgang til {context} for å vise denne arbeidet',
+  'fabric.linking.request_access_to_view-issue-term-refresh':
+    'Be om tilgang til {context} for å vise denne arbeidsoppgaven',
   'fabric.linking.request_denied': 'Forespørselen din om tilgang ble avslått',
   'fabric.linking.request_denied_description':
     'Administratoren godkjente ikke forespørselen din om å vise {product}-sider fra {hostname}.',
@@ -175,7 +176,7 @@ export default {
   'fabric.linking.status_change_load_error': 'Vi kan ikke laste inn statuser og overføringer',
   'fabric.linking.status_change_permission_error': 'Du har ikke tillatelse til å overføre denne saken.',
   'fabric.linking.status_change_permission_error-issue-term-refresh':
-    'Du har ikke tillatelse til å overføre denne arbeidet.',
+    'Du har ikke tillatelse til å overføre denne arbeidsoppgaven.',
   'fabric.linking.status_change_update_error': 'Vi kan ikke oppdatere statusen',
   'fabric.linking.try_again': 'Prøv på nytt',
   'fabric.linking.try_another_account': 'Prøv en annen konto',

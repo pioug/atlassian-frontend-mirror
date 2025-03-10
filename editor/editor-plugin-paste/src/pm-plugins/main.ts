@@ -436,7 +436,7 @@ export function createPlugin(
 								extensionAutoConverter,
 							)(state, dispatch, view)
 						) {
-							// TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
+							// TODO: ED-26959 - handleMacroAutoConvert dispatch twice, so we can't use the helper
 							sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, markdownSlice, {
 								type: PasteTypes.markdown,
 							});
@@ -619,7 +619,7 @@ export function createPlugin(
 							extensionAutoConverter,
 						)(state, dispatch, view)
 					) {
-						// TODO: handleMacroAutoConvert dispatch twice, so we can't use the helper
+						// TODO: ED-26959 - handleMacroAutoConvert dispatch twice, so we can't use the helper
 						sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
 							type: PasteTypes.richText,
 						});
@@ -636,7 +636,6 @@ export function createPlugin(
 						pluginInjectionApi?.annotation?.actions.stripNonExistingAnnotations(slice, state);
 					}
 
-					// ED-4732
 					if (
 						handlePastePreservingMarksWithAnalytics(
 							view,

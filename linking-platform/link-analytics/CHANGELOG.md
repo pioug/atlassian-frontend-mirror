@@ -1,5 +1,13 @@
 # @atlaskit/link-analytics
 
+## 9.1.0
+
+### Minor Changes
+
+- [#122851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122851)
+  [`818fdc04fd7eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/818fdc04fd7eb) -
+  On smartlink unresolved, include extensionKey from error object
+
 ## 9.0.0
 
 ### Major Changes

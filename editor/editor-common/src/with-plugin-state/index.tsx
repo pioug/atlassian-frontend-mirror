@@ -275,7 +275,6 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 			return;
 		}
 
-		// TODO: ED-15663
 		// Please, do not copy or use this kind of code below
 		// @ts-ignore
 		const fakePluginKey = {

@@ -14,7 +14,7 @@ import type { FooterBlockProps } from '../../../FlexibleCard/components/blocks/f
 import type { PreviewBlockProps } from '../../../FlexibleCard/components/blocks/preview-block/types';
 import type { TitleBlockProps } from '../../../FlexibleCard/components/blocks/title-block/types';
 import type { ElementItem } from '../../../FlexibleCard/components/blocks/types';
-import type { FlexibleUiOptions } from '../../../FlexibleCard/types';
+import { type InternalFlexibleUiOptions } from '../../../FlexibleCard/types';
 import { footerBlockCss, titleBlockCss } from '../styledOld';
 
 const baseTopMetadata: ElementItem[] = [
@@ -127,7 +127,10 @@ type SimulatedMetadata = {
 	bottomMetadata?: ElementItem[];
 };
 
-export const FlexibleCardUiOptions: FlexibleUiOptions = { hideElevation: true };
+export const FlexibleCardUiOptions: InternalFlexibleUiOptions = {
+	hideElevation: true,
+	hideLegacyButton: true,
+};
 
 export const titleBlockOptions: Partial<TitleBlockProps> = {
 	anchorTarget: '_self',

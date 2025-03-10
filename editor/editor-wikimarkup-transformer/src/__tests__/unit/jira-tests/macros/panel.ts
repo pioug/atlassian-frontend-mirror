@@ -24,6 +24,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Title not supported. Confirm with JIRA
 	describe('panel with title', () => {
 		const WIKI_NOTATION = `{panel:title=Hello}Just a hello world here{panel}`;
@@ -36,6 +38,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Styles not supported. Confirm with JIRA
 	describe('panel with styles and underline mark', () => {
 		const WIKI_NOTATION = `{panel:borderStyle=dashed|borderColor=blue}some +block+ here{panel}`;
@@ -48,6 +52,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Styles not supported. Confirm with JIRA (convert red to 'error' panel?)
 	// Ignored via go/ees005
 	// eslint-disable-next-line jest/no-identical-title
@@ -62,6 +68,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Styles not supported. Confirm with JIRA
 	describe('panel with styles and bold mark', () => {
 		const WIKI_NOTATION = `{panel:title=My Title|borderStyle=dashed|borderColor=#ccc|bgColor=#FFFFCE|titleBGColor=#F7D6C1}a block of text surrounded with a *panel*{panel}`;
@@ -74,6 +82,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Title not supported. Confirm with JIRA
 	describe('panel with title and list-like text', () => {
 		const WIKI_NOTATION = `{panel:title=Technical Question 1}
@@ -108,6 +118,8 @@ h3. Response To Technical Question 1`;
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Title not supported. Confirm with JIRA
 	describe('panel with emoji in title', () => {
 		const WIKI_NOTATION = `{panel:title=(!) I like cheese}Some *bold* code here{panel}`;

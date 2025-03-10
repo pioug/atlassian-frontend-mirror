@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
 import { MediaSSR } from './ssr-media.fixture';
 
-// TODO: UTEST-1409
+// TODO: UTEST-1409 - Unskip Gemini tests after mocking API is implemented
 // Gemini does not allow test that relies on network assets (too Flaky)
 // We may need to change the code to enable those tests
 // Re-enable test and delete packages/editor/renderer/src/__tests__/visual-regression/media/ssr-media.ts once request mocking is supported

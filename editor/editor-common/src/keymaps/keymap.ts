@@ -37,9 +37,11 @@ export function keymap(bindings: { [key: string]: any }) {
 
 				if (isModKeyPressed && (isNonLatinKey || isDeadKey)) {
 					keyboardEvent = new KeyboardEvent(event.type, {
+						// Ignored via go/ees007
+						// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 						// FIXME: The event.keyCode is deprecated (see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode),
-						//        and could be removed in any time, but the w3c-keyname library doesn't provide a way to get
-						//        a key by event.code.
+						// and could be removed in any time, but the w3c-keyname library doesn't provide a way to get
+						// a key by event.code.
 						key: base[event.keyCode],
 						code: event.code,
 						ctrlKey: event.ctrlKey,

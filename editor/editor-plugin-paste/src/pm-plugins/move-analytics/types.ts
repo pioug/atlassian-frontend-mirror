@@ -8,7 +8,7 @@ export type ActionType = 'contentCut' | 'contentPasted';
 export type NodeName = string;
 
 export type ContentMoved = {
-	// TODO: when clean up `platform_editor_element_drag_and_drop_multiselect`, consider removing nodeName since `nodeTypes` will cover both single/multiple nodes
+	// TODO: ED-26959 - when clean up `platform_editor_element_drag_and_drop_multiselect`, consider removing nodeName since `nodeTypes` will cover both single/multiple nodes
 	nodeName?: NodeName;
 	size?: number;
 	currentActions: Array<ActionType>;

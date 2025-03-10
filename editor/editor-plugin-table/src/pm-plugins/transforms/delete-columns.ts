@@ -25,7 +25,7 @@ const deleteColumnsCustomStep =
 
 		// Need to split all the merge in the ranges (this is the current behaviour)
 		// Maybe is better to split only the last column?
-		// TODO: After talking with Roto about this behaviour, he likes when we dont split the columns, I am keeping this for consistency of the current implementation.
+		// TODO: ED-26961 - After talking with Roto about this behaviour, he likes when we dont split the columns, I am keeping this for consistency of the current implementation.
 		splitCellsInColumns(tr, table.pos, rect.left, rect.right);
 
 		// Delete the columns

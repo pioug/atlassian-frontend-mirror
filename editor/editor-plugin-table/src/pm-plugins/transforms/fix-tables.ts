@@ -208,7 +208,7 @@ function parseDOMColumnWidths(
 	return cols;
 }
 
-// TODO: move to prosemirror-utils
+// TODO: ED-26961 - move to prosemirror-utils
 const replaceCells = (
 	tr: Transaction,
 	table: PMNode,
@@ -224,8 +224,7 @@ const replaceCells = (
 		for (let colIndex = 0; colIndex < row.childCount; colIndex++) {
 			const cell = row.child(colIndex);
 
-			// FIXME
-			// The rowIndex and colIndex are not accurate in a merged cell scenario
+			// TODO: ED-26961 - The rowIndex and colIndex are not accurate in a merged cell scenario
 			// e.g. table with 5 columns might have only one cell in a row, colIndex will be 1, where it should be 4
 			const node = modifyCell(cell, rowIndex, colIndex);
 			if (node.sameMarkup(cell) === false) {

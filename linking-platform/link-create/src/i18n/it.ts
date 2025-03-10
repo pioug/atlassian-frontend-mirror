@@ -7,6 +7,8 @@
  */
 //Italian (Italy)
 export default {
+  'link-create.live-doc-icon-label': 'Documento dinamico',
+  'link-create.page-icon-label': 'Pagina',
   'link-create.unknown-error.description':
     "Aggiorna la pagina o, se il problema persiste, contatta l'<a>Assistenza Atlassian</a>.",
   'link-create.unknown-error.heading': 'Si è verificato un errore.',

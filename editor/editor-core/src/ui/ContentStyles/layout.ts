@@ -48,7 +48,8 @@ const firstNodeWithNotMarginTop = () =>
 					margin-top: 0;
 				}
 			`;
-
+// Ignored via go/ees007
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO handle responsive
 const layoutColumnStyles = () =>
 	editorExperiment('advanced_layouts', true)
@@ -331,6 +332,8 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	.ProseMirror {
 		${layoutSectionStyles()}
 		[data-layout-section] {
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO: Migrate away from gridSize
 			// Recommendation: Replace directly with 7px
 			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset +

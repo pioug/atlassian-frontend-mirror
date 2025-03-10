@@ -87,6 +87,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 		}
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// FIXME: Jest 29 upgrade - this test suite is failing when running with flag IS_REACT_18
 	describe.skip('with all handlers present', () => {
 		it('should fire SmartCardEventClickHandler when clicking on a smart card', async () => {
@@ -128,6 +130,8 @@ describe('@atlaskit/renderer/event-handlers', () => {
 		});
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// FIXME: Jest 29 upgrade - this test suite is failing when running with flag IS_REACT_18
 	describe.skip('with only the desired handler and unhandled mock present', () => {
 		it('should fire SmartCardEventClickHandler when clicking on a smart card', async () => {

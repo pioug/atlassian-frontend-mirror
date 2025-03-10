@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.2.0
+
+### Minor Changes
+
+- [#122920](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122920)
+  [`18c265545150a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18c265545150a) -
+  [ux] [ED-26914] Emoji quick insert will now open the emoji picker rather than the typeahead when
+  platform_editor_controls is enabled
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

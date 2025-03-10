@@ -179,6 +179,8 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 									panelIcon: ':rainbow:',
 									panelIconId: '1f308',
 									panelIconText: '🌈',
+									// Ignored via go/ees007
+									// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 									// TODO: https://product-fabric.atlassian.net/browse/DSP-7268
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 									panelColor: T50,

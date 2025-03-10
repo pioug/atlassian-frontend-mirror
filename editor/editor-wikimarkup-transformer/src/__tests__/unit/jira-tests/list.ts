@@ -46,6 +46,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO This converts to the default bullet list styles - confirm with JIRA
 	describe('dash list', () => {
 		const WIKI_NOTATION = `- aaa
@@ -427,7 +429,7 @@ and the third section
 							textColor({ color: '#F00' })(strong('Tip:')),
 							' You can copy and paste the required information.',
 							hardBreak(),
-							img({ src: 'Helpful Image.jpg' })(), // @TODO media?
+							img({ src: 'Helpful Image.jpg' })(),
 						),
 					),
 					li(p('Another bulleted item.')),

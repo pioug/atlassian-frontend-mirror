@@ -214,7 +214,7 @@ export const getToolbarConfig =
 		const { formatMessage } = intl;
 		const extensionState = getPluginState(state);
 		if (fg('platform_editor_legacy_content_macro')) {
-			// TODO: Change these all to const upon removal of the above FG. Remove the function params also.
+			// TODO: ED-26962 - Change these all to const upon removal of the above FG. Remove the function params also.
 			hoverDecoration = extensionApi?.decorations?.actions.hoverDecoration;
 			applyChangeToContextPanel = extensionApi?.contextPanel?.actions.applyChange;
 			editorAnalyticsAPI = extensionApi?.analytics?.actions;

@@ -151,7 +151,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			it('should emit a metadata:changed event when the metadata changes', (done) => {
 				provider.on('metadata:changed', (payload) => {
 					expect(payload).toEqual({
-						expire: 1680844522, // TODO: Get rid of this in the back-end before sending to FE
+						expire: 1680844522, // TODO: ED-26957 - Get rid of this in the back-end before sending to FE
 						title: 'Notes',
 					});
 					done();
@@ -643,10 +643,10 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			expect(steps).toEqual(undefined);
 
 			const tr = editorState.tr.replace(2, 3);
-			let newState = editorState.apply(tr);
+			const newState = editorState.apply(tr);
 			getStateMock.mockReturnValue(newState);
 			steps = provider.getUnconfirmedSteps();
-			let stepsJson = steps && steps.map((s) => s.toJSON());
+			const stepsJson = steps && steps.map((s) => s.toJSON());
 			expect(stepsJson).toEqual([{ from: 2, to: 3, stepType: 'replace' }]);
 		});
 

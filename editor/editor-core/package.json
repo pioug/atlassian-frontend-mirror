@@ -163,6 +163,9 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
+		"platform_editor_update_insert_link_mark_end_pos": {
+			"type": "boolean"
+		},
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -240,10 +243,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_heading_margin_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_element_dnd_nested_fix_patch_5": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -527,6 +526,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_non_macros_copy_and_paste_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_nbm_backspace_fixes": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

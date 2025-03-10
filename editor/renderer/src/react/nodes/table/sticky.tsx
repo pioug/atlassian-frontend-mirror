@@ -43,7 +43,7 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
 	}),
 };
 
-// TODO: Quality ticket: https://product-fabric.atlassian.net/browse/DSP-4123
+// TODO: DSP-4123 - Quality ticket
 const fixedTableDivStaticStyles = (
 	top: number | undefined,
 	width: number,
@@ -119,7 +119,7 @@ const FixedTableDiv = (props: FixedProps) => {
 };
 
 type StickyTableProps = {
-	left?: number; // TODO: would be good to abstract this away
+	left?: number;
 	top?: number;
 	mode: StickyMode;
 	innerRef: React.RefObject<HTMLDivElement>;

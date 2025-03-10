@@ -57,7 +57,7 @@ const analyticsPayload = (state: EditorState): { payload: AnalyticsEventPayload 
 		attributes: {
 			inputMethod: INPUT_METHOD.SHORTCUT,
 			documentSize: state.doc.nodeSize,
-			// TODO add individual node counts - tables, headings, lists, mediaSingles, mediaGroups, mediaCards, panels, extensions, decisions, action, codeBlocks
+			// TODO: ED-26961 - add individual node counts - tables, headings, lists, mediaSingles, mediaGroups, mediaCards, panels, extensions, decisions, action, codeBlocks
 		},
 		eventType: EVENT_TYPE.UI,
 	},

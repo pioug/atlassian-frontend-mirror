@@ -25,6 +25,8 @@ test.describe('calendar', () => {
 		await expect(nodes.date.first()).toBeVisible();
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// FIXME: Playwright upgrade: Timed out 5000ms waiting for expect(locator).toBeHidden()
 	// eslint-disable-next-line playwright/no-skipped-test
 	test.skip('clicking date when calendar is open should close it', async ({ editor }) => {

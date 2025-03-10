@@ -7,6 +7,8 @@
  */
 //Finnish
 export default {
+  'link-create.live-doc-icon-label': 'Reaaliaikainen asiakirja',
+  'link-create.page-icon-label': 'Sivu',
   'link-create.unknown-error.description':
     'Päivitä sivu tai ota yhteyttä <a>Atlassian-tukeen</a>, jos ongelmat jatkuvat.',
   'link-create.unknown-error.heading': 'Jotain meni pieleen.',

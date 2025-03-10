@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 4.1.3
+
+### Patch Changes
+
+- [#124104](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124104)
+  [`a48ac34f66f25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48ac34f66f25) -
+  [ux] ED-26942 Modified editor-plugin-list backspace keymap handler to prevent it from deleting
+  extensions
+
 ## 4.1.2
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4138
+// TODO: DSP-4138 - migrate to @atlaskit/design-system
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 

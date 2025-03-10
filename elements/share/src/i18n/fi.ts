@@ -16,6 +16,8 @@ export default {
   'fabric.elements.share.form.comment.placeholder': 'Mitä muiden tulisi tietää?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Vastaanottajat näkevät sivun nimen ja viestisi',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Vastaanottajat näkevät asian nimen ja viestisi',
+  'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
+    'Vastaanottajat näkevät työtehtävän nimen ja viestisi',
   'fabric.elements.share.form.no-permissions': 'Sinulla ei ole jakamisoikeutta.',
   'fabric.elements.share.form.public.send': 'Lähetä julkinen linkki',
   'fabric.elements.share.form.public.share': 'Jaa julkinen linkki',

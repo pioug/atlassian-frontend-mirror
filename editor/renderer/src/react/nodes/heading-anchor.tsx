@@ -67,7 +67,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 
 	private setTooltipState = (message: MessageDescriptor, isClicked: boolean = false) => {
 		this.setState({
-			// TODO: ED-14403 investigate why this does not translate
+			// TODO: ED-14403 - investigate why this does not translate
 			tooltipMessage: this.props.intl.formatMessage(message),
 			isClicked,
 		});

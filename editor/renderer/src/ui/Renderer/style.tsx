@@ -152,26 +152,24 @@ const headingSizes: { [key: string]: { [key: string]: number } } = {
 	},
 };
 
-const headingAnchorStyle = (headingTag: string) =>
-	// TODO Delete this comment after verifying space token -> previous value `margin-left: 6px`
-	css`
-		/**
+const headingAnchorStyle = (headingTag: string) => css`
+	/**
      * The copy link button doesn't reserve space in the DOM so that
      * the text alignment isn't impacted by the button/icon's space.
      */
-		.${HeadingAnchorWrapperClassName} {
-			position: absolute;
-			height: ${headingSizes[headingTag].lineHeight}em;
+	.${HeadingAnchorWrapperClassName} {
+		position: absolute;
+		height: ${headingSizes[headingTag].lineHeight}em;
 
-			margin-left: ${token('space.075', '6px')};
+		margin-left: ${token('space.075', '6px')};
 
-			button {
-				padding-left: 0;
-				padding-right: 0;
-			}
+		button {
+			padding-left: 0;
+			padding-right: 0;
 		}
+	}
 
-		/**
+	/**
      * Applies hover effects to the heading anchor link button
      * to fade in when the user rolls over the heading.
      *
@@ -180,41 +178,40 @@ const headingAnchorStyle = (headingTag: string) =>
      *
      * @see https://caniuse.com/mdn-css_at-rules_media_hover
      */
-		@media (hover: hover) and (pointer: fine) {
-			.${HeadingAnchorWrapperClassName} {
-				> button {
-					opacity: 0;
-					transform: translate(-8px, 0px);
-					transition:
-						opacity 0.2s ease 0s,
-						transform 0.2s ease 0s;
-				}
-			}
-
-			&:hover {
-				.${HeadingAnchorWrapperClassName} > button {
-					opacity: 1;
-					transform: none !important;
-				}
+	@media (hover: hover) and (pointer: fine) {
+		.${HeadingAnchorWrapperClassName} {
+			> button {
+				opacity: 0;
+				transform: translate(-8px, 0px);
+				transition:
+					opacity 0.2s ease 0s,
+					transform 0.2s ease 0s;
 			}
 		}
 
-		/**
-     * Adds the visibility of the button when in focus through keyboard navigation.
-     */
-		.${HeadingAnchorWrapperClassName} {
-			button:focus {
+		&:hover {
+			.${HeadingAnchorWrapperClassName} > button {
 				opacity: 1;
 				transform: none !important;
 			}
 		}
-	`;
+	}
+
+	/**
+     * Adds the visibility of the button when in focus through keyboard navigation.
+     */
+	.${HeadingAnchorWrapperClassName} {
+		button:focus {
+			opacity: 1;
+			transform: none !important;
+		}
+	}
+`;
 
 const alignedHeadingAnchorStyle = ({ allowNestedHeaderLinks }: RendererWrapperProps) => {
 	if (!allowNestedHeaderLinks) {
 		return '';
 	}
-	// TODO Delete this comment after verifying space token -> previous value `margin: 6px`
 	return css`
 		.fabric-editor-block-mark[data-align] > {
 			h1,
@@ -434,12 +431,16 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
 const breakoutWidthStyle = () => {
 	return css`
 		*:not([data-mark-type='fragment']) .${TableSharedCssClassName.TABLE_CONTAINER} {
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO - improve inline style logic on table container so important styles aren't required here
 			width: 100% !important;
 			left: 0 !important;
 		}
 
 		[data-mark-type='fragment'] * .${TableSharedCssClassName.TABLE_CONTAINER} {
+			// Ignored via go/ees007
+			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 			// TODO - improve inline style logic on table container so important styles aren't required here
 			width: 100% !important;
 			left: 0 !important;

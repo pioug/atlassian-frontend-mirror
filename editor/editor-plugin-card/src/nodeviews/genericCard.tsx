@@ -94,6 +94,8 @@ const WithClickHandler = ({
 	);
 
 	if (fg('linking_platform_smart_links_in_live_pages')) {
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		/**
 		 * @todo: Add a check to determine if we're currently in a live page once ED-23920 and plugin
 		 * is complete. The logic for which should allow navigation if we're in a live page and no callback

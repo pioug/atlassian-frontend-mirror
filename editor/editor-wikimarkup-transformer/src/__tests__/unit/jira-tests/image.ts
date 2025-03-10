@@ -33,6 +33,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Should this be a media element? Migration issues?
 	describe.skip('attached image', () => {
 		const WIKI_NOTATION = `!http://www.atlassian.com/images/test_thisstyle_too.jpg!`;
@@ -54,6 +56,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('linked image', () => {
 		const WIKI_NOTATION = `[!attachedpicture.jpg|align=right!|http://confluence.atlassian.com]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO Linkable images not supported, confirm with JIRA
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -72,6 +76,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	describe('linked image with title', () => {
 		const WIKI_NOTATION = `[!attachedpicture.jpg|align=right!|http://confluence.atlassian.com|link to confluence]`;
 
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// @TODO Linkable images not supported, confirm with JIRA
 		checkParseEncodeRoundTrips(
 			WIKI_NOTATION,
@@ -116,6 +122,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Should this be a media element? Migration issues?
 	describe.skip('attached image with nbsp before', () => {
 		const WIKI_NOTATION = `&nbsp;!19137-picture.jpg!`;
@@ -135,6 +143,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Should this be a media element? Migration issues?
 	describe.skip('attached image with nbsp and space before', () => {
 		const WIKI_NOTATION = `&nbsp; !19137-picture.jpg!`;
@@ -154,6 +164,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Should this be a media element? Migration issues?
 	describe.skip('image macro inside text', () => {
 		const WIKI_NOTATION = `inltokxyzkdtnhgnsbdfinltok!19137-picture.jpg!`;
@@ -173,6 +185,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees007
+	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 	// @TODO Should this be a media element? Migration issues?
 	describe.skip('image macro after text', () => {
 		const WIKI_NOTATION = `inltokxyzkdtnhgnsbdfinltok!19137-picture.jpg!`;

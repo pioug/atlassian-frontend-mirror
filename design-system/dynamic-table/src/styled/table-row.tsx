@@ -4,12 +4,9 @@
  */
 import { type CSSProperties, forwardRef, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-
-import { tableRowCSSVars as cssVars } from './dynamic-table';
 
 export type ITableRowProps = {
 	isHighlighted?: boolean;
@@ -25,7 +22,7 @@ const rowStyles = css({
 		outline: `2px solid ${token(
 			'color.border.focused',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			`var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
+			'var(--local-dynamic-table-hover-bg)',
 		)}`,
 		outlineOffset: `-2px`,
 	},
@@ -36,7 +33,7 @@ const rowBackgroundStyles = css({
 		backgroundColor: token(
 			'color.background.neutral.subtle.hovered',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			`var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
+			'var(--local-dynamic-table-hover-bg)',
 		),
 	},
 });
@@ -44,13 +41,13 @@ const rowHighlightedBackgroundStyles = css({
 	backgroundColor: token(
 		'color.background.selected',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		`var(${cssVars.CSS_VAR_HIGHLIGHTED_BACKGROUND})`,
+		'var(--local-dynamic-table-highlighted-bg)',
 	),
 	'&:hover': {
 		backgroundColor: token(
 			'color.background.selected.hovered',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			`var(${cssVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND})`,
+			'var(--local-dynamic-table-hover-highlighted-bg)',
 		),
 	},
 });

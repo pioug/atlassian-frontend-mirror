@@ -74,7 +74,12 @@ export type Config = {
 		readonly getSSRTimings?: () => SSRTiming[];
 		readonly getSSRDoneTime?: () => number | undefined;
 	};
+	/**
+	 * @private
+	 * @deprecated remove me with next major release
+	 */
 	readonly assetsClassification?: AssetsClassification;
+	readonly assetsConfig?: AssetsClassification;
 	readonly enableBetterPageVisibilityApi?: boolean;
 	readonly vc?: {
 		readonly enabled?: boolean;

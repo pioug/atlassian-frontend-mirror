@@ -89,6 +89,7 @@ export interface RendererProps {
 	 * is updated as a result of a content update.
 	 */
 	addTelepointer?: boolean;
+	textHighlighter?: TextHighlighter;
 
 	/**
 	 * @default undefined
@@ -120,6 +121,7 @@ export interface RendererProps {
 	 */
 	featureFlags?: { [featureFlag: string]: boolean } | Partial<RawObjectFeatureFlags>;
 
+	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-26490 Internal documentation for deprecation (no external access)}  This prop has been marked stable and therefore replaced by the `textHighlighter` prop. Please use `textHighlighter` prop instead. */
 	UNSTABLE_textHighlighter?: TextHighlighter;
 	UNSTABLE_allowTableAlignment?: boolean;
 	UNSTABLE_allowTableResizing?: boolean;

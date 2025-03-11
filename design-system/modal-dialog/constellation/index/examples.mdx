@@ -10,6 +10,7 @@ import ModalWidth from '../../examples/constellation/modal-width';
 import ModalScroll from '../../examples/constellation/modal-scroll';
 import FocusSpecificElement from '../../examples/constellation/focus-specific-element';
 import ModalForm from '../../examples/constellation/modal-form';
+import ModalSelect from '../../examples/constellation/modal-select';
 import ModalHeader from '../../examples/constellation/modal-header-default';
 import ModalCustomHeader from '../../examples/constellation/modal-header-custom';
 import ModalFooter from '../../examples/constellation/modal-footer-default';
@@ -86,6 +87,15 @@ These internal components can be wrapped in a `form` element to support having b
 `submit` in the footer.
 
 <Example Component={ModalForm} packageName="@atlaskit/modal-dialog" />
+
+### Select
+
+The usage of the select component within the modal dialog requires the `menuPosition` value set to
+`fixed`. Without this, it will not show up on top of the modal dialog, and instead will remain
+within it's boundaries. In some cases, this causes the select to visually seem like it is not
+opening whatsoever when being interacted with.
+
+<Example Component={ModalSelect} packageName="@atlaskit/modal-dialog" />
 
 ## Modal header
 

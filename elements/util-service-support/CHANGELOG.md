@@ -1,5 +1,17 @@
 # @atlaskit/util-service-support
 
+## 6.3.0
+
+### Minor Changes
+
+- [#117306](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/117306)
+  [`d18a5954f7ca9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d18a5954f7ca9) -
+  Add utility function that supports multipart responses
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.7
 
 ### Patch Changes

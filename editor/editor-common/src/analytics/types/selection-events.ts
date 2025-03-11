@@ -29,9 +29,21 @@ export type SelectCellAEP = SelectAEP<
 
 export type SelectTableAEP = SelectAEP<ACTION_SUBJECT_ID.TABLE, { localId: string }>;
 
+export type SelectAllNodeAEP = TrackAEP<
+	ACTION.SELECT_ALL,
+	ACTION_SUBJECT.DOCUMENT,
+	ACTION_SUBJECT_ID.ALL,
+	{
+		followedBy?: string;
+		fromDepth?: number;
+	},
+	undefined
+>;
+
 export type SelectionEventPayload =
 	| SelectNodeAEP
 	| SelectRangeAEP
 	| SelectAllAEP
+	| SelectAllNodeAEP
 	| SelectCellAEP
 	| SelectTableAEP;

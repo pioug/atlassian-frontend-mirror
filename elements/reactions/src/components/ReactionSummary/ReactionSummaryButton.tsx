@@ -1,7 +1,7 @@
 import React, { forwardRef, useMemo } from 'react';
 import { useIntl } from 'react-intl-next';
 import { ResourcedEmoji } from '@atlaskit/emoji';
-import { Inline, xcss, Box } from '@atlaskit/primitives';
+import { Inline, xcss, Box, Flex } from '@atlaskit/primitives';
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary } from '../../types';
 import { Counter } from '../Counter';
@@ -19,6 +19,10 @@ const buttonStyle = xcss({
 	paddingRight: 'space.050',
 	paddingBottom: 'space.050',
 	paddingLeft: 'space.100',
+});
+
+const compactButtonStyle = xcss({
+	height: '22px',
 });
 
 const opaqueBackgroundStyles = xcss({
@@ -59,6 +63,11 @@ interface ReactionSummaryButtonProps extends Pick<ReactionsProps, 'emojiProvider
 	 * Optional prop for applying subtle styling to reaction summary button
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
+
+	/**
+	 * Optional prop to apply compact styling
+	 */
+	useCompactStyles?: boolean;
 }
 
 /**
@@ -81,6 +90,7 @@ export const ReactionSummaryButton = forwardRef(
 			onClick,
 			showOpaqueBackground = false,
 			subtleReactionsSummaryAndPicker = false,
+			useCompactStyles = false,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
@@ -106,13 +116,15 @@ export const ReactionSummaryButton = forwardRef(
 
 		const subtleSummaryStyles = subtleReactionsSummaryAndPicker ? [hideBorderStyle] : [];
 
+		const compactButtonStyles = useCompactStyles ? [compactButtonStyle] : [];
+
 		return (
-			<Box xcss={containerStyle} ref={ref}>
+			<Flex xcss={containerStyle} ref={ref} alignItems="center" justifyContent="center">
 				<ReactionButton
 					onClick={onClick}
 					testId={RENDER_SUMMARY_BUTTON_TESTID}
 					ariaLabel={intl.formatMessage(messages.summary)}
-					additionalStyles={[...buttonStyles, ...subtleSummaryStyles]}
+					additionalStyles={[...buttonStyles, ...subtleSummaryStyles, ...compactButtonStyles]}
 				>
 					<Inline space="space.050" xcss={buttonStyle}>
 						{topReactions.map((reaction) => (
@@ -128,7 +140,7 @@ export const ReactionSummaryButton = forwardRef(
 					</Inline>
 					<Counter value={totalReactionsCount} />
 				</ReactionButton>
-			</Box>
+			</Flex>
 		);
 	},
 );

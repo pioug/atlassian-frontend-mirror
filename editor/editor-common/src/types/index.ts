@@ -47,6 +47,7 @@ export type {
 	RenderOptionsPropsT,
 	DropdownOptionT,
 	DropdownOptions,
+	ExtensionDropdownOptions,
 	SelectOption,
 	ButtonAppearance,
 	Icon,

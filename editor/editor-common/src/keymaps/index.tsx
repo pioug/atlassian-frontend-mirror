@@ -117,6 +117,7 @@ export const selectColumn = makeKeyMapArrayWithCommon('Select column', [
 	'Mod-Alt-Shift-ArrowUp',
 ]);
 export const selectTable = makeKeyMapWithCommon('Select table', 'Mod-a');
+export const selectNode = makeKeyMapWithCommon('Select node', 'Mod-a');
 
 export const increaseMediaSize = makeKeyMapWithCommon('increase image size', 'Mod-Alt-]');
 export const decreaseMediaSize = makeKeyMapWithCommon('increase image size', 'Mod-Alt-[');

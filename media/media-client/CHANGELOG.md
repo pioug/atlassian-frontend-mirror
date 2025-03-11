@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 32.0.1
+
+### Patch Changes
+
+- [#123539](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123539)
+  [`3be0da32cfe48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3be0da32cfe48) -
+  Updated helper createServerUnauthorizedError. Adds Inner Error to the returned value
+
 ## 32.0.0
 
 ### Patch Changes

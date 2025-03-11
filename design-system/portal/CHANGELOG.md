@@ -1,5 +1,14 @@
 # @atlaskit/portal
 
+## 5.1.0
+
+### Minor Changes
+
+- [#124073](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124073)
+  [`97804593b5afb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97804593b5afb) -
+  Adds a React.Suspense boundary around Portal children to avoid bugs in React 18 concurrency (after
+  validating through internal feature gates)
+
 ## 5.0.2
 
 ### Patch Changes

@@ -6,26 +6,16 @@
 import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { B100, B50, B75, N10, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { row, tableBorder } from '../theme';
 
 type TableProps = HTMLProps<HTMLTableElement> & {
 	isFixedSize?: boolean;
 	isLoading?: boolean;
 	hasDataRow: boolean;
 	testId?: string;
-};
-
-// CSS vars for table row
-// these are declared here to avoid being re-declared in each table row
-export const tableRowCSSVars = {
-	CSS_VAR_HOVER_BACKGROUND: '--local-dynamic-table-hover-bg',
-	CSS_VAR_HIGHLIGHTED_BACKGROUND: '--local-dynamic-table-highlighted-bg',
-	CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND: '--local-dynamic-table-hover-highlighted-bg',
-	CSS_VAR_ROW_FOCUS_OUTLINE: '--local-dynamic-table-row-focus-outline',
 };
 
 const fixedSizeTableStyles = css({
@@ -39,8 +29,7 @@ const tableStyles = css({
 });
 
 const bodyBorder = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderBlockEnd: `2px solid ${tableBorder.borderColor}`,
+	borderBlockEnd: `2px solid ${token('color.border', N40)}`,
 });
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(
@@ -51,14 +40,17 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 				{...{ inert: isLoading ? '' : undefined }}
 				style={
 					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						[tableRowCSSVars.CSS_VAR_HOVER_BACKGROUND]: row.hoverBackground,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						[tableRowCSSVars.CSS_VAR_HIGHLIGHTED_BACKGROUND]: row.highlightedBackground,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						[tableRowCSSVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND]: row.hoverHighlightedBackground,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						[tableRowCSSVars.CSS_VAR_ROW_FOCUS_OUTLINE]: row.focusOutline,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						'--local-dynamic-table-hover-bg': token('color.background.neutral.subtle.hovered', N10),
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						'--local-dynamic-table-highlighted-bg': token('color.background.selected', B50),
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						'--local-dynamic-table-hover-highlighted-bg': token(
+							'color.background.selected.hovered',
+							B75,
+						),
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						'--local-dynamic-table-row-focus-outline': token('color.border.focused', B100),
 					} as React.CSSProperties
 				}
 				css={[tableStyles, isFixedSize && fixedSizeTableStyles, hasDataRow && bodyBorder]}

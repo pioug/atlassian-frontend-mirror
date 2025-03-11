@@ -4,10 +4,16 @@ import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
 import { Inline, xcss } from '@atlaskit/primitives';
 
-import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
+import {
+	type ReactionClick,
+	type ReactionFocused,
+	type ReactionMouseEnter,
+	type ReactionSource,
+} from '../../types';
 import { Reaction } from '../Reaction';
 import { type ReactionsProps, type OpenReactionsDialogOptions } from '../Reactions';
-
+import { type TriggerProps } from '../Trigger';
+import { ReactionSummaryViewEmojiPicker } from './ReactionSummaryViewEmojiPicker';
 import { ReactionSummaryButton } from './ReactionSummaryButton';
 
 const summaryPopupStyles = xcss({
@@ -23,9 +29,16 @@ export const RENDER_SUMMARY_VIEW_POPUP_TESTID = 'render-summary-view-popup';
 
 interface ReactionSummaryViewProps
 	extends Pick<
-		ReactionsProps,
-		'emojiProvider' | 'reactions' | 'flash' | 'particleEffectByEmoji' | 'allowUserDialog'
-	> {
+			ReactionsProps,
+			| 'emojiProvider'
+			| 'reactions'
+			| 'flash'
+			| 'particleEffectByEmoji'
+			| 'allowUserDialog'
+			| 'allowSelectFromSummaryView'
+			| 'emojiPickerSize'
+		>,
+		Pick<TriggerProps, 'tooltipContent' | 'reactionPickerTriggerIcon' | 'disabled'> {
 	/**
 	 * Optional prop to change the placement of the summary popup reaction list
 	 */
@@ -34,6 +47,12 @@ interface ReactionSummaryViewProps
 	 * event handler when a a reaction button is clicked inside the summary
 	 */
 	onReactionClick: ReactionClick;
+	/**
+	 * Event callback when an emoji button is selected
+	 * @param emojiId emoji unique id
+	 * @param source source where the reaction was picked (either the initial default reactions or the custom reactions picker)
+	 */
+	onSelection: (emojiId: string, source: ReactionSource) => void;
 	/**
 	 * Optional event when the mouse cursor hovers over a reaction button inside the summary
 	 */
@@ -61,6 +80,10 @@ interface ReactionSummaryViewProps
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */;
 	isViewOnly?: boolean;
+	/**
+	 * Optional event handler when the emoji picker is opened
+	 */
+	onOpen?: () => void;
 }
 
 export const ReactionSummaryView = ({
@@ -77,6 +100,13 @@ export const ReactionSummaryView = ({
 	allowUserDialog,
 	handleOpenReactionsDialog,
 	isViewOnly = false,
+	allowSelectFromSummaryView,
+	disabled,
+	emojiPickerSize,
+	onSelection,
+	tooltipContent,
+	reactionPickerTriggerIcon,
+	onOpen,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
@@ -112,6 +142,17 @@ export const ReactionSummaryView = ({
 							isViewOnly={isViewOnly}
 						/>
 					))}
+					{allowSelectFromSummaryView && (
+						<ReactionSummaryViewEmojiPicker
+							emojiProvider={emojiProvider}
+							disabled={disabled}
+							onSelection={onSelection}
+							emojiPickerSize={emojiPickerSize}
+							tooltipContent={tooltipContent}
+							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+							onOpen={onOpen}
+						/>
+					)}
 				</Inline>
 			)}
 			isOpen={isSummaryPopupOpen}
@@ -124,6 +165,7 @@ export const ReactionSummaryView = ({
 					onClick={handleSummaryClick}
 					showOpaqueBackground={showOpaqueBackground}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+					useCompactStyles={allowSelectFromSummaryView}
 				/>
 			)}
 		/>

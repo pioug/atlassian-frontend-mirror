@@ -48,7 +48,6 @@ const isNodeWithMedia = (tr: Transaction, start: number, nodeSize: number) => {
 	});
 	return hasMedia;
 };
-
 const isNodeWithMediaOrExtension = (tr: Transaction, start: number, nodeSize: number) => {
 	const $startPos = tr.doc.resolve(start);
 	let hasMediaOrExtension = false;
@@ -69,9 +68,13 @@ export const getSelection = (tr: Transaction, start: number) => {
 	const isBlockQuoteWithMedia = nodeName === 'blockquote' && isNodeWithMedia(tr, start, nodeSize);
 	const isBlockQuoteWithMediaOrExtension =
 		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
+	const isListWithMediaOrExtension =
+		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(tr, start, nodeSize)) ||
+		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(tr, start, nodeSize));
 
 	if (
 		(isNodeSelection && nodeName !== 'blockquote') ||
+		(isListWithMediaOrExtension && fg('platform_editor_non_macros_copy_and_paste_fix')) ||
 		(fg('platform_editor_non_macros_copy_and_paste_fix')
 			? isBlockQuoteWithMediaOrExtension
 			: isBlockQuoteWithMedia) ||

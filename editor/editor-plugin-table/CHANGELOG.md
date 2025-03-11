@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 10.4.0
+
+### Minor Changes
+
+- [#124688](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124688)
+  [`9b1137bda6f87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b1137bda6f87) -
+  [ux] ED-25486 Updates cmd+a behaviour to progressively select nodes behind
+  platform_editor_cmd_a_progressively_select_nodes experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.3
 
 ### Patch Changes

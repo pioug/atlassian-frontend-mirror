@@ -6,7 +6,7 @@
 import { type FC, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 export const CSS_VAR_CONTENTS_OPACITY = '--contents-opacity';
 
@@ -40,7 +40,7 @@ export const ContentsContainer: FC<LoadingContainerProps> = ({
 	<div
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={{ [CSS_VAR_CONTENTS_OPACITY]: contentsOpacity } as React.CSSProperties}
-		css={[contentsContainerStyles]}
+		css={contentsContainerStyles}
 		data-testid={testId && `${testId}--contents--container`}
 	>
 		{children}

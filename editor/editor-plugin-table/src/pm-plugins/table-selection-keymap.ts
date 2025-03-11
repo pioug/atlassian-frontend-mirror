@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type PluginInjectionAPI } from '../types';
 
@@ -56,9 +57,11 @@ export function tableSelectionKeymapPlugin(
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(shiftArrowUp.common!, shiftArrowUpFromTable(editorSelectionAPI)(), list);
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	bindKeymapWithCommand(selectTable.common!, modASelectTable(editorSelectionAPI)(), list);
+	if (editorExperiment('platform_editor_cmd_a_progressively_select_nodes', false)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		bindKeymapWithCommand(selectTable.common!, modASelectTable(editorSelectionAPI)(), list);
+	}
 
 	return keymap(list) as SafePlugin;
 }

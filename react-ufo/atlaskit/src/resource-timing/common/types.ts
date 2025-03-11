@@ -3,7 +3,7 @@ export type ResourceEntry = {
 	initiatorType: string;
 	// Safari returns undefined https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/transferSize
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-	transferSize: number | void;
+	transferSize: number | undefined;
 	startTime: number;
 	duration: number;
 	responseStart: number;

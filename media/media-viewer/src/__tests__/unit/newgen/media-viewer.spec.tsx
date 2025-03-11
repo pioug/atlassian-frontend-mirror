@@ -652,7 +652,7 @@ describe('<MediaViewer />', () => {
 						actionSubject: 'mediaFile',
 						attributes: {
 							error: 'serverUnauthorized',
-							errorDetail: 'unknown',
+							errorDetail: 'inner error message',
 							failReason: 'svg-binary-fetch',
 							fileMimetype: fileAttributes.fileMimetype,
 							fileAttributes,
@@ -680,7 +680,7 @@ describe('<MediaViewer />', () => {
 				expect(mockfailMediaFileUfoExperience).toBeCalledWith(
 					expect.objectContaining({
 						error: 'serverUnauthorized',
-						errorDetail: 'unknown',
+						errorDetail: 'inner error message',
 						failReason: 'svg-binary-fetch',
 						fileAttributes,
 						fileStateFlags: {
@@ -1425,7 +1425,7 @@ describe('<MediaViewer />', () => {
 					action: 'downloadFailed',
 					attributes: {
 						error: 'serverUnauthorized',
-						errorDetail: 'unknown',
+						errorDetail: 'inner error message',
 						failReason: 'download',
 						status: 'fail',
 						fileMediatype: fileItem.details.mediaType,
@@ -1517,7 +1517,7 @@ describe('<MediaViewer />', () => {
 					action: 'downloadFailed',
 					attributes: {
 						error: 'serverUnauthorized',
-						errorDetail: 'unknown',
+						errorDetail: 'inner error message',
 						failReason: 'download',
 						status: 'fail',
 						fileMediatype: fileItem.details.mediaType,

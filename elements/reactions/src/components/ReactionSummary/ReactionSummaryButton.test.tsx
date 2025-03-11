@@ -152,4 +152,16 @@ describe('ReactionSummaryButton', () => {
 		const button = screen.getByRole('button');
 		expect(button).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
 	});
+
+	it('should render with height of 22px if useCompactStyles is true', async () => {
+		renderComponent({ useCompactStyles: true });
+		const summaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+		expect(summaryButton).toHaveCompiledCss('height', '22px');
+	});
+
+	it('should render with height of 24px if useCompactStyles is false', async () => {
+		renderComponent({ useCompactStyles: false });
+		const summaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+		expect(summaryButton).toHaveCompiledCss('height', '24px');
+	});
 });

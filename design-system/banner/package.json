@@ -39,7 +39,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/css": "workspace:*",
 		"@atlaskit/primitives": "workspace:*",
 		"@atlaskit/theme": "workspace:*",
 		"@atlaskit/tokens": "workspace:*",

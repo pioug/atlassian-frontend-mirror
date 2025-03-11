@@ -18,6 +18,7 @@ import type { LabelStack } from '../interaction-context';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
 import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
+import { filterResourceTimings } from '../resource-timing/common/utils/resource-timing-buffer';
 import { roundEpsilon } from '../round-number';
 import * as ssr from '../ssr';
 
@@ -267,18 +268,19 @@ function getSSRProperties(type: InteractionType) {
 	};
 }
 
-const getAssetsMetrics = (interaction: InteractionMetrics, resourceTimings: ResourceTimings) => {
+const getAssetsMetrics = (interaction: InteractionMetrics, SSRDoneTime: number | undefined) => {
 	try {
 		const config = getConfig();
 		const { type } = interaction;
 		const allowedTypes = ['page_load', 'transition'];
-		const assetsClassification = config?.assetsClassification;
-		if (!allowedTypes.includes(type) || !assetsClassification) {
+		const assetsConfig = config?.assetsConfig;
+		if (!allowedTypes.includes(type) || !assetsConfig) {
 			// Skip if: type not allowed or assetsClassification isn't configured
 			return {};
 		}
 		const reporter = new CHRReporter();
-		const assets = reporter.get(resourceTimings, assetsClassification);
+		const resourceTimings = filterResourceTimings(interaction.start, interaction.end);
+		const assets = reporter.get(resourceTimings, assetsConfig, SSRDoneTime);
 		if (assets) {
 			// Only add assets in case it exists
 			return { 'event:assets': assets };
@@ -726,6 +728,12 @@ function getErrorCounts(interaction: InteractionMetrics) {
 	};
 }
 
+type PageLoadInitialSSRMetrics = {
+	SSRDoneTime?: number;
+	isBM3ConfigSSRDoneAsFmp?: boolean;
+	isUFOConfigSSRDoneAsFmp?: boolean;
+};
+
 async function createInteractionMetricsPayload(
 	interaction: InteractionMetrics,
 	interactionId: string,
@@ -780,7 +788,7 @@ async function createInteractionMetricsPayload(
 			}
 		: {};
 	// Page Load
-	const getPageLoadInteractionMetrics = () => {
+	const getInitialPageLoadSSRMetrics: () => PageLoadInitialSSRMetrics = () => {
 		if (!isPageLoad) {
 			return {};
 		}
@@ -795,6 +803,8 @@ async function createInteractionMetricsPayload(
 				interaction.metaData.__legacy__bm3ConfigSSRDoneAsFmp || !!config?.ssr?.getSSRDoneTime,
 		};
 	};
+	const pageLoadInteractionMetrics = getInitialPageLoadSSRMetrics();
+
 	// Detailed payload. Page visibility = visible
 	const getDetailedInteractionMetrics = (resourceTimings: ResourceTimings) => {
 		if (experimental || window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
@@ -882,7 +892,7 @@ async function createInteractionMetricsPayload(
 				// root
 				...getBrowserMetadata(),
 				...getSSRProperties(type),
-				...getAssetsMetrics(interaction, resourceTimings),
+				...getAssetsMetrics(interaction, pageLoadInteractionMetrics?.SSRDoneTime),
 				...getPPSMetrics(interaction),
 				...getPaintMetrics(type),
 				...getNavigationMetrics(type),
@@ -931,7 +941,7 @@ async function createInteractionMetricsPayload(
 						getReactUFOVersion(interaction.type),
 					),
 					...labelStack,
-					...getPageLoadInteractionMetrics(),
+					...pageLoadInteractionMetrics,
 					...getDetailedInteractionMetrics(resourceTimings),
 					...getPageLoadDetailedInteractionMetrics(),
 					...getBm3TrackerTimings(interaction),

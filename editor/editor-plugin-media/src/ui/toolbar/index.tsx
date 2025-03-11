@@ -171,9 +171,7 @@ const generateMediaCardFloatingToolbar = (
 	const enforceMediaDataSecurityPolicy =
 		mediaPluginState?.mediaClientConfig?.enforceDataSecurityPolicy;
 	const disableDownloadButton =
-		typeof enforceMediaDataSecurityPolicy === 'boolean' && fg('dlp_cc-enforce-attachment-dl-dsp')
-			? enforceMediaDataSecurityPolicy
-			: false;
+		typeof enforceMediaDataSecurityPolicy === 'boolean' ? enforceMediaDataSecurityPolicy : false;
 
 	const { mediaGroup } = state.schema.nodes;
 	const items: FloatingToolbarItem<Command>[] = [

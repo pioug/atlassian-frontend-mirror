@@ -1,4 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import type { Command, FloatingToolbarDropdown } from '../types';
 
 import { buildAction } from './manifest-helpers';
 import type { ExtensionAPI } from './types/extension-handler';
@@ -10,6 +13,8 @@ import type {
 import type {
 	ContextualToolbar,
 	ExtensionToolbarButton,
+	ExtensionToolbarItem,
+	ToolbarButton,
 	ToolbarContext,
 	ToolbarItem,
 } from './types/extension-manifest-toolbar-item';
@@ -120,10 +125,10 @@ const logError = (msg: any, ...args: any[]) => {
 };
 
 const toolbarItemToButtonConfig = (
-	toolbarItem: ToolbarItem,
+	toolbarButton: ToolbarButton,
 	parentKey?: string,
 ): ExtensionToolbarButton => {
-	const { tooltip, tooltipStyle, key, label, ariaLabel, icon, action, disabled } = toolbarItem;
+	const { tooltip, tooltipStyle, key, label, ariaLabel, icon, action, disabled } = toolbarButton;
 	const itemKey = [parentKey, key].join(':');
 	if (typeof action !== 'function') {
 		logError(
@@ -131,7 +136,7 @@ const toolbarItemToButtonConfig = (
 		);
 	}
 	let labelAndIcon = {};
-	switch (toolbarItem.display) {
+	switch (toolbarButton.display) {
 		case 'icon':
 			if (!icon) {
 				logError(
@@ -201,7 +206,7 @@ export const getContextualToolbarItemsFromModule = (
 	extensions: ExtensionManifest[],
 	node: ADFEntity,
 	api: ExtensionAPI,
-): ExtensionToolbarButton[] => {
+): ExtensionToolbarItem[] => {
 	return extensions
 		.map((extension) => {
 			if (extension.modules.contextualToolbars) {
@@ -226,15 +231,31 @@ export const getContextualToolbarItemsFromModule = (
 						}
 						return [];
 					})
-					.flatMap((toolbarButtons) =>
-						toolbarButtons.map((toolbarButton) =>
-							toolbarItemToButtonConfig(toolbarButton, extension.key),
-						),
+					.flatMap((toolbarItems) =>
+						toolbarItems.map((toolbarItem) => {
+							if (fg('forge_macro_autoconvert')) {
+								if (isToolbarButton(toolbarItem)) {
+									return toolbarItemToButtonConfig(toolbarItem as ToolbarButton, extension.key);
+								}
+
+								return toolbarItem as FloatingToolbarDropdown<Command>;
+							} else {
+								return toolbarItemToButtonConfig(toolbarItem as ToolbarButton, extension.key);
+							}
+						}),
 					);
 			}
 			return [];
 		})
 		.flatMap((extensionToolbarButtons) => extensionToolbarButtons);
+};
+
+const isToolbarButton = (toolbarItem: ToolbarItem) => {
+	if ('type' in toolbarItem) {
+		return false;
+	}
+
+	return true;
 };
 
 // defines whether to add toolbar item for the given node
@@ -250,10 +271,13 @@ function shouldAddExtensionItemForNode(item: ContextualToolbar, node: ADFEntity)
 
 	// in cases where we need custom exclusion depending on the node
 	if (item.context.shouldExclude) {
-		return item.context.shouldExclude(node);
+		if (item.context.shouldExclude(node)) {
+			return false;
+		}
 	}
 
 	const { extensionType, extensionKey } = item.context;
+
 	// if extension type is given - should match extension type
 	if (extensionType && extensionType !== node.attrs?.extensionType) {
 		return false;

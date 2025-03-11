@@ -20,10 +20,16 @@ function bind(
 		signal: controller.signal,
 	};
 
-	target.addEventListener(event, listener, options);
+	const listenerWrapper = (event: Event) => {
+		if (event.isTrusted) {
+			listener();
+		}
+	};
+
+	target.addEventListener(event, listenerWrapper, options);
 
 	return function unbind() {
-		target.removeEventListener(event, listener, options);
+		target.removeEventListener(event, listenerWrapper, options);
 	};
 }
 

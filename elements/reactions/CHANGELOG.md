@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 27.1.0
+
+### Minor Changes
+
+- [#123407](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123407)
+  [`efdf36c53ac41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efdf36c53ac41) -
+  [ux] Updates Reactions API to include a allowSelectFromSummaryView prop which controls if we add
+  an emoji pickerto the summary view. Also creates a new emoji picker component to use in this view.
+
 ## 27.0.0
 
 ### Major Changes

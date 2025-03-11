@@ -70,7 +70,7 @@ export const HeadingsRTLSymbolsWithHighlighterRenderer = generateRendererCompone
 	allowHeadingAnchorLinks: {
 		allowNestedHeaderLinks: true,
 	},
-	UNSTABLE_textHighlighter: {
+	textHighlighter: {
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,

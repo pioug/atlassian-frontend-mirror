@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 5.1.1
+
+### Patch Changes
+
+- [#124596](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124596)
+  [`a1ba68bc43a89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1ba68bc43a89) -
+  Update `@atlaskit/platform-feature-flags` dependency from wildcard `*` to `^1.1.0`
+
 ## 5.1.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-ufo
 
+## 2.0.3
+
+### Patch Changes
+
+- [#124151](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124151)
+  [`b3127c28123c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3127c28123c4) -
+  AFO-3441 make editor plugin ufo only abort ufo when event is user initiated (isTrusted)
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

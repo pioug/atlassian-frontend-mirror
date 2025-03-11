@@ -15,6 +15,7 @@ import type {
 	DropdownOptionT,
 	FloatingToolbarOverflowDropdownOptions,
 	FloatingToolbarButtonSpotlightConfig,
+	ExtensionDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
@@ -64,7 +65,10 @@ export interface Props {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconBefore?: ReactElement<any>;
 	hideExpandIcon?: boolean;
-	options: DropdownOptions<Function> | FloatingToolbarOverflowDropdownOptions<Function>;
+	options:
+		| DropdownOptions<Function>
+		| FloatingToolbarOverflowDropdownOptions<Function>
+		| ExtensionDropdownOptions;
 	dispatchCommand: (command: Function) => void;
 	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
@@ -178,12 +182,15 @@ export default class Dropdown extends Component<Props, State> {
 		 * not exactly when it hits the boundary.
 		 */
 		const fitTolerance = 10;
-		const fitWidth = Array.isArray(options)
-			? dropdownWidth || menuItemDimensions.width
-			: options.width;
+		const fitWidth =
+			Array.isArray(options) || typeof options === 'function'
+				? dropdownWidth || menuItemDimensions.width
+				: options.width;
 		const fitHeight = Array.isArray(options)
 			? options.length * menuItemDimensions.height + itemSpacing * 2
-			: options.height;
+			: typeof options === 'function'
+				? this.makeArrayOptionsFromCallback(options).length
+				: options.height;
 
 		return (
 			/**
@@ -211,7 +218,9 @@ export default class Dropdown extends Component<Props, State> {
 			>
 				{Array.isArray(options)
 					? this.renderArrayOptions(options)
-					: options.render({ hide: this.hide, dispatchCommand })}
+					: typeof options === 'function'
+						? this.renderArrayOptions(this.makeArrayOptionsFromCallback(options))
+						: options.render({ hide: this.hide, dispatchCommand })}
 
 				{footer && (
 					<>
@@ -222,6 +231,11 @@ export default class Dropdown extends Component<Props, State> {
 			</UiDropdown>
 		);
 	}
+
+	private makeArrayOptionsFromCallback = (makeOptions: () => DropdownOptions<Function>) => {
+		const options = makeOptions();
+		return options as Array<DropdownOptionT<Function>>;
+	};
 
 	private renderArrayOptions = (
 		options: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>,

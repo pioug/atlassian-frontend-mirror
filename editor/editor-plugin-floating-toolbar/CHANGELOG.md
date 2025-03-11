@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.2.0
+
+### Minor Changes
+
+- [#122181](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122181)
+  [`cf759849b38dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf759849b38dc) -
+  [ux] Added dropdown menu in floating toolbar for autoconverted extensions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

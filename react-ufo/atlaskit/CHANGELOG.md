@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.0
+
+### Minor Changes
+
+- [#124334](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124334)
+  [`419c4451a0c0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/419c4451a0c0f) -
+  Updated assets config to include different types of requests
+
 ## 3.3.3
 
 ### Patch Changes

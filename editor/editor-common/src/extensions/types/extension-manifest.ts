@@ -148,7 +148,7 @@ export type ExtensionManifest<T extends Parameters = Parameters> = {
 		[dimensions: string]: () => ExtensionIconModule;
 	};
 	modules: ExtensionModules<T>;
-	autoConvert?: { matches: Array<AutoConvertMatches> };
+	autoConvert?: { matchers: Array<AutoConvertMatches> };
 };
 
 // deprecated types

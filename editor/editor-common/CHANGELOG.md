@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 102.3.0
+
+### Minor Changes
+
+- [#122181](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122181)
+  [`cf759849b38dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf759849b38dc) -
+  [ux] Added dropdown menu in floating toolbar for autoconverted extensions
+- [#124688](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124688)
+  [`9b1137bda6f87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b1137bda6f87) -
+  [ux] ED-25486 Updates cmd+a behaviour to progressively select nodes behind
+  platform_editor_cmd_a_progressively_select_nodes experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 102.2.1
+
+### Patch Changes
+
+- [#123984](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123984)
+  [`d26bb785e8693`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d26bb785e8693) -
+  Fix SSR of live/editor bodied macros
+
 ## 102.2.0
 
 ### Minor Changes

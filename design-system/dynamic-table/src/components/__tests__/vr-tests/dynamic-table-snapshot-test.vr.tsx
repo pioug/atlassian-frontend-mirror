@@ -21,6 +21,14 @@ snapshot(Rankable, {
 			state: 'focused',
 		},
 	],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(Rankable, {
@@ -32,6 +40,14 @@ snapshot(Rankable, {
 					'my-table--george-washington-1789-1797--rankable--table--row--rankable--table--body--row',
 			},
 			state: 'hovered',
+		},
+	],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });

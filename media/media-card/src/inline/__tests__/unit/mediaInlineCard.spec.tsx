@@ -325,7 +325,7 @@ describe('<MediaInlineCard />', () => {
 							fileStatus: undefined,
 						},
 						error: 'serverUnauthorized',
-						errorDetail: 'serverUnauthorized',
+						errorDetail: 'inner error message',
 						failReason: 'metadata-fetch',
 						metadataTraceContext: {
 							spanId: 'some-span',

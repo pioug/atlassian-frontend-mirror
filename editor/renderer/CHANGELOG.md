@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 113.3.0
+
+### Minor Changes
+
+- [#123549](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123549)
+  [`dd96b1dc81357`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd96b1dc81357) -
+  Deprecate `UNSTABLE_textHighlighter` prop on renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 113.2.2
 
 ### Patch Changes

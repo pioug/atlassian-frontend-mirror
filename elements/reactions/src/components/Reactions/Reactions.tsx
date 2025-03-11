@@ -231,6 +231,10 @@ export interface ReactionsProps
 	 * Optional prop for controlling tooltip content of the trigger button
 	 */
 	reactionPickerTriggerToolipContent?: string;
+	/**
+	 * Optional prop for controlling if we can select emojis and display UI via summary view picker
+	 */
+	allowSelectFromSummaryView?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -298,6 +302,7 @@ export const Reactions = React.memo(
 		showSubtleDefaultReactions,
 		reactionPickerTriggerToolipContent,
 		reactionPickerTriggerIcon,
+		allowSelectFromSummaryView = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -496,6 +501,7 @@ export const Reactions = React.memo(
 									emojiProvider={emojiProvider}
 									flash={flash}
 									particleEffectByEmoji={particleEffectByEmoji}
+									onSelection={handleOnSelection}
 									onReactionClick={onReactionClick}
 									onReactionFocused={handleReactionFocused}
 									onReactionMouseEnter={handleReactionMouseEnter}
@@ -507,6 +513,16 @@ export const Reactions = React.memo(
 									}
 									allowUserDialog={allowUserDialog && hasEmojiWithFivePlusReactions}
 									isViewOnly={isViewOnly}
+									allowSelectFromSummaryView={allowSelectFromSummaryView}
+									disabled={status !== ReactionStatus.ready}
+									reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+									tooltipContent={getTooltip(
+										status,
+										errorMessage,
+										reactionPickerTriggerToolipContent,
+									)}
+									emojiPickerSize={emojiPickerSize}
+									onOpen={handlePickerOpen}
 								/>
 							</div>
 						) : (
@@ -528,7 +544,7 @@ export const Reactions = React.memo(
 								/>
 							))
 						))}
-					{!isViewOnly && (
+					{isViewOnly || allowSelectFromSummaryView ? null : (
 						<ReactionPicker
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							css={reactionPickerStyle}

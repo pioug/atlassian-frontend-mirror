@@ -327,6 +327,9 @@ export const getRenderErrorErrorReason = (
 
 export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
 	const { secondaryError } = error;
+	if (isCommonMediaClientError(secondaryError) && secondaryError.innerError?.message) {
+		return secondaryError.innerError?.message;
+	}
 	if (secondaryError instanceof Error) {
 		return secondaryError.message;
 	}

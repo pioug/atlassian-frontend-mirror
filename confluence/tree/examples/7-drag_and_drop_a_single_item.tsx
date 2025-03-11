@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
-import DragHandlerIcon from '@atlaskit/icon/core/migration/drag-handle--drag-handler';
+import DragHandleVerticalIcon from '@atlaskit/icon/core/migration/drag-handle-vertical--drag-handler';
 import Button from '@atlaskit/button/new';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -73,7 +73,12 @@ export default class DragDropWithNestingTree extends Component<void, State> {
 		}
 		if (item.id === DRAGGABLE_ITEM_ID) {
 			return (
-				<DragHandlerIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
+				<DragHandleVerticalIcon
+					color="currentColor"
+					label=""
+					LEGACY_size="medium"
+					spacing="spacious"
+				/>
 			);
 		}
 

@@ -30,6 +30,7 @@ import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, PluginState } from '../blockControlsPluginType';
+import { BLOCK_MENU_ENABLED } from '../ui/consts';
 
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
 import {
@@ -480,7 +481,7 @@ export const newApply = (
 			: latestActiveNode;
 
 	let isMenuOpenNew = isMenuOpen;
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
 		if (meta?.closeMenu) {
 			isMenuOpenNew = false;
 		} else if (meta?.toggleMenu) {

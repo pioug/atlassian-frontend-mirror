@@ -155,7 +155,7 @@ export function RendererWithTextHighlighter() {
 		<Renderer
 			appearance="full-page"
 			document={doc as DocNode}
-			UNSTABLE_textHighlighter={{
+			textHighlighter={{
 				// Ignored via go/ees005
 				// eslint-disable-next-line require-unicode-regexp
 				pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,
@@ -171,7 +171,7 @@ export function RendererWithFilteredTextHighlighter() {
 		<Renderer
 			appearance="full-page"
 			document={doc as DocNode}
-			UNSTABLE_textHighlighter={{
+			textHighlighter={{
 				// Ignored via go/ees005
 				// eslint-disable-next-line require-unicode-regexp
 				pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.0.2
+
+### Patch Changes
+
+- [#122856](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122856)
+  [`24978014b9d89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24978014b9d89) -
+  Update messaging for no-custom-icons to provide guideance around third party logos.
+
 ## 13.0.1
 
 ### Patch Changes

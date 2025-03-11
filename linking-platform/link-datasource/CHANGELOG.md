@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.22.3
+
+### Patch Changes
+
+- [#124829](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124829)
+  [`9cf7a9644710f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cf7a9644710f) -
+  Updating Assets logo SVG colours
+
 ## 3.22.2
 
 ### Patch Changes

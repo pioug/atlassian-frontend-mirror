@@ -12,6 +12,11 @@ import { type EmojiProvider } from '@atlaskit/emoji';
 import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
 import { RENDER_REACTION_TESTID } from '../Reaction/Reaction';
 
+jest.mock('./ReactionSummaryViewEmojiPicker', () => ({
+	...jest.requireActual('./ReactionSummaryViewEmojiPicker'),
+	ReactionSummaryViewEmojiPicker: () => <div>ReactionSummaryViewEmojiPicker</div>,
+}));
+
 const reactions: ReactionSummary[] = [
 	getReactionSummary(DefaultReactions[0].shortName, 5, false),
 	getReactionSummary(DefaultReactions[1].shortName, 4, true),
@@ -27,6 +32,8 @@ describe('ReactionSummaryView', () => {
 					emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
 					reactions={reactions}
 					onReactionClick={jest.fn()}
+					onSelection={jest.fn()}
+					tooltipContent="hello"
 					{...extraProps}
 				/>
 			</IntlProvider>,
@@ -99,5 +106,31 @@ describe('ReactionSummaryView', () => {
 		await userEvent.click(dialogEntrypoints[0]);
 
 		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
+	});
+
+	it('should render ReactionSummaryViewEmojiPicker if allowSelectFromSummaryView is true', async () => {
+		renderComponent({
+			reactions,
+			allowSelectFromSummaryView: true,
+		});
+
+		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+		await userEvent.click(reactionSummaryButton);
+
+		const picker = await screen.findByText('ReactionSummaryViewEmojiPicker');
+		expect(picker).toBeInTheDocument();
+	});
+
+	it('should not render ReactionSummaryViewEmojiPicker if allowSelectFromSummaryView is false', async () => {
+		renderComponent({
+			reactions,
+			allowSelectFromSummaryView: false,
+		});
+
+		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+		await userEvent.click(reactionSummaryButton);
+
+		const picker = screen.queryByText('ReactionSummaryViewEmojiPicker');
+		expect(picker).not.toBeInTheDocument();
 	});
 });

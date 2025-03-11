@@ -1,22 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import type { ObjectExpression } from 'estree';
-import { getObjectPropertyAsObject, getObjectPropertyAsLiteral } from '../util/handle-ast-object';
+import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 
-const workspaceProtocolRegex = /^workspace:[\^~\*]$/;
+const workspaceProtocolRegex = /^workspace:[\^~]$/;
 const rootProtocolRegex = /^root:[\^~\*]$/;
-
-// Hard coded list is not ideal, but it's temporary until we've migrated all packages to use workspace protocols
-// Exclude check at the package level
-const EXCLUDED_PACKAGES = [
-	'@atlaskit/dummy-pkg-a',
-	'@atlaskit/dummy-pkg-b',
-	'@atlassian/dummy-pkg-c',
-	'@atlaskit/react-select',
-	'@atlassian/search-client',
-	'@atlassian/search-page',
-	'@atlassian/data-classification-level',
-];
 
 /**
  * Checks if the 'workspace:' and 'root:' protocol are used as either dependencies or devDependencies
@@ -55,7 +43,7 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			invalidWorkspaceProtocolUsage: `The 'workspace:' protocol is not allowed in public packages. To resolve this error, either set the package to private or replace the 'workspace:' protocol with specific package versions (e.g. '^1.0.0').`,
+			invalidWorkspaceProtocolUsage: `The 'workspace:^' or 'workspace:~' protocol is Used. To resolve this error, please use the 'workspace:*' protocol instead.`,
 			invalidRootProtocolUsage: `The 'root:' protocol is not allowed in platform packages. To resolve this error, replace the 'root:' protocol with specific package versions (e.g. '^1.0.0').`,
 		},
 	},
@@ -63,12 +51,6 @@ const rule: Rule.RuleModule = {
 		return {
 			ObjectExpression: (node: Rule.Node) => {
 				if (!context.filename.endsWith('package.json') || node.type !== 'ObjectExpression') {
-					return;
-				}
-
-				const packageName = getObjectPropertyAsLiteral(node, 'name');
-
-				if (typeof packageName === 'string' && EXCLUDED_PACKAGES.includes(packageName)) {
 					return;
 				}
 
@@ -82,9 +64,8 @@ const rule: Rule.RuleModule = {
 					});
 				}
 
-				// The 'workspace:' protocol can not be used in public packages
-				const isPrivatePackage = getObjectPropertyAsLiteral(node, 'private') === true;
-				if (!isPrivatePackage && yarnProtocolsUsed.workspace) {
+				// Use the 'workspace:*' protocol instead of 'workspace:^' or 'workspace:~'
+				if (yarnProtocolsUsed.workspace) {
 					context.report({
 						node,
 						messageId: 'invalidWorkspaceProtocolUsage',

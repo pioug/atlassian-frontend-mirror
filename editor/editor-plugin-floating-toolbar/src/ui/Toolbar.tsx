@@ -383,6 +383,12 @@ const ToolbarItems = React.memo(
 							separator={item.separator}
 							applyChangeToContextPanel={api?.contextPanel?.actions.applyChange}
 							extensionApi={api?.extension?.actions.api()}
+							dispatchCommand={dispatchCommand}
+							popupsMountPoint={popupsMountPoint}
+							popupsBoundariesElement={popupsBoundariesElement}
+							popupsScrollableElement={popupsScrollableElement}
+							alignDropdownWithToolbar={items.length === 1}
+							scrollable={scrollable}
 						/>
 					);
 				case 'separator':

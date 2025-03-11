@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.7
+
+### Patch Changes
+
+- [#124718](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124718)
+  [`d923941c82bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d923941c82bb4) -
+  Disable block menu in Editor controls
+
+## 3.3.6
+
+### Patch Changes
+
+- [#121718](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/121718)
+  [`ea6771bd5b498`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea6771bd5b498) -
+  [ux] ED-26814 fix copy and paste non bodied macro in list item
+- Updated dependencies
+
 ## 3.3.5
 
 ### Patch Changes

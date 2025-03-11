@@ -290,6 +290,8 @@ export type FloatingToolbarSeparator = {
 	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 };
 
+export type ExtensionDropdownOptions = () => DropdownOptions<Function>;
+
 export type FloatingToolbarDropdown<T extends Object> = {
 	testId?: string;
 	id?: string;
@@ -300,7 +302,7 @@ export type FloatingToolbarDropdown<T extends Object> = {
 	 * Places an icon before the title as a representation
 	 */
 	iconBefore?: Icon;
-	options: DropdownOptions<T>;
+	options: DropdownOptions<T> | ExtensionDropdownOptions;
 	hidden?: boolean;
 	hideExpandIcon?: boolean;
 	disabled?: boolean;

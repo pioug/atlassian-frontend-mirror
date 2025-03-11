@@ -365,7 +365,11 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
 		.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${stickyRowOffsetTop + 2}px;
+			margin-top: ${
+				fg('platform_editor_number_column_sticky_header_bug')
+					? stickyRowOffsetTop
+					: stickyRowOffsetTop + 2
+			}px;
 			width: ${akEditorTableNumberColumnWidth}px;
 
 			position: fixed !important;
@@ -376,8 +380,12 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		}
 		`
 		: `
-    .${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${stickyRowOffsetTop + 2}px;
+    	.${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+			margin-top: ${
+				fg('platform_editor_number_column_sticky_header_bug')
+					? stickyRowOffsetTop
+					: stickyRowOffsetTop + 2
+			}px;
 			width: ${akEditorTableNumberColumnWidth}px;
 
 			position: fixed !important;
@@ -529,20 +537,30 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 			.${ClassName.NUMBERED_COLUMN}
 			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${tableControlsSpacing + 2}px;
+			margin-top: ${
+				fg('platform_editor_number_column_sticky_header_bug')
+					? tableControlsSpacing
+					: tableControlsSpacing + 2
+			}px;
 		}
 		`
 		: `
 		.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
 			.${ClassName.NUMBERED_COLUMN}
 			.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			margin-top: ${tableControlsSpacing + 2}px;
+			margin-top: ${
+				fg('platform_editor_number_column_sticky_header_bug')
+					? tableControlsSpacing
+					: tableControlsSpacing + 2
+			}px;
 		}
 		`}
 
 	.${ClassName.CORNER_CONTROLS}.sticky {
-		border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid
-			${token('elevation.surface', 'white')};
+		border-top: ${fg('platform_editor_number_column_sticky_header_bug')
+				? tableControlsSpacing - tableToolbarSize
+				: tableControlsSpacing - tableToolbarSize + 2}px
+			solid ${token('elevation.surface', 'white')};
 	}
 
 	${sentinelStyles}

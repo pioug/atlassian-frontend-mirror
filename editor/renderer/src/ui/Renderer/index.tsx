@@ -271,7 +271,7 @@ export class __RendererClassComponent extends PureComponent<
 			// does not currently support SSR, should not be enabled in environments where Renderer is SSR-ed
 			allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
 			isInsideOfInlineExtension: props.isInsideOfInlineExtension,
-			textHighlighter: props.UNSTABLE_textHighlighter,
+			textHighlighter: props.textHighlighter || props.UNSTABLE_textHighlighter,
 			allowTableAlignment: props.UNSTABLE_allowTableAlignment,
 			allowTableResizing: props.UNSTABLE_allowTableResizing,
 		};
@@ -786,7 +786,7 @@ const RendererFunctionalComponent = (
 				nodeComponents: props.nodeComponents,
 				allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
 				isInsideOfInlineExtension: props.isInsideOfInlineExtension,
-				textHighlighter: props.UNSTABLE_textHighlighter,
+				textHighlighter: props.textHighlighter || props.UNSTABLE_textHighlighter,
 				allowTableAlignment: props.UNSTABLE_allowTableAlignment,
 				allowTableResizing: props.UNSTABLE_allowTableResizing,
 			};

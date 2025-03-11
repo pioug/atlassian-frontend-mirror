@@ -1,5 +1,13 @@
 # @atlaskit/skeleton
 
+## 2.0.1
+
+### Patch Changes
+
+- [#124565](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124565)
+  [`7e97766ff3529`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e97766ff3529) -
+  Update dependencies.
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.4.0
+
+### Minor Changes
+
+- [#123455](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123455)
+  [`aa9cadfc7ae99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa9cadfc7ae99) -
+  Add min() and max() to @atlaskit/css size typing.
+
 ## 4.3.2
 
 ### Patch Changes

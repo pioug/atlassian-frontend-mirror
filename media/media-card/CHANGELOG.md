@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 79.0.7
+
+### Patch Changes
+
+- [#123539](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123539)
+  [`7d7e4ceeebc70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d7e4ceeebc70) -
+  Fixed error logging payload - added more info from underlying errors
+- Updated dependencies
+
 ## 79.0.6
 
 ### Patch Changes

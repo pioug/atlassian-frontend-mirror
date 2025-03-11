@@ -15,11 +15,18 @@ const defaultMetadata: RequestErrorMetadata & MediaHeaders = {
 	traceContext: { traceId: 'some-trace', spanId: 'some-span' },
 };
 
-export const createServerUnauthorizedError = (metadataAndHeaders = defaultMetadata) =>
-	new RequestError('serverUnauthorized', {
-		...metadataAndHeaders,
-		statusCode: 403,
-	});
+export const createServerUnauthorizedError = (
+	metadataAndHeaders = defaultMetadata,
+	innerError?: Error,
+) =>
+	new RequestError(
+		'serverUnauthorized',
+		{
+			...metadataAndHeaders,
+			statusCode: 403,
+		},
+		innerError || new Error('inner error message'),
+	);
 
 export const createRateLimitedError = (metadataAndHeaders = defaultMetadata) =>
 	new RequestError('serverRateLimited', {

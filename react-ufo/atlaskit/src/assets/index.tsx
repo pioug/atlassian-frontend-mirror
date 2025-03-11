@@ -1,7 +1,15 @@
-import type { AssetsClassification, AssetsData, AssetsReporter } from '../common';
-import type { ResourceTiming, ResourceTimings } from '../resource-timing';
+import type { AssetsConfig, AssetsData, AssetsReporter } from '../common';
+import type { ResourceEntry } from '../resource-timing/common/types';
 
-import { calculateTransferType, DISK_KEY, MEMORY_KEY, NETWORK_KEY, round } from './utils';
+import {
+	calculateTransferType,
+	checkIfTimingsAvailable,
+	DISK_KEY,
+	getTypeOfRequest,
+	MEMORY_KEY,
+	NETWORK_KEY,
+	round,
+} from './utils';
 export class CHRSummary {
 	bundles = { [MEMORY_KEY]: 0, [DISK_KEY]: 0, [NETWORK_KEY]: 0 };
 
@@ -11,10 +19,14 @@ export class CHRSummary {
 
 	sizeTotal = 0;
 
-	add(asset: ResourceTiming) {
-		const size = 'size' in asset ? asset.size : undefined;
-		const encodedSize = 'encodedSize' in asset ? Number(asset.encodedSize) : 0;
-		const type = calculateTransferType(asset.type, asset.duration, size);
+	add(asset: ResourceEntry) {
+		const encodedSize = asset.encodedSize || 0;
+		const type = calculateTransferType(
+			asset.name,
+			asset.initiatorType,
+			asset.duration,
+			asset.transferSize,
+		);
 		if (type === null) {
 			return;
 		}
@@ -40,33 +52,56 @@ export class CHRReporter {
 	all = new CHRSummary();
 	allAtlassian = new CHRSummary();
 	preloaded = new CHRSummary();
-
-	constructor() {}
+	defaultAllowedTypes = ['js'];
 
 	get(
-		resourceTimings: ResourceTimings,
-		assetsClassification: AssetsClassification,
+		resourceTimings: ResourceEntry[] | null,
+		assetsConfig: AssetsConfig,
+		SSRDoneTime: number | undefined,
 	): AssetsData | null {
 		try {
-			Object.entries(resourceTimings).map(([label, entry]) => {
-				if (assetsClassification.all) {
+			if (resourceTimings === null) {
+				return null;
+			}
+
+			resourceTimings.forEach((entry) => {
+				if (!checkIfTimingsAvailable(entry)) {
+					return;
+				}
+
+				if (entry.encodedSize === entry.decodedSize) {
+					// incorrectly reported size
+					return;
+				}
+
+				const type = getTypeOfRequest(entry);
+
+				if (!(assetsConfig.allowedTypes || this.defaultAllowedTypes).includes(type)) {
+					return;
+				}
+
+				if (assetsConfig.classification.all) {
 					this.all.add(entry);
 				}
-				if (assetsClassification.allAtlassian({ label, entry })) {
+				if (assetsConfig.classification.allAtlassian({ entry })) {
 					this.allAtlassian.add(entry);
 				}
-				if (assetsClassification.preloaded({ label, entry })) {
+				if (assetsConfig.classification.preloaded({ entry, SSRDoneTime })) {
 					this.preloaded.add(entry);
 				}
 			});
+
 			if (this.all.bundlesCount === 0) {
 				return null;
 			}
-			return {
+
+			const CHRData = {
 				all: CHRSummary.makePayload(this.all),
 				allAtlassian: CHRSummary.makePayload(this.allAtlassian),
 				preloaded: CHRSummary.makePayload(this.preloaded),
 			};
+
+			return CHRData;
 		} catch (error: unknown) {
 			return null;
 		}

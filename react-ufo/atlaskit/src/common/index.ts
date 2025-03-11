@@ -1,8 +1,20 @@
+/**
+ * @private
+ * @deprecated API - clean up with next reactUFO major version
+ */
+export type AssetResourceEntry = any;
+/**
+ * @private
+ * @deprecated API - clean up with next reactUFO major version
+ */
+export type AssetsClassification = any;
+
 export type {
-	AssetResourceEntry,
-	AssetsClassification,
+	AssetsConfig,
 	AssetsData,
 	AssetsReporter,
+	AssetsConfigAllAtlassianArgs,
+	AssetsConfigPreloadedArgs,
 } from './assets/types';
 
 export type {

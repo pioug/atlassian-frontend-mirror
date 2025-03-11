@@ -644,7 +644,7 @@ describe('<ItemViewer />', () => {
 					attributes: {
 						failReason: 'imageviewer-fetch-url',
 						error: 'serverUnauthorized',
-						errorDetail: 'unknown',
+						errorDetail: 'inner error message',
 						fileAttributes: {
 							fileId: identifier.id,
 							fileMediatype: fileItem.details.mediaType,
@@ -820,7 +820,7 @@ describe('<ItemViewer />', () => {
 					actionSubject: 'mediaFile',
 					attributes: {
 						error: 'serverUnauthorized',
-						errorDetail: 'unknown',
+						errorDetail: 'inner error message',
 						failReason: 'docviewer-fetch-url',
 						fileAttributes: {
 							fileId: identifier.id,

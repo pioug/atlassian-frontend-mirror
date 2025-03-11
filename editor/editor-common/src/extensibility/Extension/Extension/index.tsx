@@ -261,10 +261,14 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 								data-testid="extension-content"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={content}
-								ref={handleContentDOMRef}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={contentClassNames}
-							/>
+								ref={!fg('platform_editor_extension_fix_ssr_ref') ? handleContentDOMRef : undefined}
+							>
+								{/* NOTE: this is a way around a bit strange issue where ref is always null on SSR
+								    when `css` property is provided to the component. */}
+								{fg('platform_editor_extension_fix_ssr_ref') && <div ref={handleContentDOMRef} />}
+							</div>
 						</div>
 					)}
 				</div>

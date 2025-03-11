@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.1.5
+
+### Patch Changes
+
+- [#122662](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122662)
+  [`4b5cbb4f25f54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b5cbb4f25f54) -
+  FD-80149: cleans up platform_editor_react18_phase2_v2 in typeahead
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

@@ -3209,7 +3209,7 @@ describe('Card ', () => {
 			actionSubject: 'mediaCardDownload',
 			attributes: {
 				error: 'serverUnauthorized',
-				errorDetail: 'serverUnauthorized',
+				errorDetail: 'inner error message',
 				failReason: 'download',
 				fileMimetype: fileItem.details.mimeType,
 				status: 'fail',
@@ -4733,7 +4733,7 @@ describe('Card ', () => {
 							status: 'fail',
 							failReason: 'remote-preview-fetch',
 							error: 'serverUnauthorized',
-							errorDetail: 'serverUnauthorized',
+							errorDetail: 'inner error message',
 							request: {
 								attempts: 5,
 								clientExhaustedRetries: true,
@@ -4802,7 +4802,7 @@ describe('Card ', () => {
 							status: 'fail',
 							failReason: 'metadata-fetch',
 							error: 'serverUnauthorized',
-							errorDetail: 'serverUnauthorized',
+							errorDetail: 'inner error message',
 							request: {
 								attempts: 5,
 								clientExhaustedRetries: true,
@@ -5348,7 +5348,7 @@ describe('Card ', () => {
 					actionSubject: 'mediaCardRender',
 					attributes: {
 						error: 'serverUnauthorized',
-						errorDetail: 'serverUnauthorized',
+						errorDetail: 'inner error message',
 						failReason: 'svg-binary-fetch',
 						fileAttributes,
 						fileMimetype: 'image/svg+xml',

@@ -4,15 +4,15 @@
  */
 import { type FC, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import Link from '@atlaskit/link';
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { lorem } from './lorem';
 import { presidents } from './presidents';
@@ -48,20 +48,26 @@ const NameWrapper: FC<{ children: ReactNode }> = ({ children }) => (
 	<span css={nameWrapperStyles}>{children}</span>
 );
 
-const avatarWrapperStyles = xcss({
-	marginInlineEnd: 'space.100',
+const avatarWrapperStyles = css({
+	marginInlineEnd: token('space.100'),
 });
 
 const AvatarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
-	<Box xcss={avatarWrapperStyles}>{children}</Box>
+	// eslint-disable-next-line @atlaskit/design-system/use-primitives
+	<div css={avatarWrapperStyles}>{children}</div>
 );
 
-const starWrapperStyles = xcss({
-	padding: 'space.050',
+const starWrapperStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
+	},
 });
 
 const StarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
-	<Flex xcss={starWrapperStyles} alignItems="center">
+	<Flex xcss={starWrapperStyles.root} alignItems="center">
 		{children}
 	</Flex>
 );

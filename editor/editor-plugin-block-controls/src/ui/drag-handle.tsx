@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { DragEvent, KeyboardEvent, MouseEvent } from 'react';
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
-import type { DragEvent, MouseEvent, KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -53,6 +53,7 @@ import {
 } from '../pm-plugins/utils/selection';
 
 import {
+	BLOCK_MENU_ENABLED,
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH,
@@ -63,8 +64,8 @@ import {
 	spacingBetweenNodesForPreview,
 	topPositionAdjustment,
 } from './consts';
-import { dragPreview } from './drag-preview';
 import type { DragPreviewContent } from './drag-preview';
+import { dragPreview } from './drag-preview';
 
 const iconWrapperStyles = xcss({
 	display: 'flex',
@@ -179,7 +180,6 @@ const getNodeMargins = (node?: PMNode): { top: number; bottom: number } => {
 
 	return nodeMargins[nodeTypeName] || nodeMargins['default'];
 };
-
 export const DragHandle = ({
 	view,
 	api,
@@ -252,7 +252,7 @@ export const DragHandle = ({
 					mSelect?.anchor !== undefined ? tr.doc.resolve(mSelect?.anchor) : tr.selection.$anchor;
 				if (!isMultiSelect || tr.selection.empty || !e.shiftKey) {
 					tr = selectNode(tr, startPos, nodeType);
-					if (editorExperiment('platform_editor_controls', 'variant1')) {
+					if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
 						api?.blockControls?.commands.toggleBlockMenu({ anchorName })({ tr });
 						e.stopPropagation();
 					}

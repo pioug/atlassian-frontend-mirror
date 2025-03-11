@@ -57,6 +57,7 @@
 		"@atlaskit/tokens": "workspace:*",
 		"@atlaskit/tooltip": "workspace:*",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {

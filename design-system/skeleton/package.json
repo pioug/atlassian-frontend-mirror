@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/skeleton",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "A skeleton acts as a placeholder for content, usually while the content loads.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,10 @@
 		"@af/accessibility-testing": "workspace:*",
 		"@af/integration-testing": "workspace:*",
 		"@af/visual-regression": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/link": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

@@ -39,7 +39,9 @@ const rule = createLintRule({
 	create(context: Rule.RuleContext) {
 		const isIconBase = createIsFromImportSourceFor('@atlaskit/icon', '@atlaskit/icon/base');
 		const { centralLocation = '', failSilently = false } = context.options[0] ?? {};
-		const locationMessage = centralLocation ? ` or move the icon to '${centralLocation}'` : '';
+		const locationMessage = centralLocation
+			? `, move the icon to '${centralLocation}', or, if it's a third party logo, migrate to a standard <svg> element with a \`label\`.`
+			: '';
 		return errorBoundary(
 			{
 				JSXElement(node: Rule.Node) {

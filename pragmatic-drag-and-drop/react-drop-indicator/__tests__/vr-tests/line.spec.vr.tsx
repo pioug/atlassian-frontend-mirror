@@ -3,70 +3,70 @@ import { snapshot } from '@af/visual-regression';
 import {
 	ColorDiscovery,
 	ColorWarning,
-	EdgeBottomAppearanceNoTerminalGap0px,
-	EdgeBottomAppearanceNoTerminalGapTokenSpace100,
-	EdgeBottomAppearanceTerminalGap0px,
-	EdgeBottomAppearanceTerminalGapTokenSpace100,
-	EdgeBottomAppearanceTerminalNoBleedGap0px,
-	EdgeBottomAppearanceTerminalNoBleedGapTokenSpace100,
-	EdgeBottomAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
-	EdgeLeftAppearanceNoTerminalGap0px,
-	EdgeLeftAppearanceNoTerminalGapTokenSpace100,
-	EdgeLeftAppearanceTerminalGap0px,
-	EdgeLeftAppearanceTerminalGapTokenSpace100,
-	EdgeLeftAppearanceTerminalNoBleedGap0px,
-	EdgeLeftAppearanceTerminalNoBleedGapTokenSpace100,
-	EdgeLeftAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
-	EdgeRightAppearanceNoTerminalGap0px,
-	EdgeRightAppearanceNoTerminalGapTokenSpace100,
-	EdgeRightAppearanceTerminalGap0px,
-	EdgeRightAppearanceTerminalGapTokenSpace100,
-	EdgeRightAppearanceTerminalNoBleedGap0px,
-	EdgeRightAppearanceTerminalNoBleedGapTokenSpace100,
-	EdgeRightAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
-	EdgeTopAppearanceNoTerminalGap0px,
-	EdgeTopAppearanceNoTerminalGapTokenSpace100,
-	EdgeTopAppearanceTerminalGap0px,
-	EdgeTopAppearanceTerminalGapTokenSpace100,
-	EdgeTopAppearanceTerminalNoBleedGap0px,
-	EdgeTopAppearanceTerminalNoBleedGapTokenSpace100,
-	EdgeTopAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
+	EdgeBottomTypeNoTerminalGap0px,
+	EdgeBottomTypeNoTerminalGapTokenSpace100,
+	EdgeBottomTypeTerminalGap0px,
+	EdgeBottomTypeTerminalGapTokenSpace100,
+	EdgeBottomTypeTerminalNoBleedGap0px,
+	EdgeBottomTypeTerminalNoBleedGapTokenSpace100,
+	EdgeBottomTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
+	EdgeLeftTypeNoTerminalGap0px,
+	EdgeLeftTypeNoTerminalGapTokenSpace100,
+	EdgeLeftTypeTerminalGap0px,
+	EdgeLeftTypeTerminalGapTokenSpace100,
+	EdgeLeftTypeTerminalNoBleedGap0px,
+	EdgeLeftTypeTerminalNoBleedGapTokenSpace100,
+	EdgeLeftTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
+	EdgeRightTypeNoTerminalGap0px,
+	EdgeRightTypeNoTerminalGapTokenSpace100,
+	EdgeRightTypeTerminalGap0px,
+	EdgeRightTypeTerminalGapTokenSpace100,
+	EdgeRightTypeTerminalNoBleedGap0px,
+	EdgeRightTypeTerminalNoBleedGapTokenSpace100,
+	EdgeRightTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
+	EdgeTopTypeNoTerminalGap0px,
+	EdgeTopTypeNoTerminalGapTokenSpace100,
+	EdgeTopTypeTerminalGap0px,
+	EdgeTopTypeTerminalGapTokenSpace100,
+	EdgeTopTypeTerminalNoBleedGap0px,
+	EdgeTopTypeTerminalNoBleedGapTokenSpace100,
+	EdgeTopTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
 } from '../../examples/line';
 
 const options: Parameters<typeof snapshot>[1] = {
 	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
 };
 
-snapshot(EdgeTopAppearanceTerminalGap0px, options);
-snapshot(EdgeRightAppearanceTerminalGap0px, options);
-snapshot(EdgeBottomAppearanceTerminalGap0px, options);
-snapshot(EdgeLeftAppearanceTerminalGap0px, options);
-snapshot(EdgeTopAppearanceTerminalGapTokenSpace100, options);
-snapshot(EdgeRightAppearanceTerminalGapTokenSpace100, options);
-snapshot(EdgeBottomAppearanceTerminalGapTokenSpace100, options);
-snapshot(EdgeLeftAppearanceTerminalGapTokenSpace100, options);
-snapshot(EdgeTopAppearanceNoTerminalGap0px, options);
-snapshot(EdgeRightAppearanceNoTerminalGap0px, options);
-snapshot(EdgeBottomAppearanceNoTerminalGap0px, options);
-snapshot(EdgeLeftAppearanceNoTerminalGap0px, options);
-snapshot(EdgeTopAppearanceNoTerminalGapTokenSpace100, options);
-snapshot(EdgeRightAppearanceNoTerminalGapTokenSpace100, options);
-snapshot(EdgeBottomAppearanceNoTerminalGapTokenSpace100, options);
-snapshot(EdgeLeftAppearanceNoTerminalGapTokenSpace100, options);
-snapshot(EdgeTopAppearanceTerminalNoBleedGap0px, options);
-snapshot(EdgeRightAppearanceTerminalNoBleedGap0px, options);
-snapshot(EdgeBottomAppearanceTerminalNoBleedGap0px, options);
-snapshot(EdgeLeftAppearanceTerminalNoBleedGap0px, options);
-snapshot(EdgeTopAppearanceTerminalNoBleedGapTokenSpace100, options);
-snapshot(EdgeRightAppearanceTerminalNoBleedGapTokenSpace100, options);
-snapshot(EdgeBottomAppearanceTerminalNoBleedGapTokenSpace100, options);
-snapshot(EdgeLeftAppearanceTerminalNoBleedGapTokenSpace100, options);
+snapshot(EdgeTopTypeTerminalGap0px, options);
+snapshot(EdgeRightTypeTerminalGap0px, options);
+snapshot(EdgeBottomTypeTerminalGap0px, options);
+snapshot(EdgeLeftTypeTerminalGap0px, options);
+snapshot(EdgeTopTypeTerminalGapTokenSpace100, options);
+snapshot(EdgeRightTypeTerminalGapTokenSpace100, options);
+snapshot(EdgeBottomTypeTerminalGapTokenSpace100, options);
+snapshot(EdgeLeftTypeTerminalGapTokenSpace100, options);
+snapshot(EdgeTopTypeNoTerminalGap0px, options);
+snapshot(EdgeRightTypeNoTerminalGap0px, options);
+snapshot(EdgeBottomTypeNoTerminalGap0px, options);
+snapshot(EdgeLeftTypeNoTerminalGap0px, options);
+snapshot(EdgeTopTypeNoTerminalGapTokenSpace100, options);
+snapshot(EdgeRightTypeNoTerminalGapTokenSpace100, options);
+snapshot(EdgeBottomTypeNoTerminalGapTokenSpace100, options);
+snapshot(EdgeLeftTypeNoTerminalGapTokenSpace100, options);
+snapshot(EdgeTopTypeTerminalNoBleedGap0px, options);
+snapshot(EdgeRightTypeTerminalNoBleedGap0px, options);
+snapshot(EdgeBottomTypeTerminalNoBleedGap0px, options);
+snapshot(EdgeLeftTypeTerminalNoBleedGap0px, options);
+snapshot(EdgeTopTypeTerminalNoBleedGapTokenSpace100, options);
+snapshot(EdgeRightTypeTerminalNoBleedGapTokenSpace100, options);
+snapshot(EdgeBottomTypeTerminalNoBleedGapTokenSpace100, options);
+snapshot(EdgeLeftTypeTerminalNoBleedGapTokenSpace100, options);
 
 // Indenting
-snapshot(EdgeTopAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
-snapshot(EdgeRightAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
-snapshot(EdgeBottomAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
-snapshot(EdgeLeftAppearanceTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
+snapshot(EdgeTopTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
+snapshot(EdgeRightTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
+snapshot(EdgeBottomTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
+snapshot(EdgeLeftTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200, options);
 
 // Custom colors
 snapshot(ColorWarning, options);

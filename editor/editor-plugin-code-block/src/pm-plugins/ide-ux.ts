@@ -5,6 +5,7 @@ import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockPlugin } from '../index';
 
@@ -144,7 +145,10 @@ const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefi
 				),
 				'Shift-Tab': filter(isSelectionEntirelyInsideCodeBlock, outdent(editorAnalyticsAPI)),
 				'Mod-a': (state: EditorState, dispatch?: CommandDispatch) => {
-					if (isSelectionEntirelyInsideCodeBlock(state)) {
+					if (
+						isSelectionEntirelyInsideCodeBlock(state) &&
+						editorExperiment('platform_editor_cmd_a_progressively_select_nodes', false)
+					) {
 						const { $from, $to } = state.selection;
 						const isFullCodeBlockSelection =
 							$from.parentOffset === 0 && $to.parentOffset === $to.parent.nodeSize - 2;

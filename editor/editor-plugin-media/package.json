@@ -168,9 +168,6 @@
 		},
 		"platform_editor_safari_media_clipboard_fix": {
 			"type": "boolean"
-		},
-		"dlp_cc-enforce-attachment-dl-dsp": {
-			"type": "boolean"
 		}
 	},
 	"stricter": {

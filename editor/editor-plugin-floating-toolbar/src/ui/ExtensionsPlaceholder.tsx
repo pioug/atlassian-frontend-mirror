@@ -22,6 +22,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import Dropdown from './Dropdown';
+
 interface Props {
 	node: PMNode;
 	extensionProvider: Promise<ExtensionProvider>;
@@ -29,6 +31,14 @@ interface Props {
 	separator?: 'start' | 'end' | 'both';
 	applyChangeToContextPanel: ApplyChangeHandler | undefined;
 	extensionApi: ExtensionAPI | undefined;
+	scrollable?: boolean;
+	setDisableScroll?: (disable: boolean) => void;
+	dispatchCommand?: (command: Function) => void;
+	popupsMountPoint?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	setDisableParentScroll?: (disable: boolean) => void;
+	alignDropdownWithToolbar?: boolean;
 }
 
 type ExtensionButtonProps = {
@@ -121,6 +131,13 @@ export const ExtensionsPlaceholder = (props: Props) => {
 		separator,
 		applyChangeToContextPanel,
 		extensionApi,
+		scrollable,
+		setDisableScroll,
+		dispatchCommand,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		alignDropdownWithToolbar,
 	} = props;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -169,15 +186,58 @@ export const ExtensionsPlaceholder = (props: Props) => {
 			item.disabled = true;
 		}
 
-		children.push(
-			<ExtensionButton
-				node={node}
-				item={item}
-				editorView={editorView}
-				applyChangeToContextPanel={applyChangeToContextPanel}
-				extensionApi={extensionApi}
-			/>,
-		);
+		if (fg('forge-ui-macro-autoconvert')) {
+			if ('type' in item && item.type === 'dropdown') {
+				children.push(
+					<Dropdown
+						key={item.id}
+						title={item.title}
+						icon={item.icon}
+						dispatchCommand={dispatchCommand || (() => {})}
+						options={item.options}
+						disabled={item.disabled}
+						tooltip={item.tooltip}
+						hideExpandIcon={item.hideExpandIcon}
+						mountPoint={popupsMountPoint}
+						boundariesElement={popupsBoundariesElement}
+						scrollableElement={popupsScrollableElement}
+						dropdownWidth={item.dropdownWidth}
+						showSelected={item.showSelected}
+						buttonTestId={item.testId}
+						editorView={editorView}
+						setDisableParentScroll={scrollable ? setDisableScroll : undefined}
+						dropdownListId={item?.id && `${item.id}-dropdownList`}
+						alignDropdownWithToolbar={alignDropdownWithToolbar}
+						onToggle={item.onToggle}
+						footer={item.footer}
+						onMount={item.onMount}
+						onClick={item.onClick}
+						pulse={item.pulse}
+					/>,
+				);
+			} else {
+				children.push(
+					<ExtensionButton
+						node={node}
+						item={item as ExtensionToolbarButton}
+						editorView={editorView}
+						applyChangeToContextPanel={applyChangeToContextPanel}
+						extensionApi={extensionApi}
+					/>,
+				);
+			}
+		} else {
+			children.push(
+				<ExtensionButton
+					node={node}
+					item={item}
+					editorView={editorView}
+					applyChangeToContextPanel={applyChangeToContextPanel}
+					extensionApi={extensionApi}
+				/>,
+			);
+		}
+
 		if (index < extensionItems.length - 1) {
 			children.push(<Separator />);
 		}

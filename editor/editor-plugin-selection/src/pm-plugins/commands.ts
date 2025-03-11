@@ -9,6 +9,7 @@ import type { Command, EditorCommandWithMetadata } from '@atlaskit/editor-common
 import { isEmptyParagraph, isNodeEmpty } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { SelectionDirection, selectionPluginKey } from '../types';
 
@@ -408,3 +409,37 @@ export const setSelectionInsideAtNodeEnd =
 		}
 		return false;
 	};
+
+export const selectNodeWithModA = (): Command => (state, dispatch) => {
+	const { selection } = state;
+	const { $from, $to } = selection;
+	// Check if the selection is at the top level (e.g., in a paragraph)
+	const isTopLevelSelection = $from.depth === 1 || $to.depth === 1;
+
+	// Determine if the selection is within a code block
+	const isInCodeBlock = $from.sameParent($to) && $from.parent.type === state.schema.nodes.codeBlock;
+
+	// If the selection is at the top level and not in a code block, or if a table is selected, do nothing
+	if ((isTopLevelSelection && !isInCodeBlock) || isTableSelected(selection)) {
+		return false;
+	}
+
+	// Get the depth of the first common ancestor node
+	const commonAncestorDepth = $from.sharedDepth($to.pos);
+
+	for (let depth = commonAncestorDepth; depth > 0; depth--) {
+		const node = $from.node(depth);
+
+		const isParentBlockQuote = node.type.name === 'blockquote';
+		const isSelectable = NodeSelection.isSelectable(node) && !isParentBlockQuote;
+
+		if (isSelectable) {
+			if (dispatch) {
+				dispatch(state.tr.setSelection(NodeSelection.create(state.doc, $from.before(depth))));
+			}
+			return true;
+		}
+	}
+
+	return false;
+};

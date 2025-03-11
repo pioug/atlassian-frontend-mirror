@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::533d7f37acd50cb73c2f898b77e8e078>>
+ * @codegen <<SignedSource::cc0f430b2dc9a266797e1ba536c0ff30>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -289,17 +289,15 @@ export type BorderWidth =
 	| 0
 	| '0';
 export type BorderShorthand = 'none' | `${BorderWidth} solid ${BorderColor}`;
+type NumericSize = `${number}px` | `${number}rem` | `${number}vh` | `${number}vw` | `${number}%`;
 export type SizeIntrinsic =
-	| `${number}px`
-	| `${number}rem`
-	| '100%'
 	| 'min-content'
 	| 'max-content'
 	| 'fit-content'
 	| 'auto'
-	| `${number}vh`
-	| `${number}vw`
-	| `${number}%`;
+	| NumericSize
+	| `min(${NumericSize}, ${NumericSize})`
+	| `max(${NumericSize}, ${NumericSize})`;
 export type Space =
 	| 'var(--ds-space-0)'
 	| 'var(--ds-space-025)'

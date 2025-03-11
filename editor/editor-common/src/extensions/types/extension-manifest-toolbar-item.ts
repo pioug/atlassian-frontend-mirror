@@ -1,5 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
+import type { Command, FloatingToolbarDropdown, FloatingToolbarItem } from '../../types';
+
 import type { ExtensionAPI } from './extension-handler';
 import type { ExtensionIconModule } from './extension-manifest-common';
 
@@ -24,7 +26,7 @@ export type ToolbarButton = ExtensionModuleToolbarButtonLabelOrIcon & {
 	disabled?: boolean;
 };
 
-export type ToolbarItem = ToolbarButton;
+export type ToolbarItem = ToolbarButton | FloatingToolbarItem<Command>;
 
 export type ToolbarContext = ExtensionNodeContext | StandardNodeContext;
 
@@ -58,6 +60,8 @@ export type StandardNodeContext = {
 	type: 'node';
 	nodeType: 'table';
 };
+
+export type ExtensionToolbarItem = ExtensionToolbarButton | FloatingToolbarDropdown<Command>;
 
 export type ExtensionToolbarButton = {
 	key: string;

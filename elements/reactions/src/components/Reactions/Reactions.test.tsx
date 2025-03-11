@@ -309,8 +309,14 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(wrapper).toBeDefined();
 	});
 
-	it('should not render picker after reactions if isViewOnly', async () => {
+	it('should not render picker after reactions if isViewOnly is true', async () => {
 		renderReactions({ reactions, isViewOnly: true });
+
+		expect(screen.queryByTestId(RENDER_REACTIONPICKER_TESTID)).not.toBeInTheDocument();
+	});
+
+	it('should not render picker after reactions if allowSelectFromSummaryView is true', async () => {
+		renderReactions({ reactions, allowSelectFromSummaryView: true });
 
 		expect(screen.queryByTestId(RENDER_REACTIONPICKER_TESTID)).not.toBeInTheDocument();
 	});

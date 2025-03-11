@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block",
-	"version": "4.1.2",
+	"version": "4.2.0",
 	"description": "Code block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,6 +45,7 @@
 		"@atlaskit/icon": "workspace:*",
 		"@atlaskit/platform-feature-flags": "workspace:*",
 		"@atlaskit/prosemirror-input-rules": "workspace:*",
+		"@atlaskit/tmp-editor-statsig": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

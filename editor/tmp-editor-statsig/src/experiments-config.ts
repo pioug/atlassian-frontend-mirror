@@ -344,4 +344,13 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'fallbackall', 'fallbackoffscreen']),
 		defaultValue: 'control',
 	},
+	// Added 2025-03-03
+	platform_editor_cmd_a_progressively_select_nodes: {
+		productKeys: {
+			confluence: 'platform_editor_cmd_a_progressively_select_nodes',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

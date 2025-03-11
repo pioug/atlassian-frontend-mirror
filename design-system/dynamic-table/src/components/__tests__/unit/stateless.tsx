@@ -290,7 +290,7 @@ ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', (
 
 		test('sort button icon should appear over icon on focus for a currently unsorted icon column', async () => {
 			const props = createProps();
-			render(<DynamicTable {...props} />);
+			const { rerender } = render(<DynamicTable {...props} />);
 
 			const iconColumnSortButton = screen.getByRole('button', { name: 'starred' });
 			const starIcon = screen.getByLabelText('starred');
@@ -302,6 +302,8 @@ ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', (
 			expect(starIcon).toBeVisible();
 
 			await userEvent.click(iconColumnSortButton);
+
+			rerender(<DynamicTable {...props} />);
 
 			expect(iconColumnSortButtonIcon).toBeVisible();
 			expect(starIcon).not.toBeVisible();

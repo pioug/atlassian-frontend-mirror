@@ -4,17 +4,39 @@
  */
 import { type FC } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import {
-	cellStyles,
-	fixedSizeTruncateStyles,
-	getTruncationStyleVars,
-	overflowTruncateStyles,
-	type TruncateStyleProps,
-	truncationWidthStyles,
-} from './constants';
+import { token } from '@atlaskit/tokens';
+
+import { getTruncationStyleVars, type TruncateStyleProps } from './constants';
+
+const fixedSizeTruncateStyles = css({
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+});
+
+const overflowTruncateStyles = css({
+	overflow: 'hidden',
+});
+
+const truncationWidthStyles = css({ width: `var(--local-dynamic-table-width)` });
+
+const cellStyles = css({
+	border: 'none',
+	paddingBlockEnd: token('space.050', '4px'),
+	paddingBlockStart: token('space.050', '4px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
+	textAlign: 'left',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:first-of-type': {
+		paddingInlineStart: token('space.0', '0px'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:last-child': {
+		paddingInlineEnd: token('space.0', '0px'),
+	},
+});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const TableBodyCell: FC<TruncateStyleProps> = ({
@@ -40,6 +62,8 @@ export const TableBodyCell: FC<TruncateStyleProps> = ({
 		// HOC withDimensions complains about the types but it is working fine
 		// @ts-ignore
 		ref={innerRef}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={props.className}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	/>

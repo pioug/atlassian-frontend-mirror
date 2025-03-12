@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 2.0.5
+
+### Patch Changes
+
+- [#124288](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124288)
+  [`b847c8d4907ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b847c8d4907ed) -
+  [ux] ED-26946 Add prop to only enable empty line placeholders when the plugin option is passed in
+- Updated dependencies
+
 ## 2.0.4
 
 ### Patch Changes

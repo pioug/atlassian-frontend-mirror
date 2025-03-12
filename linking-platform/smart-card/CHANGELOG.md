@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 35.2.7
+
+### Patch Changes
+
+- [#124162](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124162)
+  [`92012b0d9a1f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92012b0d9a1f2) -
+  Add new recursive title block finder function for compiled css tests
+
+## 35.2.6
+
+### Patch Changes
+
+- [#124939](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124939)
+  [`43119bff17a5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43119bff17a5e) -
+  [ux] Fix inline card design refresh unresolved view action word wrap
+
+## 35.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.2.4
 
 ### Patch Changes

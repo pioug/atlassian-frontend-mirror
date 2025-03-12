@@ -3,9 +3,9 @@
  *
  * The color map is used to map a background color token to a matching text color that will meet contrast.
  *
- * @codegen <<SignedSource::7d0040ba6b7bc80f7ebca42192d566ab>>
+ * @codegen <<SignedSource::e6f777f074b5270687bb9285d5876240>>
  * @codegenCommand yarn codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f27d1519d51cc4a85383a00907847774>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d227fb20aa75533eb903b15ddcb61e67>>
  */
 export default {
 	'neutral.bold': 'inverse',

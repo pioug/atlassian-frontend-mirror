@@ -4,11 +4,10 @@
  */
 import { type CSSProperties, forwardRef, Fragment, type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text } from '@atlaskit/primitives';
-import { B200, B50, N30 } from '@atlaskit/theme/colors';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type AvatarClickEventHandler } from './types';
@@ -16,8 +15,8 @@ import { getCustomElement } from './utilities';
 
 const bgColorCssVar = '--avatar-item-bg-color';
 
-const styles = {
-	root: css({
+const styles = cssMap({
+	root: {
 		display: 'flex',
 		boxSizing: 'border-box',
 		width: '100%',
@@ -45,49 +44,49 @@ const styles = {
 		paddingInlineStart: token('space.050'),
 		textAlign: 'left',
 		textDecoration: 'none',
-	}),
-	rootDisabled: css({
+	},
+	rootDisabled: {
 		cursor: 'not-allowed',
 		opacity: token('opacity.disabled', '0.5'),
 		pointerEvents: 'none',
-	}),
-	rootInteractive: css({
+	},
+	rootInteractive: {
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+			backgroundColor: token('color.background.neutral.subtle.hovered', '#EBECF0'),
 			cursor: 'pointer',
 			textDecoration: 'none',
 		},
 		'&:focus': {
-			borderColor: token('color.border.focused', B200),
+			borderColor: token('color.border.focused', '#2684FF'),
 			outline: 'none',
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed', B50),
+			backgroundColor: token('color.background.neutral.subtle.pressed', '#DEEBFF'),
 		},
-	}),
-	avatarItem: css({
+	},
+	avatarItem: {
 		minWidth: 0,
 		maxWidth: '100%',
 		flex: '1 1 100%',
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '1.4',
 		paddingInlineStart: token('space.100'),
-	}),
-	baseText: css({
+	},
+	baseText: {
 		display: 'block',
 		color: token('color.text'),
-	}),
-	truncation: css({
+	},
+	truncation: {
 		overflowX: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
-	}),
-	secondaryTextLegacy: css({
+	},
+	secondaryTextLegacy: {
 		color: token('color.text.subtlest'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '0.85em',
-	}),
-};
+	},
+});
 
 export interface AvatarItemProps {
 	/**

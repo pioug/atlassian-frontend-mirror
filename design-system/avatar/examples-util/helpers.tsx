@@ -1,17 +1,23 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
+import { type ReactNode } from 'react';
+
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
-const shrinkWrapStyles = xcss({
-	height: token('space.300'),
-	width: token('space.300'),
+const styles = cssMap({
+	shrinkWrap: {
+		height: '24px',
+		width: '24px',
+	},
 });
 
 export const ShrinkWrap = ({ children }: { children?: ReactNode }) => (
-	<Box xcss={shrinkWrapStyles}>{children}</Box>
+	<Box xcss={styles.shrinkWrap}>{children}</Box>
 );
 
 export const Block = ({

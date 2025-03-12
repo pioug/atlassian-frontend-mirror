@@ -1,9 +1,13 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import Avatar, { type AppearanceType, type PresenceType, type StatusType } from '@atlaskit/avatar';
 import { Code } from '@atlaskit/code';
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Grid, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Grid, Stack, Text } from '@atlaskit/primitives/compiled';
 import { N0, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -17,14 +21,19 @@ const exampleColors = [
 const presences: PresenceType[] = ['focus', 'online', 'offline', 'busy'];
 const statuses: StatusType[] = ['approved', 'locked', 'declined'];
 
-const columnStyles = xcss({
-	display: 'flex',
-	flex: 1,
-	flexDirection: 'column',
-	paddingBlockEnd: 'space.100',
-	paddingInlineStart: 'space.200',
-	paddingInlineEnd: 'space.200',
-	paddingBlockStart: 'space.100',
+const styles = cssMap({
+	column: {
+		display: 'flex',
+		flex: 1,
+		flexDirection: 'column',
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockStart: token('space.100'),
+	},
+	grid: {
+		gridTemplateColumns: '1fr 1fr',
+	},
 });
 interface ColorColumn {
 	borderColor: string;
@@ -37,7 +46,7 @@ interface ColorColumn {
 
 const ColorColumn = ({ key, src, borderColor, presence, status, appearance }: ColorColumn) => (
 	<div style={{ background: `${borderColor}` }}>
-		<Stack alignBlock="center" alignInline="center" space="space.500" xcss={columnStyles}>
+		<Stack alignBlock="center" alignInline="center" space="space.500" xcss={styles.column}>
 			<Avatar
 				onClick={console.log}
 				key={key}
@@ -85,7 +94,7 @@ export default () => (
 		</Text>
 
 		<Grid gap="space.025" alignItems="center">
-			<Grid templateColumns="1fr 1fr" testId="grid-basic" gap="space.0">
+			<Grid testId="grid-basic" gap="space.0" xcss={styles.grid}>
 				{exampleColors.map((color: string, index: number) => (
 					<ColorColumn
 						key={index}
@@ -96,7 +105,7 @@ export default () => (
 				))}
 			</Grid>
 
-			<Grid templateColumns="1fr 1fr" testId="grid-basic" gap="space.0">
+			<Grid testId="grid-basic" gap="space.0" xcss={styles.grid}>
 				{exampleColors.map((color: string, index: number) => (
 					<ColorColumn
 						key={index}

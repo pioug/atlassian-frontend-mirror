@@ -137,14 +137,13 @@ const InlineCardForbiddenViewNew = ({
 			if (fg('platform-linking-visual-refresh-v1')) {
 				const isDisabled = accessType === 'PENDING_REQUEST_EXISTS';
 				return (
-					<Button
-						onClick={handleRetry}
-						component={ActionButton}
-						testId="button-connect-other-account"
+					<ActionButton
 						isDisabled={isDisabled}
+						onClick={handleRetry}
+						testId="button-connect-other-account"
 					>
 						{renderForbiddenAccessMessage()}
-					</Button>
+					</ActionButton>
 				);
 			}
 			return (

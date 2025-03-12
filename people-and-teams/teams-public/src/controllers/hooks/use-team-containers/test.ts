@@ -28,7 +28,7 @@ describe('useTeamContainers', () => {
 	test('should fetch and set team containers successfully', async () => {
 		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERS);
 
-		const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-123'));
+		const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-124'));
 
 		await waitForNextUpdate();
 
@@ -41,7 +41,7 @@ describe('useTeamContainers', () => {
 		const mockError = new Error('Failed to fetch');
 		(teamsClient.getTeamContainers as jest.Mock).mockRejectedValueOnce(mockError);
 
-		const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-123'));
+		const { result, waitForNextUpdate } = renderHook(() => useTeamContainers('team-id-125'));
 
 		await waitForNextUpdate();
 
@@ -64,16 +64,16 @@ describe('useTeamContainersHook', () => {
 		});
 		const { result } = renderHook(() => useTeamContainersHook());
 
-		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERS);
-		await result.current[1].fetchTeamContainers('team-id-123');
+		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce([{ id: '1' }, { id: '2' }]);
+		await result.current[1].fetchTeamContainers('team-id-126');
 
 		const containerId = MOCK_TEAM_CONTAINERS.graphStore.cypherQuery.edges[0].node.to.id;
 
-		await result.current[1].unlinkTeamContainers('team-id-123', containerId);
+		await result.current[1].unlinkTeamContainers('team-id-126', containerId);
 
 		expect(result.current[0].unlinkError).toBeNull();
-		expect(teamsClient.unlinkTeamContainer).toHaveBeenCalledWith('team-id-123', containerId);
-		expect(teamsClient.getTeamContainers).toHaveBeenCalledWith('team-id-123');
+		expect(teamsClient.unlinkTeamContainer).toHaveBeenCalledWith('team-id-126', containerId);
+		expect(result.current[0].teamContainers.length).toEqual(1);
 	});
 
 	test('should skip fetching team containers if unlinking fails', async () => {
@@ -86,14 +86,13 @@ describe('useTeamContainersHook', () => {
 		const { result } = renderHook(() => useTeamContainersHook());
 
 		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERS);
-		await result.current[1].fetchTeamContainers('team-id-123');
+		await result.current[1].fetchTeamContainers('team-id-127');
 
 		const containerId = MOCK_TEAM_CONTAINERS.graphStore.cypherQuery.edges[0].node.to.id;
 
-		await result.current[1].unlinkTeamContainers('team-id-123', containerId);
+		await result.current[1].unlinkTeamContainers('team-id-127', containerId);
 
 		expect(result.current[0].unlinkError).toEqual(mockError);
-		expect(teamsClient.unlinkTeamContainer).toHaveBeenCalledWith('team-id-123', containerId);
-		expect(teamsClient.getTeamContainers).toHaveBeenCalledTimes(1);
+		expect(teamsClient.unlinkTeamContainer).toHaveBeenCalledWith('team-id-127', containerId);
 	});
 });

@@ -79,9 +79,9 @@ const InlineCardErroredViewNew = ({
 		return (
 			onRetry &&
 			(fg('platform-linking-visual-refresh-v1') ? (
-				<Button component={ActionButton} onClick={handleRetry}>
+				<ActionButton onClick={handleRetry}>
 					<FormattedMessage {...messages.try_again} />
-				</Button>
+				</ActionButton>
 			) : (
 				<Button
 					spacing="none"

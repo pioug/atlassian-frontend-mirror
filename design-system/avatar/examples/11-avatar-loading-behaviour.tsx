@@ -2,7 +2,7 @@ import React, { type ChangeEvent, type FC, type FormEvent, useState } from 'reac
 
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
-import { Box, Inline, Text } from '@atlaskit/primitives';
+import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 

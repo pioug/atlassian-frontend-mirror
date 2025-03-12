@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.4.3
+
+### Patch Changes
+
+- [#125435](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125435)
+  [`3a6c9fa4e395a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a6c9fa4e395a) -
+  Fix scrolling when activitySession event is fired
+- Updated dependencies
+
 ## 3.4.2
 
 ### Patch Changes

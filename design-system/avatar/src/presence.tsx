@@ -1,9 +1,15 @@
-import React, { type FC, Fragment, type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type FC, Fragment, type ReactNode } from 'react';
 
+import { cssMap as unboundCssMap } from '@compiled/react';
+
+import { cssMap, jsx } from '@atlaskit/css';
 import { G300, N0, N200, N40, P300, R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { ICON_OFFSET, ICON_SIZES } from './constants';
 import IconWrapper from './internal/icon-wrapper';
 import { type AppearanceType, type IndicatorSizeType, type Presence } from './types';
 
@@ -106,6 +112,55 @@ interface PresenceWrapperProps extends PresenceProps {
 	testId?: string;
 }
 
+const styles = cssMap({
+	root: {
+		position: 'absolute',
+		pointerEvents: 'none',
+	},
+});
+
+const iconSizeMap = cssMap({
+	small: {
+		height: '12px',
+		width: '12px',
+	},
+	medium: {
+		height: '14px',
+		width: '14px',
+	},
+	large: {
+		height: '15px',
+		width: '15px',
+	},
+	xlarge: {
+		height: '18px',
+		width: '18px',
+	},
+});
+
+const iconOffsetMap = unboundCssMap({
+	square: {
+		bottom: '-4px',
+		right: '-4px',
+	},
+	small: {
+		bottom: '0px',
+		right: '0px',
+	},
+	medium: {
+		bottom: '0px',
+		right: '0px',
+	},
+	large: {
+		bottom: '1px',
+		right: '1px',
+	},
+	xlarge: {
+		bottom: '7px',
+		right: '7px',
+	},
+});
+
 /**
  * __Presence wrapper__
  *
@@ -119,24 +174,16 @@ export const PresenceWrapper: FC<PresenceWrapperProps> = ({
 	presence,
 	testId,
 }) => {
-	const position = appearance === 'square' ? -4 : ICON_OFFSET[size];
-
 	return (
 		<span
 			aria-hidden="true"
 			data-testid={testId && `${testId}--presence`}
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				pointerEvents: 'none',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				position: 'absolute',
-				bottom: `${position}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				height: `${ICON_SIZES[size]}px`,
-				right: `${position}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				width: `${ICON_SIZES[size]}px`,
-			}}
+			css={[
+				styles.root,
+				iconSizeMap[size],
+				iconOffsetMap[size],
+				appearance === 'square' && iconOffsetMap['square'],
+			]}
 		>
 			<AvatarPresence borderColor={borderColor} presence={!children ? presence : undefined}>
 				{children}

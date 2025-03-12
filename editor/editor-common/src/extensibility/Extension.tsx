@@ -72,8 +72,8 @@ export class Extension extends Component<Props, any> {
 		// is not type safe in editor-common.
 		// @ts-ignore
 		const currentState = pluginInjectionApi?.editorViewMode?.sharedState?.currentState();
-		const { contentMode } = currentState || {};
-		const isLivePageViewMode = contentMode === 'live-view';
+		const { contentMode, mode } = currentState || {};
+		const isLivePageViewMode = contentMode === 'live-view' || mode === 'view';
 
 		return (
 			<ExtensionComponent

@@ -1,7 +1,7 @@
-import type { IconBrandRefreshColorTokenSchema, ValueSchema } from '../../../../src/types';
+import type { IconColorTokenSchema, ValueSchema } from '../../../../src/types';
 import type { BaseToken } from '../../../palettes/palette';
 
-const color: ValueSchema<IconBrandRefreshColorTokenSchema<BaseToken>> = {
+const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 	color: {
 		icon: {
 			'[default]': {

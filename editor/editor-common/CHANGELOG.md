@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 102.3.4
+
+### Patch Changes
+
+- [#123536](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123536)
+  [`32675a58bf978`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32675a58bf978) -
+  [ux] Removed padding from the dropdown button in the toolbar
+- Updated dependencies
+
+## 102.3.3
+
+### Patch Changes
+
+- [#125254](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125254)
+  [`0ec8788238d6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ec8788238d6c) -
+  Fixing forge FG in editor, inline extensions for autoconvert
+- Updated dependencies
+
+## 102.3.2
+
+### Patch Changes
+
+- [#122826](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122826)
+  [`3408f60558726`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3408f60558726) -
+  [ux] Fixes issue where macro interaction is showing up in live view after editor API update
+- Updated dependencies
+
+## 102.3.1
+
+### Patch Changes
+
+- [#125193](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125193)
+  [`246f1e93ab0d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/246f1e93ab0d1) -
+  ED-26834 Fire exposure for experiment `platform_editor_nested_non_bodied_macros` when rendering a
+  non bodied macro rendered in a nested expand, blockquote, panel or listItem in editor
+
 ## 102.3.0
 
 ### Minor Changes

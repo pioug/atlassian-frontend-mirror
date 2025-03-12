@@ -27,12 +27,11 @@ function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 export const placeholderTestId = 'placeholder-test-id';
 
 // TODO: ED-26962 - Use i18n for new placeholders
-export const SHORT_NODE_PLACEHOLDER_TEXT = '/ to insert';
-export const NODE_PLACEHOLDER_TEXT = 'Type / to insert elements';
-export const EMPTY_LINE_PLACEHOLDER_TEXT = 'Select + or type / to insert elements';
+const SHORT_NODE_PLACEHOLDER_TEXT = '/ to insert';
+const NODE_PLACEHOLDER_TEXT = 'Type / to insert elements';
 
-export const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
-export const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
+const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
+const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
 
 export function createPlaceholderDecoration(
 	editorState: EditorState,
@@ -94,6 +93,7 @@ function createPlaceHolderStateFrom(
 	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined,
 	defaultPlaceholderText: string | undefined,
 	bracketPlaceholderText?: string,
+	emptyLinePlaceholder?: string,
 ): PlaceHolderState {
 	if (isTypeAheadOpen?.(editorState)) {
 		return emptyPlaceholder(defaultPlaceholderText);
@@ -110,12 +110,14 @@ function createPlaceHolderStateFrom(
 			return emptyPlaceholder(defaultPlaceholderText);
 		}
 
-		const isEmptyLine = isEmptyParagraph($from.parent);
 		const parentNode = $from.node($from.depth - 1);
 		const parentType = parentNode?.type.name;
 
-		if (parentType === 'doc' && isEmptyLine) {
-			return setPlaceHolderState(EMPTY_LINE_PLACEHOLDER_TEXT, $from.pos);
+		if (emptyLinePlaceholder && parentType === 'doc') {
+			const isEmptyLine = isEmptyParagraph($from.parent);
+			if (isEmptyLine) {
+				return setPlaceHolderState(emptyLinePlaceholder, $from.pos);
+			}
 		}
 
 		const isEmptyNode = parentNode?.childCount === 1 && parentNode.firstChild?.content.size === 0;
@@ -129,6 +131,7 @@ function createPlaceHolderStateFrom(
 
 		return emptyPlaceholder(defaultPlaceholderText);
 	}
+
 	if (bracketPlaceholderText && bracketTyped(editorState) && isEditorFocused) {
 		const { $from } = editorState.selection;
 		// Space is to account for positioning of the bracket
@@ -141,6 +144,7 @@ function createPlaceHolderStateFrom(
 export function createPlugin(
 	defaultPlaceholderText?: string,
 	bracketPlaceholderText?: string,
+	emptyLinePlaceholder?: string,
 	api?: ExtractInjectionAPI<PlaceholderPlugin>,
 ): SafePlugin | undefined {
 	if (!defaultPlaceholderText && !bracketPlaceholderText) {
@@ -157,6 +161,7 @@ export function createPlugin(
 					api?.typeAhead?.actions.isOpen,
 					defaultPlaceholderText,
 					bracketPlaceholderText,
+					emptyLinePlaceholder,
 				),
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
@@ -169,6 +174,7 @@ export function createPlugin(
 						api?.typeAhead?.actions.isOpen,
 						meta.placeholderText,
 						bracketPlaceholderText,
+						emptyLinePlaceholder,
 					);
 				}
 
@@ -178,6 +184,7 @@ export function createPlugin(
 					api?.typeAhead?.actions.isOpen,
 					placeholderState?.placeholderText ?? defaultPlaceholderText,
 					bracketPlaceholderText,
+					emptyLinePlaceholder,
 				);
 			},
 		},
@@ -186,6 +193,7 @@ export function createPlugin(
 				const { hasPlaceholder, placeholderText, pos } = getPlaceholderState(editorState);
 
 				const compositionPluginState = api?.composition?.sharedState.currentState();
+
 				if (
 					hasPlaceholder &&
 					placeholderText &&
@@ -226,6 +234,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 						createPlugin(
 							options && options.placeholder,
 							options && options.placeholderBracketHint,
+							options && options.emptyLinePlaceholder,
 							api,
 						),
 				},

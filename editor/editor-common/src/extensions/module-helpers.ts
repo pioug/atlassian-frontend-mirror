@@ -233,7 +233,7 @@ export const getContextualToolbarItemsFromModule = (
 					})
 					.flatMap((toolbarItems) =>
 						toolbarItems.map((toolbarItem) => {
-							if (fg('forge_macro_autoconvert')) {
+							if (fg('forge-ui-macro-autoconvert')) {
 								if (isToolbarButton(toolbarItem)) {
 									return toolbarItemToButtonConfig(toolbarItem as ToolbarButton, extension.key);
 								}

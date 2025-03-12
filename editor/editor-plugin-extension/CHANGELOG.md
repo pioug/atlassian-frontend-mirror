@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.0.4
+
+### Patch Changes
+
+- [#123536](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123536)
+  [`1e9dc41a004aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e9dc41a004aa) -
+  [ux] Moved width options to dropdown for extensions toolbar
+- Updated dependencies
+
+## 5.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.2
 
 ### Patch Changes

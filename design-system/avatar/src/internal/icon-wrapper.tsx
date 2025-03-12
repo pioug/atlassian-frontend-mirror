@@ -4,12 +4,10 @@
  */
 import { type FC, type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { cssMap as unboundCssMap } from '@compiled/react';
 
-import { N0 } from '@atlaskit/theme/colors';
+import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-
-import { BORDER_WIDTH } from '../constants';
 
 interface IconWrapperProps {
 	bgColor?: string;
@@ -17,15 +15,26 @@ interface IconWrapperProps {
 	label?: string;
 }
 
-const iconWrapperStyles = css({
-	display: 'flex',
-	boxSizing: 'border-box',
-	width: '100%',
-	height: '100%',
-	alignItems: 'center',
-	alignContent: 'center',
-	borderRadius: token('border.radius.circle', '50%'),
-	overflow: 'hidden',
+const styles = cssMap({
+	root: {
+		display: 'flex',
+		boxSizing: 'border-box',
+		width: '100%',
+		height: '100%',
+		alignItems: 'center',
+		alignContent: 'center',
+		borderRadius: token('border.radius.circle', '50%'),
+		overflow: 'hidden',
+		borderWidth: token('border.width.outline', '2px'),
+		borderStyle: 'solid',
+		backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
+	},
+});
+
+const unboundStyles = unboundCssMap({
+	root: {
+		borderColor: token('elevation.surface.overlay', '#FFFFFF'),
+	},
 });
 
 /**
@@ -33,16 +42,12 @@ const iconWrapperStyles = css({
  *
  * An icon wrapper is used internally only.
  */
-const IconWrapper: FC<IconWrapperProps> = ({
-	bgColor = token('elevation.surface.overlay', N0),
-	children,
-}) => (
+const IconWrapper: FC<IconWrapperProps> = ({ bgColor, children }) => (
 	<span
-		css={iconWrapperStyles}
+		css={[styles.root, unboundStyles.root]}
 		role="presentation"
 		style={{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			border: `${BORDER_WIDTH}px solid ${bgColor}`,
+			borderColor: bgColor,
 			backgroundColor: bgColor,
 		}}
 	>

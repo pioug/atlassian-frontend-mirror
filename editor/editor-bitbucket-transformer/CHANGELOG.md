@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.1.1
+
+### Patch Changes
+
+- [#125091](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125091)
+  [`e213008074595`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e213008074595) -
+  adding a new line to the code suggestion extension serializer for correct format
+
 ## 9.1.0
 
 ### Minor Changes

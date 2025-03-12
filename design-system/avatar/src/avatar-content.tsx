@@ -5,10 +5,10 @@
  */
 import { type CSSProperties, forwardRef, type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { cssMap as unboundCssMap } from '@compiled/react';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N0, N70A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAvatarContent, useEnsureIsInsideAvatar } from './context';
@@ -16,17 +16,14 @@ import { useAvatarContent, useEnsureIsInsideAvatar } from './context';
 const boxShadowCssVar = '--avatar-box-shadow';
 const bgColorCssVar = '--avatar-bg-color';
 
-const styles = {
-	root: css({
+const styles = cssMap({
+	root: {
 		display: 'flex',
-		boxSizing: 'content-box',
 		position: 'static',
 		alignItems: 'stretch',
 		justifyContent: 'center',
 		flexDirection: 'column',
-		backgroundColor: `var(${bgColorCssVar})`,
 		border: 'none',
-		boxShadow: `var(${boxShadowCssVar})`,
 		cursor: 'inherit',
 		marginBlockEnd: token('space.025'),
 		marginBlockStart: token('space.025'),
@@ -51,9 +48,9 @@ const styles = {
 			transition: 'opacity 200ms',
 		},
 		'&:focus-visible': {
-			boxShadow: 'none',
+			boxShadow: 'initial',
 			outlineColor: token('color.border.focused', '#2684FF'),
-			outlineOffset: token('border.width.outline'),
+			outlineOffset: token('space.025', '2px'),
 			outlineStyle: 'solid',
 			outlineWidth: token('border.width.outline', '2px'),
 		},
@@ -62,111 +59,114 @@ const styles = {
 				outlineWidth: token('border.width', '1px'),
 			},
 		},
-	}),
-	circle: css({
+	},
+	circle: {
 		borderRadius: token('border.radius.circle', '50%'),
 		'&::after': {
 			borderRadius: token('border.radius.circle', '50%'),
 		},
-	}),
-	positionRelative: css({
+	},
+	positionRelative: {
 		position: 'relative',
-	}),
-	interactive: css({
-		cursor: 'pointer',
-		'&:hover': {
-			'&::after': {
-				backgroundColor: token('color.interaction.hovered', N70A),
-				opacity: 1,
-			},
+	},
+	disabled: {
+		cursor: 'not-allowed',
+		'&::after': {
+			backgroundColor: token('elevation.surface', '#FFFFFF'),
+			opacity: token('opacity.disabled', '0.7'),
 		},
-		'&:active': {
-			transform: `scale(0.9)`,
-			'&::after': {
-				backgroundColor: token('color.interaction.pressed', N70A),
-				opacity: 1,
-			},
+	},
+});
+
+const unboundStyles = unboundCssMap({
+	root: {
+		boxSizing: 'content-box',
+		backgroundColor: `var(${bgColorCssVar})`,
+		boxShadow: `var(${boxShadowCssVar})`,
+	},
+	interactive: {
+		cursor: 'pointer',
+		'&:hover::after': {
+			backgroundColor: token('color.interaction.hovered', 'rgba(9, 30, 66, 0.36)'),
+			opacity: '1',
+		},
+		'&:active::after': {
+			backgroundColor: token('color.interaction.pressed', 'rgba(9, 30, 66, 0.36)'),
+			opacity: '1',
 		},
 		'@media screen and (forced-colors: active)': {
 			'&:focus-visible': {
 				outlineWidth: 1,
 			},
 		},
-	}),
-	disabled: css({
-		cursor: 'not-allowed',
-		'&::after': {
-			backgroundColor: token('elevation.surface', N0),
-			opacity: token('opacity.disabled', '0.7'),
-		},
-	}),
-};
+	},
+});
 
-const widthHeightMap = {
-	xsmall: css({
+const widthHeightMap = cssMap({
+	xsmall: {
 		width: '16px',
 		height: '16px',
-	}),
-	small: css({
+	},
+	small: {
 		width: '24px',
 		height: '24px',
-	}),
-	medium: css({
+	},
+	medium: {
 		width: '32px',
 		height: '32px',
-	}),
-	large: css({
+	},
+	large: {
 		width: '40px',
 		height: '40px',
-	}),
-	xlarge: css({
+	},
+	xlarge: {
 		width: '96px',
 		height: '96px',
-	}),
-	xxlarge: css({
+	},
+	xxlarge: {
 		width: '128px',
 		height: '128px',
-	}),
-};
+	},
+});
 
-const borderRadiusMap = {
-	xsmall: css({
+const borderRadiusMap = unboundCssMap({
+	xsmall: {
 		borderRadius: '2px',
 		'&::after': {
 			borderRadius: '2px',
 		},
-	}),
-	small: css({
+	},
+	small: {
 		borderRadius: '2px',
 		'&::after': {
 			borderRadius: '2px',
 		},
-	}),
-	medium: css({
+	},
+	medium: {
 		borderRadius: '3px',
 		'&::after': {
 			borderRadius: '3px',
 		},
-	}),
-	large: css({
+	},
+	large: {
 		borderRadius: '3px',
 		'&::after': {
 			borderRadius: '3px',
 		},
-	}),
-	xlarge: css({
+	},
+	xlarge: {
 		borderRadius: '6px',
 		'&::after': {
 			borderRadius: '6px',
 		},
-	}),
-	xxlarge: css({
+	},
+	xxlarge: {
 		borderRadius: '12px',
 		'&::after': {
 			borderRadius: '12px',
 		},
-	}),
-};
+	},
+});
 
 type AvatarContentProps = {
 	children?: ReactNode;
@@ -191,7 +191,7 @@ export const AvatarContent = forwardRef<HTMLElement, AvatarContentProps>(({ chil
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		borderColor = fg('platform-component-visual-refresh')
 			? token('elevation.surface')
-			: token('elevation.surface.overlay', N0),
+			: token('elevation.surface.overlay', '#FFFFFF'),
 		href,
 		isDisabled,
 		label,
@@ -209,12 +209,13 @@ export const AvatarContent = forwardRef<HTMLElement, AvatarContentProps>(({ chil
 	return (
 		<Container
 			css={[
+				unboundStyles.root,
 				styles.root,
 				borderRadiusMap[size],
 				appearance === 'circle' && styles.circle,
 				widthHeightMap[size],
 				stackIndex !== undefined && styles.positionRelative,
-				isInteractive && !isDisabled && styles.interactive,
+				isInteractive && !isDisabled && unboundStyles.interactive,
 				isDisabled && styles.disabled,
 			]}
 			style={

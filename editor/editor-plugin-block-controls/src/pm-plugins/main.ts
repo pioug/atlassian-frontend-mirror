@@ -305,7 +305,15 @@ export const newApply = (
 
 	const { from, to, numReplaceSteps, isAllText } = getTrMetadata(tr);
 	const maybeNodeCountChanged = !isAllText && numReplaceSteps > 0;
-	const latestActiveNode = meta?.activeNode ?? activeNode;
+	let latestActiveNode;
+	if (fg('platform_editor_remove_drag_handle_fix')) {
+		latestActiveNode = meta?.activeNode;
+		if (!latestActiveNode && !isActiveNodeDeleted) {
+			latestActiveNode = activeNode;
+		}
+	} else {
+		latestActiveNode = meta?.activeNode ?? activeNode;
+	}
 
 	// Re-create node decorations
 	const isDecSetEmpty = decorations === DecorationSet.empty;
@@ -394,9 +402,18 @@ export const newApply = (
 		latestActiveNode &&
 		(activeNodeChanged || isActiveNodeModified || editorSizeChanged || handleNeedsRedraw);
 
-	// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node
-	const shouldRemoveHandle =
-		latestActiveNode && (isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved);
+	let shouldRemoveHandle = false;
+
+	if (fg('platform_editor_remove_drag_handle_fix')) {
+		// If the active node is missing, we need to remove the handle
+		shouldRemoveHandle = latestActiveNode
+			? isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved
+			: true;
+	} else {
+		// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node
+		shouldRemoveHandle =
+			latestActiveNode && (isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved);
+	}
 
 	if (shouldRemoveHandle) {
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);

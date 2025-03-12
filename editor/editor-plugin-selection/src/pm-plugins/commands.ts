@@ -9,6 +9,7 @@ import type { Command, EditorCommandWithMetadata } from '@atlaskit/editor-common
 import { isEmptyParagraph, isNodeEmpty } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { SelectionDirection, selectionPluginKey } from '../types';
@@ -420,12 +421,21 @@ export const selectNodeWithModA = (): Command => (state, dispatch) => {
 	const isInCodeBlock = $from.sameParent($to) && $from.parent.type === state.schema.nodes.codeBlock;
 
 	// If the selection is at the top level and not in a code block, or if a table is selected, do nothing
-	if ((isTopLevelSelection && !isInCodeBlock) || isTableSelected(selection)) {
+	if (isTopLevelSelection && !isInCodeBlock) {
 		return false;
 	}
 
 	// Get the depth of the first common ancestor node
-	const commonAncestorDepth = $from.sharedDepth($to.pos);
+	let commonAncestorDepth = $from.sharedDepth($to.pos);
+
+	// We need to adjust the common ancestor depth if a table is selected
+	// to skip the current table node and select the parent node instead
+	if (isTableSelected(state.selection)) {
+		const table = findParentNodeOfType(state.schema.nodes.table)(state.selection);
+		if (table) {
+			commonAncestorDepth = table.depth - 1;
+		}
+	}
 
 	for (let depth = commonAncestorDepth; depth > 0; depth--) {
 		const node = $from.node(depth);

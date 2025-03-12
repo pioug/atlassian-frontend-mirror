@@ -10,6 +10,9 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 			subtle: {
 				value: 'DN40',
 			},
+			subtlest: {
+				value: 'DN40',
+			},
 			inverse: { value: 'DN40' },
 			disabled: { value: 'DN400A' },
 			brand: {

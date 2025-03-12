@@ -42,7 +42,7 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
@@ -161,6 +161,16 @@ export const getToolbarConfig =
 	): FloatingToolbarHandler =>
 	(state, intl, providerFactory) => {
 		if (options.disableFloatingToolbar) {
+			return;
+		}
+
+		// If range selection, we don't show hyperlink floating toolbar.
+		// Text Formattting toolbar is shown instaed.
+		if (
+			state.selection instanceof TextSelection &&
+			state.selection.to !== state.selection.from &&
+			editorExperiment('platform_editor_controls', 'variant1')
+		) {
 			return;
 		}
 

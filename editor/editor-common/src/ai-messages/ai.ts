@@ -31,6 +31,16 @@ export const aiMessages = defineMessages({
 		description:
 			'Tooltip text for an option to use Atlassian Intellgience to improve the writing of content currently selected by the user',
 	},
+	askAIToolbarIconTitle: {
+		id: 'fabric.editor.ai.toolbar.askAI.title',
+		defaultMessage: 'Ask AI',
+		description: 'Title for an option to use Atlassian Intellgience',
+	},
+	askAIToolbarIconTooltip: {
+		id: 'fabric.editor.ai.toolbar.tryAI.tooltip',
+		defaultMessage: 'Open Atlassian Intelligence',
+		description: 'Tooltip text for an option to use Atlassian Intellgience',
+	},
 	tryAIToolbarIconTitle: {
 		id: 'fabric.editor.ai.toolbar.tryAI.title',
 		defaultMessage: 'Try AI',

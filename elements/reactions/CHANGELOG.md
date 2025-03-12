@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 27.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.1.0
 
 ### Minor Changes

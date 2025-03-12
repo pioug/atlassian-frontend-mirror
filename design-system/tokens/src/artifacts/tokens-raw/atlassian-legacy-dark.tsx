@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5472bb6d92193f7985097160bad1a9b>>
+ * @codegen <<SignedSource::fbf8e2b60aebce76cca97bc8f0838200>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -1625,6 +1625,33 @@ const tokens = [
       "information"
     ],
     "cleanName": "color.icon.information"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.54.0",
+      "description": "Use for icons paired with color.text.subtlest"
+    },
+    "value": "#202B3D",
+    "filePath": "schema/themes/atlassian-legacy-dark/color/icon.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.54.0",
+        "description": "Use for icons paired with color.text.subtlest"
+      },
+      "value": "DN40"
+    },
+    "name": "color.icon.subtlest",
+    "path": [
+      "color",
+      "icon",
+      "subtlest"
+    ],
+    "cleanName": "color.icon.subtlest"
   },
   {
     "attributes": {

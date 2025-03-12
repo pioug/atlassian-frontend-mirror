@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.1.1
+
+### Patch Changes
+
+- [#124883](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124883)
+  [`cdc857701ad32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdc857701ad32) -
+  [ux] EDF-2571 Updated `selectNodeWithModA` function to account for nested tables.
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

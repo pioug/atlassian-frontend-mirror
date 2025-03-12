@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de5ae01fb6e2d702ddbdde2e1ab25b65>>
+ * @codegen <<SignedSource::af708029445848a184edeabecd92221f>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -1285,6 +1285,28 @@ var tokens = [{
   "name": "color.icon.information",
   "path": ["color", "icon", "information"],
   "cleanName": "color.icon.information"
+}, {
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "1.54.0",
+    "description": "Use for icons paired with color.text.subtlest"
+  },
+  "value": "#6B778C",
+  "filePath": "schema/themes/atlassian-legacy-light/color/icon.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.54.0",
+      "description": "Use for icons paired with color.text.subtlest"
+    },
+    "value": "N200"
+  },
+  "name": "color.icon.subtlest",
+  "path": ["color", "icon", "subtlest"],
+  "cleanName": "color.icon.subtlest"
 }, {
   "attributes": {
     "group": "paint",

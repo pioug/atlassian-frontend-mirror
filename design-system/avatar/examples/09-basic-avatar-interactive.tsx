@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
 import { Block } from '../examples-util/helpers';

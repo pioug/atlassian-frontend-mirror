@@ -1,5 +1,13 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.22.2
+
+### Patch Changes
+
+- [#123174](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123174)
+  [`22c0e6405c1c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22c0e6405c1c0) -
+  [ux] PGXT-7267 change analytics byline badge size to accomdate 20px height
+
 ## 0.22.1
 
 ### Patch Changes

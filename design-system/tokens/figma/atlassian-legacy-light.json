@@ -523,6 +523,15 @@
       },
       "value": "#0747A6"
     },
+    "Legacy light/color.icon.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.54.0",
+        "description": "Use for icons paired with color.text.subtlest"
+      },
+      "value": "#6B778C"
+    },
     "Legacy light/color.icon.subtle": {
       "attributes": {
         "group": "paint",

@@ -21,7 +21,9 @@ function keymapPlugin() {
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveLeft.common!, arrowLeft, list);
 
-	if (editorExperiment('platform_editor_cmd_a_progressively_select_nodes', true)) {
+	if (
+		editorExperiment('platform_editor_cmd_a_progressively_select_nodes', true, { exposure: true })
+	) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		bindKeymapWithCommand(selectNode.common!, selectNodeWithModA(), list);

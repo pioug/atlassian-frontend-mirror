@@ -72,6 +72,7 @@ import type { RendererAppearance } from './types';
 import { ValidationContext } from './ValidationContext';
 import { RendererStyleContainer } from './RendererStyleContainer';
 import { getBaseFontSize } from './get-base-font-size';
+import { removeEmptySpaceAroundContent } from './rendererHelper';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -462,7 +463,9 @@ export class __RendererClassComponent extends PureComponent<
 			const schema = this.getSchema(this.props.schema, this.props.adfStage);
 
 			const { result, stat, pmDoc } = renderDocument(
-				adfDocument,
+				this.props.shouldRemoveEmptySpaceAroundContent
+					? removeEmptySpaceAroundContent(adfDocument)
+					: adfDocument,
 				this.serializer,
 				schema,
 				adfStage,
@@ -758,7 +761,9 @@ const RendererFunctionalComponent = (
 				extensionHandlers: props.extensionHandlers,
 				portal: props.portal,
 				objectContext: {
-					adDoc: props.document,
+					adDoc: props.shouldRemoveEmptySpaceAroundContent
+						? removeEmptySpaceAroundContent(props.document)
+						: props.document,
 					schema: props.schema,
 					...props.rendererContext,
 				} as RendererContext,
@@ -928,7 +933,9 @@ const RendererFunctionalComponent = (
 		const schema = getSchema(props.schema, props.adfStage);
 
 		const { result, stat, pmDoc } = renderDocument(
-			props.document,
+			props.shouldRemoveEmptySpaceAroundContent
+				? removeEmptySpaceAroundContent(props.document)
+				: props.document,
 			serializer,
 			schema,
 			props.adfStage,
@@ -980,6 +987,7 @@ const RendererFunctionalComponent = (
 										createRendererContext(props.featureFlags, props.isTopLevelRenderer)
 											.isTopLevelRenderer
 									}
+									shouldRemoveEmptySpaceAroundContent={props.shouldRemoveEmptySpaceAroundContent}
 								>
 									{props.enableSsrInlineScripts || props.noOpSSRInlineScript ? (
 										<BreakoutSSRInlineScript
@@ -1122,6 +1130,7 @@ export type RendererWrapperProps = {
 	isInsideOfInlineExtension?: boolean;
 	allowTableResizing?: boolean;
 	isTopLevelRenderer?: boolean;
+	shouldRemoveEmptySpaceAroundContent?: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {

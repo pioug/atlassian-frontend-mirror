@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.3.0
+
+### Minor Changes
+
+- [#125175](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125175)
+  [`0befa7f34e357`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0befa7f34e357) -
+  Add `placeholderType` to `insert-prompt` pubsub event
+
 ## 2.2.0
 
 ### Minor Changes

@@ -1,24 +1,28 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
-import styled from '@emotion/styled';
+import { cssMap, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../examples-util/helpers';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const DivPresence = styled.div({
-	alignItems: 'center',
-	backgroundColor: token('color.background.discovery.bold'),
-	color: token('elevation.surface'),
-	display: 'flex',
-	font: token('font.body.small'),
-	fontWeight: token('font.weight.medium'),
-	height: '100%',
-	justifyContent: 'center',
-	textAlign: 'center',
-	width: '100%',
+const styles = cssMap({
+	presence: {
+		alignItems: 'center',
+		backgroundColor: token('color.background.discovery.bold'),
+		color: token('elevation.surface'),
+		display: 'flex',
+		font: token('font.body.small'),
+		fontWeight: token('font.weight.medium'),
+		height: '100%',
+		justifyContent: 'center',
+		textAlign: 'center',
+		width: '100%',
+	},
 });
 
 export default () => (
@@ -27,12 +31,37 @@ export default () => (
 			name="xxlarge"
 			size="xxlarge"
 			appearance="square"
-			status={<DivPresence>1</DivPresence>}
+			status={<div css={styles.presence}>1</div>}
 		/>
-		<Avatar name="xlarge" size="xlarge" appearance="square" status={<DivPresence>1</DivPresence>} />
-		<Avatar name="large" size="large" appearance="square" status={<DivPresence>1</DivPresence>} />
-		<Avatar name="medium" size="medium" appearance="square" status={<DivPresence>1</DivPresence>} />
-		<Avatar name="small" size="small" appearance="square" status={<DivPresence>1</DivPresence>} />
-		<Avatar name="xsmall" size="xsmall" appearance="square" status={<DivPresence>1</DivPresence>} />
+		<Avatar
+			name="xlarge"
+			size="xlarge"
+			appearance="square"
+			status={<div css={styles.presence}>1</div>}
+		/>
+		<Avatar
+			name="large"
+			size="large"
+			appearance="square"
+			status={<div css={styles.presence}>1</div>}
+		/>
+		<Avatar
+			name="medium"
+			size="medium"
+			appearance="square"
+			status={<div css={styles.presence}>1</div>}
+		/>
+		<Avatar
+			name="small"
+			size="small"
+			appearance="square"
+			status={<div css={styles.presence}>1</div>}
+		/>
+		<Avatar
+			name="xsmall"
+			size="xsmall"
+			appearance="square"
+			status={<div css={styles.presence}>1</div>}
+		/>
 	</Block>
 );

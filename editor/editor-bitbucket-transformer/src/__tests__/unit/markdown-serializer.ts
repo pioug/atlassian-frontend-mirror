@@ -961,7 +961,7 @@ describe('BitbucketTransformer: serializer', () => {
 			});
 
 			expect(markdownSerializer.serialize(doc(codeSuggestion())(defaultSchema))).toEqual(
-				'```suggestion\nthis is a suggestion```',
+				'```suggestion\nthis is a suggestion\n```',
 			);
 		});
 	});

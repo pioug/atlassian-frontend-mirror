@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Avatar, { Status } from '@atlaskit/avatar';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import { Block, ShrinkWrap } from '../examples-util/helpers';
 

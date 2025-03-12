@@ -19,6 +19,12 @@ import { getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
 import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positions';
 
 import { QUICK_INSERT_DIMENSIONS, rootElementGap, topPositionAdjustment } from './consts';
+import {
+	isNestedNodeSelected,
+	isNonEditableBlock,
+	isSelectionInNode,
+} from './utils/document-checks';
+import { createNewLine } from './utils/editor-commands';
 
 const buttonStyles = xcss({
 	boxSizing: 'border-box',
@@ -63,18 +69,6 @@ type Props = {
 	anchorName: string;
 	rootAnchorName?: string;
 	rootNodeType: string;
-};
-
-const isSelectionInNode = (start: number, view: EditorView) => {
-	const node = view.state.doc.nodeAt(start);
-	if (node === null) {
-		return false;
-	}
-	const endPos = start + node.nodeSize;
-	const startPos = start;
-	const { $from, $to } = view.state.selection;
-
-	return $from.pos >= startPos && endPos >= $to.pos;
 };
 
 export const TypeAheadControl = ({
@@ -183,6 +177,38 @@ export const TypeAheadControl = ({
 		};
 	}, [calculatePosition, view.dom, rootAnchorName, rootNodeType]);
 
+	const handleQuickInsert = useCallback(() => {
+		// if the selection is not within the node this decoration is rendered at
+		// then insert a newline and trigger quick insert
+		const start = getPos();
+
+		if (start !== undefined) {
+			// if the selection is not within the node this decoration is rendered at
+			// or the node is non-editable, then insert a newline and trigger quick insert
+			if (!isSelectionInNode(start, view) || isNonEditableBlock(start, view)) {
+				api.core.actions.execute(createNewLine(start));
+			}
+
+			if (isSelectionInNode(start, view) && isNestedNodeSelected(view)) {
+				// if the nested selected node is non-editable, then insert a newline below the selected node
+				if (isNonEditableBlock(view.state.selection.from, view)) {
+					api.core.actions.execute(createNewLine(view.state.selection.from));
+				} else {
+					// otherwise need to force the selection to be at the start of the node, because
+					// prosemirror is keeping it as NodeSelection for nested nodes. Do this to keep it
+					// consistent NodeSelection for root level nodes.
+					api.core.actions.execute(({ tr }) => {
+						createNewLine(view.state.selection.from)({ tr });
+						tr.setSelection(TextSelection.create(tr.doc, view.state.selection.from));
+						return tr;
+					});
+				}
+			}
+		}
+
+		api?.quickInsert?.actions.openTypeAhead('blockControl');
+	}, [api, getPos, view]);
+
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		<Box style={positionStyles} xcss={[containerStaticStyles]}>
@@ -191,24 +217,7 @@ export const TypeAheadControl = ({
 					type="button"
 					aria-label={formatMessage(messages.insert)}
 					xcss={[buttonStyles]}
-					onClick={() => {
-						// if the selection is not within the node this decoration is rendered at
-						// then insert a newline and trigger quick insert
-						const start = getPos();
-						if (start !== undefined && !isSelectionInNode(start, view)) {
-							api.core.actions.execute(({ tr }) => {
-								const nodeSize = tr.doc.nodeAt(start)?.nodeSize;
-								if (nodeSize === undefined) {
-									return tr;
-								}
-								const position = start + nodeSize;
-								tr.insert(position, tr.doc.type.schema.nodes.paragraph.create());
-								return tr.setSelection(TextSelection.create(tr.doc, position));
-							});
-						}
-
-						api?.quickInsert?.actions.openTypeAhead('blockControl');
-					}}
+					onClick={handleQuickInsert}
 				>
 					<AddIcon label="add" />
 				</Pressable>

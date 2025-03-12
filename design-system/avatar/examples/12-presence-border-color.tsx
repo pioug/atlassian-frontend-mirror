@@ -1,23 +1,23 @@
-import React from 'react';
-
-import styled from '@emotion/styled';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { Presence } from '@atlaskit/avatar';
 import { Code } from '@atlaskit/code';
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Stack, Text } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Container = styled.div({
-	display: 'flex',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const PresenceWrapper = styled.div({
-	height: '30px',
-	width: '30px',
-	marginRight: token('space.100', '8px'),
+const styles = cssMap({
+	container: {
+		display: 'flex',
+	},
+	presenceWrapper: {
+		height: '30px',
+		width: '30px',
+		marginRight: token('space.100', '8px'),
+	},
 });
 
 export default () => (
@@ -35,22 +35,19 @@ export default () => (
 				hex, rgba, transparent, etc.
 			</Text>
 		</Stack>
-		<Container>
-			<PresenceWrapper>
+		<Box xcss={styles.container}>
+			<Box xcss={styles.presenceWrapper}>
 				<Presence presence="online" />
-			</PresenceWrapper>
-
-			<PresenceWrapper>
+			</Box>
+			<Box xcss={styles.presenceWrapper}>
 				<Presence presence="busy" borderColor={token('color.border.discovery')} />
-			</PresenceWrapper>
-
-			<PresenceWrapper>
+			</Box>
+			<Box xcss={styles.presenceWrapper}>
 				<Presence presence="offline" borderColor={token('color.border.brand')} />
-			</PresenceWrapper>
-
-			<PresenceWrapper>
+			</Box>
+			<Box xcss={styles.presenceWrapper}>
 				<Presence presence="focus" borderColor="transparent" />
-			</PresenceWrapper>
-		</Container>
+			</Box>
+		</Box>
 	</Stack>
 );

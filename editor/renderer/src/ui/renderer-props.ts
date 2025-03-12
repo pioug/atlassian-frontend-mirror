@@ -79,6 +79,8 @@ export interface RendererProps {
 	isInsideOfInlineExtension?: boolean;
 	isTopLevelRenderer?: boolean;
 	includeNodesCountInStats?: boolean;
+	// Removes the empty space, lines, hard breaks above and below the comment content
+	shouldRemoveEmptySpaceAroundContent?: boolean;
 	/**
 	 * When enabled a trailing telepointer will be added to the rendered document
 	 * following content updates.

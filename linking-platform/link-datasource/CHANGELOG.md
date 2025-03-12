@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 3.22.5
+
+### Patch Changes
+
+- [#125185](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125185)
+  [`ae9326ce2ca49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae9326ce2ca49) -
+  Internal refactor to move away from deprecated
+  `@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box-without-terminal` entry point.
+- Updated dependencies
+
+## 3.22.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.22.3
 
 ### Patch Changes

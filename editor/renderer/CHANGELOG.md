@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 114.1.0
+
+### Minor Changes
+
+- [#124272](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124272)
+  [`5b434be943575`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b434be943575) -
+  [ux] Added logic to not render empty text spaces around comment content
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.0.0
+
+### Major Changes
+
+- [#122089](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122089)
+  [`f9eb90e04e1ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9eb90e04e1ec) -
+  [ux] Adding new prop in comments renderer to remove empty space around comment content
+
 ## 113.3.0
 
 ### Minor Changes

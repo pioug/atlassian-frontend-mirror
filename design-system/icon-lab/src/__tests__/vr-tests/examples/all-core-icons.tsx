@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::bd9f0083fdc7ef1b85a1572a5960483e>>
+ * @codegen <<SignedSource::9c1f5626c3bdc481368145acb38f87b8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -27,6 +27,7 @@ import AlignPositionCenterVerticalIcon from '../../../../core/align-position-cen
 import AlignPositionTopIcon from '../../../../core/align-position-top';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
+import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
 import BookOpenIcon from '../../../../core/book-open';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
@@ -43,6 +44,7 @@ import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
 import ExpandElementIcon from '../../../../core/expand-element';
 import FieldTextIcon from '../../../../core/field-text';
+import GiftIcon from '../../../../core/gift';
 import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
 import HandIcon from '../../../../core/hand';
@@ -54,6 +56,7 @@ import LozengeIcon from '../../../../core/lozenge';
 import PageLiveDocIcon from '../../../../core/page-live-doc';
 import PaintBrushIcon from '../../../../core/paint-brush';
 import PaintRollerIcon from '../../../../core/paint-roller';
+import PartyPopperIcon from '../../../../core/party-popper';
 import QrCodeIcon from '../../../../core/qr-code';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
@@ -88,6 +91,7 @@ import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TemplateIcon from '../../../../core/template';
 import TicketIcon from '../../../../core/ticket';
 import TidyIcon from '../../../../core/tidy';
+import VehicleAirplaneIcon from '../../../../core/vehicle-airplane';
 import VehicleTrainIcon from '../../../../core/vehicle-train';
 import VulnerabilityIcon from '../../../../core/vulnerability';
 import WalletIcon from '../../../../core/wallet';
@@ -108,6 +112,7 @@ const Icons = [
 	AlignPositionTopIcon,
 	AssetsDataManagerIcon,
 	AssetsSchemaIcon,
+	BeachUmbrellaIcon,
 	BookOpenIcon,
 	CloudOfflineIcon,
 	CloudSavedIcon,
@@ -124,6 +129,7 @@ const Icons = [
 	EditionsIcon,
 	ExpandElementIcon,
 	FieldTextIcon,
+	GiftIcon,
 	GroupSelectionIcon,
 	GroupUngroupSelectionIcon,
 	HandIcon,
@@ -135,6 +141,7 @@ const Icons = [
 	PageLiveDocIcon,
 	PaintBrushIcon,
 	PaintRollerIcon,
+	PartyPopperIcon,
 	QrCodeIcon,
 	QueuePopInIcon,
 	QueuePopOutIcon,
@@ -169,6 +176,7 @@ const Icons = [
 	TemplateIcon,
 	TicketIcon,
 	TidyIcon,
+	VehicleAirplaneIcon,
 	VehicleTrainIcon,
 	VulnerabilityIcon,
 	WalletIcon,
@@ -206,3 +214,5 @@ export const IconGroup1 = allExamples[1];
 export const IconGroup2 = allExamples[2];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconGroup3 = allExamples[3];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup4 = allExamples[4];

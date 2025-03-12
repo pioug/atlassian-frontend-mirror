@@ -6,6 +6,7 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 		icon: {
 			'[default]': { value: 'N400' },
 			subtle: { value: 'N200' },
+			subtlest: { value: 'N200' },
 			inverse: { value: 'N0' },
 			disabled: { value: 'N90' },
 			brand: { value: 'B300' },

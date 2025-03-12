@@ -4,7 +4,7 @@
  */
 import { type FC, useEffect, useState } from 'react';
 
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import PersonIconLegacy from '@atlaskit/icon/core/migration/person';
 import ReleaseIconMigration from '@atlaskit/icon/core/migration/release--ship';
@@ -14,7 +14,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { AVATAR_RADIUS, AVATAR_SIZES } from '../constants';
 import { type AppearanceType, type SizeType } from '../types';
 
 interface AvatarImageProps {
@@ -25,43 +24,93 @@ interface AvatarImageProps {
 	testId?: string;
 }
 
-const avatarDefaultIconStyles = css({
-	display: 'flex',
-	width: '100%',
-	height: '100%',
-	backgroundColor: token('color.icon.subtle', N90),
-});
-
-const avatarDefaultIconVisualRefreshStyles = css({
-	display: 'flex',
-	width: '100%',
-	height: '100%',
-	backgroundColor: token('color.background.accent.gray.subtler'),
-});
-
-const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
-	(styles, [key, size]) => {
-		return {
-			...styles,
-			[key]: css({
-				// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-				'& svg': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					width: `${size}px`,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					height: `${size}px`,
-				},
-			}),
-		};
+const styles = cssMap({
+	image: {
+		display: 'flex',
+		width: '100%',
+		height: '100%',
+		flex: '1 1 100%',
 	},
-	{} as Record<SizeType, SerializedStyles>,
-);
+	icon: {
+		display: 'flex',
+		width: '100%',
+		height: '100%',
+	},
+	iconBg: {
+		backgroundColor: token('color.icon.subtle', '#8993A4'),
+	},
+	iconBGVisualRefresh: {
+		backgroundColor: token('color.background.accent.gray.subtler'),
+	},
+	circle: {
+		borderRadius: token('border.radius.circle', '50%'),
+	},
+});
 
-const avatarImageStyles = css({
-	display: 'flex',
-	width: '100%',
-	height: '100%',
-	flex: '1 1 100%',
+const borderRadiusMap = cssMap({
+	xsmall: {
+		borderRadius: token('border.radius.050', '2px'),
+	},
+	small: {
+		borderRadius: token('border.radius.050', '2px'),
+	},
+	medium: {
+		borderRadius: '3px',
+	},
+	large: {
+		borderRadius: '3px',
+	},
+	xlarge: {
+		borderRadius: '6px',
+	},
+	xxlarge: {
+		borderRadius: token('border.radius.300', '12px'),
+	},
+});
+
+const nestedSvgStylesMap = cssMap({
+	xsmall: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& svg': {
+			width: '16px',
+			height: '16px',
+		},
+	},
+	small: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& svg': {
+			width: '24px',
+			height: '24px',
+		},
+	},
+	medium: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& svg': {
+			width: '32px',
+			height: '32px',
+		},
+	},
+	large: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& svg': {
+			width: '40px',
+			height: '40px',
+		},
+	},
+	xlarge: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& svg': {
+			width: '96px',
+			height: '96px',
+		},
+	},
+	xxlarge: {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& svg': {
+			width: '128px',
+			height: '128px',
+		},
+	},
 });
 
 /**
@@ -71,8 +120,6 @@ const avatarImageStyles = css({
  */
 const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, testId }) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
-	const borderRadius = appearance === 'circle' ? '50%' : `${AVATAR_RADIUS[size]}px`;
-	const isHidden = !alt ? true : undefined;
 
 	// If src changes, reset state
 	useEffect(() => {
@@ -83,10 +130,9 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 		return (
 			<span
 				css={[
-					fg('platform-component-visual-refresh')
-						? avatarDefaultIconVisualRefreshStyles
-						: avatarDefaultIconStyles,
-					nestedAvatarStyles[size],
+					styles.icon,
+					fg('platform-component-visual-refresh') ? styles.iconBGVisualRefresh : styles.iconBg,
+					nestedSvgStylesMap[size],
 				]}
 			>
 				{appearance === 'circle' ? (
@@ -131,13 +177,9 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 			src={src}
 			alt={alt}
 			data-testid={testId && `${testId}--image`}
-			css={avatarImageStyles}
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				borderRadius: borderRadius,
-			}}
+			css={[styles.image, borderRadiusMap[size], appearance === 'circle' && styles.circle]}
 			onError={() => setHasImageErrored(true)}
-			aria-hidden={isHidden}
+			aria-hidden={!alt ? true : undefined}
 			data-vc={testId ? `${testId}--image` : 'avatar-image'}
 			data-ssr-placeholder-ignored
 		/>

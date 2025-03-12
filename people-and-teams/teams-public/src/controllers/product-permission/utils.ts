@@ -5,14 +5,33 @@ import type {
 	UserProductPermissions,
 } from './types';
 
+const PRODUCTS = [
+	'confluence',
+	'jira',
+	'jira-core',
+	'jira-software',
+	'jira-servicedesk',
+	'jira-product-discovery',
+];
+
 export const transformPermissions = (
 	permissions: ProductPermissionsResponse[],
 ): UserProductPermissions => {
 	return permissions.reduce((acc: UserProductPermissions, permission) => {
 		if (permission.resourceId.includes('jira')) {
-			acc['jira'] = { ...acc['jira'], [permission.permissionId]: permission.permitted };
+			acc['jira'] = {
+				...acc['jira'],
+				[permission.permissionId as keyof ProductPermissionsType]:
+					acc['jira']?.[permission.permissionId as keyof ProductPermissionsType] ||
+					permission.permitted,
+			};
 		} else if (permission.resourceId.includes('confluence')) {
-			acc['confluence'] = { ...acc['confluence'], [permission.permissionId]: permission.permitted };
+			acc['confluence'] = {
+				...acc['confluence'],
+				[permission.permissionId as keyof ProductPermissionsType]:
+					acc['confluence']?.[permission.permissionId as keyof ProductPermissionsType] ||
+					permission.permitted,
+			};
 		}
 		return acc;
 	}, {});
@@ -31,17 +50,14 @@ export const getProductPermissionRequestBody = (
 			dontRequirePrincipalInSite: true,
 		};
 
-		return [
-			...acc,
-			{
+		PRODUCTS.forEach((product) => {
+			acc.push({
 				...permission,
-				resourceId: `ari:cloud:confluence::site/${cloudId}`,
-			},
-			{
-				...permission,
-				resourceId: `ari:cloud:jira::site/${cloudId}`,
-			},
-		];
+				resourceId: `ari:cloud:${product}::site/${cloudId}`,
+			});
+		});
+
+		return acc;
 	}, []);
 
 	return JSON.stringify(body);

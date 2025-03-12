@@ -56,6 +56,7 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 				tr.setMeta(metricsKey, {
 					stopActiveSession: true,
 				});
+				tr.setMeta('scrollIntoView', false);
 
 				return tr;
 			},

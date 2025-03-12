@@ -523,6 +523,15 @@
         "description": "Use for icons communicating information or something in-progress, such as information section messages."
       }
     },
+    "Light increased-contrast/color.icon.subtlest": {
+      "value": "#2C3E5D",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.54.0",
+        "description": "Use for icons paired with color.text.subtlest"
+      }
+    },
     "Light increased-contrast/color.icon.subtle": {
       "value": "#2C3E5D",
       "attributes": {

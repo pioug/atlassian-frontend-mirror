@@ -3,9 +3,8 @@
  * @jsx jsx
  */
 
-import { css, jsx } from '@emotion/react';
-
 import Avatar, { AvatarContent } from '@atlaskit/avatar';
+import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 

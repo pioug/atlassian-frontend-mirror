@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::a855e3dd5b9a928da883751d8dffcd79>>
+ * @codegen <<SignedSource::9947bd7f4bedacedae9098218b3582ca>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -291,6 +291,25 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for JSM Assets.',
 		team: 'Assets',
 	},
+	'beach-umbrella': {
+		keywords: [
+			'beach-umbrella',
+			'beachumbrella',
+			'icon',
+			'icon-lab',
+			'core',
+			'vacation',
+			'beach umbrella',
+			'sun shade',
+			'holiday',
+		],
+		componentName: 'BeachUmbrellaIcon',
+		package: '@atlaskit/icon-lab/core/beach-umbrella',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		team: 'Growth Buy',
+	},
 	'book-open': {
 		keywords: [
 			'book-open',
@@ -533,6 +552,15 @@ const metadata: Record<string, metadata> = {
 		usage: 'Multi purpose',
 		team: 'Design System Team',
 	},
+	gift: {
+		keywords: ['gift', 'icon', 'icon-lab', 'core', 'gift', 'present'],
+		componentName: 'GiftIcon',
+		package: '@atlaskit/icon-lab/core/gift',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		team: 'Growth Buy',
+	},
 	'group-selection': {
 		keywords: [
 			'group-selection',
@@ -691,6 +719,25 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+	},
+	'party-popper': {
+		keywords: [
+			'party-popper',
+			'partypopper',
+			'icon',
+			'icon-lab',
+			'core',
+			'party',
+			'celebrate',
+			'celebration',
+			'confetti',
+		],
+		componentName: 'PartyPopperIcon',
+		package: '@atlaskit/icon-lab/core/party-popper',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		team: 'Growth Buy',
 	},
 	'qr-code': {
 		keywords: ['qr-code', 'qrcode', 'icon', 'icon-lab', 'core', 'QR code', 'barcode'],
@@ -1247,6 +1294,26 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Tidy up objects on Whiteboards',
 		team: 'Whiteboards',
+	},
+	'vehicle-airplane': {
+		keywords: [
+			'vehicle-airplane',
+			'vehicleairplane',
+			'icon',
+			'icon-lab',
+			'core',
+			'plane',
+			'airplane',
+			'aeroplane',
+			'travel',
+			'vehicle',
+		],
+		componentName: 'VehicleAirplaneIcon',
+		package: '@atlaskit/icon-lab/core/vehicle-airplane',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'User-selectable icon choice for calendars',
+		team: 'Growth Buy',
 	},
 	'vehicle-train': {
 		keywords: [

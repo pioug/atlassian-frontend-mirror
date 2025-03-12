@@ -4,11 +4,10 @@
  */
 import { type CSSProperties, type FC } from 'react';
 
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { AVATAR_RADIUS, AVATAR_SIZES, BORDER_WIDTH, CSS_VAR_AVATAR_BGCOLOR } from './constants';
 import { type AppearanceType, type SizeType } from './types';
 
 export interface SkeletonProps {
@@ -30,50 +29,69 @@ export interface SkeletonProps {
 	weight?: 'normal' | 'strong';
 }
 
-const skeletonStyles = css({
-	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: `var(${CSS_VAR_AVATAR_BGCOLOR})`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	border: `${BORDER_WIDTH}px solid transparent`,
-});
+const bgColorCssVar = '--avatar-skeleton-background-color';
 
-const sizeStyles = Object.entries(AVATAR_SIZES).reduce(
-	(styles, [key, size]) => {
-		return {
-			...styles,
-			[key]: css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				width: `${size}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				height: `${size}px`,
-			}),
-		};
+const styles = cssMap({
+	root: {
+		display: 'inline-block',
+		backgroundColor: `var(${bgColorCssVar})`,
+		borderWidth: token('border.width.outline', '2px'),
+		borderStyle: 'solid',
+		borderColor: 'transparent',
+		borderRadius: token('border.radius.circle', '50%'),
+		opacity: '0.15',
 	},
-	{} as Record<SizeType, SerializedStyles>,
-);
-
-const radiusStyles = Object.entries(AVATAR_RADIUS).reduce(
-	(styles, [key, size]) => {
-		return {
-			...styles,
-			[key]: css({
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				borderRadius: `${size}px`,
-			}),
-		};
+	strongOpacity: {
+		opacity: '0.3',
 	},
-	{} as Record<SizeType, SerializedStyles>,
-);
-const defaultRadiusStyles = css({
-	borderRadius: token('border.radius.circle', '50%'),
 });
 
-const strongOpacityStyles = css({
-	opacity: 0.3,
+const sizeStyles = cssMap({
+	xsmall: {
+		width: '16px',
+		height: '16px',
+	},
+	small: {
+		width: '24px',
+		height: '24px',
+	},
+	medium: {
+		width: '32px',
+		height: '32px',
+	},
+	large: {
+		width: '40px',
+		height: '40px',
+	},
+	xlarge: {
+		width: '96px',
+		height: '96px',
+	},
+	xxlarge: {
+		width: '128px',
+		height: '128px',
+	},
 });
-const defaultOpacityStyles = css({
-	opacity: 0.15,
+
+const borderRadiusMap = cssMap({
+	xsmall: {
+		borderRadius: token('border.radius.050', '2px'),
+	},
+	small: {
+		borderRadius: token('border.radius.050', '2px'),
+	},
+	medium: {
+		borderRadius: '3px',
+	},
+	large: {
+		borderRadius: '3px',
+	},
+	xlarge: {
+		borderRadius: '6px',
+	},
+	xxlarge: {
+		borderRadius: token('border.radius.300', '12px'),
+	},
 });
 
 /**
@@ -87,19 +105,12 @@ const defaultOpacityStyles = css({
 const Skeleton: FC<SkeletonProps> = ({ size, appearance, color, weight }: SkeletonProps) => (
 	<div
 		css={[
-			skeletonStyles,
+			styles.root,
 			sizeStyles[size ?? 'medium'],
-			appearance === 'square' ? radiusStyles[size ?? 'medium'] : defaultRadiusStyles,
-			weight === 'strong' ? strongOpacityStyles : defaultOpacityStyles,
+			appearance === 'square' && borderRadiusMap[size ?? 'medium'],
+			weight === 'strong' && styles.strongOpacity,
 		]}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				[CSS_VAR_AVATAR_BGCOLOR]: color ?? 'currentColor',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			} as CSSProperties
-		}
+		style={{ [bgColorCssVar]: color ?? 'currentColor' } as CSSProperties}
 	/>
 );
 

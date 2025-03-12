@@ -11,6 +11,7 @@ type State = {
 	loading: boolean;
 	error: Error | null;
 	unlinkError: UnlinkContainerMutationError | null;
+	teamId: string | null;
 };
 
 type Actions = typeof actions;
@@ -20,13 +21,18 @@ const initialState: State = {
 	loading: true,
 	error: null,
 	unlinkError: null,
+	teamId: null,
 };
 
 const actions = {
 	fetchTeamContainers:
 		(teamId: string): Action<State> =>
-		async ({ setState }) => {
-			setState({ loading: true, error: null });
+		async ({ setState, getState }) => {
+			const { teamId: currentTeamId } = getState();
+			if (currentTeamId === teamId) {
+				return;
+			}
+			setState({ loading: true, error: null, teamContainers: [], teamId });
 			try {
 				const containers = await teamsClient.getTeamContainers(teamId);
 				setState({ teamContainers: containers, loading: false, error: null });
@@ -36,7 +42,7 @@ const actions = {
 		},
 	unlinkTeamContainers:
 		(teamId: string, containerId: string): Action<State> =>
-		async ({ setState, dispatch }) => {
+		async ({ setState, getState }) => {
 			setState({ unlinkError: null });
 			try {
 				const mutationResult = await teamsClient.unlinkTeamContainer(teamId, containerId);
@@ -46,7 +52,9 @@ const actions = {
 						unlinkError: mutationResult.deleteTeamConnectedToContainer.errors[0],
 					});
 				} else {
-					dispatch(actions.fetchTeamContainers(teamId));
+					const { teamContainers } = getState();
+					const newContainers = teamContainers.filter((container) => container.id !== containerId);
+					setState({ teamContainers: newContainers });
 				}
 			} catch (err) {
 				setState({ unlinkError: err as Error });

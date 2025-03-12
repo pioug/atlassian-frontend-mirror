@@ -106,13 +106,9 @@ const InlineCardUnauthorizedViewNew = ({
 
 		if (fg('platform-linking-visual-refresh-v1')) {
 			return (
-				<Button
-					component={ActionButton}
-					onClick={handleConnectAccount}
-					testId="button-connect-account"
-				>
+				<ActionButton onClick={handleConnectAccount} testId="button-connect-account">
 					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-				</Button>
+				</ActionButton>
 			);
 		}
 

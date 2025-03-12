@@ -79,6 +79,23 @@ describe('transformPermissions', () => {
 			confluence: { write: true },
 		});
 	});
+
+	it('should return true for jira when user has access to at least one jira product', () => {
+		const permissions: ProductPermissionsResponse[] = [
+			{ resourceId: 'ari:cloud:jira::site/123', permitted: false, permissionId: 'write' },
+			{
+				resourceId: 'ari:cloud:jira-core::site/123',
+				permitted: true,
+				permissionId: 'write',
+			},
+		];
+
+		const result = transformPermissions(permissions);
+
+		expect(result).toStrictEqual<UserProductPermissions>({
+			jira: { write: true },
+		});
+	});
 });
 
 describe('getProductPermissionRequestBody', () => {
@@ -86,7 +103,7 @@ describe('getProductPermissionRequestBody', () => {
 		const cloudId = 'cloud-id';
 		const userId = 'user-id';
 
-		const result = getProductPermissionRequestBody(cloudId, userId, ['manage', 'write']);
+		const result = getProductPermissionRequestBody(cloudId, userId, ['manage']);
 
 		const expectedBody = JSON.stringify([
 			{
@@ -102,14 +119,26 @@ describe('getProductPermissionRequestBody', () => {
 				dontRequirePrincipalInSite: true,
 			},
 			{
-				permissionId: 'write',
-				resourceId: `ari:cloud:confluence::site/${cloudId}`,
+				permissionId: 'manage',
+				resourceId: `ari:cloud:jira-core::site/${cloudId}`,
 				principalId: `ari:cloud:identity::user/${userId}`,
 				dontRequirePrincipalInSite: true,
 			},
 			{
-				permissionId: 'write',
-				resourceId: `ari:cloud:jira::site/${cloudId}`,
+				permissionId: 'manage',
+				resourceId: `ari:cloud:jira-software::site/${cloudId}`,
+				principalId: `ari:cloud:identity::user/${userId}`,
+				dontRequirePrincipalInSite: true,
+			},
+			{
+				permissionId: 'manage',
+				resourceId: `ari:cloud:jira-servicedesk::site/${cloudId}`,
+				principalId: `ari:cloud:identity::user/${userId}`,
+				dontRequirePrincipalInSite: true,
+			},
+			{
+				permissionId: 'manage',
+				resourceId: `ari:cloud:jira-product-discovery::site/${cloudId}`,
 				principalId: `ari:cloud:identity::user/${userId}`,
 				dontRequirePrincipalInSite: true,
 			},

@@ -1,64 +1,69 @@
-import React, { type ComponentPropsWithRef, forwardRef } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ComponentPropsWithRef, forwardRef } from 'react';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-type ActionButtonProps = ComponentPropsWithRef<typeof Box> & {
-	disabled?: boolean;
-	[`data-testid`]?: string;
-};
+const styles = cssMap({
+	button: {
+		display: 'contents',
+	},
+	innerContainer: {
+		display: 'inline',
+		backgroundClip: 'padding-box',
+		boxDecorationBreak: 'clone',
+		fontWeight: token('font.weight.medium'),
+		paddingLeft: token('space.075'),
+		paddingTop: token('space.025'),
+		paddingBottom: token('space.025'),
+		paddingRight: token('space.075'),
+		textAlign: 'initial',
+		whiteSpace: 'break-spaces',
+		wordBreak: 'break-word',
+	},
+	enabled: {
+		color: token('color.text'),
+		cursor: 'pointer',
+		backgroundColor: token('color.background.neutral'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.pressed'),
+		},
+	},
+	disabled: {
+		color: token('color.text.disabled'),
+		cursor: 'not-allowed',
+		backgroundColor: token('color.background.disabled'),
+	},
+});
+
+type ActionButtonProps = ComponentPropsWithRef<typeof Pressable>;
 
 /**
  * Action button has to be a span for the overflow to work correctly
  */
 export const ActionButton = forwardRef(
-	({ children, ...props }: ActionButtonProps, ref: ActionButtonProps['ref']) => {
-		// `Button transforms `testId` into `data-testid`. We need to transform it back to `testId`
-		const { [`data-testid`]: testId } = props;
-
+	({ children, isDisabled, ...props }: ActionButtonProps, ref: ActionButtonProps['ref']) => {
 		return (
-			<Box
-				as="span"
-				ref={ref}
-				xcss={[actionButtonStyle, !props.disabled && actionButtonNotDisabledStyle]}
+			<Pressable
 				{...props}
-				aria-disabled={props.disabled}
-				role="button"
-				testId={testId}
+				isDisabled={isDisabled}
+				ref={ref}
+				// We need to reset Pressable fixed font size to allow inline card to inherit the font size
+				// from parent component such as paragraph and heading
+				style={{ font: `inherit` }}
+				xcss={styles.button}
 			>
-				<Box as="span" xcss={internalButtonStyle}>
+				<span css={[styles.innerContainer, isDisabled ? styles.disabled : styles.enabled]}>
 					{children}
-				</Box>
-			</Box>
+				</span>
+			</Pressable>
 		);
 	},
 );
-
-const actionButtonStyle = xcss({
-	textAlign: 'initial',
-	display: 'inline',
-	borderRadius: 'border.radius.100',
-	borderTopLeftRadius: '0px',
-	borderBottomLeftRadius: '0px',
-	backgroundClip: 'padding-box',
-	boxDecorationBreak: 'clone',
-	paddingLeft: 'space.075',
-	paddingTop: 'space.025',
-	paddingBottom: 'space.025',
-	paddingRight: 'space.075',
-	whiteSpace: 'nowrap',
-	backgroundColor: 'color.background.neutral',
-	cursor: 'not-allowed',
-	color: 'color.text.disabled',
-});
-
-const internalButtonStyle = xcss({
-	fontWeight: 'font.weight.medium',
-});
-
-const actionButtonNotDisabledStyle = xcss({
-	color: 'color.text',
-	cursor: 'pointer',
-	':hover': {
-		backgroundColor: 'color.background.neutral.hovered',
-	},
-});

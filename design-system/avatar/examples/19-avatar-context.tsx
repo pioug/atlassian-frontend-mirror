@@ -1,12 +1,8 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { jsx } from '@emotion/react';
+import React from 'react';
 
 import Avatar, { AvatarContext } from '@atlaskit/avatar';
 import Heading from '@atlaskit/heading';
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 const CustomSVG = () => (
 	<Stack space="space.400">

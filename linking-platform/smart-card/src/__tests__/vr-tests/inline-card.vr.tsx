@@ -27,6 +27,7 @@ import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-c
 import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon';
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
 import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate';
+import InlineCardUnresolvedActionWordWrap from '../../../examples/vr-inline-card/vr-inline-card-unresolved-action-word-wrap';
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
@@ -310,6 +311,13 @@ snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+
+snapshot(InlineCardUnresolvedActionWordWrap, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });

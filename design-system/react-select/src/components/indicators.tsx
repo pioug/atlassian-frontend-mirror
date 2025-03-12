@@ -164,6 +164,7 @@ export const ClearIndicator = <Option, IsMulti extends boolean, Group extends Gr
 			})}
 			{...innerProps}
 		>
+			{/* The Clear button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field */}
 			<Pressable xcss={iconContainerStyles} tabIndex={-1} aria-label={clearControlLabel}>
 				<CrossIcon
 					label=""

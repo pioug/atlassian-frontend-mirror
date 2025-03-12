@@ -1,5 +1,15 @@
 # @atlaskit/ds-explorations
 
+## 5.0.1
+
+### Patch Changes
+
+- [#124329](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124329)
+  [`b0d988fe689d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0d988fe689d9) -
+  Consolidate ADS themes by adding the icon.color.subtlest with the value equal to icon.color.subtle
+  to non-brand-refresh themes
+- Updated dependencies
+
 ## 5.0.0
 
 ### Major Changes

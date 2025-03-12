@@ -9,6 +9,7 @@ import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles';
 import type {
 	Command,
 	ConfirmDialogOptions,
+	DropdownOptionT,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
@@ -36,6 +37,7 @@ import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -104,7 +106,7 @@ const isLayoutSupported = (state: EditorState, selectedExtNode: { pos: number; n
 	);
 };
 
-const breakoutOptions = (
+const breakoutButtonListOptions = (
 	state: EditorState,
 	formatMessage: IntlShape['formatMessage'],
 	extensionState: ExtensionState,
@@ -154,6 +156,117 @@ const breakoutOptions = (
 	return [];
 };
 
+const breakoutDropdownOptions = (
+	state: EditorState,
+	formatMessage: IntlShape['formatMessage'],
+	breakoutEnabled: boolean,
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): Array<FloatingToolbarItem<Command>> => {
+	const nodeWithPos = getSelectedExtension(state, true);
+
+	// we should only return breakout options when breakouts are enabled and the node supports them
+	if (
+		!nodeWithPos ||
+		!breakoutEnabled ||
+		!isLayoutSupported(state, nodeWithPos) ||
+		isNestedNBM(state, nodeWithPos)
+	) {
+		return [];
+	}
+
+	const { layout } = nodeWithPos.node.attrs;
+	let title = '';
+	let IconComponent: {
+		(props: NewCoreIconProps): JSX.Element;
+		displayName: string;
+	};
+	switch (layout) {
+		case 'wide':
+			title = formatMessage(commonMessages.layoutStateWide);
+			IconComponent = ContentWidthWideIcon;
+			break;
+		case 'full-width':
+			title = formatMessage(commonMessages.layoutStateFullWidth);
+			IconComponent = ExpandHorizontalIcon;
+			break;
+		case 'default':
+		default:
+			title = formatMessage(commonMessages.layoutStateFixedWidth);
+			IconComponent = ContentWidthNarrowIcon;
+			break;
+	}
+
+	const options: DropdownOptionT<Command>[] = [
+		{
+			id: 'editor.extensions.width.default',
+			title: formatMessage(commonMessages.layoutFixedWidth),
+			onClick: updateExtensionLayout('default', editorAnalyticsAPI),
+			selected: layout === 'default',
+			icon: (
+				<ContentWidthNarrowIcon
+					color="currentColor"
+					spacing="spacious"
+					label={formatMessage(commonMessages.layoutFixedWidth)}
+				/>
+			),
+		},
+		{
+			id: 'editor.extensions.width.wide',
+			title: formatMessage(commonMessages.layoutWide),
+			onClick: updateExtensionLayout('wide', editorAnalyticsAPI),
+			selected: layout === 'wide',
+			icon: (
+				<ContentWidthWideIcon
+					color="currentColor"
+					spacing="spacious"
+					label={formatMessage(commonMessages.layoutWide)}
+				/>
+			),
+		},
+		{
+			id: 'editor.extensions.width.full-width',
+			title: formatMessage(commonMessages.layoutFullWidth),
+			onClick: updateExtensionLayout('full-width', editorAnalyticsAPI),
+			selected: layout === 'full-width',
+			icon: (
+				<ExpandHorizontalIcon
+					color="currentColor"
+					spacing="spacious"
+					label={formatMessage(commonMessages.layoutFullWidth)}
+				/>
+			),
+		},
+	];
+	return [
+		{
+			id: 'extensions-width-options-toolbar-item',
+			testId: 'extensions-width-options-toolbar-dropdown',
+			type: 'dropdown',
+			options: options,
+			title,
+			iconBefore: () => <IconComponent color="currentColor" spacing="spacious" label={title} />,
+		},
+	];
+};
+
+const breakoutOptions = (
+	state: EditorState,
+	formatMessage: IntlShape['formatMessage'],
+	extensionState: ExtensionState,
+	breakoutEnabled: boolean,
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): Array<FloatingToolbarItem<Command>> => {
+	return editorExperiment('platform_editor_controls', 'variant1')
+		? breakoutDropdownOptions(state, formatMessage, breakoutEnabled, editorAnalyticsAPI)
+		: breakoutButtonListOptions(
+				state,
+				formatMessage,
+				extensionState,
+				breakoutEnabled,
+				editorAnalyticsAPI,
+			);
+};
+
 const editButton = (
 	formatMessage: IntlShape['formatMessage'],
 	extensionState: ExtensionState,
@@ -164,7 +277,7 @@ const editButton = (
 		return [];
 	}
 
-	return [
+	const editButtonItems: Array<FloatingToolbarItem<Command>> = [
 		{
 			id: 'editor.extension.edit',
 			type: 'button',
@@ -190,6 +303,75 @@ const editButton = (
 			focusEditoronEnter: true,
 		},
 	];
+
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		editButtonItems.push({
+			type: 'separator',
+			fullHeight: true,
+		});
+	}
+
+	return editButtonItems;
+};
+
+/**
+ * Calculates the position for the toolbar when dealing with nested extensions
+ */
+const calculateToolbarPosition = (
+	editorView: EditorView,
+	nextPos: Position,
+	state: EditorState,
+	extensionNode: { pos: number; node: PMNode } | null | undefined,
+): Position => {
+	const {
+		state: { schema, selection },
+	} = editorView;
+
+	const possibleMbeParent = findParentNodeOfType(schema.nodes.extensionFrame)(selection);
+	// We only want to use calculated position in case of a bodiedExtension present inside an MBE node
+	const isBodiedExtensionInsideMBE =
+		possibleMbeParent && extensionNode?.node.type.name === 'bodiedExtension';
+
+	let scrollWrapper = editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
+
+	if (fg('platform_editor_legacy_content_macro')) {
+		if (!extensionNode) {
+			return nextPos;
+		}
+		const isInsideEditableExtensionArea = !!editorView.dom.closest('.extension-editable-area');
+
+		if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
+			return nextPos;
+		}
+
+		if (isInsideEditableExtensionArea && scrollWrapper.parentElement) {
+			// The editable extension area may have its own scroll wrapper, so we want to keep searching up the tree for the page level scroll wrapper.
+
+			scrollWrapper =
+				scrollWrapper.parentElement.closest('.fabric-editor-popup-scroll-parent') || scrollWrapper;
+		}
+	} else {
+		if (!isBodiedExtensionInsideMBE) {
+			return nextPos;
+		}
+	}
+
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
+	const nestedBodiedExtensionDomElement = editorView.nodeDOM(extensionNode.pos) as HTMLElement;
+
+	const nestedBodiedExtensionRect = nestedBodiedExtensionDomElement?.getBoundingClientRect();
+	const wrapperBounds = scrollWrapper.getBoundingClientRect();
+	const toolbarTopPos =
+		nestedBodiedExtensionRect.bottom -
+		wrapperBounds.top +
+		scrollWrapper.scrollTop +
+		BODIED_EXT_MBE_MARGIN_TOP;
+
+	return {
+		top: toolbarTopPos,
+		left: nextPos.left,
+	};
 };
 
 interface GetToolbarConfigProps {
@@ -220,185 +402,127 @@ export const getToolbarConfig =
 			editorAnalyticsAPI = extensionApi?.analytics?.actions;
 		}
 
-		if (extensionState && !extensionState.showContextPanel && extensionState.element) {
-			const nodeType = [
-				state.schema.nodes.extension,
-				state.schema.nodes.inlineExtension,
-				state.schema.nodes.bodiedExtension,
-				state.schema.nodes.multiBodiedExtension,
-			];
-
-			const editButtonArray = editButton(
-				formatMessage,
-				extensionState,
-				applyChangeToContextPanel,
-				editorAnalyticsAPI,
-			);
-			const breakoutButtonArray = breakoutOptions(
-				state,
-				formatMessage,
-				extensionState,
-				breakoutEnabled,
-				editorAnalyticsAPI,
-			);
-
-			const extensionObj = getSelectedExtension(state, true);
-
-			// Check if we need to show confirm dialog for delete button
-			let confirmDialog;
-			if (isReferencedSource(state, extensionObj?.node)) {
-				confirmDialog = (): ConfirmDialogOptions => {
-					const localSourceName = formatMessage(messages.unnamedSource);
-					return {
-						title: formatMessage(messages.deleteElementTitle),
-						okButtonLabel: formatMessage(messages.confirmDeleteLinkedModalOKButton),
-						message: formatMessage(messages.confirmDeleteLinkedModalMessage, {
-							nodeName: getNodeName(state, extensionObj?.node) || localSourceName,
-						}),
-						isReferentialityDialog: true,
-						getChildrenInfo: () => getChildrenInfo(state, extensionObj?.node),
-						checkboxLabel: formatMessage(messages.confirmModalCheckboxLabel),
-						onConfirm: (isChecked = false) =>
-							clickWithCheckboxHandler(isChecked, extensionObj?.node),
-					};
-				};
-			}
-
-			return {
-				title: 'Extension floating controls',
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				getDomRef: () => extensionState.element!.parentElement || undefined,
-				nodeType,
-				onPositionCalculated: (editorView: EditorView, nextPos: Position) => {
-					const {
-						state: { schema, selection },
-					} = editorView;
-					const extensionNode = getSelectedExtension(state, true);
-
-					const possibleMbeParent = findParentNodeOfType(schema.nodes.extensionFrame)(selection);
-					// We only want to use calculated position in case of a bodiedExtension present inside an MBE node
-					const isBodiedExtensionInsideMBE =
-						possibleMbeParent && extensionNode?.node.type.name === 'bodiedExtension';
-
-					let scrollWrapper =
-						editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
-
-					if (fg('platform_editor_legacy_content_macro')) {
-						if (!extensionNode) {
-							return nextPos;
-						}
-						const isInsideEditableExtensionArea = !!editorView.dom.closest(
-							'.extension-editable-area',
-						);
-
-						if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
-							return nextPos;
-						}
-
-						if (isInsideEditableExtensionArea && scrollWrapper.parentElement) {
-							// The editable extension area may have its own scroll wrapper, so we want to keep searching up the tree for the page level scroll wrapper.
-
-							scrollWrapper =
-								scrollWrapper.parentElement.closest('.fabric-editor-popup-scroll-parent') ||
-								scrollWrapper;
-						}
-					} else {
-						if (!isBodiedExtensionInsideMBE) {
-							return nextPos;
-						}
-					}
-
-					// Ignored via go/ees005
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					const nestedBodiedExtensionDomElement = editorView.nodeDOM(
-						extensionNode.pos,
-					) as HTMLElement;
-
-					const nestedBodiedExtensionRect =
-						nestedBodiedExtensionDomElement?.getBoundingClientRect();
-					const wrapperBounds = scrollWrapper.getBoundingClientRect();
-					const toolbarTopPos =
-						nestedBodiedExtensionRect.bottom -
-						wrapperBounds.top +
-						scrollWrapper.scrollTop +
-						BODIED_EXT_MBE_MARGIN_TOP;
-
-					return {
-						top: toolbarTopPos,
-						left: nextPos.left,
-					};
-				},
-				items: [
-					...editButtonArray,
-					...breakoutButtonArray,
-					...(editorExperiment('platform_editor_controls', 'control')
-						? [
-								{
-									type: 'separator',
-									hidden: editButtonArray.length === 0 && breakoutButtonArray.length === 0,
-								},
-								{
-									type: 'extensions-placeholder',
-									separator: 'end',
-								},
-								{
-									type: 'copy-button',
-									items: [
-										{
-											state,
-											formatMessage: intl.formatMessage,
-											nodeType,
-										},
-									],
-								},
-								{ type: 'separator' },
-								{
-									id: 'editor.extension.delete',
-									type: 'button',
-									icon: DeleteIcon,
-									iconFallback: RemoveIcon,
-									appearance: 'danger',
-									onClick: removeExtension(editorAnalyticsAPI),
-									onMouseEnter: hoverDecoration?.(nodeType, true),
-									onMouseLeave: hoverDecoration?.(nodeType, false),
-									onFocus: hoverDecoration?.(nodeType, true),
-									onBlur: hoverDecoration?.(nodeType, false),
-									focusEditoronEnter: true,
-									title: formatMessage(commonMessages.remove),
-									tabIndex: null,
-									confirmDialog,
-								},
-							]
-						: [
-								{ type: 'separator', fullHeight: true },
-								{
-									type: 'overflow-dropdown',
-									options: [
-										{
-											title: 'Copy',
-											onClick: () => {
-												extensionApi?.core?.actions.execute(
-													// @ts-ignore
-													extensionApi?.floatingToolbar?.commands.copyNode(nodeType),
-												);
-												return true;
-											},
-											icon: <CopyIcon label="Copy" />,
-										},
-										{
-											title: 'Delete',
-											onClick: removeExtension(editorAnalyticsAPI),
-											icon: <DeleteIcon label="Delete" />,
-										},
-									],
-								},
-							]),
-				],
-				scrollable: true,
-			} as FloatingToolbarConfig;
+		if (!extensionState || extensionState.showContextPanel || !extensionState.element) {
+			return;
 		}
-		return;
+
+		const nodeType = [
+			state.schema.nodes.extension,
+			state.schema.nodes.inlineExtension,
+			state.schema.nodes.bodiedExtension,
+			state.schema.nodes.multiBodiedExtension,
+		];
+
+		const editButtonItems = editButton(
+			formatMessage,
+			extensionState,
+			applyChangeToContextPanel,
+			editorAnalyticsAPI,
+		);
+		const breakoutItems = breakoutOptions(
+			state,
+			formatMessage,
+			extensionState,
+			breakoutEnabled,
+			editorAnalyticsAPI,
+		);
+		const extensionObj = getSelectedExtension(state, true);
+
+		// Check if we need to show confirm dialog for delete button
+		let confirmDialog;
+		if (isReferencedSource(state, extensionObj?.node)) {
+			confirmDialog = (): ConfirmDialogOptions => {
+				const localSourceName = formatMessage(messages.unnamedSource);
+				return {
+					title: formatMessage(messages.deleteElementTitle),
+					okButtonLabel: formatMessage(messages.confirmDeleteLinkedModalOKButton),
+					message: formatMessage(messages.confirmDeleteLinkedModalMessage, {
+						nodeName: getNodeName(state, extensionObj?.node) || localSourceName,
+					}),
+					isReferentialityDialog: true,
+					getChildrenInfo: () => getChildrenInfo(state, extensionObj?.node),
+					checkboxLabel: formatMessage(messages.confirmModalCheckboxLabel),
+					onConfirm: (isChecked = false) => clickWithCheckboxHandler(isChecked, extensionObj?.node),
+				};
+			};
+		}
+
+		return {
+			title: 'Extension floating controls',
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			getDomRef: () => extensionState.element!.parentElement || undefined,
+			nodeType,
+			onPositionCalculated: (editorView: EditorView, nextPos: Position) =>
+				calculateToolbarPosition(editorView, nextPos, state, extensionObj),
+			items: [
+				...editButtonItems,
+				...breakoutItems,
+				...(editorExperiment('platform_editor_controls', 'control')
+					? [
+							{
+								type: 'separator',
+								hidden: editButtonItems.length === 0 && breakoutItems.length === 0,
+							},
+							{
+								type: 'extensions-placeholder',
+								separator: 'end',
+							},
+							{
+								type: 'copy-button',
+								items: [
+									{
+										state,
+										formatMessage: intl.formatMessage,
+										nodeType,
+									},
+								],
+							},
+							{ type: 'separator' },
+							{
+								id: 'editor.extension.delete',
+								type: 'button',
+								icon: DeleteIcon,
+								iconFallback: RemoveIcon,
+								appearance: 'danger',
+								onClick: removeExtension(editorAnalyticsAPI),
+								onMouseEnter: hoverDecoration?.(nodeType, true),
+								onMouseLeave: hoverDecoration?.(nodeType, false),
+								onFocus: hoverDecoration?.(nodeType, true),
+								onBlur: hoverDecoration?.(nodeType, false),
+								focusEditoronEnter: true,
+								title: formatMessage(commonMessages.remove),
+								tabIndex: null,
+								confirmDialog,
+							},
+						]
+					: [
+							{ type: 'separator', fullHeight: true },
+							{
+								type: 'overflow-dropdown',
+								options: [
+									{
+										title: 'Copy',
+										onClick: () => {
+											extensionApi?.core?.actions.execute(
+												// @ts-ignore
+												extensionApi?.floatingToolbar?.commands.copyNode(nodeType),
+											);
+											return true;
+										},
+										icon: <CopyIcon label="Copy" />,
+									},
+									{
+										title: 'Delete',
+										onClick: removeExtension(editorAnalyticsAPI),
+										icon: <DeleteIcon label="Delete" />,
+									},
+								],
+							},
+						]),
+			],
+			scrollable: true,
+		} as FloatingToolbarConfig;
 	};
 
 const clickWithCheckboxHandler =

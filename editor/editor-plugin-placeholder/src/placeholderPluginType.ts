@@ -6,6 +6,7 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 export interface PlaceholderPluginOptions {
 	placeholder?: string;
 	placeholderBracketHint?: string;
+	emptyLinePlaceholder?: string;
 }
 
 export type PlaceholderPlugin = NextEditorPlugin<

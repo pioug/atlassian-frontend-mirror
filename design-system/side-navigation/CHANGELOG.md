@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 6.0.2
+
+### Patch Changes
+
+- [#124556](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124556)
+  [`48adeb70784c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48adeb70784c5) -
+  Updated dependencies and removed old codemods.
+
 ## 6.0.1
 
 ### Patch Changes

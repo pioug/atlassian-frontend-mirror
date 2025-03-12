@@ -1,13 +1,18 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { Skeleton } from '@atlaskit/avatar';
-import { Inline, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../examples-util/helpers';
 
-const customTextColorStyle = xcss({
-	color: 'color.text.accent.purple',
+const styles = cssMap({
+	textColor: {
+		color: token('color.text.accent.purple'),
+	},
 });
 
 export default () => (
@@ -29,7 +34,7 @@ export default () => (
 			<Skeleton appearance="square" size="xsmall" />
 		</Block>
 		<Block heading="Coloured via inheritance" testId="example-block">
-			<Inline space="space.150" xcss={customTextColorStyle} alignBlock="end">
+			<Inline space="space.150" xcss={styles.textColor} alignBlock="end">
 				<Skeleton size="xxlarge" />
 				<Skeleton size="xlarge" />
 				<Skeleton size="large" />

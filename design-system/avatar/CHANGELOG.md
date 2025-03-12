@@ -1,5 +1,24 @@
 # @atlaskit/avatar
 
+## 25.0.0
+
+### Major Changes
+
+- [#122909](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122909)
+  [`5330c20b7c5fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5330c20b7c5fd) -
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR. Please note, in order to
+  use this version of `@atlaskit/avatar`, you will need to ensure that your bundler is configured to
+  handle `.css` imports correctly.
+
+  Most bundlers come with built-in support for `.css` imports, so you may not need to do anything.
+  If you are using a different bundler, please refer to the documentation for that bundler to
+  understand how to handle `.css` imports.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

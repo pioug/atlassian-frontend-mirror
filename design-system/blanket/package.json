@@ -57,7 +57,6 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:*",
 		"@af/integration-testing": "workspace:*",
-		"@af/is-hoisted-product": "workspace:*",
 		"@atlaskit/badge": "workspace:*",
 		"@atlaskit/button": "workspace:*",
 		"@atlaskit/docs": "workspace:*",

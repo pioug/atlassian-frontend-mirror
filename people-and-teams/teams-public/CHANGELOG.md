@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.10.0
+
+### Minor Changes
+
+- [#123606](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123606)
+  [`65d70a1e2362d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65d70a1e2362d) -
+  [ux] Open team containers popup on add click in add container card - Fix accessibility issue
+
 ## 0.9.0
 
 ### Minor Changes

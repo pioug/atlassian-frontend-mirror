@@ -1,16 +1,5 @@
 import { type MouseEventHandler } from 'react';
 
-export const getLinkProps = (href: string, target?: string) => ({
-	href,
-	rel: target === '_blank' ? 'noopener noreferrer' : null,
-	target,
-});
-
-export const getButtonProps = (onClick: MouseEventHandler) => ({
-	type: 'button',
-	onClick,
-});
-
 export const getCustomElement = (
 	isDisabled?: boolean,
 	href?: string,

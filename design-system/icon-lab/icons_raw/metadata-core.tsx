@@ -393,6 +393,15 @@ const metadata: IconMetadata = {
 		status: 'published',
 		usage: 'Top-aligned text position within sticky notes in Whiteboards.',
 	},
+	'beach-umbrella': {
+		keywords: ['vacation', 'beach umbrella', 'sun shade', 'holiday'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Growth Buy',
+		type: 'core',
+		status: 'published',
+		usage: 'User-selectable icon choice for calendars',
+	},
 	'book-open': {
 		keywords: ['book', 'knowledgebase article'],
 		categorization: 'multi-purpose',
@@ -487,6 +496,15 @@ const metadata: IconMetadata = {
 		status: 'published',
 		usage: 'Multi purpose',
 	},
+	gift: {
+		keywords: ['gift', 'present'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Growth Buy',
+		type: 'core',
+		status: 'published',
+		usage: 'User-selectable icon choice for calendars',
+	},
 	'group-selection': {
 		keywords: ['group', 'selection', 'layers'],
 		categorization: 'multi-purpose',
@@ -540,6 +558,15 @@ const metadata: IconMetadata = {
 		type: 'core',
 		status: 'published',
 		usage: 'Multi purpose',
+	},
+	'party-popper': {
+		keywords: ['party', 'celebrate', 'celebration', 'confetti'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Growth Buy',
+		type: 'core',
+		status: 'published',
+		usage: 'User-selectable icon choice for calendars',
 	},
 	section: {
 		keywords: ['section', 'related content'],
@@ -693,6 +720,15 @@ const metadata: IconMetadata = {
 		type: 'core',
 		status: 'published',
 		usage: 'Multi purpose',
+	},
+	'vehicle-airplane': {
+		keywords: ['plane', 'airplane', 'aeroplane', 'travel', 'vehicle'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Growth Buy',
+		type: 'core',
+		status: 'published',
+		usage: 'User-selectable icon choice for calendars',
 	},
 	'vehicle-train': {
 		keywords: ['transportation', 'vehicle', 'car'],

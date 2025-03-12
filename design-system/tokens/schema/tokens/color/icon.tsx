@@ -20,6 +20,14 @@ const color: AttributeSchema<IconColorTokenSchema<BaseToken>> = {
 					description: 'Use for icons paired with color.text.subtle',
 				},
 			},
+			subtlest: {
+				attributes: {
+					group: 'paint',
+					state: 'active',
+					introduced: '1.54.0',
+					description: 'Use for icons paired with color.text.subtlest',
+				},
+			},
 			inverse: {
 				attributes: {
 					group: 'paint',

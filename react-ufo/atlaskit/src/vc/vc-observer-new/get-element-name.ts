@@ -73,8 +73,7 @@ function getUniqueSelector(selectorConfig: SelectorConfig, element: HTMLElement)
 	} else if (!isSelectorUnique(potentialSelector)) {
 		const parentElement = element.parentElement;
 		if (parentElement) {
-			const siblingIndex = Array.from(parentElement.children).indexOf(element) + 1;
-			return `${potentialSelector}:nth-child(${siblingIndex})`;
+			return `${potentialSelector}:nth-child`; // NOTE: invalid DOM selector, but enough information for VC
 		}
 	}
 

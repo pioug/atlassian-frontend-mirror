@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.1
+
+### Patch Changes
+
+- [#124988](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124988)
+  [`fa5bc92ae734d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa5bc92ae734d) -
+  Deduplicate nth-child(n) selectors produced by TTVC v3 debug info
+
 ## 3.4.0
 
 ### Minor Changes

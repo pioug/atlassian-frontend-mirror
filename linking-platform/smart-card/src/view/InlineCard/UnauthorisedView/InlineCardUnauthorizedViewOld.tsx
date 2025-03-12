@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
-import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
@@ -124,18 +123,6 @@ export const InlineCardUnauthorizedViewOld = ({
 		const Button = withFrameStyleControl(ButtonOld, frameRef);
 
 		if (fg('bandicoots-compiled-migration-smartcard')) {
-			if (fg('platform-linking-visual-refresh-v1')) {
-				return (
-					<Button
-						component={ActionButton}
-						onClick={handleConnectAccount}
-						testId="button-connect-account"
-					>
-						<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-					</Button>
-				);
-			}
-
 			return onAuthorise ? (
 				<Button
 					spacing="none"

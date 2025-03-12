@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 3.5.0
+
+### Minor Changes
+
+- [#123889](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123889)
+  [`ecce5b811acb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecce5b811acb9) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `beach-umbrella`
+  - `gift`
+  - `party-popper`
+  - `vehicle-airplane`
+
 ## 3.4.1
 
 ### Patch Changes

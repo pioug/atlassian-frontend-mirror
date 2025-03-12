@@ -1,11 +1,64 @@
-import React, { type FC, Fragment, type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type FC, Fragment, type ReactNode } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import { G400, N0, N40, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { ICON_OFFSET, ICON_SIZES } from './constants';
 import IconWrapper from './internal/icon-wrapper';
 import { type AppearanceType, type IndicatorSizeType, type Status } from './types';
+
+const styles = cssMap({
+	root: {
+		position: 'absolute',
+	},
+});
+
+const iconSizeMap = cssMap({
+	small: {
+		height: '12px',
+		width: '12px',
+	},
+	medium: {
+		height: '14px',
+		width: '14px',
+	},
+	large: {
+		height: '15px',
+		width: '15px',
+	},
+	xlarge: {
+		height: '18px',
+		width: '18px',
+	},
+});
+
+const iconOffsetMap = cssMap({
+	square: {
+		right: '0px',
+		top: '0px',
+	},
+	small: {
+		right: '0px',
+		top: '0px',
+	},
+	medium: {
+		right: '0px',
+		top: '0px',
+	},
+	large: {
+		right: '1px',
+		top: '1px',
+	},
+	xlarge: {
+		right: '7px',
+		top: '7px',
+	},
+});
 
 export interface StatusProps {
 	/**
@@ -110,22 +163,16 @@ export const StatusWrapper: FC<StatusWrapperProps> = ({
 	children,
 	testId,
 }) => {
-	const position = appearance === 'square' ? 0 : ICON_OFFSET[size];
-
 	return (
 		<span
 			aria-hidden="true"
 			data-testid={testId && `${testId}--status`}
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				position: 'absolute',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				height: `${ICON_SIZES[size]}px`,
-				right: `${position}px`,
-				top: `${position}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				width: `${ICON_SIZES[size]}px`,
-			}}
+			css={[
+				styles.root,
+				iconSizeMap[size],
+				iconOffsetMap[size],
+				appearance === 'square' && iconOffsetMap['square'],
+			]}
 		>
 			<AvatarStatus borderColor={borderColor} status={!children ? status : undefined}>
 				{children}

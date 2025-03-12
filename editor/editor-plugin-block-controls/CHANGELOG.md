@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.8
+
+### Patch Changes
+
+- [#124180](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124180)
+  [`f3f332175bf17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3f332175bf17) -
+  add case for quick insert button to handle block nodes which are leaf nodes, and handle media
+- Updated dependencies
+
 ## 3.3.7
 
 ### Patch Changes

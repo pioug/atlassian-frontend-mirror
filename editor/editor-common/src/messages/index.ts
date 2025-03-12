@@ -44,15 +44,30 @@ export default defineMessages({
 		defaultMessage: 'Back to center',
 		description: 'Display your element (image, table, extension, etc) as standard width',
 	},
+	layoutStateFixedWidth: {
+		id: 'fabric.editor.layoutStateFixedWidth',
+		defaultMessage: 'Centered',
+		description: 'Displaying your element (image, table, extension, etc) as standard width',
+	},
 	layoutWide: {
 		id: 'fabric.editor.layoutWide',
 		defaultMessage: 'Go wide',
 		description: 'Display your element (image, table, extension, etc) wider than normal',
 	},
+	layoutStateWide: {
+		id: 'fabric.editor.layoutStateWide',
+		defaultMessage: 'Wide',
+		description: 'Displaying your element (image, table, extension, etc) wider than normal',
+	},
 	layoutFullWidth: {
 		id: 'fabric.editor.layoutFullWidth',
 		defaultMessage: 'Go full width',
 		description: 'Display your element (image, table, extension, etc) as full width',
+	},
+	layoutStateFullWidth: {
+		id: 'fabric.editor.layoutStateFullWidth',
+		defaultMessage: 'Full width',
+		description: 'Displaying your element (image, table, extension, etc) as full width',
 	},
 	alignImageRight: {
 		id: 'fabric.editor.alignImageRight',

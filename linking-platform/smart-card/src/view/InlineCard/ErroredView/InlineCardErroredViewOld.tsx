@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
-import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
@@ -59,16 +58,6 @@ export class InlineCardErroredViewOld extends React.Component<InlineCardErroredV
 		const { onRetry } = this.props;
 
 		const Button = withFrameStyleControl(ButtonOld, this.frameRef);
-
-		if (fg('platform-linking-visual-refresh-v1')) {
-			return (
-				onRetry && (
-					<Button component={ActionButton} onClick={this.handleRetry}>
-						<FormattedMessage {...messages.try_again} />
-					</Button>
-				)
-			);
-		}
 
 		return (
 			onRetry && (

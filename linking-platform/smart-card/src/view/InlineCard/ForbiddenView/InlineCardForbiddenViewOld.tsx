@@ -7,14 +7,13 @@ import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Pressable, xcss } from '@atlaskit/primitives';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { type RequestAccessContextProps } from '../../types';
-import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
@@ -144,20 +143,6 @@ export class InlineCardForbiddenViewOld extends React.Component<InlineCardForbid
 
 		if (this.state.hasRequestAccessContextMessage) {
 			if (fg('bandicoots-compiled-migration-smartcard')) {
-				if (fg('platform-linking-visual-refresh-v1')) {
-					const isDisabled = accessType === 'PENDING_REQUEST_EXISTS';
-					return (
-						<Button
-							onClick={this.handleRetry}
-							component={ActionButton}
-							testId="button-connect-other-account"
-							isDisabled={isDisabled}
-						>
-							{this.renderForbiddenAccessMessage()}
-						</Button>
-					);
-				}
-
 				return (
 					<Button
 						spacing="none"
@@ -187,25 +172,6 @@ export class InlineCardForbiddenViewOld extends React.Component<InlineCardForbid
 		}
 
 		if (onAuthorise) {
-			if (fg('platform-linking-visual-refresh-v1')) {
-				return (
-					<LozengeWrapper>
-						<Pressable
-							xcss={actionButtonLozengeStyle}
-							onClick={this.handleRetry}
-							testId="button-connect-other-account"
-						>
-							<Lozenge
-								appearance={'moved'}
-								{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
-							>
-								{this.renderForbiddenAccessMessage()}
-							</Lozenge>
-						</Pressable>
-					</LozengeWrapper>
-				);
-			}
-
 			return (
 				<Button
 					spacing="none"
@@ -263,8 +229,3 @@ export class InlineCardForbiddenViewOld extends React.Component<InlineCardForbid
 		return content;
 	}
 }
-
-const actionButtonLozengeStyle = xcss({
-	backgroundColor: 'color.background.neutral.subtle',
-	padding: 'space.0',
-});

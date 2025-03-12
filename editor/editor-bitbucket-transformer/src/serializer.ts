@@ -291,6 +291,7 @@ const editorNodes = {
 			state.write(backticks + 'suggestion' + '\n');
 			const userContent = node.attrs.text || '';
 			state.text(userContent, false);
+			state.ensureNewLine();
 			state.write(backticks);
 			state.closeBlock(node);
 		}

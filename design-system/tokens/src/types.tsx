@@ -380,27 +380,6 @@ export interface IconColorTokenSchema<BaseToken> {
 		icon: {
 			'[default]': PaintToken<BaseToken>;
 			subtle: PaintToken<BaseToken>;
-			inverse: PaintToken<BaseToken>;
-			disabled: PaintToken<BaseToken>;
-			brand: PaintToken<BaseToken>;
-			selected: PaintToken<BaseToken>;
-			danger: PaintToken<BaseToken>;
-			warning: {
-				'[default]': PaintToken<BaseToken>;
-				inverse: PaintToken<BaseToken>;
-			};
-			success: PaintToken<BaseToken>;
-			discovery: PaintToken<BaseToken>;
-			information: PaintToken<BaseToken>;
-		};
-	};
-}
-
-export interface IconBrandRefreshColorTokenSchema<BaseToken> {
-	color: {
-		icon: {
-			'[default]': PaintToken<BaseToken>;
-			subtle: PaintToken<BaseToken>;
 			subtlest: PaintToken<BaseToken>;
 			inverse: PaintToken<BaseToken>;
 			disabled: PaintToken<BaseToken>;
@@ -1071,7 +1050,6 @@ export type ElevationTokenSchema<BaseToken> = SurfaceTokenSchema<BaseToken> &
 export type ColorTokenSchema<BaseToken> = BackgroundColorTokenSchema<BaseToken> &
 	BorderColorTokenSchema<BaseToken> &
 	IconColorTokenSchema<BaseToken> &
-	IconBrandRefreshColorTokenSchema<BaseToken> &
 	TextColorTokenSchema<BaseToken> &
 	AccentColorTokenSchema<BaseToken> &
 	UtilTokenSchema<BaseToken>;

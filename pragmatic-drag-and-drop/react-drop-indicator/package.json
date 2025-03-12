@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator",
-	"version": "2.2.0",
+	"version": "3.0.0",
 	"description": "An optional Pragmatic drag and drop package containing react components that provide a visual indication about what the user will achieve when the drop (eg lines)",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"sideEffects": [
-		"*.compiled.css"
+		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
@@ -29,7 +29,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:*",
 		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -77,14 +77,12 @@
 	"af:exports": {
 		".": "./src/index.ts",
 		"./box": "./src/box.tsx",
-		"./box-without-terminal": "./src/box-without-terminal.tsx",
 		"./types": "./src/types.ts",
 		"./tree-item": "./src/tree-item.tsx"
 	},
 	"exports": {
 		".": "./src/index.ts",
 		"./box": "./src/box.tsx",
-		"./box-without-terminal": "./src/box-without-terminal.tsx",
 		"./types": "./src/types.ts",
 		"./tree-item": "./src/tree-item.tsx"
 	},

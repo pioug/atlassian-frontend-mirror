@@ -10,6 +10,9 @@ const color: ExtendedValueSchema<IconColorTokenSchema<BaseToken>> = {
 			subtle: {
 				value: 'DarkNeutral900',
 			},
+			subtlest: {
+				value: 'DarkNeutral900',
+			},
 			brand: {
 				value: 'Blue300',
 			},

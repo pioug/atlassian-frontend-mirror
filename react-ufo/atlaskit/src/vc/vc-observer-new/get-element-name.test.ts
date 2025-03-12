@@ -67,7 +67,7 @@ describe('getElementName', () => {
 		const config: SelectorConfig = { id: true, testId: false, role: false, className: true };
 		const result = getElementName(config, element);
 		// Expect the result to be a path using nth-child as fallback
-		expect(result).toBe('div#parent > div.child:nth-child(3)');
+		expect(result).toBe('div#parent > div.child:nth-child');
 	});
 
 	it('should return "error" for non-HTMLElement inputs', () => {
@@ -88,20 +88,20 @@ describe('getElementName', () => {
 		const element = container.nextElementSibling; // element with classname "%invalid%"
 		const config: SelectorConfig = { id: false, testId: false, role: false, className: true };
 		const result = getElementName(config, element!);
-		expect(result).toBe('div:nth-child(3)');
+		expect(result).toBe('div:nth-child');
 	});
 
 	it('should return an :nth-child selector for an element with special characters in the id', () => {
 		const element = container.previousElementSibling; // element with id "%invalid%"
 		const config: SelectorConfig = { id: true, testId: false, role: false, className: false };
 		const result = getElementName(config, element!);
-		expect(result).toBe('div:nth-child(1)');
+		expect(result).toBe('div:nth-child');
 	});
 
 	it('should return a maximum of 3 parent elements in the selector for a deeply nested element', () => {
 		const element = container.querySelector('.deeply-nested'); // element with id "%invalid%"
 		const config: SelectorConfig = { id: false, testId: false, role: false, className: false };
 		const result = getElementName(config, element!);
-		expect(result).toBe('div > div > div > div:nth-child(1)');
+		expect(result).toBe('div > div > div > div:nth-child');
 	});
 });

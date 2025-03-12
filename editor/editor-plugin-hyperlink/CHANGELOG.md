@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.2.5
+
+### Patch Changes
+
+- [#125391](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125391)
+  [`ead20443d03e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ead20443d03e8) -
+  [ux] When Editor Controls enabled, we show Text Formatting toolbar on range selection inside of a
+  hyperlink.
+- Updated dependencies
+
 ## 4.2.4
 
 ### Patch Changes

@@ -25,7 +25,7 @@ import {
 	type Edge,
 	extractClosestEdge,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box-without-terminal';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
 	draggable,

@@ -12,8 +12,9 @@ import { Pulse } from '../Pulse/Pulse';
 import { ButtonSpotlightCard } from './ButtonSpotlightCard';
 import { getButtonStyles, iconOnlySpacing } from './styles';
 
-const minWidthStyle = {
+const customSizeAndPadding = {
 	minWidth: token('space.400', '32px'),
+	padding: `0px ${token('space.050', '4px')}`,
 };
 
 export interface Props {
@@ -146,7 +147,7 @@ export default ({
 												mode: themeProps.mode,
 											})),
 										...(editorExperiment('platform_editor_controls', 'variant1')
-											? minWidthStyle
+											? customSizeAndPadding
 											: {}),
 									},
 									...rest,

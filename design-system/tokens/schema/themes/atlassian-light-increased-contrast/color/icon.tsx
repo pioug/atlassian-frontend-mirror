@@ -10,6 +10,9 @@ const color: ExtendedValueSchema<IconColorTokenSchema<BaseToken>> = {
 			subtle: {
 				value: 'Neutral900',
 			},
+			subtlest: {
+				value: 'Neutral900',
+			},
 			// TODO: Confirm - was not included in theme design but seems like it should be darker
 			// disabled: {
 			//   value: 'Neutral400A',

@@ -127,6 +127,10 @@ export type InsertPromptPayload = PayloadCore<
 	'insert-prompt',
 	{
 		prompt: string;
+		/**
+		 * Overrides the default placeholder type
+		 */
+		placeholderType?: 'person' | 'link' | 'generic';
 	}
 >;
 

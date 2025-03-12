@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar",
-	"version": "24.0.1",
+	"version": "25.0.0",
 	"description": "An avatar is a visual representation of a user or entity.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,6 +52,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/css": "workspace:*",
 		"@atlaskit/ds-lib": "workspace:*",
 		"@atlaskit/focus-ring": "workspace:*",
 		"@atlaskit/icon": "workspace:*",
@@ -60,8 +61,7 @@
 		"@atlaskit/theme": "workspace:*",
 		"@atlaskit/tokens": "workspace:*",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"@emotion/serialize": "^1.1.0"
+		"@compiled/react": "^0.18.2"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -82,7 +82,6 @@
 		"@atlaskit/textfield": "workspace:*",
 		"@atlaskit/tooltip": "workspace:*",
 		"@atlassian/feature-flags-test-utils": "workspace:*",
-		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"jest-in-case": "^1.0.2",
@@ -109,7 +108,7 @@
 			],
 			"styling": [
 				"static",
-				"emotion"
+				"compiled"
 			],
 			"deprecation": "no-deprecated-imports"
 		}

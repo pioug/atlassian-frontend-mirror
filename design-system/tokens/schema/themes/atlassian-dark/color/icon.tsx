@@ -10,6 +10,9 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
 			subtle: {
 				value: 'DarkNeutral700',
 			},
+			subtlest: {
+				value: 'DarkNeutral700',
+			},
 			inverse: {
 				value: 'DarkNeutral100',
 			},

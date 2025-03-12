@@ -611,7 +611,7 @@ describe('TeamProfileCard', () => {
 
 			const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
 
-			const { getByTestId } = renderWithIntl(
+			const { getByRole } = renderWithIntl(
 				<TeamProfileCard
 					{...defaultProps}
 					team={{
@@ -626,7 +626,7 @@ describe('TeamProfileCard', () => {
 
 			const expectedLink = generateUserLink(members[0].id);
 
-			expect(getByTestId('profilecard-avatar-group--avatar-0').firstChild).toHaveAttribute(
+			expect(getByRole('link', { name: members[0].fullName })).toHaveAttribute(
 				'href',
 				expectedLink,
 			);
@@ -635,7 +635,7 @@ describe('TeamProfileCard', () => {
 		it('should fire analytics on avatar click', () => {
 			const members = generateMembers(3);
 
-			const { getByTestId } = renderWithIntl(
+			const { getByRole } = renderWithIntl(
 				<TeamProfileCard
 					{...defaultProps}
 					team={{
@@ -648,7 +648,7 @@ describe('TeamProfileCard', () => {
 			);
 
 			act(() => {
-				fireEvent.click(getByTestId('profilecard-avatar-group--avatar-0').firstChild as Element);
+				fireEvent.click(getByRole('button', { name: members[0].fullName }));
 			});
 
 			expect(analyticsListener).toHaveBeenCalledWith(
@@ -668,7 +668,7 @@ describe('TeamProfileCard', () => {
 
 			const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
 
-			const { getByTestId } = renderWithIntl(
+			const { getByRole } = renderWithIntl(
 				<TeamProfileCard
 					{...defaultProps}
 					team={{
@@ -682,7 +682,7 @@ describe('TeamProfileCard', () => {
 			);
 
 			act(() => {
-				fireEvent.click(getByTestId('profilecard-avatar-group--avatar-0').firstChild as Element);
+				fireEvent.click(getByRole('link', { name: members[0].fullName }));
 			});
 
 			expect(analyticsListener).toHaveBeenCalledWith(
@@ -702,7 +702,7 @@ describe('TeamProfileCard', () => {
 
 			const onUserClick = jest.fn();
 
-			const { getByTestId } = renderWithIntl(
+			const { getByRole } = renderWithIntl(
 				<TeamProfileCard
 					{...defaultProps}
 					team={{
@@ -716,7 +716,7 @@ describe('TeamProfileCard', () => {
 			);
 
 			act(() => {
-				fireEvent.click(getByTestId('profilecard-avatar-group--avatar-0').firstChild as Element);
+				fireEvent.click(getByRole('button', { name: members[0].fullName }));
 			});
 
 			expect(analyticsListener).toHaveBeenCalledWith(
@@ -740,7 +740,7 @@ describe('TeamProfileCard', () => {
 
 			const generateUserLink = (userId: string) => `https://example.com/user/${userId}`;
 
-			const { getByTestId } = renderWithIntl(
+			const { getByRole } = renderWithIntl(
 				<TeamProfileCard
 					{...defaultProps}
 					team={{
@@ -754,8 +754,10 @@ describe('TeamProfileCard', () => {
 				/>,
 			);
 
+			const avatarLink = getByRole('link', { name: members[0].fullName });
+
 			act(() => {
-				fireEvent.click(getByTestId('profilecard-avatar-group--avatar-0').firstChild as Element);
+				fireEvent.click(avatarLink);
 			});
 
 			expect(analyticsListener).toHaveBeenCalledWith(
@@ -773,10 +775,7 @@ describe('TeamProfileCard', () => {
 
 			const expectedLink = generateUserLink(members[0].id);
 
-			expect(getByTestId('profilecard-avatar-group--avatar-0').firstChild).toHaveAttribute(
-				'href',
-				expectedLink,
-			);
+			expect(avatarLink).toHaveAttribute('href', expectedLink);
 		});
 	});
 });

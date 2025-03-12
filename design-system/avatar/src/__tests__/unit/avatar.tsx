@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import Avatar, { AVATAR_SIZES, AvatarContent, AvatarContext, type SizeType } from '../../index';
+import Avatar, { AvatarContent, AvatarContext, type SizeType } from '../../index';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -516,18 +516,12 @@ describe('Avatar', () => {
 			const avatarWithContext = screen.getByTestId(`${withContextSize}--inner`);
 
 			expect(avatarNoContext).toBeInTheDocument();
-			expect(avatarNoContext).toHaveStyleDeclaration('height', `${AVATAR_SIZES[noContextSize]}px`);
-			expect(avatarNoContext).toHaveStyleDeclaration('width', `${AVATAR_SIZES[noContextSize]}px`);
+			expect(avatarNoContext).toHaveCompiledCss({ height: '24px' });
+			expect(avatarNoContext).toHaveCompiledCss({ width: '24px' });
 
 			expect(avatarWithContext).toBeInTheDocument();
-			expect(avatarWithContext).toHaveStyleDeclaration(
-				'height',
-				`${AVATAR_SIZES[withContextSize]}px`,
-			);
-			expect(avatarWithContext).toHaveStyleDeclaration(
-				'width',
-				`${AVATAR_SIZES[withContextSize]}px`,
-			);
+			expect(avatarWithContext).toHaveCompiledCss({ height: '6pc' });
+			expect(avatarWithContext).toHaveCompiledCss({ width: '6pc' });
 		});
 
 		it('should always prefer the provided prop value over the context value', () => {
@@ -546,16 +540,14 @@ describe('Avatar', () => {
 			const avatarWithContext = screen.getByTestId(`${withContextSize}--inner`);
 
 			expect(avatarWithContext).toBeInTheDocument();
-			expect(avatarWithContext).toHaveStyleDeclaration('height', `${AVATAR_SIZES[providedSize]}px`);
-			expect(avatarWithContext).toHaveStyleDeclaration('width', `${AVATAR_SIZES[providedSize]}px`);
-			expect(avatarWithContext).not.toHaveStyleDeclaration(
-				'height',
-				`${AVATAR_SIZES[withContextSize]}px`,
-			);
-			expect(avatarWithContext).not.toHaveStyleDeclaration(
-				'width',
-				`${AVATAR_SIZES[withContextSize]}px`,
-			);
+			expect(avatarWithContext).toHaveCompiledCss({ height: '24px' });
+			expect(avatarWithContext).toHaveCompiledCss({ width: '24px' });
+			expect(avatarWithContext).not.toHaveCompiledCss({
+				height: '6pc',
+			});
+			expect(avatarWithContext).not.toHaveCompiledCss({
+				width: '6pc',
+			});
 		});
 	});
 

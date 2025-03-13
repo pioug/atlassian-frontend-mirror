@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cfce04064e75ef43beefcc873c814f14>>
+ * @codegen <<SignedSource::4dc41d7000d1518f4f92caf7103b7b0d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextItalicIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m6.5 14.25 3-12.5m-3 12.5h-3m3 0H10m-.5-12.5h3m-3 0H6"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6 1h6.5v1.5h-2.409l-2.64 11H10V15H3.5v-1.5h2.409l2.64-11H6z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextItalicIcon.displayName = 'TextItalicIcon';

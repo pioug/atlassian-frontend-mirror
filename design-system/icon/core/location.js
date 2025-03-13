@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::46e8dc34f1c4a9060cc31a63cac870ce>>
+ * @codegen <<SignedSource::a077d34b75af68b5a629fa3ed5b43193>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LocationIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3.677 8.982 8 15.25l4.323-6.268C14.725 5.5 12.232.75 8 .75c-4.231 0-6.725 4.749-4.323 8.232Z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M9.75 6a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 1.5c-3.627 0-5.764 4.07-3.705 7.056L8 13.93l3.705-5.373C13.765 5.57 11.627 1.5 8 1.5M3.06 9.408C.314 5.427 3.164 0 8 0s7.686 5.427 4.94 9.408l-4.323 6.268a.75.75 0 0 1-1.234 0zM8 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2M5.5 6a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LocationIcon.displayName = 'LocationIcon';

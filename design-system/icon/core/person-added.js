@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::af6823633efbad7323eee5a2a5da4cc4>>
+ * @codegen <<SignedSource::c2b2be59784c9b52b8b3b5b23f53d5b2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PersonAddedIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 15v-2.25a3 3 0 0 1 3-3h2.5a3 3 0 0 1 3 3V15m.25-7.278L11.346 9.5l4-4M8.25 4a3.25 3.25 0 1 1-6.5 0 3.25 3.25 0 0 1 6.5 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M5 1.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M1 4a4 4 0 1 1 8 0 4 4 0 0 1-8 0m14.877 2.03-4 4a.75.75 0 0 1-1.051.01L8.98 8.262l1.04-1.08 1.316 1.267 3.48-3.48zM3.75 10.5a2.25 2.25 0 0 0-2.25 2.25V15H0v-2.25A3.75 3.75 0 0 1 3.75 9h2.52a3.75 3.75 0 0 1 3.75 3.75V15h-1.5v-2.25a2.25 2.25 0 0 0-2.25-2.25z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PersonAddedIcon.displayName = 'PersonAddedIcon';

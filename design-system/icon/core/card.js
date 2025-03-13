@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eda047d9da6177e1e37462d4a5010eb7>>
+ * @codegen <<SignedSource::0430301274e08a145722d21df4a18cdd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CardIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 8.25V3c0-.69.56-1.25 1.25-1.25h10c.69 0 1.25.56 1.25 1.25v5.25m-12.5 0V13c0 .69.56 1.25 1.25 1.25h10c.69 0 1.25-.56 1.25-1.25V8.25m-12.5 0h12.5m-2.25 3h-1.5m-1.5 0H4"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2zm2 .5a.5.5 0 0 1-.5-.5V9h11v4a.5.5 0 0 1-.5.5zm10.5-6h-11V3a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5zM4 12h5v-1.5H4zm6.5 0H12v-1.5h-1.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CardIcon.displayName = 'CardIcon';

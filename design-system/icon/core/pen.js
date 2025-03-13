@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ea380ad27603a546dcc3079be34502c0>>
+ * @codegen <<SignedSource::995c0e46b033978d8bc506e209f60969>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PenIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m.75.75 5.866 5.866M.75.75l9.96 2.548c.48.123.842.517.924 1.006L12.5 9.5M.75.75l2.548 9.96c.123.48.517.842 1.006.924L9.5 12.5m3-3-3 3m3-3 .75-.75 2 2-4.5 4.5-2-2 .75-.75m-.75-5a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M.22.22A.75.75 0 0 1 .936.023l9.96 2.549a2 2 0 0 1 1.478 1.608l.643 3.857a.75.75 0 0 1 .763.183l2 2a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1-.183-.763l-3.857-.643a2 2 0 0 1-1.609-1.477L.023.936A.75.75 0 0 1 .22.22m9.59 13.03.94.94 3.44-3.44-.94-.94zm1.887-4.007-2.454 2.454-4.816-.803a.5.5 0 0 1-.402-.37l-1.87-7.308 3.503 3.503a2 2 0 1 0 1.06-1.06L3.217 2.154l7.309 1.87a.5.5 0 0 1 .37.402zM8 7.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PenIcon.displayName = 'PenIcon';

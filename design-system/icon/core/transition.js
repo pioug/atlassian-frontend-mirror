@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::50960680aeed8e74a00f4b30a91731af>>
+ * @codegen <<SignedSource::7b20915105f9f06f3ef89ee9497af0ea>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TransitionIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 0h1.438A1.813 1.813 0 0 0 8 10.938V5.062c0-1 .811-1.812 1.813-1.812h1.437m0 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M12.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5m-2.122 0a2.251 2.251 0 1 1 0 1.5h-.816c-.586 0-1.062.476-1.062 1.063v5.875A2.563 2.563 0 0 1 6.188 13.5h-.816a2.25 2.25 0 1 1 0-1.5h.816c.586 0 1.062-.476 1.062-1.062V5.062A2.56 2.56 0 0 1 9.813 2.5zM3.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TransitionIcon.displayName = 'TransitionIcon';

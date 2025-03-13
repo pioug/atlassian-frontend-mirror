@@ -10,7 +10,13 @@ import { SlideIn, ExitingPersistence, type Durations } from '@atlaskit/motion';
 
 import { formatLargeNumber } from '../../shared/utils';
 
-import { containerStyle, counterLabelStyle, countStyle, highlightStyle } from './styles';
+import {
+	containerStyle,
+	counterLabelStyle,
+	countStyle,
+	highlightStyle,
+	darkerFontStyle,
+} from './styles';
 
 /**
  * Test id for component top level div
@@ -52,6 +58,10 @@ export interface CounterProps {
 	 * Duration of how long the motion will take (defaults to "medium" from '@atlaskit/motion')
 	 */
 	animationDuration?: Durations;
+	/**
+	 * Optional prop to use a darker text color for the counter
+	 */
+	useDarkerFont?: boolean;
 }
 
 /**
@@ -64,6 +74,7 @@ export const Counter = ({
 	className,
 	value,
 	animationDuration = 'medium',
+	useDarkerFont,
 }: CounterProps) => {
 	const getLabel = (value: number) => {
 		// Check if reached limit
@@ -93,7 +104,7 @@ export const Counter = ({
 			className={className}
 			data-testid={RENDER_COMPONENT_WRAPPER}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={countStyle}
+			css={useDarkerFont ? [countStyle, darkerFontStyle] : countStyle}
 		>
 			<ExitingPersistence>
 				<SlideIn

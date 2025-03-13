@@ -19,6 +19,14 @@ const CONSIDERED_ENTRY_TYPE: VCObserverEntryType[] = [
 	'window:event',
 ];
 
+// TODO: AFO-3523
+// Those are the attributes we have found when testing the 'fy25.03' manually.
+// We still need to replace this hardcoded list with a proper automation
+export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
+	'data-drop-target-for-element',
+	'draggable',
+];
+
 export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	constructor() {
 		super(REVISION_NO);
@@ -30,7 +38,10 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		if (entry.type === 'mutation:attribute') {
 			const entryData = entry.data as ViewportEntryData;
 			const attributeName = entryData.attributeName;
-			if (!attributeName) {
+			if (
+				!attributeName ||
+				KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS.includes(attributeName)
+			) {
 				return false;
 			}
 			return true;

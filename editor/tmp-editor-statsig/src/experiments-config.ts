@@ -353,4 +353,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-03-13
+	editor_text_highlight_orange_to_yellow: {
+		productKeys: {
+			confluence: 'editor_text_highlight_orange_to_yellow',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

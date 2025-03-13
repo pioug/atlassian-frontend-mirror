@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a267edf2fb38d19e82185e945dc6bf6f>>
+ * @codegen <<SignedSource::9d879bb1bedf9deed9d11ee66de42aeb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ScorecardIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 8A7.25 7.25 0 1 0 8 15.25m6.723-4.531a7.28 7.28 0 0 1-4.004 4.004M4.25 8l2.5 3 5-6"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 0 0 0 13V16a8 8 0 1 1 8-8h-1.5A6.5 6.5 0 0 0 8 1.5m4.326 3.98-5 6a.75.75 0 0 1-1.152 0l-2.5-3 1.152-.96L6.75 9.828l4.424-5.308zm-1.889 8.548a6.52 6.52 0 0 0 3.59-3.59l1.391.562A8.03 8.03 0 0 1 11 15.418z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ScorecardIcon.displayName = 'ScorecardIcon';

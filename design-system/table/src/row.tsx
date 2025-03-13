@@ -17,7 +17,7 @@ import SelectableCell from './selectable-cell';
 import { SelectableCell as SelectableCellPrimitive } from './ui/selectable-cell';
 import { TR as TRPrimitive } from './ui/tr';
 
-export type RowProps = {
+type RowProps = {
 	/**
 	 * A `testId` prop is a unique string that appears as a data attribute `data-testid`
 	 * in the rendered code, serving as a hook for automated tests.

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1a35a507090c3f51288668c04cdf3800>>
+ * @codegen <<SignedSource::4d0d333f98e7051cb18259ec390fd7c2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BasketballIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M9.055 15.173a7.23 7.23 0 0 1 .46-6.298 7.23 7.23 0 0 1 5.224-3.548m-5.684 9.846a7.22 7.22 0 0 1-4.68-.894 7.22 7.22 0 0 1-3.115-3.606m7.795 4.5a7.24 7.24 0 0 0 4.861-2.981M1.26 10.673q.33-.048.65-.126a7.23 7.23 0 0 0 4.574-3.422A7.23 7.23 0 0 0 6.945.827M1.26 10.673a7.24 7.24 0 0 1 .152-5.7m0 0q.14-.304.31-.598A7.24 7.24 0 0 1 6.944.827M1.412 4.972c2.452.004 4.937.631 7.213 1.945a14.43 14.43 0 0 1 5.291 5.275M6.946.827a7.22 7.22 0 0 1 4.679.894 7.22 7.22 0 0 1 3.114 3.606m0 0a7.24 7.24 0 0 1-.823 6.865"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.951 1.499a8 8 0 0 1-.05 4.192 15.5 15.5 0 0 1 2.148 1.24 8 8 0 0 1 3.605-2.14 6.47 6.47 0 0 0-2.404-2.42 6.47 6.47 0 0 0-3.299-.872m6.291 4.689A6.5 6.5 0 0 0 11.25 7.85c1.017.862 1.9 1.84 2.639 2.903.69-1.47.781-3.091.353-4.565m-1.232 5.955a13.7 13.7 0 0 0-2.704-3.126 6.48 6.48 0 0 0-.754 5.295 6.5 6.5 0 0 0 3.458-2.17M8.05 14.5a7.98 7.98 0 0 1 1.06-6.396 14 14 0 0 0-1.755-1.013q-.103.205-.22.408a7.98 7.98 0 0 1-4.788 3.709 6.47 6.47 0 0 0 2.404 2.42 6.47 6.47 0 0 0 3.299.872M1.758 9.812a6.48 6.48 0 0 0 4.208-3.3 13.7 13.7 0 0 0-4.059-.78 6.5 6.5 0 0 0-.15 4.08m.914-5.535a15 15 0 0 1 3.833.834 6.5 6.5 0 0 0-.057-3.423 6.48 6.48 0 0 0-3.776 2.589M6.836.085A7.97 7.97 0 0 1 12 1.072a7.97 7.97 0 0 1 3.437 3.979 7.99 7.99 0 0 1-.909 7.574 8 8 0 0 1-5.364 3.29A7.97 7.97 0 0 1 4 14.928 7.97 7.97 0 0 1 .563 10.95 7.99 7.99 0 0 1 1.072 4 7.99 7.99 0 0 1 6.836.085" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BasketballIcon.displayName = 'BasketballIcon';

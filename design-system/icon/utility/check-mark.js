@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e08cb5d90ea0a139a24fd6d8f69f3c1>>
+ * @codegen <<SignedSource::4f681ccdbe722d68d6bd374c0928f0bd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CheckMarkIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m1.5 6 2.75 3.5 6.25-7"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m11.06 3-6.25 7a.75.75 0 0 1-1.15-.037l-2.75-3.5 1.18-.926 2.197 2.796L9.94 2z" clip-rule="evenodd"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

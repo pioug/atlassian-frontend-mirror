@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8eba3d7aedb9b51aed57e45e924f45be>>
+ * @codegen <<SignedSource::ab63f49f3262af83b926e204475086f6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShowMoreHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M6.5 6a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m4.75 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-9.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentcolor" stroke-width="1.5" d="M6.5 6a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm4.75 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm-9.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.25 6.25a.25.25 0 1 0 0-.5.25.25 0 0 0 0 .5M0 6a1.25 1.25 0 1 1 2.5 0A1.25 1.25 0 0 1 0 6m6 .25a.25.25 0 1 0 0-.5.25.25 0 0 0 0 .5M4.75 6a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0m6 .25a.25.25 0 1 0 0-.5.25.25 0 0 0 0 .5M9.5 6A1.25 1.25 0 1 1 12 6a1.25 1.25 0 0 1-2.5 0" clip-rule="evenodd"/><path fill="currentcolor" d="M1.5 6A.25.25 0 1 1 1 6a.25.25 0 0 1 .5 0m4.75 0a.25.25 0 1 1-.5 0 .25.25 0 0 1 .5 0M11 6a.25.25 0 1 1-.5 0 .25.25 0 0 1 .5 0"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

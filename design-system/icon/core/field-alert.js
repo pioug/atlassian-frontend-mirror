@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bb5db72e74230a4ccb5ce4773910c66b>>
+ * @codegen <<SignedSource::e57ac867bc3e8deccd83f10400719367>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FieldAlertIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.5 10.75H2c-.69 0-1.25-.56-1.25-1.25v-3c0-.69.56-1.25 1.25-1.25h2.5m7 5.5H14c.69 0 1.25-.56 1.25-1.25v-3c0-.69-.56-1.25-1.25-1.25h-2.5M8 3v6.5"/><path fill="currentcolor" fill-rule="evenodd" d="M8 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.25 9.5V3h1.5v6.5zM2 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h2.5v1.5H2a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h2.5V6zm12 0h-2.5V4.5H14a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2.5V10H14a.5.5 0 0 0 .5-.5v-3A.5.5 0 0 0 14 6m-6 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FieldAlertIcon.displayName = 'FieldAlertIcon';

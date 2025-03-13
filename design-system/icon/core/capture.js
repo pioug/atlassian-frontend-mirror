@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::81e14a9be74c416e30d0dbd20319a2d1>>
+ * @codegen <<SignedSource::5214d474784a87576e9d4de9982f1966>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CaptureIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M1.75 6V3c0-.69.56-1.25 1.25-1.25h3m4 0h3c.69 0 1.25.56 1.25 1.25v3m0 4v3c0 .69-.56 1.25-1.25 1.25h-3m-4 0H3c-.69 0-1.25-.56-1.25-1.25v-3m8.75-2a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 2.5a.5.5 0 0 0-.5.5v3H1V3a2 2 0 0 1 2-2h3v1.5zm10 0h-3V1h3a2 2 0 0 1 2 2v3h-1.5V3a.5.5 0 0 0-.5-.5M8 6.25a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5M4.75 8a3.25 3.25 0 1 1 6.5 0 3.25 3.25 0 0 1-6.5 0M2.5 10v3a.5.5 0 0 0 .5.5h3V15H3a2 2 0 0 1-2-2v-3zm11 3v-3H15v3a2 2 0 0 1-2 2h-3v-1.5h3a.5.5 0 0 0 .5-.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CaptureIcon.displayName = 'CaptureIcon';

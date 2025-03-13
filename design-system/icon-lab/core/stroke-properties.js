@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7942c022ff011b48cbc0f374b3fb740d>>
+ * @codegen <<SignedSource::62c3e1cdf2d8900a964776775e4f1279>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StrokePropertiesIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 2.75h14"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="2.5" d="M1 6.75h14"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="4" d="M1 12h14"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 3.5H1V2h14zM15 8H1V5.5h14zm0 6H1v-4h14z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 StrokePropertiesIcon.displayName = 'StrokePropertiesIcon';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c80f3cda7acf0d3a2c697a59da8c7ea>>
+ * @codegen <<SignedSource::33e9c113020d7c156fa51184c7111efd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TableColumnMoveLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.75 1.75H8.875a.625.625 0 0 0-.625.625v11.25c0 .345.28.625.625.625h2.875m0-12.5v12.5m0-12.5h2.875c.345 0 .625.28.625.625v11.25c0 .345-.28.625-.625.625H11.75m-8-3.25-3-3 3-3M6 8H1"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M16 2.375C16 1.615 15.384 1 14.625 1h-5.75C8.115 1 7.5 1.616 7.5 2.375v11.25c0 .76.616 1.375 1.375 1.375h5.75c.76 0 1.375-.616 1.375-1.375zm-1.5.125v11h-2v-11zm-3.5 0v11H9v-11zM3.22 4.47l-3 3a.75.75 0 0 0 0 1.06l3 3 1.06-1.06-1.72-1.72H6v-1.5H2.56l1.72-1.72z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TableColumnMoveLeftIcon.displayName = 'TableColumnMoveLeftIcon';

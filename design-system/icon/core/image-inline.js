@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5de7612d1bcec02fb3825669e3ae1960>>
+ * @codegen <<SignedSource::568da23bad633937bd3b2360f4291955>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ImageInlineIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M8 8h8M1.375 10.25h3.25c.345 0 .625-.28.625-.625v-3.25a.625.625 0 0 0-.625-.625h-3.25a.625.625 0 0 0-.625.625v3.25c0 .345.28.625.625.625Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 6.375C0 5.615.616 5 1.375 5h3.25C5.385 5 6 5.616 6 6.375v3.25C6 10.385 5.384 11 4.625 11h-3.25C.615 11 0 10.384 0 9.625zm1.5.125v3h3v-3zM16 8.75H8v-1.5h8z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ImageInlineIcon.displayName = 'ImageInlineIcon';

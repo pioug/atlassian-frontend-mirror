@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4303db11dd8c49c73affee2f71b0f2c5>>
+ * @codegen <<SignedSource::117a9414f0d1027a00f14d14c006cd2d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PriorityMinorIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M2.5 10.625 8 14.25l5.5-3.625m-11-4.5L8 9.75l5.5-3.625m-11-4.5L8 5.25l5.5-3.625"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m7.587 5.876-5.5-3.625L2.913 1 8 4.352 13.087.999l.826 1.252-5.5 3.625a.75.75 0 0 1-.826 0m0 4.5-5.5-3.625.826-1.252L8 8.852l5.087-3.353.826 1.252-5.5 3.625a.75.75 0 0 1-.826 0m0 4.5-5.5-3.624.826-1.253L8 13.352l5.087-3.353.826 1.252-5.5 3.626a.75.75 0 0 1-.826 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PriorityMinorIcon.displayName = 'PriorityMinorIcon';

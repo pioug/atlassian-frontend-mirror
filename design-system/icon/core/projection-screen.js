@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::76f282191d5f1f6a0ac54d204d28960d>>
+ * @codegen <<SignedSource::498d8d08e6421753cf5fce95a9d40713>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ProjectionScreenIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 2.75V10c0 .69.56 1.25 1.25 1.25h3m-4.25-8.5h12.5m-12.5 0H0m14.25 0V10c0 .69-.56 1.25-1.25 1.25h-3m4.25-8.5H16m-8 8.5V15m0-3.75h2m-2 0H6m4 0 2.875 3.375M6 11.25l-2.875 3.375"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 3.5H0V2h16v1.5h-1V10a2 2 0 0 1-2 2h-1.376l1.822 2.139-1.142.972L9.654 12H8.75v3h-1.5v-3h-.904l-2.65 3.111-1.142-.972L4.376 12H3a2 2 0 0 1-2-2zm1.5 0V10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V3.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ProjectionScreenIcon.displayName = 'ProjectionScreenIcon';

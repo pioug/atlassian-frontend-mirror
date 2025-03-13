@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::514b5d78ef6edee83e7b453f5ac74f84>>
+ * @codegen <<SignedSource::40c34031d319233940e1957470794793>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextHeadingIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M12.25 8h-8.5m8.5 0V1.75m0 6.25v6.25m-8.5 0V8m0 6.25H1.5m2.25 0H6M3.75 1.75V8m0-6.25H6m-2.25 0H1.5m10.75 0h2.25m-2.25 0H10m2.25 12.5H10m2.25 0h2.25"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.5 1H6v1.5H4.5v4.75h7V2.5H10V1h4.5v1.5H13v11h1.5V15H10v-1.5h1.5V8.75h-7v4.75H6V15H1.5v-1.5H3v-11H1.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextHeadingIcon.displayName = 'TextHeadingIcon';

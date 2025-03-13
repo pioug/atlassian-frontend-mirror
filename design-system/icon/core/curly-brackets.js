@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b00a780dff20fa741e36b1b4ccafacd3>>
+ * @codegen <<SignedSource::8ee004962d658b68794fe80075fffba6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CurlyBracketsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M6 1.75H3.5c-.69 0-1.25.56-1.25 1.25v10c0 .69.56 1.25 1.25 1.25H6m4 0h2.5c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25H10M2 8H0m16 0h-2"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M10 1h2.5a2 2 0 0 1 2 2v4.25H16v1.5h-1.5V13a2 2 0 0 1-2 2H10v-1.5h2.5a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H10zM1.5 3a2 2 0 0 1 2-2H6v1.5H3.5A.5.5 0 0 0 3 3v10a.5.5 0 0 0 .5.5H6V15H3.5a2 2 0 0 1-2-2V8.75H0v-1.5h1.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CurlyBracketsIcon.displayName = 'CurlyBracketsIcon';

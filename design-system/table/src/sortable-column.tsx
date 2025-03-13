@@ -16,7 +16,7 @@ import { useTable } from './hooks/use-table';
 import { SortIcon as SortIconPrimitive } from './ui/sort-icon';
 import { TH as THPrimitive } from './ui/th';
 
-export interface CellProps {
+interface CellProps {
 	/**
 	 * Unique key used for sorting table data by this column
 	 */

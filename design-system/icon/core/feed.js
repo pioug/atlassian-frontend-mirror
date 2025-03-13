@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::855cd809544074af2c8251ae724ec758>>
+ * @codegen <<SignedSource::5e75e9e286bee3621d654df94da2583d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FeedIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3.75 14.25a2 2 0 0 0 2-2v-6m-2 8a2 2 0 0 1-2-2V7.5c0-.69.56-1.25 1.25-1.25h2.75m-2 8h8.5a2 2 0 0 0 2-2V3c0-.69-.56-1.25-1.25-1.25H7c-.69 0-1.25.56-1.25 1.25v3.25M8 4.75h4m-4 3h3"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7 2.5a.5.5 0 0 0-.5.5v9.25c0 .45-.108.875-.3 1.25h6.05c.69 0 1.25-.56 1.25-1.25V3a.5.5 0 0 0-.5-.5zm-3.25 11c.69 0 1.25-.56 1.25-1.25V7H3a.5.5 0 0 0-.5.5v4.75c0 .69.56 1.25 1.25 1.25M5 5.5V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v9.25A2.75 2.75 0 0 1 12.25 15h-8.5A2.75 2.75 0 0 1 1 12.25V7.5a2 2 0 0 1 2-2zm7 0H8V4h4zm-1 3H8V7h3z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FeedIcon.displayName = 'FeedIcon';

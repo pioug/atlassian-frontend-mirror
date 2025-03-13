@@ -1,15 +1,28 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { uuid } from '@atlaskit/adf-schema';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p, table, td, th, tr } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, table, td, th, tr, strong } from '@atlaskit/editor-test-helpers/doc-builder';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { tableNewColumnMinWidth } from '../../../table-map';
 
+const TABLE_LOCAL_ID = 'test-table-local-id';
+
 describe('handle paste', () => {
+	beforeAll(() => {
+		uuid.setStatic(TABLE_LOCAL_ID);
+	});
+
+	afterAll(() => {
+		uuid.setStatic(false);
+	});
+
 	const createEditor = createEditorFactory();
 
 	const editor = (doc: DocBuilder) => {
@@ -18,13 +31,14 @@ describe('handle paste', () => {
 			editorProps: {
 				allowTables: {
 					allowColumnResizing: true,
+					allowNestedTables: true,
 				},
 			},
 		});
 	};
 
 	describe('paste table cells with headers', () => {
-		const localId = 'table-local-id';
+		const localId = TABLE_LOCAL_ID;
 
 		// Helper functions to generate table html
 		const generateTable = (...rows: string[]) => `<meta charset='utf-8'>
@@ -326,16 +340,16 @@ describe('handle paste', () => {
 
 	describe('paste table cells without column widths into a table with resized columns', () => {
 		const htmlTableCellsWithResizedColumnWidths = `
-      <meta charset='utf-8'>
-      <table data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="test" data-pm-slice="1 1 []">
-      <tbody>
-      <tr>
-      <td class="pm-table-cell-content-wrap"><p>A</p></td>
-      <td class="pm-table-cell-content-wrap"><p>B</p></td>
-      <td class="pm-table-cell-content-wrap"><p>C</p></td>
-      </tr>
-      </tbody>
-      </table>`;
+		<meta charset='utf-8'>
+		<table data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="test" data-pm-slice="1 1 []">
+		<tbody>
+		<tr>
+		<td class="pm-table-cell-content-wrap"><p>A</p></td>
+		<td class="pm-table-cell-content-wrap"><p>B</p></td>
+		<td class="pm-table-cell-content-wrap"><p>C</p></td>
+		</tr>
+		</tbody>
+		</table>`;
 
 		it('should keep destination column widths and add a new column with a set width to the destination table', () => {
 			const { editorView } = editor(
@@ -397,5 +411,195 @@ describe('handle paste', () => {
 
 			expect(editorView.state.doc).toEqualDocument(expectedResult);
 		});
+	});
+
+	describe('paste table into a table', () => {
+		const htmlTable2x2 = (partial: boolean = false) => `
+					<meta charset="utf-8" />
+					<html><head></head>
+					<body>
+						<table data-number-column="false" data-layout="default" data-autosize="false"
+							data-table-local-id="${TABLE_LOCAL_ID}" data-pm-slice="${partial ? '1 1' : '0 0'} []">
+							<tbody>
+								<tr>
+									<th><p><strong>1</strong></p></th>
+									<th><p><strong>2</strong></p></th>
+								</tr>
+								<tr>
+									<td> <p>3</p></td>
+									<td><p>4</p></td>
+								</tr>
+							</tbody>
+						</table>
+					</body>
+					</html>`;
+		ffTest.on(
+			'platform_editor_use_nested_table_pm_nodes',
+			'with nested table nodes enabled',
+			() => {
+				const localId = TABLE_LOCAL_ID;
+				eeTest
+					.describe('nested-tables-in-tables', 'when nested tables are enabled')
+					.variant(true, () => {
+						it('pastes as nested table', () => {
+							const { editorView } = editor(
+								doc(
+									table({ localId })(
+										tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+										tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+										tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+									),
+								),
+							);
+
+							dispatchPasteEvent(editorView, {
+								html: htmlTable2x2(),
+							});
+
+							const expectedResult = doc(
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+									tr(
+										td()(p('7')),
+										td()(
+											p('8'),
+											table({ localId })(
+												tr(th()(p(strong('1'))), th()(p(strong('2')))),
+												tr(td()(p('3')), td()(p('4'))),
+											),
+										),
+										td()(p('9')),
+									),
+								),
+							);
+
+							expect(editorView.state.doc).toEqualDocument(expectedResult);
+						});
+
+						it('pastes as nested table inside a table header', () => {
+							const { editorView } = editor(
+								doc(
+									table({ localId })(
+										tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+										tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+										tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+									),
+								),
+							);
+
+							dispatchPasteEvent(editorView, {
+								html: htmlTable2x2(),
+							});
+
+							const expectedResult = doc(
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+									tr(
+										td()(p('7')),
+										td()(
+											p('8'),
+											table({ localId })(
+												tr(th()(p(strong('1'))), th()(p(strong('2')))),
+												tr(td()(p('3')), td()(p('4'))),
+											),
+										),
+										td()(p('9')),
+									),
+								),
+							);
+
+							expect(editorView.state.doc).toEqualDocument(expectedResult);
+						});
+
+						it('merges partial table as nested table', () => {
+							const { editorView } = editor(
+								doc(
+									table({ localId })(
+										tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+										tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+										tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+									),
+								),
+							);
+
+							dispatchPasteEvent(editorView, {
+								html: htmlTable2x2(true),
+							});
+
+							const expectedResult = doc(
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+									tr(td()(p('7')), td()(p(strong('1'))), td()(p(strong('2')))),
+									tr(td()(p()), td()(p('3')), td()(p('4'))),
+								),
+							);
+
+							expect(editorView.state.doc).toEqualDocument(expectedResult);
+						});
+					});
+
+				eeTest
+					.describe('nested-tables-in-tables', 'when nested tables are disabled')
+					.variant(false, () => {
+						it('merges the nested table', () => {
+							const { editorView } = editor(
+								doc(
+									table({ localId })(
+										tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+										tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+										tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+									),
+								),
+							);
+
+							dispatchPasteEvent(editorView, {
+								html: htmlTable2x2(),
+							});
+
+							const expectedResult = doc(
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+									tr(td()(p('7')), td()(p(strong('1'))), td()(p(strong('2')))),
+									tr(td()(p()), td()(p('3')), td()(p('4'))),
+								),
+							);
+
+							expect(editorView.state.doc).toEqualDocument(expectedResult);
+						});
+
+						// eslint-disable-next-line jest/no-identical-title
+						it('merges partial table as nested table', () => {
+							const { editorView } = editor(
+								doc(
+									table({ localId })(
+										tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+										tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+										tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+									),
+								),
+							);
+
+							dispatchPasteEvent(editorView, {
+								html: htmlTable2x2(true),
+							});
+
+							const expectedResult = doc(
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+									tr(td()(p('7')), td()(p(strong('1'))), td()(p(strong('2')))),
+									tr(td()(p()), td()(p('3')), td()(p('4'))),
+								),
+							);
+
+							expect(editorView.state.doc).toEqualDocument(expectedResult);
+						});
+					});
+			},
+		);
 	});
 });

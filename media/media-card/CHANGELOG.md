@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 79.0.9
+
+### Patch Changes
+
+- [#125393](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125393)
+  [`1b580efc972ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b580efc972ef) -
+  Fixed Card hovering issue
+
+## 79.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.0.7
 
 ### Patch Changes

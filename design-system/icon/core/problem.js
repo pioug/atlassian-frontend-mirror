@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::76ce5438b691de3d6ed8c910b2bcc3c9>>
+ * @codegen <<SignedSource::f604a3dba3cc7c23eef555e893d90eb3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ProblemIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M13.127 13.127A7.25 7.25 0 1 0 2.873 2.873m10.253 10.253A7.25 7.25 0 1 1 2.874 2.874m10.253 10.253-1.59-1.59-7.071-7.071-1.592-1.592"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m3.964 2.904 9.132 9.132a6.501 6.501 0 0 0-9.132-9.132m8.072 10.192L2.904 3.964a6.501 6.501 0 0 0 9.132 9.132M2.343 2.343a8 8 0 1 1 11.314 11.314A8 8 0 0 1 2.343 2.343" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ProblemIcon.displayName = 'ProblemIcon';

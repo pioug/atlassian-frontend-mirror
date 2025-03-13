@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { createEditorContentStyle } from '../../ContentStyles';
@@ -152,13 +153,22 @@ const editorContentAreaContainerStyle = () =>
 export const editorContentAreaStyle = ({
 	layoutMaxWidth,
 	fullWidthMode,
+	isEditorToolbarHidden,
 }: {
 	layoutMaxWidth: number;
 	fullWidthMode: boolean;
+	isEditorToolbarHidden?: boolean;
 }) => [
 	editorContentArea,
 	!fullWidthMode && editorContentAreaWithLayoutWith(layoutMaxWidth),
 	editorContentAreaContainerStyle(),
+	editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+		contentAreaReducedHeaderSpace,
+	isEditorToolbarHidden &&
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+		contentAreaReservedPrimaryToolbarSpace,
 ];
 
 const editorContentAreaWithLayoutWith = (layoutMaxWidth: number) =>
@@ -243,17 +253,17 @@ export const editorContentGutterStyle = () => {
 	});
 };
 
-// An additional padding applied at the top of the page reserving space when the primary toolbar is hidden
-// which is used to avoid layout shift when the toolbar is toggled under the editor controls feature
+// An additional spacing applied at the top of the content area reserving space when the primary toolbar
+// is hidden – this avoids layout shift when the toolbar is toggled under the editor controls feature
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const primaryToolbarReservedSpace = css({
+const contentAreaReservedPrimaryToolbarSpace = css({
 	// extra 1px to account for the bottom border on the toolbar
-	paddingTop: `calc(${token('space.500', '40px')} + 1px)`,
+	marginTop: `calc(${token('space.500', '40px')} + 1px)`,
 });
 
-// A reduced top padding to be applied to the content area to compensate for the reserved space at the top
+// A reduced top spacing applied to the content area to compensate for the reserved space at the top
 // of the page when the primary toolbar is hidden under the editor controls feature
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const contentAreaReducedHeaderSpace = css({
+const contentAreaReducedHeaderSpace = css({
 	paddingTop: token('space.400', '32px'),
 });

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f3b7aa7b04d7e2826e1fbca2d9ed4d8d>>
+ * @codegen <<SignedSource::76f067d08aa7c324d1505318ade2e26f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AlertIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M11.75 14.25h-7.5m7.5 0H14m-2.25 0-.693-8.312a.75.75 0 0 0-.747-.688H5.69a.75.75 0 0 0-.747.688L4.25 14.25m0 0H2M8 3V0M3.641 3.641 1.593 1.593M12.36 3.641l2.048-2.048"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8.75 0v3h-1.5V0zM2.123 1.063 4.172 3.11 3.11 4.17 1.063 2.124zm12.814 1.06L12.89 4.172 11.83 3.11l2.047-2.048zM4.195 5.875A1.5 1.5 0 0 1 5.69 4.5h4.62a1.5 1.5 0 0 1 1.495 1.375l.635 7.625H14V15H2v-1.5h1.56zm.87 7.625h5.87L10.31 6H5.69z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AlertIcon.displayName = 'AlertIcon';

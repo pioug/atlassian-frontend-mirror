@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9afa76dba4317b82b867439a8a7b1752>>
+ * @codegen <<SignedSource::73df1d388ecc854df8671cdf3cc68b05>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VideoPauseOverlayIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M2.75 3c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H4c-.69 0-1.25-.56-1.25-1.25zm7 0c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25h-1c-.69 0-1.25-.56-1.25-1.25z"/><path stroke="currentcolor" stroke-width="1.5" d="M2.75 3c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H4c-.69 0-1.25-.56-1.25-1.25zm7 0c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25h-1c-.69 0-1.25-.56-1.25-1.25z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 3a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm7 0a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VideoPauseOverlayIcon.displayName = 'VideoPauseOverlayIcon';

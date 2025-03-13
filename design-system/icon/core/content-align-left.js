@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::57269d7fbd09c1662b3855f3ad90992b>>
+ * @codegen <<SignedSource::a8bb07b76a406d62e93aa04c2b7ea1db>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ContentAlignLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 1.75h14M1 14.25h14m-9.375-4h-3.25a.625.625 0 0 1-.625-.625v-3.25c0-.345.28-.625.625-.625h3.25c.345 0 .625.28.625.625v3.25c0 .345-.28.625-.625.625Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 2.5H1V1h14zm-12.5 4v3h3v-3zM2.375 5h3.25C6.385 5 7 5.616 7 6.375v3.25C7 10.385 6.384 11 5.625 11h-3.25C1.615 11 1 10.384 1 9.625v-3.25C1 5.615 1.616 5 2.375 5M15 15H1v-1.5h14z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ContentAlignLeftIcon.displayName = 'ContentAlignLeftIcon';

@@ -15,3 +15,19 @@ export const smartCardSharedStyles = `
     max-width: ${8 * 95}px;
   }
 `;
+
+export const getSmartCardSharedStyles = () => `
+  .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER} {
+    display: block;
+    margin: ${blockNodesVerticalMargin} 0 0;
+    max-width: ${8 * 95}px;
+  }
+
+  .${SmartCardSharedCssClassName.LOADER_WRAPPER} {
+    /* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
+    ul, ol {
+      padding-left: inherit;
+    }
+    /* EDM-11991: Fix list plugin add padding to ADS AvatarGroup end */
+  }
+`;

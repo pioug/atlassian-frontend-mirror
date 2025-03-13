@@ -6,19 +6,22 @@ export const removeEmptySpaceAroundContent = (document: JSONDocNode): JSONDocNod
 		return document;
 	}
 
-	const isParagraphWithContent = (node: JSONNode): boolean => {
-		if (node.type !== 'paragraph' || !node.content || node.content.length === 0) {
+	// Check if the node is a meaningful content node meaning it is not an empty paragraph or a paragraph with only whitespace
+	const isMeaningfulContentNode = (node: JSONNode): boolean => {
+		// Check if the node is a non-empty paragraph or a non-paragraph node
+		if (node.type !== 'paragraph') {
+			return true;
+		}
+		// If the paragraph is empty, return false
+		if (!node.content || node.content.length === 0) {
 			return false;
 		}
 		// Check if paragraph has any content other than `hardBreak` or whitespace text nodes
 		return node.content.some((child) => {
-			if (child?.type === 'hardBreak') {
-				return false;
-			}
-			if (child?.type === 'text' && typeof child.text === 'string' && child.text.trim() === '') {
-				return false;
-			}
-			return true;
+			return !(
+				child?.type === 'hardBreak' ||
+				(child?.type === 'text' && typeof child.text === 'string' && child.text.trim() === '')
+			);
 		});
 	};
 
@@ -26,9 +29,9 @@ export const removeEmptySpaceAroundContent = (document: JSONDocNode): JSONDocNod
 	let firstContentIndex = -1;
 	let lastContentIndex = -1;
 
-	// Find the first and last paragraphs with content
+	// Find the first and last paragraphs with content and check if they are meaningful
 	for (let i = 0; i < content.length; i++) {
-		if (isParagraphWithContent(content[i])) {
+		if (isMeaningfulContentNode(content[i])) {
 			if (firstContentIndex === -1) {
 				firstContentIndex = i;
 			}

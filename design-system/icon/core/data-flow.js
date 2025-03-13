@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::134b55965ceef2bd81045a576a14a3d9>>
+ * @codegen <<SignedSource::6e9795e597b52fb83fbace5cb1978ff6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DataFlowIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3.75 8h4m-4 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm8.5 0h-4.5m4.5 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0Zm0 5.75H9.563a1.813 1.813 0 0 1-1.813-1.812V8m4.5 5.75a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0Zm0-11.5H9.563A1.81 1.81 0 0 0 7.75 4.063V8m4.5-5.75a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13.75 1.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5m-2.122 0a2.251 2.251 0 1 1 0 1.5H9.563C8.976 3 8.5 3.476 8.5 4.063V7.25h3.128a2.251 2.251 0 1 1 0 1.5H8.5v3.188c0 .586.476 1.062 1.063 1.062h2.065a2.251 2.251 0 1 1 0 1.5H9.563A2.563 2.563 0 0 1 7 11.938V8.75H4.372a2.25 2.25 0 1 1 0-1.5H7V4.063A2.56 2.56 0 0 1 9.563 1.5zM2.25 7.25a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5m11.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5m0 5.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DataFlowIcon.displayName = 'DataFlowIcon';

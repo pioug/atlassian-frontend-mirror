@@ -114,11 +114,13 @@ snapshotInformational(RendererBlockCard, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardXSS, {
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardResolving, {
@@ -127,6 +129,7 @@ snapshotInformational(RendererBlockCardResolving, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardUnauthorized, {
@@ -156,6 +159,7 @@ snapshotInformational(RendererBlockCardForbidden, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardNotFound, {
@@ -164,6 +168,7 @@ snapshotInformational(RendererBlockCardNotFound, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardErrored, {
@@ -172,6 +177,7 @@ snapshotInformational(RendererBlockCardErrored, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererEmbedCard, {
@@ -407,6 +413,7 @@ snapshotInformational(RendererBlockCardRequestAccess, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
@@ -415,6 +422,7 @@ snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessForbidden, {
@@ -423,6 +431,7 @@ snapshotInformational(RendererBlockCardRequestAccessForbidden, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
@@ -431,6 +440,7 @@ snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
@@ -439,6 +449,7 @@ snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
@@ -447,6 +458,7 @@ snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
@@ -455,6 +467,7 @@ snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
 	},
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 

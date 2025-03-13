@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3d6be99a7bbd8a9e4f473fbea8bb760d>>
+ * @codegen <<SignedSource::75d811a7a650d45b367c03a4ca5d53e3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VideoIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.25 6V4c0-.69-.56-1.25-1.25-1.25H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25h8c.69 0 1.25-.56 1.25-1.25v-2m0-4 3.276-1.638a.5.5 0 0 1 .724.447v6.382a.5.5 0 0 1-.724.447L11.25 10m0-4v4"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 3.5a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5zM0 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v.786l2.191-1.095A1.25 1.25 0 0 1 16 4.809v6.382a1.25 1.25 0 0 1-1.809 1.118L12 11.214V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm12 5.536 2.5 1.25V5.215L12 6.464z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VideoIcon.displayName = 'VideoIcon';

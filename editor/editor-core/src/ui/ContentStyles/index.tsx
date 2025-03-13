@@ -28,6 +28,7 @@ import {
 	dateSharedStyle,
 	embedCardStyles,
 	expandClassNames,
+	getSmartCardSharedStyles,
 	gridStyles,
 	indentationSharedStyles,
 	linkSharedStyle,
@@ -403,7 +404,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${statusStyles}
   ${annotationSharedStyles()}
   ${smartCardStyles()}
-  ${smartCardSharedStyles}
+  ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
   ${dateStyles}
   ${embedCardStyles()}
   ${unsupportedStyles}

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::22c9753c59dad0b02932642c8d7ae52b>>
+ * @codegen <<SignedSource::f6da00ec8512e57c3de0efa89726a9f3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ContentWrapLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 1.75h14M1 14.25h14M9 5.917h6m-6 4.166h6m-9.375.167h-3.25a.625.625 0 0 1-.625-.625v-3.25c0-.345.28-.625.625-.625h3.25c.345 0 .625.28.625.625v3.25c0 .345-.28.625-.625.625Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 2.5H1V1h14zm-12.5 4v3h3v-3zM2.375 5h3.25C6.385 5 7 5.616 7 6.375v3.25C7 10.385 6.384 11 5.625 11h-3.25C1.615 11 1 10.384 1 9.625v-3.25C1 5.615 1.616 5 2.375 5M15 6.667H9v-1.5h6zm0 4.166H9v-1.5h6zM15 15H1v-1.5h14z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ContentWrapLeftIcon.displayName = 'ContentWrapLeftIcon';

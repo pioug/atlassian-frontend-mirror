@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::446fd3c1e4697e214e4f6209f66c7eee>>
+ * @codegen <<SignedSource::196b600e7960a1af1a5f6fffc09ddaa0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AngleBracketsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.5 8.75.75 6 4.5 3.25m7 4L15.25 10l-3.75 2.75M11 1.25l-6 13.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m4.315 14.445 6-13.5 1.37.61-6 13.5zM13.982 10l-2.925 2.145.886 1.21 3.75-2.75a.75.75 0 0 0 0-1.21l-3.75-2.75-.886 1.21zM2.018 6l2.926 2.145-.888 1.21-3.75-2.75a.75.75 0 0 1 0-1.21l3.75-2.75.888 1.21z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AngleBracketsIcon.displayName = 'AngleBracketsIcon';

@@ -3,7 +3,11 @@ import { EntriesBuffer } from '../buffer';
 
 let pe: PerformanceObserver | null = null;
 
-const getObserver = (): PerformanceObserver => {
+const getObserver = (): PerformanceObserver | null => {
+	if (typeof PerformanceObserver !== 'function') {
+		// Only instantiate the IntersectionObserver if it's supported
+		return null;
+	}
 	if (pe !== null) {
 		return pe;
 	}
@@ -22,14 +26,14 @@ const getObserver = (): PerformanceObserver => {
 };
 
 export const startLSObserver = () => {
-	getObserver().observe({
+	getObserver()?.observe({
 		type: PerformanceObserverEntryTypes.LayoutShift,
 		buffered: true,
 	});
 };
 
 export const startLTObserver = () => {
-	getObserver().observe({
+	getObserver()?.observe({
 		type: PerformanceObserverEntryTypes.LongTask,
 		buffered: true,
 	});

@@ -17,6 +17,9 @@ type ActionsProps = {
 	editorView: EditorView;
 	getPos: () => number | undefined;
 	eventDispatcher?: EventDispatcher;
+	// Allows MBE macro to render bodies; see RFC: https://hello.atlassian.net/wiki/spaces/EDITOR/pages/4843571091/Editor+RFC+064+MultiBodiedExtension+Extensibility
+	allowBodiedOverride: boolean;
+	childrenContainer: React.ReactNode;
 };
 
 export const useMultiBodiedExtensionActions = ({
@@ -25,6 +28,8 @@ export const useMultiBodiedExtensionActions = ({
 	getPos,
 	node,
 	eventDispatcher,
+	allowBodiedOverride,
+	childrenContainer,
 }: ActionsProps) => {
 	const actions: MultiBodiedExtensionActions = React.useMemo(() => {
 		return {
@@ -161,12 +166,30 @@ export const useMultiBodiedExtensionActions = ({
 				}
 				const children = state.doc.nodeAt(pos)?.content;
 				if (eventDispatcher) {
-					sendMBEAnalyticsEvent(ACTION.GET_CHILDERN, node, eventDispatcher);
+					sendMBEAnalyticsEvent(ACTION.GET_CHILDREN, node, eventDispatcher);
 				}
 				return children ? children.toJSON() : [];
 			},
+			getChildrenContainer() {
+				if (!allowBodiedOverride) {
+					throw new Error('Could not provide children container');
+				}
+				if (eventDispatcher) {
+					sendMBEAnalyticsEvent(ACTION.GET_CHILDREN_CONTAINER, node, eventDispatcher);
+				}
+
+				return childrenContainer;
+			},
 		};
-	}, [node, editorView, getPos, updateActiveChild, eventDispatcher]);
+	}, [
+		node,
+		editorView,
+		getPos,
+		updateActiveChild,
+		eventDispatcher,
+		allowBodiedOverride,
+		childrenContainer,
+	]);
 
 	return actions;
 };

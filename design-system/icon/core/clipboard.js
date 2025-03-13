@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c4f90cf090b7be64ad813a386811eca6>>
+ * @codegen <<SignedSource::cab554953306249f3c64ec254eaf9886>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ClipboardIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10.75 2.25V2c0-.69-.56-1.25-1.25-1.25h-3c-.69 0-1.25.56-1.25 1.25v.25m5.5 0v2h-5.5v-2m5.5 0h1.75c.69 0 1.25.56 1.25 1.25V14c0 .69-.56 1.25-1.25 1.25h-9c-.69 0-1.25-.56-1.25-1.25V3.5c0-.69.56-1.25 1.25-1.25h1.75"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.563 1.5A2 2 0 0 1 6.5 0h3a2 2 0 0 1 1.937 1.5H12.5a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2zM4.5 3h-1a.5.5 0 0 0-.5.5V14a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V3.5a.5.5 0 0 0-.5-.5h-1v1.25a.75.75 0 0 1-.75.75h-5.5a.75.75 0 0 1-.75-.75zm2-1.5A.5.5 0 0 0 6 2v1.5h4V2a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ClipboardIcon.displayName = 'ClipboardIcon';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5ad01055aded141fb3d7fb0edb9cdb3c>>
+ * @codegen <<SignedSource::645b121bd5918c466000b65adda09490>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BoardsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M4.583 2.75H2C1.31 2.75.75 3.31.75 4v6c0 .69.56 1.25 1.25 1.25h2.583m0-8.5v8.5m0-8.5h3.834m-3.834 8.5h3.834m0-8.5H11c.69 0 1.25.56 1.25 1.25v6c0 .69-.56 1.25-1.25 1.25H8.417m0-8.5v8.5"/><path stroke="currentcolor" stroke-width="1.5" d="M5 14.25h7.75a2.5 2.5 0 0 0 2.5-2.5V7"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 3.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h1.833v-7zm3.333 0v7h2.334v-7zm3.834 0v7H11a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5zM0 4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm14.5 7.75V7H16v4.75A3.25 3.25 0 0 1 12.75 15H5v-1.5h7.75a1.75 1.75 0 0 0 1.75-1.75" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BoardsIcon.displayName = 'BoardsIcon';

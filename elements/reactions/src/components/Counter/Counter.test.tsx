@@ -1,7 +1,7 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
 import { durations } from '@atlaskit/motion';
-import { B400 } from '@atlaskit/theme/colors';
+import { B400, N90 } from '@atlaskit/theme/colors';
 import { act, screen } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
 import {
@@ -9,7 +9,13 @@ import {
 	renderWithIntl,
 	useFakeTimers,
 } from '../../__tests__/_testing-library';
-import { Counter, RENDER_COUNTER_TESTID, type CounterProps, RENDER_LABEL_TESTID } from './Counter';
+import {
+	Counter,
+	RENDER_COUNTER_TESTID,
+	type CounterProps,
+	RENDER_LABEL_TESTID,
+	RENDER_COMPONENT_WRAPPER,
+} from './Counter';
 
 expect.extend(matchers);
 
@@ -27,6 +33,18 @@ describe('@atlaskit/reactions/components/Counter', () => {
 		const labelWrapper = await screen.findByTestId(RENDER_LABEL_TESTID);
 		expect(labelWrapper).toBeInTheDocument();
 		expect(labelWrapper.textContent).toEqual(value.toString());
+
+		const wrapper = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
+		expect(wrapper).toBeInTheDocument();
+		expect(wrapper).toHaveStyleRule('color', token('color.text.subtlest', N90));
+	});
+
+	it('should render counter with darker font if useDarkerFont is true', async () => {
+		const value = 10;
+		renderCounter({ value, useDarkerFont: true });
+		const wrapper = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
+		expect(wrapper).toBeInTheDocument();
+		expect(wrapper).toHaveStyleRule('color', token('color.text.subtle'));
 	});
 
 	it('should render each number breakpoint', () => {

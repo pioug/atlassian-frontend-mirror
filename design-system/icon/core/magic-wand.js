@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5c717835f616bde1fe05ff01af7c317b>>
+ * @codegen <<SignedSource::e674ae8e4bcaa3ce828d44ac8144dec4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MagicWandIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m9.25 8.75-6.058 6.058a.625.625 0 0 1-.884 0l-1.116-1.116a.625.625 0 0 1 0-.884L7.25 6.75m2 2 2.058-2.058a.625.625 0 0 0 0-.884l-1.116-1.116a.625.625 0 0 0-.884 0L7.25 6.75m2 2-2-2M10.75 0v2m2.298.952 1.414-1.414M14 5.25h2M7.038 1.538l1.414 1.414m4.596 4.596 1.414 1.414"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M10 2V0h1.5v2zM7.922 3.482 6.507 2.068l1.061-1.06 1.414 1.414zm7.07-1.414-1.414 1.414-1.06-1.06 1.414-1.415zM8.779 4.162a1.375 1.375 0 0 1 1.944 0l1.116 1.116a1.375 1.375 0 0 1 0 1.944l-8.116 8.116a1.375 1.375 0 0 1-1.944 0L.662 14.222a1.375 1.375 0 0 1 0-1.944zM9.75 5.31 8.31 6.75l.94.94 1.44-1.44zM8.19 8.75l-.94-.94-5.44 5.44.94.94zM16 6h-2V4.5h2zm-2.068 3.493-1.414-1.415 1.06-1.06 1.415 1.414z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 MagicWandIcon.displayName = 'MagicWandIcon';

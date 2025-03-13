@@ -1,5 +1,21 @@
 # @atlaskit/reactions
 
+## 27.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.2
+
+### Patch Changes
+
+- [#125203](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125203)
+  [`8b6c24cf0f169`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b6c24cf0f169) -
+  [ux] Update emoji and button styling to smaller for compact style. Also update font color to match
+  other byline items.
+- Updated dependencies
+
 ## 27.1.1
 
 ### Patch Changes

@@ -85,6 +85,7 @@ export type MultiBodiedExtensionActions = {
 	removeChild: (index: number) => boolean;
 	updateParameters: (parameters: Parameters) => boolean;
 	getChildren(): Array<ADFEntity>;
+	getChildrenContainer(): React.ReactNode;
 };
 
 // DEPRECATED

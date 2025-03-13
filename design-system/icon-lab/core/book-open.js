@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7e7f7c9a7d7af5060a632fe92edfa67f>>
+ * @codegen <<SignedSource::de790aa34d87b38953e022081bae4952>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BookOpenIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 15.5v-2.25m0-8.375v8.375m0-8.375C8 3.149 9.4 1.75 11.127 1.75h3.5c.346 0 .625.28.625.625v10.25c0 .345-.28.625-.625.625H8m0-8.375A3.124 3.124 0 0 0 4.876 1.75h-3.5a.625.625 0 0 0-.625.625v10.25c0 .345.28.625.625.625H8m2.5-8h2.75m-2.75 2.5h2.75"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M14.5 2.25v10H8.75V4.625a2.375 2.375 0 0 1 2.375-2.375zM8 2.333A3.87 3.87 0 0 1 11.125.75h3.501C15.387.75 16 1.367 16 2.125v10.25c0 .76-.616 1.375-1.375 1.375H8.75v1.5h-1.5v-1.5H1.375C.615 13.75 0 13.134 0 12.375V2.125C0 1.366.615.75 1.375.75h3.5A3.87 3.87 0 0 1 8 2.333m-.75 9.917V4.625A2.375 2.375 0 0 0 4.875 2.25H1.5v10zm6-8H10.5v1.5h2.75zm0 2.5H10.5v1.5h2.75z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BookOpenIcon.displayName = 'BookOpenIcon';

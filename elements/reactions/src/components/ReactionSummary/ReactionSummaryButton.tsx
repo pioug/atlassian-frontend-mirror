@@ -22,7 +22,13 @@ const buttonStyle = xcss({
 });
 
 const compactButtonStyle = xcss({
-	height: '22px',
+	height: '20px',
+	alignItems: 'center',
+	marginTop: 'space.075',
+});
+
+const compactPaddingStyles = xcss({
+	paddingTop: 'space.025',
 });
 
 const opaqueBackgroundStyles = xcss({
@@ -113,9 +119,7 @@ export const ReactionSummaryButton = forwardRef(
 		);
 
 		const buttonStyles = showOpaqueBackground ? [opaqueBackgroundStyles] : [];
-
 		const subtleSummaryStyles = subtleReactionsSummaryAndPicker ? [hideBorderStyle] : [];
-
 		const compactButtonStyles = useCompactStyles ? [compactButtonStyle] : [];
 
 		return (
@@ -126,19 +130,23 @@ export const ReactionSummaryButton = forwardRef(
 					ariaLabel={intl.formatMessage(messages.summary)}
 					additionalStyles={[...buttonStyles, ...subtleSummaryStyles, ...compactButtonStyles]}
 				>
-					<Inline space="space.050" xcss={buttonStyle}>
+					<Inline
+						space="space.050"
+						xcss={useCompactStyles ? [buttonStyle, compactPaddingStyles] : buttonStyle}
+						testId="reaction-summary-wrapper"
+					>
 						{topReactions.map((reaction) => (
 							<Box xcss={emojiStyle} testId={RENDER_SUMMARY_EMOJI_TESTID}>
 								<ResourcedEmoji
 									key={reaction.emojiId}
 									emojiProvider={emojiProvider}
 									emojiId={{ id: reaction.emojiId, shortName: '' }}
-									fitToHeight={16}
+									fitToHeight={useCompactStyles ? 12 : 16}
 								/>
 							</Box>
 						))}
 					</Inline>
-					<Counter value={totalReactionsCount} />
+					<Counter value={totalReactionsCount} useDarkerFont={useCompactStyles} />
 				</ReactionButton>
 			</Flex>
 		);

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5486c2d89418f57c3f0ae256087bf4f3>>
+ * @codegen <<SignedSource::ccaa4ed6916e7a1d68590f7443a48f02>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EmojiNeutralIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M6.25 6.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m4.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentcolor" stroke-width="1.5" d="M4.75 10.25h6.5m4-2.25A7.25 7.25 0 1 1 .75 8a7.25 7.25 0 0 1 14.5 0Zm-9-1.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm4.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m4.5-1.75a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0m4.5 0a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0m2.25 3.25V11h-6.5V9.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EmojiNeutralIcon.displayName = 'EmojiNeutralIcon';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::538dfd28130ef248a4131533cf5ee189>>
+ * @codegen <<SignedSource::19440c8dd0e3db5766add744ad314d45>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EmailIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 4.97V4c0-.69-.56-1.25-1.25-1.25H2C1.31 2.75.75 3.31.75 4v.97m14.5 0V12c0 .69-.56 1.25-1.25 1.25H2c-.69 0-1.25-.56-1.25-1.25V4.97m14.5 0L8 8.986.75 4.971"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v.529L8 8.128l6.5-3.6V4a.5.5 0 0 0-.5-.5zm12.5 2.743L8.363 9.641a.75.75 0 0 1-.726 0L1.5 6.243V12a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EmailIcon.displayName = 'EmailIcon';

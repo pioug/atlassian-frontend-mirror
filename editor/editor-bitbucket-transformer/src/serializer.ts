@@ -363,8 +363,23 @@ const editorNodes = {
 			}
 		}
 	},
-	media(state: MarkdownSerializerState, node: PMNode) {
-		state.write('![](' + node.attrs.url + ')');
+	media(state: MarkdownSerializerState, node: PMNode, parent: PMNode) {
+		const widthAttributeMarkdown = parent.attrs.width ? ` data-width='${parent.attrs.width}'` : '';
+		const widthTypeAttributeMarkdown = parent.attrs.widthType
+			? ` data-width-type='${parent.attrs.widthType}'`
+			: '';
+		const layoutAttributeMarkdown = parent.attrs.layout
+			? ` data-layout='${parent.attrs.layout}'`
+			: '';
+
+		const nodeAttributesMarkdown =
+			widthAttributeMarkdown + widthTypeAttributeMarkdown + layoutAttributeMarkdown;
+
+		if (nodeAttributesMarkdown) {
+			state.write(`![](${node.attrs.url}){:${nodeAttributesMarkdown} }`);
+		} else {
+			state.write(`![](${node.attrs.url})`);
+		}
 	},
 	image(state: MarkdownSerializerState, node: PMNode) {
 		// Note: the 'title' is not escaped in this flavor of markdown.

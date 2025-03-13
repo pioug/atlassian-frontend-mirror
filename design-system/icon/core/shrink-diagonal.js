@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f505630e8a98ee81216d664c4ef27f4>>
+ * @codegen <<SignedSource::b5830a86fa64b71ea84cc4eb2a6e1075>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShrinkDiagonalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m1.5 14.5 5.25-5.25M14.5 1.5 9.25 6.75M6.75 14V9.25H2M9.25 2v4.75H14"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8.72 6.22 13.97.97l1.06 1.06-5.25 5.25zM7.28 9.78l-5.25 5.25-1.06-1.06 5.25-5.25z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M10 6V2H8.5v4.75c0 .414.336.75.75.75H14V6zM2 8.5h4.75a.75.75 0 0 1 .75.75V14H6v-4H2z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ShrinkDiagonalIcon.displayName = 'ShrinkDiagonalIcon';

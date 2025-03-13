@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0db60f15fb3ef6136f7411d75ffe3cc7>>
+ * @codegen <<SignedSource::ef70ce33b67e7f5902c1fbcfd80680dd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ImageFullscreenIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 11v3.625c0 .345-.28.625-.625.625H11M.75 5V1.375c0-.345.28-.625.625-.625H5m1 11.5h5c.69 0 1.25-.56 1.25-1.25V9.875M6 12.25H5c-.69 0-1.25-.56-1.25-1.25V5c0-.69.56-1.25 1.25-1.25h6c.69 0 1.25.56 1.25 1.25v4.875M6 12.25l3.117-4.008a.625.625 0 0 1 .876-.111l2.257 1.744"/><circle cx="6.5" cy="6.5" r="1" fill="currentcolor"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.5 1.5H5V0H1.375C.615 0 0 .616 0 1.375V5h1.5zM3 5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h.633l2.892-3.719a1.375 1.375 0 0 1 1.927-.244l1.048.81V5a.5.5 0 0 0-.5-.5zm6.5 5.743L9.633 8.801l-2.1 2.699H11a.5.5 0 0 0 .5-.5zM16 11v3.625c0 .76-.616 1.375-1.375 1.375H11v-1.5h3.5V11z" clip-rule="evenodd"/><path fill="currentcolor" d="M7.5 6.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ImageFullscreenIcon.displayName = 'ImageFullscreenIcon';

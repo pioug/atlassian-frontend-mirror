@@ -930,6 +930,16 @@ const smartCardStyles = css({
 	},
 });
 
+const smartCardStylesAvatarFix = css({
+	[`.${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
+		/* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
+		'ul, ol': {
+			paddingLeft: 'inherit',
+		},
+		/* EDM-11991: Fix list plugin add padding to ADS AvatarGroup end */
+	},
+});
+
 const baseOtherStyles = css({
 	'& .UnknownBlock': {
 		fontFamily: token('font.family.body'),
@@ -1996,6 +2006,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					backgroundColorStyles,
 					tasksAndDecisionsStyles,
 					smartCardStyles,
+					fg('platform-linking-visual-refresh-v1') && smartCardStylesAvatarFix,
 					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 					// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix

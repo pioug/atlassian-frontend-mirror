@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bbfd507c7621461b165e91f3aacd564a>>
+ * @codegen <<SignedSource::b29b80429fc8b442d4f5d01ffffc04a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextIndentRightIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 1.75h14M1 14.25h14M8 5.917h7M1.5 5.25 4.25 8 1.5 10.75m6.5-.667h7"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 2.5H1V1h14zM2.03 4.72l2.75 2.75a.75.75 0 0 1 0 1.06l-2.75 2.75-1.06-1.06L3.19 8 .97 5.78zM15 6.667H8v-1.5h7zm0 4.166H8v-1.5h7zm0 2.667V15H1v-1.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextIndentRightIcon.displayName = 'TextIndentRightIcon';

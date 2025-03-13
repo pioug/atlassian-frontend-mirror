@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8b683faddbdaca017b589c83e06c6811>>
+ * @codegen <<SignedSource::4fb30934ba7b32c946d34f90a8ade387>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TableCellSplitIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3 5.75.75 8 3 10.25m10-4.5L15.25 8 13 10.25m3-7.5h-5c-.69 0-1.25.56-1.25 1.25v8c0 .69.56 1.25 1.25 1.25h5M0 2.75h5c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25H0"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M5 3.5H0V2h5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H0v-1.5h5a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5m6 0a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h5V14h-5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5v1.5zM.22 7.47l2.25-2.25 1.06 1.06L1.81 8l1.72 1.72-1.06 1.06L.22 8.53a.75.75 0 0 1 0-1.06M14.19 8l-1.72-1.72 1.06-1.06 2.25 2.25a.75.75 0 0 1 0 1.06l-2.25 2.25-1.06-1.06z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TableCellSplitIcon.displayName = 'TableCellSplitIcon';

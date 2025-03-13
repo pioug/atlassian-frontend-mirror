@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { type FileIdentifier } from '@atlaskit/media-client';
 import { Navigation, NavigationBase, prevNavButtonId, nextNavButtonId } from '../../../navigation';
-import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
-import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
+import ArrowLeftCircleIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-circle';
+import ArrowRightCircleIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-circle';
 import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';
 
 /**
@@ -59,15 +59,11 @@ describe('Navigation', () => {
 
 	it('should show right arrow if there are items on the right', () => {
 		const el = mount(<Navigation onChange={() => {}} items={items} selectedItem={identifier} />);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(1);
 	});
 
 	it('should show left arrow if there are items on the left', () => {
 		const el = mount(<Navigation onChange={() => {}} items={items} selectedItem={identifier3} />);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(1);
 	});
 
@@ -75,11 +71,7 @@ describe('Navigation', () => {
 		const el = mount(
 			<Navigation onChange={() => {}} items={[identifier]} selectedItem={identifier} />,
 		);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(0);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(0);
 	});
 
@@ -87,21 +79,13 @@ describe('Navigation', () => {
 		const el = mount(
 			<Navigation onChange={() => {}} items={items} selectedItem={identifier2Duplicated} />,
 		);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(1);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(1);
 	});
 
 	it('should show both arrows if there are items in both sides', () => {
 		const el = mount(<Navigation onChange={() => {}} items={items} selectedItem={identifier2} />);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(1);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(1);
 	});
 
@@ -124,11 +108,7 @@ describe('Navigation', () => {
 		const el = mount(
 			<Navigation onChange={onChange} items={items} selectedItem={nonFoundIdentifier} />,
 		);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(0);
-		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(0);
 	});
 

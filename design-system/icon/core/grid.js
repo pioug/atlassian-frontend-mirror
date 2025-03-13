@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dc4a4e9f434e397e955fe9e0b6a609a9>>
+ * @codegen <<SignedSource::7de7b5804889990b150be57e7707dfe0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const GridIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 1.75H3c-.69 0-1.25.56-1.25 1.25v5M8 1.75h5c.69 0 1.25.56 1.25 1.25v5M8 1.75v12.5m0 0h5c.69 0 1.25-.56 1.25-1.25V8M8 14.25H3c-.69 0-1.25-.56-1.25-1.25V8m0 0h12.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v4.25h4.75V2.5zm5.75 0v4.75h4.75V3a.5.5 0 0 0-.5-.5zm4.75 6.25H8.75v4.75H13a.5.5 0 0 0 .5-.5zM7.25 13.5V8.75H2.5V13a.5.5 0 0 0 .5.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 GridIcon.displayName = 'GridIcon';

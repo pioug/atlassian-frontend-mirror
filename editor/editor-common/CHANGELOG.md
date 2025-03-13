@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 102.5.0
+
+### Minor Changes
+
+- [#125487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125487)
+  [`e435eea47c743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e435eea47c743) -
+  [ux] EDM-11991: Fix smart links avatar group padding inside editor and renderer
+
+## 102.4.0
+
+### Minor Changes
+
+- [#122049](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/122049)
+  [`feaccb6b73652`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feaccb6b73652) -
+  extend functionality of multiBodiedExtensions to allow requests for bodied overrides
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 102.3.4
 
 ### Patch Changes

@@ -1,5 +1,3 @@
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M0.999985 13.25H15" stroke="#44546F" stroke-width="1.5"/>
-<path d="M0.999985 8H15" stroke="#44546F" stroke-width="1.5"/>
-<path d="M0.999985 2.75H15" stroke="#44546F" stroke-width="1.5"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15 3.5H0.999981V2H15V3.5ZM15 8.75H0.999981V7.25H15V8.75ZM15 14H0.999981V12.5H15V14Z" fill="#44546F"/>
 </svg>

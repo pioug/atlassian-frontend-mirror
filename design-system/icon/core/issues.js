@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::199243cc0775c8cc83966a7e02a9b46d>>
+ * @codegen <<SignedSource::b9ecec8f3c8440f7914cda24dbba6c18>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const IssuesIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m4.125 7 1.583 1.875 3.167-3.75M.75 10V4c0-.69.56-1.25 1.25-1.25h9c.69 0 1.25.56 1.25 1.25v6c0 .69-.56 1.25-1.25 1.25H2c-.69 0-1.25-.56-1.25-1.25Z"/><path stroke="currentcolor" stroke-width="1.5" d="M5 14.25h7.75a2.5 2.5 0 0 0 2.5-2.5V7"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 3.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5zM0 4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.302.641 1.146.968-3.167 3.75a.75.75 0 0 1-1.146 0L3.552 7.484l1.146-.968 1.01 1.197z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M16 7v4.75A3.25 3.25 0 0 1 12.75 15H5v-1.5h7.75a1.75 1.75 0 0 0 1.75-1.75V7z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 IssuesIcon.displayName = 'IssuesIcon';

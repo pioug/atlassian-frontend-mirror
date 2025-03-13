@@ -15,7 +15,7 @@ import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { payloadPublisher } from '@atlassian/ufo';
 
-import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
+import AnnotateIcon from '@atlaskit/icon/core/edit';
 import { SelectableCard } from './selectableCard';
 import { Card, type CardAppearance, type CardEvent, type CardAction } from '../src';
 import { MediaCardError } from '../src/errors';
@@ -87,8 +87,7 @@ export const annotateCardAction: CardAction = {
 	handler: () => {
 		console.log('annotate');
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO: no icon available (https://product-fabric.atlassian.net/browse/DSP-20852)
-	icon: <AnnotateIcon size="small" label="annotate" />,
+	icon: <AnnotateIcon label="annotate" />,
 };
 
 export const actions = [openAction, closeAction, deleteAction, annotateCardAction];

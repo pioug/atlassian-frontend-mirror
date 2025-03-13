@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::49ee7f40a0283896388b8efa11b61a02>>
+ * @codegen <<SignedSource::78298474d22014d47c8de5bc58c5ffc8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TableColumnsDistributeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M6.25 1.75h3.5m-3.5 0H3.375a.625.625 0 0 0-.625.625v11.25c0 .345.28.625.625.625H6.25m0-12.5v12.5m3.5-12.5v12.5m0-12.5h2.875c.345 0 .625.28.625.625v11.25c0 .345-.28.625-.625.625H9.75m0 0h-3.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 2.375C2 1.615 2.616 1 3.375 1h9.25C13.385 1 14 1.616 14 2.375v11.25c0 .76-.616 1.375-1.375 1.375h-9.25C2.615 15 2 14.384 2 13.625zm1.5.125v11h2v-11zm3.5 0v11h2v-11zm3.5 0v11h2v-11z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TableColumnsDistributeIcon.displayName = 'TableColumnsDistributeIcon';

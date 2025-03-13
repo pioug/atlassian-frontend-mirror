@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4027f56527fa5d2219e2f1b056bb3e72>>
+ * @codegen <<SignedSource::91682cabb4d682af4c3a9e7c02f28eb2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShapeTriangleIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M7.455 2.224a.625.625 0 0 1 1.09 0L14.48 12.82a.625.625 0 0 1-.545.93H2.066a.625.625 0 0 1-.545-.93z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.8 1.857a1.375 1.375 0 0 1 2.4 0l5.933 10.596a1.375 1.375 0 0 1-1.2 2.047H2.067a1.375 1.375 0 0 1-1.2-2.047zm1.2.928L2.28 13h11.44z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ShapeTriangleIcon.displayName = 'ShapeTriangleIcon';

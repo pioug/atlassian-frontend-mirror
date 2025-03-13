@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aaf8cb8346dd6282c79857c9508bed57>>
+ * @codegen <<SignedSource::0c54e3a438f254ab0e6b2d2ef082ee70>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SmartLinkCardIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M10.75 3.75H2C1.31 3.75.75 4.31.75 5v6c0 .69.56 1.25 1.25 1.25h8.75m0-8.5H14c.69 0 1.25.56 1.25 1.25v6c0 .69-.56 1.25-1.25 1.25h-3.25m0-8.5v8.5M3 6.75h5.5M3 9.25h3"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 4.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h8v-7zm9.5 0v7H14a.5.5 0 0 0 .5-.5V5a.5.5 0 0 0-.5-.5zM0 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 2.5H3V6h5.5zM6 10H3V8.5h3z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SmartLinkCardIcon.displayName = 'SmartLinkCardIcon';

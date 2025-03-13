@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6701ba8729c462ef45d7d1490abffd21>>
+ * @codegen <<SignedSource::7de7c2be3f7c9d9cc79e629bb0768f3e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TimelineIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M1 1.75h10M1 10.084h10M5 14.25h10M5 5.917h10"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M11 2.5H1V1h10zm4 4.167H5v-1.5h10zm-4 4.167H1v-1.5h10zM15 15H5v-1.5h10z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TimelineIcon.displayName = 'TimelineIcon';

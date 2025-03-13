@@ -1,5 +1,14 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.26.5
+
+### Patch Changes
+
+- [#123584](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123584)
+  [`913c6cac2c446`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/913c6cac2c446) -
+  Fixed an issue where the legacy local storage key would be read, but never cleared. This caused
+  overrides to appear that couldn't be deleted.
+
 ## 4.26.4
 
 ### Patch Changes

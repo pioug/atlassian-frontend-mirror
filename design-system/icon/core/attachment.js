@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::15f3053c0bde5207a9a531f58338ad60>>
+ * @codegen <<SignedSource::fb48769bc9741be5df69b5fd6e0f8435>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AttachmentIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M10.25 4.5 5.75 9a1.414 1.414 0 1 0 2 2l4.5-4.5a2.828 2.828 0 1 0-4-4L3.75 7a4.243 4.243 0 0 0 6 6l2.5-2.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.72 1.97a3.578 3.578 0 1 1 5.06 5.06l-4.5 4.5a2.164 2.164 0 1 1-3.06-3.06l4.5-4.5 1.06 1.06-4.5 4.5a.664.664 0 0 0 .94.94l4.5-4.5a2.079 2.079 0 0 0-2.94-2.94l-4.5 4.5a3.493 3.493 0 0 0 4.94 4.94l2.5-2.5 1.06 1.06-2.5 2.5a4.993 4.993 0 1 1-7.06-7.06z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AttachmentIcon.displayName = 'AttachmentIcon';

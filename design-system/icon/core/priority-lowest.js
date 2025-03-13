@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2e7800f890f442b780dfe8ad42d89625>>
+ * @codegen <<SignedSource::44d4985ef2b6c9df47acdac2ab03d8be>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PriorityLowestIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M2.5 8.625 8 12.25l5.5-3.625m-11-4.5L8 7.75l5.5-3.625"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m7.587 8.376-5.5-3.625.826-1.252L8 6.852l5.087-3.353.826 1.252-5.5 3.625a.75.75 0 0 1-.826 0m0 4.5-5.5-3.625L2.913 8 8 11.352l5.087-3.353.826 1.252-5.5 3.626a.75.75 0 0 1-.826 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PriorityLowestIcon.displayName = 'PriorityLowestIcon';

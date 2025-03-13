@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::75ff75fbd0059fbb181943f10d67779b>>
+ * @codegen <<SignedSource::f6cd595d4ec67af9dd83acc02e35c9f1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FormIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 9.75h6m-6-9h6m-4.625 5.5h11.25c.345 0 .625-.28.625-.625v-1.75a.625.625 0 0 0-.625-.625H2.375a.625.625 0 0 0-.625.625v1.75c0 .345.28.625.625.625Zm0 9h11.25c.345 0 .625-.28.625-.625v-1.75a.625.625 0 0 0-.625-.625H2.375a.625.625 0 0 0-.625.625v1.75c0 .345.28.625.625.625Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7 1.5H1V0h6zM1 3.875c0-.76.616-1.375 1.375-1.375h11.25c.76 0 1.375.616 1.375 1.375v1.75C15 6.385 14.384 7 13.625 7H2.375C1.615 7 1 6.384 1 5.625zM2.5 4v1.5h11V4zM7 10.5H1V9h6zm-6 2.375c0-.76.616-1.375 1.375-1.375h11.25c.76 0 1.375.616 1.375 1.375v1.75c0 .76-.616 1.375-1.375 1.375H2.375C1.615 16 1 15.384 1 14.625zM2.5 13v1.5h11V13z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FormIcon.displayName = 'FormIcon';

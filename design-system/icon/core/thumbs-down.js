@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e2b5049f52c7e26f44b12f0ac4e14570>>
+ * @codegen <<SignedSource::a72633545722086b0140d354eb816898>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ThumbsDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.25 1.75H14c.69 0 1.25.56 1.25 1.25v4.5c0 .69-.56 1.25-1.25 1.25h-2.75m0-7v7m0-7H4.128c-.82 0-1.545.533-1.79 1.316l-1.327 4.25A1.875 1.875 0 0 0 2.8 9.75h3.45v3.175c0 .365.16.712.437.95l.117.1a1.25 1.25 0 0 0 1.923-.372L11.25 8.75"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.292 13.406a.5.5 0 0 0 .77-.15l2.438-4.69V2.5H4.128c-.492 0-.927.32-1.073.79L1.726 7.54A1.125 1.125 0 0 0 2.8 9h3.45a.75.75 0 0 1 .75.75v3.175a.5.5 0 0 0 .174.38zM12 2.5V8h2a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zm-.295 7-2.313 4.449a2 2 0 0 1-3.076.595l-.118-.1a2 2 0 0 1-.698-1.519V10.5H2.8A2.625 2.625 0 0 1 .295 7.092l1.328-4.25A2.625 2.625 0 0 1 4.128 1H14a2 2 0 0 1 2 2v4.5a2 2 0 0 1-2 2z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ThumbsDownIcon.displayName = 'ThumbsDownIcon';

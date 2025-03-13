@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9ccad8eb5ed4c6ce2659a8352d97b02b>>
+ * @codegen <<SignedSource::be0b9c9537e0b69b1d3c8d2587861fe5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DecisionIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 15V8.518c0-.332-.132-.65-.366-.884L2.25 2.25M14.5 1.5 10 6M8 1.75H1.75V8"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m13.97.97-4.5 4.5 1.06 1.06 4.5-4.5zM3.56 2.5H8V1H1.75a.75.75 0 0 0-.75.75V8h1.5V3.56l4.604 4.604a.5.5 0 0 1 .146.354V15h1.5V8.518a2 2 0 0 0-.586-1.414z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DecisionIcon.displayName = 'DecisionIcon';

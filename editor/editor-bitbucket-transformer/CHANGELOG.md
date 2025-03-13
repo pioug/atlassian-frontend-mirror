@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.2.0
+
+### Minor Changes
+
+- [#125498](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125498)
+  [`3880b9b6d889d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3880b9b6d889d) -
+  [ux] Enables serialize and parsing of media resizing attributes in bitbucket transformer
+
 ## 9.1.1
 
 ### Patch Changes

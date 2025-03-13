@@ -1,5 +1,7 @@
 import { Fragment, type Slice } from '@atlaskit/editor-prosemirror/model';
+import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CellSelection } from '../cell-selection';
 import { type Rect, TableMap } from '../table-map';
@@ -15,8 +17,38 @@ export function handlePaste(view: EditorView, event: Event | null, slice: Slice)
 		return false;
 	}
 
-	let cells = pastedCells(slice);
+	const { schema } = view.state;
+	const isNestingAllowed = editorExperiment('nested-tables-in-tables', true);
+	/**
+	 * TODO: There can be multiple variations.
+	 * 1. The last cell is selected with content outside of the table
+	 * 2. The first cell is selected with content outside of the table
+	 */
+	const isPartialTablePaste =
+		slice.content.childCount === 1 &&
+		slice.content.firstChild?.type === schema.nodes.table &&
+		slice.openStart !== 0 &&
+		slice.openEnd !== 0;
+
 	const sel = view.state.selection;
+
+	if (isNestingAllowed && !isPartialTablePaste) {
+		const cellRes = findParentNode(
+			(node) => node.type === schema.nodes.tableCell || node.type === schema.nodes.tableHeader,
+		)(sel);
+
+		if (cellRes) {
+			const canInsertNestedTable = cellRes.node
+				.contentMatchAt(0)
+				.matchType(schema.nodes.table)?.validEnd;
+
+			if (canInsertNestedTable) {
+				return false;
+			}
+		}
+	}
+
+	let cells = pastedCells(slice);
 	if (sel instanceof CellSelection) {
 		if (!cells) {
 			cells = {

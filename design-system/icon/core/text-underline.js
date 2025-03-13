@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d3494a09f71d24952eb1d94a663ce6d3>>
+ * @codegen <<SignedSource::6be31db7cc8cc7ac6cf9eec5de5a6b78>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextUnderlineIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3.75 1v7a3.75 3.75 0 0 0 3.75 3.75h1A3.75 3.75 0 0 0 12.25 8V1M15 15.25H1"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 8V1h1.5v7a3 3 0 0 0 3 3h1a3 3 0 0 0 3-3V1H13v7a4.5 4.5 0 0 1-4.5 4.5h-1A4.5 4.5 0 0 1 3 8m-2 6.5h14V16H1z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextUnderlineIcon.displayName = 'TextUnderlineIcon';

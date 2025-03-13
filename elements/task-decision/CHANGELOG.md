@@ -1,5 +1,19 @@
 # @atlaskit/task-decision
 
+## 19.1.0
+
+### Minor Changes
+
+- [#126262](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126262)
+  [`c48dfdc45873d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c48dfdc45873d) -
+  FIX: fixes issue where unchecked TaskItems do not render correctly
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.3
 
 ### Patch Changes

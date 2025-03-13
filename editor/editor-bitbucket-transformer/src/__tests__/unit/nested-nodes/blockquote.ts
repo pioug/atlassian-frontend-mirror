@@ -40,7 +40,7 @@ describe('Serializer: List inside block-quote', () => {
 		it('should support media inside an unorderedlist within a quote', () => {
 			expect(
 				markdownSerializer.serialize(doc(blockquote(ul(li(mediaNode()))))(defaultSchema)),
-			).toEqual('> * ![](image.jpg)\n> \n');
+			).toEqual("> * ![](image.jpg){: data-layout='center' }\n> \n");
 		});
 		it('should support codeblock inside an unorderedlist within a quote', () => {
 			expect(
@@ -84,7 +84,7 @@ describe('Serializer: List inside block-quote', () => {
 				markdownSerializer.serialize(
 					doc(blockquote(ol({ order: 1 })(li(mediaNode()))))(defaultSchema),
 				),
-			).toEqual('> 1. ![](image.jpg)\n> \n');
+			).toEqual("> 1. ![](image.jpg){: data-layout='center' }\n> \n");
 		});
 		// Ignored via go/ees005
 		// eslint-disable-next-line jest/no-identical-title
@@ -120,7 +120,7 @@ describe('Serializer: Media in blockquote', () => {
 					defaultSchema,
 				),
 			),
-		).toEqual('> ![](image.jpg)\n');
+		).toEqual("> ![](image.jpg){: data-layout='center' }\n");
 	});
 
 	it('should serialize a media group inside a blockquote', () => {

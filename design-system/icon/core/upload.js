@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::18f48239df3d43384ee1a456747f9946>>
+ * @codegen <<SignedSource::3f74f927ffa6330940d56635efcb4a7d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const UploadIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 9v4c0 .69.56 1.25 1.25 1.25h10c.69 0 1.25-.56 1.25-1.25V9M8 11V2.25m-4 3.5 4-4 4 4"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.47 1.22a.75.75 0 0 1 1.06 0l4 4-1.06 1.06-2.72-2.72V11h-1.5V3.56L4.53 6.28 3.47 5.22zM1 13V9h1.5v4a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9H15v4a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 UploadIcon.displayName = 'UploadIcon';

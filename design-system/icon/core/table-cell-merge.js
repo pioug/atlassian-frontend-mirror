@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1ab78600739387dcd7536fccfde27d39>>
+ * @codegen <<SignedSource::139b33bd4b774507f69a6a4ee945fea8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TableCellMergeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M12 5.75 9.75 8 12 10.25m-8-4.5L6.25 8 4 10.25m3-7.5H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25h5m2-10.5h5c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25H9"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 3.5a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h5V14H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5v1.5zm12 0H9V2h5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9v-1.5h5a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5M5.19 8 3.47 6.28l1.06-1.06 2.25 2.25a.75.75 0 0 1 0 1.06l-2.25 2.25-1.06-1.06zm4.03-.53 2.25-2.25 1.06 1.06L10.81 8l1.72 1.72-1.06 1.06-2.25-2.25a.75.75 0 0 1 0-1.06" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TableCellMergeIcon.displayName = 'TableCellMergeIcon';

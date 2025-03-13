@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a5cc64351c605678c6ac04b46dca880>>
+ * @codegen <<SignedSource::f4b14835d587dad120659c3db4288330>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CalendarPlusIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M1.75 6.75V13c0 .69.56 1.25 1.25 1.25h4.5m-5.75-7.5V3c0-.69.56-1.25 1.25-1.25h2.25m-3.5 5h12.5m0 0V3c0-.69-.56-1.25-1.25-1.25h-2.25m3.5 5v.75m-9-5.75V0m0 1.75V4.5m0-2.75h5.5m0 0V0m0 1.75V4.5M10 13h3m0 0h3m-3 0v-3m0 3v3"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.5 2.5v2H6v-2h4v2h1.5v-2H13a.5.5 0 0 1 .5.5v3h-11V3a.5.5 0 0 1 .5-.5zm-2 5V13a.5.5 0 0 0 .5.5h4.5V15H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1.5V0H6v1h4V0h1.5v1H13a2 2 0 0 1 2 2v4.5zm9.75 4.75V10h1.5v2.25H16v1.5h-2.25V16h-1.5v-2.25H10v-1.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CalendarPlusIcon.displayName = 'CalendarPlusIcon';

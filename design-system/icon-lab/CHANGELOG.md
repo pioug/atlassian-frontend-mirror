@@ -1,5 +1,18 @@
 # @atlaskit/icon-lab
 
+## 4.0.0
+
+### Major Changes
+
+- [#124742](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124742)
+  [`ca9cea0dadcce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca9cea0dadcce) -
+  Icons have been updated to use paths instead of strokes. This results in some very minor
+  anti-aliasing differences, imperceptable to the eye, yet may cuase VR tests to break.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

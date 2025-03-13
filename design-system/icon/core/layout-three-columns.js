@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d71e9d37aad5af4c8b7d066e2e8389db>>
+ * @codegen <<SignedSource::455753a667f20f1d7529d077b0a47e9b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LayoutThreeColumnsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 2.38c0-.34.28-.62.63-.62h1.5c.35 0 .63.28.63.63v11.25c0 .35-.28.63-.62.63h-1.5a.63.63 0 0 1-.62-.62zm11.75 0c0-.34.28-.62.63-.62h1.5c.35 0 .63.28.63.63v11.25c0 .35-.28.63-.62.63h-1.5a.63.63 0 0 1-.62-.62zm-6 0c0-.34.28-.62.63-.62h1.75c.35 0 .63.28.63.63v11.25c0 .35-.28.63-.62.63H7.14a.63.63 0 0 1-.62-.62z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 2.375C0 1.615.616 1 1.375 1h1.5c.76 0 1.375.616 1.375 1.375v11.25c0 .76-.616 1.375-1.375 1.375h-1.5C.615 15 0 14.384 0 13.625zm1.5.125v11h1.25v-11zm4.25-.125C5.75 1.615 6.366 1 7.125 1h1.75c.76 0 1.375.616 1.375 1.375v11.25c0 .76-.616 1.375-1.375 1.375h-1.75c-.76 0-1.375-.616-1.375-1.375zm1.5.125v11h1.5v-11zm4.5-.125c0-.76.616-1.375 1.375-1.375h1.5C15.385 1 16 1.616 16 2.375v11.25c0 .76-.616 1.375-1.375 1.375h-1.5c-.76 0-1.375-.616-1.375-1.375zm1.5.125v11h1.25v-11z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LayoutThreeColumnsIcon.displayName = 'LayoutThreeColumnsIcon';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::04d058fc509e0d9a88e783020a39d5af>>
+ * @codegen <<SignedSource::e45e5696651ae09c6cd42135bd3e6824>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SubtasksIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3 8h10c.69 0 1.25.56 1.25 1.25V13c0 .69-.56 1.25-1.25 1.25H9.25C8.56 14.25 8 13.69 8 13V3c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v3.75C1.75 7.44 2.31 8 3 8Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 3a2 2 0 0 1 2-2h3.75a2 2 0 0 1 2 2v4.25H13a2 2 0 0 1 2 2V13a2 2 0 0 1-2 2H9.25a2 2 0 0 1-2-2V8.75H3a2 2 0 0 1-2-2zm6.25 4.25V3a.5.5 0 0 0-.5-.5H3a.5.5 0 0 0-.5.5v3.75a.5.5 0 0 0 .5.5zm1.5 1.5V13a.5.5 0 0 0 .5.5H13a.5.5 0 0 0 .5-.5V9.25a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SubtasksIcon.displayName = 'SubtasksIcon';

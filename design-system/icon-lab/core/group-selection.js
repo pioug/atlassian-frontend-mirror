@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35178c81c8b6784a56982de40e63e4fb>>
+ * @codegen <<SignedSource::1ebf044cae43e23273ebf78da87d5f4a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const GroupSelectionIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M6 1.75h7c.69 0 1.25.56 1.25 1.25v7c0 .69-.56 1.25-1.25 1.25H6c-.69 0-1.25-.56-1.25-1.25V3c0-.69.56-1.25 1.25-1.25Z"/><path fill="currentcolor" d="M7 4.5h1.5V6H7zm3 0h1.5V6H10zm0 3h1.5V9H10z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.464 4.75H3c-.69 0-1.25.56-1.25 1.25v7c0 .69.56 1.25 1.25 1.25h7c.69 0 1.25-.56 1.25-1.25v-1.464"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 3a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2zm-2-.5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z" clip-rule="evenodd"/><path fill="currentcolor" d="M7 4.5h1.5V6H7zm3 0h1.5V6H10zm0 3h1.5V9H10z"/><path fill="currentcolor" fill-rule="evenodd" d="M3 5.5h1.464V4H3a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-1.464h-1.5V13a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V6a.5.5 0 0 1 .5-.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 GroupSelectionIcon.displayName = 'GroupSelectionIcon';

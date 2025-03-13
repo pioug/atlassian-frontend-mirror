@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e9e1323830c886d32ffcda348b575ee5>>
+ * @codegen <<SignedSource::04f340248c4142a991ad78e080057fbe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FullscreenExitIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.25 1v3c0 .69-.56 1.25-1.25 1.25H1M10.75 15v-3c0-.69.56-1.25 1.25-1.25h3m0-5.5h-3c-.69 0-1.25-.56-1.25-1.25V1M1 10.75h3c.69 0 1.25.56 1.25 1.25v3"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M11.5 12v3H10v-3a2 2 0 0 1 2-2h3v1.5h-3a.5.5 0 0 0-.5.5m-7 3v-3a.5.5 0 0 0-.5-.5H1V10h3a2 2 0 0 1 2 2v3zM12 4.5h3V6h-3a2 2 0 0 1-2-2V1h1.5v3a.5.5 0 0 0 .5.5m-8 0a.5.5 0 0 0 .5-.5V1H6v3a2 2 0 0 1-2 2H1V4.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FullscreenExitIcon.displayName = 'FullscreenExitIcon';

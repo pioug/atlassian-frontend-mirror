@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 3.6.0
+
+### Minor Changes
+
+- [#125840](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125840)
+  [`070cc7406b298`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/070cc7406b298) -
+  EDF-2577: Register editor_text_highlight_orange_to_yellow experiment in tmp-editor-statsig
+  experiments config
+
 ## 3.5.0
 
 ### Minor Changes

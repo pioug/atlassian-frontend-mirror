@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6977c2e9605a59f54cabdbb01fbc059>>
+ * @codegen <<SignedSource::eb92caa2558ba38194b1d5e7c104edd0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ContentWidthNarrowIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M2 1.75h12M2 14.25h12m-1.375-3h-9.25a.625.625 0 0 1-.625-.625v-5.25c0-.345.28-.625.625-.625h9.25c.345 0 .625.28.625.625v5.25c0 .345-.28.625-.625.625Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M14 2.5H2V1h12zm-10.5 3v5h9v-5zM3.375 4h9.25C13.385 4 14 4.616 14 5.375v5.25c0 .76-.616 1.375-1.375 1.375h-9.25C2.615 12 2 11.384 2 10.625v-5.25C2 4.615 2.616 4 3.375 4M14 15H2v-1.5h12z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ContentWidthNarrowIcon.displayName = 'ContentWidthNarrowIcon';

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.10
+
+### Patch Changes
+
+- [#124761](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124761)
+  [`349f09baaea6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/349f09baaea6d) -
+  [ED-26782] Fix drag handle removal and add type safety for block controls plugin
+
 ## 3.3.9
 
 ### Patch Changes

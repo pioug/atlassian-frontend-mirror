@@ -330,4 +330,25 @@ describe('PersistentOverrideAdapter', () => {
 		);
 		expect(result?.value).toBe(true);
 	});
+
+	it('should clear the old legacy storage key after reading from it', () => {
+		const myLocalStorageKey = 'overridesForTesting';
+		const provider = new PersistentOverrideAdapter(myLocalStorageKey);
+		window.localStorage.removeItem(myLocalStorageKey);
+		window.localStorage.setItem(
+			'STATSIG_JS_LITE_LOCAL_OVERRIDES',
+			JSON.stringify({ gates: { a: true } }),
+		);
+		expect(window.localStorage.getItem('STATSIG_JS_LITE_LOCAL_OVERRIDES')).toBeDefined();
+		expect(window.localStorage.getItem(myLocalStorageKey)).toBeNull();
+
+		provider.initFromStoredOverrides();
+		expect(provider.getOverrides()).toEqual({
+			configs: {},
+			gates: { a: true },
+			layers: {},
+		});
+		expect(window.localStorage.getItem('STATSIG_JS_LITE_LOCAL_OVERRIDES')).toBeNull();
+		expect(window.localStorage.getItem(myLocalStorageKey)).toBeDefined();
+	});
 });

@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 204.4.7
+
+### Patch Changes
+
+- [#125634](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125634)
+  [`4e091d2d7760a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e091d2d7760a) -
+  [ux] ED-26999 fix primary toolbar spacing under editor controls feature
+
+## 204.4.6
+
+### Patch Changes
+
+- [#125487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125487)
+  [`e435eea47c743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e435eea47c743) -
+  [ux] EDM-11991: Fix smart links avatar group padding inside editor and renderer
+- Updated dependencies
+
+## 204.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 204.4.4
 
 ### Patch Changes

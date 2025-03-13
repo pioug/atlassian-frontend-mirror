@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59efac49527c1c91c80dd21c724ae1fc>>
+ * @codegen <<SignedSource::74bfec641d4189e7274e991164fabf9a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FlaskIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M9.75.75V5l1.659 4.25M9.75.75h-3.5m3.5 0h1.5m-5 0V5L4.591 9.25M6.25.75h-1.5m-.159 8.5-1.676 4.296A1.25 1.25 0 0 0 4.08 15.25h7.84a1.25 1.25 0 0 0 1.165-1.704L11.408 9.25m-6.817 0h6.818"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.75 0h6.5v1.5h-.75v3.359l3.284 8.414A2 2 0 0 1 11.92 16H4.08a2 2 0 0 1-1.864-2.727L5.5 4.859V1.5h-.75zM7 1.5V5a.8.8 0 0 1-.051.273L5.689 8.5h4.622L9.05 5.273A.8.8 0 0 1 9 5V1.5zm3.896 8.5H5.104l-1.49 3.818a.5.5 0 0 0 .466.682h7.84a.5.5 0 0 0 .466-.682z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FlaskIcon.displayName = 'FlaskIcon';

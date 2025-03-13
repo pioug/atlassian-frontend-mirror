@@ -3,15 +3,10 @@ import type { DatasourceAttributes, DataType, UrlType } from '@atlaskit/adf-sche
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { B400 } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 // @nodeSpecException:toDOM patch
 export const blockCardSpecWithFixedToDOM = () => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return blockCard;
-	}
-
 	return {
 		...blockCard,
 		toDOM: (node: PMNode): DOMOutputSpec => {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c3d06f913e3bfa8d024df6d8b88e2b36>>
+ * @codegen <<SignedSource::9311f31d34366a6684ecd3b0a6669e19>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ListChecklistIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M7 2.75h8M7 8h8m-8 5.25h8M1.5 7.536 2.611 9.25l2.889-3m-4-3.964L2.611 4 5.5 1m-4 11.786L2.611 14.5l2.889-3"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m6.04 1.52-2.889 3a.75.75 0 0 1-1.17-.112L.872 2.694l1.258-.816.597.921L4.96.479zM15 3.5H7V2h8zM6.04 6.77l-2.889 3a.75.75 0 0 1-1.17-.112L.872 7.944l1.258-.816.597.921 2.234-2.32zM15 8.75H7v-1.5h8zm-8.96 3.27-2.889 3a.75.75 0 0 1-1.17-.112l-1.11-1.714 1.258-.816.597.921 2.234-2.32zM15 14H7v-1.5h8z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ListChecklistIcon.displayName = 'ListChecklistIcon';

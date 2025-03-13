@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 114.2.1
+
+### Patch Changes
+
+- [#125487](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125487)
+  [`e435eea47c743`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e435eea47c743) -
+  [ux] EDM-11991: Fix smart links avatar group padding inside editor and renderer
+- Updated dependencies
+
+## 114.2.0
+
+### Minor Changes
+
+- [#125286](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125286)
+  [`c930e08d002dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c930e08d002dd) -
+  Include non paragraph nodes when rendering comment without surrounding whitespace
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.1.0
 
 ### Minor Changes

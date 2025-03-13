@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::074daefea592ea2cb0ffc44a73d8d9b0>>
+ * @codegen <<SignedSource::2251b011785916069b749fddb2c5cd02>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AutomationIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="m6 15.25-.723-.2a.75.75 0 0 0 1.253.73zM13.25 8l.53.53a.75.75 0 0 0-.53-1.28zM10 .75l.723.2A.75.75 0 0 0 9.47.22zM2.75 8l-.53-.53a.75.75 0 0 0 .53 1.28zm3.78 7.78 7.25-7.25-1.06-1.06-7.25 7.25zm6.72-8.53H8v1.5h5.25zm-4.527.95 2-7.25-1.446-.4-2 7.25zM9.47.22 2.22 7.47l1.06 1.06 7.25-7.25zM2.75 8.75H8v-1.5H2.75zm4.527-.95-2 7.25 1.446.4 2-7.25z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M10.377.102a.75.75 0 0 1 .346.847L8.985 7.25h4.265a.75.75 0 0 1 .53 1.28l-7.25 7.25a.75.75 0 0 1-1.253-.73l1.738-6.3H2.75a.75.75 0 0 1-.53-1.28L9.47.22a.75.75 0 0 1 .907-.118M7.43 7.25l1.093-3.96L4.56 7.25zm1.142 1.5-1.093 3.96 3.961-3.96z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AutomationIcon.displayName = 'AutomationIcon';

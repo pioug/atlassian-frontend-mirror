@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::52b49c26fedbff38fb55add78dd507d6>>
+ * @codegen <<SignedSource::6209776ef69c56f26af2970fd840a919>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ObjectiveIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 8A7.25 7.25 0 1 1 8 .75M7.5 8.5l3.75-3.75m0 0v-2l2-2 .5 1.5 1.5.5-2 2zm.5 3.25A3.75 3.75 0 1 1 8 4.25"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13.422.02a.75.75 0 0 1 .54.493l.38 1.144 1.145.381a.75.75 0 0 1 .293 1.242l-2 2a.75.75 0 0 1-.53.22h-1.69L8.03 9.03 6.97 7.97l3.53-3.53V2.75a.75.75 0 0 1 .22-.53l2-2a.75.75 0 0 1 .702-.2M12 4h.94l.922-.922-.35-.116a.75.75 0 0 1-.473-.475l-.117-.349-.922.923zM8 1.5A6.5 6.5 0 1 0 14.5 8H16a8 8 0 1 1-8-8zM8 5a3 3 0 1 0 3 3h1.5A4.5 4.5 0 1 1 8 3.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ObjectiveIcon.displayName = 'ObjectiveIcon';

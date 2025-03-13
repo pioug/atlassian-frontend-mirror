@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d174cd574f310093c8aa43665e0a8986>>
+ * @codegen <<SignedSource::622b66f09f9810e3f6fbdd627d1ccd29>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PageLiveDocIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M7.5 14.25H3c-.69 0-1.25-.56-1.25-1.25V3c0-.69.56-1.25 1.25-1.25h10c.69 0 1.25.56 1.25 1.25v4.5M4 5.25h8m-8 3.5h5"/><path fill="currentcolor" d="m8.59 12.207 3.093-4.488c.314-.456 1.026-.14.898.4l-.481 2.014a.25.25 0 0 0 .243.308h2.16a.5.5 0 0 1 .412.783l-3.093 4.489c-.315.455-1.027.138-.898-.4l.48-2.014a.25.25 0 0 0-.243-.308h-2.16a.5.5 0 0 1-.412-.784"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13.5 3a.5.5 0 0 0-.5-.5H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h4.5V15H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4.5h-1.5zM12 6H4V4.5h8zM9 9.5H4V8h5z" clip-rule="evenodd"/><path fill="currentcolor" d="m8.59 12.207 3.093-4.488c.314-.456 1.026-.14.898.4l-.481 2.014a.25.25 0 0 0 .243.308h2.16a.5.5 0 0 1 .412.783l-3.093 4.489c-.315.455-1.027.138-.898-.4l.48-2.014a.25.25 0 0 0-.243-.308h-2.16a.5.5 0 0 1-.412-.784"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PageLiveDocIcon.displayName = 'PageLiveDocIcon';

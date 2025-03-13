@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f58e7a45f00fdaa8b3648e8ad65ad3c8>>
+ * @codegen <<SignedSource::0b0ad8e82692fcbf05d6af098ca724db>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LogOutIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 1.75H3c-.69 0-1.25.56-1.25 1.25v10c0 .69.56 1.25 1.25 1.25h5M14.25 8H6m4.75-3.5 3.5 3.5-3.5 3.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 2.5h5V1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5v-1.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5m11.78 4.97-3.5-3.5-1.06 1.06 2.22 2.22H6v1.5h6.44l-2.22 2.22 1.06 1.06 3.5-3.5a.75.75 0 0 0 0-1.06" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LogOutIcon.displayName = 'LogOutIcon';

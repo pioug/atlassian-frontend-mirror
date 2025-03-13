@@ -1,7 +1,7 @@
 // fy25_03/index.test.ts
 import { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../../types';
 
-import VCCalculator_FY25_03 from './index';
+import VCCalculator_FY25_03, { KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS } from './index';
 
 describe('VCCalculator_FY25_03', () => {
 	let calculator: VCCalculator_FY25_03;
@@ -76,6 +76,25 @@ describe('VCCalculator_FY25_03', () => {
 			};
 			expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
 		});
+
+		describe.each(KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS)(
+			'when entry is a %s attribute',
+			(att) => {
+				it('should return false', () => {
+					const entry: VCObserverEntry = {
+						time: 0,
+						type: 'mutation:attribute',
+						data: {
+							elementName: 'div',
+							rect: new DOMRect(),
+							visible: true,
+							attributeName: att,
+						} as ViewportEntryData,
+					};
+					expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+				});
+			},
+		);
 	});
 
 	describe('isVCClean', () => {

@@ -1,19 +1,17 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fc58da6123c713c2f81de82453a86de7>>
+ * @codegen <<SignedSource::0511013eceaa261129e778523a8c4be5>>
  * @codegenCommand yarn build:icon-glyphs
  */
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
-	value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.default = void 0;
-var _react = _interopRequireDefault(require('react'));
-var _baseNew = _interopRequireDefault(require('@atlaskit/icon/base-new'));
-function _interopRequireDefault(e) {
-	return e && e.__esModule ? e : { default: e };
-}
+var _react = _interopRequireDefault(require("react"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "CursorStrikethrough".
  * Category: multi-purpose
@@ -22,16 +20,9 @@ function _interopRequireDefault(e) {
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const CursorStrikethroughIcon = (props) =>
-	/*#__PURE__*/ _react.default.createElement(
-		_baseNew.default,
-		Object.assign(
-			{
-				dangerouslySetGlyph: `<mask id="mask0_37654_6518" width="16" height="16" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="currentcolor" fill-rule="evenodd" d="M0 10.812V0h10.812zM12.933 0H16v16H0v-3.067z" clip-rule="evenodd"/></mask><g stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" mask="url(#mask0_37654_6518)"><path d="M8.9 9.32 7.52 13.8a.63.63 0 0 1-1.18.05L2.03 2.84a.63.63 0 0 1 .81-.81l11 4.32a.63.63 0 0 1-.04 1.18L9.32 8.9a.63.63 0 0 0-.41.41ZM13 1 1 13"/></g>`,
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			},
-			props,
-		),
-	);
+const CursorStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M3.125 7.687 1.326 3.109C.887 1.99 1.991.887 3.11 1.326l4.578 1.799L6.53 4.282 2.827 2.827 4.282 6.53z"/><path fill="currentcolor" fill-rule="evenodd" d="m3.723 9.21.002.004L.47 12.47l1.06 1.06 2.793-2.793 1.325 3.374c.476 1.21 2.212 1.145 2.594-.099L9.6 9.6l4.412-1.358c1.244-.382 1.31-2.118.099-2.594l-3.373-1.325L13.53 1.53 12.47.47 9.214 3.725l-.004-.002L8.053 4.88l.004.002-3.175 3.175-.002-.004zm1.757.37 1.434 3.65 1.272-4.134c.134-.436.474-.776.91-.91l4.134-1.272L9.58 5.48z" clip-rule="evenodd"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
 CursorStrikethroughIcon.displayName = 'CursorStrikethroughIcon';
-var _default = (exports.default = CursorStrikethroughIcon);
+var _default = exports.default = CursorStrikethroughIcon;

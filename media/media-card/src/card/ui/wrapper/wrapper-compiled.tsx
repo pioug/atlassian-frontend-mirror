@@ -28,7 +28,7 @@ const wrapperStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:hover .media-card-blanket': {
-		backgroundColor: token('color.background.input', N90A),
+		backgroundColor: token('color.blanket', N90A),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

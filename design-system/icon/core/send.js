@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::95673ec90232f493974bac94b7e045a3>>
+ * @codegen <<SignedSource::17ddc348c6f916127485ad6ca25becea>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SendIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.679 2.321 6.252 9.753M14.25 1.75l-13.5 5 5.5 3 3 5.5z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M14.78 1.22a.75.75 0 0 1 .173.79l-5 13.5a.75.75 0 0 1-1.361.1l-2.895-5.307L.391 7.408A.75.75 0 0 1 .49 6.047l13.5-5a.75.75 0 0 1 .79.173M7.177 9.884l1.942 3.56 3.237-8.74zm4.118-6.24L2.556 6.881l3.56 1.942z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SendIcon.displayName = 'SendIcon';

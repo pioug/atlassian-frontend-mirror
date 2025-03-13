@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::31b2d9ffb1753582c6bd50ed024a0973>>
+ * @codegen <<SignedSource::41d66a68561c4cd4e94328a9663d9840>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChatWidgetIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M2.75 4.75V12c0 .69.56 1.25 1.25 1.25h5m-6.25-8.5V2c0-.69.56-1.25 1.25-1.25h8c.69 0 1.25.56 1.25 1.25v2.75m-10.5 0h10.5m0 0V9m2 4.25a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v7h-1.5V5.5h-9V12a.5.5 0 0 0 .5.5h5V14H4a2 2 0 0 1-2-2zm1.5 2h9V2a.5.5 0 0 0-.5-.5H4a.5.5 0 0 0-.5.5zm9.75 8a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5m-2.75 1.25a2.75 2.75 0 1 1 5.5 0 2.75 2.75 0 0 1-5.5 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChatWidgetIcon.displayName = 'ChatWidgetIcon';

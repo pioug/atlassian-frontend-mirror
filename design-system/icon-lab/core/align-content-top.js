@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a3ef12c59e85d7f94c32ca7a8286465b>>
+ * @codegen <<SignedSource::7863c4adca92859c97c5c8cb31d0e278>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AlignContentTopIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M0 .75h16"/><rect width="10.5" height="2.75" stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" rx=".625" transform="matrix(0 1 1 0 3.75 3.75)"/><rect width="5.5" height="2.75" stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" rx=".625" transform="matrix(0 1 1 0 9.5 3.75)"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 1.5h16V0H0zM4.38 3C3.62 3 3 3.62 3 4.38v9.25c0 .76.62 1.37 1.38 1.37h1.5c.76 0 1.38-.62 1.38-1.37V4.38C7.25 3.62 6.63 3 5.88 3zm.12 1.5h1.25v9H4.5zM10.13 3c-.76 0-1.37.62-1.37 1.38v4.25c0 .76.62 1.38 1.38 1.38h1.5C12.39 10 13 9.38 13 8.63V4.38C13 3.62 12.38 3 11.63 3zm.13 1.5h1.25v4h-1.25z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AlignContentTopIcon.displayName = 'AlignContentTopIcon';

@@ -12,7 +12,8 @@ type AnalyticsActionTypes =
 	| ACTION.DELETED
 	| ACTION.REMOVE_CHILD
 	| ACTION.UPDATE_PARAMETERS
-	| ACTION.GET_CHILDERN;
+	| ACTION.GET_CHILDREN
+	| ACTION.GET_CHILDREN_CONTAINER;
 
 export const sendMBEAnalyticsEvent = (
 	action: AnalyticsActionTypes,

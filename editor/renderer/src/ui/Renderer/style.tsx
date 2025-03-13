@@ -32,6 +32,7 @@ import {
 	dateSharedStyle,
 	richMediaClassName,
 	tasksAndDecisionsStyles,
+	getSmartCardSharedStyles,
 	smartCardSharedStyles,
 	tableCellPadding,
 	textColorStyles,
@@ -648,7 +649,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 		${textColorStyles};
 		${backgroundColorStyles()};
 		${tasksAndDecisionsStyles};
-		${smartCardSharedStyles}
+		${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
 		${getAnnotationStyles(wrapperProps)}
 
 		& .UnknownBlock {

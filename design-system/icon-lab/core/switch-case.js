@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3590278b1d7906c55755fcaebacfe624>>
+ * @codegen <<SignedSource::89da5bf2c3cce2792fd3b64166af87e1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SwitchCaseIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 4.25V7.5m-6.25 4.25 2.5 2.5 2.5-2.5m2.5 0 2.5 2.5 2.5-2.5m-10 1.625V9.25C4.25 8.56 4.81 8 5.5 8h5c.69 0 1.25.56 1.25 1.25v4.125M8 4.75a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M5.75 3.25a2.25 2.25 0 1 1 3 2.122V7.25h1.75a2 2 0 0 1 2 2v3.19l1.22-1.22 1.06 1.06-2.5 2.5a.75.75 0 0 1-1.06 0l-2.5-2.5 1.06-1.06L11 12.44V9.25a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v3.19l1.22-1.22 1.06 1.06-2.5 2.5a.75.75 0 0 1-1.06 0l-2.5-2.5 1.06-1.06 1.22 1.22V9.25a2 2 0 0 1 2-2h1.75V5.372a2.25 2.25 0 0 1-1.5-2.122M8 2.5A.75.75 0 1 0 8 4a.75.75 0 0 0 0-1.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SwitchCaseIcon.displayName = 'SwitchCaseIcon';

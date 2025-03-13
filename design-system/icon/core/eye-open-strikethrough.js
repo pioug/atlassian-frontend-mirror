@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eb294a8fd9d5a2321fa0de8d00a29f07>>
+ * @codegen <<SignedSource::a08317faf7bb722eae48d675a4ede28d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EyeOpenStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m1 1 2.919 2.919M15 15l-2.92-2.92M3.92 3.92C2.524 4.792 1.436 6.096.871 7.638a1.06 1.06 0 0 0 0 .724C1.914 11.212 4.745 13.25 8 13.25c1.493 0 2.898-.43 4.08-1.17M3.92 3.92l2.49 2.49m5.672 5.672L9.59 9.59m0 0a2.25 2.25 0 0 1-3.182-3.182M9.59 9.59 6.409 6.409m.005-3.495A7.7 7.7 0 0 1 8 2.75c3.255 0 6.086 2.039 7.129 4.888.085.234.085.49 0 .724a7.2 7.2 0 0 1-1.187 2.08"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.76 3.82.47 1.53 1.53.47l14 14-1.06 1.06-2.513-2.512A8.44 8.44 0 0 1 8 14C4.433 14 1.319 11.768.167 8.62a1.8 1.8 0 0 1 0-1.24A8.1 8.1 0 0 1 2.76 3.82m1.069 1.07a6.63 6.63 0 0 0-2.253 3.006.3.3 0 0 0 0 .208C2.509 10.656 5.057 12.5 8 12.5a6.9 6.9 0 0 0 2.836-.604l-1.312-1.311a3 3 0 0 1-4.108-4.108zm2.722 2.72q-.05.187-.051.39a1.5 1.5 0 0 0 1.889 1.448zM8 3.501q-.737 0-1.432.147L6.26 2.18A8.5 8.5 0 0 1 8 2c3.566 0 6.681 2.232 7.833 5.38.146.4.146.84 0 1.24a8 8 0 0 1-1.31 2.295l-1.163-.947a6.5 6.5 0 0 0 1.064-1.864.3.3 0 0 0 0-.208C13.491 5.345 10.943 3.5 8 3.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EyeOpenStrikethroughIcon.displayName = 'EyeOpenStrikethroughIcon';

@@ -85,6 +85,15 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 			this.parseStoredOverrides(this._localStorageKey),
 		);
 
+		// Clear data from legacy local storage key now we've read from it.
+		// This prevents things being stuck in there that are always read but never written to.
+		try {
+			window.localStorage.removeItem(LEGACY_LOCAL_STORAGE_KEY);
+		} catch {
+			// ignored - window is not defined in non-browser environments, and we don't save things there
+			// (things like SSR, etc)
+		}
+
 		// In version 4.24.0 we introduced hashes in this override adapter, but had a bug which would cause
 		// multiple hashes to continue being created. This code here removes these hashes since we've moved
 		// to using a more reliable and easier to maintain map in `_djb2Map`.
@@ -204,7 +213,12 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 
 	removeAllOverrides(): void {
 		this._overrides = makeEmptyStore();
-		window.localStorage.removeItem(LOCAL_STORAGE_KEY);
+		try {
+			window.localStorage.removeItem(this._localStorageKey);
+		} catch {
+			// ignored - window is not defined in non-browser environments, and we don't save things there
+			// (things like SSR, etc)
+		}
 	}
 
 	getLayerOverride(current: Layer, _user: StatsigUser): Layer | null {

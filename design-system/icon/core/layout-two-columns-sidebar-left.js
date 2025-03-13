@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::da008be3b419b84a493a0f1744bd124f>>
+ * @codegen <<SignedSource::fe9a089e1f04f18f538500f4f4d79587>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LayoutTwoColumnsSidebarLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 2.38a.63.63 0 0 0-.62-.62H6.88a.63.63 0 0 0-.62.63v11.25c0 .35.28.63.63.63h7.75c.35 0 .63-.28.63-.62zm-12 0a.63.63 0 0 0-.62-.62H1.38a.63.63 0 0 0-.62.63v11.25c0 .35.28.63.63.63h1.25c.35 0 .63-.28.63-.62z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M16 2.375C16 1.615 15.384 1 14.625 1h-7.75C6.115 1 5.5 1.616 5.5 2.375v11.25c0 .76.616 1.375 1.375 1.375h7.75c.76 0 1.375-.616 1.375-1.375zm-1.5.125v11H7v-11zM4 2.375C4 1.615 3.384 1 2.625 1h-1.25C.615 1 0 1.616 0 2.375v11.25C0 14.385.616 15 1.375 15h1.25C3.385 15 4 14.384 4 13.625zM2.5 2.5v11h-1v-11z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LayoutTwoColumnsSidebarLeftIcon.displayName = 'LayoutTwoColumnsSidebarLeftIcon';

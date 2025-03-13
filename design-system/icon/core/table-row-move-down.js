@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d0ecb3c35cac5ec78b8bcec10b378a75>>
+ * @codegen <<SignedSource::3eb832afe4c95ea6abe00ab150b1ac5d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TableRowMoveDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 4.25v2.875c0 .345.28.625.625.625h11.25c.345 0 .625-.28.625-.625V4.25m-12.5 0h12.5m-12.5 0V1.375c0-.345.28-.625.625-.625h11.25c.345 0 .625.28.625.625V4.25m-9.25 8 3 3 3-3M8 10v5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.375 0C1.615 0 1 .616 1 1.375v5.75c0 .76.616 1.375 1.375 1.375h11.25c.76 0 1.375-.616 1.375-1.375v-5.75C15 .615 14.384 0 13.625 0zM2.5 1.5h11v2h-11zm0 3.5h11v2h-11zm1.97 7.78 3 3a.75.75 0 0 0 1.06 0l3-3-1.06-1.06-1.72 1.72V10h-1.5v3.44l-1.72-1.72z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TableRowMoveDownIcon.displayName = 'TableRowMoveDownIcon';

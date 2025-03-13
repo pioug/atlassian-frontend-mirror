@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1c290478c86e71cc3941accf24bcc848>>
+ * @codegen <<SignedSource::912482d78a9af3596f099cdbf8f5d0f4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AlignContentCenterVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M16 8h-3.75M0 8h3.75m5.5 0h-2.5"/><rect width="12.5" height="2.75" x="12.25" y="1.75" stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" rx=".625" transform="rotate(90 12.25 1.75)"/><rect width="8.5" height="2.75" x="6.5" y="3.75" stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" rx=".625" transform="rotate(90 6.5 3.75)"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M16 8.75h-3.75v-1.5H16zm-6.75 0h-2.5v-1.5h2.5zm-5.5 0H0v-1.5h3.75z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M11.63 1c.76 0 1.37.62 1.37 1.38v11.25c0 .76-.62 1.38-1.37 1.38h-1.5c-.76 0-1.37-.62-1.37-1.37V2.38c0-.76.62-1.37 1.38-1.37zm-.13 1.5h-1.25v11h1.25zM5.88 3c.76 0 1.38.62 1.38 1.38v7.25c0 .76-.62 1.38-1.37 1.38h-1.5C3.62 13 3 12.38 3 11.63V4.38C3 3.62 3.62 3 4.38 3zm-.13 1.5H4.5v7h1.25z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AlignContentCenterVerticalIcon.displayName = 'AlignContentCenterVerticalIcon';

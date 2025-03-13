@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::32a4013dbef1ced66687834b10d9c9be>>
+ * @codegen <<SignedSource::be5450c36a10f94a77afe8bb4ac523b5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PriorityCriticalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 1.75 2.75 5.21v9L8 10.75l5.25 3.46v-9z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.394 14.87a.75.75 0 0 0 .769-.033L8 11.649l4.837 3.188A.75.75 0 0 0 14 14.21v-9a.75.75 0 0 0-.337-.626l-5.25-3.46a.75.75 0 0 0-.826 0l-5.25 3.46A.75.75 0 0 0 2 5.21v9c0 .276.151.53.394.66M3.5 12.819V5.614L8 2.648l4.5 2.966v7.204l-4.087-2.694a.75.75 0 0 0-.826 0z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PriorityCriticalIcon.displayName = 'PriorityCriticalIcon';

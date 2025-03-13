@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c7b2d79a3b25dfe7ad45279077578263>>
+ * @codegen <<SignedSource::2b93e6f7f6eb1d414b7c1b7a32b3f3a9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CrossOctagonIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M3.582 3.582 1.75 5.414v5.172l1.832 1.832m0-8.836L5.414 1.75h5.172l1.832 1.832m-8.836 0L8 8m4.418 4.418 1.832-1.832V5.414l-1.832-1.832m0 8.836-1.832 1.832H5.414l-1.832-1.832m8.836 0L8 8m0 0 4.418-4.418M8 8l-4.418 4.418"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M5.103 1h5.794L15 5.103v5.794L10.897 15H5.103L1 10.897V5.103zm.621 1.5L4.643 3.582 8 6.939l3.357-3.357L10.275 2.5zm6.694 2.143L9.061 8l3.357 3.357 1.082-1.082v-4.55zm-1.06 7.775L8 9.061l-3.357 3.357L5.724 13.5h4.551zm-7.776-1.06L6.939 8 3.582 4.643 2.5 5.724v4.551z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CrossOctagonIcon.displayName = 'CrossOctagonIcon';

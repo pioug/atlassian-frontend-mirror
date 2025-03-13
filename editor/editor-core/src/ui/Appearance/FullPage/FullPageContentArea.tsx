@@ -39,7 +39,6 @@ import PluginSlot from '../../PluginSlot';
 import {
 	contentArea,
 	contentAreaHeightNoToolbar,
-	contentAreaReducedHeaderSpace,
 	contentAreaWrapper,
 	editorContentAreaStyle,
 	editorContentGutterStyle,
@@ -143,11 +142,16 @@ const Content = React.forwardRef<
 								...editorContentAreaStyle({
 									fullWidthMode,
 									layoutMaxWidth: theme.layoutMaxWidth,
+									isEditorToolbarHidden: props.isEditorToolbarHidden,
 								}),
-								editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-									contentAreaReducedHeaderSpace,
 							]}
+							data-editor-editable-content
+							data-editor-primary-toolbar-hidden={
+								props.isEditorToolbarHidden &&
+								editorExperiment('platform_editor_controls', 'variant1')
+									? 'true'
+									: undefined
+							}
 							role="region"
 							aria-label={props.intl.formatMessage(messages.editableContentLabel)}
 							ref={contentAreaRef}

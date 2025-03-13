@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/table",
-	"version": "0.11.2",
+	"version": "0.11.4",
 	"description": "A table is used to display data.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -65,12 +65,18 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:*",
 		"@af/integration-testing": "workspace:*",
+		"@atlaskit/avatar": "workspace:*",
+		"@atlaskit/date": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/dynamic-table": "workspace:*",
+		"@atlaskit/lozenge": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
 		"@atlaskit/ssr": "workspace:*",
 		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
+		"raw-loader": "^0.5.1",
 		"react-dom": "^18.2.0",
-		"storybook-addon-designs": "^6.3.1",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

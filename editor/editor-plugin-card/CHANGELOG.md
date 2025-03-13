@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 5.3.0
+
+### Minor Changes
+
+- [#124727](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124727)
+  [`453158fbcf813`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/453158fbcf813) -
+  Removed lazy node view experiment from toDOM fix
+
+## 5.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.3
 
 ### Patch Changes

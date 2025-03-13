@@ -72,6 +72,7 @@ type Props = {
 	isNodeNested?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isLivePageViewMode?: boolean;
+	allowBodiedOverride?: boolean;
 };
 
 type PropsWithWidth = Props & {
@@ -84,6 +85,21 @@ interface CustomImageData {
 	width?: number;
 }
 type ImageData = CustomImageData | undefined;
+
+const MultiBodiedExtensionFrames = ({
+	articleRef,
+}: {
+	articleRef: (node: HTMLElement | null) => void;
+}) => {
+	return (
+		<article
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="multiBodiedExtension--frames"
+			data-testid="multiBodiedExtension--frames"
+			ref={articleRef}
+		/>
+	);
+};
 
 // Similar to the one in platform/packages/editor/editor-common/src/extensibility/Extension/Lozenge.tsx
 const getWrapperTitleContent = (
@@ -139,6 +155,7 @@ const MultiBodiedExtensionWithWidth = ({
 	setIsNodeHovered,
 	pluginInjectionApi,
 	isLivePageViewMode,
+	allowBodiedOverride = false,
 }: PropsWithWidth) => {
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 	const { parameters, extensionKey } = node.attrs;
@@ -164,24 +181,30 @@ const MultiBodiedExtensionWithWidth = ({
 		[setActiveChildIndex],
 	);
 
-	const actions = useMultiBodiedExtensionActions({
-		updateActiveChild,
-		editorView,
-		getPos,
-		eventDispatcher,
-		node,
-	});
-
-	const extensionHandlerResult = React.useMemo(() => {
-		return tryExtensionHandler(actions);
-	}, [tryExtensionHandler, actions]);
-
 	const articleRef = React.useCallback(
 		(node: HTMLElement | null) => {
 			return handleContentDOMRef(node);
 		},
 		[handleContentDOMRef],
 	);
+
+	const childrenContainer = React.useMemo(() => {
+		return <MultiBodiedExtensionFrames articleRef={articleRef} />;
+	}, [articleRef]);
+
+	const actions = useMultiBodiedExtensionActions({
+		updateActiveChild,
+		editorView,
+		getPos,
+		node,
+		eventDispatcher,
+		allowBodiedOverride,
+		childrenContainer,
+	});
+
+	const extensionHandlerResult = React.useMemo(() => {
+		return tryExtensionHandler(actions);
+	}, [tryExtensionHandler, actions]);
 
 	const shouldBreakout =
 		// Extension should breakout when the layout is set to 'full-width' or 'wide'.
@@ -215,6 +238,8 @@ const MultiBodiedExtensionWithWidth = ({
 	const containerClassNames = classnames('multiBodiedExtension--container', {
 		'remove-padding': showMacroInteractionDesignUpdates,
 	});
+
+	const bodyContainerClassNames = classnames('multiBodiedExtension--body-container');
 
 	const navigationClassNames = classnames('multiBodiedExtension--navigation', {
 		'remove-margins': showMacroInteractionDesignUpdates,
@@ -274,22 +299,29 @@ const MultiBodiedExtensionWithWidth = ({
 					data-testid="multiBodiedExtension--container"
 					data-active-child-index={activeChildIndex}
 				>
-					<nav
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={navigationClassNames}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={sharedMultiBodiedExtensionStyles.mbeNavigation}
-						data-testid="multiBodiedExtension-navigation"
-					>
-						{extensionHandlerResult}
-					</nav>
+					{allowBodiedOverride ? (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={bodyContainerClassNames}
+							data-testid="multiBodiedExtension--body-container"
+						>
+							{extensionHandlerResult}
+						</div>
+					) : (
+						<Fragment>
+							<nav
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={navigationClassNames}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								css={sharedMultiBodiedExtensionStyles.mbeNavigation}
+								data-testid="multiBodiedExtension-navigation"
+							>
+								{extensionHandlerResult}
+							</nav>
 
-					<article
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className="multiBodiedExtension--frames"
-						data-testid="multiBodiedExtension--frames"
-						ref={articleRef}
-					/>
+							{childrenContainer}
+						</Fragment>
+					)}
 				</div>
 			</div>
 		</Fragment>

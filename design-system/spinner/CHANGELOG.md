@@ -1,5 +1,13 @@
 # @atlaskit/spinner
 
+## 18.0.2
+
+### Patch Changes
+
+- [#124597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124597)
+  [`5d2d78fccc2a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d2d78fccc2a3) -
+  Update dependencies and remove old codemods.
+
 ## 18.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2ac3b91de8e932850243651973882214>>
+ * @codegen <<SignedSource::91b7b1dd505c61eb66599e7102bdd558>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StrokeWeightExtraLargeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<rect width="8" height="8" x="4" y="4" fill="currentcolor" stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" rx="4"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3.25 8a4.75 4.75 0 1 1 9.5 0 4.75 4.75 0 0 1-9.5 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 StrokeWeightExtraLargeIcon.displayName = 'StrokeWeightExtraLargeIcon';

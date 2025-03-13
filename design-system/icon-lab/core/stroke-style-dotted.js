@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::22277a47075868b5bd4e3782bbf89507>>
+ * @codegen <<SignedSource::4c51d5585e6011dfea98235d1ba39769>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StrokeStyleDottedIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 8h1.6m1.5 0h1.6m1.5 0h1.6m1.5 0h1.6m1.5 0H15"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.6 8.75H1v-1.5h1.6zm3.1 0H4.1v-1.5h1.6zm3.1 0H7.2v-1.5h1.6zm3.1 0h-1.6v-1.5h1.6zm3.1 0h-1.6v-1.5H15z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 StrokeStyleDottedIcon.displayName = 'StrokeStyleDottedIcon';

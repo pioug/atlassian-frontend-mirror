@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::977cb64b75e695e8cb10168af003a184>>
+ * @codegen <<SignedSource::cd6da84e11aa1d5b6e9ca710faf282a3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LogInIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 1.75h5c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H8M5.75 4.5 9.25 8m0 0-3.5 3.5M9.25 8H1"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.75 4.5 9.25 8l-3.5 3.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13 2.5H8V1h5a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8v-1.5h5a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5M7.44 7.25 5.22 5.03l1.06-1.06 3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5-1.06-1.06 2.22-2.22H1v-1.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LogInIcon.displayName = 'LogInIcon';

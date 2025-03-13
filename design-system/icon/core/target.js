@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc2f326d5dc2a6e994040205f1fe308e>>
+ * @codegen <<SignedSource::a04d977ad0dcc7b29c4c760ad9c38d81>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TargetIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M15.25 8A7.25 7.25 0 0 1 8 15.25M15.25 8A7.25 7.25 0 0 0 8 .75M15.25 8H12m-4 7.25A7.25 7.25 0 0 1 .75 8M8 15.25V12M.75 8A7.25 7.25 0 0 1 8 .75M.75 8H4M8 .75V4"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.543 7.25H4v1.5H1.543a6.5 6.5 0 0 0 5.707 5.707V12h1.5v2.457a6.5 6.5 0 0 0 5.707-5.707H12v-1.5h2.457A6.5 6.5 0 0 0 8.75 1.543V4h-1.5V1.543A6.5 6.5 0 0 0 1.543 7.25M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TargetIcon.displayName = 'TargetIcon';

@@ -1,5 +1,19 @@
 # @atlaskit/table
 
+## 0.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.11.3
+
+### Patch Changes
+
+- [#125078](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125078)
+  [`734cc6689a73c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/734cc6689a73c) -
+  Update dependencies and remove unused internal exports.
+
 ## 0.11.2
 
 ### Patch Changes

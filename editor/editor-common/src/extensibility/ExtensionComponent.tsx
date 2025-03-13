@@ -7,6 +7,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import { getExtensionModuleNodePrivateProps, getNodeRenderer } from '../extensions';
@@ -51,6 +52,7 @@ export interface State {
 	extensionHandlersFromProvider?: ExtensionHandlers;
 	_privateProps?: {
 		__hideFrame?: boolean;
+		__allowBodiedOverride?: boolean; // Allows MBE macro to override the default body; see RFC: https://hello.atlassian.net/wiki/spaces/EDITOR/pages/4843571091/Editor+RFC+064+MultiBodiedExtension+Extensibility
 	};
 	activeChildIndex?: number; // Holds the currently active Frame/Tab/Card
 	isNodeHovered?: boolean;
@@ -172,6 +174,10 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 		const isNodeNested = !!(resolvedPosition && resolvedPosition.depth > 0);
 
 		if (node.type.name === 'multiBodiedExtension') {
+			const allowBodiedOverride =
+				this.state._privateProps?.__allowBodiedOverride &&
+				fg('platform_editor_multi_body_extension_extensibility');
+
 			return (
 				<MultiBodiedExtension
 					node={node}
@@ -188,6 +194,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 					isNodeHovered={this.state.isNodeHovered}
 					setIsNodeHovered={this.setIsNodeHovered}
 					isLivePageViewMode={isLivePageViewMode}
+					allowBodiedOverride={allowBodiedOverride}
 				/>
 			);
 		}

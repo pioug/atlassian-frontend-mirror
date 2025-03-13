@@ -692,7 +692,7 @@ describe('BitbucketTransformer: serializer', () => {
 						defaultSchema,
 					),
 				),
-			).toEqual('![](http://path/to/image.jpg)\n');
+			).toEqual("![](http://path/to/image.jpg){: data-layout='center' }\n");
 		});
 
 		it('should be serialized inside table', () => {
@@ -712,7 +712,41 @@ describe('BitbucketTransformer: serializer', () => {
 						),
 					)(defaultSchema),
 				),
-			).toEqual('| h1 |\n| --- |\n| ![](http://path/to/image.jpg) |\n');
+			).toEqual("| h1 |\n| --- |\n| ![](http://path/to/image.jpg){: data-layout='center' } |\n");
+		});
+
+		it('should be serialized with resizing attributes', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						mediaSingle({ layout: 'center', width: 30 })(
+							media({ url: 'http://path/to/image.jpg', type: 'external' })(),
+						),
+					)(defaultSchema),
+				),
+			).toEqual("![](http://path/to/image.jpg){: data-width='30' data-layout='center' }\n");
+		});
+
+		it('should be serialized inside table with resizing attributes', () => {
+			expect(
+				markdownSerializer.serialize(
+					table()(
+						tr(th({})(p('h1'))),
+						tr(
+							td({})(
+								mediaSingle({ layout: 'align-start', width: 50.5, widthType: 'percentage' })(
+									media({
+										url: 'http://path/to/image.jpg',
+										type: 'external',
+									})(),
+								),
+							),
+						),
+					)(defaultSchema),
+				),
+			).toEqual(
+				"| h1 |\n| --- |\n| ![](http://path/to/image.jpg){: data-width='50.5' data-width-type='percentage' data-layout='align-start' } |\n",
+			);
 		});
 	});
 

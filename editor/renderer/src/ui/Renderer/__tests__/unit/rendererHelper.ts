@@ -1,5 +1,6 @@
 import { removeEmptySpaceAroundContent } from '../../rendererHelper';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { mockCommentData } from '../__fixtures__/mockData';
 
 describe('removeEmptySpaceAroundContent', () => {
 	it('should return the same document if content is not an array', () => {
@@ -119,6 +120,20 @@ describe('removeEmptySpaceAroundContent', () => {
 		const expected: JSONDocNode = {
 			type: 'doc',
 			content: [{ type: 'paragraph', content: [{ type: 'text', text: 'World' }] }],
+			version: 1,
+		};
+		expect(removeEmptySpaceAroundContent(document)).toEqual(expected);
+	});
+
+	it('should include non-paragraph nodes in the result', () => {
+		const document: JSONDocNode = {
+			type: 'doc',
+			content: mockCommentData,
+			version: 1,
+		};
+		const expected: JSONDocNode = {
+			type: 'doc',
+			content: mockCommentData.slice(2, mockCommentData.length - 3), // removes the empty paragraphs around the comment content
 			version: 1,
 		};
 		expect(removeEmptySpaceAroundContent(document)).toEqual(expected);

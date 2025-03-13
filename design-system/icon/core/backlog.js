@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e13d8aad451ba5bef29087265ac2e80>>
+ * @codegen <<SignedSource::471b5e5cdc883753bc3e3b52ee5ae2e2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BacklogIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M1.75 5.917V3c0-.69.56-1.25 1.25-1.25h10c.69 0 1.25.56 1.25 1.25v2.917m-12.5 0v4.166m0-4.166h12.5m-12.5 4.166V13c0 .69.56 1.25 1.25 1.25h10c.69 0 1.25-.56 1.25-1.25v-2.917m-12.5 0h12.5m0-4.166v4.166"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v2.167h11V3a.5.5 0 0 0-.5-.5zm10.5 4.167h-11v2.666h11zm0 4.166h-11V13a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BacklogIcon.displayName = 'BacklogIcon';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed928f428966c219df4b4640caff955b>>
+ * @codegen <<SignedSource::aff1a0601d1dfa1b068f5f916af0a8fe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LightbulbIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.75 12.25V14c0 .69.56 1.25 1.25 1.25h2c.69 0 1.25-.56 1.25-1.25v-1.75m-4.5 0v-.715c0-.483-.286-.912-.685-1.182a5.25 5.25 0 1 1 5.871 0c-.4.27-.686.7-.686 1.182v.715m-4.5 0h4.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 1.5a4.5 4.5 0 0 0-2.516 8.232c.545.368 1.002.994 1.016 1.768h3c.014-.774.471-1.4 1.016-1.768A4.5 4.5 0 0 0 8 1.5M9.5 13h-3v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5zM2 6a6 6 0 1 1 9.355 4.975c-.247.167-.355.385-.355.56V14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-2.465c0-.175-.108-.393-.355-.56A6 6 0 0 1 2 6" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LightbulbIcon.displayName = 'LightbulbIcon';

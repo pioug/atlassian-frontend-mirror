@@ -78,6 +78,9 @@ const useMultiBodiedExtensionActions = ({ updateActiveChild, children }: Actions
 			getChildren(): Array<any> {
 				return [];
 			},
+			getChildrenContainer() {
+				return null;
+			},
 		};
 	}, [updateActiveChild, children]);
 

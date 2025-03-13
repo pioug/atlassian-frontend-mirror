@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f9c9909d8d19bb8fceca16bd8cb8c5de>>
+ * @codegen <<SignedSource::5e45308fc95518cb1477d87969715ca8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShrinkVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 16V9.75m0-3.5V0M4.5 13.25 8 9.75l3.5 3.5m-7-10.5L8 6.25l3.5-3.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8.75 9.75V16h-1.5V9.75zm-1.5-3.5V0h1.5v6.25z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="m8 10.81-2.97 2.97-1.06-1.06 3.5-3.5a.75.75 0 0 1 1.06 0l3.5 3.5-1.06 1.06zm-.53-4.03-3.5-3.5 1.06-1.06L8 5.19l2.97-2.97 1.06 1.06-3.5 3.5a.75.75 0 0 1-1.06 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ShrinkVerticalIcon.displayName = 'ShrinkVerticalIcon';

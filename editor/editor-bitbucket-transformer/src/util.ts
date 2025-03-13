@@ -59,6 +59,7 @@ export function transformHtml(
 	options: {
 		disableBitbucketLinkStripping?: boolean;
 		shouldParseCodeSuggestions?: boolean;
+		shouldParseImageResizingAttributes?: boolean;
 	},
 ): HTMLElement {
 	const el = document.createElement('div');
@@ -238,6 +239,25 @@ export function transformHtml(
 			 */
 			const mediaSingle = document.createElement('div');
 			mediaSingle.setAttribute('data-node-type', 'mediaSingle');
+
+			// parses media resizing attributes and adds them to the mediaSingle node
+			if (options.shouldParseImageResizingAttributes) {
+				const dataLayout = img.getAttribute('data-layout');
+				const dataWidth = img.getAttribute('data-width');
+				const dataWidthType = img.getAttribute('data-width-type');
+
+				if (dataLayout && dataLayout !== 'null' && dataLayout !== 'undefined') {
+					mediaSingle.setAttribute('data-layout', dataLayout);
+				}
+
+				if (dataWidth && dataWidth !== 'null' && dataWidth !== 'undefined') {
+					mediaSingle.setAttribute('data-width', dataWidth);
+				}
+
+				if (dataWidthType && dataWidthType !== 'null' && dataWidthType !== 'undefined') {
+					mediaSingle.setAttribute('data-width-type', dataWidthType);
+				}
+			}
 
 			const media = document.createElement('div');
 			media.setAttribute('data-node-type', 'media');

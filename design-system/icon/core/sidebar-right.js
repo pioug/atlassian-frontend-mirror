@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1d441f8456661ee9dccbc8506ddcd168>>
+ * @codegen <<SignedSource::e48313162ec5dca3aec3aff777e17923>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SidebarRightIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 2.75H14c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25H7.75m0-10.5v10.5m0-10.5H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25h5.75M10 5.75h3m-3 3h3"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h5v-9zm6.5 0v9H14a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5zm4.5 3h-3V5h3zm0 3h-3V8h3z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SidebarRightIcon.displayName = 'SidebarRightIcon';

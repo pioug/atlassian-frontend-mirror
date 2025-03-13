@@ -1,5 +1,5 @@
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M0 15.25L16 15.25" stroke="#44546F" stroke-width="1.5" stroke-linejoin="round"/>
-<rect x="3.75" y="12.25" width="10.5" height="2.75" rx="0.625" transform="rotate(-90 3.75 12.25)" stroke="#44546F" stroke-width="1.5" stroke-linejoin="round"/>
-<rect x="9.5" y="12.25" width="5.5" height="2.75" rx="0.625" transform="rotate(-90 9.5 12.25)" stroke="#44546F" stroke-width="1.5" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 14.5L16 14.5V16L6.55671e-08 16L0 14.5Z" fill="#44546F"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.375 13C3.61561 13 3 12.3844 3 11.625L3 2.375C3 1.61561 3.61561 1 4.375 1L5.875 1C6.63439 1 7.25 1.61561 7.25 2.375L7.25 11.625C7.25 12.3844 6.63439 13 5.875 13H4.375ZM4.5 11.5H5.75L5.75 2.5L4.5 2.5L4.5 11.5Z" fill="#44546F"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.125 13C9.36561 13 8.75 12.3844 8.75 11.625V7.375C8.75 6.61561 9.36561 6 10.125 6H11.625C12.3844 6 13 6.61561 13 7.375V11.625C13 12.3844 12.3844 13 11.625 13H10.125ZM10.25 11.5H11.5V7.5H10.25V11.5Z" fill="#44546F"/>
 </svg>

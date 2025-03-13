@@ -1,1 +1,1 @@
-<svg width="16" height="16" fill="none" viewBox="0 0 16 16"><rect width="11.5" height="11.5" x="2.25" y="2.25" stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" rx=".625"/></svg>
+<svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path fill="currentcolor" fill-rule="evenodd" d="M1.5 2.875c0-.76.616-1.375 1.375-1.375h10.25c.76 0 1.375.616 1.375 1.375v10.25c0 .76-.616 1.375-1.375 1.375H2.875c-.76 0-1.375-.616-1.375-1.375zM3 3v10h10V3z" clip-rule="evenodd"/></svg>

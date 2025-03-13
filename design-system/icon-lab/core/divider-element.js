@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::04b40bbf6dfc4ed6703c2caff8cc0109>>
+ * @codegen <<SignedSource::8d71ccb6e55e0bf756554db9d48309ac>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,9 +13,6 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
- * Please reach out in #icon-contributions before using these in production.
- *
  * Icon: "DividerElement".
  * Category: multi-purpose
  * Location: @atlaskit/icon-lab
@@ -24,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DividerElementIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M13.25 15v-2.5c0-.69-.56-1.25-1.25-1.25H4c-.69 0-1.25.56-1.25 1.25V15M0 8h16M2.75 1v2.5c0 .69.56 1.25 1.25 1.25h8c.69 0 1.25-.56 1.25-1.25V1"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M14 15v-2.5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2V15h1.5v-2.5A.5.5 0 0 1 4 12h8a.5.5 0 0 1 .5.5V15zm2-7.75H0v1.5h16zM2 3.5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V1h-1.5v2.5a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V1H2z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DividerElementIcon.displayName = 'DividerElementIcon';

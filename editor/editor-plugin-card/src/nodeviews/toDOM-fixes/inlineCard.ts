@@ -3,15 +3,11 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 // @nodeSpecException:toDOM patch
 export const inlineCardSpecWithFixedToDOM = () => {
-	if (
-		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		!fg('platform_editor_ssr_fix_smartlinks')
-	) {
+	if (!fg('platform_editor_ssr_fix_smartlinks')) {
 		return inlineCard;
 	}
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::171befef9f9230b614a8168ed1e754fb>>
+ * @codegen <<SignedSource::7f3f6bf083da187946fb2c11bc2af09a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextBoldIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="2.25" d="M8.75 8c1.726 0 3.125-1.212 3.125-2.937 0-1.726-1.4-2.938-3.125-2.938H4.125V8M8.75 8h1c1.726 0 3.125 1.212 3.125 2.938 0 1.725-1.4 2.937-3.125 2.937H4.125V8M8.75 8H4.125"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 2.125C3 1.504 3.504 1 4.125 1H8.75C11.004 1 13 2.626 13 5.063a3.93 3.93 0 0 1-.855 2.492A3.92 3.92 0 0 1 14 10.938C14 13.374 12.004 15 9.75 15H4.125A1.125 1.125 0 0 1 3 13.875zm5.75 4.75c1.198 0 2-.798 2-1.812s-.802-1.813-2-1.813h-3.5v3.625zm-3.5 2.25h4.5c1.198 0 2 .798 2 1.813s-.802 1.812-2 1.812h-4.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextBoldIcon.displayName = 'TextBoldIcon';

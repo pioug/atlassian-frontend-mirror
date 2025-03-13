@@ -5,13 +5,25 @@
 import React, { type RefObject, useMemo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { Icon } from '@atlaskit/icon/base-new';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 import CheckboxCheckedIcon from '@atlaskit/icon/core/checkbox-checked';
-import CheckboxUncheckedIcon from '@atlaskit/icon/core/checkbox-unchecked';
+
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../../types';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { createAndFireEventInElementsChannel } from '../../analytics';
 import { token } from '@atlaskit/tokens';
+
+const CheckboxUncheckedIcon = (props: NewCoreIconProps) => (
+	<Icon
+		dangerouslySetGlyph={`<rect width="12.5" height="12.5" x="1.75" y="1.75" stroke="currentcolor" stroke-width="1.5" rx="1.25"/>`}
+		type={'core'}
+		{...props}
+	/>
+);
 
 /**
  * References packages/design-system/checkbox/src/checkbox.tsx

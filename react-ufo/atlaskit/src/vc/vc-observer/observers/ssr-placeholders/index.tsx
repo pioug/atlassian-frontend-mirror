@@ -13,14 +13,18 @@ export class SSRPlaceholderHandlers {
 	private callbacks = new Map<string, (resolve: boolean) => void>();
 	private getSizeCallbacks = new Map<string, (resolve: Rect) => void>();
 	private reactValidateCallbacks = new Map<string, (resolve: boolean) => void>();
-	private intersectionObserver: IntersectionObserver;
+	private intersectionObserver: IntersectionObserver | undefined;
 
 	constructor() {
-		this.intersectionObserver = new IntersectionObserver((entries) =>
-			entries
-				.filter((entry) => entry.intersectionRatio > 0)
-				.forEach(this.intersectionObserverCallback),
-		);
+		if (typeof IntersectionObserver === 'function') {
+			// Only instantiate the IntersectionObserver if it's supported
+			this.intersectionObserver = new IntersectionObserver((entries) =>
+				entries
+					.filter((entry) => entry.intersectionRatio > 0)
+					.forEach(this.intersectionObserverCallback),
+			);
+		}
+
 		if (window.document) {
 			try {
 				const existingElements = document.querySelectorAll('[data-ssr-placeholder]');
@@ -44,7 +48,7 @@ export class SSRPlaceholderHandlers {
 							x,
 							y,
 						});
-						this.intersectionObserver.observe(el);
+						this.intersectionObserver?.observe(el);
 					}
 				});
 			} catch (e) {
@@ -100,7 +104,7 @@ export class SSRPlaceholderHandlers {
 				return;
 			} else {
 				this.callbacks.set(id, resolve);
-				this.intersectionObserver.observe(el);
+				this.intersectionObserver?.observe(el);
 			}
 		});
 	}
@@ -108,7 +112,7 @@ export class SSRPlaceholderHandlers {
 	getSize(el: HTMLElement): Promise<Rect> {
 		return new Promise((resolve) => {
 			this.getSizeCallbacks.set(el.dataset.ssrPlaceholder || '', resolve);
-			this.intersectionObserver.observe(el);
+			this.intersectionObserver?.observe(el);
 		});
 	}
 
@@ -121,7 +125,7 @@ export class SSRPlaceholderHandlers {
 				return;
 			} else {
 				this.reactValidateCallbacks.set(id, resolve);
-				this.intersectionObserver.observe(el);
+				this.intersectionObserver?.observe(el);
 			}
 		});
 	}
@@ -142,7 +146,7 @@ export class SSRPlaceholderHandlers {
 	}
 
 	intersectionObserverCallback = ({ target, boundingClientRect }: IntersectionObserverEntry) => {
-		this.intersectionObserver.unobserve(target);
+		this.intersectionObserver?.unobserve(target);
 		if (!(target instanceof HTMLElement)) {
 			// impossible case - keep typescript healthy
 			return;

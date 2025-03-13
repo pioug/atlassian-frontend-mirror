@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::885938cef86fd644c64e961dee19f125>>
+ * @codegen <<SignedSource::5f4e0f9a7acbecae432a6a2607234087>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SidebarExpandIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.25 1.75H14c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25h-2.75m0-12.5H2C1.31 1.75.75 2.31.75 3v10c0 .69.56 1.25 1.25 1.25h9.25m0-12.5v12.5M5 5.5 7.5 8 5 10.5"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M14 2.5a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-2v-11zm-3.5 0v11H2a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5zM16 3a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM8.03 7.47l-2.5-2.5-1.06 1.06L6.44 8 4.47 9.97l1.06 1.06 2.5-2.5a.75.75 0 0 0 0-1.06" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SidebarExpandIcon.displayName = 'SidebarExpandIcon';

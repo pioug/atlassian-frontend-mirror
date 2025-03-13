@@ -12,7 +12,7 @@ import { useSorting } from './hooks/use-sorting';
 import { type SortKey, TableProvider } from './hooks/use-table';
 import { Table as TablePrimitive } from './ui';
 
-export type TableProps<ItemType extends object = {}> = {
+type TableProps<ItemType extends object = {}> = {
 	/**
 	 * A `testId` prop is a unique string that appears as a data attribute `data-testid`
 	 * in the rendered code, serving as a hook for automated tests.

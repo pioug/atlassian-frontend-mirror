@@ -149,9 +149,10 @@ exports[`Glyph should match snapshot 1`] = `
     viewBox="0 0 16 16"
   >
     <path
-      d="M8 8h7M8 8H1m7 0V1m0 7v7"
-      stroke="currentcolor"
-      stroke-width="1.5"
+      clip-rule="evenodd"
+      d="M7.25 8.75V15h1.5V8.75H15v-1.5H8.75V1h-1.5v6.25H1v1.5z"
+      fill="currentcolor"
+      fill-rule="evenodd"
     />
   </svg>
 </span>

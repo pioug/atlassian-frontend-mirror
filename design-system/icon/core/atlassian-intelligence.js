@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::db212aec7d6547ce10bd350f334f9fdd>>
+ * @codegen <<SignedSource::b8054c1d672105cf334f7f37a83f0cf2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AtlassianIntelligenceIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="m2 2 4 4m8 8-4-4m4-8-4 4m-8 8 4-4m2-9v3m0 8v3m7-7h-3M4 8H1"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.25 4V1h1.5v3zM5.47 6.53l-4-4 1.06-1.06 4 4zm4-1.06 4-4 1.06 1.06-4 4zM1 7.25h3v1.5H1zm11 0h3v1.5h-3zM1.47 13.47l4-4 1.06 1.06-4 4zm12 1.06-4-4 1.06-1.06 4 4zM7.25 15v-3h1.5v3z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AtlassianIntelligenceIcon.displayName = 'AtlassianIntelligenceIcon';

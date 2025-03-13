@@ -153,15 +153,21 @@ describe('ReactionSummaryButton', () => {
 		expect(button).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
 	});
 
-	it('should render with height of 22px if useCompactStyles is true', async () => {
+	it('should render with height of 20px and paddingTop of space.025 if useCompactStyles is true', async () => {
 		renderComponent({ useCompactStyles: true });
 		const summaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-		expect(summaryButton).toHaveCompiledCss('height', '22px');
+		expect(summaryButton).toHaveCompiledCss('height', '20px');
+
+		const reactionsWrapper = await screen.findByTestId('reaction-summary-wrapper');
+		expect(reactionsWrapper).toHaveCompiledCss('padding-top', 'var(--ds-space-025, 2px)');
 	});
 
 	it('should render with height of 24px if useCompactStyles is false', async () => {
 		renderComponent({ useCompactStyles: false });
 		const summaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 		expect(summaryButton).toHaveCompiledCss('height', '24px');
+
+		const reactionsWrapper = await screen.findByTestId('reaction-summary-wrapper');
+		expect(reactionsWrapper).not.toHaveCompiledCss('padding-top', 'var(--ds-space-025, 2px)');
 	});
 });

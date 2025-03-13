@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc546fecc3caa3e06ff591629ee2b8cf>>
+ * @codegen <<SignedSource::4b489bf8bc0a9b41ac79bcc69075eb0b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PrinterIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3.75 4.75H2C1.31 4.75.75 5.31.75 6v5c0 .69.56 1.25 1.25 1.25h1.75m0-7.5v-4h8.5v4m-8.5 0h8.5m0 0H14c.69 0 1.25.56 1.25 1.25v5c0 .69-.56 1.25-1.25 1.25h-1.75m-8.5 0v3h8.5v-3m-8.5 0v-2h8.5v2m.75-4.5h-2"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 .75A.75.75 0 0 1 3.75 0h8.5a.75.75 0 0 1 .75.75V4h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v2.25a.75.75 0 0 1-.75.75h-8.5a.75.75 0 0 1-.75-.75V13H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1zM4.5 4h7V1.5h-7zM3 11.5v-1.25a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 .75.75v1.25h1a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5zM11 7h2v1.5h-2zm-6.5 4v3.5h7V11z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PrinterIcon.displayName = 'PrinterIcon';

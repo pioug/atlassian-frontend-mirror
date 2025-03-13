@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c8fa221250b83c43ee02d1f495b15234>>
+ * @codegen <<SignedSource::7e26c8dbab2931db3613624583aad3c7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StickerIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M6.842 15.158a7.3 7.3 0 0 1 .476-3.976 7.25 7.25 0 0 1 7.84-4.34m-8.316 8.316A7.252 7.252 0 0 1 8 .75a7.25 7.25 0 0 1 7.158 6.092m-8.316 8.316 8.316-8.316"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 0 0-1.998 12.687L6 14c0-1.102.223-2.153.627-3.11a8 8 0 0 1 7.56-4.888A6.5 6.5 0 0 0 8 1.5m5.413 6.026a6.5 6.5 0 0 0-5.404 3.947 6.5 6.5 0 0 0-.483 1.94zM0 8a8 8 0 0 1 15.899-1.277.75.75 0 0 1-.21.65l-8.317 8.315a.75.75 0 0 1-.649.21A8 8 0 0 1 0 8" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 StickerIcon.displayName = 'StickerIcon';

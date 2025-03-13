@@ -14,7 +14,7 @@ import { useTable } from './hooks/use-table';
 import { TableBodyProvider } from './hooks/use-table-body';
 import { TBody as TBodyPrimitive } from './ui';
 
-export type BodyProps<Item extends object> =
+type BodyProps<Item extends object> =
 	| {
 			rows: Item[];
 			children: (row: Item) => ReactElement;

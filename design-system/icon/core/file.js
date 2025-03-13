@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::48cf5dd43ad1c28a71ba9f57f494ee9c>>
+ * @codegen <<SignedSource::1ac12335f661fcbcd071a3693f0f2aa2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FileIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 5.25V14c0 .69-.56 1.25-1.25 1.25H4c-.69 0-1.25-.56-1.25-1.25V2c0-.69.56-1.25 1.25-1.25h4.75m4.5 4.5h-4.5V.75m4.5 4.5c0-.32-.127-.627-.354-.854L9.604 1.104A1.2 1.2 0 0 0 8.75.75"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.25c0-.52-.206-1.017-.573-1.384L10.134.573A1.96 1.96 0 0 0 8.75 0H4a2 2 0 0 0-2 2zm2 .5a.5.5 0 0 1-.5-.5V2a.5.5 0 0 1 .5-.5h4v3.75c0 .414.336.75.75.75h3.75v8a.5.5 0 0 1-.5.5zm7.94-10H9.5V2.06z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FileIcon.displayName = 'FileIcon';

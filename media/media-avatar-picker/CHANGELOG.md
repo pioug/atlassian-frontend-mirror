@@ -1,5 +1,14 @@
 # @atlaskit/media-avatar-picker
 
+## 26.0.3
+
+### Patch Changes
+
+- [#124281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124281)
+  [`f70a31c4fdf67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f70a31c4fdf67) -
+  Updated scale image icons sources
+- Updated dependencies
+
 ## 26.0.2
 
 ### Patch Changes

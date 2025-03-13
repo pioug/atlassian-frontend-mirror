@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c6600dd21cedb19e1571b62a2059497>>
+ * @codegen <<SignedSource::3e612cbb8389956f960de73eed9cb0c3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TableRowDeleteIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 4.25v2.875c0 .345.28.625.625.625h11.25c.345 0 .625-.28.625-.625V4.25m-12.5 0h12.5m-12.5 0V1.375c0-.345.28-.625.625-.625h11.25c.345 0 .625.28.625.625V4.25M5 13h6"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.375 0C1.615 0 1 .616 1 1.375v5.75c0 .76.616 1.375 1.375 1.375h11.25c.76 0 1.375-.616 1.375-1.375v-5.75C15 .615 14.384 0 13.625 0zM2.5 1.5h11v2h-11zm0 3.5h11v2h-11zm8.5 7.25H5v1.5h6z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TableRowDeleteIcon.displayName = 'TableRowDeleteIcon';

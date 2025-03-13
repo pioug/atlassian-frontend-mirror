@@ -30,5 +30,3 @@ const bodyStyles = css({
 export const TBody: FC<{ children: ReactNode }> = ({ children }) => (
 	<tbody css={bodyStyles}>{children}</tbody>
 );
-
-export default TBody;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c197550fb50a48183a789c1e46a020dc>>
+ * @codegen <<SignedSource::202c86d742f1f8965b3c2f8324466924>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const WebhookIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m8 3.75 1.443 2.63 1.364 2.49a3 3 0 1 1-.11 5.198M3.75 11.5l1.443-2.63 1.364-2.49A3 3 0 0 1 8 .75a3 3 0 0 1 3 3m1.25 7.75h-5.5a3 3 0 1 1-4.523-2.585"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.25 3.75a3.75 3.75 0 1 1 7.5 0h-1.5a2.25 2.25 0 1 0-3.332 1.974.75.75 0 0 1 .297 1.018L4.408 11.86l-1.316-.722L5.576 6.61A3.74 3.74 0 0 1 4.25 3.75m4.408-.36 2.483 4.527a3.75 3.75 0 1 1-.832 6.792l.777-1.283a2.25 2.25 0 1 0 .082-3.9.75.75 0 0 1-1.018-.296L7.342 4.11zM0 11.5c0-1.377.743-2.58 1.846-3.231l.763 1.292A2.25 2.25 0 1 0 6 11.5a.75.75 0 0 1 .75-.751h5.5v1.5H7.425A3.751 3.751 0 0 1 0 11.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 WebhookIcon.displayName = 'WebhookIcon';

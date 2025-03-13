@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d6d1505f8665a4196779b6d845189052>>
+ * @codegen <<SignedSource::23e217b2078e806af3520b93d3020298>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CursorIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m8.903 9.316-1.377 4.476a.625.625 0 0 1-1.18.045L2.025 2.835a.625.625 0 0 1 .81-.81l11.003 4.322a.625.625 0 0 1-.045 1.179L9.316 8.903a.63.63 0 0 0-.413.413Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.827 2.827 6.914 13.23l1.272-4.134c.134-.436.474-.776.91-.91l4.134-1.272zm-1.5.282C.886 1.99 1.99.887 3.108 1.326L14.11 5.648c1.21.476 1.145 2.212-.099 2.594L9.6 9.6l-1.358 4.412c-.382 1.244-2.118 1.31-2.594.099z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CursorIcon.displayName = 'CursorIcon';

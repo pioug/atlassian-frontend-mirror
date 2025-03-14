@@ -79,16 +79,11 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 
 		const title = intl.formatMessage(messages.alignment);
 
-		const reducedSpacing =
-			editorExperiment('contextual_formatting_toolbar', true) ||
-			editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1', {
-				exposure: true,
-			}) ||
-			editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
-				exposure: true,
-			})
-				? 'compact'
-				: 'none';
+		const reducedSpacing = editorExperiment('platform_editor_controls', 'variant1', {
+			exposure: true,
+		})
+			? 'compact'
+			: 'none';
 
 		if (
 			toolbarType === ToolbarType.PRIMARY &&

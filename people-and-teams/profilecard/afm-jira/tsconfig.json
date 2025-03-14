@@ -48,6 +48,9 @@
 			"path": "../../../team-central/give-kudos/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{

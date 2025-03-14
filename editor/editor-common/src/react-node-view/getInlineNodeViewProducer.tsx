@@ -28,6 +28,8 @@ import { ZERO_WIDTH_SPACE } from '../whitespace';
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
 import { getOrCreateOnVisibleObserver } from './onVisibleObserverFactory';
 
+const isSSR = Boolean(process.env.REACT_SSR);
+
 export type InlineNodeViewComponentProps = {
 	view: EditorView;
 	getPos: () => GetPosReturn;
@@ -54,25 +56,30 @@ const canRenderFallback = (node: PMNode): boolean => {
 	return node.type.isInline && node.type.isAtom && node.type.isLeaf;
 };
 
+// list of inline nodes with toDOM fallback implementations that can be virtualized. As
+// additional nodes are converted they should be added here
+const virtualizedNodeWhitelist = ['status', 'mention', 'emoji', 'date', 'inlineCard'];
+
 const virtualisationConfiguration = () => {
 	let enableVirtualization = false;
 	let reactRenderedDocumentPositionThreshold = 0;
 
 	if (editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
 		enableVirtualization = false;
-	} else if (editorExperiment('platform_editor_inline_node_virtualization', 'fallbackall')) {
-		enableVirtualization = true;
-		reactRenderedDocumentPositionThreshold = 0;
-	} else if (editorExperiment('platform_editor_inline_node_virtualization', 'fallbackoffscreen')) {
-		enableVirtualization = true;
+	} else if (editorExperiment('platform_editor_inline_node_virtualization', 'fallback-small')) {
+		enableVirtualization = true && !isSSR;
 		reactRenderedDocumentPositionThreshold = 100;
+	} else if (editorExperiment('platform_editor_inline_node_virtualization', 'fallback-large')) {
+		enableVirtualization = true && !isSSR;
+		reactRenderedDocumentPositionThreshold = 400;
 	}
 
 	return {
 		enableVirtualization,
 		reactRenderedDocumentPositionThreshold,
-		virtualizeCurrentNode: () =>
+		virtualizeCurrentNode: (nodeType: string) =>
 			enableVirtualization &&
+			virtualizedNodeWhitelist.includes(nodeType) &&
 			!(initialReactRenderedNodeCount < reactRenderedDocumentPositionThreshold),
 	};
 };
@@ -86,7 +93,7 @@ function createNodeView<ExtraComponentProps>({
 }: CreateNodeViewOptions<ExtraComponentProps>) {
 	const { enableVirtualization, virtualizeCurrentNode } = virtualisationConfiguration();
 
-	const virtualizeNode = virtualizeCurrentNode();
+	const virtualizeNode = virtualizeCurrentNode(nodeViewParams.node.type.name);
 	// We set a variable for the current node which is
 	// used for comparisions when doing updates, before being
 	// overwritten to the updated node.

@@ -115,12 +115,12 @@ const TableHeading = styled.th({
 		borderRight: `0.5px solid ${token('color.border', N40)}`,
 		borderBottom: `2px solid ${token('color.border', N40)}`,
 		/*
-      lineHeight * 2 -> Max height of two lined header
-      verticalPadding * 2 -> padding for this component itself
-      verticalPadding * 2 -> padding inside span (--container)
-      2px -> Bottom border
-      Last two terms are needed because of border-box box sizing.
-    */
+	  lineHeight * 2 -> Max height of two lined header
+	  verticalPadding * 2 -> padding for this component itself
+	  verticalPadding * 2 -> padding inside span (--container)
+	  2px -> Bottom border
+	  Last two terms are needed because of border-box box sizing.
+	*/
 		height: `calc(24px * 2 + ${token('space.025', '2px')} * 4 + 2px)`,
 		verticalAlign: 'bottom',
 		backgroundColor: token('utility.elevation.surface.current', '#FFF'),
@@ -144,7 +144,7 @@ const TableHeading = styled.th({
 	"& [data-testid='datasource-header-content--container']": {
 		width: '100%',
 		/* With Button now being a parent for this component it adds its lineHeight value and spoils
-      `height` calculation above. */
+	  `height` calculation above. */
 		lineHeight: '24px',
 		paddingTop: token('space.025', '2px'),
 		paddingRight: token('space.050', '4px'),
@@ -348,16 +348,20 @@ const IssueLikeDataTableViewNew = ({
 		getOrderedColumns([...columns], [...visibleColumnKeys]),
 	);
 
+	const isJumpingColumnFixEnabled = fg('enable_fix_datasource_jumping_columns');
+
 	// Table container width is used to know if sum of all column widths is bigger of container or not.
 	// When sum of all columns is less than container size we make last column stretchable (width: undefined)
-	const [tableContainerWidth, setTableContainerWidth] = useState<number | undefined>();
+	const [tableContainerWidthOld, setTableContainerWidthOld] = useState<number | undefined>();
 
 	useEffect(() => {
 		const { current } = containerRef;
-		if (containerRef && current) {
-			setTableContainerWidth(current.getBoundingClientRect().width);
+		if (!isJumpingColumnFixEnabled) {
+			if (containerRef && current) {
+				setTableContainerWidthOld(current.getBoundingClientRect().width);
+			}
 		}
-	}, [containerRef]);
+	}, [containerRef, isJumpingColumnFixEnabled]);
 
 	useEffect(() => {
 		if (orderedColumns.length !== columns.length) {
@@ -398,12 +402,31 @@ const IssueLikeDataTableViewNew = ({
 
 	const shouldUseWidth = !!(onColumnResize || columnCustomSizes);
 
+	const getColumnWidthOld = useCallback(
+		(key: string, type: DatasourceType['type'], isLastCell: boolean) => {
+			if (
+				isLastCell &&
+				shouldUseWidth &&
+				(!tableContainerWidthOld || tableContainerWidthOld > columnsWidthsSum)
+			) {
+				return undefined;
+			} else {
+				return columnCustomSizes?.[key] || getDefaultColumnWidth(key, type);
+			}
+		},
+		[columnCustomSizes, columnsWidthsSum, shouldUseWidth, tableContainerWidthOld],
+	);
+
+	const tableContainerWidth = isJumpingColumnFixEnabled
+		? Math.ceil(containerRef.current?.getBoundingClientRect().width || 0)
+		: 0;
 	const getColumnWidth = useCallback(
 		(key: string, type: DatasourceType['type'], isLastCell: boolean) => {
 			if (
 				isLastCell &&
 				shouldUseWidth &&
-				(!tableContainerWidth || tableContainerWidth > columnsWidthsSum)
+				tableContainerWidth &&
+				tableContainerWidth > columnsWidthsSum
 			) {
 				return undefined;
 			} else {
@@ -419,9 +442,11 @@ const IssueLikeDataTableViewNew = ({
 				key,
 				content: title,
 				shouldTruncate: true,
-				width: getColumnWidth(key, type, index === visibleSortedColumns.length - 1),
+				width: isJumpingColumnFixEnabled
+					? getColumnWidth(key, type, index === visibleSortedColumns.length - 1)
+					: getColumnWidthOld(key, type, index === visibleSortedColumns.length - 1),
 			})),
-		[getColumnWidth, visibleSortedColumns],
+		[getColumnWidth, getColumnWidthOld, isJumpingColumnFixEnabled, visibleSortedColumns],
 	);
 
 	const loadingRow: RowType = useMemo(
@@ -545,13 +570,24 @@ const IssueLikeDataTableViewNew = ({
 									renderItem={renderItem}
 								/>
 							),
-							width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
+							width: isJumpingColumnFixEnabled
+								? getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1)
+								: getColumnWidthOld(key, type, cellIndex === visibleSortedColumns.length - 1),
 						};
 					}),
 					ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
 				};
 			}),
-		[items, itemIds, renderItem, wrappedColumnKeys, visibleSortedColumns, getColumnWidth],
+		[
+			items,
+			itemIds,
+			renderItem,
+			wrappedColumnKeys,
+			visibleSortedColumns,
+			getColumnWidth,
+			getColumnWidthOld,
+			isJumpingColumnFixEnabled,
+		],
 	);
 
 	const rows = useMemo(() => {
@@ -625,7 +661,9 @@ const IssueLikeDataTableViewNew = ({
 			}
 			data-testid={'issue-like-table-container'}
 		>
-			<WidthObserver setWidth={debounce(setTableContainerWidth, 100)} />
+			{!isJumpingColumnFixEnabled && (
+				<WidthObserver setWidth={debounce(setTableContainerWidthOld, 100)} />
+			)}
 			<Table
 				css={tableStyles}
 				data-testid={testId}

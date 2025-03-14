@@ -15,6 +15,8 @@ function isElementVisible(element: Element) {
 		const visible = element.checkVisibility({
 			// @ts-expect-error
 			visibilityProperty: true,
+			contentVisibilityAuto: true,
+			opacityProperty: true,
 		});
 
 		return visible;
@@ -62,6 +64,10 @@ export default class ViewportObserver {
 		this.mapVisibleNodeRects = new WeakMap();
 		this.intersectionObserver = createIntersectionObserver({
 			onEntry: ({ target, rect, time, type, mutationData }) => {
+				if (!target) {
+					return;
+				}
+
 				const visible = isElementVisible(target);
 
 				const lastElementRect = this.mapVisibleNodeRects.get(target);
@@ -145,14 +151,18 @@ export default class ViewportObserver {
 		this.performanceObserver = createPerformanceObserver({
 			onLayoutShift: ({ time, changedRects }) => {
 				for (const changedRect of changedRects) {
-					onChange({
-						time,
-						elementRef: new WeakRef(changedRect.node),
-						visible: true,
-						rect: changedRect.rect,
-						previousRect: changedRect.previousRect,
-						type: 'layout-shift',
-					});
+					const target = changedRect.node;
+
+					if (target) {
+						onChange({
+							time,
+							elementRef: new WeakRef(target),
+							visible: true,
+							rect: changedRect.rect,
+							previousRect: changedRect.previousRect,
+							type: 'layout-shift',
+						});
+					}
 				}
 			},
 		});

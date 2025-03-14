@@ -106,12 +106,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 					} else {
 						return {
 							...toolbarConfig,
-							rank:
-								editorExperiment('contextual_formatting_toolbar', true) ||
-								editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1') ||
-								editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
-									? 1
-									: undefined,
+							rank: editorExperiment('platform_editor_controls', 'variant1') ? 1 : undefined,
 						};
 					}
 				}

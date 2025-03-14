@@ -11,6 +11,7 @@ export type ContextUpdateHandler = (
 ) => void;
 
 export type ReplaceRawValue = Node | object | string;
+export type GetResolvedEditorStateReason = 'publish' | 'draft-sync' | 'get-content';
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface EditorActionsOptions<T = any> {
@@ -27,5 +28,7 @@ export interface EditorActionsOptions<T = any> {
 	replaceSelection(rawValue: ReplaceRawValue | Array<ReplaceRawValue>): boolean;
 	appendText(text: string): boolean;
 	isDocumentEmpty(): boolean;
-	getResolvedEditorState(): Promise<ResolvedEditorState | undefined>;
+	getResolvedEditorState(
+		reason: GetResolvedEditorStateReason,
+	): Promise<ResolvedEditorState | undefined>;
 }

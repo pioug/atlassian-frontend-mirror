@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.12
+
+### Patch Changes
+
+- [#126796](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126796)
+  [`5ca66e248d850`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ca66e248d850) -
+  Change experiment exposure point
+
 ## 3.3.11
 
 ### Patch Changes

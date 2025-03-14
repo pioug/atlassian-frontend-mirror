@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-scroll-into-view
 
+## 2.1.0
+
+### Minor Changes
+
+- [#125515](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125515)
+  [`042be9756275d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/042be9756275d) -
+  Checks step types before invoking scrollToView
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

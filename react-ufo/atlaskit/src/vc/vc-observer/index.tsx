@@ -355,27 +355,63 @@ export class VCObserver implements VCObserverInterface {
 			/*  do nothing */
 		}
 
+		const isVCClean = !abortReasonInfo;
+
 		const isMultiHeatmapEnabled = !fg('platform_ufo_multiheatmap_killswitch');
 
-		const revisionsData =
-			isMultiHeatmapEnabled && multiHeatmap !== null
+		const revisionsData = isMultiHeatmapEnabled
+			? fg('platform_ufo_vc_observer_new')
 				? {
-						[`${fullPrefix}vc:rev`]: multiHeatmap?.getPayloadShapedData({
-							VCParts: VCObserver.VCParts.map((v) => parseInt(v)),
-							VCCalculationMethods: getRevisions().map(
-								({ classifier }) => classifier.VCCalculationMethod,
-							),
-							filterComponentsLog: getRevisions().map(
-								({ classifier }) => classifier.filterComponentsLog,
-							),
-							isEventAborted,
-							interactionStart: start,
-							ttai: stop,
-							ssr,
-							clean: !abortReasonInfo,
-						}),
+						[`${fullPrefix}vc:rev`]: [
+							{
+								revision: 'fy25.01',
+								clean: isVCClean,
+								'metric:vc90': VC['90'],
+								vcDetails: Object.fromEntries(
+									VCObserver.VCParts.map((key) => [
+										key,
+										{
+											t: VC[key],
+											e: VCBox[key] ?? [],
+										},
+									]),
+								),
+							},
+							{
+								revision: 'fy25.02',
+								clean: isVCClean,
+								'metric:vc90': vcNext.VC['90'],
+								vcDetails: Object.fromEntries(
+									VCObserver.VCParts.map((key) => [
+										key,
+										{
+											t: vcNext.VC[key],
+											e: vcNext.VCBox[key] ?? [],
+										},
+									]),
+								),
+							},
+						],
 					}
-				: null;
+				: multiHeatmap !== null
+					? {
+							[`${fullPrefix}vc:rev`]: multiHeatmap?.getPayloadShapedData({
+								VCParts: VCObserver.VCParts.map((v) => parseInt(v)),
+								VCCalculationMethods: getRevisions().map(
+									({ classifier }) => classifier.VCCalculationMethod,
+								),
+								filterComponentsLog: getRevisions().map(
+									({ classifier }) => classifier.filterComponentsLog,
+								),
+								isEventAborted,
+								interactionStart: start,
+								ttai: stop,
+								ssr,
+								clean: isVCClean,
+							}),
+						}
+					: null
+			: null;
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
 		const speedIndex = {
@@ -386,7 +422,7 @@ export class VCObserver implements VCObserverInterface {
 		return {
 			'metrics:vc': VC,
 			[`${fullPrefix}vc:state`]: true,
-			[`${fullPrefix}vc:clean`]: !abortReasonInfo,
+			[`${fullPrefix}vc:clean`]: isVCClean,
 			[`${fullPrefix}vc:dom`]: VCBox,
 			[`${fullPrefix}vc:updates`]: VCEntries.rel.slice(0, 50), // max 50
 			[`${fullPrefix}vc:size`]: viewport,
@@ -539,14 +575,17 @@ export class VCObserver implements VCObserverInterface {
 		this.measureStart();
 
 		this.legacyHandleUpdate(rawTime, intersectionRect, targetName, element, type, ignoreReason);
-		this.onViewportChangeDetected({
-			timestamp: rawTime,
-			intersectionRect,
-			targetName,
-			element,
-			type,
-			ignoreReason,
-		});
+
+		if (!fg('platform_ufo_vc_observer_new')) {
+			this.onViewportChangeDetected({
+				timestamp: rawTime,
+				intersectionRect,
+				targetName,
+				element,
+				type,
+				ignoreReason,
+			});
+		}
 
 		this.measureStop();
 	};

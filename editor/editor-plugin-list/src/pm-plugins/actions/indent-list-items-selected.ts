@@ -5,6 +5,7 @@ import type { NodeRange, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { findFirstParentListItemNode } from '../utils/find';
 
@@ -33,7 +34,15 @@ export const indentListItemsSelected = (tr: Transaction) => {
 	const listItemIndex = resolvedPos.index();
 	// @ts-ignore
 	const positionListItemPosition = resolvedPos.posAtIndex(listItemIndex - 1);
+	const currentListItemPosition = resolvedPos.posAtIndex(listItemIndex);
 	const previousListItem = tr.doc.nodeAt(positionListItemPosition);
+	const currentListItem = tr.doc.nodeAt(currentListItemPosition);
+	const currentListItemContent = currentListItem?.content?.content;
+	const hasLastItemExtension =
+		currentListItemContent !== undefined && currentListItemContent?.length > 0
+			? currentListItemContent[currentListItemContent.length - 1].type.name === 'extension'
+			: false;
+
 	if (!previousListItem || !isListItemNode(previousListItem)) {
 		return null;
 	}
@@ -60,6 +69,7 @@ export const indentListItemsSelected = (tr: Transaction) => {
 		range,
 		from,
 		to,
+		hasLastItemExtension,
 	});
 	const hasPreviousNestedList = Boolean(previousNestedList);
 	const start = from - 1;
@@ -131,6 +141,7 @@ type CreateIndentedListItemsSliceProps = {
 	to: number;
 	listNodeType: NodeType;
 	range: NodeRange;
+	hasLastItemExtension: boolean;
 };
 const createIndentedListItemsSlice = ({
 	tr,
@@ -138,8 +149,12 @@ const createIndentedListItemsSlice = ({
 	to,
 	listNodeType,
 	range,
+	hasLastItemExtension,
 }: CreateIndentedListItemsSliceProps): [Slice, Slice] => {
-	const listItemsSlice = tr.doc.slice(from, to - 2);
+	const listItemsSlice = tr.doc.slice(
+		from,
+		hasLastItemExtension && fg('platform_editor_non_macros_list_indent_fix') ? to : to - 2,
+	);
 	const listFragment = Fragment.from(listNodeType.create(null, listItemsSlice.content));
 
 	const nonSelectedListItemsSlice = tr.doc.slice(to, range.end - 2);

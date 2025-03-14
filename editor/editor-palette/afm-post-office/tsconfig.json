@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
 		}
 	]

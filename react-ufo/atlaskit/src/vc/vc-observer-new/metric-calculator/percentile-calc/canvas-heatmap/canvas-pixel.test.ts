@@ -59,6 +59,19 @@ describe('ViewportCanvas', () => {
 			new ViewportCanvas({ width: 100, height: 100 });
 		}).toThrow('Could not get canvas context');
 	});
+
+	describe('when viewport is zero', () => {
+		test('should always return at least 1 px of width and height', () => {
+			const viewport = { width: 0, height: 0 };
+			const scaleFactor = 0.25;
+			const canvas = new ViewportCanvas(viewport, scaleFactor);
+
+			// Access private properties for testing (using any type assertion)
+			const scaledDimensions = canvas.getScaledDimensions();
+			expect(scaledDimensions.width).toBe(1);
+			expect(scaledDimensions.height).toBe(1);
+		});
+	});
 });
 
 // getRGBComponents tests remain the same

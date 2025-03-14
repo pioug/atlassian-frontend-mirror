@@ -12,6 +12,7 @@ import type {
 	EditorActionsOptions,
 	FeatureFlags,
 	ReplaceRawValue,
+	GetResolvedEditorStateReason,
 	Transformer,
 } from '@atlaskit/editor-common/types';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
@@ -364,7 +365,9 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	 * refers to the latest state of editor with confirmed
 	 * steps.
 	 */
-	getResolvedEditorState = async (): Promise<ResolvedEditorState | undefined> => {
+	getResolvedEditorState = async (
+		reason: GetResolvedEditorStateReason,
+	): Promise<ResolvedEditorState | undefined> => {
 		const { useNativeCollabPlugin } = this.getFeatureFlags();
 
 		if (!this.editorView) {
@@ -385,6 +388,6 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		const editorView = this.editorView;
 		await getEditorValueWithMedia(editorView);
 		const collabEditState = fakePluginKey.getState(editorView.state);
-		return collabEditState?.getFinalAcknowledgedState();
+		return collabEditState?.getFinalAcknowledgedState(reason);
 	};
 }

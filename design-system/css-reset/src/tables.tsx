@@ -39,7 +39,7 @@ export default evaluateInner`
   }
 
   caption {
-    font: ${token('font.heading.medium', '500 1.4285714285714286em/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif')};
+    font: ${token('font.heading.medium', '500 1.4285714285714286em/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif')};
     letter-spacing: -0.008em;
     color: ${token('color.text')};
     margin-top: 28px;

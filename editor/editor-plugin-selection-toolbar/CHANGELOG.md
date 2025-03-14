@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.0.8
+
+### Patch Changes
+
+- [#126126](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126126)
+  [`468f52001a847`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/468f52001a847) -
+  Tidy up contextual formatting toolbar experiment and switch to `platform_editor_controls` flag
+
 ## 2.0.7
 
 ### Patch Changes

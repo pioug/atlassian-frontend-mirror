@@ -11,11 +11,12 @@ export type CustomTiming = {
 };
 
 export type Label = Readonly<{ name: string }>;
-export type SegmentLabel = Readonly<{ name: string; segmentId: string }>;
+export type SegmentLabel = Readonly<{ name: string; segmentId: string; mode: 'list' | 'single' }>;
 export type LabelStack = ReadonlyArray<Label | SegmentLabel>;
 
 export interface UFOInteractionContextType extends InteractionContextType {
 	labelStack: LabelStack;
+	segmentIdMap: Map<string, string>;
 	addMark(name: string, timestamp?: number): void;
 	addCustomData(customData: CustomData): void;
 	addCustomTimings(customTimings: CustomTiming): void;

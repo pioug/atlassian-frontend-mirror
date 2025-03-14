@@ -23,6 +23,7 @@ import {
 	IconPanelWarning,
 } from '@atlaskit/editor-common/quick-insert';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { T50 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -223,13 +224,26 @@ function createPanelAction({
 	insert: QuickInsertActionInsert;
 }) {
 	const { panel } = state.schema.nodes;
-	const node = panel.createAndFill(attributes);
+	let tr;
 
-	if (!node) {
-		return false;
+	// Panels should wrap content by default when inserted, the quickInsert `insert` method
+	// will insert the node on a newline
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		tr =
+			state.selection.empty &&
+			createWrapSelectionTransaction({
+				state,
+				type: panel,
+				nodeAttributes: attributes,
+			});
+	} else {
+		const node = panel.createAndFill(attributes);
+
+		if (!node) {
+			return false;
+		}
+		tr = state.selection.empty && insert(node);
 	}
-
-	const tr = state.selection.empty && insert(node);
 
 	if (tr) {
 		api?.analytics?.actions.attachAnalyticsEvent({

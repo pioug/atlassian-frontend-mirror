@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::9c1f5626c3bdc481368145acb38f87b8>>
+ * @codegen <<SignedSource::7538d8dd778da65946c6325657be62a7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -29,6 +29,7 @@ import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
 import BookOpenIcon from '../../../../core/book-open';
+import CalculateIcon from '../../../../core/calculate';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
@@ -72,6 +73,7 @@ import ShapeRectangleRoundedIcon from '../../../../core/shape-rectangle-rounded'
 import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
+import SortOptionsIcon from '../../../../core/sort-options';
 import SpeedometerIcon from '../../../../core/speedometer';
 import SplitParallelIcon from '../../../../core/split-parallel';
 import StampIcon from '../../../../core/stamp';
@@ -93,6 +95,9 @@ import TicketIcon from '../../../../core/ticket';
 import TidyIcon from '../../../../core/tidy';
 import VehicleAirplaneIcon from '../../../../core/vehicle-airplane';
 import VehicleTrainIcon from '../../../../core/vehicle-train';
+import ViewTypeBoardHomeIcon from '../../../../core/view-type-board-home';
+import ViewTypeCardHomeIcon from '../../../../core/view-type-card-home';
+import ViewTypeTableHomeIcon from '../../../../core/view-type-table-home';
 import VulnerabilityIcon from '../../../../core/vulnerability';
 import WalletIcon from '../../../../core/wallet';
 import WebhookIcon from '../../../../core/webhook';
@@ -114,6 +119,7 @@ const Icons = [
 	AssetsSchemaIcon,
 	BeachUmbrellaIcon,
 	BookOpenIcon,
+	CalculateIcon,
 	CloudOfflineIcon,
 	CloudSavedIcon,
 	CoinsIcon,
@@ -157,6 +163,7 @@ const Icons = [
 	ShapeTriangleIcon,
 	ShapeTriangleInvertedIcon,
 	SignatureIcon,
+	SortOptionsIcon,
 	SpeedometerIcon,
 	SplitParallelIcon,
 	StampIcon,
@@ -178,6 +185,9 @@ const Icons = [
 	TidyIcon,
 	VehicleAirplaneIcon,
 	VehicleTrainIcon,
+	ViewTypeBoardHomeIcon,
+	ViewTypeCardHomeIcon,
+	ViewTypeTableHomeIcon,
 	VulnerabilityIcon,
 	WalletIcon,
 	WebhookIcon,

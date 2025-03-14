@@ -15,6 +15,8 @@ import {
 } from '../constants';
 import type { MenuIconItem } from '../types';
 
+import { type IconsPositions, useIconList } from './use-icon-list';
+
 export const useResponsiveIconTypeButtons = ({
 	toolbarSize,
 	responsivenessEnabled,
@@ -63,10 +65,6 @@ export const useResponsiveIconTypeMenu = ({
 		: DefaultButtonsMenu;
 };
 
-type IconsPositions = {
-	dropdownItems: Array<MenuIconItem>;
-	singleItems: Array<MenuIconItem>;
-};
 export const useResponsiveToolbarButtons = ({
 	icons,
 	toolbarSize,
@@ -80,30 +78,8 @@ export const useResponsiveToolbarButtons = ({
 		toolbarSize,
 		responsivenessEnabled,
 	});
-	const iconsPosition = useMemo(() => {
-		return icons.reduce<IconsPositions>(
-			(acc, icon) => {
-				if (!icon || !icon.iconMark) {
-					return acc;
-				}
 
-				const isIconSingleButton = iconTypeList.includes(icon.iconMark);
-
-				if (isIconSingleButton) {
-					return {
-						dropdownItems: acc.dropdownItems,
-						singleItems: [...acc.singleItems, icon],
-					};
-				}
-
-				return {
-					dropdownItems: [...acc.dropdownItems, icon],
-					singleItems: acc.singleItems,
-				};
-			},
-			{ dropdownItems: [], singleItems: [] },
-		);
-	}, [icons, iconTypeList]);
+	const iconsPosition = useIconList({ icons, iconTypeList });
 
 	return iconsPosition;
 };

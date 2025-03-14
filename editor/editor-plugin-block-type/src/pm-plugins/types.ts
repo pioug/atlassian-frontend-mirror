@@ -6,6 +6,7 @@
 //
 // Rather than half-match half-not, this plugin introduces its own
 // nomenclature for what 'block type' is active.
+import type { ReactElement } from 'react';
 
 import type { MessageDescriptor } from 'react-intl-next';
 
@@ -35,6 +36,7 @@ export interface BlockType {
 	nodeName: string;
 	tagName?: string;
 	level?: HeadingLevelsAndNormalText;
+	icon?: ReactElement;
 }
 
 export interface BlockTypeNode {

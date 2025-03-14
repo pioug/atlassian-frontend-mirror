@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-highlight
 
+## 2.2.0
+
+### Minor Changes
+
+- [#126627](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126627)
+  [`5842a0b7641b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5842a0b7641b7) -
+  [ux] EDF-2580: Swap Orange to Yellow in editor text background color palette toolbar behind
+  experiment editor_text_highlight_orange_to_yellow, minor bump adf-schema in resolutions to pick up
+  toDOM mark render update
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.4
+
+### Patch Changes
+
+- [#126126](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126126)
+  [`468f52001a847`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/468f52001a847) -
+  Tidy up contextual formatting toolbar experiment and switch to `platform_editor_controls` flag
+- Updated dependencies
+
 ## 2.1.3
 
 ### Patch Changes

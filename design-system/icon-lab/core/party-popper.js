@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a50266f5eb9ee32005b14cd295f7acab>>
+ * @codegen <<SignedSource::8b19c2dabb037e04e41417008b3ec732>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -13,6 +13,9 @@ var _react = _interopRequireDefault(require("react"));
 var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
+ * Please reach out in #icon-contributions before using these in production.
+ *
  * Icon: "PartyPopper".
  * Category: multi-purpose
  * Location: @atlaskit/icon-lab
@@ -21,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PartyPopperIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1.792 14.446a.188.188 0 0 1-.238-.238l1.711-5.132 3.66 3.659zm6.723-2.242-4.72-4.72.533-1.596 5.784 5.784zm-8.384 1.53c-.44 1.32.816 2.574 2.135 2.135l8.512-2.838a1.375 1.375 0 0 0 .537-2.276L7.811 7.25l.952-.952a3.25 3.25 0 0 0 0-4.596L8.53 1.47 7.47 2.53l.232.233a1.75 1.75 0 0 1 0 2.474l-.952.952-1.505-1.504a1.375 1.375 0 0 0-2.276.537zM5.5 1H4v1.5h1.5zm5.53 7.03.982-.982a1.75 1.75 0 0 1 2.475 0l.233.232 1.06-1.06-.232-.233a3.25 3.25 0 0 0-4.596 0l-.982.983zM15 8.5h-1.5V10H15zM13 1h-1.5v1.5H13z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="m8 2 .232.232a2.5 2.5 0 0 1 0 3.536L6.75 7.25m8.5-.5-.232-.232a2.5 2.5 0 0 0-3.536 0L10.5 7.5m1-5.75H13m.5 7.5H15M4 1.75h1.5M2.938 7.687.842 13.971a.938.938 0 0 0 1.186 1.186l6.284-2.094M2.937 7.687 3.68 5.46a.625.625 0 0 1 1.035-.244l6.07 6.07a.625.625 0 0 1-.244 1.035l-2.228.742M2.937 7.688l5.376 5.376"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PartyPopperIcon.displayName = 'PartyPopperIcon';

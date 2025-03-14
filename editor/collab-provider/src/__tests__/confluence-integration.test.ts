@@ -362,7 +362,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
 		it('should return the final acknowledged document state when calling getFinalAcknowledgedState()', async () => {
 			provider.initialize(getStateMock);
-			const finalDocumentState = await provider.getFinalAcknowledgedState();
+			const finalDocumentState = await provider.getFinalAcknowledgedState('publish');
 			expect(finalDocumentState).toMatchInlineSnapshot(`
 			{
 			  "content": {
@@ -398,9 +398,9 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 				provider.analyticsHelper,
 				'sendErrorEvent',
 			);
-			await expect(provider.getFinalAcknowledgedState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"fake error"`,
-			);
+			await expect(
+				provider.getFinalAcknowledgedState('publish'),
+			).rejects.toThrowErrorMatchingInlineSnapshot(`"fake error"`);
 
 			expect(analyticsHelperSpy).toHaveBeenCalledTimes(2);
 			expect(analyticsHelperSpy).toHaveBeenCalledWith(

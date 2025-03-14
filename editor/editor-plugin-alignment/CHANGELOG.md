@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-alignment
 
+## 3.1.4
+
+### Patch Changes
+
+- [#126126](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126126)
+  [`468f52001a847`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/468f52001a847) -
+  Tidy up contextual formatting toolbar experiment and switch to `platform_editor_controls` flag
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

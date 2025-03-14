@@ -160,6 +160,15 @@ export class NotFoundWithSiteAccessExistsClient extends CardClient {
 	}
 }
 
+export class NotFoundWithNoIconClient extends CardClient {
+	fetchData(): Promise<JsonLd.Response> {
+		return Promise.resolve({
+			...mocks.notFound,
+			data: { ...mocks.forbidden.data, generator: { name: 'Provider' } },
+		} as JsonLd.Response);
+	}
+}
+
 export class UnAuthClient extends CardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unauthorized);

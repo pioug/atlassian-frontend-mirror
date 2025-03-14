@@ -2,6 +2,8 @@ import Fuse from 'fuse.js';
 import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { QuickInsertItem } from '../provider-factory';
 import type { QuickInsertHandler, QuickInsertHandlerFn } from '../types';
 
@@ -57,6 +59,17 @@ const options = {
 	],
 };
 
+const optionsWithPriorityRemoved = {
+	threshold: 0.3,
+	includeScore: true,
+	keys: [
+		{ name: 'title', weight: 0.57 },
+		{ name: 'keywords', weight: 0.08 },
+		{ name: 'description', weight: 0.04 },
+		{ name: 'keyshortcut', weight: 0.01 },
+	],
+};
+
 /**
  * This function is used to find and sort QuickInsertItems based on a given query string.
  *
@@ -80,7 +93,11 @@ export function find(
 			);
 	}
 
-	const fuseOptions: Fuse.IFuseOptions<QuickInsertItem> = { ...options };
+	const fuseOptions: Fuse.IFuseOptions<QuickInsertItem> = {
+		...(fg('platform_editor_remove_quick_insert_priority_key')
+			? optionsWithPriorityRemoved
+			: options),
+	};
 
 	if (prioritySortingFn) {
 		const sortFn = prioritySortingFn(items);

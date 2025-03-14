@@ -4,6 +4,8 @@ import { IconTypes } from './types';
 
 export const DefaultButtonsToolbar: IconTypes[] = [IconTypes.strong, IconTypes.em];
 
+export const DefaultFloatingToolbarButtonsNext: IconTypes[] = [IconTypes.strong];
+
 export const DefaultButtonsToolbarNext: IconTypes[] = [
 	IconTypes.strong,
 	IconTypes.em,

@@ -1,4 +1,8 @@
+// TODO: Replace with native function
+// https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore?tab=readme-ov-file#_get
 import get from 'lodash/get';
+// TODO: Replace with native function
+// https://stackoverflow.com/a/54733755/14857724
 import set from 'lodash/set';
 
 type Operation = 'UPDATE' | 'APPEND';

@@ -105,12 +105,9 @@ const FloatingToolbarHighlightColor = ({
 			? null
 			: hexToEditorTextBackgroundPaletteColor(highlightState.activeColor);
 
-	const title =
-		editorExperiment('contextual_formatting_toolbar', true) ||
-		editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1') ||
-		editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
-			? tooltip(toggleHighlightPalette, toolbarButtonLabel)
-			: toolbarButtonLabel;
+	const title = editorExperiment('platform_editor_controls', 'variant1')
+		? tooltip(toggleHighlightPalette, toolbarButtonLabel)
+		: toolbarButtonLabel;
 
 	return (
 		<PaletteDropdown
@@ -166,8 +163,7 @@ const FloatingToolbarHighlightColor = ({
 						)
 					}
 				>
-					{editorExperiment('contextual_formatting_toolbar', false) &&
-						editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'control') &&
+					{editorExperiment('platform_editor_controls', 'control') &&
 						formatMessage(messages.highlightFloatingToolbar)}
 				</ToolbarButton>
 			}

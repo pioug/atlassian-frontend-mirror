@@ -25,7 +25,7 @@ type CardLoaderComponent = React.FC<CardWithMediaClientConfigProps> & {
 
 const CardLoader: CardLoaderComponent = (props) => {
 	return (
-		<UFOSegment name="media-card">
+		<UFOSegment name="media-card" mode="list">
 			<MediaCardContext.Provider value={props}>
 				<MediaCardWithMediaClientProvider {...props} />
 			</MediaCardContext.Provider>

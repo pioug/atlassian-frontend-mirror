@@ -48,6 +48,9 @@
 			"path": "../../../team-central/give-kudos/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{

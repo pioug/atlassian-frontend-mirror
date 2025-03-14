@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import TextArea from '../../text-area';
 import type { TextAreaProps } from '../../types';
@@ -109,15 +110,17 @@ describe('TextArea', () => {
 	});
 
 	describe('TextArea input change', () => {
-		it('onChange should be called when input value changes', () => {
+		it('onChange should be called when input value changes', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
 			render(createTextArea({ onChange: spy }));
 			const textarea = screen.getByTestId(testId) as HTMLTextAreaElement;
-			fireEvent.change(textarea, { target: { value: 'foo' } });
-			expect(spy).toHaveBeenCalledTimes(1);
+			await user.type(textarea, 'foo');
+			expect(spy).toHaveBeenCalledTimes(3);
 		});
 
-		it('onChange should be called when input value changes for resize vertical textarea', () => {
+		it('onChange should be called when input value changes for resize vertical textarea', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
 			render(
 				createTextArea({
@@ -126,8 +129,8 @@ describe('TextArea', () => {
 				}),
 			);
 			const textarea = screen.getByTestId(testId) as HTMLTextAreaElement;
-			fireEvent.change(textarea, { target: { value: 'foo' } });
-			expect(spy).toHaveBeenCalledTimes(1);
+			await user.type(textarea, 'foo');
+			expect(spy).toHaveBeenCalledTimes(3);
 		});
 	});
 

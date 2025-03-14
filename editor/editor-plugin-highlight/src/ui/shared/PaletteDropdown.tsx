@@ -3,6 +3,7 @@ import React from 'react';
 import { type WithOutsideClickProps } from '@atlaskit/editor-common/ui';
 import {
 	ColorPalette,
+	colorPaletteMessages,
 	getSelectedRowAndColumnFromPalette,
 	highlightColorPalette,
 } from '@atlaskit/editor-common/ui-color';
@@ -12,6 +13,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 type PaletteDropdownProps = {
 	popupsMountPoint?: HTMLElement;
@@ -42,8 +44,23 @@ export const PaletteDropdown = (props: PaletteDropdownProps) => {
 	// this should reflect the width of the dropdown when fully populated with colors, including translations due to layering
 	const fitWidth = 242;
 
+	let colorPalette = highlightColorPalette;
+
+	if (editorExperiment('editor_text_highlight_orange_to_yellow', 'test', { exposure: true })) {
+		colorPalette = highlightColorPalette.map((item) => {
+			if (item.label === 'Orange') {
+				return {
+					...item,
+					label: 'Yellow',
+					message: colorPaletteMessages.yellow,
+				};
+			}
+			return item;
+		});
+	}
+
 	const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
-		highlightColorPalette,
+		colorPalette,
 		activeColor,
 	);
 
@@ -72,7 +89,7 @@ export const PaletteDropdown = (props: PaletteDropdownProps) => {
 					onClick={onColorChange}
 					selectedColor={activeColor}
 					paletteOptions={{
-						palette: highlightColorPalette,
+						palette: colorPalette,
 						hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
 					}}
 				/>

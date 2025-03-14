@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "204.4.7",
+	"version": "204.4.8",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -148,6 +148,10 @@
 		"platform_editor_emotion_refactor_renderer": {
 			"type": "boolean",
 			"referenceOnly": "true"
+		},
+		"platform_editor_scroll_into_view_tr_steps": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_editor_fe--performance_metrics": {
 			"type": "boolean"
@@ -536,6 +540,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_nbm_backspace_fixes": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_non_macros_list_indent_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

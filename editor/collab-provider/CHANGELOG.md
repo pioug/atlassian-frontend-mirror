@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 10.9.4
+
+### Patch Changes
+
+- [#124114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124114)
+  [`a0b9383dc1bf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0b9383dc1bf3) -
+  CEPS-362: add reason to getResolvedEditorState call chain, to allow collab provider/NCS to
+  differentiate between draft sync and publish use cases
+- Updated dependencies
+
 ## 10.9.3
 
 ### Patch Changes

@@ -46,6 +46,7 @@ import { EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const
 import { Api } from '../api/api';
 import { shouldTelepointerBeSampled } from '../analytics/performance';
 import { NullApi } from '../api/null-api';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 
 const logger = createLogger('Provider', 'black');
 
@@ -197,7 +198,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
 		this.sendStepsTimer = setInterval(() => {
 			logger('Intervally sendStepsFromCurrentState');
-			this.documentService.sendStepsFromCurrentState(true);
+			this.documentService.sendStepsFromCurrentState(true, undefined);
 		}, 5000);
 	}
 
@@ -692,9 +693,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * Used when returning the document to Confluence on publish.
 	 * @throws {GetFinalAcknowledgedStateError} Something went wrong while returning the acknowledged state
 	 */
-	getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
+	getFinalAcknowledgedState = async (
+		reason: GetResolvedEditorStateReason,
+	): Promise<ResolvedEditorState> => {
 		try {
-			return await this.documentService.getFinalAcknowledgedState();
+			return await this.documentService.getFinalAcknowledgedState(reason);
 		} catch (error) {
 			this.analyticsHelper?.sendErrorEvent(
 				error,

@@ -1,5 +1,21 @@
 # @atlaskit/profilecard
 
+## 23.3.1
+
+### Patch Changes
+
+- [#126851](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126851)
+  [`328cc06900138`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/328cc06900138) -
+  Correct import VerifiedTeamIcon for team-profile-card which causes error on editor example
+
+## 23.3.0
+
+### Minor Changes
+
+- [#123898](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123898)
+  [`3ff6294e62c49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ff6294e62c49) -
+  Adding a new Team profile card for Team button
+
 ## 23.2.6
 
 ### Patch Changes

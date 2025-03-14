@@ -1,5 +1,15 @@
 # @atlaskit/editor-palette
 
+## 2.1.0
+
+### Minor Changes
+
+- [#126627](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126627)
+  [`5842a0b7641b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5842a0b7641b7) -
+  [ux] EDF-2580: Swap Orange to Yellow in editor text background color palette toolbar behind
+  experiment editor_text_highlight_orange_to_yellow, minor bump adf-schema in resolutions to pick up
+  toDOM mark render update
+
 ## 2.0.0
 
 ### Major Changes

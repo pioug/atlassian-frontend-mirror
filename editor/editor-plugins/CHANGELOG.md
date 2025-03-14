@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugins
 
+## 8.0.37
+
+### Patch Changes
+
+- [#126775](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126775)
+  [`107e9ad312936`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/107e9ad312936) -
+  [EDSD-728] Create a dummy change to force a new package version
+- Updated dependencies
+
 ## 8.0.36
 
 ### Patch Changes

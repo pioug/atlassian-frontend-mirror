@@ -10,7 +10,7 @@ export function generateAllPluginTests(
 	pluginToEntryPointsMap: Record<string, EntryPointData[]>,
 	testsPath: string,
 ) {
-	// Delete the files in the tests directory. Leave folders alone
+	// Delete the files in the tests directory, leave folders alone
 	if (fs.existsSync(testsPath)) {
 		// Read the contents of the directory
 		const files = fs.readdirSync(testsPath);

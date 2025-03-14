@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 11.1.2
+
+### Patch Changes
+
+- [#125706](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125706)
+  [`66e0493b5224b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66e0493b5224b) -
+  Update dependencies and remove unused internal exports.
+
 ## 11.1.1
 
 ### Patch Changes

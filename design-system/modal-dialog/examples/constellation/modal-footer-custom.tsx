@@ -5,12 +5,11 @@
 import { Fragment, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import InlineDialog from '@atlaskit/inline-dialog';
 import Modal, {
 	ModalBody,
 	ModalHeader,
@@ -18,23 +17,13 @@ import Modal, {
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, Flex, Grid, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box, Flex, Grid, Text, xcss } from '@atlaskit/primitives';
 
 const footerStyles = xcss({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-between',
 });
-
-const wrapperStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	color: token('color.text.subtlest'),
-	cursor: 'help',
-});
-
-const marginLeftStyles = css({ marginInlineStart: token('space.200', '16px') });
 
 const gridStyles = xcss({
 	width: '100%',
@@ -49,25 +38,17 @@ const titleContainerStyles = xcss({
 });
 
 const CustomFooter = () => {
-	const [isHintOpen, setIsHintOpen] = useState(false);
-	const openHint = useCallback(() => setIsHintOpen(true), []);
-	const closeHint = useCallback(() => setIsHintOpen(false), []);
-
 	const { onClose } = useModal();
 
 	return (
 		<Box xcss={footerStyles} padding="space.300">
-			<InlineDialog content="Some hint text?" isOpen={isHintOpen} placement="top-start">
-				<span
-					role="presentation"
-					css={wrapperStyles}
-					onMouseEnter={openHint}
-					onMouseLeave={closeHint}
-				>
-					<Avatar size="small" />
-					<span css={marginLeftStyles}>Hover Me!</span>
-				</span>
-			</InlineDialog>
+			<Flex alignItems="center" gap="space.100">
+				<Avatar
+					size="small"
+					src="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"
+				/>
+				<Text>Hey there!</Text>
+			</Flex>
 			<Button appearance="primary" onClick={onClose}>
 				Close
 			</Button>

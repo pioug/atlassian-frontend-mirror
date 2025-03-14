@@ -6,8 +6,9 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { BoldToolbarButton } from './bold-button';
+import { DropdownToolbarButton } from './dropdown-toolbar-button';
 import { useMenuState } from './hooks/menu-state';
 import { MoreButton } from './more-button';
 import { type MenuIconItem, ToolbarType } from './types';
@@ -55,6 +56,8 @@ export const FormattingTextDropdownMenu = React.memo(
 			[editorView.state, editorView.dispatch, closeMenu],
 		);
 
+		const activeItem = items[0].items.find((item) => item.isActive);
+
 		return (
 			<DropdownMenu
 				mountTo={popupsMountPoint}
@@ -66,7 +69,7 @@ export const FormattingTextDropdownMenu = React.memo(
 				items={items}
 				zIndex={akEditorMenuZIndex}
 				fitHeight={188}
-				fitWidth={136}
+				fitWidth={editorExperiment('platform_editor_controls', 'control') ? 136 : 230}
 				shouldUseDefaultRole
 				section={{ hasSeparator: true }}
 				shouldFocusFirstItem={() => {
@@ -96,7 +99,7 @@ export const FormattingTextDropdownMenu = React.memo(
 						aria-expanded={isMenuOpen}
 					/>
 				) : (
-					<BoldToolbarButton
+					<DropdownToolbarButton
 						isReducedSpacing={isReducedSpacing}
 						isDisabled={false}
 						isSelected={isMenuOpen}
@@ -115,6 +118,7 @@ export const FormattingTextDropdownMenu = React.memo(
 							}
 						}}
 						toolbarType={toolbarType}
+						iconBefore={activeItem ? activeItem?.elemBefore : undefined}
 					/>
 				)}
 			</DropdownMenu>

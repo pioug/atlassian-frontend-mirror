@@ -426,9 +426,6 @@ export const moveNode =
 		const isMultiSelect = editorExperiment(
 			'platform_editor_element_drag_and_drop_multiselect',
 			true,
-			{
-				exposure: true,
-			},
 		);
 
 		if (fg('platform_editor_ease_of_use_metrics')) {

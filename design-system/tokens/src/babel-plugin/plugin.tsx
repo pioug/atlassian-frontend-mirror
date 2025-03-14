@@ -129,9 +129,11 @@ export default function plugin() {
 							}
 
 							// Handle fallbacks
-							const fallback = state.opts.shouldForceAutoFallback
-								? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme))
-								: path.node.arguments[1];
+							// The border.radius tokens are skipped in shouldForceAutoFallback mode because these tokens are not enabled in the live products and enforcing default values on them will override all the fallback values that are currently being used to render the actual UI.
+							const fallback =
+								state.opts.shouldForceAutoFallback && !tokenName.startsWith('border.radius')
+									? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme))
+									: path.node.arguments[1];
 
 							if (t.isStringLiteral(fallback)) {
 								// String literals can be concatenated into css variable call

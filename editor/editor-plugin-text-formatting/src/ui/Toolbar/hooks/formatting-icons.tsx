@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo } from 'react';
+import { type JSXElementConstructor, type ReactElement, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -33,9 +33,11 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
 import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
 import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
 import UnderlineIcon from '@atlaskit/icon/core/text-underline';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	toggleCodeWithAnalytics,
@@ -46,6 +48,7 @@ import {
 	toggleSuperscriptWithAnalytics,
 	toggleUnderlineWithAnalytics,
 } from '../../../pm-plugins/commands';
+import { Strikethrough, Subscript, Superscript } from '../icons';
 import { getInputMethod } from '../input-method-utils';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes, type ToolbarType } from '../types';
@@ -66,7 +69,7 @@ type IconButtonType = {
 	message: MessageDescriptor;
 	command: Command;
 	tooltipKeymap?: Keymap;
-	component?: () => React.ReactElement;
+	component?: () => ReactElement;
 };
 
 const IconButtons = (
@@ -116,6 +119,34 @@ const IconButtons = (
 	},
 });
 
+type IconBefore = {
+	icon: ReactElement<unknown, string | JSXElementConstructor<unknown>> | undefined;
+};
+
+const IconBefore: Record<IconTypes, IconBefore> = {
+	strong: {
+		icon: <BoldIcon color="currentColor" spacing="spacious" label="" />,
+	},
+	em: {
+		icon: <ItalicIcon color="currentColor" spacing="spacious" label="" />,
+	},
+	underline: {
+		icon: <UnderlineIcon color="currentColor" spacing="spacious" label="" />,
+	},
+	strike: {
+		icon: <Strikethrough />,
+	},
+	code: {
+		icon: <AngleBracketsIcon color="currentColor" spacing="spacious" label="" />,
+	},
+	subscript: {
+		icon: <Subscript />,
+	},
+	superscript: {
+		icon: <Superscript />,
+	},
+};
+
 type GetIconProps = {
 	iconType: IconTypes;
 	isDisabled: boolean;
@@ -132,6 +163,7 @@ const getIcon = ({
 	toolbarType,
 }: GetIconProps): MenuIconItem => {
 	const icon = IconButtons(editorAnalyticsAPI, toolbarType)[iconType];
+	const iconBefore = IconBefore[iconType].icon;
 	const content = intl.formatMessage(icon.message);
 	const { tooltipKeymap } = icon;
 
@@ -145,6 +177,7 @@ const getIcon = ({
 		tooltipElement: tooltipKeymap ? (
 			<ToolTipContent description={content} keymap={tooltipKeymap} />
 		) : undefined,
+		elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? iconBefore : undefined,
 		elemAfter: tooltipKeymap ? (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={shortcutStyle}>{tooltip(tooltipKeymap)}</div>

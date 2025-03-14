@@ -27,6 +27,7 @@ import type { BlockTypeState } from '../../main';
 import type { BlockType } from '../../types';
 
 import { BlockTypeButton } from './blocktype-button';
+import { Text } from './icons';
 import {
 	blockTypeMenuItemStyle,
 	keyboardShortcut,
@@ -180,6 +181,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 							formatMessage={formatMessage}
 							aria-expanded={active}
 							blockTypeName={currentBlockType.name}
+							blockTypeIcon={currentBlockType?.icon || <Text />}
 						/>
 					</DropdownMenu>
 					{!api?.primaryToolbar && (
@@ -258,6 +260,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 				value: blockType,
 				'aria-label': tooltip(keyMap, formatMessage(blockType.title)),
 				key: `${blockType.name}-${index}`,
+				elemBefore: blockType?.icon,
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={[keyboardShortcut, isActive && keyboardShortcutSelect]}>{tooltip(keyMap)}</div>
@@ -268,7 +271,10 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			return item;
 		});
 
-		if (availableBlockTypesInDropdown.map((blockType) => blockType.name).includes('blockquote')) {
+		if (
+			availableBlockTypesInDropdown.map((blockType) => blockType.name).includes('blockquote') &&
+			editorExperiment('platform_editor_controls', 'control')
+		) {
 			const clearFormattingItem: MenuItem = {
 				content: (
 					<div>

@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 8.0.2
+
+### Patch Changes
+
+- [#125737](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125737)
+  [`3715d57838782`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3715d57838782) -
+  Update dependencies and remove old codemods.
+
 ## 8.0.1
 
 ### Patch Changes

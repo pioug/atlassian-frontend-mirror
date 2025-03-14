@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 3.22.7
+
+### Patch Changes
+
+- [#124694](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124694)
+  [`979dfafd8d91d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/979dfafd8d91d) -
+  [ux] Behind FF: `enable_fix_datasource_jumping_columns` introduce logic to fix issue of last
+  column in datasource table jumping on screen resize
+
 ## 3.22.6
 
 ### Patch Changes

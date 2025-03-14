@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.5.0
+
+### Minor Changes
+
+- [#126172](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126172)
+  [`38625fdee341d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38625fdee341d) -
+  Exclude border.radius tokens from shouldForceAutoFallback mode
+
 ## 4.4.1
 
 ### Patch Changes

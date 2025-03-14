@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import ButtonOld from '@atlaskit/button';
 import { cssMap, jsx } from '@atlaskit/css';
+import ErrorIconCore from '@atlaskit/icon/core/migration/error';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -26,7 +27,13 @@ import withFrameStyleControl from '../utils/withFrameStyleControl';
 import { InlineCardErroredViewOld } from './InlineCardErroredViewOld';
 
 const styles = cssMap({
-	iconWrapper: { marginRight: token('space.negative.025') },
+	iconWrapper: {
+		marginRight: token('space.negative.025'),
+	},
+	fallbackIconWrapper: {
+		marginRight: token('space.negative.025'),
+		display: 'inline flex',
+	},
 });
 
 export interface InlineCardErroredViewProps {
@@ -50,6 +57,45 @@ export interface InlineCardErroredViewProps {
 	truncateInline?: boolean;
 }
 
+const fallbackIcon = () => {
+	if (fg('platform-linking-visual-refresh-v1')) {
+		return (
+			<Box as="span" xcss={styles.fallbackIconWrapper}>
+				<ErrorIconCore
+					color={token('color.icon.danger')}
+					label="error"
+					LEGACY_size="small"
+					testId="errored-view-default-icon"
+				/>
+			</Box>
+		);
+	}
+
+	if (fg('platform-smart-card-icon-migration')) {
+		return (
+			<Box as="span" xcss={styles.iconWrapper}>
+				<ErrorIcon
+					color={token('color.icon.danger')}
+					label="error"
+					LEGACY_size="small"
+					testId="errored-view-default-icon"
+				/>
+			</Box>
+		);
+	}
+
+	return (
+		<AKIconWrapper>
+			<ErrorIcon
+				label="error"
+				LEGACY_size="small"
+				color={token('color.icon.danger', R300)}
+				testId="errored-view-default-icon"
+			/>
+		</AKIconWrapper>
+	);
+};
+
 const InlineCardErroredViewNew = ({
 	url,
 	onClick,
@@ -62,6 +108,7 @@ const InlineCardErroredViewNew = ({
 	showHoverPreview,
 }: InlineCardErroredViewProps) => {
 	const frameRef = React.useRef<HTMLSpanElement & null>(null);
+	const hashAction = !!onRetry;
 
 	const handleRetry = React.useCallback(
 		(event: React.MouseEvent<HTMLElement>) => {
@@ -95,30 +142,28 @@ const InlineCardErroredViewNew = ({
 		);
 	}, [handleRetry, onRetry]);
 
-	const defaultIcon = fg('platform-smart-card-icon-migration') ? (
-		<Box as="span" xcss={styles.iconWrapper}>
-			<ErrorIcon
-				color={token('color.icon.danger')}
-				label="error"
-				LEGACY_size="small"
-				testId="errored-view-default-icon"
+	const content = fg('platform-linking-visual-refresh-v1') ? (
+		<Frame
+			link={hashAction ? undefined : url}
+			onClick={hashAction ? undefined : onClick}
+			isSelected={isSelected}
+			ref={frameRef}
+			testId={testId}
+			truncateInline={truncateInline}
+		>
+			<IconAndTitleLayout
+				icon={icon || fallbackIcon()}
+				link={hashAction ? url : undefined}
+				title={url}
+				onClick={hashAction ? onClick : undefined}
+				rightSide={message}
 			/>
-		</Box>
+			{renderActionButton()}
+		</Frame>
 	) : (
-		<AKIconWrapper>
-			<ErrorIcon
-				label="error"
-				LEGACY_size="small"
-				color={token('color.icon.danger', R300)}
-				testId="errored-view-default-icon"
-			/>
-		</AKIconWrapper>
-	);
-
-	const content = (
 		<Frame testId={testId} isSelected={isSelected} ref={frameRef} truncateInline={truncateInline}>
 			<IconAndTitleLayout
-				icon={icon || defaultIcon}
+				icon={icon || fallbackIcon()}
 				link={url}
 				title={url}
 				onClick={onClick}

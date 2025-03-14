@@ -51,7 +51,6 @@ const styles = cssMap({
 	},
 	iconOuterWrapperStyle: {
 		marginRight: token('space.050'),
-		display: 'inline-block',
 		position: 'relative',
 	},
 	iconTitleWrapperStyle: {
@@ -73,6 +72,9 @@ const styles = cssMap({
 		bottom: token('space.0'),
 		width: '16px',
 		userSelect: 'none',
+	},
+	linkStyle: {
+		borderRadius: token('border.radius.050'),
 	},
 	noLinkAppearanceStyle: {
 		color: token('color.text.subtlest'),
@@ -298,7 +300,12 @@ const IconAndTitleLayoutNew = ({
 			{fg('platform-linking-visual-refresh-v1') ? (
 				<IconTitleWrapper style={{ color: titleColor }} testId={testId}>
 					{link ? (
-						<LinkAppearance href={link} onClick={handleClick} onKeyPress={handleKeyPress}>
+						<LinkAppearance
+							css={styles.linkStyle}
+							href={link}
+							onClick={handleClick}
+							onKeyPress={handleKeyPress}
+						>
 							{titlePart}
 						</LinkAppearance>
 					) : (
@@ -373,5 +380,6 @@ export const LozengeWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
 };
 
 const iconImageStyle = css({
+	maxHeight: '16px',
 	width: '100%',
 });

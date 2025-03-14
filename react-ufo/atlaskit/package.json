@@ -224,6 +224,9 @@
 		},
 		"platform_ufo_no_vc_on_aborted": {
 			"type": "boolean"
+		},
+		"platform_ufo_segment_list_mode": {
+			"type": "boolean"
 		}
 	}
 }

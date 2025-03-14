@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 102.5.2
+
+### Patch Changes
+
+- [#123036](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123036)
+  [`08a3386cf1088`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08a3386cf1088) -
+  Editor virtualization experiment adjustment, fixes
+- Updated dependencies
+
+## 102.5.1
+
+### Patch Changes
+
+- [#124114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124114)
+  [`a0b9383dc1bf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0b9383dc1bf3) -
+  CEPS-362: add reason to getResolvedEditorState call chain, to allow collab provider/NCS to
+  differentiate between draft sync and publish use cases
+
 ## 102.5.0
 
 ### Minor Changes

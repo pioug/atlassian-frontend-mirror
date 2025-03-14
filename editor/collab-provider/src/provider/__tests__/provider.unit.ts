@@ -1018,7 +1018,7 @@ describe('Provider', () => {
 		});
 
 		it('getFinalAcknowledgedState with converted ADF document: Should resolve to the final editor state', async () => {
-			const finalAcknowledgedState = await provider.getFinalAcknowledgedState();
+			const finalAcknowledgedState = await provider.getFinalAcknowledgedState('publish');
 			expect(finalAcknowledgedState).toEqual({
 				title: "What's in a good title?",
 				stepVersion: 0,
@@ -1061,7 +1061,7 @@ describe('Provider', () => {
 
 		it('getFinalAcknowledgedState with converted ADF document: Should include latest updated metadata', async () => {
 			const verifyMetadataTitle = async (title: string) => {
-				const ackState = await provider.getFinalAcknowledgedState();
+				const ackState = await provider.getFinalAcknowledgedState('publish');
 				expect(ackState).toEqual(
 					expect.objectContaining({
 						title,
@@ -1102,7 +1102,7 @@ describe('Provider', () => {
 				doc: invalidDocument,
 			}));
 			try {
-				await provider.getFinalAcknowledgedState();
+				await provider.getFinalAcknowledgedState('publish');
 			} catch (error) {
 				expect(error).toEqual(
 					new TypeError("Cannot read properties of undefined (reading 'forEach')"),
@@ -1167,7 +1167,7 @@ describe('Provider', () => {
 				.mockImplementationOnce(() => undefined);
 			provider.initialize(() => editorState);
 
-			const finalAck = await provider.getFinalAcknowledgedState();
+			const finalAck = await provider.getFinalAcknowledgedState('publish');
 
 			expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
 			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'commitUnconfirmedSteps', 'SUCCESS', {
@@ -1224,7 +1224,7 @@ describe('Provider', () => {
 						version: 2,
 					};
 				});
-			await provider.getFinalAcknowledgedState();
+			await provider.getFinalAcknowledgedState('publish');
 			expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
 			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'commitUnconfirmedSteps', 'FAILURE', {
 				numUnconfirmedSteps: 1,
@@ -1257,7 +1257,7 @@ describe('Provider', () => {
 				}),
 				onSyncUpError: onSyncUpErrorMock,
 			});
-			await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
+			await expect(provider.getFinalAcknowledgedState('publish')).rejects.toThrow(); // Trigger error from function
 			expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
 			expect(onSyncUpErrorMock).toHaveBeenCalledWith({
 				clientId: 'some-random-prosemirror-client-Id',

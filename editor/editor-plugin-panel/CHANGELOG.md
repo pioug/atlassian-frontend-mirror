@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.2.8
+
+### Patch Changes
+
+- [#126653](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126653)
+  [`ead76c1d57ed4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ead76c1d57ed4) -
+  When `platform_editor_controls` is enabled for experimental group, force panel to always insert
+  content when quick inserted
+- Updated dependencies
+
 ## 4.2.7
 
 ### Patch Changes

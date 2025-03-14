@@ -19,6 +19,7 @@ import { participantColors, relativeFontSizeToBase16 } from '@atlaskit/editor-sh
 import { getGlobalTheme, token } from '@atlaskit/tokens';
 
 import type { Providers } from '../provider-factory';
+import type { GetResolvedEditorStateReason } from '../types';
 
 // Format of the payload returned by the callback function passed to the collab provider
 // that gets called when syncing with the back-end service fails.
@@ -595,7 +596,7 @@ export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> 
 
 	sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
 
-	getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
+	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason): Promise<ResolvedEditorState>;
 
 	getIsNamespaceLocked(): boolean;
 }

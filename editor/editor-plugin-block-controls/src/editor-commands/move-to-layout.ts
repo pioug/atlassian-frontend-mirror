@@ -269,13 +269,7 @@ const canMoveToLayout = (
 	}
 
 	const $from = tr.doc.resolve(from);
-	const isMultiSelect = editorExperiment(
-		'platform_editor_element_drag_and_drop_multiselect',
-		true,
-		{
-			exposure: true,
-		},
-	);
+	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 
 	// invalid from position or dragging a layout
 	if (!$from.nodeAfter || $from.nodeAfter.type === layoutSection) {

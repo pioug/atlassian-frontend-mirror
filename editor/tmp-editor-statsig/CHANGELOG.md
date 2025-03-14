@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 3.6.1
+
+### Patch Changes
+
+- [#123036](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123036)
+  [`08a3386cf1088`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08a3386cf1088) -
+  Editor virtualization experiment adjustment, fixes
+
 ## 3.6.0
 
 ### Minor Changes

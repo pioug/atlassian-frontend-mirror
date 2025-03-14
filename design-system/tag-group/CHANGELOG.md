@@ -1,5 +1,13 @@
 # @atlaskit/tag-group
 
+## 12.0.1
+
+### Patch Changes
+
+- [#125724](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125724)
+  [`07fff87fc682a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07fff87fc682a) -
+  Update dependencies.
+
 ## 12.0.0
 
 ### Major Changes

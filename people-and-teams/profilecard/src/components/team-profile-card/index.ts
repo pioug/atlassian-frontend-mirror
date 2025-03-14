@@ -1,0 +1,1 @@
+export { TeamProfileCard } from './main';

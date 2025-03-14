@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::9947bd7f4bedacedae9098218b3582ca>>
+ * @codegen <<SignedSource::4a6170fbc685767c604dee93238971ec>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -326,6 +326,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: None',
 		team: 'Design System Team',
+	},
+	calculate: {
+		keywords: ['calculate', 'icon', 'icon-lab', 'core', 'Calculate', 'databases', 'summation'],
+		componentName: 'CalculateIcon',
+		package: '@atlaskit/icon-lab/core/calculate',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Calculate for databases',
+		team: 'Databases',
 	},
 	'cloud-offline': {
 		keywords: [
@@ -999,6 +1008,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Toggle author visibility on sticky notes in Whiteboards.',
 		team: 'Whiteboards',
 	},
+	'sort-options': {
+		keywords: [
+			'sort-options',
+			'sortoptions',
+			'icon',
+			'icon-lab',
+			'core',
+			'sorting',
+			'ordering',
+			'alphabetization',
+			'alphabetisation',
+			'reordering',
+		],
+		componentName: 'SortOptionsIcon',
+		package: '@atlaskit/icon-lab/core/sort-options',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for accessing sorting options.',
+		team: 'Databases',
+	},
 	speedometer: {
 		keywords: ['speedometer', 'icon', 'icon-lab', 'core', 'speed', 'performance', 'dial'],
 		componentName: 'SpeedometerIcon',
@@ -1332,6 +1361,63 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known usages: Alternative option for transport emoji category.',
 		team: 'Design System Team',
+	},
+	'view-type-board-home': {
+		keywords: [
+			'view-type-board-home',
+			'viewtypeboardhome',
+			'icon',
+			'icon-lab',
+			'core',
+			'board view',
+			'databases',
+			'home',
+			'default view',
+		],
+		componentName: 'ViewTypeBoardHomeIcon',
+		package: '@atlaskit/icon-lab/core/view-type-board-home',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Home view for database board layout',
+		team: 'Databases',
+	},
+	'view-type-card-home': {
+		keywords: [
+			'view-type-card-home',
+			'viewtypecardhome',
+			'icon',
+			'icon-lab',
+			'core',
+			'card view',
+			'databases',
+			'home',
+			'default view',
+		],
+		componentName: 'ViewTypeCardHomeIcon',
+		package: '@atlaskit/icon-lab/core/view-type-card-home',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Home view for database card layout',
+		team: 'Databases',
+	},
+	'view-type-table-home': {
+		keywords: [
+			'view-type-table-home',
+			'viewtypetablehome',
+			'icon',
+			'icon-lab',
+			'core',
+			'table view',
+			'databases',
+			'home',
+			'default view',
+		],
+		componentName: 'ViewTypeTableHomeIcon',
+		package: '@atlaskit/icon-lab/core/view-type-table-home',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Home view for database table layout',
+		team: 'Databases',
 	},
 	vulnerability: {
 		keywords: [

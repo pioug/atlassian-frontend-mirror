@@ -12,6 +12,8 @@ import { clearFormatting as clearFormattingKeymap, tooltip } from '@atlaskit/edi
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import type { Command, TextFormattingState } from '@atlaskit/editor-common/types';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { clearFormattingWithAnalytics } from '../../../editor-commands/clear-formatting';
 import { getInputMethod } from '../input-method-utils';
@@ -51,6 +53,9 @@ export const useClearIcon = ({
 			key: 'clearFormatting',
 			command: clearFormattingToolbar,
 			content: clearFormattingLabel,
+			elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
+				<TableCellClearIcon label="" />
+			) : undefined,
 			elemAfter: (
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={shortcutStyle}>{tooltip(clearFormattingKeymap)}</div>

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.1.5
+
+### Patch Changes
+
+- [#126339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126339)
+  [`d41ba7595dcd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d41ba7595dcd2) -
+  [ux] Updates the look of Text Formatting Contextual toolbar dropdowns.
+
 ## 5.1.4
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -10,7 +11,8 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Tabs analytics', () => {
-	it(`should fire an event on the public channel and the internal channel when tabs are changed`, () => {
+	it(`should fire an event on the public channel and the internal channel when tabs are changed`, async () => {
+		const user = userEvent.setup();
 		const onPublicEvent = jest.fn();
 		const onAtlaskitEvent = jest.fn();
 
@@ -35,7 +37,7 @@ describe('Tabs analytics', () => {
 		);
 
 		const tab2: HTMLElement = screen.getByText('Tab 2');
-		fireEvent.click(tab2);
+		await user.click(tab2);
 
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {
@@ -67,7 +69,8 @@ describe('Tabs analytics', () => {
 		expect(onAtlaskitEvent.mock.calls[0][0].context).toEqual(expected.context);
 	});
 
-	it('should allow the addition of additional context on Tabs', () => {
+	it('should allow the addition of additional context on Tabs', async () => {
+		const user = userEvent.setup();
 		const onEvent = jest.fn();
 		const extraContext = { hello: 'world' };
 
@@ -91,7 +94,7 @@ describe('Tabs analytics', () => {
 		);
 
 		const tab2: HTMLElement = screen.getByText('Tab 2');
-		fireEvent.click(tab2);
+		await user.click(tab2);
 
 		expect(onEvent.mock.calls[0][0].context[0]).toEqual(expect.objectContaining(extraContext));
 	});

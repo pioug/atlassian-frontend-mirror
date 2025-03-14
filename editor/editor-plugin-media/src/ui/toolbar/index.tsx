@@ -214,6 +214,7 @@ const generateMediaCardFloatingToolbar = (
 			onClick: () => {
 				return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 			},
+			disabled: pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 			supportsViewMode: true,
 		},
 		{ type: 'separator' },
@@ -703,6 +704,8 @@ const generateMediaSingleFloatingToolbar = (
 									}) ?? false
 								);
 							},
+							disabled:
+								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 							supportsViewMode: true,
 						},
 						{
@@ -779,6 +782,8 @@ const generateMediaSingleFloatingToolbar = (
 								}) ?? false
 							);
 						},
+						disabled:
+							pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 						supportsViewMode: true,
 					},
 					{

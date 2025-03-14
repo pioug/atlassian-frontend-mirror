@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 204.4.8
+
+### Patch Changes
+
+- [#124114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124114)
+  [`a0b9383dc1bf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0b9383dc1bf3) -
+  CEPS-362: add reason to getResolvedEditorState call chain, to allow collab provider/NCS to
+  differentiate between draft sync and publish use cases
+- [#125450](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125450)
+  [`e3e99633b852e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3e99633b852e) -
+  [ux] ED-26944 fix indentation in list for non macro bodied extension
+- Updated dependencies
+
 ## 204.4.7
 
 ### Patch Changes

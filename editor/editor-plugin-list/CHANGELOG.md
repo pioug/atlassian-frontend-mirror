@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 4.1.4
+
+### Patch Changes
+
+- [#125450](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125450)
+  [`e3e99633b852e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3e99633b852e) -
+  [ux] ED-26944 fix indentation in list for non macro bodied extension
+- Updated dependencies
+
 ## 4.1.3
 
 ### Patch Changes

@@ -31,7 +31,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { setInlineCommentDraftState } from '../editor-commands';
@@ -80,16 +79,9 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 				: annotationMessages.createCommentInvalid,
 		);
 
-		const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-
 		const createComment: FloatingToolbarButton<Command> = {
 			type: 'button',
-			showTitle:
-				!isViewMode &&
-				editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) &&
-				editorExperiment('platform_editor_controls', 'control')
-					? false
-					: true,
+			showTitle: true,
 			disabled:
 				selectionValid === AnnotationSelectionType.DISABLED ||
 				api?.connectivity?.sharedState?.currentState()?.mode === 'offline',

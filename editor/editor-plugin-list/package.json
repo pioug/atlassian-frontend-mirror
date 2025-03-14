@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-list",
-	"version": "4.1.3",
+	"version": "4.1.4",
 	"description": "List plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -88,6 +88,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_nbm_backspace_fixes": {
+			"type": "boolean"
+		},
+		"platform_editor_non_macros_list_indent_fix": {
 			"type": "boolean"
 		}
 	},

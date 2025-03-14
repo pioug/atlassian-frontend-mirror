@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -9,7 +10,8 @@ import Cell from '../../components/cell';
 import Row from '../../components/row';
 
 describe('Row', () => {
-	it('should fire an analytics event on expand', () => {
+	it('should fire an analytics event on expand', async () => {
+		const user = userEvent.setup();
 		const onEvent = jest.fn();
 
 		render(
@@ -24,7 +26,7 @@ describe('Row', () => {
 			name: /expand/i,
 		});
 
-		fireEvent.click(button);
+		await user.click(button);
 
 		const expected = new UIAnalyticsEvent({
 			payload: {

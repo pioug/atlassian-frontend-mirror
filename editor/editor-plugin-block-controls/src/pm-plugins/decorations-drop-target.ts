@@ -210,13 +210,7 @@ export const dropTargetDecorations = (
 	const activeNodePos = activeNode?.pos;
 	const $activeNodePos = typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos);
 	const activePMNode = $activeNodePos && $activeNodePos.nodeAfter;
-	const isMultiSelect = editorExperiment(
-		'platform_editor_element_drag_and_drop_multiselect',
-		true,
-		{
-			exposure: true,
-		},
-	);
+	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 
 	anchorRectCache?.clear();
 

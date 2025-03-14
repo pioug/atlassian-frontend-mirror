@@ -29,6 +29,10 @@ import { InlineCardUnauthorizedViewOld } from './InlineCardUnauthorizedViewOld';
 
 const styles = cssMap({
 	iconWrapper: { marginRight: token('space.negative.025') },
+	fallbackIconWrapper: {
+		marginRight: token('space.negative.025'),
+		display: 'inline flex',
+	},
 });
 
 export interface InlineCardUnauthorizedViewProps {
@@ -57,16 +61,33 @@ export interface InlineCardUnauthorizedViewProps {
 }
 
 const fallbackUnauthorizedIcon = () => {
-	return fg('platform-smart-card-icon-migration') ? (
-		<Box as="span" xcss={styles.iconWrapper}>
-			<LockLockedIcon
-				color={token('color.icon.danger')}
-				label="error"
-				LEGACY_fallbackIcon={LegacyLockIcon}
-				LEGACY_size="small"
-			/>
-		</Box>
-	) : (
+	if (fg('platform-linking-visual-refresh-v1')) {
+		return (
+			<Box as="span" xcss={styles.fallbackIconWrapper}>
+				<LockLockedIcon
+					color={token('color.icon.danger')}
+					label="error"
+					LEGACY_fallbackIcon={LegacyLockIcon}
+					LEGACY_size="small"
+				/>
+			</Box>
+		);
+	}
+
+	if (fg('platform-smart-card-icon-migration')) {
+		return (
+			<Box as="span" xcss={styles.iconWrapper}>
+				<LockLockedIcon
+					color={token('color.icon.danger')}
+					label="error"
+					LEGACY_fallbackIcon={LegacyLockIcon}
+					LEGACY_size="small"
+				/>
+			</Box>
+		);
+	}
+
+	return (
 		<AKIconWrapper>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497*/}
 			<LegacyLockIcon label="error" size="small" primaryColor={token('color.icon.danger', R400)} />

@@ -4,6 +4,7 @@ import type CardView from '../utils/card-view';
 import {
 	ErroredClient,
 	ForbiddenClient,
+	ForbiddenClientWithNoIcon,
 	ForbiddenWithObjectRequestAccessClient,
 	ForbiddenWithSiteDeniedRequestClient,
 	ForbiddenWithSiteDirectAccessClient,
@@ -11,11 +12,13 @@ import {
 	ForbiddenWithSitePendingRequestClient,
 	ForbiddenWithSiteRequestAccessClient,
 	NotFoundClient,
+	NotFoundWithNoIconClient,
 	NotFoundWithSiteAccessExistsClient,
 	ResolvedClient,
 	ResolvingClient,
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
+	UnAuthClientWithNoIcon,
 } from '../utils/custom-client';
 
 import CardViewSection from './card-view-section';
@@ -66,6 +69,11 @@ const CardViewExample = ({
 			description="When you don't have access to the site, and you can't request access"
 			title="[Forbidden] Forbidden"
 		/>
+		<CardViewSection
+			{...props}
+			client={new ForbiddenClientWithNoIcon()}
+			title="[Forbidden] Default Icon"
+		/>
 		<CardViewSection {...props} client={new NotFoundClient()} title="[Not Found] Default" />
 		<CardViewSection
 			{...props}
@@ -73,11 +81,21 @@ const CardViewExample = ({
 			description="I have access to the site, but not the object or object is not-found"
 			title="[Not Found] Access Exists"
 		/>
+		<CardViewSection
+			{...props}
+			client={new NotFoundWithNoIconClient()}
+			title="[Not Found] Default Icon"
+		/>
 		<CardViewSection {...props} client={new UnAuthClient()} title="[Unauthorized]" />
 		<CardViewSection
 			{...props}
 			client={new UnAuthClientWithNoAuthFlow()}
 			title="[Unauthorized] No auth flow"
+		/>
+		<CardViewSection
+			{...props}
+			client={new UnAuthClientWithNoIcon()}
+			title="[Unauthorized] Default Icon"
 		/>
 		<CardViewSection {...props} client={new ErroredClient()} title="[Error]" />
 	</React.Fragment>

@@ -87,20 +87,8 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		pluginsOptions: {
 			selectionToolbar: () => {
 				if (
-					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'top' &&
+					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'none' &&
 					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-				) {
-					return undefined;
-				}
-
-				if (
-					editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) ||
-					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1', {
-						exposure: true,
-					}) ||
-					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
-						exposure: true,
-					})
 				) {
 					const toolbarCustom: FloatingToolbarCustom<Command> = {
 						type: 'custom',

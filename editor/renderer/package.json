@@ -205,6 +205,10 @@
 		},
 		"platform_editor_querySelector_fix_table_renderer": {
 			"type": "boolean"
+		},
+		"platform-smart-card-icon-migration": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"af:exports": {

@@ -789,6 +789,7 @@ export const createPlugin = (
 	const isMultiSelectEnabled = editorExperiment(
 		'platform_editor_element_drag_and_drop_multiselect',
 		true,
+		{ exposure: true },
 	);
 	const flags: FlagType = {
 		isNestedEnabled,

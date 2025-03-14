@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Chevron from '../../components/internal/chevron';
 
@@ -56,12 +57,13 @@ describe('Chevron', () => {
 		expect(chevronRightIcon).not.toBeInTheDocument();
 	});
 
-	test('onExpandToggle', () => {
+	test('onExpandToggle', async () => {
+		const user = userEvent.setup();
 		const onExpandToggle = jest.fn();
 		render(<Chevron onExpandToggle={onExpandToggle} rowId="1" />);
 
 		const button = screen.getByRole('button');
-		fireEvent.click(button);
+		await user.click(button);
 
 		expect(onExpandToggle).toHaveBeenCalled();
 	});

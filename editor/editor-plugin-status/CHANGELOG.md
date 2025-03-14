@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 3.1.6
+
+### Patch Changes
+
+- [#123036](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123036)
+  [`08a3386cf1088`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08a3386cf1088) -
+  Editor virtualization experiment adjustment, fixes
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

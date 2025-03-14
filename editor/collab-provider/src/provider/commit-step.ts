@@ -13,6 +13,7 @@ import { NCS_ERROR_CODE } from '../errors/ncs-errors';
 import { createLogger } from '../helpers/utils';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/internal-errors';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 
 const logger = createLogger('commit-step', 'black');
 
@@ -32,7 +33,7 @@ export const commitStepQueue = ({
 	__livePage,
 	hasRecovered,
 	collabMode,
-	forcePublish,
+	reason,
 }: {
 	broadcast: <K extends keyof ChannelEvent>(
 		type: K,
@@ -50,7 +51,7 @@ export const commitStepQueue = ({
 	__livePage: boolean;
 	hasRecovered: boolean;
 	collabMode: string;
-	forcePublish?: boolean;
+	reason?: GetResolvedEditorStateReason;
 }) => {
 	if (!readyToCommit) {
 		logger('Not ready to commit, skip');
@@ -109,7 +110,6 @@ export const commitStepQueue = ({
 				steps: stepsWithClientAndUserId,
 				version,
 				userId,
-				forcePublish,
 			},
 			(response: AddStepAcknowledgementPayload) => {
 				const latency = new Date().getTime() - start;

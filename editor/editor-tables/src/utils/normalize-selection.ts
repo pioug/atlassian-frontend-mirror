@@ -30,13 +30,7 @@ export function normalizeSelection(
 		role = sel.node.type.spec.tableRole;
 	}
 
-	const isMultiSelect = editorExperiment(
-		'platform_editor_element_drag_and_drop_multiselect',
-		true,
-		{
-			exposure: true,
-		},
-	);
+	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 
 	if (sel instanceof NodeSelection && role) {
 		if (role === 'cell' || role === 'header_cell') {
@@ -53,9 +47,8 @@ export function normalizeSelection(
 	} else if (sel instanceof TextSelection && isCellBoundarySelection(sel)) {
 		normalize = TextSelection.create(doc, sel.from);
 	} else if (
-		sel instanceof TextSelection && isMultiSelect
-			? isTextSelectionAcrossSameTableCells(sel)
-			: isTextSelectionAcrossCells(sel)
+		sel instanceof TextSelection &&
+		(isMultiSelect ? isTextSelectionAcrossSameTableCells(sel) : isTextSelectionAcrossCells(sel))
 	) {
 		normalize = TextSelection.create(doc, sel.$from.start(), sel.$from.end());
 	}

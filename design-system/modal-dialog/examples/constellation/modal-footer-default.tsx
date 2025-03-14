@@ -56,7 +56,7 @@ export default function Example() {
 									/>
 								</Flex>
 								<Flex xcss={titleContainerStyles} justifyContent="start">
-									<ModalTitle>Custom modal footer</ModalTitle>
+									<ModalTitle>Default modal footer</ModalTitle>
 								</Flex>
 							</Grid>
 						</ModalHeader>

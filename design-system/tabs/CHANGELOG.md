@@ -1,5 +1,13 @@
 # @atlaskit/tabs
 
+## 18.0.2
+
+### Patch Changes
+
+- [#125721](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125721)
+  [`a7e8de3d7b87f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7e8de3d7b87f) -
+  Update dependencies and remove unused files.
+
 ## 18.0.1
 
 ### Patch Changes

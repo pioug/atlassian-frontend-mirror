@@ -46,6 +46,7 @@ import { catchupv2 } from './catchupv2';
 import { StepQueueState } from './step-queue-state';
 import { type DocumentServiceInterface } from './interface-document-service';
 import { getConflictChanges } from './getConflictChanges';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -619,7 +620,9 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
-	getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
+	getFinalAcknowledgedState = async (
+		reason: GetResolvedEditorStateReason,
+	): Promise<ResolvedEditorState> => {
 		this.aggressiveCatchup = true;
 
 		try {
@@ -627,7 +630,7 @@ export class DocumentService implements DocumentServiceInterface {
 			let finalAcknowledgedState: ResolvedEditorState;
 
 			try {
-				await this.commitUnconfirmedSteps();
+				await this.commitUnconfirmedSteps(reason);
 				finalAcknowledgedState = await this.getCurrentState();
 			} catch (error) {
 				// if fails to commit unconfirmed steps, send reconcile request to NCS BE and return the doc to CC
@@ -758,7 +761,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * Commit the unconfirmed local steps to the back-end service
 	 * @throws {Error} Couldn't sync the steps after retrying 30 times
 	 */
-	commitUnconfirmedSteps = async () => {
+	commitUnconfirmedSteps = async (reason: GetResolvedEditorStateReason) => {
 		const unconfirmedSteps = this.getUnconfirmedSteps();
 		try {
 			if (unconfirmedSteps?.length) {
@@ -781,7 +784,7 @@ export class DocumentService implements DocumentServiceInterface {
 				}
 				while (!isLastTrConfirmed) {
 					// forcePublish = true, this is because commitUnconfirmedSteps is only called when the Editor publishes a document
-					this.sendStepsFromCurrentState(undefined, true);
+					this.sendStepsFromCurrentState(undefined, reason);
 
 					await sleep(500);
 
@@ -873,7 +876,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * The getState function will return the current EditorState
 	 * from the EditorView.
 	 */
-	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, forcePublish?: boolean) {
+	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, reason?: GetResolvedEditorStateReason) {
 		const state = this.getState?.();
 		if (!state) {
 			this.analyticsHelper?.sendErrorEvent(
@@ -883,7 +886,7 @@ export class DocumentService implements DocumentServiceInterface {
 			return;
 		}
 
-		this.send(null, null, state, sendAnalyticsEvent, forcePublish);
+		this.send(null, null, state, sendAnalyticsEvent, reason);
 	}
 
 	onStepRejectedError = () => {
@@ -924,7 +927,7 @@ export class DocumentService implements DocumentServiceInterface {
 		_oldState: EditorState | null,
 		newState: EditorState,
 		sendAnalyticsEvent?: boolean,
-		forcePublish?: boolean,
+		reason?: GetResolvedEditorStateReason, // only used for publish and draft-sync events - when called through getFinalAcknowledgedState
 	) {
 		const unconfirmedStepsData = sendableSteps(newState);
 		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
@@ -1011,7 +1014,7 @@ export class DocumentService implements DocumentServiceInterface {
 			__livePage: this.options.__livePage,
 			hasRecovered: this.hasRecovered,
 			collabMode: this.participantsService.getCollabMode(),
-			forcePublish,
+			reason,
 		});
 	}
 }

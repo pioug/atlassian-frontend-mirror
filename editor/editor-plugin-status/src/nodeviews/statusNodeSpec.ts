@@ -110,6 +110,9 @@ export const statusNodeSpec = () => {
 			intl = intl || createIntl({ locale: document.documentElement.lang || 'en-US' });
 			const isComponentVisualRefresh = fg('platform-component-visual-refresh');
 
+			const maxWidth = 200;
+			const maxWidthValue = typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
+
 			const editorNodeWrapperAttrs = {
 				'data-testid': 'statusContainerView',
 				style: convertToInlineCss(text ? { opacity: 1 } : { opacity: 0.5 }),
@@ -169,15 +172,22 @@ export const statusNodeSpec = () => {
 			const lozengeTextAttrs = {
 				style: convertToInlineCss({
 					color: appearanceStyle === 'subtle' ? token('color.text') : '#292A2E',
-					maxWidth: '100%',
+					maxWidth: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
 					font: token('font.body.small'),
 					fontWeight: token('font.weight.bold'),
+					fontSize: '11px', // can't use token - underlying DS lozenge is out by 1px which causes layout shift
 					overflow: 'hidden',
 					textOverflow: 'ellipsis',
 					textTransform: token(
 						'utility.UNSAFE.textTransformUppercase',
 					) as React.CSSProperties['textTransform'],
 					whiteSpace: 'nowrap',
+					...(fg('platform-lozenge-custom-letterspacing')
+						? {
+								// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+								letterSpacing: '0.165px',
+							}
+						: {}),
 				}),
 			};
 

@@ -1,5 +1,28 @@
 # @atlaskit/icon-lab
 
+## 4.1.0
+
+### Minor Changes
+
+- [#123914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123914)
+  [`5c63d1779fdbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c63d1779fdbf) -
+  [ux] This release adds icons in `@atlaskit/icon-lab`.
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `calculate`
+  - `sort-options`
+
+- [#123914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123914)
+  [`742b8b3cf643e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/742b8b3cf643e) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `view-type-board-home`
+  - `view-type-card-home`
+  - `view-type-table-home`
+
 ## 4.0.0
 
 ### Major Changes

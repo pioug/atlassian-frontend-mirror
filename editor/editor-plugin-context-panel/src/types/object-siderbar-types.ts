@@ -21,6 +21,7 @@ export type ObjectSidebarPanel = {
 		headerLabel: MessageDescriptor;
 		HeaderAfterIconElement?: PanelElement;
 		HeaderRightAlignedElement?: PanelElement;
+		HeaderBeforeIconElement?: PanelElement;
 	};
 	BodyComponent: PanelElement;
 	FooterComponent?: PanelElement;

@@ -113,7 +113,6 @@ export const useCloseManager = ({
 		const onKeyDown = (event: KeyboardEvent | React.KeyboardEvent) => {
 			if (fg('platform_dst_popup-disable-focuslock')) {
 				const { key, shiftKey } = event;
-
 				if (shiftKey && key === 'Tab' && !shouldRenderToParent) {
 					if (isLayerDisabled()) {
 						return;

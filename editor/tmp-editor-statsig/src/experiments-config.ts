@@ -341,7 +341,7 @@ export const editorExperimentsConfig = {
 			confluence: 'platform_editor_inline_node_virtualization',
 		},
 		param: 'variant',
-		typeGuard: oneOf(['control', 'fallbackall', 'fallbackoffscreen']),
+		typeGuard: oneOf(['control', 'fallback-small', 'fallback-large']),
 		defaultValue: 'control',
 	},
 	// Added 2025-03-03

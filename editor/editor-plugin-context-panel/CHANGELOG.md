@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 4.0.2
+
+### Patch Changes
+
+- [#126488](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126488)
+  [`6030175b41a48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6030175b41a48) -
+  Update types to stay in sync with confluence
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

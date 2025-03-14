@@ -79,46 +79,32 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 		pluginsOptions: {
 			selectionToolbar() {
 				if (
-					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'top' &&
-					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+					options?.textHighlightingFloatingToolbarExperiment ||
+					(api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'none' &&
+						editorExperiment('platform_editor_controls', 'variant1', { exposure: true }))
 				) {
+					const toolbarCustom: FloatingToolbarCustom<Command> = {
+						type: 'custom',
+						render: (_view, _idx, dispatchAnalyticsEvent) => (
+							<FloatingToolbarHighlightColor
+								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+								pluginInjectionApi={api}
+							/>
+						),
+						fallback: [],
+					};
+
+					const rank = editorExperiment('platform_editor_controls', 'variant1') ? 5 : -9;
+
+					return {
+						rank,
+						isToolbarAbove: true,
+						items: [toolbarCustom],
+						pluginName: 'highlight',
+					};
+				} else {
 					return undefined;
 				}
-
-				if (
-					!options?.textHighlightingFloatingToolbarExperiment &&
-					editorExperiment('contextual_formatting_toolbar', false, { exposure: true }) &&
-					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'control', {
-						exposure: true,
-					})
-				) {
-					return;
-				}
-
-				const toolbarCustom: FloatingToolbarCustom<Command> = {
-					type: 'custom',
-					render: (_view, _idx, dispatchAnalyticsEvent) => (
-						<FloatingToolbarHighlightColor
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							pluginInjectionApi={api}
-						/>
-					),
-					fallback: [],
-				};
-
-				const rank =
-					editorExperiment('contextual_formatting_toolbar', true) ||
-					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1') ||
-					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
-						? 5
-						: -9;
-
-				return {
-					rank,
-					isToolbarAbove: true,
-					items: [toolbarCustom],
-					pluginName: 'highlight',
-				};
 			},
 		},
 

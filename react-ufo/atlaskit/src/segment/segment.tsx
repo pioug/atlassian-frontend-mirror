@@ -50,7 +50,7 @@ import generateId from '../short-id';
 
 import scheduleOnPaint from './schedule-on-paint';
 
-type Props = { name: string; children: ReactNode };
+type Props = { name: string; children: ReactNode; mode?: 'list' | 'single' };
 
 let tryCompleteHandle: number | undefined;
 
@@ -60,10 +60,41 @@ const AsyncSegmentHighlight = lazy(() =>
 	).then((module) => ({ default: module.SegmentHighlight })),
 );
 
+const noopIdMap = new Map<string, string>();
+
 /** A portion of the page we apply measurement to */
-export default function UFOSegment({ name: segmentName, children }: Props) {
+export default function UFOSegment({ name: segmentName, children, mode = 'single' }: Props) {
 	const parentContext = useContext(UFOInteractionContext) as EnhancedUFOInteractionContextType;
-	const segmentId = useMemo(() => generateId(), []);
+
+	const segmentIdMap = useMemo(() => {
+		if (!fg('platform_ufo_segment_list_mode')) {
+			// just in case we cause rerender issues, use noop map
+			return noopIdMap;
+		}
+
+		if (!parentContext?.segmentIdMap) {
+			return new Map<string, string>();
+		}
+		return parentContext.segmentIdMap;
+	}, [parentContext]);
+
+	const segmentId = useMemo(() => {
+		if (!fg('platform_ufo_segment_list_mode')) {
+			return generateId();
+		}
+
+		if (mode === 'single') {
+			return generateId();
+		}
+
+		if (segmentIdMap.has(segmentName)) {
+			return segmentIdMap.get(segmentName);
+		}
+
+		const newSegmentId = generateId();
+		segmentIdMap.set(segmentName, newSegmentId);
+		return newSegmentId;
+	}, [mode, segmentName, segmentIdMap]);
 
 	const labelStack: LabelStack = useMemo(
 		() =>
@@ -168,6 +199,7 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 
 		return {
 			labelStack,
+			segmentIdMap: segmentIdMap,
 			hold(this: EnhancedUFOInteractionContextType, name: string | undefined = 'unknown') {
 				return this._internalHold(this.labelStack, name);
 			},
@@ -311,7 +343,7 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 			_internalHoldByID,
 			complete,
 		};
-	}, [parentContext, labelStack, interactionId]);
+	}, [parentContext, labelStack, segmentIdMap, interactionId]);
 
 	const hasMounted = useRef(false);
 

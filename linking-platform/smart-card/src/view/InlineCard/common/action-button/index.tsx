@@ -60,7 +60,10 @@ export const ActionButton = forwardRef(
 				style={{ font: `inherit` }}
 				xcss={styles.button}
 			>
-				<span css={[styles.innerContainer, isDisabled ? styles.disabled : styles.enabled]}>
+				<span
+					css={[styles.innerContainer, isDisabled ? styles.disabled : styles.enabled]}
+					tabIndex={isDisabled ? undefined : 0}
+				>
 					{children}
 				</span>
 			</Pressable>

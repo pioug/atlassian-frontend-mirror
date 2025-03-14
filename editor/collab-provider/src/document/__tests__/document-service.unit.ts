@@ -86,7 +86,7 @@ describe('document-service', () => {
 				});
 
 				(getCollabState as jest.Mock).mockReturnValue(collabState);
-				const commitPromise = service.commitUnconfirmedSteps();
+				const commitPromise = service.commitUnconfirmedSteps('publish');
 				const expectThrowPromise = expect(commitPromise).rejects.toThrowError(
 					"Can't sync up with Collab Service",
 				);
@@ -118,7 +118,7 @@ describe('document-service', () => {
 			it('Does nothing if there are no steps to be saved', async () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue([]);
 
-				await service.commitUnconfirmedSteps();
+				await service.commitUnconfirmedSteps('publish');
 				expect(service.getUnconfirmedSteps).toBeCalledTimes(1);
 				expect(service.getUnconfirmedStepsOrigins).not.toBeCalled();
 				expect(service.sendStepsFromCurrentState).not.toBeCalled();
@@ -127,7 +127,7 @@ describe('document-service', () => {
 			it('Calls sendStepsFromCurrentState if there are some steps to save', async () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue(['mockStep']);
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue(['mockStep']);
-				const commitPromise = service.commitUnconfirmedSteps();
+				const commitPromise = service.commitUnconfirmedSteps('publish');
 				await Promise.resolve(); // Force commitUnconfirmedSteps to start executing until the first sleep
 				// Mock all steps being committed
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue([]);
@@ -141,7 +141,7 @@ describe('document-service', () => {
 			it('Keeps calling sendStepsFromCurrentState if the steps to save have not been saved yet', async () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue(['mockStep']);
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue(['mockStep']);
-				const commitPromise = service.commitUnconfirmedSteps();
+				const commitPromise = service.commitUnconfirmedSteps('publish');
 				await Promise.resolve(); // Force commitUnconfirmedSteps to start executing until the first sleep
 				jest.runAllTimers();
 				await Promise.resolve();
@@ -161,7 +161,7 @@ describe('document-service', () => {
 			it('Keeps track of transaction to see if it has been comitted', async () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue(['mockStep']);
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue(['mockStep']);
-				const commitPromise = service.commitUnconfirmedSteps();
+				const commitPromise = service.commitUnconfirmedSteps('publish');
 				await Promise.resolve(); // Force commitUnconfirmedSteps to start executing until the first sleep
 				jest.runAllTimers();
 				await Promise.resolve();
@@ -183,7 +183,7 @@ describe('document-service', () => {
 			it('Stops trying to commit steps when there are no more steps to save', async () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue(['mockStep']);
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue(['mockStep']);
-				const commitPromise = service.commitUnconfirmedSteps();
+				const commitPromise = service.commitUnconfirmedSteps('publish');
 				await Promise.resolve(); // Force commitUnconfirmedSteps to start executing until the first sleep
 				jest.runAllTimers();
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue([]);
@@ -201,7 +201,7 @@ describe('document-service', () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue([proseMirrorStep]);
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue(['mockStep']);
 				(service.sendStepsFromCurrentState as jest.Mock).mockImplementation(() => {});
-				const commitPromise = service.commitUnconfirmedSteps();
+				const commitPromise = service.commitUnconfirmedSteps('publish');
 				// Call done when the commitPromise throws
 				const expectThrowPromise = expect(commitPromise).rejects.toThrowError(
 					"Can't sync up with Collab Service",
@@ -284,7 +284,7 @@ describe('document-service', () => {
 				jest.spyOn(service, 'commitUnconfirmedSteps');
 				jest.spyOn(service, 'getCurrentState').mockResolvedValue('mockState' as any);
 				(service.commitUnconfirmedSteps as jest.Mock).mockResolvedValue(undefined);
-				const result = await service.getFinalAcknowledgedState();
+				const result = await service.getFinalAcknowledgedState('publish');
 				expect(service.commitUnconfirmedSteps).toBeCalledTimes(1);
 				expect(result).toEqual('mockState');
 				expect(analyticsMock.sendActionEvent).toBeCalledTimes(1);
@@ -330,7 +330,7 @@ describe('document-service', () => {
 					version: 2,
 				});
 
-				await service.getFinalAcknowledgedState();
+				await service.getFinalAcknowledgedState('publish');
 				expect(fetchReconcileMock).toBeCalledWith(
 					'{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hello "},{"type":"text","text":"world","marks":[{"type":"strong"}]}]}]}',
 					'fe-final-ack',

@@ -476,6 +476,15 @@ const getStyles = css => css\`
 				"var(--test-token, #ffffff)";"
 			`);
 		});
+
+		it('should not override manual fallback usage for border.radius tokens', () => {
+			const actual = transform({ shouldForceAutoFallback: true })`
+				import { token } from '@atlaskit/tokens';
+				token('border.radius.050', '900px');
+			`;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--ds-border-radius-050, 900px)";"`);
+		});
 	});
 
 	describe('Non-color themes (spacing, typography, shape)', () => {

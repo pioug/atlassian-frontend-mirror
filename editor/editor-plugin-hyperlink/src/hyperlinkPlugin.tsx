@@ -211,20 +211,8 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 
 			selectionToolbar: (state, { formatMessage }) => {
 				if (
-					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'top' &&
+					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'none' &&
 					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-				) {
-					return undefined;
-				}
-
-				if (
-					editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) ||
-					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1', {
-						exposure: true,
-					}) ||
-					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
-						exposure: true,
-					})
 				) {
 					const toolbarButton = () => {
 						const { from, to } = state.selection;

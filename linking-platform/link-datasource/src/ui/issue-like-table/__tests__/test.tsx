@@ -1269,6 +1269,107 @@ describe('IssueLikeDataTableView', () => {
 			},
 		);
 
+		ffTest.on('bandicoots-compiled-migration-link-datasource', 'IssueLikeDataTableViewNew', () => {
+			ffTest.on('enable_fix_datasource_jumping_columns', 'fix is on', () => {
+				describe('when container is wider then sum of all column widths, last column', () => {
+					it('should not have resize handle', async () => {
+						const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+
+						mockCellBoundingRect({ tableWidth: 1000 });
+
+						const { getByTestId } = setup({
+							items,
+							itemIds,
+							columns,
+							visibleColumnKeys,
+							columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+							hasNextPage: false,
+						});
+
+						expect(
+							within(getByTestId('emoji-column-heading')).queryByTestId('column-resize-handle'),
+						).toBeNull();
+					});
+
+					it('should has no with nor max-width css set', () => {
+						const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+
+						mockCellBoundingRect({ tableWidth: 1000 });
+
+						const { queryByTestId } = setup({
+							items,
+							itemIds,
+							columns,
+							visibleColumnKeys,
+							columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+							hasNextPage: false,
+						});
+
+						expect(queryByTestId('emoji-column-heading')).toHaveStyle({
+							maxWidth: undefined,
+							width: undefined,
+						});
+					});
+
+					describe('and there is no onColumnResize (readonly)', () => {
+						it('should have max-width set', () => {
+							const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+
+							mockCellBoundingRect({ tableWidth: 1000 });
+
+							const { queryByTestId } = setup({
+								items,
+								itemIds,
+								columns,
+								visibleColumnKeys,
+								onColumnResize: undefined,
+								columnCustomSizes: undefined,
+								hasNextPage: false,
+							});
+
+							expect(queryByTestId('emoji-column-heading')).toHaveStyle('max-width: 176px');
+						});
+					});
+				});
+
+				describe('when sum of all column widths is bigger than container width, last column', () => {
+					it('should have resize handle', () => {
+						const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+
+						const { getByTestId } = setup({
+							items,
+							itemIds,
+							columns,
+							visibleColumnKeys,
+							columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+							hasNextPage: false,
+						});
+
+						expect(
+							within(getByTestId('emoji-column-heading')).queryByTestId('column-resize-handle'),
+						).not.toBeNull();
+					});
+
+					it('should has width css set', () => {
+						const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+
+						mockCellBoundingRect({ tableWidth: 100 });
+
+						const { queryByTestId } = setup({
+							items,
+							itemIds,
+							columns,
+							visibleColumnKeys,
+							columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+							hasNextPage: false,
+						});
+
+						expect(queryByTestId('emoji-column-heading')).toHaveStyle('width: 300px');
+					});
+				});
+			});
+		});
+
 		describe('when container is wider then sum of all column widths, last column', () => {
 			it('should not have resize handle', () => {
 				const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
@@ -2627,7 +2728,7 @@ describe('IssueLikeDataTableView', () => {
 
 						// Check the error flag also displays!
 						await waitFor(() => {
-							expect(findByText('We’re having trouble fetching options')).resolves.toBeDefined();
+							expect(findByText("We're having trouble fetching options")).resolves.toBeDefined();
 						});
 					});
 

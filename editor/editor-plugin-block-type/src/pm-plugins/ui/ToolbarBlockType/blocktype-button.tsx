@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { type ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -16,6 +16,7 @@ import TextIcon from '@atlaskit/icon/core/text';
 import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { Box, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { NORMAL_TEXT } from '../../block-types';
@@ -44,6 +45,7 @@ export interface BlockTypeButtonProps {
 	onKeyDown(e: React.KeyboardEvent): void;
 	formatMessage: WrappedComponentProps['intl']['formatMessage'];
 	blockTypeName?: string;
+	blockTypeIcon?: ReactElement;
 }
 
 export const BlockTypeButton = (props: BlockTypeButtonProps) => {
@@ -53,6 +55,18 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 	});
 
 	const toolipTextStyles = props.formatMessage(toolbarMessages.textStylesTooltip);
+
+	const icon =
+		editorExperiment('platform_editor_controls', 'variant1') && props.blockTypeIcon ? (
+			props.blockTypeIcon
+		) : (
+			<TextIcon
+				label={labelTextStyles}
+				spacing="spacious"
+				color="currentColor"
+				LEGACY_fallbackIcon={TextStyleIconLegacy}
+			/>
+		);
 
 	return (
 		<ToolbarButton
@@ -75,14 +89,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 				>
 					{
 						<React.Fragment>
-							{props.isSmall && (
-								<TextIcon
-									label={labelTextStyles}
-									spacing="spacious"
-									color="currentColor"
-									LEGACY_fallbackIcon={TextStyleIconLegacy}
-								/>
-							)}
+							{props.isSmall && icon}
 							<span
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={expandIconContainerStyle}

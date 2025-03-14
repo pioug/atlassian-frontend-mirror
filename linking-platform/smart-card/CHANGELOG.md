@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 35.2.9
+
+### Patch Changes
+
+- [#124203](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124203)
+  [`e28e412a54a1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e28e412a54a1e) -
+  [ux] EDM-11969: Fix SL inline card icon positioning
+- Updated dependencies
+
 ## 35.2.8
 
 ### Patch Changes

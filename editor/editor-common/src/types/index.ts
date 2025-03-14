@@ -23,7 +23,12 @@ export type {
 	AnnotationActionResult,
 } from './annotation';
 
-export type { ContextUpdateHandler, EditorActionsOptions, ReplaceRawValue } from './editor-actions';
+export type {
+	ContextUpdateHandler,
+	EditorActionsOptions,
+	ReplaceRawValue,
+	GetResolvedEditorStateReason,
+} from './editor-actions';
 
 export type {
 	TypeAheadStats,

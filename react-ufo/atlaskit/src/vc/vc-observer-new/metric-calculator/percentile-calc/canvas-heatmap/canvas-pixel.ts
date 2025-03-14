@@ -44,12 +44,15 @@ export class ViewportCanvas {
 		this.colorCounter = 1;
 		this.colorTimeMap = new Map();
 
-		// Calculate scaled dimensions
-		this.scaledWidth = Math.ceil(viewport.width * scaleFactor);
-		this.scaledHeight = Math.ceil(viewport.height * scaleFactor);
+		const safeViewportWidth = Math.max(viewport.width, 1);
+		const safeViewportHeight = Math.max(viewport.height, 1);
 
-		this.scaleX = this.scaledWidth / viewport.width;
-		this.scaleY = this.scaledHeight / viewport.height;
+		// Calculate scaled dimensions
+		this.scaledWidth = Math.max(Math.ceil(safeViewportWidth * scaleFactor), 1);
+		this.scaledHeight = Math.max(Math.ceil(safeViewportHeight * scaleFactor), 1);
+
+		this.scaleX = this.scaledWidth / safeViewportWidth;
+		this.scaleY = this.scaledHeight / safeViewportHeight;
 
 		// Initialize OffscreenCanvas with scaled dimensions
 		this.canvas = document.createElement('canvas');

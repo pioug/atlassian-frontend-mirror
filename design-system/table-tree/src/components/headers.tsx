@@ -15,7 +15,7 @@ const containerStyles = css({
 	borderBlockEnd: `solid 2px ${token('color.border', '#dfe1e6')}`,
 });
 
-export interface HeadersProps {
+interface HeadersProps {
 	children: ReactElement | ReactElement[];
 }
 

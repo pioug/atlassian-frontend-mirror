@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/table-tree",
-	"version": "11.1.1",
+	"version": "11.1.2",
 	"description": "A table tree is an expandable table for showing nested hierarchies of information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,18 +43,18 @@
 		"@af/accessibility-testing": "workspace:*",
 		"@af/integration-testing": "workspace:*",
 		"@af/visual-regression": "workspace:*",
+		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/empty-state": "workspace:*",
+		"@atlaskit/form": "workspace:*",
+		"@atlaskit/link": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/section-message": "workspace:*",
+		"@atlaskit/select": "workspace:*",
 		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
 		"@atlaskit/visually-hidden": "workspace:*",
-		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
-		"@types/react-redux": "^5.0.0",
-		"exenv": "^1.2.2",
-		"react-dom": "^18.2.0",
-		"react-redux": "^5.1.2",
-		"redux": "^3.7.2",
-		"redux-thunk": "^2.3.0"
+		"react-dom": "^18.2.0"
 	},
 	"keywords": [
 		"atlaskit",

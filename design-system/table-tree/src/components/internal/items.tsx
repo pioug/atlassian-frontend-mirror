@@ -5,7 +5,7 @@ import { type RowProps } from '../row';
 import Item from './item';
 import LoaderItem from './loader-item';
 
-export interface ItemsProps<Item> {
+interface ItemsProps<Item> {
 	depth?: number;
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	items?: Item[] | null;

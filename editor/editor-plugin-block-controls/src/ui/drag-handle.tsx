@@ -209,13 +209,7 @@ export const DragHandle = ({
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
 	const isLayoutColumn = nodeType === 'layoutColumn';
-	const isMultiSelect = editorExperiment(
-		'platform_editor_element_drag_and_drop_multiselect',
-		true,
-		{
-			exposure: true,
-		},
-	);
+	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 	useEffect(() => {
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
 		if (nodeType === 'blockCard') {

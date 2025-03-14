@@ -3,6 +3,7 @@ import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/trans
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { InternalError } from '../errors/internal-errors';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 
 // This interface is to make sure both DocumentService and NullDocumentService have same signatures
 export interface DocumentServiceInterface {
@@ -34,10 +35,13 @@ export interface DocumentServiceInterface {
 		newState: EditorState,
 		sendAnalyticsEvent?: boolean,
 	): void;
-	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, forcePublish?: boolean): void;
+	sendStepsFromCurrentState(
+		sendAnalyticsEvent?: boolean,
+		reason?: GetResolvedEditorStateReason,
+	): void;
 	throttledCatchupv2(): void;
 	getCurrentState(): Promise<ResolvedEditorState>;
-	getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
+	getFinalAcknowledgedState(reason: GetResolvedEditorStateReason): Promise<ResolvedEditorState>;
 	getIsNamespaceLocked(): boolean;
 	getUnconfirmedSteps(): readonly ProseMirrorStep[] | undefined;
 	getCurrentPmVersion(): number;

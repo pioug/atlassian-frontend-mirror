@@ -57,7 +57,9 @@ import {
 
 snapshotInformational(RendererInlineCardXSS, {
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCard, {
@@ -65,7 +67,9 @@ snapshotInformational(RendererInlineCard, {
 		await page.getByTestId('inline-card-resolved-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardResolving, {
@@ -73,7 +77,9 @@ snapshotInformational(RendererInlineCardResolving, {
 		await page.getByTestId('inline-card-resolving-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardUnauthorized, {
@@ -81,7 +87,9 @@ snapshotInformational(RendererInlineCardUnauthorized, {
 		await page.getByTestId('inline-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardForbidden, {
@@ -89,7 +97,9 @@ snapshotInformational(RendererInlineCardForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardNotFound, {
@@ -97,7 +107,9 @@ snapshotInformational(RendererInlineCardNotFound, {
 		await page.getByTestId('inline-card-not-found-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardErrored, {
@@ -105,7 +117,9 @@ snapshotInformational(RendererInlineCardErrored, {
 		await page.getByTestId('inline-card-errored-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCard, {
@@ -355,7 +369,9 @@ snapshotInformational(RendererInlineCardRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
@@ -363,7 +379,9 @@ snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessForbidden, {
@@ -371,7 +389,9 @@ snapshotInformational(RendererInlineCardRequestAccessForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
@@ -379,7 +399,9 @@ snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
@@ -387,7 +409,9 @@ snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
@@ -395,7 +419,9 @@ snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
@@ -403,7 +429,9 @@ snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
+		'platform-smart-card-icon-migration': true,
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 

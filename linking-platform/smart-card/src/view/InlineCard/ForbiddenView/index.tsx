@@ -29,9 +29,13 @@ import withFrameStyleControl from '../utils/withFrameStyleControl';
 import { InlineCardForbiddenViewOld } from './InlineCardForbiddenViewOld';
 
 const styles = cssMap({
-	iconWrapper: { marginRight: token('space.negative.025') },
+	iconWrapper: {
+		marginRight: token('space.negative.025'),
+		display: 'inline flex',
+	},
 	actionButtonLozengeStyle: {
 		backgroundColor: token('color.background.neutral.subtle'),
+		borderRadius: token('border.radius.050'),
 		paddingTop: token('space.0'),
 		paddingRight: token('space.0'),
 		paddingBottom: token('space.0'),

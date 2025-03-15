@@ -2,8 +2,9 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag React.Fragment
  */
-import { Fragment, type ReactNode, useMemo, useRef } from 'react';
+import React, { Fragment, type ReactNode, useMemo, useRef } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -232,10 +233,12 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	const ScreenReaderText = (
 		<Fragment>
 			<span id="aria-selection">{ariaSelected}</span>
-			<span id="aria-focused">{ariaFocused}</span>
-			<span id="aria-results">{ariaResults}</span>
 			{!fg('design_system_select-a11y-improvement') && (
-				<span id="aria-guidance">{ariaGuidance}</span>
+				<>
+					<span id="aria-results">{ariaResults}</span>
+					<span id="aria-focused">{ariaFocused}</span>
+					<span id="aria-guidance">{ariaGuidance}</span>
+				</>
 			)}
 		</Fragment>
 	);

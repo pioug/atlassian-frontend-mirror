@@ -1,9 +1,9 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/new';
 import Form, { Field, HelperMessage } from '@atlaskit/form';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
 import Modal, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -54,16 +54,11 @@ export default function Example() {
 								<form {...formProps} id="modal-form">
 									<ModalHeader>
 										<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-											<Flex xcss={closeContainerStyles} justifyContent="end">
-												<IconButton
-													appearance="subtle"
-													icon={CrossIcon}
-													label="Close Modal"
-													onClick={closeModal}
-												/>
-											</Flex>
 											<Flex xcss={titleContainerStyles} justifyContent="start">
 												<ModalTitle>Create a user</ModalTitle>
+											</Flex>
+											<Flex xcss={closeContainerStyles} justifyContent="end">
+												<CloseButton onClick={closeModal} />
 											</Flex>
 										</Grid>
 									</ModalHeader>

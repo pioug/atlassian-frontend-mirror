@@ -24,6 +24,9 @@
             "path": "../../blanket/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../button/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../monorepo-tooling/codemod-utils/afm-cc/tsconfig.json"
         },
         {

@@ -49,7 +49,8 @@ const hideBorderStyle = xcss({
 	border: 'none',
 });
 
-interface ReactionSummaryButtonProps extends Pick<ReactionsProps, 'emojiProvider' | 'reactions'> {
+interface ReactionSummaryButtonProps
+	extends Pick<ReactionsProps, 'emojiProvider' | 'reactions' | 'useButtonAlignmentStyling'> {
 	/**
 	 * event handler when the summary button is clicked to view all reactions
 	 */
@@ -97,6 +98,7 @@ export const ReactionSummaryButton = forwardRef(
 			showOpaqueBackground = false,
 			subtleReactionsSummaryAndPicker = false,
 			useCompactStyles = false,
+			useButtonAlignmentStyling = false,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
@@ -146,7 +148,11 @@ export const ReactionSummaryButton = forwardRef(
 							</Box>
 						))}
 					</Inline>
-					<Counter value={totalReactionsCount} useDarkerFont={useCompactStyles} />
+					<Counter
+						value={totalReactionsCount}
+						useDarkerFont={useCompactStyles || useButtonAlignmentStyling}
+						useUpdatedStyles={!useCompactStyles && useButtonAlignmentStyling}
+					/>
 				</ReactionButton>
 			</Flex>
 		);

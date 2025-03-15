@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import Button from '@atlaskit/button/new';
 import Modal, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -39,16 +39,11 @@ export default function Example() {
 					<Modal onClose={closeModal}>
 						<ModalHeader>
 							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<IconButton
-										appearance="subtle"
-										icon={CrossIcon}
-										label="Close Modal"
-										onClick={closeModal}
-									/>
-								</Flex>
 								<Flex xcss={titleContainerStyles} justifyContent="start">
 									<ModalTitle appearance="danger">You’re about to delete this page</ModalTitle>
+								</Flex>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<CloseButton onClick={closeModal} />
 								</Flex>
 							</Grid>
 						</ModalHeader>

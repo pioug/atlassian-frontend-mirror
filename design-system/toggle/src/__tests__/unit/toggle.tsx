@@ -13,13 +13,14 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 describe('Toggle component', () => {
 	const label = 'label';
 
-	it('should be able to switch', () => {
+	it('should be able to switch', async () => {
+		const user = userEvent.setup();
 		const onChange = jest.fn();
 		render(<Toggle size="large" label={label} defaultChecked={false} onChange={onChange} />);
 		const inputElement = screen.getByLabelText(label);
 		expect(inputElement).not.toBeChecked();
 
-		fireEvent.click(inputElement);
+		await user.click(inputElement);
 		expect(onChange).toHaveBeenCalled();
 
 		expect(inputElement).toBeChecked();
@@ -45,7 +46,8 @@ describe('Toggle component', () => {
 		expect(input).not.toBeChecked();
 	});
 
-	it('should not be able to switch when disabled', () => {
+	it('should not be able to switch when disabled', async () => {
+		const user = userEvent.setup();
 		const onChange = jest.fn();
 		render(<Toggle size="large" isDisabled label={label} defaultChecked={false} />);
 
@@ -53,7 +55,7 @@ describe('Toggle component', () => {
 
 		expect(labelElement).not.toHaveAttribute('data-checked');
 
-		fireEvent.click(labelElement);
+		await user.click(labelElement);
 		expect(onChange).not.toHaveBeenCalled();
 
 		expect(labelElement).not.toHaveAttribute('data-checked');
@@ -103,6 +105,8 @@ describe('Toggle component', () => {
 			);
 
 			const labelElement = screen.getByLabelText(label);
+			// Using this because using userEvent fires this twice for some reason?
+			// TODO: Migrate to userEvent
 			fireEvent.click(labelElement);
 
 			expect(originOnChange).toHaveBeenCalled();

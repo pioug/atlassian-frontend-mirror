@@ -215,14 +215,14 @@ const iconWrapperStyles = xcss({
 const renderIcon = () => {
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-component-visual-refresh')) {
-		return <CrossIcon label="Clear" color="currentColor" />;
+		return <CrossIcon label="" color="currentColor" />;
 	}
 
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-visual-refresh-icons-legacy-facade')) {
 		return (
 			<Inline xcss={iconWrapperStyles}>
-				<CrossIcon label="Clear" color="currentColor" />
+				<CrossIcon label="" color="currentColor" />
 			</Inline>
 		);
 	}
@@ -230,7 +230,7 @@ const renderIcon = () => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		<LegacySelectClearIcon
-			label="Clear"
+			label=""
 			primaryColor="transparent"
 			size="small"
 			secondaryColor="inherit"
@@ -244,7 +244,7 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 }: MultiValueRemoveProps<Option, IsMulti, Group>) {
 	return (
 		// The Remove button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field
-		<div role="button" {...innerProps}>
+		<div {...innerProps}>
 			<div
 				css={isDisabled ? disabledStyles : enabledStyles}
 				data-testid={isDisabled ? 'hide-clear-icon' : 'show-clear-icon'}
@@ -291,7 +291,9 @@ const MultiValue = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 					...getStyleProps(props, 'multiValueRemove', {
 						'multi-value__remove': true,
 					}),
-					'aria-label': `Remove ${ariaLabel || 'option'}`,
+					role: 'button',
+					tabIndex: -1,
+					'aria-label': `${ariaLabel || 'option'}, remove`,
 					...removeProps,
 				}}
 				isDisabled={isDisabled}

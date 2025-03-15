@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Toggle from '../../toggle';
 
@@ -8,7 +9,8 @@ describe('Toggle component', () => {
 	const label = 'Label';
 
 	describe('defaultChecked is absent', () => {
-		it('should be stateless when defaultChecked is absent - is not checked', () => {
+		it('should be stateless when defaultChecked is absent - is not checked', async () => {
+			const user = userEvent.setup();
 			const onChange = jest.fn();
 			render(<Toggle size="large" isChecked={false} onChange={onChange} label={label} />);
 
@@ -17,7 +19,7 @@ describe('Toggle component', () => {
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement).not.toBeChecked();
 
-			fireEvent.click(labelElement);
+			await user.click(labelElement);
 			expect(onChange).toHaveBeenCalled();
 
 			const callArgs = onChange.mock.calls[0];
@@ -31,7 +33,8 @@ describe('Toggle component', () => {
 			expect(labelElement).not.toBeChecked();
 		});
 
-		it('should be stateless when defaultChecked is absent - is checked', () => {
+		it('should be stateless when defaultChecked is absent - is checked', async () => {
+			const user = userEvent.setup();
 			const onChange = jest.fn();
 			render(<Toggle size="large" isChecked onChange={onChange} label={label} />);
 
@@ -40,7 +43,7 @@ describe('Toggle component', () => {
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement).toBeChecked();
 
-			fireEvent.click(labelElement);
+			await user.click(labelElement);
 			expect(onChange).toHaveBeenCalled();
 
 			expect(labelElement).toBeChecked();
@@ -48,7 +51,8 @@ describe('Toggle component', () => {
 	});
 
 	describe('defaultChecked is present', () => {
-		it('should be stateless when isChecked absent - toggle off', () => {
+		it('should be stateless when isChecked absent - toggle off', async () => {
+			const user = userEvent.setup();
 			const onChange = jest.fn();
 			render(<Toggle size="large" defaultChecked={false} onChange={onChange} label={label} />);
 
@@ -57,13 +61,14 @@ describe('Toggle component', () => {
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement).not.toBeChecked();
 
-			fireEvent.click(labelElement);
+			await user.click(labelElement);
 			expect(onChange).toHaveBeenCalled();
 
 			expect(labelElement).toBeChecked();
 		});
 
-		it('should be stateless when isChecked absent - toggle on', () => {
+		it('should be stateless when isChecked absent - toggle on', async () => {
+			const user = userEvent.setup();
 			const onChange = jest.fn();
 			render(<Toggle size="large" label={label} defaultChecked onChange={onChange} />);
 
@@ -73,7 +78,7 @@ describe('Toggle component', () => {
 
 			expect(labelElement).toBeChecked();
 
-			fireEvent.click(labelElement);
+			await user.click(labelElement);
 			expect(onChange).toHaveBeenCalled();
 
 			expect(labelElement).not.toBeChecked();
@@ -81,7 +86,8 @@ describe('Toggle component', () => {
 	});
 
 	describe('using isChecked and defaultChecked together', () => {
-		it('should be use isChecked', () => {
+		it('should be use isChecked', async () => {
+			const user = userEvent.setup();
 			const onChange = jest.fn();
 			render(
 				<Toggle size="large" defaultChecked isChecked={false} onChange={onChange} label={label} />,
@@ -92,7 +98,7 @@ describe('Toggle component', () => {
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement).not.toBeChecked();
 
-			fireEvent.click(labelElement);
+			await user.click(labelElement);
 			expect(onChange).toHaveBeenCalled();
 
 			expect(labelElement).not.toBeChecked();

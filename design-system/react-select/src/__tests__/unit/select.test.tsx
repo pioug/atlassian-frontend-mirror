@@ -168,7 +168,7 @@ cases(
 					isMulti: true,
 					value: OPTIONS[0],
 				},
-				valueComponentSelector: `${testId}-select--multivalue`,
+				valueComponentSelector: `${testId}-select--multivalue-0`,
 				expectedOptions: '0 zero value',
 			},
 	},

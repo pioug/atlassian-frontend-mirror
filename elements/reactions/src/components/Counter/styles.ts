@@ -41,3 +41,8 @@ export const counterLabelStyle = css({
 export const darkerFontStyle = css({
 	color: token('color.text.subtle'),
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const updatedStyles = css({
+	marginTop: token('space.050'),
+});

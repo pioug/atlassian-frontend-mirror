@@ -1,9 +1,14 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import Modal, { ModalBody, ModalFooter, ModalTransition, useModal } from '@atlaskit/modal-dialog';
+import Modal, {
+	CloseButton,
+	ModalBody,
+	ModalFooter,
+	ModalTransition,
+	useModal,
+} from '@atlaskit/modal-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
 
 const headerStyles = xcss({
@@ -19,7 +24,7 @@ const CustomHeader = () => {
 			<Heading as="h1" size="medium" id={titleId}>
 				Custom modal header
 			</Heading>
-			<IconButton appearance="subtle" icon={CrossIcon} label="Close modal" onClick={onClose} />
+			<CloseButton onClick={onClose} />
 		</Box>
 	);
 };

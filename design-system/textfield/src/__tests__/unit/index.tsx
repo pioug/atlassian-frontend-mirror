@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -219,11 +220,12 @@ describe('Textfield', () => {
 		});
 
 		describe('onChange', () => {
-			it('should update input value when called', () => {
+			it('should update input value when called', async () => {
+				const user = userEvent.setup();
 				const spy = jest.fn();
 				render(createTextfield({ onChange: spy }));
 				const input = screen.getByTestId(testId) as HTMLInputElement;
-				fireEvent.change(input, { target: { value: 'foo' } });
+				await user.type(input, 'foo');
 				expect(input).toHaveValue('foo');
 			});
 		});

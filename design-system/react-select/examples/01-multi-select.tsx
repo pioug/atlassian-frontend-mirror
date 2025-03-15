@@ -15,7 +15,6 @@ const MultiExample = () => (
 			testId="react-select"
 			options={cities}
 			isMulti
-			isSearchable={false}
 			placeholder="Choose a City"
 		/>
 	</>

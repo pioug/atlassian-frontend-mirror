@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 27.1.4
+
+### Patch Changes
+
+- [#126476](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126476)
+  [`7f1dfd438c788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f1dfd438c788) -
+  [ux] Add new prop to control updated summary view styling to achieve byline alignment in product
+- Updated dependencies
+
 ## 27.1.3
 
 ### Patch Changes

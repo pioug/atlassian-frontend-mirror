@@ -1,5 +1,13 @@
 # @atlaskit/textfield
 
+## 8.0.2
+
+### Patch Changes
+
+- [#126525](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126525)
+  [`69b96eb748121`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69b96eb748121) -
+  Update dependencies and remove old codemods.
+
 ## 8.0.1
 
 ### Patch Changes

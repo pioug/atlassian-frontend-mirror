@@ -47,6 +47,14 @@ describe('@atlaskit/reactions/components/Counter', () => {
 		expect(wrapper).toHaveStyleRule('color', token('color.text.subtle'));
 	});
 
+	it('should render counter with margin top if useUpdatedStyles is true', async () => {
+		const value = 10;
+		renderCounter({ value, useUpdatedStyles: true });
+		const wrapper = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
+		expect(wrapper).toBeInTheDocument();
+		expect(wrapper).toHaveStyleRule('margin-top', token('space.050'));
+	});
+
 	it('should render each number breakpoint', () => {
 		renderCounter({ value: 100 });
 		const count1 = screen.getByText('100');

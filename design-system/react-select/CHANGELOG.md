@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.0.6
+
+### Patch Changes
+
+- [#123298](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123298)
+  [`8a9b860d5da36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a9b860d5da36) -
+  [ux] Improved accessibility for selected values
+
 ## 2.0.5
 
 ### Patch Changes

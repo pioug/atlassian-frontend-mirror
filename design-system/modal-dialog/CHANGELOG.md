@@ -1,5 +1,23 @@
 # @atlaskit/modal-dialog
 
+## 13.1.1
+
+### Patch Changes
+
+- [#127022](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127022)
+  [`6e22b57d6bf75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e22b57d6bf75) -
+  Update dependencies and remove old codemods.
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [#126435](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126435)
+  [`2d2f8bd9b056b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d2f8bd9b056b) -
+  Release dedicated close button export. This can be used to add a close button to your modal
+  header.
+
 ## 13.0.4
 
 ### Patch Changes

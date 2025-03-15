@@ -7,9 +7,9 @@ import { Fragment, useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import Button from '@atlaskit/button/new';
 import Modal, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -47,16 +47,11 @@ export default function Example() {
 					<Modal onClose={closeModal}>
 						<ModalHeader>
 							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<IconButton
-										appearance="subtle"
-										icon={CrossIcon}
-										label="Close Modal"
-										onClick={closeModal}
-									/>
-								</Flex>
 								<Flex xcss={titleContainerStyles} justifyContent="start">
 									<ModalTitle>Default modal footer</ModalTitle>
+								</Flex>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<CloseButton onClick={closeModal} />
 								</Flex>
 							</Grid>
 						</ModalHeader>

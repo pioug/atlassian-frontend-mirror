@@ -151,6 +151,7 @@ export interface ReactionPickerProps
 	 * Optional prop for controlling icon inside Trigger
 	 */
 	reactionPickerTriggerIcon?: React.ReactNode;
+	useButtonAlignmentStyling?: boolean;
 }
 
 /**
@@ -176,6 +177,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		showRoundTrigger = false,
 		reactionPickerAdditionalStyle = undefined,
 		reactionPickerTriggerIcon,
+		useButtonAlignmentStyling,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -356,6 +358,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							showRoundTrigger={showRoundTrigger}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+							useButtonAlignmentStyling={useButtonAlignmentStyling}
 						/>
 					)}
 				</Reference>

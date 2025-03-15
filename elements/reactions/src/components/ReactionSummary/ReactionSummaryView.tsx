@@ -37,6 +37,7 @@ interface ReactionSummaryViewProps
 			| 'allowUserDialog'
 			| 'allowSelectFromSummaryView'
 			| 'emojiPickerSize'
+			| 'useButtonAlignmentStyling'
 		>,
 		Pick<TriggerProps, 'tooltipContent' | 'reactionPickerTriggerIcon' | 'disabled'> {
 	/**
@@ -107,6 +108,7 @@ export const ReactionSummaryView = ({
 	tooltipContent,
 	reactionPickerTriggerIcon,
 	onOpen,
+	useButtonAlignmentStyling,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
@@ -166,6 +168,7 @@ export const ReactionSummaryView = ({
 					showOpaqueBackground={showOpaqueBackground}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 					useCompactStyles={allowSelectFromSummaryView}
+					useButtonAlignmentStyling={useButtonAlignmentStyling}
 				/>
 			)}
 		/>

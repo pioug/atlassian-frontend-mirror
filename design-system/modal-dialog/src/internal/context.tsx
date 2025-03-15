@@ -18,7 +18,7 @@ export type ModalAttributes = {
 	 * Callback function called when the modal dialog is requesting to be closed,
 	 * wrapped in modal dialog's analytic event context.
 	 */
-	onClose?: OnCloseHandler;
+	onClose: OnCloseHandler;
 };
 
 /* eslint-disable @repo/internal/react/require-jsdoc */

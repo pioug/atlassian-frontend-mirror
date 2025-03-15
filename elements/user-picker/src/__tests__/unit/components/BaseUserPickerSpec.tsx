@@ -1412,7 +1412,7 @@ describe('BaseUserPicker', () => {
 			it('should trigger deleted event', async () => {
 				render(<AnalyticsTestComponent value={[options[0]]} isMulti />);
 				act(() => screen.getByRole('combobox').focus());
-				act(() => screen.getByLabelText('Clear').click());
+				act(() => screen.getByRole('button', { name: /, remove/ }).click());
 				expect(onEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
 						payload: expect.objectContaining({

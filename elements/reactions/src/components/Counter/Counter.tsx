@@ -16,6 +16,7 @@ import {
 	countStyle,
 	highlightStyle,
 	darkerFontStyle,
+	updatedStyles,
 } from './styles';
 
 /**
@@ -62,6 +63,10 @@ export interface CounterProps {
 	 * Optional prop to use a darker text color for the counter
 	 */
 	useDarkerFont?: boolean;
+	/**
+	 * Optional prop to show updated styling for counter
+	 */
+	useUpdatedStyles?: boolean;
 }
 
 /**
@@ -75,6 +80,7 @@ export const Counter = ({
 	value,
 	animationDuration = 'medium',
 	useDarkerFont,
+	useUpdatedStyles,
 }: CounterProps) => {
 	const getLabel = (value: number) => {
 		// Check if reached limit
@@ -98,13 +104,16 @@ export const Counter = ({
 		return lastValue.current ? lastValue.current < value : false;
 	}, [value]);
 
+	const fontStyles = useDarkerFont ? [darkerFontStyle] : [];
+	const additionalStyles = useUpdatedStyles ? [updatedStyles] : [];
+
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			data-testid={RENDER_COMPONENT_WRAPPER}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={useDarkerFont ? [countStyle, darkerFontStyle] : countStyle}
+			css={[countStyle, ...fontStyles, ...additionalStyles]}
 		>
 			<ExitingPersistence>
 				<SlideIn

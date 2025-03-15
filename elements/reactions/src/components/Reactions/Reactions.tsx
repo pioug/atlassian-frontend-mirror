@@ -176,6 +176,10 @@ export interface ReactionsProps
 	 */
 	summaryViewPlacement?: Placement;
 	/**
+	 * Optional prop to change the style of the summary view
+	 */
+	useButtonAlignmentStyling?: boolean;
+	/**
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
@@ -303,6 +307,7 @@ export const Reactions = React.memo(
 		reactionPickerTriggerToolipContent,
 		reactionPickerTriggerIcon,
 		allowSelectFromSummaryView = false,
+		useButtonAlignmentStyling = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -523,6 +528,7 @@ export const Reactions = React.memo(
 									)}
 									emojiPickerSize={emojiPickerSize}
 									onOpen={handlePickerOpen}
+									useButtonAlignmentStyling={useButtonAlignmentStyling}
 								/>
 							</div>
 						) : (
@@ -565,6 +571,7 @@ export const Reactions = React.memo(
 							showRoundTrigger={showRoundTrigger}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
+							useButtonAlignmentStyling={useButtonAlignmentStyling}
 						/>
 					)}
 					<ModalTransition>

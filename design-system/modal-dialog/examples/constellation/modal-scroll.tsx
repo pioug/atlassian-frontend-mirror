@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
 import Modal, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -58,16 +58,11 @@ export default function Example() {
 					<Modal onClose={closeModal} shouldScrollInViewport={shouldScrollInViewport} height={600}>
 						<ModalHeader>
 							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<IconButton
-										appearance="subtle"
-										icon={CrossIcon}
-										label="Close Modal"
-										onClick={closeModal}
-									/>
-								</Flex>
 								<Flex xcss={titleContainerStyles} justifyContent="start">
 									<ModalTitle>Our voice and tone</ModalTitle>
+								</Flex>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<CloseButton onClick={closeModal} />
 								</Flex>
 							</Grid>
 						</ModalHeader>

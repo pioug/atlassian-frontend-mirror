@@ -8,7 +8,7 @@ const modalScrollable = 'modal--scrollable';
 const primaryBtn = 'primary';
 const secondaryBtn = 'secondary';
 const scrollBtn = 'scrollDown';
-const closeModalBtn = 'modal-close';
+const closeModalBtn = /--close-button/;
 
 test.describe('Default Modal', () => {
 	test('Modal should move focus based on reading order, and be closed', async ({ page }) => {

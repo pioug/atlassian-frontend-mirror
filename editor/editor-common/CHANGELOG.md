@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 102.5.3
+
+### Patch Changes
+
+- [#126662](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126662)
+  [`317b35c0d1772`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/317b35c0d1772) -
+  [ux] update multibodied extension frame default styles
+
 ## 102.5.2
 
 ### Patch Changes

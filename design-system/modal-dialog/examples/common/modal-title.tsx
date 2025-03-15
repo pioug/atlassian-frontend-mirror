@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { type ButtonProps, IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { CloseButton, OnCloseHandler } from '@atlaskit/modal-dialog';
 import { Flex, Grid, xcss } from '@atlaskit/primitives';
 
 const gridStyles = xcss({
@@ -22,25 +21,21 @@ export interface ModalTitleWithCloseProps {
 	 */
 	children: React.ReactNode;
 
-	onClose: ButtonProps['onClick'];
+	onClose: OnCloseHandler;
+
+	testId?: string;
 }
 
 export const ModalTitleWithClose = (props: ModalTitleWithCloseProps) => {
-	const { children, onClose } = props;
+	const { children, onClose, testId = 'modal' } = props;
 
 	return (
 		<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-			<Flex xcss={closeContainerStyles} justifyContent="end">
-				<IconButton
-					testId="modal-close"
-					appearance="subtle"
-					icon={CrossIcon}
-					label="Close Modal"
-					onClick={onClose}
-				/>
-			</Flex>
 			<Flex xcss={titleContainerStyles} justifyContent="start">
 				{children}
+			</Flex>
+			<Flex xcss={closeContainerStyles} justifyContent="end">
+				<CloseButton onClick={onClose} testId={testId} />
 			</Flex>
 		</Grid>
 	);

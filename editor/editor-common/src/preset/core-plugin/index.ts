@@ -7,7 +7,11 @@ import type {
 	InferTransformerResultCallback,
 	Transformer,
 } from '../../types';
-import { processRawFragmentValue, processRawValue } from '../../utils/processRawValue';
+import {
+	processRawFragmentValue,
+	processRawValue,
+	processRawValueWithoutValidation,
+} from '../../utils/processRawValue';
 import { editorCommandToPMCommand } from '../editor-commands';
 
 import { scheduleDocumentRequest } from './requestDocument';
@@ -58,7 +62,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 			},
 			replaceDocument: (
 				replaceValue: Node | Fragment | Array<Node> | Object | String,
-				options?: { scrollIntoView?: boolean },
+				options?: { scrollIntoView?: boolean; skipValidation?: boolean },
 			) => {
 				const editorView = config?.getEditorView();
 				if (!editorView || replaceValue === undefined || replaceValue === null) {
@@ -68,9 +72,11 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				const { state } = editorView;
 				const { schema } = state;
 
-				const content = Array.isArray(replaceValue)
-					? processRawFragmentValue(schema, replaceValue)
-					: processRawValue(schema, replaceValue);
+				const content = options?.skipValidation
+					? processRawValueWithoutValidation(schema, replaceValue)
+					: Array.isArray(replaceValue)
+						? processRawFragmentValue(schema, replaceValue)
+						: processRawValue(schema, replaceValue);
 
 				if (content) {
 					const tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content);

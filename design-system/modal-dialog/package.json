@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "13.0.4",
+	"version": "13.1.1",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,6 +30,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:*",
 		"@atlaskit/blanket": "workspace:*",
+		"@atlaskit/button": "workspace:*",
 		"@atlaskit/codemod-utils": "workspace:*",
 		"@atlaskit/ds-lib": "workspace:*",
 		"@atlaskit/focus-ring": "workspace:*",
@@ -60,7 +61,6 @@
 		"@atlaskit/avatar-group": "workspace:*",
 		"@atlaskit/banner": "workspace:*",
 		"@atlaskit/breadcrumbs": "workspace:*",
-		"@atlaskit/button": "workspace:*",
 		"@atlaskit/checkbox": "workspace:*",
 		"@atlaskit/code": "workspace:*",
 		"@atlaskit/datetime-picker": "workspace:*",

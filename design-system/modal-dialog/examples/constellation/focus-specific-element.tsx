@@ -4,12 +4,14 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
 import Modal, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Flex } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 
 export default function Example() {
@@ -33,10 +35,13 @@ export default function Example() {
 									Sign up
 								</span>
 							</ModalTitle>
-							<Breadcrumbs>
-								<BreadcrumbsItem href="https://atlassian.design/" text="Projects" />
-								<BreadcrumbsItem href="https://atlassian.design/" text="Design System Team" />
-							</Breadcrumbs>
+							<Flex alignItems="center" gap="space.200">
+								<Breadcrumbs>
+									<BreadcrumbsItem href="https://atlassian.design/" text="Projects" />
+									<BreadcrumbsItem href="https://atlassian.design/" text="Design System Team" />
+								</Breadcrumbs>
+								<CloseButton onClick={closeModal} />
+							</Flex>
 						</ModalHeader>
 						<ModalBody>
 							<Field label="Email" name="my-email" defaultValue="">

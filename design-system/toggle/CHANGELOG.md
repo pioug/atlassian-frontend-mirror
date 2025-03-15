@@ -1,5 +1,14 @@
 # @atlaskit/toggle
 
+## 15.0.3
+
+### Patch Changes
+
+- [#127063](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127063)
+  [`c6eec021e060e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6eec021e060e) -
+  Update dependencies and remove old codemods.
+- Updated dependencies
+
 ## 15.0.2
 
 ### Patch Changes

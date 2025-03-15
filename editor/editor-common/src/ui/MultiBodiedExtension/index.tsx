@@ -72,7 +72,7 @@ const extensionFrameContent = css({
 	padding: `${token('space.100', '8px')} !important`,
 	display: 'block',
 	minHeight: '100px',
-	background: token('elevation.surface', 'white'),
+	background: 'transparent',
 	borderBottomLeftRadius: token('border.radius', '3px'),
 	borderBottomRightRadius: token('border.radius', '3px'),
 	marginLeft: token('space.100', '8px'),

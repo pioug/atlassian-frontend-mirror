@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import Form, { Field } from '@atlaskit/form';
-import CrossIcon from '@atlaskit/icon/utility/cross';
 import ModalDialog, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -63,16 +63,11 @@ export default function ModalDialogSelect() {
 					<ModalDialog onClose={closeModal} testId="modal">
 						<ModalHeader>
 							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<IconButton
-										appearance="subtle"
-										icon={CrossIcon}
-										label="Close Modal"
-										onClick={closeModal}
-									/>
-								</Flex>
 								<Flex xcss={titleContainerStyles} justifyContent="start">
 									<ModalTitle>Using select in a modal dialog</ModalTitle>
+								</Flex>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<CloseButton onClick={closeModal} />
 								</Flex>
 							</Grid>
 						</ModalHeader>

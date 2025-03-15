@@ -38,6 +38,9 @@
 			"path": "../blanket/tsconfig.app.json"
 		},
 		{
+			"path": "../button/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{

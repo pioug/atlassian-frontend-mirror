@@ -552,6 +552,7 @@ interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>
 	focusedOptionId: string | null;
 	focusableOptionsWithIds: FocusableOptionWithId<Option>[];
 	focusedValue: Option | null;
+	focusedValueId: string | null;
 	selectValue: Options<Option>;
 	clearFocusValueOnUpdate: boolean;
 	prevWasFocused: boolean;
@@ -812,6 +813,7 @@ export default class Select<
 		focusedOptionId: null,
 		focusableOptionsWithIds: [],
 		focusedValue: null,
+		focusedValueId: null,
 		inputIsHidden: false,
 		isFocused: false,
 		selectValue: [],
@@ -1136,6 +1138,9 @@ export default class Select<
 		this.setState({
 			inputIsHidden: nextFocus !== -1,
 			focusedValue: selectValue[nextFocus],
+			focusedValueId: `${this.getElementId('selected-value')}-${nextFocus}`,
+			focusedOption: null,
+			focusedOptionId: null,
 		});
 	}
 
@@ -1174,6 +1179,7 @@ export default class Select<
 		this.setState({
 			focusedOption: options[nextFocus],
 			focusedValue: null,
+			focusedValueId: null,
 			focusedOptionId: this.getFocusedOptionId(options[nextFocus]),
 		});
 	}
@@ -1331,7 +1337,8 @@ export default class Select<
 			| 'option'
 			| 'placeholder'
 			| 'live-region'
-			| 'multi-message',
+			| 'multi-message'
+			| 'selected-value',
 	) => {
 		return `${this.state.instancePrefix}-${element}`;
 	};
@@ -1801,6 +1808,10 @@ export default class Select<
 					// ref. https://www.w3.org/TR/uievents/#determine-keydown-keyup-keyCode
 					break;
 				}
+
+				if (focusedValue) {
+					this.removeValue(focusedValue);
+				}
 				if (menuIsOpen) {
 					if (!focusedOption) {
 						return;
@@ -1922,7 +1933,7 @@ export default class Select<
 			'aria-labelledby': this.props['aria-labelledby'] || labelId,
 			'aria-required': required || isRequired,
 			role: 'combobox',
-			'aria-activedescendant': this.state.focusedOptionId || undefined,
+			'aria-activedescendant': this.state.focusedOptionId || this.state.focusedValueId || undefined,
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
@@ -2032,12 +2043,14 @@ export default class Select<
 							onMouseDown: (e) => {
 								e.preventDefault();
 							},
+							'data-testid': `${testId}-select--multivalue-${index}-remove`,
 						}}
 						data={opt}
 						innerProps={{
 							...(testId && {
-								'data-testid': `${testId}-select--multivalue`,
+								'data-testid': `${testId}-select--multivalue-${index}`,
 							}),
+							id: `${this.getElementId('selected-value')}-${index}`,
 						}}
 					>
 						{this.formatOptionLabel(opt, 'value')}

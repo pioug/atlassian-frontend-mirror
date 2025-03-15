@@ -67,6 +67,7 @@ export interface TriggerProps {
 	 * Optional prop for controlling icon inside Trigger
 	 */
 	reactionPickerTriggerIcon?: React.ReactNode;
+	useButtonAlignmentStyling?: boolean;
 }
 
 const i18n = defineMessages({
@@ -151,6 +152,10 @@ const addReactionMessageStyles = xcss({
 	marginLeft: 'space.050',
 });
 
+const addReactionMarginStyles = xcss({
+	marginTop: 'space.025',
+});
+
 /**
  * Render an emoji button to open the reactions select picker
  */
@@ -170,6 +175,7 @@ export const Trigger = React.forwardRef(
 			showRoundTrigger = false,
 			selectionStyle,
 			reactionPickerTriggerIcon,
+			useButtonAlignmentStyling,
 		} = props;
 
 		const handleMouseDown = (
@@ -217,7 +223,15 @@ export const Trigger = React.forwardRef(
 						/>
 					)}
 					{showAddReactionText && (
-						<Box xcss={addReactionMessageStyles}>{formatMessage(i18n.addReaction)}</Box>
+						<Box
+							xcss={
+								useButtonAlignmentStyling
+									? [addReactionMessageStyles, addReactionMarginStyles]
+									: addReactionMessageStyles
+							}
+						>
+							{formatMessage(i18n.addReaction)}
+						</Box>
 					)}
 				</Pressable>
 			</Tooltip>

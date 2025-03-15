@@ -20,4 +20,6 @@ export { default as ModalTitle } from './modal-title';
 export { default as ModalBody } from './modal-body';
 export { default as ModalFooter } from './modal-footer';
 
+export { CloseButton } from './close-button';
+
 export { useModal } from './hooks';

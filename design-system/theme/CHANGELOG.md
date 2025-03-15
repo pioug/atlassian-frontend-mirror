@@ -1,5 +1,13 @@
 # @atlaskit/theme
 
+## 18.0.1
+
+### Patch Changes
+
+- [#127022](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127022)
+  [`6e22b57d6bf75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e22b57d6bf75) -
+  Update dependencies and remove old codemods.
+
 ## 18.0.0
 
 ### Major Changes

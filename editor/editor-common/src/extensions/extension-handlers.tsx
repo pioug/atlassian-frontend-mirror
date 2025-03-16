@@ -54,14 +54,19 @@ export async function getExtensionModuleNodePrivateProps(
 	const moduleNode = await getExtensionModuleNode(extensionProvider, extensionType, extensionKey);
 	return Object.keys(moduleNode)
 		.filter((key) => key.startsWith('__'))
-		.reduce((acc, key) => {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			acc[key] = (moduleNode as any)[key];
-			return acc;
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		}, {} as any);
+		.reduce(
+			(acc, key) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				acc[key] = (moduleNode as any)[key];
+				return acc;
+			},
+			{} as {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				[prop: string]: any;
+			},
+		);
 }
 
 function ExtensionLoading(props: LoadingComponentProps) {

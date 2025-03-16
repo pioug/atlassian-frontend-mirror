@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.2
+
+### Patch Changes
+
+- [#126657](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126657)
+  [`801d3cfb7f8d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/801d3cfb7f8d0) -
+  Added LCP to page load events
+
 ## 3.4.1
 
 ### Patch Changes

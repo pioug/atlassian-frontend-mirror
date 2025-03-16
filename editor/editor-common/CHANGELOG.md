@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 102.7.0
+
+### Minor Changes
+
+- [#124569](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124569)
+  [`d88099abc9365`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d88099abc9365) -
+  Support Renderer to override bodies for multiBodiedExtensions
+
+## 102.6.0
+
+### Minor Changes
+
+- [#126044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126044)
+  [`c397a5e304fa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c397a5e304fa9) -
+  ED-26926 Moved findInsertLocation to editor-common and used it to add insertLocation to extension
+  insertion analytics
+
 ## 102.5.3
 
 ### Patch Changes

@@ -3,9 +3,12 @@
 import type React from 'react';
 import Loadable from 'react-loadable';
 import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
+import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import Blockquote from './blockquote';
 import BodiedExtension from './bodiedExtension';
+import MultiBodiedExtensionOld from './multiBodiedExtensionOld';
 import MultiBodiedExtension from './multiBodiedExtension';
 import ExtensionFrame from './extensionFrame';
 import BulletList from './bulletList';
@@ -27,7 +30,6 @@ import Table from './table';
 import { TableCell, TableHeader } from './tableCell';
 import TableRow from './tableRow';
 import UnknownBlock from './unknownBlock';
-import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
 
 import type TaskListComponent from './taskList';
 import type TaskItemComponent from './taskItem';
@@ -303,6 +305,9 @@ export const toReact = (
 		...nodeComponents,
 	};
 
+	nodes['multiBodiedExtension'] = fg('platform_editor_multi_body_extension_extensibility')
+		? MultiBodiedExtension
+		: MultiBodiedExtensionOld;
 	return nodes[node.type.name];
 };
 

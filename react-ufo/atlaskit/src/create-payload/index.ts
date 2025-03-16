@@ -151,7 +151,37 @@ const getSSRSuccess = (type: InteractionType) =>
 const getSSRFeatureFlags = (type: InteractionType) =>
 	type === 'page_load' ? ssr.getSSRFeatureFlags() : undefined;
 
-const getPaintMetrics = (type: InteractionType) => {
+const getLCP: (end: number) => Promise<number | null> = (end) => {
+	return new Promise((resolve) => {
+		let observer: PerformanceObserver;
+		const timeout = setTimeout(() => {
+			observer?.disconnect();
+			resolve(null);
+		}, 200);
+
+		observer = new PerformanceObserver((list) => {
+			const entries = Array.from(list.getEntries());
+			const lastEntry = entries.reduce<PerformanceEntry | null>((agg, entry) => {
+				// Use the latest LCP candidate before TTAI
+				if (entry.startTime <= end && (agg === null || agg.startTime < entry.startTime)) {
+					return entry;
+				}
+				return agg;
+			}, null);
+
+			clearTimeout(timeout);
+
+			if (!lastEntry || lastEntry === null) {
+				resolve(null);
+			} else {
+				resolve(lastEntry.startTime);
+			}
+		});
+		observer.observe({ type: 'largest-contentful-paint', buffered: true });
+	});
+};
+
+const getPaintMetrics = async (type: InteractionType, end: number) => {
 	if (type !== 'page_load') {
 		return {};
 	}
@@ -164,6 +194,13 @@ const getPaintMetrics = (type: InteractionType) => {
 			metrics['metric:fcp'] = Math.round(entry.startTime);
 		}
 	});
+
+	if (fg('ufo_lcp')) {
+		const lcp = await getLCP(end);
+		if (lcp) {
+			metrics['metric:lcp'] = Math.round(lcp);
+		}
+	}
 
 	return metrics;
 };
@@ -861,9 +898,10 @@ async function createInteractionMetricsPayload(
 	const newUFOName = sanitizeUfoName(ufoName);
 	const resourceTimings = getResourceTimings(start, end);
 
-	const [vcMetrics, experimentalMetrics] = await Promise.all([
+	const [vcMetrics, experimentalMetrics, paintMetrics] = await Promise.all([
 		getVCMetrics(interaction),
 		experimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
+		getPaintMetrics(type, end),
 	]);
 
 	const payload = {
@@ -894,7 +932,7 @@ async function createInteractionMetricsPayload(
 				...getSSRProperties(type),
 				...getAssetsMetrics(interaction, pageLoadInteractionMetrics?.SSRDoneTime),
 				...getPPSMetrics(interaction),
-				...getPaintMetrics(type),
+				...paintMetrics,
 				...getNavigationMetrics(type),
 				...vcMetrics,
 				...experimentalMetrics,

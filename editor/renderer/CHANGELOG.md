@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 114.3.0
+
+### Minor Changes
+
+- [#124569](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124569)
+  [`d88099abc9365`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d88099abc9365) -
+  Support Renderer to override bodies for multiBodiedExtensions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.2.1
 
 ### Patch Changes

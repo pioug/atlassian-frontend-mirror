@@ -5,6 +5,7 @@ import {
 	SELECTION_POSITION,
 	SELECTION_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
@@ -44,22 +45,6 @@ export function getSelectionType(selection: Selection): {
 		type,
 		position,
 	};
-}
-
-export function findInsertLocation(selection: Selection): string {
-	const { schema, name } = selection.$from.doc.type;
-	if (selection instanceof NodeSelection) {
-		return selection.node.type.name;
-	}
-
-	if (selection instanceof CellSelection) {
-		return schema.nodes.table.name;
-	}
-
-	// Text selection
-	const parentNodeInfo = findParentNode((node) => node.type !== schema.nodes.paragraph)(selection);
-
-	return parentNodeInfo ? parentNodeInfo.node.type.name : name;
 }
 
 export function findInsertedLocation(oldSelection: Selection, newSelection: Selection): string {

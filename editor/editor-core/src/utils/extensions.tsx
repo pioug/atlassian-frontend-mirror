@@ -19,7 +19,9 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import { combineProviders } from '@atlaskit/editor-common/provider-helpers';
 import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
@@ -29,10 +31,15 @@ import type EditorActions from '../actions';
  */
 function sendExtensionQuickInsertAnalytics(
 	item: MenuItem,
+	selection: Selection,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 	source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT,
 ) {
 	if (createAnalyticsEvent) {
+		const insertLocation = fg('platform_nested_nbm_analytics_location')
+			? findInsertLocation(selection)
+			: undefined;
+
 		fireAnalyticsEvent(createAnalyticsEvent)({
 			payload: {
 				action: ACTION.INSERTED,
@@ -43,6 +50,7 @@ function sendExtensionQuickInsertAnalytics(
 					extensionKey: item.extensionKey,
 					key: item.key,
 					inputMethod: source || INPUT_METHOD.QUICK_INSERT,
+					...(insertLocation ? { insertLocation } : {}),
 				},
 				eventType: EVENT_TYPE.TRACK,
 			},
@@ -86,7 +94,12 @@ export async function extensionProviderToQuickInsertProvider(
 									// Therefore this should always be run unless there is something very wrong.
 									if (extensionAPI) {
 										resolveImport(item.node(extensionAPI)).then((node) => {
-											sendExtensionQuickInsertAnalytics(item, createAnalyticsEvent, source);
+											sendExtensionQuickInsertAnalytics(
+												item,
+												state.selection,
+												createAnalyticsEvent,
+												source,
+											);
 
 											if (node) {
 												editorActions.replaceSelection(node);
@@ -96,7 +109,12 @@ export async function extensionProviderToQuickInsertProvider(
 								} else {
 									// @ts-expect-error No longer supported without extension API - this will be removed once we cleanup the FG.
 									resolveImport(item.node()).then((node) => {
-										sendExtensionQuickInsertAnalytics(item, createAnalyticsEvent, source);
+										sendExtensionQuickInsertAnalytics(
+											item,
+											state.selection,
+											createAnalyticsEvent,
+											source,
+										);
 
 										if (node) {
 											editorActions.replaceSelection(node);
@@ -106,7 +124,12 @@ export async function extensionProviderToQuickInsertProvider(
 
 								return insert('');
 							} else {
-								sendExtensionQuickInsertAnalytics(item, createAnalyticsEvent, source);
+								sendExtensionQuickInsertAnalytics(
+									item,
+									state.selection,
+									createAnalyticsEvent,
+									source,
+								);
 								return insert(item.node);
 							}
 						},

@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 204.5.0
+
+### Minor Changes
+
+- [#126044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126044)
+  [`c397a5e304fa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c397a5e304fa9) -
+  ED-26926 Moved findInsertLocation to editor-common and used it to add insertLocation to extension
+  insertion analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 204.4.8
 
 ### Patch Changes

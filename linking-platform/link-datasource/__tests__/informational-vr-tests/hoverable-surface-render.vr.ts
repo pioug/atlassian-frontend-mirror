@@ -36,9 +36,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(EmptyState, {
@@ -54,8 +51,5 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 }

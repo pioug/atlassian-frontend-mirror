@@ -1,13 +1,10 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
 import { type JsonLd } from 'json-ld-types';
 
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
 import { type DatasourceResolveResponse } from '@atlaskit/link-client-extension';
 import { type CardState, type CardType } from '@atlaskit/linking-common';
-import { token } from '@atlaskit/tokens';
 
 import { ActionName, ElementName } from '../../src';
 import extractFlexibleUiContext from '../../src/extractors/flexible';
@@ -125,26 +122,6 @@ export const makeCustomActionItem = (
 	iconPosition: 'before',
 	content: 'Like',
 	...options,
-});
-
-/**
- * @deprecated clean up on FF bandicoots-compiled-migration-smartcard
- */
-export const exampleTokens = {
-	backgroundColor: token('color.background.neutral', '#091E420F'),
-	iconBackgroundColor: token('color.icon.brand', '#0C66E4'),
-	iconColor: token('color.text.inverse', '#FFFFFF'),
-	overrideColor: token('color.background.accent.blue.subtle', '#579DFF'),
-};
-
-/**
- * @deprecated clean up on FF bandicoots-compiled-migration-smartcard
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const blockOverrideCss = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: exampleTokens.overrideColor,
-	padding: token('space.200', '1rem'),
 });
 
 export const metadataElements = Object.values(ElementName).filter(

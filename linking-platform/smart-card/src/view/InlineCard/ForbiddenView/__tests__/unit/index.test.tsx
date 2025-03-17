@@ -149,9 +149,12 @@ describe('Forbidden view', () => {
 
 			it('should render a hover card when showHoverPreview prop is enabled', async () => {
 				render(
-					<Provider>
-						<InlineCardForbiddenView showHoverPreview={true} url="www.test.com" context="Jira" />,
-					</Provider>,
+					<IntlProvider locale="en">
+						<Provider>
+							<InlineCardForbiddenView showHoverPreview={true} url="www.test.com" context="Jira" />,
+						</Provider>
+						,
+					</IntlProvider>,
 				);
 				expect(await screen.findByTestId('hover-card-trigger-wrapper')).toBeInTheDocument();
 			});

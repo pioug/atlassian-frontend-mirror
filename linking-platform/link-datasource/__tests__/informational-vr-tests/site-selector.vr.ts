@@ -10,7 +10,4 @@ snapshotInformational(SiteSelector, {
 		await page.locator('.jira-datasource-modal--site-selector__control').first().click();
 	},
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });

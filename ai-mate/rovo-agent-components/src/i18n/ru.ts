@@ -7,7 +7,9 @@
  */
 //Russian
 export default {
+  'ai-mate.agent-avatar-label': 'Аватар агента',
   'ai-mate.agent-profile-info.created-by': 'Агент Rovo от автора {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Автор',
   'ai-mate.agent-profile-info.deactivated': '(отключен)',
   'ai-mate.agent-profile-info.hidden-icon': 'Скрыто',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Агент не будет отображаться в результатах поиска',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Напиши обновление о моей неделе',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Просмотреть агентов',
   'rovo-chat.browse-agents.copy-agent-label': 'Копировать ссылку на агента',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Удалить из избранного',
   'rovo-chat.view-agent.chat-to-agent-button': 'Чат с агентом',
   'rovo-chat.view-agent.copy-link-to-profile': 'Копировать ссылку',
   'rovo-chat.view-agent.delete-agent': 'Удалить агента',

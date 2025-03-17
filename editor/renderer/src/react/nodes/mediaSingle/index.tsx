@@ -5,7 +5,7 @@
 import type { ReactElement } from 'react';
 import { default as React, Fragment, useCallback, useContext, useMemo, useEffect } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
@@ -24,7 +24,6 @@ import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 import type { MediaProps } from '../media';
-import { uiMediaSingleBaseStyles, uiMediaSingleLayoutStyles } from './styles';
 import { useAnnotationRangeDispatch } from '../../../ui/annotations/contexts/AnnotationRangeContext';
 import { useAnnotationHoverDispatch } from '../../../ui/annotations/contexts/AnnotationHoverContext';
 
@@ -53,6 +52,16 @@ interface ChildElements {
 
 const DEFAULT_WIDTH = 250;
 const DEFAULT_HEIGHT = 200;
+
+const uiMediaSingleBaseStyles = css({
+	transition: 'all 0.1s linear',
+});
+
+const uiMediaSingleLayoutStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginLeft: '50%',
+	transform: 'translateX(-50%)',
+});
 
 const isMediaElement = (
 	media: React.ReactNode,

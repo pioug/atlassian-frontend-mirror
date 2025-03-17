@@ -1,25 +1,35 @@
-import React, { memo } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { memo } from 'react';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { flagTextColorToken } from '../theme';
 import { type AppearanceTypes } from '../types';
 
-const buttonStyles = xcss({
-	display: 'flex',
-	width: '24px',
-	height: '24px',
-	padding: 'space.0',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flex: '0 0 auto',
-	background: 'none',
-	borderStyle: 'none',
-	cursor: 'pointer',
-	whiteSpace: 'nowrap',
+const styles = cssMap({
+	button: {
+		display: 'flex',
+		width: '24px',
+		height: '24px',
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		alignItems: 'center',
+		justifyContent: 'center',
+		flex: '0 0 auto',
+		borderStyle: 'none',
+		cursor: 'pointer',
+		whiteSpace: 'nowrap',
+	},
 });
 
 interface DismissButtonProps {
@@ -52,8 +62,10 @@ const DismissButtonComponent = ({
 
 	return (
 		<Pressable
-			xcss={buttonStyles}
+			xcss={styles.button}
 			onClick={onClick}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={{ background: 'none' }}
 			aria-expanded={isBold ? isExpanded : undefined}
 			testId={buttonTestId}
 			aria-label={buttonLabel}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.0.3
+
+### Patch Changes
+
+- [#126154](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126154)
+  [`471921e76c42e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/471921e76c42e) -
+  Adds safe checks to avoid issues on SSR env related to PerformanceObserver
+
 ## 2.0.2
 
 ### Patch Changes

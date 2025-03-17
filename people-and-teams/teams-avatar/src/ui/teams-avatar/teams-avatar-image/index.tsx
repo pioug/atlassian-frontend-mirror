@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { AVATAR_SIZES, AvatarContent, type SizeType } from '@atlaskit/avatar';
-import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
+import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import TeamIcon from '@atlaskit/icon/glyph/people';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N90 } from '@atlaskit/theme/colors';
@@ -104,23 +104,14 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId }: AvatarImageProp
 		}
 		return (
 			<span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
-				{fg('ptc-migrate-legacy-icons-teams-avatar') ? (
-					<PeopleIcon
-						label={alt}
-						color={ICON_BACKGROUND}
-						LEGACY_secondaryColor={ICON_COLOR}
-						testId={testId && `${testId}--team`}
-						spacing="spacious"
-					/>
-				) : (
-					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-					<TeamIcon
-						label={alt}
-						primaryColor={ICON_BACKGROUND}
-						secondaryColor={ICON_COLOR}
-						testId={testId && `${testId}--team`}
-					/>
-				)}
+				<PeopleGroupIcon
+					label={alt}
+					color={ICON_BACKGROUND}
+					LEGACY_secondaryColor={ICON_COLOR}
+					testId={testId && `${testId}--team`}
+					spacing="spacious"
+					LEGACY_fallbackIcon={TeamIcon}
+				/>
 			</span>
 		);
 	}

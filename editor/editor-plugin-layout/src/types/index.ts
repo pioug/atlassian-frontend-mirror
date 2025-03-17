@@ -7,6 +7,11 @@ import type { Slice } from '@atlaskit/editor-prosemirror/model';
 export interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
 	allowBreakout?: boolean;
 	UNSAFE_addSidebarLayouts?: boolean;
+	/**
+	 * @private
+	 * @deprecated
+	 * @see https://product-fabric.atlassian.net/browse/ED-26662
+	 */
 	UNSAFE_allowSingleColumnLayout?: boolean;
 	editorAppearance?: EditorAppearance;
 }

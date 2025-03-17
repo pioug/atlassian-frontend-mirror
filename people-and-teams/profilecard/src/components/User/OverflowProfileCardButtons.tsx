@@ -3,8 +3,10 @@ import React, { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import messages from '../../messages';
 import { OverflowActionButtonsWrapper } from '../../styled/Card';
@@ -55,20 +57,30 @@ export const OverflowProfileCardButtons = (props: OverflowButtonsProps) => {
 			<DropdownMenu
 				onOpenChange={onOpenChange}
 				placement={'bottom-end'}
-				trigger={({ triggerRef, isSelected, testId, ...providedProps }) => (
-					<Button
-						type="button"
-						{...providedProps}
-						ref={triggerRef}
-						iconBefore={
-							<MoreIcon
-								color="currentColor"
-								spacing="spacious"
-								label={intl.formatMessage(messages.profileCardMoreIconLabel)}
-							/>
-						}
-					/>
-				)}
+				trigger={({ triggerRef, isSelected, testId, ...providedProps }) => {
+					return fg('ptc_migrate_buttons') ? (
+						<IconButton
+							type="button"
+							{...providedProps}
+							ref={triggerRef}
+							label={intl.formatMessage(messages.profileCardMoreIconLabel)}
+							icon={MoreIcon}
+						/>
+					) : (
+						<Button
+							type="button"
+							{...providedProps}
+							ref={triggerRef}
+							iconBefore={
+								<MoreIcon
+									color="currentColor"
+									spacing="spacious"
+									label={intl.formatMessage(messages.profileCardMoreIconLabel)}
+								/>
+							}
+						/>
+					);
+				}}
 			>
 				<DropdownItemGroup>
 					{actions.map((action, index) => (

@@ -96,10 +96,7 @@ const CardInner = ({
 
 	const containerWidth = isRichMediaInsideOfBlockNode(view, pos) ? lineLength : widthStateWidth;
 
-	const editorDisabledWhenGateDisabled =
-		editorDisabledState?.editorDisabled && !fg('platform_fix_embedded_card_re-rendering');
-
-	if (!allowResizing || !hasPreview || editorDisabledWhenGateDisabled) {
+	if (!allowResizing || !hasPreview) {
 		// There are two ways `width` and `height` can be defined here:
 		// 1) Either as `heightAlone` as height value and no width
 		// 2) or as `1` for height and aspectRation (defined or a default one) as a width
@@ -153,11 +150,7 @@ const CardInner = ({
 			displayGrid={displayGrid}
 			updateSize={updateSize}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...(fg('platform_fix_embedded_card_re-rendering') && {
-				isResizeDisabled: editorDisabledState?.editorDisabled,
-			})}
+			isResizeDisabled={editorDisabledState?.editorDisabled}
 		>
 			{smartCard}
 		</ResizableEmbedCard>

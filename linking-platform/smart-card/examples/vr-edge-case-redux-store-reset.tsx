@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { type JsonLd } from 'json-ld-types';
 
 import Button from '@atlaskit/button/new';
@@ -15,7 +9,7 @@ import { Card } from '@atlaskit/smart-card';
 
 import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
 
-import { VRTestWrapper } from './utils/vr-test';
+import ExampleContainer from './utils/example-container';
 
 class CustomClient extends Client {
 	fetchData() {
@@ -29,7 +23,7 @@ export default () => {
 		setInitialState({});
 	}, [setInitialState]);
 	return (
-		<VRTestWrapper title="Edge case: reload links when redux store is has been reset">
+		<ExampleContainer title="Edge case: reload links when redux store is has been reset">
 			<Provider client={new CustomClient('staging')} storeOptions={{ initialState }}>
 				<Button
 					testId={'reset-redux-store-button'}
@@ -46,6 +40,6 @@ export default () => {
 					url={'https://bitbucket.org/atlassian/atlassian-frontend/src/master/README.md'}
 				/>
 			</Provider>
-		</VRTestWrapper>
+		</ExampleContainer>
 	);
 };

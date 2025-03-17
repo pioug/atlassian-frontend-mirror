@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { MultiHeatmapPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { getConfig } from '../config';
 
+import { VCObserverNOOP } from './no-op-vc-observer';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './types';
 import { VCObserver } from './vc-observer';
 import VCObserverNew from './vc-observer-new';
@@ -16,8 +17,6 @@ class VCObserverWrapper implements VCObserverInterface {
 	private newVCObserver: VCObserverNew | null;
 
 	constructor(opts: VCObserverOptions = {}) {
-		this.oldVCObserver = new VCObserver(opts);
-
 		this.newVCObserver = null;
 		const isNewVCObserverEnabled =
 			fg('platform_ufo_vc_observer_new') || getConfig()?.vc?.enableVCObserverNew;
@@ -26,6 +25,8 @@ class VCObserverWrapper implements VCObserverInterface {
 				selectorConfig: opts.selectorConfig,
 			});
 		}
+
+		this.oldVCObserver = new VCObserver(opts);
 	}
 	start(startArg: { startTime: number }): void {
 		this.oldVCObserver?.start(startArg);
@@ -68,9 +69,38 @@ class VCObserverWrapper implements VCObserverInterface {
 	}
 }
 
+const isReactSSR = Boolean(process.env.REACT_SSR);
+const isServer = Boolean((globalThis as any)?.__SERVER__);
+
+function isEnvironmentSupported() {
+	// SSR environment aren't supported
+	if (isReactSSR || isServer) {
+		return false;
+	}
+
+	// Legacy browsers that doesn't support WeakRef
+	// aren't valid
+	if (typeof globalThis?.WeakRef !== 'function') {
+		return false;
+	}
+
+	if (
+		typeof globalThis?.MutationObserver !== 'function' ||
+		typeof globalThis?.IntersectionObserver !== 'function' ||
+		typeof globalThis?.PerformanceObserver !== 'function'
+	) {
+		return false;
+	}
+
+	return true;
+}
+
 export const getVCObserver = (opts: VCObserverOptions = {}): VCObserverInterface => {
 	if (!globalThis.__vcObserver) {
-		globalThis.__vcObserver = new VCObserverWrapper(opts);
+		const shouldMockVCObserver = !isEnvironmentSupported();
+		globalThis.__vcObserver = shouldMockVCObserver
+			? new VCObserverNOOP()
+			: new VCObserverWrapper(opts);
 	}
 	return globalThis.__vcObserver;
 };

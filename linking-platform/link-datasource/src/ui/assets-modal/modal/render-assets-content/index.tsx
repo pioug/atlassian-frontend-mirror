@@ -11,7 +11,6 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -21,7 +20,6 @@ import { NoResults } from '../../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../../issue-like-table';
 
 import { InitialStateView } from './initial-state-view';
-import { RenderAssetsContentOld } from './render-assets-content-old';
 
 export interface RenderAssetsContentProps {
 	isFetchingInitialData: boolean;
@@ -111,7 +109,7 @@ const LoadingView = () => (
 	</div>
 );
 
-export const RenderAssetsContentNew = (props: RenderAssetsContentProps) => {
+export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
 	const {
 		status,
 		responseItems,
@@ -185,12 +183,4 @@ export const RenderAssetsContentNew = (props: RenderAssetsContentProps) => {
 	]);
 
 	return renderAssetsContentView();
-};
-
-export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <RenderAssetsContentNew {...props} />;
-	} else {
-		return <RenderAssetsContentOld {...props} />;
-	}
 };

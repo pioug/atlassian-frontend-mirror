@@ -24,7 +24,10 @@ export const InlineImageCardLoadingView = ({
 }: Props) => {
 	return (
 		<Frame testId={testId}>
-			<Spinner size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'} />
+			<Spinner
+				size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'}
+				interactionName="media-inline-spinner"
+			/>
 		</Frame>
 	);
 };

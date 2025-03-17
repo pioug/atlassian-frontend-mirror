@@ -5,7 +5,6 @@
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { DueOn, State } from '../../src/view/FlexibleCard/components/elements';
@@ -14,8 +13,6 @@ import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper, LozengeActionExample } from '../utils/vr-test';
 import '../utils/fetch-mock-invoke';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-element-lozengeOld';
 
 const context = getContext({
 	dueOn: '2020-02-04T12:40:12.353+0800',
@@ -35,9 +32,6 @@ const overrideCss = css({
 });
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

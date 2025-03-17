@@ -4,15 +4,16 @@
  */
 import { type CSSProperties, type FC, useCallback, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css } from '@compiled/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import { cssMap, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { DEFAULT_APPEARANCE } from './constants';
@@ -28,12 +29,22 @@ import {
 } from './theme';
 import type { FlagProps } from './types';
 
-const CSS_VAR_ICON_COLOR = '--flag-icon-color';
-
-// For cases where a single word is longer than the container (e.g. filenames)
-const overflowWrapStyles = xcss({
-	overflowWrap: 'anywhere',
+const styles = cssMap({
+	// For cases where a single word is longer than the container (e.g. filenames)
+	overflowWrap: {
+		overflowWrap: 'anywhere',
+	},
+	flag: {
+		boxShadow: token('elevation.shadow.overlay', '0px 8px 12px #091e423f, 0px 0px 1px #091e424f'),
+		borderRadius: token('border.radius.100', '3px'),
+		overflow: 'hidden',
+		zIndex: 600,
+		width: '100%',
+		transition: 'background-color 200ms',
+	},
 });
+
+const CSS_VAR_ICON_COLOR = '--flag-icon-color';
 
 const descriptionStyles = css({
 	maxHeight: 100, // height is defined as 5 lines maximum by design
@@ -56,15 +67,6 @@ const iconWrapperStyles = css({
 	justifyContent: 'center',
 	flexShrink: 0,
 	color: `var(${CSS_VAR_ICON_COLOR})`,
-});
-
-const flagStyles = xcss({
-	boxShadow: 'elevation.shadow.overlay',
-	borderRadius: 'border.radius.100',
-	overflow: 'hidden',
-	zIndex: 'flag',
-	width: '100%',
-	transition: 'background-color 200ms',
 });
 
 const flagWrapperStyles = css({
@@ -197,17 +199,17 @@ const Flag: FC<FlagProps> = (props) => {
 
 	return (
 		<div role="alert" css={flagWrapperStyles} data-testid={testId} {...autoDismissProps}>
-			<Box backgroundColor={flagBackgroundColor[appearance]} padding="space.200" xcss={flagStyles}>
+			<Box padding="space.200" backgroundColor={flagBackgroundColor[appearance]} xcss={styles.flag}>
 				<Inline
 					alignBlock={fg('platform_ads_component_no_icon_spacing_support') ? 'start' : 'stretch'}
 					space="space.200"
 				>
 					<div
-						css={
+						css={[
 							fg('platform_ads_component_no_icon_spacing_support')
 								? iconWrapperStyles
-								: oldIconWrapperStyles
-						}
+								: oldIconWrapperStyles,
+						]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
 						data-testid={testId && `${testId}-icon-container`}
@@ -227,7 +229,7 @@ const Flag: FC<FlagProps> = (props) => {
 								<Box
 									paddingBlockStart="space.050"
 									paddingBlockEnd="space.025"
-									xcss={overflowWrapStyles}
+									xcss={styles.overflowWrap}
 								>
 									<Heading as={`h${headingLevel}`} size="xsmall" color={textColor}>
 										<span

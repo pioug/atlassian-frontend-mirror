@@ -4,11 +4,9 @@
  */
 import { jsx, styled } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { AssetsAqlSearchInputSkeleton } from './aql-search-input/loading-state';
-import { AssetsSearchContainerLoadingOld } from './loading-state-old';
 import { AssetsObjectSchemaSelectSkeleton } from './object-schema-select/loading-state';
 import { FormRowContainer } from './styled';
 
@@ -28,7 +26,7 @@ const FormContainer = styled.form({
 	width: '100%',
 });
 
-const AssetsSearchContainerLoadingNew = ({ modalTitle }: AssetsSearchConatinerLoadingProps) => {
+export const AssetsSearchContainerLoading = ({ modalTitle }: AssetsSearchConatinerLoadingProps) => {
 	return (
 		<FormContainer data-testid="assets-datasource-modal--search-container-skeleton">
 			<FormRowContainer isNarrowGap>
@@ -42,12 +40,4 @@ const AssetsSearchContainerLoadingNew = ({ modalTitle }: AssetsSearchConatinerLo
 			</FormRowContainer>
 		</FormContainer>
 	);
-};
-
-export const AssetsSearchContainerLoading = (props: AssetsSearchConatinerLoadingProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <AssetsSearchContainerLoadingNew {...props} />;
-	} else {
-		return <AssetsSearchContainerLoadingOld {...props} />;
-	}
 };

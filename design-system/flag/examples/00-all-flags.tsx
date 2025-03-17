@@ -7,7 +7,7 @@ import ErrorIcon from '@atlaskit/icon/core/error';
 import InformationIcon from '@atlaskit/icon/core/information';
 import SuccessIcon from '@atlaskit/icon/core/success';
 import WarningIcon from '@atlaskit/icon/core/warning';
-import Stack from '@atlaskit/primitives/stack';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 const actions = [
 	{ content: 'Understood', onClick: noop },

@@ -7,7 +7,9 @@
  */
 //Dutch (Netherlands)
 export default {
+  'ai-mate.agent-avatar-label': 'Avatar van agent',
   'ai-mate.agent-profile-info.created-by': 'Rovo-Agent van {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Auteur',
   'ai-mate.agent-profile-info.deactivated': '(gedeactiveerd)',
   'ai-mate.agent-profile-info.hidden-icon': 'Verborgen',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Agent wordt niet weergegeven in de zoekresultaten',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Schrijf een update over mijn week',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Agents zoeken',
   'rovo-chat.browse-agents.copy-agent-label': 'Link naar agent kopiëren',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Verwijderen uit favorieten',
   'rovo-chat.view-agent.chat-to-agent-button': 'Chatten met een Agent',
   'rovo-chat.view-agent.copy-link-to-profile': 'Link kopiëren',
   'rovo-chat.view-agent.delete-agent': 'Agent verwijderen',

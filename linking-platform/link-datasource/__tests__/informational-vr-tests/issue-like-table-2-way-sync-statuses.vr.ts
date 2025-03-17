@@ -15,7 +15,6 @@ snapshotInformational(IssueLikeTable, {
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-statuses': true,
 		enable_datasource_supporting_actions: true,
-		'bandicoots-compiled-migration-link-datasource': [true, false],
 	},
 	ignoredErrors: [
 		{
@@ -36,7 +35,6 @@ snapshotInformational(IssueLikeTable, {
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-statuses': true,
 		enable_datasource_supporting_actions: true,
-		'bandicoots-compiled-migration-link-datasource': [true, false],
 	},
 	ignoredErrors: [
 		{
@@ -59,7 +57,6 @@ snapshotInformational(IssueLikeTable, {
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-statuses': true,
 		enable_datasource_supporting_actions: true,
-		'bandicoots-compiled-migration-link-datasource': [true, false],
 	},
 	ignoredErrors: [
 		{

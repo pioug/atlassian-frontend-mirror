@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 204.5.2
+
+### Patch Changes
+
+- [#127528](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127528)
+  [`e56482e9d6440`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e56482e9d6440) -
+  ED-26834 Fire experiment exposure event for nbm insertions when insert analytics are recorded
+- Updated dependencies
+
+## 204.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 204.5.0
 
 ### Minor Changes

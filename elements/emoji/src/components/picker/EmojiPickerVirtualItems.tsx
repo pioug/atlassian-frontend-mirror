@@ -55,7 +55,7 @@ export class LoadingItem extends AbstractItem<{}> {
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={emojiPickerSpinner}>
 			<div>
-				<Spinner size="medium" />
+				<Spinner size="medium" interactionName="emoji-picker-loading-item-spinner" />
 			</div>
 		</div>
 	);

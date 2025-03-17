@@ -4,7 +4,6 @@ import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import { type DatasourceDataResponseItem, type DatasourceType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -16,7 +15,6 @@ import { TruncateTextTag } from '../truncate-text-tag';
 import { type DatasourceTypeWithOnlyValues, type TableViewPropsRenderType } from '../types';
 
 import { InlineEdit } from './inline-edit';
-import { TableCellContentOld } from './table-cell-content-old';
 
 interface TableCellContentProps {
 	id: string;
@@ -194,7 +192,7 @@ const toDatasourceTypeWithValues = ({
 	} as DatasourceTypeWithOnlyValues;
 };
 
-const TableCellContentNew = ({
+export const TableCellContent = ({
 	id,
 	columnKey,
 	columnTitle,
@@ -244,12 +242,4 @@ const TableCellContentNew = ({
 			/>
 		</Box>
 	);
-};
-
-export const TableCellContent = (props: TableCellContentProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <TableCellContentNew {...props} />;
-	} else {
-		return <TableCellContentOld {...props} />;
-	}
 };

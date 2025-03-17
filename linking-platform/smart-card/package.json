@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "35.2.9",
+	"version": "35.2.11",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -199,9 +199,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_hyperlink_underline": {
-			"type": "boolean"
-		},
-		"send_locale_to_summarize_in_assistance-service": {
 			"type": "boolean"
 		},
 		"bandicoots-compiled-migration-smartcard": {

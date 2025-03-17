@@ -4,17 +4,14 @@ import Avatar from '@atlaskit/avatar';
 import { cssMap, cx } from '@atlaskit/css';
 import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import formatOptionLabelOld from './formatOptionLabelOld';
 import {
 	type AvatarLabelOption,
 	type FormatOptionLabel,
 	type IconLabelOption,
 	type LozengeLabelOption,
-	type SelectOption,
 } from './types';
 
 const styles = cssMap({
@@ -90,12 +87,4 @@ const formatOptionLabel: FormatOptionLabel = (data) => {
 	return <></>;
 };
 
-const formatOptionLabelExported = (data: SelectOption) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return formatOptionLabel(data);
-	} else {
-		return formatOptionLabelOld(data);
-	}
-};
-
-export default formatOptionLabelExported;
+export default formatOptionLabel;

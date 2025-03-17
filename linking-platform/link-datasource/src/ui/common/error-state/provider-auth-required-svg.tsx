@@ -4,10 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import { ProviderAuthRequiredSVGOld } from './provider-auth-required-svg-old';
 
 const imageStyles = css({
 	width: 200,
@@ -15,7 +12,7 @@ const imageStyles = css({
 	marginBottom: token('space.200', '16px'),
 });
 
-export const ProviderAuthRequiredSVGNew = () => {
+export const ProviderAuthRequiredSVG = () => {
 	return (
 		<svg
 			width="170"
@@ -89,12 +86,4 @@ export const ProviderAuthRequiredSVGNew = () => {
 			<rect opacity="0.5" x="8" y="78.5" width="14" height="14" rx="2" fill="#1D7AFC" />
 		</svg>
 	);
-};
-
-export const ProviderAuthRequiredSVG = () => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ProviderAuthRequiredSVGNew />;
-	} else {
-		return <ProviderAuthRequiredSVGOld />;
-	}
 };

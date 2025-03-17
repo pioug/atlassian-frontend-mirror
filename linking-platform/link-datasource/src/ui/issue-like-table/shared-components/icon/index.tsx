@@ -2,10 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
-
-import { SharedIconComponentOld } from './icon-old';
 
 const styles = cssMap({
 	labelStyles: {
@@ -36,7 +33,7 @@ interface SharedIconComponentProps {
  * Renders a icon and text label.
  * If the text is undefined, will not render the text label.
  */
-export function SharedIconComponentNew({
+export function SharedIconComponent({
 	iconUrl,
 	label = '',
 	text,
@@ -59,12 +56,4 @@ export function SharedIconComponentNew({
 			)}
 		</Flex>
 	);
-}
-
-export function SharedIconComponent(props: SharedIconComponentProps) {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <SharedIconComponentNew {...props} />;
-	} else {
-		return <SharedIconComponentOld {...props} />;
-	}
 }

@@ -5,15 +5,12 @@
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ElementName, SmartLinkTheme, TitleBlock } from '../../src';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-blockOld';
 
 const blockOverrideCss = css({
 	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
@@ -50,9 +47,6 @@ const cardState = getCardState({
 });
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

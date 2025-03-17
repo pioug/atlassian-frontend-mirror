@@ -7,7 +7,9 @@
  */
 //Czech
 export default {
+  'ai-mate.agent-avatar-label': 'Avatar agenta',
   'ai-mate.agent-profile-info.created-by': 'Agent Rovo od {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Autor',
   'ai-mate.agent-profile-info.deactivated': '(deaktivováno)',
   'ai-mate.agent-profile-info.hidden-icon': 'Skryté',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Agent se nezobrazí ve výsledcích vyhledávání.',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Napsat aktualizaci o mém týdnu',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Procházet agenty',
   'rovo-chat.browse-agents.copy-agent-label': 'Kopírovat odkaz na agenta',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Odebrat z oblíbených',
   'rovo-chat.view-agent.chat-to-agent-button': 'Chatovat s agentem',
   'rovo-chat.view-agent.copy-link-to-profile': 'Kopírovat odkaz',
   'rovo-chat.view-agent.delete-agent': 'Odstranit agenta',

@@ -16,7 +16,6 @@ import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 import { userTypeMessages } from './messages';
-import UserTypeOld from './user-old';
 
 const styles = cssMap({
 	userWrapperStyles: {
@@ -136,12 +135,4 @@ const UserType = ({ users }: { users: UserProps[] }) => {
 	}
 };
 
-const UserTypeExported = (props: { users: UserProps[] }) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <UserType {...props} />;
-	} else {
-		return <UserTypeOld {...props} />;
-	}
-};
-
-export default UserTypeExported;
+export default UserType;

@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 35.2.11
+
+### Patch Changes
+
+- [#124681](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124681)
+  [`e4d03e1fe300d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4d03e1fe300d) -
+  EDM-11974 adding aria-label to hover card trigger wrapper for a11y
+- Updated dependencies
+
+## 35.2.10
+
+### Patch Changes
+
+- [#127235](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127235)
+  [`b80e1ceb8e2fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b80e1ceb8e2fc) -
+  Clean up feature gate for locale summarise AI feature
+- Updated dependencies
+
 ## 35.2.9
 
 ### Patch Changes

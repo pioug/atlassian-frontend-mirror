@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.1.0
+
+### Minor Changes
+
+- [#125372](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125372)
+  [`333d2a5c64229`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/333d2a5c64229) -
+  [EDF-2225] Cleanup platform_editor_ai_advanced_prompts Statsig experiment
+
+### Patch Changes
+
+- [#115815](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115815)
+  [`ad7c517ed3b47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad7c517ed3b47) -
+  ED-26661 added experiement enables single column layout
+
+## 4.0.0
+
+### Major Changes
+
+- [#126060](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126060)
+  [`fe137e1387076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe137e1387076) -
+  Clean up Action Items experiment in Editor. Overriding the Quick Insert Action description and
+  Task Item placeholder will now always take effect.
+
 ## 3.6.1
 
 ### Patch Changes

@@ -4,8 +4,10 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button';
+import ButtonLegacy from '@atlaskit/button';
+import { LinkButton } from '@atlaskit/button/new';
 import FocusRing from '@atlaskit/focus-ring';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -251,22 +253,41 @@ const Actions = ({
 
 				const button = (
 					<FocusRing isInset key={`profile-card-action-focus-ring_${action.id || index}`}>
-						<Button
-							appearance="default"
-							key={action.id || index}
-							onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
-								onActionClick(action, args, event, index)
-							}
-							href={action.link}
-							autoFocus={index === 0 && isTriggeredUsingKeyboard}
-						>
-							{action.label}
-							{isKudos && (
-								<AnimationWrapper>
-									<KudosBlobAnimation />
-								</AnimationWrapper>
-							)}
-						</Button>
+						{fg('ptc_migrate_buttons') ? (
+							<LinkButton
+								appearance="default"
+								key={action.id || index}
+								onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+									onActionClick(action, args, event, index)
+								}
+								href={action.link || ''}
+								autoFocus={index === 0 && isTriggeredUsingKeyboard}
+							>
+								{action.label}
+								{isKudos && (
+									<AnimationWrapper>
+										<KudosBlobAnimation />
+									</AnimationWrapper>
+								)}
+							</LinkButton>
+						) : (
+							<ButtonLegacy
+								appearance="default"
+								key={action.id || index}
+								onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+									onActionClick(action, args, event, index)
+								}
+								href={action.link}
+								autoFocus={index === 0 && isTriggeredUsingKeyboard}
+							>
+								{action.label}
+								{isKudos && (
+									<AnimationWrapper>
+										<KudosBlobAnimation />
+									</AnimationWrapper>
+								)}
+							</ButtonLegacy>
+						)}
 					</FocusRing>
 				);
 

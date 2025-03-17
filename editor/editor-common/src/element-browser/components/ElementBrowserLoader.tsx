@@ -29,7 +29,7 @@ const ElementBrowserLoader = Loadable({
 		>,
 	loading: () => (
 		<div css={spinnerContainer}>
-			<Spinner size="medium" />
+			<Spinner size="medium" interactionName="element-browser-spinner" />
 		</div>
 	),
 });

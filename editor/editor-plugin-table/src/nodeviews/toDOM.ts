@@ -5,8 +5,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { generateColgroup, getResizerMinWidth } from '../pm-plugins/table-resizing/utils/colgroup';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils/consts';
@@ -21,10 +19,6 @@ type Config = {
 };
 export const tableNodeSpecWithFixedToDOM = (config: Config): NodeSpec => {
 	const tableNode = config.isNestingSupported ? tableWithNestedTable : table;
-
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return tableNode;
-	}
 
 	return {
 		...tableNode,
@@ -120,6 +114,8 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): NodeSpec => {
 				];
 			}
 
+			const tableWidthAttribute = node.attrs.width ? `${node.attrs.width}px` : `100%`;
+
 			const tableResizingDiv = [
 				'div',
 				{
@@ -130,7 +126,7 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): NodeSpec => {
 					'div',
 					{
 						class: 'pm-table-resizer-container',
-						style: `width: min(calc(100cqw - ${gutterPadding}px), ${node.attrs.width}px);`,
+						style: `width: min(calc(100cqw - ${gutterPadding}px), ${tableWidthAttribute});`,
 					},
 					[
 						'div',
@@ -145,9 +141,7 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): NodeSpec => {
 								'--ak-editor-table-min-width': `${tableMinWidth}px`,
 								minWidth: 'var(--ak-editor-table-min-width)',
 								maxWidth: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`,
-								width: fg('platform_editor_table_layout_shift_fix')
-									? `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${node.attrs.width}px)`
-									: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${node.attrs.width})`,
+								width: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${tableWidthAttribute})`,
 							}),
 						},
 						[

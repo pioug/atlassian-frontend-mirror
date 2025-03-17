@@ -41,6 +41,12 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-core/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugins/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]

@@ -15,7 +15,11 @@ import {
 	sharedExpandStyles,
 	WidthProvider,
 } from '@atlaskit/editor-common/ui';
-import { akEditorLineHeight, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorLineHeight,
+	akEditorSwoopCubicBezier,
+	akLayoutGutterOffset,
+} from '@atlaskit/editor-shared-styles';
 import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-right';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import { token } from '@atlaskit/tokens';
@@ -27,6 +31,7 @@ import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import type { RendererAppearance } from './Renderer/types';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 type StyleProps = {
 	expanded?: boolean;
@@ -39,8 +44,8 @@ type StyleProps = {
 const titleStyles = css({
 	outline: 'none',
 	border: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(14),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	fontSize: `${14 / 16}rem`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 	lineHeight: akEditorLineHeight,
 	fontWeight: token('font.weight.regular'),
@@ -51,7 +56,102 @@ const titleStyles = css({
 	textAlign: 'left',
 });
 
-const Container = (props: StyleProps) => {
+const containerStyles = css({
+	borderWidth: '1px',
+	borderStyle: 'solid',
+	borderColor: 'transparent',
+	borderRadius: token('border.radius.100', '4px'),
+	minHeight: '25px',
+	background: token('color.background.neutral.subtle', 'transparent'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	transition: `background 0.3s ${akEditorSwoopCubicBezier}, border-color 0.3s ${akEditorSwoopCubicBezier}`,
+	padding: token('space.0', '0px'),
+	paddingBottom: token('space.0', '0px'),
+	marginTop: token('space.050', '0.25rem'),
+	marginBottom: 0,
+	marginLeft: 0,
+	marginRight: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'td > :not(style):first-child, td > style:first-child + *': {
+		marginTop: 0,
+	},
+});
+
+const containerStylesExpanded = css({
+	background: token('elevation.surface', 'rgba(255, 255, 255, 0.6)'),
+	paddingBottom: token('space.100', '8px'),
+	borderColor: token('color.border'),
+});
+
+const containerStylesFocused = css({
+	borderColor: token('color.border.focused'),
+});
+
+const containerStylesDataNodeTypeExpand = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	marginLeft: `-${akLayoutGutterOffset}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	marginRight: `-${akLayoutGutterOffset}px`,
+});
+
+const titleContainerStyles = css({
+	display: 'flex',
+	alignItems: 'flex-start',
+	background: 'none',
+	border: 'none',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	fontSize: `${14 / 16}rem`,
+	width: '100%',
+	color: token('color.text.subtle'),
+	overflow: 'hidden',
+	cursor: 'pointer',
+	padding: token('space.100', '8px'),
+	'&:focus': {
+		outline: 0,
+	},
+});
+
+const titleContainerStylesExpanded = css({
+	paddingBottom: token('space.0', '0px'),
+});
+
+const contentContainerStyles = css({
+	paddingTop: token('space.0', '0px'),
+	marginLeft: token('space.050', '4px'),
+	paddingRight: token('space.200', '16px'),
+	paddingLeft: token('space.400', '32px'),
+	display: 'flow-root',
+	visibility: 'hidden',
+
+	// The follow rules inside @supports block are added as a part of ED-8893
+	// The fix is targeting mobile bridge on iOS 12 or below,
+	// We should consider remove this fix when we no longer support iOS 12
+	'@supports not (display: flow-root)': {
+		width: '100%',
+		boxSizing: 'border-box',
+	},
+});
+
+const contentContainerStylesExpanded = css({
+	paddingTop: token('space.100', '8px'),
+	visibility: 'visible',
+});
+
+const contentContainerStylesNotExpanded = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.expand-content-wrapper, .nestedExpand-content-wrapper': {
+		/* We visually hide the content here to preserve the content during copy+paste */
+		/* Do not add text nowrap here because inline comment navigation depends on the location of the text */
+		width: '100%',
+		display: 'block',
+		height: 0,
+		overflow: 'hidden',
+		clip: 'rect(1px, 1px, 1px, 1px)',
+		userSelect: 'none',
+	},
+});
+
+const ContainerOld = (props: StyleProps) => {
 	const paddingBottom = props.expanded ? token('space.100', '8px') : token('space.0', '0px');
 	const sharedContainerStyles = sharedExpandStyles.containerStyles(props);
 
@@ -71,7 +171,31 @@ const Container = (props: StyleProps) => {
 	);
 };
 
-const TitleContainer = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+const ContainerNew = (props: StyleProps) => {
+	return (
+		<div
+			css={[
+				containerStyles,
+				props['data-node-type'] === 'expand' && containerStylesDataNodeTypeExpand,
+				props.expanded && containerStylesExpanded,
+				props.focused && containerStylesFocused,
+			]}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		>
+			{props.children}
+		</div>
+	);
+};
+
+const Container = componentWithFG(
+	'platform_editor_emotion_refactor_renderer',
+	ContainerNew,
+	ContainerOld,
+);
+
+const TitleContainerOld = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
 	const paddingBottom = !props.expanded ? token('space.100', '8px') : token('space.0', '0px');
 
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
@@ -85,16 +209,39 @@ const TitleContainer = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButto
 
 	return (
 		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-html-button
 		<button type="button" css={styles} {...buttonProps}>
 			{props.children}
 		</button>
 	);
 };
 
+const TitleContainerNew = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+	const { expanded, ...buttonProps } = props;
+
+	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-button
+		<button
+			type="button"
+			css={[titleContainerStyles, expanded && titleContainerStylesExpanded]}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...buttonProps}
+		>
+			{props.children}
+		</button>
+	);
+};
+
+const TitleContainer = componentWithFG(
+	'platform_editor_emotion_refactor_renderer',
+	TitleContainerNew,
+	TitleContainerOld,
+);
+
 TitleContainer.displayName = 'TitleContainerButton';
 
-const ContentContainer = (props: StyleProps) => {
+const ContentContainerOld = (props: StyleProps) => {
 	const sharedContentStyles = sharedExpandStyles.contentStyles(props);
 	const visibility = props.expanded ? 'visible' : 'hidden';
 
@@ -107,7 +254,6 @@ const ContentContainer = (props: StyleProps) => {
 	`;
 
 	return (
-		// eslint-disable-next-line
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage
 		<div css={styles} {...props}>
@@ -115,6 +261,29 @@ const ContentContainer = (props: StyleProps) => {
 		</div>
 	);
 };
+
+const ContentContainerNew = (props: StyleProps) => {
+	return (
+		<div
+			css={[
+				contentContainerStyles,
+				props.expanded && contentContainerStylesExpanded,
+				!props.expanded && contentContainerStylesNotExpanded,
+			]}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		>
+			{props.children}
+		</div>
+	);
+};
+
+const ContentContainer = componentWithFG(
+	'platform_editor_emotion_refactor_renderer',
+	ContentContainerNew,
+	ContentContainerOld,
+);
 
 export interface ExpandProps {
 	title: string;

@@ -56,10 +56,7 @@ export const handleMouseOver = (
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
 		const parentElementType = parentElement?.getAttribute('data-drag-handler-node-type');
 
-		if (
-			editorExperiment('advanced_layouts', true) &&
-			fg('platform_editor_advanced_layouts_post_fix_patch_1')
-		) {
+		if (editorExperiment('advanced_layouts', true)) {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
 			if (
 				parentElement &&

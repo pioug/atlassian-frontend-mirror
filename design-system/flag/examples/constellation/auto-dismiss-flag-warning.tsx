@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const AutoDismissFlagWarningExample = () => {

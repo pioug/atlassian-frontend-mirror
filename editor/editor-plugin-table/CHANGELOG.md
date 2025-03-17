@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-table
 
+## 10.4.3
+
+### Patch Changes
+
+- [#126154](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126154)
+  [`be67d47906a7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be67d47906a7f) -
+  [ED-27099]
+
+  # Improvements
+
+  Feature Flag: `platform_editor_table_layout_shift_fix`
+
+  - Make all Editor block nodes a proper inline container
+
+  Feature Flag: `platform_editor_render_table_fallback_to_dom_on_ssr`
+
+  - Always render the Table.toDOM when on SSR
+
+  # Clean up
+
+  `platform_editor_exp_lazy_node_views`
+
+  - Make the `tableNodeSpecWithFixedToDOM` the default `Table.toDOM`
+
+  `platform_editor_table_layout_shift_fix`
+
+  - Fix the typo `px` typo
+
+## 10.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.4.1
 
 ### Patch Changes

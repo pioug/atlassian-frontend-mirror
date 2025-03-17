@@ -5,12 +5,10 @@ import { cssMap, styled } from '@compiled/react';
 import Badge from '@atlaskit/badge';
 import Button from '@atlaskit/button/standard-button';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
-import PopupTriggerOld from './trigger-old';
 import { type SelectOption } from './types';
 
 export interface PopupTriggerProps {
@@ -120,12 +118,4 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 	},
 );
 
-const PopupTriggerExported = forwardRef<HTMLElement, PopupTriggerProps>((props, ref) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <PopupTrigger {...props} ref={ref} />;
-	} else {
-		return <PopupTriggerOld {...props} ref={ref} />;
-	}
-});
-
-export default PopupTriggerExported;
+export default PopupTrigger;

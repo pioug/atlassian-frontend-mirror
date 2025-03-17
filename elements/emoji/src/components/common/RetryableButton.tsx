@@ -28,7 +28,7 @@ const LoadingSpinner = () => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={buttonSpinner}>
-			<Spinner />
+			<Spinner interactionName="emoji-retry-button-spinner" />
 		</span>
 	);
 };

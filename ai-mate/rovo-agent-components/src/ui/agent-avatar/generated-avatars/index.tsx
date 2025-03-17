@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 
 import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { cssMap, cx, jsx } from '@atlaskit/css';

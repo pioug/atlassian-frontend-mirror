@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { Box, Text } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Flag from '../../flag';

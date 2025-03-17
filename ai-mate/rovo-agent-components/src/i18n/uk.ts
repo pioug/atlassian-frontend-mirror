@@ -7,7 +7,9 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'ai-mate.agent-avatar-label': 'Фото профілю агента',
   'ai-mate.agent-profile-info.created-by': 'Агент Rovo, автор {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Автор',
   'ai-mate.agent-profile-info.deactivated': '(деактивовано)',
   'ai-mate.agent-profile-info.hidden-icon': 'Приховано',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Агент не відображатиметься в результатах пошуку',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Створення опису новин за тиждень',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Пошук агентів',
   'rovo-chat.browse-agents.copy-agent-label': 'Копіювати посилання на агента',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Видалити з улюблених',
   'rovo-chat.view-agent.chat-to-agent-button': 'Почати чат з агентом',
   'rovo-chat.view-agent.copy-link-to-profile': 'Копіювати посилання',
   'rovo-chat.view-agent.delete-agent': 'Видалити агента',

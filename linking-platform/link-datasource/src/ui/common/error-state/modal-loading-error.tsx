@@ -16,7 +16,6 @@ import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 
 import { LoadingErrorSVGOld } from './loading-error-svg-old';
 import { loadingErrorMessages } from './messages';
-import { ModalLoadingErrorOld } from './modal-loading-error-old';
 
 const styles = cssMap({
 	errorContainerStyles: {
@@ -36,7 +35,7 @@ interface ModalLoadingErrorProps {
 	errorMessage?: React.ReactNode;
 }
 
-export const ModalLoadingErrorNew = ({
+export const ModalLoadingError = ({
 	errorMessage = <FormattedMessage {...loadingErrorMessages.checkConnection} />,
 }: ModalLoadingErrorProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -62,12 +61,4 @@ export const ModalLoadingErrorNew = ({
 			</Box>
 		</Box>
 	);
-};
-
-export const ModalLoadingError = (props: ModalLoadingErrorProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ModalLoadingErrorNew {...props} />;
-	} else {
-		return <ModalLoadingErrorOld {...props} />;
-	}
 };

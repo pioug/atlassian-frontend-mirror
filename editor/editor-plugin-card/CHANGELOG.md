@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-card
 
+## 5.3.3
+
+### Patch Changes
+
+- [#127355](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127355)
+  [`f4e608fc7d405`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4e608fc7d405) -
+  Clean up feature gate platform_fix_embedded_card_re-rendering
+- Updated dependencies
+
+## 5.3.2
+
+### Patch Changes
+
+- [#127208](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127208)
+  [`c2951b65d3aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2951b65d3aac) -
+  [ux] ED-26896 Move list option to link dropdown
+- Updated dependencies
+
+## 5.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

@@ -17,13 +17,22 @@ const HyperlinkDropdown = (
 	props: HyperlinkToolbarAppearanceProps & {
 		dispatchCommand: (command: Command) => void;
 		settingsConfig: FloatingToolbarItem<Command>;
+		allowDatasource?: boolean;
+		isDatasourceView?: boolean;
 	},
 ) => {
 	const [supportedUrlsMap, setSupportedUrlsMap] = useState<Map<string, boolean>>(new Map());
 	const cardProvider = useRef<CardProvider | undefined>(undefined);
 
-	const { url, intl, editorState, cardOptions, editorAnalyticsApi } = props;
-
+	const {
+		url,
+		intl,
+		editorState,
+		cardOptions,
+		editorAnalyticsApi,
+		allowDatasource,
+		isDatasourceView,
+	} = props;
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await
 	const getProvider = async (): Promise<CardProvider> => {
@@ -78,9 +87,11 @@ const HyperlinkDropdown = (
 			editorState={editorState}
 			allowEmbeds={cardOptions?.allowEmbeds}
 			allowBlockCards={cardOptions?.allowBlockCards}
+			allowDatasource={allowDatasource}
 			editorAnalyticsApi={editorAnalyticsApi}
 			dispatchCommand={props.dispatchCommand}
 			settingsConfig={props.settingsConfig}
+			isDatasourceView={isDatasourceView}
 		/>
 	);
 };
@@ -93,9 +104,13 @@ export const getHyperlinkAppearanceDropdown = ({
 	editorPluginApi,
 	settingsConfig,
 	cardOptions,
+	allowDatasource,
+	isDatasourceView,
 }: Omit<HyperlinkToolbarAppearanceProps, 'editorState'> & {
 	settingsConfig: FloatingToolbarItem<Command>;
 	editorState?: EditorState;
+	allowDatasource?: boolean;
+	isDatasourceView?: boolean;
 }) => {
 	const alignmentItemOptions: DropdownOptions<Command> = {
 		render: (props) => {
@@ -113,6 +128,8 @@ export const getHyperlinkAppearanceDropdown = ({
 					dispatchCommand={props.dispatchCommand}
 					settingsConfig={settingsConfig}
 					cardOptions={cardOptions}
+					allowDatasource={allowDatasource}
+					isDatasourceView={isDatasourceView}
 				/>
 			);
 		},

@@ -16,7 +16,7 @@ const spinnerWrapperStyles = css({
 
 const LoadingState = () => (
 	<div css={spinnerWrapperStyles} data-testid="ConfigPanelLoading">
-		<Spinner size="small" />
+		<Spinner size="small" interactionName="config-panel-spinner" />
 	</div>
 );
 

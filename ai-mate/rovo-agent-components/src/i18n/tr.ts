@@ -7,7 +7,9 @@
  */
 //Turkish (Turkey)
 export default {
+  'ai-mate.agent-avatar-label': 'Temsilci profil resmi',
   'ai-mate.agent-profile-info.created-by': '{creatorNameWithLink} tarafından oluşturulan Rovo Aracısı',
+  'ai-mate.agent-profile-info.creator': 'Oluşturan',
   'ai-mate.agent-profile-info.deactivated': '(devre dışı bırakıldı)',
   'ai-mate.agent-profile-info.hidden-icon': 'Gizli',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Temsilci, arama sonuçlarında görünmez',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Haftam hakkında bir güncelleme yaz',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Temsilcilere Göz Atın',
   'rovo-chat.browse-agents.copy-agent-label': 'Bağlantıyı temsilciye kopyala',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Favorilerden kaldır',
   'rovo-chat.view-agent.chat-to-agent-button': 'Temsilci ile sohbet et',
   'rovo-chat.view-agent.copy-link-to-profile': 'Bağlantıyı kopyala',
   'rovo-chat.view-agent.delete-agent': 'Temsilciyi Sil',

@@ -21,7 +21,14 @@ import { ButtonItem, LinkItem, MenuGroup, Section } from '@atlaskit/menu';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 
+import { DatasourceDropdownOption, datasourceDisplayInformation } from './DatasourceDropdownOption';
 import { getUnavailableMessage, type LinkToolbarAppearanceProps } from './LinkToolbarAppearance';
+
+type Props = LinkToolbarAppearanceProps & {
+	dispatchCommand: (command: Command) => void;
+	settingsConfig: FloatingToolbarItem<Command>;
+	allowDatasource?: boolean;
+};
 
 export const LinkAppearanceMenu = ({
 	url,
@@ -30,15 +37,13 @@ export const LinkAppearanceMenu = ({
 	editorState,
 	allowEmbeds,
 	allowBlockCards = true,
+	allowDatasource,
 	editorAnalyticsApi,
 	showUpgradeDiscoverability = true,
 	isDatasourceView,
 	dispatchCommand,
 	settingsConfig,
-}: LinkToolbarAppearanceProps & {
-	dispatchCommand: (command: Command) => void;
-	settingsConfig: FloatingToolbarItem<Command>;
-}) => {
+}: Props) => {
 	const cardContext = useSmartCardContext();
 
 	const preview =
@@ -157,6 +162,14 @@ export const LinkAppearanceMenu = ({
 						</ButtonItem>
 					);
 				})}
+				<DatasourceDropdownOption
+					allowDatasource={allowDatasource}
+					intl={intl}
+					url={url ?? ''}
+					selected={Boolean(isDatasourceView)}
+					inputMethod={INPUT_METHOD.FLOATING_TB}
+					dispatchCommand={dispatchCommand}
+				/>
 			</Section>
 			<Section hasSeparator>
 				<LinkItem
@@ -179,11 +192,15 @@ export const getLinkAppearanceDropdown = ({
 	editorState,
 	allowEmbeds,
 	allowBlockCards = true,
+	allowDatasource,
 	editorAnalyticsApi,
 	showUpgradeDiscoverability = true,
 	isDatasourceView,
 	settingsConfig,
-}: LinkToolbarAppearanceProps & { settingsConfig: FloatingToolbarItem<Command> }) => {
+}: LinkToolbarAppearanceProps & {
+	settingsConfig: FloatingToolbarItem<Command>;
+	allowDatasource?: boolean;
+}) => {
 	const alignmentItemOptions: DropdownOptions<Command> = {
 		render: (props) => {
 			return (
@@ -197,6 +214,7 @@ export const getLinkAppearanceDropdown = ({
 					editorAnalyticsApi={editorAnalyticsApi}
 					showUpgradeDiscoverability={showUpgradeDiscoverability}
 					isDatasourceView={isDatasourceView}
+					allowDatasource={allowDatasource}
 					dispatchCommand={props.dispatchCommand}
 					settingsConfig={settingsConfig}
 				/>
@@ -206,7 +224,9 @@ export const getLinkAppearanceDropdown = ({
 		height: 400,
 	};
 
-	const currentAppearanceDisplayInformation = appearancePropsMap[currentAppearance ?? 'url'];
+	const currentAppearanceDisplayInformation = isDatasourceView
+		? datasourceDisplayInformation
+		: appearancePropsMap[currentAppearance ?? 'url'];
 
 	const alignmentToolbarItem: FloatingToolbarDropdown<Command> = {
 		id: 'card-appearance',

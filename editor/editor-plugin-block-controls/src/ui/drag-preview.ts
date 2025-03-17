@@ -1,22 +1,13 @@
 import { browser } from '@atlaskit/editor-common/browser';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { B200, N20, N30 } from '@atlaskit/theme/colors';
+import { N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const previewStyleNew = {
+const previewStyle = {
 	borderColor: token('color.border', N30),
 	borderStyle: 'solid',
 	borderRadius: token('border.radius.100', '3px'),
 	borderWidth: token('border.width.outline', '2px'),
 	backgroundColor: token('color.skeleton.subtle', N20),
-};
-
-const previewStyleOld = {
-	borderColor: token('color.border.focused', B200),
-	borderStyle: 'solid',
-	borderRadius: token('border.radius.100', '3px'),
-	borderWidth: token('border.width.outline', '2px'),
-	backgroundColor: token('color.blanket.selected', '#388BFF14'),
 };
 
 export type DragPreviewContent = {
@@ -27,13 +18,11 @@ export type DragPreviewContent = {
 
 const getPreviewContainerDimensionsForSingle = (dom: HTMLElement, nodeType: string) => {
 	let nodeContainer = dom;
-	if (fg('platform_editor_elements_drag_and_drop_ed_23189')) {
-		const iframeContainer = dom.querySelector('iframe');
-		if (nodeType === 'embedCard') {
-			nodeContainer = dom.querySelector('.rich-media-item') || dom;
-		} else if (nodeType === 'extension' && iframeContainer) {
-			nodeContainer = iframeContainer;
-		}
+	const iframeContainer = dom.querySelector('iframe');
+	if (nodeType === 'embedCard') {
+		nodeContainer = dom.querySelector('.rich-media-item') || dom;
+	} else if (nodeType === 'extension' && iframeContainer) {
+		nodeContainer = iframeContainer;
 	}
 	const nodeContainerRect = nodeContainer.getBoundingClientRect();
 	return {
@@ -63,10 +52,6 @@ const createGenericPreview = () => {
 	const generalPreview = document.createElement('div');
 	// ProseMirror class is required to make sure the cloned dom is styled correctly
 	generalPreview.classList.add('ProseMirror', 'block-ctrl-drag-preview');
-
-	const previewStyle = fg('platform_editor_elements_drag_and_drop_ed_23189')
-		? previewStyleNew
-		: previewStyleOld;
 
 	generalPreview.style.border = `${previewStyle.borderWidth} ${previewStyle.borderStyle} ${previewStyle.borderColor}`;
 	generalPreview.style.borderRadius = previewStyle.borderRadius;
@@ -98,11 +83,7 @@ const createContentPreviewElement = (
 	clonedDom.style.marginRight = '0';
 	clonedDom.style.marginBottom = nodeSpacing ? `${nodeSpacing.bottom}` : '0';
 	clonedDom.style.boxShadow = 'none';
-	clonedDom.style.opacity = browser.windows
-		? '1'
-		: fg('platform_editor_elements_drag_and_drop_ed_23189')
-			? '0.31'
-			: '0.4';
+	clonedDom.style.opacity = browser.windows ? '1' : '0.31';
 
 	contentPreviewOneElement.appendChild(clonedDom);
 	return contentPreviewOneElement;
@@ -110,11 +91,11 @@ const createContentPreviewElement = (
 
 const isGenericPreview = (dom: HTMLElement, nodeType: string) => {
 	const embedCard: HTMLElement | null = dom.querySelector('.embedCardView-content-wrap');
-	return fg('platform_editor_elements_drag_and_drop_ed_23189')
-		? nodeType === 'embedCard' ||
-				!!embedCard ||
-				(nodeType === 'extension' && !!dom.querySelector('iframe'))
-		: nodeType === 'embedCard' || !!embedCard || nodeType === 'extension';
+	return (
+		nodeType === 'embedCard' ||
+		!!embedCard ||
+		(nodeType === 'extension' && !!dom.querySelector('iframe'))
+	);
 };
 
 const createPreviewForElement = (

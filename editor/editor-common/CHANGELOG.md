@@ -1,5 +1,55 @@
 # @atlaskit/editor-common
 
+## 102.10.0
+
+### Minor Changes
+
+- [#126588](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126588)
+  [`d4160d5f8b246`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4160d5f8b246) -
+  ED-26876 implement editor api for user preference
+
+## 102.9.0
+
+### Minor Changes
+
+- [#115815](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115815)
+  [`ad7c517ed3b47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad7c517ed3b47) -
+  ED-26661 add option enables single column layout
+
+### Patch Changes
+
+- Updated dependencies
+
+## 102.8.0
+
+### Minor Changes
+
+- [#125530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125530)
+  [`15d02ee1c1b7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d02ee1c1b7b) -
+  EDF-2567: Add copy for updated group headings in AI command palette.
+
+### Patch Changes
+
+- [#127208](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127208)
+  [`c2951b65d3aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2951b65d3aac) -
+  [ux] ED-26896 Move list option to link dropdown
+- Updated dependencies
+
+## 102.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 102.7.1
+
+### Patch Changes
+
+- [#126792](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126792)
+  [`ac38e3b73e5ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac38e3b73e5ab) -
+  add interactionName to Spinner
+- Updated dependencies
+
 ## 102.7.0
 
 ### Minor Changes

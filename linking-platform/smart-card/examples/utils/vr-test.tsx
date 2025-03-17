@@ -2,37 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type PropsWithChildren } from 'react';
+import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, Global, jsx } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
+import { css, jsx } from '@compiled/react';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import Page from '@atlaskit/page';
-import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
 import { overrideEmbedContent } from './common';
-import { exampleTokens } from './flexible-ui';
 
 const horizontalWrapperStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
-	gap: token('space.050', '4px'),
-	padding: token('space.050', '4px'),
+	gap: token('space.050'),
+	paddingTop: token('space.050'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.050'),
+	paddingLeft: token('space.050'),
 });
-
-const getTestWrapperStyles = (height?: number) =>
-	css(
-		{
-			padding: token('space.400', '32px'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			backgroundColor: exampleTokens.backgroundColor,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height ? `height: ${height}px` : '',
-	);
 
 export type VRTestWrapperOptions = {
 	title: string;
@@ -43,56 +30,11 @@ export type VRTestWrapperOptions = {
 // Mocking Date.now for tests to be consistent
 Date.now = () => new Date('2022-01-25T16:44:00.000+1000').getTime();
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const global = (
-	<Global
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		styles={css({
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'*': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				animationTimingFunction: 'step-end !important',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				animationDuration: '0s !important',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				transitionTimingFunction: 'step-end !important',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				transitionDuration: '0s !important',
-			},
-		})}
-	/>
-);
+type HorizontalWrapperProps = {
+	children: React.ReactNode;
+};
 
-/**
- * Test wrapper used with deprecated vr tests (puppeteer)
- * @deprecated Use ./vr-test-wrapper.tsx for gemini vr tests
- */
-export const VRTestWrapper = ({ title, children, height }: VRTestWrapperOptions) => (
-	<IntlProvider locale={'en'}>
-		<Page>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={getTestWrapperStyles(height)}>
-				{global}
-				<SectionMessage title="Visual regression test">
-					<p>Following example is used in visual regression tests.</p>
-				</SectionMessage>
-
-				<h6
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={css({
-						marginTop: token('space.300', '24px'),
-						marginBottom: token('space.100', '8px'),
-					})}
-				>
-					{title}
-				</h6>
-				{children}
-			</div>
-		</Page>
-	</IntlProvider>
-);
-
-export const HorizontalWrapper = ({ children }: PropsWithChildren<{}>) => (
+export const HorizontalWrapper = ({ children }: HorizontalWrapperProps) => (
 	<div css={horizontalWrapperStyles}>{children}</div>
 );
 

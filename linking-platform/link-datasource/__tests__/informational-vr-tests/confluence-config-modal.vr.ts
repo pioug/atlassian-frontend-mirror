@@ -15,9 +15,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	},
 	description: 'Last Updated filter open state',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });
 
 snapshotInformational(ConfluenceSearchConfigModal, {
@@ -30,9 +27,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	},
 	description: 'Last Updated filter open state with custom date pickers',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });
 
 snapshotInformational(ConfluenceSearchConfigModal, {
@@ -42,7 +36,4 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	},
 	description: 'Edited/Created by CLOL filter in open state',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });

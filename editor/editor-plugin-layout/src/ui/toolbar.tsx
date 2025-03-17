@@ -192,6 +192,7 @@ const getAdvancedLayoutItems = ({
 	separator,
 	deleteButton,
 	currentLayout,
+	allowAdvancedSingleColumnLayout,
 }: {
 	addSidebarLayouts: boolean;
 	intl: IntlShape;
@@ -202,6 +203,7 @@ const getAdvancedLayoutItems = ({
 	separator: FloatingToolbarSeparator;
 	deleteButton: FloatingToolbarButton<Command>;
 	currentLayout: string | undefined;
+	allowAdvancedSingleColumnLayout: boolean;
 }) => {
 	const numberOfColumns = node.content.childCount || 2;
 
@@ -239,11 +241,20 @@ const getAdvancedLayoutItems = ({
 		},
 	];
 
+	const singleColumnOption = allowAdvancedSingleColumnLayout
+		? {
+				title: intl.formatMessage(layoutMessages.columnOption, { count: 1 }), //'1-columns',
+				icon: iconPlaceholder,
+				onClick: setPresetLayout(editorAnalyticsAPI)('single'),
+				selected: numberOfColumns === 1,
+			}
+		: [];
+
 	return [
 		{
 			type: 'dropdown',
 			title: intl.formatMessage(layoutMessages.columnOption, { count: numberOfColumns }), //`${numberOfColumns}-columns`,
-			options: columnOptions,
+			options: [singleColumnOption, columnOptions].flat(),
 			showSelected: true,
 			testId: 'column-options-button',
 		},
@@ -267,7 +278,10 @@ export const buildToolbar = (
 	pos: number,
 	_allowBreakout: boolean,
 	addSidebarLayouts: boolean,
+	// This is the old allowSingleColumnLayout param which will be removed in the future
+	// It is kept for backwards compatibility and avoid unepxected behavior
 	allowSingleColumnLayout: boolean,
+	allowAdvancedSingleColumnLayout: boolean,
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined,
 ): FloatingToolbarConfig | undefined => {
 	const { hoverDecoration } = api?.decorations?.actions ?? {};
@@ -351,6 +365,7 @@ export const buildToolbar = (
 							separator,
 							deleteButton,
 							currentLayout,
+							allowAdvancedSingleColumnLayout,
 						})
 					: [
 							...layoutTypes.map((i) =>

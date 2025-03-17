@@ -5,7 +5,4 @@ import { JiraIssuesConfigModalNoJiraInstancesState } from '../../examples/vr/jir
 snapshot(JiraIssuesConfigModalNoJiraInstancesState, {
 	description: 'Jira issues config modal no jira instances view',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });

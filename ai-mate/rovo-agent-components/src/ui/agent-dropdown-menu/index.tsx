@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 

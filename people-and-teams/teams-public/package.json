@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:*",
+		"@atlaskit/avatar": "workspace:*",
 		"@atlaskit/button": "workspace:*",
 		"@atlaskit/css": "workspace:*",
 		"@atlaskit/heading": "workspace:*",
@@ -45,6 +46,7 @@
 		"@atlaskit/primitives": "workspace:*",
 		"@atlaskit/theme": "workspace:*",
 		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/tooltip": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
 		"graphql": "^15.8.0",
@@ -107,11 +109,14 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.10.1",
+	"version": "0.11.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
+	},
+	"scripts": {
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg"
 	}
 }

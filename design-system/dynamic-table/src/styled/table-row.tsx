@@ -54,12 +54,18 @@ const rowHighlightedBackgroundStyles = css({
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const TableBodyRow = forwardRef<HTMLTableRowElement, ITableRowProps>(
-	({ isHighlighted, children, style, testId, ...rest }, ref) => {
+	({ isHighlighted, children, style, testId, className, ...rest }, ref) => {
 		return (
 			<tr
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
 				css={[rowStyles, isHighlighted ? rowHighlightedBackgroundStyles : rowBackgroundStyles]}
+				/**
+				 * We rely on this `className` for the `RankableTableBodyRow` to apply extra styles.
+				 * With Compiled it needs to be statically analyzable. It does not get applied via spread props.
+				 */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
 				{...rest}
 				ref={ref}
 				data-testid={testId}

@@ -6,7 +6,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N20, N30A, N60, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -16,7 +15,6 @@ import type { DisplayViewModes } from '../../../../common/types';
 import { useUserInteractions } from '../../../../contexts/user-interactions';
 import { DisplayViewDropDown } from '../display-view-dropdown/display-view-drop-down';
 
-import { ModeSwitcherOld } from './modeSwitcherOld';
 import { useViewModeContext } from './useViewModeContext';
 
 export interface ModeSwitcherPropsOption<T extends string = string> {
@@ -114,7 +112,7 @@ const compactModeSwitcherLabelStyles = css({
 	paddingLeft: token('space.050', '4px'),
 });
 
-const ModeSwitcherNew = <T extends string = string>(props: ModeSwitcherProps<T>) => {
+export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>) => {
 	const {
 		isCompact,
 		isDisabled,
@@ -170,14 +168,6 @@ const ModeSwitcherNew = <T extends string = string>(props: ModeSwitcherProps<T>)
 			})}
 		</fieldset>
 	) : null;
-};
-
-export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps<T>) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ModeSwitcherNew {...props} />;
-	} else {
-		return <ModeSwitcherOld {...props} />;
-	}
 };
 
 export const DatasourceViewModeDropDown = () => {

@@ -77,9 +77,12 @@ describe('Errored view', () => {
 
 			it('should render a hover card when showHoverPreview prop is enabled', async () => {
 				render(
-					<Provider>
-						<InlineCardErroredView message="Error" showHoverPreview={true} url="www.test.com" />
-					</Provider>,
+					<IntlProvider locale="en">
+						<Provider>
+							<InlineCardErroredView message="Error" showHoverPreview={true} url="www.test.com" />
+						</Provider>
+						,
+					</IntlProvider>,
 				);
 				expect(await screen.findByTestId('hover-card-trigger-wrapper')).toBeInTheDocument();
 			});

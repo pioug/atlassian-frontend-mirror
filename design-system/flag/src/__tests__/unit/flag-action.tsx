@@ -2,11 +2,11 @@ import React from 'react';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
-import Box from '@atlaskit/primitives/box';
 import noop from '@atlaskit/ds-lib/noop';
+import { Box } from '@atlaskit/primitives/compiled';
 
-import { type AppearanceTypes, type FlagProps } from '../../types';
 import Flag from '../../flag';
+import { type AppearanceTypes, type FlagProps } from '../../types';
 
 describe('actions prop', () => {
 	const generateFlag = (extraProps: Partial<FlagProps>) => (

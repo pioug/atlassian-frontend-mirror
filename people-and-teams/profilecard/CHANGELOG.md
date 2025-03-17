@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 23.4.0
+
+### Minor Changes
+
+- [#123622](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123622)
+  [`8cb3a7a1f96a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cb3a7a1f96a9) -
+  [ux] Migrated old buttons to use @atlaskit/button/new; Migrated some icons
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.3.1
 
 ### Patch Changes

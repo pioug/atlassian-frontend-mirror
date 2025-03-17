@@ -117,13 +117,16 @@ describe('FlexibleCard', () => {
 			};
 
 			render(
-				<SmartCardProvider>
-					<FlexibleUiContext.Provider value={context}>
-						<FlexibleCard showHoverPreview={true} cardState={cardState} url={url}>
-							<TitleBlock />
-						</FlexibleCard>
-					</FlexibleUiContext.Provider>
-				</SmartCardProvider>,
+				<IntlProvider locale="en">
+					<SmartCardProvider>
+						<FlexibleUiContext.Provider value={context}>
+							<FlexibleCard showHoverPreview={true} cardState={cardState} url={url}>
+								<TitleBlock />
+							</FlexibleCard>
+						</FlexibleUiContext.Provider>
+					</SmartCardProvider>
+					,
+				</IntlProvider>,
 			);
 
 			expect(await screen.findByTestId('hover-card-trigger-wrapper')).toBeInTheDocument();

@@ -1,4 +1,8 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+	UserPreferencesProvider,
+} from '@atlaskit/editor-common/types';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
@@ -15,6 +19,7 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			 * Defaults to false
 			 */
 			preferenceToolbarAboveSelection?: boolean;
+			userPreferencesProvider?: UserPreferencesProvider;
 		};
 		dependencies: [OptionalPlugin<EditorViewModePlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
 		actions?: {

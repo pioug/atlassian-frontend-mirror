@@ -880,8 +880,7 @@ export const createPlugin = (
 					const draggable = dragging?.slice.content.firstChild;
 					if (
 						(dndDragCancelled && isMultiSelectEnabled) ||
-						(draggable?.type.name === 'layoutColumn' &&
-							fg('platform_editor_advanced_layouts_post_fix_patch_1'))
+						draggable?.type.name === 'layoutColumn'
 					) {
 						// we prevent native DnD for layoutColumn to prevent single column layout.
 						event.preventDefault();

@@ -2,11 +2,11 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import Box from '@atlaskit/primitives/box';
+import { Box } from '@atlaskit/primitives/compiled';
 
+import { AUTO_DISMISS_SECONDS } from '../../auto-dismiss-flag';
 import { AutoDismissFlag, FlagGroup } from '../../index';
 import { type AutoDismissFlagProps } from '../../types';
-import { AUTO_DISMISS_SECONDS } from '../../auto-dismiss-flag';
 
 describe('Auto dismiss flag', () => {
 	// Helper function to generate <AutoDismissFlag /> with base required props

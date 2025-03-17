@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
@@ -65,9 +66,12 @@ describe('ResolvedView', () => {
 
 	it('should render a hover preview when its prop is enabled and link is included', async () => {
 		render(
-			<Provider>
-				<InlineCardResolvedView showHoverPreview={true} link="www.test.com" />,
-			</Provider>,
+			<IntlProvider locale="en">
+				<Provider>
+					<InlineCardResolvedView showHoverPreview={true} link="www.test.com" />,
+				</Provider>
+				,
+			</IntlProvider>,
 		);
 		expect(await screen.findByTestId('hover-card-trigger-wrapper')).toBeInTheDocument();
 	});

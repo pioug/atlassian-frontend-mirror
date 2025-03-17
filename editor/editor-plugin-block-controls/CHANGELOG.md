@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.15
+
+### Patch Changes
+
+- [#127338](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127338)
+  [`2492ca26f15ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2492ca26f15ad) -
+  Change position of quick insert tooltip to ‘top’, changed icon color of quick insert to icon,
+  matches drag handle
+- Updated dependencies
+
+## 3.3.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.13
+
+### Patch Changes
+
+- [#126772](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126772)
+  [`c64847bdf13d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c64847bdf13d4) -
+  [ED-27001] This change is cleaning up the feature gate for a drag and drop bugfix to update the
+  drag preview for extensions with iFrames.
+- Updated dependencies
+
 ## 3.3.12
 
 ### Patch Changes

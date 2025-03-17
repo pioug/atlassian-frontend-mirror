@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.6
+
+### Patch Changes
+
+- [#126792](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126792)
+  [`ac38e3b73e5ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac38e3b73e5ab) -
+  add interactionName to Spinner
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

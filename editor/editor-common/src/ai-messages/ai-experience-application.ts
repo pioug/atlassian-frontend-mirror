@@ -62,6 +62,12 @@ export const aiExperienceApplicationMessages = defineMessages({
 		defaultMessage: 'Atlassian Intelligence',
 		description: 'Righthand side text for Rovo general knowledge suggestion',
 	},
+	actionsGroupHeading: {
+		id: 'fabric.editor.ai.experience.suggestionGroupHeading.actions',
+		defaultMessage: 'Actions',
+		description:
+			'Heading text to indicate that the next set of features are for general AI actions',
+	},
 	atlassianIntelligenceGroupHeading: {
 		id: 'fabric.editor.ai.experience.suggestionGroupHeading.atlassianIntelligence',
 		defaultMessage: 'Atlassian intelligence',
@@ -72,6 +78,11 @@ export const aiExperienceApplicationMessages = defineMessages({
 		id: 'fabric.editor.ai.experience.suggestionGroupHeading.knowledgeSource',
 		defaultMessage: 'Knowledge source',
 		description: 'Heading text to indicate that the next set of features are for Knowledge source',
+	},
+	studioGroupHeading: {
+		id: 'fabric.editor.ai.experience.suggestionGroupHeading.studio',
+		defaultMessage: 'Studio',
+		description: 'Heading text to indicate that the next set of features are related to agents.',
 	},
 	agentsSuggestionGroupHeading: {
 		id: 'fabric.editor.ai.experience.suggestionGroupHeading.agents',

@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { componentMetadata } from '../../analytics/constants';
@@ -23,7 +22,6 @@ import {
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import i18nEN from '../../i18n/en';
 import { StoreContainer } from '../../state';
-import { ScrollableContainerHeight } from '../../ui/issue-like-table/styled';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
@@ -33,12 +31,13 @@ import { IssueLikeDataTableView } from '../issue-like-table';
 import EmptyState from '../issue-like-table/empty-state';
 import { TableFooter } from '../table-footer';
 
-import { DatasourceTableViewOld } from './datasourceTableViewOld';
 import { type DatasourceTableViewProps } from './types';
 
 const containerStyles = css({
 	borderRadius: 'inherit',
 });
+
+const ScrollableContainerHeight = 590;
 
 const DatasourceTableViewWithoutAnalytics = ({
 	datasourceId,
@@ -223,7 +222,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	);
 };
 
-const DatasourceTableViewNew = withAnalyticsContext(componentMetadata.tableView)(
+export const DatasourceTableView = withAnalyticsContext(componentMetadata.tableView)(
 	(props: DatasourceTableViewProps) => (
 		<StoreContainer>
 			<DatasourceExperienceIdProvider>
@@ -232,11 +231,3 @@ const DatasourceTableViewNew = withAnalyticsContext(componentMetadata.tableView)
 		</StoreContainer>
 	),
 );
-
-export const DatasourceTableView = (props: DatasourceTableViewProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <DatasourceTableViewNew {...props} />;
-	} else {
-		return <DatasourceTableViewOld {...props} />;
-	}
-};

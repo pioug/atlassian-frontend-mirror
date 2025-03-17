@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 import { RichIconSearch } from '../../../../../common/ui/rich-icon/search';
 
 import { CrystalBallSVGOld } from './assets/crystal-ball-svg-old';
-import { InitialStateViewOld } from './initial-state-view-old';
 import { initialStateViewMessages } from './messages';
 
 const initialStateViewContainerStyles = css({
@@ -33,7 +32,7 @@ const searchTitleStyles = css({
 });
 const AQLSupportDocumentLink =
 	'https://support.atlassian.com/jira-service-management-cloud/docs/use-assets-query-language-aql/';
-export const InitialStateViewNew = () => {
+export const InitialStateView = () => {
 	const { formatMessage } = useIntl();
 	return (
 		<div
@@ -54,12 +53,4 @@ export const InitialStateViewNew = () => {
 			</div>
 		</div>
 	);
-};
-
-export const InitialStateView = () => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <InitialStateViewNew />;
-	} else {
-		return <InitialStateViewOld />;
-	}
 };

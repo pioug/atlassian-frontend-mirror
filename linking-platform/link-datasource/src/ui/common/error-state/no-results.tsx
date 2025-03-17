@@ -16,7 +16,6 @@ import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotSearchNoResult } from '../../../common/ui/spot/error-state/search-no-result';
 
 import { loadingErrorMessages } from './messages';
-import { NoResultsOld } from './no-results-old';
 
 const styles = cssMap({
 	noResultsContainerStyles: {
@@ -39,7 +38,7 @@ interface NoResultsProps {
 }
 
 const noop = () => '';
-export const NoResultsNew = ({ onRefresh }: NoResultsProps) => {
+export const NoResults = ({ onRefresh }: NoResultsProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const { formatMessage } = fg('bandicoots-update-sllv-icons')
@@ -215,12 +214,4 @@ export const NoResultsNew = ({ onRefresh }: NoResultsProps) => {
 			</Grid>
 		</Grid>
 	);
-};
-
-export const NoResults = (props: NoResultsProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <NoResultsNew {...props} />;
-	} else {
-		return <NoResultsOld {...props} />;
-	}
 };

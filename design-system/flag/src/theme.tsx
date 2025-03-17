@@ -5,7 +5,7 @@ import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import WarningIcon from '@atlaskit/icon/core/migration/warning';
-import { type BackgroundColor } from '@atlaskit/primitives';
+import { type BackgroundColor } from '@atlaskit/primitives/compiled';
 import { B400, N0, N30A, N500, N700, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

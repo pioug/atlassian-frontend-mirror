@@ -1,8 +1,9 @@
-import Box from '@atlaskit/primitives/box';
-import noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
+
+import noop from '@atlaskit/ds-lib/noop';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { type CreateFlagArgs, type DismissFn, FlagsProvider, useFlags } from '../../index';
 

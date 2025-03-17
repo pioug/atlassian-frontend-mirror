@@ -6,7 +6,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../src/constants';
@@ -19,8 +18,6 @@ import {
 } from '../../src/view/FlexibleCard/components/elements';
 import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-element-avatar-groupOld';
 
 const containerStyles = css({
 	display: 'flex',
@@ -53,9 +50,6 @@ const context = getContext({
 });
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<FlexibleUiContext.Provider value={context}>

@@ -7,7 +7,9 @@
  */
 //Finnish
 export default {
+  'ai-mate.agent-avatar-label': 'Asiakaspalvelijan profiilikuva',
   'ai-mate.agent-profile-info.created-by': 'Rovo-agentin tekijä: {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Tekijä',
   'ai-mate.agent-profile-info.deactivated': '(poistettu käytöstä)',
   'ai-mate.agent-profile-info.hidden-icon': 'Piilotettu',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Asiakaspalvelija ei näy hakutuloksissa',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Kirjoita päivitys viikostani',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Selaa asiakaspalvelijoita',
   'rovo-chat.browse-agents.copy-agent-label': 'Kopioi asiakaspalvelijan linkki',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Poista suosikeista',
   'rovo-chat.view-agent.chat-to-agent-button': 'Keskustele asiakaspalvelijan kanssa',
   'rovo-chat.view-agent.copy-link-to-profile': 'Kopioi linkki',
   'rovo-chat.view-agent.delete-agent': 'Poista asiakaspalvelija',

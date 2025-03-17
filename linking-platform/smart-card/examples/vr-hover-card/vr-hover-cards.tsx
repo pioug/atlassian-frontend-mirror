@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type JsonLd } from 'json-ld-types';
 
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
@@ -18,11 +17,14 @@ class CustomClient extends Client {
 	}
 }
 
+const styles = css({
+	marginTop: 250,
+});
+
 export default () => (
 	<VRTestWrapper>
 		<Provider client={new CustomClient('staging')}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ marginTop: 250 }}>
+			<div css={styles}>
 				<Card url={'https://www.mockurl.com'} appearance="inline" showHoverPreview={true} />
 			</div>
 		</Provider>

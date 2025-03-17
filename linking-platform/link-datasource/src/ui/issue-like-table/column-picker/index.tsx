@@ -7,7 +7,6 @@ import Button from '@atlaskit/button/new';
 import BoardIcon from '@atlaskit/icon/core/migration/board';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import {
 	CheckboxOption,
@@ -21,7 +20,6 @@ import Tooltip from '@atlaskit/tooltip';
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 
-import { ColumnPickerOld } from './column-picker-old';
 import { ConcatenatedMenuList } from './concatenated-menu-list';
 import { columnPickerMessages } from './messages';
 import { type ColumnPickerProps } from './types';
@@ -33,7 +31,7 @@ const styles = cssMap({
 	},
 });
 
-const ColumnPickerNew = ({
+export const ColumnPicker = ({
 	columns,
 	selectedColumnKeys,
 	onSelectedColumnKeysChange,
@@ -174,12 +172,4 @@ const ColumnPickerNew = ({
 			)}
 		/>
 	);
-};
-
-export const ColumnPicker = (props: ColumnPickerProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ColumnPickerNew {...props} />;
-	} else {
-		return <ColumnPickerOld {...props} />;
-	}
 };

@@ -5,7 +5,6 @@
 import { jsx, styled } from '@compiled/react';
 
 import Form, { type OnSubmitHandler } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -13,7 +12,6 @@ import type { ObjectSchema, SearchForm } from '../../../types/assets/types';
 
 import { AqlSearchInput } from './aql-search-input';
 import { AssetsObjectSchemaSelect } from './object-schema-select';
-import { AssetsSearchContainerOld } from './search-container-old';
 import { FormRowContainer } from './styled';
 
 export type InitialSearchData = {
@@ -47,7 +45,7 @@ const FormContainer = styled.form({
 	width: '100%',
 });
 
-export const AssetsSearchContainerNew = (props: SearchContainerProps) => {
+export const AssetsSearchContainer = (props: SearchContainerProps) => {
 	const { onSearch, workspaceId, initialSearchData, modalTitle, isSearching } = props;
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -86,12 +84,4 @@ export const AssetsSearchContainerNew = (props: SearchContainerProps) => {
 			)}
 		</Form>
 	);
-};
-
-export const AssetsSearchContainer = (props: SearchContainerProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <AssetsSearchContainerNew {...props} />;
-	} else {
-		return <AssetsSearchContainerOld {...props} />;
-	}
 };

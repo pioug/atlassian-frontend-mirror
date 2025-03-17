@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -29,7 +28,6 @@ import {
 } from '../types';
 
 import { buildJQL } from './buildJQL';
-import { JiraSearchContainerOld } from './jira-search-container-old';
 import { modeSwitcherMessages } from './messages';
 
 const styles = cssMap({
@@ -67,7 +65,7 @@ export interface SearchContainerProps {
 	site?: Site;
 }
 
-export const JiraSearchContainerNew = (props: SearchContainerProps) => {
+export const JiraSearchContainer = (props: SearchContainerProps) => {
 	const {
 		isSearching,
 		parameters,
@@ -311,12 +309,4 @@ export const JiraSearchContainerNew = (props: SearchContainerProps) => {
 			/>
 		</div>
 	);
-};
-
-export const JiraSearchContainer = (props: SearchContainerProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <JiraSearchContainerNew {...props} />;
-	} else {
-		return <JiraSearchContainerOld {...props} />;
-	}
 };

@@ -1,14 +1,14 @@
-import noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Box } from '@atlaskit/primitives';
+import noop from '@atlaskit/ds-lib/noop';
+import { Box } from '@atlaskit/primitives/compiled';
 
-import { type FlagProps } from '../../types';
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';
+import { type FlagProps } from '../../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

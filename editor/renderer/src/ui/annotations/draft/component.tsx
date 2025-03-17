@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { token } from '@atlaskit/tokens';
 import React, { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -18,6 +19,7 @@ import type { TextHighlighter } from '../../../react/types';
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import { segmentText } from '../../../react/utils/segment-text';
 import { renderTextSegments } from '../../../react/utils/render-text-segments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const markStyles = () =>
@@ -33,14 +35,39 @@ const markStyles = () =>
 		AnnotationSharedCSSByState().focus,
 	);
 
+// Localized AnnotationSharedCSSByState().common and AnnotationSharedCSSByState().focus
+const markStylesNew = css({
+	color: 'inherit',
+	backgroundColor: 'unset',
+	WebkitTapHighlightColor: 'transparent',
+	borderBottom: '2px solid transparent',
+	cursor: 'pointer',
+	padding: '1px 0 2px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:has(.card), &:has([data-inline-card])': {
+		padding: '5px 0 3px 0',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:has(.date-lozenger-container)': {
+		paddingTop: token('space.025', '2px'),
+	},
+	background: token('color.background.accent.yellow.subtlest.pressed'),
+	borderBottomColor: token('color.border.accent.yellow'),
+	boxShadow: token('elevation.shadow.overlay'),
+});
+
 export const AnnotationDraft = ({
 	draftPosition,
 	children,
 }: React.PropsWithChildren<{ draftPosition: Position }>) => {
 	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<mark data-renderer-mark={true} {...dataAttributes(draftPosition)} css={markStyles}>
+		<mark
+			data-renderer-mark={true}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...dataAttributes(draftPosition)}
+			css={fg('platform_editor_emotion_refactor_renderer') ? markStylesNew : markStyles}
+		>
 			{children}
 		</mark>
 	);

@@ -7,7 +7,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { insideTable } from '@atlaskit/editor-common/core-utils';
+import { insideTable, isSSR } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -130,6 +130,25 @@ export const createPlugin = (
 
 		return editorView.state;
 	};
+
+	const nodeViews =
+		isSSR() && fg('platform_editor_table_fallback_to_dom_on_ssr')
+			? undefined
+			: {
+					table: lazyTableView({
+						portalProviderAPI,
+						eventDispatcher,
+						getEditorContainerWidth,
+						getEditorFeatureFlags,
+						dispatchAnalyticsEvent,
+						pluginInjectionApi,
+						isCommentEditor,
+						isChromelessEditor,
+					}),
+					tableRow: lazyTableRowView({ eventDispatcher }),
+					tableCell: lazyTableCellView({ eventDispatcher, pluginInjectionApi }),
+					tableHeader: lazyTableHeaderView({ eventDispatcher, pluginInjectionApi }),
+				};
 	return new SafePlugin({
 		state: state,
 		key: pluginKey,
@@ -380,21 +399,7 @@ export const createPlugin = (
 				}
 				return false;
 			},
-			nodeViews: {
-				table: lazyTableView({
-					portalProviderAPI,
-					eventDispatcher,
-					getEditorContainerWidth,
-					getEditorFeatureFlags,
-					dispatchAnalyticsEvent,
-					pluginInjectionApi,
-					isCommentEditor,
-					isChromelessEditor,
-				}),
-				tableRow: lazyTableRowView({ eventDispatcher }),
-				tableCell: lazyTableCellView({ eventDispatcher, pluginInjectionApi }),
-				tableHeader: lazyTableHeaderView({ eventDispatcher, pluginInjectionApi }),
-			},
+			nodeViews,
 			handleDOMEvents: {
 				focus: handleFocus,
 				blur: handleBlur,

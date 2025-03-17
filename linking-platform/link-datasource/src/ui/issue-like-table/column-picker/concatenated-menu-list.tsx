@@ -5,12 +5,10 @@
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { components, type MenuListComponentProps, type OptionType } from '@atlaskit/select';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import { ConcatenatedMenuListOld } from './concatenated-menu-list-old';
 import { columnPickerMessages } from './messages';
 
 export const SELECT_ITEMS_MAXIMUM_THRESHOLD = 200;
@@ -22,7 +20,7 @@ const messageStyles = css({
 	fontWeight: token('font.weight.regular', '400'),
 });
 
-const ConcatenatedMenuListNew = ({
+export const ConcatenatedMenuList = ({
 	children,
 	...props
 }: MenuListComponentProps<OptionType, true>) => {
@@ -51,12 +49,4 @@ const ConcatenatedMenuListNew = ({
 			{maximumLimitReachedMessage}
 		</components.MenuList>
 	);
-};
-
-export const ConcatenatedMenuList = (props: MenuListComponentProps<OptionType, true>) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ConcatenatedMenuListNew {...props} />;
-	} else {
-		return <ConcatenatedMenuListOld {...props} />;
-	}
 };

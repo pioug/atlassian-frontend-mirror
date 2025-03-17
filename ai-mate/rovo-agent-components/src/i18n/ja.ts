@@ -7,7 +7,9 @@
  */
 //Japanese
 export default {
+  'ai-mate.agent-avatar-label': 'エージェントのアバター',
   'ai-mate.agent-profile-info.created-by': '{creatorNameWithLink} さんによる Rovo エージェント',
+  'ai-mate.agent-profile-info.creator': '作成者',
   'ai-mate.agent-profile-info.deactivated': '(非アクティブ)',
   'ai-mate.agent-profile-info.hidden-icon': '非表示',
   'ai-mate.agent-profile-info.hidden-tooltip': 'エージェントは検索結果に表示されません',
@@ -21,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': '私の今週の作業のまとめを書いてください',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'エージェントを参照する',
   'rovo-chat.browse-agents.copy-agent-label': 'エージェントへのリンクをコピー',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'お気に入りから削除',
   'rovo-chat.view-agent.chat-to-agent-button': 'エージェントとチャット',
   'rovo-chat.view-agent.copy-link-to-profile': 'リンクをコピー',
   'rovo-chat.view-agent.delete-agent': 'エージェントを削除',

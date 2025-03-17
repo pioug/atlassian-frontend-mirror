@@ -4,16 +4,14 @@
  */
 import { type ReactElement, type SyntheticEvent, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
+import { cssMap, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import { AppearanceArray, type AppearanceTypes } from '@atlaskit/flag/types';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Warning from '@atlaskit/icon/glyph/warning';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -22,9 +20,11 @@ type Appearances<Keys extends AppearanceTypes> = {
 	[K in Keys]: { description?: string; title: string; actions?: any[] };
 };
 
-const infoWrapperStyles = xcss({
-	width: 'size.300',
-	height: 'size.300',
+const styles = cssMap({
+	infoWrapper: {
+		width: '2rem',
+		height: '2rem',
+	},
 });
 
 const appearances: Appearances<AppearanceTypes> = {
@@ -62,7 +62,7 @@ const iconMap = (key: string) => {
 	const icons: { [key: string]: ReactElement } = {
 		normal: <Tick label="Success" primaryColor={token('color.icon.success')} />,
 		info: (
-			<Box xcss={infoWrapperStyles}>
+			<Box xcss={styles.infoWrapper}>
 				<Spinner size="small" appearance="invert" />
 			</Box>
 		),

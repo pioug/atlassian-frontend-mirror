@@ -207,48 +207,10 @@ const layoutWithSeparatorBorderResponsiveStyles = (
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => {
-	if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-		// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-		return css`
-			&.selected [data-layout-column]:not(:first-of-type),
-			[data-empty-layout='true'] [data-layout-column]:not(:first-of-type),
-			&:hover [data-layout-column]:not(:first-of-type) {
-				${columnSeparatorStyles(viewMode)}
-			}
-
-			&.selected.danger [data-layout-section] {
-				background-color: ${token('color.background.danger', akEditorDeleteBackground)};
-
-				box-shadow: 0 0 0 ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px
-					${akEditorDeleteBorder};
-				border-radius: 4px;
-				[data-layout-column]:not(:first-of-type) {
-					${columnSeparatorStyles(viewMode)}
-				}
-			}
-
-			&.${akEditorSelectedNodeClassName}:not(.danger) [data-layout-section] {
-				box-shadow: 0 0 0 ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px
-					${token('color.border.selected')};
-				border-radius: 4px;
-				background-color: ${token('color.background.selected')};
-				[data-layout-column] {
-					${getSelectionStyles([SelectionStyle.Blanket])}
-					border: 0px;
-					::before {
-						background-color: transparent;
-					}
-				}
-				[data-layout-column]:not(:first-of-type) {
-					${columnSeparatorStyles(viewMode)}
-				}
-			}
-		`;
-	}
-
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 	return css`
 		&.selected [data-layout-column]:not(:first-of-type),
+		[data-empty-layout='true'] [data-layout-column]:not(:first-of-type),
 		&:hover [data-layout-column]:not(:first-of-type) {
 			${columnSeparatorStyles(viewMode)}
 		}

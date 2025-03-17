@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 68.0.5
+
+### Patch Changes
+
+- [#126792](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126792)
+  [`ac38e3b73e5ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac38e3b73e5ab) -
+  add interactionName to Spinner
+
 ## 68.0.4
 
 ### Patch Changes

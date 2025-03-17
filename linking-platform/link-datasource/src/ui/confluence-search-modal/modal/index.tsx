@@ -47,7 +47,6 @@ import {
 
 import { ConfluenceSearchInitialStateSVGOld } from './confluence-search-initial-state-svg-old';
 import { confluenceSearchModalMessages } from './messages';
-import { ConfluenceSearchConfigModalOld, PlainConfluenceSearchConfigModalOld } from './modal-old';
 
 const styles = cssMap({
 	inputContainerStyles: {
@@ -66,7 +65,7 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 
 const noop = () => '';
 
-export const PlainConfluenceSearchConfigModalNew = (
+export const PlainConfluenceSearchConfigModal = (
 	props: ConnectedConfluenceSearchConfigModalProps,
 ) => {
 	const { onCancel, url: urlBeingEdited, overrideParameters } = props;
@@ -442,24 +441,14 @@ export const PlainConfluenceSearchConfigModalNew = (
 	);
 };
 
-export const PlainConfluenceSearchConfigModal = (
-	props: ConnectedConfluenceSearchConfigModalProps,
-) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <PlainConfluenceSearchConfigModalNew {...props} />;
-	} else {
-		return <PlainConfluenceSearchConfigModalOld {...props} />;
-	}
-};
-
 const ConnectedConfluenceSearchConfigModal =
 	createDatasourceModal<ConfluenceSearchDatasourceParameters>({
 		isValidParameters,
 		dataProvider: 'confluence-search',
-		component: PlainConfluenceSearchConfigModalNew,
+		component: PlainConfluenceSearchConfigModal,
 	});
 
-export const ConfluenceSearchConfigModalNew = (props: ConfluenceSearchConfigModalProps) => {
+export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
 	return (
 		<StoreContainer>
 			<ConnectedConfluenceSearchConfigModal
@@ -477,12 +466,4 @@ export const ConfluenceSearchConfigModalNew = (props: ConfluenceSearchConfigModa
 			/>
 		</StoreContainer>
 	);
-};
-
-export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ConfluenceSearchConfigModalNew {...props} />;
-	} else {
-		return <ConfluenceSearchConfigModalOld {...props} />;
-	}
 };

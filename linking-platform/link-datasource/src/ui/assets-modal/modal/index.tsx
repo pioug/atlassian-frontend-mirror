@@ -18,7 +18,6 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
@@ -56,7 +55,6 @@ import { AssetsSearchContainerLoading } from '../search-container/loading-state'
 import { type AssetsConfigModalProps, type AssetsDatasourceParameters } from '../types';
 
 import { modalMessages } from './messages';
-import { AssetsConfigModalOld } from './modal-old';
 import { RenderAssetsContent } from './render-assets-content';
 
 type ErrorState = 'permission' | 'network';
@@ -490,7 +488,7 @@ const contextData = {
 	},
 };
 
-export const AssetsConfigModalNew = withAnalyticsContext(contextData)(
+export const AssetsConfigModal = withAnalyticsContext(contextData)(
 	(props: AssetsConfigModalProps) => (
 		<StoreContainer>
 			<DatasourceExperienceIdProvider>
@@ -501,11 +499,3 @@ export const AssetsConfigModalNew = withAnalyticsContext(contextData)(
 		</StoreContainer>
 	),
 );
-
-export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <AssetsConfigModalNew {...props} />;
-	} else {
-		return <AssetsConfigModalOld {...props} />;
-	}
-};

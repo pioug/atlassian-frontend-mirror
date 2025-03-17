@@ -35,6 +35,9 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/avatar/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
@@ -53,9 +56,6 @@
 			"path": "../../design-system/link/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/logo/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
@@ -66,7 +66,10 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tooltip/tsconfig.app.json"
 		}
 	],
-	"files": []
+	"files": ["../../../typings/svg.d.ts"]
 }

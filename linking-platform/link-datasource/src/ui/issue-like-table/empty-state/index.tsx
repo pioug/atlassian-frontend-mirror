@@ -1,18 +1,14 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
+import { css, jsx, styled } from '@compiled/react';
 
 import { Skeleton } from '@atlaskit/linking-common';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { TableHeading } from '../styled';
-
-import EmptyStateOld from './empty-state-old';
 
 type Column = Omit<DatasourceResponseSchemaProperty, 'type' | 'title'> & {
 	width: number;
@@ -121,6 +117,66 @@ export interface Props {
 	testId?: string;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
+const TableHeading = styled.th({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &, .ProseMirror .pm-table-wrapper > table thead &, &': {
+		border: 0,
+		position: 'relative',
+		/* This makes resizing work with out jumping due to padding + changes overall width for same default values. */
+		boxSizing: 'border-box',
+		lineHeight: '24px',
+		paddingTop: token('space.025', '2px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: token('space.050', '4px'),
+		borderRight: `0.5px solid ${token('color.border', N40)}`,
+		borderBottom: `2px solid ${token('color.border', N40)}`,
+		/*
+      lineHeight * 2 -> Max height of two lined header
+      verticalPadding * 2 -> padding for this component itself
+      verticalPadding * 2 -> padding inside span (--container)
+      2px -> Bottom border
+      Last two terms are needed because of border-box box sizing.
+    */
+		height: `calc(24px * 2 + ${token('space.025', '2px')} * 4 + 2px)`,
+		verticalAlign: 'bottom',
+		backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), .ProseMirror .pm-table-wrapper > table thead.has-column-picker &:nth-last-of-type(2), thead.has-column-picker &:nth-last-of-type(2)':
+		{
+			borderRight: 0,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &:first-of-type, .ProseMirror .pm-table-wrapper > table thead &:first-of-type, &:first-of-type':
+		{
+			paddingLeft: token('space.050', '4px'),
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.pm-table-wrapper > table thead &:last-of-type, .ProseMirror .pm-table-wrapper > table thead &:last-of-type, &:last-of-type':
+		{
+			borderRight: 0,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	"& [data-testid='datasource-header-content--container']": {
+		width: '100%',
+		/* With Button now being a parent for this component it adds its lineHeight value and spoils
+      `height` calculation above. */
+		lineHeight: '24px',
+		paddingTop: token('space.025', '2px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: token('space.050', '4px'),
+		display: '-webkit-box',
+		WebkitLineClamp: 2,
+		WebkitBoxOrient: 'vertical',
+		whiteSpace: 'normal',
+		overflow: 'hidden',
+		wordWrap: 'break-word',
+	},
+});
+
 const EmptyState = ({ isCompact, testId }: Props) => {
 	const columnsToRender = isCompact ? baseColumns.slice(0, 6) : baseColumns;
 	// if it is compact (non-modal), there is room for 14 rows
@@ -179,12 +235,4 @@ const EmptyState = ({ isCompact, testId }: Props) => {
 	);
 };
 
-const EmptyStateExported = (props: Props) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <EmptyState {...props} />;
-	} else {
-		return <EmptyStateOld {...props} />;
-	}
-};
-
-export default EmptyStateExported;
+export default EmptyState;

@@ -742,6 +742,7 @@ export default function SSRTableBasic() {
 			}}
 			featureFlags={{
 				platform_editor_table_layout_shift_fix: true,
+				platform_editor_table_fallback_to_dom_on_ssr: true,
 			}}
 		/>
 	);

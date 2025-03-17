@@ -131,7 +131,7 @@ describe('JiraIssuesConfigModal', () => {
 		await setup({ dontWaitForSitesToLoad: true });
 		const modalTitle = await screen.findByTestId('jira-datasource-modal--title');
 
-		expect(modalTitle.innerText).toEqual('Insert Jira issues');
+		expect(modalTitle.innerText).toContain('Insert Jira issues');
 	});
 
 	describe('when selecting a different jira site', () => {

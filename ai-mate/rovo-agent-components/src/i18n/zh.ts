@@ -7,7 +7,9 @@
  */
 //Chinese (Simplified)
 export default {
+  'ai-mate.agent-avatar-label': '支持人员头像',
   'ai-mate.agent-profile-info.created-by': 'Rovo 支持人员创建者：{creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': '创建者',
   'ai-mate.agent-profile-info.deactivated': '（已停用）',
   'ai-mate.agent-profile-info.hidden-icon': '隐藏',
   'ai-mate.agent-profile-info.hidden-tooltip': '支持人员不会显示在搜索结果中',
@@ -21,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': '撰写我这一周的最新情况',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': '浏览支持人员',
   'rovo-chat.browse-agents.copy-agent-label': '复制支持人员链接',
+  'rovo-chat.browse-agents.remove-from-favourites-label': '从收藏夹中移除',
   'rovo-chat.view-agent.chat-to-agent-button': '与支持人员聊天',
   'rovo-chat.view-agent.copy-link-to-profile': '复制链接',
   'rovo-chat.view-agent.delete-agent': '删除支持人员',

@@ -5,6 +5,10 @@ import {
 	BackgroundColorCustomColors,
 } from './highlight.fixture';
 
+const featureFlags = {
+	editor_inline_comments_on_inline_nodes: [true, false],
+};
+
 snapshot(BackgroundColorDefinedColors, {
 	description: 'should render six defined highlight text colors',
 	variants: [
@@ -19,6 +23,7 @@ snapshot(BackgroundColorDefinedColors, {
 			},
 		},
 	],
+	featureFlags,
 });
 
 snapshot(BackgroundColorOverlapped, {
@@ -35,6 +40,7 @@ snapshot(BackgroundColorOverlapped, {
 			},
 		},
 	],
+	featureFlags,
 });
 
 snapshot(BackgroundColorCustomColors, {
@@ -51,4 +57,5 @@ snapshot(BackgroundColorCustomColors, {
 			},
 		},
 	],
+	featureFlags,
 });

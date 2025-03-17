@@ -17,7 +17,7 @@ export default {
   'fabric.elements.share.form.info.message.no.invite.confluence': 'ผู้รับจะเห็นชื่อของหน้าข้อมูลและข้อความของคุณ',
   'fabric.elements.share.form.info.message.no.invite.jira': 'ผู้รับจะเห็นชื่อของปัญหาและข้อความของคุณ',
   'fabric.elements.share.form.info.message.no.invite.jira.issue-term-refresh':
-    'ผู้รับจะเห็นชื่อของรายการตั๋วและข้อความของคุณ',
+    'ผู้รับจะเห็นชื่อของตั๋วและข้อความของคุณ',
   'fabric.elements.share.form.no-permissions': 'คุณไม่มีสิทธิ์ในการแชร์',
   'fabric.elements.share.form.public.send': 'ส่งลิงก์สาธารณะ',
   'fabric.elements.share.form.public.share': 'แชร์ลิงก์สาธารณะ',

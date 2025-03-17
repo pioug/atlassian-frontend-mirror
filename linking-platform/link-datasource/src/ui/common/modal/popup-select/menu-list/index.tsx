@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { components, type MenuListComponentProps } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
@@ -11,7 +10,6 @@ import { type SelectOption } from '../types';
 
 import CustomErrorMessage from './errorMessage';
 import CustomDropdownLoadingMessage from './loadingMessage';
-import CustomMenuListOld from './menuListOld';
 import CustomNoOptionsMessage from './noOptionsMessage';
 import ShowMoreButton from './showMoreButton';
 
@@ -90,12 +88,4 @@ const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOpt
 	return <components.MenuList {...props}>{renderChildren()}</components.MenuList>;
 };
 
-export const CustomMenuListExported = (props: MenuListComponentProps<SelectOption, true>) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <CustomMenuList {...props} />;
-	} else {
-		return <CustomMenuListOld {...props} />;
-	}
-};
-
-export default CustomMenuListExported;
+export default CustomMenuList;

@@ -53,6 +53,7 @@ import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inlin
 import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 export type MediaProps = MediaCardProps & {
 	providers?: ProviderFactory;
@@ -81,21 +82,22 @@ type Providers = {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const linkStyle = css`
-	position: absolute;
-	background: transparent;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	cursor: pointer;
-	width: 100% !important;
-	height: 100% !important;
-`;
+const linkStyle = css({
+	position: 'absolute',
+	background: 'transparent',
+	top: 0,
+	right: 0,
+	bottom: 0,
+	left: 0,
+	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	width: '100% !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	height: '100% !important',
+});
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-const borderStyle = (color: string, width: number) => css`
+const borderStyleOld = (color: string, width: number) => css`
 	position: absolute;
 	width: 100% !important;
 	height: 100% !important;
@@ -103,7 +105,15 @@ const borderStyle = (color: string, width: number) => css`
 	box-shadow: 0 0 0 ${width}px ${color};
 `;
 
-const MediaBorder = ({
+const borderStyleNew = css({
+	position: 'absolute',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	width: '100% !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	height: '100% !important',
+});
+
+const MediaBorderOld = ({
 	mark,
 	children,
 }: React.PropsWithChildren<{
@@ -124,13 +134,51 @@ const MediaBorder = ({
 			data-color={borderColor}
 			data-size={borderWidth}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={borderStyle(paletteColorValue, borderWidth)}
+			css={borderStyleOld(paletteColorValue, borderWidth)}
 		>
 			<MediaBorderGapFiller borderColor={borderColor} />
 			{children}
 		</div>
 	);
 };
+
+const MediaBorderNew = ({
+	mark,
+	children,
+}: React.PropsWithChildren<{
+	mark?: BorderMarkDefinition;
+}>): JSX.Element => {
+	if (!mark) {
+		return <Fragment>{children}</Fragment>;
+	}
+
+	const borderColor = mark?.attrs.color ?? '';
+	const borderWidth = mark?.attrs.size ?? 0;
+
+	const paletteColorValue = hexToEditorBorderPaletteColor(borderColor) || borderColor;
+
+	return (
+		<div
+			data-mark-type="border"
+			data-color={borderColor}
+			data-size={borderWidth}
+			css={borderStyleNew}
+			style={{
+				borderRadius: `${borderWidth}px`,
+				boxShadow: `0 0 0 ${borderWidth}px ${paletteColorValue}`,
+			}}
+		>
+			<MediaBorderGapFiller borderColor={borderColor} />
+			{children}
+		</div>
+	);
+};
+
+const MediaBorder = componentWithFG(
+	'platform_editor_emotion_refactor_renderer',
+	MediaBorderNew,
+	MediaBorderOld,
+);
 
 const MediaLink = ({
 	mark,

@@ -2,18 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { InlineCardResolvedView as ResolvedView } from '../../src/view/InlineCard/ResolvedView';
 import { VRTestCase } from '../utils/common';
+
+const styles = css({
+	maxWidth: '50px',
+});
 
 export default () => {
 	return (
 		<VRTestCase title="Inline card text wrap">
 			{() => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<div style={{ maxWidth: '50px' }}>
+				<div css={styles}>
 					<ResolvedView
 						isSelected={false}
 						icon={'broken-url'}

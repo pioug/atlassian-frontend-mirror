@@ -4,6 +4,9 @@ import FlexibleCardAction from '../../../examples/vr-flexible-card/vr-flexible-u
 
 snapshot(FlexibleCardAction, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
 	},
+	waitForReactLazy: true,
 });

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.1.0
+
+### Minor Changes
+
+- [#126588](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126588)
+  [`d4160d5f8b246`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4160d5f8b246) -
+  ED-26876 implement editor api for user preference
+
+### Patch Changes
+
+- [#126588](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126588)
+  [`d4160d5f8b246`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4160d5f8b246) -
+  ED-26876 add tests for selectionToolbarPlugin
+- Updated dependencies
+
+## 2.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.8
 
 ### Patch Changes

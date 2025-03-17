@@ -13,7 +13,6 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LayoutPlugin } from '../layoutPluginType';
 import { type LayoutPluginOptions } from '../types';
@@ -140,10 +139,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 			props.eventDispatcher,
 			props,
 		);
-		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-			this.isEmpty = isEmptyLayout(this.node);
-		}
-
+		this.isEmpty = isEmptyLayout(this.node);
 		this.options = props.options;
 	}
 
@@ -157,9 +153,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.layoutDOM = container.querySelector('[data-layout-section]') as HTMLElement;
 		this.layoutDOM.setAttribute('data-column-rule-style', this.node.attrs.columnRuleStyle);
-		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-			this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
-		}
+		this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
 
 		return { dom: container, contentDOM };
 	}
@@ -171,11 +165,9 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	}
 
 	render(props: LayoutSectionViewProps, forwardRef: ForwardRef) {
-		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-			this.isEmpty = isEmptyLayout(this.node);
-			if (this.layoutDOM) {
-				this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
-			}
+		this.isEmpty = isEmptyLayout(this.node);
+		if (this.layoutDOM) {
+			this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
 		}
 
 		return (

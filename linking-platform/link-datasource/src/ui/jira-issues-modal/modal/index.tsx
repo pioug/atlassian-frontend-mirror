@@ -63,7 +63,6 @@ import {
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
-import { JiraIssuesConfigModalOld } from './modal-old';
 
 const noop = () => '';
 
@@ -550,7 +549,7 @@ const ConnectedJiraIssueConfigModal = createDatasourceModal({
 	component: PlainJiraIssuesConfigModal,
 });
 
-const JiraIssuesConfigModalWithExtraAnalyticsOnInsert = (props: JiraConfigModalProps) => {
+export const JiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 	const onInsert = props.onInsert;
 	const onInsertWithMacroAnalytics = useCallback<typeof onInsert>(
 		(adf, analyticsEvent) => {
@@ -574,12 +573,4 @@ const JiraIssuesConfigModalWithExtraAnalyticsOnInsert = (props: JiraConfigModalP
 			<ConnectedJiraIssueConfigModal {...props} onInsert={onInsertWithMacroAnalytics} />
 		</StoreContainer>
 	);
-};
-
-export const JiraIssuesConfigModal = (props: JiraConfigModalProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <JiraIssuesConfigModalWithExtraAnalyticsOnInsert {...props} />;
-	} else {
-		return <JiraIssuesConfigModalOld {...props} />;
-	}
 };

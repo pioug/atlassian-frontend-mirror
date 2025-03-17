@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import Popup from '@atlaskit/popup';
 
 import { ActionName, CardDisplay } from '../../../constants';
+import { messages } from '../../../messages';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
@@ -11,6 +14,7 @@ import CustomPopupContainer from '../components/CustomPopupContainer';
 import HoverCardContent from '../components/HoverCardContent';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
+
 export const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
 const FADE_IN_DELAY = 500;
@@ -40,6 +44,7 @@ export const HoverCardComponent = ({
 	const mousePos = useRef<{ x: number; y: number }>();
 	const popupOffset = useRef<[number, number]>();
 	const parentSpan = useRef<HTMLSpanElement>(null);
+	const { formatMessage } = useIntl();
 
 	const renderers = useSmartLinkRenderers();
 	const linkState = useLinkState(url);
@@ -228,12 +233,21 @@ export const HoverCardComponent = ({
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
 					data-testid="hover-card-trigger-wrapper"
+					aria-label={formatMessage(messages.more_information_about_this_work_item)}
 				>
 					{children}
 				</span>
 			</span>
 		),
-		[children, initHideCard, initShowCard, onChildClick, onContextMenuClick, setMousePosition],
+		[
+			children,
+			initHideCard,
+			initShowCard,
+			onChildClick,
+			onContextMenuClick,
+			setMousePosition,
+			formatMessage,
+		],
 	);
 
 	return (

@@ -36,6 +36,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 	const __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
 
+	const { userPreferencesProvider } = config;
+
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 		primaryToolbarComponent = ({
 			popupsBoundariesElement,
@@ -67,7 +69,11 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				return api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
 			},
 			setToolbarDocking: (toolbarDocking: ToolbarDocking) => {
-				return api?.core.actions.execute(setToolbarDocking({ toolbarDocking })) ?? false;
+				return (
+					api?.core.actions.execute(
+						setToolbarDocking({ toolbarDocking, userPreferencesProvider }),
+					) ?? false
+				);
 			},
 		},
 
@@ -92,12 +98,18 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							key: selectionToolbarPluginKey,
 							state: {
 								init(): SelectionToolbarPluginState {
+									let toolbarDocking: ToolbarDocking = 'top';
+
+									if (editorExperiment('platform_editor_controls', 'variant1')) {
+										toolbarDocking =
+											userPreferencesProvider?.getPreference('toolbarDockingInitialPosition') ||
+											'none';
+									}
+
 									return {
 										selectionStable: false,
 										hide: false,
-										toolbarDocking: editorExperiment('platform_editor_controls', 'variant1')
-											? 'none'
-											: 'top',
+										toolbarDocking,
 									};
 								},
 								apply(tr, pluginState: SelectionToolbarPluginState) {

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.37.12
+
+### Patch Changes
+
+- [#124902](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124902)
+  [`c4efc9298dbec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4efc9298dbec) -
+  Remove (most) workarounds on Text component
+
 ## 0.37.11
 
 ### Patch Changes

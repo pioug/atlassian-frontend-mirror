@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import ActionGroup from '../../src/view/FlexibleCard/components/blocks/action-group';
@@ -15,8 +14,6 @@ import {
 } from '../utils/flexible-ui';
 import VrExpandDropdownMenuWrapper from '../utils/vr-expand-dropdown-menu-wrapper';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-block-action-groupOld';
 
 // Override the padding that came with new vr wrapper
 const containerStyles = css({
@@ -30,9 +27,6 @@ const containerStyles = css({
 });
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<div css={containerStyles}>

@@ -16,7 +16,6 @@ import { token } from '@atlaskit/tokens';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 
-import { LoadingErrorOld } from './loading-error-old';
 import { LoadingErrorSVGOld } from './loading-error-svg-old';
 import { loadingErrorMessages } from './messages';
 
@@ -42,7 +41,7 @@ interface LoadingErrorProps {
 	onRefresh?: () => void;
 }
 
-export const LoadingErrorNew = ({ onRefresh }: LoadingErrorProps) => {
+export const LoadingError = ({ onRefresh }: LoadingErrorProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	useEffect(() => {
@@ -73,12 +72,4 @@ export const LoadingErrorNew = ({ onRefresh }: LoadingErrorProps) => {
 			</Box>
 		</Box>
 	);
-};
-
-export const LoadingError = (props: LoadingErrorProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <LoadingErrorNew {...props} />;
-	} else {
-		return <LoadingErrorOld {...props} />;
-	}
 };

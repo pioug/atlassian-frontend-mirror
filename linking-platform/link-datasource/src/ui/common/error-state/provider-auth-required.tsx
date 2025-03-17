@@ -19,7 +19,6 @@ import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import useErrorLogger from '../../../hooks/useErrorLogger';
 
 import { loadingErrorMessages } from './messages';
-import { ProviderAuthRequiredOld } from './provider-auth-required-old';
 import { ProviderAuthRequiredSVG } from './provider-auth-required-svg';
 
 const buttonStyles = css({
@@ -38,7 +37,7 @@ interface ProviderAuthRequiredProps {
 	datasourceId: string;
 }
 
-export const ProviderAuthRequiredNew = ({
+export const ProviderAuthRequired = ({
 	auth = [],
 	onAuthSuccess,
 	onAuthError,
@@ -106,12 +105,4 @@ export const ProviderAuthRequiredNew = ({
 			primaryAction={renderAuthConnectButton()}
 		/>
 	);
-};
-
-export const ProviderAuthRequired = (props: ProviderAuthRequiredProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ProviderAuthRequiredNew {...props} />;
-	} else {
-		return <ProviderAuthRequiredOld {...props} />;
-	}
 };

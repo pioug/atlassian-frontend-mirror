@@ -1,9 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
+
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';

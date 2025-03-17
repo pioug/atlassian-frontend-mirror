@@ -3,6 +3,7 @@ import memoizeOne from 'memoize-one';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -57,11 +58,11 @@ export const transformExpandToNestedExpand = (expandNode: PMNode): PMNode | null
 	return null;
 };
 
-export const transformSliceExpandToNestedExpand = (slice: Slice): Slice | null => {
+export const transformFragmentExpandToNestedExpand = (fragment: Fragment): Fragment | null => {
 	const children = [] as PMNode[];
 
 	try {
-		slice.content.forEach((node) => {
+		fragment.forEach((node) => {
 			if (isExpand(node.type)) {
 				const nestedExpandNode = transformExpandToNestedExpand(node);
 				if (nestedExpandNode) {
@@ -75,7 +76,17 @@ export const transformSliceExpandToNestedExpand = (slice: Slice): Slice | null =
 		return null;
 	}
 
-	return new Slice(Fragment.fromArray(children), slice.openStart, slice.openEnd);
+	return Fragment.fromArray(children);
+};
+
+export const transformSliceExpandToNestedExpand = (slice: Slice): Slice | null => {
+	const fragment = transformFragmentExpandToNestedExpand(slice.content);
+
+	if (!fragment) {
+		return null;
+	}
+
+	return new Slice(fragment, slice.openStart, slice.openEnd);
 };
 
 export const memoizedTransformExpandToNestedExpand = memoizeOne((node: PMNode) => {
@@ -97,11 +108,44 @@ export function canMoveNodeToIndex(
 
 	const parentNodeType = destParent?.type.name;
 	const activeNodeType = srcNode?.type.name;
+	const isNestingTablesSupported =
+		fg('platform_editor_use_nested_table_pm_nodes') &&
+		editorExperiment('nested-tables-in-tables', true, { exposure: true });
+	const tableNodeType = srcNode.type.schema.nodes.table;
+	const expandNodeType = srcNode.type.schema.nodes.expand;
 
 	if (activeNodeType === 'layoutColumn' && editorExperiment('advanced_layouts', true)) {
 		// Allow drag layout column and drop into layout section
 		if (destNode?.type.name === 'layoutSection' || parentNodeType === 'doc') {
 			return true;
+		}
+
+		if (
+			(parentNodeType === 'tableCell' || parentNodeType === 'tableHeader') &&
+			fg('platform_editor_drag_layout_column_into_nodes')
+		) {
+			const maybeExpandNodesArray = findChildrenByType(srcNode, expandNodeType);
+			const layoutColumnContainExpand = maybeExpandNodesArray.length > 0;
+			const layoutColumnContainTable = findChildrenByType(srcNode, tableNodeType).length > 0;
+
+			// when layout column content does not contain table, allow to drop into table cell
+			if (!layoutColumnContainTable) {
+				return true;
+			}
+
+			// when layout column content contains table, but does not contain expand, allow drop into table cell if nesting tables is supported, and the nesting depth does not exceed 1
+			if (layoutColumnContainTable && !layoutColumnContainExpand) {
+				const nestingDepth = getParentOfTypeCount(tableNodeType)($destNodePos);
+				return isNestingTablesSupported && nestingDepth <= 1;
+			}
+
+			// when layout column content contains an expand, and there is a table inside the expand, should not allow to drop into table cell
+			if (layoutColumnContainTable && layoutColumnContainExpand) {
+				const isAnyTableNestedInExpand = maybeExpandNodesArray.some(
+					(result) => findChildrenByType(result.node, tableNodeType).length > 0,
+				);
+				return !isAnyTableNestedInExpand;
+			}
 		}
 	}
 
@@ -115,18 +159,13 @@ export function canMoveNodeToIndex(
 		}
 	}
 
-	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
-	const isNestingTablesSupported =
-		fg('platform_editor_use_nested_table_pm_nodes') &&
-		editorExperiment('nested-tables-in-tables', true, { exposure: true });
-
 	// NOTE: this will block drop targets from showing for dragging a table into another table
 	// unless nested tables are supported and the nesting depth does not exceed 1
 	if (
 		(parentNodeType === 'tableCell' || parentNodeType === 'tableHeader') &&
 		activeNodeType === 'table'
 	) {
-		const nestingDepth = getParentOfTypeCount(srcNode?.type)($destNodePos);
+		const nestingDepth = getParentOfTypeCount(tableNodeType)($destNodePos);
 		if (!isNestingTablesSupported || (isNestingTablesSupported && nestingDepth > 1)) {
 			return false;
 		}

@@ -4,6 +4,7 @@ import React from 'react';
 
 import { renderHook } from '@testing-library/react-hooks';
 import fetchMock from 'jest-fetch-mock';
+import { IntlProvider } from 'react-intl-next';
 import TestRenderer from 'react-test-renderer';
 import uuid from 'uuid';
 
@@ -36,22 +37,24 @@ describe('useAISummaryAction', () => {
 	const analyticSpy = jest.fn();
 
 	const wrapper = ({ children }: { children: React.ReactNode }) => (
-		<AnalyticsListener onEvent={analyticSpy} channel={ANALYTICS_CHANNEL}>
-			<SmartCardProvider
-				isAdminHubAIEnabled={true}
-				product="JSM"
-				storeOptions={{
-					initialState: {
-						[url]: {
-							status: 'resolved' as const,
-							details: mocks.success,
+		<IntlProvider locale="en">
+			<AnalyticsListener onEvent={analyticSpy} channel={ANALYTICS_CHANNEL}>
+				<SmartCardProvider
+					isAdminHubAIEnabled={true}
+					product="JSM"
+					storeOptions={{
+						initialState: {
+							[url]: {
+								status: 'resolved' as const,
+								details: mocks.success,
+							},
 						},
-					},
-				}}
-			>
-				{children}
-			</SmartCardProvider>
-		</AnalyticsListener>
+					}}
+				>
+					{children}
+				</SmartCardProvider>
+			</AnalyticsListener>
+		</IntlProvider>
 	);
 
 	beforeEach(() => {

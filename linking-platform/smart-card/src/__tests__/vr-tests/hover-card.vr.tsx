@@ -24,8 +24,8 @@ snapshot(HoverCard, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -39,8 +39,8 @@ snapshot(HoverCardActions, {
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -54,8 +54,8 @@ snapshot(HoverCardActions, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -68,7 +68,6 @@ snapshot(HoverCardUnauthorised, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -84,7 +83,6 @@ snapshot(HoverCardUnauthorised, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -98,8 +96,8 @@ snapshot(HoverCardSSRLoading, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -112,8 +110,8 @@ snapshot(HoverCardSSRError, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -127,8 +125,8 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -142,8 +140,8 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -157,7 +155,7 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });

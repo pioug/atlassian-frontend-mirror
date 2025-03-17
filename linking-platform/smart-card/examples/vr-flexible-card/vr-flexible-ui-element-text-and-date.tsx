@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
@@ -23,8 +22,6 @@ import {
 } from '../../src/view/FlexibleCard/components/elements';
 import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-element-text-and-dateOld';
 
 const overrideCss = css({
 	color: token('color.background.accent.blue.subtle', '#579DFF'),
@@ -46,34 +43,29 @@ const context = getContext({
 	targetBranch: 'master',
 });
 
-const New = () => (
-	<VRTestWrapper>
-		<FlexibleUiContext.Provider value={context}>
-			<CreatedBy testId="vr-test-text" />
-			<OwnedBy />
-			<ModifiedBy />
-			<CreatedOn />
-			<ModifiedOn />
-			<SentOn />
-			<AssignedTo />
-			<Snippet />
-			<SourceBranch />
-			<TargetBranch />
-			<ReadTime />
-			<h5>Override CSS</h5>
-			<CreatedBy css={overrideCss} />
-			<OwnedBy css={overrideCss} />
-			<CreatedOn css={overrideCss} />
-			<h5>Override 'Created On/Modified On' text</h5>
-			<CreatedOn text="First commit on" />
-			<ModifiedOn text="Last commit on" />
-		</FlexibleUiContext.Provider>
-	</VRTestWrapper>
-);
-
 export default () => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <New />;
-	}
-	return <Old />;
+	return (
+		<VRTestWrapper>
+			<FlexibleUiContext.Provider value={context}>
+				<CreatedBy testId="vr-test-text" />
+				<OwnedBy />
+				<ModifiedBy />
+				<CreatedOn />
+				<ModifiedOn />
+				<SentOn />
+				<AssignedTo />
+				<Snippet />
+				<SourceBranch />
+				<TargetBranch />
+				<ReadTime />
+				<h5>Override CSS</h5>
+				<CreatedBy css={overrideCss} />
+				<OwnedBy css={overrideCss} />
+				<CreatedOn css={overrideCss} />
+				<h5>Override 'Created On/Modified On' text</h5>
+				<CreatedOn text="First commit on" />
+				<ModifiedOn text="Last commit on" />
+			</FlexibleUiContext.Provider>
+		</VRTestWrapper>
+	);
 };

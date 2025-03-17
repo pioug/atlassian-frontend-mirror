@@ -3,13 +3,10 @@ import React from 'react';
 import { cssMap, styled } from '@compiled/react';
 
 import { type Icon } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import TextRenderType from '../text';
-
-import IconRenderTypeOld from './icon-old';
 
 interface IconProps extends Icon {
 	testId?: string;
@@ -57,12 +54,4 @@ const IconRenderType = ({ label = '', text, source, testId = ICON_TYPE_TEST_ID }
 	);
 };
 
-const IconRenderTypeExported = (props: IconProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <IconRenderType {...props} />;
-	} else {
-		return <IconRenderTypeOld {...props} />;
-	}
-};
-
-export default IconRenderTypeExported;
+export default IconRenderType;

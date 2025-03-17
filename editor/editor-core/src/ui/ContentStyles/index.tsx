@@ -462,22 +462,6 @@ const contentStyles = (props: ContentStylesProps) => css`
 		clear: both;
 	}
 
-	// nested table resizer layout shift fix
-	${fg('platform_editor_table_layout_shift_fix')
-		? css`
-				.ProseMirror
-					div[data-prosemirror-node-block='true']
-					div[data-prosemirror-node-name='table']
-					.pm-table-resizer-container,
-				.ProseMirror
-					div[data-prosemirror-node-block='true']
-					div[data-prosemirror-node-name='table']
-					.resizer-item {
-					width: 100% !important;
-				}
-			`
-		: null}
-
 	.hyperlink-floating-toolbar,
 	.${MediaSharedClassNames.FLOATING_TOOLBAR_COMPONENT} {
 		padding: 0;

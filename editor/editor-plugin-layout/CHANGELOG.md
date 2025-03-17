@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.2.0
+
+### Minor Changes
+
+- [#115815](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/115815)
+  [`ad7c517ed3b47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad7c517ed3b47) -
+  ED-26661 add option enables single column layout
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

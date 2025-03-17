@@ -4,13 +4,11 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type DisplayViewModes } from '../../../../common/types';
 
-import { DisplayViewDropDownOld } from './display-view-drop-down-old';
 import { displayViewDropDownMessages } from './messages';
 
 const styles = cssMap({
@@ -50,10 +48,7 @@ export type DisplayViewDropDownProps = {
 	viewMode: DisplayViewModes;
 };
 
-export const DisplayViewDropDownNew = ({
-	onViewModeChange,
-	viewMode,
-}: DisplayViewDropDownProps) => {
+export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewDropDownProps) => {
 	const { formatMessage } = useIntl();
 	const isTable = viewMode === 'table';
 	const triggerText = isTable
@@ -86,12 +81,4 @@ export const DisplayViewDropDownNew = ({
 			</Box>
 		</DropdownMenu>
 	);
-};
-
-export const DisplayViewDropDown = (props: DisplayViewDropDownProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <DisplayViewDropDownNew {...props} />;
-	} else {
-		return <DisplayViewDropDownOld {...props} />;
-	}
 };

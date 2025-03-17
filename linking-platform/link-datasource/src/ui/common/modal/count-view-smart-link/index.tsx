@@ -3,13 +3,10 @@ import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import LinkRenderType from '../../../issue-like-table/render-type/link';
-
-import { SmartCardPlaceholderOld, SmartLinkOld } from './count-view-smart-link-old';
 
 const styles = cssMap({
 	placeholderSmartLinkStyles: {
@@ -26,7 +23,7 @@ const styles = cssMap({
 	},
 });
 
-export const SmartCardPlaceholderNew = ({
+export const SmartCardPlaceholder = ({
 	placeholderText,
 }: {
 	placeholderText: MessageDescriptor;
@@ -44,24 +41,8 @@ export const SmartCardPlaceholderNew = ({
 	</Box>
 );
 
-export const SmartCardPlaceholder = (props: { placeholderText: MessageDescriptor }) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <SmartCardPlaceholderNew {...props} />;
-	} else {
-		return <SmartCardPlaceholderOld {...props} />;
-	}
-};
-
-export const SmartLinkNew = ({ url }: { url: string }) => (
+export const SmartLink = ({ url }: { url: string }) => (
 	<Box xcss={styles.smartLinkContainerStyles}>
 		<LinkRenderType url={url} />
 	</Box>
 );
-
-export const SmartLink = (props: { url: string }) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <SmartLinkNew {...props} />;
-	} else {
-		return <SmartLinkOld {...props} />;
-	}
-};

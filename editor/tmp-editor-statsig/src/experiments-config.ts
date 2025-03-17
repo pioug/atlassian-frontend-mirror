@@ -164,6 +164,16 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-3-15
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_single_column_layout/setup
+	single_column_layouts: {
+		productKeys: {
+			confluence: 'platform_editor_single_column_layout',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 	// Added 2024-10-08
 	support_table_in_comment_jira: {
 		productKeys: {
@@ -191,15 +201,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-11-13
-	issue_view_action_items: {
-		productKeys: {
-			jira: 'issue_view_action_items',
-		},
-		param: 'isActionItemsEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-11-18
 	contextual_formatting_toolbar: {
 		productKeys: {
@@ -213,15 +214,6 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_unsplash_page_header: {
 		productKeys: {
 			confluence: 'platform_editor_ai_unsplash_page_header',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
-	// Added 2025-01-15
-	platform_editor_ai_advanced_prompts: {
-		productKeys: {
-			confluence: 'platform_editor_ai_advanced_prompts',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

@@ -8,9 +8,7 @@ import Epic16Icon from '@atlaskit/icon-object/glyph/epic/16';
 import Issue16Icon from '@atlaskit/icon-object/glyph/issue/16';
 import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
 import Task16Icon from '@atlaskit/icon-object/glyph/task/16';
-import { fg } from '@atlaskit/platform-feature-flags';
 
-import EmptyStateIconOld from './icon-type-old';
 import { type IssueType } from './types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -51,12 +49,4 @@ const EmptyStateIcon = ({ type }: { type: IssueType }) => {
 	);
 };
 
-const EmptyStateIconExported = (props: { type: IssueType }) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <EmptyStateIcon {...props} />;
-	} else {
-		return <EmptyStateIconOld {...props} />;
-	}
-};
-
-export default EmptyStateIconExported;
+export default EmptyStateIcon;

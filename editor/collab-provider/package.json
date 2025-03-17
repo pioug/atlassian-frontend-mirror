@@ -100,6 +100,9 @@
 		},
 		"log_obfuscated_steps_for_view_only": {
 			"type": "boolean"
+		},
+		"make_collab_provider_ack_delay_agnostic": {
+			"type": "boolean"
 		}
 	}
 }

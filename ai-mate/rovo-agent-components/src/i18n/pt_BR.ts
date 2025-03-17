@@ -7,7 +7,9 @@
  */
 //Portuguese (Brazil)
 export default {
+  'ai-mate.agent-avatar-label': 'Avatar do agente',
   'ai-mate.agent-profile-info.created-by': 'Agente Rovo por {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Criador',
   'ai-mate.agent-profile-info.deactivated': '(desativado)',
   'ai-mate.agent-profile-info.hidden-icon': 'Oculto',
   'ai-mate.agent-profile-info.hidden-tooltip': 'O agente não vai aparecer nos resultados da pesquisa',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Escreva uma atualização sobre minha semana',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Pesquisar agentes',
   'rovo-chat.browse-agents.copy-agent-label': 'Copiar o link para o agente',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Remover dos favoritos',
   'rovo-chat.view-agent.chat-to-agent-button': 'Bate-papo com agente',
   'rovo-chat.view-agent.copy-link-to-profile': 'Copiar link',
   'rovo-chat.view-agent.delete-agent': 'Excluir agente',

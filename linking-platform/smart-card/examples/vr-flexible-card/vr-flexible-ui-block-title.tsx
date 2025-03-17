@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardType } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ActionItem } from '../../src';
 import { ElementName, SmartLinkPosition, SmartLinkSize, SmartLinkTheme } from '../../src/constants';
@@ -22,8 +21,6 @@ import {
 	makeEditActionItem,
 } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-block-titleOld';
 
 const gridStyles = css({
 	display: 'grid',
@@ -105,9 +102,6 @@ const renderErroredView = (
 };
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

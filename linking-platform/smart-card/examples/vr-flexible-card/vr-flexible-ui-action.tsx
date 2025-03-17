@@ -6,7 +6,6 @@
 import { css, jsx } from '@compiled/react';
 
 import TrashIcon from '@atlaskit/icon/core/migration/delete--trash';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,7 +15,6 @@ import { DeleteAction } from '../../src/view/FlexibleCard/components/actions';
 import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-import ComponentOld from './vr-flexible-ui-action-old';
 const context = getContext();
 let onClick = () => {
 	console.log('Testing Delete Action...');
@@ -32,7 +30,7 @@ const appearances: React.ComponentProps<typeof DeleteAction>['appearance'][] = [
 const customText = 'Remove';
 const href = 'https://some-url';
 
-const ComponentNew = () => {
+const Component = () => {
 	const icon = <TrashIcon label="Trash" spacing="spacious" />;
 
 	return (
@@ -232,10 +230,4 @@ const ComponentNew = () => {
 	);
 };
 
-const Component = (): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ComponentNew />;
-	}
-	return <ComponentOld />;
-};
 export default Component;

@@ -7,7 +7,9 @@
  */
 //Korean
 export default {
+  'ai-mate.agent-avatar-label': '에이전트 아바타',
   'ai-mate.agent-profile-info.created-by': '{creatorNameWithLink}의 Rovo 에이전트',
+  'ai-mate.agent-profile-info.creator': '작성자',
   'ai-mate.agent-profile-info.deactivated': '(비활성화됨)',
   'ai-mate.agent-profile-info.hidden-icon': '숨김',
   'ai-mate.agent-profile-info.hidden-tooltip': '에이전트는 검색 결과에 표시되지 않습니다',
@@ -21,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': '한 주에 대한 업데이트를 작성하세요',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': '에이전트 찾아보기',
   'rovo-chat.browse-agents.copy-agent-label': '에이전트에 링크 복사',
+  'rovo-chat.browse-agents.remove-from-favourites-label': '즐겨찾기에서 제거',
   'rovo-chat.view-agent.chat-to-agent-button': '에이전트와 채팅',
   'rovo-chat.view-agent.copy-link-to-profile': '링크 복사',
   'rovo-chat.view-agent.delete-agent': '에이전트 삭제',

@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -12,7 +11,6 @@ import type { BasicFilterFieldType, SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
 
 import AsyncPopupSelect from './async-popup-select';
-import BasicFilterContainerOld from './ui-old';
 
 export const availableBasicFilterTypes: BasicFilterFieldType[] = [
 	'project',
@@ -75,12 +73,4 @@ const BasicFilterContainer = ({
 	);
 };
 
-const BasicFilterContainerExported = (props: BasicFilterContainerProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <BasicFilterContainer {...props} />;
-	} else {
-		return <BasicFilterContainerOld {...props} />;
-	}
-};
-
-export default BasicFilterContainerExported;
+export default BasicFilterContainer;

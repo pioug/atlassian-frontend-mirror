@@ -2,8 +2,12 @@ import React, { type ReactNode } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { cssMap } from '@atlaskit/css';
+import Image from '@atlaskit/image';
+import { Box } from '@atlaskit/primitives/compiled';
 
+import ConfluenceIcon from '../assets/ConfluenceIcon.svg';
+import JiraIcon from '../assets/JiraIcon.svg';
 import { type ContainerTypes } from '../types';
 
 interface ContainerProperties {
@@ -13,35 +17,42 @@ interface ContainerProperties {
 	containerTypeText: ReactNode;
 }
 
+const styles = cssMap({
+	iconWrapper: {
+		width: '12px',
+		height: '12px',
+	},
+});
+
 export const messages = defineMessages({
 	addConfluenceContainerTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title.non-final',
-		defaultMessage: 'Add Confluence space',
+		defaultMessage: 'Add space',
 		description: 'Title of the card to add a Confluence space to a team',
 	},
 	confluenceContainerDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-description.non-final',
-		defaultMessage: 'Confluence space',
+		defaultMessage: 'Confluence',
 		description: 'Description of the card to add a Confluence space to a team',
 	},
 	addJiraProjectTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-title.non-final',
-		defaultMessage: 'Add Jira project',
+		defaultMessage: 'Add project',
 		description: 'Title of the card to add a Jira project to a team',
 	},
 	jiraProjectDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-description.non-final',
-		defaultMessage: 'Jira project',
+		defaultMessage: 'Jira',
 		description: 'Description of the card to add a Jira project to a team',
 	},
 	addLoomSpaceTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title.non-final',
-		defaultMessage: 'Add Loom space',
+		defaultMessage: 'Add space',
 		description: 'Title of the card to add a Loom space to a team',
 	},
 	loomSpaceDescription: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description.non-final',
-		defaultMessage: 'Loom space',
+		defaultMessage: 'Loom',
 		description: 'Description of the card to add a Loom space to a team',
 	},
 	projectContainerText: {
@@ -61,14 +72,22 @@ export const getContainerProperties = (containerType: ContainerTypes): Container
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
-				icon: <ConfluenceIcon appearance="brand" label="" size="xsmall" />,
+				icon: (
+					<Box xcss={styles.iconWrapper}>
+						<Image src={ConfluenceIcon} alt="confluence-project" />
+					</Box>
+				),
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'JiraProject':
 			return {
 				description: <FormattedMessage {...messages.jiraProjectDescription} />,
-				icon: <JiraIcon appearance="brand" label="" size="xsmall" />,
+				icon: (
+					<Box xcss={styles.iconWrapper}>
+						<Image src={JiraIcon} alt="jira-project" />
+					</Box>
+				),
 				title: <FormattedMessage {...messages.addJiraProjectTitle} />,
 				containerTypeText: <FormattedMessage {...messages.projectContainerText} />,
 			};

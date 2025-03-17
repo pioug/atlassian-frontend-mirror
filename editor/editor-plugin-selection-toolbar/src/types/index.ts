@@ -1,3 +1,5 @@
+import { UserPreferences } from '@atlaskit/editor-common/types';
+
 export type SelectionToolbarPluginOptions = {
 	/**
 	 * When set to true, placing the toolbar above the selection will be preferenced.
@@ -5,4 +7,4 @@ export type SelectionToolbarPluginOptions = {
 	preferenceToolbarAboveSelection?: boolean;
 };
 
-export type ToolbarDocking = 'top' | 'none';
+export type ToolbarDocking = NonNullable<UserPreferences['toolbarDockingInitialPosition']>;

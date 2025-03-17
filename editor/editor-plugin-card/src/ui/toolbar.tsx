@@ -592,14 +592,16 @@ const generateToolbarItems =
 								allowEmbeds,
 								allowBlockCards: allowBlockCards,
 								editorAnalyticsApi,
+								allowDatasource: cardOptions.allowDatasource,
 								showUpgradeDiscoverability: showUpgradeDiscoverability,
 								settingsConfig: getSettingsButton(
 									intl,
 									editorAnalyticsApi,
 									cardOptions.userPreferencesLink,
 								),
+								isDatasourceView: isDatasource,
 							}),
-					...(showDatasourceAppearance
+					...(showDatasourceAppearance && editorExperiment('platform_editor_controls', 'control')
 						? [
 								{
 									type: 'custom',
@@ -617,6 +619,7 @@ const generateToolbarItems =
 								} satisfies FloatingToolbarItem<never>,
 							]
 						: []),
+
 					{
 						type: 'separator',
 					},
@@ -721,62 +724,69 @@ const getDatasourceButtonGroup = (
 
 		const { url } = metadata;
 
-		toolbarItems.push(
-			editorExperiment('platform_editor_controls', 'control')
-				? {
-						type: 'custom',
-						fallback: [],
-						render: (editorView) => {
-							return (
-								<LinkToolbarAppearance
-									key="link-appearance"
-									url={url}
-									intl={intl}
-									currentAppearance={currentAppearance}
-									editorView={editorView}
-									editorState={state}
-									allowEmbeds={allowEmbeds}
-									allowBlockCards={allowBlockCards}
-									editorAnalyticsApi={editorAnalyticsApi}
-									showUpgradeDiscoverability={showUpgradeDiscoverability}
-									isDatasourceView
-								/>
-							);
-						},
-					}
-				: getLinkAppearanceDropdown({
-						url,
+		if (editorExperiment('platform_editor_controls', 'control')) {
+			toolbarItems.push(
+				{
+					type: 'custom',
+					fallback: [],
+					render: (editorView) => {
+						return (
+							<LinkToolbarAppearance
+								key="link-appearance"
+								url={url}
+								intl={intl}
+								currentAppearance={currentAppearance}
+								editorView={editorView}
+								editorState={state}
+								allowEmbeds={allowEmbeds}
+								allowBlockCards={allowBlockCards}
+								editorAnalyticsApi={editorAnalyticsApi}
+								showUpgradeDiscoverability={showUpgradeDiscoverability}
+								isDatasourceView
+							/>
+						);
+					},
+				},
+				{
+					type: 'custom',
+					fallback: [],
+					render: (editorView) => (
+						<DatasourceAppearanceButton
+							intl={intl}
+							editorAnalyticsApi={editorAnalyticsApi}
+							url={url}
+							editorView={editorView}
+							editorState={state}
+							selected={true}
+							inputMethod={INPUT_METHOD.FLOATING_TB}
+						/>
+					),
+				} satisfies FloatingToolbarItem<never>,
+				{ type: 'separator' },
+			);
+		} else {
+			toolbarItems.push(
+				getLinkAppearanceDropdown({
+					url,
+					intl,
+					currentAppearance,
+					editorState: state,
+					allowEmbeds,
+					allowBlockCards: allowBlockCards,
+					editorAnalyticsApi,
+					allowDatasource: cardOptions.allowDatasource,
+					showUpgradeDiscoverability: showUpgradeDiscoverability,
+					settingsConfig: getSettingsButton(
 						intl,
-						currentAppearance,
-						editorState: state,
-						allowEmbeds,
-						allowBlockCards: allowBlockCards,
 						editorAnalyticsApi,
-						showUpgradeDiscoverability: showUpgradeDiscoverability,
-						settingsConfig: getSettingsButton(
-							intl,
-							editorAnalyticsApi,
-							cardOptions.userPreferencesLink,
-						),
-					}),
+						cardOptions.userPreferencesLink,
+					),
+					isDatasourceView: true,
+				}),
 
-			{
-				type: 'custom',
-				fallback: [],
-				render: (editorView) => (
-					<DatasourceAppearanceButton
-						intl={intl}
-						editorAnalyticsApi={editorAnalyticsApi}
-						url={url}
-						editorView={editorView}
-						editorState={state}
-						selected={true}
-						inputMethod={INPUT_METHOD.FLOATING_TB}
-					/>
-				),
-			} satisfies FloatingToolbarItem<never>,
-			{ type: 'separator' },
-		);
+				{ type: 'separator' },
+			);
+		}
 	}
 
 	toolbarItems.push({
@@ -926,6 +936,7 @@ export const getStartingToolbarItems = (
 					intl,
 					editorState: state,
 					editorAnalyticsApi: api?.analytics?.actions,
+					allowDatasource: options.allowDatasource,
 					editorPluginApi: api,
 					cardOptions: options,
 					settingsConfig: getSettingsButton(
@@ -933,31 +944,8 @@ export const getStartingToolbarItems = (
 						api?.analytics?.actions,
 						options.userPreferencesLink,
 					),
+					isDatasourceView: false,
 				}),
-				...(options?.allowDatasource
-					? [
-							{
-								type: 'custom',
-								fallback: [],
-								render: (editorView) => {
-									if (!editorView) {
-										return null;
-									}
-
-									return (
-										<DatasourceAppearanceButton
-											intl={intl}
-											editorAnalyticsApi={api?.analytics?.actions}
-											url={link}
-											editorView={editorView}
-											editorState={editorView.state}
-											inputMethod={INPUT_METHOD.FLOATING_TB}
-										/>
-									);
-								},
-							} satisfies FloatingToolbarItem<never>,
-						]
-					: []),
 				{ type: 'separator' },
 				...editLinkItem,
 			];

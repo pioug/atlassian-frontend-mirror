@@ -6,7 +6,6 @@
 import { css, jsx } from '@compiled/react';
 
 import { smallImage, wideImage } from '@atlaskit/media-test-helpers';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { MediaType } from '../../src/constants';
@@ -14,8 +13,6 @@ import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { Preview } from '../../src/view/FlexibleCard/components/elements';
 import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-element-mediaOld';
 
 const context = getContext({
 	preview: { type: MediaType.Image, url: smallImage },
@@ -35,9 +32,6 @@ const overrideCss = css({
 });
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<FlexibleUiContext.Provider value={context}>

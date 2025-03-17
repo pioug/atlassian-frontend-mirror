@@ -266,7 +266,7 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 				<div css={emojiTypeAheadSpinnerContainer}>
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={emojiTypeAheadSpinner}>
-						<Spinner size="medium" />
+						<Spinner size="medium" interactionName="empji-type-ahead-list-spinner" />
 					</div>
 				</div>
 			);

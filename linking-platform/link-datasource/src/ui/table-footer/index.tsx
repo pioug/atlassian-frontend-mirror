@@ -20,7 +20,6 @@ import TableSearchCount, { AssetsItemCount } from '../common/modal/search-count'
 import { footerMessages } from './messages';
 import { PoweredByJSMAssets } from './powered-by-jsm-assets';
 import { SyncInfo } from './sync-info';
-import { TableFooterOld } from './table-footer-old';
 
 export type TableFooterProps = {
 	datasourceId: string;
@@ -68,7 +67,7 @@ const SyncTextWrapper = styled.div({
 	font: token('font.body.UNSAFE_small'),
 });
 
-const TableFooterNew = ({
+export const TableFooter = ({
 	datasourceId,
 	itemCount,
 	onRefresh,
@@ -144,12 +143,4 @@ const TableFooterNew = ({
 			</TopBorderWrapper>
 		</FooterWrapper>
 	) : null;
-};
-
-export const TableFooter = (props: TableFooterProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <TableFooterNew {...props} />;
-	} else {
-		return <TableFooterOld {...props} />;
-	}
 };

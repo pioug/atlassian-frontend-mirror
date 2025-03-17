@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { cssMap } from '@compiled/react';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
@@ -14,7 +13,6 @@ import { useBasicFilterHydration } from '../basic-filters/hooks/useBasicFilterHy
 import { CLOLBasicFilters, type SelectedOptionsMap } from '../basic-filters/types';
 import { type ConfluenceSearchDatasourceParameters } from '../types';
 
-import ConfluenceSearchContainerOld from './confluence-search-container-old';
 import { searchMessages } from './messages';
 
 interface Props {
@@ -148,12 +146,4 @@ const ConfluenceSearchContainer = ({
 	);
 };
 
-const ConfluenceSearchContainerExported = (props: Props) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ConfluenceSearchContainer {...props} />;
-	} else {
-		return <ConfluenceSearchContainerOld {...props} />;
-	}
-};
-
-export default ConfluenceSearchContainerExported;
+export default ConfluenceSearchContainer;

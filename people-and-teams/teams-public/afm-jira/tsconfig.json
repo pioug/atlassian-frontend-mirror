@@ -21,6 +21,9 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/avatar/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
@@ -52,6 +55,9 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
 		}
 	]
 }

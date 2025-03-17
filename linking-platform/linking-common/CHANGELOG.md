@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 8.0.2
+
+### Patch Changes
+
+- [#127208](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127208)
+  [`c2951b65d3aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2951b65d3aac) -
+  [ux] ED-26896 Move list option to link dropdown
+
 ## 8.0.1
 
 ### Patch Changes

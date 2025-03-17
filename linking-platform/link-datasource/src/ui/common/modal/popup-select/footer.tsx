@@ -3,12 +3,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, Inline } from '@atlaskit/primitives/compiled';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import PopupFooterOld from './footer-old';
 import { asyncPopupSelectMessages } from './messages';
 
 export interface PopupFooterProps {
@@ -51,12 +49,4 @@ const PopupFooter = ({ currentDisplayCount, totalCount, filterName }: PopupFoote
 	);
 };
 
-const PopupFooterExported = (props: PopupFooterProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <PopupFooter {...props} />;
-	} else {
-		return <PopupFooterOld {...props} />;
-	}
-};
-
-export default PopupFooterExported;
+export default PopupFooter;

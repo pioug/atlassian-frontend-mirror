@@ -5,15 +5,14 @@
 
 import { Children, createContext, type ReactElement, useContext, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { durations, exitingDurations, ExitingPersistence, SlideIn } from '@atlaskit/motion';
+import { ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import Portal from '@atlaskit/portal';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
+import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -48,8 +47,7 @@ type FlagGroupProps = {
 	shouldRenderToParent?: boolean;
 };
 
-const gridSize = getGridSize();
-export const flagWidth = gridSize * 50;
+export const flagWidth = 400;
 
 type FlagGroupAPI = {
 	onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
@@ -71,39 +69,29 @@ export function useFlagGroup() {
 
 // transition: none is set on first-of-type to prevent a bug in Firefox
 // that causes a broken transition
-const baseStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: flagWidth,
-	position: 'absolute',
-	insetBlockEnd: 0,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	transition: `transform ${durations.medium}ms ease-in-out`,
-	// TODO: Use new breakpoints
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (max-width: 560px)': {
-		width: '100vw',
+const groupStyles = cssMap({
+	root: {
+		width: flagWidth,
+		position: 'absolute',
+		insetBlockEnd: 0,
+		transition: 'transform 350ms ease-in-out',
+		'@media (max-width: 560px)': {
+			width: '100vw',
+		},
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':first-of-type': {
-		transform: `translate(0,0)`,
+	first: {
+		transform: 'translate(0,0)',
 		transition: 'none',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':nth-of-type(n + 2)': {
-		animationDuration: '0ms',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		transform: `translateX(0) translateY(100%) translateY(${2 * gridSize}px)`,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':nth-of-type(1)': {
 		zIndex: 5,
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':nth-of-type(2)': {
+	second: {
 		zIndex: 4,
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&:nth-of-type(n + 4)': {
+	nth: {
+		animationDuration: '0ms',
+		transform: 'translateX(0) translateY(100%) translateY(16px)',
+	},
+	hidden: {
 		visibility: 'hidden',
 	},
 });
@@ -113,9 +101,7 @@ const baseStyles = css({
 const dismissAllowedStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& + *': {
-		transform: `translate(0, 0)`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		transitionDuration: `${exitingDurations.medium}ms`,
+		transitionDuration: '175ms',
 	},
 });
 
@@ -174,7 +160,14 @@ const FlagGroup = (props: FlagGroupProps) => {
 						>
 							{({ className, ref }) => (
 								<div
-									css={[baseStyles, isDismissAllowed && dismissAllowedStyles]}
+									css={[
+										groupStyles.root,
+										index === 0 && groupStyles.first,
+										index === 1 && groupStyles.second,
+										index >= 1 && groupStyles.nth,
+										index >= 2 && groupStyles.hidden,
+										isDismissAllowed && dismissAllowedStyles,
+									]}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={className}
 									ref={ref}

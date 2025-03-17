@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/standard-button';
-import { IconTile } from '@atlaskit/icon';
-import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
+import ButtonLegacy from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
+import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
@@ -53,18 +53,16 @@ const ErrorMessage = (props: Props) => {
 
 	return (
 		<ErrorWrapper testId="profilecard-error">
-			{fg('ptc-migrate-legacy-icons-profilecard') ? (
-				<IconTile icon={CrossCircleIcon} label="icon error" size="48" appearance={'gray'} />
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-				<IconError label="icon error" size="xlarge" />
-			)}
+			<CrossCircleIcon label="icon error" LEGACY_fallbackIcon={IconError} LEGACY_size="xlarge" />
 			{errorContent()}
-			{reload && (
-				<Button appearance="link" onClick={reload}>
-					Try again
-				</Button>
-			)}
+			{reload &&
+				(fg('ptc_migrate_buttons') ? (
+					<Button onClick={reload}>Try again</Button>
+				) : (
+					<ButtonLegacy appearance="link" onClick={reload}>
+						Try again
+					</ButtonLegacy>
+				))}
 		</ErrorWrapper>
 	);
 };

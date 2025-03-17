@@ -4,11 +4,8 @@ import { cssMap } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import CustomSelectMessageOld from './selectMessageOld';
 
 const styles = cssMap({
 	boxStyles: {
@@ -42,11 +39,4 @@ const CustomSelectMessage = ({ icon, message, testId }: CustomSelectMessageProps
 	);
 };
 
-export const CustomSelectMessageExported = (props: CustomSelectMessageProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <CustomSelectMessage {...props} />;
-	} else {
-		return <CustomSelectMessageOld {...props} />;
-	}
-};
-export default CustomSelectMessageExported;
+export default CustomSelectMessage;

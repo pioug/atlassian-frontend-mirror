@@ -1,13 +1,13 @@
 import React from 'react';
 
+import { matchers } from '@emotion/jest';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 
+import { Box } from '@atlaskit/primitives/compiled';
+
+import FlagGroup from '../../flag-group';
 import Flag from '../../index';
 import { type FlagProps } from '../../types';
-import FlagGroup from '../../flag-group';
-
-import { matchers } from '@emotion/jest';
-import Box from '@atlaskit/primitives/box';
 
 expect.extend(matchers);
 
@@ -25,7 +25,7 @@ describe('FlagGroup', () => {
 	});
 
 	it('should render Flag children in the correct place', () => {
-		render(
+		const { rerender } = render(
 			<FlagGroup>
 				{generateFlag({ testId: '0' })}
 				{generateFlag({ testId: '1' })}
@@ -41,11 +41,19 @@ describe('FlagGroup', () => {
 			throw Error('Flag 1 and 1 missing container');
 		}
 
+		rerender(
+			<FlagGroup>
+				{generateFlag({ testId: '0' })}
+				{generateFlag({ testId: '1' })}
+				{generateFlag({ testId: '2' })}
+			</FlagGroup>,
+		);
+
 		const flag1ContainerStyle = window.getComputedStyle(flag1Container);
-		expect(flag1ContainerStyle.transform).toBe('translateX(0) translateY(100%) translateY(16px)');
+		expect(flag1ContainerStyle.transform).toBe('translateX(0) translateY(100%) translateY(1pc)');
 
 		const flag2ContainerStyle = window.getComputedStyle(flag2Container);
-		expect(flag2ContainerStyle.transform).toBe('translateX(0) translateY(100%) translateY(16px)');
+		expect(flag2ContainerStyle.transform).toBe('translateX(0) translateY(100%) translateY(1pc)');
 	});
 
 	it('should render FlagGroup in direct parent when shouldRenderToParent is true', () => {
@@ -99,12 +107,18 @@ describe('FlagGroup', () => {
 			throw Error('Flag 1 or 2 missing container');
 		}
 
-		const flag1ContainerStyle = window.getComputedStyle(flag1Container);
-		expect(flag1ContainerStyle.transform).toBe('translate(0,0)');
+		rerender(
+			<FlagGroup onDismissed={spy}>
+				{generateFlag({ testId: '1', id: '2' })}
+				{generateFlag({ testId: '2', id: '2' })}
+			</FlagGroup>,
+		);
 
-		const flag2ContainerStyle = window.getComputedStyle(flag2Container);
-		expect(flag2ContainerStyle.transform).toBe('translateX(0) translateY(100%) translateY(16px)');
-		expect(flag2ContainerStyle.visibility).toBe('visible');
+		expect(window.getComputedStyle(flag1Container).transform).toBe('translate(0,0)');
+		expect(window.getComputedStyle(flag2Container).transform).toBe(
+			'translateX(0) translateY(100%) translateY(1pc)',
+		);
+		expect(window.getComputedStyle(flag2Container).visibility).toBe('visible');
 	});
 
 	it('should move Flag children down when new flag is added', () => {
@@ -135,14 +149,15 @@ describe('FlagGroup', () => {
 			throw Error('Flag 0, 1 or 2 missing container');
 		}
 
-		const flag0ContainerStyle = window.getComputedStyle(flag0Container);
-		expect(flag0ContainerStyle.transform).toBe('translate(0,0)');
-
-		const flag1ContainerStyle = window.getComputedStyle(flag1Container);
-		expect(flag1ContainerStyle.transform).toBe('translateX(0) translateY(100%) translateY(16px)');
-
-		const flag2ContainerStyle = window.getComputedStyle(flag2Container);
-		expect(flag2ContainerStyle.transform).toBe('translateX(0) translateY(100%) translateY(16px)');
+		expect(flag0Container).toHaveCompiledCss('transform', 'translate(0,0)');
+		expect(flag1Container).toHaveCompiledCss(
+			'transform',
+			'translateX(0) translateY(100%) translateY(1pc)',
+		);
+		expect(flag2Container).toHaveCompiledCss(
+			'transform',
+			'translateX(0) translateY(100%) translateY(1pc)',
+		);
 	});
 
 	it('onDismissed provided by FlagGroup should be called when child Flag is dismissed', () => {

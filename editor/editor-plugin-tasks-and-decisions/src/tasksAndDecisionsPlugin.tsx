@@ -256,9 +256,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 							hasEditPermission,
 							hasRequestedEditPermission,
 							requestToEditContent,
-							taskPlaceholder !== undefined && editorExperiment('issue_view_action_items', true)
-								? taskPlaceholder
-								: undefined,
+							taskPlaceholder,
 						);
 					},
 				},
@@ -299,10 +297,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					id: 'action',
 					title: formatMessage(insertBlockMessages.action),
 					description:
-						quickInsertActionDescription !== undefined &&
-						editorExperiment('issue_view_action_items', true)
-							? quickInsertActionDescription
-							: formatMessage(insertBlockMessages.actionDescription),
+						quickInsertActionDescription ?? formatMessage(insertBlockMessages.actionDescription),
 					priority: 100,
 					keywords: ['checkbox', 'task', 'todo'],
 					keyshortcut: '[]',

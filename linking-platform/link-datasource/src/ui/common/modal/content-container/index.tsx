@@ -1,12 +1,9 @@
 import React, { type ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { ContentContainerOld } from './content-container-old';
 
 const styles = cssMap({
 	tableContainerStyles: {
@@ -46,18 +43,10 @@ export interface ContentContainerProps {
 	withTableBorder?: boolean;
 }
 
-export const ContentContainerNew = ({ children, withTableBorder }: ContentContainerProps) => {
+export const ContentContainer = ({ children, withTableBorder }: ContentContainerProps) => {
 	return (
 		<Box xcss={cx(styles.contentContainerStyles, withTableBorder && styles.tableContainerStyles)}>
 			{children}
 		</Box>
 	);
-};
-
-export const ContentContainer = (props: ContentContainerProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <ContentContainerNew {...props} />;
-	} else {
-		return <ContentContainerOld {...props} />;
-	}
 };

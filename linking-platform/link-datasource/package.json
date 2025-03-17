@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.22.7",
+	"version": "4.0.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -89,8 +89,6 @@
 		"@atlaskit/width-detector": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
-		"@emotion/react": "^11.7.1",
-		"@emotion/styled": "^11.0.0",
 		"debounce-promise": "^3.1.2",
 		"lodash": "^4.17.21",
 		"react-sweet-state": "^2.6.5",
@@ -149,7 +147,6 @@
 			],
 			"styling": [
 				"static",
-				"emotion",
 				"compiled"
 			],
 			"imports": [
@@ -192,9 +189,6 @@
 			"type": "boolean"
 		},
 		"bandicoots-update-sllv-icons": {
-			"type": "boolean"
-		},
-		"bandicoots-compiled-migration-link-datasource": {
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {

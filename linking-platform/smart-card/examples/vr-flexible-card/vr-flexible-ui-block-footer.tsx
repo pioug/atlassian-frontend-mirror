@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type ActionItem } from '../../src';
@@ -23,8 +22,6 @@ import {
 	makeEditActionItem,
 } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-block-footerOld';
 
 const blockOverrideCss = css({
 	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
@@ -56,9 +53,6 @@ const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
 const actions: ActionItem[] = [makeDeleteActionItem()];
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

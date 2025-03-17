@@ -12,6 +12,7 @@ import type {
 	VCRawDataType,
 	VCResult,
 } from '../../common/vc/types';
+import { getPageVisibilityState } from '../../hidden-timing';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
@@ -359,6 +360,10 @@ export class VCObserver implements VCObserverInterface {
 
 		const isMultiHeatmapEnabled = !fg('platform_ufo_multiheatmap_killswitch');
 
+		const pageVisibilityUpToTTAI = getPageVisibilityState(start, stop);
+
+		const shouldHaveVCmetric = isVCClean && !isEventAborted && pageVisibilityUpToTTAI;
+
 		const revisionsData = isMultiHeatmapEnabled
 			? fg('platform_ufo_vc_observer_new')
 				? {
@@ -366,30 +371,34 @@ export class VCObserver implements VCObserverInterface {
 							{
 								revision: 'fy25.01',
 								clean: isVCClean,
-								'metric:vc90': VC['90'],
-								vcDetails: Object.fromEntries(
-									VCObserver.VCParts.map((key) => [
-										key,
-										{
-											t: VC[key],
-											e: VCBox[key] ?? [],
-										},
-									]),
-								),
+								'metric:vc90': shouldHaveVCmetric ? VC['90'] : null,
+								vcDetails: shouldHaveVCmetric
+									? Object.fromEntries(
+											VCObserver.VCParts.map((key) => [
+												key,
+												{
+													t: VC[key],
+													e: VCBox[key] ?? [],
+												},
+											]),
+										)
+									: [],
 							},
 							{
 								revision: 'fy25.02',
 								clean: isVCClean,
-								'metric:vc90': vcNext.VC['90'],
-								vcDetails: Object.fromEntries(
-									VCObserver.VCParts.map((key) => [
-										key,
-										{
-											t: vcNext.VC[key],
-											e: vcNext.VCBox[key] ?? [],
-										},
-									]),
-								),
+								'metric:vc90': shouldHaveVCmetric ? VC['90'] : null,
+								vcDetails: shouldHaveVCmetric
+									? Object.fromEntries(
+											VCObserver.VCParts.map((key) => [
+												key,
+												{
+													t: vcNext.VC[key],
+													e: vcNext.VCBox[key] ?? [],
+												},
+											]),
+										)
+									: [],
 							},
 						],
 					}

@@ -28,7 +28,6 @@ import {
 } from '../../src/view/FlexibleCard/components/blocks';
 import { type CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
 import { response1, response2, response3, response4 } from '../content/example-responses';
-import { exampleTokens } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const listStyles = css({
@@ -43,8 +42,7 @@ const listStyles = css({
 		paddingBottom: token('space.050', '4px'),
 		paddingLeft: token('space.100', '8px'),
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			backgroundColor: exampleTokens.backgroundColor,
+			backgroundColor: token('color.background.neutral', '#091E420F'),
 			borderRadius: token('border.radius', '4px'),
 		},
 	},

@@ -8,12 +8,13 @@ import { css, jsx } from '@emotion/react';
 import type { AlignmentAttributes } from '@atlaskit/adf-schema';
 import { alignmentPositionMap } from '@atlaskit/adf-schema';
 import type { MarkProps } from '../types';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 type MarkWrapperProps = {
 	'data-align': AlignmentAttributes['align'];
 };
 
-const MarkWrapper = (
+const MarkWrapperOld = (
 	props: React.PropsWithChildren<MarkWrapperProps & React.HTMLAttributes<HTMLDivElement>>,
 ) => {
 	const styles = props['data-align']
@@ -34,6 +35,32 @@ const MarkWrapper = (
 		</div>
 	);
 };
+
+const MarkWrapperNew = (
+	props: React.PropsWithChildren<MarkWrapperProps & React.HTMLAttributes<HTMLDivElement>>,
+) => {
+	const dataAlign = props['data-align']
+		? (alignmentPositionMap[props['data-align']] as React.CSSProperties['textAlign'])
+		: undefined;
+	return (
+		<div
+			style={{
+				textAlign: dataAlign,
+			}}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		>
+			{props.children}
+		</div>
+	);
+};
+
+const MarkWrapper = componentWithFG(
+	'platform_editor_emotion_refactor_renderer',
+	MarkWrapperNew,
+	MarkWrapperOld,
+);
 
 export default function Alignment(props: MarkProps<AlignmentAttributes>) {
 	return (

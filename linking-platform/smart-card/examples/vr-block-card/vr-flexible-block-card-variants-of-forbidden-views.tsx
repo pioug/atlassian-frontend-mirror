@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
@@ -11,9 +12,15 @@ import { BlockCard } from '../../src/view/BlockCard';
 import { getCardState, type GetCardStateProps } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Container = styled.div({
+const outerStyles = css({
 	width: '80%',
+});
+
+const innerStyles = css({
+	paddingTop: token('space.400'),
+	paddingRight: token('space.400'),
+	paddingBottom: token('space.400'),
+	paddingLeft: token('space.400'),
 });
 
 const getMetadata = (accessType?: string) => {
@@ -32,9 +39,9 @@ export const BlockCardForbiddenViews = () => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>
-				<Container>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<div style={{ padding: token('space.400', '32px') }}>
+				<div css={outerStyles}>
+					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives */}
+					<div css={innerStyles}>
 						<h5>Default Forbidden view </h5>
 						<BlockCard
 							cardState={getCardState(commonState)}
@@ -105,7 +112,7 @@ export const BlockCardForbiddenViews = () => {
 							testId={'denied-request-forbidden-view'}
 						/>
 					</div>
-				</Container>
+				</div>
 			</SmartCardProvider>
 		</VRTestWrapper>
 	);

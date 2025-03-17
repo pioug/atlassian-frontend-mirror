@@ -27,9 +27,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 	snapshotInformational(JiraIssuesTable, {
 		prepare: async (page: Page, _component: Locator) => {
@@ -50,9 +47,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 	snapshotInformational(JiraIssuesTable, {
 		prepare: async (page: Page, _component: Locator) => {
@@ -72,9 +66,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 	snapshotInformational(JiraIssuesTable, {
 		prepare: async (page: Page, _component: Locator) => {
@@ -94,9 +85,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 	snapshotInformational(JiraIssuesTable, {
 		prepare: async (page: Page, _component: Locator) => {
@@ -117,9 +105,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 	snapshotInformational(JiraIssuesTable, {
 		prepare: async (page: Page, _component: Locator) => {
@@ -139,9 +124,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(JiraIssuesTableSingleRow, {
@@ -155,9 +137,6 @@ if (process.env.IS_REACT_18 === 'false') {
 		},
 		drawsOutsideBounds: true,
 		description: 'Hovering over summary',
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(JiraIssuesTable, {
@@ -173,9 +152,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(JiraIssuesTable, {
@@ -191,9 +167,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(JiraIssuesTable, {
@@ -209,9 +182,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(JiraIssuesTable, {
@@ -227,9 +197,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(JiraIssuesTable, {
@@ -245,9 +212,6 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(JiraIssuesTable, {
@@ -269,8 +233,5 @@ if (process.env.IS_REACT_18 === 'false') {
 				jiraIssueId: 'NONE-123',
 			},
 		],
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 }

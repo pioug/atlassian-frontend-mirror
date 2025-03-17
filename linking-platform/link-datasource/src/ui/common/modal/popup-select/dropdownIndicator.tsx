@@ -4,11 +4,9 @@ import { cssMap } from '@compiled/react';
 
 import CloseIcon from '@atlaskit/icon/core/migration/cross-circle';
 import SearchIcon from '@atlaskit/icon/core/migration/search';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { components, type DropdownIndicatorProps } from '@atlaskit/select';
 
-import CustomDropdownIndicatorOld from './dropdownIndicatorOld';
 import { type SelectOption } from './types';
 
 const styles = cssMap({
@@ -46,12 +44,4 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, tru
 	);
 };
 
-const CustomDropdownIndicatorExported = (props: DropdownIndicatorProps<SelectOption, true>) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <CustomDropdownIndicator {...props} />;
-	} else {
-		return <CustomDropdownIndicatorOld {...props} />;
-	}
-};
-
-export default CustomDropdownIndicatorExported;
+export default CustomDropdownIndicator;

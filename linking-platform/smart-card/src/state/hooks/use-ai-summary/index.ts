@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { AISummaryService } from './ai-summary-service';
 import { AISummariesStore } from './ai-summary-service/store';
 import type { AISummaryServiceProps, AISummaryState } from './ai-summary-service/types';
@@ -18,10 +16,7 @@ export const useAISummary = (props: AISummaryServiceProps) => {
 		AISummariesStore.get(url)?.state || { status: 'ready', content: '' },
 	);
 
-	const { locale } = fg('send_locale_to_summarize_in_assistance-service')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIntl()
-		: { locale: undefined };
+	const { locale } = useIntl();
 
 	useEffect(() => {
 		//do not create a service for the empty URL string when the link data is not yet available,
@@ -35,7 +30,7 @@ export const useAISummary = (props: AISummaryServiceProps) => {
 					baseUrl,
 					product,
 					envKey,
-					...(fg('send_locale_to_summarize_in_assistance-service') && { locale }),
+					locale,
 					onError,
 					onStart,
 					onSuccess,

@@ -3,7 +3,7 @@ import React, { type ReactElement, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import InfoIcon from '@atlaskit/icon/glyph/info';
-import Box from '@atlaskit/primitives/box';
+import { Box } from '@atlaskit/primitives/compiled';
 
 const ProgrammaticFlagDismissExample = () => {
 	const [flags, setFlags] = useState<Array<ReactElement>>([

@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotPadlockKey } from '../../../common/ui/spot/basics/padlock-key';
 
-import { AccessRequiredOld } from './access-required-old';
 import { AccessRequiredSVGOld } from './access-required-svg';
 import { loadingErrorMessages } from './messages';
 
@@ -70,7 +69,7 @@ interface AccessRequiredProps {
 	url?: string;
 }
 
-export const AccessRequiredNew = ({ url }: AccessRequiredProps) => {
+export const AccessRequired = ({ url }: AccessRequiredProps) => {
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -101,12 +100,4 @@ export const AccessRequiredNew = ({ url }: AccessRequiredProps) => {
 			renderImage={IconContainer}
 		/>
 	);
-};
-
-export const AccessRequired = (props: AccessRequiredProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <AccessRequiredNew {...props} />;
-	} else {
-		return <AccessRequiredOld {...props} />;
-	}
 };

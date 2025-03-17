@@ -15,7 +15,6 @@ snapshot(IssueLikeTable, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
 		'platform-component-visual-refresh': [true, false],
 	},
 });
@@ -31,7 +30,6 @@ snapshot(IssueLikeTableReadonly, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
 		'platform-component-visual-refresh': [true, false],
 	},
 });
@@ -46,7 +44,4 @@ snapshot(IssueLikeTableCustomColumns, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });

@@ -305,9 +305,7 @@ export const DragHandle = ({
 	const handleMouseDown = useCallback(() => {
 		if (editorExperiment('advanced_layouts', true)) {
 			// prevent native drag and drop.
-			if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-				buttonRef.current?.focus();
-			}
+			buttonRef.current?.focus();
 
 			if (!isLayoutColumn) {
 				return undefined;

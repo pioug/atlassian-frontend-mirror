@@ -14,8 +14,8 @@ snapshot(HoverCard, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -24,8 +24,8 @@ snapshot(HoverCardWithPreview, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -34,8 +34,8 @@ snapshot(HoverCardForSlackMessage, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -44,8 +44,8 @@ snapshot(HoverCardConfluence, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -54,8 +54,8 @@ snapshot(HoverCardAssignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -64,8 +64,8 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -74,8 +74,8 @@ snapshot(HoverCardJiraProject, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -89,8 +89,8 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -104,8 +104,8 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -119,8 +119,8 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -134,8 +134,8 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -150,8 +150,8 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -166,8 +166,8 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -176,7 +176,7 @@ snapshot(HoverCardForbiddenJira, {
 	states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+		'bandicoots-compiled-migration-smartcard': true,
 	},
 });

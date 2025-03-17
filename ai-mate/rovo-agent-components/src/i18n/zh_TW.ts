@@ -7,7 +7,9 @@
  */
 //Chinese (Traditional)
 export default {
+  'ai-mate.agent-avatar-label': '客服人員頭像',
   'ai-mate.agent-profile-info.created-by': '由 {creatorNameWithLink} 建立的 Rovo 客服人員',
+  'ai-mate.agent-profile-info.creator': '建立者',
   'ai-mate.agent-profile-info.deactivated': '(已停用)',
   'ai-mate.agent-profile-info.hidden-icon': '隱藏',
   'ai-mate.agent-profile-info.hidden-tooltip': '客服人員不會顯示在搜尋結果中',
@@ -21,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': '撰寫本週更新',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': '瀏覽客服人員',
   'rovo-chat.browse-agents.copy-agent-label': '複製客服人員的連結',
+  'rovo-chat.browse-agents.remove-from-favourites-label': '從我的最愛中移除',
   'rovo-chat.view-agent.chat-to-agent-button': '與客服人員聊天',
   'rovo-chat.view-agent.copy-link-to-profile': '複製連結',
   'rovo-chat.view-agent.delete-agent': '刪除客服人員',

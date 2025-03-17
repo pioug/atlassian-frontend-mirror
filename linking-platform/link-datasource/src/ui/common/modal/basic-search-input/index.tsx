@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
-import { BasicSearchInputOld } from './basic-search-input-old';
 import { basicSearchInputMessages } from './messages';
 
 export interface BasicSearchInputProps {
@@ -41,7 +40,7 @@ const formWithMaxWidthStyles = css({
 	maxWidth: 250,
 });
 
-export const BasicSearchInputNew = ({
+export const BasicSearchInput = ({
 	isDisabled,
 	isSearching,
 	onChange,
@@ -99,12 +98,4 @@ export const BasicSearchInputNew = ({
 			/>
 		</form>
 	);
-};
-
-export const BasicSearchInput = (props: BasicSearchInputProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <BasicSearchInputNew {...props} />;
-	} else {
-		return <BasicSearchInputOld {...props} />;
-	}
 };

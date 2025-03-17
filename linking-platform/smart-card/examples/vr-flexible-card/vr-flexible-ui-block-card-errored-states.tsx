@@ -5,7 +5,6 @@
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import FlexibleErroredView from '../../src/view/BlockCard/views/ErroredView';
@@ -13,16 +12,11 @@ import FlexibleUnauthorisedView from '../../src/view/BlockCard/views/Unauthorise
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-import Old from './vr-flexible-ui-block-card-errored-statesOld';
-
 const containerStyle = css({
 	width: '80%',
 });
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

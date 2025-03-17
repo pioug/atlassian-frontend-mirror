@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 import { useIntl } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';

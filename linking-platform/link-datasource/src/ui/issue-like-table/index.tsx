@@ -35,7 +35,6 @@ import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
-import { IssueLikeDataTableViewOld } from './issue-like-table-old';
 import { renderType } from './render-type';
 import { TableCellContent } from './table-cell-content';
 import {
@@ -314,7 +313,7 @@ function getDefaultColumnWidth(key: string, type: DatasourceType['type']): numbe
 	}
 }
 
-const IssueLikeDataTableViewNew = ({
+export const IssueLikeDataTableView = ({
 	testId,
 	onNextPage,
 	onLoadDatasourceDetails,
@@ -781,14 +780,6 @@ const IssueLikeDataTableViewNew = ({
 	);
 
 	return <FlagsProvider>{view}</FlagsProvider>;
-};
-
-export const IssueLikeDataTableView = (props: IssueLikeDataTableViewProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <IssueLikeDataTableViewNew {...props} />;
-	} else {
-		return <IssueLikeDataTableViewOld {...props} />;
-	}
 };
 
 export const EmptyState = TableEmptyState;

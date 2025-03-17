@@ -58,9 +58,12 @@ export type UserEventsObserverProps = {
 };
 
 export class UserEventsObserver {
-	private observer: PerformanceObserver;
+	private observer: PerformanceObserver | undefined;
 
 	constructor({ onEventEntries }: UserEventsObserverProps) {
+		if (typeof globalThis.PerformanceObserver !== 'function') {
+			return;
+		}
 		this.observer = createPerformanceObserver((list) => {
 			backgroundTask(() => {
 				const mappedEvents = list.getEntries().reduce<UserEventType[]>((acc, value) => {

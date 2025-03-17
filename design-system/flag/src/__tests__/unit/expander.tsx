@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import Box from '@atlaskit/primitives/box';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import Flag from '../../flag';
 

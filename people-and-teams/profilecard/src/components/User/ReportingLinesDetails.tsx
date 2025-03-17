@@ -4,9 +4,12 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
-import Button from '@atlaskit/button';
+import ButtonLegacy from '@atlaskit/button';
+import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import messages from '../../messages';
 import {
@@ -42,6 +45,19 @@ const reportingLinesHeadingStyles = xcss({
 	marginBottom: '0',
 });
 
+const styles = cssMap({
+	reportingLinesButton: {
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+	},
+});
+
 const avatarGroupMaxCount = 5;
 
 const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
@@ -74,6 +90,25 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 				}
 			: undefined;
 
+	const onReportingLinksClick = (
+		user: ReportingLinesUser,
+		userType: 'manager' | 'direct-report',
+		href: string | undefined,
+	) => {
+		if (href) {
+			window.location.href = href;
+		}
+		if (onReportingLinesClick) {
+			onReportingLinesClick(user);
+		}
+		fireAnalyticsWithDuration((duration) =>
+			reportingLinesClicked({
+				duration,
+				userType,
+			}),
+		);
+	};
+
 	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = fg(
 		'platform_profilecard-enable_reporting_lines_label',
 	)
@@ -92,18 +127,37 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 						<FormattedMessage {...messages.managerSectionHeading} />
 					</Box>
 					<OffsetWrapper>
-						<Button
-							appearance="subtle"
-							spacing="none"
-							href={getProfileHref(manager.accountIdentifier, reportingLinesProfileUrl)}
-							onClick={getReportingLinesOnClick(manager, 'manager')}
-							isDisabled={!onReportingLinesClick}
-						>
-							<ManagerSection>
-								<Avatar size="xsmall" src={manager.pii?.picture} />
-								<ManagerName>{manager.pii?.name}</ManagerName>
-							</ManagerSection>
-						</Button>
+						{fg('ptc_migrate_buttons') ? (
+							<Pressable
+								onClick={() =>
+									onReportingLinksClick(
+										manager,
+										'manager',
+										getProfileHref(manager.accountIdentifier, reportingLinesProfileUrl),
+									)
+								}
+								isDisabled={!onReportingLinesClick}
+								xcss={styles.reportingLinesButton}
+							>
+								<ManagerSection>
+									<Avatar size="xsmall" src={manager.pii?.picture} />
+									<ManagerName>{manager.pii?.name}</ManagerName>
+								</ManagerSection>
+							</Pressable>
+						) : (
+							<ButtonLegacy
+								appearance="subtle"
+								spacing="none"
+								href={getProfileHref(manager.accountIdentifier, reportingLinesProfileUrl)}
+								onClick={getReportingLinesOnClick(manager, 'manager')}
+								isDisabled={!onReportingLinesClick}
+							>
+								<ManagerSection>
+									<Avatar size="xsmall" src={manager.pii?.picture} />
+									<ManagerName>{manager.pii?.name}</ManagerName>
+								</ManagerSection>
+							</ButtonLegacy>
+						)}
 					</OffsetWrapper>
 				</ReportingLinesSection>
 			)}

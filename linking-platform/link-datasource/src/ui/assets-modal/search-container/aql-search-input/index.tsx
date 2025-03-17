@@ -13,7 +13,6 @@ import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
 import { G300, N500, R400 } from '@atlaskit/theme/colors';
@@ -23,7 +22,6 @@ import Tooltip from '@atlaskit/tooltip';
 import { type AqlValidationResult, useValidateAqlText } from '../../../../hooks/useValidateAqlText';
 import { aqlKey } from '../../../../types/assets/types';
 
-import { AqlSearchInputOld } from './aql-search-input-old';
 import { searchInputMessages } from './messages';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
@@ -92,7 +90,7 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
 	);
 };
 
-export const AqlSearchInputNew = ({
+export const AqlSearchInput = ({
 	value,
 	workspaceId,
 	testId = 'assets-datasource-modal--aql-search-input',
@@ -163,12 +161,4 @@ export const AqlSearchInputNew = ({
 			</Field>
 		</FieldContainer>
 	);
-};
-
-export const AqlSearchInput = (props: AqlSearchInputProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <AqlSearchInputNew {...props} />;
-	} else {
-		return <AqlSearchInputOld {...props} />;
-	}
 };

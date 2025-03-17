@@ -1,4 +1,4 @@
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand, UserPreferencesProvider } from '@atlaskit/editor-common/types';
 
 import type { ToolbarDocking } from '../types';
 
@@ -12,8 +12,16 @@ export const toggleToolbar =
 	};
 
 export const setToolbarDocking =
-	({ toolbarDocking }: { toolbarDocking: ToolbarDocking }): EditorCommand =>
+	({
+		toolbarDocking,
+		userPreferencesProvider,
+	}: {
+		toolbarDocking: ToolbarDocking;
+		userPreferencesProvider?: UserPreferencesProvider;
+	}): EditorCommand =>
 	({ tr }) => {
+		// We currently ignore any update failures, need to confirm this is the desired behaviour
+		userPreferencesProvider?.updatePreference('toolbarDockingInitialPosition', toolbarDocking);
 		tr.setMeta(selectionToolbarPluginKey, { toolbarDocking });
 		return tr;
 	};

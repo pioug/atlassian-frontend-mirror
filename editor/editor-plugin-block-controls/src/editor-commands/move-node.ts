@@ -22,6 +22,7 @@ import {
 import { type EditorState, Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
+	findChildrenByType,
 	findParentNodeOfType,
 	findParentNodeOfTypeClosestToPos,
 } from '@atlaskit/editor-prosemirror/utils';
@@ -45,6 +46,7 @@ import {
 	canMoveNodeToIndex,
 	isInsideTable,
 	transformSliceExpandToNestedExpand,
+	transformFragmentExpandToNestedExpand,
 } from '../pm-plugins/utils/validation';
 
 /**
@@ -108,6 +110,14 @@ const isDragLayoutColumnToTopLevel = ($from: ResolvedPos, $to: ResolvedPos) => {
 		$from.nodeAfter?.type.name === 'layoutColumn' &&
 		$from.parent.type.name === 'layoutSection' &&
 		$to.depth === 0
+	);
+};
+
+const isDragLayoutColumnIntoTable = ($from: ResolvedPos, $to: ResolvedPos) => {
+	return (
+		$from.nodeAfter?.type.name === 'layoutColumn' &&
+		$from.parent.type.name === 'layoutSection' &&
+		($to.parent.type.name === 'tableCell' || $to.parent.type.name === 'tableHeader')
 	);
 };
 
@@ -336,13 +346,23 @@ export const moveNodeViaShortcut = (
 
 			const nodeType = state.doc.nodeAt(currentNodePos)?.type.name;
 
-			// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
-			const shouldMoveNode =
-				(shouldEnableNestedDndA11y
-					? (moveToPos > -1 && $currentNodePos.depth === state.doc.resolve(moveToPos).depth) ||
-						nodeType === 'layoutColumn'
-					: moveToPos > -1) ||
-				(nodeType === 'layoutColumn' && fg('platform_editor_advanced_layouts_accessibility'));
+			let shouldMoveNode = false;
+			if (moveToPos > -1 && fg('platform_editor_elements_dnd_multi_select_patch_2')) {
+				const isDestDepthSameAsSource =
+					$currentNodePos.depth === state.doc.resolve(moveToPos).depth;
+				const isSourceLayoutColumn = nodeType === 'layoutColumn';
+				shouldMoveNode =
+					(shouldEnableNestedDndA11y ? isDestDepthSameAsSource || isSourceLayoutColumn : true) ||
+					(isSourceLayoutColumn && fg('platform_editor_advanced_layouts_accessibility'));
+			} else {
+				// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
+				shouldMoveNode =
+					(shouldEnableNestedDndA11y
+						? (moveToPos > -1 && $currentNodePos.depth === state.doc.resolve(moveToPos).depth) ||
+							nodeType === 'layoutColumn'
+						: moveToPos > -1) ||
+					(nodeType === 'layoutColumn' && fg('platform_editor_advanced_layouts_accessibility'));
+			}
 
 			const { $anchor: $newAnchor, $head: $newHead } = expandSelectionBounds(
 				$currentNodePos,
@@ -408,7 +428,10 @@ export const moveNode =
 		formatMessage?: IntlShape['formatMessage'],
 	): EditorCommand =>
 	({ tr }) => {
-		if (!api) {
+		if (
+			!api ||
+			((start < 0 || to < 0) && fg('platform_editor_elements_dnd_multi_select_patch_2'))
+		) {
 			return tr;
 		}
 
@@ -456,12 +479,30 @@ export const moveNode =
 			const destParent = $to.node($to.depth);
 
 			const sourceNode = $handlePos.nodeAfter;
+			const dragLayoutColumnToTopLevel = isDragLayoutColumnToTopLevel($handlePos, $to);
+			const dragLayoutColumnIntoTable = isDragLayoutColumnIntoTable($handlePos, $to);
 
 			//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
 			// Move a layout column to top level
-			if (sourceNode && isDragLayoutColumnToTopLevel($handlePos, $to)) {
+			// Move a layout column into a table cell, only moves the content into the cell
+			if (sourceNode && (dragLayoutColumnToTopLevel || dragLayoutColumnIntoTable)) {
 				// need update after we support single column layout.
-				const fragment = Fragment.from(sourceNode.content);
+				const layoutColumnContent = sourceNode.content;
+
+				let fragment;
+				if (dragLayoutColumnIntoTable) {
+					const contentContainsExpand = findChildrenByType(sourceNode, expand).length > 0;
+					fragment = contentContainsExpand
+						? transformFragmentExpandToNestedExpand(Fragment.from(layoutColumnContent))
+						: Fragment.from(layoutColumnContent);
+
+					if (!fragment) {
+						return tr;
+					}
+				} else {
+					fragment = Fragment.from(layoutColumnContent);
+				}
+
 				removeFromSource(tr, $handlePos, $handlePos.pos + sourceNode.nodeSize);
 				const mappedTo = tr.mapping.map(to);
 				tr.insert(mappedTo, fragment)

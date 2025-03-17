@@ -7,7 +7,9 @@
  */
 //Danish (Denmark)
 export default {
+  'ai-mate.agent-avatar-label': 'Agentavatar',
   'ai-mate.agent-profile-info.created-by': 'Rovo-medarbejder af {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Skaber',
   'ai-mate.agent-profile-info.deactivated': '(deaktiveret)',
   'ai-mate.agent-profile-info.hidden-icon': 'Skjult',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Agenten vises ikke i søgeresultaterne',
@@ -22,6 +24,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Skriv en opdatering om min uge',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Gennemse agenter',
   'rovo-chat.browse-agents.copy-agent-label': 'Kopiér link til agent',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Fjern fra favoritter',
   'rovo-chat.view-agent.chat-to-agent-button': 'Chat med agent',
   'rovo-chat.view-agent.copy-link-to-profile': 'Kopiér link',
   'rovo-chat.view-agent.delete-agent': 'Slet agent',

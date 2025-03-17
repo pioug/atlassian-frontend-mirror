@@ -14,15 +14,14 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
-	fireInsertLayoutAnalytics,
 	attachMoveNodeAnalytics,
+	fireInsertLayoutAnalytics,
 	getMultiSelectAnalyticsAttributes,
 } from '../pm-plugins/utils/analytics';
-import { isFragmentOfType, containsNodeOfType } from '../pm-plugins/utils/check-fragment';
+import { containsNodeOfType, isFragmentOfType } from '../pm-plugins/utils/check-fragment';
 import { maxLayoutColumnSupported } from '../pm-plugins/utils/consts';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
 import { getMultiSelectionIfPosInside } from '../pm-plugins/utils/selection';
-import { updateColumnWidths } from '../pm-plugins/utils/update-column-widths';
 import { isInSameLayout } from '../pm-plugins/utils/validation';
 import { DEFAULT_COLUMN_DISTRIBUTIONS } from '../ui/consts';
 
@@ -104,7 +103,7 @@ const moveToExistingLayout = (
 		const mappedTo = tr.mapping.map(to);
 
 		tr.insert(mappedTo, sourceContent);
-		if (!fg('platform_editor_advanced_layouts_post_fix_patch_1') || selectMovedNode) {
+		if (selectMovedNode) {
 			tr.setSelection(new NodeSelection(tr.doc.resolve(mappedTo))).scrollIntoView();
 		}
 
@@ -121,14 +120,8 @@ const moveToExistingLayout = (
 			hasSelectedMultipleNodes,
 		);
 	} else if (toLayout.childCount < maxLayoutColumnSupported()) {
-		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-			removeFromSource(tr, tr.doc.resolve(from), sourceContentEndPos);
-			insertToDestinationNoWidthUpdate(tr, tr.mapping.map(to), sourceContent);
-		} else {
-			insertToDestination(tr, to, sourceContent, toLayout, toLayoutPos);
-			const mappedFrom = tr.mapping.map(from);
-			removeFromSource(tr, tr.doc.resolve(mappedFrom), tr.mapping.map(sourceContentEndPos));
-		}
+		removeFromSource(tr, tr.doc.resolve(from), sourceContentEndPos);
+		insertToDestinationNoWidthUpdate(tr, tr.mapping.map(to), sourceContent);
 
 		attachMoveNodeAnalytics(
 			tr,
@@ -190,52 +183,6 @@ const insertToDestinationNoWidthUpdate = (
 		tr.insert(to, content);
 	}
 
-	return tr;
-};
-
-const insertToDestination = (
-	tr: Transaction,
-	to: number,
-	sourceContent: PMNode | Fragment,
-	toLayout: PMNode,
-	toLayoutPos: number,
-) => {
-	const { newColumnWidth } =
-		updateColumnWidths(tr, toLayout, toLayoutPos, toLayout.childCount + 1) || {};
-
-	const { layoutColumn } = tr.doc.type.schema.nodes || {};
-
-	let content: PMNode | null = null;
-
-	try {
-		if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
-			if (sourceContent instanceof Fragment) {
-				content = layoutColumn.createChecked(
-					{ width: newColumnWidth },
-					isFragmentOfType(sourceContent, 'layoutColumn')
-						? sourceContent.firstChild?.content
-						: sourceContent,
-				);
-			}
-		} else {
-			if (sourceContent instanceof PMNode) {
-				content = layoutColumn.createChecked(
-					{ width: newColumnWidth },
-					sourceContent.type.name === 'layoutColumn' ? sourceContent.content : sourceContent,
-				);
-			}
-		}
-	} catch (error) {
-		logException(error as Error, { location: 'editor-plugin-block-controls/move-to-layout' });
-	}
-
-	if (content) {
-		tr.insert(to, content);
-	}
-
-	if (!fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-		tr.setSelection(new NodeSelection(tr.doc.resolve(to))).scrollIntoView();
-	}
 	return tr;
 };
 
@@ -470,9 +417,6 @@ export const moveToLayout =
 				const mappedTo = tr.mapping.map(to);
 
 				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize).insert(mappedTo, newLayout);
-				if (!fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
-					tr.setSelection(new NodeSelection(tr.doc.resolve(mappedTo))).scrollIntoView();
-				}
 
 				breakoutMode &&
 					tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [

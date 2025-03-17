@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.11.0
+
+### Minor Changes
+
+- [#126660](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126660)
+  [`cd95e98ae0372`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd95e98ae0372) -
+  [ux] Add tooltip for disconnect button
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.10.1
 
 ### Patch Changes

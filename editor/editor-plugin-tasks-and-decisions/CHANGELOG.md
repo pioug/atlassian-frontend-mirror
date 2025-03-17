@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.0.0
+
+### Major Changes
+
+- [#126060](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126060)
+  [`fe137e1387076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe137e1387076) -
+  Clean up Action Items experiment in Editor. Overriding the Quick Insert Action description and
+  Task Item placeholder will now always take effect.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.6
 
 ### Patch Changes

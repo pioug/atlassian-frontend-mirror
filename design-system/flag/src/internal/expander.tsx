@@ -1,14 +1,18 @@
-import React from 'react';
-
-import { xcss, Stack, Box } from '@atlaskit/primitives';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-const expanderStyles = xcss({
-	width: '100%',
-});
-
-const containerStyles = xcss({
-	transition: `max-height 0.3s`,
+const styles = cssMap({
+	expander: {
+		width: '100%',
+	},
+	container: {
+		transition: `max-height 0.3s`,
+	},
 });
 
 type ExpanderProps = {
@@ -24,7 +28,7 @@ const Expander = ({ children, isExpanded, testId }: ExpanderProps) => {
 
 	return (
 		<Box
-			xcss={containerStyles}
+			xcss={styles.expander}
 			style={{
 				maxHeight: isExpanded ? 150 : 0,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -39,7 +43,7 @@ const Expander = ({ children, isExpanded, testId }: ExpanderProps) => {
 				{isExpanded && (
 					<FadeIn>
 						{(props) => (
-							<Box xcss={expanderStyles} {...props}>
+							<Box xcss={styles.container} {...props}>
 								<Stack space="space.100">{children}</Stack>
 							</Box>
 						)}

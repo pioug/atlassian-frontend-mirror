@@ -222,6 +222,7 @@ export enum INPUT_METHOD {
 	BROWSER = 'browser',
 	DOUBLE_CLICK = 'doubleClick',
 	INLINE_SUGGESTION_FLOATING_TB = 'inlineSuggestionFloatingToolbar',
+	PAGE_OVERFLOW_MENU = 'confluencePageOverflowMenu',
 }
 
 export enum INSERT_MEDIA_VIA {

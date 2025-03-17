@@ -1,5 +1,15 @@
 # @atlaskit/rovo-agent-components
 
+## 2.3.0
+
+### Minor Changes
+
+- [#126674](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126674)
+  [`97f5461448d45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97f5461448d45) -
+  Add missing import React to files that are using React.X as typing This is probably the cause of
+  unit tests failing in townsquare bump? context in here
+  https://atlassian.slack.com/archives/C017XR8K1RB/p1741909754655519?thread_ts=1741759210.231849&cid=C017XR8K1RB
+
 ## 2.2.2
 
 ### Patch Changes

@@ -23,6 +23,7 @@ import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { token } from '@atlaskit/tokens';
 import { useMultiBodiedExtensionActions } from './multiBodiedExtension/actions';
 import { useMultiBodiedExtensionContext } from './multiBodiedExtension/context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type Props = React.PropsWithChildren<{
 	// Ignored via go/ees005
@@ -49,7 +50,7 @@ type Props = React.PropsWithChildren<{
 }>;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-const navigationStyles = css`
+const navigationStylesOld = css`
 	${sharedMultiBodiedExtensionStyles.mbeNavigation};
 	margin-left: 0 !important;
 	margin-right: 0 !important;
@@ -59,8 +60,35 @@ const navigationStyles = css`
 	}
 `;
 
+// localized sharedMultiBodiedExtensionStyles.mbeNavigation in navigationCssExtendedNew
+const navigationStylesNew = css({
+	borderTopLeftRadius: token('border.radius', '3px'),
+	borderTopRightRadius: token('border.radius', '3px'),
+	userSelect: 'none',
+	WebkitUserModify: 'read-only',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+	borderBottom: 'none !important',
+	background: token('elevation.surface', 'white'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.remove-margins': {
+		margin: token('space.negative.100', '-8px'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.remove-border': {
+		border: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	marginLeft: '0 !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	marginRight: '0 !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.mbe-add-tab-button, .mbe-remove-tab': {
+		display: 'none',
+	},
+});
+
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-const containerStyles = css`
+const containerStylesOld = css`
 	${sharedMultiBodiedExtensionStyles.mbeExtensionContainer};
 	.ak-renderer-extension {
 		margin-top: 0 !important;
@@ -73,6 +101,61 @@ const containerStyles = css`
 		}
 	}
 `;
+
+// localized sharedMultiBodiedExtensionStyles.mbeExtensionContainer in containerStylesNew
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+const containerStylesNew = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+	background: 'transparent !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'padding:': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		left: `${token('space.100', '8px')} !important`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		right: `${token('space.100', '8px')} !important`,
+	},
+	paddingBottom: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.remove-padding': {
+		paddingBottom: 0,
+	},
+	position: 'relative',
+	verticalAlign: 'middle',
+	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.multiBodiedExtension-handler-result': {
+		marginLeft: token('space.100', '8px'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	".multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true'], .multiBodiedExtension--frames > [data-extension-frame='true']":
+		{
+			display: 'none',
+			background: token('elevation.surface', 'white'),
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.multiBodiedExtension-content-dom-wrapper, .multiBodiedExtension--frames': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		"[data-extension-frame='true'] > :not(style):first-child, [data-extension-frame='true'] > style:first-child + *":
+			{
+				marginTop: 0,
+			},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ak-renderer-extension': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		marginTop: '0 !important',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-layout="full-width"], [data-layout="wide"]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.multiBodiedExtension-navigation': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			borderRight: `3px solid ${token('color.border', N40)} !important`,
+		},
+	},
+});
 
 const MultiBodiedExtensionChildrenContainer = ({ children }: React.PropsWithChildren) => {
 	return (
@@ -91,7 +174,9 @@ const MultiBodiedExtensionNavigation = ({ children }: React.PropsWithChildren) =
 		<nav
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="multiBodiedExtension-navigation"
-			css={navigationStyles}
+			css={
+				fg('platform_editor_emotion_refactor_renderer') ? navigationStylesNew : navigationStylesOld
+			}
 			data-testid="multiBodiedExtension-navigation"
 		>
 			{children}
@@ -236,7 +321,10 @@ const MultiBodiedExtension = (props: Props) => {
 		<section
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="multiBodiedExtension--container"
-			css={[containerStyles, containerActiveFrameStyles]}
+			css={[
+				fg('platform_editor_emotion_refactor_renderer') ? containerStylesNew : containerStylesOld,
+				containerActiveFrameStyles,
+			]}
 			data-testid="multiBodiedExtension--container"
 			data-active-child-index={activeChildIndex}
 			data-layout={layout}

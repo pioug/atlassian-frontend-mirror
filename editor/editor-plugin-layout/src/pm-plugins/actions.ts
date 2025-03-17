@@ -492,7 +492,7 @@ const getDefaultPresetLayout = (layoutNode: Node): PresetLayout => {
 
 		// This prevents the creation of a single column layout
 		// once we support single column layout, we can return 'single'
-		return fg('platform_editor_advanced_layouts_post_fix_patch_1') ? 'two_equal' : 'single';
+		return 'two_equal';
 	}
 	switch (layoutColumnCount) {
 		case 2:

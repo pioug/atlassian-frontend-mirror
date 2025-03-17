@@ -1,10 +1,7 @@
 import React from 'react';
 
 import { type StringType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
-
-import TextRenderTypeOld from './text-old';
 
 interface TextProps {
 	testId?: string;
@@ -26,12 +23,4 @@ const TextRenderType = ({ text, testId = TEXT_TYPE_TEST_ID }: TextProps) => {
 	);
 };
 
-const TextRenderTypeExported = (props: TextProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <TextRenderType {...props} />;
-	} else {
-		return <TextRenderTypeOld {...props} />;
-	}
-};
-
-export default TextRenderTypeExported;
+export default TextRenderType;

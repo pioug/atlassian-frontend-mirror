@@ -60,9 +60,6 @@ snapshotInformational(BasicFiltersVR, {
 		await page.getByText('ProjectTypeStatusAssignee');
 	},
 	description: 'default state for all filters',
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });
 
 snapshotInformational(WithModal, {
@@ -72,9 +69,6 @@ snapshotInformational(WithModal, {
 		await page.getByTestId('mode-toggle-basic').click();
 	},
 	description: 'basic mode with basic filters',
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
-	},
 });
 
 snapshotInformational(WithIssueModalWithParameters, {
@@ -86,9 +80,6 @@ snapshotInformational(WithIssueModalWithParameters, {
 	description: 'basic mode with basic filters with each filter selected',
 	selector: {
 		byTestId: 'jlol-basic-filter-container',
-	},
-	featureFlags: {
-		'bandicoots-compiled-migration-link-datasource': [true, false],
 	},
 });
 
@@ -103,9 +94,6 @@ filters.forEach((filter) => {
 			await firstOption.waitFor({ state: 'visible' });
 		},
 		description: `${filter} open trigger`,
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -115,9 +103,6 @@ filters.forEach((filter) => {
 			await selectOption(page, filter, 1, false);
 		},
 		description: `${filter} open and option selected`,
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -127,9 +112,6 @@ filters.forEach((filter) => {
 			await selectOption(page, filter);
 		},
 		description: `${filter} closed and multiple options selected`,
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -144,9 +126,6 @@ filters.forEach((filter) => {
 			await page.getByText('Unassigned', { exact: true }).waitFor({ state: 'detached' });
 		},
 		description: `${filter} open and search text entered`,
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -166,9 +145,6 @@ filters.forEach((filter) => {
 				.waitFor({ state: 'visible' });
 		},
 		description: `${filter} open and view loading state`,
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -187,7 +163,6 @@ filters.forEach((filter) => {
 		},
 		description: `${filter} open and view empty state`,
 		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
 			'bandicoots-update-sllv-icons': true,
 		},
 	});
@@ -228,7 +203,6 @@ filters.forEach((filter) => {
 		},
 		description: `${filter} open and view error state`,
 		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
 			'bandicoots-update-sllv-icons': true,
 		},
 	});
@@ -261,8 +235,5 @@ filters.forEach((filter) => {
 			await page.keyboard.press('Tab');
 		},
 		description: `${filter} open and focus show more button`,
-		featureFlags: {
-			'bandicoots-compiled-migration-link-datasource': [true, false],
-		},
 	});
 });

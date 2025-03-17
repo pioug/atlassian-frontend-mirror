@@ -7,7 +7,6 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type ElementItem, ElementName, MetadataBlock, SmartLinkSize } from '../../src';
@@ -15,8 +14,6 @@ import { SmartLinkStatus } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-block-metadataOld';
 
 const blockOverrideCss = css({
 	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
@@ -71,9 +68,6 @@ const multiLineElements: ElementItem[] = [
 ];
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>

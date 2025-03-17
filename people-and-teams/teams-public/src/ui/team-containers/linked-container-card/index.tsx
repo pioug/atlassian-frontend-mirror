@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
+import { defineMessages, useIntl } from 'react-intl-next';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/utility/cross';
-import Image from '@atlaskit/image';
 import Link from '@atlaskit/link';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerTypes } from '../../../common/types';
 import { AnalyticsAction, fireUIEvent } from '../../../common/utils/analytics';
@@ -18,7 +21,7 @@ const styles = cssMap({
 		outlineWidth: token('border.width'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('border.radius.100', '8px'),
 		borderColor: token('color.border.accent.gray'),
 		paddingTop: token('space.150'),
 		paddingRight: token('space.150'),
@@ -97,8 +100,9 @@ export const LinkedContainerCard = ({
 	onDisconnectButtonClick,
 }: LinkedContainerCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { description, icon } = getContainerProperties(containerType);
+	const { description, icon, containerTypeText } = getContainerProperties(containerType);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
+	const { formatMessage } = useIntl();
 
 	return (
 		<LinkedCardWrapper
@@ -107,40 +111,58 @@ export const LinkedContainerCard = ({
 			handleMouseLeave={() => setShowCloseIcon(false)}
 		>
 			<Inline space="space.100" xcss={styles.card}>
-				<Box xcss={styles.iconWrapper}>
-					<Image src={containerIcon} alt="" testId="linked-container-icon" />
-				</Box>
+				<Avatar
+					appearance="square"
+					size="medium"
+					src={containerIcon}
+					testId="linked-container-icon"
+				/>
 				<Stack>
 					<Text maxLines={1} weight="medium" color="color.text">
 						{title}
 					</Text>
 					<Flex gap="space.050">
 						{icon}
-						<Text size="small" color="color.text.subtle">
-							{description}
-						</Text>
+						<Inline space="space.050">
+							<Text size="small" color="color.text.subtle">
+								{description}
+							</Text>
+							<Text size="small" color="color.text.subtle">
+								{containerTypeText}
+							</Text>
+						</Inline>
 					</Flex>
 				</Stack>
 				{showCloseIcon && (
 					<Box xcss={styles.crossIconWrapper}>
-						<IconButton
-							label={`disconnect the container ${title}`}
-							appearance="subtle"
-							icon={CrossIcon}
-							spacing="compact"
-							onClick={(e) => {
-								e.preventDefault();
-								onDisconnectButtonClick();
-								fireUIEvent(createAnalyticsEvent, {
-									action: AnalyticsAction.CLICKED,
-									actionSubject: 'button',
-									actionSubjectId: 'containerUnlinkButton',
-								});
-							}}
-						/>
+						<Tooltip content={formatMessage(messages.disconnectTooltip)} position="top">
+							<IconButton
+								label={`disconnect the container ${title}`}
+								appearance="subtle"
+								icon={CrossIcon}
+								spacing="compact"
+								onClick={(e) => {
+									e.preventDefault();
+									onDisconnectButtonClick();
+									fireUIEvent(createAnalyticsEvent, {
+										action: AnalyticsAction.CLICKED,
+										actionSubject: 'button',
+										actionSubjectId: 'containerUnlinkButton',
+									});
+								}}
+							/>
+						</Tooltip>
 					</Box>
 				)}
 			</Inline>
 		</LinkedCardWrapper>
 	);
 };
+
+const messages = defineMessages({
+	disconnectTooltip: {
+		id: 'ptc-directory.team-containers.disconnect-button.tooltip',
+		defaultMessage: 'Disconnect',
+		description: 'Tooltip for the disconnect button',
+	},
+});

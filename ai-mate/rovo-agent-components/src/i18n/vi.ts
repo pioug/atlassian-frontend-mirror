@@ -7,7 +7,9 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'ai-mate.agent-avatar-label': 'Hình đại diện nhân viên',
   'ai-mate.agent-profile-info.created-by': 'Nhân viên hỗ trợ Rovo của {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'Người tạo',
   'ai-mate.agent-profile-info.deactivated': '(đã hủy kích hoạt)',
   'ai-mate.agent-profile-info.hidden-icon': 'Bị ẩn',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Nhân viên sẽ không hiển thị trong kết quả tìm kiếm',
@@ -21,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'Viết một bản cập nhật về tuần của tôi',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Duyệt tìm nhân viên',
   'rovo-chat.browse-agents.copy-agent-label': 'Sao chép liên kết đến nhân viên',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'Xóa khỏi mục yêu thích',
   'rovo-chat.view-agent.chat-to-agent-button': 'Trò chuyện với Nhân viên',
   'rovo-chat.view-agent.copy-link-to-profile': 'Sao chép liên kết',
   'rovo-chat.view-agent.delete-agent': 'Xóa Nhân viên',

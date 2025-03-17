@@ -116,14 +116,29 @@ export const commitStepQueue = ({
 
 				if (timer) {
 					clearTimeout(timer);
-					if (latency <= 400) {
-						setTimeout(() => {
+					if (fg('make_collab_provider_ack_delay_agnostic')) {
+						if (latency < 680) {
+							// this most closely replicates the BE ack delay behaviour. 500ms hardcoded + 180ms network delay (tested on hello)
+							// more context: https://hello.atlassian.net/wiki/spaces/CEPS/pages/5020556010/Spike+Moving+BE+delay+to+the+FE
+							// to be switched over to backpressure delay sent from the BE in https://hello.jira.atlassian.cloud/browse/CEPS-1030
+							setTimeout(() => {
+								readyToCommit = true;
+								logger('reset readyToCommit');
+							}, 680 - latency);
+						} else {
 							readyToCommit = true;
 							logger('reset readyToCommit');
-						}, 100);
+						}
 					} else {
-						readyToCommit = true;
-						logger('reset readyToCommit');
+						if (latency < 400) {
+							setTimeout(() => {
+								readyToCommit = true;
+								logger('reset readyToCommit');
+							}, 100);
+						} else {
+							readyToCommit = true;
+							logger('reset readyToCommit');
+						}
 					}
 				}
 

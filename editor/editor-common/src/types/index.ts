@@ -234,3 +234,5 @@ import type { EditorPresetBuilder, ExtractPresetAPI } from '../preset';
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractPublicEditorAPI<T extends EditorPresetBuilder<any, any>> = ExtractPresetAPI<T>;
+
+export type { UserPreferencesProvider, UserPreferences } from './user-preferences';

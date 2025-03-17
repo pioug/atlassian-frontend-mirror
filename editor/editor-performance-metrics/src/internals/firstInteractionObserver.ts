@@ -11,11 +11,14 @@ function bind(
 		return () => {};
 	}
 
+	const hasAbortSignal =
+		typeof globalThis.AbortSignal === 'function' &&
+		controller.signal instanceof globalThis.AbortSignal;
 	const options = {
 		capture: true,
 		passive: true,
 		once: true,
-		signal: controller.signal,
+		signal: hasAbortSignal ? controller.signal : undefined,
 	};
 
 	target.addEventListener(event, listener, options);

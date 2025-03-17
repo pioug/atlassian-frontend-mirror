@@ -59,7 +59,7 @@ export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps
 			<Flex direction="column" xcss={reactionViewStyle}>
 				{alphabeticalNames.length === 0 ? (
 					<Box xcss={centerSpinnerStyle}>
-						<Spinner size="large" />
+						<Spinner size="large" interactionName="reactions-spinner" />
 					</Box>
 				) : (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

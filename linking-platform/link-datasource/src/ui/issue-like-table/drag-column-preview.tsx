@@ -7,12 +7,9 @@ import React from 'react';
 
 import { css, jsx, styled } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N40 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
-
-import { DragColumnPreviewOld } from './drag-column-preview-old';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const TableHeading = styled.th({
@@ -117,7 +114,7 @@ const tableStyles = css({
 	maxWidth: '200px',
 });
 
-const DragColumnPreviewNew = ({
+export const DragColumnPreview = ({
 	title,
 	rows,
 }: {
@@ -143,12 +140,4 @@ const DragColumnPreviewNew = ({
 			</tbody>
 		</table>
 	);
-};
-
-export const DragColumnPreview = (props: { title: React.ReactNode; rows: React.ReactNode[] }) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <DragColumnPreviewNew {...props} />;
-	} else {
-		return <DragColumnPreviewOld {...props} />;
-	}
 };

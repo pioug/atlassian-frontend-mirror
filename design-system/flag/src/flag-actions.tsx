@@ -5,21 +5,14 @@
  */
 import { type ComponentType, type CSSProperties, type FC } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
-import Inline from '@atlaskit/primitives/inline';
+import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import {
-	DEFAULT_APPEARANCE,
-	VAR_BG_COLOR,
-	VAR_BG_COLOR_ACTIVE,
-	VAR_BG_COLOR_HOVER,
-	VAR_COLOR,
-} from './constants';
+import { DEFAULT_APPEARANCE } from './constants';
 import { actionBackgroundColor, actionTextColor } from './theme';
 import type { ActionsType, AppearanceTypes } from './types';
 
@@ -33,13 +26,18 @@ type FlagActionsProps = {
 const buttonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&, a&&': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		padding: `0 ${token('space.100', '8px')} !important`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		background: `var(${VAR_BG_COLOR})`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: `var(${VAR_COLOR}) !important`,
+		background: 'var(--bg-color)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		color: 'var(--color) !important',
 		fontWeight: token('font.weight.medium', '500'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		paddingBlockEnd: '0 !important',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		paddingBlockStart: '0 !important',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		paddingInlineEnd: `${token('space.100', '8px')} !important`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		paddingInlineStart: `${token('space.100', '8px')} !important`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&:hover, &&:active, a&&:hover, a&&:active': {
@@ -48,12 +46,12 @@ const buttonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&:hover': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: `var(${VAR_BG_COLOR_HOVER})`,
+		backgroundColor: 'var(--bg-color-hover)',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&:active': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: `var(${VAR_BG_COLOR_ACTIVE})`,
+		backgroundColor: 'var(--bg-color-active)',
 	},
 });
 
@@ -102,13 +100,13 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
 						style={
 							{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								[VAR_COLOR]: actionTextColor[appearance],
+								'--color': actionTextColor[appearance],
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								[VAR_BG_COLOR]: actionBackgroundColor[appearance].default,
+								'--bg-color': actionBackgroundColor[appearance].default,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								[VAR_BG_COLOR_HOVER]: actionBackgroundColor[appearance].pressed,
+								'--bg-color-hover': actionBackgroundColor[appearance].pressed,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								[VAR_BG_COLOR_ACTIVE]: actionBackgroundColor[appearance].active,
+								'--bg-color-active': actionBackgroundColor[appearance].active,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							} as CSSProperties
 						}

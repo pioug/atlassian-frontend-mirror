@@ -18,7 +18,6 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
 import ChevronUp from '@atlaskit/icon/utility/migration/chevron-up';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	attachClosestEdge,
 	type Edge,
@@ -41,7 +40,6 @@ import { token } from '@atlaskit/tokens';
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 
 import { GlyphPlaceholder, UnwrapTextIcon, WrapTextIcon } from './custom-icons';
-import { DraggableTableHeadingOld } from './draggable-table-heading-old';
 import { issueLikeTableMessages } from './messages';
 import { getColumnMinWidth, getWidthCss } from './utils';
 
@@ -199,7 +197,7 @@ interface DraggableTableHeadingProps {
 	onIsWrappedChange?: (shouldWrap: boolean) => void;
 }
 
-const DraggableTableHeadingNew = ({
+export const DraggableTableHeading = ({
 	children,
 	id,
 	index,
@@ -493,12 +491,4 @@ const DraggableTableHeadingNew = ({
 			{state.type === 'preview' ? ReactDOM.createPortal(dragPreview, state.container) : null}
 		</TableHeading>
 	);
-};
-
-export const DraggableTableHeading = (props: DraggableTableHeadingProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <DraggableTableHeadingNew {...props} />;
-	} else {
-		return <DraggableTableHeadingOld {...props} />;
-	}
 };

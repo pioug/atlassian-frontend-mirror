@@ -37,7 +37,6 @@ const buttonStyles = xcss({
 	border: 'none',
 	backgroundColor: 'color.background.neutral.subtle',
 	borderRadius: '50%',
-	color: 'color.text.accent.gray',
 	zIndex: 'card',
 	outline: 'none',
 
@@ -206,20 +205,23 @@ export const TypeAheadControl = ({
 			}
 		}
 
-		api?.quickInsert?.actions.openTypeAhead('blockControl');
+		api.quickInsert?.actions.openTypeAhead('blockControl');
 	}, [api, getPos, view]);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		<Box style={positionStyles} xcss={[containerStaticStyles]}>
-			<Tooltip content={<ToolTipContent description={formatMessage(messages.insert)} />}>
+			<Tooltip
+				position="top"
+				content={<ToolTipContent description={formatMessage(messages.insert)} />}
+			>
 				<Pressable
 					type="button"
 					aria-label={formatMessage(messages.insert)}
 					xcss={[buttonStyles]}
 					onClick={handleQuickInsert}
 				>
-					<AddIcon label="add" />
+					<AddIcon label="add" color={token('color.icon')} />
 				</Pressable>
 			</Tooltip>
 		</Box>

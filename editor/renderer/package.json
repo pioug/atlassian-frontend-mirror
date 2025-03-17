@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.3.0",
+	"version": "114.3.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,6 +48,7 @@
 		"@atlaskit/media-ui": "workspace:*",
 		"@atlaskit/media-viewer": "workspace:*",
 		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/platform-feature-flags-react": "workspace:*",
 		"@atlaskit/react-ufo": "workspace:*",
 		"@atlaskit/smart-card": "workspace:*",
 		"@atlaskit/status": "workspace:*",

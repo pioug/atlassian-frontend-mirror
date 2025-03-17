@@ -23,6 +23,7 @@ import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type EditorActions from '../actions';
 
@@ -39,6 +40,17 @@ function sendExtensionQuickInsertAnalytics(
 		const insertLocation = fg('platform_nested_nbm_analytics_location')
 			? findInsertLocation(selection)
 			: undefined;
+
+		if (
+			insertLocation &&
+			['listItem', 'blockquote', 'nestedExpand', 'panel'].includes(insertLocation)
+		) {
+			// No-op editorExperiment evaluation to track usage of nested non-bodied macros
+			// these can't be tracked at the point of diversion of the experience because that is a toggle of the
+			// ProseMirror schema nodes for listItems, nestedExpand, blockquote, and panel. At that point the customer
+			// has not yet been exposed to the experience.
+			editorExperiment('platform_editor_nested_non_bodied_macros', 'test', { exposure: true });
+		}
 
 		fireAnalyticsEvent(createAnalyticsEvent)({
 			payload: {

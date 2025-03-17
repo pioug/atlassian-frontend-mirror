@@ -33,7 +33,6 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 
@@ -361,7 +360,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
-			if (isResizeDisabled && fg('platform_fix_embedded_card_re-rendering')) {
+			if (isResizeDisabled) {
 				enable[side] = false;
 				return;
 			}

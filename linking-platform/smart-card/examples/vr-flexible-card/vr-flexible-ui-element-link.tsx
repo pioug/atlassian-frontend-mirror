@@ -6,7 +6,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize, SmartLinkTheme } from '../../src/constants';
@@ -14,8 +13,6 @@ import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { Title } from '../../src/view/FlexibleCard/components/elements';
 import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-
-import Old from './vr-flexible-ui-element-linkOld';
 
 const overrideCss = css({
 	color: token('color.background.accent.blue.subtle', '#579DFF'),
@@ -27,9 +24,6 @@ const renderTitle = (maxLines = 2, size = SmartLinkSize.Medium, theme = SmartLin
 );
 
 export default () => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <Old />;
-	}
 	return (
 		<VRTestWrapper>
 			<FlexibleUiContext.Provider value={context}>

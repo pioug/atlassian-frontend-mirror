@@ -4,30 +4,28 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { smallImage } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
 
 import { IconType, SmartLinkSize } from '../../src/constants';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { LinkIcon } from '../../src/view/FlexibleCard/components/elements';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const boxStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: exampleTokens.iconColor,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: exampleTokens.iconBackgroundColor,
+	color: token('color.text.inverse', '#FFFFFF'),
+	backgroundColor: token('color.icon.brand', '#0C66E4'),
 	borderRadius: '5px',
 });
-const overrideCss = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: exampleTokens.overrideColor,
+const linkIconStyles = css({
+	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
 	borderRadius: '15px',
 });
+
 const context = getContext();
 
 export default () => {
@@ -69,7 +67,7 @@ export default () => {
 				<LinkIcon
 					icon={IconType.Default}
 					label="Override css"
-					overrideCss={overrideCss}
+					css={linkIconStyles}
 					size={SmartLinkSize.XLarge}
 				/>
 			</FlexibleUiContext.Provider>

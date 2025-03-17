@@ -7,7 +7,6 @@ import { useMemo } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
@@ -15,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 import type { Site } from '../../../../common/types';
 
 import { siteSelectorMessages } from './messages';
-import { SiteSelectorOld } from './site-selector-old';
 
 const styles = cssMap({
 	dropdownContainerStyles: {
@@ -40,7 +38,7 @@ const selectStyles = css({
 	zIndex: 11,
 });
 
-const SiteSelectorNew = (props: SiteSelectorProps) => {
+export const SiteSelector = (props: SiteSelectorProps) => {
 	const { availableSites, onSiteSelection, selectedSite, label, testId } = props;
 
 	const { formatMessage } = useIntl();
@@ -103,12 +101,4 @@ const SiteSelectorNew = (props: SiteSelectorProps) => {
 			)}
 		</Box>
 	);
-};
-
-export const SiteSelector = (props: SiteSelectorProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <SiteSelectorNew {...props} />;
-	} else {
-		return <SiteSelectorOld {...props} />;
-	}
 };

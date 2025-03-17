@@ -10,7 +10,6 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP, DRAG_HANDLE_WIDTH } from './consts';
@@ -315,7 +314,7 @@ export const GlobalStylesWrapper = () => {
 		<Global
 			styles={[
 				globalStyles(),
-				fg('platform_editor_advanced_layouts_post_fix_patch_1') && globalDnDStyle,
+				globalDnDStyle,
 				editorExperiment('nested-dnd', true) ? extendedHoverZoneNested() : extendedHoverZone(),
 				withInlineNodeStyle,
 				withDeleteLinesStyleFix,

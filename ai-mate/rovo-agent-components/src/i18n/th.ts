@@ -7,7 +7,9 @@
  */
 //Thai (Thailand)
 export default {
+  'ai-mate.agent-avatar-label': 'รูปแทนตัวพนักงาน',
   'ai-mate.agent-profile-info.created-by': 'Rovo เอเจนท์โดย {creatorNameWithLink}',
+  'ai-mate.agent-profile-info.creator': 'ครีเอเตอร์',
   'ai-mate.agent-profile-info.deactivated': '(ปิดใช้งานแล้ว)',
   'ai-mate.agent-profile-info.hidden-icon': 'ซ่อนอยู่',
   'ai-mate.agent-profile-info.hidden-tooltip': 'พนักงานจะไม่แสดงในผลการค้นหา',
@@ -21,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion3': 'เขียนการอัปเดตเกี่ยวกับสัปดาห์ของฉัน',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'เรียกดูพนักงาน',
   'rovo-chat.browse-agents.copy-agent-label': 'คัดลอกลิงก์ไปยังพนักงาน',
+  'rovo-chat.browse-agents.remove-from-favourites-label': 'ลบออกจากรายการโปรด',
   'rovo-chat.view-agent.chat-to-agent-button': 'แชทกับพนักงาน',
   'rovo-chat.view-agent.copy-link-to-profile': 'คัดลอกลิงก์',
   'rovo-chat.view-agent.delete-agent': 'ลบพนักงาน',

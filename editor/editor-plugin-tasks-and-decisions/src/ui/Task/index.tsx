@@ -10,7 +10,6 @@ import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ContentRef } from '@atlaskit/task-decision';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 import { type TaskAndDecisionsSharedState } from '../../types';
@@ -75,11 +74,7 @@ export class TaskItem extends PureComponent<TaskItemProps, Object> {
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...otherProps}
-				placeholder={
-					placeholder !== undefined && editorExperiment('issue_view_action_items', true)
-						? placeholder
-						: formatMessage(tasksAndDecisionsMessages.taskPlaceholder)
-				}
+				placeholder={placeholder ?? formatMessage(tasksAndDecisionsMessages.taskPlaceholder)}
 				taskDecisionProvider={
 					taskDecisionProvider ? Promise.resolve(taskDecisionProvider) : undefined
 				}

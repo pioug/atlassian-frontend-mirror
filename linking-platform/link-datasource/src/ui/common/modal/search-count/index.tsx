@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 import { footerMessages } from '../../../table-footer/messages';
 
 import { searchCountMessages } from './messages';
-import TableSearchCountOld, { AssetsItemCountOld } from './search-count-old';
 
 const styles = cssMap({
 	searchCountStyles: {
@@ -46,7 +45,7 @@ const ItemCountWrapper = ({
 	</Flex>
 );
 
-export const AssetsItemCountNew = ({
+export const AssetsItemCount = ({
 	searchCount,
 	url,
 	testId,
@@ -61,16 +60,6 @@ export const AssetsItemCountNew = ({
 			<FormattedMessage {...footerMessages.itemText} values={{ itemCount: searchCount }} />
 		</ItemCountWrapper>
 	);
-};
-
-export const AssetsItemCount = (
-	props: Pick<TableSearchCountProps, 'testId' | 'url' | 'searchCount'>,
-) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <AssetsItemCountNew {...props} />;
-	} else {
-		return <AssetsItemCountOld {...props} />;
-	}
 };
 
 const TableSearchCount = ({
@@ -91,12 +80,4 @@ const TableSearchCount = ({
 	);
 };
 
-export const TableSearchCountExported = (props: TableSearchCountProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <TableSearchCount {...props} />;
-	} else {
-		return <TableSearchCountOld {...props} />;
-	}
-};
-
-export default TableSearchCountExported;
+export default TableSearchCount;

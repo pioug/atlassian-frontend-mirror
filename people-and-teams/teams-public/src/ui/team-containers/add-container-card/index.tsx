@@ -20,6 +20,9 @@ const styles = cssMap({
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
 		borderRadius: token('border.radius.100'),
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 	iconWrapper: {
 		outlineWidth: token('border.width'),
@@ -39,7 +42,13 @@ interface AddContainerCardProps {
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const AddContainerCardWrapper = ({ children }: { children: React.ReactNode }) => {
+const AddContainerCardWrapper = ({
+	children,
+	onClick,
+}: {
+	children: React.ReactNode;
+	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}) => {
 	const [hovered, setHovered] = useState(false);
 	const handleMouseEnter = () => setHovered(true);
 	const handleMouseLeave = () => setHovered(false);
@@ -49,6 +58,7 @@ const AddContainerCardWrapper = ({ children }: { children: React.ReactNode }) =>
 			xcss={styles.container}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
+			onClick={onClick}
 		>
 			{children}
 		</Box>
@@ -62,16 +72,18 @@ export const AddContainerCard = ({
 	const { description, icon, title } = getContainerProperties(containerType);
 
 	return (
-		<AddContainerCardWrapper>
+		<AddContainerCardWrapper onClick={onAddAContainerClick}>
 			<Inline space="space.100" xcss={styles.card}>
 				<Box xcss={styles.iconWrapper}>
 					<IconButton
 						label="Add a container"
 						appearance="subtle"
 						icon={AddIcon}
-						spacing="compact"
 						testId="add-icon"
-						onClick={(e) => onAddAContainerClick(e)}
+						onClick={(e) => {
+							onAddAContainerClick(e);
+							e.stopPropagation();
+						}}
 					/>
 				</Box>
 				<Stack>

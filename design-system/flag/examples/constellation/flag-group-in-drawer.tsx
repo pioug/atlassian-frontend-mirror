@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import Info from '@atlaskit/icon/glyph/info';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 const FlagsInDrawerExample = () => {
 	const [open, setOpen] = useState<boolean>(false);

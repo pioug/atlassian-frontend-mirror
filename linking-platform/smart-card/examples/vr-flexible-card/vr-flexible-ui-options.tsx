@@ -4,22 +4,21 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { TitleBlock } from '../../src/view/FlexibleCard/components/blocks';
-import { exampleTokens, getCardState } from '../utils/flexible-ui';
+import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const clickableContainerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.layered-link': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: exampleTokens.iconBackgroundColor,
+		backgroundColor: token('color.icon.brand', '#0C66E4'),
 		opacity: 0.2,
 	},
 });

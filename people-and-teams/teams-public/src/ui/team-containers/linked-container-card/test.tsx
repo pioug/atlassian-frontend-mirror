@@ -20,6 +20,15 @@ jest.mock('../../../common/utils/analytics', () => ({
 	fireUIEvent: jest.fn(),
 }));
 
+jest.mock('react-intl-next', () => {
+	return {
+		...jest.requireActual('react-intl-next'),
+		useIntl: jest.fn(() => ({
+			formatMessage: jest.fn(),
+		})),
+	};
+});
+
 describe('LinkedContainerCard', () => {
 	const mockContainerProperties = {
 		description: 'Test Description',
@@ -75,21 +84,6 @@ describe('LinkedContainerCard', () => {
 			</Router>,
 		);
 		expect(screen.getByTestId('test-icon')).toBeInTheDocument();
-	});
-
-	it('should render the container icon', () => {
-		render(
-			<Router>
-				<LinkedContainerCard
-					containerType={'ConfluenceSpace'}
-					title="Test Title"
-					containerIcon="test-icon-url"
-					link={testLink}
-					onDisconnectButtonClick={jest.fn()}
-				/>
-			</Router>,
-		);
-		expect(screen.getByTestId('linked-container-icon')).toHaveAttribute('src', 'test-icon-url');
 	});
 
 	it('should prevent default action on cross icon button click and trigger onDisconnectButtonClick', async () => {

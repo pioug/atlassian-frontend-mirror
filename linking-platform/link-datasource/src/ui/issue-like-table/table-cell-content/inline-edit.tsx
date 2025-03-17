@@ -21,7 +21,6 @@ import { EmptyAvatar } from '../shared-components/avatar';
 import type { DatasourceTypeWithOnlyValues } from '../types';
 import { getFieldLabelById } from '../utils';
 
-import { InlineEditOld } from './inline-edit-old';
 import { tableCellMessages } from './messages';
 
 export const InlineEditUFOExperience = 'inline-edit-rendered';
@@ -170,7 +169,7 @@ const useRefreshDatasourceItem = (item: DatasourceItem | undefined) => {
 	}, [reloadSmartLinkAction, url]);
 };
 
-const InlineEditNew = ({
+export const InlineEdit = ({
 	ari,
 	execute,
 	executeFetch,
@@ -315,14 +314,6 @@ const InlineEditNew = ({
 			/>
 		</Box>
 	);
-};
-
-export const InlineEdit = (props: InlineEditProps) => {
-	if (fg('bandicoots-compiled-migration-link-datasource')) {
-		return <InlineEditNew {...props} />;
-	} else {
-		return <InlineEditOld {...props} />;
-	}
 };
 
 /**

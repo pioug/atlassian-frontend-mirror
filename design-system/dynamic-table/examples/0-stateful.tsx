@@ -13,6 +13,7 @@ export default function TableUncontrolled() {
 			defaultPage={1}
 			loadingSpinnerSize="large"
 			isRankable
+			testId="table"
 		/>
 	);
 }

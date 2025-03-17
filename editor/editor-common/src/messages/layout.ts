@@ -11,6 +11,11 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Two columns layout',
 		description: 'Layout with two columns of equal width',
 	},
+	singleColumnAdvancedLayout: {
+		id: 'fabric.editor.singleColumns',
+		defaultMessage: '1 Column layout',
+		description: 'Layout with one column of equal width',
+	},
 	twoColumnsAdvancedLayout: {
 		id: 'fabric.editor.twoColumns',
 		defaultMessage: '2 Column layout',
@@ -78,7 +83,7 @@ export const toolbarMessages = defineMessages({
 	},
 	columnOption: {
 		id: 'fabric.editor.layout.columnOption',
-		defaultMessage: '{count, plural, one { Column} other {{count} Columns}}',
+		defaultMessage: '{count, plural, one {{count} Column} other {{count} Columns}}',
 		description: 'column option text for layout',
 	},
 	resizeLayout: {

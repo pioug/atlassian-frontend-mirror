@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 4.0.0
+
+### Major Changes
+
+- [#126808](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126808)
+  [`d24cedfe1b952`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d24cedfe1b952) -
+  [ux] EDM-11752 cleaning up bandicoots-compiled-migration-link-datasource fg and removing old
+  emotion component files
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.22.7
 
 ### Patch Changes

@@ -14,9 +14,10 @@ import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useIntl } from 'react-intl-next';
 import { inlineCommentMessages } from '../../../messages';
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState` is not object-safe
-const markStyles = () => css`
+const markStylesOld = () => css`
 	color: inherit;
 	background-color: unset;
 	-webkit-tap-highlight-color: transparent;
@@ -35,13 +36,77 @@ const markStyles = () => css`
 	}
 `;
 
+const markStylesNew = css({
+	color: 'inherit',
+	backgroundColor: 'unset',
+	WebkitTapHighlightColor: 'transparent',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
+		// was from blur in AnnotationSharedCSSByState().blur
+		background: token('color.background.accent.yellow.subtlest'),
+		borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:focus, &[data-has-focus="true"]': {
+			background: token('color.background.accent.yellow.subtler'),
+			borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+			// TODO: DSP-4147 - Annotation shadow
+			boxShadow: token('elevation.shadow.overlay'),
+			cursor: 'pointer',
+		},
+	},
+});
+
+const markStylesNewWithInlineComments = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
+		// was from common in AnnotationSharedCSSByState().common
+		borderBottom: '2px solid transparent',
+		cursor: 'pointer',
+		padding: '1px 0 2px',
+
+		// it was under fg(annotations_align_editor_and_renderer_styles) from AnnotationSharedCSSByState().common, assume it's on as already rolled out
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(.card), &:has([data-inline-card])': {
+			padding: '5px 0 3px 0',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(.date-lozenger-container)': {
+			paddingTop: token('space.025', '2px'),
+		},
+
+		// was from blur in AnnotationSharedCSSByState().blur
+		background: token('color.background.accent.yellow.subtlest'),
+		borderBottomColor: token('color.border.accent.yellow'),
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:focus, &[data-has-focus="true"]': {
+			background: token('color.background.accent.yellow.subtlest.pressed'),
+			borderBottomColor: token('color.border.accent.yellow'),
+			boxShadow: token('elevation.shadow.overlay'),
+		},
+	},
+});
+
+const markStylesNewWithCommentsPanel = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&[data-is-hovered="true"]:not([data-has-focus="true"])': {
+			background: token('color.background.accent.yellow.subtlest.hovered'),
+			borderBottomColor: token('color.border.accent.yellow'),
+			boxShadow: token('elevation.shadow.overlay'),
+		},
+	},
+});
+
 const isMobile = () => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
 
-const accessibilityStyles = (startMarker: string, endMarker: string) =>
+const accessibilityStylesOld = (startMarker: string, endMarker: string) =>
 	css({
 		'&::before, &::after': {
 			clipPath: 'inset(100%)',
@@ -61,6 +126,26 @@ const accessibilityStyles = (startMarker: string, endMarker: string) =>
 			content: `' [${endMarker}] '`,
 		},
 	});
+
+const accessibilityStylesNew = css({
+	'&::before, &::after': {
+		clipPath: 'inset(100%)',
+		clip: 'rect(1px, 1px, 1px, 1px)',
+		height: '1px',
+		overflow: 'hidden',
+		position: 'absolute',
+		whiteSpace: 'nowrap',
+		width: '1px',
+	},
+	'&::before': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		content: `' [var(--ak-renderer-annotation-startmarker)] '`,
+	},
+	'&::after': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		content: `' [var(--ak-renderer-annotation-endmarker)] '`,
+	},
+});
 
 type MarkComponentProps = {
 	id: AnnotationId;
@@ -162,7 +247,7 @@ export const MarkComponent = ({
 					...desktopAccessibilityAttributes,
 				};
 
-	const getAccessibilityStyles = () => {
+	const getAccessibilityStylesOld = () => {
 		if (isMobile()) {
 			return {};
 		}
@@ -173,11 +258,40 @@ export const MarkComponent = ({
 			const endMarker = intl.formatMessage(
 				inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
 			);
-			return accessibilityStyles(startMarker, endMarker);
+			return accessibilityStylesOld(startMarker, endMarker);
 		} else {
 			return {};
 		}
 	};
+
+	if (fg('platform_editor_emotion_refactor_renderer')) {
+		return jsx(
+			useBlockLevel ? 'div' : 'mark',
+			{
+				id,
+				[fg('editor_inline_comments_on_inline_nodes') ? 'onClickCapture' : 'onClick']: onMarkClick,
+				...accessibility,
+				...overriddenData,
+				...(!useBlockLevel && {
+					css: [
+						markStylesNew,
+						fg('editor_inline_comments_on_inline_nodes') && markStylesNewWithInlineComments,
+						fg('confluence-frontend-comments-panel') && markStylesNewWithCommentsPanel,
+						!isMobile() && accessibilityStylesNew,
+					],
+					style: {
+						'--ak-renderer-annotation-startmarker': intl.formatMessage(
+							inlineCommentMessages.contentRendererInlineCommentMarkerStart,
+						),
+						'--ak-renderer-annotation-endmarker': intl.formatMessage(
+							inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
+						),
+					},
+				}),
+			},
+			children,
+		);
+	}
 
 	return jsx(
 		useBlockLevel ? 'div' : 'mark',
@@ -187,7 +301,7 @@ export const MarkComponent = ({
 			...accessibility,
 			...overriddenData,
 			...(!useBlockLevel && {
-				css: [markStyles, getAccessibilityStyles()],
+				css: [markStylesOld, getAccessibilityStylesOld()],
 			}),
 		},
 		children,

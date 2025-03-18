@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import { fireOperationalEvent, fireTrackEvent } from '../../common/utils/analytics';
+import { usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { getContainerProperties, messages } from '../../common/utils/get-container-properties';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import {
@@ -26,13 +26,20 @@ jest.mock('../../controllers/hooks/use-product-permission', () => ({
 
 jest.mock('../../common/utils/analytics', () => ({
 	...jest.requireActual('../../common/utils/analytics'),
-	fireTrackEvent: jest.fn(),
-	fireOperationalEvent: jest.fn(),
+	usePeopleAndTeamAnalytics: jest.fn(() => ({
+		fireTrackEvent: jest.fn(),
+		fireOperationalEvent: jest.fn(),
+		fireUIEvent: jest.fn(),
+	})),
 }));
 
 const renderWithIntl = (node: React.ReactNode) => {
 	return render(<IntlProvider locale="en">{node}</IntlProvider>);
 };
+
+const mockFireTrackEvent = jest.fn();
+const mockFireOperationalEvent = jest.fn();
+const mockFireUIEvent = jest.fn();
 
 const mockOnAddAContainerClick = jest.fn();
 
@@ -87,6 +94,11 @@ describe('TeamContainers', () => {
 	};
 
 	beforeEach(() => {
+		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
+			fireTrackEvent: mockFireTrackEvent,
+			fireOperationalEvent: mockFireOperationalEvent,
+			fireUIEvent: mockFireUIEvent,
+		});
 		(useProductPermissions as jest.Mock).mockReturnValue({
 			loading: false,
 			data: {
@@ -257,10 +269,13 @@ describe('TeamContainers', () => {
 		});
 		await userEvent.click(crossIconButton);
 		expect(await screen.findByTestId('team-containers-disconnect-dialog')).toBeInTheDocument();
-		expect(fireTrackEvent).toHaveBeenCalledTimes(1);
-		expect(fireTrackEvent).toHaveBeenCalledWith(expect.any(Function), {
+		expect(mockFireTrackEvent).toHaveBeenCalledTimes(1);
+		expect(mockFireTrackEvent).toHaveBeenCalledWith(expect.any(Function), {
 			action: 'opened',
 			actionSubject: 'unlinkContainerDialog',
+			attributes: {
+				teamId: 'teamId',
+			},
 		});
 	});
 
@@ -285,10 +300,17 @@ describe('TeamContainers', () => {
 		const disconnectButton = screen.getByRole('button', { name: 'Remove' });
 		await userEvent.click(disconnectButton);
 
-		expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
-		expect(fireOperationalEvent).toHaveBeenCalledWith(expect.any(Function), {
+		expect(mockFireOperationalEvent).toHaveBeenCalledTimes(1);
+		expect(mockFireOperationalEvent).toHaveBeenCalledWith(expect.any(Function), {
 			action: 'succeeded',
-			actionSubject: 'unlinkContainer',
+			actionSubject: 'teamContainerUnlinked',
+			attributes: {
+				containerRemoved: {
+					container: 'JiraProject',
+					containerId: 'id-1',
+				},
+				teamId: 'teamId',
+			},
 		});
 	});
 

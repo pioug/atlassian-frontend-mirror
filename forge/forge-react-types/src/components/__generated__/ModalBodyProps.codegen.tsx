@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ModalBodyProps
  *
- * @codegen <<SignedSource::8999036a80e16ad1e4655a8fec69ccdd>>
+ * @codegen <<SignedSource::7bb0c29a8aeb222b8e1996076c1ebf45>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-body.partial.tsx <<SignedSource::627540a6559205080b7e35c17eb83204>>
  */
@@ -21,5 +21,7 @@ export type ModalBodyProps = Pick<
 
 /**
  * A modal body is used to display the main content of a modal.
+ *
+ * @see [ModalBody](https://developer.atlassian.com/platform/forge/ui-kit/components/modal/#body) in UI Kit documentation for more information
  */
 export type TModalBody<T> = (props: ModalBodyProps) => T;

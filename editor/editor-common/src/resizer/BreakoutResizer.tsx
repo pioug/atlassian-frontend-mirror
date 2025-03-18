@@ -33,7 +33,7 @@ const breakoutSupportedNodes = ['layoutSection', 'expand', 'codeBlock'];
 type BreakoutSupportedNodes = 'layoutSection' | 'expand' | 'codeBlock';
 
 const getHandleStyle = (node: BreakoutSupportedNodes) => {
-	const layoutMarginOffset = fg('platform_editor_advanced_layouts_post_fix_patch_2') ? 12 : 8;
+	const layoutMarginOffset = 12;
 
 	switch (node) {
 		case 'codeBlock':
@@ -164,11 +164,7 @@ const BreakoutResizer = ({
 				akEditorFullWidthLayoutWidth,
 			);
 
-			if (fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
-				newMinWidth = Math.min(widthState.lineLength, akEditorDefaultLayoutWidth, newMaxWidth);
-			} else {
-				newMinWidth = Math.min(widthState.lineLength, akEditorDefaultLayoutWidth);
-			}
+			newMinWidth = Math.min(widthState.lineLength, akEditorDefaultLayoutWidth, newMaxWidth);
 		}
 		setResizingState({ isResizing: true, minWidth: newMinWidth, maxWidth: newMaxWidth });
 		dispatch(state.tr.setMeta('is-resizer-resizing', true));

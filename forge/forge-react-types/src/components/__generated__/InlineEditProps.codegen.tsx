@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - InlineEditProps
  *
- * @codegen <<SignedSource::450b0aa0943b6519e89ee7c91f4124ad>>
+ * @codegen <<SignedSource::76e64cd0950ea7da3cf92b08df75f5fc>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::23f59ce10b527efc04d36919c24aa2b0>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::7654358cb6b3406900f008113b08977d>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -32,5 +32,7 @@ export type InlineEditProps<V = string> = Omit<
 
 /**
  * An inline edit displays a custom input component that switches between reading and editing on the same page.
+ *
+ * @see [InlineEdit](https://developer.atlassian.com/platform/forge/ui-kit/components/inline-edit/) in UI Kit documentation for more information
  */
 export type TInlineEdit<T> = (props: InlineEditProps) => T;

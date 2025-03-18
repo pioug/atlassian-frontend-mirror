@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - TabProps
  *
- * @codegen <<SignedSource::d69181ff464555d27568e977900710b6>>
+ * @codegen <<SignedSource::06bf788051c0103d75e2ff758f1982ad>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tab.partial.tsx <<SignedSource::05b588ddfb6bfa200363a1127660dce4>>
  */
@@ -21,5 +21,7 @@ export type TabProps = Pick<
 
 /**
  * `Tab` represents an individual tab displayed in a TabList.
+ *
+ * @see [Tab](https://developer.atlassian.com/platform/forge/ui-kit/components/tabs/) in UI Kit documentation for more information
  */
 export type TTab<T> = (props: TabProps) => T;

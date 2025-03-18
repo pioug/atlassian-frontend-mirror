@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - CalendarProps
  *
- * @codegen <<SignedSource::87bad6f2a27e493eeba6d969450d3a3d>>
+ * @codegen <<SignedSource::497faee84f851775b401af97ebfc5c12>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/calendar/__generated__/index.partial.tsx <<SignedSource::3fb4c1249481ec420be5118220ebcd82>>
  */
@@ -21,5 +21,7 @@ export type CalendarProps = Pick<
 
 /**
  * An interactive calendar for date selection experiences.
+ *
+ * @see [Calendar](https://developer.atlassian.com/platform/forge/ui-kit/components/calendar/) in UI Kit documentation for more information
  */
 export type TCalendar<T> = (props: CalendarProps) => T;

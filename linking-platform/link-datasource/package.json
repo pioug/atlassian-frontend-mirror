@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -180,9 +180,6 @@
 			"type": "boolean"
 		},
 		"platform-datasources-enable-two-way-sync-assignee": {
-			"type": "boolean"
-		},
-		"fix_a11y_violations_in_link_datasource": {
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {

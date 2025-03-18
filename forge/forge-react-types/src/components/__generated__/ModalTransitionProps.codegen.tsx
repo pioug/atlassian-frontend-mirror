@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ModalTransitionProps
  *
- * @codegen <<SignedSource::fbd2e79db623371d79d173ce8c807737>>
+ * @codegen <<SignedSource::4df20ec54754f56f2bdaeafb075be019>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-transition.partial.tsx <<SignedSource::9a5d35aaedbe614414c801acffdbeeff>>
  */
@@ -21,5 +21,7 @@ export type ModalTransitionProps = Pick<
 
 /**
  * A modal transition wraps a modal to provide a fluid transition upon opening and closing.
+ *
+ * @see [ModalTransition](https://developer.atlassian.com/platform/forge/ui-kit/components/modal/#modal-transition) in UI Kit documentation for more information
  */
 export type TModalTransition<T> = (props: ModalTransitionProps) => T;

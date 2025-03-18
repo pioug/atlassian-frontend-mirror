@@ -1,5 +1,4 @@
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -37,7 +36,7 @@ export const QUICK_INSERT_DIMENSIONS = { width: QUICK_INSERT_WIDTH, height: QUIC
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 
 export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
-	if (nodeType === 'layoutSection' && fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
+	if (nodeType === 'layoutSection') {
 		return DRAG_HANDLE_DEFAULT_GAP + 20;
 	}
 

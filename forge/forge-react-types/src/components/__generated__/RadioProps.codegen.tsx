@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - RadioProps
  *
- * @codegen <<SignedSource::15501f4da2db03fc496259f6cf9db704>>
+ * @codegen <<SignedSource::a7627645dca3852c8c716b51629a953d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/index.partial.tsx <<SignedSource::24d94151d76a83de0609bd9b427e4f3a>>
  */
@@ -23,5 +23,7 @@ export type RadioProps = Pick<
 
 /**
  * A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.
+ *
+ * @see [Radio](https://developer.atlassian.com/platform/forge/ui-kit/components/radio/) in UI Kit documentation for more information
  */
 export type TRadio<T> = (props: RadioProps) => T;

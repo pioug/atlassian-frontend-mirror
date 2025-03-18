@@ -1,4 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { usePeopleTeamsAnalyticsSubcontext } from '@atlaskit/people-teams-ui-public/analytics';
 
 const ANALYTICS_CHANNEL = 'peopleTeams';
 
@@ -25,25 +26,36 @@ interface AnalyticsEvent {
 	source?: string;
 }
 
-const fireEvent =
-	(kind: 'operational' | 'screen' | 'track' | 'ui') =>
-	(createAnalyticsEvent: CreateUIAnalyticsEvent | undefined, body: AnalyticsEvent) => {
-		if (!createAnalyticsEvent) {
-			return;
-		}
+export const usePeopleAndTeamAnalytics = () => {
+	const [{ eventAttributes: injectedEventAttributes }] = usePeopleTeamsAnalyticsSubcontext();
+	const fireEvent =
+		(kind: 'operational' | 'screen' | 'track' | 'ui') =>
+		(createAnalyticsEvent: CreateUIAnalyticsEvent | undefined, body: AnalyticsEvent) => {
+			if (!createAnalyticsEvent) {
+				return;
+			}
 
-		runItLater(() => {
-			createAnalyticsEvent({
-				eventType: kind,
-				...body,
-			}).fire(ANALYTICS_CHANNEL);
-		});
+			runItLater(() => {
+				const eventWithSubcontextAttributes = {
+					...body.attributes,
+					...injectedEventAttributes,
+				};
+
+				createAnalyticsEvent({
+					eventType: kind,
+					...body,
+					attributes: eventWithSubcontextAttributes,
+				}).fire(ANALYTICS_CHANNEL);
+			});
+		};
+
+	return {
+		fireOperationalEvent: fireEvent('operational'),
+		fireScreenEvent: fireEvent('screen'),
+		fireTrackEvent: fireEvent('track'),
+		fireUIEvent: fireEvent('ui'),
 	};
-
-export const fireOperationalEvent = fireEvent('operational');
-export const fireScreenEvent = fireEvent('screen');
-export const fireTrackEvent = fireEvent('track');
-export const fireUIEvent = fireEvent('ui');
+};
 
 export enum AnalyticsAction {
 	RENDERED = 'rendered',

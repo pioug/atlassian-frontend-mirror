@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - RangeProps
  *
- * @codegen <<SignedSource::90b0ddabf2167e8a5baee6fb2a2c151d>>
+ * @codegen <<SignedSource::8059d330e7cc4a21c671966f6c2496cc>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::66f3c55587192848bc42f9fc146e6c7e>>
  */
@@ -23,5 +23,7 @@ export type RangeProps = Pick<
 
 /**
  * A range lets users choose an approximate value on a slider.
+ *
+ * @see [Range](https://developer.atlassian.com/platform/forge/ui-kit/components/range/) in UI Kit documentation for more information
  */
 export type TRange<T> = (props: RangeProps) => T;

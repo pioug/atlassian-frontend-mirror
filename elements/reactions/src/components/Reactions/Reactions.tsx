@@ -212,6 +212,14 @@ export interface ReactionsProps
 	 */
 	showRoundTrigger?: boolean;
 	/**
+	 * Optional prop for controlling the placement of the reaction picker, is overriden by showRoundTrigger
+	 */
+	reactionPickerPlacement?: Placement;
+	/**
+	 * Optional prop for controlling the overflow of the reaction picker
+	 */
+	reactionsPickerPreventOverflowOptions?: Record<string, any>;
+	/**
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
 	isViewOnly?: boolean;
@@ -299,6 +307,8 @@ export const Reactions = React.memo(
 		ProfileCardWrapper,
 		onlyRenderPicker = false,
 		showRoundTrigger = false,
+		reactionPickerPlacement,
+		reactionsPickerPreventOverflowOptions,
 		isViewOnly = false,
 		reactionPickerAdditionalStyle,
 		noWrap = false,
@@ -572,6 +582,8 @@ export const Reactions = React.memo(
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
 							useButtonAlignmentStyling={useButtonAlignmentStyling}
+							reactionPickerPlacement={reactionPickerPlacement}
+							reactionsPickerPreventOverflowOptions={reactionsPickerPreventOverflowOptions}
 						/>
 					)}
 					<ModalTransition>

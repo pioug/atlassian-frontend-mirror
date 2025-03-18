@@ -498,18 +498,33 @@ const toolbarContainer = (
 						overflow: 'hidden',
 					},
 				)
-			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css(
-					{
-						padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-					},
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					firstElementIsSelect &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css({
-							paddingLeft: token('space.050', '4px'),
-						}),
-				),
+			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				editorExperiment('platform_editor_controls', 'variant1')
+				? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					css(
+						{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+							padding: `${token('space.0', '0')} 4px ${token('space.0', '0')} 4px`,
+						},
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+						firstElementIsSelect &&
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css({
+								paddingLeft: token('space.050', '4px'),
+							}),
+					)
+				: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					css(
+						{
+							padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+						},
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+						firstElementIsSelect &&
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css({
+								paddingLeft: token('space.050', '4px'),
+							}),
+					),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		editorExperiment('platform_editor_controls', 'variant1')
 			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

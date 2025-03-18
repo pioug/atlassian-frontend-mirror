@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 102.10.2
+
+### Patch Changes
+
+- [#127441](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127441)
+  [`f2f4b5971e0b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2f4b5971e0b2) -
+  [ux] Updates Text Formatting toolbar separators, active option style and removes range selection
+  when the toolbar is docked to top.
+
+## 102.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 102.10.0
 
 ### Minor Changes

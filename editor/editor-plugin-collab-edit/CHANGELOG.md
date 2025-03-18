@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.2.3
+
+### Patch Changes
+
+- [#124648](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124648)
+  [`6c906438659f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c906438659f9) -
+  Maintain the isOffline metadata on step origins for steps that were created while offline,
+  specifically for the case when we are not merging these steps.
+- Updated dependencies
+
 ## 3.2.2
 
 ### Patch Changes

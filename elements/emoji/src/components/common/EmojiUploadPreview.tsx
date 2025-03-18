@@ -12,9 +12,9 @@ import { customCategory } from '../../util/constants';
 import type { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';
 import Emoji from './Emoji';
+import RetryableButton from './RetryableButton';
 import EmojiErrorMessage from './EmojiErrorMessage';
 import { UploadStatus } from './internal-types';
-import RetryableButton from './RetryableButton';
 import {
 	bigEmojiPreview,
 	emojiPreviewErrorMessage,

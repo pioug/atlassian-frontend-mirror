@@ -10,11 +10,7 @@ import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../common/types';
-import {
-	AnalyticsAction,
-	fireOperationalEvent,
-	fireTrackEvent,
-} from '../../common/utils/analytics';
+import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { hasProductPermission } from '../../controllers';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import {
@@ -57,6 +53,8 @@ export const TeamContainers = ({
 		SelectedContainerDetails | undefined
 	>();
 
+	const { fireOperationalEvent, fireTrackEvent } = usePeopleAndTeamAnalytics();
+
 	const { data: productPermissions, loading: productPermissionIsLoading } = useProductPermissions({
 		userId,
 		cloudId,
@@ -96,30 +94,39 @@ export const TeamContainers = ({
 			fireTrackEvent(createAnalyticsEvent, {
 				action: AnalyticsAction.OPENED,
 				actionSubject: 'unlinkContainerDialog',
+				attributes: { teamId },
 			});
 		},
-		[createAnalyticsEvent],
+		[createAnalyticsEvent, fireTrackEvent, teamId],
 	);
 
 	const LinkedContainerCardComponent = components?.ContainerCard || LinkedContainerCard;
 
 	const handleDisconnect = useCallback(
 		async (containerId: string) => {
+			const removedContainer = teamContainers.find((container) => container.id === containerId);
 			await actions.unlinkTeamContainers(teamId, containerId);
 			setIsDisconnectDialogOpen(false);
 			if (unlinkError) {
 				fireOperationalEvent(createAnalyticsEvent, {
 					action: AnalyticsAction.FAILED,
-					actionSubject: 'unlinkContainer',
+					actionSubject: 'teamContainerUnlinked',
 				});
 			} else {
 				fireOperationalEvent(createAnalyticsEvent, {
 					action: AnalyticsAction.SUCCEEDED,
-					actionSubject: 'unlinkContainer',
+					actionSubject: 'teamContainerUnlinked',
+					attributes: {
+						containerRemoved: {
+							containerId: removedContainer?.id,
+							container: removedContainer?.type,
+						},
+						teamId,
+					},
 				});
 			}
 		},
-		[actions, createAnalyticsEvent, teamId, unlinkError],
+		[actions, createAnalyticsEvent, fireOperationalEvent, teamContainers, teamId, unlinkError],
 	);
 
 	if (loading || productPermissionIsLoading) {

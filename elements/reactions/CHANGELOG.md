@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 27.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.2.0
+
+### Minor Changes
+
+- [#127089](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127089)
+  [`ec78c2756240e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec78c2756240e) -
+  Adding an optional placement and overflow control for reactions popper
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.1.5
 
 ### Patch Changes

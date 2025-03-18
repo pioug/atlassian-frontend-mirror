@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{

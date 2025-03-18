@@ -223,17 +223,20 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					}
 
 					if (editorExperiment('platform_editor_controls', 'variant1')) {
-						let shouldNotAddSeparator = false;
 						if (resolved[i] && resolved[i + 1]) {
-							shouldNotAddSeparator =
+							const shouldNotAddSeparator =
 								(resolved[i]?.pluginName === 'textColor' &&
 									resolved[i + 1]?.pluginName === 'highlight') ||
 								(resolved[i]?.pluginName === 'alignment' &&
 									resolved[i + 1]?.pluginName === 'toolbarListsIndentation');
-						}
 
-						if (i !== resolved.length - 1 && !shouldNotAddSeparator) {
-							items.push({ type: 'separator' });
+							if (resolved[i + 1]?.pluginName === 'annotation') {
+								items.push({ type: 'separator', fullHeight: true });
+							} else {
+								if (i !== resolved.length - 1 && !shouldNotAddSeparator) {
+									items.push({ type: 'separator', fullHeight: false });
+								}
+							}
 						}
 					} else {
 						if (i !== resolved.length - 1) {

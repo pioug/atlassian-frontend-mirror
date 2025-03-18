@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/people-teams-ui-public",
-	"version": "3.0.1",
+	"version": "3.1.0",
 	"description": "UI components for public packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,12 +33,15 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
-		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
+		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts",
+		"./analytics": "./src/common/utils/analytics/index.ts"
 	},
 	"exports": {
-		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
+		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts",
+		"./analytics": "./src/common/utils/analytics/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/analytics-namespaced-context": "workspace:*",
 		"@atlaskit/icon": "workspace:*",
 		"@atlaskit/legacy-custom-icons": "workspace:*",
 		"@atlaskit/primitives": "workspace:*",
@@ -46,7 +49,8 @@
 		"@atlaskit/tooltip": "workspace:*",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"react-sweet-state": "^2.6.5"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -57,6 +61,7 @@
 		"@atlaskit/ssr": "workspace:*",
 		"@atlaskit/visual-regression": "workspace:*",
 		"@testing-library/react": "^13.4.0",
+		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BadgeProps
  *
- * @codegen <<SignedSource::64c7e35a348ef5e063329091a361292f>>
+ * @codegen <<SignedSource::c3ed8f1b656c7e1c4a9aad0919de3f7d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/badge/__generated__/index.partial.tsx <<SignedSource::89ad3341c1b8ef4b6fc93df162ac91d3>>
  */
@@ -29,5 +29,7 @@ export type BadgeProps = Pick<
 
 /**
  * A badge is a visual indicator for numeric values such as tallies and scores.
+ *
+ * @see [Badge](https://developer.atlassian.com/platform/forge/ui-kit/components/badge/) in UI Kit documentation for more information
  */
 export type TBadge<T> = (props: BadgeProps) => T;

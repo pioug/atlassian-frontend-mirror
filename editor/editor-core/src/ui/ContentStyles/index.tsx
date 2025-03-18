@@ -212,6 +212,15 @@ export const placeholderStyles = css({
 	},
 });
 
+const placeholderOverflowStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.ProseMirror p:has(.placeholder-decoration)': {
+		overflow: 'hidden',
+		whiteSpace: 'nowrap',
+		textOverflow: 'ellipsis',
+	},
+});
+
 const firstBlockNodeStyles = css`
 	.ProseMirror {
 		> .${PanelSharedCssClassName.prefix},
@@ -376,6 +385,8 @@ const contentStyles = (props: ContentStylesProps) => css`
 
 	${placeholderTextStyles}
 	${placeholderStyles}
+	${editorExperiment('platform_editor_controls', 'variant1') ? placeholderOverflowStyles : null}
+
   ${codeBlockStyles()}
 
   ${blocktypeStyles(props.typographyTheme)}

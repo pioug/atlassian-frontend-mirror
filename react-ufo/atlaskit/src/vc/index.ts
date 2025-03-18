@@ -69,10 +69,12 @@ class VCObserverWrapper implements VCObserverInterface {
 	}
 }
 
-const isReactSSR = Boolean(process.env.REACT_SSR);
-const isServer = Boolean((globalThis as any)?.__SERVER__);
+// Some products set this variable to indicate it is running in SSR
+let isServer = Boolean((globalThis as any)?.__SERVER__);
+// Other products set this other variable to indicate it is running in SSR
+let isReactSSR = typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR || false);
 
-function isEnvironmentSupported() {
+export function isEnvironmentSupported() {
 	// SSR environment aren't supported
 	if (isReactSSR || isServer) {
 		return false;

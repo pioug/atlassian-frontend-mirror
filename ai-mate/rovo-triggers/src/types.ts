@@ -133,6 +133,34 @@ export type InsertPromptPayload = PayloadCore<
 		placeholderType?: 'person' | 'link' | 'generic';
 	}
 >;
+export type TransitionId = string;
+export type StatusId = string;
+export type AddNewTransitionPayload = {
+	id: TransitionId;
+	name: string;
+	toRef?: StatusId;
+	links: {
+		fromRef: StatusId;
+		fromPort?: number;
+		toPort?: number;
+	}[];
+};
+
+export type AddRulePayload = {
+	id: TransitionId;
+	ruleId: string;
+};
+
+export type JiraWorkflowWizardAction =
+	| { type: 'addTransition'; payload: AddNewTransitionPayload }
+	| { type: 'ADD_RULE'; payload: AddRulePayload };
+
+export type JiraWorkflowWizardActionsPayload = PayloadCore<
+	'jira-workflow-wizard-actions',
+	{
+		actions: JiraWorkflowWizardAction[];
+	}
+>;
 
 export type Payload =
 	| MessageSendPayload
@@ -146,6 +174,7 @@ export type Payload =
 	| BrowserContextPayload
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure
+	| JiraWorkflowWizardActionsPayload
 	| InsertPromptPayload;
 
 export type Callback = (payload: Payload) => void;

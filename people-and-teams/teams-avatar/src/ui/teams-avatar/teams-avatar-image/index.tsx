@@ -15,6 +15,7 @@ import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { FallbackAvatar } from './fallback';
+import { TeamAvatarImage as TeamAvatarImageNext } from './teams-avatar-image-next';
 
 type AvatarImageProps = {
 	size: SizeType;
@@ -83,7 +84,7 @@ const avatarImageStyles = css({
  *
  * An avatar image is an internal component used to control the rendering phases of an image.
  */
-export const TeamAvatarImage = ({ alt = '', src, size, testId }: AvatarImageProps) => {
+export const TeamAvatarImageLegacy = ({ alt = '', src, size, testId }: AvatarImageProps) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	// If src changes, reset state
@@ -127,4 +128,11 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId }: AvatarImageProp
 			/>
 		</AvatarContent>
 	);
+};
+
+export const TeamAvatarImage = (props: AvatarImageProps) => {
+	if (fg('team-avatar-radii')) {
+		return <TeamAvatarImageNext {...props} />;
+	}
+	return <TeamAvatarImageLegacy {...props} />;
 };

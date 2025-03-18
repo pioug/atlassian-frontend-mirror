@@ -11,7 +11,7 @@ import { toEmojiId } from '../../util/type-helpers';
 import type { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';
 import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
-import Scrollable from '../common/Scrollable';
+import Scrollable from '../common/Scrollable'; // ED-26864: use compiled Scrollable when migrating typeahead to compiled css
 import EmojiItem from './EmojiTypeAheadItem';
 import {
 	emojiTypeAheadSpinner,

@@ -80,7 +80,7 @@ export const getOverflowFloatingToolbarConfig = ({
 	}
 
 	return [
-		{ type: 'separator' },
+		{ type: 'separator', fullHeight: true },
 		{
 			type: 'overflow-dropdown',
 			dropdownWidth: 240,

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - TagProps
  *
- * @codegen <<SignedSource::1d48163194ea309ddc6f7353e5123202>>
+ * @codegen <<SignedSource::8dd4fdab8ec8a06ebdaa818808a12d3a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/tag/__generated__/index.partial.tsx <<SignedSource::1f9f7073797cd01947c622c0400785ae>>
  */
@@ -21,5 +21,7 @@ export type SimpleTagProps = Pick<
 
 /**
  * A tag labels UI objects for quick recognition and navigation.
+ *
+ * @see [SimpleTag](https://developer.atlassian.com/platform/forge/ui-kit/components/tag/) in UI Kit documentation for more information
  */
 export type TSimpleTag<T> = (props: SimpleTagProps) => T;

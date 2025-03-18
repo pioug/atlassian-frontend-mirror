@@ -10,7 +10,7 @@ import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/an
 
 import type { EmojiUpload } from '../../types';
 import { type EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
-import EmojiUploadPickerWithIntl from '../common/EmojiUploadPicker';
+import EmojiUploadPickerWithIntl from '../common/EmojiUploadPicker'; // ED-26866: use compiled EmojiUploadPicker when migrating uploader to compiled css
 import { uploadEmoji } from '../common/UploadEmoji';
 import {
 	createAndFireEventInElementsChannel,

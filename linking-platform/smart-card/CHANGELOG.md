@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 35.2.12
+
+### Patch Changes
+
+- [#127390](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127390)
+  [`a8f2179866703`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8f2179866703) -
+  [ux] Fix custom render inline icon drop below inline link
+
 ## 35.2.11
 
 ### Patch Changes

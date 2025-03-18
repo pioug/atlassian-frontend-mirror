@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::3f20d9d9bd43c0d792ea07ff9ecc23b1>>
+ * @codegen <<SignedSource::8bad83ca67ad4480f1f89ff352a7a18d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::8f1c6ab03a29e7279ed2d3e82b086ab0>>
  */
@@ -51,5 +51,7 @@ export type TimePickerProps = {
 
 /**
  * A time picker allows the user to select a specific time.
+ *
+ * @see [TimePicker](https://developer.atlassian.com/platform/forge/ui-kit/components/time-picker/) in UI Kit documentation for more information
  */
 export type TTimePicker<T> = (props: TimePickerProps) => T;

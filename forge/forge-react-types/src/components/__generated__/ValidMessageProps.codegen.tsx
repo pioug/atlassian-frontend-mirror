@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ValidMessageProps
  *
- * @codegen <<SignedSource::4cc4d2511f92d5cb8969eb03a63cb079>>
+ * @codegen <<SignedSource::3eb0a5c4721b83e37d1bc27e5b9547e2>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/valid-message.partial.tsx <<SignedSource::7c24bfd118e399bb212709c31585209b>>
  */
@@ -22,5 +22,7 @@ export type ValidMessageProps = Pick<
 /**
  * A valid message is used to tell a user that the field input is valid.
  * For example, a helper message could be "Nice one, this username is available".
+ *
+ * @see [ValidMessage](https://developer.atlassian.com/platform/forge/ui-kit/components/form/#validation-message) in UI Kit documentation for more information
  */
 export type TValidMessage<T> = (props: ValidMessageProps) => T;

@@ -15,11 +15,11 @@ import type {
 	ToneSelection,
 	ToneValueType,
 } from '../../types';
-import EmojiDeletePreview, { type OnDeleteEmoji } from '../common/EmojiDeletePreview';
-import EmojiUploadPicker, { type OnUploadEmoji } from '../common/EmojiUploadPicker';
-import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
-import ToneSelector from './ToneSelector';
+import EmojiDeletePreview, { type OnDeleteEmoji } from './EmojiDeletePreview';
+import EmojiUploadPicker, { type OnUploadEmoji } from './EmojiUploadPicker';
 import TonePreviewButton from './TonePreviewButton';
+import ToneSelector from './ToneSelector';
+import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/core/migration/add';

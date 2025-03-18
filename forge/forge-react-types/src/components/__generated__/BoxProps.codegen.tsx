@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::60edface96d5ea8300c5007b008cafad>>
+ * @codegen <<SignedSource::8ab6a67fa03d077a43a19a7e31c78146>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::898e2c561f956fd22d43ade8ef60ca57>>
  */
@@ -272,5 +272,7 @@ export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 
 /**
  * A box is a generic container that provides managed access to design tokens.
+ *
+ * @see [Box](https://developer.atlassian.com/platform/forge/ui-kit/components/box/) in UI Kit documentation for more information
  */
 export type TBox<T> = (props: BoxProps) => T;

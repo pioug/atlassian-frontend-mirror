@@ -1,8 +1,9 @@
-import { screen, waitFor, within } from '@testing-library/dom';
+import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import EmojiActionsWithIntl from '../../../../components/common/EmojiActions';
+import { default as CompiledEmojiActions } from '../../../../components/compiled/common/EmojiActions';
+import { default as EmotionEmojiActions } from '../../../../components/common/EmojiActions';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
@@ -42,111 +43,138 @@ const props = {
 describe('<EmojiActions />', () => {
 	afterEach(jest.clearAllMocks);
 
-	describe('tone', () => {
-		it('should display tone selector after clicking on the tone button', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+	// cleanup `platform_editor_css_migrate_emoji`: delete "off" version and delete this outer describe
+	describe('platform_editor_css_migrate_emoji "on" - compiled', () => {
+		describe('tone', () => {
+			it('should display tone selector after clicking on the tone button', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			// Open Skin Tone UI
-			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
-				exact: false,
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 			});
-			await userEvent.click(toneSelectorButton);
-			expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
-		});
 
-		it('should display tone selector after pressing enter on the tone button', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+			it('should display tone selector after pressing enter on the tone button', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			// Open Skin Tone UI
-			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
-				exact: false,
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				toneSelectorButton.focus();
+				await userEvent.keyboard('{enter}');
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 			});
-			toneSelectorButton.focus();
-			await userEvent.keyboard('{enter}');
-			expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
-		});
 
-		it('should focus on the tone being selected or default tone', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+			it('should focus on the tone being selected or default tone', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			// Open Skin Tone UI
-			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
-				exact: false,
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				toneSelectorButton.focus();
+				await userEvent.keyboard('{enter}');
+
+				const toneSelector = await screen.findByTestId(toneSelectorTestId);
+				expect(toneSelector).toBeVisible();
+
+				const toneSelectorToneOption1 = within(toneSelector)
+					.getByLabelText(':raised_back_of_hand:')
+					.closest('label');
+				const toneSelectorToneOption2 = within(toneSelector)
+					.getByLabelText(':raised_back_of_hand-2:')
+					.closest('label');
+
+				// No tone selected, focus on default tone radop input
+				expect(within(toneSelectorToneOption1!).getByRole('radio')).toHaveFocus();
+
+				fireEvent.mouseDown(toneSelectorToneOption2!);
+
+				// this is the Compiled hash class value for `opacity:0`
+				// the component is missing the style declaration
+				// discussion here: https://atlassian.slack.com/archives/C017XR8K1RB/p1740355117740189
+				expect(toneSelector).toHaveClass('_tzy4idpf');
+
+				// tone 2 is selected
+				expect(props.onToneSelected).toHaveBeenCalledWith(2);
 			});
-			toneSelectorButton.focus();
-			await userEvent.keyboard('{enter}');
 
-			const toneSelector = await screen.findByTestId(toneSelectorTestId);
-			expect(toneSelector).toBeVisible();
+			it('button should show current selected tone if provided', async () => {
+				await renderWithIntl(
+					<CompiledEmojiActions {...props} toneEmoji={toneEmoji} selectedTone={3} />,
+				);
 
-			const toneSelectorToneOption1 = within(toneSelector)
-				.getByLabelText(':raised_back_of_hand:')
-				.closest('label');
-			const toneSelectorToneOption2 = within(toneSelector)
-				.getByLabelText(':raised_back_of_hand-2:')
-				.closest('label');
+				const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
 
-			// No tone selected, focus on default tone radop input
-			expect(within(toneSelectorToneOption1!).getByRole('radio')).toHaveFocus();
-
-			fireEvent.mouseDown(toneSelectorToneOption2!);
-
-			expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
-
-			// tone 2 is selected
-			expect(props.onToneSelected).toHaveBeenCalledWith(2);
-		});
-
-		it('button should show current selected tone if provided', async () => {
-			await renderWithIntl(
-				<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} selectedTone={3} />,
-			);
-
-			const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
-
-			expect(
-				await within(tonePreviewButton).findByLabelText(toneEmoji!.skinVariations![2].shortName),
-			).toBeInTheDocument();
-		});
-
-		it('button should show default tone if selected tone is not specified', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
-
-			const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
-
-			expect(
-				await within(tonePreviewButton).findByLabelText(toneEmoji.shortName),
-			).toBeInTheDocument();
-		});
-
-		it('should be able to select a different tone', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
-
-			// Open Skin Tone UI
-			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
-				exact: false,
+				expect(
+					await within(tonePreviewButton).findByLabelText(toneEmoji!.skinVariations![2].shortName),
+				).toBeInTheDocument();
 			});
-			await userEvent.click(toneSelectorButton);
-			expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
-			// Click a Different Tone
-			const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
-			fireEvent.mouseDown(toneSelectorToneOption);
+			it('button should show default tone if selected tone is not specified', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			// Automatically close tone ui
-			expect(
-				await screen.findByLabelText('Choose your skin tone', { exact: false }),
-			).toHaveAttribute('aria-expanded', 'false');
+				const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
 
-			// Validate the correct tone id was selected
-			expect(props.onToneSelected).toHaveBeenCalled();
-			expect(props.onToneSelected).toHaveBeenCalledWith(2);
-		});
+				expect(
+					await within(tonePreviewButton).findByLabelText(toneEmoji.shortName),
+				).toBeInTheDocument();
+			});
 
-		it('should be able to select the same tone', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+			it('should be able to select a different tone', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			for (var x = 0; x < 1; x++) {
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+
+				// Click a Different Tone
+				const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+				fireEvent.mouseDown(toneSelectorToneOption);
+
+				// Automatically close tone ui
+				expect(
+					await screen.findByLabelText('Choose your skin tone', { exact: false }),
+				).toHaveAttribute('aria-expanded', 'false');
+
+				// Validate the correct tone id was selected
+				expect(props.onToneSelected).toHaveBeenCalled();
+				expect(props.onToneSelected).toHaveBeenCalledWith(2);
+			});
+
+			it('should be able to select the same tone', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				for (var x = 0; x < 1; x++) {
+					// Open Skin Tone UI
+					const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+						exact: false,
+					});
+					await userEvent.click(toneSelectorButton);
+					expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+
+					const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+					fireEvent.mouseDown(toneSelectorToneOption);
+
+					// this is the Compiled hash class value for `opacity:0`
+					// the component is missing the style declaration
+					// discussion here: https://atlassian.slack.com/archives/C017XR8K1RB/p1740355117740189
+					expect(await screen.findByTestId(toneSelectorTestId)).toHaveClass('_tzy4idpf');
+					expect(props.onToneSelected).toHaveBeenCalledWith(2);
+				}
+				expect(props.onToneSelected).toHaveBeenCalledTimes(1);
+			});
+
+			it('should focus on tone preview button after selector is closed', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
+
 				// Open Skin Tone UI
 				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
 					exact: false,
@@ -155,135 +183,367 @@ describe('<EmojiActions />', () => {
 				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
 				const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+
 				fireEvent.mouseDown(toneSelectorToneOption);
 
+				// this is the Compiled hash class value for `opacity:0`
+				// the component is missing the style declaration
+				// discussion here: https://atlassian.slack.com/archives/C017XR8K1RB/p1740355117740189
+				expect(await screen.findByTestId(toneSelectorTestId)).toHaveClass('_tzy4idpf');
+
+				waitFor(async () => {
+					expect(
+						await screen.findByLabelText('Choose your skin tone', {
+							exact: false,
+						}),
+					).toHaveFocus();
+				});
+			});
+
+			it('should stop selecting tone on mouse leave', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open tone
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				const toneSelector = await screen.findByTestId(toneSelectorTestId);
+				expect(toneSelector).toBeInTheDocument();
+
+				// Move the mouse out of the ui
+				fireEvent.mouseLeave(toneSelector);
+
+				// Validate the tone ui is closed
 				expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
-				expect(props.onToneSelected).toHaveBeenCalledWith(2);
-			}
-			expect(props.onToneSelected).toHaveBeenCalledTimes(1);
+			});
 		});
 
-		it('should focus on tone preview button after selector is closed', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+		it('should close selector when tab is pressed', async () => {
+			renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
 
 			// Open Skin Tone UI
 			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
 				exact: false,
 			});
-			await userEvent.click(toneSelectorButton);
+			toneSelectorButton.focus();
+			await userEvent.keyboard('{enter}');
 			expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
-			const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
-
-			fireEvent.mouseDown(toneSelectorToneOption);
-
-			expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
-
-			waitFor(async () => {
-				expect(
-					await screen.findByLabelText('Choose your skin tone', {
-						exact: false,
-					}),
-				).toHaveFocus();
+			await userEvent.tab();
+			waitFor(() => {
+				expect(screen.queryByTestId(toneSelectorTestId)).toBeNull();
 			});
 		});
 
-		it('should stop selecting tone on mouse leave', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+		describe('Add custom emoji', () => {
+			describe('Upload not supported', () => {
+				it('"Add custom emoji" button should not appear when uploadEnabled is false', async () => {
+					await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			// Open tone
-			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
-				exact: false,
+					expect(await screen.queryByText('Add your own emoji')).not.toBeInTheDocument();
+				});
 			});
-			await userEvent.click(toneSelectorButton);
-			const toneSelector = await screen.findByTestId(toneSelectorTestId);
-			expect(toneSelector).toBeInTheDocument();
 
-			// Move the mouse out of the ui
-			fireEvent.mouseLeave(toneSelector);
+			describe('Upload supported', () => {
+				it('"Add custom emoji" button should appear as default', async () => {
+					await renderWithIntl(
+						<CompiledEmojiActions {...props} toneEmoji={toneEmoji} uploadEnabled />,
+					);
 
-			// Validate the tone ui is closed
-			expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+					expect(await screen.queryByText('Add your own emoji')).toBeInTheDocument();
+				});
+			});
+		});
+
+		describe('EmojiPickerListSearch', () => {
+			it('should render EmojiPickerListSearch by default', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				expect(await screen.findByLabelText('Emoji name')).toBeInTheDocument();
+			});
+
+			it('should hide EmojiPickerListSearch when ToneSelector is open', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open tone
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+
+				// Validate search bar does not exist
+				expect(screen.getByLabelText('Emoji name')).not.toBeVisible();
+			});
+
+			it('should stop selecting tone and show EmojiPickerListSearch on mouse leave', async () => {
+				await renderWithIntl(<CompiledEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open tone
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				const toneSelector = await screen.findByTestId(toneSelectorTestId);
+				expect(toneSelector).toBeInTheDocument();
+
+				// Move the mouse out of the ui
+				fireEvent.mouseLeave(toneSelector);
+
+				// Validate the tone ui is closed
+				expect(await screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+
+				// Validate search bar does exist
+				expect(await screen.findByLabelText('Emoji name')).toBeInTheDocument();
+			});
 		});
 	});
 
-	it('should close selector when tab is pressed', async () => {
-		renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+	describe('platform_editor_css_migrate_emoji "off" - emotion', () => {
+		describe('tone', () => {
+			it('should display tone selector after clicking on the tone button', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-		// Open Skin Tone UI
-		const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
-			exact: false,
-		});
-		toneSelectorButton.focus();
-		userEvent.keyboard('{enter}');
-		expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
-
-		userEvent.tab();
-		waitFor(() => {
-			expect(screen.queryByTestId(toneSelectorTestId)).toBeNull();
-		});
-	});
-
-	describe('Add custom emoji', () => {
-		describe('Upload not supported', () => {
-			it('"Add custom emoji" button should not appear when uploadEnabled is false', async () => {
-				await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
-
-				expect(await screen.queryByText('Add your own emoji')).not.toBeInTheDocument();
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 			});
-		});
 
-		describe('Upload supported', () => {
-			it('"Add custom emoji" button should appear as default', async () => {
+			it('should display tone selector after pressing enter on the tone button', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				toneSelectorButton.focus();
+				await userEvent.keyboard('{enter}');
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+			});
+
+			it('should focus on the tone being selected or default tone', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				toneSelectorButton.focus();
+				await userEvent.keyboard('{enter}');
+
+				const toneSelector = await screen.findByTestId(toneSelectorTestId);
+				expect(toneSelector).toBeVisible();
+
+				const toneSelectorToneOption1 = within(toneSelector)
+					.getByLabelText(':raised_back_of_hand:')
+					.closest('label');
+				const toneSelectorToneOption2 = within(toneSelector)
+					.getByLabelText(':raised_back_of_hand-2:')
+					.closest('label');
+
+				// No tone selected, focus on default tone radop input
+				expect(within(toneSelectorToneOption1!).getByRole('radio')).toHaveFocus();
+
+				fireEvent.mouseDown(toneSelectorToneOption2!);
+
+				expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+
+				// tone 2 is selected
+				expect(props.onToneSelected).toHaveBeenCalledWith(2);
+			});
+
+			it('button should show current selected tone if provided', async () => {
 				await renderWithIntl(
-					<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} uploadEnabled />,
+					<EmotionEmojiActions {...props} toneEmoji={toneEmoji} selectedTone={3} />,
 				);
 
-				expect(await screen.queryByText('Add your own emoji')).toBeInTheDocument();
+				const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
+
+				expect(
+					await within(tonePreviewButton).findByLabelText(toneEmoji!.skinVariations![2].shortName),
+				).toBeInTheDocument();
+			});
+
+			it('button should show default tone if selected tone is not specified', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
+
+				expect(
+					await within(tonePreviewButton).findByLabelText(toneEmoji.shortName),
+				).toBeInTheDocument();
+			});
+
+			it('should be able to select a different tone', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+
+				// Click a Different Tone
+				const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+				fireEvent.mouseDown(toneSelectorToneOption);
+
+				// Automatically close tone ui
+				expect(
+					await screen.findByLabelText('Choose your skin tone', { exact: false }),
+				).toHaveAttribute('aria-expanded', 'false');
+
+				// Validate the correct tone id was selected
+				expect(props.onToneSelected).toHaveBeenCalled();
+				expect(props.onToneSelected).toHaveBeenCalledWith(2);
+			});
+
+			it('should be able to select the same tone', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				for (var x = 0; x < 1; x++) {
+					// Open Skin Tone UI
+					const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+						exact: false,
+					});
+					await userEvent.click(toneSelectorButton);
+					expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+
+					const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+					fireEvent.mouseDown(toneSelectorToneOption);
+
+					expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+					expect(props.onToneSelected).toHaveBeenCalledWith(2);
+				}
+				expect(props.onToneSelected).toHaveBeenCalledTimes(1);
+			});
+
+			it('should focus on tone preview button after selector is closed', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open Skin Tone UI
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+
+				const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+
+				fireEvent.mouseDown(toneSelectorToneOption);
+
+				expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+
+				waitFor(async () => {
+					expect(
+						await screen.findByLabelText('Choose your skin tone', {
+							exact: false,
+						}),
+					).toHaveFocus();
+				});
+			});
+
+			it('should stop selecting tone on mouse leave', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open tone
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				const toneSelector = await screen.findByTestId(toneSelectorTestId);
+				expect(toneSelector).toBeInTheDocument();
+
+				// Move the mouse out of the ui
+				fireEvent.mouseLeave(toneSelector);
+
+				// Validate the tone ui is closed
+				expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
 			});
 		});
-	});
 
-	describe('EmojiPickerListSearch', () => {
-		it('should render EmojiPickerListSearch by default', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+		it('should close selector when tab is pressed', async () => {
+			renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			expect(await screen.findByLabelText('Emoji name')).toBeInTheDocument();
-		});
-
-		it('should hide EmojiPickerListSearch when ToneSelector is open', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
-
-			// Open tone
+			// Open Skin Tone UI
 			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
 				exact: false,
 			});
-			await userEvent.click(toneSelectorButton);
+			toneSelectorButton.focus();
+			await userEvent.keyboard('{enter}');
 			expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
-			// Validate search bar does not exist
-			expect(screen.getByLabelText('Emoji name')).not.toBeVisible();
+			await userEvent.tab();
+			waitFor(() => {
+				expect(screen.queryByTestId(toneSelectorTestId)).toBeNull();
+			});
 		});
 
-		it('should stop selecting tone and show EmojiPickerListSearch on mouse leave', async () => {
-			await renderWithIntl(<EmojiActionsWithIntl {...props} toneEmoji={toneEmoji} />);
+		describe('Add custom emoji', () => {
+			describe('Upload not supported', () => {
+				it('"Add custom emoji" button should not appear when uploadEnabled is false', async () => {
+					await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
 
-			// Open tone
-			const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
-				exact: false,
+					expect(await screen.queryByText('Add your own emoji')).not.toBeInTheDocument();
+				});
 			});
-			await userEvent.click(toneSelectorButton);
-			const toneSelector = await screen.findByTestId(toneSelectorTestId);
-			expect(toneSelector).toBeInTheDocument();
 
-			// Move the mouse out of the ui
-			fireEvent.mouseLeave(toneSelector);
+			describe('Upload supported', () => {
+				it('"Add custom emoji" button should appear as default', async () => {
+					await renderWithIntl(
+						<EmotionEmojiActions {...props} toneEmoji={toneEmoji} uploadEnabled />,
+					);
 
-			// Validate the tone ui is closed
-			expect(await screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+					expect(await screen.queryByText('Add your own emoji')).toBeInTheDocument();
+				});
+			});
+		});
 
-			// Validate search bar does exist
-			expect(await screen.findByLabelText('Emoji name')).toBeInTheDocument();
+		describe('EmojiPickerListSearch', () => {
+			it('should render EmojiPickerListSearch by default', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				expect(await screen.findByLabelText('Emoji name')).toBeInTheDocument();
+			});
+
+			it('should hide EmojiPickerListSearch when ToneSelector is open', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open tone
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
+
+				// Validate search bar does not exist
+				expect(screen.getByLabelText('Emoji name')).not.toBeVisible();
+			});
+
+			it('should stop selecting tone and show EmojiPickerListSearch on mouse leave', async () => {
+				await renderWithIntl(<EmotionEmojiActions {...props} toneEmoji={toneEmoji} />);
+
+				// Open tone
+				const toneSelectorButton = await screen.findByLabelText('Choose your skin tone', {
+					exact: false,
+				});
+				await userEvent.click(toneSelectorButton);
+				const toneSelector = await screen.findByTestId(toneSelectorTestId);
+				expect(toneSelector).toBeInTheDocument();
+
+				// Move the mouse out of the ui
+				fireEvent.mouseLeave(toneSelector);
+
+				// Validate the tone ui is closed
+				expect(await screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+
+				// Validate search bar does exist
+				expect(await screen.findByLabelText('Emoji name')).toBeInTheDocument();
+			});
 		});
 	});
 });

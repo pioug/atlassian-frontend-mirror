@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.0.1
+
+### Patch Changes
+
+- [#127443](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127443)
+  [`6b86eb614d535`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b86eb614d535) -
+  [ux] Clean up feature gate fix_a11y_violations_in_link_datasource
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

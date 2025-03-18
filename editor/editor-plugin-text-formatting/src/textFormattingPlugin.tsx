@@ -153,6 +153,7 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 						isToolbarAbove: true,
 						items: [toolbarCustom],
 						rank: 7,
+						pluginName: 'textFormatting',
 					};
 				} else {
 					return undefined;

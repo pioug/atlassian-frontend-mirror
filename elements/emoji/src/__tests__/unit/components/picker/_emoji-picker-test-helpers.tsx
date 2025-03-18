@@ -1,19 +1,12 @@
 import { AnalyticsListener, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
 import type { ReactWrapper } from 'enzyme';
 import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
-import Emoji from '../../../../components/common/Emoji';
-import EmojiDeletePreview from '../../../../components/common/EmojiDeletePreview';
-import EmojiErrorMessage from '../../../../components/common/EmojiErrorMessage';
-import EmojiUploadPreview from '../../../../components/common/EmojiUploadPreview';
 import FileChooser from '../../../../components/common/FileChooser';
 import * as commonStyles from '../../../../components/common/styles';
 import type { CategoryGroupKey } from '../../../../components/picker/categories';
 import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
 import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerEmojiRow from '../../../../components/picker/EmojiPickerEmojiRow';
-import { EmojiPickerVirtualListInternalOld as EmojiPickerList } from '../../../../components/picker/EmojiPickerList';
 import { EmojiPickerListSearch } from '../../../../components/picker/EmojiPickerListSearch';
 import type { EmojiDescription } from '../../../../types';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
@@ -173,36 +166,6 @@ export const findCancelLink = (component: ReactWrapper) => {
 	return (
 		component.update() &&
 		component.find(uploadAddRowSelector).find('[data-testid="cancel-upload-button"]').last()
-	);
-};
-
-export const findUploadPreview = (component: ReactWrapper) =>
-	component.update() && component.find(EmojiUploadPreview);
-
-export const findEmojiWithId = (component: ReactWrapper, id: string) =>
-	component.update() &&
-	component
-		.find(EmojiPickerList)
-		.find(Emoji)
-		.filterWhere((emoji) => emoji.prop('emoji').id === id);
-
-export const emojiWithIdVisible = (component: ReactWrapper, id: string) =>
-	findEmojiWithId(component, id).length > 0;
-
-export const finishDelete = (component: ReactWrapper) =>
-	component.update() && component.find(EmojiDeletePreview).length === 0;
-
-export const errorMessageVisible = (component: ReactWrapper) =>
-	component.update() && component.find(EmojiErrorMessage).length === 1;
-
-export const tooltipErrorMessageMatches = async (component: ReactWrapper<any>, message: any) => {
-	await waitUntil(
-		() => component.update() && component.find(EmojiErrorMessage).find(FormattedMessage).length > 0,
-	);
-
-	// tooltip message
-	expect(component.find(EmojiErrorMessage).find(FormattedMessage).at(0).text()).toContain(
-		message.defaultMessage,
 	);
 };
 

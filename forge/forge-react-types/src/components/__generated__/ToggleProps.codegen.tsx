@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ToggleProps
  *
- * @codegen <<SignedSource::388ba32ab2e4bdf3dbe9d05944eb41f0>>
+ * @codegen <<SignedSource::26b64a1506fb8a63c7850417f78fd7ba>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/toggle/__generated__/index.partial.tsx <<SignedSource::b7d6483e971110f0134e350247bb54af>>
  */
@@ -23,5 +23,7 @@ export type ToggleProps = Pick<
 
 /**
  * A toggle is used to view or switch between enabled or disabled states.
+ *
+ * @see [Toggle](https://developer.atlassian.com/platform/forge/ui-kit/components/toggle/) in UI Kit documentation for more information
  */
 export type TToggle<T> = (props: ToggleProps) => T;

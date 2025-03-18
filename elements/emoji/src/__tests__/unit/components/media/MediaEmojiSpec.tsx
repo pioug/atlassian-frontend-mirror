@@ -1,15 +1,10 @@
-import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
-import { CachingMediaEmoji } from '../../../../components/common/CachingEmoji';
-import Emoji from '../../../../components/common/Emoji';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';
 import EmojiTypeAhead from '../../../../components/typeahead/EmojiTypeAhead';
-import { hasSelector } from '../../_emoji-selectors';
-import { mountWithIntl } from '../../_enzyme';
 import {
 	getEmojiResourcePromiseFromRepository,
 	mediaEmoji,
@@ -30,14 +25,13 @@ describe('Media Emoji Handling across components', () => {
 
 	describe('<ResourcedEmoji/>', () => {
 		it('ResourcedEmoji renders media emoji via Emoji', async () => {
-			const component = mountWithIntl(
-				<ResourcedEmoji emojiProvider={emojiProvider} emojiId={mediaEmojiId} />,
-			);
+			renderWithIntl(<ResourcedEmoji emojiProvider={emojiProvider} emojiId={mediaEmojiId} />);
+			const emoji = await screen.findByAltText(mediaEmoji.name);
 
-			await waitUntil(() => hasSelector(component, Emoji));
-			const emojiDescription = component.find(Emoji).prop('emoji');
-			expect(emojiDescription).toEqual(mediaEmoji);
-			expect(component.find(Emoji).length).toEqual(1);
+			expect(emoji).toBeInTheDocument();
+			expect(emoji).toHaveAttribute('src', mediaEmoji.representation.mediaPath);
+			expect(emoji).toHaveAttribute('data-emoji-id', mediaEmojiId.id);
+			expect(emoji).toHaveAttribute('data-emoji-short-name', mediaEmojiId.shortName);
 		});
 	});
 
@@ -90,13 +84,13 @@ describe('Media Emoji Handling across components', () => {
 
 	describe('<EmojiTypeAhead/>', () => {
 		it('Media emoji rendered in type ahead', async () => {
-			const component = mountWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
+			renderWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
+			const emoji = await screen.findByAltText(mediaEmoji.name);
 
-			await waitUntil(() => hasSelector(component, Emoji));
-
-			const emojiDescription = component.find(Emoji).prop('emoji');
-			expect(emojiDescription).toEqual(mediaEmoji);
-			expect(component.find(CachingMediaEmoji).length).toEqual(1);
+			expect(emoji).toBeInTheDocument();
+			expect(emoji).toHaveAttribute('src', mediaEmoji.representation.mediaPath);
+			expect(emoji).toHaveAttribute('data-emoji-id', mediaEmojiId.id);
+			expect(emoji).toHaveAttribute('data-emoji-short-name', mediaEmojiId.shortName);
 		});
 	});
 });

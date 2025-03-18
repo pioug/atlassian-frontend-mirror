@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - TextfieldProps
  *
- * @codegen <<SignedSource::4f0a7b04b3a23a5889553b2bfaf7f454>>
+ * @codegen <<SignedSource::31074b919540a908cdd081018805c121>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/index.tsx <<SignedSource::03b967815639a5a5aae4f79da283d410>>
  */
@@ -47,5 +47,7 @@ export type TextfieldProps = Pick<
 
 /**
  * A text field is an input that allows a user to write or edit text.
+ *
+ * @see [Textfield](https://developer.atlassian.com/platform/forge/ui-kit/components/textfield/) in UI Kit documentation for more information
  */
 export type TTextfield<T> = (props: TextfieldProps) => T;

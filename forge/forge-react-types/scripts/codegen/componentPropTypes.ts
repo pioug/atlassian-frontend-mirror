@@ -196,7 +196,9 @@ const generateComponentPropTypes = (componentName?: string) => {
 	try {
 		const componentPropTypeSymbols = componentIndexSourceFile
 			.getExportSymbols()
-			.filter((symbol) => symbol.getName().endsWith(`${componentName}Props` ?? 'Props'))
+			.filter((symbol) =>
+				symbol.getName().endsWith(componentName ? `${componentName}Props` : 'Props'),
+			)
 			.sort((a, b) => a.getName().localeCompare(b.getName()));
 
 		// generate share types file first

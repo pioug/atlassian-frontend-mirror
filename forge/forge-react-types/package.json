@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.37.12",
+	"version": "0.37.13",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -66,6 +66,7 @@
 	"devDependencies": {
 		"@atlassian/codegen": "workspace:*",
 		"@types/node": "~20.16.5",
+		"lodash": "^4.17.21",
 		"react": "^18.2.0",
 		"ts-morph": "^17.0.0",
 		"ts-node": "^10.9.1",

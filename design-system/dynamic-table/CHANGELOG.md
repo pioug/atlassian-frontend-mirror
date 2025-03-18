@@ -1,5 +1,14 @@
 # @atlaskit/dynamic-table
 
+## 18.0.3
+
+### Patch Changes
+
+- [#127951](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127951)
+  [`149b6d2ba42ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/149b6d2ba42ec) -
+  Fixes a bug where styles were not applied to Rankable table rows when dragging, which could cause
+  layout issues.
+
 ## 18.0.2
 
 ### Patch Changes

@@ -2,14 +2,14 @@
  * Copied from ADS popup component with some tweeks for our use
  */
 import React, { Fragment, useLayoutEffect, useRef } from 'react';
-import { type PopperChildrenProps } from '@atlaskit/popper';
+import { type PopperChildrenProps, type Placement } from '@atlaskit/popper';
 
 export type RepositionOnUpdateProps = {
 	update: PopperChildrenProps['update'];
 	settings: {
 		isOpen: boolean;
 		showFullPicker: boolean;
-		useLeftPopperPlacement: boolean;
+		popperPlacement: Placement;
 	};
 };
 

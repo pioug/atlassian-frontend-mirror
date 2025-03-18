@@ -6,6 +6,8 @@ import {
 	type TypeAliasDeclaration,
 	type ImportDeclaration,
 } from 'ts-morph';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import kebabCase from 'lodash/kebabCase';
 
 const getNames = (symbol: Symbol) => {
 	const name = symbol.getName();
@@ -53,6 +55,34 @@ const getBaseComponentSymbol = (componentSymbol: Symbol, sourceFile: SourceFile)
  * This function will extract the PlatformButtonProps type declaration.
  */
 const getDependentTypeDeclarations = (baseComponentPropSymbol: Symbol, sourceFile: SourceFile) => {
+	const declarations = getDependentTypeDeclarationsBase(baseComponentPropSymbol, sourceFile);
+
+	for (const declaration of declarations) {
+		// further extract dependent types from the dependent type declarations, if it is not yet the base component prop symbol
+		// e.g. Text component depends on OriginalPlatformProps which depends on PlatformTextProps
+		if (
+			!declaration.getName().startsWith('_Platform') &&
+			!declaration.getName().startsWith('Platform')
+		) {
+			const typeAliasSymbol = declaration.getSymbolOrThrow();
+			const baseComponentPropCode = getDeclaration(baseComponentPropSymbol).getText();
+			for (const dependentTypeAliasDeclaration of getDependentTypeDeclarationsBase(
+				typeAliasSymbol,
+				sourceFile,
+			)) {
+				if (baseComponentPropCode !== dependentTypeAliasDeclaration.getText()) {
+					declarations.push(dependentTypeAliasDeclaration);
+				}
+			}
+		}
+	}
+	return declarations;
+};
+
+const getDependentTypeDeclarationsBase = (
+	baseComponentPropSymbol: Symbol,
+	sourceFile: SourceFile,
+) => {
 	return sourceFile.getTypeAliases().reduce((declarations, typeAlias) => {
 		const typeAliasName = typeAlias.getName();
 		if (typeAliasName !== baseComponentPropSymbol.getName()) {
@@ -163,6 +193,7 @@ const extractImportDeclarations = (
 		componentDeclarationCode,
 		...dependentTypeDeclarations.map((typeAlias) => typeAlias.getText()).filter((code) => !!code),
 	];
+
 	return sourceFile
 		.getImportDeclarations()
 		.filter((declaration) => {
@@ -300,8 +331,13 @@ const resolveExternalTypesCode = (
 };
 
 const makeJSDocComment = (comment: string) => {
+	const commentBody = comment
+		.split('\n')
+		.map((line) => line.trimEnd())
+		.map((line) => (line.length === 0 ? ' *' : ` * ${line}`))
+		.join('\n');
 	return `/**
- * ${comment.split('\n').join('\n * ')}
+${commentBody}
  */`;
 };
 
@@ -319,7 +355,13 @@ const getComponentTypeCode = (componentPropSymbol: Symbol, sourceFile: SourceFil
 			.join('\n');
 
 		if (comment && comment.length > 0) {
-			statements.push(updateDACUrlInJSDocComment(makeJSDocComment(comment)));
+			let jsDocContent = comment;
+			const componentDocUrl = getUIKitComponentDocUrl(componentName);
+			if (componentDocUrl) {
+				jsDocContent = `${comment}\n\n@see [${componentName}](${getUIKitComponentDocUrl(componentName)}) in UI Kit documentation for more information`;
+			}
+
+			statements.push(updateDACUrlInJSDocComment(makeJSDocComment(jsDocContent)));
 		}
 	}
 	statements.push(`export type T${componentName}<T> = (props: ${propName}) => T;`);
@@ -371,6 +413,45 @@ const getComponentPropsTypeCode = (componentPropSymbol: Symbol) => {
 	const sourceCode = getDeclaration(componentPropSymbol).getText(true);
 
 	return updateDACUrlInJSDocComment(sourceCode);
+};
+
+// this is to map special cases, and we should later review them for better consistency
+const componentPathMap: Record<string, string | false> = {
+	AdfRenderer: 'adfRenderer',
+	ErrorMessage: 'form/#error-message',
+	HelperMessage: 'form/#helper-message',
+	ValidMessage: 'form/#validation-message',
+	FormHeader: 'form/#form-header',
+	FormFooter: 'form/#form-footer',
+	FormSection: 'form/#form-section',
+	Label: 'form/#label',
+	LinkButton: 'button/#linkbutton-props',
+	LoadingButton: 'button/#loadingbutton-props',
+	ModalBody: 'modal/#body',
+	ModalFooter: 'modal/#footer',
+	ModalHeader: 'modal/#header',
+	ModalTitle: 'modal/#title',
+	ModalTransition: 'modal/#modal-transition',
+	SectionMessageAction: 'section-message/#section-message-action',
+	TabsList: 'tabs',
+	TabPanel: 'tabs',
+	Tab: 'tabs',
+	SimpleTag: 'tag',
+	Grid: false,
+	Bleed: false,
+};
+
+const getUIKitComponentDocUrl = (componentName: string) => {
+	const matchedComponentPath = componentPathMap[componentName];
+	if (matchedComponentPath === false) {
+		return null;
+	}
+	const baseComponentPath = matchedComponentPath ?? kebabCase(componentName);
+	const componentPath = baseComponentPath.includes('/#')
+		? baseComponentPath
+		: `${baseComponentPath}/`;
+
+	return `/platform/forge/ui-kit/components/${componentPath}`;
 };
 
 const baseGenerateComponentPropTypeSourceCode = (

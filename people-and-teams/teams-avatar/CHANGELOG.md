@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 2.3.0
+
+### Minor Changes
+
+- [#127906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127906)
+  [`194a6a52208e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/194a6a52208e2) -
+  Update border radius
+
 ## 2.2.0
 
 ### Minor Changes

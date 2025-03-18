@@ -123,9 +123,6 @@
 		"platform_editor_vs_code_block_paste": {
 			"type": "boolean"
 		},
-		"platform_editor_advanced_layouts_post_fix_patch_2": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_captions_on_copy": {
 			"type": "boolean"
 		},

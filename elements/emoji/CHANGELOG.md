@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.0.0
+
+### Major Changes
+
+- [#127323](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127323)
+  [`e448b4811b02a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e448b4811b02a) -
+  [ux] Migrates styles from emotion to compiled
+
 ## 68.0.5
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - LoadingButtonProps
  *
- * @codegen <<SignedSource::3abc490a74619a5e969b95b74b8ee6f6>>
+ * @codegen <<SignedSource::7976cc960c60dd5f5efe450507bd3d6b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/loading-button.tsx <<SignedSource::66edb728e0e941c5f53236e94cd02c18>>
  */
@@ -33,5 +33,7 @@ export type LoadingButtonProps = Pick<
 
 /**
  * A button that shows an spinner as an overlay on the button when you set an isLoading prop to true.
+ *
+ * @see [LoadingButton](https://developer.atlassian.com/platform/forge/ui-kit/components/button/#loadingbutton-props) in UI Kit documentation for more information
  */
 export type TLoadingButton<T> = (props: LoadingButtonProps) => T;

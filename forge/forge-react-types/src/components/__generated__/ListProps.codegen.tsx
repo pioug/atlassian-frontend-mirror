@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ListProps
  *
- * @codegen <<SignedSource::400e8f876b65d0f5902e544922d64a54>>
+ * @codegen <<SignedSource::d77d7e870d29834b0636dd18611690de>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/list/list.tsx <<SignedSource::08290162e7f9e2a672b27cec286206cf>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/list/list.tsx <<SignedSource::447b2a8735f97d1d9b091a97a64a7c89>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -26,5 +26,7 @@ export interface ListProps {
 
 /**
  * An unordered (bulleted) or ordered (numbered) list.
+ *
+ * @see [List](https://developer.atlassian.com/platform/forge/ui-kit/components/list/) in UI Kit documentation for more information
  */
 export type TList<T> = (props: ListProps) => T;

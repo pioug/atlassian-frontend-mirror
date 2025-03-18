@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - SelectProps
  *
- * @codegen <<SignedSource::27434c8de7f2e3082a44901a80c594a9>>
+ * @codegen <<SignedSource::e7cc2654f6b4dfb3d3f0374d0970989f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/select/index.tsx <<SignedSource::f7eed13874b04c56ded5f3434e03c70e>>
  */
@@ -47,5 +47,7 @@ export type SelectProps = Pick<
 
 /**
  * Select allows users to make a single selection or multiple selections from a list of options.
+ *
+ * @see [Select](https://developer.atlassian.com/platform/forge/ui-kit/components/select/) in UI Kit documentation for more information
  */
 export type TSelect<T> = (props: SelectProps) => T;

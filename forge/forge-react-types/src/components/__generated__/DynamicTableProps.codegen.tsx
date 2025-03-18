@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - DynamicTableProps
  *
- * @codegen <<SignedSource::213e682fc5fc702c30fb176cf45969b3>>
+ * @codegen <<SignedSource::8923606b45ea3fb8adc1f391645ee46e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/dynamictable/__generated__/index.partial.tsx <<SignedSource::579e3dddf7bd4b762d0fd40744619b89>>
  */
@@ -42,5 +42,7 @@ export type DynamicTableProps = Pick<
 
 /**
  * A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.
+ *
+ * @see [DynamicTable](https://developer.atlassian.com/platform/forge/ui-kit/components/dynamic-table/) in UI Kit documentation for more information
  */
 export type TDynamicTable<T> = (props: DynamicTableProps) => T;

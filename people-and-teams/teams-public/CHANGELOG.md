@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.12.0
+
+### Minor Changes
+
+- [#127475](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127475)
+  [`53fb0fe410388`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53fb0fe410388) -
+  Send analytics for Teams and Containers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.11.0
 
 ### Minor Changes

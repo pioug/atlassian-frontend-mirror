@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ModalProps
  *
- * @codegen <<SignedSource::cf8fdc3365a68de44b1fe4995c306218>>
+ * @codegen <<SignedSource::fd2d23af87d0cac85d3be5580d3b709f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/index.partial.tsx <<SignedSource::3bf621bc2d484c5789face984482559d>>
  */
@@ -21,5 +21,7 @@ export type ModalProps = Pick<
 
 /**
  * A modal dialog displays content that requires user interaction, in a layer above the page.
+ *
+ * @see [Modal](https://developer.atlassian.com/platform/forge/ui-kit/components/modal/) in UI Kit documentation for more information
  */
 export type TModal<T> = (props: ModalProps) => T;

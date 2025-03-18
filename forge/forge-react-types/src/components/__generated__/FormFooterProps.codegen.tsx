@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - FormFooterProps
  *
- * @codegen <<SignedSource::e6d74700f46888d63a013f997339596b>>
+ * @codegen <<SignedSource::bd453251ee9501e44dfdef3abb96f526>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-footer.partial.tsx <<SignedSource::0b729df36afbc86cc134984bb4c16b3e>>
  */
@@ -27,7 +27,9 @@ export type FormFooterProps = Pick<
 
 /**
  * Use a form footer to set the content at the end of the form. This is used for a button that submits the form.
- * 
+ *
  * This is positioned after the last field in the form.
+ *
+ * @see [FormFooter](https://developer.atlassian.com/platform/forge/ui-kit/components/form/#form-footer) in UI Kit documentation for more information
  */
 export type TFormFooter<T> = (props: FormFooterProps) => T;

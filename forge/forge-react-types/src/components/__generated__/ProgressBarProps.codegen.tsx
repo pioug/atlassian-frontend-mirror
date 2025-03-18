@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ProgressBarProps
  *
- * @codegen <<SignedSource::311fb087e468c54b326bbb425bd62594>>
+ * @codegen <<SignedSource::e0050bb3ee946768c292e24b263334d1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/progressbar/__generated__/index.partial.tsx <<SignedSource::aafdad776f93c659dc29fdb27eca9027>>
  */
@@ -21,5 +21,7 @@ export type ProgressBarProps = Pick<
 
 /**
  * A progress bar communicates the status of a system process.
+ *
+ * @see [ProgressBar](https://developer.atlassian.com/platform/forge/ui-kit/components/progress-bar/) in UI Kit documentation for more information
  */
 export type TProgressBar<T> = (props: ProgressBarProps) => T;

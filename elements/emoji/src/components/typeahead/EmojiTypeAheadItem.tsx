@@ -9,7 +9,7 @@ import { PureComponent } from 'react';
 import { toEmojiId } from '../../util/type-helpers';
 import type { EmojiDescription, EmojiProvider, OnEmojiEvent } from '../../types';
 import { leftClick } from '../../util/mouse';
-import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
+import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent'; // ED-26864: use compiled EmojiPreviewComponent when migrating typeahead to compiled css
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import {
 	typeAheadItem,

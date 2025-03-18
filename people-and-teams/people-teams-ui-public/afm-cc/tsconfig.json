@@ -18,6 +18,9 @@
     ],
     "references": [
         {
+            "path": "../../../analytics/analytics-namespaced-context/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {

@@ -1,5 +1,13 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.1.0
+
+### Minor Changes
+
+- [#127475](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127475)
+  [`1d4268a595ade`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d4268a595ade) -
+  Move PeopleTeamsAnalyticsSubcontextProvider to public package to set the context for analytics
+
 ## 3.0.1
 
 ### Patch Changes

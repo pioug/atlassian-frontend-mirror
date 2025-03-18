@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Text } from '@atlaskit/primitives';
 
-import { fireUIEvent } from '../../../common/utils/analytics';
+import { usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 import { LinkedContainerCard } from './index';
@@ -17,7 +17,9 @@ jest.mock('../../../common/utils/get-container-properties', () => ({
 
 jest.mock('../../../common/utils/analytics', () => ({
 	...jest.requireActual('../../../common/utils/analytics'),
-	fireUIEvent: jest.fn(),
+	usePeopleAndTeamAnalytics: jest.fn(() => ({
+		fireUIEvent: jest.fn(),
+	})),
 }));
 
 jest.mock('react-intl-next', () => {
@@ -137,6 +139,9 @@ describe('LinkedContainerCard', () => {
 	});
 
 	it('should fire an analytics event when the cross icon button is clicked', async () => {
+		const mockFireEvent = jest.fn();
+		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({ fireUIEvent: mockFireEvent });
+
 		render(
 			<Router>
 				<LinkedContainerCard
@@ -153,8 +158,8 @@ describe('LinkedContainerCard', () => {
 		await userEvent.hover(containerElement);
 		const crossIconButton = screen.getByRole('button');
 		await userEvent.click(crossIconButton);
-		expect(fireUIEvent).toHaveBeenCalledTimes(1);
-		expect(fireUIEvent).toHaveBeenCalledWith(expect.any(Function), {
+		expect(mockFireEvent).toHaveBeenCalledTimes(1);
+		expect(mockFireEvent).toHaveBeenCalledWith(expect.any(Function), {
 			action: 'clicked',
 			actionSubject: 'button',
 			actionSubjectId: 'containerUnlinkButton',

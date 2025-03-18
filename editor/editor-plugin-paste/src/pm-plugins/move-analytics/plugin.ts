@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { resetContentMoved, resetContentMovedTransform, updateContentMoved } from './commands';
 import { createPluginState, getPluginState } from './plugin-factory';
@@ -103,16 +103,13 @@ export const createPlugin = (
 				// the paragraph below the node. Visually only the node in between is selected, in reality, three nodes are
 				// in the slice.
 				// These cases are ignored and moveContent event won't be counted.
-				const isMultiSelectEnabled = editorExperiment(
-					'platform_editor_element_drag_and_drop_multiselect',
-					true,
-				);
+				const isMultiSelectTrackingEnabled = fg('platform_editor_track_node_types');
 				const nodeName = content.firstChild?.type.name || '';
 				let nodeTypes,
 					hasSelectedMultipleNodes = false;
 
 				if (content.childCount > 1) {
-					if (isMultiSelectEnabled) {
+					if (isMultiSelectTrackingEnabled) {
 						if (containsExcludedNode(content)) {
 							resetState = true;
 						} else {
@@ -155,7 +152,7 @@ export const createPlugin = (
 						nodeDepth: getParentNodeDepth(selection),
 					};
 
-					if (isMultiSelectEnabled) {
+					if (isMultiSelectTrackingEnabled) {
 						newState = { ...newState, nodeTypes: nodeTypes ?? nodeName, hasSelectedMultipleNodes };
 					}
 

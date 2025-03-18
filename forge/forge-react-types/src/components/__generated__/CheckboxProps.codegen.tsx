@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - CheckboxProps
  *
- * @codegen <<SignedSource::7f4aa902734166585716f52e001a6d8f>>
+ * @codegen <<SignedSource::d5cd5c6518e80c98416fc61091717141>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/checkbox/__generated__/index.partial.tsx <<SignedSource::e34c0ab52d3409a8548b6e51450ba43b>>
  */
@@ -23,5 +23,7 @@ export type CheckboxProps = Pick<
 
 /**
  * A checkbox is an input control that allows a user to select one or more options from a number of choices.
+ *
+ * @see [Checkbox](https://developer.atlassian.com/platform/forge/ui-kit/components/checkbox/) in UI Kit documentation for more information
  */
 export type TCheckbox<T> = (props: CheckboxProps) => T;

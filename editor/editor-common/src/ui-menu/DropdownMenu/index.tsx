@@ -12,6 +12,7 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
@@ -41,6 +42,39 @@ const focusedMenuItemStyle = css({
 
 const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 	if (isActive) {
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			/**
+			 * Hack for item to imitate old dropdown-menu selected styles
+			 */
+			// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+			return css`
+				position: relative;
+				&::before {
+					display: block;
+					height: 100%;
+					width: 2px;
+					position: absolute;
+					left: 0;
+					top: 0;
+					background: ${token('color.border.selected', 'transparent')};
+					content: '';
+				}
+				> span,
+				> span:hover,
+				> span:active {
+					background: ${token('color.background.selected', '#6c798f')};
+					color: ${token('color.text.selected', '#0C66E4')};
+				}
+				:focus > span[aria-disabled='false'] {
+					${focusedMenuItemStyle};
+				}
+				:focus-visible,
+				:focus-visible > span[aria-disabled='false'] {
+					outline: none;
+				}
+			`;
+		}
+
 		/**
 		 * Hack for item to imitate old dropdown-menu selected styles
 		 */

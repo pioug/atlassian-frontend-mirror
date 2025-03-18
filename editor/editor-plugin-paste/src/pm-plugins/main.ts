@@ -758,9 +758,7 @@ export function createPlugin(
 					slice = new Slice(slice.content, 0, 0);
 				}
 
-				if (fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
-					slice = transformSingleColumnLayout(slice, schema);
-				}
+				slice = transformSingleColumnLayout(slice, schema);
 
 				if (fg('platform_editor_macroid_reset_for_ext_on_paste')) {
 					slice = transformSliceToRemoveMacroId(slice, schema);

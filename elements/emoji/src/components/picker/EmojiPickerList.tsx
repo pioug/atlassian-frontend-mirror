@@ -49,7 +49,7 @@ import {
 	type VirtualItem,
 	virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
-import EmojiActions from '../common/EmojiActions';
+import EmojiActions from '../common/EmojiActions'; // ED-26865: use compiled EmojiActions when migrating picker to compiled css
 import type { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import { emojiPickerList } from './styles';

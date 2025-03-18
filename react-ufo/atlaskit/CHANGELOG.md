@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.4
+
+### Patch Changes
+
+- [#127813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127813)
+  [`8b9582e990f11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b9582e990f11) -
+  Adding additional check to ensure that process variable is defined
+
 ## 3.4.3
 
 ### Patch Changes

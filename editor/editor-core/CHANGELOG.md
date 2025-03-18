@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 204.5.3
+
+### Patch Changes
+
+- [#127407](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127407)
+  [`7258909da2220`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7258909da2220) -
+  [ux] [ED-27108 Hide empty line placeholder when it overflows
+- Updated dependencies
+
 ## 204.5.2
 
 ### Patch Changes

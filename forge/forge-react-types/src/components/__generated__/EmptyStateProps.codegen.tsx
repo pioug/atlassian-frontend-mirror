@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - EmptyStateProps
  *
- * @codegen <<SignedSource::07a70b90ed6e68ae200fd5e38e163a89>>
+ * @codegen <<SignedSource::142748ed4aa864312e3b9ea16f297672>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/emptystate/__generated__/index.partial.tsx <<SignedSource::d6c509a722d55de0f55d401cd2e75435>>
  */
@@ -21,5 +21,7 @@ export type EmptyStateProps = Pick<
 
 /**
  * An empty state appears when there is no data to display and describes what the user can do next.
+ *
+ * @see [EmptyState](https://developer.atlassian.com/platform/forge/ui-kit/components/empty-state/) in UI Kit documentation for more information
  */
 export type TEmptyState<T> = (props: EmptyStateProps) => T;

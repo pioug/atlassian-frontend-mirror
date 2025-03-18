@@ -13,10 +13,10 @@ import React, {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
+
 import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
 import { type XCSS } from '@atlaskit/primitives';
-
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import {
 	Manager,
@@ -24,6 +24,7 @@ import {
 	Reference,
 	type PopperProps,
 	type PopperChildrenProps,
+	type Placement,
 } from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -32,7 +33,6 @@ import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { messages } from '../../shared/i18n';
 import { type ReactionSource } from '../../types';
 import { PickerRender } from '../../ufo';
-
 import { Selector, type SelectorProps } from '../Selector';
 import { Trigger, type TriggerProps } from '../Trigger';
 
@@ -53,38 +53,6 @@ export const RENDER_REACTIONPICKERPANEL_TESTID = 'reactionPickerPanel-testid';
  * Emoji Picker Controller Id for Accessibility Labels
  */
 const PICKER_CONTROL_ID = 'emoji-picker';
-
-const popperModifiers: PopperProps<{}>['modifiers'] = [
-	/**
-   Removing this applyStyle modifier as it throws client errors ref:
-  https://popper.js.org/docs/v1/#modifiers
-  https://popper.js.org/docs/v1/#modifiers..applyStyle
-  { name: 'applyStyle', enabled: false },
-   */
-	{
-		name: 'hide',
-		enabled: false,
-	},
-	{
-		name: 'offset',
-		enabled: true,
-		options: {
-			offset: [0, 0],
-		},
-	},
-	{
-		name: 'flip',
-		enabled: true,
-		options: {
-			flipVariations: true,
-			boundariesElement: 'scrollParent',
-		},
-	},
-	{
-		name: 'preventOverflow',
-		enabled: true,
-	},
-];
 
 export interface ReactionPickerProps
 	extends Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
@@ -144,6 +112,14 @@ export interface ReactionPickerProps
 	 */
 	showRoundTrigger?: boolean;
 	/**
+	 * Optional prop for controlling the picker location, gets overrided by showRoundTrigger
+	 */
+	reactionPickerPlacement?: Placement;
+	/**
+	 * Optional prop for controlling the overflow of the reaction picker
+	 */
+	reactionsPickerPreventOverflowOptions?: Record<string, any>;
+	/**
 	 * Option prop for controlling the reaction picker selection style
 	 */
 	reactionPickerAdditionalStyle?: XCSS;
@@ -178,6 +154,8 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		reactionPickerAdditionalStyle = undefined,
 		reactionPickerTriggerIcon,
 		useButtonAlignmentStyling,
+		reactionPickerPlacement,
+		reactionsPickerPreventOverflowOptions,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -190,6 +168,43 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	const [selectionStyle, setSelectionStyle] = useState<XCSS | undefined>(undefined);
 
 	const updatePopper = useRef<PopperChildrenProps['update']>();
+
+	const popperPlacement = showRoundTrigger ? 'left' : reactionPickerPlacement || 'bottom-start';
+
+	const popperModifiers: PopperProps<{}>['modifiers'] = [
+		/**
+	   Removing this applyStyle modifier as it throws client errors ref:
+	  https://popper.js.org/docs/v1/#modifiers
+	  https://popper.js.org/docs/v1/#modifiers..applyStyle
+	  { name: 'applyStyle', enabled: false },
+	   */
+		{
+			name: 'hide',
+			enabled: false,
+		},
+		{
+			name: 'offset',
+			enabled: true,
+			options: {
+				offset: [0, 0],
+			},
+		},
+		{
+			name: 'flip',
+			enabled: true,
+			options: {
+				flipVariations: true,
+				boundariesElement: 'scrollParent',
+			},
+		},
+		{
+			name: 'preventOverflow',
+			enabled: true,
+			...(reactionsPickerPreventOverflowOptions && {
+				options: reactionsPickerPreventOverflowOptions,
+			}),
+		},
+	];
 
 	const [settings, setSettings] = useState({
 		/**
@@ -206,7 +221,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		/**
 		 * Use left placement for popper - using value based on showRoundTrigger for now since it needs the left placement
 		 */
-		useLeftPopperPlacement: showRoundTrigger,
+		popperPlacement,
 	});
 
 	/**
@@ -257,11 +272,11 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			setSettings({
 				isOpen: true,
 				showFullPicker: true,
-				useLeftPopperPlacement: showRoundTrigger,
+				popperPlacement,
 			});
 			onShowMore();
 		},
-		[onShowMore, showRoundTrigger],
+		[onShowMore, popperPlacement],
 	);
 
 	/**
@@ -293,7 +308,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 				!!allowAllEmojis &&
 				Array.isArray(pickerQuickReactionEmojiIds) &&
 				pickerQuickReactionEmojiIds.length === 0,
-			useLeftPopperPlacement: showRoundTrigger,
+			popperPlacement,
 		});
 
 		onOpen();
@@ -363,7 +378,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					)}
 				</Reference>
 				{settings.isOpen && (
-					<PopperWrapper settings={settings}>
+					<PopperWrapper settings={settings} popperModifiers={popperModifiers}>
 						{settings.showFullPicker ? (
 							<EmojiPicker
 								emojiProvider={emojiProvider}
@@ -393,23 +408,20 @@ export interface PopperWrapperProps {
 	settings: {
 		isOpen: boolean;
 		showFullPicker: boolean;
-		useLeftPopperPlacement: boolean;
+		popperPlacement: Placement;
 	};
+	popperModifiers?: PopperProps<{}>['modifiers'];
 }
 
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
-	const { settings, children } = props;
+	const { settings, children, popperModifiers } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	/**
 	 * add focus lock to popup
 	 */
 	useFocusTrap({ initialFocusRef: null, targetRef: popupRef });
 	return (
-		<Popper
-			placement={settings.useLeftPopperPlacement ? 'left' : 'bottom-start'}
-			modifiers={popperModifiers}
-			strategy={'absolute'}
-		>
+		<Popper placement={settings.popperPlacement} modifiers={popperModifiers} strategy="absolute">
 			{({ ref, style, update }) => {
 				return (
 					<div

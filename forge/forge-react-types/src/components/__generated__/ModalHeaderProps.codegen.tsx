@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ModalHeaderProps
  *
- * @codegen <<SignedSource::d870076a8f40ef1ca2f514ccccd8d14c>>
+ * @codegen <<SignedSource::10b4d948ea5e49b9606b2dc907be20cb>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-header.partial.tsx <<SignedSource::9102fefee5c2fe6cbee65bf860d29652>>
  */
@@ -21,5 +21,7 @@ export type ModalHeaderProps = Pick<
 
 /**
  * A modal header contains the title of the modal and can contain other React elements such as a close button.
+ *
+ * @see [ModalHeader](https://developer.atlassian.com/platform/forge/ui-kit/components/modal/#header) in UI Kit documentation for more information
  */
 export type TModalHeader<T> = (props: ModalHeaderProps) => T;

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - CodeBlockProps
  *
- * @codegen <<SignedSource::7ac72aa38d908f5ad8be5452cccb84d1>>
+ * @codegen <<SignedSource::8ab4ed1e38d2bd1f9ceafe4cbc20f97d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/codeblock.partial.tsx <<SignedSource::88ed38fdfc47db0938e7801195a00403>>
  */
@@ -21,5 +21,7 @@ export type CodeBlockProps = Pick<
 
 /**
  * Code highlights short strings of code snippets inline with body text.
+ *
+ * @see [CodeBlock](https://developer.atlassian.com/platform/forge/ui-kit/components/code-block/) in UI Kit documentation for more information
  */
 export type TCodeBlock<T> = (props: CodeBlockProps) => T;

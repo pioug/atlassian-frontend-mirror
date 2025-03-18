@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.16
+
+### Patch Changes
+
+- [#127305](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127305)
+  [`d73df5795b977`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d73df5795b977) -
+  Fix range error
+
 ## 3.3.15
 
 ### Patch Changes

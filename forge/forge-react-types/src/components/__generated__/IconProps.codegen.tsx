@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - IconProps
  *
- * @codegen <<SignedSource::b24cc22d6f60b86f1646a75a0bafc7cd>>
+ * @codegen <<SignedSource::40d5e815277b3ce91da33d74742659fc>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/icon/index.tsx <<SignedSource::54a87ae131386a26a52d09234f67aa98>>
  */
@@ -401,5 +401,7 @@ export interface IconProps {
 
 /**
  * An icon is a visual representation of a command, device, directory, or common action.
+ *
+ * @see [Icon](https://developer.atlassian.com/platform/forge/ui-kit/components/icon/) in UI Kit documentation for more information
  */
 export type TIcon<T> = (props: IconProps) => T;

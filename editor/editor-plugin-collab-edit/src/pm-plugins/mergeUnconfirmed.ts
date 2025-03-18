@@ -62,7 +62,10 @@ export function mergeUnconfirmedSteps(
 				rebaseable.step,
 				rebaseable.inverted,
 				rebaseable.origin instanceof Transaction
-					? rebaseable.origin.setMeta('isOffline', isOffline)
+					? rebaseable.origin.setMeta(
+							'isOffline',
+							rebaseable.origin.getMeta('isOffline') === true || isOffline,
+						)
 					: rebaseable.origin,
 			),
 		);

@@ -7,6 +7,10 @@ import {
 	EmojiPickerWithFallbackWithoutUpload,
 } from './picker.fixture';
 
+const featureFlags = {
+	platform_editor_css_migrate_emoji: [true, false],
+};
+
 snapshot(EmojiPickerWithUpload, {
 	ignoredErrors: [
 		{
@@ -15,6 +19,7 @@ snapshot(EmojiPickerWithUpload, {
 			jiraIssueId: 'TODO-123',
 		},
 	],
+	featureFlags,
 });
 snapshot(EmojiPickerWithoutUpload, {
 	ignoredErrors: [
@@ -24,6 +29,7 @@ snapshot(EmojiPickerWithoutUpload, {
 			jiraIssueId: 'TODO-123',
 		},
 	],
+	featureFlags,
 });
 snapshot(EmojiPickerWithFallbackWithUpload, {
 	ignoredErrors: [
@@ -39,6 +45,7 @@ snapshot(EmojiPickerWithFallbackWithUpload, {
 		},
 	],
 	featureFlags: {
+		...featureFlags,
 		platform_editor_preload_emoji_picker: true,
 	},
 });
@@ -56,6 +63,7 @@ snapshot(EmojiPickerWithFallbackWithoutUpload, {
 		},
 	],
 	featureFlags: {
+		...featureFlags,
 		platform_editor_preload_emoji_picker: true,
 	},
 });

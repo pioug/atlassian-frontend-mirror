@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerTypes } from '../../../common/types';
-import { AnalyticsAction, fireUIEvent } from '../../../common/utils/analytics';
+import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 const styles = cssMap({
@@ -103,6 +103,7 @@ export const LinkedContainerCard = ({
 	const { description, icon, containerTypeText } = getContainerProperties(containerType);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const { formatMessage } = useIntl();
+	const { fireUIEvent } = usePeopleAndTeamAnalytics();
 
 	return (
 		<LinkedCardWrapper

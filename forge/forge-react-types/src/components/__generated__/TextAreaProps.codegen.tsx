@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - TextAreaProps
  *
- * @codegen <<SignedSource::4735e4d09b0b6c4a75fe1c08151b6054>>
+ * @codegen <<SignedSource::efe2109932fd748ce38c5d36a2ad4194>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/textarea/index.tsx <<SignedSource::282c20421c108bd52e5341ba0ee4293c>>
  */
@@ -44,5 +44,7 @@ export type TextAreaProps = Pick<
 
 /**
  * A text area lets users enter long form text which spans over multiple lines.
+ *
+ * @see [TextArea](https://developer.atlassian.com/platform/forge/ui-kit/components/text-area/) in UI Kit documentation for more information
  */
 export type TTextArea<T> = (props: TextAreaProps) => T;

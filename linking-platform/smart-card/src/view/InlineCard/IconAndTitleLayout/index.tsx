@@ -65,6 +65,7 @@ const styles = cssMap({
 	iconWrapperStyle: {
 		position: 'absolute',
 		display: 'inline-flex',
+		font: token('font.body.small'),
 		alignItems: 'center',
 		boxSizing: 'border-box',
 		top: token('space.0'),

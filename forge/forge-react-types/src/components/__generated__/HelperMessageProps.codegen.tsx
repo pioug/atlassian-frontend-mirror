@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - HelperMessageProps
  *
- * @codegen <<SignedSource::0da9514581e07c67f8f9a8ba0d9774b9>>
+ * @codegen <<SignedSource::867186ab9065c1955019578515e5b441>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/helper-message.partial.tsx <<SignedSource::03fa772bfaf53905106f1cafbb428104>>
  */
@@ -22,5 +22,7 @@ export type HelperMessageProps = Pick<
 /**
  * A helper message tells the user what kind of input the field takes.
  * For example, a helper message could be "Password should be more than 4 characters".
+ *
+ * @see [HelperMessage](https://developer.atlassian.com/platform/forge/ui-kit/components/form/#helper-message) in UI Kit documentation for more information
  */
 export type THelperMessage<T> = (props: HelperMessageProps) => T;

@@ -161,5 +161,6 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 			nodeType: validNodes,
 			items: [createComment],
 			onPositionCalculated,
+			pluginName: 'annotation',
 		};
 	};

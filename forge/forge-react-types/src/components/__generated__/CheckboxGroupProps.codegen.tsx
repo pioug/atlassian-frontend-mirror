@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - CheckboxGroupProps
  *
- * @codegen <<SignedSource::89e98a25ac16f92b5d18b061bb6fce57>>
+ * @codegen <<SignedSource::63e9cf6f2e444db397f9e170b4e1ce7b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/checkboxgroup/index.tsx <<SignedSource::4db9e0c029805d1c1fd28b923f3dbae3>>
  */
@@ -38,5 +38,7 @@ export interface CheckboxGroupProps {
 
 /**
  * A Checkbox group is a list of options where one or more choices can be selected.
+ *
+ * @see [CheckboxGroup](https://developer.atlassian.com/platform/forge/ui-kit/components/checkbox-group/) in UI Kit documentation for more information
  */
 export type TCheckboxGroup<T> = (props: CheckboxGroupProps) => T;

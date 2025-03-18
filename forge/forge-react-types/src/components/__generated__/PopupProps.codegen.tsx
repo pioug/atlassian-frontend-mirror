@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - PopupProps
  *
- * @codegen <<SignedSource::9c82b51dc6635d8638a1f1f24ceaec66>>
+ * @codegen <<SignedSource::1406c01bd678b4f8525d6b2e48bf6021>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/popup/index.tsx <<SignedSource::cafa3868628edc1953d996c860801ed5>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/popup/index.tsx <<SignedSource::ff9b9f72bb5b2721d62300345e310108>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -33,5 +33,7 @@ export type PopupProps = Omit<
 
 /**
  * A popup displays brief content in an overlay.
+ *
+ * @see [Popup](https://developer.atlassian.com/platform/forge/ui-kit/components/popup/) in UI Kit documentation for more information
  */
 export type TPopup<T> = (props: PopupProps) => T;

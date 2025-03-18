@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ModalFooterProps
  *
- * @codegen <<SignedSource::4760b46222d502cf6397bfc1ee866e35>>
+ * @codegen <<SignedSource::9ca302c7b8cd20f9723c0613af32ff45>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-footer.partial.tsx <<SignedSource::0ff399d8f02a70c539a63e9466091768>>
  */
@@ -22,5 +22,7 @@ export type ModalFooterProps = Pick<
 /**
  * A modal footer often contains a primary action and the ability to cancel and close the dialog,
  * though can contain any React element.
+ *
+ * @see [ModalFooter](https://developer.atlassian.com/platform/forge/ui-kit/components/modal/#footer) in UI Kit documentation for more information
  */
 export type TModalFooter<T> = (props: ModalFooterProps) => T;

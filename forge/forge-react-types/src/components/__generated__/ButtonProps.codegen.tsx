@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonProps
  *
- * @codegen <<SignedSource::77d1847e88419084fc81129d7637b40b>>
+ * @codegen <<SignedSource::8d3c96f4416729b792a7d3460ae23a27>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::f9a16b36e0a307a53ee30a009373ab49>>
  */
@@ -393,5 +393,7 @@ export type ButtonProps = Pick<
 
 /**
  * A button triggers an event or action. They let users know what will happen next.
+ *
+ * @see [Button](https://developer.atlassian.com/platform/forge/ui-kit/components/button/) in UI Kit documentation for more information
  */
 export type TButton<T> = (props: ButtonProps) => T;

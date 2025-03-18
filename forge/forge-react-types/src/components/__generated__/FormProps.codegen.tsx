@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - FormProps
  *
- * @codegen <<SignedSource::6ac049125d8d8c2436805c5e3a845802>>
+ * @codegen <<SignedSource::72d05fe1799ae83e2fbc1e01f76009ce>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/index.tsx <<SignedSource::b6dd991b4a5e73adbac9321d53cd909e>>
  */
@@ -27,5 +27,7 @@ export type FormProps = {
 
 /**
  * A form allows users to input information.
+ *
+ * @see [Form](https://developer.atlassian.com/platform/forge/ui-kit/components/form/) in UI Kit documentation for more information
  */
 export type TForm<T> = (props: FormProps) => T;

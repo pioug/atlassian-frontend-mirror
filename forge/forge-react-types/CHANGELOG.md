@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.37.13
+
+### Patch Changes
+
+- [#128027](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128027)
+  [`db90756a95fcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db90756a95fcf) -
+  Update component JSDoc comment to include link to forge component documentation
+- Updated dependencies
+
 ## 0.37.12
 
 ### Patch Changes

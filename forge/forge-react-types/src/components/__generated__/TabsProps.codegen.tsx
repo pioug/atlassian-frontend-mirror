@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - TabsProps
  *
- * @codegen <<SignedSource::218a06565465557c9f3831d190600268>>
+ * @codegen <<SignedSource::064a9bb9ab87e096878895e81bd4bf6a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tabs.partial.tsx <<SignedSource::f5d8442dd79c61463d58ed2e436af3f4>>
  */
@@ -21,5 +21,7 @@ export type TabsProps = Pick<
 
 /**
  * Tabs are used to organize content by grouping similar information on the same page.
+ *
+ * @see [Tabs](https://developer.atlassian.com/platform/forge/ui-kit/components/tabs/) in UI Kit documentation for more information
  */
 export type TTabs<T> = (props: TabsProps) => T;

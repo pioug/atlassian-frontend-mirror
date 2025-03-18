@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - HeadingProps
  *
- * @codegen <<SignedSource::b8bb5780d2b0112f8f2a4c7190d63fc7>>
+ * @codegen <<SignedSource::c2e29c89ead70009a792cea03271e9c4>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/heading/__generated__/index.partial.tsx <<SignedSource::96b99b296364dce930bb91174b226eaa>>
  */
@@ -22,5 +22,7 @@ export type HeadingProps = Pick<PlatformHeadingProps, 'children' | 'id' | 'testI
 
 /**
  * A heading is a typography component used to display text in different sizes and formats.
+ *
+ * @see [Heading](https://developer.atlassian.com/platform/forge/ui-kit/components/heading/) in UI Kit documentation for more information
  */
 export type THeading<T> = (props: HeadingProps) => T;

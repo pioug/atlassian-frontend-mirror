@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - LinkButtonProps
  *
- * @codegen <<SignedSource::7c841825fdf02347d10084f2cd032f66>>
+ * @codegen <<SignedSource::5954a642054228f3f1ffb106dca3072f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/link-button.partial.tsx <<SignedSource::e74ee4aaf752a6e85a57950dce7a3683>>
  */
@@ -33,5 +33,7 @@ export type LinkButtonProps = Pick<
 
 /**
  * Renders a link in the style of a button.
+ *
+ * @see [LinkButton](https://developer.atlassian.com/platform/forge/ui-kit/components/button/#linkbutton-props) in UI Kit documentation for more information
  */
 export type TLinkButton<T> = (props: LinkButtonProps) => T;

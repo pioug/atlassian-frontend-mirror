@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - AdfRendererProps
  *
- * @codegen <<SignedSource::5e5e266275ea97ba9ead9f2dca647d84>>
+ * @codegen <<SignedSource::4e44b65ce16ded81aeeb086d4abf54c9>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/adfrenderer/index.tsx <<SignedSource::12eb3f93e6fda477a20a6813ed9107ac>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/adfrenderer/index.tsx <<SignedSource::38be261305900c390921675abcf4c90c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -29,16 +29,18 @@ export type AdfRendererProps = RendererProps & {
 	 *
 	 * @type [Visitor](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/master/editor/adf-utils/src/types/index.ts)
 	 */
-	replaceUnsupportedNode?: Function
+	replaceUnsupportedNode?: Function;
 };
 
 /**
  * The AdfRenderer component provides a way to render a valid ADF document, using the same renderer that Atlassian uses internally to render ADF content in Confluence pages, Jira work items, and so on.
  * It allows you to replace node types that are unsupported in the context of a Forge app with replacement content, or remove them entirely.
  * See [Atlassian Document Format](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/) for information on valid nodes.
- * 
+ *
  * This component uses [@atlaskit/renderer](https://www.npmjs.com/package/@atlaskit/renderer) under the hood.
- * 
+ *
  * Visit [Renderer editor](https://atlaskit.atlassian.com/examples/editor/renderer/basic) for a comprehensive list of different ADF document examples
+ *
+ * @see [AdfRenderer](https://developer.atlassian.com/platform/forge/ui-kit/components/adfRenderer/) in UI Kit documentation for more information
  */
 export type TAdfRenderer<T> = (props: AdfRendererProps) => T;

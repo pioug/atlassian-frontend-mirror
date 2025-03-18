@@ -56,8 +56,8 @@ const dataItems: ItemData[] = [
 		title: 'Large Table',
 		description: 'Placeholder for a 3rd party table',
 		showDescription: true,
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-		renderIcon: () => <Table size="xlarge" label="" />,
+		// will no longer be large after platform-visual-refresh-icons is switched on as changing icon size has been removed
+		renderIcon: () => <SpreadsheetIcon LEGACY_fallbackIcon={Table} LEGACY_size="xlarge" label="" />,
 	},
 ];
 

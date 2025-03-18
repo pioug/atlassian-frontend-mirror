@@ -184,21 +184,12 @@ const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings']) => {
 const popperWrapperProps: PopperWrapperProps['settings'] = {
 	isOpen: true,
 	showFullPicker: true,
-	useLeftPopperPlacement: true,
+	popperPlacement: 'bottom-start',
 };
 
 describe('PopperWrapper', () => {
-	it('should use left placement when useLeftPopperPlacement is true', async () => {
+	it('should use bottom-start placement when placement is bottom-start', async () => {
 		mockRenderPopperWrapper(popperWrapperProps);
-
-		expect(Popper).toHaveBeenCalledWith(
-			expect.objectContaining({ placement: 'left' }),
-			expect.anything(),
-		);
-	});
-
-	it('should use bottom-start placement when useLeftPopperPlacement is false', async () => {
-		mockRenderPopperWrapper({ ...popperWrapperProps, useLeftPopperPlacement: false });
 		expect(Popper).toHaveBeenCalledWith(
 			expect.objectContaining({ placement: 'bottom-start' }),
 			expect.anything(),

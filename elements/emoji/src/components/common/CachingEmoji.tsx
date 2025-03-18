@@ -7,9 +7,12 @@ import {
 	UfoEmojiTimings,
 } from '../../types';
 import debug from '../../util/logger';
-import Emoji, { type Props as EmojiProps } from './Emoji';
-import EmojiFallback from './EmojiFallback';
-import EmojiPlaceholder from './EmojiPlaceholder';
+import { default as EmotionEmoji, type Props as EmojiProps } from './Emoji';
+import { default as CompiledEmoji } from '../compiled/common/Emoji';
+import { default as EmotionEmojiPlaceholder } from './EmojiPlaceholder';
+import { default as CompiledEmojiPlaceholder } from '../compiled/common/EmojiPlaceholder';
+import { default as EmotionEmojiFallback } from './EmojiFallback';
+import { default as CompiledEmojiFallback } from '../compiled/common/EmojiFallback';
 import { UfoErrorBoundary } from './UfoErrorBoundary';
 import {
 	sampledUfoRenderedEmoji,
@@ -61,7 +64,11 @@ export const CachingEmoji = (props: React.PropsWithChildren<CachingEmojiProps>) 
 		if (fg('platform_editor_preload_emoji_picker')) {
 			return <StandardEmoji emoji={emoji} {...restProps} />;
 		} else {
-			return <Emoji emoji={emoji} {...restProps} />;
+			if (fg('platform_editor_css_migrate_emoji')) {
+				return <CompiledEmoji emoji={emoji} {...restProps} />;
+			} else {
+				return <EmotionEmoji emoji={emoji} {...restProps} />;
+			}
 		}
 	};
 
@@ -85,9 +92,17 @@ const StandardEmoji = (props: React.PropsWithChildren<EmojiProps>) => {
 	};
 
 	if (imageLoadError) {
-		return <EmojiFallback emoji={emoji} {...restProps} />;
+		if (fg('platform_editor_css_migrate_emoji')) {
+			return <CompiledEmojiFallback emoji={emoji} {...restProps} />;
+		} else {
+			return <EmotionEmojiFallback emoji={emoji} {...restProps} />;
+		}
 	}
-	return <Emoji emoji={emoji} onLoadError={handleLoadError} {...restProps} />;
+	if (fg('platform_editor_css_migrate_emoji')) {
+		return <CompiledEmoji emoji={emoji} onLoadError={handleLoadError} {...restProps} />;
+	} else {
+		return <EmotionEmoji emoji={emoji} onLoadError={handleLoadError} {...restProps} />;
+	}
 };
 
 /**
@@ -147,25 +162,48 @@ export const CachingMediaEmoji = (props: React.PropsWithChildren<CachingEmojiPro
 	};
 
 	if (cachedEmoji && !inValidImage) {
+		if (fg('platform_editor_css_migrate_emoji')) {
+			return (
+				<CompiledEmoji
+					{...restProps}
+					showTooltip={showTooltip}
+					fitToHeight={fitToHeight}
+					emoji={cachedEmoji}
+					onLoadError={handleLoadError}
+				/>
+			);
+		} else {
+			return (
+				<EmotionEmoji
+					{...restProps}
+					showTooltip={showTooltip}
+					fitToHeight={fitToHeight}
+					emoji={cachedEmoji}
+					onLoadError={handleLoadError}
+				/>
+			);
+		}
+	}
+
+	if (fg('platform_editor_css_migrate_emoji')) {
 		return (
-			<Emoji
-				{...restProps}
+			<CompiledEmojiPlaceholder
+				size={fitToHeight || placeholderSize}
+				shortName={shortName}
 				showTooltip={showTooltip}
-				fitToHeight={fitToHeight}
-				emoji={cachedEmoji}
-				onLoadError={handleLoadError}
+				representation={representation}
+			/>
+		);
+	} else {
+		return (
+			<EmotionEmojiPlaceholder
+				size={fitToHeight || placeholderSize}
+				shortName={shortName}
+				showTooltip={showTooltip}
+				representation={representation}
 			/>
 		);
 	}
-
-	return (
-		<EmojiPlaceholder
-			size={fitToHeight || placeholderSize}
-			shortName={shortName}
-			showTooltip={showTooltip}
-			representation={representation}
-		/>
-	);
 };
 
 export default memo(CachingEmoji);

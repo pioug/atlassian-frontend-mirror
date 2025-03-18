@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonGroupProps
  *
- * @codegen <<SignedSource::cfcaf362cef2884ded73338c52c8f437>>
+ * @codegen <<SignedSource::1961536cd507ac4a052deeb8743f1267>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/button-group.partial.tsx <<SignedSource::83622155981d05f77224a32bab4969b5>>
  */
@@ -19,5 +19,7 @@ export type ButtonGroupProps = Pick<
 
 /**
  * A button group gives users access to frequently performed, related actions.
+ *
+ * @see [ButtonGroup](https://developer.atlassian.com/platform/forge/ui-kit/components/button-group/) in UI Kit documentation for more information
  */
 export type TButtonGroup<T> = (props: ButtonGroupProps) => T;

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - ProgressTrackerProps
  *
- * @codegen <<SignedSource::936e27b6592ef14e79d5fe0a336ceb81>>
+ * @codegen <<SignedSource::69d1395fe597e269eaeb412f1b476443>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/progresstracker/__generated__/index.partial.tsx <<SignedSource::50d000e383a00beab96a51973f57c769>>
  */
@@ -23,5 +23,7 @@ export type ProgressTrackerProps = Pick<PlatformProgressTrackerProps, 'label' | 
 
 /**
  * A progress tracker displays the steps and progress through a journey.
+ *
+ * @see [ProgressTracker](https://developer.atlassian.com/platform/forge/ui-kit/components/progress-tracker/) in UI Kit documentation for more information
  */
 export type TProgressTracker<T> = (props: ProgressTrackerProps) => T;

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - InlineProps
  *
- * @codegen <<SignedSource::7e0e8c23de8b2392bf101ad017431b86>>
+ * @codegen <<SignedSource::a184afd895391ad501b67ca2a5c49fc1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline/__generated__/index.partial.tsx <<SignedSource::8123157b2afe19d52b47110fb754d43b>>
  */
@@ -21,5 +21,7 @@ export type InlineProps = Pick<
 
 /**
  * An inline manages the horizontal layout of direct children using flexbox.
+ *
+ * @see [Inline](https://developer.atlassian.com/platform/forge/ui-kit/components/inline/) in UI Kit documentation for more information
  */
 export type TInline<T> = (props: InlineProps) => T;

@@ -965,7 +965,7 @@ describe('<UploadingEmojiPicker />', () => {
 			expect(within(helperTestingLibrary.getVirtualList()).getAllByRole('button').length).toEqual(
 				3,
 			);
-			spy.mockReset();
+			spy.mockRestore();
 		});
 
 		it('displays a retry button if call to #deleteSiteEmoji fails', async () => {
@@ -983,7 +983,7 @@ describe('<UploadingEmojiPicker />', () => {
 			});
 
 			expect(within(getEmojiDeletePreview()).getByText('Retry')).toBeInTheDocument();
-			spy.mockReset();
+			spy.mockRestore();
 		});
 
 		it('calls #deleteSiteEmoji again on retry', async () => {
@@ -1008,7 +1008,7 @@ describe('<UploadingEmojiPicker />', () => {
 
 			// Tries to call #deleteSiteEmoji again
 			expect(spy).toHaveBeenCalledTimes(2);
-			spy.mockReset();
+			spy.mockRestore();
 		});
 	});
 });

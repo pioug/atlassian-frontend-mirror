@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{

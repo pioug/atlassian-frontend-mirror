@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - DatePickerProps
  *
- * @codegen <<SignedSource::a4fe0c77ab65e00b2bc8ebeadd33e2e3>>
+ * @codegen <<SignedSource::d146cd7a368d85498c033934001b9a6c>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::5dcbe693f00f3a2725b9e64932a3309c>>
  */
@@ -55,5 +55,7 @@ export type DatePickerProps = {
 
 /**
  * A date picker allows the user to select a particular date.
+ *
+ * @see [DatePicker](https://developer.atlassian.com/platform/forge/ui-kit/components/date-picker/) in UI Kit documentation for more information
  */
 export type TDatePicker<T> = (props: DatePickerProps) => T;

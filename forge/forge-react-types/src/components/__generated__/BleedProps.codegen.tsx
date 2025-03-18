@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BleedProps
  *
- * @codegen <<SignedSource::c7fc1c22894c170849e24bf5e8171def>>
+ * @codegen <<SignedSource::cc28f1caa57c117f8db064f643bfe56d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/bleed/__generated__/index.partial.tsx <<SignedSource::a2cfcd6831a7e1c773ef12a09fc07228>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/bleed/__generated__/index.partial.tsx <<SignedSource::406ffef6715a3dff3aa10511e2ec232c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -19,7 +19,4 @@ export type BleedProps = Pick<
   'children' | 'all' | 'inline' | 'block' | 'testId' | 'role'
 >;
 
-/**
- * Primitives are token-backed low-level building blocks.
- */
 export type TBleed<T> = (props: BleedProps) => T;

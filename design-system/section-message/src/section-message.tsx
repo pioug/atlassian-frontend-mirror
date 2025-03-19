@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -19,6 +20,9 @@ const sectionMessageStyles = cssMap({
 	},
 	content: {
 		color: token('color.text'),
+		font: token('font.body'),
+	},
+	actionsContainer: {
 		font: token('font.body'),
 	},
 });
@@ -84,6 +88,9 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 							space="space.100"
 							rowSpace="space.0"
 							role="list"
+							xcss={
+								fg('platform_ads_explicit_font_styles') && sectionMessageStyles.actionsContainer
+							}
 						>
 							{actionsArray.map((action, id) => (
 								<Inline role="listitem" key={id}>

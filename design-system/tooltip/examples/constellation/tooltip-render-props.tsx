@@ -1,8 +1,11 @@
-import React, { Fragment, useState } from 'react';
-
-import { styled } from '@compiled/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { forwardRef, Fragment, useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import { token } from '@atlaskit/tokens';
 import Tooltip, {
@@ -16,22 +19,42 @@ const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'lef
 const shortMessage = "I'm a short tooltip";
 const longMessage = 'I am a longer tooltip with a decent amount of content inside';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
-	background: 'white',
-	borderRadius: '3px',
-	boxShadow: token('elevation.shadow.overlay'),
-	boxSizing: 'content-box',
-	color: token('color.text'),
-	maxHeight: '300px',
-	maxWidth: '300px',
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.150', '12px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.150', '12px'),
+const styles = cssMap({
+	root: {
+		backgroundColor: token('elevation.surface'),
+		borderRadius: token('border.radius'),
+		boxShadow: token('elevation.shadow.overlay'),
+		color: token('color.text'),
+		maxHeight: '300px',
+		maxWidth: '300px',
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+	},
 });
 
-export default () => {
+const CustomTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function CustomTooltip(
+	{ children, className, ...rest },
+	ref,
+) {
+	return (
+		<TooltipPrimitive
+			{...rest}
+			// Manually passing on `className` so it gets merged correctly in the build output.
+			// The passed classname is mostly used for integration testing (`.Tooltip`)
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+			// "css" does not "exist" - it gets transformed into "className" by compiled
+			css={styles.root}
+			ref={ref}
+		>
+			{children}
+		</TooltipPrimitive>
+	);
+});
+
+export default function TooltipRenderPropsExample() {
 	const [message, setMessage] = React.useState(shortMessage);
 	const [position, setPosition] = useState(0);
 
@@ -78,7 +101,7 @@ export default () => {
 			</Tooltip>
 
 			<p>Component in content</p>
-			<Tooltip component={InlineDialog} content="Hello World">
+			<Tooltip component={CustomTooltip} content="Hello World">
 				{(tooltipProps) => (
 					<Button appearance="primary" {...tooltipProps}>
 						Hover or keyboard focus on me
@@ -102,4 +125,4 @@ export default () => {
 			</div>
 		</Fragment>
 	);
-};
+}

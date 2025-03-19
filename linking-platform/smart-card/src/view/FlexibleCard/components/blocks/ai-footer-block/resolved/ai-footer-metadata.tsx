@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl-next';
 import { di } from 'react-magnetic-di';
 
 import AIIcon from '@atlaskit/icon/core/atlassian-intelligence';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -15,9 +14,7 @@ import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-act
 import LegacyAIIcon from '../../../../../common/ai-icon';
 import { InfoIcon } from '../icons/info';
 
-import { AIFooterMetadataOld } from './ai-footer-metadataOld';
-
-const AIFooterMetadataNew = ({ testId, url }: AISummaryActionData & { testId?: string }) => {
+export const AIFooterMetadata = ({ testId, url }: AISummaryActionData & { testId?: string }) => {
 	di(useAISummaryAction);
 
 	const {
@@ -49,11 +46,4 @@ const AIFooterMetadataNew = ({ testId, url }: AISummaryActionData & { testId?: s
 			/>
 		</Inline>
 	);
-};
-
-export const AIFooterMetadata = (props: AISummaryActionData & { testId?: string }) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AIFooterMetadataNew {...props} />;
-	}
-	return <AIFooterMetadataOld {...props} />;
 };

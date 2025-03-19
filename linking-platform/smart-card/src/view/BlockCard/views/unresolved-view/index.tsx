@@ -19,7 +19,6 @@ import {
 import { FlexibleCardUiOptions, PreviewBlockOptions, titleBlockOptions } from '../utils';
 
 import { type UnresolvedViewProps } from './types';
-import UnresolvedViewOld from './UnresolvedViewOld';
 
 const customBlockStylesOld = css({
 	alignItems: 'flex-start',
@@ -122,12 +121,4 @@ const UnresolvedView = ({
 	</FlexibleCard>
 );
 
-export const UnresolvedViewExported = (props: UnresolvedViewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <UnresolvedView {...props} />;
-	} else {
-		return <UnresolvedViewOld {...props} />;
-	}
-};
-
-export default UnresolvedViewExported;
+export default UnresolvedView;

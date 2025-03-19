@@ -1,5 +1,20 @@
 # @atlaskit/collab-provider
 
+## 10.10.0
+
+### Minor Changes
+
+- [#128275](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128275)
+  [`a97b0e9ee8269`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a97b0e9ee8269) -
+  PCS-384453: addresses a bug where steps being sent while buffering/not yet connected will cause
+  the steps commit queue to be in a 5s timeout. this causes issues when a publish or other step
+  commits occur once the connection establishes (affects slow connections and pages that initialise
+  connection slowly)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.9.4
 
 ### Patch Changes

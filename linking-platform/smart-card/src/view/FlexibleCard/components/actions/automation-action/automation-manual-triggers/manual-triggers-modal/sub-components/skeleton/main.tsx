@@ -4,11 +4,8 @@
  */
 import { css, jsx, keyframes } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { SkeletonOld } from './SkeletonOld';
 
 type SkeletonProps = {
 	lineCount?: number;
@@ -77,6 +74,7 @@ const SkeletonLine: () => JSX.Element = () => (
 		<div css={SkeletonText} />
 	</div>
 );
+
 const getSkeletonLines = (lineCount: number) => {
 	const skeletonLines = [];
 	for (let i = 0; i < lineCount; i++) {
@@ -85,18 +83,10 @@ const getSkeletonLines = (lineCount: number) => {
 	return skeletonLines;
 };
 
-export const SkeletonNew = (props: SkeletonProps) => {
+export const Skeleton = (props: SkeletonProps) => {
 	const { lineCount = 5 } = props;
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives
 		<div css={AutomationSkeletonContainer}>{getSkeletonLines(lineCount)}</div>
-	);
-};
-
-export const Skeleton = (props: SkeletonProps): JSX.Element => {
-	return fg('bandicoots-compiled-migration-smartcard') ? (
-		<SkeletonNew {...props} />
-	) : (
-		<SkeletonOld {...props} />
 	);
 };

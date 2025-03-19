@@ -23,7 +23,6 @@ import { messages } from '../../../../messages';
 import { Icon } from '../../../common/Icon';
 import { MAX_MODAL_SIZE } from '../../constants';
 
-import LinkInfoOld from './indexOld';
 import LinkInfoButton from './link-info-button';
 import { type LinkInfoProps } from './types';
 
@@ -241,12 +240,4 @@ const LinkInfo = ({
 	);
 };
 
-const Exported = (props: LinkInfoProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <LinkInfo {...props} />;
-	} else {
-		return <LinkInfoOld {...props} />;
-	}
-};
-
-export default Exported;
+export default LinkInfo;

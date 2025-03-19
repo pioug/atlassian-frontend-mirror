@@ -18,11 +18,8 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../../messages';
-
-import WarningModalOld from './WarningModalOld';
 
 const breakWordsCss = css({
 	whiteSpace: 'pre-line',
@@ -37,7 +34,7 @@ export type LinkWarningModalProps = {
 	url: string | null;
 };
 
-const WarningModalNew = (props: LinkWarningModalProps & WrappedComponentProps) => {
+const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 	const { isOpen, unsafeLinkText, url, onClose, onContinue, intl } = props;
 
 	const content = (
@@ -82,13 +79,6 @@ const WarningModalNew = (props: LinkWarningModalProps & WrappedComponentProps) =
 	return intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
 };
 
-const Component = (props: LinkWarningModalProps & WrappedComponentProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <WarningModalNew {...props} />;
-	}
-	return <WarningModalOld {...props} />;
-};
-
-export default injectIntl(Component, {
+export default injectIntl(WarningModal, {
 	enforceContext: false,
 });

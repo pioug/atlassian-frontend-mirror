@@ -8,14 +8,11 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import LegacyManualTriggerIcon from '@atlaskit/legacy-custom-icons/manual-trigger-icon';
 import { ModalHeader, useModal } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { G50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
-
-import { AutomationModalHeaderOld } from './AutomationModalHeaderOld';
 
 const styles = cssMap({
 	iconStyle: {
@@ -42,7 +39,10 @@ type AutomationModalHeaderProps = {
 	modalDescription?: React.ReactNode;
 };
 
-const AutomationModalHeaderNew = ({ modalTitle, modalDescription }: AutomationModalHeaderProps) => {
+export const AutomationModalHeader = ({
+	modalTitle,
+	modalDescription,
+}: AutomationModalHeaderProps) => {
 	const { formatMessage } = useIntl();
 
 	const { initialised, rules } = useAutomationMenu();
@@ -74,11 +74,4 @@ const AutomationModalHeaderNew = ({ modalTitle, modalDescription }: AutomationMo
 			</Stack>
 		</ModalHeader>
 	);
-};
-
-export const AutomationModalHeader = (props: AutomationModalHeaderProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AutomationModalHeaderNew {...props} />;
-	}
-	return <AutomationModalHeaderOld {...props} />;
 };

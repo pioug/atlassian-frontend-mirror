@@ -1,9 +1,5 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
-/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type SerializedStyles } from '@emotion/react';
 import { FormattedMessage, type IntlShape, type MessageDescriptor } from 'react-intl-next';
 import Loadable from 'react-loadable';
 
@@ -37,45 +33,6 @@ export const getFormattedMessageAsString = (
 ) => {
 	const { formatMessage } = intl;
 	return message ? formatMessage(message, { context }) : '';
-};
-
-/**
- * @deprecated remove on FF bandicoots-compiled-migration-smartcard clean up
- */
-const getIconDimensionStyles = (value: string): SerializedStyles =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: value,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		minHeight: value,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		maxHeight: value,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: value,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		minWidth: value,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		maxWidth: value,
-	});
-
-/**
- * @deprecated remove on FF bandicoots-compiled-migration-smartcard clean up
- */
-export const getIconSizeStyles = (width: string): SerializedStyles => {
-	const sizeStyles = getIconDimensionStyles(width);
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-	return css`
-		flex: 0 0 auto;
-		${sizeStyles}
-		span,
-    svg,
-    img {
-			${sizeStyles}
-		}
-		svg {
-			padding: 0;
-		}
-	`;
 };
 
 // TODO Delete when cleaning platform-smart-card-icon-migration
@@ -116,49 +73,6 @@ export const importIcon = (importFn: () => Promise<any>): any => {
 		loader: () => importFn().then((module) => module.default),
 		loading: () => null,
 	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
-};
-
-/**
- * @deprecated remove FF bandicoots-compiled-migration-smartcard clean up
- */
-export const getLinkLineHeight = (size: SmartLinkSize): string => {
-	switch (size) {
-		case SmartLinkSize.XLarge:
-			return '1.5rem';
-		case SmartLinkSize.Large:
-		case SmartLinkSize.Medium:
-		case SmartLinkSize.Small:
-		default:
-			return '1rem';
-	}
-};
-
-/**
- * @deprecated remove FF bandicoots-compiled-migration-smartcard clean up
- */
-export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
-	switch (size) {
-		case SmartLinkSize.XLarge:
-			return css({
-				font: token('font.heading.medium'),
-				fontWeight: token('font.weight.regular'),
-				lineHeight: getLinkLineHeight(size),
-			});
-		case SmartLinkSize.Large:
-		case SmartLinkSize.Medium:
-			return css({
-				font: token('font.body'),
-				fontWeight: token('font.weight.regular'),
-				lineHeight: getLinkLineHeight(size),
-			});
-		case SmartLinkSize.Small:
-		default:
-			return css({
-				font: token('font.body.UNSAFE_small'),
-				fontWeight: token('font.weight.regular'),
-				lineHeight: getLinkLineHeight(size),
-			});
-	}
 };
 
 export const getMaxLineHeight = (size: SmartLinkSize) => {
@@ -204,48 +118,6 @@ export const getPrimitivesInlineSpaceBySize = (size: SmartLinkSize): Space => {
 			return 'space.050';
 	}
 };
-
-/**
- * Get container padding based on smart link size
- * To replace container/index.tsx getPadding() with space token for primitives
- * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
- */
-export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize): Space => {
-	switch (size) {
-		case SmartLinkSize.XLarge:
-			return 'space.300';
-		case SmartLinkSize.Large:
-			return 'space.250';
-		case SmartLinkSize.Medium:
-			return 'space.200';
-		case SmartLinkSize.Small:
-		default:
-			return 'space.100';
-	}
-};
-
-/**
- * @deprecated remove FF bandicoots-compiled-migration-smartcard clean up
- */
-export const getTruncateStyles = (
-	maxLines: number,
-	lineHeight: string = '1rem',
-	wordBreak: 'break-word' | 'break-all' = 'break-word',
-): SerializedStyles =>
-	css({
-		display: '-webkit-box',
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		wordBreak: wordBreak,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		WebkitLineClamp: maxLines,
-		WebkitBoxOrient: 'vertical',
-		'@supports not (-webkit-line-clamp: 1)': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			maxHeight: `calc(${maxLines} * ${lineHeight})`,
-		},
-	});
 
 export const hasWhiteSpace = (str: string): boolean => {
 	return str.search(/\s/) >= 0;

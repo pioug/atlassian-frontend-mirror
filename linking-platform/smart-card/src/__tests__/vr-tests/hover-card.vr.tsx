@@ -25,7 +25,6 @@ snapshot(HoverCard, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -40,7 +39,6 @@ snapshot(HoverCardActions, {
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -55,7 +53,6 @@ snapshot(HoverCardActions, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -97,7 +94,6 @@ snapshot(HoverCardSSRLoading, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -111,7 +107,6 @@ snapshot(HoverCardSSRError, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -126,7 +121,6 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -141,7 +135,6 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -156,6 +149,5 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });

@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -78,10 +79,10 @@ describe('Element: Text', () => {
 		const overrideCss = css({
 			color: 'black',
 		});
-		render(<Text content="random text" overrideCss={overrideCss} />);
+		render(<Text content="random text" css={overrideCss} />);
 
 		const element = await screen.findByTestId(testId);
 
-		expect(element).toHaveStyleDeclaration('color', 'black');
+		expect(element).toHaveCompiledCss('color', '#000');
 	});
 });

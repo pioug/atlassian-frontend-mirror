@@ -23,8 +23,6 @@ import ElementGroup from '../../element-group';
 import { filterActionItems } from '../../utils';
 import type { FooterBlockProps } from '../types';
 
-import FooterBlockResolvedViewOld from './FooterBlockResolvedViewOld';
-
 const actionGroupStylesOld = css({
 	maxHeight: '2rem',
 });
@@ -87,11 +85,4 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 	);
 };
 
-const FooterBlockResolvedViewExported = (props: FooterBlockProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <FooterBlockResolvedView {...props} />;
-	} else {
-		return <FooterBlockResolvedViewOld {...props} />;
-	}
-};
-export default FooterBlockResolvedViewExported;
+export default FooterBlockResolvedView;

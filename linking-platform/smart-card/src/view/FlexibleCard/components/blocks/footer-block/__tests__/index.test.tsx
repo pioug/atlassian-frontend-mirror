@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
@@ -115,13 +116,17 @@ describe('FooterBlock', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		renderFooterBlock({
-			overrideCss,
-			testId: testIdBase,
-		});
+
+		render(
+			<IntlProvider locale="en">
+				<FlexibleUiContext.Provider value={context}>
+					<FooterBlock status={SmartLinkStatus.Resolved} css={overrideCss} testId={testIdBase} />
+				</FlexibleUiContext.Provider>
+			</IntlProvider>,
+		);
 
 		const block = await screen.findByTestId(`${testIdBase}-resolved-view`);
 
-		expect(block).toHaveStyleDeclaration('background-color', 'blue');
+		expect(block).toHaveCompiledCss('background-color', 'blue');
 	});
 });

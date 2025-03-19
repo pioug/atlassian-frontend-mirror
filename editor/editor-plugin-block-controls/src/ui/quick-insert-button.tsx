@@ -18,7 +18,12 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
 import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positions';
 
-import { QUICK_INSERT_DIMENSIONS, rootElementGap, topPositionAdjustment } from './consts';
+import {
+	rootElementGap,
+	topPositionAdjustment,
+	QUICK_INSERT_DIMENSIONS,
+	QUICK_INSERT_LEFT_OFFSET,
+} from './consts';
 import {
 	isNestedNodeSelected,
 	isNonEditableBlock,
@@ -41,11 +46,11 @@ const buttonStyles = xcss({
 	outline: 'none',
 
 	':hover': {
-		backgroundColor: 'color.background.neutral.hovered',
+		backgroundColor: 'color.background.neutral.subtle.hovered',
 	},
 
 	':active': {
-		backgroundColor: 'color.background.neutral.pressed',
+		backgroundColor: 'color.background.neutral.subtle.pressed',
 	},
 
 	':focus': {
@@ -75,8 +80,6 @@ export const TypeAheadControl = ({
 	api,
 	formatMessage,
 	getPos,
-	nodeType,
-	anchorName,
 	rootAnchorName,
 	rootNodeType,
 }: Props) => {
@@ -122,13 +125,12 @@ export const TypeAheadControl = ({
 		}
 
 		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
-		const neighboringWidthOffset = anchorName === rootAnchorName ? '-16px' : '0px';
 
 		if (supportsAnchor) {
 			return {
 				left: isEdgeCase
-					? `calc(anchor(${rootAnchorName} start) + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + ${neighboringWidthOffset})`
-					: `calc(anchor(${rootAnchorName} start) - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + ${neighboringWidthOffset})`,
+					? `calc(anchor(${rootAnchorName} start) + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + -${QUICK_INSERT_LEFT_OFFSET}px)`
+					: `calc(anchor(${rootAnchorName} start) - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 
 				top: `calc(anchor(${rootAnchorName} start) + ${topPositionAdjustment(rootNodeType)}px)`,
 			};
@@ -136,17 +138,17 @@ export const TypeAheadControl = ({
 
 		return {
 			left: isEdgeCase
-				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + ${neighboringWidthOffset})`
+				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + -${QUICK_INSERT_LEFT_OFFSET}px)`
 				: `calc(${getLeftPositionForRootElement(
 						dom,
 						rootNodeType,
 						QUICK_INSERT_DIMENSIONS,
 						innerContainer,
 						isMacroInteractionUpdates,
-					)} + ${neighboringWidthOffset})`,
+					)} + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 			top: getTopPosition(dom, rootNodeType),
 		};
-	}, [rootAnchorName, view.dom, rootNodeType, macroInteractionUpdates, anchorName]);
+	}, [rootAnchorName, view.dom, rootNodeType, macroInteractionUpdates]);
 
 	useEffect(() => {
 		let cleanUpTransitionListener: () => void;
@@ -221,7 +223,7 @@ export const TypeAheadControl = ({
 					xcss={[buttonStyles]}
 					onClick={handleQuickInsert}
 				>
-					<AddIcon label="add" color={token('color.icon')} />
+					<AddIcon label="add" color={token('color.icon.subtle')} />
 				</Pressable>
 			</Tooltip>
 		</Box>

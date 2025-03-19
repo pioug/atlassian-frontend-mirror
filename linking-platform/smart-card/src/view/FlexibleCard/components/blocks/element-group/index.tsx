@@ -17,7 +17,6 @@ import {
 } from '../../../../../constants';
 import { renderChildren } from '../utils';
 
-import ElementGroupOld from './ElementGroupOld';
 import { type ElementGroupProps } from './types';
 
 const alignmentStyleMap = cssMap({
@@ -321,7 +320,7 @@ const minWidthStyle = css({ minWidth: '10%' });
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const ElementGroupNew = ({
+const ElementGroup = ({
 	align = SmartLinkAlignment.Left,
 	children,
 	direction = SmartLinkDirection.Horizontal,
@@ -360,14 +359,6 @@ const ElementGroupNew = ({
 			{renderChildren(children, size)}
 		</div>
 	);
-};
-
-const ElementGroup = (props: ElementGroupProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ElementGroupNew {...props} />;
-	} else {
-		return <ElementGroupOld {...props} />;
-	}
 };
 
 export default ElementGroup;

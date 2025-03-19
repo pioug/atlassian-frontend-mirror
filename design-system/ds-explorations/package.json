@@ -26,7 +26,7 @@
 		"prepare": "yarn ak-postbuild"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -34,12 +34,12 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/formatting": "workspace:*",
-		"@atlaskit/ds-lib": "workspace:*",
-		"@atlaskit/primitives": "workspace:*",
-		"@atlaskit/textfield": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
-		"@atlassian/codegen": "workspace:*",
+		"@af/formatting": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
+		"@atlassian/codegen": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"fs-extra": "^4.0.2",
 		"react-dom": "^18.2.0",

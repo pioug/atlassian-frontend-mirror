@@ -7,7 +7,6 @@ import { css, jsx } from '@compiled/react';
 import AKBadge from '@atlaskit/badge';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import AtlaskitBadgeOld from './AtlaskitBadgeOld';
 import { type AtlaskitBadgeProps } from './types';
 
 const badgeStylesOld = css({
@@ -27,7 +26,7 @@ const badgeStyles = css({
  * @see StoryPoints
  * */
 
-const AtlaskitBadgeNew = ({
+const AtlaskitBadge = ({
 	value,
 	name,
 	className,
@@ -53,14 +52,6 @@ const AtlaskitBadgeNew = ({
 			<AKBadge>{value}</AKBadge>
 		</span>
 	);
-};
-
-const AtlaskitBadge = (props: AtlaskitBadgeProps): JSX.Element | null => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AtlaskitBadgeNew {...props} />;
-	} else {
-		return <AtlaskitBadgeOld {...props} />;
-	}
 };
 
 export default AtlaskitBadge;

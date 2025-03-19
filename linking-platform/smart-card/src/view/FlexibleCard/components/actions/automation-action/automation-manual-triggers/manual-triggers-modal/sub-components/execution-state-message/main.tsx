@@ -5,14 +5,11 @@
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
-
-import { AutomationModalExecutionStateOld } from './AutomationModalExecutionStateOld';
 
 const styles = cssMap({
 	messageStyling: {
@@ -37,7 +34,7 @@ const i18n = defineMessages({
 	},
 });
 
-const AutomationModalExecutionStateNew = () => {
+export const AutomationModalExecutionState = () => {
 	const { ruleExecutionState } = useAutomationMenu();
 
 	if (ruleExecutionState === 'FAILURE') {
@@ -51,11 +48,4 @@ const AutomationModalExecutionStateNew = () => {
 	} else {
 		return null;
 	}
-};
-
-export const AutomationModalExecutionState = () => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AutomationModalExecutionStateNew />;
-	}
-	return <AutomationModalExecutionStateOld />;
 };

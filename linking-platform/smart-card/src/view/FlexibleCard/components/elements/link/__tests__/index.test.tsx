@@ -1,9 +1,9 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import '@testing-library/jest-dom';
-
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { SmartLinkSize, SmartLinkTheme } from '../../../../../../constants';
@@ -30,27 +30,27 @@ describe('Element: Link', () => {
 		it.each([
 			[
 				SmartLinkSize.XLarge,
-				'var(--ds-font-heading-medium, normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
+				'var(--ds-font-heading-medium,normal 500 20px/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 			[
 				SmartLinkSize.Large,
-				'var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
+				'var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 			[
 				SmartLinkSize.Medium,
-				'var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
+				'var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 			[
 				SmartLinkSize.Small,
-				'var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
+				'var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			],
 		])('renders element in %s size', async (size: SmartLinkSize, expectedFont) => {
 			render(<Link text={text} url={url} size={size} />);
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('font', expectedFont);
-			expect(element).toHaveStyleDeclaration('font-weight', 'var(--ds-font-weight-regular, 400)');
+			expect(element).toHaveCompiledCss('font', expectedFont);
+			expect(element).toHaveCompiledCss('font-weight', 'var(--ds-font-weight-regular,400)');
 		});
 	});
 
@@ -60,7 +60,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '2');
+			expect(element).toHaveCompiledCss('-webkit-line-clamp', '2');
 		});
 
 		it('renders element to two lines when maxLines exceeds maximum', async () => {
@@ -68,7 +68,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '2');
+			expect(element).toHaveCompiledCss('-webkit-line-clamp', '2');
 		});
 
 		it('renders element to one lines when maxLines belows minimum', async () => {
@@ -76,7 +76,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '1');
+			expect(element).toHaveCompiledCss('-webkit-line-clamp', '1');
 		});
 	});
 
@@ -86,7 +86,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#0C66E4'));
+			expect(element).toHaveCompiledCss('color', 'var(--ds-link,#0c66e4)');
 		});
 
 		it(`renders with ${SmartLinkTheme.Link} theme`, async () => {
@@ -94,7 +94,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#0C66E4'));
+			expect(element).toHaveCompiledCss('color', 'var(--ds-link,#0c66e4)');
 		});
 
 		it(`renders with ${SmartLinkTheme.Black} theme`, async () => {
@@ -102,8 +102,8 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
-			expect(element).toHaveStyleDeclaration('font-weight', 'var(--ds-font-weight-regular, 400)');
+			expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
+			expect(element).toHaveCompiledCss('font-weight', 'var(--ds-font-weight-regular,400)');
 		});
 	});
 
@@ -113,7 +113,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('word-break', 'break-word');
+			expect(element).toHaveCompiledCss('word-break', 'break-word');
 		});
 
 		it('truncates with break-all when text does not contain whitespace', async () => {
@@ -121,7 +121,7 @@ describe('Element: Link', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('word-break', 'break-all');
+			expect(element).toHaveCompiledCss('word-break', 'break-all');
 		});
 	});
 
@@ -174,11 +174,11 @@ describe('Element: Link', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		render(<Link overrideCss={overrideCss} text={text} url={url} />);
+		render(<Link css={overrideCss} text={text} url={url} />);
 
 		const element = await screen.findByTestId(testId);
 
-		expect(element).toHaveStyleDeclaration('background-color', 'blue');
+		expect(element).toHaveCompiledCss('background-color', 'blue');
 	});
 
 	describe('target', () => {

@@ -38,8 +38,8 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-json-transformer": "workspace:*",
-		"@atlaskit/editor-test-helpers": "workspace:*",
+		"@atlaskit/editor-json-transformer": "workspace:^",
+		"@atlaskit/editor-test-helpers": "workspace:^",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

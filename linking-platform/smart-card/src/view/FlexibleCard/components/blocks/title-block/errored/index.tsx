@@ -2,7 +2,6 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { SmartLinkAlignment, SmartLinkDirection } from '../../../../../../constants';
@@ -11,8 +10,6 @@ import Block from '../../block';
 import ElementGroup from '../../element-group';
 import { type TitleBlockViewProps } from '../types';
 
-import TitleBlockErroredViewOld from './TitleBlockErroredViewOld';
-
 /**
  * Represents an Errored TitleBlock view.
  * This will render when a Smart Link did not successfully resolve.
@@ -20,7 +17,7 @@ import TitleBlockErroredViewOld from './TitleBlockErroredViewOld';
  * or the backend response was errored or malformed.
  * @see TitleBlock
  */
-const TitleBlockErroredViewNew = ({
+const TitleBlockErroredView = ({
 	actionGroup,
 	retry,
 	position,
@@ -51,14 +48,6 @@ const TitleBlockErroredViewNew = ({
 			{actionGroup}
 		</Block>
 	);
-};
-
-const TitleBlockErroredView = (props: TitleBlockViewProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <TitleBlockErroredViewNew {...props} />;
-	} else {
-		return <TitleBlockErroredViewOld {...props} />;
-	}
 };
 
 export default TitleBlockErroredView;

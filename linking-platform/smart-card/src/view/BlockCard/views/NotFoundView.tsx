@@ -18,7 +18,6 @@ import { token } from '@atlaskit/tokens';
 import { messages } from '../../../messages';
 import Text from '../../FlexibleCard/components/elements/text';
 
-import { NotFoundViewOld } from './NotFoundViewOld';
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
@@ -33,7 +32,7 @@ const textStyles = css({
  * @see SmartLinkStatus
  * @see FlexibleCardProps
  */
-const NotFoundViewNew = ({
+const NotFoundView = ({
 	testId = 'smart-block-not-found-view',
 	...props
 }: FlexibleBlockCardProps) => {
@@ -90,11 +89,4 @@ const NotFoundViewNew = ({
 	);
 };
 
-const NotFoundView = (props: FlexibleBlockCardProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <NotFoundViewNew {...props} />;
-	} else {
-		return <NotFoundViewOld {...props} />;
-	}
-};
 export default withFlexibleUIBlockCardStyle(NotFoundView);

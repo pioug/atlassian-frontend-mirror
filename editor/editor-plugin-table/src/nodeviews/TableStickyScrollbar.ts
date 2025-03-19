@@ -144,7 +144,14 @@ export class TableStickyScrollbar {
 	}
 
 	private sentinelBottomCallback(entry: IntersectionObserverEntry) {
-		const sentinelIsAboveScrollArea = entry.boundingClientRect.top < (entry.rootBounds?.top || 0);
+		const sentinelIsAboveScrollArea =
+			entry.boundingClientRect.top < (entry.rootBounds?.top || 0) ||
+			// When editorScrollableElement is the root document or inside modal,
+			// so the boundingClientRect.top will never be less than the rootBounds.top,
+			// so we need to check if the boundingClientRect.top is less than 20% of the rootBounds.height
+			// to determine if the bottom sentinel is above the scroll area
+			(entry.boundingClientRect.top < (entry.rootBounds?.height || 0) * 0.2 &&
+				fg('platform_editor_scroll_table_flickering_fix'));
 
 		this.bottomSentinelState = sentinelIsAboveScrollArea
 			? 'above'

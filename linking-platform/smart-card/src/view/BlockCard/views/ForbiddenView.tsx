@@ -25,7 +25,6 @@ import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
 import Text from '../../FlexibleCard/components/elements/text';
 import { ForbiddenAction } from '../actions/ForbiddenAction';
 
-import { ForbiddenViewOld } from './ForbiddenViewOld';
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
@@ -41,7 +40,7 @@ const textStyles = css({
  * @see SmartLinkStatus
  * @see FlexibleCardProps
  */
-const ForbiddenViewNew = ({
+const ForbiddenView = ({
 	testId = 'smart-block-forbidden-view',
 	...props
 }: FlexibleBlockCardProps) => {
@@ -137,11 +136,4 @@ const ForbiddenViewNew = ({
 	);
 };
 
-const ForbiddenView = (props: FlexibleBlockCardProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ForbiddenViewNew {...props} />;
-	} else {
-		return <ForbiddenViewOld {...props} />;
-	}
-};
 export default withFlexibleUIBlockCardStyle(ForbiddenView);

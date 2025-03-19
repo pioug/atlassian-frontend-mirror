@@ -34,8 +34,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-plugin-analytics": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -45,7 +45,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-plugin-feature-flags": "workspace:*",
+		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

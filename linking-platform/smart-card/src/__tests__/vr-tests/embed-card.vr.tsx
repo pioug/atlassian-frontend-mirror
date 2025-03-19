@@ -40,127 +40,106 @@ const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
 
 snapshot(EmbedCardErrorView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenFixBlurring, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenDefault, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenObjectRequestAccess, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteDeniedAccess, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteDirectAccess, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenSitePendingAccess, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenSiteRequestAccess, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardNotFoundView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardNotFoundDefault, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardNotFoundSiteAccessExists, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardResolvedSmall, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(EmbedCardResolvedView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardResolvedViewNoPreview, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardResolvingView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardSelected, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardUnauthorisedView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -169,7 +148,6 @@ snapshot(EmbedCardFrameWithHref, {
 	description: 'embed card frame should render as a link when there is an href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -177,7 +155,6 @@ snapshot(EmbedCardFrameWithNoHref, {
 	description: 'embed card frame should not render as a link when there is no href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -186,7 +163,6 @@ snapshot(EmbedCardFrameWithPlaceholderAndHref, {
 		'embed card frame should not be interactive when isPlaceholder=true and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -195,7 +171,6 @@ snapshot(EmbedCardFrameWithPlaceholderAndOnClick, {
 		'embed card frame should not be interactive when isPlaceholder=true and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -204,7 +179,6 @@ snapshot(EmbedCardFrameWithNoPlaceholderWithHref, {
 		'embed card frame should be interactive when isPlaceholder=false and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -213,38 +187,32 @@ snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
 		'embed card frame should be interactive when isPlaceholder=false and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
 snapshot(EmbedCardFrameStyleHide, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardFrameStyleHideAndSelected, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardFrameStyleShow, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardFrameStyleShowAndSelected, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardFrameStyleShowOnHover, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -252,31 +220,26 @@ snapshot(EmbedCardFrameStyleShowOnHover, {
 	description: 'embed card frame style show on hover when hover',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardForbiddenViewFrameHide, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardNotFoundViewFrameHide, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardUnauthorisedViewFrameHide, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -286,7 +249,6 @@ snapshot(EmbedCardUnauthorisedViewFrameHide, {
 snapshot(EmbedCardErrorView, {
 	description: 'EmbedCardErrorView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -294,7 +256,6 @@ snapshot(EmbedCardForbiddenView, {
 	description:
 		'EmbedCardForbiddenView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -302,7 +263,6 @@ snapshot(EmbedCardForbiddenFixBlurring, {
 	description:
 		'EmbedCardForbiddenFixBlurring OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -310,7 +270,6 @@ snapshot(EmbedCardForbiddenDefault, {
 	description:
 		'EmbedCardForbiddenDefault OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -318,7 +277,6 @@ snapshot(EmbedCardForbiddenObjectRequestAccess, {
 	description:
 		'EmbedCardForbiddenObjectRequestAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -326,7 +284,6 @@ snapshot(EmbedCardForbiddenSiteDeniedAccess, {
 	description:
 		'EmbedCardForbiddenSiteDeniedAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -334,7 +291,6 @@ snapshot(EmbedCardForbiddenSiteDirectAccess, {
 	description:
 		'EmbedCardForbiddenSiteDirectAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -342,7 +298,6 @@ snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
 	description:
 		'EmbedCardForbiddenSiteForbiddenAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -350,7 +305,6 @@ snapshot(EmbedCardForbiddenSitePendingAccess, {
 	description:
 		'EmbedCardForbiddenSitePendingAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -358,7 +312,6 @@ snapshot(EmbedCardForbiddenSiteRequestAccess, {
 	description:
 		'EmbedCardForbiddenSiteRequestAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -366,7 +319,6 @@ snapshot(EmbedCardNotFoundView, {
 	description:
 		'EmbedCardNotFoundView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -374,7 +326,6 @@ snapshot(EmbedCardNotFoundDefault, {
 	description:
 		'EmbedCardNotFoundDefault OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -382,7 +333,6 @@ snapshot(EmbedCardNotFoundSiteAccessExists, {
 	description:
 		'EmbedCardNotFoundSiteAccessExists OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -390,7 +340,6 @@ snapshot(EmbedCardResolvedView, {
 	description:
 		'EmbedCardResolvedView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -398,7 +347,6 @@ snapshot(EmbedCardResolvedViewNoPreview, {
 	description:
 		'EmbedCardResolvedViewNoPreview OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -406,14 +354,12 @@ snapshot(EmbedCardResolvingView, {
 	description:
 		'EmbedCardResolvingView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
 snapshot(EmbedCardSelected, {
 	description: 'EmbedCardSelected OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -421,7 +367,6 @@ snapshot(EmbedCardUnauthorisedView, {
 	description:
 		'EmbedCardUnauthorisedView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -429,7 +374,6 @@ snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
 	description:
 		'EmbedCardUnauthorisedViewWithProviderImage OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -437,7 +381,6 @@ snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
 	description:
 		'EmbedCardUnauthorisedViewWithNoAuth OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -447,7 +390,6 @@ snapshot(EmbedCardFrameWithHref, {
 		'EmbedCardFrameWithHref OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -456,7 +398,6 @@ snapshot(EmbedCardFrameWithNoHref, {
 		'EmbedCardFrameWithNoHref OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -465,7 +406,6 @@ snapshot(EmbedCardFrameWithPlaceholderAndHref, {
 		'EmbedCardFrameWithPlaceholderAndHref OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -474,7 +414,6 @@ snapshot(EmbedCardFrameWithPlaceholderAndOnClick, {
 		'EmbedCardFrameWithPlaceholderAndOnClick OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -483,7 +422,6 @@ snapshot(EmbedCardFrameWithNoPlaceholderWithHref, {
 		'EmbedCardFrameWithNoPlaceholderWithHref OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -492,7 +430,6 @@ snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
 		'EmbedCardFrameWithNoPlaceholderWithOnClick OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -501,7 +438,6 @@ snapshot(EmbedCardFrameStyleHide, {
 	description:
 		'EmbedCardFrameStyleHide OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -509,7 +445,6 @@ snapshot(EmbedCardFrameStyleHideAndSelected, {
 	description:
 		'EmbedCardFrameStyleHideAndSelected OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -517,7 +452,6 @@ snapshot(EmbedCardFrameStyleShow, {
 	description:
 		'EmbedCardFrameStyleShow OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -525,7 +459,6 @@ snapshot(EmbedCardFrameStyleShowAndSelected, {
 	description:
 		'EmbedCardFrameStyleShowAndSelected OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -533,7 +466,6 @@ snapshot(EmbedCardFrameStyleShowOnHover, {
 	description:
 		'EmbedCardFrameStyleShowOnHover OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -542,7 +474,6 @@ snapshot(EmbedCardFrameStyleShowOnHover, {
 		'EmbedCardFrameStyleShowOnHover OLD (2) - delete when cleaning platform-linking-visual-refresh-v1',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -550,7 +481,6 @@ snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
 	description:
 		'EmbedCardFrameStyleShowOnHoverAndSelected OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -558,7 +488,6 @@ snapshot(EmbedCardForbiddenViewFrameHide, {
 	description:
 		'EmbedCardForbiddenViewFrameHide OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -566,7 +495,6 @@ snapshot(EmbedCardNotFoundViewFrameHide, {
 	description:
 		'EmbedCardNotFoundViewFrameHide OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -574,7 +502,6 @@ snapshot(EmbedCardUnauthorisedViewFrameHide, {
 	description:
 		'EmbedCardUnauthorisedViewFrameHide OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });

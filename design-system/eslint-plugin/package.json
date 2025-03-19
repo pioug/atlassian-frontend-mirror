@@ -47,10 +47,10 @@
 		"react": "^18.2.0"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-utils": "workspace:*",
-		"@atlaskit/icon": "workspace:*",
-		"@atlaskit/icon-lab": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/eslint-utils": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^7.1.0",
 		"ajv": "^6.12.6",
@@ -61,12 +61,12 @@
 		"semver": "^7.5.2"
 	},
 	"devDependencies": {
-		"@af/formatting": "workspace:*",
-		"@atlaskit/ds-lib": "workspace:*",
-		"@atlaskit/theme": "workspace:*",
-		"@atlassian/codegen": "workspace:*",
-		"@atlassian/eslint-utils": "workspace:*",
-		"@atlassian/ts-loader": "workspace:*",
+		"@af/formatting": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/theme": "workspace:^",
+		"@atlassian/codegen": "workspace:^",
+		"@atlassian/eslint-utils": "workspace:^",
+		"@atlassian/ts-loader": "workspace:^",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@eslint/eslintrc": "^3.0.2",

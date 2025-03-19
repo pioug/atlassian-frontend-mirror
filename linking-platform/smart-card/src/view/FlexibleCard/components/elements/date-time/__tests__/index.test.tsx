@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -80,7 +81,7 @@ describe('Element: Text', () => {
 			<IntlProvider locale="en">
 				<DateTime
 					date={new Date('2020-02-04T12:40:12.353+0800')}
-					overrideCss={overrideCss}
+					css={overrideCss}
 					type="created"
 				/>
 			</IntlProvider>,
@@ -88,7 +89,7 @@ describe('Element: Text', () => {
 
 		const element = await screen.findByTestId(testId);
 
-		expect(element).toHaveStyleDeclaration('font-weight', 'bold');
+		expect(element).toHaveCompiledCss('font-weight', 'bold');
 	});
 
 	it('should render overridden text for created on element', async () => {

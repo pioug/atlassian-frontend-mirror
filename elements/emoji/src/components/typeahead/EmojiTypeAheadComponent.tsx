@@ -1,13 +1,8 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
 import { PureComponent } from 'react';
 import { flushSync } from 'react-dom';
 import uuid from 'uuid';
+import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EmojiProvider, OnEmojiProviderChange } from '../../api/EmojiResource';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import {
@@ -354,9 +349,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={style}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={'ak-emoji-typeahead'}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={emojiTypeAhead}
+					className={['ak-emoji-typeahead', emojiTypeAhead].join(' ')}
 				>
 					<EmojiList
 						emojis={emojis}

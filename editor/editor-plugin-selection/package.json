@@ -20,13 +20,13 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "workspace:*",
-		"@atlaskit/editor-tables": "workspace:*",
-		"@atlaskit/platform-feature-flags": "workspace:*",
-		"@atlaskit/tmp-editor-statsig": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/editor-tables": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

@@ -33,24 +33,24 @@
 		"codegen-analytics": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-analytics --output ./src/common/utils/analytics"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "workspace:*",
-		"@atlaskit/link-client-extension": "workspace:*",
-		"@atlaskit/linking-common": "workspace:*",
-		"@atlaskit/linking-types": "workspace:*",
-		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/link-client-extension": "workspace:^",
+		"@atlaskit/linking-common": "workspace:^",
+		"@atlaskit/linking-types": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"json-ld-types": "^4.1.0",
 		"lru_map": "^0.4.1",
 		"rusha": "^0.8.13"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "workspace:*",
+		"@atlaskit/link-provider": "workspace:^",
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/analytics-codegen": "workspace:*",
-		"@atlaskit/link-picker": "workspace:*",
-		"@atlaskit/link-test-helpers": "workspace:*",
+		"@af/analytics-codegen": "workspace:^",
+		"@atlaskit/link-picker": "workspace:^",
+		"@atlaskit/link-test-helpers": "workspace:^",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",

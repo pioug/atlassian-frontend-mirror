@@ -1,5 +1,16 @@
 # @atlaskit/emoji
 
+## 69.0.1
+
+### Patch Changes
+
+- [#128142](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128142)
+  [`80d503f32d7aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80d503f32d7aa) -
+  Refactor emoji uploader to use compiled css in js
+- [#127999](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127999)
+  [`7811c66c76d10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7811c66c76d10) -
+  Refactor emoji typeahead to use compiled css in js
+
 ## 69.0.0
 
 ### Major Changes

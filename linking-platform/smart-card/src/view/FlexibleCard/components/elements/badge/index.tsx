@@ -19,7 +19,6 @@ import ImageIcon from '../../common/image-icon';
 import { withOverrideCss } from '../../common/with-override-css';
 import { getFormattedMessage } from '../../utils';
 
-import BadgeOld from './BadgeOld';
 import { type BadgeProps } from './types';
 
 const styles = cssMap({
@@ -241,14 +240,10 @@ const BadgeCompiledNew = ({
 };
 
 const Badge = (props: BadgeProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		if (fg('platform-linking-visual-refresh-v1')) {
-			return <BadgeRefreshNewWithOverrideCss {...props} />;
-		} else {
-			return <BadgeCompiledNew {...props} />;
-		}
+	if (fg('platform-linking-visual-refresh-v1')) {
+		return <BadgeRefreshNewWithOverrideCss {...props} />;
 	} else {
-		return <BadgeOld {...props} />;
+		return <BadgeCompiledNew {...props} />;
 	}
 };
 

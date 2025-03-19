@@ -33,14 +33,8 @@ import { TitleBlock } from '../blocks';
 import { type TitleBlockProps } from '../blocks/title-block/types';
 
 import HoverCardControl from './hover-card-control';
-import ContainerOld from './indexOld';
 import LayeredLink from './layered-link';
 import { type ChildrenOptions, type ContainerProps } from './types';
-
-/**
- * Eventually these exports should be removed on FF clean up bandicoots-compiled-migration-smartcard
- */
-export { getContainerStyles } from './indexOld';
 
 export const getChildrenOptions = (
 	children: React.ReactNode,
@@ -77,7 +71,7 @@ const renderChildren = (
 		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
 			if (isFlexibleUiTitleBlock(child)) {
 				if (isStyleCacheProvider(child)) {
-					return updateChildren(child, {
+					return updateChildrenTitleBlock(child, {
 						onClick,
 						retry,
 						containerSize,
@@ -99,6 +93,9 @@ const renderChildren = (
 			}
 			const { size: blockSize } = child.props;
 			const size = blockSize || containerSize;
+			if (isStyleCacheProvider(child)) {
+				return updateChildrenBlock(child, size, status);
+			}
 
 			// @ts-expect-error
 			return React.cloneElement(child, { size, status });
@@ -106,7 +103,22 @@ const renderChildren = (
 	});
 };
 
-const updateChildren = (
+const updateChildrenBlock = (
+	node: React.ReactElement,
+	size: SmartLinkSize,
+	status: SmartLinkStatus | undefined,
+) => {
+	const updatedChildren = React.Children.map(node.props.children, (child) => {
+		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
+			// @ts-expect-error
+			return React.cloneElement(child, { size, status }) as React.ReactElement;
+		}
+		return child;
+	});
+	return React.cloneElement(node, { children: updatedChildren });
+};
+
+const updateChildrenTitleBlock = (
 	node: React.ReactElement,
 	{ containerSize, ...props }: Record<string, unknown>,
 ) => {
@@ -406,7 +418,7 @@ const previewOnRightStyleMap = cssMap({
  * @internal
  * @see Block
  */
-const ContainerNew = ({
+const Container = ({
 	children,
 	clickableContainer = false,
 	hideBackground = false,
@@ -499,13 +511,6 @@ const ContainerNew = ({
 	}
 
 	return container;
-};
-
-const Container = (props: ContainerProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ContainerNew {...props} />;
-	}
-	return <ContainerOld {...props} />;
 };
 
 export default Container;

@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider, type MessageFormatElement } from 'react-intl-next';
 
@@ -64,9 +65,9 @@ describe('Element: Badge', () => {
 
 			const text = await screen.findByTestId('smart-element-badge-label');
 
-			expect(text).toHaveStyleDeclaration(
+			expect(text).toHaveCompiledCss(
 				'font',
-				'var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif)',
+				'var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
 			);
 		});
 	});
@@ -116,10 +117,10 @@ describe('Element: Badge', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		render(<Badge icon={IconType.Comment} label="99" overrideCss={overrideCss} />);
+		render(<Badge icon={IconType.Comment} label="99" css={overrideCss} />);
 
 		const element = await screen.findByTestId('smart-element-badge');
 
-		expect(element).toHaveStyleDeclaration('background-color', 'blue');
+		expect(element).toHaveCompiledCss('background-color', 'blue');
 	});
 });

@@ -36,8 +36,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/tmp-editor-statsig": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

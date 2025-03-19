@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 3.1.4
+
+### Patch Changes
+
+- [#128182](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128182)
+  [`7ff8302c0c02e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ff8302c0c02e) -
+  Replace experiment with gate
+
 ## 3.1.3
 
 ### Patch Changes

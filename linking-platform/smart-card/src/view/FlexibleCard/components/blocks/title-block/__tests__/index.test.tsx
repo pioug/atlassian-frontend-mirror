@@ -1,7 +1,10 @@
-import React, { PureComponent } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
@@ -9,7 +12,6 @@ import { IntlProvider } from 'react-intl-next';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
@@ -317,7 +319,7 @@ describe('TitleBlock', () => {
 				const element = await screen.findByTestId(titleTestId);
 				expect(element).toHaveTextContent('Spaghetti');
 
-				expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
+				expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
 			},
 		);
 	});
@@ -535,91 +537,77 @@ describe('TitleBlock', () => {
 				const overrideCss = css({
 					backgroundColor: 'blue',
 				});
-				renderTitleBlock({
-					overrideCss,
-					status,
-					testId: 'css',
-				});
+				render(
+					<IntlProvider locale="en">
+						<SmartCardProvider>
+							<FlexibleUiContext.Provider value={context}>
+								<TitleBlock css={overrideCss} status={status} testId="css" />
+							</FlexibleUiContext.Provider>
+						</SmartCardProvider>
+					</IntlProvider>,
+				);
 
 				const block = await screen.findByTestId(`css-${viewTestId}`);
 
-				expect(block).toHaveStyleDeclaration('background-color', 'blue');
+				expect(block).toHaveCompiledCss('background-color', 'blue');
 			},
 		);
 	});
 
 	ffTest.both('platform-smart-card-icon-migration', 'platform-smart-card-icon-migration', () => {
-		ffTest.both(
-			'bandicoots-compiled-migration-smartcard',
-			'bandicoots-compiled-migration-smartcard',
-			() => {
-				describe('with loading skeleton', () => {
-					it.each<[SmartLinkSize, string, string]>([
-						[SmartLinkSize.XLarge, '2rem', token('space.300')],
-						[SmartLinkSize.Large, '1.5rem', token('space.300')],
-						[SmartLinkSize.Medium, '1rem', token('space.200')],
-						[SmartLinkSize.Small, '.75rem', token('space.200')],
-					])(
-						'renders by size %s',
-						async (size: SmartLinkSize, dimensionOld: string, dimensionNew: string) => {
-							const LoadingSkeletonNewMock = jest.spyOn(
-								LoadingSkeletonBundle,
-								'LoadingSkeletonNew',
-							);
+		describe('with loading skeleton', () => {
+			it.each<[SmartLinkSize, string, string]>([
+				[SmartLinkSize.XLarge, '2rem', 'var(--ds-space-300)'],
+				[SmartLinkSize.Large, '1.5rem', 'var(--ds-space-300)'],
+				[SmartLinkSize.Medium, '1rem', 'var(--ds-space-200)'],
+				[SmartLinkSize.Small, '.75rem', 'var(--ds-space-200)'],
+			])(
+				'renders by size %s',
+				async (size: SmartLinkSize, dimensionOld: string, dimensionNew: string) => {
+					const LoadingSkeletonNewMock = jest.spyOn(LoadingSkeletonBundle, 'LoadingSkeletonNew');
 
-							LoadingSkeletonNewMock.mockClear();
+					LoadingSkeletonNewMock.mockClear();
 
-							const LoadingSkeletonOldMock = jest.spyOn(
-								LoadingSkeletonBundle,
-								'LoadingSkeletonOld',
-							);
+					const LoadingSkeletonOldMock = jest.spyOn(LoadingSkeletonBundle, 'LoadingSkeletonOld');
 
-							LoadingSkeletonOldMock.mockClear();
+					LoadingSkeletonOldMock.mockClear();
 
-							renderTitleBlock({
-								size,
-								status: SmartLinkStatus.Resolving,
-							});
+					renderTitleBlock({
+						size,
+						status: SmartLinkStatus.Resolving,
+					});
 
-							const dimension = fg('platform-smart-card-icon-migration')
-								? dimensionNew
-								: dimensionOld;
+					const dimension = fg('platform-smart-card-icon-migration') ? dimensionNew : dimensionOld;
 
-							const icon = await screen.findByTestId('smart-block-title-icon');
-							const loadingSkeleton = await screen.findByTestId('smart-block-title-icon-loading');
+					const icon = await screen.findByTestId('smart-block-title-icon');
+					const loadingSkeleton = await screen.findByTestId('smart-block-title-icon-loading');
 
-							if (
-								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-								fg('platform-smart-card-icon-migration') &&
-								fg('bandicoots-compiled-migration-smartcard')
-							) {
-								expect(LoadingSkeletonNewMock).toHaveBeenCalledWith(
-									{
-										width: dimension,
-										height: dimension,
-										testId: 'smart-block-title-icon-loading',
-									},
-									{},
-								);
-							} else if (
-								!fg('platform-smart-card-icon-migration') &&
-								fg('bandicoots-compiled-migration-smartcard')
-							) {
-								expect(LoadingSkeletonOldMock).toHaveBeenCalledWith(
-									{
-										testId: 'smart-block-title-icon-loading',
-									},
-									{},
-								);
-							} else {
-								expect(icon).toHaveStyleDeclaration('width', dimension);
-								expect(icon).toHaveStyleDeclaration('height', dimension);
-								expect(loadingSkeleton).toBeDefined();
-							}
-						},
-					);
-				});
-			},
-		);
+					if (
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						fg('platform-smart-card-icon-migration')
+					) {
+						expect(LoadingSkeletonNewMock).toHaveBeenCalledWith(
+							{
+								width: dimension,
+								height: dimension,
+								testId: 'smart-block-title-icon-loading',
+							},
+							{},
+						);
+					} else if (!fg('platform-smart-card-icon-migration')) {
+						expect(LoadingSkeletonOldMock).toHaveBeenCalledWith(
+							{
+								testId: 'smart-block-title-icon-loading',
+							},
+							{},
+						);
+					} else {
+						expect(icon).toHaveStyleDeclaration('width', dimension);
+						expect(icon).toHaveStyleDeclaration('height', dimension);
+						expect(loadingSkeleton).toBeDefined();
+					}
+				},
+			);
+		});
 	});
 });

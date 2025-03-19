@@ -13,8 +13,6 @@ import { Preview } from '../../../elements';
 import Block from '../../block';
 import { type PreviewBlockProps } from '../types';
 
-import PreviewBlockResolvedViewOld from './indexOld';
-
 const previewBlockStyleCommon = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	"[data-smart-element-media='image']": {
@@ -45,7 +43,7 @@ const ignoreContainerPaddingStyle = css({
  * @param {PreviewBlock} PreviewBlock
  * @see Block
  */
-const PreviewBlockResolvedViewNew = ({
+const PreviewBlockResolvedView = ({
 	ignoreContainerPadding = false,
 	onError,
 	placement,
@@ -111,14 +109,6 @@ const PreviewBlockResolvedViewNew = ({
 			<Preview onError={handleOnError} onLoad={handleOnLoad} overrideUrl={overrideUrl} />
 		</Block>
 	);
-};
-
-const PreviewBlockResolvedView = (props: PreviewBlockProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <PreviewBlockResolvedViewNew {...props} />;
-	} else {
-		return <PreviewBlockResolvedViewOld {...props} />;
-	}
 };
 
 export default PreviewBlockResolvedView;

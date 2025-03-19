@@ -4,11 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import ImageIcon from '../../common/image-icon';
 
-import MediaOld from './MediaOld';
 import { type MediaProps } from './types';
 
 /**
@@ -58,7 +55,7 @@ const styles = css({
  * @param {MediaProps} MediaProps - The props necessary for the Media element.
  * @see Preview
  */
-const MediaNew = ({
+const Media = ({
 	name,
 	className,
 	testId = 'smart-element-media',
@@ -88,14 +85,6 @@ const MediaNew = ({
 			/>
 		</div>
 	);
-};
-
-const Media = (props: MediaProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <MediaNew {...props} />;
-	} else {
-		return <MediaOld {...props} />;
-	}
 };
 
 export default Media;

@@ -1,11 +1,7 @@
 import type { ReactChild, ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import type { SerializedStyles } from '@emotion/react';
-
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Appearance } from '@atlaskit/button/types';
-import type { XCSS } from '@atlaskit/primitives';
 import type { Space } from '@atlaskit/primitives/compiled';
 
 import type { SmartLinkSize } from '../../../../../constants';
@@ -92,15 +88,6 @@ export type ActionProps = {
 	asDropDownItem?: boolean;
 
 	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
-	 * Additional CSS properties on the Action.
-	 * Note: This should be replaced with xcss once component has migrate to use DS Primitives
-	 *
-	 * use compiled css instead
-	 */
-	overrideCss?: SerializedStyles;
-
-	/**
 	 * For compiled css
 	 */
 	className?: string;
@@ -123,13 +110,8 @@ export type ActionProps = {
 	isDisabled?: boolean;
 
 	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
-	 * Additional styling properties for Primitives based component
-	 *
-	 * Use style instead
+	 * For dynamic styles
 	 */
-	xcss?: XCSS;
-
 	style?: React.CSSProperties;
 
 	/**

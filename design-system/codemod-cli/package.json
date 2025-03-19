@@ -48,8 +48,8 @@
 	},
 	"bin": "./bin/codemod-cli.js",
 	"dependencies": {
-		"@atlaskit/codemod-utils": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/codemod-utils": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@codeshift/utils": "^0.2.4",
 		"@hypermod/utils": "^0.4.2",
@@ -68,7 +68,7 @@
 		"uuid": "^3.1.0"
 	},
 	"devDependencies": {
-		"@af/formatting": "workspace:*",
+		"@af/formatting": "workspace:^",
 		"@types/color-diff": "^1.2.1",
 		"prettier": "^3.2.5",
 		"ts-node": "^10.9.1",

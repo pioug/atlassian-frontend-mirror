@@ -31,9 +31,7 @@ import InlineCardUnresolvedActionWordWrap from '../../../examples/vr-inline-card
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -44,9 +42,7 @@ snapshot(InlineCardDefault, {
 });
 snapshot(InlineCardDefault, {
 	description: 'inline card renders correctly when hovering over url',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -72,9 +68,7 @@ snapshot(InlineCardSelected, {
 });
 snapshot(InlineCardDefaultTruncate, {
 	description: 'inline card with default icon and truncation',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -86,9 +80,7 @@ snapshot(InlineCardDefaultTruncate, {
 
 snapshot(InlineCardTextWrap, {
 	description: 'inline card with wrapped text renders correctly',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -99,91 +91,65 @@ snapshot(InlineCardTextWrap, {
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view renders correctly when hovering over url in errored view',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-errored-view' } }],
 });
 snapshot(InlineCardErrorTruncate, {
 	description: 'inline card error view with truncation',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 snapshot(InlineCardForbidden, {
 	description:
 		'inline card forbidden view renders correctly when hovering over url in forbidden view',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-forbidden-view' } }],
 });
 
 snapshot(InlineCardForbiddenTruncate, {
 	description: 'inline card forbidden view with truncation',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardForbiddenRequestAccess, {
 	description: 'inline card forbidden view with request access to object',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardForbiddenSiteRequestAccess, {
 	description: 'inline card forbidden view with request access to site',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardForbiddenSiteRequestAccessTruncate, {
 	description: 'inline card forbidden view with request access to site and truncation',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardForbiddenDirectAccess, {
 	description: 'inline card forbidden view with direct access',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardForbiddenPendingSiteAccess, {
 	description: 'inline card forbidden view with pending site access',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardForbiddenDeniedSiteAccess, {
 	description: 'inline card forbidden view with denied site access',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 
 // Design refresh: emotion + legacy icon
 snapshot(InlineCardForbiddenDefaultIcon, {
 	description: 'inline card forbidden view with default legacy icon',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
 });
 
 // Design refresh: compiled + DS visual refresh
@@ -193,44 +159,34 @@ snapshot(InlineCardForbiddenDefaultIcon, {
 		'platform-smart-card-icon-migration': true,
 		'platform-visual-refresh-icons': true,
 		'platform-component-visual-refresh': true,
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 snapshot(InlineCardNotFound, {
 	description: `inline card can't find link view`,
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardNotFound, {
 	description:
 		'inline card not found view renders correctly when hovering over url in not-found view',
 	featureFlags: {
 		'platform-smart-card-icon-migration': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-not-found-view' } }],
 });
 
 snapshot(InlineCardNotFoundTruncate, {
 	description: `inline card can't find link view with truncation`,
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardUnauthorised, {
 	description: `inline card unauthorised view`,
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 snapshot(InlineCardUnauthorised, {
 	description:
 		'inline card unauthorised view renders correctly when hovering over url in unauthorized view',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	states: [
 		{
 			state: 'hovered',
@@ -241,30 +197,23 @@ snapshot(InlineCardUnauthorised, {
 
 snapshot(InlineCardUnauthorisedTruncate, {
 	description: `inline card unauthorised view with truncation`,
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardUnauthorised, {
 	description: 'inline card unauthorised view renders correctly when hovering over connect account',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 	states: [{ state: 'hovered', selector: { byTestId: 'button-connect-account' } }],
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
 	description: `inline card unauthorised view with no auth`,
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -272,7 +221,6 @@ snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -280,7 +228,6 @@ snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -288,23 +235,18 @@ snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
 snapshot(InlineCardUnresolvedActionWordWrap, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
 // Design refresh: emotion + legacy icon
 snapshot(InlineCardUnauthorisedDefaultIcon, {
 	description: 'inline card unauthorised view with default legacy icon',
-	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
-	},
 });
 
 // Design refresh: compiled + DS visual refresh
@@ -314,7 +256,6 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 		'platform-smart-card-icon-migration': true,
 		'platform-visual-refresh-icons': true,
 		'platform-component-visual-refresh': true,
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -323,7 +264,6 @@ snapshot(InlineCardIcons, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -333,7 +273,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 		'platform-component-visual-refresh': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -344,7 +283,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 		'platform-component-visual-refresh': false,
 		'platform-smart-card-icon-migration': false,
 		'platform-linking-visual-refresh-v1': false,
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -355,6 +293,5 @@ snapshot(VRInlineCardAllExamplesInText, {
 		'platform-component-visual-refresh': false,
 		'platform-smart-card-icon-migration': false,
 		'platform-linking-visual-refresh-v1': false,
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });

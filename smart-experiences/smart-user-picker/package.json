@@ -44,9 +44,9 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "workspace:*",
-		"@atlaskit/ufo": "workspace:*",
-		"@atlaskit/user-picker": "workspace:*",
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/ufo": "workspace:^",
+		"@atlaskit/user-picker": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"memoize-one": "^6.0.0",
@@ -58,8 +58,8 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/select": "workspace:*",
-		"@atlaskit/util-data-test": "workspace:*",
+		"@atlaskit/select": "workspace:^",
+		"@atlaskit/util-data-test": "workspace:^",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",

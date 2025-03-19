@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 10.4.5
+
+### Patch Changes
+
+- [#127253](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127253)
+  [`a2593d5c73ccb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2593d5c73ccb) -
+  [ux] Table overflow menu on floating toolbar
+- Updated dependencies
+
+## 10.4.4
+
+### Patch Changes
+
+- [#128159](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128159)
+  [`fa48f40aa6143`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa48f40aa6143) -
+  ED-26887 Fix flickering in create issue modal when scrolling slowly and there is table inside it
+- Updated dependencies
+
 ## 10.4.3
 
 ### Patch Changes

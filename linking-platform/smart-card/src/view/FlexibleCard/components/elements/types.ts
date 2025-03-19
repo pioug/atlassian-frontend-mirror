@@ -1,6 +1,3 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type SerializedStyles } from '@emotion/react';
-
 import { type ElementName, type SmartLinkSize } from '../../../../constants';
 
 export type ElementProps = {
@@ -10,13 +7,6 @@ export type ElementProps = {
 	 * @internal
 	 */
 	name?: ElementName;
-
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
-	 * use css with compiled instead
-	 * Any additional CSS properties to apply to the element.
-	 */
-	overrideCss?: SerializedStyles;
 
 	/**
 	 * For compiled css

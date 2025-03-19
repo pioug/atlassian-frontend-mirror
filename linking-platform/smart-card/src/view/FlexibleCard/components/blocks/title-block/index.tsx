@@ -6,8 +6,6 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SmartLinkStatus } from '../../../../../constants';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { Title } from '../../elements';
@@ -16,7 +14,6 @@ import ActionGroup from '../action-group';
 import TitleBlockErroredView from './errored';
 import TitleBlockResolvedView from './resolved';
 import TitleBlockResolvingView from './resolving';
-import TitleBlockOld from './TitleBlockOld';
 import { type TitleBlockProps } from './types';
 
 const actionStyles = css({
@@ -59,7 +56,7 @@ const getTitleBlockViewComponent = (status: SmartLinkStatus) => {
  * @see TitleBlockResolvedViewNew
  * @see TitleBlockErroredViewNew
  */
-const TitleBlockNew = ({
+const TitleBlock = ({
 	actions = [],
 	anchorTarget,
 	hideTitleTooltip,
@@ -131,14 +128,6 @@ const TitleBlockNew = ({
 			theme={theme}
 		/>
 	);
-};
-
-const TitleBlock = (props: TitleBlockProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <TitleBlockNew {...props} />;
-	} else {
-		return <TitleBlockOld {...props} />;
-	}
 };
 
 export default TitleBlock;

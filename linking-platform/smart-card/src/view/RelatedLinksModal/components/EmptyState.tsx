@@ -4,11 +4,8 @@
  */
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { EmptyStateOld } from './EmptyStateOld';
 
 const styles = cssMap({
 	emptyState: {
@@ -36,7 +33,7 @@ type EmptyStateProps = {
 	renderImage?: () => React.ReactNode;
 };
 
-export const EmptyStateNew = ({ testId, header, description, renderImage }: EmptyStateProps) => {
+export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {
 	return (
 		<Box xcss={styles.emptyState} testId={testId}>
 			{renderImage?.()}
@@ -48,11 +45,4 @@ export const EmptyStateNew = ({ testId, header, description, renderImage }: Empt
 			)}
 		</Box>
 	);
-};
-
-export const EmptyState = (props: EmptyStateProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <EmptyStateNew {...props} />;
-	}
-	return <EmptyStateOld {...props} />;
 };

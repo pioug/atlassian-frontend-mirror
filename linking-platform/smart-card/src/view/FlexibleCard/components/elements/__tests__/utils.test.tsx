@@ -201,6 +201,6 @@ describe('createElement', () => {
 		const element = await screen.findByTestId(testId);
 
 		expect(element).toHaveTextContent(expectedTextContent);
-		expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
+		expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
 	});
 });

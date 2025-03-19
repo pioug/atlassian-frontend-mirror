@@ -50,9 +50,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "workspace:*",
-		"@atlaskit/tmp-editor-statsig": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

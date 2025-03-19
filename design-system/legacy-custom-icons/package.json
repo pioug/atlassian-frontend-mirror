@@ -314,20 +314,20 @@
 		"./utility-chart-trend-icon": "./src/ui/utility-chart-trend-icon/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "workspace:*",
-		"@atlaskit/theme": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/theme": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
-		"@atlassian/codegen": "workspace:*",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
+		"@atlassian/codegen": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"enquirer": "^2.3.4",
 		"fs-extra": "^4.0.2",

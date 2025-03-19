@@ -1,13 +1,11 @@
 import React from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../../messages';
 import RelatedLinksList from '../../components/related-links-list';
 
-import RelatedLinksResolvedViewOld from './ResolvedOld';
 import { type RelatedLinksProps } from './types';
 
 const RelatedLinksResolvedView = ({
@@ -34,12 +32,4 @@ const RelatedLinksResolvedView = ({
 	);
 };
 
-const RelatedLinksResolvedExported = (props: RelatedLinksProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <RelatedLinksResolvedView {...props} />;
-	} else {
-		return <RelatedLinksResolvedViewOld {...props} />;
-	}
-};
-
-export default RelatedLinksResolvedExported;
+export default RelatedLinksResolvedView;

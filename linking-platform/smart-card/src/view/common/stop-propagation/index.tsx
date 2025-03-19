@@ -6,10 +6,6 @@ import React, { type ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { StopPropagationOld } from './StopPropagationOld';
-
 const styles = css({
 	maxHeight: 0,
 	maxWidth: 0,
@@ -18,7 +14,7 @@ const styles = css({
 
 type StopPropagationProps = { children: ReactNode };
 
-const StopPropagationNew = ({ children }: StopPropagationProps) => {
+export const StopPropagation = ({ children }: StopPropagationProps) => {
 	const onClick = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
 		// Prevent click event inside modal from bubble up
 		e.stopPropagation();
@@ -30,11 +26,4 @@ const StopPropagationNew = ({ children }: StopPropagationProps) => {
 			{children}
 		</span>
 	);
-};
-
-export const StopPropagation = (props: StopPropagationProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <StopPropagationNew {...props} />;
-	}
-	return <StopPropagationOld {...props} />;
 };

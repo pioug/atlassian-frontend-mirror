@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { type MouseEvent, PureComponent } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import Spinner from '@atlaskit/spinner';
 import { emojiTypeAheadMaxHeight } from '../../util/shared-styles';
 import { toEmojiId } from '../../util/type-helpers';
 import type { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';
@@ -13,15 +6,10 @@ import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
 import Scrollable from '../common/Scrollable'; // ED-26864: use compiled Scrollable when migrating typeahead to compiled css
 import EmojiItem from './EmojiTypeAheadItem';
-import {
-	emojiTypeAheadSpinner,
-	emojiTypeAheadSpinnerContainer,
-	typeAheadEmpty,
-	typeAheadList,
-	typeAheadListContainer,
-} from './styles';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { EmojiTypeAheadListContainer } from './EmojiTypeAheadListContainer';
+import { EmojiTypeAheadSpinner } from './EmojiTypeAheadSpinner';
 
 function wrapIndex(emojis: EmojiDescription[], index: number): number {
 	const len = emojis.length;
@@ -254,36 +242,15 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 
 	render() {
 		const { emojis, loading } = this.props;
-
-		const hasEmoji = emojis && emojis.length;
-
-		const classes = [typeAheadList, !hasEmoji && !loading && typeAheadEmpty];
-
-		let listBody;
-		if (loading) {
-			listBody = (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<div css={emojiTypeAheadSpinnerContainer}>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={emojiTypeAheadSpinner}>
-						<Spinner size="medium" interactionName="empji-type-ahead-list-spinner" />
-					</div>
-				</div>
-			);
-		} else {
-			listBody = this.renderItems(emojis);
-		}
+		const hasEmoji = emojis && emojis.length > 0;
+		const listBody = loading ? <EmojiTypeAheadSpinner /> : this.renderItems(emojis);
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<div css={typeAheadListContainer}>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<div className={'ak-emoji-typeahead-list'} css={classes}>
-					<Scrollable ref={this.handleScrollableRef} maxHeight={`${emojiTypeAheadMaxHeight}px`}>
-						{listBody}
-					</Scrollable>
-				</div>
-			</div>
+			<EmojiTypeAheadListContainer hasEmoji={hasEmoji} loading={loading}>
+				<Scrollable ref={this.handleScrollableRef} maxHeight={`${emojiTypeAheadMaxHeight}px`}>
+					{listBody}
+				</Scrollable>
+			</EmojiTypeAheadListContainer>
 		);
 	}
 

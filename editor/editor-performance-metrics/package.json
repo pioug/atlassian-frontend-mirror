@@ -43,9 +43,9 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",

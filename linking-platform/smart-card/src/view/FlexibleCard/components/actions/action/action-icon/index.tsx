@@ -9,7 +9,6 @@ import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../../../../constants';
 
-import ActionIconOld from './ActionIconOld';
 import { type ActionIconProps } from './types';
 
 const getIconWidth = (size?: SmartLinkSize) => {
@@ -117,7 +116,7 @@ const iconStyleMap = cssMap({
 	},
 });
 
-const ActionIconNew = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionIconProps) => {
+const ActionIcon = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionIconProps) => {
 	if (!fg('platform-visual-refresh-icons')) {
 		return (
 			<span
@@ -144,14 +143,6 @@ const ActionIconNew = ({ size, testId, icon, isDisabled, asStackItemIcon }: Acti
 		>
 			{icon}
 		</span>
-	);
-};
-
-const ActionIcon = (props: ActionIconProps): JSX.Element => {
-	return fg('bandicoots-compiled-migration-smartcard') ? (
-		<ActionIconNew {...props} />
-	) : (
-		<ActionIconOld {...props} />
 	);
 };
 

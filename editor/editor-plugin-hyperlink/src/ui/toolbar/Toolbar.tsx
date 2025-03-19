@@ -2,26 +2,26 @@ import React, { useRef } from 'react';
 
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import {
-	ACTION,
-	ACTION_SUBJECT_ID,
-	buildVisitedLinkPayload,
-	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
 import type {
 	AnalyticsEventPayload,
 	EditorAnalyticsAPI,
 	LinkType,
 } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT_ID,
+	INPUT_METHOD,
+	buildVisitedLinkPayload,
+} from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
 import type {
 	EditInsertedState,
 	HyperlinkAddToolbarProps,
 	HyperlinkState,
 	InsertState,
 } from '@atlaskit/editor-common/link';
+import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
 import {
 	linkMessages,
 	linkToolbarMessages as linkToolbarCommonMessages,
@@ -42,7 +42,7 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
@@ -164,25 +164,26 @@ export const getToolbarConfig =
 			return;
 		}
 
+		const linkState: HyperlinkState | undefined = stateKey.getState(state);
+		const activeLinkMark = linkState?.activeLinkMark;
+
 		// If range selection, we don't show hyperlink floating toolbar.
 		// Text Formattting toolbar is shown instaed.
 		if (
 			state.selection instanceof TextSelection &&
 			state.selection.to !== state.selection.from &&
+			activeLinkMark?.type === 'EDIT' &&
 			editorExperiment('platform_editor_controls', 'variant1')
 		) {
 			return;
 		}
 
 		const { formatMessage } = intl;
-		const linkState: HyperlinkState | undefined = stateKey.getState(state);
 		const editorCardActions = pluginInjectionApi?.card?.actions;
 		const editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
 		const lpLinkPicker = options.lpLinkPicker ?? true;
 
-		if (linkState && linkState.activeLinkMark) {
-			const { activeLinkMark } = linkState;
-
+		if (activeLinkMark) {
 			const hyperLinkToolbar = {
 				title: 'Hyperlink floating controls',
 				nodeType: [

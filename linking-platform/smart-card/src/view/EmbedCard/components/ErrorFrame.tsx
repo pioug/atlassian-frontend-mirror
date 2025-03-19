@@ -6,11 +6,8 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, N20A, N30A, N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { CompactFrameOld, ExpandedFrameOld, FrameOld } from './ErrorFrameOld';
 
 export interface FrameProps {
 	children?: React.ReactNode;
@@ -27,7 +24,7 @@ export interface FrameProps {
 	inheritDimensions?: boolean;
 }
 
-const FrameNew = (
+export const Frame = (
 	props: FrameProps = {
 		isSelected: false,
 		isHoverable: false,
@@ -81,7 +78,7 @@ const expandedFrameStyles = css({
 	boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
 });
 
-const ExpandedFrameNew = ({
+export const ExpandedFrame = ({
 	children,
 	isSelected,
 	isHoverable,
@@ -138,7 +135,7 @@ const compactFrameNotSelectedStyles = css({
 	borderRadius: '1.5px',
 });
 
-const CompactFrameNew = ({
+export const CompactFrame = ({
 	children,
 	isHoverable,
 	isSelected,
@@ -167,28 +164,4 @@ const CompactFrameNew = ({
 			{children}
 		</div>
 	);
-};
-
-export const ExpandedFrame = (props: FrameProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ExpandedFrameNew {...props} />;
-	} else {
-		return <ExpandedFrameOld {...props} />;
-	}
-};
-
-export const CompactFrame = (props: FrameProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <CompactFrameNew {...props} />;
-	} else {
-		return <CompactFrameOld {...props} />;
-	}
-};
-
-export const Frame = (props: FrameProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <FrameNew {...props} />;
-	} else {
-		return <FrameOld {...props} />;
-	}
 };

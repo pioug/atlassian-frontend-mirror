@@ -575,3 +575,23 @@ export const isBlockNodeAnnotationsSelected = (
 
 	return false;
 };
+
+export const hasAnyUnResolvedAnnotationInPage = (state: EditorState): boolean => {
+	const annotations = getPluginState(state)?.annotations;
+	if (annotations) {
+		/**
+		 * annotations type is { [key: string]: boolean };
+		 * Here, key represents mark.attr.id and it is used to find where annotation to be presented in the document.
+		 * When value is false, it means it is unresolved annotation.
+		 *
+		 * But sometimes annotation map has entry with key undefined somehow.
+		 * And it is not valid mark attribute id, so it won't be presented anywhere in the document.
+		 */
+		const unresolvedAnnotationKeys = Object.keys(annotations).filter(
+			(key) => key !== 'undefined' && annotations[key] === false,
+		);
+
+		return unresolvedAnnotationKeys.length > 0;
+	}
+	return false;
+};

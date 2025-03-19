@@ -11,7 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../../messages';
 
-import DateTimeOld from './DateTimeOld';
 import { type DateTimeProps, type DateTimeType } from './types';
 
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
@@ -69,7 +68,7 @@ const typeToDescriptorMap: Record<DateTimeType, Record<DateTypeVariation, Messag
  * @see ModifiedOn
  * @see SentOn
  */
-const DateTimeNew = ({
+const DateTime = ({
 	date,
 	name,
 	className,
@@ -119,14 +118,6 @@ const DateTimeNew = ({
 			)}
 		</span>
 	);
-};
-
-const DateTime = (props: DateTimeProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <DateTimeNew {...props} />;
-	} else {
-		return <DateTimeOld {...props} />;
-	}
 };
 
 export default DateTime;

@@ -11,6 +11,7 @@ import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
+import { NotConnectedError } from '../../errors/custom-errors';
 
 // create editor state
 const { collab: collabPlugin } = jest.requireActual('@atlaskit/prosemirror-collab');
@@ -40,14 +41,24 @@ const createTestHelpers = () => {
 		version = 1,
 		userId = 'user1',
 		clientId = 'client1',
-		options: { __livePage: boolean; hasRecovered: boolean; collabMode?: string } = {
+		options: {
+			__livePage: boolean;
+			hasRecovered: boolean;
+			collabMode?: string;
+			offlineBroadcast?: boolean;
+		} = {
 			__livePage: false,
 			hasRecovered: false,
 			collabMode: 'collab',
+			offlineBroadcast: false,
 		},
 	) => {
 		commitStepQueue({
-			broadcast: provider['channel'].broadcast,
+			broadcast: options.offlineBroadcast
+				? jest.fn().mockImplementation(() => {
+						throw new NotConnectedError('Cannot broadcast, currently offline.');
+					})
+				: provider['channel'].broadcast,
 			steps,
 			version,
 			userId,
@@ -387,6 +398,16 @@ describe('commitStepQueue', () => {
 			  ],
 			]
 		`);
+			});
+
+			it('should set readyToCommit to true when broadcast fails due to not being connected', () => {
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+					offlineBroadcast: true,
+					__livePage: false,
+					hasRecovered: false,
+					collabMode: 'collab',
+				});
+				expect(readyToCommit).toBe(true);
 			});
 
 			describe('analytics action event send with', () => {

@@ -394,6 +394,11 @@ export const newApply = (
 			meta?.activeNode.anchorName !== activeNode?.anchorName) ||
 			meta?.activeNode.handleOptions?.isFocused);
 
+	const rootActiveNodeChanged =
+		meta?.activeNode &&
+		meta?.activeNode.rootPos !== activeNode?.rootPos &&
+		meta?.activeNode.rootAnchorName !== activeNode?.rootAnchorName;
+
 	// Some browsers don't support anchor positioning, meaning we need to replace the handle when nodes change
 	const handleNeedsRedraw = shouldRedrawNodeDecs && !isAnchorSupported();
 
@@ -401,6 +406,10 @@ export const newApply = (
 	const shouldRecreateHandle =
 		latestActiveNode &&
 		(activeNodeChanged || isActiveNodeModified || editorSizeChanged || handleNeedsRedraw);
+
+	const shouldRecreateQuickInsertButton =
+		latestActiveNode &&
+		(rootActiveNodeChanged || isActiveNodeModified || editorSizeChanged || handleNeedsRedraw);
 
 	let shouldRemoveHandle = false;
 
@@ -422,39 +431,48 @@ export const newApply = (
 			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(decorations);
 			decorations = decorations.remove(oldQuickInsertButton);
 		}
-	} else if (api && shouldRecreateHandle) {
-		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
-		decorations = decorations.remove(oldHandle);
+	} else if (api) {
+		if (shouldRecreateHandle) {
+			const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
+			decorations = decorations.remove(oldHandle);
 
-		const handleDec = dragHandleDecoration(
-			api,
-			formatMessage,
-			latestActiveNode?.pos,
-			latestActiveNode?.anchorName,
-			latestActiveNode?.nodeType,
-			nodeViewPortalProviderAPI,
-			latestActiveNode?.handleOptions,
-		);
+			const handleDec = dragHandleDecoration(
+				api,
+				formatMessage,
+				latestActiveNode?.pos,
+				latestActiveNode?.anchorName,
+				latestActiveNode?.nodeType,
+				nodeViewPortalProviderAPI,
+				latestActiveNode?.handleOptions,
+			);
 
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			if (latestActiveNode?.rootPos !== undefined) {
-				const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(decorations);
-				decorations = decorations.remove(oldQuickInsertButton);
-
-				const quickInsertButton = quickInsertButtonDecoration(
-					api,
-					formatMessage,
-					latestActiveNode?.rootPos,
-					latestActiveNode?.anchorName,
-					latestActiveNode?.nodeType,
-					nodeViewPortalProviderAPI,
-					latestActiveNode?.rootAnchorName,
-					latestActiveNode?.rootNodeType,
-				);
-				decorations = decorations.add(newState.doc, [quickInsertButton]);
-			}
+			decorations = decorations.add(newState.doc, [handleDec]);
 		}
-		decorations = decorations.add(newState.doc, [handleDec]);
+
+		if (
+			shouldRecreateQuickInsertButton &&
+			latestActiveNode?.rootPos !== undefined &&
+			editorExperiment('platform_editor_controls', 'variant1')
+		) {
+			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
+				decorations,
+				activeNode?.rootPos,
+				activeNode?.rootPos,
+			);
+			decorations = decorations.remove(oldQuickInsertButton);
+
+			const quickInsertButton = quickInsertButtonDecoration(
+				api,
+				formatMessage,
+				latestActiveNode?.rootPos,
+				latestActiveNode?.anchorName,
+				latestActiveNode?.nodeType,
+				nodeViewPortalProviderAPI,
+				latestActiveNode?.rootAnchorName,
+				latestActiveNode?.rootNodeType,
+			);
+			decorations = decorations.add(newState.doc, [quickInsertButton]);
+		}
 	}
 
 	// Drop targets may be missing when the node count is being changed during a drag

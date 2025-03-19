@@ -11,6 +11,7 @@ import type { Placement } from '@atlaskit/popper';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
+import type { DropdownMenuItemProps } from '../floating-toolbar';
 import type { ProviderFactory } from '../provider-factory';
 import type { PaletteColor } from '../ui-color/ColorPalette/Palettes/type';
 
@@ -25,8 +26,21 @@ type OverflowDropdownHeading = {
 	title: string;
 };
 
+type OverflowDropdownCustom<T extends Object> = {
+	type: 'custom';
+	fallback: Array<FloatingToolbarFallbackItem<T>>;
+	render: (
+		view?: EditorView,
+		dropdownOption?: Omit<DropdownMenuItemProps, 'item'>,
+	) => React.ReactNode;
+	hidden?: boolean;
+};
+
 export type FloatingToolbarOverflowDropdownOptions<T extends Object> = Array<
-	DropdownOptionT<T> | FloatingToolbarSeparator | OverflowDropdownHeading
+	| DropdownOptionT<T>
+	| FloatingToolbarSeparator
+	| OverflowDropdownHeading
+	| OverflowDropdownCustom<T>
 >;
 
 type FloatingToolbarOverflowDropdown<T extends Object> = {

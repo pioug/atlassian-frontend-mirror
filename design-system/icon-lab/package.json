@@ -32,25 +32,25 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/icon": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/icon-build-process": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/button": "workspace:*",
-		"@atlaskit/code": "workspace:*",
-		"@atlaskit/ds-lib": "workspace:*",
-		"@atlaskit/heading": "workspace:*",
-		"@atlaskit/modal-dialog": "workspace:*",
-		"@atlaskit/primitives": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/textfield": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
-		"@atlaskit/tooltip": "workspace:*",
+		"@af/icon-build-process": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/code": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
 		"@compiled/react": "^0.18.2",
 		"@testing-library/react": "^13.4.0",
 		"fs-extra": "^4.0.2",

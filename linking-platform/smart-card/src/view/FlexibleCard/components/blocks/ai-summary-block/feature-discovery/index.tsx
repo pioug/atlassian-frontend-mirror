@@ -7,10 +7,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { css, jsx, keyframes } from '@compiled/react';
 
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import FeatureDiscoveryOld from './FeatureDiscoveryOld';
 
 const LOCAL_STORAGE_CLIENT_KEY = '@atlaskit/smart-card';
 const LOCAL_STORAGE_DISCOVERY_KEY = 'action-discovery-ai-summarise';
@@ -41,7 +38,7 @@ const pulseStyles = css({
  * This implementation must be removed once the experiment is completed.
  * Cleanup on https://product-fabric.atlassian.net/browse/EDM-9649
  */
-const FeatureDiscoveryNew = ({ children, testId }: FeatureDiscoveryProps): JSX.Element => {
+const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps): JSX.Element => {
 	const renderedTime = useRef<number>();
 
 	const storageClient = useMemo(() => new StorageClient(LOCAL_STORAGE_CLIENT_KEY), []);
@@ -87,14 +84,6 @@ const FeatureDiscoveryNew = ({ children, testId }: FeatureDiscoveryProps): JSX.E
 	}, [children, discovered, testId]);
 
 	return component ?? children;
-};
-
-const FeatureDiscovery = (props: FeatureDiscoveryProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <FeatureDiscoveryNew {...props} />;
-	} else {
-		return <FeatureDiscoveryOld {...props} />;
-	}
 };
 
 export default FeatureDiscovery;

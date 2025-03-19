@@ -47,8 +47,8 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "workspace:*",
-		"@atlaskit/util-service-support": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"exponential-backoff": "^3.1.1"

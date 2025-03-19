@@ -18,7 +18,6 @@ import {
 import Icon from '../../../../FlexibleCard/components/elements/icon';
 import { CARD_WIDTH_REM } from '../../../styled';
 
-import HoverCardLoadingViewOld from './HoverCardLoadingViewOld';
 import { type HoverCardLoadingViewProps } from './types';
 
 const loadingViewContainer = css({
@@ -52,7 +51,7 @@ const titleBlockStyles = css({
 	gap: token('space.100', '0.5rem'),
 });
 
-const HoverCardLoadingViewNew = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
+const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
 	const testId = 'hover-card-loading-view';
 	const lineHeightRem = 1.25;
 	const skeletonWidth = CARD_WIDTH_REM - 2;
@@ -96,14 +95,6 @@ const HoverCardLoadingViewNew = ({ titleBlockProps }: HoverCardLoadingViewProps)
 			</div>
 		</div>
 	);
-};
-
-const HoverCardLoadingView = (props: HoverCardLoadingViewProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <HoverCardLoadingViewNew {...props} />;
-	} else {
-		return <HoverCardLoadingViewOld {...props} />;
-	}
 };
 
 export default HoverCardLoadingView;

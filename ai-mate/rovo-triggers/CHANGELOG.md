@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.4.0
+
+### Minor Changes
+
+- [#127018](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127018)
+  [`a6014f18c038f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6014f18c038f) -
+  Adding types for rovo trigger to invoke workflow editor actions via pub sub
+
 ## 2.3.0
 
 ### Minor Changes

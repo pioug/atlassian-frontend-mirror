@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 17.1.0
+
+### Minor Changes
+
+- [#128153](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128153)
+  [`00925dc5af2a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00925dc5af2a6) -
+  [ux] Flag description and actions now explicitly set the font style to use typography tokens,
+  instead of relying on the CSS reset to be present. This change is behind the feature flag
+  `platform_ads_explicit_font_styles`.
+
 ## 17.0.0
 
 ### Major Changes

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 2.0.7
+
+### Patch Changes
+
+- [#127914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127914)
+  [`1240912e13dd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1240912e13dd0) -
+  [ux] ED-27097 Update empty line placeholder to only show when editor is focussed (not in live
+  view)
+- Updated dependencies
+
 ## 2.0.6
 
 ### Patch Changes

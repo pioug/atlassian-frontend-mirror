@@ -11,6 +11,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BatchAttributeUpdatesPlugin } from '@atlaskit/editor-plugin-batch-attribute-updates';
 import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
@@ -80,6 +81,7 @@ export type TablePluginDependencies = [
 	OptionalPlugin<MediaPlugin>,
 	OptionalPlugin<EditorViewModePlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<ExtensionPlugin>,
 ];
 
 export type TablePlugin = NextEditorPlugin<

@@ -4,11 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
-import LayeredLinkOld from './LayeredLinkOld';
 import { type LayeredLinkProps } from './types';
 
 const styles = css({
@@ -54,7 +51,7 @@ const styles = css({
  * @internal
  * @see `clickableContainer`
  */
-const LayeredLinkNew = ({ onClick, target, testId, text, url }: LayeredLinkProps) => {
+const LayeredLink = ({ onClick, target, testId, text, url }: LayeredLinkProps) => {
 	const onMouseDown = useMouseDownEvent();
 
 	return (
@@ -72,13 +69,6 @@ const LayeredLinkNew = ({ onClick, target, testId, text, url }: LayeredLinkProps
 			{text}
 		</a>
 	);
-};
-
-const LayeredLink = (props: LayeredLinkProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <LayeredLinkNew {...props} />;
-	}
-	return <LayeredLinkOld {...props} />;
 };
 
 export default LayeredLink;

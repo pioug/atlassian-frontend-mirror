@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkStatus } from '../../../../constants';
@@ -19,8 +18,6 @@ import {
 } from '../../../../index';
 import { type FlexibleUiOptions } from '../../../FlexibleCard/types';
 import { type RelatedLinkItemProp } from '../types';
-
-import RelatedLinkItemOld from './RelatedLinkItemOld';
 
 const hoverStyle = css({
 	'&:hover': {
@@ -69,12 +66,4 @@ const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
 	);
 };
 
-const RelatedLinkItemExported = (props: RelatedLinkItemProp) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <RelatedLinkItem {...props} />;
-	} else {
-		return <RelatedLinkItemOld {...props} />;
-	}
-};
-
-export default RelatedLinkItemExported;
+export default RelatedLinkItem;

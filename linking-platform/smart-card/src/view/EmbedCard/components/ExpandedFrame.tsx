@@ -14,7 +14,6 @@ import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { handleClickCommon } from '../../common/utils';
 import { type FrameStyle } from '../types';
 
-import { ExpandedFrameOld } from './ExpandedFrameOld';
 import {
 	className,
 	ContentOldVisualRefresh,
@@ -64,7 +63,7 @@ export interface ExpandedFrameProps {
 	setOverflow?: boolean;
 }
 
-const ExpandedFrameNew = ({
+export const ExpandedFrame = ({
 	isPlaceholder = false,
 	children,
 	onClick,
@@ -245,14 +244,6 @@ const ExpandedFrameNew = ({
 				{renderContent()}
 			</WrapperOldVisualRefresh>
 		);
-	}
-};
-
-export const ExpandedFrame = (props: ExpandedFrameProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ExpandedFrameNew {...props} />;
-	} else {
-		return <ExpandedFrameOld {...props} />;
 	}
 };
 

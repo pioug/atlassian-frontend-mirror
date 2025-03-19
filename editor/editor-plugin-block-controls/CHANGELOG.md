@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.3.19
+
+### Patch Changes
+
+- [#128787](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128787)
+  [`8d3d8163602e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d3d8163602e9) -
+  use color.icon.subtle pallette for both block control widgets, which includes drag handle and
+  quick insert
+- Updated dependencies
+
+## 3.3.18
+
+### Patch Changes
+
+- [#128661](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128661)
+  [`4e5d4eee96907`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e5d4eee96907) -
+  Add validation when recreating quick insert button, avoid recreating when root node is stable
+- Updated dependencies
+
+## 3.3.17
+
+### Patch Changes
+
+- [#128300](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128300)
+  [`b26295480eb23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b26295480eb23) -
+  Always add left offset for quick insert to avoid it flicking in and out
+- Updated dependencies
+
 ## 3.3.16
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 36.0.0
+
+### Major Changes
+
+- [#127388](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127388)
+  [`4a54021c9f9c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a54021c9f9c9) -
+  [ux] Remove deprecated overrideCss and make compiled css as default. Emotion css is removed
+
 ## 35.2.12
 
 ### Patch Changes

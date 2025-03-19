@@ -12,7 +12,18 @@ import { isInTable } from '../utils/tables';
 
 import { clipCells, fitSlice, insertCells, pastedCells } from './copy-paste';
 
-export function handlePaste(view: EditorView, event: Event | null, slice: Slice): boolean {
+type PasteOptions = {
+	pasteSource: string;
+};
+
+const SKIP_NESTED_TABLE_PASTE_SOURCES = ['microsoft-excel', 'google-spreadsheets'];
+
+export function handlePaste(
+	view: EditorView,
+	event: ClipboardEvent,
+	slice: Slice,
+	options?: PasteOptions,
+): boolean {
 	if (!isInTable(view.state)) {
 		return false;
 	}
@@ -32,7 +43,11 @@ export function handlePaste(view: EditorView, event: Event | null, slice: Slice)
 
 	const sel = view.state.selection;
 
-	if (isNestingAllowed && !isPartialTablePaste) {
+	if (
+		isNestingAllowed &&
+		!isPartialTablePaste &&
+		!(options && SKIP_NESTED_TABLE_PASTE_SOURCES.includes(options.pasteSource))
+	) {
 		const cellRes = findParentNode(
 			(node) => node.type === schema.nodes.tableCell || node.type === schema.nodes.tableHeader,
 		)(sel);

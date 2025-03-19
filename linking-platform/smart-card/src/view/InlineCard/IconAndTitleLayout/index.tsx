@@ -18,7 +18,6 @@ import { token } from '@atlaskit/tokens';
 
 import { Icon, Shimmer } from '../Icon';
 
-import { IconAndTitleLayoutOld } from './IconAndTitleLayoutOld';
 import {
 	EmojiWrapperOldVisualRefresh,
 	IconEmptyWrapperOldVisualRefresh,
@@ -113,7 +112,7 @@ const LinkAppearance = styled.a({
 	},
 });
 
-const IconAndTitleLayoutNew = ({
+export const IconAndTitleLayout = ({
 	icon,
 	emoji,
 	defaultIcon,
@@ -334,16 +333,6 @@ const IconAndTitleLayoutNew = ({
 			)}
 		</>
 	);
-};
-
-export const IconAndTitleLayout = ({
-	rightSideSpacer = true,
-	...props
-}: IconAndTitleLayoutProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <IconAndTitleLayoutNew rightSideSpacer={rightSideSpacer} {...props} />;
-	}
-	return <IconAndTitleLayoutOld rightSideSpacer={rightSideSpacer} {...props} />;
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled

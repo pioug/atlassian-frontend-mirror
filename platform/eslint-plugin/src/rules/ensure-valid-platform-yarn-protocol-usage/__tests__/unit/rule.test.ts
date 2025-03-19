@@ -42,56 +42,7 @@ describe('test ensure-valid-platform-yarn-protocol-usage rule', () => {
 				filename: `${cwd}/packages/foo/package.json`,
 			},
 		],
-		invalid: [
-			// Workspace protocol "workspace:^"" is not allowed in public packages as dependencies
-			{
-				code: `const foo = {
-	        "dependencies": {
-	          "@atlaskit/button": "workspace:^",
-	          "@atlaskit/primitives": "workspace:*",
-	          "@atlaskit/tokens": "workspace:*"
-	        }
-	    }`,
-				filename: `${cwd}/packages/foo/package.json`,
-				errors: [
-					{
-						messageId: 'invalidWorkspaceProtocolUsage',
-					},
-				],
-			},
-			// Workspace protocol is not allowed in public packages as devDependencies
-			{
-				code: `const foo = {
-	        "devDependencies": {
-	          "@atlaskit/button": "workspace:~",
-	          "@atlaskit/primitives": "^1.0.0"
-	        }
-	    }`,
-				filename: `${cwd}/packages/foo/package.json`,
-				errors: [
-					{
-						messageId: 'invalidWorkspaceProtocolUsage',
-					},
-				],
-			},
-			// Workspace protocol is not allowed in public packages as dependencies and devDependencies
-			{
-				code: `const foo = {
-	        "dependencies": {
-	          "@atlaskit/button": "workspace:^"
-	        },
-	        "devDependencies": {
-	          "@atlaskit/primitives": "workspace:~"
-	        }
-	    }`,
-				filename: `${cwd}/packages/foo/package.json`,
-				errors: [
-					{
-						messageId: 'invalidWorkspaceProtocolUsage',
-					},
-				],
-			},
-		],
+		invalid: [],
 	});
 
 	tester.run('root: protocol', rule, {

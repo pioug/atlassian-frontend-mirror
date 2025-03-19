@@ -39,7 +39,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/logo": "workspace:*",
+		"@atlaskit/logo": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"json-ld-types": "^4.1.0"
 	},
@@ -47,9 +47,9 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "workspace:*",
-		"@atlaskit/link-test-helpers": "workspace:*",
-		"@atlaskit/media-test-helpers": "workspace:*",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/link-test-helpers": "workspace:^",
+		"@atlaskit/media-test-helpers": "workspace:^",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

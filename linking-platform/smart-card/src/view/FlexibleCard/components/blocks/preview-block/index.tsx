@@ -1,10 +1,7 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SmartLinkStatus } from '../../../../../constants';
 
-import PreviewBlockOld from './indexOld';
 import PreviewBlockResolvedView from './resolved';
 import { type PreviewBlockProps } from './types';
 
@@ -24,12 +21,4 @@ const PreviewBlock = ({
 	return <PreviewBlockResolvedView {...blockProps} testId={testId} overrideUrl={overrideUrl} />;
 };
 
-const Exported = (props: PreviewBlockProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <PreviewBlock {...props} />;
-	} else {
-		return <PreviewBlockOld {...props} />;
-	}
-};
-
-export default Exported;
+export default PreviewBlock;

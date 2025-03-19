@@ -48,10 +48,10 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/analytics-gas-types": "workspace:*",
-		"@atlaskit/analytics-namespaced-context": "workspace:*",
-		"@atlaskit/analytics-next": "workspace:*",
-		"@atlaskit/section-message": "workspace:*",
+		"@atlaskit/analytics-gas-types": "workspace:^",
+		"@atlaskit/analytics-namespaced-context": "workspace:^",
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"immer": "^9.0.12",
 		"uuid-validate": "^0.0.3"

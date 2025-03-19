@@ -13,9 +13,9 @@ import type {
 	CommandDispatch,
 	DropdownOptions,
 	DropdownOptionT,
-	FloatingToolbarOverflowDropdownOptions,
-	FloatingToolbarButtonSpotlightConfig,
 	ExtensionDropdownOptions,
+	FloatingToolbarButtonSpotlightConfig,
+	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';

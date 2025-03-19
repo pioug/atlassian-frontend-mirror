@@ -63,7 +63,7 @@ describe('ContentContainer', () => {
 			const svg = prism.querySelector('svg');
 
 			expect(prism).toBeInTheDocument();
-			expect(svg).toHaveStyleDeclaration('opacity', '0');
+			expect(svg).toHaveStyle('opacity: 0');
 		});
 
 		it('shows AI prism', async () => {
@@ -78,7 +78,7 @@ describe('ContentContainer', () => {
 
 			const prism = await screen.findByTestId(`${testId}-prism`);
 			const svg = prism.querySelector('svg');
-			expect(svg).toHaveStyleDeclaration('opacity', '1');
+			expect(svg).toHaveStyle('opacity: 1');
 		});
 
 		it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', () => {

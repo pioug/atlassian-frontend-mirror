@@ -14,7 +14,6 @@ import type { TriggerProps } from '@atlaskit/tooltip';
 import { getPrimitivesInlineSpaceBySize } from '../../../utils';
 import ActionIcon from '../action-icon';
 
-import ActionButtonOld from './action-buttonOld';
 import type { ActionStackItemProps } from './types';
 
 const stylesOld = cssMap({
@@ -62,7 +61,7 @@ const styles = cssMap({
 	},
 });
 
-const ActionButtonNew = ({
+const ActionButton = ({
 	content,
 	icon: iconOption,
 	isDisabled,
@@ -118,13 +117,6 @@ const ActionButtonNew = ({
 			</Inline>
 		</Pressable>
 	);
-};
-
-const ActionButton = (props: ActionStackItemProps & { tooltipProps?: TriggerProps }) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ActionButtonNew {...props} />;
-	}
-	return <ActionButtonOld {...props} />;
 };
 
 export default ActionButton;

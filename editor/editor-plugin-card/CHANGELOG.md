@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-card
 
+## 5.3.5
+
+### Patch Changes
+
+- [#128122](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128122)
+  [`552a7081e75d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/552a7081e75d7) -
+  [ux] ED-27167 Move copy and delete button to overflow menu for datasource floating toolbar
+- Updated dependencies
+
+## 5.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.3
 
 ### Patch Changes

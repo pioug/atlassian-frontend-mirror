@@ -5,11 +5,9 @@
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { AutomationModalErrorStateOld } from './AutomationModalErrorStateOld';
 import ErrorIcon from './error-icon';
 
 const styles = cssMap({
@@ -42,7 +40,7 @@ const i18n = defineMessages({
 	},
 });
 
-const AutomationModalErrorStateNew = () => {
+export const AutomationModalErrorState = () => {
 	const { formatMessage } = useIntl();
 
 	return (
@@ -53,11 +51,4 @@ const AutomationModalErrorStateNew = () => {
 			<Box xcss={styles.description}>{formatMessage(i18n.errorDescription)}</Box>
 		</Stack>
 	);
-};
-
-export const AutomationModalErrorState = () => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AutomationModalErrorStateNew />;
-	}
-	return <AutomationModalErrorStateOld />;
 };

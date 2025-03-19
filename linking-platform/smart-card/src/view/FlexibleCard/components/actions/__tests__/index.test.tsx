@@ -94,8 +94,8 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
 
 				const element = await screen.findByTestId(`${testId}-icon`);
 
-				expect(element).toHaveStyleDeclaration('height', expectedSize);
-				expect(element).toHaveStyleDeclaration('width', expectedSize);
+				expect(element).toHaveCompiledCss('height', expectedSize);
+				expect(element).toHaveCompiledCss('width', expectedSize);
 			});
 		});
 

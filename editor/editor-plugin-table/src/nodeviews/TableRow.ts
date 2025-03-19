@@ -454,8 +454,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		if (
 			// is Safari
 			navigator.userAgent.includes('AppleWebKit') &&
-			!navigator.userAgent.includes('Chrome') &&
-			fg('platform_editor_advanced_layouts_post_fix_patch_4')
+			!navigator.userAgent.includes('Chrome')
 		) {
 			const pos = this.getPos();
 			if (typeof pos === 'number') {

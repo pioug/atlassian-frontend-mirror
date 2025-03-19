@@ -13,8 +13,6 @@ import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import Text from '../text';
 import { type TextProps } from '../text/types';
 
-import SnippetElementOld from './SnippetElementOld';
-
 const SNIPPET_DEFAULT_MAX_LINES = 3;
 
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
@@ -35,12 +33,13 @@ const snippetBaseStyle = css({
 	userSelect: 'text',
 });
 
-const SnippetElementNew = ({
-	content: overrideContent,
-	maxLines = SNIPPET_DEFAULT_MAX_LINES,
-	className,
-	...props
-}: TextProps = {}) => {
+const SnippetElement = (props: TextProps) => {
+	const {
+		content: overrideContent,
+		maxLines = SNIPPET_DEFAULT_MAX_LINES,
+		className,
+		...restOfProps
+	} = props ?? {};
 	const context = useContext(FlexibleUiContext);
 
 	return (
@@ -53,17 +52,9 @@ const SnippetElementNew = ({
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			{...props}
+			{...restOfProps}
 		/>
 	);
-};
-
-const SnippetElement = (props: TextProps = {}): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <SnippetElementNew {...props} />;
-	} else {
-		return <SnippetElementOld {...props} />;
-	}
 };
 
 export default SnippetElement;

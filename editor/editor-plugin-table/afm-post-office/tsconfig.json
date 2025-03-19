@@ -45,6 +45,9 @@
 			"path": "../../editor-plugin-editor-viewmode/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-extension/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-guideline/afm-post-office/tsconfig.json"
 		},
 		{

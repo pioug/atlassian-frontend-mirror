@@ -39,9 +39,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/tmp-editor-statsig": "workspace:*",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

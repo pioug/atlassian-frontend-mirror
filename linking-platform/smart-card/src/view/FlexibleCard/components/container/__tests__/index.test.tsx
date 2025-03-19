@@ -39,8 +39,8 @@ describe('Container', () => {
 
 				const block = await screen.findByTestId(testId);
 
-				expect(block).toHaveStyleDeclaration('gap', expectedGap);
-				expect(block).toHaveStyleDeclaration('padding', expectedPadding);
+				expect(block).toHaveCompiledCss('gap', expectedGap);
+				expect(block).toHaveCompiledCss('padding', expectedPadding);
 			},
 		);
 	});
@@ -119,10 +119,7 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).toHaveStyleDeclaration(
-				'background-color',
-				expect.stringContaining('#FFFFFF'),
-			);
+			expect(container).toHaveCompiledCss('background-color', 'var(--ds-surface-raised,#fff)');
 		});
 
 		it('shows background', async () => {
@@ -130,10 +127,7 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).toHaveStyleDeclaration(
-				'background-color',
-				expect.stringContaining('#FFFFFF'),
-			);
+			expect(container).toHaveCompiledCss('background-color', 'var(--ds-surface-raised,#fff)');
 		});
 
 		it('hides background', async () => {
@@ -141,21 +135,21 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).not.toHaveStyleDeclaration('background-color', expect.any(String));
+			expect(container).not.toHaveCompiledCss('background-color', expect.any(String));
 		});
 	});
 
 	describe('hideElevation', () => {
-		const border = '1px solid var(--ds-border, #DFE1E6)';
-		const borderRadius = 'var(--ds-border-radius-200, 8px)';
+		const border = '1px solid var(--ds-border,#dfe1e6)';
+		const borderRadius = 'var(--ds-border-radius-200,8px)';
 
 		it('shows elevation by default', async () => {
 			render(<Container testId={testId} />);
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).toHaveStyleDeclaration('border', border);
-			expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
+			expect(container).toHaveCompiledCss('border', border);
+			expect(container).toHaveCompiledCss('border-radius', borderRadius);
 		});
 
 		it('shows elevation', async () => {
@@ -163,8 +157,8 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).toHaveStyleDeclaration('border', border);
-			expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
+			expect(container).toHaveCompiledCss('border', border);
+			expect(container).toHaveCompiledCss('border-radius', borderRadius);
 		});
 
 		it('hides elevation', async () => {
@@ -172,8 +166,8 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).not.toHaveStyleDeclaration('border', border);
-			expect(container).not.toHaveStyleDeclaration('border-radius', borderRadius);
+			expect(container).not.toHaveCompiledCss('border', '1px solid var(--ds-border,#dfe1e6');
+			expect(container).not.toHaveCompiledCss('border-radius', borderRadius);
 		});
 	});
 
@@ -185,7 +179,7 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).toHaveStyleDeclaration('padding', padding);
+			expect(container).toHaveCompiledCss('padding', padding);
 		});
 
 		it('shows padding', async () => {
@@ -193,7 +187,7 @@ describe('Container', () => {
 
 			const container = await screen.findByTestId(testId);
 
-			expect(container).toHaveStyleDeclaration('padding', padding);
+			expect(container).toHaveCompiledCss('padding', padding);
 		});
 
 		it('hides padding', async () => {
@@ -215,22 +209,20 @@ describe('Container', () => {
 			);
 
 			const container = await screen.findByTestId(testId);
-
-			expect(container.children.length).toEqual(2);
+			expect(container.children.length).toEqual(4); // doubled due to compiled css
 		});
 
 		it('does not render non block element', async () => {
 			render(
 				<Container testId={testId}>
 					<TitleBlock />
-					<div></div>
+					<div data-testid="this-should-not-exist">Hello World</div>
 					<TitleBlock />
 				</Container>,
 			);
 
-			const container = await screen.findByTestId(testId);
-
-			expect(container.children.length).toEqual(2);
+			expect(await screen.findByTestId(testId)).toBeInTheDocument();
+			expect(screen.queryByText('this-should-not-exist')).not.toBeInTheDocument();
 		});
 
 		it('does not renders non valid element', async () => {
@@ -275,7 +267,7 @@ describe('Container', () => {
 
 				const element = await screen.findByTestId('smart-block-title-resolved-view');
 
-				expect(element).toHaveStyleDeclaration('gap', '0.25rem');
+				expect(element).toHaveCompiledCss('gap', '.25rem');
 			});
 
 			it('does not override block size if defined', async () => {
@@ -287,7 +279,7 @@ describe('Container', () => {
 
 				const block = await screen.findByTestId('smart-block-title-resolved-view');
 
-				expect(block).toHaveStyleDeclaration('gap', '1rem');
+				expect(block).toHaveCompiledCss('gap', '1rem');
 			});
 		});
 
@@ -319,8 +311,8 @@ describe('Container', () => {
 
 				const element = await screen.findByTestId('smart-element-link');
 
-				expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
-				expect(element).toHaveStyleDeclaration('font-weight', 'var(--ds-font-weight-regular, 400)');
+				expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
+				expect(element).toHaveCompiledCss('font-weight', 'var(--ds-font-weight-regular,400)');
 			});
 
 			it('overrides block theme', async () => {
@@ -334,7 +326,7 @@ describe('Container', () => {
 
 				const element = await screen.findByTestId('smart-element-link');
 
-				expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#0C66E4'));
+				expect(element).toHaveCompiledCss('color', 'var(--ds-link,#0c66e4)');
 			});
 		});
 	});

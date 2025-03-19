@@ -44,8 +44,8 @@
 		"./package.json": "./package.json"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-design-system": "workspace:*",
-		"@atlaskit/eslint-utils": "workspace:*",
+		"@atlaskit/eslint-plugin-design-system": "workspace:^",
+		"@atlaskit/eslint-utils": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^7.1.0",
 		"ajv": "^6.12.6",
@@ -58,10 +58,10 @@
 		"postcss-selector-parser": "^6.0.16"
 	},
 	"devDependencies": {
-		"@af/formatting": "workspace:*",
-		"@atlaskit/ds-lib": "workspace:*",
-		"@atlassian/codegen": "workspace:*",
-		"@atlassian/ts-loader": "workspace:*",
+		"@af/formatting": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlassian/codegen": "workspace:^",
+		"@atlassian/ts-loader": "workspace:^",
 		"@eslint/eslintrc": "^3.0.2",
 		"@types/eslint": "^8.56.6",
 		"@types/eslint__eslintrc": "^2.1.2",

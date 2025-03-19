@@ -33,8 +33,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-plugin-analytics": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -42,12 +42,12 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/editor-plugin-quick-insert": "workspace:*",
-		"@atlaskit/editor-plugin-type-ahead": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
+		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

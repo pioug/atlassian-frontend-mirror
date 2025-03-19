@@ -18,7 +18,6 @@ import { messages } from '../../../../../../../messages';
 import useInvokeClientAction from '../../../../../../../state/hooks/use-invoke-client-action';
 import { getFormattedMessage } from '../../../../utils';
 
-import LozengeActionErrorOld from './LozengeActionErrorOld';
 import type { LozengeActionErrorProps } from './types';
 
 const MAX_LINE_NUMBER = 8;
@@ -75,7 +74,7 @@ const dropdownItemGroupStyles = css({
 	},
 });
 
-const LozengeActionErrorNew = ({
+const LozengeActionError = ({
 	errorMessage,
 	testId,
 	maxLineNumber = MAX_LINE_NUMBER,
@@ -144,14 +143,6 @@ const LozengeActionErrorNew = ({
 			</DropdownItemGroup>
 		</span>
 	);
-};
-
-const LozengeActionError = (props: LozengeActionErrorProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <LozengeActionErrorNew {...props} />;
-	} else {
-		return <LozengeActionErrorOld {...props} />;
-	}
 };
 
 export default LozengeActionError;

@@ -5,12 +5,10 @@
 import { css, jsx } from '@compiled/react';
 
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import LozengeActionItem from '../lozenge-action-item';
 
-import LozengeActionItemsGroupOld from './LozengeActionItemsGroupOld';
 import type { LozengeActionItemsGroupProps } from './types';
 
 const dropdownItemGroupStyles = css({
@@ -36,7 +34,7 @@ const dropdownItemGroupStyles = css({
 	},
 });
 
-const LozengeActionItemsGroupNew = ({ items, testId, onClick }: LozengeActionItemsGroupProps) => (
+const LozengeActionItemsGroup = ({ items, testId, onClick }: LozengeActionItemsGroupProps) => (
 	<span css={dropdownItemGroupStyles} data-testid={`${testId}-item-group`}>
 		<DropdownItemGroup>
 			{items.map((item, idx) => (
@@ -45,13 +43,5 @@ const LozengeActionItemsGroupNew = ({ items, testId, onClick }: LozengeActionIte
 		</DropdownItemGroup>
 	</span>
 );
-
-const LozengeActionItemsGroup = (props: LozengeActionItemsGroupProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <LozengeActionItemsGroupNew {...props} />;
-	} else {
-		return <LozengeActionItemsGroupOld {...props} />;
-	}
-};
 
 export default LozengeActionItemsGroup;

@@ -19,7 +19,6 @@ import * as Actions from '../../actions';
 import type { ActionMessage } from '../../actions/action/types';
 
 import { ActionFooter } from './action-footer';
-import ActionBlockOld from './ActionBlockOld';
 import type { ActionBlockProps } from './types';
 
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
@@ -82,7 +81,7 @@ export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize) => {
 	}
 };
 
-const ActionBlockNew = ({
+const ActionBlock = ({
 	blockRef,
 	onClick: onClickCallback,
 	size,
@@ -166,14 +165,6 @@ const ActionBlockNew = ({
 			<ActionFooter message={message} testId={testId} />
 		</div>
 	) : null;
-};
-
-const ActionBlock = (props: ActionBlockProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ActionBlockNew {...props} />;
-	} else {
-		return <ActionBlockOld {...props} />;
-	}
 };
 
 export default ActionBlock;

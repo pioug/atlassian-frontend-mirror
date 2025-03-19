@@ -4,13 +4,10 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type FlexibleBlockCardProps } from '../types';
-
-import { withFlexibleUIBlockCardStyleOld } from './withFlexibleUIBlockCardStyleOld';
 
 const flexibleBlockCardStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -20,7 +17,7 @@ const flexibleBlockCardStyle = css({
 	},
 });
 
-export const withFlexibleUIBlockCardStyleNew =
+export const withFlexibleUIBlockCardStyle =
 	(FlexibleBlockCardView: React.ComponentType<FlexibleBlockCardProps>) =>
 	(props: FlexibleBlockCardProps) => {
 		return (
@@ -28,14 +25,4 @@ export const withFlexibleUIBlockCardStyleNew =
 				<FlexibleBlockCardView {...props} />
 			</div>
 		);
-	};
-
-export const withFlexibleUIBlockCardStyle =
-	(FlexibleBlockCardView: React.ComponentType<FlexibleBlockCardProps>) =>
-	(props: FlexibleBlockCardProps) => {
-		if (fg('bandicoots-compiled-migration-smartcard')) {
-			return withFlexibleUIBlockCardStyleNew(FlexibleBlockCardView)(props);
-		} else {
-			return withFlexibleUIBlockCardStyleOld(FlexibleBlockCardView)(props);
-		}
 	};

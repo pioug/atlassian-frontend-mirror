@@ -25,20 +25,20 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/codemod-utils": "workspace:*",
-		"@atlaskit/ds-lib": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/codemod-utils": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/datetime-picker": "workspace:*",
-		"@atlaskit/docs": "workspace:*",
-		"@atlaskit/link": "workspace:*",
-		"@atlaskit/section-message": "workspace:*",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/datetime-picker": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/link": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",

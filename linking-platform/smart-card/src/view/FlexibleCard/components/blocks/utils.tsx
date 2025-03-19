@@ -1,9 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type SerializedStyles } from '@emotion/react';
-
-import { ActionName, ElementName, SmartLinkDirection, SmartLinkSize } from '../../../../constants';
+import { ActionName, ElementName, SmartLinkSize } from '../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
 import * as Elements from '../elements';
@@ -51,22 +48,6 @@ export const ElementDisplaySchema: Record<ElementName, ElementDisplaySchemaType[
 	[ElementName.VoteCount]: ['inline'],
 };
 
-const getDirectionStyles = (direction?: SmartLinkDirection): SerializedStyles => {
-	switch (direction) {
-		case SmartLinkDirection.Vertical:
-			return css({
-				flexDirection: 'column',
-				alignItems: 'flex-start',
-			});
-		case SmartLinkDirection.Horizontal:
-		default:
-			return css({
-				flexDirection: 'row',
-				alignItems: 'center',
-			});
-	}
-};
-
 /**
  * Get gap size between elements inside a block
  * Equivalent version for DS primitives space token is getPrimitivesInlineSpaceBySize()
@@ -86,54 +67,6 @@ export const getGapSize = (size: SmartLinkSize): number => {
 	}
 };
 
-/**
- * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
- */
-export const getBaseStyles = (
-	direction: SmartLinkDirection,
-	size: SmartLinkSize,
-): SerializedStyles =>
-	css(
-		{
-			alignItems: 'center',
-			display: 'flex',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			gap: `${getGapSize(size)}rem`,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: '1rem',
-			minWidth: 0,
-			overflow: 'hidden',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		getDirectionStyles(direction),
-		{
-			'&:empty': {
-				display: 'none',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'& > *': {
-				minWidth: 0,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'& > [data-fit-to-content]': {
-				minWidth: 'fit-content',
-			},
-		},
-	);
-
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const highlightRemoveStyles = css`
-	outline: none !important;
-	outline-color: inherit;
-	color: inherit;
-	-webkit-tap-highlight-color: transparent;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-`;
-
 const isActionGroup = (node: React.ReactNode) =>
 	React.isValidElement(node) && node.type === ActionGroup;
 
@@ -147,17 +80,6 @@ export const isJSXElementNull = (children: JSX.Element) => {
 
 const isElementOrElementGroup = (node: React.ReactNode) =>
 	React.isValidElement(node) && (isFlexibleUiElement(node) || node.type === ElementGroup);
-
-export const getActionGroupStyles = (size: SmartLinkSize): SerializedStyles | undefined => {
-	if (size === SmartLinkSize.XLarge) {
-		// The biggest height of the action button exceeds the max line-height
-		// of the elements causing the action on the block with x-large size to
-		// get cut at the bottom.
-		return css({
-			maxHeight: '2rem',
-		});
-	}
-};
 
 export const filterActionItems = (items: ActionItem[] = [], context?: FlexibleUiDataContext) => {
 	return items.filter((item) => {

@@ -6,6 +6,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { toEmojiId } from '../../util/type-helpers';
 import type { EmojiDescription, EmojiProvider, OnEmojiEvent } from '../../types';
 import { leftClick } from '../../util/mouse';
@@ -17,6 +18,7 @@ import {
 	typeAheadItemRow,
 	typeaheadSelected,
 } from './styles';
+import { EmojiTypeAheadItemInternalCompiled } from './EmojiTypeAheadItemInternalCompiled';
 
 export interface Props {
 	onMouseMove: OnEmojiEvent;
@@ -70,7 +72,11 @@ class EmojiTypeAheadItemInternal extends PureComponent<Props, {}> {
 }
 
 const EmojiTypeAheadItem = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-	return <EmojiTypeAheadItemInternal {...props} forwardedRef={ref} />;
+	return fg('platform_editor_css_migrate_emoji') ? (
+		<EmojiTypeAheadItemInternalCompiled {...props} forwardedRef={ref} />
+	) : (
+		<EmojiTypeAheadItemInternal {...props} forwardedRef={ref} />
+	);
 });
 
 export default EmojiTypeAheadItem;

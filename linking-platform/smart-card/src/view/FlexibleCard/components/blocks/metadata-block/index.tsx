@@ -18,7 +18,6 @@ import Block from '../block';
 import ElementGroup from '../element-group';
 import { renderElementItems } from '../utils';
 
-import MetadataBlockOld from './MetadataBlockOld';
 import { type MetadataBlockProps } from './types';
 
 const DEFAULT_MAX_LINES = 2;
@@ -166,12 +165,4 @@ const MetadataBlock = ({
 	);
 };
 
-const MetadataBlockExported = (props: MetadataBlockProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <MetadataBlock {...props} />;
-	} else {
-		return <MetadataBlockOld {...props} />;
-	}
-};
-
-export default MetadataBlockExported;
+export default MetadataBlock;

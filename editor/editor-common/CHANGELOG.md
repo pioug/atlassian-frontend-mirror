@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 102.11.0
+
+### Minor Changes
+
+- [#127253](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127253)
+  [`a2593d5c73ccb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2593d5c73ccb) -
+  [ux] Table overflow menu on floating toolbar
+
+## 102.10.4
+
+### Patch Changes
+
+- [#128122](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128122)
+  [`27fc970e08293`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27fc970e08293) -
+  ED-27167 Move datasource copy and delete buttons to overflow menu in floating toolbar
+- Updated dependencies
+
+## 102.10.3
+
+### Patch Changes
+
+- [#127516](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127516)
+  [`ea683a86d5e61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea683a86d5e61) -
+  added exposure: true to virt experiment
+- Updated dependencies
+
 ## 102.10.2
 
 ### Patch Changes

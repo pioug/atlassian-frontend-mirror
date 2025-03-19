@@ -38,14 +38,14 @@
 		"./styles": "./src/ui/styles.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-markdown-transformer": "workspace:*",
-		"@atlaskit/editor-plugin-analytics": "workspace:*",
-		"@atlaskit/editor-plugin-paste": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-markdown-transformer": "workspace:^",
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-paste": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "workspace:*",
-		"@atlaskit/icon": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -55,9 +55,9 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

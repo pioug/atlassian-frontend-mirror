@@ -29,37 +29,58 @@ describe('ExpandedFrame', () => {
 
 	it('should not allow scrolling when allowScrolling is undefined', async () => {
 		render(<ExpandedFrame />);
-		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveCompiledCss({
+			'overflow-x': 'hidden',
+			'overflow-y': 'hidden',
+		});
 	});
 
 	it('should not allow scrolling when allowScrolling is false', async () => {
 		render(<ExpandedFrame allowScrollBar={false} setOverflow={true} />);
-		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveCompiledCss({
+			'overflow-x': 'hidden',
+			'overflow-y': 'hidden',
+		});
 	});
 
 	it('should allow scrolling when allowScrolling is true', async () => {
 		render(<ExpandedFrame allowScrollBar={true} />);
-		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: auto');
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveCompiledCss({
+			'overflow-x': 'auto',
+			'overflow-y': 'auto',
+		});
 	});
 
 	it('should allow scrolling when allowScrolling is true and setOverflow is true', async () => {
 		render(<ExpandedFrame allowScrollBar={true} setOverflow={true} />);
-		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: auto');
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveCompiledCss({
+			'overflow-x': 'auto',
+			'overflow-y': 'auto',
+		});
 	});
 
 	it('should not set overflow property when setOverflow is false', async () => {
 		render(<ExpandedFrame allowScrollBar={false} setOverflow={false} />);
-		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: ');
+		expect(await screen.findByTestId('embed-content-wrapper')).not.toHaveCompiledCss({
+			'overflow-x': expect.any(String),
+			'overflow-y': expect.any(String),
+		});
 	});
 
 	it('should not allow scrolling (or clip content) when setOverflow is false even if allowScrollBar is true', async () => {
 		render(<ExpandedFrame allowScrollBar={true} setOverflow={false} />);
-		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: ');
+		expect(await screen.findByTestId('embed-content-wrapper')).not.toHaveCompiledCss({
+			'overflow-x': expect.any(String),
+			'overflow-y': expect.any(String),
+		});
 	});
 
 	it('should clip content and not allow scrolling when setOverflow is true and allowScrollBar is false', async () => {
 		render(<ExpandedFrame allowScrollBar={false} setOverflow={true} />);
-		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveCompiledCss({
+			'overflow-x': 'hidden',
+			'overflow-y': 'hidden',
+		});
 	});
 
 	it('should not render header and frame when frameStyle = "hide" & href is provided', async () => {
@@ -89,7 +110,7 @@ describe('ExpandedFrame', () => {
 
 	it('Tooltip is rendered when hovered', async () => {
 		render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
-		const header = await screen.getByText('foobar');
+		const header = await screen.findByText('foobar');
 
 		await userEvent.hover(header);
 
@@ -106,7 +127,7 @@ describe('ExpandedFrame', () => {
 
 	it('Tooltip is not rendered when not hovered', async () => {
 		render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
-		const header = await screen.getByText('foobar');
+		const header = await screen.findByText('foobar');
 
 		await userEvent.hover(header);
 		await userEvent.unhover(header);

@@ -35,12 +35,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-plugin-context-identifier": "workspace:*",
-		"@atlaskit/editor-plugin-feature-flags": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugin-context-identifier": "workspace:^",
+		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/platform-feature-flags": "workspace:*",
-		"@atlaskit/tmp-editor-statsig": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"techstack": {

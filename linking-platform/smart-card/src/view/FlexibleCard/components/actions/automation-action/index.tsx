@@ -3,7 +3,6 @@ import React, { lazy, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import AutomationIcon from '@atlaskit/icon/core/automation';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
@@ -15,7 +14,6 @@ import { useSmartLinkModal } from '../../../../../state/modal';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
 
-import AutomationActionOld from './AutomationActionOld';
 import AutomationManualTriggersGlyph from './manual-triggers-icon';
 import { getModalContent } from './utils';
 
@@ -26,7 +24,7 @@ const AutomationModal = lazy(
 		),
 );
 
-const AutomationActionNew = (props: LinkActionProps) => {
+const AutomationAction = (props: LinkActionProps) => {
 	const { formatMessage } = useIntl();
 	const modal = useSmartLinkModal();
 	const { onClick: onClickCallback } = props;
@@ -108,13 +106,6 @@ const AutomationActionNew = (props: LinkActionProps) => {
 			/>
 		</>
 	);
-};
-
-const AutomationAction = (props: LinkActionProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AutomationActionNew {...props} />;
-	}
-	return <AutomationActionOld {...props} />;
 };
 
 export default AutomationAction;

@@ -8,9 +8,6 @@ import { css, jsx } from '@compiled/react';
 import ImageLoader from 'react-render-image';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { IconOld } from './IconOld';
 
 export interface IconProps {
 	/* Url of the icon to be displayed. Note that this is only used if a JSX element is not provided */
@@ -46,7 +43,7 @@ const spanStyles = css({
 	justifyContent: 'center',
 });
 
-export const IconNew = ({
+export const Icon = ({
 	url,
 	icon,
 	defaultIcon,
@@ -77,11 +74,4 @@ export const IconNew = ({
 			{icon || image || placeholder}
 		</span>
 	);
-};
-
-export const Icon = (props: IconProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <IconNew {...props} />;
-	}
-	return <IconOld {...props} />;
 };

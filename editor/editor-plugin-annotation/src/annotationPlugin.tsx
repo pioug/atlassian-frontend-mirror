@@ -12,7 +12,11 @@ import { annotationWithToDOMFix } from './nodeviews/annotationMark';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { buildToolbar } from './pm-plugins/toolbar';
-import { getPluginState, stripNonExistingAnnotations } from './pm-plugins/utils';
+import {
+	getPluginState,
+	hasAnyUnResolvedAnnotationInPage,
+	stripNonExistingAnnotations,
+} from './pm-plugins/utils';
 import type { AnnotationProviders } from './types';
 import { InlineCommentView } from './ui/InlineCommentView';
 
@@ -32,6 +36,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 		},
 
 		actions: {
+			hasAnyUnResolvedAnnotationInPage,
 			stripNonExistingAnnotations,
 			setInlineCommentDraftState: setInlineCommentDraftState(
 				api?.analytics?.actions,

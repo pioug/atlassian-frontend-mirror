@@ -10,7 +10,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 
 import LozengeAction from './lozenge-action';
-import LozengeOld from './LozengeOld';
 import type { LozengeProps } from './types';
 
 const stylesOld = css({
@@ -30,7 +29,7 @@ const styles = css({
  * @param {LozengeProps} LozengeProps - The props necessary for the Lozenge element.
  * @see State
  */
-const LozengeNew = ({
+const Lozenge = ({
 	action,
 	appearance = 'default',
 	name,
@@ -80,14 +79,6 @@ const LozengeNew = ({
 			{lozenge}
 		</span>
 	);
-};
-
-const Lozenge = (props: LozengeProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <LozengeNew {...props} />;
-	} else {
-		return <LozengeOld {...props} />;
-	}
 };
 
 export default Lozenge;

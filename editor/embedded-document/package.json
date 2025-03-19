@@ -37,13 +37,13 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/button": "workspace:*",
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-core": "workspace:*",
-		"@atlaskit/editor-shared-styles": "workspace:*",
-		"@atlaskit/renderer": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
-		"@atlaskit/util-service-support": "workspace:*",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-core": "workspace:^",
+		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/renderer": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

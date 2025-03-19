@@ -37,18 +37,18 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "workspace:*",
+		"@atlaskit/media-client": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/media-state": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/media-state": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",

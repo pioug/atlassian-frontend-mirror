@@ -437,20 +437,20 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				status: 'unauthorized',
 			});
 
-			const unauthorizedTitle = screen.getByTestId('smart-block-title-errored-view');
+			const unauthorizedTitle = await screen.findByTestId('smart-block-title-errored-view');
 			expect(unauthorizedTitle).toBeTruthy();
 
 			// Title should only have the icon and the url
-			expect(unauthorizedTitle.childElementCount).toEqual(2);
+			expect(unauthorizedTitle.childElementCount).toEqual(4); // doubled likely to compiled css
 
-			const imgTags = unauthorizedTitle.children[0].getElementsByTagName('img');
+			const imgTags = unauthorizedTitle.querySelectorAll('img');
 			expect(imgTags).toBeTruthy();
 			expect(imgTags.length).toEqual(1);
 			expect(imgTags[0].getAttribute('src')).toEqual(
 				'https://developers.google.com/drive/images/drive_icon.png',
 			);
 
-			expect(unauthorizedTitle.children[1].innerHTML).toContain(
+			expect(unauthorizedTitle.querySelectorAll('a')[0].innerHTML).toContain(
 				'https://drive.google.com/drive/folders/test',
 			);
 

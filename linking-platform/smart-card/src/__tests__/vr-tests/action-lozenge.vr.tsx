@@ -8,21 +8,18 @@ import ErrorActionWithUrl from '../../../examples/vr-flexible-card/vr-action-loz
 
 snapshot(ActionItem, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 	},
 });
 
 snapshot(ActionTrigger, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 	},
 });
 
 snapshot(ActionItemsGroup, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 	},
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getPreviewUrlWithTheme } from '../../../utils';
@@ -9,8 +8,6 @@ import { ExpandedFrame } from '../components/ExpandedFrame';
 import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
-
-import { EmbedCardResolvedViewOld } from './ResolvedViewOld';
 
 export interface EmbedCardResolvedViewProps {
 	/** The title of the link */
@@ -40,7 +37,10 @@ export interface EmbedCardResolvedViewProps {
 	onIframeFocus?: () => void;
 }
 
-const EmbedCardResolvedViewNew = React.forwardRef<HTMLIFrameElement, EmbedCardResolvedViewProps>(
+export const EmbedCardResolvedView = React.forwardRef<
+	HTMLIFrameElement,
+	EmbedCardResolvedViewProps
+>(
 	(
 		{
 			link,
@@ -112,14 +112,3 @@ const EmbedCardResolvedViewNew = React.forwardRef<HTMLIFrameElement, EmbedCardRe
 		);
 	},
 );
-
-export const EmbedCardResolvedView = React.forwardRef<
-	HTMLIFrameElement,
-	EmbedCardResolvedViewProps
->((props, ref) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <EmbedCardResolvedViewNew {...props} ref={ref} />;
-	} else {
-		return <EmbedCardResolvedViewOld {...props} ref={ref} />;
-	}
-});

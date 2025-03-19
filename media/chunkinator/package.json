@@ -43,8 +43,8 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/media-common": "workspace:*",
-		"@atlaskit/media-test-helpers": "workspace:*",
+		"@atlaskit/media-common": "workspace:^",
+		"@atlaskit/media-test-helpers": "workspace:^",
 		"mockdate": "^3.0.5",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",

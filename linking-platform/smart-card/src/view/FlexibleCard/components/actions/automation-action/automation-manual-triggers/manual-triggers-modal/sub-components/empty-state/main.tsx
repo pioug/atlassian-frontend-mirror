@@ -7,13 +7,11 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
 
-import { AutomationModalEmptyStateOld } from './AutomationModalEmptyStateOld';
 import EmptyIcon from './empty-icon';
 
 const styles = cssMap({
@@ -61,7 +59,7 @@ const i18n = defineMessages({
 	},
 });
 
-const AutomationModalEmptyStateNew = () => {
+export const AutomationModalEmptyState = () => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const {
@@ -112,11 +110,4 @@ const AutomationModalEmptyStateNew = () => {
 			</Box>
 		</Stack>
 	);
-};
-
-export const AutomationModalEmptyState = () => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AutomationModalEmptyStateNew />;
-	}
-	return <AutomationModalEmptyStateOld />;
 };

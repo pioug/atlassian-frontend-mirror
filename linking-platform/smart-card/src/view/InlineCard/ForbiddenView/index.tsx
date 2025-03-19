@@ -26,8 +26,6 @@ import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
 import { IconStyledButtonOldVisualRefresh } from '../styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
-import { InlineCardForbiddenViewOld } from './InlineCardForbiddenViewOld';
-
 const styles = cssMap({
 	iconWrapper: {
 		marginRight: token('space.negative.025'),
@@ -90,7 +88,7 @@ const fallbackForbiddenIcon = () => {
 	);
 };
 
-const InlineCardForbiddenViewNew = ({
+export const InlineCardForbiddenView = ({
 	url,
 	icon,
 	onClick,
@@ -228,11 +226,4 @@ const InlineCardForbiddenViewNew = ({
 	}
 
 	return content;
-};
-
-export const InlineCardForbiddenView = (props: InlineCardForbiddenViewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <InlineCardForbiddenViewNew {...props} />;
-	}
-	return <InlineCardForbiddenViewOld {...props} />;
 };

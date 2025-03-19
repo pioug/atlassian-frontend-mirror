@@ -57,8 +57,8 @@ import {
 
 snapshotInformational(RendererInlineCardXSS, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
+
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -67,7 +67,6 @@ snapshotInformational(RendererInlineCard, {
 		await page.getByTestId('inline-card-resolved-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -77,7 +76,6 @@ snapshotInformational(RendererInlineCardResolving, {
 		await page.getByTestId('inline-card-resolving-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -87,7 +85,6 @@ snapshotInformational(RendererInlineCardUnauthorized, {
 		await page.getByTestId('inline-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -97,7 +94,6 @@ snapshotInformational(RendererInlineCardForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -107,7 +103,6 @@ snapshotInformational(RendererInlineCardNotFound, {
 		await page.getByTestId('inline-card-not-found-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -117,7 +112,6 @@ snapshotInformational(RendererInlineCardErrored, {
 		await page.getByTestId('inline-card-errored-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -127,13 +121,11 @@ snapshotInformational(RendererBlockCard, {
 		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshotInformational(RendererBlockCardXSS, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -142,7 +134,6 @@ snapshotInformational(RendererBlockCardResolving, {
 		await page.getByTestId('smart-block-resolving-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -151,7 +142,6 @@ snapshotInformational(RendererBlockCardUnauthorized, {
 		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -163,7 +153,6 @@ snapshotInformational(RendererBlockCardUnauthorized, {
 		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -172,7 +161,6 @@ snapshotInformational(RendererBlockCardForbidden, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -181,7 +169,6 @@ snapshotInformational(RendererBlockCardNotFound, {
 		await page.getByTestId('smart-block-not-found-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -190,7 +177,6 @@ snapshotInformational(RendererBlockCardErrored, {
 		await page.getByTestId('smart-block-errored-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -198,7 +184,7 @@ snapshotInformational(RendererEmbedCard, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCard, {
 	prepare: async (page) => {
@@ -211,53 +197,52 @@ snapshotInformational(RendererEmbedCard, {
 			state: 'hovered',
 		},
 	],
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardXSS, {
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardWide, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-not-found-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardComplex, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-not-found-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardErrored, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-errored-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardForbidden, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardNotFound, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-not-found-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardResolving, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolving-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardUnauthorized, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -268,7 +253,6 @@ snapshotInformational(RendererEmbedCardUnauthorized, {
 		await page.getByTestId('embed-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -276,56 +260,56 @@ snapshotInformational(RendererBlockCardFullWidthLayout, {
 	prepare: async (page) => {
 		await page.getByTestId('renderer-datasource-table').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardDefaultWidthLayout, {
 	prepare: async (page) => {
 		await page.getByTestId('renderer-datasource-table').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardWideWidthLayout, {
 	prepare: async (page) => {
 		await page.getByTestId('renderer-datasource-table').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardCenterLayoutAndNoWidth, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardCenterLayout100PercentWidth, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardCenterLayout88PercentWidth, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardCenterLayoutNoHeightAndNoMessageAndNoWidth, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardCenterLayoutNoHeightAndNoMessage100PercentWidth, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 
 snapshotInformational(RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-resolved-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 
 snapshotInformational(RendererInlineCardRequestAccess, {
@@ -333,7 +317,6 @@ snapshotInformational(RendererInlineCardRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -344,8 +327,8 @@ snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
+
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -354,7 +337,6 @@ snapshotInformational(RendererInlineCardRequestAccessForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -364,7 +346,6 @@ snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -374,7 +355,6 @@ snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -384,7 +364,6 @@ snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -395,7 +374,6 @@ snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -406,7 +384,6 @@ snapshotInformational(RendererBlockCardRequestAccess, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -415,7 +392,6 @@ snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -424,7 +400,6 @@ snapshotInformational(RendererBlockCardRequestAccessForbidden, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -433,7 +408,6 @@ snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -442,7 +416,6 @@ snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -451,7 +424,6 @@ snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -460,7 +432,6 @@ snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -469,41 +440,41 @@ snapshotInformational(RendererEmbedCardRequestAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardForbiddenPendingRequestAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardRequestAccessForbidden, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardRequestAccessDirectAccess, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardRequestAccessDeniedRequestExists, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardForbiddenRequestApprovedRequestExists, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });
 snapshotInformational(RendererEmbedCardRequestAccessAccessExists, {
 	prepare: async (page) => {
 		await page.getByTestId('embed-card-forbidden-view').waitFor({ state: 'visible' });
 	},
-	featureFlags: { 'bandicoots-compiled-migration-smartcard': true },
+	featureFlags: {},
 });

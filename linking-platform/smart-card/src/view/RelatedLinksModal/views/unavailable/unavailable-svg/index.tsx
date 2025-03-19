@@ -4,10 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import { UnavailableSVGOld } from './UnavailableSvgOld';
 
 const unavailableStyles = css({
 	width: '130px',
@@ -18,9 +15,9 @@ const unavailableStyles = css({
 	display: 'block',
 });
 
-const UnavailableSVGNew = (props: React.SVGProps<SVGSVGElement>) => {
-	const id = 'related-links-unavailable-svg';
+const id = 'related-links-unavailable-svg';
 
+export const UnavailableSVG = (props: React.SVGProps<SVGSVGElement>) => {
 	return (
 		<svg
 			data-testid={id}
@@ -143,12 +140,4 @@ const UnavailableSVGNew = (props: React.SVGProps<SVGSVGElement>) => {
 			</defs>
 		</svg>
 	);
-};
-
-export const UnavailableSVG = (props: React.SVGProps<SVGSVGElement>) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <UnavailableSVGNew {...props} />;
-	} else {
-		return <UnavailableSVGOld {...props} />;
-	}
 };

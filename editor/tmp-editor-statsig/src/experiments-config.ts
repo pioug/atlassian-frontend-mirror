@@ -333,8 +333,8 @@ export const editorExperimentsConfig = {
 			confluence: 'platform_editor_inline_node_virtualization',
 		},
 		param: 'variant',
-		typeGuard: oneOf(['control', 'fallback-small', 'fallback-large']),
-		defaultValue: 'control',
+		typeGuard: oneOf(['off', 'fallback-small', 'fallback-large']),
+		defaultValue: 'off' as 'off' | 'fallback-small' | 'fallback-large',
 	},
 	// Added 2025-03-03
 	platform_editor_cmd_a_progressively_select_nodes: {

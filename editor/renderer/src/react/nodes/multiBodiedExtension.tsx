@@ -314,6 +314,8 @@ const MultiBodiedExtension = (props: Props) => {
 		.multiBodiedExtension--frames
 			> [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
 			display: block;
+			margin-left: 0;
+			margin-right: 0;
 		}
 	`;
 

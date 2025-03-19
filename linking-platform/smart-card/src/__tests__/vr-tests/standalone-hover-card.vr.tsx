@@ -15,7 +15,6 @@ snapshot(HoverCard, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -25,7 +24,6 @@ snapshot(HoverCardWithPreview, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -35,7 +33,6 @@ snapshot(HoverCardForSlackMessage, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -45,7 +42,6 @@ snapshot(HoverCardConfluence, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -55,7 +51,6 @@ snapshot(HoverCardAssignedJiraIssue, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -65,7 +60,6 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -75,7 +69,6 @@ snapshot(HoverCardJiraProject, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -90,7 +83,6 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -105,7 +97,6 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -120,7 +111,6 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -135,7 +125,6 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -151,7 +140,6 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -167,7 +155,6 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });
 
@@ -177,6 +164,5 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
-		'bandicoots-compiled-migration-smartcard': true,
 	},
 });

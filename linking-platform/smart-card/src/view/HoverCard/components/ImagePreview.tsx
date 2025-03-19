@@ -7,9 +7,7 @@ import extractPreview from '../../../extractors/flexible/extract-preview';
 import { PreviewBlock } from '../../FlexibleCard/components/blocks';
 import { type ImagePreviewProps } from '../types';
 
-import ImagePreviewOld from './ImagePreviewOld';
-
-const ImagePreviewNew = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
+const ImagePreview = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
 	const transitionStarted = useRef<boolean>(false);
 	const previewBlockRef = useRef<HTMLDivElement>(null);
 	const [showPreview, setShowPreview] = useState<boolean>(true);
@@ -54,14 +52,6 @@ const ImagePreviewNew = ({ data, fallbackElementHeight }: ImagePreviewProps) => 
 			style={dynamicStyles}
 		/>
 	) : null;
-};
-
-const ImagePreview = (props: ImagePreviewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return ImagePreviewNew(props);
-	} else {
-		return ImagePreviewOld(props);
-	}
 };
 
 export default ImagePreview;

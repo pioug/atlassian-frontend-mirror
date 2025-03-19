@@ -55,7 +55,7 @@ describe('LozengeActionError', () => {
 		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage).toHaveTextContent(TEXT_ERROR_MESSAGE);
-		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
+		expect(errorMessage).toHaveCompiledCss('-webkit-line-clamp', '8');
 
 		// make sure an error link is present
 		const link = await screen.findByTestId(`${testId}-open-embed`);
@@ -76,7 +76,7 @@ describe('LozengeActionError', () => {
 		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage).toHaveTextContent(TEXT_ERROR_MESSAGE);
-		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
+		expect(errorMessage).toHaveCompiledCss('-webkit-line-clamp', '8');
 
 		// make sure an error link is not present
 		const link = screen.queryByTestId(`${testId}-open-embed`);
@@ -96,7 +96,7 @@ describe('LozengeActionError', () => {
 		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage.textContent).toEqual(MESSAGE_PROP_ERROR_MESSAGE.descriptor.defaultMessage);
-		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
+		expect(errorMessage).toHaveCompiledCss('-webkit-line-clamp', '8');
 	});
 
 	it('renders with a specific maxLineNumber', async () => {
@@ -113,7 +113,7 @@ describe('LozengeActionError', () => {
 		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage).toHaveTextContent(TEXT_ERROR_MESSAGE);
-		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', MAX_LINE_NUMBER.toString());
+		expect(errorMessage).toHaveCompiledCss('-webkit-line-clamp', MAX_LINE_NUMBER.toString());
 	});
 
 	it('invokes preview action', async () => {

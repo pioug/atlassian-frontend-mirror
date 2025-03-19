@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.5.0
+
+### Minor Changes
+
+- [#127293](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127293)
+  [`3ee2e5b640591`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ee2e5b640591) -
+  Created new rule `@atlaskit/platform/ensure-no-private-dependencies` which ensures that private
+  dependencies are not used in published packages
+
 ## 2.4.2
 
 ### Patch Changes

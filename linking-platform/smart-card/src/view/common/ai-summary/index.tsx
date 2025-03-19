@@ -8,11 +8,7 @@ import Markdown from 'markdown-to-jsx';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-/**
- * Move this import into this file when cleaning up FF bandicoots-compiled-migration-smartcard
- * Remove the export as well
- */
-import AISummaryOld, { type AISummaryProps } from './AISummaryOld';
+import type { AISummaryProps } from './types';
 import UList from './ulist';
 
 const AISummaryCSSStyles = css({
@@ -43,7 +39,7 @@ const baseStyle = css({
  * @internal
  * @param {AISummaryProps} AISummaryProps
  */
-const AISummaryNew = ({
+const AISummary = ({
 	content = '',
 	className,
 	testId = 'ai-summary',
@@ -72,13 +68,6 @@ const AISummaryNew = ({
 			style={{ minHeight: minHeight }}
 		/>
 	);
-};
-
-const AISummary = (props: AISummaryProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AISummaryNew {...props} />;
-	}
-	return <AISummaryOld {...props} />;
 };
 
 export default AISummary;

@@ -37,11 +37,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "workspace:*",
-		"@atlaskit/media-client-react": "workspace:*",
-		"@atlaskit/media-common": "workspace:*",
-		"@atlaskit/media-ui": "workspace:*",
-		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/media-client": "workspace:^",
+		"@atlaskit/media-client-react": "workspace:^",
+		"@atlaskit/media-common": "workspace:^",
+		"@atlaskit/media-ui": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"lru_map": "^0.4.1"
@@ -51,13 +51,13 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/media-state": "workspace:*",
-		"@atlaskit/media-test-data": "workspace:*",
-		"@atlaskit/section-message": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/media-state": "workspace:^",
+		"@atlaskit/media-test-data": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"react-dom": "^18.2.0",

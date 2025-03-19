@@ -14,6 +14,7 @@ import { createLogger } from '../helpers/utils';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/internal-errors';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import { CustomError } from '../errors/custom-errors';
 
 const logger = createLogger('commit-step', 'black');
 
@@ -116,29 +117,17 @@ export const commitStepQueue = ({
 
 				if (timer) {
 					clearTimeout(timer);
-					if (fg('make_collab_provider_ack_delay_agnostic')) {
-						if (latency < 680) {
-							// this most closely replicates the BE ack delay behaviour. 500ms hardcoded + 180ms network delay (tested on hello)
-							// more context: https://hello.atlassian.net/wiki/spaces/CEPS/pages/5020556010/Spike+Moving+BE+delay+to+the+FE
-							// to be switched over to backpressure delay sent from the BE in https://hello.jira.atlassian.cloud/browse/CEPS-1030
-							setTimeout(() => {
-								readyToCommit = true;
-								logger('reset readyToCommit');
-							}, 680 - latency);
-						} else {
+					if (latency < 680) {
+						// this most closely replicates the BE ack delay behaviour. 500ms hardcoded + 180ms network delay (tested on hello)
+						// more context: https://hello.atlassian.net/wiki/spaces/CEPS/pages/5020556010/Spike+Moving+BE+delay+to+the+FE
+						// to be switched over to backpressure delay sent from the BE in https://hello.jira.atlassian.cloud/browse/CEPS-1030
+						setTimeout(() => {
 							readyToCommit = true;
 							logger('reset readyToCommit');
-						}
+						}, 680 - latency);
 					} else {
-						if (latency < 400) {
-							setTimeout(() => {
-								readyToCommit = true;
-								logger('reset readyToCommit');
-							}, 100);
-						} else {
-							readyToCommit = true;
-							logger('reset readyToCommit');
-						}
+						readyToCommit = true;
+						logger('reset readyToCommit');
 					}
 				}
 
@@ -197,6 +186,10 @@ export const commitStepQueue = ({
 			},
 		);
 	} catch (error) {
+		// if the broadcast failed due to not yet being connected, then set readyToCommit to true so that we don't get stuck in the timeout if the connection is slow to succeed
+		if ((error as CustomError).name === 'NotConnectedError') {
+			readyToCommit = true;
+		}
 		analyticsHelper?.sendErrorEvent(error, 'Error while adding steps - Broadcast threw exception');
 		emit('commit-status', { status: 'failure', version });
 	}

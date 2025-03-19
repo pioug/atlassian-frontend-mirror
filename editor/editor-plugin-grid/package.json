@@ -28,10 +28,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-plugin-width": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "workspace:*",
+		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"classnames": "^2.2.5"

@@ -55,9 +55,9 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/editor-shared-styles": "workspace:*",
+		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"collapse-whitespace": "^1.1.6"
 	},
@@ -65,9 +65,9 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-json-transformer": "workspace:*",
-		"@atlaskit/editor-plugins": "workspace:*",
-		"@atlaskit/editor-test-helpers": "workspace:*",
+		"@atlaskit/editor-json-transformer": "workspace:^",
+		"@atlaskit/editor-plugins": "workspace:^",
+		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@emotion/react": "^11.7.1",
 		"pretty-data": "^0.40.0",
 		"typescript": "~5.4.2"

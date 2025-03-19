@@ -14,8 +14,6 @@ import { SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
 import { type BlockProps } from '../types';
 import { renderChildren } from '../utils';
 
-import BlockOld from './indexOld';
-
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
 const BaseBlockStylesOld = css({
 	alignItems: 'center',
@@ -156,7 +154,7 @@ const directionStyles = cssMap({
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const BlockNew = ({
+const Block = ({
 	children,
 	direction = SmartLinkDirection.Horizontal,
 	size = SmartLinkSize.Medium,
@@ -193,14 +191,6 @@ const BlockNew = ({
 			{renderChildren(children, size)}
 		</div>
 	);
-};
-
-const Block = (props: BlockProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <BlockNew {...props} />;
-	} else {
-		return <BlockOld {...props} />;
-	}
 };
 
 export default Block;

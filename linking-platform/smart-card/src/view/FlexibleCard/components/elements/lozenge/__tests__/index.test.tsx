@@ -1,8 +1,9 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import '@testing-library/jest-dom';
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
@@ -63,11 +64,11 @@ describe('Element: Lozenge', () => {
 		const overrideCss = css({
 			fontStyle: 'italic',
 		});
-		render(<Lozenge appearance={appearance} overrideCss={overrideCss} text={text} />);
+		render(<Lozenge appearance={appearance} css={overrideCss} text={text} />);
 
 		const element = await screen.findByTestId(testId);
 
-		expect(element).toHaveStyleDeclaration('font-style', 'italic');
+		expect(element).toHaveCompiledCss('font-style', 'italic');
 	});
 
 	describe('action', () => {

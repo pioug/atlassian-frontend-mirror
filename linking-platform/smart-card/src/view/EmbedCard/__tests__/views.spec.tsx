@@ -166,7 +166,8 @@ describe('EmbedCard Views', () => {
 				/>,
 			);
 			const view = screen.getByTestId('embed-content-wrapper');
-			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('auto');
+			expect(view).toHaveCompiledCss('overflow-x', 'auto');
+			expect(view).toHaveCompiledCss('overflow-y', 'auto');
 		});
 	});
 

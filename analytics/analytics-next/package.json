@@ -70,7 +70,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"prop-types": "^15.5.10",
 		"use-memo-one": "^1.1.1"
@@ -80,8 +80,8 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/ssr": "workspace:*",
-		"@atlassian/feature-flags-test-utils": "workspace:*",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"

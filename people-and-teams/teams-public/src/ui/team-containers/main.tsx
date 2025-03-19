@@ -148,7 +148,7 @@ export const TeamContainers = ({
 	return (
 		<>
 			<Stack space="space.200">
-				<Grid templateColumns="repeat(auto-fill, minmax(270px, 1fr))" gap="space.100">
+				<Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="space.100">
 					{teamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 						return (
 							<LinkedContainerCardComponent

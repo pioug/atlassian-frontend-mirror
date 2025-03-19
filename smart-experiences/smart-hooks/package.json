@@ -25,12 +25,12 @@
 		"team": "Search Platform: Search Experience"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-gas-types": "workspace:*",
-		"@atlaskit/analytics-listeners": "workspace:*",
-		"@atlaskit/analytics-next": "workspace:*",
-		"@atlaskit/smart-common": "workspace:*",
-		"@atlaskit/ufo": "workspace:*",
-		"@atlaskit/user-picker": "workspace:*",
+		"@atlaskit/analytics-gas-types": "workspace:^",
+		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/smart-common": "workspace:^",
+		"@atlaskit/ufo": "workspace:^",
+		"@atlaskit/user-picker": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"memoize-one": "^6.0.0",

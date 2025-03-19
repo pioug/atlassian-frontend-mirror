@@ -1,8 +1,5 @@
 import { type ReactNode, type Ref } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type SerializedStyles } from '@emotion/react';
-
 import {
 	type ActionName,
 	type ElementName,
@@ -26,13 +23,8 @@ export type BlockProps = {
 	direction?: SmartLinkDirection;
 
 	/**
-	 * Any additional CSS properties to apply to the block.
-	 * The use of this prop is **strongly** discouraged.
-	 * `@emotion/react` will be replaced with compiled.
-	 * @deprecated
+	 * For compiled css
 	 */
-	overrideCss?: SerializedStyles;
-
 	className?: string;
 
 	/**
@@ -83,14 +75,6 @@ export type BlockProps = {
  */
 export type ElementItem = {
 	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
-	 * No planned alternative.
-	 *
-	 * Additional CSS properties on the element.
-	 */
-	overrideCss?: SerializedStyles;
-
-	/**
 	 * The size of the element to display.
 	 */
 	size?: SmartLinkSize;
@@ -139,13 +123,6 @@ export type BaseActionItem = {
 	content?: React.ReactNode;
 
 	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
-	 * No planned alternative.
-	 * Additional CSS properties on the Action.
-	 */
-	overrideCss?: SerializedStyles;
-
-	/**
 	 * Determines the size of the Action. Corresponds to an Action appearance.
 	 */
 	size?: SmartLinkSize;
@@ -188,14 +165,6 @@ export type BaseDataActionItem = {
 	 * the onClick functionality will be hydrated by the action by default.
 	 */
 	onClick?: () => any;
-
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
-	 * No planned alternative.
-	 *
-	 * Additional CSS properties on the Action.
-	 */
-	overrideCss?: SerializedStyles;
 
 	/**
 	 * Determines the size of the Action. Corresponds to an Action appearance.

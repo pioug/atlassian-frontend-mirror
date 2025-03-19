@@ -20,7 +20,8 @@ export const MAX_ORDINAL = 100000;
 
 export const defaultEmojiHeight = 20;
 
-export const emojiPickerWidth = 350;
+export type EmojiPickerWidth = 350;
+export const emojiPickerWidth: EmojiPickerWidth = 350;
 
 export const sizeGap = 80;
 

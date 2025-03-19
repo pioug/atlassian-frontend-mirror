@@ -5,7 +5,6 @@ order: 0
 import TooltipDefault from '../../examples/constellation/tooltip-default';
 import TooltipPosition from '../../examples/constellation/tooltip-position';
 import TooltipPositionMouse from '../../examples/constellation/tooltip-position-mouse';
-import TooltipComponent from '../../examples/constellation/tooltip-component';
 import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title';
 import TooltipCustomization from '../../examples/constellation/tooltip-customization';
 import TooltipUpdate from '../../examples/constellation/tooltip-update';
@@ -33,13 +32,15 @@ customize where the tooltip shows in relation to the mouse.
 
 <Example Component={TooltipPositionMouse} packageName="@atlaskit/tooltip" />
 
-## Custom component
+## Customizing tooltip
 
 The tooltip component accepts a component prop, which you can use to customize the look and feel of
 the tooltip area. Never put links or other interactive components in tooltips because this isn't
 accessible.
 
-<Example Component={TooltipComponent} packageName="@atlaskit/tooltip" />
+You can use the `TooltipPrimitive` component to customize the style of the default tooltip.
+
+<Example Component={TooltipCustomization} packageName="@atlaskit/tooltip" />
 
 ## Accessibility issues using 'title'
 
@@ -50,12 +51,6 @@ attribute isn't supported consistently across screen readers, and is inaccessibl
 keyboard-only users and mobile phone users.
 
 <Example Component={TooltipAvoidTitle} packageName="@atlaskit/tooltip" />
-
-## Customization
-
-Use `TooltipPrimitive` to customize the style of a default tooltip.
-
-<Example Component={TooltipCustomization} packageName="@atlaskit/tooltip" />
 
 ## Updating tooltip position
 

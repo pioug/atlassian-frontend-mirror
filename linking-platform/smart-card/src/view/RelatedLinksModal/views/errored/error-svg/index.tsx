@@ -4,10 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import { ErrorSVGOld } from './ErrorSvgOld';
 
 const errorStyles = css({
 	width: '80px',
@@ -18,7 +15,7 @@ const errorStyles = css({
 	display: 'block',
 });
 
-const ErrorSVGNew = (props: React.SVGProps<SVGSVGElement>) => {
+export const ErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
 	const id = 'related-links-error-svg';
 
 	return (
@@ -62,12 +59,4 @@ const ErrorSVGNew = (props: React.SVGProps<SVGSVGElement>) => {
 			</defs>
 		</svg>
 	);
-};
-
-export const ErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
-	if (!fg('bandicoots-compiled-migration-smartcard')) {
-		return <ErrorSVGNew {...props} />;
-	} else {
-		return <ErrorSVGOld {...props} />;
-	}
 };

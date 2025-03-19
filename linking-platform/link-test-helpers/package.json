@@ -44,7 +44,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/linking-types": "workspace:*",
+		"@atlaskit/linking-types": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@jest/globals": "^26.4.2",
 		"@testing-library/react": "^13.4.0",

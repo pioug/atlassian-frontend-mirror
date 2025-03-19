@@ -8,15 +8,12 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import { Frame } from '../components/ErrorFrame';
-
-import { EmbedCardErroredViewOld } from './ErroredViewOld';
 
 export interface ErroredViewProps {
 	onRetry?: (val: any) => void;
@@ -32,7 +29,7 @@ const styles = cssMap({
 	},
 });
 
-const EmbedCardErroredViewNew = ({
+export const EmbedCardErroredView = ({
 	onRetry,
 	isSelected = false,
 	testId = 'embed-card-errored-view',
@@ -55,11 +52,3 @@ const EmbedCardErroredViewNew = ({
 		</Button>
 	</Frame>
 );
-
-export const EmbedCardErroredView = (props: ErroredViewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <EmbedCardErroredViewNew {...props} />;
-	} else {
-		return <EmbedCardErroredViewOld {...props} />;
-	}
-};

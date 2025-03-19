@@ -54,30 +54,32 @@ export const getOverflowFloatingToolbarConfig = ({
 		},
 	];
 
-	if (toolbarDocking === 'none') {
-		dropdownOptions.push(
-			{
-				type: 'overflow-dropdown-heading',
-				title: 'Toolbar appears',
+	const isDockedToTop = toolbarDocking === 'top';
+
+	dropdownOptions.push(
+		{
+			type: 'overflow-dropdown-heading',
+			title: 'Toolbar appears',
+		},
+		{
+			title: 'In-line with text',
+			onClick: () => {
+				return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 			},
-			{
-				title: 'In-line with text',
-				onClick: () => {
-					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
-				},
-				icon: <ContextualToolbarIcon label="Contextual toolbar" />,
-				selected: true,
-				elemAfter: <CheckMarkIcon label="" />,
+			icon: <ContextualToolbarIcon label="Contextual toolbar" />,
+			selected: !isDockedToTop,
+			elemAfter: !isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
+		},
+		{
+			title: 'Fixed at top',
+			onClick: () => {
+				return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 			},
-			{
-				title: 'Fixed at top',
-				onClick: () => {
-					return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
-				},
-				icon: <FixedToolbarIcon label="Fixed toolbar" />,
-			},
-		);
-	}
+			icon: <FixedToolbarIcon label="Fixed toolbar" />,
+			selected: isDockedToTop,
+			elemAfter: isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
+		},
+	);
 
 	return [
 		{ type: 'separator', fullHeight: true },

@@ -28,8 +28,8 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/app-provider": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/app-provider": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -37,15 +37,15 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "workspace:*",
-		"@af/integration-testing": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/docs": "workspace:*",
-		"@atlaskit/ds-lib": "workspace:*",
-		"@atlaskit/link": "workspace:*",
-		"@atlaskit/primitives": "workspace:*",
-		"@atlaskit/section-message": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
+		"@af/accessibility-testing": "workspace:^",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/link": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

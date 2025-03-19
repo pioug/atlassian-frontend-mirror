@@ -1,7 +1,10 @@
-import React, { PureComponent } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
@@ -149,8 +152,8 @@ describe('Element: Icon', () => {
 
 			const element = await screen.findByTestId('smart-element-icon');
 
-			expect(element).toHaveStyleDeclaration('height', expectedSize);
-			expect(element).toHaveStyleDeclaration('width', expectedSize);
+			expect(element).toHaveCompiledCss('height', expectedSize);
+			expect(element).toHaveCompiledCss('width', expectedSize);
 		});
 	});
 
@@ -163,7 +166,7 @@ describe('Element: Icon', () => {
 
 			const element = await screen.findByTestId('smart-element-icon');
 
-			expect(element).toHaveStyleDeclaration('align-self', expectedAlignSelf);
+			expect(element).toHaveCompiledCss('align-self', expectedAlignSelf);
 		});
 	});
 
@@ -197,10 +200,10 @@ describe('Element: Icon', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		render(<Icon overrideCss={overrideCss} />);
+		render(<Icon css={overrideCss} />);
 
 		const element = await screen.findByTestId('smart-element-icon');
 
-		expect(element).toHaveStyleDeclaration('background-color', 'blue');
+		expect(element).toHaveCompiledCss('background-color', 'blue');
 	});
 });

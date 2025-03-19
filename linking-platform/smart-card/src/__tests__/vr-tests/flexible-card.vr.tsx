@@ -25,7 +25,6 @@ import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui
 // Variants
 snapshot(FlexibleUiOptions, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -40,7 +39,6 @@ snapshot(FlexibleUiComposition, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -56,7 +54,6 @@ snapshot(FlexibleUiBlock, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -70,7 +67,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -93,7 +89,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -116,7 +111,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -130,42 +124,36 @@ snapshot(FlexibleUiBlockMetadata, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockSnippet, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockPreview, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockActionList, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiBlockAction, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -173,7 +161,6 @@ snapshot(FlexibleUiBlockAction, {
 snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -183,7 +170,6 @@ snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -193,7 +179,6 @@ snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -202,14 +187,12 @@ snapshot(FlexibleUiBlockActionGroup, {
 // Elements
 snapshot(FlexibleUiElementLink, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiElementLozenge, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -223,21 +206,18 @@ snapshot(FlexibleUiElementBadge, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(FlexibleUiElementMedia, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -255,7 +235,6 @@ snapshot(FlexibleUiHoverCard, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -271,7 +250,6 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -289,7 +267,6 @@ snapshot(FlexibleUiAccessibility, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -306,7 +283,6 @@ snapshot(FlexibleUiAccessibility, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -322,7 +298,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -338,7 +313,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -354,7 +328,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -363,7 +336,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 // Error states
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},

@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SmartLinkSize } from '../../../../../constants';
 
 import ActionButton from './action-button';
 import ActionDropdownItem from './action-dropdown-item';
 import ActionIcon from './action-icon';
 import ActionStackItem from './action-stack-item';
-import ActionOld from './ActionOld';
 import { type ActionProps } from './types';
 
 /**
@@ -16,7 +13,7 @@ import { type ActionProps } from './types';
  * @internal
  * @param {ActionProps} ActionProps - The props necessary for the Action.
  */
-const ActionNew = ({
+const Action = ({
 	as,
 	appearance = 'subtle',
 	content,
@@ -111,13 +108,6 @@ const ActionNew = ({
 		/>
 	);
 	return Wrapper !== undefined ? <Wrapper>{button}</Wrapper> : button;
-};
-
-const Action = (props: ActionProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ActionNew {...props} />;
-	}
-	return <ActionOld {...props} />;
 };
 
 export default Action;

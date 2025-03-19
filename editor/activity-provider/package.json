@@ -38,7 +38,7 @@
 		"team": "Editor"
 	},
 	"dependencies": {
-		"@atlaskit/util-service-support": "workspace:*",
+		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.1.1
+
+### Patch Changes
+
+- [#127516](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127516)
+  [`f4f3e822fcbd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4f3e822fcbd8) -
+  updated default value in config for editor virt experiment
+
 ## 4.1.0
 
 ### Minor Changes

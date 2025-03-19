@@ -25,8 +25,6 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButtonOldVisualRefresh } from '../styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
-import { InlineCardUnauthorizedViewOld } from './InlineCardUnauthorizedViewOld';
-
 const styles = cssMap({
 	iconWrapper: { marginRight: token('space.negative.025') },
 	fallbackIconWrapper: {
@@ -95,7 +93,7 @@ const fallbackUnauthorizedIcon = () => {
 	);
 };
 
-const InlineCardUnauthorizedViewNew = ({
+export const InlineCardUnauthorizedView = ({
 	url,
 	id,
 	icon,
@@ -167,11 +165,4 @@ const InlineCardUnauthorizedViewNew = ({
 	}
 
 	return inlineCardUnauthenticatedView;
-};
-
-export const InlineCardUnauthorizedView = (props: InlineCardUnauthorizedViewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <InlineCardUnauthorizedViewNew {...props} />;
-	}
-	return <InlineCardUnauthorizedViewOld {...props} />;
 };

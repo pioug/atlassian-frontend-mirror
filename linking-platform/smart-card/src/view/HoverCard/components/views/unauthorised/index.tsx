@@ -27,7 +27,6 @@ import {
 } from '../../../../FlexibleCard/components/blocks/types';
 import { LinkIcon } from '../../../../FlexibleCard/components/elements';
 
-import HoverCardUnauthorisedViewOld from './HoverCardUnauthorisedViewOld';
 import { type HoverCardUnauthorisedProps } from './types';
 
 const connectButtonStylesOld = css({
@@ -66,7 +65,7 @@ const mainTextStyles = css({
 	font: token('font.body.UNSAFE_small'),
 });
 
-const HoverCardUnauthorisedViewNew = ({
+const HoverCardUnauthorisedView = ({
 	id = '',
 	flexibleCardProps,
 	testId = 'hover-card-unauthorised-view',
@@ -135,14 +134,6 @@ const HoverCardUnauthorisedViewNew = ({
 			</CustomBlock>
 		</FlexibleCard>
 	);
-};
-
-const HoverCardUnauthorisedView = (props: HoverCardUnauthorisedProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <HoverCardUnauthorisedViewNew {...props} />;
-	} else {
-		return <HoverCardUnauthorisedViewOld {...props} />;
-	}
 };
 
 export default HoverCardUnauthorisedView;

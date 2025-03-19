@@ -73,6 +73,11 @@ const iconWrapperStyles = xcss({
 	alignItems: 'center',
 });
 
+// update color to match quick insert button for new editor controls
+const dragHandleColor = css({
+	color: token('color.icon.subtle'),
+});
+
 const dragHandleButtonStyles = css({
 	position: 'absolute',
 	padding: `${token('space.025', '2px')} 0`,
@@ -89,6 +94,7 @@ const dragHandleButtonStyles = css({
 	background: 'transparent',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
+	// when platform_editor_controls is enabled, the drag handle color is overridden. Update color here when experiment is cleaned up.
 	color: token('color.icon', '#44546F'),
 	cursor: 'grab',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -802,6 +808,7 @@ export const DragHandle = ({
 			type="button"
 			css={[
 				dragHandleButtonStyles,
+				editorExperiment('platform_editor_controls', 'variant1') && dragHandleColor,
 				// ED-26266: Fixed the drag handle highlight when selecting multiple line in Firefox
 				// See https://product-fabric.atlassian.net/browse/ED-26266
 				browser.gecko &&

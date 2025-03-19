@@ -41,10 +41,10 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/codemod-utils": "workspace:*",
-		"@atlaskit/platform-feature-flags": "workspace:*",
-		"@atlaskit/primitives": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/codemod-utils": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.2"
 	},
@@ -52,16 +52,16 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/accessibility-testing": "workspace:*",
-		"@af/integration-testing": "workspace:*",
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/docs": "workspace:*",
-		"@atlaskit/ds-lib": "workspace:*",
-		"@atlaskit/link": "workspace:*",
-		"@atlaskit/section-message": "workspace:*",
-		"@atlaskit/ssr": "workspace:*",
-		"@atlaskit/theme": "workspace:*",
-		"@atlassian/feature-flags-test-utils": "workspace:*",
+		"@af/accessibility-testing": "workspace:^",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/link": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
+		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/theme": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"

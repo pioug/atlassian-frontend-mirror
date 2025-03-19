@@ -7,15 +7,12 @@ import { type Dispatch, type SetStateAction } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap, jsx } from '@atlaskit/css';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import type { ManualRule } from '../../../manual-triggers-container/common/types';
 import { useAutomationMenu } from '../../menu-context';
-
-import { AutomationModalRuleOld } from './AutomationModalRuleOld';
 
 const styles = cssMap({
 	ruleButtonStyle: {
@@ -41,7 +38,7 @@ type AutomationModalRuleProps = {
 	setSelectedRule: Dispatch<SetStateAction<ManualRule | undefined>>;
 };
 
-const AutomationModalRuleNew = ({
+export const AutomationModalRule = ({
 	rule,
 	selectedRule,
 	setSelectedRule,
@@ -85,11 +82,4 @@ const AutomationModalRuleNew = ({
 			</ButtonItem>
 		</Box>
 	);
-};
-
-export const AutomationModalRule = (props: AutomationModalRuleProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AutomationModalRuleNew {...props} />;
-	}
-	return <AutomationModalRuleOld {...props} />;
 };

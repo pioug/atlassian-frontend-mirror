@@ -7,8 +7,6 @@ import { Fragment, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { SmartLinkDirection } from '../../../../../../constants';
 import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
 import AISummary from '../../../../../common/ai-summary';
@@ -16,8 +14,6 @@ import MotionWrapper from '../../../common/motion-wrapper';
 import Block from '../../block';
 import AIEventSummaryViewed from '../ai-event-summary-viewed';
 import type { AISummaryBlockProps } from '../types';
-
-import AISummaryBlockResolvedViewOld from './AISummaryBlockResolvedViewOld';
 
 type AISummaryBlockResolvedViewProps = AISummaryBlockProps & {
 	/**
@@ -30,7 +26,7 @@ const styles = css({
 	overflow: 'visible',
 });
 
-const AISummaryBlockResolvedViewNew = (props: AISummaryBlockResolvedViewProps) => {
+const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
 	di(useAISummaryAction, AISummary);
 
 	const { testId, aiSummaryMinHeight = 0, placeholder, url } = props;
@@ -73,14 +69,6 @@ const AISummaryBlockResolvedViewNew = (props: AISummaryBlockResolvedViewProps) =
 			</MotionWrapper>
 		</Block>
 	);
-};
-
-const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AISummaryBlockResolvedViewNew {...props} />;
-	} else {
-		return <AISummaryBlockResolvedViewOld {...props} />;
-	}
 };
 
 export default AISummaryBlockResolvedView;

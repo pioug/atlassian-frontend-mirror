@@ -37,7 +37,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/jql-editor-common": "workspace:*",
+		"@atlaskit/jql-editor-common": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"react-magnetic-di": "^3.1.4",
@@ -49,7 +49,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/docs": "workspace:^",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",

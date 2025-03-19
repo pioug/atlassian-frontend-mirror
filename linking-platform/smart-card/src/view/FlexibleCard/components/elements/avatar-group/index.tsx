@@ -15,7 +15,6 @@ import { ElementName, SmartLinkSize } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { getFormattedMessageAsString } from '../../utils';
 
-import AvatarGroupOld from './AvatarGroupOld';
 import { type AvatarGroupProps } from './types';
 
 const MAX_COUNT = 4;
@@ -99,7 +98,7 @@ const getPersonNameWithPrefix = (
  * @see AuthorGroup
  * @see CollaboratorGroup
  */
-const AvatarGroupNew = ({
+const AvatarGroup = ({
 	items = [],
 	maxCount = MAX_COUNT,
 	name,
@@ -162,14 +161,6 @@ const AvatarGroupNew = ({
 			/>
 		</span>
 	);
-};
-
-const AvatarGroup = (props: AvatarGroupProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AvatarGroupNew {...props} />;
-	} else {
-		return <AvatarGroupOld {...props} />;
-	}
 };
 
 export default AvatarGroup;

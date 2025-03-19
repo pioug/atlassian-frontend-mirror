@@ -84,6 +84,11 @@ export default defineMessages({
 		defaultMessage: 'Align left',
 		description: 'Aligns image to the left',
 	},
+	delete: {
+		id: 'fabric.editor.delete',
+		defaultMessage: 'Delete',
+		description: 'Delete the element (image, panel, table, etc.) from your document',
+	},
 	remove: {
 		id: 'fabric.editor.remove',
 		defaultMessage: 'Remove',

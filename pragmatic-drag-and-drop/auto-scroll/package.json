@@ -54,11 +54,11 @@
 		"./unsafe-overflow/text-selection": "./src/entry-point/unsafe-overflow/text-selection.ts"
 	},
 	"dependencies": {
-		"@atlaskit/pragmatic-drag-and-drop": "workspace:*",
+		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
-		"@af/integration-testing": "workspace:*",
+		"@af/integration-testing": "workspace:^",
 		"@testing-library/dom": "^10.1.0",
 		"bind-event-listener": "^3.0.0",
 		"raf-stub": "^2.0.1",

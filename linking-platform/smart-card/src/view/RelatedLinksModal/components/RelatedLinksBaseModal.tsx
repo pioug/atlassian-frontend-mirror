@@ -15,13 +15,11 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
 
-import RelatedLinksBaseModalOld from './RelatedLinksBaseModalOld';
 import { type RelatedLinksBaseModalProps } from './types';
 
 const styles = cssMap({
@@ -80,12 +78,4 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 	);
 };
 
-const RelatedLinksBaseModalExported = (props: RelatedLinksBaseModalProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <RelatedLinksBaseModal {...props} />;
-	} else {
-		return <RelatedLinksBaseModalOld {...props} />;
-	}
-};
-
-export default RelatedLinksBaseModalExported;
+export default RelatedLinksBaseModal;

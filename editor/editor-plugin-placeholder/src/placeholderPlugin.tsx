@@ -103,7 +103,7 @@ function createPlaceHolderStateFrom(
 		return setPlaceHolderState(defaultPlaceholderText);
 	}
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
+	if (isEditorFocused && editorExperiment('platform_editor_controls', 'variant1')) {
 		const { $from, $to } = editorState.selection;
 
 		if ($from.pos !== $to.pos) {
@@ -138,6 +138,7 @@ function createPlaceHolderStateFrom(
 		const bracketHint = '  ' + bracketPlaceholderText;
 		return setPlaceHolderState(bracketHint, $from.pos - 1);
 	}
+
 	return emptyPlaceholder(defaultPlaceholderText);
 }
 
@@ -166,7 +167,6 @@ export function createPlugin(
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
 				const isEditorFocused = Boolean(api?.focus?.sharedState.currentState()?.hasFocus);
-
 				if (meta?.placeholderText !== undefined) {
 					return createPlaceHolderStateFrom(
 						isEditorFocused,
@@ -193,7 +193,6 @@ export function createPlugin(
 				const { hasPlaceholder, placeholderText, pos } = getPlaceholderState(editorState);
 
 				const compositionPluginState = api?.composition?.sharedState.currentState();
-
 				if (
 					hasPlaceholder &&
 					placeholderText &&

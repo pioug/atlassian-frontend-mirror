@@ -37,9 +37,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/link-extractors": "workspace:*",
-		"@atlaskit/linking-common": "workspace:*",
-		"@atlaskit/platform-feature-flags": "workspace:*",
+		"@atlaskit/link-extractors": "workspace:^",
+		"@atlaskit/linking-common": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"async-retry": "^1.2.3",
 		"dataloader": "^2.1.0",
@@ -52,8 +52,8 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/media-test-helpers": "workspace:*",
-		"@atlassian/feature-flags-test-utils": "workspace:*",
+		"@atlaskit/media-test-helpers": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@types/async-retry": "^1.4.1",

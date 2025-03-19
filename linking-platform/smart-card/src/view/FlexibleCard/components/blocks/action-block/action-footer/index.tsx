@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 import { type ActionMessageAppearance } from '../../../actions/action/types';
 import MotionWrapper from '../../../common/motion-wrapper';
 
-import { ActionFooterOld } from './ActionFooterOld';
 import { type ActionFooterProps } from './types';
 
 const containerStyles = css({
@@ -81,7 +80,7 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 	}
 };
 
-const ActionFooterNew = ({ message, testId }: ActionFooterProps) => {
+export const ActionFooter = ({ message, testId }: ActionFooterProps) => {
 	if (!message) {
 		return null;
 	}
@@ -120,11 +119,4 @@ const ActionFooterNew = ({ message, testId }: ActionFooterProps) => {
 			</MotionWrapper>
 		</div>
 	);
-};
-
-export const ActionFooter = (props: ActionFooterProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ActionFooterNew {...props} />;
-	}
-	return <ActionFooterOld {...props} />;
 };

@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
 import { MediaType } from '../../../../../../constants';
@@ -53,11 +54,11 @@ describe('Element: Media', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		render(<Media overrideCss={overrideCss} type={MediaType.Image} url="src-loaded" />);
+		render(<Media css={overrideCss} type={MediaType.Image} url="src-loaded" />);
 
 		const element = await screen.findByTestId(testId);
 
-		expect(element).toHaveStyleDeclaration('background-color', 'blue');
+		expect(element).toHaveCompiledCss('background-color', 'blue');
 	});
 
 	describe('Image', () => {

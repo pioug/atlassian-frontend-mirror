@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.3.0
+
+### Minor Changes
+
+- [#127253](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127253)
+  [`a2593d5c73ccb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2593d5c73ccb) -
+  [ux] Table overflow menu on floating toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.5
+
+### Patch Changes
+
+- [#128611](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128611)
+  [`428548761fab9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/428548761fab9) -
+  [ux] ED-27133 fix toolbar link button
+- Updated dependencies
+
 ## 3.2.4
 
 ### Patch Changes

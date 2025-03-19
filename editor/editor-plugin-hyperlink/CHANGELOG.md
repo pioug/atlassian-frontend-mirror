@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.2.9
+
+### Patch Changes
+
+- [#128611](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128611)
+  [`428548761fab9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/428548761fab9) -
+  [ux] ED-27133 fix toolbar link button
+- Updated dependencies
+
 ## 4.2.8
 
 ### Patch Changes

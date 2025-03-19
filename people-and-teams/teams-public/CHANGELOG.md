@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.13.0
+
+### Minor Changes
+
+- [#128756](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128756)
+  [`348d4bf0e1b06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/348d4bf0e1b06) -
+  [ux] Allow two columns per row in teams and containers section
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.0
 
 ### Minor Changes

@@ -36,14 +36,14 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/jql-parser": "workspace:*",
+		"@atlaskit/jql-parser": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"antlr4ts": "0.5.0-alpha.4",
 		"lodash": "^4.17.21",
 		"memoize-one": "^6.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "workspace:*",
+		"@atlaskit/docs": "workspace:^",
 		"fast-csv": "^4.3.1",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

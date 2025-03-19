@@ -34,9 +34,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "workspace:*",
-		"@atlaskit/badge": "workspace:*",
-		"@atlaskit/notification-log-client": "workspace:*",
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/badge": "workspace:^",
+		"@atlaskit/notification-log-client": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"techstack": {

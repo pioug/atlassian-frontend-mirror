@@ -4,11 +4,9 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import AIGlowingBorder from './ai-glowing-border';
-import AIPrismOld from './AIPrismOld';
 import { AI_BORDER_PALETTE } from './constants';
 import type { AIPrismProps } from './types';
 
@@ -43,7 +41,7 @@ const popupContainerStyles = css({
 	),
 });
 
-const AIPrismNew = ({
+const AIPrism = ({
 	children,
 	isGlowing = true,
 	isMoving = true,
@@ -71,13 +69,6 @@ const AIPrismNew = ({
 			</div>
 		</AIGlowingBorder>
 	);
-};
-
-const AIPrism = (props: AIPrismProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AIPrismNew {...props} />;
-	}
-	return <AIPrismOld {...props} />;
 };
 
 export default AIPrism;

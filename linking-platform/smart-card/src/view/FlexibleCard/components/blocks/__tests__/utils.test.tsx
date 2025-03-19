@@ -4,22 +4,12 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
-import {
-	ElementName,
-	SmartLinkDirection,
-	SmartLinkSize,
-	SmartLinkStatus,
-} from '../../../../../constants';
+import { ElementName, SmartLinkStatus } from '../../../../../constants';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type ElementItem } from '../../blocks/types';
 import Block from '../block';
 import { MetadataBlock } from '../index';
-import {
-	ElementDisplaySchema,
-	type ElementDisplaySchemaType,
-	getBaseStyles,
-	renderElementItems,
-} from '../utils';
+import { ElementDisplaySchema, type ElementDisplaySchemaType, renderElementItems } from '../utils';
 
 const TestRenderElementItemBlock = ({
 	display,
@@ -30,32 +20,6 @@ const TestRenderElementItemBlock = ({
 }) => {
 	return <Block>{renderElementItems(metadata, display)}</Block>;
 };
-
-describe('getBaseStyles', () => {
-	describe('getDirectionStyles', () => {
-		it.each([
-			[SmartLinkDirection.Horizontal, 'row'],
-			[SmartLinkDirection.Vertical, 'column'],
-		])('renders children in %s', (direction: SmartLinkDirection, expected: string) => {
-			const { styles } = getBaseStyles(direction, SmartLinkSize.Medium);
-
-			expect(styles).toEqual(expect.stringContaining(`flex-direction:${expected}`));
-		});
-	});
-
-	describe('getGapSize', () => {
-		it.each([
-			[SmartLinkSize.XLarge, '1.25rem'],
-			[SmartLinkSize.Large, '1rem'],
-			[SmartLinkSize.Medium, '0.5rem'],
-			[SmartLinkSize.Small, '0.25rem'],
-		])('renders element in %s size', (size: SmartLinkSize, expected: string) => {
-			const { styles } = getBaseStyles(SmartLinkDirection.Horizontal, size);
-
-			expect(styles).toEqual(expect.stringContaining(`gap:${expected}`));
-		});
-	});
-});
 
 describe('renderElementItems', () => {
 	const getElementTestId = (name: ElementName, testId: string) => {

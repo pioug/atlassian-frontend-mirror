@@ -21,5 +21,8 @@ export const noDialogContainerBoxShadow = token(
 export const akEmojiSelectedBackgroundColor = token('color.background.neutral.subtle.hovered', N30);
 export const emojiPreviewSelectedColor = token('color.background.neutral', N30);
 
-export const emojiTypeAheadMaxHeight = 350;
-export const emojiTypeAheadWidth = 350;
+export const emojiTypeAheadMaxHeight: EmojiTypeAheadMaxHeight = 350;
+export const emojiTypeAheadWidth: EmojiTypeAheadWidth = 350;
+
+export type EmojiTypeAheadWidth = 350;
+export type EmojiTypeAheadMaxHeight = 350;

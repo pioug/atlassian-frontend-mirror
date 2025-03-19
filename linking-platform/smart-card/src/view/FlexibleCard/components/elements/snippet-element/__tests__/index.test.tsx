@@ -1,7 +1,10 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -33,7 +36,7 @@ describe('Snippet', () => {
 		setup({ snippet: snippetContent });
 		const snippet = screen.queryByTestId(testId);
 		expect(snippet).toHaveTextContent(snippetContent);
-		expect(snippet).toHaveStyleDeclaration('color', 'var(--ds-text, #172B4D)');
+		expect(snippet).toHaveCompiledCss('color', 'var(--ds-text,#172b4d)');
 	});
 
 	it('does not renders Snippet element without data context', () => {
@@ -80,49 +83,63 @@ describe('Snippet', () => {
 		it('renders Snippet element with default maxLines', () => {
 			setup({ snippet: snippetContent });
 			const snippet = screen.queryByTestId(testId);
-			expect(snippet).toHaveStyleDeclaration('-webkit-line-clamp', '3');
+			expect(snippet).toHaveCompiledCss('-webkit-line-clamp', '3');
 		});
 
 		it('renders Snippet element with provided maxLines', () => {
 			setup({ snippet: snippetContent }, { maxLines: 1 });
 			const snippet = screen.queryByTestId(testId);
-			expect(snippet).toHaveStyleDeclaration('-webkit-line-clamp', '1');
+			expect(snippet).toHaveCompiledCss('-webkit-line-clamp', '1');
 		});
 	});
 
 	describe('overrideCss', () => {
-		const defaultColor = 'var(--ds-text, #172B4D)';
+		const defaultColor = 'var(--ds-text,#172b4d)';
 		it('renders Snippet element with default styles', () => {
 			setup({ snippet: snippetContent });
 			const snippet = screen.queryByTestId(testId);
-			expect(snippet).toHaveStyleDeclaration('color', defaultColor);
+			expect(snippet).toHaveCompiledCss('color', defaultColor);
 		});
 
 		it('renders Snippet element with provided styles', () => {
-			setup(
-				{ snippet: snippetContent },
-				{
-					overrideCss: css({
-						margin: token('space.1000', '80px'),
-					}),
-				},
+			const overrideCss = css({
+				marginTop: token('space.1000', '80px'),
+				marginRight: token('space.1000', '80px'),
+				marginBottom: token('space.1000', '80px'),
+				marginLeft: token('space.1000', '80px'),
+			});
+
+			render(
+				<IntlProvider locale="en">
+					<FlexibleUiContext.Provider value={{ snippet: snippetContent }}>
+						<Snippet testId={testId} css={overrideCss} />
+					</FlexibleUiContext.Provider>
+				</IntlProvider>,
 			);
 			const snippet = screen.queryByTestId(testId);
-			expect(snippet).toHaveStyleDeclaration('color', defaultColor);
-			expect(snippet).toHaveStyleDeclaration('margin', 'var(--ds-space-1000, 80px)');
+			expect(snippet).toHaveCompiledCss('color', defaultColor);
+			expect(snippet).toHaveCompiledCss({
+				marginTop: 'var(--ds-space-1000,5pc)',
+				marginBottom: 'var(--ds-space-1000,5pc)',
+				marginLeft: 'var(--ds-space-1000,5pc)',
+				marginRight: 'var(--ds-space-1000,5pc)',
+			});
 		});
 
 		it('renders Snippet element with override styles', () => {
-			setup(
-				{ snippet: snippetContent },
-				{
-					overrideCss: css({
-						color: 'white',
-					}),
-				},
+			const overrideCss = css({
+				color: 'white',
+			});
+
+			render(
+				<IntlProvider locale="en">
+					<FlexibleUiContext.Provider value={{ snippet: snippetContent }}>
+						<Snippet testId={testId} css={overrideCss} />
+					</FlexibleUiContext.Provider>
+				</IntlProvider>,
 			);
 			const snippet = screen.queryByTestId(testId);
-			expect(snippet).toHaveStyleDeclaration('color', 'white');
+			expect(snippet).toHaveCompiledCss('color', '#fff');
 		});
 	});
 });

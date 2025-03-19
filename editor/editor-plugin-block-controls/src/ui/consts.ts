@@ -32,6 +32,7 @@ export const DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH = 3;
 export const QUICK_INSERT_HEIGHT = 24;
 export const QUICK_INSERT_WIDTH = 24;
 export const QUICK_INSERT_DIMENSIONS = { width: QUICK_INSERT_WIDTH, height: QUICK_INSERT_HEIGHT };
+export const QUICK_INSERT_LEFT_OFFSET = 16;
 
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 

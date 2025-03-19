@@ -37,15 +37,15 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlaskit/adf-utils": "workspace:*",
-		"@atlaskit/emoji": "workspace:*",
+		"@atlaskit/adf-utils": "workspace:^",
+		"@atlaskit/emoji": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "workspace:*",
+		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"typescript": "~5.4.2"

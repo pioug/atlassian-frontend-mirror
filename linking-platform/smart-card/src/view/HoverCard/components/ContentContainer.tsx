@@ -7,14 +7,12 @@ import { useEffect, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import useAISummaryAction from '../../../state/hooks/use-ai-summary-action';
 import AIPrism from '../../common/ai-prism';
 import type { ContentContainerProps } from '../types';
 
-import ContentContainerOld from './ContentContainerOld';
 import { hoverCardClassName } from './HoverCardContent';
 
 const NEW_CARD_WIDTH_REM = 25;
@@ -92,12 +90,4 @@ const ContentContainer = ({
 	</ConnectedAIPrismContainer>
 );
 
-const Exported = (props: ContentContainerProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ContentContainer {...props} />;
-	} else {
-		return <ContentContainerOld {...props} />;
-	}
-};
-
-export default Exported;
+export default ContentContainer;

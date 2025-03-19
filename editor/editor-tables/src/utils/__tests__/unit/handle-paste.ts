@@ -433,6 +433,39 @@ describe('handle paste', () => {
 						</table>
 					</body>
 					</html>`;
+
+		const excelTable2x2 = `<html xmlns:v="urn:schemas-microsoft-com:vml"
+			xmlns:o="urn:schemas-microsoft-com:office:office"
+			xmlns:x="urn:schemas-microsoft-com:office:excel"
+			xmlns="http://www.w3.org/TR/REC-html40">
+
+			<head>
+			<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+			<meta name=ProgId content=Excel.Sheet>
+			<meta name=Generator content="Microsoft Excel 15">
+			</head>
+
+			<body link="#0563C1" vlink="#954F72">
+
+			<table border=0 cellpadding=0 cellspacing=0 width=174 style='border-collapse:
+			collapse;width:130pt'>
+			<!--StartFragment-->
+			<col width=87 span=2 style='width:65pt'>
+			<tr height=21 style='height:16.0pt'>
+				<td height=21 align=right width=87 style='height:16.0pt;width:65pt'>1</td>
+				<td align=right width=87 style='width:65pt'>2</td>
+			</tr>
+			<tr height=21 style='height:16.0pt'>
+				<td height=21 align=right style='height:16.0pt'>3</td>
+				<td align=right>4</td>
+			</tr>
+			<!--EndFragment-->
+			</table>
+
+			</body>
+
+			</html>
+			`;
 		ffTest.on(
 			'platform_editor_use_nested_table_pm_nodes',
 			'with nested table nodes enabled',
@@ -513,7 +546,7 @@ describe('handle paste', () => {
 							expect(editorView.state.doc).toEqualDocument(expectedResult);
 						});
 
-						it('merges partial table as nested table', () => {
+						it('merges partial table instead of nesting', () => {
 							const { editorView } = editor(
 								doc(
 									table({ localId })(
@@ -533,6 +566,33 @@ describe('handle paste', () => {
 									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
 									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
 									tr(td()(p('7')), td()(p(strong('1'))), td()(p(strong('2')))),
+									tr(td()(p()), td()(p('3')), td()(p('4'))),
+								),
+							);
+
+							expect(editorView.state.doc).toEqualDocument(expectedResult);
+						});
+
+						it('merges table full table copied from excel', () => {
+							const { editorView } = editor(
+								doc(
+									table({ localId })(
+										tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+										tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+										tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+									),
+								),
+							);
+
+							dispatchPasteEvent(editorView, {
+								html: excelTable2x2,
+							});
+
+							const expectedResult = doc(
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+									tr(td()(p('7')), td()(p('1')), td()(p('2'))),
 									tr(td()(p()), td()(p('3')), td()(p('4'))),
 								),
 							);
@@ -592,6 +652,34 @@ describe('handle paste', () => {
 									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
 									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
 									tr(td()(p('7')), td()(p(strong('1'))), td()(p(strong('2')))),
+									tr(td()(p()), td()(p('3')), td()(p('4'))),
+								),
+							);
+
+							expect(editorView.state.doc).toEqualDocument(expectedResult);
+						});
+
+						// eslint-disable-next-line jest/no-identical-title
+						it('merges table full table copied from excel', () => {
+							const { editorView } = editor(
+								doc(
+									table({ localId })(
+										tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+										tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+										tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+									),
+								),
+							);
+
+							dispatchPasteEvent(editorView, {
+								html: excelTable2x2,
+							});
+
+							const expectedResult = doc(
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+									tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+									tr(td()(p('7')), td()(p('1')), td()(p('2'))),
 									tr(td()(p()), td()(p('3')), td()(p('4'))),
 								),
 							);

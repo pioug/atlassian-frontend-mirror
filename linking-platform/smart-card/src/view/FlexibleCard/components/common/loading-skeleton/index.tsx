@@ -4,10 +4,8 @@
  */
 import { css, jsx, keyframes } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import LoadingSkeletonEmotionOld from './LoadingSkeletonOld';
 import type { LoadingSkeletonPropsNew, LoadingSkeletonPropsOld } from './types';
 
 const animationNameStyles = keyframes({
@@ -51,12 +49,9 @@ const LoadingSkeletonNew = ({ testId, width, height }: LoadingSkeletonPropsNew) 
 };
 
 const LoadingSkeletonOld = (props: LoadingSkeletonPropsOld) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return (
-			<LoadingSkeletonNew {...props} width={`${props.width}rem`} height={`${props.height}rem`} />
-		);
-	}
-	return <LoadingSkeletonEmotionOld {...props} />;
+	return (
+		<LoadingSkeletonNew {...props} width={`${props.width}rem`} height={`${props.height}rem`} />
+	);
 };
 
 export { LoadingSkeletonOld, LoadingSkeletonNew };

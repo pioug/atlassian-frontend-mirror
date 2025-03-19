@@ -54,25 +54,15 @@ describe('LinkWrapper', () => {
 	});
 });
 
-// TODO: fix these tests so that compiled can recognise overflow prop
-describe.skip('Content', () => {
-	it('should not allow overflow content to be visible (iframe contents should handle scrolling)', async () => {
-		render(
-			<ContentOldVisualRefresh
-				isInteractive={false}
-				allowScrollBar={false}
-				data-testid="content"
-				removeOverflow={true}
-			/>,
-		);
-		expect(await screen.findByTestId('content')).toHaveCompiledCss('overflow', 'hidden');
-	});
-
+describe('Content', () => {
 	it('should not allow overflow content to be visible (on hover as well)', async () => {
 		render(
 			<ContentOldVisualRefresh isInteractive={true} allowScrollBar={false} data-testid="content" />,
 		);
-		expect(await screen.findByTestId('content')).toHaveCompiledCss({ overflow: 'hidden' });
+		expect(await screen.findByTestId('content')).toHaveCompiledCss({
+			'overflow-x': 'hidden',
+			'overflow-y': 'hidden',
+		});
 	});
 
 	describe('should allow overflow content to be visible when allowScrollBar is true', () => {
@@ -84,7 +74,10 @@ describe.skip('Content', () => {
 					data-testid="content"
 				/>,
 			);
-			expect(await screen.findByTestId('content')).toHaveCompiledCss({ overflow: 'auto' });
+			expect(await screen.findByTestId('content')).toHaveCompiledCss({
+				'overflow-x': 'auto',
+				'overflow-y': 'auto',
+			});
 		});
 		it('and isInteractive is false', async () => {
 			render(
@@ -94,9 +87,13 @@ describe.skip('Content', () => {
 					data-testid="content"
 				/>,
 			);
-			expect(await screen.findByTestId('content')).toHaveCompiledCss('overflow', 'auto');
+			expect(await screen.findByTestId('content')).toHaveCompiledCss({
+				'overflow-x': 'auto',
+				'overflow-y': 'auto',
+			});
 		});
 	});
+
 	describe('should not set set overflow styles when removeOverflow is true', () => {
 		it('and allowScrollBar is true and isInteractive is true', async () => {
 			render(

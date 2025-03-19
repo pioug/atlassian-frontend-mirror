@@ -1,8 +1,9 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import '@testing-library/jest-dom';
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { fireEvent, screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
@@ -29,10 +30,10 @@ describe('Element: Avatar Group', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		renderWithIntl(<AvatarGroup items={authorsWithNoImages} overrideCss={overrideCss} />);
+		renderWithIntl(<AvatarGroup items={authorsWithNoImages} css={overrideCss} />);
 
 		const element = screen.getByTestId(testId);
-		expect(element).toHaveStyleDeclaration('background-color', 'blue');
+		expect(element).toHaveCompiledCss('background-color', 'blue');
 	});
 
 	it.each([

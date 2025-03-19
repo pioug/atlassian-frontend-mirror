@@ -20,7 +20,6 @@ import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flex
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -29,7 +28,6 @@ snapshot(BlockCardErrorView, {
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF only',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': [true, false],
 		'platform-smart-card-icon-migration': [true, false],
 	},
@@ -37,14 +35,12 @@ snapshot(BlockCardErrorView, {
 snapshot(BlockCardErrorView, {
 	description: 'block card error view',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -53,7 +49,6 @@ snapshot(BlockCardForbiddenView, {
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF only',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': [true, false],
 		'platform-smart-card-icon-migration': [true, false],
 	},
@@ -61,7 +56,6 @@ snapshot(BlockCardForbiddenView, {
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -69,7 +63,6 @@ snapshot(BlockCardForbiddenView);
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -78,7 +71,6 @@ snapshot(BlockCardNotFoundView, {
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF only',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': [true, false],
 		'platform-smart-card-icon-migration': [true, false],
 	},
@@ -86,19 +78,16 @@ snapshot(BlockCardNotFoundView, {
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardNotFoundSiteAccessExists, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardUnauthorisedView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -106,56 +95,47 @@ snapshot(BlockCardUnauthorisedView, {
 	description:
 		'BlockCardUnauthorisedView Old - remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardForbiddenViews, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardLazyIcons, {
 	description: `block card with lazy load icons`,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
@@ -164,7 +144,6 @@ snapshot(BlockCardLazyIcons, {
 snapshot(BlockCardLazyIconsFileType, {
 	description: `block card with lazy load icons per file format`,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,

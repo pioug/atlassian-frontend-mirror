@@ -21,7 +21,6 @@ import {
 } from '../../FlexibleCard/components/blocks';
 import type { ActionItem } from '../../FlexibleCard/components/blocks/types';
 
-import ResolvedViewOld from './ResolvedViewOld';
 import { type FlexibleBlockCardProps } from './types';
 import {
 	FlexibleCardUiOptions,
@@ -171,12 +170,4 @@ const ResolvedView = ({
 	);
 };
 
-const ResolvedViewExported = (props: FlexibleBlockCardProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ResolvedView {...props} />;
-	} else {
-		return <ResolvedViewOld {...props} />;
-	}
-};
-
-export default withFlexibleUIBlockCardStyle(ResolvedViewExported);
+export default withFlexibleUIBlockCardStyle(ResolvedView);

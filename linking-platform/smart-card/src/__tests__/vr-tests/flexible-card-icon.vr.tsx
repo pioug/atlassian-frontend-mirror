@@ -25,7 +25,6 @@ import {
 
 snapshot(IconTypeAttachment, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -33,7 +32,6 @@ snapshot(IconTypeAttachment, {
 
 snapshot(IconTypeCheckItem, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -41,7 +39,6 @@ snapshot(IconTypeCheckItem, {
 
 snapshot(IconTypeComment, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -49,7 +46,6 @@ snapshot(IconTypeComment, {
 
 snapshot(IconTypeView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -57,7 +53,6 @@ snapshot(IconTypeView, {
 
 snapshot(IconTypeReact, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -65,7 +60,6 @@ snapshot(IconTypeReact, {
 
 snapshot(IconTypeVote, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -73,7 +67,6 @@ snapshot(IconTypeVote, {
 
 snapshot(IconTypePriorityBlocker, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -81,7 +74,6 @@ snapshot(IconTypePriorityBlocker, {
 
 snapshot(IconTypePriorityCritical, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -89,7 +81,6 @@ snapshot(IconTypePriorityCritical, {
 
 snapshot(IconTypePriorityHigh, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -97,7 +88,6 @@ snapshot(IconTypePriorityHigh, {
 
 snapshot(IconTypePriorityHighest, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -105,7 +95,6 @@ snapshot(IconTypePriorityHighest, {
 
 snapshot(IconTypePriorityLow, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -113,7 +102,6 @@ snapshot(IconTypePriorityLow, {
 
 snapshot(IconTypePriorityLowest, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -121,7 +109,6 @@ snapshot(IconTypePriorityLowest, {
 
 snapshot(IconTypePriorityMajor, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -129,7 +116,6 @@ snapshot(IconTypePriorityMajor, {
 
 snapshot(IconTypePriorityMedium, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -137,7 +123,6 @@ snapshot(IconTypePriorityMedium, {
 
 snapshot(IconTypePriorityMinor, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -145,7 +130,6 @@ snapshot(IconTypePriorityMinor, {
 
 snapshot(IconTypePriorityTrivial, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -153,7 +137,6 @@ snapshot(IconTypePriorityTrivial, {
 
 snapshot(IconTypePriorityUndefined, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -161,7 +144,6 @@ snapshot(IconTypePriorityUndefined, {
 
 snapshot(IconTypeProgrammingLanguage, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -169,7 +151,6 @@ snapshot(IconTypeProgrammingLanguage, {
 
 snapshot(IconTypeSubscriber, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},
@@ -177,7 +158,6 @@ snapshot(IconTypeSubscriber, {
 
 snapshot(IconTypeSubTasksProgress, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-smart-card-icon-migration': [true, false],
 		'platform-visual-refresh-icons': [true, false],
 	},

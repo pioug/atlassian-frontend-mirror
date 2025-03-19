@@ -10,12 +10,10 @@ import {
 } from '../../../../constants';
 import { extractOwnedBy } from '../../../../extractors/flexible/utils';
 import { getExtensionKey } from '../../../../state/helpers';
-import type { FooterBlockProps } from '../../../FlexibleCard/components/blocks/footer-block/types';
 import type { PreviewBlockProps } from '../../../FlexibleCard/components/blocks/preview-block/types';
 import type { TitleBlockProps } from '../../../FlexibleCard/components/blocks/title-block/types';
 import type { ElementItem } from '../../../FlexibleCard/components/blocks/types';
 import { type InternalFlexibleUiOptions } from '../../../FlexibleCard/types';
-import { footerBlockCss, titleBlockCss } from '../styledOld';
 
 const baseTopMetadata: ElementItem[] = [
 	{ name: ElementName.ModifiedOn },
@@ -139,19 +137,7 @@ export const titleBlockOptions: Partial<TitleBlockProps> = {
 	size: SmartLinkSize.Large,
 };
 
-export const titleBlockOptionsOld: Partial<TitleBlockProps> = {
-	anchorTarget: '_self',
-	position: SmartLinkPosition.Center,
-	overrideCss: titleBlockCss,
-	hideRetry: true,
-	size: SmartLinkSize.Large,
-};
-
 export const PreviewBlockOptions: Partial<PreviewBlockProps> = {
 	placement: MediaPlacement.Right,
 	ignoreContainerPadding: true,
-};
-
-export const FooterBlockOptionsOld: Partial<FooterBlockProps> = {
-	overrideCss: footerBlockCss,
 };

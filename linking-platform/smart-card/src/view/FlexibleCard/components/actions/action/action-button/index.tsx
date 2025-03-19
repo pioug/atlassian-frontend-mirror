@@ -25,7 +25,6 @@ import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
 
-import ActionButtonOld from './ActionButtonOld';
 import { type ActionButtonProps } from './types';
 
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
@@ -292,14 +291,11 @@ const ActionButtonHideLegacyButton = (props: ActionButtonProps): JSX.Element => 
 };
 
 const ActionButton = (props: ActionButtonProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return fg('platform-linking-visual-refresh-v1') ? (
-			<ActionButtonHideLegacyButton {...props} />
-		) : (
-			<ActionButtonNew {...props} />
-		);
-	}
-	return <ActionButtonOld {...props} />;
+	return fg('platform-linking-visual-refresh-v1') ? (
+		<ActionButtonHideLegacyButton {...props} />
+	) : (
+		<ActionButtonNew {...props} />
+	);
 };
 
 export default ActionButton;

@@ -141,4 +141,12 @@ export const aiMessages = defineMessages({
 		defaultMessage: 'Generate',
 		description: 'Label for the Submit button in the command palette',
 	},
+
+	// AI Smart button messages
+	aiSmartButtonDynamicSurfaceSelectedContent: {
+		id: 'fabric.editor.ai.ai-smart-button.context.reference',
+		defaultMessage: 'Selected content',
+		description:
+			'When there is selection, show the selected content in the AI dynamic surface panel',
+	},
 });

@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
@@ -83,14 +84,19 @@ describe('AIFooterBlock', () => {
 			backgroundColor: 'blue',
 		});
 
-		renderAIFooterBlock({
-			overrideCss,
-			testId: testIdBase,
-		});
+		render(
+			<IntlProvider locale="en">
+				<SmartCardProvider>
+					<FlexibleUiContext.Provider value={context}>
+						<FooterBlock status={SmartLinkStatus.Resolved} testId={testIdBase} css={overrideCss} />
+					</FlexibleUiContext.Provider>
+				</SmartCardProvider>
+			</IntlProvider>,
+		);
 
 		const block = await screen.findByTestId(`${testIdBase}-resolved-view`);
 
-		expect(block).toHaveStyleDeclaration('background-color', 'blue');
+		expect(block).toHaveCompiledCss('background-color', 'blue');
 	});
 
 	describe('AI Metadata', () => {

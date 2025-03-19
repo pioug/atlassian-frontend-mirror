@@ -14,8 +14,6 @@ import { getIconWidthNew } from '../../../utils';
 import Block from '../../block';
 import { type TitleBlockViewProps } from '../types';
 
-import TitleBlockResolvingViewOld from './TitleBlockResolvingViewOld';
-
 const iconStyle = cssMap({
 	xlarge: {
 		flex: '0 0 auto',
@@ -113,7 +111,7 @@ const iconStyle = cssMap({
  * This should render when a Smart Link has sent a request.
  * @see TitleBlock
  */
-const TitleBlockResolvingViewNew = ({
+const TitleBlockResolvingView = ({
 	actionGroup,
 	testId,
 	title,
@@ -153,14 +151,6 @@ const TitleBlockResolvingViewNew = ({
 			{actionGroup}
 		</Block>
 	);
-};
-
-const TitleBlockResolvingView = (props: TitleBlockViewProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <TitleBlockResolvingViewNew {...props} />;
-	} else {
-		return <TitleBlockResolvingViewOld {...props} />;
-	}
 };
 
 export default TitleBlockResolvingView;

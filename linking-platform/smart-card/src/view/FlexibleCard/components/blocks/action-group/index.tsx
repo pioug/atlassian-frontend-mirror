@@ -29,7 +29,6 @@ import type { ActionItem } from '../types';
 import { filterActionItems } from '../utils';
 
 import ActionGroupItem from './action-group-item';
-import ActionGroupOld from './ActionGroupOld';
 import { type ActionGroupProps } from './types';
 
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
@@ -80,7 +79,7 @@ const renderActionItems = (
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const ActionGroupNew = ({
+const ActionGroup = ({
 	items = [],
 	size = SmartLinkSize.Medium,
 	appearance,
@@ -194,14 +193,6 @@ const ActionGroupNew = ({
 			</ButtonGroup>
 		</div>
 	) : null;
-};
-
-const ActionGroup = (props: ActionGroupProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <ActionGroupNew {...props} />;
-	} else {
-		return <ActionGroupOld {...props} />;
-	}
 };
 
 export default ActionGroup;

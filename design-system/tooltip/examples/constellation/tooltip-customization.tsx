@@ -1,27 +1,53 @@
-import React from 'react';
-
-import { styled } from '@compiled/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { TooltipPrimitive, TooltipPrimitiveProps } from '@atlaskit/tooltip';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
-	background: 'white',
-	borderRadius: '3px',
-	boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
-	boxSizing: 'content-box',
-	paddingTop: token('space.100', '8px'),
-	paddingRight: token('space.150', '12px'),
-	paddingBottom: token('space.100', '8px'),
-	paddingLeft: token('space.150', '12px'),
+const styles = cssMap({
+	root: {
+		backgroundColor: token('elevation.surface'),
+		borderRadius: token('border.radius'),
+		boxShadow: token('elevation.shadow.overlay'),
+		color: token('color.text'),
+		maxHeight: '300px',
+		maxWidth: '300px',
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+	},
 });
 
-const TooltipCustomizationExample = () => (
-	<Tooltip component={InlineDialog} content="This tooltip is styled like an inline dialog">
-		{(tooltipProps) => <Button {...tooltipProps}>Hover or keyboard focus on me</Button>}
-	</Tooltip>
-);
+const CustomTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(function CustomTooltip(
+	{ children, className, ...rest },
+	ref,
+) {
+	return (
+		<TooltipPrimitive
+			{...rest}
+			// Manually passing on `className` so it gets merged correctly in the build output.
+			// The passed classname is mostly used for integration testing (`.Tooltip`)
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+			// "css" does not "exist" - it gets transformed into "className" by compiled
+			css={styles.root}
+			ref={ref}
+		>
+			{children}
+		</TooltipPrimitive>
+	);
+});
 
-export default TooltipCustomizationExample;
+export default function TooltipCustomizationExample() {
+	return (
+		<Tooltip component={CustomTooltip} content="This is a customized tooltip">
+			{(tooltipProps) => <Button {...tooltipProps}>Hover or keyboard focus on me</Button>}
+		</Tooltip>
+	);
+}

@@ -38,8 +38,8 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/theme": "workspace:*",
-		"@atlaskit/tokens": "workspace:*",
+		"@atlaskit/theme": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",
 		"exenv": "^1.2.2",
@@ -52,7 +52,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/navigation": "^37.0.0",
-		"@atlaskit/page": "workspace:*",
+		"@atlaskit/page": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@types/exenv": "^1.2.0",
 		"@types/react-transition-group": "^2.0.6",

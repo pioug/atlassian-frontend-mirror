@@ -36,7 +36,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				isOpen
-				id="react-select-datepicker-1-input"
+				id="date"
 				testId="datetime-picker"
 				clearControlLabel="Clear select date (default)"
 				shouldShowCalendarButton

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.2.1
+
+### Patch Changes
+
+- [#127914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127914)
+  [`1240912e13dd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1240912e13dd0) -
+  [ux] ED-27097 Hide layout placeholder when editor is not focussed
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

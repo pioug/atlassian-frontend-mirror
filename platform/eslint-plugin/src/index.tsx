@@ -12,6 +12,7 @@ import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
 import ensureValidPlatformYarnProtocolUsage from './rules/ensure-valid-platform-yarn-protocol-usage';
 import ensureValidBinValues from './rules/ensure-valid-bin-values';
+import ensureNoPrivateDependencies from './rules/ensure-no-private-dependencies';
 import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
@@ -43,6 +44,7 @@ const rules = {
 	'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
 	'ensure-valid-platform-yarn-protocol-usage': ensureValidPlatformYarnProtocolUsage,
 	'ensure-valid-bin-values': ensureValidBinValues,
+	'ensure-no-private-dependencies': ensureNoPrivateDependencies,
 	'expand-border-shorthand': expandBorderShorthand,
 	'expand-background-shorthand': expandBackgroundShorthand,
 	'expand-spacing-shorthand': expandSpacingShorthand,

@@ -411,6 +411,7 @@ const generateToolbarItems =
 				state,
 				cardOptions,
 				currentAppearance,
+				pluginInjectionApi,
 			);
 		} else {
 			const { inlineCard } = state.schema.nodes;
@@ -633,7 +634,7 @@ const generateToolbarItems =
 						type: 'overflow-dropdown',
 						options: [
 							{
-								title: 'Copy',
+								title: intl.formatMessage(commonMessages.copyToClipboard),
 								onClick: () => {
 									pluginInjectionApi?.core?.actions.execute(
 										// @ts-ignore
@@ -641,12 +642,12 @@ const generateToolbarItems =
 									);
 									return true;
 								},
-								icon: <CopyIcon label="Copy" />,
+								icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
 							},
 							{
-								title: 'Delete',
+								title: intl.formatMessage(commonMessages.delete),
 								onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-								icon: <DeleteIcon label="Delete" />,
+								icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
 							},
 						],
 					},
@@ -708,6 +709,7 @@ const getDatasourceButtonGroup = (
 	state: EditorState,
 	cardOptions: CardOptions,
 	currentAppearance: CardAppearance | undefined,
+	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
@@ -808,51 +810,79 @@ const getDatasourceButtonGroup = (
 	});
 
 	if (node?.attrs?.url) {
-		toolbarItems.push(
-			{
-				id: 'editor.link.openLink',
-				type: 'button',
-				icon: LinkExternalIcon,
-				iconFallback: OpenIcon,
-				metadata: metadata,
-				className: 'hyperlink-open-link',
-				title: intl.formatMessage(linkMessages.openLink),
-				onClick: visitCardLink(editorAnalyticsApi),
-			},
-			{ type: 'separator' },
-		);
+		toolbarItems.push({
+			id: 'editor.link.openLink',
+			type: 'button',
+			icon: LinkExternalIcon,
+			iconFallback: OpenIcon,
+			metadata: metadata,
+			className: 'hyperlink-open-link',
+			title: intl.formatMessage(linkMessages.openLink),
+			onClick: visitCardLink(editorAnalyticsApi),
+		});
+		if (editorExperiment('platform_editor_controls', 'control')) {
+			toolbarItems.push({ type: 'separator' });
+		}
 	}
 
-	toolbarItems.push(
-		{
-			type: 'copy-button',
-			supportsViewMode: true,
-			items: [
-				{
-					state,
-					formatMessage: intl.formatMessage,
-					nodeType: node.type,
-				},
-			],
-		},
-		{ type: 'separator' },
-		getSettingsButton(intl, editorAnalyticsApi, cardOptions?.userPreferencesLink),
-		{ type: 'separator' },
-		{
-			id: 'editor.link.delete',
-			focusEditoronEnter: true,
-			type: 'button',
-			appearance: 'danger',
-			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
-			onMouseEnter: hoverDecoration?.(node.type, true),
-			onMouseLeave: hoverDecoration?.(node.type, false),
-			onFocus: hoverDecoration?.(node.type, true),
-			onBlur: hoverDecoration?.(node.type, false),
-			title: intl.formatMessage(commonMessages.remove),
-			onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-		},
-	);
+	if (editorExperiment('platform_editor_controls', 'control')) {
+		toolbarItems.push(
+			{
+				type: 'copy-button',
+				supportsViewMode: true,
+				items: [
+					{
+						state,
+						formatMessage: intl.formatMessage,
+						nodeType: node.type,
+					},
+				],
+			},
+			{ type: 'separator' },
+			getSettingsButton(intl, editorAnalyticsApi, cardOptions?.userPreferencesLink),
+			{ type: 'separator' },
+			{
+				id: 'editor.link.delete',
+				focusEditoronEnter: true,
+				type: 'button',
+				appearance: 'danger',
+				icon: DeleteIcon,
+				iconFallback: RemoveIcon,
+				onMouseEnter: hoverDecoration?.(node.type, true),
+				onMouseLeave: hoverDecoration?.(node.type, false),
+				onFocus: hoverDecoration?.(node.type, true),
+				onBlur: hoverDecoration?.(node.type, false),
+				title: intl.formatMessage(commonMessages.remove),
+				onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+			},
+		);
+	} else {
+		toolbarItems.push({ type: 'separator', fullHeight: true });
+		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+			{
+				type: 'overflow-dropdown',
+				options: [
+					{
+						title: intl.formatMessage(commonMessages.copyToClipboard),
+						onClick: () => {
+							pluginInjectionApi?.core?.actions.execute(
+								// @ts-ignore
+								pluginInjectionApi?.floatingToolbar?.commands.copyNode(node.type),
+							);
+							return true;
+						},
+						icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+					},
+					{
+						title: intl.formatMessage(commonMessages.delete),
+						onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+						icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+					},
+				],
+			},
+		];
+		toolbarItems.push(...overflowMenuConfig);
+	}
 
 	return toolbarItems;
 };

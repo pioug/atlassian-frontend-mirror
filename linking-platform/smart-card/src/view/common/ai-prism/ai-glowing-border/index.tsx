@@ -4,10 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import AIGlowingBorderOld from './AIGlowingBorderOld';
 import AnimatedSvgContainer from './animated-svg-container';
 import type { AIGlowingBorderProps } from './types';
 
@@ -32,7 +30,7 @@ const borderContentStyles = css({
  * https://bitbucket.org/atlassian/barrel/src/master/ui/platform/ui-kit/ai
  * with modifications.
  */
-const AIGlowingBorderNew = ({
+const AIGlowingBorder = ({
 	children,
 	palette,
 	isMoving = true,
@@ -50,12 +48,5 @@ const AIGlowingBorderNew = ({
 		<div css={borderContentStyles}>{children} </div>
 	</div>
 );
-
-const AIGlowingBorder = (props: AIGlowingBorderProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AIGlowingBorderNew {...props} />;
-	}
-	return <AIGlowingBorderOld {...props} />;
-};
 
 export default AIGlowingBorder;

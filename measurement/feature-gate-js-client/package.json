@@ -40,14 +40,14 @@
 		"./client": "./src/client.ts"
 	},
 	"dependencies": {
-		"@atlaskit/atlassian-context": "workspace:*",
+		"@atlaskit/atlassian-context": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@statsig/client-core": "^3.10.0",
 		"@statsig/js-client": "^3.10.0",
 		"eventemitter2": "^4.1.0"
 	},
 	"devDependencies": {
-		"@atlassiansox/analytics-web-client": "workspace:*",
+		"@atlassiansox/analytics-web-client": "workspace:^",
 		"jest-fetch-mock": "^3.0.3",
 		"typescript": "~5.4.2",
 		"webpack": "^4.41.3",

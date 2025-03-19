@@ -4,7 +4,6 @@ import FlexUiAtlaskitBadgeView from '../../../examples/vr-flexible-card/vr-flexi
 
 snapshot(FlexUiAtlaskitBadgeView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},

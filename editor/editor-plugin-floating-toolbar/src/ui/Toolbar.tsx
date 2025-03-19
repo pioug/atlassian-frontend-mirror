@@ -706,8 +706,13 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		event.stopPropagation();
 	};
 
-	private handleMouseDown = (event: React.MouseEvent) => {
-		// Prevents selection toolbar from closing when clicking on the toolbar
+	private captureMouseEvent = (event: React.MouseEvent) => {
+		// Don't capture mouse event for custom toolbars e.g. insert hyperlink
+		if (this.props.items?.length === 1 && this.props.items[0].type === 'custom') {
+			return;
+		}
+
+		// Prevents toolbar from closing when clicking on the toolbar itself and not on the buttons
 		event.stopPropagation();
 		event.preventDefault();
 	};
@@ -749,7 +754,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 						className={className}
 						onMouseDown={
 							editorExperiment('platform_editor_controls', 'variant1')
-								? this.handleMouseDown
+								? this.captureMouseEvent
 								: undefined
 						}
 					>

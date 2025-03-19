@@ -1,0 +1,159 @@
+{
+	"name": "@atlaskit/temp-nav-app-icons",
+	"version": "0.5.0",
+	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
+	"author": "Atlassian Pty Ltd",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <5.4": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"*.compiled.css"
+	],
+	"atlassian": {
+		"team": "ADS: nav4",
+		"runReact18": true,
+		"website": {
+			"name": "Legacy logos",
+			"deprecated": "Please use @atlaskit/logo instead."
+		}
+	},
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		"./admin": "./src/entry-points/admin.tsx",
+		"./align": "./src/entry-points/align.tsx",
+		"./analytics": "./src/entry-points/analytics.tsx",
+		"./assets": "./src/entry-points/assets.tsx",
+		"./bitbucket": "./src/entry-points/bitbucket.tsx",
+		"./chat": "./src/entry-points/chat.tsx",
+		"./company-hub": "./src/entry-points/company-hub.tsx",
+		"./compass": "./src/entry-points/compass.tsx",
+		"./confluence": "./src/entry-points/confluence.tsx",
+		"./custom-link": "./src/entry-points/custom-link.tsx",
+		"./focus": "./src/entry-points/focus.tsx",
+		"./goals": "./src/entry-points/goals.tsx",
+		"./guard": "./src/entry-points/guard.tsx",
+		"./guard-detect": "./src/entry-points/guard-detect.tsx",
+		"./home": "./src/entry-points/home.tsx",
+		"./jira-product-discovery": "./src/entry-points/jira-product-discovery.tsx",
+		"./jira-service-management": "./src/entry-points/jira-service-management.tsx",
+		"./jira": "./src/entry-points/jira.tsx",
+		"./loom": "./src/entry-points/loom.tsx",
+		"./more-atlassian-apps": "./src/entry-points/more-atlassian-apps.tsx",
+		"./opsgenie": "./src/entry-points/opsgenie.tsx",
+		"./projects": "./src/entry-points/projects.tsx",
+		"./rovo": "./src/entry-points/rovo.tsx",
+		"./search": "./src/entry-points/search.tsx",
+		"./statuspage": "./src/entry-points/statuspage.tsx",
+		"./studio": "./src/entry-points/studio.tsx",
+		"./talent": "./src/entry-points/talent.tsx",
+		"./teams": "./src/entry-points/teams.tsx",
+		"./trello": "./src/entry-points/trello.tsx"
+	},
+	"exports": {
+		"./admin": "./src/entry-points/admin.tsx",
+		"./align": "./src/entry-points/align.tsx",
+		"./analytics": "./src/entry-points/analytics.tsx",
+		"./assets": "./src/entry-points/assets.tsx",
+		"./bitbucket": "./src/entry-points/bitbucket.tsx",
+		"./chat": "./src/entry-points/chat.tsx",
+		"./company-hub": "./src/entry-points/company-hub.tsx",
+		"./compass": "./src/entry-points/compass.tsx",
+		"./confluence": "./src/entry-points/confluence.tsx",
+		"./custom-link": "./src/entry-points/custom-link.tsx",
+		"./focus": "./src/entry-points/focus.tsx",
+		"./goals": "./src/entry-points/goals.tsx",
+		"./guard": "./src/entry-points/guard.tsx",
+		"./guard-detect": "./src/entry-points/guard-detect.tsx",
+		"./home": "./src/entry-points/home.tsx",
+		"./jira-product-discovery": "./src/entry-points/jira-product-discovery.tsx",
+		"./jira-service-management": "./src/entry-points/jira-service-management.tsx",
+		"./jira": "./src/entry-points/jira.tsx",
+		"./loom": "./src/entry-points/loom.tsx",
+		"./more-atlassian-apps": "./src/entry-points/more-atlassian-apps.tsx",
+		"./opsgenie": "./src/entry-points/opsgenie.tsx",
+		"./projects": "./src/entry-points/projects.tsx",
+		"./rovo": "./src/entry-points/rovo.tsx",
+		"./search": "./src/entry-points/search.tsx",
+		"./statuspage": "./src/entry-points/statuspage.tsx",
+		"./studio": "./src/entry-points/studio.tsx",
+		"./talent": "./src/entry-points/talent.tsx",
+		"./teams": "./src/entry-points/teams.tsx",
+		"./trello": "./src/entry-points/trello.tsx"
+	},
+	"scripts": {
+		"build-temp-logos": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.2"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0"
+	},
+	"devDependencies": {
+		"@af/formatting": "workspace:*",
+		"@af/integration-testing": "workspace:*",
+		"@af/visual-regression": "workspace:*",
+		"@atlaskit/primitives": "workspace:*",
+		"@atlaskit/select": "workspace:*",
+		"@atlaskit/table": "workspace:*",
+		"@atlassian/codegen": "workspace:*",
+		"@testing-library/react": "^13.4.0",
+		"fs-extra": "^4.0.2",
+		"pkg-dir": "^4.2.0",
+		"react-dom": "^18.2.0",
+		"svgo": "3.3.0",
+		"ts-node": "^10.9.1",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
+}

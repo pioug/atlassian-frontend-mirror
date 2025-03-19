@@ -3,7 +3,6 @@ import type { Rule } from 'eslint';
 import type { ObjectExpression } from 'estree';
 import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 
-const workspaceProtocolRegex = /^workspace:[\^~]$/;
 const rootProtocolRegex = /^root:[\^~\*]$/;
 
 /**
@@ -20,9 +19,6 @@ function getYarnProtocolsUsed(node: ObjectExpression) {
 		for (const p of obj?.properties || []) {
 			if (p.type === 'Property' && p.value.type === 'Literal') {
 				if (typeof p.value.value === 'string') {
-					if (workspaceProtocolRegex.test(p.value.value)) {
-						protocolsUsed.workspace = true;
-					}
 					if (rootProtocolRegex.test(p.value.value)) {
 						protocolsUsed.root = true;
 					}
@@ -61,14 +57,6 @@ const rule: Rule.RuleModule = {
 					context.report({
 						node,
 						messageId: 'invalidRootProtocolUsage',
-					});
-				}
-
-				// Use the 'workspace:*' protocol instead of 'workspace:^' or 'workspace:~'
-				if (yarnProtocolsUsed.workspace) {
-					context.report({
-						node,
-						messageId: 'invalidWorkspaceProtocolUsage',
 					});
 				}
 			},

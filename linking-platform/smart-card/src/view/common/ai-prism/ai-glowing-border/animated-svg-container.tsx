@@ -6,10 +6,8 @@ import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import AnimatedSvgContainerOld from './animated-svg-containerOld';
 import type { AnimatedSvgContainerProps } from './types';
 
 let namespaceUUID = 0;
@@ -43,7 +41,7 @@ const notBlurredStyles = css({
  * https://bitbucket.org/atlassian/barrel/src/master/ui/platform/ui-kit/ai
  * with modifications.
  */
-const AnimatedSvgContainerNew = ({
+const AnimatedSvgContainer = ({
 	palette,
 	isMoving,
 	isGlowing,
@@ -238,13 +236,6 @@ const AnimatedSvgContainerNew = ({
 			</g>
 		</svg>
 	);
-};
-
-const AnimatedSvgContainer = (props: AnimatedSvgContainerProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <AnimatedSvgContainerNew {...props} />;
-	}
-	return <AnimatedSvgContainerOld {...props} />;
 };
 
 export default AnimatedSvgContainer;

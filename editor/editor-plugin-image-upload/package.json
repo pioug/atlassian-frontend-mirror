@@ -34,9 +34,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/prosemirror-input-rules": "workspace:*",
+		"@atlaskit/prosemirror-input-rules": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -44,8 +44,8 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/visual-regression": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

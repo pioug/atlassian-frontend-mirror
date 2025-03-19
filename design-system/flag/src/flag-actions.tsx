@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -55,6 +56,10 @@ const buttonStyles = css({
 	},
 });
 
+const fontStyles = css({
+	font: token('font.body'),
+});
+
 const appearanceNormalButtonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&, a&&': {
@@ -79,7 +84,22 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
 	const isBold = appearance !== DEFAULT_APPEARANCE;
 
 	return (
-		<span css={!isBold && appearanceNormalActionsContainerStyles}>
+		<span
+			css={[
+				!isBold && appearanceNormalActionsContainerStyles,
+				/**
+				 * We are setting the font styles here for the custom theme button to inherit.
+				 * Custom theme sets its font to "inherit", so picks up these font styles.
+				 *
+				 * The alternative is to add styles for each pseudo state, however this ended up being a lot more
+				 * complex and ended up with subtle differences across different pseudo states that would need to be handled.
+				 *
+				 * This approach is as close to the current behaviour as possible - where the button simply inherits the
+				 * font from its parent.
+				 */
+				fg('platform_ads_explicit_font_styles') && fontStyles,
+			]}
+		>
 			<Inline
 				space="space.100"
 				shouldWrap

@@ -10,6 +10,7 @@ import { jsx } from '@emotion/react';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnalyticsEventPayload } from '../analytics';
@@ -64,14 +65,39 @@ const virtualisationConfiguration = () => {
 	let enableVirtualization = false;
 	let reactRenderedDocumentPositionThreshold = 0;
 
-	if (editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
+	if (isSSR) {
+		return {
+			enableVirtualization,
+			reactRenderedDocumentPositionThreshold,
+			virtualizeCurrentNode: () => false,
+		};
+	}
+
+	if (editorExperiment('platform_editor_inline_node_virtualization', 'off', { exposure: true })) {
 		enableVirtualization = false;
-	} else if (editorExperiment('platform_editor_inline_node_virtualization', 'fallback-small')) {
-		enableVirtualization = true && !isSSR;
+	} else if (
+		editorExperiment('platform_editor_inline_node_virtualization', 'fallback-small', {
+			exposure: true,
+		})
+	) {
+		enableVirtualization = true;
 		reactRenderedDocumentPositionThreshold = 100;
-	} else if (editorExperiment('platform_editor_inline_node_virtualization', 'fallback-large')) {
-		enableVirtualization = true && !isSSR;
+	} else if (
+		editorExperiment('platform_editor_inline_node_virtualization', 'fallback-large', {
+			exposure: true,
+		})
+	) {
+		enableVirtualization = true;
 		reactRenderedDocumentPositionThreshold = 400;
+	}
+
+	// we need to be able to override the threshold to 0
+	// for specific situation, primarily testing
+	if (
+		reactRenderedDocumentPositionThreshold !== 0 &&
+		fg('platform_editor_inline_node_virt_threshold_override')
+	) {
+		reactRenderedDocumentPositionThreshold = 0;
 	}
 
 	return {

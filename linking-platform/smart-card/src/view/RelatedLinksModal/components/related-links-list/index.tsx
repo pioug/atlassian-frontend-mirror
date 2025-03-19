@@ -5,15 +5,12 @@
 import { FormattedMessage } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';
 import RelatedLinkItem from '../related-link-item';
 import { type RelatedLinksListProp } from '../types';
-
-import RelatedLinksListOld from './RelatedLinksListOld';
 
 const styles = cssMap({
 	sectionTitle: {
@@ -50,12 +47,4 @@ const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
 	);
 };
 
-const RelatedLinksListExported = (props: RelatedLinksListProp) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <RelatedLinksList {...props} />;
-	} else {
-		return <RelatedLinksListOld {...props} />;
-	}
-};
-
-export default RelatedLinksListExported;
+export default RelatedLinksList;

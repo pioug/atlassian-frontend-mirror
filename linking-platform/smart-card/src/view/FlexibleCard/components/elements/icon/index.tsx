@@ -19,7 +19,6 @@ import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
 import { getIconWidth } from '../../utils';
 
-import IconOld from './IconOld';
 import { type IconProps } from './types';
 
 const styles = cssMap({
@@ -333,7 +332,7 @@ const renderImageIcon = (
  * @param {IconProps} IconProps - The props necessary for the Icon element.
  * @see LinkIcon
  */
-const IconNew = ({
+const Icon = ({
 	icon,
 	overrideIcon,
 	label = 'Link',
@@ -398,14 +397,6 @@ const IconNew = ({
 			)}
 		</div>
 	);
-};
-
-const Icon = (props: IconProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <IconNew {...props} />;
-	} else {
-		return <IconOld {...props} />;
-	}
 };
 
 export default Icon;

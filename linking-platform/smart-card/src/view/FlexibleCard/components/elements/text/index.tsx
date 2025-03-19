@@ -9,7 +9,6 @@ import { token } from '@atlaskit/tokens';
 
 import { getFormattedMessage } from '../../utils';
 
-import TextOld from './TextOld';
 import { type TextProps } from './types';
 
 // TODO: Remove on fg cleanup: platform-linking-visual-refresh-v1
@@ -42,7 +41,7 @@ const baseStyle = css({
  * @param {TextProps} TextProps - The props necessary for the Text element.
  * @see Title
  */
-const TextNew = ({
+const Text = ({
 	content,
 	maxLines = 1,
 	message,
@@ -81,14 +80,6 @@ const TextNew = ({
 			{getFormattedMessage(message) || content}
 		</span>
 	);
-};
-
-const Text = (props: TextProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <TextNew {...props} />;
-	} else {
-		return <TextOld {...props} />;
-	}
 };
 
 export default Text;

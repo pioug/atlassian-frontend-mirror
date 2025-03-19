@@ -45,6 +45,7 @@ export type AnnotationPlugin = NextEditorPlugin<
 			 * otherwise, it will return false.
 			 */
 			showCommentForBlockNode: ReturnType<typeof showInlineCommentForBlockNode>;
+			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
 		};
 	}
 >;

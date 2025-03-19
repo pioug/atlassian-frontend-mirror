@@ -19,7 +19,6 @@ import { messages } from '../../../../../messages';
 import FlexibleCard from '../../../../FlexibleCard';
 import { CustomBlock, PreviewBlock } from '../../../../FlexibleCard/components/blocks';
 
-import HoverCardForbiddenViewOld from './HoverCardForbiddenViewOld';
 import { type HoverCardForbiddenProps } from './types';
 
 const titleBlockStylesOld = css({
@@ -72,7 +71,7 @@ const basePreviewStyles = css({
 	marginBottom: token('space.100'),
 });
 
-const HoverCardForbiddenViewNew = ({
+const HoverCardForbiddenView = ({
 	flexibleCardProps,
 	testId = 'hover-card-forbidden-view',
 }: HoverCardForbiddenProps) => {
@@ -137,14 +136,6 @@ const HoverCardForbiddenViewNew = ({
 			)}
 		</FlexibleCard>
 	);
-};
-
-const HoverCardForbiddenView = (props: HoverCardForbiddenProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <HoverCardForbiddenViewNew {...props} />;
-	} else {
-		return <HoverCardForbiddenViewOld {...props} />;
-	}
 };
 
 export default HoverCardForbiddenView;

@@ -8,8 +8,8 @@ import { Frame } from '../Frame';
 import { IconAndTitleLayout, IconTitleWrapper } from '../IconAndTitleLayout';
 import { RightIconPositionWrapper } from '../IconAndTitleLayout/styled';
 
-import { InlineCardResolvingViewOld } from './InlineCardResolvingViewOld';
 import { SpinnerWrapperOldVisualRefresh } from './styled';
+
 export interface InlineCardResolvingViewProps {
 	/** The url to display */
 	url: string;
@@ -27,7 +27,7 @@ export interface InlineCardResolvingViewProps {
 	truncateInline?: boolean;
 }
 
-const InlineCardResolvingViewNew = ({
+export const InlineCardResolvingView = ({
 	url,
 	onClick,
 	isSelected,
@@ -79,11 +79,4 @@ const InlineCardResolvingViewNew = ({
 			</IconAndTitleLayout>
 		</Frame>
 	);
-};
-
-export const InlineCardResolvingView = (props: InlineCardResolvingViewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <InlineCardResolvingViewNew {...props} />;
-	}
-	return <InlineCardResolvingViewOld {...props} />;
 };

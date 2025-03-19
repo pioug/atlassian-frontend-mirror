@@ -8,11 +8,12 @@ import { jsx } from '@emotion/react';
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { DropdownMenuExtensionItems } from '@atlaskit/editor-common/floating-toolbar';
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { isSelectionTableNestedInTable } from '@atlaskit/editor-common/nesting';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type {
-	typeOption,
 	Command,
 	CommandDispatch,
 	ConfirmDialogOptions,
@@ -24,6 +25,7 @@ import type {
 	GetEditorContainerWidth,
 	GetEditorFeatureFlags,
 	Icon,
+	typeOption,
 } from '@atlaskit/editor-common/types';
 import { cellBackgroundColorPalette, DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import {
@@ -48,6 +50,7 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
 import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
+import CopyIcon from '@atlaskit/icon/core/copy';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
@@ -632,6 +635,9 @@ export const getToolbarConfig =
 				],
 			};
 
+			const isNestedTable =
+				fg('platform_editor_use_nested_table_pm_nodes') && isSelectionTableNestedInTable(state);
+
 			return {
 				title: 'Table floating controls',
 				getDomRef,
@@ -647,18 +653,76 @@ export const getToolbarConfig =
 					...cellItems,
 					...columnSettingsItems,
 					...colorPicker,
-					// TODO: ED-26961 - editor controls to move to overflow menu
-					{
-						type: 'extensions-placeholder',
-						separator: 'end',
-					},
 					...((editorExperiment('platform_editor_controls', 'control')
-						? ([copyButton, { type: 'separator' }, deleteButton] as Array<
-								FloatingToolbarItem<Command>
-							>)
-						: [deleteButton, { type: 'separator' }, copyButton]) as Array<
-						FloatingToolbarItem<Command>
-					>),
+						? ([
+								{
+									type: 'extensions-placeholder',
+									separator: 'end',
+								},
+								copyButton,
+								{ type: 'separator' },
+								deleteButton,
+							] as Array<FloatingToolbarItem<Command>>)
+						: [
+								{
+									type: 'overflow-dropdown',
+									dropdownWidth: 220,
+									options: [
+										{
+											type: 'custom',
+											fallback: [],
+											render: (editorView, dropdownOptions) => {
+												if (!editorView) {
+													return null;
+												}
+
+												const extensionState = api?.extension?.sharedState?.currentState();
+												const extensionApi = api?.extension?.actions.api();
+
+												if (!extensionApi || !extensionState?.extensionProvider) {
+													return null;
+												}
+
+												return (
+													<DropdownMenuExtensionItems
+														node={tableObject.node}
+														editorView={editorView}
+														extension={{
+															extensionProvider: extensionState?.extensionProvider
+																? Promise.resolve(extensionState.extensionProvider)
+																: undefined,
+															extensionApi: api?.extension?.actions.api(),
+														}}
+														dropdownOptions={dropdownOptions}
+														disabled={(key: string) => {
+															return (
+																isNestedTable &&
+																['referentiality:connections', 'chart:insert-chart'].includes(key)
+															);
+														}}
+													/>
+												);
+											},
+										},
+										{
+											title: intl.formatMessage(commonMessages.copyToClipboard),
+											onClick: () => {
+												api?.core?.actions.execute(
+													// @ts-ignore
+													api?.floatingToolbar?.commands.copyNode(nodeType),
+												);
+												return true;
+											},
+											icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+										},
+										{
+											title: intl.formatMessage(commonMessages.delete),
+											onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
+											icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+										},
+									],
+								},
+							]) as Array<FloatingToolbarItem<Command>>),
 				],
 				scrollable: true,
 			};

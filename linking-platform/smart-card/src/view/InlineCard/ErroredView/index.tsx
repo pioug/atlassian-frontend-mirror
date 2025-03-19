@@ -24,8 +24,6 @@ import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButtonOldVisualRefresh } from '../styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
-import { InlineCardErroredViewOld } from './InlineCardErroredViewOld';
-
 const styles = cssMap({
 	iconWrapper: {
 		marginRight: token('space.negative.025'),
@@ -96,7 +94,7 @@ const fallbackIcon = () => {
 	);
 };
 
-const InlineCardErroredViewNew = ({
+export const InlineCardErroredView = ({
 	url,
 	onClick,
 	isSelected,
@@ -178,11 +176,4 @@ const InlineCardErroredViewNew = ({
 	}
 
 	return content;
-};
-
-export const InlineCardErroredView = (props: InlineCardErroredViewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <InlineCardErroredViewNew {...props} />;
-	}
-	return <InlineCardErroredViewOld {...props} />;
 };

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.1.2
+
+### Patch Changes
+
+- [#128803](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128803)
+  [`bee199a74385f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bee199a74385f) -
+  [ux] Keeps docking options in the overlow menu even when the toolbar is docked to top.
+
 ## 2.1.1
 
 ### Patch Changes

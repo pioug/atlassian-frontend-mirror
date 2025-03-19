@@ -4,7 +4,6 @@ import { type JsonLd } from 'json-ld-types';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
@@ -21,7 +20,6 @@ import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
 
 import ContentContainer from './ContentContainer';
-import HoverCardContentOld from './HoverCardContentOld';
 import HoverCardForbiddenView from './views/forbidden';
 import HoverCardResolvedView from './views/resolved';
 import HoverCardLoadingView from './views/resolving';
@@ -29,7 +27,7 @@ import HoverCardUnauthorisedView from './views/unauthorised';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
-const HoverCardContentNew = ({
+const HoverCardContent = ({
 	id = '',
 	cardState,
 	onActionClick,
@@ -187,14 +185,6 @@ const HoverCardContentNew = ({
 			{cardView}
 		</ContentContainer>
 	) : null;
-};
-
-const HoverCardContent = (props: HoverCardContentProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <HoverCardContentNew {...props} />;
-	} else {
-		return <HoverCardContentOld {...props} />;
-	}
 };
 
 export default HoverCardContent;

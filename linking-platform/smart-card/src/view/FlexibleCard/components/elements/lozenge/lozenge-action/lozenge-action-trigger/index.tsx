@@ -14,7 +14,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import LozengeActionTriggerOld from './LozengeActionTriggerOld';
 import { type LozengeActionTriggerProps } from './type';
 
 const styles = cssMap({
@@ -57,7 +56,7 @@ const triggerButtonStyles = css({
 	},
 });
 
-const LozengeActionTriggerNew = ({
+const LozengeActionTrigger = ({
 	appearance,
 	isOpen,
 	testId,
@@ -106,14 +105,6 @@ const LozengeActionTriggerNew = ({
 			{lozenge}
 		</button>
 	);
-};
-
-const LozengeActionTrigger = (props: LozengeActionTriggerProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <LozengeActionTriggerNew {...props} />;
-	} else {
-		return <LozengeActionTriggerOld {...props} />;
-	}
 };
 
 export default LozengeActionTrigger;

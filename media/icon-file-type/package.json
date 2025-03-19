@@ -46,15 +46,15 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "workspace:*",
+		"@atlaskit/icon": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
-		"@af/icon-build-process": "workspace:*",
-		"@atlaskit/visual-regression": "workspace:*",
+		"@af/icon-build-process": "workspace:^",
+		"@atlaskit/visual-regression": "workspace:^",
 		"@emotion/styled": "^11.0.0",
 		"enzyme": "^3.10.0",
 		"fs-extra": "^4.0.2",

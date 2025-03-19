@@ -4,7 +4,6 @@ import FlexUiDateTimeTextView from '../../../examples/vr-flexible-card/vr-flexib
 
 snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},

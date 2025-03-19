@@ -36,8 +36,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-plugin-analytics": "workspace:*",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

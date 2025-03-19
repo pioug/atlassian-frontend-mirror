@@ -8,14 +8,12 @@ import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandedFrame } from '../../components/ExpandedFrame';
 import { ImageIcon } from '../../components/ImageIcon';
 
 import type { UnresolvedViewProps } from './types';
-import UnresolvedViewOld from './UnresolvedViewOld';
 
 const containerStyles = css({
 	display: 'grid',
@@ -136,12 +134,4 @@ const UnresolvedView = ({
 	);
 };
 
-export const UnresolvedViewExported = (props: UnresolvedViewProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <UnresolvedView {...props} />;
-	} else {
-		return <UnresolvedViewOld {...props} />;
-	}
-};
-
-export default UnresolvedViewExported;
+export default UnresolvedView;

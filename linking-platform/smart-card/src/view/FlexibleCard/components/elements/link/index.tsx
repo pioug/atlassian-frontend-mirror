@@ -8,7 +8,6 @@ import React, { useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -16,7 +15,6 @@ import { SmartLinkSize, SmartLinkTheme } from '../../../../../constants';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { hasWhiteSpace } from '../../utils';
 
-import LinkOld from './LinkOld';
 import { type LinkProps } from './types';
 
 const DEFAULT_MAX_LINES = 2;
@@ -187,7 +185,7 @@ const themeStyleMap = cssMap({
  * @param {LinkProps} LinkProps - The props necessary for the Link element.
  * @see LinkIcon
  */
-const LinkNew = ({
+const Link = ({
 	hideTooltip,
 	maxLines = DEFAULT_MAX_LINES,
 	name,
@@ -238,14 +236,6 @@ const LinkNew = ({
 			{hideTooltip || text === undefined ? anchor : withTooltip(anchor, text, testId)}
 		</span>
 	);
-};
-
-const Link = (props: LinkProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <LinkNew {...props} />;
-	} else {
-		return <LinkOld {...props} />;
-	}
 };
 
 export default Link;

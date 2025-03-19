@@ -30,7 +30,6 @@ import {
 import { getMetadata } from '../../../utils';
 import ImagePreview from '../../ImagePreview';
 
-import HoverCardResolvedViewOld from './HoverCardResolvedViewOld';
 import { type HoverCardResolvedProps } from './types';
 
 const hiddenSnippetStyles = css({
@@ -115,7 +114,7 @@ const actionBlockCss = css({
 	paddingBottom: token('space.050'),
 });
 
-const HoverCardResolvedViewNew = ({
+const HoverCardResolvedView = ({
 	cardState,
 	extensionKey,
 	flexibleCardProps,
@@ -209,14 +208,6 @@ const HoverCardResolvedViewNew = ({
 			<AIFooterBlock />
 		</FlexibleCard>
 	);
-};
-
-const HoverCardResolvedView = (props: HoverCardResolvedProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <HoverCardResolvedViewNew {...props} />;
-	} else {
-		return <HoverCardResolvedViewOld {...props} />;
-	}
 };
 
 export default HoverCardResolvedView;

@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
@@ -30,21 +31,21 @@ describe('ElementGroup', () => {
 		const customStyles = css({
 			lineHeight: '20rem',
 		});
-		render(<ElementGroup overrideCss={customStyles}>I am an element group.</ElementGroup>);
+		render(<ElementGroup css={customStyles}>I am an element group.</ElementGroup>);
 
 		const elementGroup = await screen.findByTestId(testId);
 
-		expect(elementGroup).toHaveStyleDeclaration('line-height', '20rem');
-		expect(elementGroup).toHaveStyleDeclaration('justify-content', 'flex-start');
+		expect(elementGroup).toHaveCompiledCss('line-height', '20rem');
+		expect(elementGroup).toHaveCompiledCss('justify-content', 'flex-start');
 	});
 
 	describe('size', () => {
 		it.each([
-			[SmartLinkSize.XLarge, '1.25rem'],
-			[SmartLinkSize.Large, '1rem'],
-			[SmartLinkSize.Medium, '0.5rem'],
-			[SmartLinkSize.Small, '0.25rem'],
-			[undefined, '0.5rem'],
+			[SmartLinkSize.XLarge, 'var(--ds-space-250,1.25rem)'],
+			[SmartLinkSize.Large, 'var(--ds-space-200,1rem)'],
+			[SmartLinkSize.Medium, 'var(--ds-space-100,.5rem)'],
+			[SmartLinkSize.Small, 'var(--ds-space-050,.25rem)'],
+			[undefined, 'var(--ds-space-100,.5rem)'],
 		])(
 			'renders element group in %s size',
 			async (size: SmartLinkSize | undefined, expected: string) => {
@@ -52,7 +53,7 @@ describe('ElementGroup', () => {
 
 				const elementGroup = await screen.findByTestId(testId);
 
-				expect(elementGroup).toHaveStyleDeclaration('gap', expected);
+				expect(elementGroup).toHaveCompiledCss('gap', expected);
 			},
 		);
 	});
@@ -69,7 +70,7 @@ describe('ElementGroup', () => {
 
 				const elementGroup = await screen.findByTestId(testId);
 
-				expect(elementGroup).toHaveStyleDeclaration('flex-direction', expected);
+				expect(elementGroup).toHaveCompiledCss('flex-direction', expected);
 			},
 		);
 	});
@@ -90,8 +91,8 @@ describe('ElementGroup', () => {
 
 				const elementGroup = await screen.findByTestId(testId);
 
-				expect(elementGroup).toHaveStyleDeclaration('justify-content', expectedJustifyContent);
-				expect(elementGroup).toHaveStyleDeclaration('text-align', expectedTextAlign);
+				expect(elementGroup).toHaveCompiledCss('justify-content', expectedJustifyContent);
+				expect(elementGroup).toHaveCompiledCss('text-align', expectedTextAlign);
 			},
 		);
 	});
@@ -101,8 +102,10 @@ describe('ElementGroup', () => {
 			render(<ElementGroup width={SmartLinkWidth.Flexible}>I am an element group.</ElementGroup>);
 
 			const elementGroup = await screen.findByTestId(testId);
-
-			expect(elementGroup).toHaveStyleDeclaration('flex', '1 3');
+			expect(elementGroup).toHaveCompiledCss({
+				flexGrow: '1',
+				flexShrink: '3',
+			});
 		});
 	});
 });

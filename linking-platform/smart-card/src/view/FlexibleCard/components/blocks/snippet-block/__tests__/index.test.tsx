@@ -1,7 +1,8 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -35,7 +36,7 @@ describe('SnippetBlock', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '3');
+			expect(element).toHaveCompiledCss('-webkit-line-clamp', '3');
 		});
 
 		it('renders with specific maxLines', async () => {
@@ -48,7 +49,7 @@ describe('SnippetBlock', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '2');
+			expect(element).toHaveCompiledCss('-webkit-line-clamp', '2');
 		});
 
 		it('renders specific maxLines above the default maxlines', async () => {
@@ -61,7 +62,7 @@ describe('SnippetBlock', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '6');
+			expect(element).toHaveCompiledCss('-webkit-line-clamp', '6');
 		});
 
 		it('renders with default maximum maxLines when maxLines exceed maximum', async () => {
@@ -74,7 +75,7 @@ describe('SnippetBlock', () => {
 
 			const element = await screen.findByTestId(testId);
 
-			expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '3');
+			expect(element).toHaveCompiledCss('-webkit-line-clamp', '3');
 		});
 	});
 
@@ -125,12 +126,12 @@ describe('SnippetBlock', () => {
 		});
 		render(
 			<FlexibleUiContext.Provider value={context}>
-				<SnippetBlock overrideCss={overrideCss} status={SmartLinkStatus.Resolved} testId="css" />
+				<SnippetBlock css={overrideCss} status={SmartLinkStatus.Resolved} testId="css" />
 			</FlexibleUiContext.Provider>,
 		);
 
 		const block = await screen.findByTestId('css-resolved-view');
 
-		expect(block).toHaveStyleDeclaration('background-color', 'blue');
+		expect(block).toHaveCompiledCss('background-color', 'blue');
 	});
 });

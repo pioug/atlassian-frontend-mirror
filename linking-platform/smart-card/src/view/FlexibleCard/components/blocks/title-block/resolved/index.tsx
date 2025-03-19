@@ -19,8 +19,6 @@ import ElementGroup from '../../element-group';
 import { renderElementItems } from '../../utils';
 import { type TitleBlockViewProps } from '../types';
 
-import TitleBlockResolvedViewOld from './TitleBlockResolvedViewOld';
-
 const style = css({
 	gap: token('space.050'),
 });
@@ -30,7 +28,7 @@ const style = css({
  * This should render when a Smart Link returns a valid response.
  * @see TitleBlock
  */
-const TitleBlockResolvedViewNew = ({
+const TitleBlockResolvedView = ({
 	actionGroup,
 	metadata = [],
 	position,
@@ -82,14 +80,6 @@ const TitleBlockResolvedViewNew = ({
 			{actionGroup}
 		</Block>
 	);
-};
-
-const TitleBlockResolvedView = (props: TitleBlockViewProps): JSX.Element => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <TitleBlockResolvedViewNew {...props} />;
-	} else {
-		return <TitleBlockResolvedViewOld {...props} />;
-	}
 };
 
 export default TitleBlockResolvedView;

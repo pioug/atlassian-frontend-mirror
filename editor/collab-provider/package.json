@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "10.9.4",
+	"version": "10.10.0",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,18 +38,18 @@
 		"./version-wrapper": "./src/version-wrapper.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-utils": "workspace:*",
-		"@atlaskit/analytics-gas-types": "workspace:*",
-		"@atlaskit/analytics-listeners": "workspace:*",
-		"@atlaskit/editor-common": "workspace:*",
-		"@atlaskit/editor-json-transformer": "workspace:*",
+		"@atlaskit/adf-utils": "workspace:^",
+		"@atlaskit/analytics-gas-types": "workspace:^",
+		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/feature-gate-js-client": "workspace:*",
-		"@atlaskit/platform-feature-flags": "workspace:*",
-		"@atlaskit/prosemirror-collab": "workspace:*",
-		"@atlaskit/react-ufo": "workspace:*",
-		"@atlaskit/ufo": "workspace:*",
-		"@atlaskit/util-service-support": "workspace:*",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/prosemirror-collab": "workspace:^",
+		"@atlaskit/react-ufo": "workspace:^",
+		"@atlaskit/ufo": "workspace:^",
+		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"lodash": "^4.17.21",
@@ -73,7 +73,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
-		"@atlassian/feature-flags-test-utils": "workspace:*",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {
@@ -99,9 +99,6 @@
 			"type": "boolean"
 		},
 		"log_obfuscated_steps_for_view_only": {
-			"type": "boolean"
-		},
-		"make_collab_provider_ack_delay_agnostic": {
 			"type": "boolean"
 		}
 	}

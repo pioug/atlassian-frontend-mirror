@@ -517,7 +517,11 @@ export function createPlugin(
 
 				// get editor-tables to handle pasting tables if it can
 				// otherwise, just the replace the selection with the content
-				if (handlePasteTable(view, null, slice)) {
+				if (
+					handlePasteTable(view, event, slice, {
+						pasteSource: getPasteSource(event),
+					})
+				) {
 					sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
 						type: PasteTypes.richText,
 					});

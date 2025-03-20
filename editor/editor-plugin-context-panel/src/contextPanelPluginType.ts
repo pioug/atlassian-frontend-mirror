@@ -21,9 +21,9 @@ export type ContextPanelPlugin = NextEditorPlugin<
 		pluginConfiguration: ContextPanelPluginOptions | undefined;
 		actions: {
 			applyChange: typeof applyChange;
-			showPanel: ContextPanelPluginOptions['objectSideBar']['showPanel'];
-			closePanel: ContextPanelPluginOptions['objectSideBar']['closePanel'];
-			closePanelById: ContextPanelPluginOptions['objectSideBar']['closePanelById'];
+			showPanel?: ContextPanelPluginOptions['objectSideBar']['showPanel'];
+			closePanel?: ContextPanelPluginOptions['objectSideBar']['closePanel'];
+			closePanelById?: ContextPanelPluginOptions['objectSideBar']['closePanelById'];
 		};
 		sharedState: { contents: React.ReactNode[] | undefined } | undefined;
 	}

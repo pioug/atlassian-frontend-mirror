@@ -36,6 +36,8 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 	//This is needed to get the current selection in the editor
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 
+	const showContextPanel = api?.contextPanel?.actions?.showPanel;
+
 	return {
 		name: 'extension',
 
@@ -206,15 +208,19 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 							? api
 							: undefined,
 					}),
-			contextPanel: !fg('platform_editor_ai_object_sidebar_injection')
-				? getContextPanel(() => editorViewRef.current ?? undefined)(api, featureFlags)
-				: undefined,
+			contextPanel:
+				// if showContextPanel action is not available, or platform_editor_ai_object_sidebar_injection feature flag is off
+				// 	then keep using old context panel.
+				!showContextPanel || !fg('platform_editor_ai_object_sidebar_injection')
+					? getContextPanel(() => editorViewRef.current ?? undefined)(api, featureFlags)
+					: undefined,
 		},
 
-		usePluginHook: fg('platform_editor_ai_object_sidebar_injection')
-			? ({ editorView }) => {
-					useConfigPanelPluginHook({ editorView, api });
-				}
-			: undefined,
+		usePluginHook:
+			showContextPanel && fg('platform_editor_ai_object_sidebar_injection')
+				? ({ editorView }) => {
+						useConfigPanelPluginHook({ editorView, api });
+					}
+				: undefined,
 	};
 };

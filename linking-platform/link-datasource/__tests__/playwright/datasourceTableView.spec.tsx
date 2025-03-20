@@ -135,10 +135,7 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, [
-			'platform-datasources-enable-two-way-sync-statuses',
-			'enable_datasource_supporting_actions',
-		]);
+		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-statuses']);
 
 		await page.getByTestId('link-datasource-render-type--status').first().click();
 		await page.getByTestId('inline-edit-status-option-In Progress').first().click();
@@ -154,10 +151,7 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, [
-			'platform-datasources-enable-two-way-sync-priority',
-			'enable_datasource_supporting_actions',
-		]);
+		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-priority']);
 
 		// Check priority value before
 		// We're unable to use link-datasource-render-type--icon--text as other columns also are the same type
@@ -180,10 +174,7 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, [
-			'platform-datasources-enable-two-way-sync-statuses',
-			'enable_datasource_supporting_actions',
-		]);
+		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-statuses']);
 
 		await page.getByTestId('link-datasource-render-type--status').first().click();
 		await page.getByRole('combobox').fill('in p');
@@ -198,10 +189,7 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, [
-			'platform-datasources-enable-two-way-sync-assignee',
-			'enable_datasource_supporting_actions',
-		]);
+		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-assignee']);
 
 		await page
 			.getByTestId(

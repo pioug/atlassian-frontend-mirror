@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 204.5.4
+
+### Patch Changes
+
+- [#128779](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128779)
+  [`ed8a7f2bc8c46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed8a7f2bc8c46) -
+  Fix delayed initialisation of view mode which causes the toolbar to show unexpectedly in view
+  mode.
+- Updated dependencies
+
 ## 204.5.3
 
 ### Patch Changes

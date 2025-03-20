@@ -16,6 +16,11 @@ export const pixelEntryMessages = defineMessages({
 		defaultMessage: 'Max width {maxWidth}px',
 		description: 'The width input aria label',
 	},
+	inputWidthLabel: {
+		id: 'fabric.editor.media.pixelEntry.inputWidthLabel',
+		defaultMessage: 'Width',
+		description: 'The label displayed next to the width input',
+	},
 	inputHeightTooltip: {
 		id: 'fabric.editor.media.pixelEntry.inputHeightTooltip',
 		defaultMessage: 'Height',
@@ -45,5 +50,11 @@ export const pixelEntryMessages = defineMessages({
 		id: 'fabric.editor.media.pixelEntry.migrationButtonTooltip',
 		defaultMessage: 'Migrate from percentage to fixed pixel sizing',
 		description: 'The tooltip displayed on the migration button',
+	},
+	closePixelEntry: {
+		id: 'fabric.editor.media.pixelEntry.closePixelEntry',
+		defaultMessage: 'Close',
+		description:
+			'The text give to the close button used to close the pixel inputs and go back to main toolbar',
 	},
 });

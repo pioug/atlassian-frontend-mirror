@@ -14,8 +14,6 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const containerStyles = xcss({
 	height: '200%',
 });
@@ -80,10 +78,8 @@ export default function ExampleScroll() {
 						testId="modal"
 					>
 						{titleShown && (
-							<ModalHeader>
-								<ModalTitleWithClose onClose={close}>
-									<ModalTitle>Modal Title</ModalTitle>
-								</ModalTitleWithClose>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Modal Title</ModalTitle>
 							</ModalHeader>
 						)}
 						<ModalBody>

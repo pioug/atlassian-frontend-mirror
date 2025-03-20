@@ -3,14 +3,13 @@ import React, { Fragment, useCallback, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import Modal, {
-	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, Flex, Grid, xcss } from '@atlaskit/primitives';
+import { Box, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({
 	position: 'relative',
@@ -18,18 +17,6 @@ const containerStyles = xcss({
 
 const stickyStyles = xcss({
 	position: 'sticky',
-});
-
-const gridStyles = xcss({
-	width: '100%',
-});
-
-const closeContainerStyles = xcss({
-	gridArea: 'close',
-});
-
-const titleContainerStyles = xcss({
-	gridArea: 'title',
 });
 
 function SurfaceAwareBox() {
@@ -53,15 +40,8 @@ export default function Example() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={closeModal} height={600}>
-						<ModalHeader>
-							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={titleContainerStyles} justifyContent="start">
-									<ModalTitle>Our voice and tone</ModalTitle>
-								</Flex>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<CloseButton onClick={closeModal} />
-								</Flex>
-							</Grid>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Our voice and tone</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Box xcss={containerStyles}>

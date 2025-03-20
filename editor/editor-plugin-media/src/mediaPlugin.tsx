@@ -41,6 +41,7 @@ import keymapMediaSinglePlugin from './pm-plugins/keymap-media';
 import linkingPlugin from './pm-plugins/linking';
 import keymapLinkingPlugin from './pm-plugins/linking/keymap';
 import { createPlugin } from './pm-plugins/main';
+import { createPlugin as createMediaPixelResizingPlugin } from './pm-plugins/pixel-resizing';
 import { stateKey } from './pm-plugins/plugin-key';
 import { createMediaIdentifierArray, extractMediaNodes } from './pm-plugins/utils/media-common';
 import { insertMediaAsMediaSingle } from './pm-plugins/utils/media-single';
@@ -301,6 +302,19 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				pmPlugins.push({
 					name: 'mediaLinkingKeymap',
 					plugin: ({ schema }) => keymapLinkingPlugin(schema),
+				});
+			}
+
+			if (
+				options &&
+				options.allowAdvancedToolBarOptions &&
+				options.allowResizing &&
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_media_extended_resize_experience')
+			) {
+				pmPlugins.push({
+					name: 'mediaPixelResizing',
+					plugin: createMediaPixelResizingPlugin,
 				});
 			}
 

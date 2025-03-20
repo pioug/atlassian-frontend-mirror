@@ -50,7 +50,6 @@ import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Editor from '../../editor';
 import { EditorActions } from '../../index';
@@ -387,82 +386,6 @@ describe(`Editor`, () => {
 					</FabricAnalyticsListeners>,
 				);
 			});
-		});
-
-		describe('dangerously append plugins tracking', () => {
-			ffTest.on(
-				'platform_editor_track_dangerous_append_plugins',
-				'dangerously appended plugins',
-				() => {
-					it('should dispatch a `dangerousPluginAppended` event after the editor has mounted with a dangerously appended plugin', (done) => {
-						const mockAnalyticsClient = (done: jest.DoneCallback): AnalyticsWebClient => {
-							const analyticsEventHandler = (event: GasPurePayload | GasPureScreenEventPayload) => {
-								expect(event).toEqual(
-									expect.objectContaining({
-										action: 'dangerousPluginAppended',
-										actionSubject: 'editor',
-										attributes: expect.objectContaining({
-											// Check the duration (in this case supplied by the mock) is sent correctly
-											count: 1,
-											names: ['testPlugin'],
-										}),
-									}),
-								);
-								done();
-							};
-							return analyticsClient(analyticsEventHandler);
-						};
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
-								<Editor
-									allowAnalyticsGASV3={true}
-									// If no onEditorReady callback is given, the analytics event is not sent.
-									dangerouslyAppendPlugins={{
-										__plugins: [{ name: 'testPlugin' }],
-									}}
-								/>
-							</FabricAnalyticsListeners>,
-						);
-					});
-				},
-			);
-
-			ffTest.on(
-				'platform_editor_track_dangerous_append_plugins',
-				'dangerously appended plugins',
-				() => {
-					it('should dispatch a `dangerousPluginAppended` event with multiple plugins after the editor has mounted with a dangerously appended plugin', (done) => {
-						const mockAnalyticsClient = (done: jest.DoneCallback): AnalyticsWebClient => {
-							const analyticsEventHandler = (event: GasPurePayload | GasPureScreenEventPayload) => {
-								expect(event).toEqual(
-									expect.objectContaining({
-										action: 'dangerousPluginAppended',
-										actionSubject: 'editor',
-										attributes: expect.objectContaining({
-											// Check the duration (in this case supplied by the mock) is sent correctly
-											count: 2,
-											names: ['testPlugin', 'anotherPlugin'],
-										}),
-									}),
-								);
-								done();
-							};
-							return analyticsClient(analyticsEventHandler);
-						};
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
-								<Editor
-									allowAnalyticsGASV3={true}
-									// If no onEditorReady callback is given, the analytics event is not sent.
-									dangerouslyAppendPlugins={{
-										__plugins: [{ name: 'testPlugin' }, { name: 'anotherPlugin' }],
-									}}
-								/>
-							</FabricAnalyticsListeners>,
-						);
-					});
-				},
-			);
 		});
 
 		describe('running the constructor once', () => {

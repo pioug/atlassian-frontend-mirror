@@ -26,8 +26,6 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const Break = () => <br />;
 
 export default () => {
@@ -76,10 +74,8 @@ export default () => {
 						shouldScrollInViewport={shouldScrollInViewport}
 						testId="modal"
 					>
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Modal Title</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count={4} />

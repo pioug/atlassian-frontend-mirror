@@ -1,4 +1,9 @@
-import { type MediaClientConfig, type MediaApi, FileIdentifier } from '@atlaskit/media-client';
+import {
+	type MediaClientConfig,
+	type MediaApi,
+	FileIdentifier,
+	getFileStreamsCache,
+} from '@atlaskit/media-client';
 import { type GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers';
 import { type MediaStore, createMediaStore } from '@atlaskit/media-state';
 // TODO: these types should be exported from here (the public package), and imported in test-data
@@ -224,6 +229,13 @@ export const useCreateMockedMediaClientProviderWithBinaries = ({
 
 	// Ensure a single store for the Hook's life cycle
 	const mediaStore = useMemo(() => initialStore || createMediaStore(), [initialStore]);
+
+	useEffect(() => {
+		// There is a bug that when requesting a file metadata that lives in cache but not in the store, the store won't be populated,
+		// since the store updater is only subscribing to the observable when this is created and added to the cache.
+		// here we kill the whole cache as a workaround/hack
+		getFileStreamsCache().removeAll();
+	}, []);
 
 	useEffect(() => {
 		const initialGeneratedItems: ItemWithBinaries[] = [];

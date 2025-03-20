@@ -15,8 +15,6 @@ import ModalDialog, {
 import { Box } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const allowlistElement = (element: HTMLElement) => {
 	if (element.closest('[data-allowlist-container="true"]')) {
 		return false;
@@ -54,10 +52,8 @@ export default function Allowlist() {
 			</Box>
 			{isOpen && (
 				<ModalDialog testId="modal-focus-lock" width="large" onClose={close}>
-					<ModalHeader>
-						<ModalTitleWithClose onClose={close}>
-							<ModalTitle>Modal container</ModalTitle>
-						</ModalTitleWithClose>
+					<ModalHeader hasCloseButton>
+						<ModalTitle>Modal container</ModalTitle>
 					</ModalHeader>
 					<Box data-allowlist-container="true">
 						<ModalBody>
@@ -86,7 +82,7 @@ export default function Allowlist() {
 							onClose={closeInner}
 							focusLockAllowlist={allowlistElement}
 						>
-							<ModalHeader>
+							<ModalHeader hasCloseButton>
 								<ModalTitle>Nested Modal</ModalTitle>
 							</ModalHeader>
 							<ModalBody>

@@ -4,10 +4,11 @@ import React from 'react';
 import FileChooser from '../../../../components/common/FileChooser';
 import * as commonStyles from '../../../../components/common/styles';
 import type { CategoryGroupKey } from '../../../../components/picker/categories';
-import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
-import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
-import EmojiPickerEmojiRow from '../../../../components/picker/EmojiPickerEmojiRow';
-import { EmojiPickerListSearch } from '../../../../components/picker/EmojiPickerListSearch';
+import {
+	default as EmotionEmojiPicker,
+	type Props,
+} from '../../../../components/picker/EmojiPicker';
+import { default as CompiledEmojiPicker } from '../../../../components/compiled/picker/EmojiPicker';
 import type { EmojiDescription } from '../../../../types';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
@@ -16,14 +17,21 @@ import type { MockEmojiResourceConfig } from '@atlaskit/util-data-test/emoji-typ
 import { type RenderResult, screen, within } from '@testing-library/react';
 import { renderWithIntl } from '../../_testing-library';
 
-export function setupPickerWithoutToneSelector(): Promise<RenderResult> {
-	return setupPicker({
+export function setupCompiledPickerWithoutToneSelector(): Promise<RenderResult> {
+	return setupCompiledPicker({
 		emojiProvider: getEmojiResourcePromise(),
 		hideToneSelector: true,
 	});
 }
 
-export async function setupPicker(
+export function setupEmotionPickerWithoutToneSelector(): Promise<RenderResult> {
+	return setupEmotionPicker({
+		emojiProvider: getEmojiResourcePromise(),
+		hideToneSelector: true,
+	});
+}
+
+export async function setupCompiledPicker(
 	props?: Props & WithAnalyticsEventsProps,
 	config?: MockEmojiResourceConfig,
 	onEvent?: any,
@@ -39,10 +47,37 @@ export async function setupPicker(
 	const renderResult = onEvent
 		? renderWithIntl(
 				<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-					<EmojiPicker {...pickerProps} />
+					<CompiledEmojiPicker {...pickerProps} />
 				</AnalyticsListener>,
 			)
-		: renderWithIntl(<EmojiPicker {...pickerProps} />);
+		: renderWithIntl(<CompiledEmojiPicker {...pickerProps} />);
+
+	// Wait until loaded
+	await screen.findByLabelText('Emoji picker');
+
+	return renderResult;
+}
+
+export async function setupEmotionPicker(
+	props?: Props & WithAnalyticsEventsProps,
+	config?: MockEmojiResourceConfig,
+	onEvent?: any,
+): Promise<RenderResult> {
+	const pickerProps: Props = {
+		...props,
+	} as Props;
+
+	if (!props?.emojiProvider) {
+		pickerProps.emojiProvider = getEmojiResourcePromise(config);
+	}
+
+	const renderResult = onEvent
+		? renderWithIntl(
+				<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+					<EmotionEmojiPicker {...pickerProps} />
+				</AnalyticsListener>,
+			)
+		: renderWithIntl(<EmotionEmojiPicker {...pickerProps} />);
 
 	// Wait until loaded
 	await screen.findByLabelText('Emoji picker');
@@ -69,48 +104,11 @@ export const emojisVisible = async (list: HTMLElement) =>
 		name: /:.*:/, // eg. :grinning:
 	});
 
-const nodeIsCategory = (category: CategoryGroupKey, n: ReactWrapper<Props>) =>
-	n.is(EmojiPickerCategoryHeading) && n.prop('id') === category;
-
 const findCategoryHeading = (category: CategoryGroupKey) =>
 	screen.getAllByRole('rowheader', {
 		// Key is all uppercase, lowercase everything except the first char
 		name: category.charAt(0) + category.slice(1).toLowerCase(),
 	});
-
-const findAllVirtualRows = (component: ReactWrapper) =>
-	component.update() &&
-	component.findWhere(
-		(n) =>
-			n.is(EmojiPickerListSearch) || n.is(EmojiPickerCategoryHeading) || n.is(EmojiPickerEmojiRow),
-		// ignore spinner
-	);
-
-export const emojiRowsVisibleInCategory = (category: CategoryGroupKey, component: ReactWrapper) => {
-	component.update();
-	const rows = findAllVirtualRows(component);
-	let foundStart = false;
-	let foundEnd = false;
-	return rows.filterWhere((n) => {
-		if (foundEnd) {
-			return false;
-		}
-
-		if (foundStart) {
-			if (!n.is(EmojiPickerEmojiRow)) {
-				foundEnd = true;
-				return false;
-			}
-			return true;
-		}
-
-		if (nodeIsCategory(category, n)) {
-			foundStart = true;
-		}
-
-		return false;
-	});
-};
 
 export const categoryVisible = (category: CategoryGroupKey) =>
 	findCategoryHeading(category).length > 0;

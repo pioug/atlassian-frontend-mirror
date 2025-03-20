@@ -39,7 +39,7 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			invalidWorkspaceProtocolUsage: `The 'workspace:^' or 'workspace:~' protocol is Used. To resolve this error, please use the 'workspace:*' protocol instead.`,
+			invalidWorkspaceProtocolUsage: `The 'workspace:^'protocol is Used. To resolve this error, please use the 'workspace:*' protocol instead.`,
 			invalidRootProtocolUsage: `The 'root:' protocol is not allowed in platform packages. To resolve this error, replace the 'root:' protocol with specific package versions (e.g. '^1.0.0').`,
 		},
 	},

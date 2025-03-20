@@ -6,7 +6,7 @@ import { memo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { EmojiDescription } from '../../types';
-import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent'; // ED-26865: use compiled EmojiPreviewComponent when migrating picker to compiled css
+import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { emojiPickerFooter, emojiPickerFooterWithTopShadow } from './styles';
 
 export interface Props {

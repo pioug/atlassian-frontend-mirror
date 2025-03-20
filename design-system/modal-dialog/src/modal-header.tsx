@@ -7,8 +7,10 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { Flex, Grid, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+import { CloseButton } from './close-button';
 import { useModal } from './hooks';
 
 const headerStyles = css({
@@ -22,11 +24,29 @@ const headerStyles = css({
 	paddingInline: token('space.300'),
 });
 
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
+});
+
 export interface ModalHeaderProps {
 	/**
 	 * Children of modal dialog header.
 	 */
 	children?: React.ReactNode;
+
+	/**
+	 * Shows a close button at the end of the header.
+	 * @default false
+	 */
+	hasCloseButton?: boolean;
 
 	/**
 	 * A `testId` prop is provided for specified elements,
@@ -46,14 +66,28 @@ export interface ModalHeaderProps {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalHeader = (props: ModalHeaderProps) => {
-	const { children, testId: userDefinedTestId } = props;
-	const { testId: modalTestId } = useModal();
+	const { children, testId: userDefinedTestId, hasCloseButton = false } = props;
+	const { hasProvidedOnClose, onClose, testId: modalTestId } = useModal();
 
 	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--header`);
 
+	// Only show if an onClose was provided for the modal dialog
+	const shouldShowCloseButton = hasCloseButton && hasProvidedOnClose && onClose;
+
 	return (
 		<div css={headerStyles} data-testid={testId}>
-			{children}
+			{shouldShowCloseButton ? (
+				<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+					<Flex xcss={titleContainerStyles} justifyContent="start" alignItems="center">
+						{children}
+					</Flex>
+					<Flex xcss={closeContainerStyles} justifyContent="end">
+						<CloseButton onClick={onClose} testId={modalTestId} />
+					</Flex>
+				</Grid>
+			) : (
+				children
+			)}
 		</div>
 	);
 };

@@ -113,6 +113,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 			content: file,
 			name: file.name,
 			collection: defaultCollectionName,
+			mimeType: file.type,
 		};
 		const uploadController = new UploadController();
 		const stream = mediaClient.file.upload(uplodableFile, uploadController);

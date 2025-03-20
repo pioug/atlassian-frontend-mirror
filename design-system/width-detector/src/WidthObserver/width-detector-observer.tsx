@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { useInView } from './hooks';
 import { type WidthObserverProps } from './types';
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const WidthDetectorObserver = React.memo(({ setWidth, offscreen }: WidthObserverProps) => {
 	const [inViewRef, inView, target] = useInView({
 		/* Optional options */

@@ -177,6 +177,7 @@ export const EditorInternal = memo(
 													featureFlags={featureFlags}
 													pluginHooks={config.pluginHooks}
 													__livePage={props.__livePage}
+													preset={preset}
 												/>
 											</BaseThemeWrapper>
 										)}

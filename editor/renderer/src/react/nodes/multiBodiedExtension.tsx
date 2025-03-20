@@ -130,7 +130,7 @@ const containerStylesNew = css({
 	".multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true'], .multiBodiedExtension--frames > [data-extension-frame='true']":
 		{
 			display: 'none',
-			background: token('elevation.surface', 'white'),
+			background: 'transparent',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.multiBodiedExtension-content-dom-wrapper, .multiBodiedExtension--frames': {

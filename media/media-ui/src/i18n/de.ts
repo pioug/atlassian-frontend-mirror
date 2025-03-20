@@ -7,6 +7,10 @@
  */
 //German (Germany)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Zu Ihrer Sicherheit scannt unser System automatisch alle hochgeladenen Dateien. Die Datei, die Sie herunterladen möchten, enthält möglicherweise schädliche Inhalte.',
+  'fabric.media.abuse_modal_submit': 'Mit Download fortfahren',
+  'fabric.media.abuse_modal_title': 'Warnung',
   'fabric.media.accounts': 'Konten',
   'fabric.media.actions': 'Aktionen',
   'fabric.media.add_account': 'Account hinzufügen',
@@ -59,6 +63,8 @@ export default {
   'fabric.media.display_thumbnail': 'Miniaturansicht anzeigen',
   'fabric.media.document': 'Dokument',
   'fabric.media.download': 'Herunterladen',
+  'fabric.media.download_disabled_security_policy':
+    'Der Download wird durch die Sicherheitsrichtlinien Ihrer Organisation blockiert.',
   'fabric.media.drag_and_drop_images_here': 'Ihre Bilder hierher ziehen und ablegen.',
   'fabric.media.drag_and_drop_your_files': 'Dateien irgendwohin ziehen und ablegen oder',
   'fabric.media.drag_and_drop_your_files_and_folders':
@@ -110,7 +116,6 @@ export default {
   'fabric.media.playback_default_speed': 'Standard',
   'fabric.media.playback_speed': 'Geschwindigkeit der Wiedergabe',
   'fabric.media.preview': 'Vorschau',
-  'fabric.media.preview_currently_unavailable': 'Vorschau derzeit nicht verfügbar',
   'fabric.media.preview_unavailable': 'Vorschau nicht verfügbar',
   'fabric.media.recent_uploads': 'Aktuelle Uploads',
   'fabric.media.remove_image': 'Bild löschen',
@@ -129,6 +134,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Aus allen Standardoptionen auswählen',
   'fabric.media.share_files_instantly': 'Wir teilen sie sofort.',
   'fabric.media.show_more_avatars_btn_label': 'Mehr anzeigen',
+  'fabric.media.size_options': 'Größenoptionen',
   'fabric.media.skip_backward': '10 Sekunden zurück',
   'fabric.media.skip_forward': '10 Sekunden vor',
   'fabric.media.something_went_wrong': 'Irgendetwas ist schiefgelaufen.',

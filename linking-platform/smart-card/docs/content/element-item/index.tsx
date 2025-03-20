@@ -21,7 +21,7 @@ the element will simply not show up.
 If you find a link that should have the data for the element
 but the element does not show up,
 it could be a case that our link resolver needed an updated.
-Come chat with us at [#help-bandicoots](https://atlassian.slack.com/archives/CFKGAQZRV)
+Come chat with us at [#help-twg-linking-platform](https://atlassian.slack.com/archives/CFKGAQZRV)
 and we will be happy to look in to it.
 Or if your team would like to contribute to our link resolvers or even create one of your own, let us know!
 Let's making the linking experience better for everyone!

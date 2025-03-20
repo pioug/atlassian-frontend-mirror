@@ -19,6 +19,13 @@ export type ModalAttributes = {
 	 * wrapped in modal dialog's analytic event context.
 	 */
 	onClose: OnCloseHandler;
+
+	/**
+	 * A boolean for if the onClose is provided. We define a `noop` as our onClose
+	 * at the top level, but we need to know if one is provided for the close
+	 * button to be rendered.
+	 */
+	hasProvidedOnClose?: boolean;
 };
 
 /* eslint-disable @repo/internal/react/require-jsdoc */

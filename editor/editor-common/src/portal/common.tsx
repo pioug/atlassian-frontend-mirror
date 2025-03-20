@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useState } from 'react';
+import React, { memo, useLayoutEffect, useMemo, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
@@ -9,6 +9,7 @@ type RenderFn = (
 	children: () => React.ReactChild | JSX.Element | null,
 	container: HTMLElement,
 	key: string,
+	onBeforeReactDomRender?: () => void,
 ) => void;
 type RemoveFn = (key: string) => void;
 type DestoryFn = () => void;
@@ -43,6 +44,28 @@ export function createPortalRendererComponent(portalManager: PortalManager) {
 }
 
 /**
+ * Wraps the children of a portal to allow for React rendering
+ * lifecycle hook to be exposed, primarily for node virtualization.
+ */
+export const PortalRenderWrapperInner = ({
+	getChildren,
+	onBeforeRender,
+}: {
+	getChildren: () => React.ReactNode;
+	onBeforeRender: () => void;
+}) => {
+	useLayoutEffect(() => {
+		if (onBeforeRender) {
+			onBeforeRender();
+		}
+	}, [onBeforeRender]);
+	return <>{getChildren()}</>;
+};
+
+const PortalRenderWrapper = memo(PortalRenderWrapperInner);
+PortalRenderWrapper.displayName = 'PortalRenderWrapper';
+
+/**
  * Creates a portal provider for managing multiple React portals. The provider
  * facilitates rendering, removing, and destroying portals managed by a given
  * PortalManager.
@@ -63,11 +86,20 @@ export function createPortalRendererComponent(portalManager: PortalManager) {
 export const getPortalProviderAPI = (portalManager: PortalManager): PortalProviderAPI => {
 	const portalsMap = new Map();
 	return {
-		render: (children: () => React.ReactNode, container: HTMLElement, key: string) => {
-			const portal = createPortal(children(), container, key);
-			portalsMap.set(key, portalManager.registerPortal(key, portal));
+		render: (children, container, key, onBeforeReactDomRender) => {
+			if (typeof onBeforeReactDomRender === 'function') {
+				const portal = createPortal(
+					<PortalRenderWrapper getChildren={children} onBeforeRender={onBeforeReactDomRender} />,
+					container,
+					key,
+				);
+				portalsMap.set(key, portalManager.registerPortal(key, portal));
+			} else {
+				const portal = createPortal(children(), container, key);
+				portalsMap.set(key, portalManager.registerPortal(key, portal));
+			}
 		},
-		remove: (key: string) => {
+		remove: (key) => {
 			portalsMap.get(key)?.();
 			portalsMap.delete(key);
 		},

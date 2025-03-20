@@ -69,13 +69,19 @@ export const contextPanelPlugin: ContextPanelPlugin = ({ config }) => ({
 
 	actions: {
 		applyChange: applyChange,
-		showPanel: (panel: ObjectSidebarPanel, behavior?: ObjectSidebarBehavior, panelWidth?: number) =>
-			fg('platform_editor_ai_object_sidebar_injection') &&
-			config?.objectSideBar.showPanel(panel, behavior, panelWidth),
-		closePanel: () =>
-			fg('platform_editor_ai_object_sidebar_injection') && config?.objectSideBar.closePanel(),
-		closePanelById: (id: ObjectSidebarPanel['id']) =>
-			fg('platform_editor_ai_object_sidebar_injection') && config?.objectSideBar.closePanelById(id),
+		showPanel:
+			config?.objectSideBar.showPanel && fg('platform_editor_ai_object_sidebar_injection')
+				? (panel: ObjectSidebarPanel, behavior?: ObjectSidebarBehavior, panelWidth?: number) =>
+						config.objectSideBar.showPanel(panel, behavior, panelWidth)
+				: undefined,
+		closePanel:
+			config?.objectSideBar.closePanel && fg('platform_editor_ai_object_sidebar_injection')
+				? () => config.objectSideBar.closePanel()
+				: undefined,
+		closePanelById:
+			config?.objectSideBar.closePanelById && fg('platform_editor_ai_object_sidebar_injection')
+				? (id: ObjectSidebarPanel['id']) => config.objectSideBar.closePanelById(id)
+				: undefined,
 	},
 
 	getSharedState(state) {

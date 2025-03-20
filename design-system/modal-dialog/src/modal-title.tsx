@@ -21,6 +21,23 @@ const iconColor: { [key in Appearance]: NewIconProps['color'] } = {
 	warning: token('color.icon.warning', '#D97008'),
 } as const;
 
+const iconStyles = css({
+	flex: '0 0 auto',
+	// The following properties have been added purely to avoid a global style override in Jira breaking alignment between the icon and title text.
+	// https://stash.atlassian.com/projects/JIRACLOUD/repos/jira/browse/jira-components/jira-legacy-frontend/jira-atlaskit-module/src/main/resources/jira-atlaskit-module/css/adg3-general-overrides.less?at=master#24
+	// When the override is removed, these can be removed.
+	color: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	fontSize: 'inherit',
+	fontStyle: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	fontWeight: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	letterSpacing: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	lineHeight: 'inherit',
+});
+
 const titleStyles = css({
 	display: 'flex',
 	minWidth: 0,
@@ -41,23 +58,6 @@ const textStyles = css({
 	 */
 	flex: '1 1 auto',
 	wordWrap: 'break-word',
-});
-
-const iconStyles = css({
-	flex: '0 0 auto',
-	// The following properties have been added purely to avoid a global style override in Jira breaking alignment between the icon and title text.
-	// https://stash.atlassian.com/projects/JIRACLOUD/repos/jira/browse/jira-components/jira-legacy-frontend/jira-atlaskit-module/src/main/resources/jira-atlaskit-module/css/adg3-general-overrides.less?at=master#24
-	// When the override is removed, these can be removed.
-	color: 'inherit',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontSize: 'inherit',
-	fontStyle: 'inherit',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontWeight: 'inherit',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	letterSpacing: 'inherit',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 'inherit',
 });
 
 const truncatedTextStyles = css({
@@ -120,8 +120,8 @@ const ModalTitle = (props: ModalTitleProps) => {
 		// eslint-disable-next-line @atlaskit/design-system/use-heading
 		<h1 css={titleStyles} data-testid={testId}>
 			{/* The icon needs to remain part of the <h1> so that it is included as part of the modal dialog announcement.
-				See https://product-fabric.atlassian.net/browse/DSP-21771 for more detailed info.
-			*/}
+		See https://product-fabric.atlassian.net/browse/DSP-21771 for more detailed info.
+		*/}
 			{appearance && <TitleIcon appearance={appearance} />}
 			<span
 				id={titleId}

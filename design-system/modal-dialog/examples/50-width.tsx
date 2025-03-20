@@ -17,8 +17,6 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { width } from '../src/internal/utils';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const units = [420, '42%', '42em', '100%'];
 const sizes: (string | number)[] = width.values;
 
@@ -61,10 +59,8 @@ export default function ModalDemo() {
 			<ModalTransition>
 				{width && (
 					<ModalDialog key={width} onClose={close} width={width} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Modal: {String(width)}</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal: {String(width)}</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count="1" />

@@ -13,8 +13,6 @@ import Modal, {
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const customContainerStyles = xcss({
 	display: 'flex',
 	height: '700px',
@@ -39,10 +37,8 @@ export default function DefaultModal() {
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
 						<Box xcss={customContainerStyles} testId="custom-container">
-							<ModalHeader>
-								<ModalTitleWithClose onClose={close}>
-									<ModalTitle>Modal Title</ModalTitle>
-								</ModalTitleWithClose>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Modal Title</ModalTitle>
 							</ModalHeader>
 							<ModalBody>
 								<Lorem count={2} />

@@ -7,6 +7,10 @@
  */
 //Polish (Poland)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Ze względów bezpieczeństwa nasz system automatycznie skanuje wszystkie przekazywane pliki. Plik, który zamierzasz pobrać, może zawierać złośliwe treści.',
+  'fabric.media.abuse_modal_submit': 'Kontynuuj pobieranie',
+  'fabric.media.abuse_modal_title': 'Ostrzeżenie',
   'fabric.media.accounts': 'Konta',
   'fabric.media.actions': 'Akcje',
   'fabric.media.add_account': 'Dodaj konto',
@@ -56,6 +60,8 @@ export default {
   'fabric.media.display_thumbnail': 'Wyświetl miniaturę',
   'fabric.media.document': 'dokument',
   'fabric.media.download': 'Pobierz',
+  'fabric.media.download_disabled_security_policy':
+    'Pobieranie zostało zablokowane przy użyciu zasad bezpieczeństwa organizacji.',
   'fabric.media.drag_and_drop_images_here': 'Przeciągnij i upuść obrazy tutaj',
   'fabric.media.drag_and_drop_your_files': 'Przeciągnij i upuść pliki w dowolne miejsce lub',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Przeciągnij lub upuść pliki i foldery w dowolnym miejscu lub',
@@ -107,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'Domyślnie',
   'fabric.media.playback_speed': 'Prędkość odtwarzania',
   'fabric.media.preview': 'Podgląd',
-  'fabric.media.preview_currently_unavailable': 'Podgląd aktualnie niedostępny',
   'fabric.media.preview_unavailable': 'Podgląd niedostępny',
   'fabric.media.recent_uploads': 'Ostatnio przekazane',
   'fabric.media.remove_image': 'usuń obraz',
@@ -125,6 +130,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Wybierz spośród wszystkich domyślnych opcji',
   'fabric.media.share_files_instantly': 'Błyskawicznie je udostępnimy',
   'fabric.media.show_more_avatars_btn_label': 'Pokaż więcej',
+  'fabric.media.size_options': 'Opcje rozmiaru',
   'fabric.media.skip_backward': 'Cofnij o 10 sekund',
   'fabric.media.skip_forward': 'Przeskocz o 10 sekund',
   'fabric.media.something_went_wrong': 'Coś poszło nie tak.',

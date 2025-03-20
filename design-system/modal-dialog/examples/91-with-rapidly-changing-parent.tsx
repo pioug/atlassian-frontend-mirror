@@ -13,8 +13,6 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const containerStyles = xcss({
 	height: '100%',
 	padding: 'space.200',
@@ -54,10 +52,8 @@ function Child() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Modal Title</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 
 						<ModalBody>

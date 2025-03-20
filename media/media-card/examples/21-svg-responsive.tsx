@@ -12,6 +12,7 @@ import {
 	type FileIdentifier,
 	type ImageResizeMode,
 } from '@atlaskit/media-client';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers';
 import { MediaClientProvider } from '@atlaskit/media-client-react';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import Select from '@atlaskit/select';
@@ -23,21 +24,7 @@ import { ControlsBox, DimensionsPicker, SvgContainer } from '../example-helpers/
 const dummyMediaClientConfig = {} as MediaClientConfig;
 const mediaClientConfig = createStorybookMediaClientConfig();
 
-const collectionName = 'MediaServicesSample';
-
-const identifiers = Object.entries({
-	ajDigitalCamera: '10d7388f-db45-4d01-b6cf-801f7242655e',
-	car: 'd4fb1cef-d845-42d4-beca-7b185966f4d6',
-	atom: 'c03470af-ab26-4660-96fd-362193d676e0',
-	openweb: '0bdf18bd-458e-4aeb-9484-b525de5658a1',
-}).map<[string, FileIdentifier]>(([key, id]) => [
-	key,
-	{
-		mediaItemType: 'file' as const,
-		id: id,
-		collectionName,
-	},
-]);
+const identifiers = Object.entries(svgFileIds);
 
 const resizeModeList: ImageResizeMode[] = ['crop', 'fit', 'full-fit', 'stretchy-fit'];
 const resizeModeOptions = resizeModeList.map((mode) => ({

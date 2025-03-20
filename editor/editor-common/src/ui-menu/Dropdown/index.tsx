@@ -15,7 +15,7 @@ export interface Props {
 	scrollableElement?: HTMLElement;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	trigger: React.ReactElement<any>;
+	trigger?: React.ReactElement<any>;
 	isOpen?: boolean;
 	onOpenChange?: (attrs: OpenChangedEvent) => void;
 	fitWidth?: number;
@@ -24,6 +24,11 @@ export interface Props {
 	arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
 	dropdownListId?: string;
 	alignDropdownWithParentElement?: boolean;
+	target?: HTMLElement;
+	forcePlacement?: boolean;
+	alignX?: 'left' | 'right' | 'center';
+	alignY?: 'start' | 'bottom' | 'top';
+	offset?: [number, number];
 }
 
 export interface State {
@@ -84,25 +89,35 @@ export class Dropdown extends PureComponent<Props, State> {
 			arrowKeyNavigationProviderOptions,
 			dropdownListId,
 			alignDropdownWithParentElement,
+			target: targetProp,
+			forcePlacement,
+			alignX,
+			alignY,
+			offset,
 		} = this.props;
 
 		return (
 			<Popup
 				target={
-					alignDropdownWithParentElement
+					targetProp ??
+					(alignDropdownWithParentElement
 						? // Ignored via go/ees005
 							// eslint-disable-next-line @atlaskit/editor/no-as-casting
 							(target?.closest("[data-testid='editor-floating-toolbar']") as HTMLElement)
-						: target
+						: target)
 				}
 				mountTo={mountTo}
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
-				onPlacementChanged={this.updatePopupPlacement}
+				onPlacementChanged={forcePlacement ? undefined : this.updatePopupPlacement}
 				fitHeight={fitHeight}
 				fitWidth={fitWidth}
 				zIndex={zIndex}
 				allowOutOfBounds={alignDropdownWithParentElement}
+				alignX={alignX}
+				alignY={alignY}
+				forcePlacement={forcePlacement}
+				offset={offset}
 			>
 				<ArrowKeyNavigationProvider
 					// Ignored via go/ees005
@@ -131,7 +146,7 @@ export class Dropdown extends PureComponent<Props, State> {
 	render() {
 		const { trigger, isOpen } = this.props;
 
-		return (
+		return trigger ? (
 			<OutsideClickTargetRefContext.Consumer>
 				{(setOutsideClickTargetRef) => (
 					<>
@@ -140,6 +155,8 @@ export class Dropdown extends PureComponent<Props, State> {
 					</>
 				)}
 			</OutsideClickTargetRefContext.Consumer>
+		) : (
+			<>{isOpen ? this.renderDropdown() : null}</>
 		);
 	}
 }

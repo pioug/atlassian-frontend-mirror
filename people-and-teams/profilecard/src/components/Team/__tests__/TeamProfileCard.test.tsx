@@ -100,4 +100,34 @@ describe('TeamProfileCard', () => {
 			});
 		},
 	);
+
+	ffTest.on(
+		'enable_team_profilecard_toggletip_a11y_fix',
+		'with enable_team_profilecard_toggletip_a11y_fix enabled',
+		() => {
+			test('renders the avatar group with the overrides', () => {
+				renderComponent({ team: createTeam(10) });
+
+				const avatarGroup = screen.getByTestId('profilecard-avatar-group--avatar-group');
+				const firstAvatar = screen.getByTestId('first-member');
+				expect(avatarGroup).toBeInTheDocument();
+				expect(firstAvatar).toBeInTheDocument();
+			});
+		},
+	);
+
+	ffTest.off(
+		'enable_team_profilecard_toggletip_a11y_fix',
+		'with enable_team_profilecard_toggletip_a11y_fix disabled',
+		() => {
+			test('renders the avatar group with the overrides', () => {
+				renderComponent({ team: createTeam(10) });
+
+				const avatarGroup = screen.getByTestId('profilecard-avatar-group--avatar-group');
+				const firstAvatar = screen.queryByTestId('first-member');
+				expect(avatarGroup).toBeInTheDocument();
+				expect(firstAvatar).not.toBeInTheDocument();
+			});
+		},
+	);
 });

@@ -174,7 +174,7 @@ const ToolbarItems = React.memo(
 
 					return (
 						<Button
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 							className={item.className}
 							key={idx}
 							title={item.title}
@@ -243,7 +243,7 @@ const ToolbarItems = React.memo(
 							key={idx}
 							// TODO: ED-26959 - Find more appropriate copy
 							title={'Show more items'}
-							icon={<ShowMoreHorizontalIcon label={'Show more items'} spacing="spacious" />}
+							icon={<ShowMoreHorizontalIcon label="" spacing="spacious" />}
 							dispatchCommand={dispatchCommand}
 							options={item.options}
 							disabled={item.disabled}

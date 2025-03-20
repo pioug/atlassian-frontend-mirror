@@ -17,10 +17,14 @@ describe('Multiple tooltips', () => {
 		render(
 			<Fragment>
 				<Tooltip testId="tooltip-A" content="First tooltip">
-					<button data-testid="trigger-A">focus me</button>
+					<button data-testid="trigger-A" type="button">
+						focus me
+					</button>
 				</Tooltip>
 				<Tooltip testId="tooltip-B" content="Second tooltip">
-					<button data-testid="trigger-B">focus me</button>
+					<button data-testid="trigger-B" type="button">
+						focus me
+					</button>
 				</Tooltip>
 			</Fragment>,
 		);
@@ -47,10 +51,14 @@ describe('Multiple tooltips', () => {
 		render(
 			<Fragment>
 				<Tooltip testId="tooltip-A" content="First tooltip">
-					<button data-testid="trigger-A">focus me</button>
+					<button data-testid="trigger-A" type="button">
+						focus me
+					</button>
 				</Tooltip>
 				<Tooltip testId="tooltip-B" content="Second tooltip">
-					<button data-testid="trigger-B">focus me</button>
+					<button data-testid="trigger-B" type="button">
+						focus me
+					</button>
 				</Tooltip>
 			</Fragment>,
 		);
@@ -75,10 +83,14 @@ describe('Multiple tooltips', () => {
 		render(
 			<Fragment>
 				<Tooltip testId="tooltip-A" content="First tooltip">
-					<button data-testid="trigger-A">focus me</button>
+					<button data-testid="trigger-A" type="button">
+						focus me
+					</button>
 				</Tooltip>
 				<Tooltip testId="tooltip-B" content="Second tooltip">
-					<button data-testid="trigger-B">focus me</button>
+					<button data-testid="trigger-B" type="button">
+						focus me
+					</button>
 				</Tooltip>
 			</Fragment>,
 		);
@@ -103,10 +115,14 @@ describe('Multiple tooltips', () => {
 		render(
 			<Fragment>
 				<Tooltip testId="tooltip-A" content="First tooltip">
-					<button data-testid="trigger-A">focus me</button>
+					<button data-testid="trigger-A" type="button">
+						focus me
+					</button>
 				</Tooltip>
 				<Tooltip testId="tooltip-B" content="Second tooltip">
-					<button data-testid="trigger-B">focus me</button>
+					<button data-testid="trigger-B" type="button">
+						focus me
+					</button>
 				</Tooltip>
 			</Fragment>,
 		);
@@ -143,10 +159,14 @@ describe('Multiple tooltips', () => {
 		render(
 			<Fragment>
 				<Tooltip testId="tooltip-A" content="First tooltip">
-					<button data-testid="trigger-A">focus me</button>
+					<button data-testid="trigger-A" type="button">
+						focus me
+					</button>
 				</Tooltip>
 				<Tooltip testId="tooltip-B" content="Second tooltip">
-					<button data-testid="trigger-B">focus me</button>
+					<button data-testid="trigger-B" type="button">
+						focus me
+					</button>
 				</Tooltip>
 			</Fragment>,
 		);

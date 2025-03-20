@@ -22,6 +22,7 @@ import {
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 
+import type { PixelEntryValidation } from '../../pm-plugins/pixel-resizing/ui/types';
 import type { EventInput } from '../../pm-plugins/types';
 import {
 	findChangeFromLocation,
@@ -31,7 +32,6 @@ import {
 import { currentMediaInlineNodeWithPos } from '../../pm-plugins/utils/current-media-node';
 import { isSelectionMediaSingleNode } from '../../pm-plugins/utils/media-common';
 import { changeFromMediaInlineToMediaSingleNode } from '../../pm-plugins/utils/media-single';
-import type { PixelEntryValidation } from '../../ui/PixelEntry/types';
 
 import { getSelectedMediaSingle, removeMediaGroupNode } from './utils';
 
@@ -318,6 +318,46 @@ export const setBorderMark =
 		return true;
 	};
 
+export const updateMediaSingleWidthTr = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	state: EditorState,
+	width: number,
+	validation: PixelEntryValidation,
+	inputMethod: EventInput,
+	layout: RichMediaLayout,
+) => {
+	const selectedMediaSingleNode = getSelectedMediaSingle(state);
+	if (!selectedMediaSingleNode) {
+		return null;
+	}
+
+	const tr = state.tr.setNodeMarkup(selectedMediaSingleNode.pos, undefined, {
+		...selectedMediaSingleNode.node.attrs,
+		width,
+		widthType: 'pixel',
+		layout,
+	});
+	tr.setMeta('scrollIntoView', false);
+	tr.setSelection(NodeSelection.create(tr.doc, selectedMediaSingleNode.pos));
+
+	const $pos = state.doc.resolve(selectedMediaSingleNode.pos);
+	const parentNodeType = $pos ? $pos.parent.type.name : undefined;
+
+	const payload = getMediaInputResizeAnalyticsEvent('mediaSingle', {
+		width,
+		layout,
+		validation,
+		inputMethod,
+		parentNode: parentNodeType,
+	});
+
+	if (payload) {
+		editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+	}
+
+	return tr;
+};
+
 export const updateMediaSingleWidth =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(
@@ -327,33 +367,16 @@ export const updateMediaSingleWidth =
 		layout: RichMediaLayout,
 	): Command =>
 	(state, dispatch) => {
-		const selectedMediaSingleNode = getSelectedMediaSingle(state);
-		if (!selectedMediaSingleNode) {
-			return false;
-		}
-
-		const tr = state.tr.setNodeMarkup(selectedMediaSingleNode.pos, undefined, {
-			...selectedMediaSingleNode.node.attrs,
+		const tr = updateMediaSingleWidthTr(
+			editorAnalyticsAPI,
+			state,
 			width,
-			widthType: 'pixel',
-			layout,
-		});
-		tr.setMeta('scrollIntoView', false);
-		tr.setSelection(NodeSelection.create(tr.doc, selectedMediaSingleNode.pos));
-
-		const $pos = state.doc.resolve(selectedMediaSingleNode.pos);
-		const parentNodeType = $pos ? $pos.parent.type.name : undefined;
-
-		const payload = getMediaInputResizeAnalyticsEvent('mediaSingle', {
-			width,
-			layout,
 			validation,
 			inputMethod,
-			parentNode: parentNodeType,
-		});
-
-		if (payload) {
-			editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+			layout,
+		);
+		if (!tr) {
+			return false;
 		}
 
 		if (dispatch) {

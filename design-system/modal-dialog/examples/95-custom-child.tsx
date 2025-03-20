@@ -14,8 +14,6 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const childStyles = css({
 	height: '400px',
 	backgroundColor: token('color.background.accent.magenta.subtler'),
@@ -87,10 +85,8 @@ export default function ModalWithCustomChild() {
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
 						<div css={[childStyles, borderRadiusMap[selectedBorderRadius]]}>
-							<ModalHeader>
-								<ModalTitleWithClose onClose={close}>
-									<ModalTitle>Modal Title</ModalTitle>
-								</ModalTitleWithClose>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Modal Title</ModalTitle>
 							</ModalHeader>
 						</div>
 					</Modal>

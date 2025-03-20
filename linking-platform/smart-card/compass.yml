@@ -10,9 +10,9 @@ links:
   - name: null
     type: REPOSITORY
     url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/linking-platform/smart-card/'
-  - name: '#linking-platform'
+  - name: '#help-twg-linking-platform'
     type: CHAT_CHANNEL
-    url: 'https://atlassian.slack.com/app_redirect?channel=linking-platform'
+    url: 'https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'
   - name: ''
     type: ON_CALL
     url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b9c8b313-dd6d-4a41-8eeb-d7a9df55be9d'

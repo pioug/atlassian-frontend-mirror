@@ -1,5 +1,13 @@
 # @atlaskit/visually-hidden
 
+## 3.0.1
+
+### Patch Changes
+
+- [#128442](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128442)
+  [`e01d9e5a20367`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e01d9e5a20367) -
+  Update dependencies.
+
 ## 3.0.0
 
 ### Major Changes

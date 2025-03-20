@@ -10,7 +10,5 @@
     "position.tsx",
     "render-props.tsx"
   ],
-  "exampleDependencies": [
-    "react-redux"
-  ]
+  "exampleDependencies": []
 }

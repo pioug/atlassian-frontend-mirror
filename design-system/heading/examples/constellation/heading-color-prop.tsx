@@ -2,17 +2,31 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
+import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const containerStylesBrandBoldest = css({
+	backgroundColor: token('color.background.brand.boldest'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
+});
+
+const containerStylesWarningBold = css({
+	backgroundColor: token('color.background.warning.bold'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
+});
 
 export default () => {
 	return (
 		<Stack space="space.100">
-			{/* Purposefully not using a Box in order to show manaully setting Heading color */}
+			{/* Purposefully not using a Box in order to show manually setting Heading color */}
 			<div css={containerStylesBrandBoldest}>
 				<Heading size="large" color="color.text.inverse">
 					Heading color can be manually inverted.
@@ -26,13 +40,3 @@ export default () => {
 		</Stack>
 	);
 };
-
-const containerStylesBrandBoldest = css({
-	padding: token('space.200'),
-	backgroundColor: token('color.background.brand.boldest'),
-});
-
-const containerStylesWarningBold = css({
-	padding: token('space.200'),
-	backgroundColor: token('color.background.warning.bold'),
-});

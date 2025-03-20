@@ -82,9 +82,8 @@ describe('requestServiceMultipart', () => {
 		};
 
 		// when
-		const result = await requestServiceMultipart<{ totalBooks?: number; totalCost?: number }>(
-			serviceConfig,
-		);
+		type MockBody = { totalBooks?: number; totalCost?: number };
+		const result = await requestServiceMultipart<unknown, MockBody>(serviceConfig); // unknown to make sure that multipart branch is not used in assertions
 
 		// then
 		if (result.isMultipart) {
@@ -108,10 +107,7 @@ describe('requestServiceMultipart', () => {
 		};
 
 		// when
-		const resultPromise = requestServiceMultipart<{
-			totalBooks?: number;
-			totalCost?: number;
-		}>(serviceConfig);
+		const resultPromise = requestServiceMultipart<unknown, unknown>(serviceConfig); // unknown to make sure that response types are not used in assertions
 
 		// then
 		try {
@@ -138,7 +134,7 @@ describe('requestServiceMultipart', () => {
 		};
 
 		// when
-		const result = await requestServiceMultipart<{ author?: string }>(serviceConfig);
+		const result = await requestServiceMultipart<{ author?: string }, unknown>(serviceConfig); // unknown to make sure that single-part response branch is not used in assertions
 
 		// then
 		if (!result.isMultipart) {
@@ -169,9 +165,7 @@ describe('requestServiceMultipart', () => {
 		};
 
 		// when
-		const resultPromise = requestServiceMultipart<{ totalBooks?: number; totalCost?: number }>(
-			serviceConfig,
-		);
+		const resultPromise = requestServiceMultipart<unknown, unknown>(serviceConfig); // unknown to make sure that response types are not used in assertions
 
 		// then
 		try {

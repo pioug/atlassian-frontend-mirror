@@ -13,8 +13,6 @@ import ModalDialog, {
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
-import ModalTitleWithClose from './common/modal-title';
-
 export default function FormAsContainer() {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
@@ -33,10 +31,8 @@ export default function FormAsContainer() {
 						<Form onSubmit={onFormSubmit}>
 							{({ formProps }) => (
 								<form {...formProps} id="modal-form">
-									<ModalHeader>
-										<ModalTitleWithClose onClose={close}>
-											<ModalTitle>Form as Container Demo</ModalTitle>
-										</ModalTitleWithClose>
+									<ModalHeader hasCloseButton>
+										<ModalTitle>Form as Container Demo</ModalTitle>
 									</ModalHeader>
 									<ModalBody>
 										<p>

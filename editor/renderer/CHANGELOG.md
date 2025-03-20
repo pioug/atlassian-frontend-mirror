@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 114.4.1
+
+### Patch Changes
+
+- [#128744](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128744)
+  [`2165ceedf2fc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2165ceedf2fc2) -
+  EDITOR-176 - Cleanup FG platform_editor_update_panel_icon_aria_label
+- Updated dependencies
+
+## 114.4.0
+
+### Minor Changes
+
+- [#128632](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128632)
+  [`4f577a185b2c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f577a185b2c4) -
+  [ux] set transparent background for multibodied extension
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.3.4
 
 ### Patch Changes

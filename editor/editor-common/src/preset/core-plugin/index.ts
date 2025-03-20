@@ -14,13 +14,15 @@ import {
 } from '../../utils/processRawValue';
 import { editorCommandToPMCommand } from '../editor-commands';
 
-import { scheduleDocumentRequest } from './requestDocument';
+import { createThrottleSchedule, returnDocumentRequest } from './requestDocument';
 
 /**
  * Core plugin that is always included in the preset.
  * Allows for executing `EditorCommand` and other core functionality.
  */
 export const corePlugin: CorePlugin = ({ config }) => {
+	// Create the document request throttler per editor (rather than at a module level)
+	const scheduleDocumentRequest = createThrottleSchedule(returnDocumentRequest);
 	return {
 		name: 'core',
 		actions: {

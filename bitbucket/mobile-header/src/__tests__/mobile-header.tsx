@@ -1,21 +1,20 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import AkButton from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import MenuIcon from '@atlaskit/icon/core/migration/menu';
 
 import MobileHeader from '../components/MobileHeader';
-import * as styles from '../styled';
 
 const Navigation = (isOpen: boolean) => isOpen && <div data-nav="true" />;
 const Sidebar = (isOpen: boolean) => isOpen && <div data-sidebar="true" />;
 
-test('clicking hamburger button fires onNavigationOpen', () => {
+test('clicking hamburger button fires onNavigationOpen', async () => {
 	const openSpy = jest.fn();
 	const closeSpy = jest.fn();
-	const wrapper = mount(
+	render(
 		<MobileHeader
 			drawerState="none"
 			menuIconLabel=""
@@ -26,7 +25,7 @@ test('clicking hamburger button fires onNavigationOpen', () => {
 			pageHeading=""
 		/>,
 	);
-	wrapper.find('button[type="button"]').simulate('click');
+	await userEvent.click(screen.getByRole('button'));
 	expect(openSpy).toHaveBeenCalledTimes(1);
 });
 
@@ -35,7 +34,7 @@ test('passing drawerState="navigation" should render nav', () => {
 	const navSpy = jest.fn();
 	const sidebarSpy = jest.fn();
 	const closeSpy = jest.fn();
-	mount(
+	render(
 		<MobileHeader
 			menuIconLabel=""
 			navigation={navSpy}
@@ -56,7 +55,7 @@ test('passing drawerState="sidebar" should render sidebar', () => {
 	const navSpy = jest.fn();
 	const sidebarSpy = jest.fn();
 	const closeSpy = jest.fn();
-	mount(
+	render(
 		<MobileHeader
 			menuIconLabel=""
 			navigation={navSpy}
@@ -72,10 +71,10 @@ test('passing drawerState="sidebar" should render sidebar', () => {
 	expect(sidebarSpy).toHaveBeenCalledWith(true);
 });
 
-test('clicking blanket calls onDrawerClose', () => {
+test('clicking blanket calls onDrawerClose', async () => {
 	const openSpy = jest.fn();
 	const closeSpy = jest.fn();
-	const wrapper = mount(
+	render(
 		<MobileHeader
 			menuIconLabel=""
 			navigation={Navigation}
@@ -86,10 +85,7 @@ test('clicking blanket calls onDrawerClose', () => {
 			pageHeading=""
 		/>,
 	);
-	wrapper
-		.find(styles.FakeBlanket)
-		.findWhere((node) => node.name() === 'div')
-		.simulate('click');
+	await userEvent.click(screen.getByTestId('fake-blanket'));
 	expect(closeSpy).toHaveBeenCalledTimes(1);
 });
 
@@ -98,7 +94,7 @@ test('renders the page title', () => {
 	const navSpy = jest.fn();
 	const closeSpy = jest.fn();
 	const sidebarSpy = jest.fn();
-	const wrapper = mount(
+	render(
 		<MobileHeader
 			menuIconLabel=""
 			navigation={navSpy}
@@ -109,8 +105,7 @@ test('renders the page title', () => {
 			pageHeading="Pull requests"
 		/>,
 	);
-
-	expect(wrapper.find(styles.PageHeading).text()).toBe('Pull requests');
+	expect(screen.getByText('Pull requests')).toBeInTheDocument();
 });
 
 test('renders the secondary content if provided', () => {
@@ -118,7 +113,7 @@ test('renders the secondary content if provided', () => {
 	const closeSpy = jest.fn();
 	const openSpy = jest.fn();
 	const sidebarSpy = jest.fn();
-	const wrapper = mount(
+	render(
 		<MobileHeader
 			menuIconLabel=""
 			navigation={navSpy}
@@ -136,14 +131,15 @@ test('renders the secondary content if provided', () => {
 		/>,
 	);
 
-	expect(wrapper.find(ButtonGroup).length).toBe(1);
+	// should include 1 menu button and 2 buttons in secondary content
+	expect(screen.queryAllByRole('button').length).toBe(3);
 });
 
 test('renders the custom menu content if provided', () => {
 	const closeSpy = jest.fn();
 	const openSpy = jest.fn();
 	const sidebarSpy = jest.fn();
-	const wrapper = mount(
+	render(
 		<MobileHeader
 			customMenu={<AkButton>Test</AkButton>}
 			menuIconLabel="menu icon"
@@ -155,8 +151,7 @@ test('renders the custom menu content if provided', () => {
 		/>,
 	);
 
-	const button = wrapper.find('button[type="button"]');
-	expect(button.length).toBe(1);
-	expect(button.text()).toBe('Test');
-	expect(wrapper.find(MenuIcon).length).toBe(0);
+	expect(screen.getByText('Test')).toBeInTheDocument();
+	expect(screen.queryAllByRole('button').length).toBe(1);
+	expect(screen.queryByLabelText('menu icon')).not.toBeInTheDocument();
 });

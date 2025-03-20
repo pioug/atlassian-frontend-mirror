@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 102.11.3
+
+### Patch Changes
+
+- [#128680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128680)
+  [`c621508ab44f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c621508ab44f7) -
+  Fixes rendering delay under virtualization
+
+## 102.11.2
+
+### Patch Changes
+
+- [#128123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128123)
+  [`ab71af4c9be90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab71af4c9be90) -
+  [ux] [ED-26947] Implement media pixel resizing editor
+- Updated dependencies
+
+## 102.11.1
+
+### Patch Changes
+
+- [#128991](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128991)
+  [`c24ae5545b4ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c24ae5545b4ba) -
+  Fix bug where requestDocument was throttling at a module level rather than per editor - this was
+  causing issues in products that use multiple editors at the same time.
+- Updated dependencies
+
 ## 102.11.0
 
 ### Minor Changes

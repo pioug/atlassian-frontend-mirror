@@ -1,5 +1,25 @@
 # @atlaskit/teams-public
 
+## 0.15.0
+
+### Minor Changes
+
+- [#129350](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129350)
+  [`7dad66c8004d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7dad66c8004d7) -
+  [ux] Select correct tab when user clicks on add container card
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.14.0
+
+### Minor Changes
+
+- [#128974](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128974)
+  [`e7dbbe125c55c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7dbbe125c55c) -
+  [ux] Fix x button not opening th dialog
+
 ## 0.13.0
 
 ### Minor Changes

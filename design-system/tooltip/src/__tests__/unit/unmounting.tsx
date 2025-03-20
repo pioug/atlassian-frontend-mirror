@@ -17,7 +17,9 @@ describe('Unmounting tooltip', () => {
 		jest.spyOn(global.console, 'error');
 		const { unmount } = render(
 			<Tooltip testId="tooltip" content="hello world" position="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 
@@ -39,7 +41,9 @@ describe('Unmounting tooltip', () => {
 		jest.spyOn(global.console, 'error');
 		const { unmount } = render(
 			<Tooltip testId="tooltip" content="hello world" position="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 
@@ -62,7 +66,9 @@ describe('Unmounting tooltip', () => {
 		jest.spyOn(global.console, 'error');
 		const { unmount } = render(
 			<Tooltip testId="tooltip" content="hello world" position="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 
@@ -85,7 +91,9 @@ describe('Unmounting tooltip', () => {
 		jest.spyOn(global.console, 'error');
 		const { unmount } = render(
 			<Tooltip testId="tooltip" content="hello world" position="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 
@@ -115,7 +123,9 @@ describe('Unmounting tooltip', () => {
 		jest.spyOn(global.console, 'error');
 		const { unmount } = render(
 			<Tooltip testId="tooltip" content="hello world" position="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 

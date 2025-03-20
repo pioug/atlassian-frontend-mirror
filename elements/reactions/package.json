@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "27.2.1",
+	"version": "28.0.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,6 +43,7 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -55,6 +56,7 @@
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.2",
 		"@emotion/react": "^11.7.1",
 		"focus-trap": "^2.4.5"
 	},
@@ -64,6 +66,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
+		"@af/visual-regression": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
@@ -101,6 +104,10 @@
 		"@repo/internal": {
 			"design-tokens": [
 				"color"
+			],
+			"styling": [
+				"emotion",
+				"compiled"
 			]
 		},
 		"@atlassian/frontend": {
@@ -122,6 +129,9 @@
 			"type": "boolean"
 		},
 		"platform_fix_analytics_error": {
+			"type": "boolean"
+		},
+		"platform_editor_css_migrate_reactions": {
 			"type": "boolean"
 		}
 	},

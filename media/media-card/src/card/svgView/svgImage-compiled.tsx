@@ -4,13 +4,12 @@
  */
 import { jsx, css } from '@compiled/react';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { type FileIdentifier, type ImageResizeMode } from '@atlaskit/media-client';
-import { type WithAnalyticsEventsProps, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MediaCardError, type SvgPrimaryReason } from '../../errors';
 import { calculateSvgDimensions } from './helpers';
 import { useResolveSvg, MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg';
+import type { SvgViewProps } from './types';
 
-export const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason => {
+const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason => {
 	switch (svgReason) {
 		case 'img-error':
 			return 'svg-img-error';
@@ -22,22 +21,6 @@ export const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason
 			return 'svg-unknown-error';
 	}
 };
-
-export type OnClickFn = (
-	event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
-	analyticsEvent?: UIAnalyticsEvent,
-) => void;
-
-export interface SvgViewBaseOwnProps {
-	readonly identifier: FileIdentifier;
-	readonly resizeMode: ImageResizeMode;
-	readonly onLoad?: () => void;
-	readonly onError?: (error: MediaCardError) => void;
-	readonly wrapperRef: React.RefObject<HTMLDivElement>;
-	readonly alt?: string;
-}
-
-export type SvgViewProps = SvgViewBaseOwnProps & WithAnalyticsEventsProps;
 
 const svgRendererStyles = css({
 	objectFit: 'contain',

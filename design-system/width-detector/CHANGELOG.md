@@ -1,5 +1,16 @@
 # @atlaskit/width-detector
 
+## 5.0.1
+
+### Patch Changes
+
+- [#128453](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128453)
+  [`e7c07f35165f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7c07f35165f2) -
+  Update dependencies and refactor internals.
+- [#128442](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128442)
+  [`e01d9e5a20367`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e01d9e5a20367) -
+  Update dependencies.
+
 ## 5.0.0
 
 ### Major Changes

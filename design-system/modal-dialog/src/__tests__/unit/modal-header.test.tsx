@@ -3,6 +3,7 @@ import React, { type MouseEventHandler } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 
 import { useModal } from '../../hooks';
 import ModalHeader from '../../modal-header';
@@ -84,5 +85,59 @@ describe('<ModalHeader />', () => {
 
 		// Restore writing to stderr.
 		console.error = err;
+	});
+
+	describe('Close button', () => {
+		const testId = 'testId';
+		const titleTestId = `${testId}--title-text`;
+
+		it('should show a close button if `hasCloseButton` is true and `onClose` is provided', () => {
+			const onClose = jest.fn();
+
+			render(
+				<ModalDialog testId={testId} onClose={onClose}>
+					<ModalHeader hasCloseButton={true}>
+						<ModalTitle appearance="danger">Title</ModalTitle>
+					</ModalHeader>
+				</ModalDialog>,
+			);
+
+			const title = screen.getByTestId(titleTestId);
+			const closeButton = screen.getByTestId(`${testId}--close-button`);
+			expect(title).toBeInTheDocument();
+			expect(closeButton).toBeInTheDocument();
+		});
+
+		it('should not show a close button if `hasCloseButton` is true and `onClose` is not provided', () => {
+			render(
+				<ModalDialog testId={testId}>
+					<ModalHeader hasCloseButton={true}>
+						<ModalTitle appearance="danger">Title</ModalTitle>
+					</ModalHeader>
+				</ModalDialog>,
+			);
+
+			const title = screen.getByTestId(titleTestId);
+			const closeButton = screen.queryByTestId(`${testId}--close-button`);
+			expect(title).toBeInTheDocument();
+			expect(closeButton).not.toBeInTheDocument();
+		});
+
+		it('should not show a close button if `hasCloseButton` is false and `onClose` is provided', () => {
+			const onClose = jest.fn();
+
+			render(
+				<ModalDialog testId={testId} onClose={onClose}>
+					<ModalHeader hasCloseButton={false}>
+						<ModalTitle appearance="danger">Title</ModalTitle>
+					</ModalHeader>
+				</ModalDialog>,
+			);
+
+			const title = screen.getByTestId(titleTestId);
+			const closeButton = screen.queryByTestId(`${testId}--close-button`);
+			expect(title).toBeInTheDocument();
+			expect(closeButton).not.toBeInTheDocument();
+		});
 	});
 });

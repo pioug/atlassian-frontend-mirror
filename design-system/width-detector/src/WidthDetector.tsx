@@ -1,4 +1,6 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
+
 import rafSchedule from 'raf-schd';
 
 const containerDivStyle: React.CSSProperties = {
@@ -21,10 +23,12 @@ const sizerStyle: React.CSSProperties = {
 	zIndex: -1,
 };
 
-type Props = {
+type WidthDetectorProps = {
 	children: (width?: number) => React.ReactNode;
 	onResize?: (width: number) => void;
-	/** Optional styles to be applied to the containing element */
+	/**
+	 * Optional styles to be applied to the containing element
+	 */
 	containerStyle?: React.CSSProperties;
 };
 
@@ -46,13 +50,13 @@ type ResizeObject = HTMLObjectElement & {
  * not performant. It will be DEPRECATED in the future.
  * It is recommended that you instead use WidthObserver from @atlaskit/width-detector
  */
-export default class WidthDetector extends React.Component<Props, State> {
+export default class WidthDetector extends React.Component<WidthDetectorProps, State> {
 	state: State = {};
 	container?: HTMLDivElement;
 	resizeObjectDocument?: Window;
 	resizeObject?: ResizeObject;
 
-	constructor(props: Props) {
+	constructor(props: WidthDetectorProps) {
 		super(props);
 
 		// eslint-disable-next-line no-console

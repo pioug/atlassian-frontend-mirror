@@ -203,11 +203,13 @@ export type AcknowledgementPayload = AcknowledgementSuccessPayload | Acknowledge
 export type AddStepAcknowledgementSuccessPayload = {
 	type: AcknowledgementResponseTypes.SUCCESS;
 	version: number;
+	delay?: number;
 };
 
 export type AcknowledgementErrorPayload = {
 	type: AcknowledgementResponseTypes.ERROR;
 	error: InternalError;
+	delay?: number;
 };
 
 export type AddStepAcknowledgementPayload =

@@ -76,7 +76,7 @@ const OpenAuiFromModalExample = () => {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="ak-modal">
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

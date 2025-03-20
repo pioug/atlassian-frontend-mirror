@@ -36,6 +36,7 @@ export type FindReplaceToolbarButtonWithStateProps = {
 	takeFullWidth?: boolean;
 	api: ExtractInjectionAPI<FindReplacePlugin> | undefined;
 	isButtonHidden?: boolean;
+	doesNotHaveButton?: boolean;
 };
 
 export type FindReplaceToolbarButtonActionProps = Omit<

@@ -5,16 +5,18 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
 
-type PartsType = AsyncGenerator<Part<object, string>, unknown, unknown>;
-type MultiPartFetchResult = {
+export type PartsGenerator<PartsType> = AsyncGenerator<Part<PartsType, unknown>>;
+export type MultiPartFetchResult<PartsType> = {
 	isMultipart: true;
-	parts: PartsType;
+	parts: PartsGenerator<PartsType>;
 };
-type BodyResult<T> = {
+export type BodyResult<T> = {
 	isMultipart: false;
 	body: T;
 };
-type RequestServiceResult<BodyType> = MultiPartFetchResult | BodyResult<BodyType>;
+export type RequestServiceResult<PartsType, BodyType> =
+	| MultiPartFetchResult<PartsType>
+	| BodyResult<BodyType>;
 /** Copied from meros types, as there are difficulties with resolving the type in CI */
 export type Part<Body, Fallback> =
 	| { json: false; headers: Record<string, string>; body: Fallback }
@@ -25,11 +27,16 @@ type Options = Omit<RequestServiceOptions, 'ignoreResponsePayload'>;
  * Make a request that **may** result in an HTTP multipart response from the server.
  * @returns an object with a parsed JSON body OR an object with the parts from
  * the HTTP multipart response.
+ *
+ * PartsType type parameter specifies the type of the response when the server response
+ * is multipart.
+ *
+ * BodyType specifies the type of the response when the server response is not multipart
  */
-export const requestServiceMultipart = async <T>(
+export const requestServiceMultipart = async <PartsType, BodyType>(
 	serviceConfig: ServiceConfig,
 	options: Options = defaultRequestServiceOptions,
-): Promise<RequestServiceResult<T>> => {
+): Promise<RequestServiceResult<PartsType, BodyType>> => {
 	const { url, securityProvider, refreshedSecurityProvider } = serviceConfig;
 	const { path, queryParams, requestInit } = options;
 	const secOptions = securityProvider && securityProvider();
@@ -62,18 +69,18 @@ export const requestServiceMultipart = async <T>(
 	const parts = await meros(fetchResponse);
 
 	if (fetchResponse.ok && fetchResponse.status !== 204) {
-		if (((parts as PartsType)[Symbol.asyncIterator] as any) < 'u') {
+		if (((parts as PartsGenerator<PartsType>)[Symbol.asyncIterator] as any) < 'u') {
 			// this lets us know that the response is multipart
 			//
-			// 	((parts as PartsType)[Symbol.asyncIterator] as any) < 'u' came from the `meros` docs:
+			// 	((parts as PartsGenerator)[Symbol.asyncIterator] as any) < 'u' came from the `meros` docs:
 			//	https://github.com/maraisr/meros/blob/dec4feaa24090b94e8ac42fab1aff38a1e521680/readme.md
 			// 	Look for expand section `If the content-type is NOT a multipart, then meros will resolve with the response argument.`
 			return {
 				isMultipart: true,
-				parts: parts as PartsType,
-			} satisfies MultiPartFetchResult;
+				parts: parts as PartsGenerator<PartsType>,
+			} satisfies MultiPartFetchResult<PartsType>;
 		}
-		return { isMultipart: false, body: (await (parts as Response).json()) as T };
+		return { isMultipart: false, body: (await (parts as Response).json()) as BodyType };
 	} else if (fetchResponse.status === 401 && refreshedSecurityProvider) {
 		// auth issue - try once
 		return refreshedSecurityProvider().then((newSecOptions) => {

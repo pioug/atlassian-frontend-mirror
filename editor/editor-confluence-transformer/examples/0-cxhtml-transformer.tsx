@@ -8,8 +8,8 @@ import { Component } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import type { EditorActions } from '@atlaskit/editor-core';
-import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
+import type { EditorProps, EditorActions } from '@atlaskit/editor-core';
+import { EditorContext, WithEditorActions } from '@atlaskit/editor-core';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
@@ -22,7 +22,9 @@ import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
-
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
 import {
 	CODE_MACRO,
 	JIRA_ISSUE,
@@ -83,6 +85,14 @@ type ExampleProps = {
 type ExampleState = {
 	input: string;
 	output: string;
+};
+
+const Editor = ({ ...props }: EditorProps) => {
+	const universalPreset = useUniversalPreset({ props });
+	const { preset } = usePreset(() => {
+		return universalPreset.add(highlightPlugin);
+	}, [universalPreset]);
+	return <ComposableEditor preset={preset} {...props} />;
 };
 
 // Ignored via go/ees005
@@ -148,9 +158,6 @@ class Example extends Component<ExampleProps, ExampleState> {
 						<WithEditorActions
 							render={(actions) => (
 								<Editor
-									dangerouslyAppendPlugins={{
-										__plugins: [highlightPlugin({ config: undefined })],
-									}}
 									appearance="full-page"
 									allowTextColor={true}
 									allowTables={{

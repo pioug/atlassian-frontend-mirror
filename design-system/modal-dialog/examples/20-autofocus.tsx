@@ -12,8 +12,6 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const containerStyles = xcss({
 	padding: 'space.200',
 });
@@ -57,10 +55,8 @@ export default function ModalDemo() {
 			<ModalTransition>
 				{isOpen === 'root' && (
 					<ModalDialog {...modalProps}>
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Boolean on dialog</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Boolean on dialog</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<p>The first {'"tabbable"'} element will be focused.</p>
@@ -80,10 +76,8 @@ export default function ModalDemo() {
 			<ModalTransition>
 				{isOpen === 'autoFocus' && (
 					<ModalDialog autoFocus={focusRef} {...modalProps}>
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>input is automatically focused</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>input is automatically focused</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<p>
@@ -94,13 +88,13 @@ export default function ModalDemo() {
 							<Box>
 								<label htmlFor="not">
 									This textbox should not be focused
-									<input id="not" type="text" value="" />
+									<input id="not" type="text" />
 								</label>
 							</Box>
 							<Box>
 								<label htmlFor="should">
 									This textbox should be focused
-									<input id="should" ref={focusRef} type="text" value="" />
+									<input id="should" ref={focusRef} type="text" />
 								</label>
 							</Box>
 						</ModalBody>

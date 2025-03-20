@@ -107,15 +107,7 @@ export class EditorPerformanceObserver implements ObserverInterface {
 				});
 			},
 		});
-		this.firstInteraction = new FirstInteractionObserver(({ event, time }) => {
-			this.timeline.markEvent({
-				type: 'abort:user-interaction',
-				startTime: time,
-				data: {
-					source: event,
-				},
-			});
-		});
+		this.firstInteraction = new FirstInteractionObserver(this.onFirstInteraction.bind(this));
 
 		this.domObservers = new DOMObservers({
 			timeline: this.timeline,
@@ -185,6 +177,18 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		this.timeline.onceAllSubscribersCleaned(() => {
 			this.cleanupWrappers();
 		});
+	}
+
+	onFirstInteraction({ event, time }: { event: string; time: DOMHighResTimeStamp }) {
+		this.timeline.markEvent({
+			type: 'abort:user-interaction',
+			startTime: time,
+			data: {
+				source: event,
+			},
+		});
+
+		this.domObservers.disconnect();
 	}
 
 	start({ startTime }: StartProps) {

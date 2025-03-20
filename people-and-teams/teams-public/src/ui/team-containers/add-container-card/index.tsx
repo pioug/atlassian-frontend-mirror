@@ -19,7 +19,7 @@ const styles = cssMap({
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
 		paddingLeft: token('space.150'),
-		borderRadius: token('border.radius.100'),
+		borderRadius: token('border.radius.100', '8px'),
 		'&:hover': {
 			cursor: 'pointer',
 		},

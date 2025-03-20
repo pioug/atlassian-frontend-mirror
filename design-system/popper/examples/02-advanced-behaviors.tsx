@@ -168,6 +168,11 @@ export default () => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				overflow: 'auto',
 			}}
+			// Tab index required here to support keyboard users scrolling the container
+			// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+			tabIndex={0}
+			role="region"
+			aria-label="Scrollable content"
 		>
 			<div
 				style={{

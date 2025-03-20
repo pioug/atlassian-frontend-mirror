@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 4.0.3
+
+### Patch Changes
+
+- [#128679](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128679)
+  [`8468ebc2097e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8468ebc2097e0) -
+  Clean up ff enable_datasource_supporting_actions. This permanently enables saving supporting
+  actions to the action store.
+- [#128098](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128098)
+  [`2c7474b012df9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c7474b012df9) -
+  Update slack help channel name
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

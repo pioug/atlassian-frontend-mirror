@@ -16,8 +16,6 @@ import ModalDialog, {
 import { Box } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const longNonBreakableTitle = `ThisIs${'long'.repeat(20)}NonBreakableTitle`;
 const longBreakableTitle = `This is ${'long '.repeat(20)} breakable title`;
 const shortTitle = 'This is a short title';
@@ -55,12 +53,10 @@ export default function MultiLineTitles() {
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog onClose={close} testId="modal" width="medium">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle appearance={appearance} isMultiline={isTitleMultiline}>
-									{title}
-								</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle appearance={appearance} isMultiline={isTitleMultiline}>
+								{title}
+							</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Field name="hd" label="Title">

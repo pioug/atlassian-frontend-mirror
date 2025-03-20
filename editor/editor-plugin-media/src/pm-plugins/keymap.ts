@@ -35,10 +35,10 @@ import {
 } from '../pm-plugins/commands/captions';
 import { stateKey } from '../pm-plugins/plugin-key';
 import type { MediaOptions } from '../types';
-import type { PixelEntryValidation } from '../ui/PixelEntry/types';
 import { updateMediaSingleWidth } from '../ui/toolbar/commands';
 import { calcNewLayout, getSelectedMediaSingle } from '../ui/toolbar/utils';
 
+import type { PixelEntryValidation } from './pixel-resizing/ui/types';
 import type { MediaPluginState } from './types';
 
 type WidthPlugin = ExtractInjectionAPI<MediaNextEditorPluginType>['width'];

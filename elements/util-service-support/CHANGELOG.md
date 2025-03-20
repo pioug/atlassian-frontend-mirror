@@ -1,5 +1,13 @@
 # @atlaskit/util-service-support
 
+## 6.3.1
+
+### Patch Changes
+
+- [#128616](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128616)
+  [`6e9df3227a504`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e9df3227a504) -
+  Improve type safety of requestServiceMultipart API
+
 ## 6.3.0
 
 ### Minor Changes

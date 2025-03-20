@@ -7,6 +7,9 @@
  */
 //Chinese (Simplified)
 export default {
+  'fabric.media.abuse_modal_body': '为了您的安全，我们的系统会自动扫描所有上传的文件。您即将下载的文件可能包含恶意内容',
+  'fabric.media.abuse_modal_submit': '继续下载',
+  'fabric.media.abuse_modal_title': '警告',
   'fabric.media.accounts': '帐户',
   'fabric.media.actions': '操作',
   'fabric.media.add_account': '添加帐户',
@@ -54,6 +57,7 @@ export default {
   'fabric.media.display_thumbnail': '显示缩略图',
   'fabric.media.document': '文档',
   'fabric.media.download': '下载',
+  'fabric.media.download_disabled_security_policy': '您组织的安全策略已阻止下载。',
   'fabric.media.drag_and_drop_images_here': '将图片拖放到这里',
   'fabric.media.drag_and_drop_your_files': '拖放您的文件至任何地方或',
   'fabric.media.drag_and_drop_your_files_and_folders': '将您的文件和文件夹拖放至任意位置或',
@@ -101,7 +105,6 @@ export default {
   'fabric.media.playback_default_speed': '默认',
   'fabric.media.playback_speed': '播放速度',
   'fabric.media.preview': '预览',
-  'fabric.media.preview_currently_unavailable': '当前无法预览',
   'fabric.media.preview_unavailable': '无法预览',
   'fabric.media.recent_uploads': '最近上传',
   'fabric.media.remove_image': '删除图像',
@@ -118,6 +121,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': '从所有默认选项中选择',
   'fabric.media.share_files_instantly': '我们会立即共享您的文件',
   'fabric.media.show_more_avatars_btn_label': '显示更多',
+  'fabric.media.size_options': '大小选项',
   'fabric.media.skip_backward': '后退 10 秒',
   'fabric.media.skip_forward': '前进 10 秒',
   'fabric.media.something_went_wrong': '出错了。',

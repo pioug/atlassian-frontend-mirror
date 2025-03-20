@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 20.0.3
+
+### Patch Changes
+
+- [#128417](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128417)
+  [`889ab4ac93dc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/889ab4ac93dc2) -
+  Update dependencies and remove old unused files.
+
 ## 20.0.2
 
 ### Patch Changes

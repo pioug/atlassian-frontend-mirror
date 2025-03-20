@@ -13,8 +13,6 @@ import Modal, {
 import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const spacerStyles = xcss({
 	margin: 'space.100',
 });
@@ -42,10 +40,8 @@ const PopupContent: FC = () => {
 			<ModalTransition>
 				{showModal && (
 					<Modal onClose={close} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Modal Title</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count={2} />

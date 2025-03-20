@@ -7,6 +7,10 @@
  */
 //Italian (Italy)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Per la tua sicurezza, il nostro sistema esegue automaticamente la scansione di tutti i file caricati. Il file che stai per scaricare potrebbe contenere elementi dannosi',
+  'fabric.media.abuse_modal_submit': 'Procedi con il download',
+  'fabric.media.abuse_modal_title': 'Avviso',
   'fabric.media.accounts': 'Account',
   'fabric.media.actions': 'Azioni',
   'fabric.media.add_account': 'Aggiungi account',
@@ -57,6 +61,8 @@ export default {
   'fabric.media.display_thumbnail': 'Visualizza la miniatura',
   'fabric.media.document': 'documento',
   'fabric.media.download': 'Scarica',
+  'fabric.media.download_disabled_security_policy':
+    'Il download è stato bloccato dalla policy di sicurezza della tua organizzazione.',
   'fabric.media.drag_and_drop_images_here': 'Trascina le tue immagini qui',
   'fabric.media.drag_and_drop_your_files': 'Trascina i file dove vuoi oppure',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Trascina i file e le cartelle ovunque o',
@@ -107,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'Predefiniti',
   'fabric.media.playback_speed': 'Velocità di riproduzione',
   'fabric.media.preview': 'Anteprima',
-  'fabric.media.preview_currently_unavailable': 'Anteprima attualmente non disponibile',
   'fabric.media.preview_unavailable': 'Anteprima non disponibile',
   'fabric.media.recent_uploads': 'Caricamenti recenti',
   'fabric.media.remove_image': 'Rimuovi immagine',
@@ -125,6 +130,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Scegli tra tutte le opzioni predefinite',
   'fabric.media.share_files_instantly': 'Li condivideremo subito',
   'fabric.media.show_more_avatars_btn_label': 'Mostra altro',
+  'fabric.media.size_options': 'Opzioni dimensioni',
   'fabric.media.skip_backward': 'Ignora 10 secondi precedenti',
   'fabric.media.skip_forward': 'Ignora 10 secondi successivi',
   'fabric.media.something_went_wrong': 'Si è verificato un errore.',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.3.4",
+	"version": "114.4.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -127,9 +127,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_emotion_refactor_renderer": {
-			"type": "boolean"
-		},
-		"platform_editor_update_panel_icon_aria_label": {
 			"type": "boolean"
 		},
 		"annotations_defensive_node_name_calculations": {

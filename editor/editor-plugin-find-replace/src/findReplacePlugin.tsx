@@ -2,13 +2,14 @@ import React from 'react';
 
 import { ToolbarSize, type ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { FindReplacePlugin } from './findReplacePluginType';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { findReplacePluginKey } from './pm-plugins/plugin-key';
 import type { FindReplaceToolbarButtonActionProps } from './types';
-import FindReplaceToolbarButtonWithState from './ui/FindReplaceToolbarButtonWithState';
+import FindReplaceDropDownOrToolbarButtonWithState from './ui/FindReplaceDropDownOrToolbarButtonWithState';
 
 export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => {
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
@@ -28,7 +29,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 			return null;
 		} else {
 			return (
-				<FindReplaceToolbarButtonWithState
+				<FindReplaceDropDownOrToolbarButtonWithState
 					popupsBoundariesElement={popupsBoundariesElement}
 					popupsMountPoint={popupsMountPoint}
 					popupsScrollableElement={popupsScrollableElement}
@@ -82,7 +83,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 				isToolbarReducedSpacing,
 			}: FindReplaceToolbarButtonActionProps) => {
 				return (
-					<FindReplaceToolbarButtonWithState
+					<FindReplaceDropDownOrToolbarButtonWithState
 						popupsBoundariesElement={popupsBoundariesElement}
 						popupsMountPoint={popupsMountPoint}
 						popupsScrollableElement={popupsScrollableElement}
@@ -97,5 +98,32 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
+
+		contentComponent: editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+			? ({
+					editorView,
+					containerElement,
+					popupsMountPoint,
+					popupsBoundariesElement,
+					popupsScrollableElement,
+					wrapperElement,
+					dispatchAnalyticsEvent,
+				}) => {
+					return (
+						<FindReplaceDropDownOrToolbarButtonWithState
+							popupsBoundariesElement={popupsBoundariesElement}
+							popupsMountPoint={popupsMountPoint || wrapperElement || undefined}
+							popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
+							isToolbarReducedSpacing={false}
+							editorView={editorView}
+							containerElement={containerElement}
+							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+							takeFullWidth={props?.takeFullWidth}
+							api={api}
+							doesNotHaveButton={true}
+						/>
+					);
+				}
+			: undefined,
 	};
 };

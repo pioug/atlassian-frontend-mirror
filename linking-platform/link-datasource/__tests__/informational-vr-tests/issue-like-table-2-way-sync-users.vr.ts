@@ -20,7 +20,6 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-assignee': false,
-		enable_datasource_supporting_actions: true,
 	},
 	ignoredErrors: [
 		{
@@ -40,7 +39,6 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-assignee': true,
-		enable_datasource_supporting_actions: true,
 	},
 	ignoredErrors: [
 		{
@@ -62,7 +60,6 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-assignee': true,
-		enable_datasource_supporting_actions: true,
 	},
 	ignoredErrors: [
 		{
@@ -85,7 +82,6 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-assignee': true,
-		enable_datasource_supporting_actions: true,
 	},
 	ignoredErrors: [
 		{

@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 14.2.0
+
+### Minor Changes
+
+- [#128868](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128868)
+  [`b24df558e8edb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b24df558e8edb) -
+  Introduces codemod to support the first stage of the compiled migration. This codemod only
+  migrates to the compiled variant if xcss is not used
+
 ## 14.1.4
 
 ### Patch Changes

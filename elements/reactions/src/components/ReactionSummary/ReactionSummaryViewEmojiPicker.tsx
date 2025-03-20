@@ -1,10 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useCallback, useState } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useCallback, useState } from 'react';
 
 import { type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';

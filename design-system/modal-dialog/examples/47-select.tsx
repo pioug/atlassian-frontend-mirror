@@ -12,8 +12,6 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import Select, { OptionType as Option, ValueType as Value } from '@atlaskit/select';
 
-import ModalTitleWithClose from './common/modal-title';
-
 export default function ModalDialogSelect() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [country, setCountry] = useState<Option>();
@@ -49,10 +47,8 @@ export default function ModalDialogSelect() {
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog onClose={closeModal} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={closeModal}>
-								<ModalTitle>Using select in a modal dialog</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Using select in a modal dialog</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<p>

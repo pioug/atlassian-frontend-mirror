@@ -11,10 +11,8 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 
-import ModalTitleWithClose from './common/modal-title';
-
 export default function DefaultModal() {
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
@@ -27,10 +25,8 @@ export default function DefaultModal() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal" isBlanketHidden={true}>
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Modal Title</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count={2} />

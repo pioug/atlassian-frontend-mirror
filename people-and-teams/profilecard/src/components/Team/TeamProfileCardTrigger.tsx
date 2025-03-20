@@ -1,12 +1,13 @@
 import React, { Suspense } from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { type TriggerProps } from '@atlaskit/popup/types';
+import { Box } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../../internal/filterActions';
@@ -30,7 +31,7 @@ import { TeamProfileCardLazy } from './lazyTeamProfileCard';
 import TeamLoadingState from './TeamLoadingState';
 
 export class TeamProfileCardTriggerInternal extends React.PureComponent<
-	TeamProfileCardTriggerProps & AnalyticsProps,
+	TeamProfileCardTriggerProps & AnalyticsProps & WrappedComponentProps,
 	TeamProfileCardTriggerState
 > {
 	static defaultProps: Partial<TeamProfileCardTriggerProps> = {
@@ -136,8 +137,20 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		}
 	};
 
+	onKeyPress = (event: React.KeyboardEvent) => {
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			this.setState({ isTriggeredByKeyboard: true });
+			this.showProfilecard(0);
+			if (!this.state.visible) {
+				this.fireAnalytics(cardTriggered('team', 'click'));
+			}
+		}
+	};
+
 	onClose = () => {
 		this.hideProfilecard();
+		this.setState({ isTriggeredByKeyboard: false });
 	};
 
 	openKudosDrawer = () => {
@@ -183,6 +196,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		shouldShowGiveKudos: false,
 		teamCentralBaseUrl: undefined,
 		kudosDrawerOpen: false,
+		isTriggeredByKeyboard: false,
 	};
 
 	componentDidMount() {
@@ -337,6 +351,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 							isLoading={isLoading}
 							hasError={hasError}
 							errorType={error}
+							isTriggeredByKeyboard={this.state.isTriggeredByKeyboard}
 						/>
 					</Suspense>
 				)}
@@ -366,19 +381,34 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	};
 
 	renderTrigger = (triggerProps: TriggerProps) => {
-		const { children, triggerLinkType, viewProfileLink } = this.props;
+		const { children, intl, triggerLinkType, viewProfileLink } = this.props;
 
 		if (triggerLinkType === 'none') {
 			return (
 				<>
 					{this.renderKudosLauncher()}
-					<span
-						data-testid="team-profilecard-trigger-wrapper"
-						{...triggerProps}
-						{...this.triggerListeners}
-					>
-						{children}
-					</span>
+					{fg('enable_team_profilecard_toggletip_a11y_fix') ? (
+						<Box
+							as="span"
+							role="button"
+							testId="team-profilecard-trigger-wrapper"
+							tabIndex={0}
+							aria-label={intl.formatMessage(messages.teamProfileCardAriaLabel)}
+							onKeyUp={this.onKeyPress}
+							{...triggerProps}
+							{...this.triggerListeners}
+						>
+							{children}
+						</Box>
+					) : (
+						<span
+							data-testid="team-profilecard-trigger-wrapper"
+							{...triggerProps}
+							{...this.triggerListeners}
+						>
+							{children}
+						</span>
+					)}
 				</>
 			);
 		}
@@ -435,4 +465,4 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 	}
 }
 
-export default withAnalyticsEvents()(TeamProfileCardTriggerInternal);
+export default withAnalyticsEvents()(injectIntl(TeamProfileCardTriggerInternal));

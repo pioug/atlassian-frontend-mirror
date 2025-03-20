@@ -69,15 +69,6 @@ export const categorySelectorTablist = css({
 
 /// EmojiPickerList
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const emojiPickerList = css({
-	display: 'flex',
-	flexDirection: 'column',
-	flex: '1 1 auto',
-	// To force Firefox/IE/Edge to shrink the list, if necessary (e.g. when upload panel in place)
-	height: '0',
-});
-
 // focus style is enabled by default - turn it off
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const virtualList = css({

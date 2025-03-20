@@ -155,7 +155,6 @@ const InlineEditableCell = ({
 	}
 
 	// if the field requires to fetch options to execute, then is editable only if `executeFetch` is defined
-	// `executeFetch` is returned only when ff:`enable_datasource_supporting_actions` is enabled
 	if (isEditTypeSelectable(values.type) && !executeFetch) {
 		return readView;
 	}

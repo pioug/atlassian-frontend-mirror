@@ -1,5 +1,13 @@
 # @atlaskit/mobile-header
 
+## 7.0.7
+
+### Patch Changes
+
+- [#127971](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127971)
+  [`b3619e45f49f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3619e45f49f0) -
+  removed enzyme dependency
+
 ## 7.0.6
 
 ### Patch Changes

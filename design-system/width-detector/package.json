@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/width-detector",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"description": "Wrapper for components that need to respond to width changes",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {
@@ -41,13 +41,15 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@types/raf-schd": "^4.0.1",
-		"lodash": "^4.17.21",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
@@ -58,11 +60,11 @@
 	],
 	"homepage": "https://atlaskit.atlassian.com/packages/helpers/width-detector",
 	"af:exports": {
-		".": "./src/index.ts",
+		".": "./src/index.tsx",
 		"./WidthDetector": "./src/WidthDetector.tsx"
 	},
 	"exports": {
-		".": "./src/index.ts",
+		".": "./src/index.tsx",
 		"./WidthDetector": "./src/WidthDetector.tsx"
 	}
 }

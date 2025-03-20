@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
@@ -38,31 +36,4 @@ describe('reconfigure state', () => {
 		expect(reconfigureSpy).toHaveBeenCalledTimes(1);
 		unmount();
 	});
-
-	it('should reconfigure the editor state when updating the dangerouslyAppendPlugins', () => {
-		const { rerender, unmount } = renderWithIntl(<Editor />);
-		expect(reconfigureSpy).toHaveBeenCalledTimes(0);
-		rerender(
-			<Editor
-				dangerouslyAppendPlugins={{
-					__plugins: [testPlugin],
-				}}
-			/>,
-		);
-		expect(reconfigureSpy).toHaveBeenCalledTimes(1);
-		unmount();
-	});
 });
-
-const testPlugin: EditorPlugin = {
-	name: 'testPlugin',
-
-	pmPlugins() {
-		return [
-			{
-				name: 'testPlugin',
-				plugin: () => new SafePlugin({}),
-			},
-		];
-	},
-};

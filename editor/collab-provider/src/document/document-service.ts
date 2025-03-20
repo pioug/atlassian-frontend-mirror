@@ -783,8 +783,8 @@ export class DocumentService implements DocumentServiceInterface {
 					);
 				}
 				while (!isLastTrConfirmed) {
-					// forcePublish = true, this is because commitUnconfirmedSteps is only called when the Editor publishes a document
-					this.sendStepsFromCurrentState(undefined, reason);
+					// this makes all commitUnconfirmedSteps skip the waiting time, which means draft-sync is sped up too.
+					this.sendStepsFromCurrentState(undefined, 'publish');
 
 					await sleep(500);
 

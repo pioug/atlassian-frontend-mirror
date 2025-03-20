@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.0.4
+
+### Patch Changes
+
+- [#128240](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128240)
+  [`2c9d2a6acbdd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c9d2a6acbdd5) -
+  This updates ensure we are stoping the observers once the user makes the first interaction
+
 ## 2.0.3
 
 ### Patch Changes

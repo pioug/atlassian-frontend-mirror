@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 19.1.1
+
+### Patch Changes
+
+- [#128971](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128971)
+  [`35475657b7efd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35475657b7efd) -
+  fix cycle import issue for ResourcedTaskItem
+
 ## 19.1.0
 
 ### Minor Changes

@@ -2,9 +2,10 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import debounce from 'lodash/debounce';
 
 import WidthDetector from '@atlaskit/width-detector';
+
+import { debounce } from './utils/debounce';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultBox = styled.div({
@@ -45,7 +46,7 @@ export default class Example extends React.Component {
 			});
 		},
 		100,
-		{ leading: false },
+		true,
 	);
 
 	render() {

@@ -20,11 +20,6 @@ import {
 } from '@atlaskit/editor-common/card';
 import { altTextMessages } from '@atlaskit/editor-common/media';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
-import {
-	calcMinWidth,
-	DEFAULT_IMAGE_HEIGHT,
-	DEFAULT_IMAGE_WIDTH,
-} from '@atlaskit/editor-common/media-single';
 import commonMessages, {
 	cardMessages,
 	mediaAndEmbedToolbarMessages,
@@ -45,14 +40,9 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	contains,
 	findParentNodeOfType,
-	hasParentNode,
 	hasParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
-import {
-	akEditorDefaultLayoutWidth,
-	akEditorFullWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
@@ -77,13 +67,15 @@ import { openMediaAltTextMenu } from '../../pm-plugins/alt-text/commands';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
 import { getMediaLinkingState } from '../../pm-plugins/linking';
 import type { MediaLinkingState } from '../../pm-plugins/linking/types';
+import { getPluginState as getMediaPixelResizingPluginState } from '../../pm-plugins/pixel-resizing';
+import { openPixelEditor } from '../../pm-plugins/pixel-resizing/commands';
+import { FullWidthDisplay, PixelEntry } from '../../pm-plugins/pixel-resizing/ui';
 import { stateKey } from '../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import { currentMediaOrInlineNodeBorderMark } from '../../pm-plugins/utils/current-media-node';
 import { isVideo } from '../../pm-plugins/utils/media-single';
 import type { MediaFloatingToolbarOptions, MediaToolbarBaseConfig } from '../../types';
 import ImageBorderItem from '../../ui/ImageBorder';
-import { FullWidthDisplay, PixelEntry } from '../../ui/PixelEntry';
 
 import { altTextButton, getAltTextToolbar } from './alt-text';
 import {
@@ -91,7 +83,6 @@ import {
 	changeMediaSingleToMediaInline,
 	setBorderMark,
 	toggleBorderMark,
-	updateMediaSingleWidth,
 } from './commands';
 import { commentButton } from './comments';
 import { shouldShowImageBorder } from './imageBorder';
@@ -104,12 +95,11 @@ import {
 } from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import { generateMediaInlineFloatingToolbar } from './mediaInline';
+import { getPixelResizingToolbar } from './pixel-resizing';
 import {
-	calcNewLayout,
 	canShowSwitchButtons,
 	downloadMedia,
 	getMaxToolbarWidth,
-	getPixelWidthOfElement,
 	getSelectedLayoutIcon,
 	getSelectedMediaSingle,
 	getSelectedNearestMediaContainerNodeAttrs,
@@ -513,87 +503,15 @@ const generateMediaSingleFloatingToolbar = (
 					if (!editorView || !selectedMediaSingleNode) {
 						return null;
 					}
-					const { state, dispatch } = editorView;
-
-					const contentWidth =
-						widthPlugin?.sharedState.currentState()?.lineLength || akEditorDefaultLayoutWidth;
-
-					const selectedMediaNode = selectedMediaSingleNode.node.content.firstChild;
-					if (!selectedMediaNode) {
-						return null;
-					}
-
-					const { width: mediaSingleWidth, widthType, layout } = selectedMediaSingleNode.node.attrs;
-					const { width: mediaWidth, height: mediaHeight } = selectedMediaNode.attrs;
-
-					const maxWidthForNestedNode =
-						pluginInjectionApi?.media?.sharedState.currentState()?.currentMaxWidth;
-
-					const maxWidth = maxWidthForNestedNode || akEditorFullWidthLayoutWidth;
-
-					const isVideoFile = isVideo(selectedMediaNode.attrs.__fileMimeType);
-
-					const minWidth = calcMinWidth(isVideoFile, maxWidthForNestedNode || contentWidth);
-
-					const hasPixelType = widthType === 'pixel';
-
-					const pixelWidthFromElement = getPixelWidthOfElement(
-						editorView,
-						selectedMediaSingleNode.pos + 1, // get pos of media node
-						mediaWidth || DEFAULT_IMAGE_WIDTH,
-					);
-
-					const pixelWidth = hasPixelType ? mediaSingleWidth : pixelWidthFromElement;
-
-					//hasParentNode will return falsey value if selection depth === 0
-					const isNested = hasParentNode((n) => n.type !== state.schema.nodes.doc)(state.selection);
-
 					return (
 						<PixelEntry
+							editorView={editorView}
 							intl={intl}
-							width={pluginState.isResizing ? pluginState.resizingWidth : pixelWidth}
-							showMigration={!pluginState.isResizing && !hasPixelType}
-							mediaWidth={mediaWidth || DEFAULT_IMAGE_WIDTH}
-							mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
-							minWidth={minWidth}
-							maxWidth={maxWidth}
-							onChange={(valid: boolean) => {
-								if (valid) {
-									hoverDecoration?.(mediaSingle, true, 'warning')(
-										editorView.state,
-										dispatch,
-										editorView,
-									);
-								} else {
-									hoverDecoration?.(mediaSingle, false)(editorView.state, dispatch, editorView);
-								}
-							}}
-							onSubmit={({ width, validation }) => {
-								const newLayout = calcNewLayout(
-									width,
-									layout,
-									contentWidth,
-									options.fullWidthEnabled,
-									isNested,
-								);
-
-								updateMediaSingleWidth(pluginInjectionApi?.analytics?.actions)(
-									width,
-									validation,
-									'floatingToolBar',
-									newLayout,
-								)(state, dispatch);
-							}}
-							onMigrate={() => {
-								const tr = state.tr.setNodeMarkup(selectedMediaSingleNode.pos, undefined, {
-									...selectedMediaSingleNode.node.attrs,
-									width: pixelWidthFromElement,
-									widthType: 'pixel',
-								});
-								tr.setMeta('scrollIntoView', false);
-								tr.setSelection(NodeSelection.create(tr.doc, selectedMediaSingleNode.pos));
-								dispatch(tr);
-							}}
+							selectedMediaSingleNode={selectedMediaSingleNode}
+							pluginInjectionApi={pluginInjectionApi}
+							pluginState={pluginState}
+							hoverDecoration={hoverDecoration}
+							isEditorFullWidthEnabled={options.fullWidthEnabled}
 						/>
 					);
 				},
@@ -881,6 +799,8 @@ export const floatingToolbar = (
 		allowMediaInline,
 		allowResizing,
 		isViewOnly,
+		allowResizingInTables,
+		allowAdvancedToolBarOptions,
 	} = options;
 	const mediaPluginState: MediaPluginState | undefined = stateKey.getState(state);
 
@@ -922,6 +842,27 @@ export const floatingToolbar = (
 			return getAltTextToolbar(baseToolbar, {
 				altTextValidator,
 				forceFocusSelector: pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector,
+			});
+		}
+	}
+
+	const { selection } = state;
+	const isWithinTable = hasParentNodeOfType([state.schema.nodes.table])(selection);
+	if (
+		allowAdvancedToolBarOptions &&
+		allowResizing &&
+		(!isWithinTable || allowResizingInTables === true) &&
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_media_extended_resize_experience')
+	) {
+		const mediaPixelResizingPluginState = getMediaPixelResizingPluginState(state);
+		if (mediaPixelResizingPluginState?.isPixelEditorOpen) {
+			return getPixelResizingToolbar(baseToolbar, {
+				intl,
+				pluginInjectionApi,
+				pluginState: mediaPluginState,
+				hoverDecoration,
+				isEditorFullWidthEnabled: options.fullWidthEnabled,
 			});
 		}
 	}
@@ -1002,17 +943,13 @@ export const floatingToolbar = (
 				{
 					title: altTextTitle,
 					onClick: openMediaAltTextMenu(pluginInjectionApi?.analytics?.actions),
-					icon: <TextIcon label={altTextTitle} />,
+					icon: <TextIcon label="" />,
 				},
 				{
 					title: 'Resize',
-					onClick: () => {
-						// Ignored via go/ees007
-						// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-						// TODO open resize dialog?
-						return true;
-					},
-					icon: <GrowHorizontalIcon label="Resize" />,
+					onClick: openPixelEditor(),
+					icon: <GrowHorizontalIcon label="" />,
+					testId: 'media-pixel-resizing-dropdown-option',
 				},
 				{ type: 'separator' },
 				{
@@ -1024,12 +961,12 @@ export const floatingToolbar = (
 						);
 						return true;
 					},
-					icon: <CopyIcon label="Copy" />,
+					icon: <CopyIcon label="" />,
 				},
 				{
 					title: 'Delete',
 					onClick: remove,
-					icon: <DeleteIcon label="Delete" />,
+					icon: <DeleteIcon label="" />,
 				},
 			],
 		});

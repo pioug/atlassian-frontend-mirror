@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type WidthObserverProps } from './types';
 import { WidthDetectorObserver } from './width-detector-observer';
 

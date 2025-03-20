@@ -141,14 +141,13 @@ export const actions = {
 									[fieldKey]: {
 										actionKey: action.actionKey,
 										type: action.type,
-										...(fetchAction &&
-											fg('enable_datasource_supporting_actions') && {
-												fetchAction: {
-													actionKey: fetchAction.actionKey,
-													type: fetchAction.type,
-													inputs: fetchAction.inputs,
-												},
-											}),
+										...(fetchAction && {
+											fetchAction: {
+												actionKey: fetchAction.actionKey,
+												type: fetchAction.type,
+												inputs: fetchAction.inputs,
+											},
+										}),
 									},
 								},
 							};

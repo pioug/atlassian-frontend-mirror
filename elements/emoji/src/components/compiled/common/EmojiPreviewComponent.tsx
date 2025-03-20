@@ -52,7 +52,6 @@ const preview = css({
 
 const previewImg = css({
 	display: 'inline-block',
-	flex: 'initial',
 	width: '32px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .emoji-common-emoji-sprite, span[role="img"]': {

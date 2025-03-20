@@ -29,7 +29,7 @@ export default function Example() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal autoFocus={focusRef} onClose={closeModal}>
-						<ModalHeader>
+						<ModalHeader hasCloseButton={false}>
 							<ModalTitle>
 								<span tabIndex={-1} ref={focusRef}>
 									Sign up

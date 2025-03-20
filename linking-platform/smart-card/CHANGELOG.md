@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 36.0.1
+
+### Patch Changes
+
+- [#128098](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128098)
+  [`2c7474b012df9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c7474b012df9) -
+  Update slack help channel name
+- Updated dependencies
+
 ## 36.0.0
 
 ### Major Changes

@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 28.0.0
+
+### Major Changes
+
+- [#128076](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128076)
+  [`d93c6aab425f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d93c6aab425f1) -
+  migrate reactions styles to compiled css
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.2.1
 
 ### Patch Changes

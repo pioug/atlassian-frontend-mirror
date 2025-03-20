@@ -185,6 +185,11 @@ const messages = defineMessages({
 		defaultMessage: 'Direct reports',
 		description: "Title for a section on the profile card that show the user's direct reports",
 	},
+	teamProfileCardAriaLabel: {
+		id: 'pt.team-profile-card.aria-label',
+		defaultMessage: 'More information about this team',
+		description: 'Aria label for the team profile card',
+	},
 	giveKudosButton: {
 		id: 'pt.profile-card.give-kudos',
 		defaultMessage: 'Give kudos',

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 32.0.2
+
+### Patch Changes
+
+- [#125907](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125907)
+  [`a453a64a6138d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a453a64a6138d) -
+  Updated SVG test file ids
+
 ## 32.0.1
 
 ### Patch Changes

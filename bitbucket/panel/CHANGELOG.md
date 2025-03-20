@@ -1,5 +1,13 @@
 # @atlaskit/panel
 
+## 0.11.7
+
+### Patch Changes
+
+- [#127904](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127904)
+  [`9eea14b34340b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9eea14b34340b) -
+  removing enyzme dependency
+
 ## 0.11.6
 
 ### Patch Changes

@@ -4,27 +4,13 @@ import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import Form, { Field } from '@atlaskit/form';
 import ModalDialog, {
-	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Flex, Grid, xcss } from '@atlaskit/primitives';
 import Select, { OptionType as Option, ValueType as Value } from '@atlaskit/select';
-
-const gridStyles = xcss({
-	width: '100%',
-});
-
-const closeContainerStyles = xcss({
-	gridArea: 'close',
-});
-
-const titleContainerStyles = xcss({
-	gridArea: 'title',
-});
 
 export default function ModalDialogSelect() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -61,15 +47,8 @@ export default function ModalDialogSelect() {
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog onClose={closeModal} testId="modal">
-						<ModalHeader>
-							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={titleContainerStyles} justifyContent="start">
-									<ModalTitle>Using select in a modal dialog</ModalTitle>
-								</Flex>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<CloseButton onClick={closeModal} />
-								</Flex>
-							</Grid>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Using select in a modal dialog</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<p>

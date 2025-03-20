@@ -83,14 +83,6 @@ function EditorTyping() {
 		<ComposableEditor preset={new EditorPresetBuilder()} allowDate={true} />
 	);
 
-	const test3 = (
-		<ComposableEditor
-			preset={new EditorPresetBuilder()}
-			// @ts-expect-error no dangerouslyAppendPlugins
-			dangerouslyAppendPlugins={{ __plugins: [] }}
-		/>
-	);
-
 	const test4 = (
 		<ComposableEditor
 			preset={new EditorPresetBuilder()}
@@ -168,9 +160,6 @@ function EditorTyping() {
 
 	// eslint-disable-next-line
 	console.log(test2);
-
-	// eslint-disable-next-line
-	console.log(test3);
 
 	// eslint-disable-next-line
 	console.log(test4);

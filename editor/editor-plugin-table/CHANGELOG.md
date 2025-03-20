@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.4.6
+
+### Patch Changes
+
+- [#124950](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124950)
+  [`45961c4f4a9a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45961c4f4a9a3) -
+  [ux] ED-25485 Fixes issue where up/down arrow keys would move to the wrong cell in a table if
+  there was a node selection inside the table.
+
 ## 10.4.5
 
 ### Patch Changes

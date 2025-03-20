@@ -25,7 +25,7 @@ const scenarios = [
 		name: 'wrapped API',
 		jsx: (
 			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger" draggable>
+				<button data-testid="trigger" draggable type="button">
 					focus me
 				</button>
 			</Tooltip>
@@ -36,7 +36,7 @@ const scenarios = [
 		jsx: (
 			<Tooltip testId="tooltip" content="hello world">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger" draggable>
+					<button {...tooltipProps} data-testid="trigger" type="button" draggable>
 						focus me
 					</button>
 				)}
@@ -173,7 +173,7 @@ describe('behavior during drags', () => {
 		it('should only bind end listeners after a drag starts', () => {
 			render(
 				<Tooltip testId="tooltip" content="hello world">
-					<button data-testid="trigger" draggable>
+					<button data-testid="trigger" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -193,7 +193,7 @@ describe('behavior during drags', () => {
 		it('should unbind end listeners after a drag ends', () => {
 			render(
 				<Tooltip testId="tooltip" content="hello world">
-					<button data-testid="trigger" draggable>
+					<button data-testid="trigger" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -241,7 +241,7 @@ describe('behavior during drags', () => {
 		it('should not rebind dragging event listeners if the only tooltip during a drag is unregistered and re-registered', () => {
 			const { rerender } = render(
 				<Tooltip testId="tooltip" content="hello world">
-					<button data-testid="trigger" draggable>
+					<button data-testid="trigger" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -254,7 +254,7 @@ describe('behavior during drags', () => {
 
 			rerender(
 				<Tooltip testId="tooltip" content="hello world" key={2}>
-					<button data-testid="trigger" draggable>
+					<button data-testid="trigger" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -286,7 +286,7 @@ describe('behavior during drags', () => {
 		it('should still call onDragEnd for tooltips that are registered after the drag has started', () => {
 			const { rerender } = render(
 				<Tooltip testId="tooltip-1" content="hello world">
-					<button data-testid="trigger-1" draggable>
+					<button data-testid="trigger-1" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -297,12 +297,12 @@ describe('behavior during drags', () => {
 			rerender(
 				<>
 					<Tooltip testId="tooltip-1" content="hello world">
-						<button data-testid="trigger-1" draggable>
+						<button data-testid="trigger-1" type="button" draggable>
 							focus me
 						</button>
 					</Tooltip>
 					<Tooltip testId="tooltip-2" content="registered after drag">
-						<button data-testid="trigger-2" draggable>
+						<button data-testid="trigger-2" type="button" draggable>
 							focus me
 						</button>
 					</Tooltip>
@@ -323,7 +323,7 @@ describe('behavior during drags', () => {
 		it('should still call onDragEnd for tooltips, even for an only tooltip that is unregistered and re-registered during a drag', () => {
 			const { rerender } = render(
 				<Tooltip testId="tooltip" content="hello world">
-					<button data-testid="trigger" draggable>
+					<button data-testid="trigger" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -333,7 +333,7 @@ describe('behavior during drags', () => {
 
 			rerender(
 				<Tooltip testId="tooltip" content="hello world">
-					<button data-testid="trigger" draggable>
+					<button data-testid="trigger" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -352,7 +352,7 @@ describe('behavior during drags', () => {
 		it('should suppress tooltips, even if they mount during a drag', () => {
 			const { rerender } = render(
 				<Tooltip testId="tooltip-1" content="hello world">
-					<button data-testid="trigger-1" draggable>
+					<button data-testid="trigger-1" type="button" draggable>
 						focus me
 					</button>
 				</Tooltip>,
@@ -363,12 +363,12 @@ describe('behavior during drags', () => {
 			rerender(
 				<>
 					<Tooltip testId="tooltip-1" content="hello world">
-						<button data-testid="trigger-1" draggable>
+						<button data-testid="trigger-1" type="button" draggable>
 							focus me
 						</button>
 					</Tooltip>
 					<Tooltip testId="tooltip-2" content="registered after drag">
-						<button data-testid="trigger-2" draggable>
+						<button data-testid="trigger-2" type="button" draggable>
 							focus me
 						</button>
 					</Tooltip>

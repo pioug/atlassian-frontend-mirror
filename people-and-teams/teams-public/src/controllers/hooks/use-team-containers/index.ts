@@ -69,7 +69,7 @@ const actions = {
 				return;
 			}
 
-			setState({ teamContainers: [...teamContainers, teamContainer] });
+			setState({ teamContainers: [teamContainer, ...teamContainers] });
 		},
 };
 

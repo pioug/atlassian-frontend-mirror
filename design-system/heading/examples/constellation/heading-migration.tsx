@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 export default () => {
 	return (

@@ -226,6 +226,7 @@ export interface TeamProfileCardTriggerState {
 	shouldShowGiveKudos?: boolean;
 	teamCentralBaseUrl?: string;
 	kudosDrawerOpen: boolean;
+	isTriggeredByKeyboard?: boolean;
 }
 
 export interface TeamProfilecardCoreProps {
@@ -277,10 +278,10 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 	/** The id of the team. */
 	teamId: string;
 	/**
-    The id of the organization that the team belongs to.
-    Currently this is unused, but will become necessary in the future.
+    Optional orgId. The id of the organization that the team belongs to.
+		Not in use.
    */
-	orgId: string;
+	orgId?: string;
 	/** An instance of ProfileClient. */
 	resourceClient: ProfileClient;
 	/**
@@ -324,6 +325,11 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 
     Look at the example on "Trigger Link Types" for more in-depth analysis, or
     ask in #help-people-and-teams-xpc on Slack for our recommendations.
+
+		@deprecated
+		Consumers should always pass it as "none" from now on.
+		Consumers should be responsible to implement wrapper of our profilecard trigger, for example a link
+		We are keeping the original comments longer for existing exps
    */
 	triggerLinkType?: 'none' | 'link' | 'clickable-link';
 	/**
@@ -336,7 +342,7 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 	 */
 	addFlag?: (flag: any) => void;
 	/**
-	 * Optional cloudId. Pass this if rendering card within a sited context.
+	 * Mandatory cloudId. Used to fetch team.
 	 */
 	cloudId?: string;
 	/**
@@ -488,6 +494,8 @@ export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
 	clientFetchProfile?: () => void;
 	/** Details relevant to passing around analytics. */
 	analytics: AnalyticsFunction;
+	/** Set auto focus for actionable items */
+	isTriggeredByKeyboard?: boolean;
 }
 
 export interface MessageIntlProviderProps {

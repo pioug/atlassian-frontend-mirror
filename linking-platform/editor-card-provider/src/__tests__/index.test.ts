@@ -99,6 +99,15 @@ const getMockProvidersResponse = ({
 				},
 			],
 		},
+		{
+			key: 'confluence-object-provider',
+			patterns: [
+				{
+					source:
+						'^https:\\/\\/[^/]+\\.jira-dev\\.com\\/wiki\\/spaces\\/([^\\/]+)\\/calendars\\/([a-zA-Z0-9-]+)',
+				},
+			],
+		},
 	],
 	...(userPreferences
 		? {
@@ -1538,7 +1547,6 @@ describe('providers > editor', () => {
 			expect(adf).toEqual(expectedInlineAdf(url));
 		});
 	});
-
 	describe('when consumer calls function with isEmbedFriendlyLocation as true', () => {
 		it('should use hardcoded appearance if it matches regexp', async () => {
 			const provider = setupEditorCardProvider();
@@ -1554,6 +1562,46 @@ describe('providers > editor', () => {
 			});
 
 			const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
+			const adf = await provider.resolve(url, 'inline', false, true);
+			expect(adf).toEqual(expectedEmbedAdf(url));
+		});
+
+		it('should not use embed appearance for team calendar smart link when FF is off', async () => {
+			setBooleanFeatureFlagResolver(() => false);
+			const provider = setupEditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () =>
+					getMockProvidersResponse({
+						userPreferences: {
+							defaultAppearance: 'inline',
+							appearances: [],
+						},
+					}),
+				ok: true,
+			});
+
+			const url =
+				'https://jdog.jira-dev.com/wiki/spaces/kb/calendars/1bb45655-f521-4379-8353-59b423abfffb';
+			const adf = await provider.resolve(url, 'inline', false, true);
+			expect(adf).toEqual(expectedInlineAdf(url));
+		});
+
+		it('should use embed appearance for team calendar smart link when FF is on', async () => {
+			setBooleanFeatureFlagResolver(() => true);
+			const provider = setupEditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () =>
+					getMockProvidersResponse({
+						userPreferences: {
+							defaultAppearance: 'inline',
+							appearances: [],
+						},
+					}),
+				ok: true,
+			});
+
+			const url =
+				'https://jdog.jira-dev.com/wiki/spaces/kb/calendars/1bb45655-f521-4379-8353-59b423abfffb';
 			const adf = await provider.resolve(url, 'inline', false, true);
 			expect(adf).toEqual(expectedEmbedAdf(url));
 		});

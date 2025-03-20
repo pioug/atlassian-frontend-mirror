@@ -9,6 +9,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { TouchScrollable } from 'react-scrolllock';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
@@ -18,6 +19,10 @@ import useScroll from './internal/hooks/use-scroll';
 const bodyStyles = css({
 	/* This ensures the body fills the whole space between header and footer. */
 	flex: '1 1 auto',
+});
+
+const fontStyles = css({
+	font: token('font.body'),
 });
 
 /**
@@ -69,13 +74,27 @@ const ModalBody = (props: ModalBodyProps) => {
 	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--body`);
 
 	return shouldScrollInViewport ? (
-		<div css={[bodyStyles, viewportScrollStyles]} data-testid={testId}>
+		<div
+			css={[
+				bodyStyles,
+				viewportScrollStyles,
+				fg('platform_ads_explicit_font_styles') && fontStyles,
+			]}
+			data-testid={testId}
+		>
 			{children}
 		</div>
 	) : (
 		<TouchScrollable>
 			<ScrollContainer testId={userDefinedTestId || modalTestId}>
-				<div css={[bodyStyles, bodyScrollStyles]} data-testid={testId}>
+				<div
+					css={[
+						bodyStyles,
+						bodyScrollStyles,
+						fg('platform_ads_explicit_font_styles') && fontStyles,
+					]}
+					data-testid={testId}
+				>
 					{children}
 				</div>
 			</ScrollContainer>

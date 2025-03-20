@@ -7,6 +7,10 @@
  */
 //Turkish (Turkey)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Güvenliğiniz için sistemimiz yüklenen tüm dosyaları otomatik olarak tarar. İndirmek üzere olduğunuz dosya kötü amaçlı içerik içerebilir',
+  'fabric.media.abuse_modal_submit': 'İndirmeye devam et',
+  'fabric.media.abuse_modal_title': 'Uyarı',
   'fabric.media.accounts': 'Hesaplar',
   'fabric.media.actions': 'Eylemler',
   'fabric.media.add_account': 'Hesap ekle',
@@ -58,6 +62,8 @@ export default {
   'fabric.media.display_thumbnail': 'Küçük resmi göster',
   'fabric.media.document': 'belge',
   'fabric.media.download': 'İndir',
+  'fabric.media.download_disabled_security_policy':
+    'İndirme işlemi, organizasyonunuzun güvenlik politikası tarafından engellendi.',
   'fabric.media.drag_and_drop_images_here': 'Görsellerinizi buraya sürükleyip bırakın',
   'fabric.media.drag_and_drop_your_files': 'Dosyalarınızı herhangi bir yere sürükleyip bırakın veya',
   'fabric.media.drag_and_drop_your_files_and_folders':
@@ -109,7 +115,6 @@ export default {
   'fabric.media.playback_default_speed': 'Varsayılan',
   'fabric.media.playback_speed': 'Kayıttan yürütme hızı',
   'fabric.media.preview': 'Önizleme',
-  'fabric.media.preview_currently_unavailable': 'Önizleme şu anda kullanılamıyor',
   'fabric.media.preview_unavailable': 'Önizleme kullanılamıyor',
   'fabric.media.recent_uploads': 'En son yüklemeler',
   'fabric.media.remove_image': 'Görseli kaldır',
@@ -127,6 +132,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Tüm varsayılan seçenekler içinden birini belirleyin',
   'fabric.media.share_files_instantly': 'Bu dosyaları hemen paylaşacağız',
   'fabric.media.show_more_avatars_btn_label': 'Daha fazla göster',
+  'fabric.media.size_options': 'Boyut seçenekleri',
   'fabric.media.skip_backward': '10 saniye geri al',
   'fabric.media.skip_forward': '10 saniye ileri al',
   'fabric.media.something_went_wrong': 'Bir hata oluştu.',

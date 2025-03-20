@@ -94,7 +94,15 @@ const bodyScrollStyles = css({
 });
 
 const ModalDialog = (
-	props: ModalDialogProps & { onClose: (value: KeyboardOrMouseEvent) => void },
+	props: ModalDialogProps & {
+		/**
+		 * A boolean for if the onClose is provided. We define a `noop` as our onClose
+		 * at the top level, but we need to know if one is provided for the close
+		 * button to be rendered.
+		 */
+		hasProvidedOnClose: boolean;
+		onClose: (value: KeyboardOrMouseEvent) => void;
+	},
 ) => {
 	const {
 		width = 'medium',
@@ -106,6 +114,7 @@ const ModalDialog = (
 		onCloseComplete,
 		onOpenComplete,
 		height,
+		hasProvidedOnClose,
 		children,
 		label,
 		testId,
@@ -142,8 +151,8 @@ const ModalDialog = (
 	});
 
 	const modalDialogContext = useMemo(
-		() => ({ testId, titleId, onClose }),
-		[testId, titleId, onClose],
+		() => ({ testId, titleId, onClose, hasProvidedOnClose }),
+		[testId, titleId, onClose, hasProvidedOnClose],
 	);
 
 	useCloseOnEscapePress({

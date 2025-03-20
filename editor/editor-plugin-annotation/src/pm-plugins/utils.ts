@@ -219,10 +219,22 @@ export const findAnnotationsInSelection = (selection: Selection, doc: Node): Ann
 	const anchorAnnotationMarks = node?.marks || [];
 
 	let marks: readonly Mark[] = [];
-	if (annotationMark.isInSet(anchorAnnotationMarks)) {
-		marks = anchorAnnotationMarks;
-	} else if (nodeBefore && annotationMark.isInSet(nodeBefore.marks)) {
-		marks = nodeBefore.marks;
+	if (fg('platform_editor_fix_missing_selected_annotations')) {
+		if (annotationMark.isInSet(anchorAnnotationMarks)) {
+			marks = anchorAnnotationMarks;
+		}
+		if (nodeBefore && annotationMark.isInSet(nodeBefore.marks)) {
+			const existingMarkIds = marks.map((m) => m.attrs.id);
+			marks = marks.concat(
+				...nodeBefore.marks.filter((m) => !existingMarkIds.includes(m.attrs.id)),
+			);
+		}
+	} else {
+		if (annotationMark.isInSet(anchorAnnotationMarks)) {
+			marks = anchorAnnotationMarks;
+		} else if (nodeBefore && annotationMark.isInSet(nodeBefore.marks)) {
+			marks = nodeBefore.marks;
+		}
 	}
 
 	const annotations = marks

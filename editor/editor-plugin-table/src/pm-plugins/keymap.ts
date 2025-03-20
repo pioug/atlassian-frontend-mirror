@@ -27,10 +27,12 @@ import {
 	increaseMediaSize,
 	moveColumnLeft,
 	moveColumnRight,
+	moveDown,
 	moveLeft,
 	moveRight,
 	moveRowDown,
 	moveRowUp,
+	moveUp,
 	nextCell,
 	previousCell,
 	startColumnResizing,
@@ -60,6 +62,7 @@ import {
 	deleteTableIfSelectedWithAnalytics,
 	emptyMultipleCellsWithAnalytics,
 } from './commands/commands-with-analytics';
+import { goToNextCellVertical } from './commands/go-to-next-cell';
 import {
 	addColumnAfter as addColumnAfterCommand,
 	addColumnBefore as addColumnBeforeCommand,
@@ -359,6 +362,22 @@ export function keymapPlugin(
 			getIntl: getIntl,
 			nodeViewPortalProviderAPI,
 		}),
+		list,
+	);
+
+	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		moveDown.common!,
+		goToNextCellVertical(1),
+		list,
+	);
+
+	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		moveUp.common!,
+		goToNextCellVertical(-1),
 		list,
 	);
 

@@ -7,6 +7,10 @@
  */
 //Thai (Thailand)
 export default {
+  'fabric.media.abuse_modal_body':
+    'เพื่อความปลอดภัย ระบบของเราจะสแกนไฟล์ที่อัปโหลดทั้งหมดโดยอัตโนมัติ ไฟล์ที่คุณกำลังจะดาวน์โหลดอาจมีเนื้อหาที่เป็นอันตราย',
+  'fabric.media.abuse_modal_submit': 'ดำเนินการดาวน์โหลดต่อ',
+  'fabric.media.abuse_modal_title': 'คำเตือน',
   'fabric.media.accounts': 'บัญชี',
   'fabric.media.actions': 'การดำเนินการ',
   'fabric.media.add_account': 'เพิ่มบัญชี',
@@ -58,6 +62,7 @@ export default {
   'fabric.media.display_thumbnail': 'แสดงภาพขนาดย่อ',
   'fabric.media.document': 'เอกสาร',
   'fabric.media.download': 'ดาวน์โหลด',
+  'fabric.media.download_disabled_security_policy': 'การดาวน์โหลดถูกบล็อกตามนโยบายความปลอดภัยขององค์กรของคุณ',
   'fabric.media.drag_and_drop_images_here': 'ลากและวางรูปภาพของคุณที่นี่',
   'fabric.media.drag_and_drop_your_files': 'ลากและวางไฟล์ของคุณไว้ที่ใดก็ได้หรือ',
   'fabric.media.drag_and_drop_your_files_and_folders': 'ลากและวางไฟล์และโฟลเดอร์ของคุณที่ใดก็ได้หรือ',
@@ -107,7 +112,6 @@ export default {
   'fabric.media.playback_default_speed': 'ค่าเริ่มต้น',
   'fabric.media.playback_speed': 'ความเร็วในการเปิดเล่น',
   'fabric.media.preview': 'แสดงตัวอย่าง',
-  'fabric.media.preview_currently_unavailable': 'ไม่สามารถดูตัวอย่างได้ในขณะนี้',
   'fabric.media.preview_unavailable': 'ไม่สามารถดูตัวอย่างได้',
   'fabric.media.recent_uploads': 'รายการอัปโหลดล่าสุด',
   'fabric.media.remove_image': 'ลบรูปภาพออก',
@@ -125,6 +129,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'เลือกจากตัวเลือกเริ่มต้นทั้งหมด',
   'fabric.media.share_files_instantly': 'เราจะแชร์ไฟล์เหล่านั้นทันที',
   'fabric.media.show_more_avatars_btn_label': 'แสดงเพิ่มเติม',
+  'fabric.media.size_options': 'ตัวเลือกขนาด',
   'fabric.media.skip_backward': 'ย้อนกลับ 10 วินาที',
   'fabric.media.skip_forward': 'ไปข้างหน้า 10 วินาที',
   'fabric.media.something_went_wrong': 'เกิดข้อผิดพลาดบางอย่าง',

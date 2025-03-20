@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "13.1.1",
+	"version": "13.3.0",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -158,6 +158,9 @@
 		"platform_design_system_motion_on_finish_fix": {
 			"type": "boolean",
 			"referenceOnly": "true"
+		},
+		"platform_ads_explicit_font_styles": {
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/modal-dialog/"

@@ -7,6 +7,10 @@
  */
 //Dutch (Netherlands)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Voor je veiligheid scant ons systeem automatisch alle geüploade bestanden. Het bestand dat je gaat downloaden, bevat mogelijk schadelijke inhoud',
+  'fabric.media.abuse_modal_submit': 'Verder met downloaden',
+  'fabric.media.abuse_modal_title': 'Waarschuwing',
   'fabric.media.accounts': 'Accounts',
   'fabric.media.actions': 'Acties',
   'fabric.media.add_account': 'Account toevoegen',
@@ -59,6 +63,8 @@ export default {
   'fabric.media.display_thumbnail': 'Thumbnail weergeven',
   'fabric.media.document': 'document',
   'fabric.media.download': 'Downloaden',
+  'fabric.media.download_disabled_security_policy':
+    'Downloaden wordt geblokkeerd door het beveiligingsbeleid van je organisatie.',
   'fabric.media.drag_and_drop_images_here': 'Afbeelding hierheen slepen en neerzetten',
   'fabric.media.drag_and_drop_your_files': 'Bestanden ergens naartoe slepen en neerzetten of',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Sleep de bestanden en mappen waar dan ook naartoe, of',
@@ -110,7 +116,6 @@ export default {
   'fabric.media.playback_default_speed': 'Standaard',
   'fabric.media.playback_speed': 'Afspeelsnelheid',
   'fabric.media.preview': 'Voorvertoning',
-  'fabric.media.preview_currently_unavailable': 'Voorvertoning is momenteel niet beschikbaar',
   'fabric.media.preview_unavailable': 'Voorbeeld niet beschikbaar',
   'fabric.media.recent_uploads': 'Recente uploads',
   'fabric.media.remove_image': 'Afbeelding verwijderen',
@@ -128,6 +133,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Selecteer uit alle standaardopties',
   'fabric.media.share_files_instantly': 'We delen ze direct',
   'fabric.media.show_more_avatars_btn_label': 'Meer tonen',
+  'fabric.media.size_options': 'Opties voor de grootte',
   'fabric.media.skip_backward': '10 seconden terug',
   'fabric.media.skip_forward': '10 seconden vooruit',
   'fabric.media.something_went_wrong': 'Er is iets misgegaan.',

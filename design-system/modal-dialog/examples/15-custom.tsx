@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
@@ -14,11 +15,9 @@ import ModalDialog, {
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Flex, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-
-import ModalTitleWithClose from './common/modal-title';
 
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];
@@ -36,17 +35,17 @@ const headerStyles = xcss({
 		'url(https://atlassian.design/react_assets/images/cards/personality.png) center top no-repeat',
 	backgroundSize: 'cover',
 	borderRadius: '4px 4px 0 0',
+	padding: 'space.200',
 });
 
 const CustomHeader = () => {
 	const { onClose } = useModal();
 
 	return (
-		<Box>
-			<ModalTitleWithClose onClose={onClose}>
-				<Box xcss={headerStyles}></Box>
-			</ModalTitleWithClose>
-		</Box>
+		<Flex alignItems="center" justifyContent="space-between" xcss={headerStyles}>
+			<ModalTitle>Custom header</ModalTitle>
+			<CloseButton onClick={onClose} />
+		</Flex>
 	);
 };
 
@@ -115,17 +114,13 @@ export default function ModalDemo() {
 					>
 						{variant === 'custom header' && <CustomHeader />}
 						{variant === 'header' && (
-							<ModalHeader>
-								<ModalTitleWithClose onClose={close}>
-									<ModalTitle>Modal: {variant}</ModalTitle>
-								</ModalTitleWithClose>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Modal: {variant}</ModalTitle>
 							</ModalHeader>
 						)}
 						{['both', 'custom footer', 'footer'].includes(variant) && (
-							<ModalHeader>
-								<ModalTitleWithClose onClose={close}>
-									<ModalTitle>Modal: {variant}</ModalTitle>
-								</ModalTitleWithClose>
+							<ModalHeader hasCloseButton>
+								<ModalTitle>Modal: {variant}</ModalTitle>
 							</ModalHeader>
 						)}
 

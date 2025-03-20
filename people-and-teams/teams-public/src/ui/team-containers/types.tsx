@@ -10,7 +10,10 @@ export interface TeamContainerProps {
 	/**
 	 * The function to call when the add a container button is clicked
 	 */
-	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	onAddAContainerClick: (
+		e: React.MouseEvent<HTMLButtonElement>,
+		containerType: 'Confluence' | 'Jira',
+	) => void;
 	/**
 	 * The component to replace current components
 	 */

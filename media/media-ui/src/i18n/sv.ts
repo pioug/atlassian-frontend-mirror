@@ -7,6 +7,10 @@
  */
 //Swedish
 export default {
+  'fabric.media.abuse_modal_body':
+    'Vårt system söker automatiskt igenom alla uppladdade filer för din säkerhet. Filen du är på väg att ladda ner innehåller potentiellt skadligt innehåll',
+  'fabric.media.abuse_modal_submit': 'Fortsätt ladda ner',
+  'fabric.media.abuse_modal_title': 'Varning',
   'fabric.media.accounts': 'Konton',
   'fabric.media.actions': 'Åtgärder',
   'fabric.media.add_account': 'Lägg till konto',
@@ -58,6 +62,7 @@ export default {
   'fabric.media.display_thumbnail': 'Visa miniatyrbild',
   'fabric.media.document': 'dokument',
   'fabric.media.download': 'Ladda ner',
+  'fabric.media.download_disabled_security_policy': 'Nedladdningen blockeras av organisationens säkerhetspolicy.',
   'fabric.media.drag_and_drop_images_here': 'Dra och släpp dina bilder här',
   'fabric.media.drag_and_drop_your_files': 'Dra och släpp dina filer var som helst eller',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Dra och släpp dina filer och mappar var som helst eller',
@@ -108,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'Standard',
   'fabric.media.playback_speed': 'Uppspelningshastighet',
   'fabric.media.preview': 'Förhandsgranska',
-  'fabric.media.preview_currently_unavailable': 'Förhandsgranskning är otillgänglig just nu',
   'fabric.media.preview_unavailable': 'Förhandsgranskning är otillgänglig',
   'fabric.media.recent_uploads': 'Senaste uppladdningar',
   'fabric.media.remove_image': 'Ta bort bild',
@@ -126,6 +130,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Välj från samtliga standardalternativ',
   'fabric.media.share_files_instantly': 'Vi delar dem direkt',
   'fabric.media.show_more_avatars_btn_label': 'Visa mer',
+  'fabric.media.size_options': 'Storleksalternativ',
   'fabric.media.skip_backward': 'Gå tillbaka 10 sekunder',
   'fabric.media.skip_forward': 'Gå framåt 10 sekunder',
   'fabric.media.something_went_wrong': 'Något gick fel.',

@@ -9,8 +9,6 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { PopupSelect } from '@atlaskit/select';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const options = [
 	{ label: 'Adelaide', value: 'adelaide' },
 	{ label: 'Brisbane', value: 'brisbane' },
@@ -35,10 +33,8 @@ export default function ModalWithPopupSelect() {
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog onClose={close}>
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Modal with popup select</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal with popup select</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<PopupSelect

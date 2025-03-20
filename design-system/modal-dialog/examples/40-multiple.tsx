@@ -15,8 +15,6 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const sizes = ['large', 'medium', 'small'];
 
 const multipleContainerStyles = xcss({
@@ -97,10 +95,8 @@ export default function NestedDemo() {
 								width={name}
 								testId="modal"
 							>
-								<ModalHeader>
-									<ModalTitleWithClose onClose={() => close(name)}>
-										<ModalTitle>Modal: {name}</ModalTitle>
-									</ModalTitleWithClose>
+								<ModalHeader hasCloseButton>
+									<ModalTitle>Modal: {name}</ModalTitle>
 								</ModalHeader>
 								<ModalBody>
 									<Lorem count={2} />

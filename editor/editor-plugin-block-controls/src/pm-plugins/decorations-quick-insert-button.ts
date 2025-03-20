@@ -38,6 +38,7 @@ export const quickInsertButtonDecoration = (
 			const element = document.createElement('span');
 			element.contentEditable = 'false';
 			element.setAttribute('data-blocks-quick-insert-container', 'true');
+			element.setAttribute('data-testid', 'block-ctrl-quick-insert-button');
 
 			nodeViewPortalProviderAPI.render(
 				() =>

@@ -14,8 +14,6 @@ import { Box, Stack } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
-import ModalTitleWithClose from './common/modal-title';
-
 export default function ModalDialogForm() {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = () => setIsOpen(true);
@@ -43,10 +41,8 @@ export default function ModalDialogForm() {
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog onClose={close} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Form Demo</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Form Demo</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Form onSubmit={onFormSubmit}>

@@ -15,6 +15,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '../../../types';
@@ -22,6 +23,7 @@ import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '.
 import { FullPageContentArea } from './FullPageContentArea';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
+import { getEditorViewMode } from './getEditorViewModeSync';
 import { fullPageEditorWrapper } from './StyledComponents';
 import { type ScrollContainerRefs } from './types';
 
@@ -59,7 +61,7 @@ const useShowKeyline = (contentAreaRef: React.MutableRefObject<ScrollContainerRe
 	return showKeyline;
 };
 
-type ComponentProps = EditorAppearanceComponentProps<
+export type ComponentProps = EditorAppearanceComponentProps<
 	[
 		OptionalPlugin<EditorViewModePlugin>,
 		OptionalPlugin<PrimaryToolbarPlugin>,
@@ -94,6 +96,8 @@ export const FullPageEditor = (props: ComponentProps) => {
 		'editorViewMode',
 		'primaryToolbar',
 	]);
+	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
+
 	const toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking');
 
 	let primaryToolbarComponents = props.primaryToolbarComponents;
@@ -102,7 +106,9 @@ export const FullPageEditor = (props: ComponentProps) => {
 		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 
-	let isEditorToolbarHidden = editorViewModeState?.mode === 'view';
+	let isEditorToolbarHidden = fg('platform_editor_sync_editor_view_mode_state')
+		? viewMode === 'view'
+		: editorViewModeState?.mode === 'view';
 
 	if (props.__livePage && !editorExperiment('live_pages_graceful_edit', 'control')) {
 		// the custom toolbar logic should only be applied when the experiment cohort is not control,

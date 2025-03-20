@@ -1,5 +1,28 @@
 # @atlaskit/modal-dialog
 
+## 13.3.0
+
+### Minor Changes
+
+- [#129312](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129312)
+  [`26ac9f1e06b2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26ac9f1e06b2e) -
+  Modal body now explicitly sets the font style to use typography tokens, instead of relying on the
+  CSS reset to be present. This change is behind the feature flag
+  `platform_ads_explicit_font_styles`.
+
+## 13.2.0
+
+### Minor Changes
+
+- [#127054](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127054)
+  [`fb709895d8d5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb709895d8d5c) -
+  [ux] Adds a new `hasCloseButton` prop to `ModalHeader` to add a close button. This uses the
+  exported `CloseButton` internally.
+
+  This is done to improve the accessibility of all modal dialogs and ensure that users of assistive
+  technology get full context of the modal and so that pointer users have a more clear way to close
+  the modal.
+
 ## 13.1.1
 
 ### Patch Changes

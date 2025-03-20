@@ -125,6 +125,7 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
 					<styles.FakeBlanket
 						isOpen={isNavigationOpen || isSidebarOpen}
 						onClick={this.props.onDrawerClose}
+						data-testid="fake-blanket"
 					/>
 				)}
 			</Fragment>

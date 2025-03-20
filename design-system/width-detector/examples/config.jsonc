@@ -4,9 +4,6 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [],
-  "exampleDependencies": [
-    "@emotion/react",
-    "lodash"
-  ]
+	"testExamples": [],
+	"exampleDependencies": ["@emotion/react"],
 }

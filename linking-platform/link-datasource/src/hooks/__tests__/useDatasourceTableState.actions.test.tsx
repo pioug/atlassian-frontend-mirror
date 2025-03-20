@@ -14,7 +14,6 @@ import {
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { Store } from '../../state';
@@ -205,39 +204,37 @@ describe('useDatasourceTableState', () => {
 			});
 		});
 
-		ffTest.on('enable_datasource_supporting_actions', 'flag on', () => {
-			it('should include fetchAction in the state when they are available', async () => {
-				asMock(getDatasourceData).mockResolvedValueOnce({
-					...mockDatasourceDataResponseWithSchema,
-				});
+		it('should include fetchAction in the state when they are available', async () => {
+			asMock(getDatasourceData).mockResolvedValueOnce({
+				...mockDatasourceDataResponseWithSchema,
+			});
 
-				asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
-					...mockActionsDiscoveryResponse,
-				});
+			asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
+				...mockActionsDiscoveryResponse,
+			});
 
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+			const { waitForNextUpdate } = setup();
+			await waitForNextUpdate();
 
-				const actions = actionsStore.storeState.getState();
+			const actions = actionsStore.storeState.getState();
 
-				expect(actions['actionsByIntegration']['jira']).toEqual(
-					expect.objectContaining({
-						status: {
-							actionKey: 'atlassian:work-item:update:status',
-							fetchAction: {
-								actionKey: 'atlassian:work-item:get:statuses',
-								inputs: {
-									issueId: {
-										type: 'string',
-									},
+			expect(actions['actionsByIntegration']['jira']).toEqual(
+				expect.objectContaining({
+					status: {
+						actionKey: 'atlassian:work-item:update:status',
+						fetchAction: {
+							actionKey: 'atlassian:work-item:get:statuses',
+							inputs: {
+								issueId: {
+									type: 'string',
 								},
-								type: 'string',
 							},
 							type: 'string',
 						},
-					}),
-				);
-			});
+						type: 'string',
+					},
+				}),
+			);
 		});
 	});
 });

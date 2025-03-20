@@ -202,7 +202,7 @@ export const getLinkingDropdownOptions = (
 					}
 					return true;
 				},
-				icon: <LinkIcon label={title} />,
+				icon: <LinkIcon label="" />,
 			},
 		];
 	}

@@ -148,7 +148,7 @@ export const TeamContainers = ({
 	return (
 		<>
 			<Stack space="space.200">
-				<Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap="space.100">
+				<Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap="space.100">
 					{teamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 						return (
 							<LinkedContainerCardComponent
@@ -169,13 +169,13 @@ export const TeamContainers = ({
 					})}
 					{showAddJiraContainer && (
 						<AddContainerCard
-							onAddAContainerClick={onAddAContainerClick}
+							onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
 							containerType="JiraProject"
 						/>
 					)}
 					{showAddConfluenceContainer && (
 						<AddContainerCard
-							onAddAContainerClick={onAddAContainerClick}
+							onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
 							containerType="ConfluenceSpace"
 						/>
 					)}
@@ -188,7 +188,13 @@ export const TeamContainers = ({
 									title={container.name}
 									containerIcon={container.icon || undefined}
 									link={container.link || undefined}
-									onDisconnectButtonClick={() => setIsDisconnectDialogOpen(true)}
+									onDisconnectButtonClick={() =>
+										handleOpenDisconnectDialog({
+											containerId: container.id,
+											containerType: container.type,
+											containerName: container.name,
+										})
+									}
 								/>
 							);
 						})}

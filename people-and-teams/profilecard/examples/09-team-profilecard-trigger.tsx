@@ -169,7 +169,21 @@ export default function Example() {
 		<ExampleWrapper>
 			<MainStage>
 				<Section>
-					<input type="text" />
+					<Container>
+						<h4>Profilecard triggerLinkType none</h4>
+						<span>
+							Hover to preview the team:{' '}
+							<TeamProfilecardTrigger
+								{...defaultProps}
+								actions={defaultProps.actions.slice(0, numActions)}
+								trigger="hover"
+								triggerLinkType="none"
+								viewingUserId={viewerId}
+							>
+								<strong>The Cool Team</strong>
+							</TeamProfilecardTrigger>
+						</span>
+					</Container>
 					<Container>
 						<h4>Profilecard triggered by hover</h4>
 						<span>

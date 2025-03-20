@@ -210,6 +210,13 @@ export const TypeAheadControl = ({
 		api.quickInsert?.actions.openTypeAhead('blockControl');
 	}, [api, getPos, view]);
 
+	const handleMouseDown = useCallback(() => {
+		// close typeahead if it is open, must happen in mouseDown otherwise typeAhead popup will be dismissed and text is left
+		if (api.typeAhead?.actions.isOpen(view.state)) {
+			api.typeAhead.actions.close({ insertCurrentQueryAsRawText: false });
+		}
+	}, [api, view.state]);
+
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		<Box style={positionStyles} xcss={[containerStaticStyles]}>
@@ -222,6 +229,7 @@ export const TypeAheadControl = ({
 					aria-label={formatMessage(messages.insert)}
 					xcss={[buttonStyles]}
 					onClick={handleQuickInsert}
+					onMouseDown={handleMouseDown}
 				>
 					<AddIcon label="add" color={token('color.icon.subtle')} />
 				</Pressable>

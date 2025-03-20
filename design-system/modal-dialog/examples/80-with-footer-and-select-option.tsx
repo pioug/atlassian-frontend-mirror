@@ -11,8 +11,6 @@ import Modal, {
 import { Box } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const SingleExample = () => (
 	<Select
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -58,10 +56,8 @@ export default function DefaultModal() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle>Modal Title</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Box testId="dialog-body">

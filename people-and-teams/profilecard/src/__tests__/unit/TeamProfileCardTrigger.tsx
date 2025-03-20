@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { act, createEvent, fireEvent, render } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../client/ProfileCardClient';
@@ -20,6 +20,15 @@ jest.mock('../../util/analytics', () => {
 		fireEvent: jest.fn(),
 	};
 });
+
+const cache = createIntlCache();
+const intl = createIntl(
+	{
+		locale: 'en',
+		messages: {},
+	},
+	cache,
+);
 
 const defaultProps = {
 	createAnalyticsEvent,
@@ -88,6 +97,7 @@ describe('TeamProfileCardTrigger', () => {
 						{...defaultProps}
 						resourceClient={mockResourceClient as ProfileClient}
 						trigger="click"
+						intl={intl}
 					>
 						<span data-testid="test-inner-trigger">This is the trigger</span>
 					</TeamProfileCardTrigger>
@@ -135,6 +145,7 @@ describe('TeamProfileCardTrigger', () => {
 					{...defaultProps}
 					resourceClient={resourceClient as ProfileClient}
 					trigger="click"
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -154,6 +165,7 @@ describe('TeamProfileCardTrigger', () => {
 					{...defaultProps}
 					resourceClient={mockResourceClient as ProfileClient}
 					trigger="hover"
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -191,6 +203,7 @@ describe('TeamProfileCardTrigger', () => {
 						{...defaultProps}
 						resourceClient={mockResourceClient as ProfileClient}
 						trigger="hover-click"
+						intl={intl}
 					>
 						<span data-testid="test-inner-trigger">This is the trigger</span>
 					</TeamProfileCardTrigger>
@@ -224,6 +237,7 @@ describe('TeamProfileCardTrigger', () => {
 					{...defaultProps}
 					resourceClient={mockResourceClient as ProfileClient}
 					trigger="hover-click"
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -262,6 +276,7 @@ describe('TeamProfileCardTrigger', () => {
 						triggerLinkType="link"
 						trigger="hover-click"
 						viewProfileOnClick={viewProfileOnClick}
+						intl={intl}
 					>
 						<span data-testid="test-inner-trigger">This is the trigger</span>
 					</TeamProfileCardTrigger>,
@@ -348,6 +363,7 @@ describe('TeamProfileCardTrigger', () => {
 					triggerLinkType="link"
 					trigger="hover-click"
 					viewProfileOnClick={viewProfileOnClick}
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -373,6 +389,7 @@ describe('TeamProfileCardTrigger', () => {
 					resourceClient={mockResourceClient as ProfileClient}
 					triggerLinkType="none"
 					trigger="hover-click"
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -395,6 +412,7 @@ describe('TeamProfileCardTrigger', () => {
 					triggerLinkType="clickable-link"
 					trigger="hover-click"
 					viewProfileOnClick={viewProfileOnClick}
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -429,6 +447,7 @@ describe('TeamProfileCardTrigger', () => {
 					{...defaultProps}
 					resourceClient={resourceClient as ProfileClient}
 					trigger="click"
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -462,6 +481,7 @@ describe('TeamProfileCardTrigger', () => {
 					{...defaultProps}
 					resourceClient={resourceClient as ProfileClient}
 					trigger="click"
+					intl={intl}
 				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
@@ -526,7 +546,12 @@ describe('TeamProfileCardTrigger', () => {
 			});
 
 			const { getByTestId } = renderWithIntl(
-				<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
+				<TeamProfileCardTrigger
+					{...defaultProps}
+					resourceClient={profileClient}
+					trigger="click"
+					intl={intl}
+				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
 			);
@@ -583,7 +608,12 @@ describe('TeamProfileCardTrigger', () => {
 			});
 
 			const { getByTestId } = renderWithIntl(
-				<TeamProfileCardTrigger {...defaultProps} resourceClient={profileClient} trigger="click">
+				<TeamProfileCardTrigger
+					{...defaultProps}
+					resourceClient={profileClient}
+					trigger="click"
+					intl={intl}
+				>
 					<span data-testid="test-inner-trigger">This is the trigger</span>
 				</TeamProfileCardTrigger>,
 			);

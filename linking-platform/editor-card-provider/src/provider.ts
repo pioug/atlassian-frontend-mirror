@@ -112,6 +112,9 @@ const isRovoAgentProfilePage = (url: string) => {
 const isCustomer360LandingPage = (url: string) =>
 	url.match(/^https:\/\/customer\.atlassian\.com\/.*$/);
 
+const isConfluenceTeamCalendars = (url: string) =>
+	url.match(/\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/);
+
 export class EditorCardProvider implements CardProvider {
 	private baseUrl: string;
 	private resolverUrl: string;
@@ -266,6 +269,11 @@ export class EditorCardProvider implements CardProvider {
 			isJiraSummaryEvaluated = isJiraSummary(url);
 		}
 
+		let isConfluenceTeamCalendarsEvaluated;
+		if (fg('tc_smart_link_embed_view')) {
+			isConfluenceTeamCalendarsEvaluated = isConfluenceTeamCalendars(url);
+		}
+
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -285,7 +293,8 @@ export class EditorCardProvider implements CardProvider {
 			isJiraPlanEvaluated ||
 			isJiraFormEvaluated ||
 			isJiraSummaryEvaluated ||
-			isCustomer360LandingPage(url)
+			isCustomer360LandingPage(url) ||
+			isConfluenceTeamCalendarsEvaluated
 		) {
 			return 'embed';
 		}

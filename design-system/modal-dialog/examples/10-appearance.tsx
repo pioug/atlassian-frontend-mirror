@@ -13,8 +13,6 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const appearances: Appearance[] = ['warning', 'danger'];
 
 export default function ExampleAppearance() {
@@ -40,10 +38,8 @@ export default function ExampleAppearance() {
 			<ModalTransition>
 				{appearance && (
 					<Modal key="active-modal" onClose={close} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={close}>
-								<ModalTitle appearance={appearance}>Modal: {appearance}</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle appearance={appearance}>Modal: {appearance}</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count={2} />

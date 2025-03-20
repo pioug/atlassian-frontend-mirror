@@ -7,7 +7,6 @@ import {
 	SAMPLING_RATE_REACTIONS_RENDERED_EXP,
 	TOOLTIP_USERS_LIMIT,
 } from './shared/constants';
-
 import {
 	ComponentName,
 	ExperienceName,
@@ -21,8 +20,29 @@ import {
 	sampledReactionsRendered,
 } from './ufo';
 
+import { Reaction as EmotionReaction } from './components/Reaction';
+import { Reaction as CompiledReaction } from './components/compiled/Reaction';
+import { Reactions as EmotionReactions } from './components/Reactions';
+import { Reactions as CompiledReactions } from './components/compiled/Reactions';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+const Reaction = componentWithFG(
+	'platform_editor_css_migrate_reactions',
+	CompiledReaction,
+	EmotionReaction,
+);
+
+const Reactions = componentWithFG(
+	'platform_editor_css_migrate_reactions',
+	CompiledReactions,
+	EmotionReactions,
+);
+
 export { ReactionServiceClient } from './client';
-export { Reaction, ReactionPicker, Reactions } from './components';
+
+export { Reaction, Reactions };
+export { ReactionPicker } from './components/ReactionPicker/ReactionPicker';
+
 export { useCloseManager } from './hooks/useCloseManager';
 export { ConnectedReactionPicker, ConnectedReactionsView } from './containers';
 export { MemoryReactionsStore, ReactionConsumer } from './store';

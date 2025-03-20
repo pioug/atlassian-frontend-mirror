@@ -7,6 +7,10 @@
  */
 //Korean
 export default {
+  'fabric.media.abuse_modal_body':
+    '보안을 위해 당사 시스템은 업로드된 모든 파일을 자동으로 검사합니다. 다운로드하려는 파일에 악성 콘텐츠가 포함되어 있을 수 있습니다',
+  'fabric.media.abuse_modal_submit': '계속하여 다운로드',
+  'fabric.media.abuse_modal_title': '경고',
   'fabric.media.accounts': '계정',
   'fabric.media.actions': '작업',
   'fabric.media.add_account': '계정 추가',
@@ -56,6 +60,7 @@ export default {
   'fabric.media.display_thumbnail': '썸네일 표시',
   'fabric.media.document': '문서',
   'fabric.media.download': '다운로드',
+  'fabric.media.download_disabled_security_policy': '조직의 보안 정책에 따라 다운로드가 차단되었습니다.',
   'fabric.media.drag_and_drop_images_here': '이미지를 여기에 끌어 놓습니다',
   'fabric.media.drag_and_drop_your_files': '파일을 끌어 놓거나',
   'fabric.media.drag_and_drop_your_files_and_folders': '파일 및 폴더를 끌어다 놓기 또는',
@@ -105,7 +110,6 @@ export default {
   'fabric.media.playback_default_speed': '기본값',
   'fabric.media.playback_speed': '재생 속도',
   'fabric.media.preview': '미리 보기',
-  'fabric.media.preview_currently_unavailable': '현재 미리 보기를 사용할 수 없음',
   'fabric.media.preview_unavailable': '미리 보기를 사용할 수 없음',
   'fabric.media.recent_uploads': '최근 업로드',
   'fabric.media.remove_image': '이미지 제거',
@@ -123,6 +127,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': '모두 기본 옵션 중에서 선택',
   'fabric.media.share_files_instantly': '즉시 공유됩니다',
   'fabric.media.show_more_avatars_btn_label': '더 보기',
+  'fabric.media.size_options': '크기 옵션',
   'fabric.media.skip_backward': '뒤로 10초',
   'fabric.media.skip_forward': '앞으로 10초',
   'fabric.media.something_went_wrong': '문제가 발생했습니다.',

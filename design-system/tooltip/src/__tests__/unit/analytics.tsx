@@ -52,6 +52,7 @@ describe('test analytics', () => {
 		render(<WithBoth />);
 		const trigger: HTMLElement = screen.getByTestId('trigger');
 
+		// This doesn't work when converted to userEvent, unsure why.
 		fireEvent.mouseOver(trigger);
 		act(() => {
 			jest.runAllTimers();

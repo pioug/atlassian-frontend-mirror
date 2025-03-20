@@ -22,13 +22,15 @@ describe('Tooltip', () => {
 	it('should not be shown by default', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -45,7 +47,9 @@ describe('Tooltip', () => {
 	it('should get tooltip that uses wrapped approach by role', () => {
 		render(
 			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 		expect(screen.getByRole('presentation')).toBeInTheDocument();
@@ -55,13 +59,15 @@ describe('Tooltip', () => {
 		const onShow = jest.fn();
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" onShow={onShow}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" onShow={onShow}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -89,13 +95,15 @@ describe('Tooltip', () => {
 		const onShow = jest.fn();
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" onShow={onShow} delay={300}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" onShow={onShow} delay={300}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -134,13 +142,15 @@ describe('Tooltip', () => {
 		const onHide = jest.fn();
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" onHide={onHide}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" onHide={onHide}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -182,13 +192,15 @@ describe('Tooltip', () => {
 
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" onHide={onHide} delay={300}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" onHide={onHide} delay={300}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -239,13 +251,15 @@ describe('Tooltip', () => {
 		const onHide = jest.fn();
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" onHide={onHide}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" onHide={onHide}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -298,13 +312,15 @@ describe('Tooltip', () => {
 	it('should show the tooltip when the trigger is focused', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -329,13 +345,15 @@ describe('Tooltip', () => {
 	it('should hide the tooltip when the trigger loses focus', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -372,13 +390,15 @@ describe('Tooltip', () => {
 	it('should be visible after trigger is clicked', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -404,13 +424,15 @@ describe('Tooltip', () => {
 	it('should be hidden after trigger click with hideTooltipOnClick set', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" hideTooltipOnClick>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" hideTooltipOnClick>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -441,13 +463,15 @@ describe('Tooltip', () => {
 	it('should be hidden after trigger click with hideTooltipOnMouseDown set', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" hideTooltipOnMouseDown>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" hideTooltipOnMouseDown>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -479,13 +503,15 @@ describe('Tooltip', () => {
 	it('should be hidden after Escape pressed', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" hideTooltipOnMouseDown>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" hideTooltipOnMouseDown>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -524,13 +550,15 @@ describe('Tooltip', () => {
 		);
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" component={CustomTooltip}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" component={CustomTooltip}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -557,7 +585,9 @@ describe('Tooltip', () => {
 	it('should render a wrapping div element by default when using the wrapped approach', () => {
 		render(
 			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 
@@ -567,7 +597,9 @@ describe('Tooltip', () => {
 	it('should render a wrapping span element is supplied by the tag prop when using the wrapped approach', () => {
 		render(
 			<Tooltip testId="tooltip" content="hello world" tag="span">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 
@@ -578,13 +610,15 @@ describe('Tooltip', () => {
 		const onShow = jest.fn();
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Tooltip" onShow={onShow} delay={300}>
-				<button data-testid="trigger">click me</button>
+				<button data-testid="trigger" type="button">
+					click me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="Tooltip" onShow={onShow} delay={300}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						click me
 					</button>
 				)}
@@ -620,13 +654,15 @@ describe('Tooltip', () => {
 		const onShow = jest.fn();
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Tooltip" onShow={onShow} delay={1000}>
-				<button data-testid="trigger">click me</button>
+				<button data-testid="trigger" type="button">
+					click me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="Tooltip" onShow={onShow} delay={1000}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						click me
 					</button>
 				)}
@@ -659,13 +695,15 @@ describe('Tooltip', () => {
 	it('should wait a default delay before hiding', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Tooltip">
-				<button data-testid="trigger">click me</button>
+				<button data-testid="trigger" type="button">
+					click me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="Tooltip">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						click me
 					</button>
 				)}
@@ -712,13 +750,15 @@ describe('Tooltip', () => {
 	it('should wait a configurable delay before hiding', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Tooltip" delay={1000}>
-				<button data-testid="trigger">click me</button>
+				<button data-testid="trigger" type="button">
+					click me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="Tooltip" delay={1000}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						click me
 					</button>
 				)}
@@ -765,13 +805,15 @@ describe('Tooltip', () => {
 	it('should not show when content is null', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content={null}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content={null}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -796,13 +838,15 @@ describe('Tooltip', () => {
 	it('should not show when content is undefined', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content={undefined}>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content={undefined}>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -827,13 +871,15 @@ describe('Tooltip', () => {
 	it('should not show when content is an empty string', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -858,13 +904,15 @@ describe('Tooltip', () => {
 	it('should position tooltip to the left of the mouse', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" position="mouse" mousePosition="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" position="mouse" mousePosition="left">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -889,13 +937,15 @@ describe('Tooltip', () => {
 	it('should position tooltip to the bottom of trigger when interacting with keyboard and position is mouse', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" position="mouse" mousePosition="right">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" position="mouse" mousePosition="right">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -920,13 +970,15 @@ describe('Tooltip', () => {
 	it('should position tooltip to the top of trigger when interacting with keyboard', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" position="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" position="left">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -951,13 +1003,15 @@ describe('Tooltip', () => {
 	it('should stay visible when hover tooltip', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Tooltip">
-				<button data-testid="trigger">click me</button>
+				<button data-testid="trigger" type="button">
+					click me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="Tooltip">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						click me
 					</button>
 				)}
@@ -1115,13 +1169,15 @@ describe('Tooltip', () => {
 	it('should have strategy as fixed by default', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="hello world" position="mouse" mousePosition="left">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="hello world" position="mouse" mousePosition="left">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -1154,7 +1210,9 @@ describe('Tooltip', () => {
 				mousePosition="left"
 				strategy="absolute"
 			>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
@@ -1166,7 +1224,7 @@ describe('Tooltip', () => {
 				strategy="absolute"
 			>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						focus me
 					</button>
 				)}
@@ -1193,13 +1251,15 @@ describe('Tooltip', () => {
 	it('should render hidden text for screen readers', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Save">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="Save">
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						hidden content
 					</button>
 				)}
@@ -1233,13 +1293,15 @@ describe('Tooltip', () => {
 	it('should not render hidden text for screen readers when asked not to', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Save" isScreenReaderAnnouncementDisabled>
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>
 		);
 		const renderProp = (
 			<Tooltip testId="tooltip" content="Save" isScreenReaderAnnouncementDisabled>
 				{(tooltipProps) => (
-					<button {...tooltipProps} data-testid="trigger">
+					<button {...tooltipProps} data-testid="trigger" type="button">
 						hidden content
 					</button>
 				)}
@@ -1269,7 +1331,9 @@ describe('Tooltip', () => {
 		render(
 			<Tooltip testId="tooltip" content="Save">
 				hello
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 
@@ -1289,7 +1353,9 @@ describe('Tooltip', () => {
 
 		rerender(
 			<Tooltip testId="tooltip" content="Save">
-				<button data-testid="trigger">focus me</button>
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
 			</Tooltip>,
 		);
 		fireEvent.mouseOver(screen.getByTestId('trigger'));
@@ -1314,7 +1380,9 @@ describe('Tooltip', () => {
 
 			rerender(
 				<Tooltip testId="tooltip" content="Save">
-					<button data-testid="trigger">focus me</button>
+					<button data-testid="trigger" type="button">
+						focus me
+					</button>
 				</Tooltip>,
 			);
 			fireEvent.mouseOver(screen.getByTestId('trigger'));
@@ -1335,7 +1403,9 @@ describe('Tooltip', () => {
 
 			rerender(
 				<Tooltip testId="tooltip" content="Save" ignoreTooltipPointerEvents>
-					<button data-testid="trigger">focus me</button>
+					<button data-testid="trigger" type="button">
+						focus me
+					</button>
 				</Tooltip>,
 			);
 			fireEvent.mouseOver(screen.getByTestId('trigger'));

@@ -73,7 +73,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
 		shouldScrollInViewport = false,
 		shouldReturnFocus = true,
 		stackIndex: stackIndexOverride,
-		onClose = noop,
+		onClose: providedOnClose,
 		onStackChange = noop,
 		isBlanketHidden,
 		children,
@@ -93,7 +93,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
 	const autoFocusLock = typeof autoFocus === 'boolean' ? autoFocus : false;
 
 	const onCloseHandler = usePlatformLeafEventHandler({
-		fn: onClose,
+		fn: providedOnClose || noop,
 		action: 'closed',
 		componentName: 'modalDialog',
 		packageName: process.env._PACKAGE_NAME_!,
@@ -135,6 +135,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
 				width={width}
 				onCloseComplete={onCloseComplete}
 				onOpenComplete={onOpenComplete}
+				hasProvidedOnClose={Boolean(providedOnClose)}
 			>
 				{children}
 			</ModalDialog>

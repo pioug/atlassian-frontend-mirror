@@ -7,6 +7,10 @@
  */
 //Danish (Denmark)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Vores system scanner automatisk alle uploadede filer, for at beskytte dig mod skadeligt indhold. Den fil, du skal til at downloade, indeholder potentielt skadeligt indhold',
+  'fabric.media.abuse_modal_submit': 'Fortsæt med download',
+  'fabric.media.abuse_modal_title': 'Advarsel',
   'fabric.media.accounts': 'Konti',
   'fabric.media.actions': 'Handlinger',
   'fabric.media.add_account': 'Tilføj konto',
@@ -57,6 +61,7 @@ export default {
   'fabric.media.display_thumbnail': 'Vis miniaturebillede',
   'fabric.media.document': 'dokument',
   'fabric.media.download': 'Hent',
+  'fabric.media.download_disabled_security_policy': 'Download blokeres af organisationens sikkerhedspolitik.',
   'fabric.media.drag_and_drop_images_here': 'Træk dine billeder herover, og slip dem',
   'fabric.media.drag_and_drop_your_files': 'Træk, og slip dine filer hertil, eller',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Træk og slip dine filer og mapper hvor som helst eller',
@@ -107,7 +112,6 @@ export default {
   'fabric.media.playback_default_speed': 'Standard',
   'fabric.media.playback_speed': 'Afspilningshastighed',
   'fabric.media.preview': 'Vis',
-  'fabric.media.preview_currently_unavailable': 'Forhåndsvisning er ikke tilgængelig i øjeblikket',
   'fabric.media.preview_unavailable': 'Forhåndsvisning er ikke tilgængelig',
   'fabric.media.recent_uploads': 'Senest uploadet',
   'fabric.media.remove_image': 'Fjern billede',
@@ -125,6 +129,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Vælg blandt alle standardmulighederne',
   'fabric.media.share_files_instantly': 'Vi deler dem med det samme',
   'fabric.media.show_more_avatars_btn_label': 'Vis mere',
+  'fabric.media.size_options': 'Størrelsesindstillinger',
   'fabric.media.skip_backward': '10 sekunder tilbage',
   'fabric.media.skip_forward': '10 sekunder frem',
   'fabric.media.something_went_wrong': 'Noget gik galt.',

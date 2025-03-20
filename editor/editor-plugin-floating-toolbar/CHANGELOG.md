@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.3.1
+
+### Patch Changes
+
+- [#128123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128123)
+  [`ab71af4c9be90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab71af4c9be90) -
+  Remove extraneous icon label
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

@@ -7,6 +7,10 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Để bảo mật cho bạn, hệ thống của chúng tôi sẽ tự động quét mọi tệp đã tải lên. Tệp bạn sắp tải xuống có khả năng chứa nội dung độc hại',
+  'fabric.media.abuse_modal_submit': 'Tiếp tục tải xuống',
+  'fabric.media.abuse_modal_title': 'Cảnh báo',
   'fabric.media.accounts': 'Tài khoản',
   'fabric.media.actions': 'Hành động',
   'fabric.media.add_account': 'Thêm tài khoản',
@@ -57,6 +61,7 @@ export default {
   'fabric.media.display_thumbnail': 'Hiển thị hình thu nhỏ',
   'fabric.media.document': 'tài liệu',
   'fabric.media.download': 'Tải xuống',
+  'fabric.media.download_disabled_security_policy': 'Chính sách bảo mật của tổ chức bạn đã chặn tính năng tải xuống.',
   'fabric.media.drag_and_drop_images_here': 'Kéo và thả hình ảnh của bạn tại đây',
   'fabric.media.drag_and_drop_your_files': 'Kéo và thả các tệp của bạn bất kỳ nơi nào hoặc',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Kéo và thả tệp và thư mục bất cứ đâu hoặc',
@@ -107,7 +112,6 @@ export default {
   'fabric.media.playback_default_speed': 'Mặc định',
   'fabric.media.playback_speed': 'Tốc độ phát',
   'fabric.media.preview': 'Xem trước',
-  'fabric.media.preview_currently_unavailable': 'Bản xem trước hiện không khả dụng',
   'fabric.media.preview_unavailable': 'Bản xem trước không khả dụng',
   'fabric.media.recent_uploads': 'Các nội dung tải lên gần đây',
   'fabric.media.remove_image': 'Xóa hình ảnh',
@@ -125,6 +129,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Chọn trong số tất cả tùy chọn mặc định',
   'fabric.media.share_files_instantly': 'Chúng tôi sẽ chia sẻ tệp ngay',
   'fabric.media.show_more_avatars_btn_label': 'Hiển thị thêm',
+  'fabric.media.size_options': 'Tùy chọn kích thước',
   'fabric.media.skip_backward': 'Quay lại 10 giây',
   'fabric.media.skip_forward': 'Tiếp 10 giây',
   'fabric.media.something_went_wrong': 'Đã xảy ra lỗi.',

@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 23.4.1
+
+### Patch Changes
+
+- [#128871](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128871)
+  [`a4f35151d2de5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4f35151d2de5) -
+  Fix a11y issue on team profile card toggletip
+
 ## 23.4.0
 
 ### Minor Changes

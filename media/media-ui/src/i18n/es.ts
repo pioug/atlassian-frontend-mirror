@@ -7,6 +7,10 @@
  */
 //Spanish (International)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Por tu seguridad, nuestro sistema analiza automáticamente todos los archivos subidos. Es posible que el archivo que vas a descargar tenga contenido malintencionado.',
+  'fabric.media.abuse_modal_submit': 'Seguir con la descarga',
+  'fabric.media.abuse_modal_title': 'Advertencia',
   'fabric.media.accounts': 'Cuentas',
   'fabric.media.actions': 'Acciones',
   'fabric.media.add_account': 'Añadir cuenta',
@@ -58,6 +62,8 @@ export default {
   'fabric.media.display_thumbnail': 'Mostrar miniatura',
   'fabric.media.document': 'documento',
   'fabric.media.download': 'Descargar',
+  'fabric.media.download_disabled_security_policy':
+    'La política de seguridad de tu organización ha bloqueado la descarga.',
   'fabric.media.drag_and_drop_images_here': 'Arrastra y suelta las imágenes aquí',
   'fabric.media.drag_and_drop_your_files': 'Arrastra y suelta los archivos en cualquier lugar o',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Arrastra y suelta tus archivos y carpetas en cualquier lugar o',
@@ -108,7 +114,6 @@ export default {
   'fabric.media.playback_default_speed': 'Predeterminado',
   'fabric.media.playback_speed': 'Velocidad de reproducción',
   'fabric.media.preview': 'Vista previa',
-  'fabric.media.preview_currently_unavailable': 'La vista previa no se encuentra disponible en estos momentos',
   'fabric.media.preview_unavailable': 'Vista previa no disponible',
   'fabric.media.recent_uploads': 'Cargas recientes',
   'fabric.media.remove_image': 'Eliminar imagen',
@@ -126,6 +131,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Selecciona alguna de las opciones predeterminadas',
   'fabric.media.share_files_instantly': 'Los compartiremos al instante',
   'fabric.media.show_more_avatars_btn_label': 'Mostrar más',
+  'fabric.media.size_options': 'Opciones de tamaño',
   'fabric.media.skip_backward': 'Retroceder 10 segundos',
   'fabric.media.skip_forward': 'Avanzar 10 segundos',
   'fabric.media.something_went_wrong': 'Algo ha ido mal.',

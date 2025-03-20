@@ -7,6 +7,10 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'fabric.media.abuse_modal_body':
+    'З міркувань безпеки наша система автоматично сканує всі передані файли. Файл, який ви збираєтеся завантажити, може містити шкідливий вміст',
+  'fabric.media.abuse_modal_submit': 'Продовжити завантаження',
+  'fabric.media.abuse_modal_title': 'Попередження',
   'fabric.media.accounts': 'Облікові записи',
   'fabric.media.actions': 'Дії',
   'fabric.media.add_account': 'Додати обліковий запис',
@@ -57,6 +61,8 @@ export default {
   'fabric.media.display_thumbnail': 'Показати ескіз',
   'fabric.media.document': 'документ',
   'fabric.media.download': 'Завантажити',
+  'fabric.media.download_disabled_security_policy':
+    'Завантаження заблоковано через застосування політики безпеки організації.',
   'fabric.media.drag_and_drop_images_here': 'Перетягніть зображення сюди',
   'fabric.media.drag_and_drop_your_files': 'Перетягніть файли будь-куди або',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Перетягніть файли та папки будь-куди або',
@@ -108,7 +114,6 @@ export default {
   'fabric.media.playback_default_speed': 'За замовчуванням',
   'fabric.media.playback_speed': 'Швидкість відтворення',
   'fabric.media.preview': 'Попередній перегляд',
-  'fabric.media.preview_currently_unavailable': 'Наразі попередній перегляд недоступний',
   'fabric.media.preview_unavailable': 'Попередній перегляд недоступний',
   'fabric.media.recent_uploads': 'Недавні завантаження',
   'fabric.media.remove_image': 'Видалити зображення',
@@ -127,6 +132,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Виберіть фото профілю з повного списку стандартних варіантів',
   'fabric.media.share_files_instantly': 'Файли буде відразу завантажено',
   'fabric.media.show_more_avatars_btn_label': 'Показати більше',
+  'fabric.media.size_options': 'Параметри розміру',
   'fabric.media.skip_backward': 'Перемотати на 10 секунд назад',
   'fabric.media.skip_forward': 'Перемотати на 10 секунд уперед',
   'fabric.media.something_went_wrong': 'Сталася помилка.',

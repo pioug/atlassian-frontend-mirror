@@ -7,6 +7,10 @@
  */
 //Portuguese (Brazil)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Para fins de segurança, o sistema verifica de imediato todos os arquivos carregados. O arquivo que você está prestes a baixar pode conter conteúdo malicioso',
+  'fabric.media.abuse_modal_submit': 'Continue o download',
+  'fabric.media.abuse_modal_title': 'Aviso',
   'fabric.media.accounts': 'Contas',
   'fabric.media.actions': 'Ações',
   'fabric.media.add_account': 'Adicionar conta',
@@ -57,6 +61,8 @@ export default {
   'fabric.media.display_thumbnail': 'Exibir miniatura',
   'fabric.media.document': 'documento',
   'fabric.media.download': 'Baixar',
+  'fabric.media.download_disabled_security_policy':
+    'O download está bloqueado pela política de segurança da sua organização.',
   'fabric.media.drag_and_drop_images_here': 'Arraste e solte suas imagens aqui',
   'fabric.media.drag_and_drop_your_files': 'Arraste e solte seus arquivos em qualquer lugar ou',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Arraste e solte arquivos e pastas em qualquer lugar ou',
@@ -107,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'Padrão',
   'fabric.media.playback_speed': 'Velocidade de reprodução',
   'fabric.media.preview': 'Pré-visualizar',
-  'fabric.media.preview_currently_unavailable': 'Pré-visualização indisponível no momento',
   'fabric.media.preview_unavailable': 'Visualização indisponível',
   'fabric.media.recent_uploads': 'Arquivos carregados recentemente',
   'fabric.media.remove_image': 'Remover imagem',
@@ -125,6 +130,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Escolha uma das opções padrão',
   'fabric.media.share_files_instantly': 'Compartilharemos os arquivos instantaneamente',
   'fabric.media.show_more_avatars_btn_label': 'Ver mais',
+  'fabric.media.size_options': 'Opções de tamanho',
   'fabric.media.skip_backward': 'Voltar 10 segundos',
   'fabric.media.skip_forward': 'Avançar 10 segundos',
   'fabric.media.something_went_wrong': 'Algo deu errado.',

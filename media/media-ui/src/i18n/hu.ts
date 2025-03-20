@@ -7,6 +7,10 @@
  */
 //Hungarian
 export default {
+  'fabric.media.abuse_modal_body':
+    'A biztonságod érdekében a rendszerünk automatikusan megvizsgálja az összes feltöltött fájlt. A letölteni kívánt fájl potenciálisan káros tartalom',
+  'fabric.media.abuse_modal_submit': 'Letöltés folytatása',
+  'fabric.media.abuse_modal_title': 'Figyelmeztetés',
   'fabric.media.accounts': 'Fiókok',
   'fabric.media.actions': 'Műveletek',
   'fabric.media.add_account': 'Fiók hozzáadása',
@@ -58,6 +62,7 @@ export default {
   'fabric.media.display_thumbnail': 'Előnézet megjelenítése',
   'fabric.media.document': 'dokumentum',
   'fabric.media.download': 'Letöltés',
+  'fabric.media.download_disabled_security_policy': 'A szervezeted biztonsági szabályzata tiltja a letöltést.',
   'fabric.media.drag_and_drop_images_here': 'Húzza ide a képeket.',
   'fabric.media.drag_and_drop_your_files': 'Húzza és ejtse ide egy fájlokat vagy',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Húzd bárhova a fájlokat és a mappákat, vagy',
@@ -108,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'Alapértelmezett',
   'fabric.media.playback_speed': 'Lejátszási sebesség',
   'fabric.media.preview': 'Előnézet',
-  'fabric.media.preview_currently_unavailable': 'Az előnézet jelenleg nem elérhető',
   'fabric.media.preview_unavailable': 'Az előnézet nem áll rendelkezésre',
   'fabric.media.recent_uploads': 'Legutóbb feltöltések',
   'fabric.media.remove_image': 'Kép eltávolítása',
@@ -127,6 +131,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Választás az alapértelmezett lehetőségek közül',
   'fabric.media.share_files_instantly': 'Azonnal megosztjuk őket.',
   'fabric.media.show_more_avatars_btn_label': 'Több megjelenítése',
+  'fabric.media.size_options': 'Méretbeállítások',
   'fabric.media.skip_backward': 'Vissza 10 másodpercet',
   'fabric.media.skip_forward': 'Előre 10 másodpercet',
   'fabric.media.something_went_wrong': 'Hiba történt.',

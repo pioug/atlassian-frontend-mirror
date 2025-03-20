@@ -182,6 +182,8 @@ type Props = {
 	isLoading?: boolean;
 	featureFlags?: FeatureFlags;
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
+	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
+	usingObjectSidebarPanel?: boolean;
 } & WithAnalyticsEventsProps;
 
 type State = {
@@ -386,10 +388,15 @@ class ConfigPanel extends React.Component<Props, State> {
 		this.setState({ currentParameters, hasParsedParameters: true });
 	};
 
+	/**
+	 * Remove renderHeader when when cleaning platform_editor_ai_object_sidebar_injection FG
+	 * Because header will br rendered separately outside of ConfigPanel.
+	 * ConfigPanel will be body component of ContextPanel.
+	 */
 	// memoized to prevent rerender on new parameters
 	renderHeader = memoizeOne((extensionManifest: ExtensionManifest) => {
-		// If below FG is true then Header will be rendered separately
-		if (fg('platform_editor_ai_object_sidebar_injection')) {
+		// Remove below line when cleaning platform_editor_ai_object_sidebar_injection FG
+		if (this.props.usingObjectSidebarPanel) {
 			return null;
 		}
 		const { onCancel, showHeader } = this.props;

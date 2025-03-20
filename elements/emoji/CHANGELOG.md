@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.0.2
+
+### Patch Changes
+
+- [#128711](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128711)
+  [`57c2c77c1b992`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57c2c77c1b992) -
+  [ux] Migrate emoji picker components to use compiled css
+
 ## 69.0.1
 
 ### Patch Changes

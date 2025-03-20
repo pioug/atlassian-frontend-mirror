@@ -18,7 +18,7 @@ export function toJSON(node: PMNode): JSONDocNode {
 /**
  * This throttles the callback with requestIdleCallback.
  */
-function createThrottleSchedule<
+export function createThrottleSchedule<
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>,
@@ -49,10 +49,8 @@ function createThrottleSchedule<
 	return wrapperFn;
 }
 
-export const scheduleDocumentRequest = createThrottleSchedule(returnDocumentRequest);
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function returnDocumentRequest<GenericTransformer extends Transformer<any> | undefined>(
+export function returnDocumentRequest<GenericTransformer extends Transformer<any> | undefined>(
 	editorView: EditorView | null,
 	callback: GenericTransformer extends undefined
 		? DefaultTransformerResultCallback

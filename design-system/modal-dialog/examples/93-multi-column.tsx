@@ -13,8 +13,6 @@ import Modal, {
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import ModalTitleWithClose from './common/modal-title';
-
 const modalBodyStyles = xcss({
 	display: 'flex',
 	height: '100%',
@@ -65,10 +63,8 @@ export default function Example() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={closeModal} testId="modal">
-						<ModalHeader>
-							<ModalTitleWithClose onClose={closeModal}>
-								<ModalTitle>Two-column layout</ModalTitle>
-							</ModalTitleWithClose>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Two-column layout</ModalTitle>
 						</ModalHeader>
 						<Box xcss={modalBodyStyles} paddingBlockStart="space.0" paddingBlockEnd="space.300">
 							<p>These columns should scroll independently</p>

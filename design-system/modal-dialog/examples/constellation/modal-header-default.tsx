@@ -2,26 +2,12 @@ import React, { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Modal, {
-	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Flex, Grid, xcss } from '@atlaskit/primitives';
-
-const gridStyles = xcss({
-	width: '100%',
-});
-
-const closeContainerStyles = xcss({
-	gridArea: 'close',
-});
-
-const titleContainerStyles = xcss({
-	gridArea: 'title',
-});
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -37,15 +23,8 @@ export default function Example() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={closeModal}>
-						<ModalHeader>
-							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={titleContainerStyles} justifyContent="start">
-									<ModalTitle>Default modal header</ModalTitle>
-								</Flex>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<CloseButton onClick={closeModal} />
-								</Flex>
-							</Grid>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Default modal header</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<p>

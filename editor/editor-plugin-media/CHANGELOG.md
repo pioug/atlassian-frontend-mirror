@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.9
+
+### Patch Changes
+
+- [#128123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128123)
+  [`ab71af4c9be90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab71af4c9be90) -
+  [ux] [ED-26947] Implement media pixel resizing editor
+- Updated dependencies
+
 ## 2.3.8
 
 ### Patch Changes

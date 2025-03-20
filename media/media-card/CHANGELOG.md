@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 79.0.10
+
+### Patch Changes
+
+- [#125907](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125907)
+  [`b51d26098b1ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b51d26098b1ba) -
+  Fixed internal SVG component Compiled version
+- Updated dependencies
+
 ## 79.0.9
 
 ### Patch Changes

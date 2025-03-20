@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.4.0
+
+### Minor Changes
+
+- [#128772](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128772)
+  [`b2f35f81186a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2f35f81186a9) -
+  Add typeAheadPlugin as an optional dependency, close typeahead when quickinsert is clicked if it's
+  open
+
 ## 3.3.19
 
 ### Patch Changes

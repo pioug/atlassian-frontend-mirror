@@ -7,6 +7,10 @@
  */
 //Russian
 export default {
+  'fabric.media.abuse_modal_body':
+    'В целях безопасности система автоматически сканирует все загруженные файлы. Файл, который вы собираетесь загрузить, может содержать вредоносный контент.',
+  'fabric.media.abuse_modal_submit': 'Продолжить загрузку',
+  'fabric.media.abuse_modal_title': 'Предупреждение',
   'fabric.media.accounts': 'Аккаунты',
   'fabric.media.actions': 'Действия',
   'fabric.media.add_account': 'Добавить аккаунт',
@@ -57,6 +61,7 @@ export default {
   'fabric.media.display_thumbnail': 'Показать миниатюру',
   'fabric.media.document': 'документ',
   'fabric.media.download': 'Скачать',
+  'fabric.media.download_disabled_security_policy': 'Загрузка заблокирована политикой безопасности организации.',
   'fabric.media.drag_and_drop_images_here': 'Перетащите изображения сюда',
   'fabric.media.drag_and_drop_your_files': 'Перетащите файлы в любое место или',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Перетащите файлы и папки в любое место или',
@@ -108,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'По умолчанию',
   'fabric.media.playback_speed': 'Скорость воспроизведения',
   'fabric.media.preview': 'Предпросмотр',
-  'fabric.media.preview_currently_unavailable': 'Предварительный просмотр сейчас недоступен',
   'fabric.media.preview_unavailable': 'Предварительный просмотр недоступен',
   'fabric.media.recent_uploads': 'Недавно загруженные файлы',
   'fabric.media.remove_image': 'Удалить изображение',
@@ -126,6 +130,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Выберите среди всех вариантов по умолчанию',
   'fabric.media.share_files_instantly': 'Мы загрузим их автоматически',
   'fabric.media.show_more_avatars_btn_label': 'Развернуть',
+  'fabric.media.size_options': 'Настройки размера',
   'fabric.media.skip_backward': 'Назад на 10 секунд',
   'fabric.media.skip_forward': 'Вперед на 10 секунд',
   'fabric.media.something_went_wrong': 'Произошла ошибка.',

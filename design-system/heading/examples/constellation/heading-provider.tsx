@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';
-import { Box, Stack, Text } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 const Section = ({ size, willRenderAs, children }: any) => (
 	<HeadingContextProvider>

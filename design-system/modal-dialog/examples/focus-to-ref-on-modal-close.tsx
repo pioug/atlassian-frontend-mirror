@@ -9,8 +9,6 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { Box, Inline } from '@atlaskit/primitives';
 
-import ModalTitleWithClose from './common/modal-title';
-
 export default function ReturnFocusToElement() {
 	const [isOpen, setIsOpen] = useState(false);
 	const returnFocusRef = useRef<HTMLButtonElement>(null);
@@ -29,10 +27,8 @@ export default function ReturnFocusToElement() {
 			</Inline>
 			{isOpen && (
 				<ModalDialog shouldReturnFocus={returnFocusRef}>
-					<ModalHeader>
-						<ModalTitleWithClose onClose={close}>
-							<ModalTitle>Returning focus to custom element</ModalTitle>
-						</ModalTitleWithClose>
+					<ModalHeader hasCloseButton>
+						<ModalTitle>Returning focus to custom element</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
 						<p>Modal content</p>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.0.2",
+	"version": "4.0.3",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -164,9 +164,6 @@
 		"./i18n/*": "./src/i18n/*.ts"
 	},
 	"platform-feature-flags": {
-		"enable_datasource_supporting_actions": {
-			"type": "boolean"
-		},
 		"enable_datasource_fetch_action_inputs": {
 			"type": "boolean"
 		},

@@ -14,7 +14,7 @@ export default function ModalDeepSuspense(props: any) {
 	return (
 		<Suspense fallback={'Modal loading'}>
 			<ModalDialog>
-				<ModalHeader>
+				<ModalHeader hasCloseButton>
 					<ModalTitle>My modal with inner suspense</ModalTitle>
 				</ModalHeader>
 				<ModalBody>

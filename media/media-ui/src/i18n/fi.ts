@@ -7,6 +7,10 @@
  */
 //Finnish
 export default {
+  'fabric.media.abuse_modal_body':
+    'Tietoturvasyistä järjestelmämme tarkistaa automaattisesti kaikki ladatut tiedostot. Tiedosto, jota olet lataamassa, saattaa sisältää haitallista sisältöä',
+  'fabric.media.abuse_modal_submit': 'Jatka latausta',
+  'fabric.media.abuse_modal_title': 'Varoitus',
   'fabric.media.accounts': 'Tilit',
   'fabric.media.actions': 'Toiminnot',
   'fabric.media.add_account': 'Lisää tili',
@@ -58,6 +62,7 @@ export default {
   'fabric.media.display_thumbnail': 'Näytä pienoiskuva',
   'fabric.media.document': 'asiakirja',
   'fabric.media.download': 'Lataa',
+  'fabric.media.download_disabled_security_policy': 'Organisaation tietoturvakäytäntö estää latauksen.',
   'fabric.media.drag_and_drop_images_here': 'Vedä ja pudota kuvasi tänne',
   'fabric.media.drag_and_drop_your_files': 'Vedä ja pudota tiedostosi minne tahansa tai',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Vedä ja pudota tiedostosi ja kansiosi minne tahansa tai',
@@ -107,7 +112,6 @@ export default {
   'fabric.media.playback_default_speed': 'Oletus',
   'fabric.media.playback_speed': 'Toistonopeus',
   'fabric.media.preview': 'Esikatselu',
-  'fabric.media.preview_currently_unavailable': 'Esikatselua ei tällä hetkellä saatavilla',
   'fabric.media.preview_unavailable': 'Esikatselua ei saatavilla',
   'fabric.media.recent_uploads': 'Viimeaikaiset lataukset',
   'fabric.media.remove_image': 'Poista kuva',
@@ -126,6 +130,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Valitse oletusvaihtoehdoista',
   'fabric.media.share_files_instantly': 'Jaamme ne heti',
   'fabric.media.show_more_avatars_btn_label': 'Näytä lisää',
+  'fabric.media.size_options': 'Kokovaihtoehdot',
   'fabric.media.skip_backward': '10 sekuntia taaksepäin',
   'fabric.media.skip_forward': '10 sekuntia eteenpäin',
   'fabric.media.something_went_wrong': 'Jotain meni pieleen.',

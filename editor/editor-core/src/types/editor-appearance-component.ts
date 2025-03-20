@@ -4,6 +4,10 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type {
+	AllEditorPresetPluginTypes,
+	EditorPresetBuilder,
+} from '@atlaskit/editor-common/preset';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorAppearance,
@@ -30,6 +34,7 @@ export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin
 	editorAPI: PublicPluginAPI<Plugins> | undefined;
 	appearance?: EditorAppearance;
 	__livePage?: boolean;
+	preset?: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 	onSave?: (editorView: EditorView) => void;
 	onCancel?: (editorView: EditorView) => void;
 

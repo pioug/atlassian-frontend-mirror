@@ -134,6 +134,8 @@ function createNodeView<ExtraComponentProps>({
 	domRef.contentEditable = 'false';
 	setDomAttrs(nodeViewParams.node, domRef);
 
+	const fallbackRef: { current: null | HTMLElement | Node } = { current: null };
+
 	// @see ED-3790
 	// something gets messed up during mutation processing inside of a
 	// nodeView if DOM structure has nested plain "div"s, it doesn't see the
@@ -142,6 +144,14 @@ function createNodeView<ExtraComponentProps>({
 		`${nodeViewParams.node.type.name}View-content-wrap`,
 		`${inlineNodeViewClassname}`,
 	);
+
+	function onBeforeReactDomRender() {
+		if (!fallbackRef.current) {
+			return;
+		}
+		domRef.removeChild(fallbackRef.current);
+		fallbackRef.current = null;
+	}
 
 	// This util is shared for tracking rendering, and the ErrorBoundary that
 	// is setup to wrap the Component when rendering
@@ -168,6 +178,7 @@ function createNodeView<ExtraComponentProps>({
 			}),
 			domRef,
 			key,
+			enableVirtualization ? onBeforeReactDomRender : undefined,
 		);
 	}
 
@@ -178,6 +189,7 @@ function createNodeView<ExtraComponentProps>({
 	function renderFallback() {
 		if (canRenderFallback(currentNode) && typeof currentNode.type?.spec?.toDOM === 'function') {
 			const fallback = DOMSerializer.renderSpec(document, currentNode.type.spec.toDOM(currentNode));
+			fallbackRef.current = fallback.dom;
 			domRef.replaceChildren(fallback.dom);
 		}
 	}
@@ -187,7 +199,6 @@ function createNodeView<ExtraComponentProps>({
 		if (domRef) {
 			removeIntersectionObserver = observer.observe(domRef, () => {
 				if (!didRenderComponentWithIntersectionObserver && !destroyed) {
-					domRef.replaceChildren();
 					renderComponent();
 					didRenderComponentWithIntersectionObserver = true;
 				}
@@ -295,6 +306,8 @@ function createNodeView<ExtraComponentProps>({
 			// of HTMLSpanElement type however once the node view has
 			// been destroyed no other consumers should still be using it.
 			domRef = undefined;
+
+			fallbackRef.current = null;
 
 			if (virtualizeNode) {
 				destroyed = true;

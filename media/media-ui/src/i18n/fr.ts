@@ -7,6 +7,10 @@
  */
 //French (France)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Pour votre sécurité, notre système analyse automatiquement tous les fichiers importés. Le fichier que vous êtes sur le point de télécharger comporte potentiellement du contenu malveillant',
+  'fabric.media.abuse_modal_submit': 'Poursuivre le téléchargement',
+  'fabric.media.abuse_modal_title': 'Avertissement',
   'fabric.media.accounts': 'Comptes',
   'fabric.media.actions': 'Actions',
   'fabric.media.add_account': 'Ajouter un compte',
@@ -59,6 +63,8 @@ export default {
   'fabric.media.display_thumbnail': 'Afficher la miniature',
   'fabric.media.document': 'document',
   'fabric.media.download': 'Télécharger',
+  'fabric.media.download_disabled_security_policy':
+    'Le téléchargement est bloqué par la politique de sécurité de votre organisation.',
   'fabric.media.drag_and_drop_images_here': 'Glisser-déplacer vos images ici',
   'fabric.media.drag_and_drop_your_files': "Glisser-déplacer des fichiers n'importe où ou",
   'fabric.media.drag_and_drop_your_files_and_folders': "Glissez-déplacez vos fichiers et dossiers n'importe où ou",
@@ -109,7 +115,6 @@ export default {
   'fabric.media.playback_default_speed': 'Par défaut',
   'fabric.media.playback_speed': 'Vitesse de lecture',
   'fabric.media.preview': 'Afficher un aperçu',
-  'fabric.media.preview_currently_unavailable': 'Aperçu actuellement non disponible',
   'fabric.media.preview_unavailable': 'Aperçu non disponible',
   'fabric.media.recent_uploads': 'Importations récentes',
   'fabric.media.remove_image': "Supprimer l'image",
@@ -127,6 +132,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Sélectionnez parmi toutes les options par défaut',
   'fabric.media.share_files_instantly': 'Nous les partagerons instantanément',
   'fabric.media.show_more_avatars_btn_label': 'Afficher plus',
+  'fabric.media.size_options': 'Options de taille',
   'fabric.media.skip_backward': 'Reculer de 10 secondes',
   'fabric.media.skip_forward': 'Avancer de 10 secondes',
   'fabric.media.something_went_wrong': "Une erreur s'est produite.",

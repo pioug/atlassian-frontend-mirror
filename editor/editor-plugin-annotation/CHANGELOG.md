@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.1.7
+
+### Patch Changes
+
+- [#128761](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128761)
+  [`917104463449c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/917104463449c) -
+  Ensure the selected annotation state accounts for selections that are in between two annotations.
+- Updated dependencies
+
 ## 2.1.6
 
 ### Patch Changes

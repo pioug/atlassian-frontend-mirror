@@ -5,3 +5,10 @@ import * as multipartServiceUtils from './multipartServiceUtils';
 
 export const utils = serviceUtils;
 export const multipartUtils = multipartServiceUtils;
+
+export type {
+	RequestServiceResult,
+	PartsGenerator,
+	MultiPartFetchResult,
+	BodyResult,
+} from './multipartServiceUtils';

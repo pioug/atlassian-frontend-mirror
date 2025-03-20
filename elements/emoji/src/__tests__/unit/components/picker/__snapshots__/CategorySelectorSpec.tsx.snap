@@ -1,6 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CategorySelector /> active category highlighted 1`] = `
+exports[`<CategorySelector /> - compiled active category highlighted 1`] = `
+.emotion-0 {
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-0 >svg {
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
+}
+
+.emotion-0 >svg stop {
+  stop-color: currentColor;
+}
+
+@media screen and (forced-colors: active) {
+  .emotion-0 >svg {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    --icon-primary-color: CanvasText;
+    --icon-secondary-color: Canvas;
+  }
+}
+
+<button
+  aria-label="Activity"
+  aria-selected="true"
+  class="_mizu194a _1ah31bk5 _ra3xnqa1 _128m1bk5 _1cvmnqa1 _4davt94y _19itglyw _vchhusvi _r06hglyw _80omtlke _2rkoglpi _v564h5h4 _189eidpf _bfhksm61 _ca0qze3t _n3tdze3t _19bvze3t _u5f3ze3t _syazaqb7 _30l3aqb7"
+  data-focus-index="3"
+  data-testid="category-selector-ACTIVITY"
+  id="category-selector-ACTIVITY"
+  role="tab"
+  tabindex="-1"
+  type="button"
+>
+  <span
+    aria-label="Activity"
+    class="emotion-0"
+    data-vc="icon-undefined"
+    role="img"
+    style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
+  >
+    <svg
+      height="24"
+      role="presentation"
+      viewBox="0 0 24 24"
+      width="24"
+    >
+      <path
+        d="M15.677 16.738A5.97 5.97 0 0 1 12 18a5.97 5.97 0 0 1-3.677-1.262 6.33 6.33 0 0 0 1.982-4.589 6.33 6.33 0 0 0-2.157-4.746A5.97 5.97 0 0 1 12 6c1.465 0 2.808.528 3.851 1.403a6.33 6.33 0 0 0-2.156 4.746c0 1.751.736 3.41 1.982 4.589m1.354-1.472c.613-.94.969-2.063.969-3.266 0-1.124-.31-2.176-.85-3.076a4.32 4.32 0 0 0-1.455 3.225c0 1.187.495 2.313 1.336 3.117m-10.062 0A5.96 5.96 0 0 1 6 12c0-1.124.31-2.176.85-3.076a4.32 4.32 0 0 1 1.455 3.225 4.32 4.32 0 0 1-1.336 3.117M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16"
+        fill="currentcolor"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+</button>
+`;
+
+exports[`<CategorySelector /> - emotion active category highlighted 1`] = `
 .emotion-0 {
   display: inline-block;
   -webkit-flex-shrink: 0;

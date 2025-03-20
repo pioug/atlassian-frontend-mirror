@@ -13,6 +13,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
@@ -88,11 +89,8 @@ export type BlockControlsPluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<AccessibilityUtilsPlugin>,
-	/**
-	 * For Typeahead - Empty line prompt experiment
-	 * Clean up ticket ED-24824
-	 */
 	OptionalPlugin<QuickInsertPlugin>,
+	OptionalPlugin<TypeAheadPlugin>,
 	OptionalPlugin<SelectionPlugin>,
 	// For ease of use metrics to track transactions where content was moved
 	OptionalPlugin<MetricsPlugin>,

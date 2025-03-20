@@ -3,27 +3,13 @@ import React, { Fragment, useCallback, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Form, { Field, HelperMessage } from '@atlaskit/form';
 import Modal, {
-	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Flex, Grid, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-
-const gridStyles = xcss({
-	width: '100%',
-});
-
-const closeContainerStyles = xcss({
-	gridArea: 'close',
-});
-
-const titleContainerStyles = xcss({
-	gridArea: 'title',
-});
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -52,15 +38,8 @@ export default function Example() {
 						<Form onSubmit={onSubmit}>
 							{({ formProps }) => (
 								<form {...formProps} id="modal-form">
-									<ModalHeader>
-										<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-											<Flex xcss={titleContainerStyles} justifyContent="start">
-												<ModalTitle>Create a user</ModalTitle>
-											</Flex>
-											<Flex xcss={closeContainerStyles} justifyContent="end">
-												<CloseButton onClick={closeModal} />
-											</Flex>
-										</Grid>
+									<ModalHeader hasCloseButton>
+										<ModalTitle>Create a user</ModalTitle>
 									</ModalHeader>
 									<ModalBody>
 										<Field

@@ -1,5 +1,14 @@
 # @atlaskit/editor-card-provider
 
+## 4.2.0
+
+### Minor Changes
+
+- [#128967](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128967)
+  [`bfcf1112d0f99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfcf1112d0f99) -
+  Set Confluence Team Calendars link to embed view by default and it is behind
+  tc_smart_link_embed_view FG
+
 ## 4.1.0
 
 ### Minor Changes

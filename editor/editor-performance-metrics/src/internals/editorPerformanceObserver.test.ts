@@ -155,6 +155,24 @@ describe('EditorPerformanceObserver', () => {
 		});
 	});
 
+	describe('when the firstInteraction happens', () => {
+		it('make sure we are stopping all observers after the fisr user interaction', () => {
+			observer.start({ startTime: 1000 }); // make sure the observer is running
+
+			const mockDisconnect = jest.fn();
+			(observer as any).domObservers = { disconnect: mockDisconnect };
+
+			expect(mockDisconnect).toHaveBeenCalledTimes(0);
+
+			observer.onFirstInteraction({
+				event: 'stop-me',
+				time: performance.now(),
+			});
+
+			expect(mockDisconnect).toHaveBeenCalledTimes(1);
+		});
+	});
+
 	describe('EditorPerformanceObserver start/stop functionality', () => {
 		let observer: EditorPerformanceObserver;
 		let mockDomObservers: { observe: jest.Mock; disconnect: jest.Mock };

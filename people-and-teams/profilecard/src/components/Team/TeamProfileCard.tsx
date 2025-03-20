@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
@@ -54,7 +55,7 @@ interface TeamMembers {
 }
 
 type TeamMembersProps = TeamMembers &
-	Pick<TeamProfilecardProps, 'generateUserLink' | 'onUserClick'>;
+	Pick<TeamProfilecardProps, 'generateUserLink' | 'onUserClick' | 'isTriggeredByKeyboard'>;
 
 const LARGE_MEMBER_COUNT = 50;
 const GIVE_KUDOS_ACTION_ID = 'give-kudos';
@@ -89,6 +90,7 @@ const TeamMembers = ({
 	members,
 	onUserClick,
 	includingYou,
+	isTriggeredByKeyboard,
 }: TeamMembersProps) => {
 	const { formatMessage } = useIntl();
 	const count = members ? members.length : 0;
@@ -104,6 +106,13 @@ const TeamMembers = ({
 	// Use a ref to track whether this is currently open, so we can fire events
 	// iff the more section is being opened (not closed).
 	const isMoreMembersOpen = useRef(false);
+	const avatarRef = useRef<HTMLElement | null>(null);
+	const ref = (element: HTMLElement | null) => {
+		if (isTriggeredByKeyboard) {
+			avatarRef.current = element;
+			avatarRef.current?.focus();
+		}
+	};
 
 	const onMoreClick = useCallback(() => {
 		const { current: isOpen } = isMoreMembersOpen;
@@ -138,31 +147,69 @@ const TeamMembers = ({
 			</MemberCount>
 			{members && members.length > 0 && (
 				<AvatarSection>
-					<AvatarGroup
-						appearance="stack"
-						data={members.map((member, index) => {
-							const href = generateUserLink?.(member.id);
+					{fg('enable_team_profilecard_toggletip_a11y_fix') ? (
+						<AvatarGroup
+							appearance="stack"
+							data={members.map((member, index) => {
+								const href = generateUserLink?.(member.id);
 
-							const onClick = onMemberClick(
-								onUserClick,
-								member.id,
-								analytics,
-								index,
-								!!generateUserLink,
-							);
+								const onClick = onMemberClick(
+									onUserClick,
+									member.id,
+									analytics,
+									index,
+									!!generateUserLink,
+								);
 
-							return {
-								key: member.id,
-								name: member.fullName,
-								src: member.avatarUrl,
-								href,
-								onClick,
-							};
-						})}
-						maxCount={avatarGroupMaxCount}
-						showMoreButtonProps={showMoreButtonProps}
-						testId="profilecard-avatar-group"
-					/>
+								return {
+									key: member.id,
+									name: member.fullName,
+									src: member.avatarUrl,
+									href,
+									onClick,
+								};
+							})}
+							maxCount={avatarGroupMaxCount}
+							showMoreButtonProps={showMoreButtonProps}
+							testId="profilecard-avatar-group"
+							overrides={{
+								Avatar: {
+									render: (Component, props, index) =>
+										index === 0 ? (
+											<Avatar ref={ref} {...props} testId="first-member" />
+										) : (
+											<Component {...props} />
+										),
+								},
+							}}
+						/>
+					) : (
+						<AvatarGroup
+							appearance="stack"
+							data={members.map((member, index) => {
+								const href = generateUserLink?.(member.id);
+
+								const onClick = onMemberClick(
+									onUserClick,
+									member.id,
+									analytics,
+									index,
+									!!generateUserLink,
+								);
+
+								return {
+									key: member.id,
+									name: member.fullName,
+									src: member.avatarUrl,
+									href,
+									onClick,
+								};
+							})}
+							maxCount={avatarGroupMaxCount}
+							showMoreButtonProps={showMoreButtonProps}
+							testId="profilecard-avatar-group"
+						/>
+					)}
 				</AvatarSection>
 			)}
 		</>
@@ -344,6 +391,7 @@ const TeamProfilecardContent = ({
 	onUserClick,
 	viewProfileLink,
 	viewProfileOnClick,
+	isTriggeredByKeyboard,
 }: TeamProfilecardProps & { team: Team }) => {
 	const allActions = [
 		{
@@ -390,6 +438,7 @@ const TeamProfilecardContent = ({
 					generateUserLink={generateUserLink}
 					includingYou={includingYou}
 					onUserClick={onUserClick}
+					isTriggeredByKeyboard={isTriggeredByKeyboard}
 				/>
 				{team.description.trim() && (
 					<DescriptionWrapper>

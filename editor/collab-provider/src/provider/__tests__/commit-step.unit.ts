@@ -42,15 +42,17 @@ const createTestHelpers = () => {
 		userId = 'user1',
 		clientId = 'client1',
 		options: {
-			__livePage: boolean;
-			hasRecovered: boolean;
+			__livePage?: boolean;
+			hasRecovered?: boolean;
 			collabMode?: string;
 			offlineBroadcast?: boolean;
+			isPublish?: boolean;
 		} = {
 			__livePage: false,
 			hasRecovered: false,
 			collabMode: 'collab',
 			offlineBroadcast: false,
+			isPublish: false,
 		},
 	) => {
 		commitStepQueue({
@@ -67,9 +69,10 @@ const createTestHelpers = () => {
 			onErrorHandled: provider['documentService']['onErrorHandled'],
 			analyticsHelper: provider['analyticsHelper'],
 			emit: emitMock,
-			__livePage: options.__livePage,
-			hasRecovered: options.hasRecovered,
+			__livePage: options.__livePage ?? false,
+			hasRecovered: options.hasRecovered ?? false,
 			collabMode: options.collabMode ?? 'collab',
+			reason: options.isPublish ? 'publish' : undefined,
 		});
 	};
 
@@ -99,6 +102,7 @@ describe('commitStepQueue', () => {
 
 	beforeEach(() => {
 		jest.useFakeTimers({ legacyFakeTimers: true });
+		jest.spyOn(global, 'setTimeout');
 		provider.initialize(() => editorState);
 		jest.runOnlyPendingTimers(); // running pending timers will set `readyToCommit` flag to true
 	});
@@ -254,13 +258,23 @@ describe('commitStepQueue', () => {
 	});
 
 	describe('broadcast callback', () => {
-		const broadcastMockImplementation = ({ type = '', version = -1, errCode = '' }) => {
+		const broadcastMockImplementation = ({
+			type = '',
+			version = -1,
+			errCode = '',
+			delay = undefined,
+		}: {
+			type?: string;
+			version?: number;
+			errCode?: string;
+			delay?: number;
+		}) => {
 			broadcastSpy.mockImplementation(
 				// @ts-ignore type checks
 				(event: string, data: any, cb: (resp: any) => void) => {
 					// calls broadcast callback with given data depending on type
 					if (type === 'SUCCESS') {
-						cb({ type, version });
+						cb({ type, version, delay });
 					} else {
 						cb({
 							type,
@@ -271,6 +285,7 @@ describe('commitStepQueue', () => {
 									status: 500,
 									...(errCode ? { code: errCode } : {}),
 								},
+								delay,
 							},
 						});
 					}
@@ -350,6 +365,54 @@ describe('commitStepQueue', () => {
 			  ],
 			]
 		`);
+			});
+		});
+
+		describe('backpressure delay handling', () => {
+			it('should honour back pressure delay sent from BE ack', () => {
+				jest.runOnlyPendingTimers();
+				broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+				expect(readyToCommit).toBe(false);
+				jest.advanceTimersByTime(260);
+				expect(readyToCommit).toBe(false);
+				jest.advanceTimersByTime(260);
+				expect(readyToCommit).toBe(true);
+			});
+
+			it('should wait 680ms when no backpressure delay is sent', () => {
+				jest.runOnlyPendingTimers();
+				broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+				expect(readyToCommit).toBe(false);
+				jest.advanceTimersByTime(600);
+				expect(readyToCommit).toBe(false);
+				jest.advanceTimersByTime(100);
+				expect(readyToCommit).toBe(true);
+			});
+
+			describe('skipping backpressure delay on publish', () => {
+				ffTest(
+					'skip_collab_provider_delay_on_publish',
+					() => {
+						jest.runOnlyPendingTimers();
+						broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
+						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+						expect(readyToCommit).toBe(false);
+						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { isPublish: true });
+						// publish should trigger another broadcast
+						expect(broadcastSpy).toHaveBeenCalledTimes(2);
+					},
+					() => {
+						jest.runOnlyPendingTimers();
+						broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
+						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+						expect(readyToCommit).toBe(false);
+						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { isPublish: true });
+						// publish is blocked because FG is off
+						expect(broadcastSpy).toHaveBeenCalledTimes(1);
+					},
+				);
 			});
 		});
 

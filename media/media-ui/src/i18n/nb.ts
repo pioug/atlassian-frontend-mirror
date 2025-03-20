@@ -7,6 +7,10 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'fabric.media.abuse_modal_body':
+    'Av sikkerhetsmessige årsaker skanner systemet vårt automatisk alle opplastede filer. Filen du er i ferd med å laste ned, kan inneholde skadelig innhold',
+  'fabric.media.abuse_modal_submit': 'Fortsett å laste ned',
+  'fabric.media.abuse_modal_title': 'Advarsel',
   'fabric.media.accounts': 'Kontoer',
   'fabric.media.actions': 'Tiltak',
   'fabric.media.add_account': 'Legg til en konto',
@@ -58,6 +62,7 @@ export default {
   'fabric.media.display_thumbnail': 'Vis miniatyrbilde',
   'fabric.media.document': 'dokument',
   'fabric.media.download': 'Last ned',
+  'fabric.media.download_disabled_security_policy': 'Organisasjonens sikkerhetspolicy blokkerer nedlasting.',
   'fabric.media.drag_and_drop_images_here': 'Dra og slipp bildene her',
   'fabric.media.drag_and_drop_your_files': 'Dra og slipp filene dine hvor som helst eller',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Dra og slipp filer og mapper hvor som helst eller',
@@ -108,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'Standard',
   'fabric.media.playback_speed': 'Avspillingshastighet',
   'fabric.media.preview': 'Forhåndsvisning',
-  'fabric.media.preview_currently_unavailable': 'Forhåndsvisning er for øyeblikket ikke tilgjengelig',
   'fabric.media.preview_unavailable': 'Forhåndsvisning er ikke tilgjengelig',
   'fabric.media.recent_uploads': 'Nylige opplastinger',
   'fabric.media.remove_image': 'Fjern bilde',
@@ -126,6 +130,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Velg blant alle standardalternativer',
   'fabric.media.share_files_instantly': 'Vi deler dem med det samme',
   'fabric.media.show_more_avatars_btn_label': 'Vis mer',
+  'fabric.media.size_options': 'Størrelsesalternativer',
   'fabric.media.skip_backward': '10 sekunder bakover',
   'fabric.media.skip_forward': '10 sekunder fremover',
   'fabric.media.something_went_wrong': 'Det oppsto en feil.',

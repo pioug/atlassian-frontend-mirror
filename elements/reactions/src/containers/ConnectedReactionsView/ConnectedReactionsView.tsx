@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import {
-	Reactions,
-	UfoErrorBoundary,
-	type ReactionsProps,
-	type ReactionPickerProps,
-} from '../../components';
+
+import { UfoErrorBoundary, type ReactionsProps, type ReactionPickerProps } from '../../components';
+import { Reactions as EmotionReactions } from '../../components/Reactions';
+import { Reactions as CompiledReactions } from '../../components/compiled/Reactions';
 import { ufoExperiences } from '../../store';
 import {
 	ReactionStatus,
@@ -17,6 +16,7 @@ import {
 	type OnChangeCallback,
 } from '../../types';
 import { type ReactionUpdateSuccess } from '../../types/reaction';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface ConnectedReactionsViewProps
 	extends Pick<
@@ -239,8 +239,22 @@ export const ConnectedReactionsView = (
 			<UfoErrorBoundary
 				experiences={experienceInstance.current ? [experienceInstance.current] : []}
 			>
-				{stateData && dispatchData ? (
-					<Reactions key={`${containerAri}|${ari}`} {...rest} {...dispatchData} {...stateData} />
+				{stateData && dispatchData && fg('platform_editor_css_migrate_reactions') ? (
+					<CompiledReactions
+						key={`${containerAri}|${ari}`}
+						{...rest}
+						{...dispatchData}
+						{...stateData}
+					/>
+				) : null}
+
+				{stateData && dispatchData && !fg('platform_editor_css_migrate_reactions') ? (
+					<EmotionReactions
+						key={`${containerAri}|${ari}`}
+						{...rest}
+						{...dispatchData}
+						{...stateData}
+					/>
 				) : null}
 			</UfoErrorBoundary>
 		</FabricElementsAnalyticsContext>

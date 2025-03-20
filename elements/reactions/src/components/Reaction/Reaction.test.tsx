@@ -176,6 +176,33 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
 	});
 
+	it('should render with reacted background if reaction is reacted', async () => {
+		const count = 3;
+		const reacted = true;
+		const onClickSpy = jest.fn();
+		const onMouseEnterSpy = jest.fn();
+		const enableFlash = false;
+		const onEventSpy = jest.fn();
+		const users: User[] = [];
+		const showParticleEffect = false;
+		const showOpaqueBackground = true;
+		renderReaction(
+			reacted,
+			count,
+			onClickSpy,
+			onMouseEnterSpy,
+			enableFlash,
+			onEventSpy,
+			users,
+			showParticleEffect,
+			showOpaqueBackground,
+		);
+		const btn = await screen.findByRole('button');
+		expect(btn).toBeInTheDocument();
+		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-background-selected, #DEEBFF)');
+		expect(btn).toHaveCompiledCss('border-color', 'var(--ds-border-selected, #0052CC)');
+	});
+
 	it('should not render with border if isViewOnly is true', async () => {
 		const count = 3;
 		const reacted = false;

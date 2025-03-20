@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.2.11
+
+### Patch Changes
+
+- [#128744](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128744)
+  [`2165ceedf2fc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2165ceedf2fc2) -
+  EDITOR-176 - Cleanup FG platform_editor_update_panel_icon_aria_label
+- Updated dependencies
+
 ## 4.2.10
 
 ### Patch Changes

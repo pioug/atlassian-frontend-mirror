@@ -7,6 +7,10 @@
  */
 //Japanese
 export default {
+  'fabric.media.abuse_modal_body':
+    'セキュリティ保護のため、弊社のシステムではアップロードされたすべてのファイルを自動的にスキャンしています。ダウンロードしようとしているファイルには、悪意のあるコンテンツが含まれている可能性があります',
+  'fabric.media.abuse_modal_submit': 'ダウンロードを続行',
+  'fabric.media.abuse_modal_title': '警告',
   'fabric.media.accounts': 'アカウント',
   'fabric.media.actions': 'アクション',
   'fabric.media.add_account': 'アカウントを追加',
@@ -56,6 +60,8 @@ export default {
   'fabric.media.display_thumbnail': 'サムネイルを表示',
   'fabric.media.document': 'ドキュメント',
   'fabric.media.download': 'ダウンロード',
+  'fabric.media.download_disabled_security_policy':
+    'ダウンロードは、組織のセキュリティ ポリシーに基づいてブロックされました。',
   'fabric.media.drag_and_drop_images_here': 'ここに画像をドラッグ & ドロップ',
   'fabric.media.drag_and_drop_your_files': 'ファイルを任意の場所にドラッグ & ドロップする、または',
   'fabric.media.drag_and_drop_your_files_and_folders':
@@ -108,7 +114,6 @@ export default {
   'fabric.media.playback_default_speed': '既定',
   'fabric.media.playback_speed': '再生速度',
   'fabric.media.preview': 'プレビュー',
-  'fabric.media.preview_currently_unavailable': 'プレビューは現在使用できません',
   'fabric.media.preview_unavailable': 'プレビューがありません',
   'fabric.media.recent_uploads': '最近アップロードしたファイル',
   'fabric.media.remove_image': '画像を削除',
@@ -126,6 +131,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': '既定のオプションの中から選択してください',
   'fabric.media.share_files_instantly': 'すぐに共有されます',
   'fabric.media.show_more_avatars_btn_label': '表示を増やす',
+  'fabric.media.size_options': 'サイズ オプション',
   'fabric.media.skip_backward': '10 秒戻る',
   'fabric.media.skip_forward': '10 秒進む',
   'fabric.media.something_went_wrong': '問題が発生しました。',

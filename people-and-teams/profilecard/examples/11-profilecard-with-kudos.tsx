@@ -150,6 +150,7 @@ export default function Example() {
 						trigger="click"
 						viewingUserId={'viewerId'}
 						addFlag={addFlag}
+						viewProfileLink="/"
 					>
 						<strong>The Kudos Team (clickable)</strong>
 					</TeamProfilecardTrigger>
@@ -162,6 +163,7 @@ export default function Example() {
 						trigger="hover"
 						viewingUserId={'viewerId'}
 						addFlag={addFlag}
+						viewProfileLink="/"
 					>
 						<strong>The Kudos Team</strong>
 					</TeamProfilecardTrigger>
@@ -174,6 +176,7 @@ export default function Example() {
 						trigger="hover"
 						viewingUserId={'viewerId'}
 						addFlag={addFlag}
+						viewProfileLink="/"
 					>
 						<strong>The Kudos Team with meatballs</strong>
 					</TeamProfilecardTrigger>
@@ -187,6 +190,7 @@ export default function Example() {
 						trigger="hover"
 						viewingUserId={'viewerId'}
 						addFlag={addFlag}
+						viewProfileLink="/"
 					>
 						<strong>The Kudos Team without site</strong>
 					</TeamProfilecardTrigger>

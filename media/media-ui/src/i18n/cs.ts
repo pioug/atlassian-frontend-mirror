@@ -7,6 +7,10 @@
  */
 //Czech
 export default {
+  'fabric.media.abuse_modal_body':
+    'V zájmu vaší bezpečnosti náš systém automaticky skenuje všechny nahrávané soubory. Soubor, který se chystáte stáhnout, může obsahovat škodlivý obsah.',
+  'fabric.media.abuse_modal_submit': 'Pokračovat ke stažení',
+  'fabric.media.abuse_modal_title': 'Varování',
   'fabric.media.accounts': 'Účty',
   'fabric.media.actions': 'Akce',
   'fabric.media.add_account': 'Přidat účet',
@@ -57,6 +61,7 @@ export default {
   'fabric.media.display_thumbnail': 'Zobrazit miniaturu',
   'fabric.media.document': 'dokument',
   'fabric.media.download': 'Stáhnout',
+  'fabric.media.download_disabled_security_policy': 'Stahování je blokováno zásadami zabezpečení vaší organizace.',
   'fabric.media.drag_and_drop_images_here': 'Přetáhněte své obrázky sem.',
   'fabric.media.drag_and_drop_your_files': 'Přetáhněte své soubory kamkoli na stránku nebo',
   'fabric.media.drag_and_drop_your_files_and_folders': 'Přetáhněte své soubory a složky kamkoli na stránku nebo',
@@ -108,7 +113,6 @@ export default {
   'fabric.media.playback_default_speed': 'Výchozí',
   'fabric.media.playback_speed': 'Rychlost přehrávání',
   'fabric.media.preview': 'Náhled',
-  'fabric.media.preview_currently_unavailable': 'Náhled aktuálně není k dispozici',
   'fabric.media.preview_unavailable': 'Náhled není k dispozici',
   'fabric.media.recent_uploads': 'Nedávno nahráno',
   'fabric.media.remove_image': 'Odstranit obrázek',
@@ -127,6 +131,7 @@ export default {
   'fabric.media.select_an_avatar_from_all_defaults': 'Výběr ze všech výchozích možností',
   'fabric.media.share_files_instantly': 'Okamžitě je nasdílíme.',
   'fabric.media.show_more_avatars_btn_label': 'Zobrazit více',
+  'fabric.media.size_options': 'Možnosti velikosti',
   'fabric.media.skip_backward': 'Zpět o 10 sekund',
   'fabric.media.skip_forward': 'Dopředu o 10 sekund',
   'fabric.media.something_went_wrong': 'Něco se pokazilo.',

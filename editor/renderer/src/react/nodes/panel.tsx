@@ -14,7 +14,6 @@ import {
 } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
 import EmojiItem from './emoji';
 import {
 	PanelInfoIcon,
@@ -326,11 +325,7 @@ const Panel = (props: Props) => {
 		}
 
 		const Icon = panelIcons[panelType];
-		return fg('platform_editor_update_panel_icon_aria_label') ? (
-			<Icon label={`${panelType} panel`} />
-		) : (
-			<Icon label={`Panel ${panelType}`} />
-		);
+		return <Icon label={`${panelType} panel`} />;
 	};
 
 	const icon = getIcon();

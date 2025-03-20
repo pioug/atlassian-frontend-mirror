@@ -225,6 +225,9 @@ export const getContextPanelBodyComponent = ({
 							}}
 							onCancel={() => startClosingConfigPanel({ api, editorView })}
 							featureFlags={featureFlags}
+							// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
+							// Becuase it will always be true
+							usingObjectSidebarPanel={true}
 						/>
 					);
 				}}

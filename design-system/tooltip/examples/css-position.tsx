@@ -2,10 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, type FC, forwardRef, useRef, useState } from 'react';
+import { type CSSProperties, type FC, forwardRef, ReactNode, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { type ReactNode } from 'react-redux';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

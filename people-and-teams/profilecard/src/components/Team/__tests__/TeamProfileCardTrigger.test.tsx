@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import { getMockProfileClient } from '../../../mocks';
@@ -53,6 +54,9 @@ describe('Profile card trigger', () => {
 		cloudId: 'cloud-id',
 		userId: 'user-id',
 		resourceClient: mockResourceClient,
+		viewProfileLink: '/',
+		teamId: 'team-id',
+		orgId: 'org-id',
 	};
 
 	beforeEach(() => {
@@ -120,4 +124,36 @@ describe('Profile card trigger', () => {
 			);
 		});
 	});
+
+	ffTest.on(
+		'enable_team_profilecard_toggletip_a11y_fix',
+		'When enable_team_profilecard_toggletip_a11y_fix is on',
+		() => {
+			it('renders the accessible button trigger', () => {
+				renderTeamProfileCardTrigger({
+					triggerLinkType: 'none',
+				});
+
+				expect(screen.getByRole('button')).toBeVisible();
+				expect(screen.getByRole('button')).toHaveAttribute(
+					'aria-label',
+					'More information about this team',
+				);
+			});
+		},
+	);
+
+	ffTest.off(
+		'enable_team_profilecard_toggletip_a11y_fix',
+		'When enable_team_profilecard_toggletip_a11y_fix is off',
+		() => {
+			it('should not render the accessible button trigger', () => {
+				renderTeamProfileCardTrigger({
+					triggerLinkType: 'none',
+				});
+
+				expect(screen.queryByRole('button')).not.toBeInTheDocument();
+			});
+		},
+	);
 });

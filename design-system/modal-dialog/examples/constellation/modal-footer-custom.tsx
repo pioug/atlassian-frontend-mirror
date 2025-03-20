@@ -10,31 +10,18 @@ import { jsx } from '@emotion/react';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
 import Modal, {
-	CloseButton,
 	ModalBody,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, Flex, Grid, Text, xcss } from '@atlaskit/primitives';
+import { Box, Flex, Text, xcss } from '@atlaskit/primitives';
 
 const footerStyles = xcss({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-between',
-});
-
-const gridStyles = xcss({
-	width: '100%',
-});
-
-const closeContainerStyles = xcss({
-	gridArea: 'close',
-});
-
-const titleContainerStyles = xcss({
-	gridArea: 'title',
 });
 
 const CustomFooter = () => {
@@ -70,15 +57,8 @@ export default function Example() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={closeModal}>
-						<ModalHeader>
-							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-								<Flex xcss={titleContainerStyles} justifyContent="start">
-									<ModalTitle>Custom modal footer</ModalTitle>
-								</Flex>
-								<Flex xcss={closeContainerStyles} justifyContent="end">
-									<CloseButton onClick={closeModal} />
-								</Flex>
-							</Grid>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Custom modal footer</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
 							<p>

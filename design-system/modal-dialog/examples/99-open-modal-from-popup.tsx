@@ -83,7 +83,7 @@ const PopupDefaultExample = () => {
 			<ModalTransition>
 				{isModalOpen && (
 					<Modal onClose={closeModal}>
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Duplicate this page</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

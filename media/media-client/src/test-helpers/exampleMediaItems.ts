@@ -214,22 +214,22 @@ export const animatedFileId: FileIdentifier = {
 
 export const svgFileIds = {
 	ajDigitalCamera: {
-		id: '10d7388f-db45-4d01-b6cf-801f7242655e',
+		id: '961e6894-88cd-4970-a0f5-4478910074dd',
 		mediaItemType: fileType,
 		collectionName: collectionName,
 	},
 	car: {
-		id: 'd4fb1cef-d845-42d4-beca-7b185966f4d6',
+		id: '50960d32-c79c-47ea-9878-8165438648e2',
 		mediaItemType: fileType,
 		collectionName: collectionName,
 	},
 	atom: {
-		id: 'c03470af-ab26-4660-96fd-362193d676e0',
+		id: '48693a13-d03a-4aa6-9444-cd803bb3df5e',
 		mediaItemType: fileType,
 		collectionName: collectionName,
 	},
 	openweb: {
-		id: '0bdf18bd-458e-4aeb-9484-b525de5658a1',
+		id: '8d214027-956c-4036-80c1-bede14fee52c',
 		mediaItemType: fileType,
 		collectionName: collectionName,
 	},

@@ -138,7 +138,7 @@ export const AwarenessWrapper = ({
 	const cardWithOpenButtonOverlay: JSX.Element = useMemo(() => {
 		return (
 			<OpenButtonOverlay
-				isVisible={isHovered}
+				isVisible={isResolvedViewRendered && isHovered}
 				onMouseEnter={() => handleOverlayChange(true)}
 				onMouseLeave={() => handleOverlayChange(false)}
 				url={url}
@@ -146,7 +146,7 @@ export const AwarenessWrapper = ({
 				{children}
 			</OpenButtonOverlay>
 		);
-	}, [children, isHovered, url, handleOverlayChange]);
+	}, [children, isHovered, url, handleOverlayChange, isResolvedViewRendered]);
 
 	return useMemo(
 		() => (

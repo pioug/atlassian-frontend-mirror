@@ -590,6 +590,7 @@ export { toJSON, nodeToJSON } from './nodes';
 
 export {
 	calculateToolbarPositionAboveSelection,
+	calculateToolbarPositionOnCellSelection,
 	calculateToolbarPositionTrackHead,
 } from './calculate-toolbar-position';
 

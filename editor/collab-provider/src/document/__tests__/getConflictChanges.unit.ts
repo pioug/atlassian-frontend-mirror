@@ -327,15 +327,7 @@ describe('conflicting steps', () => {
 			{
 				from: 17,
 				to: 18,
-				local: [
-					{
-						type: 'paragraph',
-						attrs: {
-							localId: null,
-						},
-						content: [{ text: 'test here', type: 'text' }],
-					},
-				],
+				local: [{ text: 'test here', type: 'text' }],
 			},
 		]);
 		expect(inserted).toEqual([]);
@@ -383,30 +375,14 @@ describe('conflicting steps', () => {
 			{
 				from: 17,
 				to: 17,
-				local: [
-					{
-						type: 'paragraph',
-						attrs: {
-							localId: null,
-						},
-						content: [{ text: 'test here', type: 'text' }],
-					},
-				],
+				local: [{ text: 'test here', type: 'text' }],
 			},
 			{
 				from: 17,
 				local: [
 					{
-						attrs: {
-							localId: null,
-						},
-						content: [
-							{
-								text: ' over here',
-								type: 'text',
-							},
-						],
-						type: 'paragraph',
+						text: ' over here',
+						type: 'text',
 					},
 				],
 				to: 17,
@@ -463,28 +439,20 @@ describe('conflicting steps', () => {
 				to: 17,
 				local: [
 					{
-						type: 'paragraph',
+						text: 'tes',
+						type: 'text',
+					},
+					{
 						attrs: {
-							localId: null,
+							id: '',
+							shortName: ':man_facepalming:',
+							text: '🤦‍♂️',
 						},
-						content: [
-							{
-								text: 'tes',
-								type: 'text',
-							},
-							{
-								attrs: {
-									id: '',
-									shortName: ':man_facepalming:',
-									text: '🤦‍♂️',
-								},
-								type: 'emoji',
-							},
-							{
-								text: 'here',
-								type: 'text',
-							},
-						],
+						type: 'emoji',
+					},
+					{
+						text: 'here',
+						type: 'text',
 					},
 				],
 			},
@@ -492,16 +460,8 @@ describe('conflicting steps', () => {
 				from: 17,
 				local: [
 					{
-						attrs: {
-							localId: null,
-						},
-						content: [
-							{
-								text: ' over here',
-								type: 'text',
-							},
-						],
-						type: 'paragraph',
+						text: ' over here',
+						type: 'text',
 					},
 				],
 				to: 17,
@@ -573,16 +533,8 @@ describe('conflicting steps', () => {
 				from: 41,
 				local: [
 					{
-						attrs: {
-							localId: null,
-						},
-						content: [
-							{
-								text: ' over here',
-								type: 'text',
-							},
-						],
-						type: 'paragraph',
+						text: ' over here',
+						type: 'text',
 					},
 				],
 				to: 41,

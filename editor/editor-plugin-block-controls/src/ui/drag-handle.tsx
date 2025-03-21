@@ -34,6 +34,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
+import DragHandleVerticalIcon from '@atlaskit/icon/utility/drag-handle-vertical';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
@@ -838,7 +839,12 @@ export const DragHandle = ({
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 				onDragStart={handleIconDragStart}
 			>
-				<DragHandlerIcon label="" size="medium" />
+				<DragHandleVerticalIcon
+					spacing="spacious"
+					label=""
+					LEGACY_fallbackIcon={DragHandlerIcon}
+					LEGACY_size="medium"
+				/>
 			</Box>
 		</button>
 	);

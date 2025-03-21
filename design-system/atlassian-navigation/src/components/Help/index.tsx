@@ -70,6 +70,7 @@ export const Help = forwardRef((props: HelpProps, ref: Ref<any>) => {
 			target={target}
 			testId={testId}
 			tooltip={tooltip}
+			isTooltipAnnouncementDisabled
 			// These are all explicit, leaving it in just in case
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}

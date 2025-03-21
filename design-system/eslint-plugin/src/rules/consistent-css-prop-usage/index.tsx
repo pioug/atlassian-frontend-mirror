@@ -151,6 +151,20 @@ class JSXExpressionLinter {
 			return;
 		}
 
+		// Specifically for the `xcss` prop we allow `xcss` values that come from a function parameter.
+		if (
+			this.cssAttributeName === 'xcss' &&
+			// Allowing `xcss` and `${string}Xcss` values
+			(identifier.name === 'xcss' || identifier.name.endsWith('Xcss'))
+		) {
+			const sourceCode = getSourceCode(this.context);
+			const variable = findVariable({ identifier, sourceCode });
+			// Only allowing values where the parameter definition is the only definition
+			if (variable?.defs.length === 1 && variable?.defs[0].type === 'Parameter') {
+				return;
+			}
+		}
+
 		if (identifier.parent.type !== 'VariableDeclarator') {
 			// When variable is not in the file or coming from import
 			this.context.report({

@@ -28,7 +28,6 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
-import { fg } from '@atlaskit/platform-feature-flags';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
@@ -202,7 +201,7 @@ const InsertMenu = ({
 	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			<div css={insertMenuWrapper(height, itemCount, isFullPageAppearance)}>
+			<div css={insertMenuWrapper(height, isFullPageAppearance)}>
 				<FlexWrapper>
 					<ElementBrowser
 						mode="inline"
@@ -214,7 +213,7 @@ const InsertMenu = ({
 						// On page resize we want the InlineElementBrowser to show updated tools/overflow items
 						key={quickInsertDropdownItems.length}
 						viewMoreItem={viewMoreItem}
-						cache={fg('platform_editor_reduce_element_browser_padding') ? cache : undefined}
+						cache={cache}
 					/>
 				</FlexWrapper>
 			</div>
@@ -223,7 +222,7 @@ const InsertMenu = ({
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<div css={insertMenuWrapper(height, itemCount, isFullPageAppearance)}>
+		<div css={insertMenuWrapper(height, isFullPageAppearance)}>
 			<ElementBrowserWrapper
 				handleClickOutside={toggleVisiblity}
 				handleEscapeKeydown={toggleVisiblity}
@@ -239,7 +238,7 @@ const InsertMenu = ({
 					// On page resize we want the InlineElementBrowser to show updated tools/overflow items
 					key={quickInsertDropdownItems.length}
 					viewMoreItem={viewMoreItem}
-					cache={fg('platform_editor_reduce_element_browser_padding') ? cache : undefined}
+					cache={cache}
 				/>
 			</ElementBrowserWrapper>
 		</div>
@@ -265,16 +264,7 @@ const getSvgIconForItem = ({ name }: SvgGetterParams): ReactElement | undefined 
 	return Icon ? <Icon label="" /> : undefined;
 };
 
-const getInsertMenuHeight = ({ itemCount }: { itemCount: number }) => {
-	// Figure based on visuals to exclude the searchbar, padding/margin, and the ViewMore item.
-	const EXTRA_SPACE_EXCLUDING_ELEMENTLIST = 128;
-	if (itemCount > 0 && itemCount < 6) {
-		return itemCount * 75 + EXTRA_SPACE_EXCLUDING_ELEMENTLIST;
-	}
-	return 560; // For showing 6 Elements.
-};
-
-const insertMenuWrapper = (height: number, itemCount: number, isFullPageAppearance?: boolean) => {
+const insertMenuWrapper = (height: number, isFullPageAppearance?: boolean) => {
 	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
 		return css({
 			display: 'flex',
@@ -294,7 +284,7 @@ const insertMenuWrapper = (height: number, itemCount: number, isFullPageAppearan
 		flexDirection: 'column',
 		width: '320px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		height: `${fg('platform_editor_reduce_element_browser_padding') ? height : getInsertMenuHeight({ itemCount })}px`,
+		height: `${height}px`,
 		backgroundColor: `${token('elevation.surface.overlay', N0)}`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: `${borderRadius()}px`,

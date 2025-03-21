@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.0.12
+
+### Patch Changes
+
+- [#129445](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129445)
+  [`0eb9b03d34eff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eb9b03d34eff) -
+  Cleans up feature flag that reduces padding in the element browser
+- Updated dependencies
+
 ## 3.0.11
 
 ### Patch Changes

@@ -12,14 +12,13 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
+import MinusIcon from '@atlaskit/icon/core/minus';
 import CheckMarkIcon from '@atlaskit/icon/utility/check-mark';
 import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
 import { HeadingItem } from '@atlaskit/menu';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
-
-import { ContextualToolbarIcon } from './icons/ContextualToolbarIcon';
-import { FixedToolbarIcon } from './icons/FixedToolbarIcon';
 
 type OverflowToobarConfigOptions = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
@@ -66,7 +65,7 @@ export const getOverflowFloatingToolbarConfig = ({
 			onClick: () => {
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 			},
-			icon: <ContextualToolbarIcon label="Contextual toolbar" />,
+			icon: MinusIcon({ label: 'Contextual toolbar' }),
 			selected: !isDockedToTop,
 			elemAfter: !isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
 		},
@@ -75,7 +74,7 @@ export const getOverflowFloatingToolbarConfig = ({
 			onClick: () => {
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 			},
-			icon: <FixedToolbarIcon label="Fixed toolbar" />,
+			icon: DockToolbarTopIcon({ label: 'Fixed toolbar' }),
 			selected: isDockedToTop,
 			elemAfter: isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
 		},
@@ -111,7 +110,7 @@ export const getOverflowPrimaryToolbarConfig = ({
 				onClick: () => {
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 				},
-				elemBefore: <ContextualToolbarIcon label="Contextual toolbar" />,
+				elemBefore: MinusIcon({ label: 'Contextual toolbar' }),
 			},
 			{
 				content: 'Fixed at top',
@@ -122,7 +121,7 @@ export const getOverflowPrimaryToolbarConfig = ({
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 				},
 				isActive: true,
-				elemBefore: <FixedToolbarIcon label="Fixed toolbar" />,
+				elemBefore: DockToolbarTopIcon({ label: 'Fixed toolbar' }),
 				elemAfter: <CheckMarkIcon label="" />,
 			},
 		],

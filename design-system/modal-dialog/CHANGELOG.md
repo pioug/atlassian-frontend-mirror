@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 13.4.0
+
+### Minor Changes
+
+- [#129320](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129320)
+  [`1993bb92c16b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1993bb92c16b6) -
+  [ux] Add legacy AUI modal to focus lock allowlist by default
+
 ## 13.3.0
 
 ### Minor Changes

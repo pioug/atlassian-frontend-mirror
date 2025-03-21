@@ -58,6 +58,8 @@ const isInvalidHoverStyles = css({
 });
 
 const isDisabledStyles = css({
+	backgroundColor: token('color.background.disabled'),
+	borderColor: token('color.border.disabled'),
 	'&:hover': {
 		cursor: 'default',
 	},

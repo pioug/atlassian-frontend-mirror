@@ -139,9 +139,4 @@ export const configPanelMessages = defineMessages({
 		defaultMessage: `We've let the team know. You can still edit and publish this page, or check the error console for more information.`,
 		description: 'Note for uncaught config panel error',
 	},
-	objectSidebarPanelHeaderLabel: {
-		id: 'fabric.editor.configPanel.objectSidebarPanelHeaderLabel',
-		defaultMessage: ' ',
-		description: 'Keep this empty. Defined it as headerLabel is required field.',
-	},
 });

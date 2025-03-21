@@ -257,6 +257,60 @@ typescriptEslintTester.run(
           }
         `,
 			},
+			{
+				name: 'xcss pass-through',
+				code: outdent`
+					import { Box } from '@atlaskit/primitives/compiled';
+
+					function Component({ xcss, children }) {
+						return <Box xcss={xcss}>{children}</Box>;
+					}
+				`,
+			},
+			{
+				name: 'xcss pass-through with alias',
+				code: outdent`
+					import { Box } from '@atlaskit/primitives/compiled';
+
+					function Component({ xcss: myXcss, children }) {
+						return <Box xcss={myXcss}>{children}</Box>;
+					}
+				`,
+			},
+			{
+				name: 'xcss pass-through with cx',
+				code: outdent`
+					import { cssMap, cx } from '@compiled/react';
+					import { Box } from '@atlaskit/primitives/compiled';
+
+					const styles = cssMap({
+						root: {
+							color: 'red',
+						}
+					});
+
+					function Component({ xcss, children }) {
+						return <Box xcss={cx(styles.root, xcss)}>{children}</Box>;
+					}
+				`,
+			},
+			{
+				name: 'xcss pass-through inside a render prop function',
+				code: outdent`
+					import { cssMap, cx } from '@compiled/react';
+					import { Box } from '@atlaskit/primitives/compiled';
+
+					const styles = cssMap({
+						root: {
+							color: 'red',
+						}
+					});
+
+					function Component({ xcss, children }) {
+						return <Something>{() => <Box xcss={xcss}>{children}</Box>}</Something>;
+					}
+				`,
+			},
 		],
 		invalid: [
 			{
@@ -1145,6 +1199,34 @@ typescriptEslintTester.run(
 				errors: [
 					{
 						messageId: 'cssAtTopOfModule',
+					},
+				],
+			},
+			{
+				name: 'xcss pass-through to css prop',
+				code: outdent`
+					function Component({ xcss, children }) {
+						return <div css={xcss}>{children}</div>;
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssInModule',
+					},
+				],
+			},
+			{
+				name: 'passing xcss function to xcss prop',
+				code: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+
+					function Component({ children }) {
+						return <Box xcss={xcss}>{children}</Box>;
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssInModule',
 					},
 				],
 			},

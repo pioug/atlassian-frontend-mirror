@@ -24,13 +24,19 @@ const resolve = (
 		data: { ...response.data, ...overrideData, url },
 	} as JsonLd.Response<JsonLd.Data.BaseData>);
 
+class MockCardClient extends CardClient {
+	prefetchData(url: string): Promise<JsonLd.Response | undefined> {
+		return Promise.resolve(undefined);
+	}
+}
+
 export const ResolvedClientUrl = AtlasProject.data.url;
 export const ResolvedClientUrlNoPreview = `${AtlasProject.data.url}/no-preview`;
 export const ResolvedClientEmbedUrl = YouTubeVideoUrl;
 export const ResolvedClientEmbedInteractiveUrl = GoogleDocUrl;
 export const ResolvedClientWithLongTitleUrl = `${AtlasProject.data.url}/long-title`;
 export const ResolvedClientWithTextHighlightInTitleUrl = `${AtlasProject.data.url}/text-highlight-title`;
-export class ResolvedClient extends CardClient {
+export class ResolvedClient extends MockCardClient {
 	fetchData(url: string) {
 		switch (url) {
 			case ResolvedClientEmbedUrl:
@@ -56,7 +62,7 @@ export class ResolvedClient extends CardClient {
 }
 
 export const ResolvingClientUrl = 'https://resolving-link';
-export class ResolvingClient extends CardClient {
+export class ResolvingClient extends MockCardClient {
 	fetchData(url: string): Promise<JsonLd.Response> {
 		return new Promise(() => {
 			// resolve() never get called to keep status as resolving forever
@@ -64,7 +70,7 @@ export class ResolvingClient extends CardClient {
 	}
 }
 
-export class ErroredClient extends CardClient {
+export class ErroredClient extends MockCardClient {
 	fetchData(url: string): Promise<JsonLd.Response> {
 		return Promise.reject(`Can't resolve from ${url}`);
 	}
@@ -72,7 +78,7 @@ export class ErroredClient extends CardClient {
 
 // "visibility": "restricted",
 // "access": "forbidden",
-export class ForbiddenClient extends CardClient {
+export class ForbiddenClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.forbidden);
 	}
@@ -81,7 +87,7 @@ export class ForbiddenClient extends CardClient {
 // "visibility": "restricted",
 // "access": "forbidden",
 // "accessType": "ACCESS_EXISTS",
-export class ForbiddenWithObjectRequestAccessClient extends CardClient {
+export class ForbiddenWithObjectRequestAccessClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unresolved('ACCESS_EXISTS', 'restricted'));
 	}
@@ -90,7 +96,7 @@ export class ForbiddenWithObjectRequestAccessClient extends CardClient {
 // "visibility": "not_found",
 // "access": "forbidden",
 // "accessType": "DENIED_REQUEST_EXISTS",
-export class ForbiddenWithSiteDeniedRequestClient extends CardClient {
+export class ForbiddenWithSiteDeniedRequestClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unresolved('DENIED_REQUEST_EXISTS', 'not_found'));
 	}
@@ -99,7 +105,7 @@ export class ForbiddenWithSiteDeniedRequestClient extends CardClient {
 // "visibility": "not_found",
 // "access": "forbidden",
 // "accessType": "DIRECT_ACCESS",
-export class ForbiddenWithSiteDirectAccessClient extends CardClient {
+export class ForbiddenWithSiteDirectAccessClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unresolved('DIRECT_ACCESS', 'not_found'));
 	}
@@ -108,7 +114,7 @@ export class ForbiddenWithSiteDirectAccessClient extends CardClient {
 // "visibility": "not_found",
 // "access": "forbidden",
 // "accessType": "FORBIDDEN",
-export class ForbiddenWithSiteForbiddenClient extends CardClient {
+export class ForbiddenWithSiteForbiddenClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unresolved('FORBIDDEN', 'not_found'));
 	}
@@ -117,7 +123,7 @@ export class ForbiddenWithSiteForbiddenClient extends CardClient {
 // "visibility": "not_found",
 // "access": "forbidden",
 // "accessType": "PENDING_REQUEST_EXISTS",
-export class ForbiddenWithSitePendingRequestClient extends CardClient {
+export class ForbiddenWithSitePendingRequestClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unresolved('PENDING_REQUEST_EXISTS', 'not_found'));
 	}
@@ -126,7 +132,7 @@ export class ForbiddenWithSitePendingRequestClient extends CardClient {
 // "visibility": "not_found",
 // "access": "forbidden",
 // "accessType": "REQUEST_ACCESS",
-export class ForbiddenWithSiteRequestAccessClient extends CardClient {
+export class ForbiddenWithSiteRequestAccessClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unresolved('REQUEST_ACCESS', 'not_found'));
 	}
@@ -134,7 +140,7 @@ export class ForbiddenWithSiteRequestAccessClient extends CardClient {
 
 // "visibility": "restricted",
 // "access": "forbidden",
-export class ForbiddenClientWithNoIcon extends CardClient {
+export class ForbiddenClientWithNoIcon extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve({
 			...mocks.forbidden,
@@ -145,7 +151,7 @@ export class ForbiddenClientWithNoIcon extends CardClient {
 
 // visibility: 'not_found',
 // access: 'forbidden',
-export class NotFoundClient extends CardClient {
+export class NotFoundClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.notFound);
 	}
@@ -154,13 +160,13 @@ export class NotFoundClient extends CardClient {
 // "visibility": "not_found",
 // "access": "forbidden",
 // "accessType": "ACCESS_EXISTS",
-export class NotFoundWithSiteAccessExistsClient extends CardClient {
+export class NotFoundWithSiteAccessExistsClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unresolved('ACCESS_EXISTS', 'not_found'));
 	}
 }
 
-export class NotFoundWithNoIconClient extends CardClient {
+export class NotFoundWithNoIconClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve({
 			...mocks.notFound,
@@ -169,13 +175,13 @@ export class NotFoundWithNoIconClient extends CardClient {
 	}
 }
 
-export class UnAuthClient extends CardClient {
+export class UnAuthClient extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(mocks.unauthorized);
 	}
 }
 
-export class UnAuthClientWithProviderImage extends CardClient {
+export class UnAuthClientWithProviderImage extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		const response = {
 			...mocks.unauthorized,
@@ -195,7 +201,7 @@ export class UnAuthClientWithProviderImage extends CardClient {
 	}
 }
 
-export class UnAuthClientWithNoAuthFlow extends CardClient {
+export class UnAuthClientWithNoAuthFlow extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve({
 			...mocks.unauthorized,
@@ -207,7 +213,7 @@ export class UnAuthClientWithNoAuthFlow extends CardClient {
 	}
 }
 
-export class UnAuthClientWithNoIcon extends CardClient {
+export class UnAuthClientWithNoIcon extends MockCardClient {
 	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve({
 			meta: { ...mocks.unauthorized.meta },

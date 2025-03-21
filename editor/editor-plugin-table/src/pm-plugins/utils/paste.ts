@@ -106,12 +106,14 @@ export const transformSliceToRemoveNestedTables = (
 		if (isNestingAllowed) {
 			const isPasteInTable = hasParentNodeOfType([table, tableCell, tableHeader])(selection);
 			const isPasteInNestedTable = getParentOfTypeCount(schema.nodes.table)(selection.$from) > 1;
+			const isPasteFullTableInsideEmptyCellEnabled = fg(
+				'platform_editor_paste_full_table_inside_empty_cell',
+			);
 			const isCellPaste =
 				isPasteInTable &&
 				slice.content.childCount === 1 &&
 				slice.content.firstChild?.type === table &&
-				slice.openStart !== 0 &&
-				slice.openEnd !== 0;
+				(!isPasteFullTableInsideEmptyCellEnabled || (slice.openStart !== 0 && slice.openEnd !== 0));
 
 			// if nesting is allowed we bump up the default nesting allowance to 2 to support
 			// two levels of nesting in nodes that support table nesting already such as layoutSection and expands

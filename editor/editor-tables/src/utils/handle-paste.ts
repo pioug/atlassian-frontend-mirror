@@ -1,6 +1,7 @@
 import { Fragment, type Slice } from '@atlaskit/editor-prosemirror/model';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { CellSelection } from '../cell-selection';
@@ -30,11 +31,10 @@ export function handlePaste(
 
 	const { schema } = view.state;
 	const isNestingAllowed = editorExperiment('nested-tables-in-tables', true);
-	/**
-	 * TODO: There can be multiple variations.
-	 * 1. The last cell is selected with content outside of the table
-	 * 2. The first cell is selected with content outside of the table
-	 */
+	const isPasteFullTableInsideEmptyCellEnabled = fg(
+		'platform_editor_paste_full_table_inside_empty_cell',
+	);
+
 	const isPartialTablePaste =
 		slice.content.childCount === 1 &&
 		slice.content.firstChild?.type === schema.nodes.table &&
@@ -42,10 +42,15 @@ export function handlePaste(
 		slice.openEnd !== 0;
 
 	const sel = view.state.selection;
+	const isCellSelection = sel instanceof CellSelection;
 
 	if (
+		isPasteFullTableInsideEmptyCellEnabled &&
 		isNestingAllowed &&
 		!isPartialTablePaste &&
+		// If the selection is not a cell selection, and the selection is empty then we can insert a nested table
+		!isCellSelection &&
+		sel.empty &&
 		!(options && SKIP_NESTED_TABLE_PASTE_SOURCES.includes(options.pasteSource))
 	) {
 		const cellRes = findParentNode(
@@ -64,7 +69,7 @@ export function handlePaste(
 	}
 
 	let cells = pastedCells(slice);
-	if (sel instanceof CellSelection) {
+	if (isCellSelection) {
 		if (!cells) {
 			cells = {
 				width: 1,

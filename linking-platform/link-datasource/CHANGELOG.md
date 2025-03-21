@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.1.0
+
+### Minor Changes
+
+- [#129996](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129996)
+  [`9a1b58cd19c04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a1b58cd19c04) -
+  Updating Assets logo to use ADS package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

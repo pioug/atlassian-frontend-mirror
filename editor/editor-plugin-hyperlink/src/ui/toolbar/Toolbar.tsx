@@ -44,10 +44,8 @@ import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
-import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
-import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
+import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -253,7 +251,6 @@ export const getToolbarConfig =
 							onClick: visitHyperlink(editorAnalyticsApi),
 							title: labelOpenLink,
 							icon: LinkExternalIcon,
-							iconFallback: OpenIcon,
 							className: 'hyperlink-open-link',
 							metadata: metadata,
 							tabIndex: null,
@@ -270,7 +267,6 @@ export const getToolbarConfig =
 							}),
 							title: labelUnlink,
 							icon: LinkBrokenIcon,
-							iconFallback: UnlinkIcon,
 							tabIndex: null,
 						},
 						{ type: 'separator' },

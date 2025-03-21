@@ -233,7 +233,6 @@ export const PopupContent = ({
 	const popperWrapper = (
 		<Layering isDisabled={false}>
 			<PopperWrapper
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				xcss={xcss}
 				appearance={appearance}
 				content={children}

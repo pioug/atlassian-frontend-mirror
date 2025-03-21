@@ -4,23 +4,17 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.alphaFromArgb = alphaFromArgb;
 exports.argbFromLinrgb = argbFromLinrgb;
 exports.argbFromLstar = argbFromLstar;
 exports.argbFromRgb = argbFromRgb;
 exports.argbFromRgba = argbFromRgba;
 exports.argbFromXyz = argbFromXyz;
-exports.blueFromArgb = blueFromArgb;
 exports.delinearized = delinearized;
-exports.greenFromArgb = greenFromArgb;
-exports.isOpaque = isOpaque;
 exports.linearized = linearized;
 exports.lstarFromArgb = lstarFromArgb;
 exports.lstarFromY = lstarFromY;
-exports.redFromArgb = redFromArgb;
 exports.rgbaFromArgb = rgbaFromArgb;
 exports.whitePointD65 = whitePointD65;
-exports.xyzFromArgb = xyzFromArgb;
 exports.yFromLstar = yFromLstar;
 var mathUtils = _interopRequireWildcard(require("./math-utils"));
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
@@ -103,13 +97,6 @@ function greenFromArgb(argb) {
  */
 function blueFromArgb(argb) {
   return argb & 255;
-}
-
-/**
- * Returns whether a color in ARGB format is opaque.
- */
-function isOpaque(argb) {
-  return alphaFromArgb(argb) >= 255;
 }
 
 /**

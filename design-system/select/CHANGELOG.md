@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 20.0.5
+
+### Patch Changes
+
+- [#128582](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128582)
+  [`02b4780b7a0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02b4780b7a0a4) -
+  [ux] Improve assistive technology support for filtered results.
+
 ## 20.0.4
 
 ### Patch Changes

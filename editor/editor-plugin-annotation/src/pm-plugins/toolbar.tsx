@@ -34,7 +34,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { setInlineCommentDraftState } from '../editor-commands';
-import { AnnotationSelectionType, AnnotationTestIds } from '../types';
+import { AnnotationProviders, AnnotationSelectionType, AnnotationTestIds } from '../types';
 
 import { getPluginState, isSelectionValid, resolveDraftBookmark } from './utils';
 
@@ -45,6 +45,7 @@ interface BuildToolbarOptions {
 	isCommentOnMediaOn?: boolean;
 	_supportedNodes?: string[];
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
+	createCommentExperience?: AnnotationProviders['createCommentExperience'];
 }
 
 export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => ({
@@ -53,6 +54,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 	isToolbarAbove,
 	_supportedNodes,
 	api,
+	createCommentExperience,
 }: BuildToolbarOptions) =>
 	| {
 			title: string;
@@ -62,7 +64,14 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 	  }
 	| undefined =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	({ state, intl, isToolbarAbove = false, _supportedNodes = [], api }: BuildToolbarOptions) => {
+	({
+		state,
+		intl,
+		isToolbarAbove = false,
+		_supportedNodes = [],
+		api,
+		createCommentExperience,
+	}: BuildToolbarOptions) => {
 		const { schema } = state;
 		const selectionValid = isSelectionValid(state);
 		const isMediaSelected = currentMediaNodeWithPos(state);
@@ -134,6 +143,16 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 							pageMode: 'edit',
 						},
 					});
+				}
+
+				if (fg('confluence_comments_create_comment_experience')) {
+					createCommentExperience?.start({
+						attributes: {
+							pageClass: 'editor',
+							commentType: 'inline',
+						},
+					});
+					createCommentExperience?.initExperience.start();
 				}
 
 				return setInlineCommentDraftState(editorAnalyticsAPI)(true)(state, dispatch);

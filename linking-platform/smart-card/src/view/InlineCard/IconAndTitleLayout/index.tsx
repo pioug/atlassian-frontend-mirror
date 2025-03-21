@@ -26,29 +26,35 @@ import {
 	TitleWrapperClassNameOldVisualRefresh,
 } from './styled';
 
-const iconWrapperStyleSVG = css({
-	position: 'absolute',
+const iconWrapperStyle = css({
 	display: 'inline-flex',
-	alignItems: 'center',
-	boxSizing: 'border-box',
-	top: token('space.0'),
-	left: token('space.0'),
-	bottom: token('space.0'),
+	font: token('font.body.small'),
+	position: 'absolute',
+	borderRadius: '2px',
+	marginRight: token('space.050'),
+	height: '16px',
 	width: '16px',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
 	userSelect: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'& svg': {
-		display: 'block',
-	},
+});
+
+const iconImageStyle = css({
+	maxHeight: '16px',
+	maxWidth: '16px',
+	width: '100%',
 });
 
 const styles = cssMap({
 	iconEmptyStyle: {
 		width: '16px',
+		height: '100%',
 		display: 'inline-block',
 		opacity: 0,
 	},
 	iconOuterWrapperStyle: {
+		display: 'inline-block',
 		marginRight: token('space.050'),
 		position: 'relative',
 	},
@@ -60,18 +66,6 @@ const styles = cssMap({
 		paddingRight: token('space.050'),
 		paddingBottom: token('space.025'),
 		paddingLeft: token('space.050'),
-	},
-	iconWrapperStyle: {
-		position: 'absolute',
-		display: 'inline-flex',
-		font: token('font.body.small'),
-		alignItems: 'center',
-		boxSizing: 'border-box',
-		top: token('space.0'),
-		left: token('space.0'),
-		bottom: token('space.0'),
-		width: '16px',
-		userSelect: 'none',
 	},
 	linkStyle: {
 		borderRadius: token('border.radius.050'),
@@ -128,11 +122,7 @@ export const IconAndTitleLayout = ({
 	const renderAtlaskitIcon = React.useCallback(() => {
 		if (emoji) {
 			if (fg('platform-linking-visual-refresh-v1')) {
-				return (
-					<Box as="span" xcss={styles.iconWrapperStyle} testId="icon-position-emoji-wrapper">
-						{emoji}
-					</Box>
-				);
+				return emoji;
 			}
 			return <EmojiWrapperOldVisualRefresh>{emoji}</EmojiWrapperOldVisualRefresh>;
 		}
@@ -140,11 +130,7 @@ export const IconAndTitleLayout = ({
 			return null;
 		}
 		if (fg('platform-linking-visual-refresh-v1')) {
-			return (
-				<span css={[iconWrapperStyleSVG]} data-testId="icon-atlaskit-icon-wrapper">
-					{icon}
-				</span>
-			);
+			return icon;
 		}
 		return <IconWrapperOldVisualRefresh>{icon}</IconWrapperOldVisualRefresh>;
 	}, [emoji, icon]);
@@ -219,13 +205,6 @@ export const IconAndTitleLayout = ({
 			}
 			const placeholder = renderIconPlaceholder(testId);
 			const image = renderImageIcon(placeholder, testId);
-			if (fg('platform-linking-visual-refresh-v1')) {
-				return (
-					<Box as="span" xcss={styles.iconWrapperStyle} testId={`${testId}-image-wrapper`}>
-						{image || placeholder}
-					</Box>
-				);
-			}
 			return image || placeholder;
 		},
 		[renderAtlaskitIcon, renderIconPlaceholder, renderImageIcon],
@@ -260,11 +239,21 @@ export const IconAndTitleLayout = ({
 	const titlePart = (
 		<>
 			{fg('platform-linking-visual-refresh-v1') ? (
-				<Box as="span" xcss={styles.iconOuterWrapperStyle} testId="icon-position-wrapper">
+				<Box
+					as="span"
+					// EDM-12119: This is set here to help with the positioning of the icon to be in the middle of inline display.
+					// We cannot set the fix font because inline is taking the parent container font size into account.
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					style={{ lineHeight: `1` }}
+					xcss={styles.iconOuterWrapperStyle}
+					testId="icon-position-wrapper"
+				>
 					{children || (
 						<>
 							<Box as="span" xcss={styles.iconEmptyStyle} testId="icon-empty-wrapper" />
-							{renderIcon(testId)}
+							<span css={[iconWrapperStyle]} data-testId="icon-wrapper">
+								{renderIcon(testId)}
+							</span>
 						</>
 					)}
 				</Box>
@@ -368,8 +357,3 @@ export const LozengeWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
 	// note: This is just to get the types to work due to compiled css weirdness.
 	return <LozengeWrapperOldVisualRefresh {...(props as any)} />;
 };
-
-const iconImageStyle = css({
-	maxHeight: '16px',
-	width: '100%',
-});

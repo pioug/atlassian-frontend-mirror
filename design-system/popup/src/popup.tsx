@@ -76,7 +76,6 @@ export const Popup: FC<PopupProps> = memo(
 		const renderPopperWrapper = (
 			<Layering isDisabled={false}>
 				<PopperWrapper
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 					xcss={xcss}
 					appearance={appearance}
 					content={content}

@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.0.8
+
+### Patch Changes
+
+- [#129314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129314)
+  [`439b876d25b73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/439b876d25b73) -
+  Improved error logging for editor transactions.
+
 ## 5.0.7
 
 ### Patch Changes

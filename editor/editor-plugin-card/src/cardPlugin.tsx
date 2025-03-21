@@ -12,6 +12,7 @@ import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	CONFLUENCE_SEARCH_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CardPlugin } from './cardPluginType';
 import { blockCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/blockCard';
@@ -175,8 +176,16 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 
 				quickInsertArray.push({
 					id: 'datasource',
-					title: formatMessage(messages.datasourceJiraIssue),
-					description: formatMessage(messages.datasourceJiraIssueDescription),
+					title: formatMessage(
+						fg('confluence-issue-terminology-refresh')
+							? messages.datasourceJiraIssueIssueTermRefresh
+							: messages.datasourceJiraIssue,
+					),
+					description: formatMessage(
+						fg('confluence-issue-terminology-refresh')
+							? messages.datasourceJiraIssueDescriptionIssueTermRefresh
+							: messages.datasourceJiraIssueDescription,
+					),
 					isDisabledOffline: true,
 					categories: ['external-content', 'development'],
 					keywords: ['jira'],

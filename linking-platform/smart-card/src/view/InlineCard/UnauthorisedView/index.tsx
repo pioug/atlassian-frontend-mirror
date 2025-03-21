@@ -27,10 +27,6 @@ import withFrameStyleControl from '../utils/withFrameStyleControl';
 
 const styles = cssMap({
 	iconWrapper: { marginRight: token('space.negative.025') },
-	fallbackIconWrapper: {
-		marginRight: token('space.negative.025'),
-		display: 'inline flex',
-	},
 });
 
 export interface InlineCardUnauthorizedViewProps {
@@ -61,14 +57,12 @@ export interface InlineCardUnauthorizedViewProps {
 const fallbackUnauthorizedIcon = () => {
 	if (fg('platform-linking-visual-refresh-v1')) {
 		return (
-			<Box as="span" xcss={styles.fallbackIconWrapper}>
-				<LockLockedIcon
-					color={token('color.icon.danger')}
-					label="error"
-					LEGACY_fallbackIcon={LegacyLockIcon}
-					LEGACY_size="small"
-				/>
-			</Box>
+			<LockLockedIcon
+				color={token('color.icon.danger')}
+				label="error"
+				LEGACY_fallbackIcon={LegacyLockIcon}
+				LEGACY_size="small"
+			/>
 		);
 	}
 

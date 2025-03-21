@@ -120,7 +120,11 @@ function createPlaceHolderStateFrom(
 			}
 		}
 
-		const isEmptyNode = parentNode?.childCount === 1 && parentNode.firstChild?.content.size === 0;
+		const isEmptyNode =
+			parentNode?.childCount === 1 &&
+			parentNode.firstChild?.content.size === 0 &&
+			parentNode.firstChild?.type.name === 'paragraph';
+
 		if (nodeTypesWithShortPlaceholderText.includes(parentType) && isEmptyNode) {
 			return setPlaceHolderState(SHORT_NODE_PLACEHOLDER_TEXT, $from.pos);
 		}

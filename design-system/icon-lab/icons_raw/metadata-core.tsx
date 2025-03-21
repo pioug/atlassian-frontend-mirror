@@ -55,6 +55,16 @@ const metadata: IconMetadata = {
 		usage: 'Reserved for continue when delay in automation.',
 		slackChannel: '#help-automation-design',
 	},
+	'dock-toolbar-top': {
+		keywords: ['dock to top', 'fix to top', 'pin to top'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Editor-design',
+		type: 'core',
+		status: 'published',
+		usage: 'Reserved for docking a toolbar to the top of a page',
+		slackChannel: '#Editor-design',
+	},
 	'drop-shadow': {
 		keywords: ['Drop shadow'],
 		categorization: 'single-purpose',

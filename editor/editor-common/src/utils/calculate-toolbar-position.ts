@@ -1,4 +1,6 @@
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PopupPosition as Position } from '../ui';
@@ -160,3 +162,88 @@ export type CoordsAtPos = {
 	left: number;
 	right: number;
 };
+
+const cellSelectionToolbarCffsetTop = 10;
+const scrollbarWidth = 20;
+export const calculateToolbarPositionOnCellSelection =
+	(toolbarTitle: string) =>
+	(editorView: EditorView, nextPos: Position): Position => {
+		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`);
+		if (!toolbar) {
+			return nextPos;
+		}
+
+		const { selection } = editorView.state;
+		if (!(selection instanceof CellSelection)) {
+			return nextPos;
+		}
+
+		const { $anchorCell, $headCell } = selection;
+		const domAtPos = editorView.domAtPos.bind(editorView);
+		const anchorCellDOM = findDomRefAtPos($anchorCell.pos, domAtPos);
+		const headCellDOM = findDomRefAtPos($headCell.pos, domAtPos);
+		if (!(anchorCellDOM instanceof HTMLElement) || !(headCellDOM instanceof HTMLElement)) {
+			return nextPos;
+		}
+
+		const anchorCellRect = anchorCellDOM.getBoundingClientRect();
+		const headCellRect = headCellDOM.getBoundingClientRect();
+		const toolbarRect = toolbar.getBoundingClientRect();
+
+		let top;
+		if (headCellRect.top <= anchorCellRect.top) {
+			// Display Selection toolbar at the top of the selection
+			top = headCellRect.top - toolbarRect.height - cellSelectionToolbarCffsetTop;
+		} else {
+			// Display Selection toolbar at the bottom of the selection
+			top = headCellRect.bottom + cellSelectionToolbarCffsetTop;
+		}
+
+		// scroll wrapper for full page, fall back to document body
+		// Ignored via go/ees007
+		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+		// TODO: look into using getScrollGutterOptions()
+		const scrollWrapper =
+			editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
+		const wrapperBounds = scrollWrapper.getBoundingClientRect();
+		// Place toolbar below selection if not sufficient space above
+		if (top < wrapperBounds.top && headCellRect.top <= anchorCellRect.top) {
+			top = anchorCellRect.bottom + cellSelectionToolbarCffsetTop;
+		}
+
+		let left;
+		if (headCellRect.left < anchorCellRect.left) {
+			left = headCellRect.left;
+		} else if (headCellRect.left === anchorCellRect.left) {
+			left = headCellRect.left + headCellRect.width / 2;
+		} else {
+			left = headCellRect.right;
+		}
+
+		// If a user selected multiple columns via clicking on a drag handle
+		// (clicking first on the left column and then shift clicking on the right column),
+		// the $headcell stays in place and $anchorcell changes position. If they clicked on the right column
+		// and then shift clicked on the left, the $headCell will change while $anchor stays in place.
+		// Where is no way to know if user was dragging to select the cells or clicking on the drag handle.
+		// So if all cells in columns are selected, we will align the Text Formatting toolbar
+		// relative to center of the selected area.
+		if (selection.isColSelection()) {
+			if (headCellRect.left < anchorCellRect.left) {
+				left = headCellRect.left + (anchorCellRect.right - headCellRect.left) / 2;
+			} else if (headCellRect.left === anchorCellRect.left) {
+				left = left;
+			} else {
+				left = anchorCellRect.left + (headCellRect.right - anchorCellRect.left) / 2;
+			}
+		}
+
+		let adjustedLeft = Math.max(0, left - toolbarRect.width / 2 - wrapperBounds.left);
+		if (adjustedLeft + toolbarRect.width > wrapperBounds.width) {
+			adjustedLeft = Math.max(0, wrapperBounds.width - (toolbarRect.width + scrollbarWidth));
+		}
+
+		return {
+			top: top - wrapperBounds.top + scrollWrapper.scrollTop,
+			left: adjustedLeft,
+		};
+	};

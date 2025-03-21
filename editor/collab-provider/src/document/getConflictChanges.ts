@@ -73,11 +73,14 @@ const getConflicts = ({
 					localChange.toA > remoteChange.fromA &&
 					localChange.toA <= remoteChange.toA)
 			) {
+				const remoteSlice = remoteDoc.slice(remoteChange.fromB, remoteChange.toB);
+				const isDeletion = remoteSlice.size === 0;
 				conflictingChanges.push({
 					from: Math.min(localChange.fromA, remoteChange.fromA),
 					to: Math.max(localChange.toA, remoteChange.toA),
-					local: localDoc.slice(localChange.fromB, localChange.toB, true),
-					remote: remoteDoc.slice(remoteChange.fromB, remoteChange.toB),
+					// We only want to capture the exact slice deleted (without parents) so we can display and insert as expected
+					local: localDoc.slice(localChange.fromB, localChange.toB, !isDeletion),
+					remote: remoteSlice,
 				});
 			}
 		});

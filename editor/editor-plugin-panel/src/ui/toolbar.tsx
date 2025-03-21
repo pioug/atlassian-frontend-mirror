@@ -32,20 +32,15 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import DiscoveryIcon from '@atlaskit/icon/core/discovery';
 import EmojiRemoveIcon from '@atlaskit/icon/core/emoji-remove';
-import InformationIcon from '@atlaskit/icon/core/information';
-import SuccessIcon from '@atlaskit/icon/core/success';
-import WarningIcon from '@atlaskit/icon/core/warning';
-import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
-import InfoIcon from '@atlaskit/icon/glyph/editor/info';
-import LegacyNoteIcon from '@atlaskit/icon/glyph/editor/note';
+import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle--editor-error';
+import DiscoveryIcon from '@atlaskit/icon/core/migration/discovery--editor-note';
+import InformationIcon from '@atlaskit/icon/core/migration/information--editor-info';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
+import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
-import LegacySuccessIcon from '@atlaskit/icon/glyph/editor/success';
-import LegacyWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
@@ -93,7 +88,6 @@ export const getToolbarItems = (
 					id: 'editor.panel.info',
 					type: 'button',
 					icon: InformationIcon,
-					iconFallback: InfoIcon,
 					onClick: changePanelType(editorAnalyticsAPI)(PanelType.INFO),
 					selected: activePanelType === PanelType.INFO,
 					title: formatMessage(messages.info),
@@ -103,7 +97,6 @@ export const getToolbarItems = (
 					id: 'editor.panel.note',
 					type: 'button',
 					icon: DiscoveryIcon,
-					iconFallback: LegacyNoteIcon,
 					onClick: changePanelType(editorAnalyticsAPI)(PanelType.NOTE),
 					selected: activePanelType === PanelType.NOTE,
 					title: formatMessage(messages.note),
@@ -113,7 +106,6 @@ export const getToolbarItems = (
 					id: 'editor.panel.success',
 					type: 'button',
 					icon: SuccessIcon,
-					iconFallback: LegacySuccessIcon,
 					onClick: changePanelType(editorAnalyticsAPI)(PanelType.SUCCESS),
 					selected: activePanelType === PanelType.SUCCESS,
 					title: formatMessage(messages.success),
@@ -123,7 +115,6 @@ export const getToolbarItems = (
 					id: 'editor.panel.warning',
 					type: 'button',
 					icon: WarningIcon,
-					iconFallback: LegacyWarningIcon,
 					onClick: changePanelType(editorAnalyticsAPI)(PanelType.WARNING),
 					selected: activePanelType === PanelType.WARNING,
 					title: formatMessage(messages.warning),
@@ -133,7 +124,6 @@ export const getToolbarItems = (
 					id: 'editor.panel.error',
 					type: 'button',
 					icon: CrossCircleIcon,
-					iconFallback: ErrorIcon,
 					onClick: changePanelType(editorAnalyticsAPI)(PanelType.ERROR),
 					selected: activePanelType === PanelType.ERROR,
 					title: formatMessage(messages.error),
@@ -302,8 +292,9 @@ export const getToolbarItems = (
 			const removeEmojiButton: FloatingToolbarButton<Command> = {
 				id: 'editor.panel.removeEmoji',
 				type: 'button',
-				icon: EmojiRemoveIcon,
-				iconFallback: RemoveEmojiIcon,
+				icon: () => (
+					<EmojiRemoveIcon LEGACY_fallbackIcon={RemoveEmojiIcon} spacing={'spacious'} label={''} />
+				),
 				onClick: removeEmoji(),
 				title: formatMessage(commonMessages.removeEmoji),
 				disabled: activePanelIcon ? false : true,
@@ -340,8 +331,7 @@ export const getToolbarItems = (
 				type: 'button',
 				appearance: 'danger',
 				focusEditoronEnter: true,
-				icon: DeleteIcon,
-				iconFallback: RemoveIcon,
+				icon: () => <DeleteIcon LEGACY_fallbackIcon={RemoveIcon} spacing={'spacious'} label={''} />,
 				onClick: removePanel(editorAnalyticsAPI),
 				onMouseEnter: hoverDecoration?.(panelNodeType, true),
 				onMouseLeave: hoverDecoration?.(panelNodeType, false),

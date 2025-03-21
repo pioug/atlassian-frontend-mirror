@@ -17,6 +17,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { AddMarkStep, Step } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
@@ -26,6 +27,9 @@ import {
 	resolveDraftBookmark,
 } from '../pm-plugins/utils';
 import type { InlineCommentInputMethod } from '../types';
+
+const isAnnotationStep = (step: Step): step is AddMarkStep =>
+	step instanceof AddMarkStep && step.mark.type.name === 'annotation';
 
 const addAnnotationMark =
 	(id: string, supportedBlockNodes?: string[]) =>
@@ -50,8 +54,16 @@ const addAnnotationMark =
 		} else {
 			// Apply the mark only to text node in the range.
 			const tr = applyMarkOnRange(from, to, false, annotationMark, transaction);
-			// set selection back to the end of annotation once annotation mark is applied
-			tr.setSelection(TextSelection.create(tr.doc, head));
+
+			// The mark may not be applied to the current "head" of the bookmark so determine what was applied
+			// above and use that instead
+			if (fg('platform_editor_fix_missing_selected_annotations')) {
+				const annotationMarkStep = tr.steps.reverse().find(isAnnotationStep);
+				const headBasedOnMark = from === head ? annotationMarkStep?.from : annotationMarkStep?.to;
+				tr.setSelection(TextSelection.create(tr.doc, headBasedOnMark ?? head));
+			} else {
+				tr.setSelection(TextSelection.create(tr.doc, head));
+			}
 		}
 		return tr;
 	};

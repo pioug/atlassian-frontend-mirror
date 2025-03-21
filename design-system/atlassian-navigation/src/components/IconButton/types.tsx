@@ -11,6 +11,11 @@ export type IconButtonProps = BaseIconButtonProps & {
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	theme?: CustomThemeButtonProps['theme'];
+
+	/**
+	 * Controls tooltip announcement
+	 */
+	isTooltipAnnouncementDisabled?: boolean;
 };
 
 /**

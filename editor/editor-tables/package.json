@@ -55,6 +55,9 @@
 		},
 		"platform_editor_cell_selection_with_nested_tables": {
 			"type": "boolean"
+		},
+		"platform_editor_paste_full_table_inside_empty_cell": {
+			"type": "boolean"
 		}
 	},
 	"af:exports": {

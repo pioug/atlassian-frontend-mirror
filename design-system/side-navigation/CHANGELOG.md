@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 7.0.0
+
+### Major Changes
+
+- [#129933](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129933)
+  [`67ff94142c5ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67ff94142c5ad) -
+  Removes the deprecated cssFn prop from the Header and Footer components.
+
 ## 6.0.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.0.4
+
+### Patch Changes
+
+- [#128626](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128626)
+  [`142648610a166`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/142648610a166) -
+  Fixes the `consistent-css-prop-usage` rule to allow `xcss` pass-through values to the `xcss` prop.
+
 ## 13.0.3
 
 ### Patch Changes

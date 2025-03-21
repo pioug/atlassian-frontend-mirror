@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.1.8
+
+### Patch Changes
+
+- [#129644](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129644)
+  [`f3daef1b37b2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3daef1b37b2f) -
+  Fix setting the annotation selection after adding a comment if it is no longer in the annotation.
+- Updated dependencies
+
 ## 2.1.7
 
 ### Patch Changes

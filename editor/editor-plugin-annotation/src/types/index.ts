@@ -127,6 +127,27 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 
 export interface AnnotationProviders {
 	inlineComment: InlineCommentAnnotationProvider;
+	// This is a limited version of the comment experience setup
+	// in Confluence, and used to track the success of comment creation.
+	createCommentExperience?: {
+		start: (_: {
+			attributes:
+				| {
+						pageClass: 'editor';
+						commentType: 'inline';
+						annotationId?: undefined;
+				  }
+				| {
+						pageClass: 'editor';
+						commentType: 'block';
+						blockType: 'media';
+						annotationId?: undefined;
+				  };
+		}) => void;
+		initExperience: {
+			start: () => void;
+		};
+	};
 }
 
 export enum AnnotationSelectionType {

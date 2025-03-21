@@ -163,8 +163,8 @@ const checkboxStyles = css({
  * - [Usage](https://atlassian.design/components/checkbox/usage)
  */
 const Checkbox = memo(
-	forwardRef(function Checkbox(props: CheckboxProps, ref: Ref<HTMLInputElement>) {
-		const {
+	forwardRef(function Checkbox(
+		{
 			isChecked: isCheckedProp,
 			isDisabled = false,
 			isInvalid = false,
@@ -180,8 +180,9 @@ const Checkbox = memo(
 			xcss,
 			className,
 			...rest
-		} = props;
-
+		}: CheckboxProps,
+		ref: Ref<HTMLInputElement>,
+	) {
 		const [isCheckedState, setIsCheckedState] = useState(
 			isCheckedProp !== undefined ? isCheckedProp : defaultChecked,
 		);
@@ -225,7 +226,6 @@ const Checkbox = memo(
 				testId={testId && `${testId}--checkbox-label`}
 				// Currently the rule hasn't been updated to enable "allowed" dynamic pass-throughs.
 				// When there is more usage of this pattern we'll update the lint rule.
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				xcss={xcss}
 			>
 				<input

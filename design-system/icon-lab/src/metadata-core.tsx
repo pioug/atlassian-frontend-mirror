@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::4a6170fbc685767c604dee93238971ec>>
+ * @codegen <<SignedSource::ddb6001562b8cd2a0fb889a0aa3e5751>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -491,6 +491,25 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Insert divider element in Confluence',
 		team: 'editor-design',
 		slackChannel: '#editor-controls-project',
+	},
+	'dock-toolbar-top': {
+		keywords: [
+			'dock-toolbar-top',
+			'docktoolbartop',
+			'icon',
+			'icon-lab',
+			'core',
+			'dock to top',
+			'fix to top',
+			'pin to top',
+		],
+		componentName: 'DockToolbarTopIcon',
+		package: '@atlaskit/icon-lab/core/dock-toolbar-top',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for docking a toolbar to the top of a page',
+		team: 'Editor-design',
+		slackChannel: '#Editor-design',
 	},
 	'drop-shadow': {
 		keywords: ['drop-shadow', 'dropshadow', 'icon', 'icon-lab', 'core', 'Drop shadow'],

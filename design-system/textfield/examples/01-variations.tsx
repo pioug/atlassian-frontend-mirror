@@ -64,6 +64,14 @@ export default function VariationsExample() {
 			<label htmlFor="placeholder">Placeholder</label>
 			<Textfield testId="placeholder" id="placeholder" placeholder="Click here to input..." />
 
+			<label htmlFor="placeholder-disabled">Placeholder disabled</label>
+			<Textfield
+				testId="placeholder-disabled"
+				isDisabled
+				id="placeholder-disabled"
+				placeholder="Click here to input..."
+			/>
+
 			<label htmlFor="auto-focus">Auto Focus</label>
 			<Textfield testId="auto-focus" autoFocus defaultValue="Text is normal font" id="auto-focus" />
 

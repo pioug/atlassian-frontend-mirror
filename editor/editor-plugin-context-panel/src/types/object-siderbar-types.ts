@@ -18,10 +18,13 @@ export type ObjectSidebarPanel = {
 	id: string;
 	headerComponentElements: {
 		HeaderIcon?: PanelElement;
-		headerLabel: MessageDescriptor;
+		headerLabel?: MessageDescriptor;
 		HeaderAfterIconElement?: PanelElement;
 		HeaderRightAlignedElement?: PanelElement;
 		HeaderBeforeIconElement?: PanelElement;
+		headerStyles?: {
+			setGrayBackground?: boolean;
+		};
 	};
 	BodyComponent: PanelElement;
 	FooterComponent?: PanelElement;

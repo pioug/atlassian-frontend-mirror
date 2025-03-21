@@ -31,4 +31,9 @@ export const utilMessages = defineMessages({
 		defaultMessage: 'Blog',
 		description: 'icon label for a confluence blog',
 	},
+	hyperlinkIconIssueLabelIssueTermRefresh: {
+		id: 'fabric.editor.headingLink.hyperlinkIconIssueLabel.issue-term-refresh',
+		defaultMessage: 'Work Item',
+		description: 'icon label for a jira issue',
+	},
 });

@@ -30,6 +30,9 @@
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon-lab/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/menu/afm-post-office/tsconfig.json"
 		},
 		{

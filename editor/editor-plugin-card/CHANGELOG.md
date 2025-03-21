@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.0
+
+### Minor Changes
+
+- [#129544](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129544)
+  [`2c661f18440df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c661f18440df) -
+  [ux] Rebranded the term Issue to Work item as part of issue terminology refresh
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.6
+
+### Patch Changes
+
+- [#129581](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129581)
+  [`28d3a33252273`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28d3a33252273) -
+  [ux] Update open button on short link
+- Updated dependencies
+
 ## 5.3.5
 
 ### Patch Changes

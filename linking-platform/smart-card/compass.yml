@@ -28,15 +28,5 @@ links:
 relationships: {}
 labels:
   - atlassian-platform
-customFields:
-  - name: Dev Owner
-    type: user
-    value: null
-  - name: Product
-    type: text
-    value: null
-  - name: Test
-    type: text
-    value: null
 # Learn more about formatting compass.yml:
 # https://go.atlassian.com/compass-yml-format

@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.5.1
+
+### Patch Changes
+
+- [#127074](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127074)
+  [`9bb9fc17a4eaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bb9fc17a4eaa) -
+  Update dependencies and remove unused internal exports.
+
 ## 4.5.0
 
 ### Minor Changes

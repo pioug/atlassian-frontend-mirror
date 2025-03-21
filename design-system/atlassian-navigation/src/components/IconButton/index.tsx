@@ -38,6 +38,7 @@ export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
 			onMouseUp,
 			target,
 			theme,
+			isTooltipAnnouncementDisabled = false,
 			...rest
 		} = props;
 		const themeFromContext = useTheme();
@@ -72,7 +73,11 @@ export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
 
 		if (tooltip) {
 			return (
-				<Tooltip content={tooltip} hideTooltipOnClick>
+				<Tooltip
+					content={tooltip}
+					hideTooltipOnClick
+					isScreenReaderAnnouncementDisabled={isTooltipAnnouncementDisabled}
+				>
 					{button}
 				</Tooltip>
 			);

@@ -1,5 +1,13 @@
 # @atlaskit/textfield
 
+## 8.0.3
+
+### Patch Changes
+
+- [#129364](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129364)
+  [`998814482368f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/998814482368f) -
+  Internal changes to placeholder text color for disabled text fields.
+
 ## 8.0.2
 
 ### Patch Changes

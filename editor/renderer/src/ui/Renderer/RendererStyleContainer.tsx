@@ -77,8 +77,6 @@ const LAYOUT_BREAKPOINT_RENDERER = 629;
 // TODO: tableRowHeight can be moved into `@atlaskit/editor-common/table`
 const tableRowHeight = 44;
 
-const { typography } = getGlobalTheme();
-
 const isBackgroundClipBrowserFixNeeded = () =>
 	browser.isGecko || browser.isIE || (browser.isMac && browser.isChrome);
 
@@ -456,61 +454,70 @@ const headingsSharedStyles = css({
 	},
 });
 
-// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
-// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-// TODO: emotion refactor - check if we need UGC token?
 const headingsSharedStylesWithEditorUGC = css({
 	'& h1': {
-		font: editorUGCToken('editor.font.heading.h1', typography),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-heading-h1)`,
 		marginBottom: 0,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginTop: '1.45833em',
 		'& strong': {
-			fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typography),
+			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			fontWeight: token('font.weight.bold'),
 		},
 		'&::before': {},
 	},
 	'& h2': {
-		font: editorUGCToken('editor.font.heading.h2', typography),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-heading-h2)`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginTop: '1.4em',
 		marginBottom: 0,
 		'& strong': {
-			fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typography),
+			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			fontWeight: token('font.weight.bold'),
 		},
 	},
 	'& h3': {
-		font: editorUGCToken('editor.font.heading.h3', typography),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-heading-h3)`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginTop: '1.31249em',
 		marginBottom: 0,
 		'& strong': {
-			fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typography),
+			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			fontWeight: token('font.weight.bold'),
 		},
 	},
 	'& h4': {
-		font: editorUGCToken('editor.font.heading.h4', typography),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-heading-h4)`,
 		marginTop: token('space.250', '1.25em'),
 		'& strong': {
-			fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typography),
+			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			fontWeight: token('font.weight.bold'),
 		},
 	},
 	'& h5': {
-		font: editorUGCToken('editor.font.heading.h5', typography),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-heading-h5)`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginTop: '1.45833em',
 		textTransform: 'none',
 		'& strong': {
-			fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typography),
+			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			fontWeight: token('font.weight.bold'),
 		},
 	},
 	'& h6': {
-		font: editorUGCToken('editor.font.heading.h6', typography),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-heading-h6)`,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginTop: '1.59091em',
 		textTransform: 'none',
 		'& strong': {
-			fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typography),
+			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			fontWeight: token('font.weight.bold'),
 		},
 	},
 });
@@ -573,7 +580,8 @@ const ruleSharedStyles = css({
 
 const paragraphSharedStylesWithEditorUGC = css({
 	'& p': {
-		font: editorUGCToken('editor.font.body', typography),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		font: `var(--ak-renderer-editor-font-normal-text)`,
 		marginTop: blockNodesVerticalMargin,
 		marginBottom: 0,
 	},
@@ -1966,6 +1974,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 	} = props;
 
 	const isAdvancedLayoutsOn = editorExperiment('advanced_layouts', true);
+	const { typography } = getGlobalTheme();
 
 	if (fg('platform_editor_emotion_refactor_renderer')) {
 		return (
@@ -1977,6 +1986,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				style={
 					{
 						'--ak-renderer-base-font-size': `${getBaseFontSize(appearance)}px`,
+						'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1', typography)}`,
+						'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2', typography)}`,
+						'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3', typography)}`,
+						'--ak-renderer-editor-font-heading-h4': `${editorUGCToken('editor.font.heading.h4', typography)}`,
+						'--ak-renderer-editor-font-heading-h5': `${editorUGCToken('editor.font.heading.h5', typography)}`,
+						'--ak-renderer-editor-font-heading-h6': `${editorUGCToken('editor.font.heading.h6', typography)}`,
+						'--ak-renderer-editor-font-normal-text': `${editorUGCToken('editor.font.body', typography)}`,
 					} as React.CSSProperties
 				}
 				css={[

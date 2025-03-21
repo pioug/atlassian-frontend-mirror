@@ -104,6 +104,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 						intl,
 						isToolbarAbove,
 						api,
+						createCommentExperience: annotationProviders.createCommentExperience,
 					});
 
 					if (!toolbarConfig) {

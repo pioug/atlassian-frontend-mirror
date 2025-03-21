@@ -168,4 +168,15 @@ export const messages = defineMessages({
 		description:
 			'Description text displayed when selecting the type of data to include onto the page, in this case: Confluence Search objects',
 	},
+	datasourceJiraIssueIssueTermRefresh: {
+		id: 'fabric.editor.datasource.jiraIssue.issue-term-refresh',
+		defaultMessage: 'Jira Work Items',
+		description: 'Insert a jira datasource table (Issue Terminology Refresh)',
+	},
+	datasourceJiraIssueDescriptionIssueTermRefresh: {
+		id: 'fabric.editor.datasource.jiraIssue.description.issue-term-refresh',
+		defaultMessage:
+			'Insert Jira work items from Jira Cloud with enhanced search, filtering, and configuration.',
+		description: 'Insert a jira datasource table (Issue Terminology Refresh)',
+	},
 });

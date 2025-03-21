@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.3.0
+
+### Minor Changes
+
+- [#128788](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128788)
+  [`83a4d1ba203b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83a4d1ba203b0) -
+  [ux] update icons
+
 ## 4.2.11
 
 ### Patch Changes

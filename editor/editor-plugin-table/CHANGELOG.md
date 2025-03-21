@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 10.5.0
+
+### Minor Changes
+
+- [#128788](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128788)
+  [`83a4d1ba203b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83a4d1ba203b0) -
+  [ux] update icons
+
+## 10.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.4.6
 
 ### Patch Changes

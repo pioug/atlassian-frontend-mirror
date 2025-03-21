@@ -1,5 +1,19 @@
 # @atlaskit/icon-lab
 
+## 4.2.0
+
+### Minor Changes
+
+- [#128651](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128651)
+  [`c4f1582cdbfc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4f1582cdbfc4) -
+  This release adds and updates icons in `@atlaskit/icon-lab`
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `dock-toolbar-top`
+
 ## 4.1.0
 
 ### Minor Changes

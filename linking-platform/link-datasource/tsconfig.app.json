@@ -162,6 +162,9 @@
 			"path": "../../design-system/tag/tsconfig.app.json"
 		},
 		{
+			"path": "../../navigation/temp-nav-app-icons/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{

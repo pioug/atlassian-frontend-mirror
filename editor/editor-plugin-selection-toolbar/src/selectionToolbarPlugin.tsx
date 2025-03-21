@@ -12,6 +12,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import {
 	calculateToolbarPositionAboveSelection,
+	calculateToolbarPositionOnCellSelection,
 	calculateToolbarPositionTrackHead,
 } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -183,6 +184,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					state,
 				) as SelectionToolbarPluginState;
 
+				const isCellSelection = '$anchorCell' in state.selection;
 				if (
 					state.selection.empty ||
 					!selectionStable ||
@@ -190,7 +192,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					state.selection instanceof NodeSelection ||
 					// $anchorCell is only available in CellSelection, this check is to
 					// avoid importing CellSelection from @atlaskit/editor-tables
-					'$anchorCell' in state.selection
+					(isCellSelection && editorExperiment('platform_editor_controls', 'control')) // for Editor Controls we want to show the toolbar on CellSelection
 				) {
 					// If there is no active selection, or the selection is not stable, or the selection is a node selection,
 					// do not show the toolbar.
@@ -249,12 +251,21 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					items.push(...getOverflowFloatingToolbarConfig({ api, toolbarDocking }));
 				}
 
-				const calcToolbarPosition = config.preferenceToolbarAboveSelection
-					? calculateToolbarPositionAboveSelection
-					: calculateToolbarPositionTrackHead;
+				let onPositionCalculated;
 				const toolbarTitle = 'Selection toolbar';
-				const onPositionCalculated = calcToolbarPosition(toolbarTitle);
+
+				if (isCellSelection && editorExperiment('platform_editor_controls', 'variant1')) {
+					onPositionCalculated = calculateToolbarPositionOnCellSelection(toolbarTitle);
+				} else {
+					const calcToolbarPosition = config.preferenceToolbarAboveSelection
+						? calculateToolbarPositionAboveSelection
+						: calculateToolbarPositionTrackHead;
+
+					onPositionCalculated = calcToolbarPosition(toolbarTitle);
+				}
+
 				const nodeType = getSelectionNodeTypes(state);
+
 				return {
 					title: 'Selection toolbar',
 					nodeType: nodeType,

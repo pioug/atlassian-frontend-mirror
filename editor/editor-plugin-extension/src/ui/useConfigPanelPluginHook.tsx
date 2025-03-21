@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import {
 	type ExtensionProvider,
-	configPanelMessages,
 	getExtensionKeyAndNodeKey,
 } from '@atlaskit/editor-common/extensions';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -55,6 +54,12 @@ export function useConfigPanelPluginHook({
 			}
 		}
 	}, [api, editorState, editorView, extensionState]);
+
+	useEffect(() => {
+		return () => {
+			hideConfigPanel(api);
+		};
+	}, [api]);
 }
 
 export function hideConfigPanel(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) {
@@ -118,12 +123,16 @@ export function showConfigPanel({
 				id: CONFIG_PANEL_ID,
 				headerComponentElements: {
 					HeaderIcon: HeadeIconWrapper,
-					headerLabel: configPanelMessages.objectSidebarPanelHeaderLabel,
 					HeaderAfterIconElement: HeaderAfterIconElementWrapper,
 				},
 				BodyComponent,
 				closeOptions: {
 					canClosePanel: () => {
+						// When navigating away from the editor, the editorView is destroyed.
+						if (editorView.isDestroyed) {
+							return true;
+						}
+
 						const extensionState = getPluginState(editorView.state);
 						/**
 						 * 	If context panel is open, then first update extension plugin state.

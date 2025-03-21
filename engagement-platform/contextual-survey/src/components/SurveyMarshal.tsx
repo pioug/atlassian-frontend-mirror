@@ -37,7 +37,7 @@ const getAnimationProps = (state: TransitionState) => {
 	}
 };
 
-type Props = {
+export type Props = {
 	/** Whether the form should be rendered */
 	shouldShow: boolean;
 	/** A function that returns Node to be rendered (`<ContextualSurvey/>`)

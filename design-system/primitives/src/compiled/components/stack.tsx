@@ -99,12 +99,7 @@ const Stack = memo(
 					direction="column"
 					alignItems={alignItems}
 					justifyContent={spread || alignBlock}
-					xcss={cx(
-						grow === 'hug' && styles.hug,
-						grow === 'fill' && styles.fill,
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- TODO: We need to handle pass-through `xcss` => `xcss` here.
-						xcss,
-					)}
+					xcss={cx(grow === 'hug' && styles.hug, grow === 'fill' && styles.fill, xcss)}
 					testId={testId}
 					ref={ref}
 				>

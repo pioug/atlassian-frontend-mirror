@@ -178,18 +178,11 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	const ariaResults = useMemo(() => {
 		let resultsMsg = '';
 		if (menuIsOpen && options.length && !isLoading && messages.onFilter) {
-			const shouldAnnounceAvailableResults = !focusableOptions.length;
-			if (
-				(shouldAnnounceAvailableResults && fg('design_system_select-a11y-improvement')) ||
-				!fg('design_system_select-a11y-improvement')
-			) {
-				// only announce no option results when ff is on
-				const resultsMessage = screenReaderStatus({
-					count: focusableOptions.length,
-				});
+			const resultsMessage = screenReaderStatus({
+				count: focusableOptions.length,
+			});
 
-				resultsMsg = messages.onFilter({ inputValue, resultsMessage });
-			}
+			resultsMsg = messages.onFilter({ inputValue, resultsMessage });
 		}
 
 		return resultsMsg;
@@ -233,9 +226,9 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	const ScreenReaderText = (
 		<Fragment>
 			<span id="aria-selection">{ariaSelected}</span>
+			<span id="aria-results">{ariaResults}</span>
 			{!fg('design_system_select-a11y-improvement') && (
 				<>
-					<span id="aria-results">{ariaResults}</span>
 					<span id="aria-focused">{ariaFocused}</span>
 					<span id="aria-guidance">{ariaGuidance}</span>
 				</>

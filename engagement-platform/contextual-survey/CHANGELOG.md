@@ -1,5 +1,12 @@
 # @atlaskit/contextual-survey
 
+## 3.1.0
+
+### Minor Changes
+
+- Migrate from @emotion/react to @compiled/react, enabled by feature gate: platform_contextual_survey_enable_compiled_fg
+
+
 ## 3.0.4
 
 ### Patch Changes

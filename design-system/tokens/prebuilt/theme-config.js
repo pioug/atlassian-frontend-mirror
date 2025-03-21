@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.themeStateDefaults = exports.themeOverrideIds = exports.themeIdsWithOverrides = exports.themeIds = exports.themeContrastModes = exports.themeColorModes = exports.default = void 0;
+exports.themeStateDefaults = exports.themeIdsWithOverrides = exports.themeIds = exports.themeColorModes = exports.default = void 0;
 var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 /**
  * This file contains the source of truth for themes and all associated meta data.
@@ -38,7 +38,7 @@ var themeColorModes = exports.themeColorModes = ['light', 'dark', 'auto'];
 /**
  * Contrast preferences: The system contrast preference
  */
-var themeContrastModes = exports.themeContrastModes = ['more', 'no-preference', 'auto'];
+var themeContrastModes = ['more', 'no-preference', 'auto'];
 /**
  * Theme ids: The value that will be mounted to the DOM as a data attr
  * For example: `data-theme="light:light dark:dark spacing:spacing"
@@ -50,7 +50,7 @@ var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-f
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
  */
-var themeOverrideIds = exports.themeOverrideIds = [];
+var themeOverrideIds = [];
 var themeIdsWithOverrides = exports.themeIdsWithOverrides = [].concat(themeIds, themeOverrideIds);
 
 /**

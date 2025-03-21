@@ -65,36 +65,29 @@ export function argbFromLinrgb(linrgb: number[]): number {
 /**
  * Returns the alpha component of a color in ARGB format.
  */
-export function alphaFromArgb(argb: number): number {
+function alphaFromArgb(argb: number): number {
 	return (argb >> 24) & 255;
 }
 
 /**
  * Returns the red component of a color in ARGB format.
  */
-export function redFromArgb(argb: number): number {
+function redFromArgb(argb: number): number {
 	return (argb >> 16) & 255;
 }
 
 /**
  * Returns the green component of a color in ARGB format.
  */
-export function greenFromArgb(argb: number): number {
+function greenFromArgb(argb: number): number {
 	return (argb >> 8) & 255;
 }
 
 /**
  * Returns the blue component of a color in ARGB format.
  */
-export function blueFromArgb(argb: number): number {
+function blueFromArgb(argb: number): number {
 	return argb & 255;
-}
-
-/**
- * Returns whether a color in ARGB format is opaque.
- */
-export function isOpaque(argb: number): boolean {
-	return alphaFromArgb(argb) >= 255;
 }
 
 /**
@@ -114,7 +107,7 @@ export function argbFromXyz(x: number, y: number, z: number): number {
 /**
  * Converts a color from XYZ to ARGB.
  */
-export function xyzFromArgb(argb: number): number[] {
+function xyzFromArgb(argb: number): number[] {
 	const r = linearized(redFromArgb(argb));
 	const g = linearized(greenFromArgb(argb));
 	const b = linearized(blueFromArgb(argb));
@@ -228,7 +221,7 @@ export function whitePointD65(): number[] {
  * @param b Blue value should be between 0-255
  * @param a Alpha value should be between 0-255
  */
-export interface Rgba {
+interface Rgba {
 	r: number;
 	g: number;
 	b: number;

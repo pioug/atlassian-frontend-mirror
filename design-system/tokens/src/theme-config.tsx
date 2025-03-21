@@ -40,7 +40,7 @@ export type ThemeOverrides = Themes;
  * Some themes are entirely focused on Color, whilst others are purely focused on spacing.
  * In the future other types may be introduced such as typography.
  */
-export type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape';
+type ThemeKinds = 'color' | 'spacing' | 'typography' | 'shape';
 
 /**
  * Theme modes: The general purpose of a theme.
@@ -55,8 +55,8 @@ export type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 /**
  * Contrast preferences: The system contrast preference
  */
-export const themeContrastModes = ['more', 'no-preference', 'auto'] as const;
-export type ThemeContrastModes = (typeof themeContrastModes)[number];
+const themeContrastModes = ['more', 'no-preference', 'auto'] as const;
+type ThemeContrastModes = (typeof themeContrastModes)[number];
 export type DataContrastModes = 'more' | 'no-preference' | 'auto';
 
 /**
@@ -89,7 +89,7 @@ export type ThemeIds = (typeof themeIds)[number];
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
  */
-export const themeOverrideIds = [] as const;
+const themeOverrideIds = [] as const;
 
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
@@ -102,7 +102,7 @@ export type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
  * an extension with all token values marked as optional
  * to allow tokens to be overridden as required.
  */
-export type ExtensionThemeId = ThemeIds;
+type ExtensionThemeId = ThemeIds;
 
 /**
  * Palettes: The set of base tokens a given theme may be populated with.

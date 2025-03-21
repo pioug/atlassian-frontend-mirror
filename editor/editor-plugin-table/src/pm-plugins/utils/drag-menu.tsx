@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -181,15 +183,25 @@ export const getDragMenuConfig = (
 					{
 						label: 'above',
 						offset: 0,
-						icon: TableRowAddAboveIcon,
-						iconFallback: AddRowAboveIcon,
+						icon: () => (
+							<TableRowAddAboveIcon
+								LEGACY_fallbackIcon={AddRowAboveIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: addRowBefore,
 					},
 					{
 						label: 'below',
 						offset: 1,
-						icon: TableRowAddBelowIcon,
-						iconFallback: AddRowBelowIcon,
+						icon: () => (
+							<TableRowAddBelowIcon
+								LEGACY_fallbackIcon={AddRowBelowIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: addRowAfter,
 					},
 				]
@@ -197,15 +209,25 @@ export const getDragMenuConfig = (
 					{
 						label: 'left',
 						offset: 0,
-						icon: TableColumnAddLeftIcon,
-						iconFallback: AddColLeftIcon,
+						icon: () => (
+							<TableColumnAddLeftIcon
+								LEGACY_fallbackIcon={AddColLeftIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: addColumnBefore,
 					},
 					{
 						label: 'right',
 						offset: 1,
-						icon: TableColumnAddRightIcon,
-						iconFallback: AddColRightIcon,
+						icon: () => (
+							<TableColumnAddRightIcon
+								LEGACY_fallbackIcon={AddColRightIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: addColumnAfter,
 					},
 				];
@@ -214,8 +236,13 @@ export const getDragMenuConfig = (
 			? [
 					{
 						label: 'up',
-						icon: TableRowMoveUpIcon,
-						iconFallback: ArrowUpIcon,
+						icon: () => (
+							<TableRowMoveUpIcon
+								LEGACY_fallbackIcon={ArrowUpIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: moveRowUp,
 						canMove: canMove('table-row', -1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
@@ -223,8 +250,13 @@ export const getDragMenuConfig = (
 					},
 					{
 						label: 'down',
-						icon: TableRowMoveDownIcon,
-						iconFallback: ArrowDownIcon,
+						icon: () => (
+							<TableRowMoveDownIcon
+								LEGACY_fallbackIcon={ArrowDownIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: moveRowDown,
 						canMove: canMove('table-row', 1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
@@ -234,8 +266,13 @@ export const getDragMenuConfig = (
 			: [
 					{
 						label: 'left',
-						icon: TableColumnMoveLeftIcon,
-						iconFallback: ArrowLeftIcon,
+						icon: () => (
+							<TableColumnMoveLeftIcon
+								LEGACY_fallbackIcon={ArrowLeftIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: moveColumnLeft,
 						canMove: canMove('table-column', -1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
@@ -243,8 +280,13 @@ export const getDragMenuConfig = (
 					},
 					{
 						label: 'right',
-						icon: TableColumnMoveRightIcon,
-						iconFallback: ArrowRightIcon,
+						icon: () => (
+							<TableColumnMoveRightIcon
+								LEGACY_fallbackIcon={ArrowRightIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 						keymap: moveColumnRight,
 						canMove: canMove('table-column', 1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
@@ -257,24 +299,33 @@ export const getDragMenuConfig = (
 					{
 						label: 'increasing',
 						order: SortOrder.ASC,
-						icon: SortAscendingIcon,
-						iconFallback: HipchatChevronDoubleUpIcon,
+						icon: () => (
+							<SortAscendingIcon
+								LEGACY_fallbackIcon={HipchatChevronDoubleUpIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 					},
 					{
 						label: 'decreasing',
 						order: SortOrder.DESC,
-						icon: SortDescendingIcon,
-						iconFallback: HipchatChevronDoubleDownIcon,
+						icon: () => (
+							<SortDescendingIcon
+								LEGACY_fallbackIcon={HipchatChevronDoubleDownIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 					},
 				]
 			: [];
 	const sortConfigs = [
-		...sortOptions.map(({ label, order, icon, iconFallback }) => ({
+		...sortOptions.map(({ label, order, icon }) => ({
 			id: `sort_column_${order}`,
 			title: `Sort ${label}`,
 			disabled: hasMergedCellsInTable,
 			icon: icon,
-			iconFallback: iconFallback,
 			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
 				sortColumnWithAnalytics(editorAnalyticsAPI)(
 					INPUT_METHOD.TABLE_CONTEXT_MENU,
@@ -286,11 +337,10 @@ export const getDragMenuConfig = (
 		})),
 	];
 	const restConfigs = [
-		...addOptions.map(({ label, offset, icon, iconFallback, keymap }) => ({
+		...addOptions.map(({ label, offset, icon, keymap }) => ({
 			id: `add_${direction}_${label}`,
 			title: `Add ${direction} ${label}`,
 			icon: icon,
-			iconFallback: iconFallback,
 			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
 				if (direction === 'row') {
 					insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.TABLE_CONTEXT_MENU, {
@@ -339,8 +389,13 @@ export const getDragMenuConfig = (
 						}
 						return false;
 					},
-					icon: TableColumnsDistributeIcon,
-					iconFallback: EditorLayoutThreeEqualIcon,
+					icon: () => (
+						<TableColumnsDistributeIcon
+							LEGACY_fallbackIcon={EditorLayoutThreeEqualIcon}
+							spacing={'spacious'}
+							label={''}
+						/>
+					),
 				}
 			: undefined,
 		{
@@ -353,8 +408,9 @@ export const getDragMenuConfig = (
 				)(state, dispatch);
 				return true;
 			},
-			icon: TableCellClearIcon,
-			iconFallback: CrossCircleIcon,
+			icon: () => (
+				<TableCellClearIcon LEGACY_fallbackIcon={CrossCircleIcon} spacing={'spacious'} label={''} />
+			),
 			keymap: tooltip(backspace),
 		},
 		{
@@ -383,38 +439,49 @@ export const getDragMenuConfig = (
 				}
 				return true;
 			},
-			icon: direction === 'row' ? TableRowDeleteIcon : TableColumnDeleteIcon,
-			iconFallback: RemoveIcon,
+			icon:
+				direction === 'row'
+					? () => (
+							<TableRowDeleteIcon
+								LEGACY_fallbackIcon={RemoveIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						)
+					: () => (
+							<TableColumnDeleteIcon
+								LEGACY_fallbackIcon={RemoveIcon}
+								spacing={'spacious'}
+								label={''}
+							/>
+						),
 			keymap: direction === 'row' ? tooltip(deleteRow) : tooltip(deleteColumn),
 		},
-		...moveOptions.map(
-			({ label, canMove, icon, iconFallback, keymap, getOriginIndexes, getTargetIndex }) => ({
-				id: `move_${direction}_${label}`,
-				title: `Move ${direction} ${label}`,
-				disabled: !canMove,
-				icon: icon,
-				iconFallback: iconFallback,
-				onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-					if (canMove) {
-						requestAnimationFrame(() => {
-							moveSourceWithAnalytics(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(
-								INPUT_METHOD.TABLE_CONTEXT_MENU,
-								`table-${direction}`,
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								getOriginIndexes(selectionRect!),
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								getTargetIndex(selectionRect!),
-							)(editorView.state, editorView.dispatch);
-						});
-						return true;
-					}
-					return false;
-				},
-				keymap: keymap && tooltip(keymap),
-			}),
-		),
+		...moveOptions.map(({ label, canMove, icon, keymap, getOriginIndexes, getTargetIndex }) => ({
+			id: `move_${direction}_${label}`,
+			title: `Move ${direction} ${label}`,
+			disabled: !canMove,
+			icon: icon,
+			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+				if (canMove) {
+					requestAnimationFrame(() => {
+						moveSourceWithAnalytics(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(
+							INPUT_METHOD.TABLE_CONTEXT_MENU,
+							`table-${direction}`,
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							getOriginIndexes(selectionRect!),
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							getTargetIndex(selectionRect!),
+						)(editorView.state, editorView.dispatch);
+					});
+					return true;
+				}
+				return false;
+			},
+			keymap: keymap && tooltip(keymap),
+		})),
 	];
 
 	const allConfigs = [...restConfigs];

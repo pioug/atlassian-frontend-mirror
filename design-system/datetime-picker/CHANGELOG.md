@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 16.2.0
+
+### Minor Changes
+
+- [#129522](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129522)
+  [`e1b2aef9e7c6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1b2aef9e7c6c) -
+  DateTimePicker now uses disabled border and background color tokens when disabled.
+
 ## 16.1.1
 
 ### Patch Changes

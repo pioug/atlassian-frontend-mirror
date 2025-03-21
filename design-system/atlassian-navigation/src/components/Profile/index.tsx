@@ -62,6 +62,7 @@ export const Profile = forwardRef<HTMLElement, ProfileProps>(
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					theme={theme}
 					tooltip={tooltip}
+					isTooltipAnnouncementDisabled
 					// These are mostly explicit, leaving it in just in case
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 					{...rest}

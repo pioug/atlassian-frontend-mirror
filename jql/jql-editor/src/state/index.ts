@@ -516,13 +516,29 @@ export const actions = {
 	onApplyEditorTransaction:
 		(transaction: Transaction): Action<State, Props> =>
 		({ getState, setState, dispatch }, { onUpdate }) => {
-			const { query, editorState, editorView, enableRichInlineNodes } = getState();
+			const { query, editorState, editorView, enableRichInlineNodes, onDebugUnsafeMessage } =
+				getState();
 
 			const oldSelection = editorState.selection;
 
 			const updatedQuery = getNodeText(transaction.doc, 0, transaction.doc.content.size);
 
-			const updatedEditorState = editorState.apply(transaction);
+			let updatedEditorState;
+			try {
+				updatedEditorState = editorState.apply(transaction);
+			} catch (error) {
+				// We've observed several errors in Splunk from this step but we're unsure how to reproduce it. It seems to be some type of
+				// race condition where the transaction is applied to the editor state but the editor state is being updated in another transaction.
+				if (error instanceof RangeError && editorView) {
+					const message = `Error occurred trying to update editor state with the message: ${error.message}`;
+					sendDebugMessage(message, editorView, editorState, onDebugUnsafeMessage, {
+						stack: error.stack,
+						transaction: JSON.stringify(transaction),
+					});
+				}
+
+				throw error;
+			}
 
 			// Update state in our editor view
 			if (editorView) {

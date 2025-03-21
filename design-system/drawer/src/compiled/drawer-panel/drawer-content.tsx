@@ -68,11 +68,7 @@ export const DrawerContent = ({ children, scrollContentLabel, xcss }: DrawerCont
 		<ScrollLock>
 			{/* An intermediate component is used to work around the behaviour of react-scrolllock
 			overriding its child ref. Enabling us to merge the ref from react-scrolllock with our ref. */}
-			<DrawerContentBase
-				scrollContentLabel={scrollContentLabel}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				xcss={xcss}
-			>
+			<DrawerContentBase scrollContentLabel={scrollContentLabel} xcss={xcss}>
 				{children}
 			</DrawerContentBase>
 		</ScrollLock>

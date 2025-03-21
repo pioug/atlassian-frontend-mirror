@@ -5,12 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clampDouble = clampDouble;
 exports.clampInt = clampInt;
-exports.differenceDegrees = differenceDegrees;
 exports.lerp = lerp;
 exports.matrixMultiply = matrixMultiply;
-exports.rotationDirection = rotationDirection;
 exports.sanitizeDegreesDouble = sanitizeDegreesDouble;
-exports.sanitizeDegreesInt = sanitizeDegreesInt;
 exports.signum = signum;
 /**
  * Below lines are copied from @material/material-color-utilities.
@@ -95,20 +92,6 @@ function clampDouble(min, max, input) {
 }
 
 /**
- * Sanitizes a degree measure as an integer.
- *
- * @return a degree measure between 0 (inclusive) and 360
- * (exclusive).
- */
-function sanitizeDegreesInt(degrees) {
-  degrees = degrees % 360;
-  if (degrees < 0) {
-    degrees = degrees + 360;
-  }
-  return degrees;
-}
-
-/**
  * Sanitizes a degree measure as a floating-point number.
  *
  * @return a degree measure between 0.0 (inclusive) and 360.0
@@ -120,32 +103,6 @@ function sanitizeDegreesDouble(degrees) {
     degrees = degrees + 360.0;
   }
   return degrees;
-}
-
-/**
- * Sign of direction change needed to travel from one angle to
- * another.
- *
- * For angles that are 180 degrees apart from each other, both
- * directions have the same travel distance, so either direction is
- * shortest. The value 1.0 is returned in this case.
- *
- * @param from The angle travel starts from, in degrees.
- * @param to The angle travel ends at, in degrees.
- * @return -1 if decreasing from leads to the shortest travel
- * distance, 1 if increasing from leads to the shortest travel
- * distance.
- */
-function rotationDirection(from, to) {
-  var increasingDifference = sanitizeDegreesDouble(to - from);
-  return increasingDifference <= 180.0 ? 1.0 : -1.0;
-}
-
-/**
- * Distance of two points on a circle, represented using degrees.
- */
-function differenceDegrees(a, b) {
-  return 180.0 - Math.abs(Math.abs(a - b) - 180.0);
 }
 
 /**

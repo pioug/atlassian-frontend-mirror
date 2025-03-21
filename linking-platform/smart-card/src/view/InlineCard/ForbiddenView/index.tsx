@@ -65,6 +65,18 @@ export interface InlineCardForbiddenViewProps {
 }
 
 const fallbackForbiddenIcon = () => {
+	if (fg('platform-linking-visual-refresh-v1')) {
+		return (
+			<LockLockedIcon
+				label="error"
+				color={token('color.icon.danger')}
+				LEGACY_fallbackIcon={LegacyLockIcon}
+				LEGACY_size="small"
+				testId="forbidden-view-fallback-icon"
+			/>
+		);
+	}
+
 	return fg('platform-smart-card-icon-migration') ? (
 		<Box as="span" xcss={styles.iconWrapper}>
 			<LockLockedIcon

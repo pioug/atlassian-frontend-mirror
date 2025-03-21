@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::7538d8dd778da65946c6325657be62a7>>
+ * @codegen <<SignedSource::3c5b42b90972dcc5a7c8c60b42e5e74b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -40,6 +40,7 @@ import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
 import DividerElementIcon from '../../../../core/divider-element';
+import DockToolbarTopIcon from '../../../../core/dock-toolbar-top';
 import DropShadowIcon from '../../../../core/drop-shadow';
 import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
@@ -130,6 +131,7 @@ const Icons = [
 	DatabaseStorageIcon,
 	DatabaseStorageCacheIcon,
 	DividerElementIcon,
+	DockToolbarTopIcon,
 	DropShadowIcon,
 	DuplicateIcon,
 	EditionsIcon,

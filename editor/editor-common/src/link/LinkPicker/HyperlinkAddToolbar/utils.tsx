@@ -9,6 +9,7 @@ import Issue16Icon from '@atlaskit/icon-object/glyph/issue/16';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
 import Task16Icon from '@atlaskit/icon-object/glyph/task/16';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LinkContentType } from '../../../provider-factory';
 
@@ -29,7 +30,15 @@ export function filterUniqueItems<T>(
 
 const Issue16 = (props: WrappedComponentProps) => {
 	const { intl } = props;
-	return <Issue16Icon label={intl.formatMessage(utilMessages.hyperlinkIconIssueLabel)} />;
+	return (
+		<Issue16Icon
+			label={intl.formatMessage(
+				fg('confluence-issue-terminology-refresh')
+					? utilMessages.hyperlinkIconIssueLabelIssueTermRefresh
+					: utilMessages.hyperlinkIconIssueLabel,
+			)}
+		/>
+	);
 };
 
 const Bug16 = (props: WrappedComponentProps) => {

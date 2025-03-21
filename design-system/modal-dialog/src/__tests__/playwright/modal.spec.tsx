@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import { expect, test } from '@af/integration-testing';
 
 const openModalBtn = 'modal-trigger';
@@ -269,12 +270,10 @@ test.describe('Modal over a popup', () => {
 		await expect(open).toBeHidden();
 	});
 
-	test(`Aui dialog's inner elements should be available for focus interaction while opened from AK modal, FG on`, async ({
+	test(`Aui dialog's inner elements should be available for focus interaction while opened from AK modal`, async ({
 		page,
 	}) => {
-		await page.visitExample('design-system', 'modal-dialog', 'open-aui-from-popup-in-modal', {
-			featureFlag: 'platform_dst_allowlist-aui-dialog-for-ak-modal',
-		});
+		await page.visitExample('design-system', 'modal-dialog', 'open-aui-from-popup-in-modal');
 		const atlaskitDialogTrigger = page.getByTestId('ak-modal-trigger');
 		await atlaskitDialogTrigger.focus();
 		await atlaskitDialogTrigger.click();
@@ -283,7 +282,6 @@ test.describe('Modal over a popup', () => {
 		const auiDialogTrigger = page.getByTestId('aui-trigger');
 
 		await expect(atlaskitDialog).toBeVisible();
-		await expect(akPopupTrigger).toBeFocused();
 
 		await akPopupTrigger.click();
 		await auiDialogTrigger.focus();
@@ -300,28 +298,5 @@ test.describe('Modal over a popup', () => {
 
 		await page.keyboard.press('Tab');
 		await expect(auiInput).toBeFocused();
-	});
-	test(`Aui dialog's inner elements should be available for focus interaction while opened from AK modal, FG off`, async ({
-		page,
-	}) => {
-		await page.visitExample('design-system', 'modal-dialog', 'open-aui-from-popup-in-modal');
-		const atlaskitDialogTrigger = page.getByTestId('ak-modal-trigger');
-		await atlaskitDialogTrigger.focus();
-		await atlaskitDialogTrigger.click();
-		const atlaskitDialog = page.getByTestId('ak-modal');
-		const akPopupTrigger = page.getByTestId('popup-trigger');
-		const auiDialogTrigger = page.getByTestId('aui-trigger');
-
-		await expect(atlaskitDialog).toBeVisible();
-		await expect(akPopupTrigger).toBeFocused();
-
-		await akPopupTrigger.click();
-		await auiDialogTrigger.focus();
-		await auiDialogTrigger.click();
-
-		const auiInput = page.getByTestId('aui-input');
-
-		await auiInput.click();
-		await expect(auiInput).not.toBeFocused();
 	});
 });

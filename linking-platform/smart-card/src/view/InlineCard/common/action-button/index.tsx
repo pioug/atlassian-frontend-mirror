@@ -23,7 +23,7 @@ const styles = cssMap({
 		paddingRight: token('space.075'),
 		textAlign: 'initial',
 		whiteSpace: 'break-spaces',
-		wordBreak: 'break-word',
+		wordBreak: 'break-all',
 	},
 	enabled: {
 		color: token('color.text'),

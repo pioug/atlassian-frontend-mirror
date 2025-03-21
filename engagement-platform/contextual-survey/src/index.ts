@@ -1,3 +1,3 @@
-export { default as ContextualSurvey, DismissTrigger } from './components/ContextualSurvey';
-export type { OnDismissArgs } from './components/ContextualSurvey';
-export { default as SurveyMarshal } from './components/SurveyMarshal';
+export { DismissTrigger, type OnDismissArgs } from './components/ContextualSurvey';
+export { ContextualSurvey } from './fg-components';
+export { SurveyMarshal } from './fg-components';

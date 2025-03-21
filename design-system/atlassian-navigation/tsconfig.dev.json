@@ -113,6 +113,9 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
+			"path": "../tooltip/tsconfig.app.json"
+		},
+		{
 			"path": "../../navigation/atlassian-switcher/tsconfig.app.json"
 		},
 		{

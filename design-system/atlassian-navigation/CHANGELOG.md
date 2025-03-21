@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 5.0.3
+
+### Patch Changes
+
+- [#127213](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127213)
+  [`73f69318be2bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73f69318be2bc) -
+  Added isScreenReaderAnnouncementDisabled for iconButton tooltip to avoid duplicate announcements.
+
 ## 5.0.2
 
 ### Patch Changes

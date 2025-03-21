@@ -1,11 +1,42 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { forwardRef } from 'react';
 
-import { type CSSFn, type CustomItemComponentProps } from '@atlaskit/menu';
+import { cssMap, jsx } from '@compiled/react';
+
+import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { overrideStyleFunction } from '../../common/styles';
 import { CustomItem } from '../Item';
+
+const styles = cssMap({
+	header: {
+		// Need to increase specificity here until CustomItem is updated to use @compiled/react
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&&': {
+			userSelect: 'auto',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-title]': {
+			font: token('font.heading.xsmall'),
+			color: token('color.text', N500),
+		},
+		// Will look interactive if the `component` is anything other than a div.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'div&:hover': {
+			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			cursor: 'default',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'div&:active': {
+			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			color: token('color.text', N500),
+		},
+	},
+});
 
 /**
  * __Container__
@@ -46,14 +77,6 @@ export const Container = ({
 };
 
 export type HeaderProps = {
-	/**
-	 * A function that can be used to override the styles of the component.
-	 * It receives the current styles and state and expects a styles object.
-	 * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	cssFn?: CSSFn;
-
 	/**
 	 * Element to render before the item text.
 	 * Generally should be an [icon](https://atlassian.design/components/icon/icon-explorer) component.
@@ -100,33 +123,13 @@ export type HeaderProps = {
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const Header = forwardRef<HTMLElement, HeaderProps>((props: HeaderProps, ref) => {
-	const cssFn = overrideStyleFunction(
-		() => ({
-			userSelect: 'auto',
-			['[data-item-title]']: {
-				font: token('font.heading.xsmall'),
-				color: token('color.text', N500),
-			},
-			// Will look interactive if the `component` is anything other than a div.
-			'div&:hover': {
-				backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-				cursor: 'default',
-			},
-			'div&:active': {
-				backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-				color: token('color.text', N500),
-			},
-		}),
-		props.cssFn,
-	);
-
 	return (
 		<CustomItem
 			{...props}
 			ref={ref}
 			component={props.component || Container}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={cssFn}
+			// @ts-expect-error
+			css={styles.header}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{
 				Title: {

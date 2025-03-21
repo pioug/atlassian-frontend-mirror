@@ -15,19 +15,19 @@ export type Groups =
 	| 'lineHeight'
 	| 'letterSpacing';
 
-export type ActiveTokenState = 'active';
-export type DeprecatedTokenState = 'deprecated';
-export type DeletedTokenState = 'deleted';
-export type ExperimentalTokenState = 'experimental';
-export type TokenState =
+type ActiveTokenState = 'active';
+type DeprecatedTokenState = 'deprecated';
+type DeletedTokenState = 'deleted';
+type ExperimentalTokenState = 'experimental';
+type TokenState =
 	| ActiveTokenState
 	| DeprecatedTokenState
 	| DeletedTokenState
 	| ExperimentalTokenState;
-export type Replacement = InternalTokenIds | InternalTokenIds[]; // Ideally, this is typed to all tokens that are active
-export type ExperimentalReplacement = InternalTokenIds | InternalTokenIds[] | string; // Allow replacements that aren't tokens for experimental state
+type Replacement = InternalTokenIds | InternalTokenIds[]; // Ideally, this is typed to all tokens that are active
+type ExperimentalReplacement = InternalTokenIds | InternalTokenIds[] | string; // Allow replacements that aren't tokens for experimental state
 
-export type PaletteCategory =
+type PaletteCategory =
 	| 'blue'
 	| 'purple'
 	| 'red'
@@ -40,9 +40,9 @@ export type PaletteCategory =
 	| 'light mode neutral'
 	| 'dark mode neutral';
 
-export type ValueCategory = 'opacity';
+type ValueCategory = 'opacity';
 
-export interface Token<TValue, Group extends Groups> {
+interface Token<TValue, Group extends Groups> {
 	value: TValue;
 	attributes: {
 		group: Group;
@@ -102,7 +102,7 @@ export interface DesignToken<TValue, Group extends Groups> extends Token<TValue,
 		  };
 }
 
-export interface TypographyDesignToken<TValue> extends DesignToken<TValue, 'typography'> {
+interface TypographyDesignToken<TValue> extends DesignToken<TValue, 'typography'> {
 	attributes: DesignToken<TValue, 'typography'>['attributes'];
 }
 
@@ -132,14 +132,14 @@ export type ExtendedValueSchema<Schema extends object> = DeepPartial<ValueSchema
 // Recursively strips out values from schema
 export type AttributeSchema<Schema extends object> = DeepOmit<Schema, 'value'>;
 
-export interface PaletteToken extends BaseToken<string, 'palette'> {
+interface PaletteToken extends BaseToken<string, 'palette'> {
 	attributes: {
 		group: 'palette';
 		category: PaletteCategory;
 	};
 }
 
-export interface ValueToken extends BaseToken<number, 'palette'> {
+interface ValueToken extends BaseToken<number, 'palette'> {
 	attributes: {
 		group: 'palette';
 		category: ValueCategory;
@@ -163,11 +163,8 @@ export type ShadowToken<BaseToken> = DesignToken<
 export type OpacityToken = DesignToken<string, 'opacity'>;
 export type SpacingToken<BaseToken> = DesignToken<BaseToken, 'spacing'>;
 export type ShapeToken<BaseToken> = DesignToken<BaseToken, 'shape'>;
-export type FontSizeToken<BaseToken> = DesignToken<BaseToken, 'fontSize'>;
 export type FontWeightToken<BaseToken> = DesignToken<BaseToken, 'fontWeight'>;
 export type FontFamilyToken<BaseToken> = DesignToken<BaseToken, 'fontFamily'>;
-export type LineHeightToken<BaseToken> = DesignToken<BaseToken, 'lineHeight'>;
-export type LetterSpacingToken<BaseToken> = DesignToken<BaseToken, 'letterSpacing'>;
 
 export type DeprecatedTypographyToken<BaseToken> = DesignToken<
 	BaseToken,
@@ -1043,18 +1040,6 @@ export interface OpacityTokenSchema {
 		disabled: OpacityToken;
 	};
 }
-
-export type ElevationTokenSchema<BaseToken> = SurfaceTokenSchema<BaseToken> &
-	ShadowTokenSchema<BaseToken>;
-
-export type ColorTokenSchema<BaseToken> = BackgroundColorTokenSchema<BaseToken> &
-	BorderColorTokenSchema<BaseToken> &
-	IconColorTokenSchema<BaseToken> &
-	TextColorTokenSchema<BaseToken> &
-	AccentColorTokenSchema<BaseToken> &
-	UtilTokenSchema<BaseToken>;
-
-export type TokenSchema<BaseToken> = ColorTokenSchema<BaseToken> & ElevationTokenSchema<BaseToken>;
 
 export interface SpacingTokenSchema<BaseToken> {
 	space: {

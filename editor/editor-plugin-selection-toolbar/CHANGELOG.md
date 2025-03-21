@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.1.3
+
+### Patch Changes
+
+- [#126837](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126837)
+  [`3f513ff6dac97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f513ff6dac97) -
+  [ux] Displays Text Formatting toolbar on CellSelection.
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

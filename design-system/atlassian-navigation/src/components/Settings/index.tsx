@@ -62,6 +62,7 @@ export const Settings = forwardRef((props: SettingsProps, ref: React.Ref<any>) =
 				target={target}
 				testId={testId}
 				tooltip={tooltip}
+				isTooltipAnnouncementDisabled
 				{...rest}
 			/>
 		</div>

@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 204.5.5
+
+### Patch Changes
+
+- [#129005](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129005)
+  [`faf7b7b63e80f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/faf7b7b63e80f) -
+  Cleanup feature gate for exposing the extension api to the quick insert callback.
+- Updated dependencies
+
 ## 204.5.4
 
 ### Patch Changes

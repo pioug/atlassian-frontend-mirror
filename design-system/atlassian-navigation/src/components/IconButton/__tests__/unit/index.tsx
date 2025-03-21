@@ -1,8 +1,20 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { IconButton } from '../../index';
+
+jest.mock('@atlaskit/tooltip/src/internal/use-unique-id', () => ({
+	__esModule: true,
+	default: jest
+		.fn()
+		.mockReturnValueOnce(null)
+		.mockReturnValueOnce(null)
+		.mockReturnValueOnce(null)
+		.mockReturnValueOnce(null)
+		.mockReturnValueOnce('uuid'),
+}));
 
 describe('<IconButton />', () => {
 	it('should pass down test id', () => {
@@ -39,5 +51,49 @@ describe('<IconButton />', () => {
 		);
 
 		expect(screen.queryByTestId('custom')).toHaveAttribute('href', href);
+	});
+
+	it('should disable tooltip announcement when isTooltipAnnouncementDisabled is true', async () => {
+		const label = 'notifications';
+		const tooltip = 'notifications';
+
+		render(
+			<IconButton
+				tooltip={tooltip}
+				label={label}
+				icon={<div />}
+				testId="icon-button"
+				isTooltipAnnouncementDisabled
+			/>,
+		);
+
+		const button = screen.getByTestId('icon-button');
+
+		await userEvent.hover(button);
+
+		await waitFor(() => {
+			expect(button).not.toHaveAttribute('aria-describedby');
+		});
+		await waitFor(() => {
+			expect(button).toHaveAttribute('aria-label', 'notifications');
+		});
+	});
+
+	it('should enable tooltip and label announcements when isTooltipAnnouncementDisabled is false', async () => {
+		const label = 'notifications';
+		const tooltip = 'notifications';
+
+		render(<IconButton tooltip={tooltip} label={label} icon={<div />} testId="icon-button" />);
+
+		const button = screen.getByTestId('icon-button');
+
+		await userEvent.hover(button);
+
+		await waitFor(() => {
+			expect(button).toHaveAttribute('aria-describedby', 'uuid');
+		});
+		await waitFor(() => {
+			expect(button).toHaveAttribute('aria-label', 'notifications');
+		});
 	});
 });

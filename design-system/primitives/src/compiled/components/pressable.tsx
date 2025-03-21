@@ -138,7 +138,6 @@ const Pressable = forwardRef(
 				type={type}
 				onClick={onClick}
 				disabled={isDisabled}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- TODO: We need to handle pass-through `xcss` => `xcss` here.
 				xcss={cx(styles.root, isDisabled && styles.disabled, xcss)}
 				testId={testId}
 				ref={ref}

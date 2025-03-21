@@ -305,64 +305,64 @@ exports[`RendererStyleContainer should have same renderer styles platform_editor
 }
 
 .emotion-0 h1 {
-  font: normal 500 1.71429em/1.16667 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  font: var(--ak-renderer-editor-font-heading-h1);
   margin-bottom: 0;
   margin-top: 1.45833em;
 }
 
 .emotion-0 h1 strong {
-  font-weight: 700;
+  font-weight: var(--ds-font-weight-bold, 700);
 }
 
 
 
 .emotion-0 h2 {
-  font: normal 500 1.42857em/1.2 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  font: var(--ak-renderer-editor-font-heading-h2);
   margin-top: 1.4em;
   margin-bottom: 0;
 }
 
 .emotion-0 h2 strong {
-  font-weight: 700;
+  font-weight: var(--ds-font-weight-bold, 700);
 }
 
 .emotion-0 h3 {
-  font: normal 600 1.14286em/1.25 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  font: var(--ak-renderer-editor-font-heading-h3);
   margin-top: 1.31249em;
   margin-bottom: 0;
 }
 
 .emotion-0 h3 strong {
-  font-weight: 700;
+  font-weight: var(--ds-font-weight-bold, 700);
 }
 
 .emotion-0 h4 {
-  font: normal 600 1em/1.14286 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  font: var(--ak-renderer-editor-font-heading-h4);
   margin-top: var(--ds-space-250, 1.25em);
 }
 
 .emotion-0 h4 strong {
-  font-weight: 700;
+  font-weight: var(--ds-font-weight-bold, 700);
 }
 
 .emotion-0 h5 {
-  font: normal 600 0.857143em/1.33333 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  font: var(--ak-renderer-editor-font-heading-h5);
   margin-top: 1.45833em;
   text-transform: none;
 }
 
 .emotion-0 h5 strong {
-  font-weight: 700;
+  font-weight: var(--ds-font-weight-bold, 700);
 }
 
 .emotion-0 h6 {
-  font: normal 700 0.785714em/1.45455 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  font: var(--ak-renderer-editor-font-heading-h6);
   margin-top: 1.59091em;
   text-transform: none;
 }
 
 .emotion-0 h6 strong {
-  font-weight: 700;
+  font-weight: var(--ds-font-weight-bold, 700);
 }
 
 
@@ -408,7 +408,7 @@ exports[`RendererStyleContainer should have same renderer styles platform_editor
 }
 
 .emotion-0 p {
-  font: normal 400 1em/1.714 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  font: var(--ak-renderer-editor-font-normal-text);
   margin-top: 0.75rem;
   margin-bottom: 0;
 }
@@ -1538,7 +1538,7 @@ exports[`RendererStyleContainer should have same renderer styles platform_editor
 <div
   class="emotion-0"
   data-testid="testRendererEmotionRefactored"
-  style="--ak-renderer-base-font-size: 16px;"
+  style="--ak-renderer-base-font-size: 16px; --ak-renderer-editor-font-heading-h1: normal 600 1.71429em/1.16667 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif; --ak-renderer-editor-font-heading-h2: normal 600 1.42857em/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif; --ak-renderer-editor-font-heading-h3: normal 600 1.14286em/1.25 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif; --ak-renderer-editor-font-heading-h4: normal 600  1em/1.14286 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif; --ak-renderer-editor-font-heading-h5: normal 600  0.857143em/1.33333 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif; --ak-renderer-editor-font-heading-h6: normal 600 0.785714em/1.45455 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif; --ak-renderer-editor-font-normal-text: normal 400 1em/1.714 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;"
 >
   <div>
     Hello world Emotion Refactored

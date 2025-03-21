@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-navigation",
-	"version": "5.0.2",
+	"version": "5.0.3",
 	"description": "A horizontal navigation component for Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -96,6 +96,7 @@
 		"@atlassian/switcher-test-utils": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
 		"jest-emotion": "^10.0.32",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",

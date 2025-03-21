@@ -181,7 +181,6 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 					? `${ariaLabelledBy} ${opensNewWindowLabelId}`
 					: ariaLabelledBy
 			}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- TODO: We need to handle pass-through `xcss` => `xcss` here.
 			xcss={cx(styles.root, xcss)}
 			testId={testId}
 			data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}

@@ -28,10 +28,6 @@ const styles = cssMap({
 	iconWrapper: {
 		marginRight: token('space.negative.025'),
 	},
-	fallbackIconWrapper: {
-		marginRight: token('space.negative.025'),
-		display: 'inline flex',
-	},
 });
 
 export interface InlineCardErroredViewProps {
@@ -58,14 +54,12 @@ export interface InlineCardErroredViewProps {
 const fallbackIcon = () => {
 	if (fg('platform-linking-visual-refresh-v1')) {
 		return (
-			<Box as="span" xcss={styles.fallbackIconWrapper}>
-				<ErrorIconCore
-					color={token('color.icon.danger')}
-					label="error"
-					LEGACY_size="small"
-					testId="errored-view-default-icon"
-				/>
-			</Box>
+			<ErrorIconCore
+				color={token('color.icon.danger')}
+				label="error"
+				LEGACY_size="small"
+				testId="errored-view-default-icon"
+			/>
 		);
 	}
 

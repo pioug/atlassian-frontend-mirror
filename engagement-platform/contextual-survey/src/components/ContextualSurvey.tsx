@@ -20,7 +20,7 @@ export enum DismissTrigger {
 
 export type OnDismissArgs = { trigger: DismissTrigger };
 
-interface Props {
+export interface Props {
 	/** Optional statement, to be used in conjunction with the question for the survey
 	 * Example: "How strongly do you agree or disagree with this statement"
 	 */

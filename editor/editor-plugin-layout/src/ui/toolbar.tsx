@@ -22,20 +22,13 @@ import { type NodeType, type Node as PMNode } from '@atlaskit/editor-prosemirror
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import DeleteIcon from '@atlaskit/icon/core/delete';
-import LayoutOneColumnIcon from '@atlaskit/icon/core/layout-one-column';
-import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';
-import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/layout-three-columns-sidebars';
-import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
-import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
-import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-right';
-import EditorLayoutSingleIcon from '@atlaskit/icon/glyph/editor/layout-single';
-import LayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
-import LayoutThreeWithSidebarsIcon from '@atlaskit/icon/glyph/editor/layout-three-with-sidebars';
-import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
-import LayoutTwoLeftSidebarIcon from '@atlaskit/icon/glyph/editor/layout-two-left-sidebar';
-import LayoutTwoRightSidebarIcon from '@atlaskit/icon/glyph/editor/layout-two-right-sidebar';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import DeleteIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
+import LayoutOneColumnIcon from '@atlaskit/icon/core/migration/layout-one-column--editor-layout-single';
+import LayoutThreeColumnsIcon from '@atlaskit/icon/core/migration/layout-three-columns--editor-layout-three-equal';
+import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/migration/layout-three-columns-sidebars--editor-layout-three-with-sidebars';
+import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
+import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-left--editor-layout-two-left-sidebar';
+import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-right--editor-layout-two-right-sidebar';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../index';
@@ -59,14 +52,12 @@ const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 		type: 'two_equal',
 		title: toolbarMessages.twoColumns,
 		icon: LayoutTwoColumnsIcon,
-		iconFallback: LayoutTwoEqualIcon,
 	},
 	{
 		id: 'editor.layout.threeEquals',
 		type: 'three_equal',
 		title: toolbarMessages.threeColumns,
 		icon: LayoutThreeColumnsIcon,
-		iconFallback: LayoutThreeEqualIcon,
 	},
 ];
 
@@ -76,7 +67,6 @@ const LAYOUT_TYPES_WITH_SINGLE_COL: PresetLayoutButtonItem[] = [
 		type: 'single',
 		title: toolbarMessages.singleColumn,
 		icon: LayoutOneColumnIcon,
-		iconFallback: EditorLayoutSingleIcon,
 	},
 	...LAYOUT_TYPES,
 ];
@@ -87,21 +77,18 @@ const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 		type: 'two_right_sidebar',
 		title: toolbarMessages.rightSidebar,
 		icon: LayoutTwoColumnsSidebarRightIcon,
-		iconFallback: LayoutTwoRightSidebarIcon,
 	},
 	{
 		id: 'editor.layout.twoLeftSidebar',
 		type: 'two_left_sidebar',
 		title: toolbarMessages.leftSidebar,
 		icon: LayoutTwoColumnsSidebarLeftIcon,
-		iconFallback: LayoutTwoLeftSidebarIcon,
 	},
 	{
 		id: 'editor.layout.threeWithSidebars',
 		type: 'three_with_sidebars',
 		title: toolbarMessages.threeColumnsWithSidebars,
 		icon: LayoutThreeColumnsSidebarsIcon,
-		iconFallback: LayoutThreeWithSidebarsIcon,
 	},
 ];
 
@@ -112,21 +99,18 @@ const LAYOUT_WITH_TWO_COL_DISTRIBUTION = [
 		type: 'two_equal',
 		title: toolbarMessages.twoColumns,
 		icon: LayoutTwoColumnsIcon,
-		iconFallback: LayoutTwoEqualIcon,
 	},
 	{
 		id: 'editor.layout.twoRightSidebar',
 		type: 'two_right_sidebar',
 		title: toolbarMessages.rightSidebar,
 		icon: LayoutTwoColumnsSidebarRightIcon,
-		iconFallback: LayoutTwoRightSidebarIcon,
 	},
 	{
 		id: 'editor.layout.twoLeftSidebar',
 		type: 'two_left_sidebar',
 		title: toolbarMessages.leftSidebar,
 		icon: LayoutTwoColumnsSidebarLeftIcon,
-		iconFallback: LayoutTwoLeftSidebarIcon,
 	},
 ] as const;
 
@@ -136,14 +120,12 @@ const LAYOUT_WITH_THREE_COL_DISTRIBUTION = [
 		type: 'three_equal',
 		title: toolbarMessages.threeColumns,
 		icon: LayoutThreeColumnsIcon,
-		iconFallback: LayoutThreeEqualIcon,
 	},
 	{
 		id: 'editor.layout.threeWithSidebars',
 		type: 'three_with_sidebars',
 		title: toolbarMessages.threeColumnsWithSidebars,
 		icon: LayoutThreeColumnsSidebarsIcon,
-		iconFallback: LayoutThreeWithSidebarsIcon,
 	},
 	{
 		id: 'editor.layout.threeRightSidebars',
@@ -302,7 +284,6 @@ export const buildToolbar = (
 			appearance: 'danger',
 			focusEditoronEnter: true,
 			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
 			testId: commonMessages.remove.id,
 			title: intl.formatMessage(commonMessages.remove),
 			onClick: deleteActiveLayoutNode(editorAnalyticsAPI),

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.0.8
+
+### Patch Changes
+
+- [#129262](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129262)
+  [`9408a99b473bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9408a99b473bb) -
+  EDF-2570 Fixed config panel not closing when navigating to other page issue is fixed.
+- Updated dependencies
+
 ## 5.0.7
 
 ### Patch Changes

@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 102.12.0
+
+### Minor Changes
+
+- [#129544](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129544)
+  [`2c661f18440df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c661f18440df) -
+  [ux] Rebranded the term Issue to Work item as part of issue terminology refresh
+
+## 102.11.6
+
+### Patch Changes
+
+- [#129445](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129445)
+  [`0eb9b03d34eff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eb9b03d34eff) -
+  Cleans up feature flag that reduces padding in the element browser
+- Updated dependencies
+
+## 102.11.5
+
+### Patch Changes
+
+- [#126837](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126837)
+  [`3f513ff6dac97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f513ff6dac97) -
+  [ux] Displays Text Formatting toolbar on CellSelection.
+
+## 102.11.4
+
+### Patch Changes
+
+- [#129262](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129262)
+  [`9408a99b473bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9408a99b473bb) -
+  EDF-2570 Fixed config panel not closing when navigating to other page issue is fixed.
+
 ## 102.11.3
 
 ### Patch Changes

@@ -172,7 +172,6 @@ function PopperWrapper({
 			{({ ref, style, placement, update }) => {
 				const popupContainer = (
 					<PopupContainer
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 						xcss={xcss}
 						appearance={appearance}
 						id={id}

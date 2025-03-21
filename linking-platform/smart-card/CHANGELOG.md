@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 36.0.2
+
+### Patch Changes
+
+- [#128316](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128316)
+  [`8d94e427c61e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d94e427c61e0) -
+  [ux] Fix inline icon drop when word wrap left only icon on the first line (visual refresh)
+
 ## 36.0.1
 
 ### Patch Changes

@@ -218,7 +218,10 @@ const containerStyles = css({
 });
 
 const inputDisabledStyle = css({
-	WebkitTextFillColor: token('color.text.disabled'),
+	color: token('color.text.disabled'),
+	'&::placeholder': {
+		color: token('color.text.disabled'),
+	},
 });
 
 const inputCompactStyleWithFg = css({
@@ -319,9 +322,6 @@ const inputStyle = css({
 	},
 	'&::placeholder': {
 		color: token('color.text.subtlest'),
-		'&:disabled': {
-			color: token('color.text.disabled'),
-		},
 	},
 });
 

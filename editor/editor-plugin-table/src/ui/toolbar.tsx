@@ -51,14 +51,12 @@ import {
 import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
 import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import CustomizeIcon from '@atlaskit/icon/core/customize';
-import DeleteIcon from '@atlaskit/icon/core/delete';
+import CustomizeIcon from '@atlaskit/icon/core/migration/customize--preferences';
+import DeleteIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
 import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import TableOptionsIcon from '@atlaskit/icon/glyph/preferences';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -175,8 +173,7 @@ export const getToolbarMenuConfig = (
 			type: 'dropdown',
 			testId: 'table_options',
 			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-			icon: fg('platform-visual-refresh-icons') ? undefined : TableOptionsIcon,
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			icon: fg('platform-visual-refresh-icons') ? undefined : CustomizeIcon,
 			iconBefore: fg('platform-visual-refresh-icons') ? CustomizeIcon : undefined,
 			title: formatMessage(messages.tableOptions),
 			hidden: options.every((option) => option.hidden),
@@ -607,7 +604,6 @@ export const getToolbarConfig =
 				type: 'button' as const,
 				appearance: 'danger',
 				icon: DeleteIcon,
-				iconFallback: RemoveIcon,
 				onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
 				disabled: !!resizeState && !!resizeState.dragging,
 				onMouseEnter: hoverTable(true),
@@ -844,8 +840,13 @@ const getColumnSettingItems = (
 			id: 'editor.table.distributeColumns',
 			type: 'button',
 			title: formatMessage(messages.distributeColumns),
-			icon: TableColumnsDistributeIcon,
-			iconFallback: DistributeColumnIcon,
+			icon: () => (
+				<TableColumnsDistributeIcon
+					LEGACY_fallbackIcon={DistributeColumnIcon}
+					spacing={'spacious'}
+					label={''}
+				/>
+			),
 			onClick: (state, dispatch, view) =>
 				getDistributeConfig(
 					getEditorContainerWidth,

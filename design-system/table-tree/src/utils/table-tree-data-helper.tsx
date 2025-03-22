@@ -1,11 +1,61 @@
-// TODO: Replace with native function
-// https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore?tab=readme-ov-file#_get
-import get from 'lodash/get';
-// TODO: Replace with native function
-// https://stackoverflow.com/a/54733755/14857724
-import set from 'lodash/set';
+import lodashGet from 'lodash/get';
+import lodashSet from 'lodash/set';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type Operation = 'UPDATE' | 'APPEND';
+
+// https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore?tab=readme-ov-file#_get
+// https://github.com/lodash/lodash/blob/4.17.15/lodash.js#L13126
+export const internalGet = (
+	obj: Object,
+	path: Array<any> | string,
+	defaultValue: any = undefined,
+): any => {
+	const travel = (regexp: RegExp) =>
+		String.prototype.split
+			.call(path, regexp)
+			.filter(Boolean)
+			.reduce(
+				(res: Record<string, any> | undefined, key: string) =>
+					res !== null && res !== undefined ? res[key] : res,
+				obj,
+			);
+	const result = travel(/[,[\]]+?/) || travel(/[,[\].]+?/);
+	return result === undefined || result === obj ? defaultValue : result;
+};
+
+// https://stackoverflow.com/a/54733755/14857724
+// https://github.com/lodash/lodash/blob/4.17.15/lodash.js#L13673
+export const internalSet = (obj: Object, providedPath: Array<any> | string, value: any): any => {
+	// When obj is not an object, fail gracefully
+	if (Object(obj) !== obj) {
+		return obj;
+	}
+
+	// If not yet an array, get the keys from the string-path
+	const path: string[] = !Array.isArray(providedPath)
+		? providedPath.toString().match(/[^.[\]]+/g) || []
+		: providedPath;
+
+	// Iterate all of them except the last one
+	const result = path.slice(0, -1).reduce((acc: Record<string, any>, c, index: number) => {
+		// Does the key exist and is its value an object?
+		return Object(acc[c]) === acc[c]
+			? acc[c] // Yes: then follow that path
+			: // No: create the key. Is the next key a potential array-index?
+				(acc[c] =
+					Math.abs(parseInt(path[index + 1])) >> 0 === +path[index + 1]
+						? [] // Yes: assign a new array object
+						: {}); // No: assign a new plain object
+	}, obj);
+
+	// Finally assign the value to the last key
+	result[path[path.length - 1]] = value;
+
+	// Return the top-level object to allow chaining
+	return obj;
+};
 
 function updateRootItems<T extends any>(
 	rootItems: T[],
@@ -37,6 +87,11 @@ function updateChildItems<T extends any>(
 	itemParent: T,
 	{ key, keysCache, operation }: { key: keyof T; keysCache: any; operation: Operation },
 ) {
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	const get = fg('dst-a11y-remove-lodash-from-table-tree') ? internalGet : lodashGet;
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	const set = fg('dst-a11y-remove-lodash-from-table-tree') ? internalSet : lodashSet;
+
 	const newKeysCache = { ...keysCache };
 	const parentCacheKey = itemParent[key];
 

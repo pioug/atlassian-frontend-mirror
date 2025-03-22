@@ -1,5 +1,19 @@
 # @atlaskit/tree
 
+## 9.0.1
+
+### Patch Changes
+
+- [#128359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128359)
+  [`b5a679bc81501`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5a679bc81501) -
+  Removing /migration/ path icons and LEGACY\_ props since the feature gate has been fully rolled
+  out.
+- [#128359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128359)
+  [`b5a679bc81501`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5a679bc81501) -
+  Moving /migration/ path icons to migrated path now that the feature gate has been fully rolled
+  out. Also cleaning up stale LEGACY\_ props that are unused since the feature gate has been rolled
+  out.
+
 ## 9.0.0
 
 ### Major Changes

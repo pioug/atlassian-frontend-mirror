@@ -56,10 +56,6 @@ export interface TriggerProps {
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
 	/**
-	 * Optional prop for controlling if the picker hover border will be rounded
-	 */
-	showRoundTrigger?: boolean;
-	/**
 	 * Option prop for controlling the reaction picker selection style
 	 */
 	selectionStyle?: XCSS;
@@ -103,12 +99,6 @@ const expandedTriggerStyles = xcss({
 
 const triggerStylesRefresh = xcss({
 	borderRadius: 'border.radius',
-});
-
-const roundTriggerStyles = xcss({
-	borderRadius: '50%',
-	height: '2rem',
-	width: '2rem',
 });
 
 const transparentEnabledTriggerStyles = xcss({
@@ -172,7 +162,6 @@ export const Trigger = React.forwardRef(
 			showOpaqueBackground = false,
 			showAddReactionText = false,
 			subtleReactionsSummaryAndPicker = false,
-			showRoundTrigger = false,
 			selectionStyle,
 			reactionPickerTriggerIcon,
 			useButtonAlignmentStyling,
@@ -202,7 +191,6 @@ export const Trigger = React.forwardRef(
 								: transparentEnabledTriggerStyles,
 						miniMode && miniModeStyles,
 						fg('platform-component-visual-refresh') && triggerStylesRefresh,
-						showRoundTrigger && roundTriggerStyles,
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 						selectionStyle,
 					]}

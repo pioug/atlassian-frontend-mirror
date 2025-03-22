@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 14.0.4
+
+### Patch Changes
+
+- [#130353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130353)
+  [`ffce98d88de63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffce98d88de63) -
+  Update dependencies and remove old codemods.
+
 ## 14.0.3
 
 ### Patch Changes

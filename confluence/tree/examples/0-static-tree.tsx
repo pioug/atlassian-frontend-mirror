@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import Tree, { type RenderItemParams, type TreeItem } from '../src';
 import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 
@@ -26,9 +26,9 @@ export default class StaticTree extends Component {
 	static getIcon(item: TreeItem) {
 		if (item.children && item.children.length > 0) {
 			return item.isExpanded ? (
-				<ChevronDownIcon color="currentColor" label="" LEGACY_size="medium" />
+				<ChevronDownIcon color="currentColor" label="" />
 			) : (
-				<ChevronRightIcon color="currentColor" label="" LEGACY_size="medium" />
+				<ChevronRightIcon color="currentColor" label="" />
 			);
 		}
 		return <Dot>&bull;</Dot>;

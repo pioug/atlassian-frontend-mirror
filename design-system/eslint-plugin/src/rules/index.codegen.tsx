@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::50c700a7a1e85949b0e5136a8c576c72>>
+ * @codegen <<SignedSource::4655f06909a45281bdcc9780314776c5>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -42,6 +42,7 @@ import useHrefInLinkItem from './use-href-in-link-item';
 import useLatestXcssSyntax from './use-latest-xcss-syntax';
 import useLatestXcssSyntaxTypography from './use-latest-xcss-syntax-typography';
 import useMenuSectionTitle from './use-menu-section-title';
+import useModalDialogCloseButton from './use-modal-dialog-close-button';
 import useOnboardingSpotlightLabel from './use-onboarding-spotlight-label';
 import usePopupLabel from './use-popup-label';
 import usePrimitives from './use-primitives';
@@ -91,6 +92,7 @@ export const rules = {
 	'use-latest-xcss-syntax': useLatestXcssSyntax,
 	'use-latest-xcss-syntax-typography': useLatestXcssSyntaxTypography,
 	'use-menu-section-title': useMenuSectionTitle,
+	'use-modal-dialog-close-button': useModalDialogCloseButton,
 	'use-onboarding-spotlight-label': useOnboardingSpotlightLabel,
 	'use-popup-label': usePopupLabel,
 	'use-primitives': usePrimitives,

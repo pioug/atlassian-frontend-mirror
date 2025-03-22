@@ -98,13 +98,29 @@ export async function extensionProviderToQuickInsertProvider(
 						isDisabledOffline: true,
 						action: (insert, state, source) => {
 							if (typeof item.node === 'function') {
-								const extensionAPI = apiRef?.current?.extension?.actions?.api();
-								// While the api can be "undefined" there are no runtime scenarios where this is the case because:
-								// - The quick insert API can only be called from an active editor
-								// - The extension module handler can only be called from an active editor with the extension plugin
-								// Therefore this should always be run unless there is something very wrong.
-								if (extensionAPI) {
-									resolveImport(item.node(extensionAPI)).then((node) => {
+								if (fg('platform_editor_add_extension_api_to_quick_insert')) {
+									const extensionAPI = apiRef?.current?.extension?.actions?.api();
+									// While the api can be "undefined" there are no runtime scenarios where this is the case because:
+									// - The quick insert API can only be called from an active editor
+									// - The extension module handler can only be called from an active editor with the extension plugin
+									// Therefore this should always be run unless there is something very wrong.
+									if (extensionAPI) {
+										resolveImport(item.node(extensionAPI)).then((node) => {
+											sendExtensionQuickInsertAnalytics(
+												item,
+												state.selection,
+												createAnalyticsEvent,
+												source,
+											);
+
+											if (node) {
+												editorActions.replaceSelection(node);
+											}
+										});
+									}
+								} else {
+									// @ts-expect-error No longer supported without extension API - this will be removed once we cleanup the FG.
+									resolveImport(item.node()).then((node) => {
 										sendExtensionQuickInsertAnalytics(
 											item,
 											state.selection,

@@ -281,6 +281,9 @@
 		"platform_editor_disable_rerender_tracking_jira": {
 			"type": "boolean"
 		},
+		"platform_editor_add_extension_api_to_quick_insert": {
+			"type": "boolean"
+		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true

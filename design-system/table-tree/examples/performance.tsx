@@ -92,7 +92,7 @@ const childCountOptions = [
 
 type ChildCount = (typeof childCountOptions)[number];
 
-// eslint-disable-next-line import/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
 export default class extends PureComponent {
 	state = {
 		childCount: childCountPerItem,
@@ -129,7 +129,7 @@ export default class extends PureComponent {
 						<Header width={120}>Numbering</Header>
 						<Header width={100}>Stuff</Header>
 					</Headers>
-					<Rows
+					<Rows<Item>
 						items={items}
 						render={({ title, numbering, children }) => (
 							<Row itemId={numbering} hasChildren onExpand={this.handleExpand} items={children}>
@@ -155,7 +155,6 @@ export default class extends PureComponent {
 							}}
 						>
 							<Select
-								autoFocus={false}
 								inputId="select"
 								menuPosition="fixed"
 								options={childCountOptions}

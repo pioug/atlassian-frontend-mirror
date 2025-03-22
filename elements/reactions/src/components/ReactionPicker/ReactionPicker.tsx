@@ -108,11 +108,7 @@ export interface ReactionPickerProps
 	 */
 	showAddReactionText?: boolean;
 	/**
-	 * Optional prop for controlling if the picker hover border will be rounded
-	 */
-	showRoundTrigger?: boolean;
-	/**
-	 * Optional prop for controlling the picker location, gets overrided by showRoundTrigger
+	 * Optional prop for controlling the picker location
 	 */
 	reactionPickerPlacement?: Placement;
 	/**
@@ -150,7 +146,6 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		showOpaqueBackground = false,
 		subtleReactionsSummaryAndPicker = false,
 		showAddReactionText = false,
-		showRoundTrigger = false,
 		reactionPickerAdditionalStyle = undefined,
 		reactionPickerTriggerIcon,
 		useButtonAlignmentStyling,
@@ -169,7 +164,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 
 	const updatePopper = useRef<PopperChildrenProps['update']>();
 
-	const popperPlacement = showRoundTrigger ? 'left' : reactionPickerPlacement || 'bottom-start';
+	const popperPlacement = reactionPickerPlacement || 'bottom-start';
 
 	const popperModifiers: PopperProps<{}>['modifiers'] = [
 		/**
@@ -219,7 +214,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			Array.isArray(pickerQuickReactionEmojiIds) &&
 			pickerQuickReactionEmojiIds.length === 0,
 		/**
-		 * Use left placement for popper - using value based on showRoundTrigger for now since it needs the left placement
+		 * Placement for popper
 		 */
 		popperPlacement,
 	});
@@ -371,7 +366,6 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							showOpaqueBackground={showOpaqueBackground}
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-							showRoundTrigger={showRoundTrigger}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							useButtonAlignmentStyling={useButtonAlignmentStyling}
 						/>

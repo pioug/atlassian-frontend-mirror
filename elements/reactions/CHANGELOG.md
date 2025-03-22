@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 29.0.0
+
+### Major Changes
+
+- [#129339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129339)
+  [`fbade126d118d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fbade126d118d) -
+  [ux] Removes the showRoundTrigger prop since it is not being used after an implementation change.
+
 ## 28.0.0
 
 ### Major Changes

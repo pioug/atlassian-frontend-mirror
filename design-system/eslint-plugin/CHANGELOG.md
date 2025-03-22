@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.1.0
+
+### Minor Changes
+
+- [#127961](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127961)
+  [`900f91f38c047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/900f91f38c047) -
+  Add rule for modal dialog to ensure a close button is used.
+
 ## 13.0.4
 
 ### Patch Changes

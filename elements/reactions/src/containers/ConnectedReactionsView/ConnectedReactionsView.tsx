@@ -33,7 +33,6 @@ export interface ConnectedReactionsViewProps
 			| 'summaryViewEnabled'
 			| 'subtleReactionsSummaryAndPicker'
 			| 'onlyRenderPicker'
-			| 'showRoundTrigger'
 			| 'isViewOnly'
 			| 'allowSelectFromSummaryView'
 		>,

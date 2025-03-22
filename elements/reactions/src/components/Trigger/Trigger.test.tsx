@@ -73,26 +73,6 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		expect(button).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
 	});
 
-	it('should have proper styling if showRoundTrigger is true', async () => {
-		renderWithIntl(<Trigger tooltipContent="" showRoundTrigger />);
-
-		const button = await screen.findByTestId('render-trigger-button');
-		expect(button).toBeInTheDocument();
-		expect(button).toHaveCompiledCss('border-radius', '50%');
-		expect(button).toHaveCompiledCss('height', '2rem');
-		expect(button).toHaveCompiledCss('width', '2rem');
-	});
-
-	it('should not have styles associated with round trigger if showRoundTrigger is false', async () => {
-		renderWithIntl(<Trigger tooltipContent="" showRoundTrigger={false} />);
-
-		const button = await screen.findByTestId('render-trigger-button');
-		expect(button).toBeInTheDocument();
-		expect(button).not.toHaveCompiledCss('border-radius', '50%');
-		expect(button).not.toHaveCompiledCss('height', '2rem');
-		expect(button).not.toHaveCompiledCss('width', '2rem');
-	});
-
 	it('should render custom icon if reactionPickerTriggerIcon is passed in', async () => {
 		renderWithIntl(<Trigger tooltipContent="" reactionPickerTriggerIcon={mockIcon} />);
 

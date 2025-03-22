@@ -210,10 +210,6 @@ export interface ReactionsProps
 	 */
 	onlyRenderPicker?: boolean;
 	/**
-	 * Optional prop for controlling if the picker hover border will be rounded
-	 */
-	showRoundTrigger?: boolean;
-	/**
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
 	isViewOnly?: boolean;
@@ -300,7 +296,6 @@ export const Reactions = React.memo(
 		hideDefaultReactions = false,
 		ProfileCardWrapper,
 		onlyRenderPicker = false,
-		showRoundTrigger = false,
 		isViewOnly = false,
 		reactionPickerAdditionalStyle,
 		noWrap = false,
@@ -568,7 +563,6 @@ export const Reactions = React.memo(
 							showOpaqueBackground={showOpaqueBackground}
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-							showRoundTrigger={showRoundTrigger}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
 							useButtonAlignmentStyling={useButtonAlignmentStyling}

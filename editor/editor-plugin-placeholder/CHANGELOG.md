@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 2.0.8
+
+### Patch Changes
+
+- [#129904](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129904)
+  [`7a5c1784af47f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a5c1784af47f) -
+  [ux] ED-27141 Adding a check so that only empty paragraphs will show empty node placeholder
+
 ## 2.0.7
 
 ### Patch Changes

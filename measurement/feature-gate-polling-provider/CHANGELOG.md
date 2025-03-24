@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-polling-provider
 
+## 1.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.16
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::44178bef3d180887a834bad090e6d533>>
+ * @codegen <<SignedSource::ccc45f6c46d2e67198656210c0dc0dd2>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,7 +23,13 @@ const svg = `<svg height="100%" fill="none" viewBox="0 0 32 32">
  *
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
-export function SearchIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
+export function SearchIcon({
+	size,
+	appearance = 'brand',
+
+	label,
+	testId,
+}: AppIconProps) {
 	return (
 		<IconWrapper
 			svg={svg}

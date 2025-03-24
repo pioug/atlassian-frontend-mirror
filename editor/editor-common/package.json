@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "102.12.0",
+	"version": "102.13.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -252,7 +252,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"@emotion/react": "^11.7.1",
 		"@sentry/browser": "^6.18.2",
 		"@sentry/integrations": "^6.18.2",
@@ -361,13 +361,7 @@
 		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean"
 		},
-		"platform_editor_hide_external_media_badge": {
-			"type": "boolean"
-		},
 		"platform_editor_nested_tables_renderer_styles": {
-			"type": "boolean"
-		},
-		"platform_editor_selection_toolbar_scroll_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_advanced_layouts_a11y": {
@@ -379,16 +373,10 @@
 		"platform_editor_extension_fix_ssr_ref": {
 			"type": "boolean"
 		},
-		"platform_editor_advanced_layouts_post_fix_patch_3": {
-			"type": "boolean"
-		},
 		"platform_editor_breakoutresizer_remove_assertion": {
 			"type": "boolean"
 		},
 		"platform_editor_table_row_span_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_support_media_badge_visibility": {
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {
@@ -416,6 +404,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_remove_quick_insert_priority_key": {
+			"type": "boolean"
+		},
+		"platform_editor_add_media_from_url_rollout": {
 			"type": "boolean"
 		},
 		"platform_editor_inline_node_virt_threshold_override": {

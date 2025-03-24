@@ -1,0 +1,76 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::ae48b40e0b5c4b0485d7560d71b61b11>>
+ * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
+ */
+import React from 'react';
+
+import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/temp-nav-app-icons/confluence';
+import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
+import {
+	JiraCustomerServiceIcon,
+	JiraCustomerServiceLogo,
+} from '@atlaskit/temp-nav-app-icons/jira-customer-service';
+import {
+	JiraProductDiscoveryIcon,
+	JiraProductDiscoveryLogo,
+} from '@atlaskit/temp-nav-app-icons/jira-product-discovery';
+import {
+	JiraServiceManagementIcon,
+	JiraServiceManagementLogo,
+} from '@atlaskit/temp-nav-app-icons/jira-service-management';
+import { TrelloIcon, TrelloLogo } from '@atlaskit/temp-nav-app-icons/trello';
+
+import { AppIconProps, AppLogoProps } from '../../src/utils/types';
+
+export const customThemeApps: Array<{
+	name: string;
+	Icon20: React.ComponentType<AppIconProps>;
+	Icon24: React.ComponentType<AppIconProps>;
+	Icon32: React.ComponentType<AppIconProps>;
+	Logo: React.ComponentType<AppLogoProps> | null;
+}> = [
+	{
+		name: 'Confluence',
+		Icon20: (props) => <ConfluenceIcon {...props} size="20" />,
+		Icon24: (props) => <ConfluenceIcon {...props} size="24" />,
+		Icon32: (props) => <ConfluenceIcon {...props} size="32" />,
+		Logo: (props) => <ConfluenceLogo {...props} />,
+	},
+	{
+		name: 'Jira Product Discovery',
+		Icon20: (props) => <JiraProductDiscoveryIcon {...props} size="20" />,
+		Icon24: (props) => <JiraProductDiscoveryIcon {...props} size="24" />,
+		Icon32: (props) => <JiraProductDiscoveryIcon {...props} size="32" />,
+		Logo: (props) => <JiraProductDiscoveryLogo {...props} />,
+	},
+	{
+		name: 'Jira Service Management',
+		Icon20: (props) => <JiraServiceManagementIcon {...props} size="20" />,
+		Icon24: (props) => <JiraServiceManagementIcon {...props} size="24" />,
+		Icon32: (props) => <JiraServiceManagementIcon {...props} size="32" />,
+		Logo: (props) => <JiraServiceManagementLogo {...props} />,
+	},
+	{
+		name: 'Jira Customer Service',
+		Icon20: (props) => <JiraCustomerServiceIcon {...props} size="20" />,
+		Icon24: (props) => <JiraCustomerServiceIcon {...props} size="24" />,
+		Icon32: (props) => <JiraCustomerServiceIcon {...props} size="32" />,
+		Logo: (props) => <JiraCustomerServiceLogo {...props} />,
+	},
+	{
+		name: 'Jira',
+		Icon20: (props) => <JiraIcon {...props} size="20" />,
+		Icon24: (props) => <JiraIcon {...props} size="24" />,
+		Icon32: (props) => <JiraIcon {...props} size="32" />,
+		Logo: (props) => <JiraLogo {...props} />,
+	},
+
+	{
+		name: 'Trello',
+		Icon20: (props) => <TrelloIcon {...props} size="20" />,
+		Icon24: (props) => <TrelloIcon {...props} size="24" />,
+		Icon32: (props) => <TrelloIcon {...props} size="32" />,
+		Logo: (props) => <TrelloLogo {...props} />,
+	},
+];

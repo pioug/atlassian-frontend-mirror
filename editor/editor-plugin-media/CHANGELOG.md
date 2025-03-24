@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.11
+
+### Patch Changes
+
+- [#128574](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128574)
+  [`cba34b8397ba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba34b8397ba2) -
+  [ux] [ED-26973] Update floating toolbar for inline and thumbnail file
+- Updated dependencies
+
+## 2.3.10
+
+### Patch Changes
+
+- [#129550](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129550)
+  [`bee10fefc48ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bee10fefc48ef) -
+  [ED-26955] Update check for external media
+
 ## 2.3.9
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.1.0
+
+### Minor Changes
+
+- [#129443](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129443)
+  [`cea97763ee228`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cea97763ee228) -
+  Pass down validation error messages and extra IDs for a11y [GRAVITYAI-2553]
+
 ## 5.0.8
 
 ### Patch Changes

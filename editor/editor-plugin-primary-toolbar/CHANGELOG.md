@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 3.1.0
+
+### Minor Changes
+
+- [#130044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130044)
+  [`cad348d512cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cad348d512cdf) -
+  [ux] ED-26802 contextual formatting configuration
+
 ## 3.0.5
 
 ### Patch Changes

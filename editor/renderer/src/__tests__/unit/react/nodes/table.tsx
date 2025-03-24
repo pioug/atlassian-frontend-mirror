@@ -132,6 +132,7 @@ const mountTableWithFF = (
 	isInsideOfBlockNode = false,
 	isTopLevelRenderer: RendererContextProps['isTopLevelRenderer'] = true,
 	isInsideOfTable = false,
+	allowTableResizing = false,
 ) => {
 	return mountWithIntl(
 		<RendererContextProvider value={{ featureFlags, isTopLevelRenderer }}>
@@ -144,6 +145,7 @@ const mountTableWithFF = (
 				columnWidths={columnWidths}
 				isInsideOfBlockNode={isInsideOfBlockNode}
 				isInsideOfTable={isInsideOfTable}
+				allowTableResizing={allowTableResizing}
 			>
 				<TableRow>
 					<TableHeader />
@@ -1285,65 +1287,38 @@ describe('Renderer - React/Nodes/Table', () => {
 			// When Renderer is nested (eg: Renderer is used to render contents inside an extension
 			// (Page Properties or Experpt macro)). A table with unresized columns should fit inside
 			// the renderWidth without overflow (eg. rendereWidth is used to calculate columns widths)
-			ffTest(
-				'platform_editor_nested_table_in_nested_parent_fix',
-				() => {
-					const tableNode = createDefaultTable('default');
-					const featureFlags = {};
-					const appearance = undefined;
-					const isInsideBlockNode = false;
+			it('should fit inside the renderWidth without overflow when renderer is nested', () => {
+				const tableNode = createDefaultTable('default');
+				const featureFlags = {};
+				const appearance = undefined;
+				const isInsideBlockNode = false;
+				const allowTableResizing = true;
+				const isInsideTable = false;
 
-					const isTopLevelRenderer = false;
-					const rendererWidth = 300;
+				const isTopLevelRenderer = false;
+				const rendererWidth = 300;
 
-					const wrap = mountTableWithFF(
-						featureFlags,
-						tableNode,
-						rendererWidth,
-						[0, 0, 0],
-						appearance,
-						isInsideBlockNode,
-						isTopLevelRenderer,
-					);
+				const wrap = mountTableWithFF(
+					featureFlags,
+					tableNode,
+					rendererWidth,
+					[0, 0, 0],
+					appearance,
+					isInsideBlockNode,
+					isTopLevelRenderer,
+					isInsideTable,
+					allowTableResizing,
+				);
 
-					const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-					checkColWidths(tableContainer, [100, 100, 100]);
+				// tableWidth = tableContainerWidth - 1 = rendererWidth - 1 = 299
+				// colWidth = tableWidth / 3 = 299/3 = 99.66666666666667
+				// then we need to -1 for the tableCellBorderWidth = 98.66666666666667
+				checkColWidths(tableContainer, [98.66666666666667, 98.66666666666667, 98.66666666666667]);
 
-					wrap.unmount();
-				},
-				() => {
-					// This is a bug scenario where instead of rendereWidth,
-					// a default 760 is used to calculate table column widths (when columns are unresized)
-					const tableNode = createDefaultTable('default');
-					const featureFlags = {};
-					const appearance = undefined;
-					const isInsideBlockNode = false;
-
-					const isTopLevelRenderer = false;
-					const rendererWidth = 300;
-
-					const wrap = mountTableWithFF(
-						featureFlags,
-						tableNode,
-						rendererWidth,
-						[0, 0, 0],
-						appearance,
-						isInsideBlockNode,
-						isTopLevelRenderer,
-					);
-
-					const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-					// max width is calcutalted as 760
-					// number of columns = 3
-					// one column width = 760 / 3 = 253
-					// one column width scaled by 30% = 253 * 0.7 = 177
-					checkColWidths(tableContainer, [177, 177, 177]);
-
-					wrap.unmount();
-				},
-			);
+				wrap.unmount();
+			});
 		});
 
 		it('table column not scales down when renderer width is bigger than table width', () => {

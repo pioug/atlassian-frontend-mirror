@@ -2,7 +2,6 @@ import React, { type ReactNode, useEffect, useState } from 'react';
 
 import debounce from 'lodash/debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -35,28 +34,16 @@ const resizeOffsetStyles = xcss({
 	right: 'space.150',
 });
 
-const smallBadgeStyles = xcss({
-	margin: 'space.025',
-});
-
 type ExternalImageBadgeProps = {
 	mediaElement?: HTMLElement | null;
 	mediaHeight?: number;
 	mediaWidth?: number;
 	extendedResizeOffset?: boolean;
 	useMinimumZIndex?: boolean;
-	children: ReactNode | ((props: { badgeSize: 'medium' | 'small'; visible: boolean }) => ReactNode);
-};
-
-const getBadgeSize = (width?: number, height?: number) => {
-	// width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
-	return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
+	children: ReactNode | ((props: { visible: boolean }) => ReactNode);
 };
 
 const getBadgeVisible = (width?: number, height?: number) => {
-	if (!fg('platform_editor_support_media_badge_visibility')) {
-		return true;
-	}
 	return (width && width < MEDIA_BADGE_VISIBILITY_BREAKPOINT) ||
 		(height && height < MEDIA_BADGE_VISIBILITY_BREAKPOINT)
 		? false
@@ -71,9 +58,6 @@ export const MediaBadges = ({
 	extendedResizeOffset,
 	useMinimumZIndex = false,
 }: ExternalImageBadgeProps) => {
-	const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(
-		getBadgeSize(mediaWidth, mediaHeight),
-	);
 	const [visible, setVisible] = useState<boolean>(getBadgeVisible(mediaWidth, mediaHeight));
 
 	useEffect(() => {
@@ -81,10 +65,7 @@ export const MediaBadges = ({
 			debounce((entries) => {
 				const [entry] = entries;
 				const { width, height } = entry.contentRect;
-				setBadgeSize(getBadgeSize(width, height));
-				if (fg('platform_editor_support_media_badge_visibility')) {
-					setVisible(getBadgeVisible(width, height));
-				}
+				setVisible(getBadgeVisible(width, height));
 			}),
 		);
 
@@ -99,7 +80,7 @@ export const MediaBadges = ({
 	}, [mediaElement]);
 
 	if (typeof children === 'function') {
-		children = children({ badgeSize, visible });
+		children = children({ visible });
 	}
 
 	if (!mediaElement || React.Children.count(children) === 0) {
@@ -116,7 +97,6 @@ export const MediaBadges = ({
 				containerStyles,
 				useMinimumZIndex && hackedZIndexStyles,
 				extendedResizeOffset && resizeOffsetStyles,
-				badgeSize === 'small' && smallBadgeStyles,
 			]}
 		>
 			{children}

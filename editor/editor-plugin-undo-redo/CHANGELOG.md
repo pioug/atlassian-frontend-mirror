@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 2.0.8
+
+### Patch Changes
+
+- [#130818](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130818)
+  [`0e42cb4df2b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e42cb4df2b7f) -
+  Changed undo/redo commands to use EXTRENAL input type when no inputSource is provided. Ensure type
+  ahead is closed before undo/redo and that editor is re-focused after undo/redo.
+
+## 2.0.7
+
+### Patch Changes
+
+- [#130044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130044)
+  [`cad348d512cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cad348d512cdf) -
+  [ux] ED-26802 contextual formatting configuration
+- Updated dependencies
+
 ## 2.0.6
 
 ### Patch Changes

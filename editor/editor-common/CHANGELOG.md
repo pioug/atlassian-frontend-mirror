@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 102.13.1
+
+### Patch Changes
+
+- [#128179](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128179)
+  [`1ce5182d1a35f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ce5182d1a35f) -
+  Clean up feature flag platform_editor_advanced_layouts_post_fix_patch_3
+- [#130605](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130605)
+  [`2f50b6db9e791`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f50b6db9e791) -
+  Clean up feature flag platform_editor_selection_toolbar_scroll_fix
+- Updated dependencies
+
+## 102.13.0
+
+### Minor Changes
+
+- [#130262](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130262)
+  [`236c73af67c7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236c73af67c7b) -
+  [ED-24873] This change is cleaning up code from the element templates experiment
+  `platform_editor_element_level_templates`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 102.12.1
+
+### Patch Changes
+
+- [#129972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129972)
+  [`b2d69a39e6687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d69a39e6687) -
+  Update `@compiled/react` dependency for improved type checking support.
+- Updated dependencies
+
 ## 102.12.0
 
 ### Minor Changes

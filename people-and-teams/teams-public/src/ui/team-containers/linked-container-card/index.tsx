@@ -73,6 +73,9 @@ const LinkedCardWrapper = ({
 		handleMouseEnter();
 		setHovered(true);
 	};
+	const { fireUIEvent } = usePeopleAndTeamAnalytics();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
 	const onMouseLeave = () => {
 		handleMouseLeave();
 		setHovered(false);
@@ -85,7 +88,17 @@ const LinkedCardWrapper = ({
 			onMouseLeave={onMouseLeave}
 			testId="linked-container-card-inner"
 		>
-			<Link href={href} appearance="subtle">
+			<Link
+				href={href}
+				appearance="subtle"
+				onClick={() => {
+					fireUIEvent(createAnalyticsEvent, {
+						action: AnalyticsAction.CLICKED,
+						actionSubject: 'container',
+						actionSubjectId: 'teamContainer',
+					});
+				}}
+			>
 				{children}
 			</Link>
 		</Box>
@@ -144,6 +157,7 @@ export const LinkedContainerCard = ({
 								spacing="compact"
 								onClick={(e) => {
 									e.preventDefault();
+									e.stopPropagation();
 									onDisconnectButtonClick();
 									fireUIEvent(createAnalyticsEvent, {
 										action: AnalyticsAction.CLICKED,

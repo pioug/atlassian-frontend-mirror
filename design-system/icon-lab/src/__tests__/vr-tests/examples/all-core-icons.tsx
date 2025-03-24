@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::3c5b42b90972dcc5a7c8c60b42e5e74b>>
+ * @codegen <<SignedSource::b435f57bb485c6d2c73596be484900c8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -33,12 +33,15 @@ import CalculateIcon from '../../../../core/calculate';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
+import ColourNoneIcon from '../../../../core/colour-none';
 import ContinueWhenIcon from '../../../../core/continue-when';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
 import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
+import DistributeSpacingHorizontalIcon from '../../../../core/distribute-spacing-horizontal';
+import DistributeSpacingVerticalIcon from '../../../../core/distribute-spacing-vertical';
 import DividerElementIcon from '../../../../core/divider-element';
 import DockToolbarTopIcon from '../../../../core/dock-toolbar-top';
 import DropShadowIcon from '../../../../core/drop-shadow';
@@ -54,7 +57,15 @@ import IfElseIcon from '../../../../core/if-else';
 import IncognitoIcon from '../../../../core/incognito';
 import InitiativeIcon from '../../../../core/initiative';
 import JiraIcon from '../../../../core/jira';
+import JiraAddIcon from '../../../../core/jira-add';
+import JiraUploadIcon from '../../../../core/jira-upload';
 import LozengeIcon from '../../../../core/lozenge';
+import NodeParallelBottomLeftIcon from '../../../../core/node-parallel-bottom-left';
+import NodeParallelBottomRightIcon from '../../../../core/node-parallel-bottom-right';
+import NodeParallelTopLeftIcon from '../../../../core/node-parallel-top-left';
+import NodeParallelTopRightIcon from '../../../../core/node-parallel-top-right';
+import NodeSingleLeftIcon from '../../../../core/node-single-left';
+import NodeSingleRightIcon from '../../../../core/node-single-right';
 import PageLiveDocIcon from '../../../../core/page-live-doc';
 import PaintBrushIcon from '../../../../core/paint-brush';
 import PaintRollerIcon from '../../../../core/paint-roller';
@@ -92,6 +103,17 @@ import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TemplateIcon from '../../../../core/template';
+import TextBoldItalicIcon from '../../../../core/text-bold-italic';
+import TextBoldItalicStrikethroughIcon from '../../../../core/text-bold-italic-strikethrough';
+import TextBoldItalicUnderlineIcon from '../../../../core/text-bold-italic-underline';
+import TextBoldItalicUnderlineStrikethroughIcon from '../../../../core/text-bold-italic-underline-strikethrough';
+import TextBoldStrikethroughIcon from '../../../../core/text-bold-strikethrough';
+import TextBoldUnderlineIcon from '../../../../core/text-bold-underline';
+import TextBoldUnderlineStrikethroughIcon from '../../../../core/text-bold-underline-strikethrough';
+import TextItalicStrikethroughIcon from '../../../../core/text-italic-strikethrough';
+import TextItalicUnderlineIcon from '../../../../core/text-italic-underline';
+import TextItalicUnderlineStrikethroughIcon from '../../../../core/text-italic-underline-strikethrough';
+import TextUnderlineStrikethroughIcon from '../../../../core/text-underline-strikethrough';
 import TicketIcon from '../../../../core/ticket';
 import TidyIcon from '../../../../core/tidy';
 import VehicleAirplaneIcon from '../../../../core/vehicle-airplane';
@@ -124,12 +146,15 @@ const Icons = [
 	CloudOfflineIcon,
 	CloudSavedIcon,
 	CoinsIcon,
+	ColourNoneIcon,
 	ContinueWhenIcon,
 	CrossOctagonIcon,
 	CursorIcon,
 	CursorStrikethroughIcon,
 	DatabaseStorageIcon,
 	DatabaseStorageCacheIcon,
+	DistributeSpacingHorizontalIcon,
+	DistributeSpacingVerticalIcon,
 	DividerElementIcon,
 	DockToolbarTopIcon,
 	DropShadowIcon,
@@ -145,7 +170,15 @@ const Icons = [
 	IncognitoIcon,
 	InitiativeIcon,
 	JiraIcon,
+	JiraAddIcon,
+	JiraUploadIcon,
 	LozengeIcon,
+	NodeParallelBottomLeftIcon,
+	NodeParallelBottomRightIcon,
+	NodeParallelTopLeftIcon,
+	NodeParallelTopRightIcon,
+	NodeSingleLeftIcon,
+	NodeSingleRightIcon,
 	PageLiveDocIcon,
 	PaintBrushIcon,
 	PaintRollerIcon,
@@ -183,6 +216,17 @@ const Icons = [
 	SyncIcon,
 	TakeoutContainerIcon,
 	TemplateIcon,
+	TextBoldItalicIcon,
+	TextBoldItalicStrikethroughIcon,
+	TextBoldItalicUnderlineIcon,
+	TextBoldItalicUnderlineStrikethroughIcon,
+	TextBoldStrikethroughIcon,
+	TextBoldUnderlineIcon,
+	TextBoldUnderlineStrikethroughIcon,
+	TextItalicStrikethroughIcon,
+	TextItalicUnderlineIcon,
+	TextItalicUnderlineStrikethroughIcon,
+	TextUnderlineStrikethroughIcon,
 	TicketIcon,
 	TidyIcon,
 	VehicleAirplaneIcon,
@@ -228,3 +272,5 @@ export const IconGroup2 = allExamples[2];
 export const IconGroup3 = allExamples[3];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconGroup4 = allExamples[4];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup5 = allExamples[5];

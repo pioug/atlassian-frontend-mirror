@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -82,7 +82,7 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",

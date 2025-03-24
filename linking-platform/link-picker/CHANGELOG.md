@@ -1,5 +1,22 @@
 # @atlaskit/link-picker
 
+## 3.1.1
+
+### Patch Changes
+
+- [#129972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129972)
+  [`b2d69a39e6687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d69a39e6687) -
+  Update `@compiled/react` dependency for improved type checking support.
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#128792](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128792)
+  [`121ea565b1b7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/121ea565b1b7d) -
+  [ux] EDM-11943 updating link-picker subtitle text to meet a11y contrast requirements
+
 ## 3.0.5
 
 ### Patch Changes

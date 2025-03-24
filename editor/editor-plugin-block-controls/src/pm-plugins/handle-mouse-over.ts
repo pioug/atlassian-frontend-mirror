@@ -1,6 +1,5 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../blockControlsPluginType';
@@ -113,8 +112,7 @@ export const handleMouseOver = (
 			parentRootElement &&
 			parentRootElement.getAttribute('data-layout-section') === 'true' &&
 			parentRootElement.querySelectorAll('[data-layout-column]').length === 1 &&
-			editorExperiment('advanced_layouts', true) &&
-			fg('platform_editor_advanced_layouts_post_fix_patch_3')
+			editorExperiment('advanced_layouts', true)
 		) {
 			// Don't show drag handle for layout column in a single column layout
 			return false;

@@ -299,7 +299,7 @@ export function MediaFromURL({
 			{({ formProps }) => (
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				<Box as="form" {...formProps} xcss={FormStyles}>
+				<Box xcss={FormStyles}>
 					<Stack space="space.150" grow="fill">
 						<Field
 							aria-required={true}
@@ -323,6 +323,12 @@ export function MediaFromURL({
 												onURLChange(value);
 												onChange(value);
 											}}
+											onKeyDown={(e) => {
+												if (e.key === 'Enter') {
+													e.preventDefault();
+													formProps.onSubmit();
+												}
+											}}
 										/>
 										<MessageWrapper>
 											{error && (
@@ -335,7 +341,8 @@ export function MediaFromURL({
 									{!previewState.previewInfo && !previewState.error && !previewState.warning && (
 										<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
 											<Button
-												type="submit"
+												type="button"
+												onClick={() => formProps.onSubmit()}
 												isLoading={previewState.isLoading}
 												isDisabled={!!error || !meta.dirty}
 												iconBefore={() => (
@@ -373,9 +380,10 @@ export function MediaFromURL({
 									{strings.cancel}
 								</Button>
 								<Button
-									type="submit"
+									type="button"
 									appearance="primary"
 									isDisabled={!previewState.previewInfo && !previewState.warning}
+									onClick={() => formProps.onSubmit()}
 								>
 									{strings.insert}
 								</Button>

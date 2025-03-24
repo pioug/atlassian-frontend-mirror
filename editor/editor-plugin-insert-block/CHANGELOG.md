@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.1.0
+
+### Minor Changes
+
+- [#130262](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130262)
+  [`236c73af67c7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236c73af67c7b) -
+  [ED-24873] This change is cleaning up code from the element templates experiment
+  `platform_editor_element_level_templates`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.13
+
+### Patch Changes
+
+- [#130044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130044)
+  [`cad348d512cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cad348d512cdf) -
+  [ux] ED-26802 contextual formatting configuration
+- Updated dependencies
+
 ## 3.0.12
 
 ### Patch Changes

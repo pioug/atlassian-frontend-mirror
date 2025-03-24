@@ -165,7 +165,6 @@ const FindReplaceToolbarButtonWithState = ({
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsMountPoint={popupsMountPoint}
 			popupsScrollableElement={popupsScrollableElement}
-			containerElement={containerElement}
 			isReducedSpacing={!!isToolbarReducedSpacing}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 			onFindBlur={handleFindBlur}

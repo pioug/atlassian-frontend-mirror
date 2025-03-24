@@ -21,7 +21,7 @@ import {
 	buttonGroupStyleBeforeVisualRefresh,
 	separatorStyles,
 } from '@atlaskit/editor-common/styles';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import RedoIcon from '@atlaskit/icon/core/migration/redo';
@@ -29,6 +29,7 @@ import UndoIcon from '@atlaskit/icon/core/migration/undo';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { redoFromToolbar, undoFromToolbar } from '../../pm-plugins/commands';
+import { forceFocus } from '../../pm-plugins/utils';
 import type { UndoRedoPlugin } from '../../undoRedoPluginType';
 
 export interface Props {
@@ -39,31 +40,6 @@ export interface Props {
 	editorView: EditorView;
 	api: ExtractInjectionAPI<UndoRedoPlugin> | undefined;
 }
-
-const closeTypeAheadAndRunCommand =
-	(editorView: EditorView, api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) =>
-	(command: Command) => {
-		if (!editorView) {
-			return;
-		}
-		if (api?.typeAhead?.actions?.isOpen(editorView.state)) {
-			api?.typeAhead?.actions?.close({
-				attachCommand: command,
-				insertCurrentQueryAsRawText: false,
-			});
-		} else {
-			command(editorView.state, editorView.dispatch);
-		}
-	};
-const forceFocus =
-	(editorView: EditorView, api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) =>
-	(command: Command) => {
-		closeTypeAheadAndRunCommand(editorView, api)(command);
-
-		if (!editorView.hasFocus()) {
-			editorView.focus();
-		}
-	};
 
 export const ToolbarUndoRedo = ({
 	disabled,

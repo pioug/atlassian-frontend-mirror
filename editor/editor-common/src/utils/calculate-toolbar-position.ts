@@ -1,9 +1,11 @@
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PopupPosition as Position } from '../ui';
+
+const MAXIMUM_BROWSER_SCROLLBAR_WIDTH = 20;
+
 /*
   Calculates the position of the floating toolbar relative to the selection.
   This is a re-implementation which closely matches the behaviour on Confluence renderer.
@@ -132,11 +134,9 @@ export const calculateToolbarPositionTrackHead =
 		}
 
 		let leftCoord = Math.max(0, left - wrapperBounds.left);
-		if (fg('platform_editor_selection_toolbar_scroll_fix')) {
-			if (leftCoord + toolbarRect.width > wrapperBounds.width) {
-				const scrollbarWidth = 20;
-				leftCoord = Math.max(0, wrapperBounds.width - (toolbarRect.width + scrollbarWidth));
-			}
+		if (leftCoord + toolbarRect.width > wrapperBounds.width) {
+			const scrollbarWidth = MAXIMUM_BROWSER_SCROLLBAR_WIDTH;
+			leftCoord = Math.max(0, wrapperBounds.width - (toolbarRect.width + scrollbarWidth));
 		}
 
 		// remap positions from browser document to wrapperBounds

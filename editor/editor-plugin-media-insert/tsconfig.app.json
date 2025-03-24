@@ -68,6 +68,9 @@
 			"path": "../../media/media-picker/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
@@ -78,9 +81,6 @@
 		},
 		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	],
 	"files": []

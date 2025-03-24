@@ -51,7 +51,6 @@ import { isFileIdentifier, type Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { updateMediaNodeAttrs } from '../pm-plugins/commands/helpers';
@@ -566,9 +565,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	showMediaPicker = () => {
 		if (this.openMediaPickerBrowser) {
-			editorExperiment('add-media-from-url', false, {
-				exposure: true,
-			});
 			return this.openMediaPickerBrowser();
 		}
 		this.onPopupToggleCallback(true);

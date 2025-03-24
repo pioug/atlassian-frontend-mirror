@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Fabric Date React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"@emotion/react": "^11.7.1",
 		"date-fns": "^2.17.0"
 	},

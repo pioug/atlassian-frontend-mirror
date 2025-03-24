@@ -12,6 +12,7 @@ import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorViewStateUpdatedCallbackProps } from '../../types/editor-config';
 import type { EditorOnChangeHandler } from '../../types/editor-onchange';
@@ -26,10 +27,12 @@ export const useDispatchTransaction = ({
 	onChange,
 	dispatchAnalyticsEvent,
 	onEditorViewUpdated,
+	isRemoteReplaceDocumentTransaction,
 }: {
 	onChange: EditorOnChangeHandler | undefined;
 	dispatchAnalyticsEvent: (payload: AnalyticsEventPayload) => void;
 	onEditorViewUpdated: (params: EditorViewStateUpdatedCallbackProps) => void;
+	isRemoteReplaceDocumentTransaction?: (tr: Transaction) => boolean;
 }): DispatchTransaction => {
 	// We need to have a ref to the latest `onChange` since the `dispatchTransaction` gets captured
 	const onChangeRef = useRef(onChange);
@@ -53,7 +56,17 @@ export const useDispatchTransaction = ({
 				}),
 			);
 
-			if (changedNodesValid) {
+			// If the transaction is a remote replaceDocument transaction, we should skip validation.
+			// Remote replaceDocument transactions are fired when the document is replaced by initialization of editor-plugin-collab-edit
+			// If there is a discrepancy in the ProseMirror schema at initialization, it results in the editor being loaded with no content,
+			// giving the user the impression that content has been lost
+			const isRemoteReplace = isRemoteReplaceDocumentTransaction
+				? // eslint-disable-next-line @atlaskit/platform/no-preconditioning
+					fg('platform_editor_transaction_skip_validation') &&
+					isRemoteReplaceDocumentTransaction(transaction)
+				: false;
+
+			if (changedNodesValid || isRemoteReplace) {
 				const oldEditorState = view.state;
 
 				// go ahead and update the state now we know the transaction is good
@@ -78,7 +91,8 @@ export const useDispatchTransaction = ({
 					onChangeRef.current(view, { source });
 					stopMeasure(EVENT_NAME_ON_CHANGE);
 				}
-			} else {
+			}
+			if (!changedNodesValid) {
 				const invalidNodes = nodes
 					.filter((node) => !validNode(node))
 					.map<SimplifiedNode | string>((node) => getDocStructure(node, { compact: true }));
@@ -90,11 +104,14 @@ export const useDispatchTransaction = ({
 					attributes: {
 						analyticsEventPayloads: getAnalyticsEventsFromTransaction(transaction),
 						invalidNodes,
+						...(fg('platform_editor_transaction_skip_validation')
+							? { isRemoteReplaceDocumentTransaction: isRemoteReplace }
+							: {}),
 					},
 				});
 			}
 		},
-		[dispatchAnalyticsEvent, onEditorViewUpdated],
+		[dispatchAnalyticsEvent, onEditorViewUpdated, isRemoteReplaceDocumentTransaction],
 	);
 
 	return dispatchTransaction;

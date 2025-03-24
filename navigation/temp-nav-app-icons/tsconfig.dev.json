@@ -41,10 +41,16 @@
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/table/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/toggle/tsconfig.app.json"
 		}
 	]
 }

@@ -54,6 +54,9 @@
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/logo/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/lozenge/afm-post-office/tsconfig.json"
 		},
 		{
@@ -82,6 +85,12 @@
 		},
 		{
 			"path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../teams-avatar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../teams-public/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"

@@ -66,12 +66,17 @@ snapshot(ThemingExample, {
 			environment: {},
 		},
 		{
+			name: 'mobile chrome',
+			device: Device.MOBILE_CHROME,
+		},
+		{
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
+	featureFlags: { 'platform-team25-app-icon-tiles': [true, false] },
 });
 
 snapshot(ThemingNavigationSkeletonExample);

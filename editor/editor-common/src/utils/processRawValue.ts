@@ -241,7 +241,7 @@ export function processRawValue(
 			));
 		}
 
-		if (dispatchAnalyticsEvent && fg('platform_editor_advanced_layouts_post_fix_patch_3')) {
+		if (dispatchAnalyticsEvent) {
 			const hasSingleColumnLayout = transformedAdf.content?.some(
 				(node) => node && node.type === 'layoutSection' && node.content?.length === 1,
 			);

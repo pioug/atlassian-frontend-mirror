@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.2.0
+
+### Minor Changes
+
+- [#130262](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130262)
+  [`236c73af67c7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236c73af67c7b) -
+  [ED-24873] This change is cleaning up code from the element templates experiment
+  `platform_editor_element_level_templates`.
+
+## 4.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

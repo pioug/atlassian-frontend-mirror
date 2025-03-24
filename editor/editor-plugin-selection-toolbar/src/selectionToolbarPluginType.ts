@@ -20,6 +20,7 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			 */
 			preferenceToolbarAboveSelection?: boolean;
 			userPreferencesProvider?: UserPreferencesProvider;
+			contextualFormattingEnabled?: boolean;
 		};
 		dependencies: [OptionalPlugin<EditorViewModePlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
 		actions?: {

@@ -373,7 +373,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		pluginsOptions: {
 			quickInsert: ({ formatMessage }) =>
-				editorExperiment('add-media-from-url', true)
+				fg('platform_editor_add_media_from_url_rollout')
 					? []
 					: [
 							{

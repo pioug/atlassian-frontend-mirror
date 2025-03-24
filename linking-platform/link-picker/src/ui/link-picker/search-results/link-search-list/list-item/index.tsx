@@ -7,8 +7,9 @@ import { forwardRef, Fragment, type KeyboardEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
-import { B100, B400, B50, N20, N200, N300 } from '@atlaskit/theme/colors';
+import { B100, B400, B50, N20, N200, N300, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkSearchListItemData } from '../../../../../common/types';
@@ -44,6 +45,11 @@ const listItemContainerStyles = css({
 
 const listItemContainerInnerStyles = css({
 	color: token('color.text.subtlest', N200),
+	whiteSpace: 'nowrap',
+});
+
+const listItemContainerInnerStylesA11yRefresh = css({
+	color: token('color.text.subtle', N400),
 	whiteSpace: 'nowrap',
 });
 
@@ -105,10 +111,24 @@ const ListItemSubtitle = ({ items: [firstItem, secondItem] }: SubtitleProps) => 
 	return (
 		<div data-testid={`${testIds.searchResultItem}-subtitle`} css={listItemContextStyles}>
 			<div css={listItemContainerStyles}>
-				<span css={listItemContainerInnerStyles}>{firstItem}</span>
+				<span
+					css={[
+						fg('bandicoots-a11y-link-picker-styling')
+							? listItemContainerInnerStylesA11yRefresh
+							: listItemContainerInnerStyles,
+					]}
+				>
+					{firstItem}
+				</span>
 			</div>
 			{secondItem && (
-				<div css={listItemContainerInnerStyles}>
+				<div
+					css={[
+						fg('bandicoots-a11y-link-picker-styling')
+							? listItemContainerInnerStylesA11yRefresh
+							: listItemContainerInnerStyles,
+					]}
+				>
 					<Fragment>&nbsp; •&nbsp; </Fragment>
 					<Fragment>{secondItem}</Fragment>
 				</div>

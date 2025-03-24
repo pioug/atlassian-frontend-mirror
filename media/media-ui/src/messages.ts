@@ -129,6 +129,7 @@ export type MessageKey =
 	| 'skipBackward'
 	| 'skipForward'
 	| 'sizeOptions'
+	| 'fileDisplayOptions'
 	| 'volumeMuteButtonAria'
 	| 'volumeLevelControlAria'
 	| 'playbackDefaultSpeed'
@@ -811,6 +812,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Size options',
 		description:
 			'A dropdown with buttons that allow to convert an image to an inline or to an image or original size',
+	},
+	fileDisplayOptions: {
+		id: 'fabric.media.file.display_options',
+		defaultMessage: 'Display options',
+		description:
+			'A dropdown with buttons that allow to convert between an inline file or a thumbnail file',
 	},
 	volumeLevelControlAria: {
 		id: 'fabric.media.volume_level',

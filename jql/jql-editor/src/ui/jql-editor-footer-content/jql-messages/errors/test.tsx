@@ -6,6 +6,7 @@ import { type IntlShape } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { JQLParseError, JQLSyntaxError } from '@atlaskit/jql-ast';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mockIntl } from '../../../../../mocks';
 import { commonMessages } from '../../../../common/messages';
@@ -17,7 +18,7 @@ import {
 	useJqlError,
 	useStoreActions,
 } from '../../../../state';
-import { type ExternalMessagesNormalized } from '../../../../state/types';
+import { CustomErrorComponent, type ExternalMessagesNormalized } from '../../../../state/types';
 
 import { ErrorMessages } from './index';
 
@@ -60,7 +61,7 @@ const useStoreActionsMock = jest.fn<[null, any], []>(() => [
 
 const useEditorViewIsInvalidMock = jest.fn<boolean, []>(() => false);
 
-const useCustomErrorComponentMock = jest.fn<[React.ComponentType | undefined, any], []>(() => [
+const useCustomErrorComponentMock = jest.fn<[CustomErrorComponent | undefined, any], []>(() => [
 	() => null,
 	{},
 ]);
@@ -93,58 +94,76 @@ describe('ErrorMessages', () => {
 		useCustomErrorComponentMock.mockReturnValue([undefined, {}]);
 	});
 
-	describe('Custom error component', () => {
-		// Note: Most of these tests are only a smoke tests. We're essentially testing the mocks
-		// However, These still are good tests to ensure basic things like errors not throwing and props being passed down correctly
+	ffTest.on(
+		'gravityai-2553-fix-jql-debugger-flicker',
+		'gravityai-2553-fix-jql-debugger-flicker',
+		() => {
+			describe('Custom error component', () => {
+				// Note: Most of these tests are only a smoke tests. We're essentially testing the mocks
+				// However, These still are good tests to ensure basic things like errors not throwing and props being passed down correctly
 
-		it('Uses custom component to override rendering', () => {
-			const CustomErrorMessage = jest.fn((props) => {
-				const { testId, editorTheme, editorId, children, ...rest } = props;
+				it('Uses custom component to override rendering', () => {
+					const CustomErrorMessage: CustomErrorComponent = jest.fn((props) => {
+						const {
+							testId,
+							editorTheme,
+							editorId,
+							children,
+							errorMessages,
+							validationId,
+							...rest
+						} = props;
 
-				// Expect some critical props to be passed down
-				expect(testId).toBe('jql-editor-validation');
-				expect(editorTheme).toStrictEqual({
-					defaultMaxRows: expect.any(Number),
-					expanded: expect.any(Boolean),
-					expandedRows: expect.any(Number),
-					isCompact: expect.any(Boolean),
-					isSearch: expect.any(Boolean),
-					toggleExpanded: expect.any(Function),
+						// Expect some critical props to be passed down
+						expect(testId).toBe('jql-editor-validation');
+						expect(editorTheme).toStrictEqual({
+							defaultMaxRows: expect.any(Number),
+							expanded: expect.any(Boolean),
+							expandedRows: expect.any(Number),
+							isCompact: expect.any(Boolean),
+							isSearch: expect.any(Boolean),
+							toggleExpanded: expect.any(Function),
+						});
+						expect(editorId).toEqual(expect.any(String));
+						expect(validationId).toContain('jql-editor-validation');
+						expect(errorMessages?.[0].props?.children).toStrictEqual(
+							'The quoted string has not been completed. (line 1, character 2)',
+						);
+
+						return <div {...rest}>{children}</div>;
+					});
+
+					useJQLErrorMock.mockReturnValue([syntaxError, {}]);
+					useEditorViewIsInvalidMock.mockReturnValue(true);
+					useCustomErrorComponentMock.mockReturnValue([CustomErrorMessage, {}]);
+
+					renderErrorMessages();
+
+					expect(CustomErrorMessage).toHaveBeenCalled();
+					expect(screen.queryByTestId('jql-editor-validation')).toBeInTheDocument();
+					expect(screen.queryByText(syntaxError.message, { exact: false })).toBeInTheDocument();
+					expect(screen.queryByRole('alert')?.getAttribute('aria-describedby')).toEqual(
+						expect.any(String),
+					);
 				});
-				expect(editorId).toEqual(expect.any(String));
 
-				return <div {...rest}>{children}</div>;
+				it('Does not use the custom component when errorMessage is empty', () => {
+					const CustomErrorMessage = jest.fn(() => {
+						return null;
+					});
+
+					useJQLErrorMock.mockReturnValue([null, {}]);
+					useEditorViewIsInvalidMock.mockReturnValue(false);
+					useCustomErrorComponentMock.mockReturnValue([CustomErrorMessage, {}]);
+
+					renderErrorMessages();
+
+					expect(CustomErrorMessage).not.toHaveBeenCalled();
+					expect(screen.queryByTestId('jql-editor-validation')).not.toBeInTheDocument();
+				});
 			});
-
-			useJQLErrorMock.mockReturnValue([syntaxError, {}]);
-			useEditorViewIsInvalidMock.mockReturnValue(true);
-			useCustomErrorComponentMock.mockReturnValue([CustomErrorMessage, {}]);
-
-			renderErrorMessages();
-
-			expect(CustomErrorMessage).toHaveBeenCalled();
-			expect(screen.queryByTestId('jql-editor-validation')).toBeInTheDocument();
-			expect(screen.queryByText(syntaxError.message, { exact: false })).toBeInTheDocument();
-			expect(screen.queryByRole('alert')?.getAttribute('aria-describedby')).toEqual(
-				expect.any(String),
-			);
-		});
-
-		it('Does not use the custom component when errorMessage is empty', () => {
-			const CustomErrorMessage = jest.fn(() => {
-				return null;
-			});
-
-			useJQLErrorMock.mockReturnValue([null, {}]);
-			useEditorViewIsInvalidMock.mockReturnValue(false);
-			useCustomErrorComponentMock.mockReturnValue([CustomErrorMessage, {}]);
-
-			renderErrorMessages();
-
-			expect(CustomErrorMessage).not.toHaveBeenCalled();
-			expect(screen.queryByTestId('jql-editor-validation')).not.toBeInTheDocument();
-		});
-	});
+		},
+	);
 
 	it(`does not render an error message when there are no errors`, () => {
 		const { queryByTestId } = renderErrorMessages();

@@ -68,6 +68,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{
@@ -96,6 +99,12 @@
 		},
 		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
+		},
+		{
+			"path": "../teams-avatar/tsconfig.app.json"
+		},
+		{
+			"path": "../teams-public/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/theme/tsconfig.app.json"

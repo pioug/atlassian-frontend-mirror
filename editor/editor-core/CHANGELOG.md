@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 204.6.1
+
+### Patch Changes
+
+- [#128179](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128179)
+  [`1ce5182d1a35f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ce5182d1a35f) -
+  Clean up feature flag platform_editor_advanced_layouts_post_fix_patch_3
+- Updated dependencies
+
+## 204.6.0
+
+### Minor Changes
+
+- [#129289](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129289)
+  [`fe73b01aca5c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe73b01aca5c2) -
+  ED-26926 Don't validate nodes in remote replaceDocument transactions dispatched from collab edit
+  plugin.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 204.5.6
+
+### Patch Changes
+
+- [#130044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130044)
+  [`cad348d512cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cad348d512cdf) -
+  [ux] ED-26802 contextual formatting configuration
+- Updated dependencies
+
 ## 204.5.5
 
 ### Patch Changes

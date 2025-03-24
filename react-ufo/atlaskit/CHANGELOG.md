@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.5
+
+### Patch Changes
+
+- [#130268](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130268)
+  [`597d9e0c5582d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/597d9e0c5582d) -
+  use requestIdleCallback for payload creation if its available
+
 ## 3.4.4
 
 ### Patch Changes

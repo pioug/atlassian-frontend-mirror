@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.0.0
+
+### Major Changes
+
+- [#130164](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130164)
+  [`7ef463decabca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ef463decabca) -
+  Removed JS bundles from publish files to improve AFM build health. ESM and CJS are unaffected.
+
 ## 4.26.5
 
 ### Patch Changes

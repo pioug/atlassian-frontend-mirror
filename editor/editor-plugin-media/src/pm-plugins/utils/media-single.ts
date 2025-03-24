@@ -34,7 +34,6 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { safeInsert as pmSafeInsert, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaState } from '../../types';
 import {
@@ -181,7 +180,7 @@ export const insertMediaAsMediaSingle = (
 	}
 
 	const resizeExperience = fg('platform_editor_media_extended_resize_experience');
-	const insertMediaPopup = editorExperiment('add-media-from-url', true);
+	const insertMediaPopup = fg('platform_editor_add_media_from_url_rollout');
 	const mediaSingleAttrs =
 		resizeExperience && insertMediaPopup
 			? {

@@ -93,8 +93,17 @@ export type CustomErrorComponent = React.ComponentType<
 		testId: string;
 		editorTheme: EditorTheme;
 		editorId: string;
+		errorMessages?: React.ReactElement[]; // TODO mark as non-optional with the feature gate cleanup of gravityai-2553-fix-jql-debugger-flicker
+		validationId?: string; // TODO mark as non-optional with the feature gate cleanup of gravityai-2553-fix-jql-debugger-flicker
 	}>
 >;
+
+export type CustomErrorMessageProps = Omit<
+	React.ComponentProps<CustomErrorComponent>,
+	'editorTheme' // omitting the editorTheme prop since that will be injected by the CustomErrorMessage component itself
+> & {
+	Component: CustomErrorComponent;
+};
 
 export type CustomComponents = {
 	ErrorMessage?: CustomErrorComponent;

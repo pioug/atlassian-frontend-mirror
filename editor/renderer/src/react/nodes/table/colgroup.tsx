@@ -111,8 +111,7 @@ const renderScaleDownColgroup = (
 	// Some extensions (for ex: Page Properties or Excerpt) do not renderer tables directly inside themselves. They use ReactRenderer.
 	// So if we add a check like isInsideExtension (similar to exising isInsideBlockNode), it will fail, and to the only way to learn
 	// if the table is rendered inside another node, is to check if the Renderer itself is nested.
-	const isRendererNested =
-		isTopLevelRenderer === false && fg('platform_editor_nested_table_in_nested_parent_fix');
+	const isRendererNested = isTopLevelRenderer === false;
 
 	// appearance == comment && allowTableResizing && !tableNode?.attrs.width, means it is a comment
 	// appearance == comment && !allowTableResizing && !tableNode?.attrs.width, means it is a inline comment

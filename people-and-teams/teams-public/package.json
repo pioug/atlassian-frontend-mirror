@@ -49,7 +49,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"graphql": "^15.8.0",
 		"graphql-tag": "^2.10.1",
 		"react-intl-next": "npm:react-intl@^5.18.1",
@@ -110,7 +110,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.15.0",
+	"version": "0.17.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

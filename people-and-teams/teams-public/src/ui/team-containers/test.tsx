@@ -82,13 +82,19 @@ describe('TeamContainers', () => {
 		link: 'link',
 	};
 
-	const renderTeamContainers = (teamId: string) => {
+	const renderTeamContainers = (
+		teamId: string,
+		filterContainerId?: string,
+		isDisplayedOnProfileCard?: boolean,
+	) => {
 		return renderWithIntl(
 			<TeamContainers
 				teamId={teamId}
 				onAddAContainerClick={mockOnAddAContainerClick}
 				userId={'test-user-id'}
 				cloudId={'test-cloud-id'}
+				filterContainerId={filterContainerId}
+				isDisplayedOnProfileCard={isDisplayedOnProfileCard}
 			/>,
 		);
 	};
@@ -155,6 +161,20 @@ describe('TeamContainers', () => {
 		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
 	});
 
+	it('should NOT render add Jira and Confluence container card when displayed from a profile card', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [JiraProject, ConfluenceSpace],
+		});
+		const mockFilterContainerId = '3';
+		const isDisplayedOnProfileCard = true;
+		renderTeamContainers(teamId, mockFilterContainerId, isDisplayedOnProfileCard);
+
+		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
+		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
+	});
+
 	it('should render add Jira container card when the team has no Jira project linked, and render linked Confluence space', () => {
 		(useTeamContainers as jest.Mock).mockReturnValue({
 			teamContainers: [ConfluenceSpace],
@@ -204,6 +224,31 @@ describe('TeamContainers', () => {
 		const theFifthContainer = await screen.findByText('Confluence Space Name 4');
 		expect(showLessButton).toBeInTheDocument();
 		expect(theFifthContainer).toBeInTheDocument();
+	});
+
+	it('should filter the team container if filterContainerId and isDisplayedOnProfileCard props is provided', async () => {
+		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
+			id: index.toString(),
+			type: 'ConfluenceSpace',
+			name: `Confluence Space Name ${index}`,
+			icon: 'icon',
+			link: 'link',
+		}));
+		const mockFilterContainerId = '3';
+
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: teamContainers.filter((container) => container.id !== mockFilterContainerId),
+		});
+
+		renderTeamContainers(teamId, mockFilterContainerId, true);
+
+		expect(await screen.findByText('Confluence Space Name 0')).toBeInTheDocument();
+		expect(await screen.findByText('Confluence Space Name 1')).toBeInTheDocument();
+		expect(await screen.findByText('Confluence Space Name 2')).toBeInTheDocument();
+		expect(screen.queryByText('Confluence Space Name 3')).toBeNull();
+		expect(await screen.findByText('Confluence Space Name 4')).toBeInTheDocument();
+
+		expect(screen.queryByText('Show more')).not.toBeInTheDocument();
 	});
 
 	it('should call onAddAContainerClick when add container card is clicked', () => {

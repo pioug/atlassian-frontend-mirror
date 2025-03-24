@@ -2,6 +2,7 @@ import {
 	NestedTableRenderer,
 	NestedTableWithOverflowRenderer,
 	StickyHeaderNestedTableRenderer,
+	NestedTableNumberedColumnRenderer,
 } from './nested-table.fixture';
 import type { Page } from '@playwright/test';
 
@@ -12,6 +13,28 @@ snapshotInformational(NestedTableRenderer, {
 	featureFlags: {
 		platform_editor_nested_tables_renderer_styles: true,
 		platform_editor_use_nested_table_pm_nodes: true,
+	},
+	variants: [
+		{
+			name: 'default',
+			environment: {},
+		},
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+
+snapshotInformational(NestedTableNumberedColumnRenderer, {
+	description:
+		'should render nested table numbered column correctly if parent cell has a background color',
+	featureFlags: {
+		platform_editor_nested_tables_renderer_styles: true,
+		platform_editor_use_nested_table_pm_nodes: true,
+		platform_editor_tables_numbered_column_correction: true,
 	},
 	variants: [
 		{

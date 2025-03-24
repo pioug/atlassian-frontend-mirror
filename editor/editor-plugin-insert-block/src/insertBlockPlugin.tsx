@@ -35,7 +35,6 @@ import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/
 import type { InsertBlockOptions } from './types';
 import SwitchIcon from './ui/assets/switch';
 import { InsertMenuRail } from './ui/ElementRail';
-import { templateOptions } from './ui/templateOptions';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
@@ -170,12 +169,10 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		);
 	};
 
-	if (editorExperiment('platform_editor_controls', 'control', { exposure: true })) {
-		api?.primaryToolbar?.actions.registerComponent({
-			name: 'insertBlock',
-			component: primaryToolbarComponent,
-		});
-	}
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'insertBlock',
+		component: primaryToolbarComponent,
+	});
 
 	const plugin: ReturnType<InsertBlockPlugin> = {
 		name: 'insertBlock',
@@ -316,30 +313,9 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					};
 				}
 			},
-			// This is temporarily added for element level templates experiment.
-			// This is not the most ideal plugin to add this to, but it is suitable for experiment purpose
-			// If we decide to ship the feature, we will consider a separate plugin if needed.
-			// Experiment one-pager: https://hello.atlassian.net/wiki/spaces/ETM/pages/3983684902/Experiment+Drive+element+usage+via+element+templates
-			quickInsert: (intl) => {
-				const { locale } = intl;
-
-				const isEligible =
-					locale.startsWith('en') &&
-					// @ts-ignore
-					['full-page', 'full-width'].includes(options.appearance ?? '');
-
-				if (isEligible && editorExperiment('element-level-templates', true, { exposure: true })) {
-					return templateOptions(api);
-				}
-				return [];
-			},
 		},
 
-		primaryToolbarComponent:
-			!api?.primaryToolbar &&
-			editorExperiment('platform_editor_controls', 'control', { exposure: true })
-				? primaryToolbarComponent
-				: undefined,
+		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 
 	if (
@@ -430,7 +406,7 @@ function ToolbarInsertBlockWithInjectionApi({
 			return;
 		}
 
-		if (editorExperiment('add-media-from-url', true)) {
+		if (fg('platform_editor_add_media_from_url_rollout')) {
 			pluginInjectionApi?.core?.actions.execute(
 				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
 			);

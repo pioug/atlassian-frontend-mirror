@@ -36,7 +36,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"react-magnetic-di": "^3.1.4"
 	},
 	"peerDependencies": {
@@ -92,7 +92,7 @@
 		}
 	},
 	"name": "@atlaskit/platform-feature-flags-react",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "utility library for working with feature flags in react",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

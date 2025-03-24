@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/temp-nav-app-icons",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -32,6 +32,7 @@
 	},
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
+		"./types": "./src/entry-points/types.tsx",
 		"./admin": "./src/entry-points/admin.tsx",
 		"./align": "./src/entry-points/align.tsx",
 		"./analytics": "./src/entry-points/analytics.tsx",
@@ -47,10 +48,12 @@
 		"./guard": "./src/entry-points/guard.tsx",
 		"./guard-detect": "./src/entry-points/guard-detect.tsx",
 		"./home": "./src/entry-points/home.tsx",
+		"./jira-customer-service": "./src/entry-points/jira-customer-service.tsx",
 		"./jira-product-discovery": "./src/entry-points/jira-product-discovery.tsx",
 		"./jira-service-management": "./src/entry-points/jira-service-management.tsx",
 		"./jira": "./src/entry-points/jira.tsx",
 		"./loom": "./src/entry-points/loom.tsx",
+		"./loom-internal": "./src/entry-points/loom-internal.tsx",
 		"./more-atlassian-apps": "./src/entry-points/more-atlassian-apps.tsx",
 		"./opsgenie": "./src/entry-points/opsgenie.tsx",
 		"./projects": "./src/entry-points/projects.tsx",
@@ -63,6 +66,7 @@
 		"./trello": "./src/entry-points/trello.tsx"
 	},
 	"exports": {
+		"./types": "./src/entry-points/types.tsx",
 		"./admin": "./src/entry-points/admin.tsx",
 		"./align": "./src/entry-points/align.tsx",
 		"./analytics": "./src/entry-points/analytics.tsx",
@@ -78,10 +82,12 @@
 		"./guard": "./src/entry-points/guard.tsx",
 		"./guard-detect": "./src/entry-points/guard-detect.tsx",
 		"./home": "./src/entry-points/home.tsx",
+		"./jira-customer-service": "./src/entry-points/jira-customer-service.tsx",
 		"./jira-product-discovery": "./src/entry-points/jira-product-discovery.tsx",
 		"./jira-service-management": "./src/entry-points/jira-service-management.tsx",
 		"./jira": "./src/entry-points/jira.tsx",
 		"./loom": "./src/entry-points/loom.tsx",
+		"./loom-internal": "./src/entry-points/loom-internal.tsx",
 		"./more-atlassian-apps": "./src/entry-points/more-atlassian-apps.tsx",
 		"./opsgenie": "./src/entry-points/opsgenie.tsx",
 		"./projects": "./src/entry-points/projects.tsx",
@@ -100,7 +106,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2"
+		"@compiled/react": "^0.18.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -112,6 +118,7 @@
 		"@atlaskit/primitives": "workspace:*",
 		"@atlaskit/select": "workspace:*",
 		"@atlaskit/table": "workspace:*",
+		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/codegen": "workspace:*",
 		"@testing-library/react": "^13.4.0",
 		"fs-extra": "^4.0.2",

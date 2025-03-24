@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import type { MediaADFAttrs, MediaBaseAttributes } from '@atlaskit/adf-schema';
 import type { FileIdentifier, Identifier, MediaClientConfig } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isExternalMedia } from '../../ui/toolbar/utils';
 
@@ -38,7 +38,7 @@ export const RenderMediaViewer = ({
 	selectedNodeAttrs,
 	items = [],
 }: RenderMediaViewerProps) => {
-	if (editorExperiment('add-media-from-url', true)) {
+	if (fg('platform_editor_add_media_from_url_rollout')) {
 		const identifier = getIdentifier(selectedNodeAttrs);
 		const collectionName = isExternalMedia(selectedNodeAttrs) ? '' : selectedNodeAttrs.collection;
 

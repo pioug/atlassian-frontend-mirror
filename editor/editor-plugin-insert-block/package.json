@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "3.0.12",
+	"version": "3.1.0",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -140,6 +140,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_preload_emoji_picker": {
+			"type": "boolean"
+		},
+		"platform_editor_add_media_from_url_rollout": {
 			"type": "boolean"
 		}
 	}

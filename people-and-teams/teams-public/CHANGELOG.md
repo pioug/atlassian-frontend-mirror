@@ -1,5 +1,29 @@
 # @atlaskit/teams-public
 
+## 0.17.0
+
+### Minor Changes
+
+- [#130004](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130004)
+  [`ee4fa8acc115d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee4fa8acc115d) -
+  Add missing analytics
+
+### Patch Changes
+
+- [#129972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129972)
+  [`b2d69a39e6687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d69a39e6687) -
+  Update `@compiled/react` dependency for improved type checking support.
+- Updated dependencies
+
+## 0.16.0
+
+### Minor Changes
+
+- [#130429](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130429)
+  [`45b3cf7cd5123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45b3cf7cd5123) -
+  add props to filter container IDs from TeamContainer component (Will be used in the new profile
+  card component)
+
 ## 0.15.0
 
 ### Minor Changes

@@ -7,13 +7,13 @@ export interface ProductHomeProps {
 	 * The product icon.
 	 * Expected to be an Icon from the Atlaskit Logo package. Visible on smaller screen sizes.
 	 */
-	icon: ComponentType<Partial<LogoProps>>;
+	icon: ComponentType<Partial<Omit<LogoProps, 'appearance'> & { size?: 'small' }>>;
 
 	/**
 	 * The product logo,
 	 * visible on larger screen sizes.
 	 */
-	logo: ComponentType<Partial<LogoProps>>;
+	logo: ComponentType<Partial<Omit<LogoProps, 'appearance'> & { size?: 'small' }>>;
 
 	/**
 	 * Maximum width in pixel, that logo can acquire. Defaults to 260px.

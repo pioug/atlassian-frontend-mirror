@@ -4,15 +4,24 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ComponentRegistry, ToolbarElementConfig } from '../primaryToolbarPluginType';
 
-export const getToolbarComponents = (
-	componentRegistry: ComponentRegistry,
-	editorState: EditorState,
-): ToolbarUIComponentFactory[] => {
-	return (
+type GetToolbarComponentsOptions = {
+	componentRegistry: ComponentRegistry;
+	editorState: EditorState;
+	contextualFormattingEnabled?: boolean;
+};
+
+export const getToolbarComponents = ({
+	componentRegistry,
+	editorState,
+	contextualFormattingEnabled,
+}: GetToolbarComponentsOptions): ToolbarUIComponentFactory[] => {
+	const configuration =
+		contextualFormattingEnabled &&
 		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 			? toolbarConfigurationV2
-			: toolbarConfiguration
-	)
+			: toolbarConfiguration;
+
+	return configuration
 		.filter(
 			(toolbarElement) =>
 				typeof toolbarElement.enabled === 'undefined' ||

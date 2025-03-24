@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "20.0.5",
+	"version": "20.0.6",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -60,7 +60,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"@popperjs/core": "^2.11.8",
 		"bind-event-listener": "^3.0.0",
 		"react-focus-lock": "^2.9.5",

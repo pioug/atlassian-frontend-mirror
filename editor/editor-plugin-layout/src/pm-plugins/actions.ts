@@ -434,11 +434,7 @@ export const setPresetLayout =
 	(state, dispatch) => {
 		const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
 
-		if (fg('platform_editor_advanced_layouts_post_fix_patch_3')) {
-			if (pos === null) {
-				return false;
-			}
-		} else if (selectedLayout === layout || pos === null) {
+		if (pos === null) {
 			return false;
 		}
 
@@ -447,10 +443,8 @@ export const setPresetLayout =
 			return false;
 		}
 
-		if (fg('platform_editor_advanced_layouts_post_fix_patch_3')) {
-			if (selectedLayout === layout && node.childCount > 1) {
-				return false;
-			}
+		if (selectedLayout === layout && node.childCount > 1) {
+			return false;
 		}
 
 		const tr = forceSectionToPresetLayout(state, node, pos, layout);

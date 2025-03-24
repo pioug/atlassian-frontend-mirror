@@ -71,15 +71,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-08-29
-	'add-media-from-url': {
-		productKeys: {
-			confluence: 'platform_editor_add_media_from_url',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-08-30
 	'nested-dnd': {
 		productKeys: {

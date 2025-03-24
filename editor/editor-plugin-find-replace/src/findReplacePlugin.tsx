@@ -109,10 +109,15 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 					wrapperElement,
 					dispatchAnalyticsEvent,
 				}) => {
+					const popupsMountPointEl =
+						popupsMountPoint ||
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
+						(wrapperElement?.querySelector("[data-editor-container='true']") as HTMLElement);
+
 					return (
 						<FindReplaceDropDownOrToolbarButtonWithState
 							popupsBoundariesElement={popupsBoundariesElement}
-							popupsMountPoint={popupsMountPoint || wrapperElement || undefined}
+							popupsMountPoint={popupsMountPointEl}
 							popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
 							isToolbarReducedSpacing={false}
 							editorView={editorView}

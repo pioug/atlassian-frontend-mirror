@@ -74,6 +74,7 @@ import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-valu
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
+import { replaceDocument } from '@atlaskit/editor-plugin-collab-edit/src/pm-plugins/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -101,7 +102,11 @@ import {
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
 } from '../../consts';
 import { createUniversalPreset } from '../../create-universal-preset';
+import * as useDispatchTransactionModule from '../../ReactEditorView/useDispatchTransaction';
 import ReactEditorView from '../../ReactEditorViewNext';
+
+const initializeCollab = (view: EditorView) =>
+	view.dispatch(view.state.tr.setMeta('collabInitialised', true));
 
 export const editorAnalyticsChannel = FabricChannel.editor;
 
@@ -689,4 +694,275 @@ describe('@atlaskit/editor-core', () => {
 			});
 		},
 	);
+
+	describe('Allowing remote replaceDocument transactions to skip validation', () => {
+		let useDispatchTransactionSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			useDispatchTransactionSpy = jest.spyOn(
+				useDispatchTransactionModule,
+				'useDispatchTransaction',
+			);
+		});
+
+		afterEach(() => {
+			useDispatchTransactionSpy.mockRestore();
+		});
+
+		it('should pass isRemoteReplaceDocumentTransaction() to useDispatchTransaction if collab plugin is in use', () => {
+			createEditorFactory()({
+				doc: doc(p('hello world')),
+				editorProps: {
+					collabEdit: {},
+				},
+			});
+
+			expect(useDispatchTransactionSpy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					isRemoteReplaceDocumentTransaction: expect.any(Function),
+				}),
+			);
+		});
+
+		it('should not pass isRemoteReplaceDocumentTransaction() to useDispatchTransaction if collab plugin is not in use', () => {
+			createEditorFactory()({
+				doc: doc(p('hello world')),
+				editorProps: {},
+			});
+
+			expect(useDispatchTransactionSpy).not.toHaveBeenCalledWith(
+				expect.objectContaining({
+					isRemoteReplaceDocumentTransaction: expect.any(Function),
+				}),
+			);
+		});
+
+		ffTest.on(
+			'platform_editor_transaction_skip_validation',
+			'should skip validation of a remote replaceDocument transaction if feature flag is enabled',
+			() => {
+				it('useDispatchTransaction should allow invalid nodes in the transaction when remote replaceDocument transaction is invoked', () => {
+					const onChange = jest.fn();
+
+					const { editorView } = createEditorFactory()({
+						doc: doc(p('hello world')),
+						editorProps: {
+							collabEdit: {},
+							allowLayouts: true,
+							onChange,
+						},
+					});
+
+					initializeCollab(editorView);
+
+					const mockDocument = {
+						type: 'doc',
+						content: [
+							{
+								type: 'blockquote',
+								content: [
+									{
+										type: 'layoutSection',
+										content: [
+											{
+												type: 'layoutColumn',
+												attrs: {
+													width: 33.33,
+												},
+												content: [
+													{
+														type: 'paragraph',
+														attrs: {
+															localId: null,
+														},
+														content: [
+															{
+																type: 'text',
+																text: 'This column is a 1/3rd.',
+															},
+														],
+													},
+												],
+											},
+											{
+												type: 'layoutColumn',
+												attrs: {
+													width: 66.66,
+												},
+												content: [
+													{
+														type: 'paragraph',
+														attrs: {
+															localId: null,
+														},
+														content: [
+															{
+																type: 'text',
+																text: 'This column is 2/3rds.',
+															},
+														],
+													},
+												],
+											},
+										],
+									},
+								],
+							},
+						],
+					};
+
+					const tr = replaceDocument(mockDocument, editorView.state);
+					tr.setMeta('isRemote', true);
+					editorView.dispatch(tr);
+
+					expect(editorView.state.doc.toJSON()).toEqual(mockDocument);
+				});
+			},
+		);
+
+		it('useDispatchTransaction should not allow invalid nodes in the transaction if its not a remote replaceDocument transaction', () => {
+			const { editorView, editorAPI } = createEditorFactory()({
+				doc: doc(p('hello world')),
+				editorProps: {
+					allowLayouts: true,
+				},
+			});
+
+			const mockDocument = {
+				type: 'doc',
+				content: [
+					{
+						type: 'blockquote',
+						content: [
+							{
+								type: 'layoutSection',
+								content: [
+									{
+										type: 'layoutColumn',
+										attrs: {
+											width: 33.33,
+										},
+										content: [
+											{
+												type: 'paragraph',
+												attrs: {
+													localId: null,
+												},
+												content: [
+													{
+														type: 'text',
+														text: 'This column is a 1/3rd.',
+													},
+												],
+											},
+										],
+									},
+									{
+										type: 'layoutColumn',
+										attrs: {
+											width: 66.66,
+										},
+										content: [
+											{
+												type: 'paragraph',
+												attrs: {
+													localId: null,
+												},
+												content: [
+													{
+														type: 'text',
+														text: 'This column is 2/3rds.',
+													},
+												],
+											},
+										],
+									},
+								],
+							},
+						],
+					},
+				],
+			};
+
+			editorAPI?.core.actions.replaceDocument(mockDocument, { skipValidation: true });
+			expect(editorView.state.doc.toJSON()).toEqual(doc(p('hello world'))(defaultSchema).toJSON());
+		});
+
+		ffTest.off(
+			'platform_editor_transaction_skip_validation',
+			'with skip validation for remote replaceDocument transactions flag disabled',
+			() => {
+				it('useDispatchTransaction does not allow invalid nodes in a remote replaceDocument transaction when collab edit plugin is in use', () => {
+					const { editorView, editorAPI } = createEditorFactory()({
+						doc: doc(p('hello world')),
+						editorProps: {
+							collabEdit: {},
+							allowLayouts: true,
+						},
+					});
+
+					initializeCollab(editorView);
+
+					const mockDocument = {
+						type: 'doc',
+						content: [
+							{
+								type: 'blockquote',
+								content: [
+									{
+										type: 'layoutSection',
+										content: [
+											{
+												type: 'layoutColumn',
+												attrs: {
+													width: 33.33,
+												},
+												content: [
+													{
+														type: 'paragraph',
+														attrs: {
+															localId: null,
+														},
+														content: [
+															{
+																type: 'text',
+																text: 'This column is a 1/3rd.',
+															},
+														],
+													},
+												],
+											},
+											{
+												type: 'layoutColumn',
+												attrs: {
+													width: 66.66,
+												},
+												content: [
+													{
+														type: 'paragraph',
+														attrs: {
+															localId: null,
+														},
+														content: [
+															{
+																type: 'text',
+																text: 'This column is 2/3rds.',
+															},
+														],
+													},
+												],
+											},
+										],
+									},
+								],
+							},
+						],
+					};
+
+					editorAPI?.core.actions.replaceDocument(mockDocument, { skipValidation: true });
+					expect(editorView.state.doc.toJSON()).toEqual(doc(p())(defaultSchema).toJSON());
+				});
+			},
+		);
+	});
 });

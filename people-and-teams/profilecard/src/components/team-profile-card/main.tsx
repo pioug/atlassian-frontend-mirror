@@ -11,6 +11,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { Box, Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
+import TeamAvatar from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -30,33 +31,28 @@ const styles = cssMap({
 	containerStyles: {
 		marginBottom: token('space.200'),
 	},
-	avatarImageContainerStyles: {
-		position: 'absolute',
-		marginLeft: token('space.150'),
-	},
 	avatarImageStyles: {
 		position: 'absolute',
-		marginLeft: token('space.150'),
-		borderRadius: token('border.radius.100'),
-		height: '64px',
-		width: '64px',
+		marginLeft: token('space.300'),
 	},
 	headerImageStyles: {
 		objectFit: 'cover',
 		verticalAlign: 'top',
-		maxHeight: '100px',
+		height: '100px',
 		width: '100%',
 	},
 	teamInformationStyles: {
-		marginLeft: token('space.150'),
-		marginTop: token('space.400'),
-		marginRight: token('space.150'),
+		marginLeft: token('space.300'),
+		marginTop: token('space.100'),
+		marginRight: token('space.300'),
 	},
 	viewProfileContainerStyles: {
 		alignItems: 'center',
 		borderTopWidth: token('border.width'),
 		borderTopStyle: 'solid',
 		borderTopColor: token('color.border'),
+		paddingLeft: token('space.300'),
+		paddingRight: token('space.300'),
 	},
 	viewProfileButtonStyles: {
 		borderRadius: token('border.radius.100'),
@@ -64,7 +60,7 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
-		width: '80%',
+		width: '100%',
 		height: '30px',
 		marginTop: token('space.200'),
 	},
@@ -84,10 +80,6 @@ const HeaderImage = ({ srcUrl }: { srcUrl: string }) => (
 		testId="profile-header-image"
 		alt="team-header-image"
 	/>
-);
-
-const TeamAvatar = ({ avatarUrl }: { avatarUrl: string }) => (
-	<Box as="img" src={avatarUrl} xcss={styles.avatarImageStyles} alt="team-avatar-image" />
 );
 
 interface TeamProfileCardProps {
@@ -116,17 +108,20 @@ export const TeamProfileCard = ({
 	return (
 		<TeamCardWrapper id={teamId}>
 			<HeaderImage srcUrl={headerImageUrl} />
-			<Stack space="space.150" xcss={styles.containerStyles}>
+			<Stack space="space.200" xcss={styles.containerStyles}>
 				<Inline spread="space-between" alignBlock="center">
-					<TeamAvatar avatarUrl={avatarImageUrl} />
+					<Box xcss={styles.avatarImageStyles}>
+						<TeamAvatar size="medium" src={avatarImageUrl} />
+					</Box>
 				</Inline>
-				<Stack xcss={styles.teamInformationStyles} space="space.150">
-					<Stack space="space.150">
+
+				<Stack xcss={styles.teamInformationStyles} space="space.200">
+					<Stack>
 						<Inline alignBlock="center">
-							<Heading size="small">{displayName}</Heading>
+							<Heading size="medium">{displayName}</Heading>
 							{isVerified && <VerifiedTeamIcon showTooltip />}
 						</Inline>
-						<Text color="color.text.subtle">
+						<Text color="color.text.subtlest">
 							<FormattedMessage
 								defaultMessage="Contributing team &bull; {count, plural, one {# member} other {# members}}"
 								values={{ count: memberCount }}
@@ -137,11 +132,11 @@ export const TeamProfileCard = ({
 					<Inline>
 						<AvatarGroup appearance="stack" data={memberAvatars} />
 					</Inline>
-					<Stack space="space.050">
-						<Text color="color.text.subtle" maxLines={3}>
+					{description && (
+						<Text color="color.text" maxLines={3}>
 							{description}
 						</Text>
-					</Stack>
+					)}
 				</Stack>
 				{teamProfileUrl && (
 					<Stack xcss={styles.viewProfileContainerStyles}>

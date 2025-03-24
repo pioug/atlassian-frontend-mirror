@@ -1,11 +1,21 @@
 import React from 'react';
 
-import { adfNestedTableInsideTable, adfNestedTableWithLotsOfRows } from './__fixtures__';
+import {
+	adfNestedTableInsideTable,
+	adfNestedTableWithLotsOfRows,
+	adfNestedTableInsideTableWithNumberedColumn,
+} from './__fixtures__';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const NestedTableRenderer = generateRendererComponent({
 	document: adfNestedTableInsideTable,
+	appearance: 'full-page',
+	allowColumnSorting: true,
+});
+
+export const NestedTableNumberedColumnRenderer = generateRendererComponent({
+	document: adfNestedTableInsideTableWithNumberedColumn,
 	appearance: 'full-page',
 	allowColumnSorting: true,
 });

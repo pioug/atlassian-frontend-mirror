@@ -1,5 +1,13 @@
 # @atlaskit/rating
 
+## 3.0.0
+
+### Major Changes
+
+- [#130517](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130517)
+  [`a754431f04095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a754431f04095) -
+  [ux] Iconography uplift with new spacing prop
+
 ## 2.0.5
 
 ### Patch Changes

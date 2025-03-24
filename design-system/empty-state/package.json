@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/empty-state",
-	"version": "9.0.1",
+	"version": "9.0.2",
 	"description": "An empty state appears when there is no data to display and describes what the user can do next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2"
+		"@compiled/react": "^0.18.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

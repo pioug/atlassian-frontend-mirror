@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/visually-hidden",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "A utility that hides content from the screen while retaining readability by screen readers for accessibility.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2"
+		"@compiled/react": "^0.18.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

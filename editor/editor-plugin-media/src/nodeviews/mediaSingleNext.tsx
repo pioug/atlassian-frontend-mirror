@@ -41,7 +41,6 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -456,18 +455,6 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 		});
 	}, [contextIdentifierProviderPromise]);
 
-	React.useEffect(() => {
-		// No-op but logging an exposure when an external image is rendered
-		// Remove this block when cleaning up platform_editor_add_media_from_url
-		if (mediaNode.firstChild?.attrs.type === 'external') {
-			if (editorExperiment('add-media-from-url', true)) {
-				editorExperiment('add-media-from-url', true, { exposure: true });
-			} else {
-				editorExperiment('add-media-from-url', false, { exposure: true });
-			}
-		}
-	}, [mediaNode]);
-
 	const {
 		layout,
 		widthType,
@@ -574,7 +561,6 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 			annotationPluginState?.targetNodeId === mediaNode?.firstChild?.attrs.id,
 	);
 
-	const shouldShowExternalMediaBadge = childMediaNodeAttrs.type === 'external';
 	const mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
 	const captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
 
@@ -622,7 +608,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 			className={MediaSingleNodeSelector}
 			onClick={onMediaSingleClicked}
 		>
-			{editorExperiment('add-media-from-url', true) && (
+			{fg('platform_editor_add_media_from_url_rollout') && (
 				<MediaBadges
 					mediaElement={currentMediaElement()}
 					mediaHeight={height}
@@ -631,22 +617,16 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 						fg('platform_editor_media_extended_resize_experience') && !isInsideTable
 					}
 				>
-					{({ badgeSize, visible }: { badgeSize: 'small' | 'medium'; visible: boolean }) => (
+					{({ visible }: { visible: boolean }) => (
 						<>
-							{fg('platform_editor_hide_external_media_badge')
-								? visible && (
-										<ExternalImageBadge
-											badgeSize={badgeSize}
-											type={childMediaNodeAttrs.type}
-											url={
-												childMediaNodeAttrs.type === 'external'
-													? childMediaNodeAttrs.url
-													: undefined
-											}
-										/>
-									)
-								: shouldShowExternalMediaBadge &&
-									visible && <ExternalImageBadge badgeSize={badgeSize} />}
+							{visible && (
+								<ExternalImageBadge
+									type={childMediaNodeAttrs.type}
+									url={
+										childMediaNodeAttrs.type === 'external' ? childMediaNodeAttrs.url : undefined
+									}
+								/>
+							)}
 							{mediaOptions.allowCommentsOnMedia && (
 								<CommentBadgeNextWrapper
 									view={view}
@@ -654,14 +634,13 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 									mediaNode={mediaNode?.firstChild}
 									getPos={getPos}
 									isDrafting={isCurrentNodeDrafting}
-									badgeSize={badgeSize}
 								/>
 							)}
 						</>
 					)}
 				</MediaBadges>
 			)}
-			{!editorExperiment('add-media-from-url', true) && mediaOptions.allowCommentsOnMedia && (
+			{!fg('platform_editor_add_media_from_url_rollout') && mediaOptions.allowCommentsOnMedia && (
 				<CommentBadge
 					view={view}
 					api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}

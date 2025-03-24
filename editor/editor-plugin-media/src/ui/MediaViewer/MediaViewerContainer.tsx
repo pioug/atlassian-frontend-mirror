@@ -8,6 +8,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { isVideo } from '../../pm-plugins/utils/is-type';
 import { type MediaPluginState } from '../../types';
@@ -56,7 +57,12 @@ export const MediaViewerContainer = ({
 	const isVideoMedia = isVideo(mediaNode.firstChild?.attrs.__fileMimeType);
 
 	const shouldShowViewer =
-		isEditorViewMode && showViewer && selectedNodeAttrs && mediaClientConfig && !isVideoMedia;
+		isEditorViewMode &&
+		showViewer &&
+		selectedNodeAttrs &&
+		mediaClientConfig &&
+		!isVideoMedia &&
+		editorExperiment('platform_editor_controls', 'control');
 
 	return (
 		<Fragment>

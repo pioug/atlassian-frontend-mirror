@@ -1,5 +1,30 @@
 # @atlaskit/profilecard
 
+## 23.5.0
+
+### Minor Changes
+
+- [#130671](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130671)
+  [`91fff906b97b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91fff906b97b4) -
+  Create a customer container card for consuming the TeamContainers component
+
+## 23.4.3
+
+### Patch Changes
+
+- [#129972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129972)
+  [`b2d69a39e6687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d69a39e6687) -
+  Update `@compiled/react` dependency for improved type checking support.
+- Updated dependencies
+
+## 23.4.2
+
+### Patch Changes
+
+- [#130443](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130443)
+  [`85df6ddb8d6de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85df6ddb8d6de) -
+  [ux] few UI update for the team profile card
+
 ## 23.4.1
 
 ### Patch Changes

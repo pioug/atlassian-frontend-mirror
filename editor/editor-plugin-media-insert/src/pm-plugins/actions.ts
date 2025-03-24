@@ -1,5 +1,4 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { pluginKey } from './plugin-key';
 
@@ -22,10 +21,6 @@ export const showMediaInsertPopup = (
 	tr: Transaction,
 	mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement },
 ) => {
-	// Log exposure here but don't actually switch anything on it
-	editorExperiment('add-media-from-url', true, {
-		exposure: true,
-	});
 	return setPopupMeta({ type: ACTION_OPEN_POPUP, mountInfo, tr });
 };
 

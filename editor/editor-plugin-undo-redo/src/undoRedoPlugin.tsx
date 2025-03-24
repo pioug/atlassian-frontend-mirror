@@ -7,9 +7,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { attachInputMeta } from './pm-plugins/attach-input-meta';
+import { InputSource } from './pm-plugins/enums';
 import { keymapPlugin } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { forceFocus } from './pm-plugins/utils';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
@@ -33,39 +34,37 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		);
 	};
 
-	if (editorExperiment('platform_editor_controls', 'control', { exposure: true })) {
-		api?.primaryToolbar?.actions.registerComponent({
-			name: 'undoRedoPlugin',
-			component: primaryToolbarComponent,
-		});
-	}
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'undoRedoPlugin',
+		component: primaryToolbarComponent,
+	});
+
+	const handleUndo = (inputSource?: InputSource): boolean => {
+		if (!editorViewRef.current) {
+			return false;
+		}
+		return forceFocus(
+			editorViewRef.current,
+			api,
+		)(attachInputMeta(inputSource || InputSource.EXTERNAL)(undo));
+	};
+
+	const handleRedo = (inputSource?: InputSource): boolean => {
+		if (!editorViewRef.current) {
+			return false;
+		}
+		return forceFocus(
+			editorViewRef.current,
+			api,
+		)(attachInputMeta(inputSource || InputSource.EXTERNAL)(redo));
+	};
 
 	return {
 		name: 'undoRedoPlugin',
 
 		actions: {
-			undo: (inputSource) => {
-				if (!editorViewRef.current) {
-					return false;
-				}
-
-				const { state, dispatch } = editorViewRef.current;
-				if (!inputSource) {
-					return undo(state, dispatch);
-				}
-				return attachInputMeta(inputSource)(undo)(state, dispatch);
-			},
-			redo: (inputSource) => {
-				if (!editorViewRef.current) {
-					return false;
-				}
-
-				const { state, dispatch } = editorViewRef.current;
-				if (!inputSource) {
-					return redo(state, dispatch);
-				}
-				return attachInputMeta(inputSource)(redo)(state, dispatch);
-			},
+			undo: handleUndo,
+			redo: handleRedo,
 		},
 
 		pmPlugins() {
@@ -101,10 +100,6 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			return plugins;
 		},
 
-		primaryToolbarComponent:
-			!api?.primaryToolbar &&
-			editorExperiment('platform_editor_controls', 'control', { exposure: true })
-				? primaryToolbarComponent
-				: undefined,
+		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };

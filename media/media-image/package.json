@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "20.0.1",
+	"version": "20.0.2",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,7 +54,7 @@
 		"@atlaskit/media-file-preview": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"react-error-boundary": "^3.1.3"
 	},
 	"peerDependencies": {

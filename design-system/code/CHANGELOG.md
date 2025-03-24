@@ -1,5 +1,23 @@
 # @atlaskit/code
 
+## 16.1.0
+
+### Minor Changes
+
+- [#130207](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130207)
+  [`555f7dfaf77f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555f7dfaf77f8) -
+  CodeBlock now correctly applies syntax highlighting for the ABAP language. This change is behind
+  the feature flag `platform_dst_code_abap_syntax`.
+
+## 16.0.3
+
+### Patch Changes
+
+- [#129972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129972)
+  [`b2d69a39e6687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d69a39e6687) -
+  Update `@compiled/react` dependency for improved type checking support.
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

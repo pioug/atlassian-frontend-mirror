@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 10.5.2
+
+### Patch Changes
+
+- [#130115](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130115)
+  [`e60f1c02e9715`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e60f1c02e9715) -
+  Clean up feature flag platform_editor_table_drag_menu_mount_point_fix
+- Updated dependencies
+
+## 10.5.1
+
+### Patch Changes
+
+- [#130002](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130002)
+  [`e273880dffa90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e273880dffa90) -
+  Clean up feature flag platform_editor_nested_table_in_nested_parent_fix
+
 ## 10.5.0
 
 ### Minor Changes

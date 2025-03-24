@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {

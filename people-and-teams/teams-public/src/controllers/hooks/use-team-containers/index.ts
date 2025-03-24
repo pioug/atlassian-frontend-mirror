@@ -81,12 +81,14 @@ const Store = createStore<State, Actions>({
 
 export const useTeamContainersHook = createHook(Store);
 
-export const useTeamContainers = (teamId: string) => {
+export const useTeamContainers = (teamId: string, enable = true) => {
 	const [state, actions] = useTeamContainersHook();
 
 	useEffect(() => {
-		actions.fetchTeamContainers(teamId);
-	}, [teamId, actions]);
+		if (enable) {
+			actions.fetchTeamContainers(teamId);
+		}
+	}, [teamId, actions, enable]);
 
 	return { ...state, addTeamContainer: actions.addTeamContainer };
 };

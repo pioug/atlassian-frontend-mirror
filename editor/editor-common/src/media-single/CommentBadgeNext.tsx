@@ -15,15 +15,10 @@ type CommentBadgeProps = {
 	onClick: (e: React.MouseEvent) => void;
 	onMouseEnter?: (e: React.MouseEvent) => void;
 	onMouseLeave?: (e: React.MouseEvent) => void;
-	badgeSize: 'small' | 'medium';
 };
 
 const baseStyles = xcss({
 	borderRadius: 'border.radius',
-});
-const smallBadgeStyles = xcss({
-	height: 'space.200',
-	width: 'space.200',
 });
 
 const mediumBadgeStyles = xcss({
@@ -36,7 +31,6 @@ export const CommentBadgeNext = ({
 	onClick,
 	onMouseEnter,
 	onMouseLeave,
-	badgeSize,
 }: CommentBadgeProps) => {
 	const intl = useIntl();
 	const title = intl.formatMessage(messages.viewCommentsOnMedia);
@@ -55,7 +49,7 @@ export const CommentBadgeNext = ({
 	return (
 		<Tooltip position="top" content={title}>
 			<Pressable
-				xcss={[baseStyles, badgeSize === 'medium' ? mediumBadgeStyles : smallBadgeStyles]}
+				xcss={[baseStyles, mediumBadgeStyles]}
 				padding="space.0"
 				onClick={onClick}
 				onMouseEnter={onMouseEnter}
@@ -66,7 +60,7 @@ export const CommentBadgeNext = ({
 					label={title}
 					spacing="spacious"
 					color="currentColor"
-					LEGACY_size={badgeSize}
+					LEGACY_size="medium"
 					LEGACY_fallbackIcon={LegacyCommentIcon}
 				/>
 			</Pressable>

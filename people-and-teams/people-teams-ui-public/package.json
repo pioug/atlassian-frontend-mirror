@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/people-teams-ui-public",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"description": "UI components for public packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -48,7 +48,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-sweet-state": "^2.6.5"
 	},

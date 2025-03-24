@@ -1,5 +1,13 @@
 # @atlaskit/web-config-client
 
+## 0.6.0
+
+### Minor Changes
+
+- [#130164](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130164)
+  [`7ef463decabca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ef463decabca) -
+  Removed JS bundles from publish files to improve AFM build health. ESM and CJS are unaffected.
+
 ## 0.5.0
 
 ### Minor Changes

@@ -366,7 +366,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				return;
 			}
 
-			// We cannot currently guarentee when all the portals will have re-rendered during a reconfigure
+			// We cannot currently guarantee when all the portals will have re-rendered during a reconfigure
 			// so we blur here to stop ProseMirror from trying to apply selection to detached nodes or
 			// nodes that haven't been re-rendered to the document yet.
 			blur();
@@ -453,7 +453,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				return;
 			}
 
-			// We cannot currently guarentee when all the portals will have re-rendered during a reconfigure
+			// We cannot currently guarantee when all the portals will have re-rendered during a reconfigure
 			// so we blur here to stop ProseMirror from trying to apply selection to detached nodes or
 			// nodes that haven't been re-rendered to the document yet.
 			blur();
@@ -528,6 +528,8 @@ export function ReactEditorView(props: EditorViewProps) {
 		onChange: props.editorProps.onChange,
 		dispatchAnalyticsEvent,
 		onEditorViewUpdated,
+		isRemoteReplaceDocumentTransaction:
+			pluginInjectionAPI.current.api()?.collabEdit?.actions?.isRemoteReplaceDocumentTransaction,
 	});
 
 	// Ignored via go/ees007
@@ -557,7 +559,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				state: state ?? getCurrentEditorState(),
 				dispatchTransaction: (tr: Transaction) => {
 					// Block stale transactions:
-					// Prevent runtime exeptions from async transactions that would attempt to
+					// Prevent runtime exceptions from async transactions that would attempt to
 					// update the DOM after React has unmounted the Editor.
 
 					if (canDispatchTransactions.current) {

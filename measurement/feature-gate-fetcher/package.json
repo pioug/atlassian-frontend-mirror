@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-gate-fetcher",
-	"version": "0.2.15",
+	"version": "0.2.16",
 	"description": "Provides fetch logic to get feature gate values from the feature-flag-service. To be used in providers for @atlaskit/feature-gate-js-client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

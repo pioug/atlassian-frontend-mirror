@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.3.1
+
+### Patch Changes
+
+- [#128179](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128179)
+  [`1ce5182d1a35f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ce5182d1a35f) -
+  Clean up feature flag platform_editor_advanced_layouts_post_fix_patch_3
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

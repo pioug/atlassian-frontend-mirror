@@ -907,6 +907,84 @@ export const adfNestedTableInsideTable: DocNode = {
 	],
 };
 
+export const adfNestedTableInsideTableWithNumberedColumn: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: { background: '#FF8F73' },
+							content: [
+								{
+									type: 'extension',
+									attrs: {
+										extensionType: 'com.atlassian.confluence.migration',
+										extensionKey: 'nested-table',
+										parameters: {
+											adf: '{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled": true},"content":[{"type":"tableRow","content":[{"type":"tableHeader","content":[{"type":"text","text":"Header 1"}]},{"type":"tableHeader","content":[{"type":"text","text":"Header 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]}]}]}',
+										},
+									},
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: { background: '#DEEBFF' },
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: { background: '#DEEBFF' },
+							content: [
+								{
+									type: 'extension',
+									attrs: {
+										extensionType: 'com.atlassian.confluence.migration',
+										extensionKey: 'nested-table',
+										parameters: {
+											adf: '{"type":"doc","version":1,"content":[{"type":"table","attrs": {"isNumberColumnEnabled": true},"content":[{"type":"tableRow","content":[{"type":"tableHeader","content":[{"type":"text","text":"Header 1"}]},{"type":"tableHeader","content":[{"type":"text","text":"Header 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]}]}]}',
+										},
+									},
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
 export const adfTableWithUnequalTableRows: DocNode = {
 	type: 'doc',
 	version: 1,

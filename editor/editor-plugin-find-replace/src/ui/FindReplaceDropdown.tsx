@@ -23,21 +23,21 @@ export interface FindReplaceDropdownProps extends Omit<FindReplaceProps, 'count'
 	index: number;
 	numMatches: number;
 	isActive: boolean;
-	containerElement: HTMLElement | null;
+	popupsMountPoint?: HTMLElement;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
 const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentProps) => {
-	const { findText, replaceText, isActive, index, numMatches, containerElement, onCancel } = props;
+	const { findText, replaceText, isActive, index, numMatches, popupsMountPoint, onCancel } = props;
 
-	if (!containerElement) {
+	if (!popupsMountPoint) {
 		return null;
 	}
 
 	return (
 		<Dropdown
-			target={containerElement}
-			mountTo={containerElement}
+			target={popupsMountPoint}
+			mountTo={popupsMountPoint}
 			forcePlacement={true}
 			alignX={'right'}
 			alignY={'start'}

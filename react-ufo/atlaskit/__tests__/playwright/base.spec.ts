@@ -39,7 +39,7 @@ const viewports = [
 test.describe('TTVC: basic page (10 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error'],
+		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error', 'ufo_payload_use_idle_callback'],
 	});
 
 	for (const viewport of viewports) {
@@ -109,7 +109,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 test.describe('TTVC: basic page (3 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-three-sections',
-		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error'],
+		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error', 'ufo_payload_use_idle_callback'],
 	});
 
 	for (const viewport of viewports) {
@@ -179,7 +179,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 test.describe('TTVC: basic page (100 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-any-number-sections', // hardcoded to 100 in the code
-		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error'],
+		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error', 'ufo_payload_use_idle_callback'],
 	});
 
 	for (const viewport of viewports) {

@@ -43,7 +43,6 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import EditorBackgroundColorIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
@@ -636,7 +635,6 @@ const DragMenu = React.memo(
 				fitHeight={fitHeight}
 				fitWidth={fitWidth}
 				direction={direction}
-				mountPoint={fg('platform_editor_table_drag_menu_mount_point_fix') ? undefined : mountPoint}
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
 			/>

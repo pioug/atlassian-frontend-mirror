@@ -9,6 +9,7 @@ import type {
 	SelectionToolbarGroup,
 	SelectionToolbarHandler,
 	ToolbarUIComponentFactory,
+	UserPreferencesProvider,
 } from '@atlaskit/editor-common/types';
 import {
 	calculateToolbarPositionAboveSelection,
@@ -33,11 +34,21 @@ type SelectionToolbarPluginState = {
 	toolbarDocking: ToolbarDocking;
 };
 
+const getInitialToolbarDocking = (
+	contextualFormattingEnabled: boolean | undefined,
+	userPreferencesProvider: UserPreferencesProvider | undefined,
+): ToolbarDocking => {
+	if (contextualFormattingEnabled && editorExperiment('platform_editor_controls', 'variant1')) {
+		return userPreferencesProvider?.getPreference('toolbarDockingInitialPosition') ?? 'none';
+	}
+	return 'top';
+};
+
 export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) => {
 	const __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
 
-	const { userPreferencesProvider } = config;
+	const { userPreferencesProvider, contextualFormattingEnabled } = config;
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 		primaryToolbarComponent = ({
@@ -99,18 +110,13 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							key: selectionToolbarPluginKey,
 							state: {
 								init(): SelectionToolbarPluginState {
-									let toolbarDocking: ToolbarDocking = 'top';
-
-									if (editorExperiment('platform_editor_controls', 'variant1')) {
-										toolbarDocking =
-											userPreferencesProvider?.getPreference('toolbarDockingInitialPosition') ||
-											'none';
-									}
-
 									return {
 										selectionStable: false,
 										hide: false,
-										toolbarDocking,
+										toolbarDocking: getInitialToolbarDocking(
+											contextualFormattingEnabled,
+											userPreferencesProvider,
+										),
 									};
 								},
 								apply(tr, pluginState: SelectionToolbarPluginState) {
@@ -247,7 +253,11 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					}
 				}
 
-				if (items.length > 0 && editorExperiment('platform_editor_controls', 'variant1')) {
+				if (
+					items.length > 0 &&
+					contextualFormattingEnabled &&
+					editorExperiment('platform_editor_controls', 'variant1')
+				) {
 					items.push(...getOverflowFloatingToolbarConfig({ api, toolbarDocking }));
 				}
 

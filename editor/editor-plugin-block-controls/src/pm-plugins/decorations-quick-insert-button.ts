@@ -59,7 +59,7 @@ export const quickInsertButtonDecoration = (
 			return element;
 		},
 		{
-			side: -1,
+			side: -2,
 			type: TYPE_QUICK_INSERT,
 		},
 	);

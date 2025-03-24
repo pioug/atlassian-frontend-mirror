@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback } from 'react';
 
-import StarIcon from '@atlaskit/icon/glyph/star';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
+import StarUnstarredIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
 import { Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -22,21 +22,48 @@ export interface StarProps extends RatingProps {
    * Defaults to `colors.Y200`.
    */
 	color?: string;
+
+	/**
+	 * Spacing between the star and the text.
+	 *
+	 * Defaults to `"spacious"`.
+	 */
+	spacing?: 'none' | 'spacious';
 }
 
 const Star = forwardRef<HTMLLabelElement, StarProps>(
-	({ size = 'large', color = token('color.icon.accent.yellow', Y200), ...props }, ref) => {
+	(
+		{
+			size = 'large',
+			color = token('color.icon.accent.yellow', Y200),
+			spacing = 'spacious',
+			...props
+		},
+		ref,
+	) => {
 		const render: RatingRender = useCallback(
 			(props) => {
 				return props.isChecked ? (
 					// Labels are set inside Rating - blank them out here to not double up.
-					<StarFilledIcon size={size} primaryColor={color} label="" />
+					<StarStarredIcon
+						LEGACY_size={size}
+						LEGACY_primaryColor={color}
+						color={color as any}
+						spacing={spacing}
+						label=""
+					/>
 				) : (
 					// Labels are set inside Rating - blank them out here to not double up.
-					<StarIcon size={size} primaryColor={color} label="" />
+					<StarUnstarredIcon
+						LEGACY_size={size}
+						LEGACY_primaryColor={color}
+						color={color as any}
+						spacing={spacing}
+						label=""
+					/>
 				);
 			},
-			[color, size],
+			[color, size, spacing],
 		);
 
 		return <Rating {...props} ref={ref} render={render} />;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/skeleton",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "A skeleton acts as a placeholder for content, usually while the content loads.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
 	"dependencies": {
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2"
+		"@compiled/react": "^0.18.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

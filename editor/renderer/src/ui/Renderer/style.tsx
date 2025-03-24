@@ -800,7 +800,9 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 
 			table[data-number-column='true'] {
 				.${RendererCssClassName.NUMBER_COLUMN} {
-					background-color: ${token('color.background.neutral', akEditorTableToolbar)};
+					background-color: ${fg('platform_editor_tables_numbered_column_correction')
+						? token('color.background.accent.gray.subtlest')
+						: token('color.background.neutral', akEditorTableToolbar)};
 					border-right: 1px solid
 						${token('color.background.accent.gray.subtler', akEditorTableBorder)};
 					width: ${akEditorTableNumberColumnWidth}px;

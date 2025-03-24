@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "204.5.5",
+	"version": "204.6.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -307,23 +307,11 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_hide_external_media_badge": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_set_alignment_when_resized": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_table_drag_menu_mount_point_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_media_block_default": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_advanced_layouts_post_fix_patch_3": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -348,10 +336,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_table_row_span_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_support_media_badge_visibility": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -556,6 +540,12 @@
 		"platform_nested_nbm_analytics_location": {
 			"type": "boolean"
 		},
+		"platform_editor_add_media_from_url_rollout": {
+			"type": "boolean"
+		},
+		"platform_editor_transaction_skip_validation": {
+			"type": "boolean"
+		},
 		"platform_editor_elements_dnd_multi_select_patch_2": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -564,7 +554,15 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_render_media_viewer_as_inline": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_paste_full_table_inside_empty_cell": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_tables_numbered_column_correction": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

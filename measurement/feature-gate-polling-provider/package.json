@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-gate-polling-provider",
-	"version": "1.1.16",
+	"version": "1.1.17",
 	"description": "Provider that has caching and polling support when getting values from feature-flag-service. To be used with the @atlaskit/feature-gate-js-client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

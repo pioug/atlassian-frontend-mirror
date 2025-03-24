@@ -31,6 +31,7 @@ import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { FilmstripItem } from '@atlaskit/media-filmstrip';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
@@ -333,7 +334,9 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 				items={items}
 				mediaClientConfig={viewMediaClientConfig}
 				featureFlags={mediaOptions.featureFlags}
-				shouldOpenMediaViewer={editorViewMode}
+				shouldOpenMediaViewer={
+					editorViewMode && editorExperiment('platform_editor_controls', 'control')
+				}
 			/>
 		);
 	};

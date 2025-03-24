@@ -15,12 +15,12 @@ import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
-import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
+import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { clearMarksOnEmptyDocPlugin } from '@atlaskit/editor-plugins/clear-marks-on-empty-doc';
 import { clipboardPlugin } from '@atlaskit/editor-plugins/clipboard';
-import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
 import type { CodeBlockOptions } from '@atlaskit/editor-plugins/code-block';
+import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugins/composition';
 import { contextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
 import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
@@ -41,8 +41,8 @@ import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
-import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugins/type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
@@ -117,7 +117,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add(decorationsPlugin)
 		.add([typeAheadPlugin, options.typeAhead])
 		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
-		.add(primaryToolbarPlugin)
+		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])
 		.maybeAdd(
 			undoRedoPlugin,
 			Boolean(options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons),
@@ -131,6 +131,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 			selectionToolbarPlugin,
 			{
 				preferenceToolbarAboveSelection: !!options.preferenceToolbarAboveSelection,
+				contextualFormattingEnabled: isFullPage,
 			},
 		])
 		.add([

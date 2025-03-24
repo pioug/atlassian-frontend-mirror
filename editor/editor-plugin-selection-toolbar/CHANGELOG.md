@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.2.0
+
+### Minor Changes
+
+- [#130044](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130044)
+  [`cad348d512cdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cad348d512cdf) -
+  [ux] ED-26802 contextual formatting configuration
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.3
 
 ### Patch Changes

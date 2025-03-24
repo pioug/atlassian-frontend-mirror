@@ -18,6 +18,7 @@ import type {
 	Command,
 	DropdownOptionT,
 	ExtractInjectionAPI,
+	FloatingToolbarButton,
 	FloatingToolbarDropdown,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
@@ -25,6 +26,7 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
@@ -88,87 +90,137 @@ export const generateMediaInlineFloatingToolbar = (
 		);
 	}
 
-	const items: FloatingToolbarItem<Command>[] = [
-		{
-			id: 'editor.media.view.switcher.inline',
-			type: 'button',
-			icon: ImageInlineIcon,
-			iconFallback: IconInline,
-			selected: true,
-			disabled: false,
-			focusEditoronEnter: true,
-			onClick: () => true,
-			title: intl.formatMessage(cardMessages.inlineTitle),
-			testId: 'inline-appearance',
-			className: 'inline-appearance', // a11y. uses to force focus on item
+	const items: FloatingToolbarItem<Command>[] = [];
+
+	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+
+	const preview: FloatingToolbarButton<Command> = {
+		id: 'editor.media.viewer',
+		testId: 'file-preview-toolbar-button',
+		type: 'button',
+		icon: editorExperiment('platform_editor_controls', 'variant1')
+			? GrowDiagonalIcon
+			: MaximizeIcon,
+		iconFallback: FilePreviewIcon,
+		title: intl.formatMessage(messages.preview),
+		onClick: () => {
+			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 		},
-		{
-			id: 'editor.media.view.switcher.thumbnail',
-			type: 'button',
-			icon: SmartLinkCardIcon,
-			iconFallback: IconCard,
-			selected: false,
-			disabled: false,
-			focusEditoronEnter: true,
-			onClick: changeInlineToMediaCard(editorAnalyticsAPI, forceFocusSelector),
-			title: intl.formatMessage(cardMessages.blockTitle),
-			testId: 'thumbnail-appearance',
-			className: 'thumbnail-appearance', // a11y. uses to force focus on item
+		...(isEditorControlsEnabled && { supportsViewMode: true }),
+	};
+
+	const download: FloatingToolbarButton<Command> = {
+		id: 'editor.media.card.download',
+		type: 'button',
+		icon: DownloadIcon,
+		onClick: () => {
+			downloadMedia(mediaPluginState);
+			return true;
 		},
-		{
-			type: 'separator',
-		},
-		{
-			id: 'editor.media.viewer',
-			testId: 'file-preview-toolbar-button',
-			type: 'button',
-			icon: MaximizeIcon,
-			iconFallback: FilePreviewIcon,
-			title: intl.formatMessage(messages.preview),
-			onClick: () => {
-				return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+		title: intl.formatMessage(messages.download),
+		...(isEditorControlsEnabled && { supportsViewMode: true }),
+	};
+
+	if (!isEditorControlsEnabled) {
+		items.push(
+			{
+				id: 'editor.media.view.switcher.inline',
+				type: 'button',
+				icon: ImageInlineIcon,
+				iconFallback: IconInline,
+				selected: true,
+				disabled: false,
+				focusEditoronEnter: true,
+				onClick: () => true,
+				title: intl.formatMessage(cardMessages.inlineTitle),
+				testId: 'inline-appearance',
+				className: 'inline-appearance', // a11y. uses to force focus on item
 			},
-		},
-		{ type: 'separator', fullHeight: editorExperiment('platform_editor_controls', 'variant1') },
-		{
-			id: 'editor.media.card.download',
-			type: 'button',
-			icon: DownloadIcon,
-			onClick: () => {
-				downloadMedia(mediaPluginState);
-				return true;
+			{
+				id: 'editor.media.view.switcher.thumbnail',
+				type: 'button',
+				icon: SmartLinkCardIcon,
+				iconFallback: IconCard,
+				selected: false,
+				disabled: false,
+				focusEditoronEnter: true,
+				onClick: changeInlineToMediaCard(editorAnalyticsAPI, forceFocusSelector),
+				title: intl.formatMessage(cardMessages.blockTitle),
+				testId: 'thumbnail-appearance',
+				className: 'thumbnail-appearance', // a11y. uses to force focus on item
 			},
-			title: intl.formatMessage(messages.download),
-		},
-		{ type: 'separator' },
-		{
-			type: 'copy-button',
-			supportsViewMode: true,
-			items: [
-				{
-					state,
-					formatMessage: intl.formatMessage,
-					nodeType: mediaInline,
-				},
-			],
-		},
-		{ type: 'separator' },
-		{
-			id: 'editor.media.delete',
-			type: 'button',
-			appearance: 'danger',
-			focusEditoronEnter: true,
-			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
-			onMouseEnter: hoverDecoration?.(mediaInline, true),
-			onMouseLeave: hoverDecoration?.(mediaInline, false),
-			onFocus: hoverDecoration?.(mediaInline, true),
-			onBlur: hoverDecoration?.(mediaInline, false),
-			title: intl.formatMessage(commonMessages.remove),
-			onClick: removeInlineCard,
-			testId: 'media-toolbar-remove-button',
-		},
-	];
+			{
+				type: 'separator',
+			},
+			preview,
+			{ type: 'separator' },
+			download,
+			{ type: 'separator' },
+			{
+				type: 'copy-button',
+				supportsViewMode: true,
+				items: [
+					{
+						state,
+						formatMessage: intl.formatMessage,
+						nodeType: mediaInline,
+					},
+				],
+			},
+			{ type: 'separator' },
+			{
+				id: 'editor.media.delete',
+				type: 'button',
+				appearance: 'danger',
+				focusEditoronEnter: true,
+				icon: DeleteIcon,
+				iconFallback: RemoveIcon,
+				onMouseEnter: hoverDecoration?.(mediaInline, true),
+				onMouseLeave: hoverDecoration?.(mediaInline, false),
+				onFocus: hoverDecoration?.(mediaInline, true),
+				onBlur: hoverDecoration?.(mediaInline, false),
+				title: intl.formatMessage(commonMessages.remove),
+				onClick: removeInlineCard,
+				testId: 'media-toolbar-remove-button',
+			},
+		);
+	} else {
+		const options: DropdownOptionT<Command>[] = [
+			{
+				id: 'editor.media.view.switcher.inline',
+				title: intl.formatMessage(cardMessages.inlineTitle),
+				onClick: () => true,
+				selected: true,
+				icon: <ImageInlineIcon label="" spacing="spacious" />,
+			},
+			{
+				id: 'editor.media.view.switcher.thumbnail',
+				title: intl.formatMessage(cardMessages.blockTitle),
+				onClick: changeInlineToMediaCard(editorAnalyticsAPI, forceFocusSelector),
+				icon: <SmartLinkCardIcon label="" spacing="spacious" />,
+			},
+		];
+		const switcherDropdown: FloatingToolbarDropdown<Command> = {
+			title: intl.formatMessage(messages.fileDisplayOptions),
+			id: 'media-group-inline-switcher-toolbar-item',
+			testId: 'media-group-inline-switcher-dropdown',
+			type: 'dropdown',
+			options,
+			icon: () => <ImageInlineIcon label="" spacing="spacious" />,
+		};
+
+		items.push(
+			switcherDropdown,
+			{ type: 'separator', fullHeight: true },
+			download,
+			{ type: 'separator', fullHeight: true, supportsViewMode: true },
+			preview,
+			{
+				type: 'separator',
+				fullHeight: true,
+			},
+		);
+	}
 
 	return items;
 };

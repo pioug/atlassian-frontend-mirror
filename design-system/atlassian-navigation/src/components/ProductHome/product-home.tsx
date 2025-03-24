@@ -7,6 +7,7 @@ import { Fragment, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
@@ -198,7 +199,10 @@ const ProductHome = ({
 					css={[customMaxHeightStyles, productIconStyles]}
 					data-testid={testId && `${testId}-icon`}
 				>
-					<Icon iconColor={iconColor} />
+					<Icon
+						iconColor={iconColor}
+						size={fg('platform-team25-app-icon-tiles') ? 'small' : undefined}
+					/>
 				</div>
 			</Tag>
 			{siteTitle && (

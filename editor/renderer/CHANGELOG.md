@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 114.4.4
+
+### Patch Changes
+
+- [#130627](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130627)
+  [`877e35d1996be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/877e35d1996be) -
+  [ux] ED-26978 Use correct background colour token for table numbered columns, to ensure that
+  background color of a parent cell does not bleed through to the numbered column of a nested table
+- Updated dependencies
+
+## 114.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.4.2
+
+### Patch Changes
+
+- [#130002](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130002)
+  [`e273880dffa90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e273880dffa90) -
+  Clean up feature flag platform_editor_nested_table_in_nested_parent_fix
+- Updated dependencies
+
 ## 114.4.1
 
 ### Patch Changes

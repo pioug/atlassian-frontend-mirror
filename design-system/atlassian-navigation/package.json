@@ -90,6 +90,7 @@
 		"@atlaskit/notification-log-client": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
+		"@atlaskit/temp-nav-app-icons": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/switcher": "workspace:^",
@@ -126,6 +127,9 @@
 	"homepage": "https://atlassian.design/components/atlassian-navigation/",
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
+			"type": "boolean"
+		},
+		"platform-team25-app-icon-tiles": {
 			"type": "boolean"
 		}
 	}

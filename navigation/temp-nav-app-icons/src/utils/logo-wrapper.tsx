@@ -6,6 +6,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { useThemeObserver } from '@atlaskit/tokens';
 
+import { CSS_VAR_THEMED_ICON, CSS_VAR_THEMED_TEXT } from './constants';
+
 const styles = cssMap({
 	root: {
 		display: 'inline-block',
@@ -29,13 +31,24 @@ const logoTextColorMap = cssMap({
 
 type LogoWrapperProps = {
 	svg: string;
+	customThemeSvg?: string;
 	label: string;
 	testId?: string;
+	iconColor?: string;
+	textColor?: string;
 };
 
-export function LogoWrapper({ svg, label, testId: userDefinedTestId }: LogoWrapperProps) {
+export function LogoWrapper({
+	svg,
+	customThemeSvg,
+	label,
+	testId: userDefinedTestId,
+	iconColor,
+	textColor,
+}: LogoWrapperProps) {
 	const { colorMode } = useThemeObserver();
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
+	const isCustomThemed = customThemeSvg && (iconColor || textColor);
 
 	return (
 		// Role and testID behavior copied directly from `@atlaskit/logo` to maintain consistency.
@@ -45,6 +58,15 @@ export function LogoWrapper({ svg, label, testId: userDefinedTestId }: LogoWrapp
 				// Setting the color so that the SVG can inherit the correct text color using "currentColor"
 				logoTextColorMap[colorMode ?? 'light'],
 			]}
+			style={
+				{
+					// Nav v3 passes in "inherit" incorrectly for iconColor, so we fall back to textColor when this happens.
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					[CSS_VAR_THEMED_ICON]: iconColor === 'inherit' ? textColor : iconColor || 'initial',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					[CSS_VAR_THEMED_TEXT]: textColor || 'initial',
+				} as React.CSSProperties
+			}
 			data-testid={testId}
 			// For logos, the label will always be present and will never be an empty string, so we can always set these aria attributes.
 			aria-label={label}
@@ -53,7 +75,7 @@ export function LogoWrapper({ svg, label, testId: userDefinedTestId }: LogoWrapp
 			// We are using dangerouslySetInnerHTML here to tell React not to track changes to the SVG elements.
 			// This is because the SVG elements are static and will not change, so we get a little performance benefit by
 			// bypassing React.
-			dangerouslySetInnerHTML={{ __html: svg }}
+			dangerouslySetInnerHTML={{ __html: isCustomThemed ? customThemeSvg : svg }}
 		/>
 	);
 }

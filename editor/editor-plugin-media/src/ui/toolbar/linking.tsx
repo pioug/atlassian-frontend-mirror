@@ -171,7 +171,8 @@ export const getLinkingDropdownOptions = (
 		mediaType = getMediaType(selectedNodeTypeSingle);
 	}
 
-	if (mediaType !== 'external' && mediaType !== 'image') {
+	// Only show link dropdown option for images and external media (shown as images)
+	if (mediaType !== 'image' && mediaNode?.attrs.type !== 'external') {
 		return [];
 	}
 

@@ -12,6 +12,11 @@ import {
 	JiraServiceManagementIcon,
 	JiraServiceManagementLogo,
 } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags';
+import {
+	JiraIcon as JiraIconTemp,
+	JiraLogo as JiraLogoTemp,
+} from '@atlaskit/temp-nav-app-icons/jira';
 
 import { CustomProductHome, ProductHome } from '../../src';
 
@@ -43,8 +48,8 @@ export const JiraProductHome = () => (
 		onClick={console.log}
 		siteTitle="Extranet"
 		aria-label={'Jira'}
-		icon={JiraIcon}
-		logo={JiraLogo}
+		icon={fg('platform-team25-app-icon-tiles') ? JiraIconTemp : JiraIcon}
+		logo={fg('platform-team25-app-icon-tiles') ? JiraLogoTemp : JiraLogo}
 		testId="jira-product-home"
 	/>
 );

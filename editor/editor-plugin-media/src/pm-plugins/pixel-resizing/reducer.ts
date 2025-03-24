@@ -1,4 +1,4 @@
-type mediaPixelResizingState = {
+type MediaPixelResizingState = {
 	isPixelEditorOpen: boolean;
 };
 
@@ -13,9 +13,9 @@ type ClosePixelEditor = {
 type MediaPixelResizingAction = OpenPixelEditor | ClosePixelEditor;
 
 export default (
-	state: mediaPixelResizingState,
+	state: MediaPixelResizingState,
 	action: MediaPixelResizingAction,
-): mediaPixelResizingState => {
+): MediaPixelResizingState => {
 	switch (action.type) {
 		case 'openPixelEditor': {
 			return {

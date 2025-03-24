@@ -1,5 +1,55 @@
 # @atlaskit/icon-lab
 
+## 4.3.0
+
+### Minor Changes
+
+- [#129602](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129602)
+  [`eab9a7d9a3b61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eab9a7d9a3b61) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `colour-none`
+  - `distribute-spacing-horizontal`
+  - `distribute-spacing-vertical`
+  - `jira-add`
+  - `jira-upload`
+  - `node-parallel-bottom-left`
+  - `node-parallel-bottom-right`
+  - `node-parallel-top-left`
+  - `node-parallel-top-right`
+  - `node-single-left`
+  - `node-single-right`
+  - `text-bold-italic-strikethrough`
+  - `text-bold-italic-underline-strikethrough`
+  - `text-bold-italic-underline`
+  - `text-bold-italic`
+  - `text-bold-strikethrough`
+  - `text-bold-underline-strikethrough`
+  - `text-bold-underline`
+  - `text-italic-strikethrough`
+  - `text-italic-underline-strikethrough`
+  - `text-italic-underline`
+  - `text-underline-strikethrough`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `tidy`
+
+## 4.2.1
+
+### Patch Changes
+
+- [#129972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129972)
+  [`b2d69a39e6687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d69a39e6687) -
+  Update `@compiled/react` dependency for improved type checking support.
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

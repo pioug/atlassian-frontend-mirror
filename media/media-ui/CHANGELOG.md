@@ -1,5 +1,22 @@
 # @atlaskit/media-ui
 
+## 28.1.1
+
+### Patch Changes
+
+- [#129972](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129972)
+  [`b2d69a39e6687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d69a39e6687) -
+  Update `@compiled/react` dependency for improved type checking support.
+- Updated dependencies
+
+## 28.1.0
+
+### Minor Changes
+
+- [#128574](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128574)
+  [`cba34b8397ba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba34b8397ba2) -
+  [ux] [ED-26973] Update floating toolbar for inline and thumbnail file
+
 ## 28.0.4
 
 ### Patch Changes

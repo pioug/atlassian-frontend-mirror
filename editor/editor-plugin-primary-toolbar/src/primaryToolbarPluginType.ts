@@ -14,6 +14,9 @@ export type PrimaryToolbarPlugin = NextEditorPlugin<
 				component: ToolbarUIComponentFactory;
 			}) => void;
 		};
+		pluginConfiguration?: {
+			contextualFormattingEnabled?: boolean;
+		};
 	}
 >;
 

@@ -5,7 +5,7 @@ import { createPlugin, primaryToolbarPluginKey } from './pm-plugins/pm-plugin';
 import type { PrimaryToolbarPlugin } from './primaryToolbarPluginType';
 import Separator from './ui/separator';
 
-export const primaryToolbarPlugin: PrimaryToolbarPlugin = () => {
+export const primaryToolbarPlugin: PrimaryToolbarPlugin = ({ config }) => {
 	// We use a plugin variable to store the component registry to avoid having to use
 	// effects in each plugin, and to enable rendering the toolbar in SSR
 	// TODO: ED-26962 - Replace this with something in plugin state once we have a way to initialise across plugins on plugin initialisation
@@ -24,7 +24,11 @@ export const primaryToolbarPlugin: PrimaryToolbarPlugin = () => {
 		pmPlugins: () => [
 			{
 				name: 'primaryToolbar',
-				plugin: () => createPlugin(componentRegistry),
+				plugin: () =>
+					createPlugin({
+						componentRegistry,
+						contextualFormattingEnabled: config?.contextualFormattingEnabled,
+					}),
 			},
 		],
 

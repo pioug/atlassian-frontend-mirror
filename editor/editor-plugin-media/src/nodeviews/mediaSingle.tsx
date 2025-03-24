@@ -52,7 +52,6 @@ import type { CardEvent } from '@atlaskit/media-card';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -227,16 +226,6 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		this.setState({
 			contextIdentifierProvider: await contextIdentifierProvider,
 		});
-
-		// No-op but logging an exposure when an external image is rendered
-		// Remove this block when cleaning up platform_editor_add_media_from_url
-		if (this.props.node.firstChild?.attrs.type === 'external') {
-			if (editorExperiment('add-media-from-url', true)) {
-				editorExperiment('add-media-from-url', true, { exposure: true });
-			} else {
-				editorExperiment('add-media-from-url', false, { exposure: true });
-			}
-		}
 	}
 
 	selectMediaSingle = ({ event }: CardEvent) => {
@@ -446,8 +435,6 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			annotationPluginState?.isDrafting &&
 			annotationPluginState?.targetNodeId === node?.firstChild?.attrs.id;
 
-		const shouldShowExternalMediaBadge = attrs.type === 'external';
-
 		const pos = getPos();
 		const isInsideTable =
 			pos !== undefined &&
@@ -470,7 +457,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 				className={MediaSingleNodeSelector}
 				onClick={this.onMediaSingleClicked}
 			>
-				{editorExperiment('add-media-from-url', true) && (
+				{fg('platform_editor_add_media_from_url_rollout') && (
 					<MediaBadges
 						mediaElement={currentMediaElement()}
 						mediaHeight={height}
@@ -479,18 +466,14 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 							fg('platform_editor_media_extended_resize_experience') && !isInsideTable
 						}
 					>
-						{({ badgeSize, visible }: { badgeSize: 'small' | 'medium'; visible: boolean }) => (
+						{({ visible }: { visible: boolean }) => (
 							<>
-								{fg('platform_editor_hide_external_media_badge')
-									? visible && (
-											<ExternalImageBadge
-												badgeSize={badgeSize}
-												type={attrs.type}
-												url={attrs.type === 'external' ? attrs.url : undefined}
-											/>
-										)
-									: shouldShowExternalMediaBadge &&
-										visible && <ExternalImageBadge badgeSize={badgeSize} />}
+								{visible && (
+									<ExternalImageBadge
+										type={attrs.type}
+										url={attrs.type === 'external' ? attrs.url : undefined}
+									/>
+								)}
 								{mediaOptions.allowCommentsOnMedia && (
 									<CommentBadgeNextWrapper
 										view={view}
@@ -498,14 +481,13 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 										mediaNode={node?.firstChild}
 										getPos={getPos}
 										isDrafting={isCurrentNodeDrafting}
-										badgeSize={badgeSize}
 									/>
 								)}
 							</>
 						)}
 					</MediaBadges>
 				)}
-				{!editorExperiment('add-media-from-url', true) && mediaOptions.allowCommentsOnMedia && (
+				{!fg('platform_editor_add_media_from_url_rollout') && mediaOptions.allowCommentsOnMedia && (
 					<CommentBadge
 						view={view}
 						api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}

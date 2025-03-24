@@ -1,8 +1,10 @@
 /**
  * We are following a similar API to [IconTile](https://atlassian.design/components/icon/icon-tile/examples).
  * Semantic names aren't appropriate at this stage, as these sizes aren't part of a standard scale yet.
+ *
+ * For backwards compatibility, the 'medium' size is equivalent to '24', and 'small' is equivalent to '32'.
  */
-export type IconSize = '20' | '24' | '32';
+export type IconSize = '20' | '24' | '32' | 'small' | 'medium';
 
 type SharedProps = {
 	/**
@@ -50,3 +52,24 @@ export type UtilityIconProps = AppIconProps & {
 };
 
 export type AppLogoProps = SharedProps;
+
+export type ThemedIconProps = AppIconProps & {
+	/**
+	 * @deprecated icon color of the logo. Only supported for logos that support custom theming.
+	 */
+	iconColor?: string;
+};
+
+export type ThemedLogoProps = AppLogoProps & {
+	/**
+	 * @deprecated text color of the logo. Only supported for logos that support custom theming.
+	 */
+	textColor?: string;
+	/**
+	 * @deprecated icon color of the logo. Only supported for logos that support custom theming.
+	 */
+	iconColor?: string;
+};
+
+export type AllLogoProps = AppLogoProps | ThemedLogoProps;
+export type AllIconProps = AppIconProps | UtilityIconProps | ThemedIconProps;

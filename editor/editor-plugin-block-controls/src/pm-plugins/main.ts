@@ -87,10 +87,7 @@ const destroyFn = (
 		monitorForElements({
 			canMonitor: ({ source }) => source.data.type === 'element',
 			onDrag: () => {
-				if (
-					isMeasuring(EDITOR_BLOCKS_DRAG_INIT) &&
-					fg('platform_editor_advanced_layouts_post_fix_patch_3')
-				) {
+				if (isMeasuring(EDITOR_BLOCKS_DRAG_INIT)) {
 					stopMeasure(EDITOR_BLOCKS_DRAG_INIT, (duration: number, startTime: number) => {
 						const { state } = editorView;
 						api?.analytics?.actions.fireAnalyticsEvent({
@@ -256,26 +253,28 @@ export const newApply = (
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
+	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr);
 
 	// When steps exist, remap existing decorations, activeNode and multi select positions
 	if (tr.docChanged) {
 		decorations = decorations.map(tr.mapping, tr.doc);
 
 		if (activeNode) {
-			const mappedPos = tr.mapping.mapResult(activeNode.pos);
-			isActiveNodeDeleted = mappedPos.deleted;
-
 			if (editorExperiment('platform_editor_controls', 'control')) {
+				const mappedPos = tr.mapping.mapResult(activeNode.pos);
+				isActiveNodeDeleted = mappedPos.deleted;
 				activeNode = {
 					pos: mappedPos.pos,
 					anchorName: activeNode.anchorName,
 					nodeType: activeNode.nodeType,
 				};
 			} else {
+				const mappedPos = tr.mapping.mapResult(activeNode.pos, -1);
+				isActiveNodeDeleted = mappedPos.deletedAfter;
 				// for editor controls, remap the rootPos as well
 				let mappedRootPos;
 				if (activeNode.rootPos !== undefined) {
-					mappedRootPos = tr.mapping.mapResult(activeNode.rootPos);
+					mappedRootPos = tr.mapping.mapResult(activeNode.rootPos, -1);
 				}
 
 				activeNode = {
@@ -303,12 +302,11 @@ export const newApply = (
 		multiSelectDnD = meta?.isDragging === false || tr.selection.empty ? undefined : multiSelectDnD;
 	}
 
-	const { from, to, numReplaceSteps, isAllText } = getTrMetadata(tr);
 	const maybeNodeCountChanged = !isAllText && numReplaceSteps > 0;
 	let latestActiveNode;
 	if (fg('platform_editor_remove_drag_handle_fix')) {
 		latestActiveNode = meta?.activeNode;
-		if (!latestActiveNode && !isActiveNodeDeleted) {
+		if (!latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
 			latestActiveNode = activeNode;
 		}
 	} else {
@@ -336,8 +334,8 @@ export const newApply = (
 		);
 		decorations = decorations.add(newState.doc, newNodeDecs);
 
-		if (latestActiveNode && !isActiveNodeDeleted) {
-			if (editorExperiment('platform_editor_controls', 'control')) {
+		if (editorExperiment('platform_editor_controls', 'control')) {
+			if (latestActiveNode && !isActiveNodeDeleted) {
 				// Find the newly minted node decs that touch the active node
 				const findNewNodeDecs = findNodeDecs(decorations, latestActiveNode.pos - 1, to);
 
@@ -355,7 +353,10 @@ export const newApply = (
 					latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
 					latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
 				}
-			} else {
+			}
+		} else {
+			// active node may have been deleted or replaced with another of the same size, if replaced go ahead and remap the active node
+			if (latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
 				const nodeDecAtActivePos = getDecorationAtPos(decorations, latestActiveNode.pos, to);
 				const rootNodeDecAtActivePos = getDecorationAtPos(
 					decorations,
@@ -416,7 +417,7 @@ export const newApply = (
 	if (fg('platform_editor_remove_drag_handle_fix')) {
 		// If the active node is missing, we need to remove the handle
 		shouldRemoveHandle = latestActiveNode
-			? isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved
+			? isResizerResizing || (isActiveNodeDeleted && !isReplacedWithSameSize) || meta?.nodeMoved
 			: true;
 	} else {
 		// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node
@@ -428,7 +429,11 @@ export const newApply = (
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 		decorations = decorations.remove(oldHandle);
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(decorations);
+			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
+				decorations,
+				activeNode?.rootPos,
+				activeNode?.rootPos,
+			);
 			decorations = decorations.remove(oldQuickInsertButton);
 		}
 	} else if (api) {
@@ -508,12 +513,22 @@ export const newApply = (
 		}
 	}
 
-	const newActiveNode =
-		isEmptyDoc ||
-		(!meta?.activeNode &&
-			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
-			? null
-			: latestActiveNode;
+	let newActiveNode;
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		// remove isEmptyDoc check and let decorations render and determine their own visibility
+		newActiveNode =
+			!meta?.activeNode &&
+			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0
+				? null
+				: latestActiveNode;
+	} else {
+		newActiveNode =
+			isEmptyDoc ||
+			(!meta?.activeNode &&
+				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
+				? null
+				: latestActiveNode;
+	}
 
 	let isMenuOpenNew = isMenuOpen;
 	if (BLOCK_MENU_ENABLED && editorExperiment('platform_editor_controls', 'variant1')) {
@@ -944,9 +959,7 @@ export const createPlugin = (
 					}
 				},
 				dragstart(view: EditorView) {
-					if (fg('platform_editor_advanced_layouts_post_fix_patch_3')) {
-						startMeasure(EDITOR_BLOCKS_DRAG_INIT);
-					}
+					startMeasure(EDITOR_BLOCKS_DRAG_INIT);
 
 					if (isAdvancedLayoutEnabled) {
 						defaultActiveAnchorTracker.reset();

@@ -1,8 +1,3 @@
-import {
-	unstable_IdlePriority as idlePriority,
-	unstable_scheduleCallback as scheduleCallback,
-} from 'scheduler';
-
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { startLighthouseObserver } from '../additional-payload';
@@ -20,6 +15,8 @@ import {
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
 import { getVCObserver } from '../vc';
+
+import scheduleIdleCallback from './schedule-idle-callback';
 
 export interface GenericAnalyticWebClientInstance {
 	sendOperationalEvent: (payload: any) => void;
@@ -48,7 +45,7 @@ function sinkInteraction(
 	},
 ) {
 	sinkInteractionHandler((interactionId: string, interaction: InteractionMetrics) => {
-		scheduleCallback(idlePriority, () => {
+		scheduleIdleCallback(() => {
 			payloadPackage
 				.createPayloads(interactionId, interaction)
 				.then((payloads) => {
@@ -80,7 +77,7 @@ function sinkExperimentalInteractionMetrics(
 	},
 ) {
 	sinkExperimentalHandler((interactionId: string, interaction: InteractionMetrics) => {
-		scheduleCallback(idlePriority, () => {
+		scheduleIdleCallback(() => {
 			const payloadPromise = payloadPackage.createExperimentalMetricsPayload(
 				interactionId,
 				interaction,
@@ -110,7 +107,7 @@ function sinkPostInteractionLog(
 	createPostInteractionLogPayload: (logOutput: PostInteractionLogOutput) => any,
 ) {
 	sinkPostInteractionLogHandler((logOutput: PostInteractionLogOutput) => {
-		scheduleCallback(idlePriority, () => {
+		scheduleIdleCallback(() => {
 			const payload = createPostInteractionLogPayload(logOutput);
 			if (payload) {
 				// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion

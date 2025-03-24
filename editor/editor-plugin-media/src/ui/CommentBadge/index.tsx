@@ -115,7 +115,7 @@ export const CommentBadge = injectIntl(CommentBadgeWrapper);
 /**
  * Remove CommentBadgeWrapper component above
  * and rename CommentBadgeNextWrapper to CommentBadgeWrapper
- * when clean up platform_editor_add_media_from_url feature flag
+ * when clean up platform_editor_add_media_from_url_rollout feature flag
  */
 
 type CommentBadgeNextWrapperProps = {
@@ -126,7 +126,6 @@ type CommentBadgeNextWrapperProps = {
 	mediaNode: PMNode | null;
 	view: EditorView;
 	getPos: getPosHandler;
-	badgeSize: 'small' | 'medium';
 };
 
 export const CommentBadgeNextWrapper = ({
@@ -135,7 +134,6 @@ export const CommentBadgeNextWrapper = ({
 	view,
 	getPos,
 	isDrafting,
-	badgeSize,
 }: CommentBadgeNextWrapperProps) => {
 	const [entered, setEntered] = useState(false);
 	const { annotationState } = useSharedPluginState(api, ['annotation']);
@@ -198,7 +196,6 @@ export const CommentBadgeNextWrapper = ({
 			status={entered ? 'entered' : status}
 			onMouseEnter={() => setEntered(true)}
 			onMouseLeave={() => setEntered(false)}
-			badgeSize={badgeSize}
 		/>
 	);
 };

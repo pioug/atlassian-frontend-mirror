@@ -52,7 +52,6 @@ import { injectIntl } from 'react-intl-next';
 import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inline-comments-filter';
 import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 export type MediaProps = MediaCardProps & {
@@ -350,7 +349,6 @@ type CommentBadgeNextWrapperProps = {
 	mediaSingleElement?: HTMLElement | null;
 	marks?: AnnotationMarkDefinition[];
 	isDrafting?: boolean;
-	badgeSize: 'small' | 'medium';
 };
 
 const CommentBadgeNextWrapper = ({
@@ -469,7 +467,6 @@ class Media extends PureComponent<MediaProps, Object> {
 		const isIncludeExcerpt = !!mediaSingleElement?.closest('.ak-excerpt-include');
 
 		const showCommentBadge = !!annotationMarks && !isInPageInclude && !isIncludeExcerpt;
-		const shouldShowExternalMediaBadge = this.props.type === 'external';
 
 		return (
 			<MediaLink mark={linkMark} onClick={this.handleMediaLinkClickFn}>
@@ -482,38 +479,26 @@ class Media extends PureComponent<MediaProps, Object> {
 								},
 							}}
 						>
-							{editorExperiment('add-media-from-url', true) && (
+							{fg('platform_editor_add_media_from_url_rollout') && (
 								<MediaBadges
 									mediaElement={mediaSingleElement}
 									mediaWidth={width}
 									mediaHeight={height}
 									useMinimumZIndex
 								>
-									{({
-										badgeSize,
-										visible,
-									}: {
-										badgeSize: 'small' | 'medium';
-										visible: boolean;
-									}) => (
+									{({ visible }: { visible: boolean }) => (
 										<>
-											{fg('platform_editor_hide_external_media_badge')
-												? visible && (
-														<ExternalImageBadge
-															badgeSize={badgeSize}
-															type={this.props.type}
-															url={this.props.type === 'external' ? this.props.url : undefined}
-														/>
-													)
-												: shouldShowExternalMediaBadge && (
-														<ExternalImageBadge badgeSize={badgeSize} />
-													)}
+											{visible && (
+												<ExternalImageBadge
+													type={this.props.type}
+													url={this.props.type === 'external' ? this.props.url : undefined}
+												/>
+											)}
 											{showCommentBadge && (
 												<CommentBadgeNextWrapper
 													marks={annotationMarks}
 													mediaSingleElement={mediaSingleElement}
 													isDrafting={isDrafting}
-													badgeSize={badgeSize}
 												/>
 											)}
 										</>
@@ -521,7 +506,7 @@ class Media extends PureComponent<MediaProps, Object> {
 								</MediaBadges>
 							)}
 
-							{!editorExperiment('add-media-from-url', true) && showCommentBadge && (
+							{!fg('platform_editor_add_media_from_url_rollout') && showCommentBadge && (
 								<CommentBadgeWrapper
 									marks={annotationMarks}
 									mediaSingleElement={mediaSingleElement}

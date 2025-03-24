@@ -319,12 +319,6 @@ export const insertSelectedItem =
 				? (node as Fragment)
 				: Fragment.fromArray([node as Node, state.schema.text(' ')]);
 
-			// For platform_editor_element_level_templates experiment only
-			// clean up ticket ED-24873
-			// @ts-ignore
-			if (opts.isTemplate) {
-				return insertTemplateFragment({ fragment, tr, position: { start, end: start } });
-			}
 			tr = tr.replaceWith(start, start, fragment);
 
 			if (opts.selectInlineNode) {
@@ -412,24 +406,3 @@ export function fragmentContainsNodeType(fragment: Fragment, nodeType: NodeType)
 	});
 	return doesContainNodeType;
 }
-
-// For platform_editor_element_level_templates experiment only
-// clean up ticket ED-24873
-const insertTemplateFragment = ({
-	fragment,
-	tr,
-	position,
-}: {
-	fragment: Fragment;
-	tr: Transaction;
-	position: {
-		start: number;
-		end: number;
-	};
-}) => {
-	const { start } = position;
-	const trWithInsert = pmSafeInsert(fragment, start)(tr);
-
-	tr.setSelection(trWithInsert.selection);
-	return tr;
-};

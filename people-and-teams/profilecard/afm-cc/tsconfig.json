@@ -54,6 +54,9 @@
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/logo/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/lozenge/afm-cc/tsconfig.json"
         },
         {
@@ -82,6 +85,12 @@
         },
         {
             "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../teams-avatar/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../teams-public/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/theme/afm-cc/tsconfig.json"

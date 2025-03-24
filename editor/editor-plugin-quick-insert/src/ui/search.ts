@@ -16,8 +16,7 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	providedItems,
 ) => {
 	// @ts-ignore
-	const { query, category, disableDefaultItems, featuredItems, templateItems, prioritySortingFn } =
-		searchOptions;
+	const { query, category, disableDefaultItems, featuredItems, prioritySortingFn } = searchOptions;
 	const defaultItems = disableDefaultItems ? [] : lazyDefaultItems();
 
 	const dedupeFn = fg('platform_editor_quick_insert_dedupe_title_desc')
@@ -27,21 +26,6 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	const items = providedItems
 		? dedupe([...defaultItems, ...providedItems], dedupeFn)
 		: defaultItems;
-
-	// For platform_editor_element_level_templates experiment only
-	// clean up ticket ED-24873
-	if (templateItems && featuredItems) {
-		return items.filter(
-			(item) =>
-				[
-					'discussionNotes',
-					'approvalsTracker',
-					'decisionMatrix',
-					'actionList',
-					'instructionsOutline',
-				].includes(item.id ?? '') || item.featured,
-		);
-	}
 
 	if (featuredItems) {
 		return items.filter((item) => item.featured);

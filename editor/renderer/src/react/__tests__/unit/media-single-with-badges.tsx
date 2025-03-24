@@ -11,15 +11,12 @@ import {
 } from '@atlaskit/adf-schema';
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import { IntlProvider } from 'react-intl-next';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/editor-common/media-single', () => ({
 	...jest.requireActual('@atlaskit/editor-common/media-single'),
 	CommentBadge: () => <span data-testid="comment-badge">Comment Component</span>,
 	CommentBadgeNext: () => <span data-testid="comment-badge-next">Comment Component</span>,
-	ExternalImageBadge: () => (
-		<span data-testid="external-image-badge">External Image Component</span>
-	),
 }));
 
 type Props = {
@@ -154,18 +151,19 @@ describe('MediaWithDraftAnnotation', () => {
 					</IntlProvider>,
 				);
 
-			eeTest('add-media-from-url', {
-				true: () => {
+			ffTest(
+				'platform_editor_add_media_from_url_rollout',
+				() => {
 					renderExternal();
 					const externalImageBadge = screen.queryByTestId('external-image-badge');
 					expect(externalImageBadge).not.toBeNull();
 				},
-				false: () => {
+				() => {
 					renderExternal();
 					const externalImageBadge = screen.queryByTestId('external-image-badge');
 					expect(externalImageBadge).toBeNull();
 				},
-			});
+			);
 		});
 
 		describe('should not show ExternalImageBadge when node type is not external', () => {
@@ -184,18 +182,19 @@ describe('MediaWithDraftAnnotation', () => {
 					</IntlProvider>,
 				);
 
-			eeTest('add-media-from-url', {
-				true: () => {
+			ffTest(
+				'platform_editor_add_media_from_url_rollout',
+				() => {
 					renderFile();
 					const externalImageBadge = screen.queryByTestId('external-image-badge');
 					expect(externalImageBadge).toBeNull();
 				},
-				false: () => {
+				() => {
 					renderFile();
 					const externalImageBadge = screen.queryByTestId('external-image-badge');
 					expect(externalImageBadge).toBeNull();
 				},
-			});
+			);
 		});
 	});
 });

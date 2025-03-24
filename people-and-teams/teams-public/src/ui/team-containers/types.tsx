@@ -26,6 +26,14 @@ export interface TeamContainerProps {
 	 * The cloud id of the current site
 	 */
 	cloudId: string;
+	/**
+	 * The container id to filter out from the list
+	 */
+	filterContainerId?: string;
+	/**
+	 * The container id to filter out from the list
+	 */
+	isDisplayedOnProfileCard?: boolean;
 }
 
 export interface TeamContainersComponent {

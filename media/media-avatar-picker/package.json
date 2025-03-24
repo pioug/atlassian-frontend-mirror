@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-avatar-picker",
-	"version": "26.0.4",
+	"version": "26.0.5",
 	"description": "A component to select, drag and resize image avatars. It also provides a default list of predefined avatars.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,7 +53,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.2",
+		"@compiled/react": "^0.18.3",
 		"exenv": "^1.2.2",
 		"react-error-boundary": "^3.1.3"
 	},

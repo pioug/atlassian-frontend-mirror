@@ -29,6 +29,7 @@ import type {
 	DropdownOptions,
 	DropdownOptionT,
 	ExtractInjectionAPI,
+	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarDropdown,
 	FloatingToolbarItem,
@@ -153,101 +154,145 @@ const generateMediaCardFloatingToolbar = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	forceFocusSelector: ForceFocusSelector | undefined,
 	isViewOnly: boolean | undefined,
-) => {
-	if (isViewOnly) {
-		return [];
-	}
-
+): FloatingToolbarItem<Command>[] => {
 	const enforceMediaDataSecurityPolicy =
 		mediaPluginState?.mediaClientConfig?.enforceDataSecurityPolicy;
 	const disableDownloadButton =
 		typeof enforceMediaDataSecurityPolicy === 'boolean' ? enforceMediaDataSecurityPolicy : false;
+	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+
+	const preview: FloatingToolbarButton<Command> = {
+		id: 'editor.media.viewer',
+		testId: 'file-preview-toolbar-button',
+		type: 'button',
+		icon: editorExperiment('platform_editor_controls', 'variant1')
+			? GrowDiagonalIcon
+			: MaximizeIcon,
+		iconFallback: FilePreviewIcon,
+		title: intl.formatMessage(messages.preview),
+		onClick: () => {
+			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+		},
+		disabled: pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+		supportsViewMode: true,
+	};
+
+	const download: FloatingToolbarButton<Command> = {
+		id: 'editor.media.card.download',
+		type: 'button',
+		icon: DownloadIcon,
+		onClick: () => {
+			downloadMedia(mediaPluginState);
+			return true;
+		},
+		title: intl.formatMessage(messages.download),
+		disabled: disableDownloadButton,
+		...(isEditorControlsEnabled && { supportsViewMode: true }),
+	};
+
+	if (isViewOnly && !isEditorControlsEnabled) {
+		return [];
+	}
 
 	const { mediaGroup } = state.schema.nodes;
-	const items: FloatingToolbarItem<Command>[] = [
-		{
-			id: 'editor.media.view.switcher.inline',
-			type: 'button',
-			icon: ImageInlineIcon,
-			iconFallback: IconInline,
-			selected: false,
-			focusEditoronEnter: true,
-			disabled: false,
-			onClick: changeMediaCardToInline(editorAnalyticsAPI, forceFocusSelector),
-			title: intl.formatMessage(cardMessages.inlineTitle),
-			testId: 'inline-appearance',
-			className: 'inline-appearance', // a11y. uses to force focus on item
-		},
-		{
-			id: 'editor.media.view.switcher.thumbnail',
-			type: 'button',
-			icon: SmartLinkCardIcon,
-			iconFallback: IconCard,
-			selected: true,
-			disabled: false,
-			focusEditoronEnter: true,
-			onClick: () => true,
-			title: intl.formatMessage(cardMessages.blockTitle),
-			testId: 'thumbnail-appearance',
-			className: 'thumbnail-appearance', // a11y. uses to force focus on item
-		},
-		{ type: 'separator' },
-		{
-			id: 'editor.media.viewer',
-			testId: 'file-preview-toolbar-button',
-			type: 'button',
-			icon: editorExperiment('platform_editor_controls', 'variant1')
-				? GrowDiagonalIcon
-				: MaximizeIcon,
-			iconFallback: FilePreviewIcon,
-			title: intl.formatMessage(messages.preview),
-			onClick: () => {
-				return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+	const items: FloatingToolbarItem<Command>[] = [];
+
+	if (!isEditorControlsEnabled) {
+		items.push(
+			{
+				id: 'editor.media.view.switcher.inline',
+				type: 'button',
+				icon: ImageInlineIcon,
+				iconFallback: IconInline,
+				selected: false,
+				focusEditoronEnter: true,
+				disabled: false,
+				onClick: changeMediaCardToInline(editorAnalyticsAPI, forceFocusSelector),
+				title: intl.formatMessage(cardMessages.inlineTitle),
+				testId: 'inline-appearance',
+				className: 'inline-appearance', // a11y. uses to force focus on item
 			},
-			disabled: pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
-			supportsViewMode: true,
-		},
-		{ type: 'separator' },
-		{
-			id: 'editor.media.card.download',
-			type: 'button',
-			icon: DownloadIcon,
-			onClick: () => {
-				downloadMedia(mediaPluginState);
-				return true;
+			{
+				id: 'editor.media.view.switcher.thumbnail',
+				type: 'button',
+				icon: SmartLinkCardIcon,
+				iconFallback: IconCard,
+				selected: true,
+				disabled: false,
+				focusEditoronEnter: true,
+				onClick: () => true,
+				title: intl.formatMessage(cardMessages.blockTitle),
+				testId: 'thumbnail-appearance',
+				className: 'thumbnail-appearance', // a11y. uses to force focus on item
 			},
-			title: intl.formatMessage(messages.download),
-			disabled: disableDownloadButton,
-		},
-		{ type: 'separator' },
-		{
-			type: 'copy-button',
-			supportsViewMode: true,
-			items: [
-				{
-					state,
-					formatMessage: intl.formatMessage,
-					nodeType: mediaGroup,
-				},
-			],
-		},
-		{ type: 'separator' },
-		{
-			id: 'editor.media.delete',
-			type: 'button',
-			appearance: 'danger',
-			focusEditoronEnter: true,
-			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
-			onMouseEnter: hoverDecoration?.(mediaGroup, true),
-			onMouseLeave: hoverDecoration?.(mediaGroup, false),
-			onFocus: hoverDecoration?.(mediaGroup, true),
-			onBlur: hoverDecoration?.(mediaGroup, false),
-			title: intl.formatMessage(commonMessages.remove),
-			onClick: handleRemoveMediaGroup,
-			testId: 'media-toolbar-remove-button',
-		},
-	];
+			{ type: 'separator' },
+			preview,
+			{ type: 'separator' },
+			download,
+			{ type: 'separator' },
+			{
+				type: 'copy-button',
+				supportsViewMode: true,
+				items: [
+					{
+						state,
+						formatMessage: intl.formatMessage,
+						nodeType: mediaGroup,
+					},
+				],
+			},
+			{ type: 'separator' },
+			{
+				id: 'editor.media.delete',
+				type: 'button',
+				appearance: 'danger',
+				focusEditoronEnter: true,
+				icon: DeleteIcon,
+				iconFallback: RemoveIcon,
+				onMouseEnter: hoverDecoration?.(mediaGroup, true),
+				onMouseLeave: hoverDecoration?.(mediaGroup, false),
+				onFocus: hoverDecoration?.(mediaGroup, true),
+				onBlur: hoverDecoration?.(mediaGroup, false),
+				title: intl.formatMessage(commonMessages.remove),
+				onClick: handleRemoveMediaGroup,
+				testId: 'media-toolbar-remove-button',
+			},
+		);
+	} else {
+		const options: DropdownOptionT<Command>[] = [
+			{
+				id: 'editor.media.view.switcher.inline',
+				title: intl.formatMessage(cardMessages.inlineTitle),
+				onClick: changeMediaCardToInline(editorAnalyticsAPI, forceFocusSelector),
+				icon: <ImageInlineIcon label="" spacing="spacious" />,
+			},
+			{
+				id: 'editor.media.view.switcher.thumbnail',
+				title: intl.formatMessage(cardMessages.blockTitle),
+				selected: true,
+				onClick: () => true,
+				icon: <SmartLinkCardIcon label="" spacing="spacious" />,
+			},
+		];
+		const switcherDropdown: FloatingToolbarDropdown<Command> = {
+			title: intl.formatMessage(messages.fileDisplayOptions),
+			id: 'media-group-inline-switcher-toolbar-item',
+			testId: 'media-group-inline-switcher-dropdown',
+			type: 'dropdown',
+			options,
+			icon: () => <SmartLinkCardIcon label="" spacing="spacious" />,
+		};
+
+		items.push(
+			switcherDropdown,
+			{ type: 'separator', fullHeight: true },
+			download,
+			{ type: 'separator', fullHeight: true, supportsViewMode: true },
+			preview,
+			{ type: 'separator', fullHeight: true },
+		);
+	}
+
 	return items;
 };
 

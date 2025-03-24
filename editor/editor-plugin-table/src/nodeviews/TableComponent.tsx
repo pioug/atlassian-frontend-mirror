@@ -286,10 +286,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.handleColgroupUpdates(true);
 		}
 
-		if (this.wrapper && fg('platform_editor_nested_table_in_nested_parent_fix')) {
+		if (this.wrapper) {
 			this.wrapperReisizeObserver = new ResizeObserver((entries) => {
 				for (const entry of entries) {
-					this.wrapperWidth = entry.contentRect.width;
+					this.wrapperWidth = entry.contentRect?.width;
 				}
 			});
 
@@ -1191,11 +1191,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		let parentWidth = this.getParentNodeWidth();
 
-		if (
-			isNested &&
-			isTableNestedInMoreThanOneNode(this.props.view.state, this.props.getPos()) &&
-			fg('platform_editor_nested_table_in_nested_parent_fix')
-		) {
+		if (isNested && isTableNestedInMoreThanOneNode(this.props.view.state, this.props.getPos())) {
 			const resizeObsWrapperWidth = this.wrapperWidth || 0;
 
 			const wrapperWidthDiffBetweenRerenders = Math.abs(

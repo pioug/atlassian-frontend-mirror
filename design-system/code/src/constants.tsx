@@ -1,6 +1,13 @@
 // The full list of languages that can potentially be supported is found in
 // https://prismjs.com/#supported-languages
-export const SUPPORTED_LANGUAGES = [
+
+/**
+ * Sharing a list of supported languages to use between the exported variables.
+ *
+ * SUPPORTED_LANGUAGES_ABAP_FIX is used when fg('platform_dst_code_abap_syntax') is enabled,
+ * and SUPPORTED_LANGUAGES is used when disabled. The only difference is the value of 'ABAP' entry.
+ */
+const commonSupportedLanguages = [
 	{
 		name: 'PHP',
 		alias: ['php', 'php3', 'php4', 'php5'],
@@ -334,11 +341,6 @@ export const SUPPORTED_LANGUAGES = [
 		value: 'vala',
 	},
 	{
-		name: 'ABAP',
-		alias: ['abap'],
-		value: 'sql',
-	},
-	{
 		name: 'LiveScript',
 		alias: ['livescript', 'live-script'],
 		value: 'livescript',
@@ -418,6 +420,16 @@ export const SUPPORTED_LANGUAGES = [
 		alias: ['protobuf', 'proto'],
 		value: 'protobuf',
 	},
+] as const;
+
+export const SUPPORTED_LANGUAGES = [
+	...commonSupportedLanguages,
+	{ name: 'ABAP', alias: ['abap'], value: 'sql' },
+] as const;
+
+export const SUPPORTED_LANGUAGES_ABAP_FIX = [
+	...commonSupportedLanguages,
+	{ name: 'ABAP', alias: ['abap'], value: 'abap' },
 ] as const;
 
 export { CODE_BLOCK_SELECTOR } from './internal/theme/constants';

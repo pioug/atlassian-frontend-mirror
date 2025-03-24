@@ -150,9 +150,6 @@ const InsertMenu = ({
 						.getSuggestions({
 							category,
 							featuredItems: true,
-							// @ts-ignore
-							templateItems:
-								isFullPageAppearance && editorExperiment('element-level-templates', true),
 						})
 						?.map((item) =>
 							connectivityState?.mode === 'offline' && item.isDisabledOffline
@@ -160,31 +157,15 @@ const InsertMenu = ({
 								: item,
 						) ?? [];
 
-				if (isFullPageAppearance && editorExperiment('element-level-templates', true)) {
-					// Make sure template options appear as top 5 items
-					featuredQuickInsertSuggestions.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
-					const templateItems = featuredQuickInsertSuggestions.splice(0, 5);
-					result = [
-						...templateItems,
-						...quickInsertDropdownItems,
-						...featuredQuickInsertSuggestions,
-					];
-				} else {
-					result = quickInsertDropdownItems.concat(
-						featuredQuickInsertSuggestions,
-					) as QuickInsertItem[];
-				}
+				result = quickInsertDropdownItems.concat(
+					featuredQuickInsertSuggestions,
+				) as QuickInsertItem[];
 			}
 
 			setItemCount(result.length);
 			return result;
 		},
-		[
-			pluginInjectionApi?.quickInsert?.actions,
-			quickInsertDropdownItems,
-			isFullPageAppearance,
-			connectivityState,
-		],
+		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems, connectivityState],
 	);
 
 	const emptyStateHandler =

@@ -9,6 +9,7 @@ import Select from '@atlaskit/select';
 import Table, { Cell, HeadCell, Row, TBody, THead } from '@atlaskit/table';
 
 import { rows } from './utils/all-components';
+import { appOrder, selectOptions } from './utils/constants';
 
 const wrapperStyles = cssMap({
 	root: {
@@ -18,50 +19,21 @@ const wrapperStyles = cssMap({
 	},
 });
 
-const selectOptions = [
-	{ label: 'Brand', value: 'brand' },
-	{ label: 'Legacy', value: 'legacy' },
-] as const;
-
-const appOrder = [
-	'Jira',
-	'Confluence',
-	'Loom',
-	'Rovo',
-	'Focus',
-	'Align',
-	'Talent',
-	'Bitbucket',
-	'Compass',
-	'Statuspage',
-	'Jira Service Management',
-	'Assets',
-	'Opsgenie',
-	'Jira Product Discovery',
-	'Jira Customer Service',
-	'Trello',
-	'Guard',
-	'Guard Detect',
-	'Home',
-	'Company Hub',
-	'Projects',
-	'Goals',
-	'Teams',
-	'Chat',
-	'Search',
-	'Studio',
-	'Analytics',
-	'Admin',
-	'More Atlassian Apps',
-	'Custom Link',
-];
-
 export default function ShowcaseExample({
+	apps = rows,
 	appearance: providedAppearance = 'brand',
+	iconColor,
+	textColor,
 }: {
+	apps?: typeof rows;
 	appearance?: 'brand' | 'legacy';
+	iconColor?: string;
+	textColor?: string;
 }) {
 	const [appearance, setAppearance] = useState<'brand' | 'legacy'>(providedAppearance);
+
+	const customisedProps = { appearance: appearance, iconColor: iconColor } as any;
+	const customisedPropsLogo = { textColor: textColor } as any;
 
 	return (
 		<Fragment>
@@ -72,6 +44,7 @@ export default function ShowcaseExample({
 				defaultOption={selectOptions[0]}
 				onChange={(newValue) => setAppearance(newValue?.value ?? 'brand')}
 			/>
+
 			<div css={wrapperStyles.root}>
 				<Table>
 					<THead>
@@ -83,20 +56,28 @@ export default function ShowcaseExample({
 					</THead>
 					<TBody>
 						{/* Order rows based on appOrder */}
-						{rows
+						{apps
 							.sort(
 								(a: (typeof rows)[0], b: (typeof rows)[0]) =>
 									appOrder.indexOf(a.name) - appOrder.indexOf(b.name),
 							)
-							.map(({ name, Icon20, Icon24, Icon32, Logo }) => (
-								<Row key={name}>
-									<Cell>{name}</Cell>
-									<Cell>{<Icon20 appearance={appearance} />}</Cell>
-									<Cell>{<Icon24 appearance={appearance} />}</Cell>
-									<Cell>{<Icon32 appearance={appearance} />}</Cell>
-									<Cell>{Logo === null ? 'N/A' : <Logo />}</Cell>
-								</Row>
-							))}
+							.map(({ name, Icon20, Icon24, Icon32, Logo }) => {
+								return (
+									<Row key={name}>
+										<Cell>{name}</Cell>
+										<Cell>{<Icon20 {...customisedProps} />}</Cell>
+										<Cell>{<Icon24 {...customisedProps} />}</Cell>
+										<Cell>{<Icon32 {...customisedProps} />}</Cell>
+										<Cell>
+											{Logo === null ? (
+												'N/A'
+											) : (
+												<Logo {...customisedProps} {...customisedPropsLogo} />
+											)}
+										</Cell>
+									</Row>
+								);
+							})}
 					</TBody>
 				</Table>
 			</div>

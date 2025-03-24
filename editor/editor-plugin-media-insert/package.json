@@ -98,5 +98,10 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_media_from_url_remove_form": {
+			"type": "boolean"
+		}
 	}
 }

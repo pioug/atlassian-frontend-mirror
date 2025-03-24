@@ -2,7 +2,7 @@ import React, { type ComponentProps } from 'react';
 
 import { render } from '@testing-library/react';
 
-import { FormatMessages } from './index';
+import { extractMessageNodes, FormatMessages } from './index';
 
 describe('FormatMessages', () => {
 	const renderComponent = (props: ComponentProps<typeof FormatMessages>) => {
@@ -43,5 +43,30 @@ describe('FormatMessages', () => {
 				.map(() => ({ type: 'info', message: 'info' })),
 		});
 		expect(getAllByText('info')).toHaveLength(10);
+	});
+});
+
+describe('extractMessageNodes from ExternalMessage array', () => {
+	it('should return no more than 10 messages', () => {
+		expect(
+			extractMessageNodes(
+				Array(20)
+					.fill(1)
+					.map(() => ({ type: 'info', message: 'info' })),
+			),
+		).toHaveLength(10);
+	});
+
+	it('should handle empty arrays', () => {
+		expect(extractMessageNodes([])).toStrictEqual([]);
+	});
+
+	it('should extract the messages correctly', () => {
+		expect(
+			extractMessageNodes([
+				{ type: 'error', message: 'foo' },
+				{ type: 'info', message: 'bar' },
+			]),
+		).toStrictEqual([<>foo</>, <>bar</>]);
 	});
 });

@@ -21,6 +21,7 @@ import type { Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaOptions } from '../types';
@@ -346,7 +347,9 @@ export const MediaGroupNext = injectIntl(
 				items={items}
 				mediaClientConfig={viewMediaClientConfig}
 				featureFlags={featureFlags}
-				shouldOpenMediaViewer={editorViewMode}
+				shouldOpenMediaViewer={
+					editorViewMode && editorExperiment('platform_editor_controls', 'control')
+				}
 			/>
 		);
 	}),

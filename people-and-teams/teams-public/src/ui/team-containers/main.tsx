@@ -41,6 +41,8 @@ export const TeamContainers = ({
 	components,
 	userId,
 	cloudId,
+	filterContainerId,
+	isDisplayedOnProfileCard,
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
@@ -52,6 +54,7 @@ export const TeamContainers = ({
 	const [selectedContainerDetails, setSelectedContainerDetails] = useState<
 		SelectedContainerDetails | undefined
 	>();
+	const [filteredTeamContainers, setFilteredTeamContainers] = useState(teamContainers);
 
 	const { fireOperationalEvent, fireTrackEvent } = usePeopleAndTeamAnalytics();
 
@@ -61,12 +64,27 @@ export const TeamContainers = ({
 	});
 
 	useEffect(() => {
-		if (teamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW) {
+		if (isDisplayedOnProfileCard && filterContainerId) {
+			setFilteredTeamContainers(
+				teamContainers.filter((container) => container.id !== filterContainerId),
+			);
+		} else {
+			setFilteredTeamContainers(teamContainers);
+		}
+	}, [isDisplayedOnProfileCard, filterContainerId, teamContainers]);
+
+	useEffect(() => {
+		if (
+			filteredTeamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW ||
+			isDisplayedOnProfileCard
+		) {
 			setShowAddJiraContainer(false);
 			setShowAddConfluenceContainer(false);
 		} else {
-			const hasJiraProject = teamContainers.some((container) => container.type === 'JiraProject');
-			const hasConfluenceSpace = teamContainers.some(
+			const hasJiraProject = filteredTeamContainers.some(
+				(container) => container.type === 'JiraProject',
+			);
+			const hasConfluenceSpace = filteredTeamContainers.some(
 				(container) => container.type === 'ConfluenceSpace',
 			);
 			setShowAddJiraContainer(
@@ -80,7 +98,7 @@ export const TeamContainers = ({
 					!!hasProductPermission(productPermissions, 'confluence'),
 			);
 		}
-	}, [productPermissions, teamContainers]);
+	}, [isDisplayedOnProfileCard, productPermissions, filteredTeamContainers]);
 
 	const handleShowMore = () => {
 		setShowMore(!showMore);
@@ -104,7 +122,9 @@ export const TeamContainers = ({
 
 	const handleDisconnect = useCallback(
 		async (containerId: string) => {
-			const removedContainer = teamContainers.find((container) => container.id === containerId);
+			const removedContainer = filteredTeamContainers.find(
+				(container) => container.id === containerId,
+			);
 			await actions.unlinkTeamContainers(teamId, containerId);
 			setIsDisconnectDialogOpen(false);
 			if (unlinkError) {
@@ -126,7 +146,14 @@ export const TeamContainers = ({
 				});
 			}
 		},
-		[actions, createAnalyticsEvent, fireOperationalEvent, teamContainers, teamId, unlinkError],
+		[
+			actions,
+			createAnalyticsEvent,
+			fireOperationalEvent,
+			filteredTeamContainers,
+			teamId,
+			unlinkError,
+		],
 	);
 
 	if (loading || productPermissionIsLoading) {
@@ -134,7 +161,7 @@ export const TeamContainers = ({
 	}
 
 	if (
-		teamContainers.length === 0 &&
+		filteredTeamContainers.length === 0 &&
 		(!productPermissions ||
 			!(
 				productPermissions &&
@@ -149,7 +176,7 @@ export const TeamContainers = ({
 		<>
 			<Stack space="space.200">
 				<Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap="space.100">
-					{teamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
+					{filteredTeamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 						return (
 							<LinkedContainerCardComponent
 								key={container.id}
@@ -180,7 +207,7 @@ export const TeamContainers = ({
 						/>
 					)}
 					{showMore &&
-						teamContainers.slice(MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
+						filteredTeamContainers.slice(MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 							return (
 								<LinkedContainerCardComponent
 									key={container.id}
@@ -199,7 +226,7 @@ export const TeamContainers = ({
 							);
 						})}
 				</Grid>
-				{teamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW && (
+				{filteredTeamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW && (
 					<Inline>
 						<Button appearance="subtle" onClick={handleShowMore}>
 							{showMore ? (

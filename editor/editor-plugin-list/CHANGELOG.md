@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-list
 
+## 4.2.0
+
+### Minor Changes
+
+- [#130794](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130794)
+  [`6271b4a0cda38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6271b4a0cda38) -
+  [ux] ED-26943 Create new list item when hit Enter at the end of a block element in list
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.5
 
 ### Patch Changes

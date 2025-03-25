@@ -6,6 +6,8 @@ import { useLayoutEffect, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';
 
 const flexColumn = css({
@@ -31,7 +33,13 @@ export const SearchResultsContainer = ({
 	const ref = useRef<HTMLDivElement>(null);
 	const currentHeight: React.MutableRefObject<number | null> = useRef<number>(null);
 
-	const fixedMinHeight = hasTabs ? '347px' : '302px';
+	const fixedMinHeight = fg('platform-linking-visual-refresh-link-picker')
+		? hasTabs
+			? '296px'
+			: '251px'
+		: hasTabs
+			? '347px'
+			: '302px';
 	const adaptiveMinHeight =
 		isLoadingResults && !!currentHeight.current ? `${currentHeight.current}px` : 'auto';
 	const minheight = adaptiveHeight ? adaptiveMinHeight : fixedMinHeight;

@@ -7,7 +7,7 @@ import {
 	getDropdownOption,
 	type OptionConfig,
 } from '@atlaskit/editor-common/card';
-import { cardMessages as messages } from '@atlaskit/editor-common/messages';
+import { cardMessages as messages, linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
 	DropdownOptions,
@@ -177,8 +177,7 @@ export const LinkAppearanceMenu = ({
 					href={'href' in settingsConfig ? settingsConfig.href : undefined}
 					target={'target' in settingsConfig ? settingsConfig.target : undefined}
 				>
-					{/* TODO: create new message, the current one does not match */}
-					Link Preferences
+					{intl.formatMessage(linkToolbarMessages.preferencesLink)}
 				</LinkItem>
 			</Section>
 		</MenuGroup>

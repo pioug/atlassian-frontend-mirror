@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type { CSSProperties } from 'react';
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -12,7 +12,6 @@ import classnames from 'classnames';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { useSharedPluginState } from '../../../hooks';
@@ -183,30 +182,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 			setIsNodeHovered(didHover);
 		}
 	};
-
-	const shouldFireNbmExperimentExposure = React.useMemo(() => {
-		if (node.type.name === 'extension' && typeof getPos === 'function') {
-			const pos = getPos();
-			if (!isNaN(pos)) {
-				const parentNameType = view.state.doc.resolve(pos).parent?.type?.name;
-
-				if (['listItem', 'nestedExpand', 'blockquote', 'panel'].includes(parentNameType)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}, [node, getPos, view]);
-
-	useEffect(() => {
-		if (shouldFireNbmExperimentExposure) {
-			// No-op editorExperiment evaluation to track usage of nested non-bodied macros
-			// these can't be tracked at the point of diversion of the experience because that is a toggle of the
-			// ProseMirror schema nodes for listItems, nestedExpand, blockquote, and panel. At that point the customer
-			// has not yet been exposed
-			editorExperiment('platform_editor_nested_non_bodied_macros', 'test', { exposure: true });
-		}
-	}, [shouldFireNbmExperimentExposure]);
 
 	return (
 		<Fragment>

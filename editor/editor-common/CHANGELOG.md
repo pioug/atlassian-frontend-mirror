@@ -1,5 +1,58 @@
 # @atlaskit/editor-common
 
+## 102.13.6
+
+### Patch Changes
+
+- [#131280](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131280)
+  [`9ff92ea2432f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff92ea2432f2) -
+  [ED-27082] Fix media overflow toolbar to show correct options + update separators between button
+  groups
+- Updated dependencies
+
+## 102.13.5
+
+### Patch Changes
+
+- [#131048](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131048)
+  [`40f0ae20820a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40f0ae20820a0) -
+  Clean up platform_editor_advanced_layouts_a11y
+- [#130397](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130397)
+  [`632086ddddec2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/632086ddddec2) -
+  [ux] fix drag handlers for multibodied extensions
+- Updated dependencies
+
+## 102.13.4
+
+### Patch Changes
+
+- [#130856](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130856)
+  [`0591d853bb6c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0591d853bb6c0) -
+  NOISSUE: fixes editor virtualization experiment variants
+- [#130809](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130809)
+  [`8d1dd6da98a94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d1dd6da98a94) -
+  ED-26834 Remove faulty manual exposure event for nested non bodied macros
+- Updated dependencies
+
+## 102.13.3
+
+### Patch Changes
+
+- [#130882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130882)
+  [`df1c29f476539`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df1c29f476539) -
+  [ux] Adds a new i18n message and updates icons and tooltips on links, media and extensions.
+- Updated dependencies
+
+## 102.13.2
+
+### Patch Changes
+
+- [#128664](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128664)
+  [`abca3266336d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abca3266336d9) -
+  [ED-23250] Remove form element from MediaFromUrl and consolidate experiments and feature flags in
+  prepartion for jira release
+- Updated dependencies
+
 ## 102.13.1
 
 ### Patch Changes

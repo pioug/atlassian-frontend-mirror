@@ -25,9 +25,19 @@ export function handleEditorFocus(view: EditorView | undefined): number | undefi
 			: (fn: () => void) => window.setTimeout(fn, 0);
 
 	return react16OnlySetTimeout(() => {
+		// Due to race conditions during editor lifecycle transitions (e.g. SPA route changes during opening or closing)
+		// where the view (and its internal docView) may have been destroyed, the timeout callback may fire on a stale view.
+		// Bail out in that scenario to prevent operating on an unmounted view.
+		if (fg('platform_editor_posfromdom_null_fix')) {
+			if (view?.isDestroyed) {
+				return;
+			}
+		}
+
 		if (view?.hasFocus()) {
 			return;
 		}
+
 		if (!window.getSelection) {
 			view?.focus();
 			return;
@@ -43,6 +53,7 @@ export function handleEditorFocus(view: EditorView | undefined): number | undefi
 			view.focus();
 			return;
 		}
+
 		// set cursor/selection and focus
 		const anchor = view?.posAtDOM(range.startContainer, range.startOffset);
 		const head = view?.posAtDOM(range.endContainer, range.endOffset);

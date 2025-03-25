@@ -52,7 +52,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 		renderCounter({ value, useUpdatedStyles: true });
 		const wrapper = await screen.findByTestId(RENDER_COMPONENT_WRAPPER);
 		expect(wrapper).toBeInTheDocument();
-		expect(wrapper).toHaveStyleRule('margin-top', token('space.050'));
+		expect(wrapper).toHaveStyleRule('margin-top', token('space.025'));
 	});
 
 	it('should render each number breakpoint', () => {

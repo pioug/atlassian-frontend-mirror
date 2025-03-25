@@ -25,6 +25,7 @@ import type {
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type EditorActions from '../../../actions';
@@ -45,7 +46,7 @@ import {
 	ScrollContainer,
 	sidebarArea,
 } from './StyledComponents';
-import { type ScrollContainerRefs } from './types';
+import type { ScrollContainerRefs } from './types';
 
 interface FullPageEditorContentAreaProps {
 	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
@@ -145,6 +146,12 @@ const Content = React.forwardRef<
 									isEditorToolbarHidden: props.isEditorToolbarHidden,
 								}),
 							]}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+							className={
+								fg('platform_editor_lcm_styling_uplift')
+									? 'ak-editor-content-area-region'
+									: undefined
+							}
 							data-editor-editable-content
 							data-editor-primary-toolbar-hidden={
 								props.isEditorToolbarHidden &&

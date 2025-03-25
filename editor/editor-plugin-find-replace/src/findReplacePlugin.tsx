@@ -1,10 +1,19 @@
 import React from 'react';
 
-import { ToolbarSize, type ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import {
+	type PMPlugin,
+	ToolbarSize,
+	type ToolbarUIComponentFactory,
+} from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { FindReplacePlugin } from './findReplacePluginType';
+import { activate } from './pm-plugins/commands';
+import { activateWithAnalytics } from './pm-plugins/commands-with-analytics';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { findReplacePluginKey } from './pm-plugins/plugin-key';
@@ -12,6 +21,8 @@ import type { FindReplaceToolbarButtonActionProps } from './types';
 import FindReplaceDropDownOrToolbarButtonWithState from './ui/FindReplaceDropDownOrToolbarButtonWithState';
 
 export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => {
+	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsBoundariesElement,
 		popupsMountPoint,
@@ -53,7 +64,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 		name: 'findReplace',
 
 		pmPlugins() {
-			return [
+			const plugins: Array<PMPlugin> = [
 				{
 					name: 'findReplace',
 					plugin: ({ dispatch }) => createPlugin(dispatch),
@@ -63,6 +74,26 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 					plugin: () => keymapPlugin(api?.analytics?.actions),
 				},
 			];
+
+			if (editorExperiment('platform_editor_controls', 'variant1', { exposure: false })) {
+				plugins.push({
+					name: 'findReplaceEditorViewReferencePlugin',
+					plugin: () => {
+						return new SafePlugin({
+							view: (editorView: EditorView) => {
+								editorViewRef.current = editorView;
+								return {
+									destroy: () => {
+										editorViewRef.current = null;
+									},
+								};
+							},
+						});
+					},
+				});
+			}
+
+			return plugins;
 		},
 
 		getSharedState(editorState) {
@@ -94,6 +125,24 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 						api={api}
 					/>
 				);
+			},
+			activateFindReplace: (
+				triggerMethod?: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL,
+			) => {
+				if (!editorViewRef.current) {
+					return false;
+				}
+
+				const { state, dispatch } = editorViewRef.current;
+
+				if (api?.analytics?.actions) {
+					activateWithAnalytics(api?.analytics?.actions)({
+						triggerMethod: triggerMethod || TRIGGER_METHOD.EXTERNAL,
+					})(state, dispatch);
+				} else {
+					activate()(state, dispatch);
+				}
+				return true;
 			},
 		},
 

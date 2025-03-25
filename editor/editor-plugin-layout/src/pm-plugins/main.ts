@@ -11,7 +11,6 @@ import {
 	findParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPluginOptions } from '../types';
@@ -98,35 +97,29 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 		dispatch &&
 		editorExperiment('advanced_layouts', true)
 	) {
-		if (fg('platform_editor_advanced_layouts_dnd_remove_layout')) {
-			const tr = state.tr;
-			const layoutContentFragment =
-				sel.$from.parentOffset === 0
-					? Fragment.from(sel.$from.parent.lastChild?.content)
-					: Fragment.from(sel.$from.parent.firstChild?.content);
-			const parent = findParentNodeClosestToPos(sel.$from, (node) => {
-				return node.type.name === 'layoutSection';
-			});
+		const tr = state.tr;
+		const layoutContentFragment =
+			sel.$from.parentOffset === 0
+				? Fragment.from(sel.$from.parent.lastChild?.content)
+				: Fragment.from(sel.$from.parent.firstChild?.content);
+		const parent = findParentNodeClosestToPos(sel.$from, (node) => {
+			return node.type.name === 'layoutSection';
+		});
 
-			if (parent) {
-				const layoutSectionPos = tr.mapping.map(parent.pos);
-				const layoutSectionNodeSize = parent.node.nodeSize;
+		if (parent) {
+			const layoutSectionPos = tr.mapping.map(parent.pos);
+			const layoutSectionNodeSize = parent.node.nodeSize;
 
-				dispatch(
-					state.tr.replaceWith(
-						layoutSectionPos,
-						layoutSectionPos + layoutSectionNodeSize,
-						layoutContentFragment,
-					),
-				);
-				return true;
-			}
-			return false;
-		} else {
-			dispatch(state.tr.deleteRange(sel.from + 1, sel.from + sel.node.content.size));
+			dispatch(
+				state.tr.replaceWith(
+					layoutSectionPos,
+					layoutSectionPos + layoutSectionNodeSize,
+					layoutContentFragment,
+				),
+			);
+			return true;
 		}
-
-		return true;
+		return false;
 	}
 
 	return false;
@@ -209,11 +202,7 @@ export default (options: LayoutPluginOptions) =>
 				}
 			});
 
-			if (
-				editorExperiment('advanced_layouts', true) &&
-				changes.length === 1 &&
-				fg('platform_editor_advanced_layouts_dnd_remove_layout')
-			) {
+			if (editorExperiment('advanced_layouts', true) && changes.length === 1) {
 				const change = changes[0];
 				// when need to update a layoutColumn with width 100
 				// meaning a single column layout has been create,

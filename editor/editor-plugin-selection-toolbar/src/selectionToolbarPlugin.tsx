@@ -70,6 +70,9 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 		});
 	}
 
+	let previousToolbarDocking: ToolbarDocking | null =
+		userPreferencesProvider?.getPreference('toolbarDockingInitialPosition') || null;
+
 	return {
 		name: 'selectionToolbar',
 
@@ -127,6 +130,31 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 											...pluginState,
 											...meta,
 										};
+									}
+
+									// if the toolbarDockingInitialPosition preference has changed
+									// update the toolbarDocking state
+									if (!previousToolbarDocking) {
+										// we currently only check for the initial value
+										const toolbarDockingPreference = userPreferencesProvider?.getPreference(
+											'toolbarDockingInitialPosition',
+										);
+										if (
+											toolbarDockingPreference &&
+											toolbarDockingPreference !== previousToolbarDocking
+										) {
+											previousToolbarDocking = toolbarDockingPreference;
+											const userToolbarDockingPref = getInitialToolbarDocking(
+												contextualFormattingEnabled,
+												userPreferencesProvider,
+											);
+											if (pluginState.toolbarDocking !== userToolbarDockingPref) {
+												return {
+													...pluginState,
+													toolbarDocking: userToolbarDockingPref,
+												};
+											}
+										}
 									}
 
 									return pluginState;

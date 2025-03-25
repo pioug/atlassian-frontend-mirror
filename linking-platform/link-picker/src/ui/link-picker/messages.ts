@@ -70,6 +70,16 @@ export const linkTextMessages = defineMessages({
 		defaultMessage: 'Clear text',
 		description: 'Tooltip message for link input clear button',
 	},
+	linkHelperTextLabel: {
+		id: 'fabric.linkPicker.linkHelperTextLabel',
+		defaultMessage: 'Give this link a title or description',
+		description: 'Helper text for the link display input',
+	},
+	linkHelperTextAriaLabel: {
+		id: 'fabric.linkPicker.linkHelperTextAriaLabel',
+		defaultMessage: 'Link display helper text',
+		description: 'Aria label for the helper text of the link display input',
+	},
 });
 
 export const timeMessages = defineMessages({

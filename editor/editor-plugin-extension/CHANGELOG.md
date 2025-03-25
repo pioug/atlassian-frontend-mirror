@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.0.10
+
+### Patch Changes
+
+- [#131495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131495)
+  [`db77ca3660437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db77ca3660437) -
+  Add extensions-placeholder in new editor controls
+
+## 5.0.9
+
+### Patch Changes
+
+- [#130882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130882)
+  [`df1c29f476539`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df1c29f476539) -
+  [ux] Adds a new i18n message and updates icons and tooltips on links, media and extensions.
+- Updated dependencies
+
 ## 5.0.8
 
 ### Patch Changes

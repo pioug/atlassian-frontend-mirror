@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.5.2
+
+### Patch Changes
+
+- [#127093](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127093)
+  [`1378ea7a99ce1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1378ea7a99ce1) -
+  Upgrades `jscodeshift` to handle generics properly.
+
 ## 4.5.1
 
 ### Patch Changes

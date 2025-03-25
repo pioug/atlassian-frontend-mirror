@@ -192,15 +192,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-11-18
-	contextual_formatting_toolbar: {
-		productKeys: {
-			confluence: 'platform_editor_contextual_formatting_toolbar_exp',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-11-26
 	platform_editor_ai_unsplash_page_header: {
 		productKeys: {
@@ -262,15 +253,6 @@ export const editorExperimentsConfig = {
 			| 'text-click-delayed'
 			| 'text-click-no-delay'
 			| 'initially-hide-toolbar',
-	},
-	// Added 2025-01-20
-	platform_editor_contextual_formatting_toolbar_v2: {
-		productKeys: {
-			confluence: 'platform_editor_contextual_formatting_toolbar_v2',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'variant1', 'variant2']),
-		defaultValue: 'control' as 'control' | 'variant1' | 'variant2',
 	},
 	// Added 2025-01-19
 	platform_editor_ai_edit_response_in_preview: {

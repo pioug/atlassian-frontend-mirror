@@ -1,5 +1,19 @@
 # @atlaskit/teams-public
 
+## 0.18.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.18.0
+
+### Minor Changes
+
+- [#129296](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129296)
+  [`deec85f688794`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/deec85f688794) -
+  [ux] move the team connection data to team container store
+
 ## 0.17.0
 
 ### Minor Changes

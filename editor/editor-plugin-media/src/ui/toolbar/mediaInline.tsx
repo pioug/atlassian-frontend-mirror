@@ -213,7 +213,7 @@ export const generateMediaInlineFloatingToolbar = (
 			switcherDropdown,
 			{ type: 'separator', fullHeight: true },
 			download,
-			{ type: 'separator', fullHeight: true, supportsViewMode: true },
+			{ type: 'separator', supportsViewMode: true },
 			preview,
 			{
 				type: 'separator',
@@ -242,6 +242,8 @@ const getMediaInlineImageToolbar = (
 	const mediaSingleTitle = intl.formatMessage(mediaAndEmbedToolbarMessages.changeToMediaSingle);
 	const widthPluginState = pluginInjectionApi?.width?.sharedState.currentState();
 	const inlineImageItems: FloatingToolbarItem<Command>[] = [];
+	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+	const { isViewOnly, allowAltTextOnImages, allowLinking, allowImagePreview } = options;
 
 	if (shouldShowImageBorder(state)) {
 		inlineImageItems.push({
@@ -270,8 +272,20 @@ const getMediaInlineImageToolbar = (
 		inlineImageItems.push({ type: 'separator' });
 	}
 
+	const download: FloatingToolbarButton<Command> = {
+		id: 'editor.media.image.download',
+		type: 'button',
+		icon: DownloadIcon,
+		onClick: () => {
+			downloadMedia(mediaPluginState, options.isViewOnly);
+			return true;
+		},
+		title: intl.formatMessage(messages.download),
+		supportsViewMode: true,
+	};
+
 	// For Editor Controls: show options to convert from 'Inline' to 'Original size' via dropdown
-	if (editorExperiment('platform_editor_controls', 'control')) {
+	if (!isEditorControlsEnabled) {
 		inlineImageItems.push(
 			{
 				id: 'editor.media.convert.mediainline',
@@ -307,6 +321,53 @@ const getMediaInlineImageToolbar = (
 				onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
 			},
 			{ type: 'separator' },
+			{
+				type: 'custom',
+				fallback: [],
+				render: (editorView, idx) => {
+					if (editorView?.state) {
+						const editLink = () => {
+							if (editorView) {
+								const { state, dispatch } = editorView;
+								showLinkingToolbar(state, dispatch);
+							}
+						};
+
+						const openLink = () => {
+							if (editorView) {
+								const {
+									state: { tr },
+									dispatch,
+								} = editorView;
+								pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
+									eventType: EVENT_TYPE.TRACK,
+									action: ACTION.VISITED,
+									actionSubject: ACTION_SUBJECT.MEDIA,
+									actionSubjectId: ACTION_SUBJECT_ID.LINK,
+								})(tr);
+								dispatch(tr);
+								return true;
+							}
+						};
+
+						return (
+							<LinkToolbarAppearance
+								key={idx}
+								editorState={editorView.state}
+								intl={intl}
+								mediaLinkingState={mediaLinkingState}
+								onAddLink={editLink}
+								onEditLink={editLink}
+								onOpenLink={openLink}
+								isInlineNode
+								isViewOnly={options.isViewOnly}
+							/>
+						);
+					}
+					return null;
+				},
+				supportsViewMode: true,
+			},
 		);
 	} else {
 		const options: DropdownOptionT<Command>[] = [
@@ -362,67 +423,23 @@ const getMediaInlineImageToolbar = (
 		};
 
 		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator', fullHeight: true });
-	}
 
-	// TODO: ED-26961 - editor controls move to overflow menu
-	if (editorExperiment('platform_editor_controls', 'control')) {
-		inlineImageItems.push({
-			type: 'custom',
-			fallback: [],
-			render: (editorView, idx) => {
-				if (editorView?.state) {
-					const editLink = () => {
-						if (editorView) {
-							const { state, dispatch } = editorView;
-							showLinkingToolbar(state, dispatch);
-						}
-					};
-
-					const openLink = () => {
-						if (editorView) {
-							const {
-								state: { tr },
-								dispatch,
-							} = editorView;
-							pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
-								eventType: EVENT_TYPE.TRACK,
-								action: ACTION.VISITED,
-								actionSubject: ACTION_SUBJECT.MEDIA,
-								actionSubjectId: ACTION_SUBJECT_ID.LINK,
-							})(tr);
-							dispatch(tr);
-							return true;
-						}
-					};
-
-					return (
-						<LinkToolbarAppearance
-							key={idx}
-							editorState={editorView.state}
-							intl={intl}
-							mediaLinkingState={mediaLinkingState}
-							onAddLink={editLink}
-							onEditLink={editLink}
-							onOpenLink={openLink}
-							isInlineNode
-							isViewOnly={options.isViewOnly}
-						/>
-					);
-				}
-				return null;
-			},
-			supportsViewMode: true,
-		});
+		if (isViewOnly) {
+			inlineImageItems.push(download, {
+				type: 'separator',
+				supportsViewMode: true,
+			});
+		}
 	}
 
 	//Image Preview
-	if (options.allowImagePreview) {
+	if (allowImagePreview) {
 		inlineImageItems.push(
 			{
 				id: 'editor.media.viewer',
 				testId: 'file-preview-toolbar-button',
 				type: 'button',
-				icon: MaximizeIcon,
+				icon: isEditorControlsEnabled ? GrowDiagonalIcon : MaximizeIcon,
 				iconFallback: FilePreviewIcon,
 				title: intl.formatMessage(messages.preview),
 				onClick: () => {
@@ -433,53 +450,38 @@ const getMediaInlineImageToolbar = (
 			{
 				type: 'separator',
 				supportsViewMode: true,
-				fullHeight: editorExperiment('platform_editor_controls', 'variant1'),
 			},
 		);
 	}
 
 	// open link
 	if (
-		options.allowLinking &&
+		allowLinking &&
 		shouldShowMediaLinkToolbar(state) &&
 		mediaLinkingState &&
 		mediaLinkingState.editable &&
-		editorExperiment('platform_editor_controls', 'variant1')
+		isEditorControlsEnabled
 	) {
 		inlineImageItems.push(
 			getOpenLinkToolbarButtonOption(intl, mediaLinkingState, pluginInjectionApi),
 			{
 				type: 'separator',
 				supportsViewMode: true,
-				fullHeight: true,
 			},
 		);
 	}
 
-	if (options.isViewOnly) {
-		inlineImageItems.push(
-			{
-				id: 'editor.media.image.download',
-				type: 'button',
-				icon: DownloadIcon,
-				onClick: () => {
-					downloadMedia(mediaPluginState, options.isViewOnly);
-					return true;
-				},
-				title: intl.formatMessage(messages.download),
-				supportsViewMode: true,
-			},
-			{ type: 'separator', supportsViewMode: true },
-		);
+	if (isViewOnly && !isEditorControlsEnabled) {
+		inlineImageItems.push(download, { type: 'separator', supportsViewMode: true });
 	}
 
-	if (options.allowAltTextOnImages && editorExperiment('platform_editor_controls', 'control')) {
+	if (allowAltTextOnImages && !isEditorControlsEnabled) {
 		inlineImageItems.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
 			type: 'separator',
 		});
 	}
 
-	if (options.isViewOnly || editorExperiment('platform_editor_controls', 'control')) {
+	if (isViewOnly || !isEditorControlsEnabled) {
 		inlineImageItems.push({
 			type: 'copy-button',
 			supportsViewMode: true,
@@ -493,7 +495,7 @@ const getMediaInlineImageToolbar = (
 		});
 	}
 
-	if (editorExperiment('platform_editor_controls', 'control')) {
+	if (!isEditorControlsEnabled) {
 		inlineImageItems.push({ type: 'separator' });
 		inlineImageItems.push({
 			id: 'editor.media.delete',

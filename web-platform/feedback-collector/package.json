@@ -95,9 +95,6 @@
 	"platform-feature-flags": {
 		"platform.proforma-form-builder-feedback_hupaz": {
 			"type": "boolean"
-		},
-		"underlined_iph_links": {
-			"type": "boolean"
 		}
 	}
 }

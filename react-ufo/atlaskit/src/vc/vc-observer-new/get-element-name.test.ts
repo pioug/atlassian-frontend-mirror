@@ -62,6 +62,19 @@ describe('getElementName', () => {
 		expect(getElementName(config, divElement)).toBe('div[data-vc="vcValue"]');
 	});
 
+	it('should prioritize data-vc over other attributes if dataVC undefinded', () => {
+		divElement.setAttribute('data-vc', 'vcValue');
+		divElement.id = 'uniqueId';
+		const config: SelectorConfig = {
+			id: true,
+			testId: true,
+			role: true,
+			className: true,
+			dataVC: undefined,
+		};
+		expect(getElementName(config, divElement)).toBe('div[data-vc="vcValue"]');
+	});
+
 	it('should return parent element name if no attributes match', () => {
 		const parentElement = document.createElement('section');
 		parentElement.appendChild(divElement);

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/image",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "An image that changes in light or dark themes.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@compiled/react": "^0.18.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

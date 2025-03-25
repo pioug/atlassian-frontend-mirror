@@ -36,3 +36,21 @@ snapshot(SelectedExample, {
 		'bandicoots-a11y-link-picker-styling': true,
 	},
 });
+
+snapshot(DefaultExample, {
+	variants: [
+		{
+			name: 'default',
+			environment: {},
+		},
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+	featureFlags: {
+		'platform-linking-visual-refresh-link-picker': [true, false],
+	},
+});

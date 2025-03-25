@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 3.1.5
+
+### Patch Changes
+
+- [#129464](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129464)
+  [`d5aeeb5947ae5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5aeeb5947ae5) -
+  Cleans up feature flag that fixes pasting action items in a list
+
 ## 3.1.4
 
 ### Patch Changes

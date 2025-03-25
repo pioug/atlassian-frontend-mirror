@@ -26,7 +26,7 @@ export const activateWithAnalytics =
 	({
 		triggerMethod,
 	}: {
-		triggerMethod: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR;
+		triggerMethod: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL;
 	}): Command =>
 		withAnalytics(editorAnalyticsAPI, (state: EditorState) => ({
 			eventType: EVENT_TYPE.UI,

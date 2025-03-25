@@ -235,6 +235,7 @@ export enum TRIGGER_METHOD {
 	KEYBOARD = 'keyboard', // single key, e.g. Esc, Enter
 	SHORTCUT = 'shortcut', // combination of keys, e.g. Mod + F
 	TOOLBAR = 'toolbar',
+	EXTERNAL = 'external',
 }
 
 export enum ACTION_SUBJECT {

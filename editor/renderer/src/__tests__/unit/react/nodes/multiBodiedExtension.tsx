@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import MultiBodiedExtension from '../../../../react/nodes/multiBodiedExtension';
-import { renderExtension } from '../../../../react/nodes/extension';
 import { useMultiBodiedExtensionContext } from '../../../../react/nodes/multiBodiedExtension/context';
 import { useMultiBodiedExtensionActions } from '../../../../react/nodes/multiBodiedExtension/actions';
 
@@ -14,11 +13,6 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
 jest.mock('@atlaskit/editor-common/utils', () => ({
 	...jest.requireActual('@atlaskit/editor-common/utils'),
 	calcBreakoutWidth: jest.fn(),
-}));
-
-jest.mock('../../../../react/nodes/extension', () => ({
-	...jest.requireActual('../../../../react/nodes/extension'),
-	renderExtension: jest.fn(),
 }));
 
 jest.mock('../../../../react/nodes/multiBodiedExtension/context', () => ({
@@ -35,7 +29,6 @@ beforeEach(() => {
 	(useMultiBodiedExtensionActions as jest.Mock).mockReturnValue({
 		updateActiveChild: jest.fn(),
 	});
-	(renderExtension as jest.Mock).mockImplementation((node) => node);
 });
 
 describe('MultiBodiedExtension node', () => {
@@ -58,10 +51,14 @@ describe('MultiBodiedExtension node', () => {
 		});
 
 		render(<MultiBodiedExtension {...defaultProps}>Test Content</MultiBodiedExtension>);
-
 		expect(screen.getByTestId('multiBodiedExtension--container')).toBeVisible();
-		expect(screen.getByTestId('multiBodiedExtension--wrapper')).toBeVisible();
-		expect(screen.getByTestId('multiBodiedExtension--wrapper')).toBeEmptyDOMElement();
+
+		const wrapper = screen.getByTestId('multiBodiedExtension--wrapper');
+		expect(wrapper).toBeVisible();
+
+		const wrapperOverflow = wrapper.querySelector('.ak-renderer-extension-overflow-container');
+		expect(wrapperOverflow).toBeVisible();
+		expect(wrapperOverflow).toBeEmptyDOMElement();
 	});
 
 	describe('when __allowBodiedOverride is false', () => {
@@ -140,28 +137,5 @@ describe('MultiBodiedExtension node', () => {
 
 			expect(screen.getByText('Extension node with the key=extension-key')).toBeVisible();
 		});
-	});
-
-	it('should render only children if renderExtension throws an error', () => {
-		(useMultiBodiedExtensionContext as jest.Mock).mockReturnValue({
-			loading: false,
-			extensionContext: {
-				NodeRenderer: ({ node }: any) => <div>Extension node with the key={node.extensionKey}</div>,
-				privateProps: {
-					__allowBodiedOverride: true,
-				},
-			},
-		});
-
-		(renderExtension as jest.Mock)
-			.mockImplementationOnce(() => {
-				throw new Error('Error rendering extension');
-			})
-			.mockImplementation((children) => children);
-
-		render(<MultiBodiedExtension {...defaultProps}>Test Content</MultiBodiedExtension>);
-
-		expect(screen.getByText('Test Content')).toBeInTheDocument();
-		expect(screen.queryByText('Extension node with the key=extension-key')).not.toBeInTheDocument();
 	});
 });

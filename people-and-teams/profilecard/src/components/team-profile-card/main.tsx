@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
@@ -12,14 +12,19 @@ import Heading from '@atlaskit/heading';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { Box, Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
 import TeamAvatar from '@atlaskit/teams-avatar';
+import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
+
+import { TeamConnections } from './team-connections/main';
+
+const noop = () => {};
 
 const styles = cssMap({
 	wrapperStyles: {
 		display: 'flex',
 		flexDirection: 'column',
 		borderRadius: token('border.radius.200'),
-		width: '340px',
+		width: '360px',
 		minWidth: '340px',
 		height: 'auto',
 		borderWidth: token('border.width'),
@@ -46,6 +51,13 @@ const styles = cssMap({
 		marginTop: token('space.100'),
 		marginRight: token('space.300'),
 	},
+	teamConnectionStyles: {
+		marginLeft: token('space.300'),
+		marginTop: token('space.200'),
+		marginRight: token('space.300'),
+		maxHeight: '265px',
+		overflowY: 'auto',
+	},
 	viewProfileContainerStyles: {
 		alignItems: 'center',
 		borderTopWidth: token('border.width'),
@@ -57,6 +69,7 @@ const styles = cssMap({
 	viewProfileButtonStyles: {
 		borderRadius: token('border.radius.100'),
 		backgroundColor: token('color.background.neutral.subtle'),
+		color: token('color.text.subtle'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
@@ -83,6 +96,7 @@ const HeaderImage = ({ srcUrl }: { srcUrl: string }) => (
 );
 
 interface TeamProfileCardProps {
+	containerId: string;
 	teamId: string;
 	displayName: string;
 	description: string;
@@ -90,11 +104,14 @@ interface TeamProfileCardProps {
 	headerImageUrl: string;
 	memberAvatars: AvatarProps[];
 	memberCount: number;
+	cloudId: string;
+	userId: string;
 	isVerified?: boolean;
 	teamProfileUrl?: string;
 }
 
 export const TeamProfileCard = ({
+	containerId,
 	teamId,
 	displayName,
 	description,
@@ -102,9 +119,20 @@ export const TeamProfileCard = ({
 	headerImageUrl,
 	memberAvatars,
 	memberCount,
+	cloudId,
+	userId,
 	isVerified,
 	teamProfileUrl,
 }: TeamProfileCardProps) => {
+	const { teamContainers } = useTeamContainers(teamId);
+	// Ensure that the current container is not the only connection for this team before showing the "Where we work" section
+	const hasOtherTeamConnections = useMemo(
+		() =>
+			teamContainers.filter((tc: TeamContainer) => tc.id === containerId).length <
+			teamContainers.length,
+		[containerId, teamContainers],
+	);
+
 	return (
 		<TeamCardWrapper id={teamId}>
 			<HeaderImage srcUrl={headerImageUrl} />
@@ -116,7 +144,7 @@ export const TeamProfileCard = ({
 				</Inline>
 
 				<Stack xcss={styles.teamInformationStyles} space="space.200">
-					<Stack>
+					<Stack space="space.050">
 						<Inline alignBlock="center">
 							<Heading size="medium">{displayName}</Heading>
 							{isVerified && <VerifiedTeamIcon showTooltip />}
@@ -138,6 +166,25 @@ export const TeamProfileCard = ({
 						</Text>
 					)}
 				</Stack>
+				{hasOtherTeamConnections && (
+					<Stack xcss={styles.teamConnectionStyles} space="space.200">
+						<Heading size="xxsmall">
+							<FormattedMessage
+								defaultMessage="Where we work"
+								id="people-and-teams.team-profile-card.team-connections"
+							/>
+						</Heading>
+						<TeamContainers
+							teamId={teamId}
+							onAddAContainerClick={noop}
+							userId={userId}
+							cloudId={cloudId}
+							components={{ ContainerCard: TeamConnections }}
+							filterContainerId={containerId}
+							isDisplayedOnProfileCard
+						/>
+					</Stack>
+				)}
 				{teamProfileUrl && (
 					<Stack xcss={styles.viewProfileContainerStyles}>
 						<Pressable

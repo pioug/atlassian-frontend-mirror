@@ -41,14 +41,14 @@ describe('TeamConnections', () => {
 			<IntlProvider locale="en">
 				<TeamConnections
 					containerType={'ConfluenceSpace'}
-					title={'Test Confluence Space'}
+					title={'Test title'}
 					onDisconnectButtonClick={() => {}}
 				/>
 			</IntlProvider>,
 		);
 
-		const containerType = screen.getByText('Confluence space');
-		expect(containerType).toBeInTheDocument();
+		expect(screen.getByText('Confluence')).toBeInTheDocument();
+		expect(screen.getByText('space')).toBeInTheDocument();
 	});
 
 	test('should display the right container type icon for a Confluence space', () => {
@@ -62,7 +62,7 @@ describe('TeamConnections', () => {
 			</IntlProvider>,
 		);
 
-		const containerTypeIcon = screen.getByRole('img', { name: 'Confluence' });
+		const containerTypeIcon = screen.getByRole('img', { name: 'confluence-project' });
 		expect(containerTypeIcon).toBeInTheDocument();
 	});
 
@@ -77,7 +77,7 @@ describe('TeamConnections', () => {
 			</IntlProvider>,
 		);
 
-		const containerTypeIcon = screen.getByRole('img', { name: 'Jira' });
+		const containerTypeIcon = screen.getByRole('img', { name: 'jira-project' });
 		expect(containerTypeIcon).toBeInTheDocument();
 	});
 });

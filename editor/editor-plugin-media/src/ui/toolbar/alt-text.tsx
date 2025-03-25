@@ -11,14 +11,18 @@ import type {
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarCustom,
+	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import TextIcon from '@atlaskit/icon/core/text';
 
 import { openMediaAltTextMenu } from '../../pm-plugins/alt-text/commands';
 import AltTextEdit from '../../pm-plugins/alt-text/ui/AltTextEdit';
+import { isImage } from '../../pm-plugins/utils/is-type';
 import { getMediaSingleOrInlineNodeFromSelection } from '../../pm-plugins/utils/media-common';
 import type { MediaToolbarBaseConfig } from '../../types';
 
@@ -107,4 +111,30 @@ export const getAltTextToolbar = (
 		className: ClassNames.FLOATING_TOOLBAR_COMPONENT,
 		items: [altTextEditComponent(options)],
 	};
+};
+
+export const getAltTextDropdownOption = (
+	state: EditorState,
+	formatMessage: IntlShape['formatMessage'],
+	allowAltTextOnImages?: boolean,
+	selectedNodeType?: NodeType,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
+): FloatingToolbarOverflowDropdownOptions<Command> => {
+	const { mediaSingle, mediaInline } = state.schema.nodes;
+	const mediaType = state.selection instanceof NodeSelection && state.selection.node.attrs.type;
+
+	if (
+		allowAltTextOnImages &&
+		(selectedNodeType === mediaSingle || (selectedNodeType === mediaInline && isImage(mediaType)))
+	) {
+		return [
+			{
+				title: formatMessage(messages.addAltText),
+				onClick: openMediaAltTextMenu(editorAnalyticsAPI),
+				icon: <TextIcon label="" />,
+			},
+		];
+	}
+
+	return [];
 };

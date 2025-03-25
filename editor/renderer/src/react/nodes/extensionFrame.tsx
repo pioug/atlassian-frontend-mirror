@@ -12,12 +12,19 @@ import type { Serializer } from '../../serializer';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { sharedMultiBodiedExtensionStyles } from '@atlaskit/editor-common/ui';
+import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-const containerCSS = css({
+const containerCSSOld = css({
 	minHeight: '100px',
 	flexBasis: '100%',
+});
+
+const containerCSSNew = css({
+	padding: `${token('space.100', '8px')}`,
+	minHeight: '100px',
+	// by default all frames are hidden, this style is overridden in multiBodiedExtensions for active frame
+	display: 'none',
 });
 
 type Props = React.PropsWithChildren<{
@@ -47,10 +54,9 @@ const ExtensionFrame = (props: Props) => {
 	return (
 		<div
 			css={[
-				containerCSS,
-				fg('platform_editor_multi_body_extension_extensibility') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					sharedMultiBodiedExtensionStyles.extensionFrameContent,
+				fg('platform_editor_multi_body_extension_extensibility')
+					? containerCSSNew
+					: containerCSSOld,
 			]}
 			data-extension-frame="true"
 		>

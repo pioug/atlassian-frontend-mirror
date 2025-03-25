@@ -47,6 +47,12 @@ snapshot(DefaultExample, {
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
+snapshot(DefaultExample, {
+	...allVariantsOptions,
+	featureFlags: {
+		'platform-linking-visual-refresh-link-picker': [true, false],
+	},
+});
 
 snapshot(WithCancelExample, {
 	...allVariantsOptions,
@@ -80,7 +86,6 @@ snapshot(ErrorBoundaryExample, {
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
-
 snapshot(ErrorBoundaryExample, {
 	description: 'ErrorBoundaryExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	...allVariantsOptions,
@@ -114,6 +119,12 @@ snapshot(PluginErrorExample, {
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
+snapshot(PluginErrorExample, {
+	...allVariantsOptions,
+	featureFlags: {
+		'platform-linking-visual-refresh-link-picker': [true, false],
+	},
+});
 
 snapshot(UnauthenticatedErrorExample, {
 	...allVariantsOptions,
@@ -127,6 +138,12 @@ snapshot(UnauthenticatedErrorExample, {
 		'UnauthenticatedErrorExample - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+	},
+});
+snapshot(UnauthenticatedErrorExample, {
+	...allVariantsOptions,
+	featureFlags: {
+		'platform-linking-visual-refresh-link-picker': [true, false],
 	},
 });
 

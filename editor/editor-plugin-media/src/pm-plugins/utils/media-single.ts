@@ -109,11 +109,21 @@ function insertNodesWithOptionalParagraph({
 					: state.selection.from;
 
 			if (fg('platform_editor_axe_leading_paragraph_from_media')) {
-				const shouldInsertFrom = !isInsidePotentialEmptyParagraph(state);
-
-				updatedTr = atTheBeginningOfBlock(state)
-					? pmSafeInsert(nodes[0], shouldInsertFrom ? insertFrom : undefined, false)(updatedTr)
-					: updatedTr.insert(insertFrom, nodes);
+				if (fg('platform_editor_multi_images_overridden_upload_fix')) {
+					// the use of pmSafeInsert causes the node selection to media single node.
+					// It leads to discrepancy between the full-page and comment editor - not sure why :shrug:
+					// When multiple images are uploaded, the node selection is set to the previous node
+					// and got overridden by the next node inserted.
+					// It also causes the images position shifted when the images are uploaded.
+					// E.g the images are uploaded after a table, the images will be inserted inside the table.
+					// so we revert to use tr.insert instead. No extra paragraph is added.
+					updatedTr = updatedTr.insert(insertFrom, nodes);
+				} else {
+					const shouldInsertFrom = !isInsidePotentialEmptyParagraph(state);
+					updatedTr = atTheBeginningOfBlock(state)
+						? pmSafeInsert(nodes[0], shouldInsertFrom ? insertFrom : undefined, false)(updatedTr)
+						: updatedTr.insert(insertFrom, nodes);
+				}
 			} else {
 				updatedTr.insert(insertFrom, nodes);
 			}

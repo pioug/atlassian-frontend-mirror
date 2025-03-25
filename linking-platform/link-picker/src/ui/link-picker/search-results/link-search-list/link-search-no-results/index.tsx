@@ -2,9 +2,12 @@ import React from 'react';
 
 import { defineMessages, useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { EmptyState } from '../../../../../common/ui/empty-state';
 
 import { NoResultsSVG } from './no-results-svg';
+import { NoResultsV2SVG } from './no-results-svg-v2';
 
 export const messages = defineMessages({
 	noResults: {
@@ -31,7 +34,11 @@ export const NoResults = () => {
 			testId={testIds.emptyResultPage}
 			header={intl.formatMessage(messages.noResults)}
 			description={intl.formatMessage(messages.noResultsDescription)}
-			renderImage={() => <NoResultsSVG />}
+			renderImage={
+				fg('platform-linking-visual-refresh-link-picker')
+					? () => <NoResultsV2SVG />
+					: () => <NoResultsSVG />
+			}
 		/>
 	);
 };

@@ -12,7 +12,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { getQuickInsertItemsFromModule, resolveImport } from '@atlaskit/editor-common/extensions';
-import type { ExtensionProvider, MenuItem } from '@atlaskit/editor-common/extensions';
+import type { ExtensionAPI, ExtensionProvider, MenuItem } from '@atlaskit/editor-common/extensions';
 import type {
 	QuickInsertItem,
 	QuickInsertProvider,
@@ -70,6 +70,25 @@ function sendExtensionQuickInsertAnalytics(
 	}
 }
 
+const showDummyAPIWarning = (location: string) => {
+	if (process.env.NODE_ENV !== 'production') {
+		// eslint-disable-next-line no-console
+		console.warn(
+			`Extension plugin not attached to editor - cannot use extension API in ${location}`,
+		);
+	}
+};
+
+const dummyExtensionAPI: ExtensionAPI = {
+	editInContextPanel: () => showDummyAPIWarning('editInContextPanel'),
+	_editInLegacyMacroBrowser: () => showDummyAPIWarning('_editInLegacyMacroBrowser'),
+	doc: {
+		insertAfter: () => showDummyAPIWarning('doc:insertAfter'),
+		scrollTo: () => showDummyAPIWarning('doc:scrollTo'),
+		update: () => showDummyAPIWarning('doc:update'),
+	},
+};
+
 export async function extensionProviderToQuickInsertProvider(
 	extensionProvider: ExtensionProvider,
 	editorActions: EditorActions,
@@ -100,10 +119,8 @@ export async function extensionProviderToQuickInsertProvider(
 							if (typeof item.node === 'function') {
 								if (fg('platform_editor_add_extension_api_to_quick_insert')) {
 									const extensionAPI = apiRef?.current?.extension?.actions?.api();
-									// While the api can be "undefined" there are no runtime scenarios where this is the case because:
-									// - The quick insert API can only be called from an active editor
-									// - The extension module handler can only be called from an active editor with the extension plugin
-									// Therefore this should always be run unless there is something very wrong.
+									// While this should only run when the extension some setups of editor
+									// may not have the extension API
 									if (extensionAPI) {
 										resolveImport(item.node(extensionAPI)).then((node) => {
 											sendExtensionQuickInsertAnalytics(
@@ -113,6 +130,22 @@ export async function extensionProviderToQuickInsertProvider(
 												source,
 											);
 
+											if (node) {
+												editorActions.replaceSelection(node);
+											}
+										});
+									} else {
+										// Originally it was understood we could only use this if we were using the extension plugin
+										// However there are some edge cases where this is not true (ie. in jira)
+										// Since making it optional now would be a breaking change - instead we can just pass a dummy
+										// extension API to consumers that warns them of using the methods.
+										resolveImport(item.node(dummyExtensionAPI)).then((node) => {
+											sendExtensionQuickInsertAnalytics(
+												item,
+												state.selection,
+												createAnalyticsEvent,
+												source,
+											);
 											if (node) {
 												editorActions.replaceSelection(node);
 											}

@@ -49,7 +49,7 @@ import { findDomRefAtPos, removeSelectedNode } from '@atlaskit/editor-prosemirro
 import CommentIcon from '@atlaskit/icon/core/comment';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import LinkIcon from '@atlaskit/icon/core/link';
+import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import SettingsIcon from '@atlaskit/icon/core/settings';
@@ -520,7 +520,7 @@ const generateToolbarItems =
 							selected: false,
 							metadata: metadata,
 							title: intl.formatMessage(linkToolbarMessages.editLink),
-							icon: LinkIcon,
+							icon: EditIcon,
 							testId: 'link-toolbar-edit-link-button',
 							onClick: getEditLinkCallback(editorAnalyticsApi, true),
 						},
@@ -939,8 +939,9 @@ export const getStartingToolbarItems = (
 						type: 'button',
 						onClick: onEditLink,
 						title: intl.formatMessage(linkToolbarMessages.editLink),
-						showTitle: true,
+						showTitle: editorExperiment('platform_editor_controls', 'variant1') ? false : true,
 						metadata: metadata,
+						icon: editorExperiment('platform_editor_controls', 'variant1') ? EditIcon : undefined,
 					},
 					{
 						type: 'separator',

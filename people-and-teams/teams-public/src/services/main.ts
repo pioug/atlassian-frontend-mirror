@@ -1,5 +1,5 @@
 import { aggClient } from './agg-client';
-import { type ClientContextProps, type TeamContainers } from './types';
+import { type ClientContextProps, type TeamContainers, TeamWithMemberships } from './types';
 
 type AwaitedReturn<T extends (...args: any) => any> = Awaited<ReturnType<T>>;
 
@@ -39,6 +39,15 @@ export class TeamsClient {
 	 */
 	async getTeamContainers(teamId: string): Promise<TeamContainers> {
 		return this._aggClient.getTeamContainers(teamId);
+	}
+
+	/**
+	 * Get teams connected to a container (Confluence space or Jira project)
+	 * @param {string} containerId
+	 * @returns {Promise}
+	 */
+	async getConnectedTeams(containerId: string): Promise<TeamWithMemberships[]> {
+		return this._aggClient.queryTeamsConnectedToContainer(containerId);
 	}
 
 	/**

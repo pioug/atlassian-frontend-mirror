@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.0.6
+
+### Patch Changes
+
+- [#131023](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131023)
+  [`05f7d6e19eb6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05f7d6e19eb6d) -
+  Added activateFindReplace action to findReplacePlugin to activate Find and Replace popup
+- Updated dependencies
+
 ## 2.0.5
 
 ### Patch Changes

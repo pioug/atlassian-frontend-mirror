@@ -497,7 +497,11 @@ export const getToolbarConfig =
 							},
 						]
 					: [
-							{ type: 'separator', fullHeight: true },
+							breakoutItems.length > 0 && { type: 'separator', fullHeight: true },
+							{
+								type: 'extensions-placeholder',
+								separator: breakoutItems.length > 0 ? 'both' : 'end',
+							},
 							{
 								type: 'overflow-dropdown',
 								options: [

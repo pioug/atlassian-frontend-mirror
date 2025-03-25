@@ -30,7 +30,7 @@ describe('Update Select props', () => {
 			import Foo from '@atlaskit/select';
 
 			const App = () => {
-				return <Foo />;
+				return (<Foo />);
 			};
 		`,
 		'should remove all deleted props with aliased import name',
@@ -113,7 +113,7 @@ describe('Update Select props', () => {
 				import ${variant} from '@atlaskit/select';
 
 				const App = () => {
-					return <${identifier} />;
+					return (<${identifier} />);
 				};
       		`,
 			`should remove all deleted props for ${identifier} `,
@@ -291,7 +291,7 @@ describe('Update Select props', () => {
 				import ${identifier === 'Select' ? `Ak${identifier}` : `{${identifier} as Ak${identifier}}`} from '@atlaskit/select';
 
 				const App = () => {
-					return <Ak${identifier} />;
+					return (<Ak${identifier} />);
 				};
       		`,
 			`should handle named imports for ${identifier} `,

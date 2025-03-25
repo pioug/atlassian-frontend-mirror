@@ -8,6 +8,9 @@ interface ExportsValidationExceptions {
 }
 
 const exportsValidationExceptions: ExportsValidationExceptions = {
+	'@af/yarn-workspace': {
+		ignoredAfExportKeys: ['./lock-parser'],
+	},
 	'@atlaskit/tokens': {
 		ignoredAfExportKeys: ['./babel-plugin'],
 	},

@@ -66,6 +66,8 @@ import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { useIntl } from 'react-intl-next';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -117,7 +119,16 @@ export interface FileCardProps extends CardEventProps {
 	/** Sets options for viewer **/
 	readonly includeHashForDuplicateFiles?: boolean;
 }
-
+const traceContextRetriever = () => {
+	const trace = getActiveTrace();
+	if (trace && fg('platform-filecard-ufo-trace')) {
+		return { traceId: trace?.traceId, spanId: trace?.spanId };
+	} else {
+		return {
+			traceId: getRandomHex(8),
+		};
+	}
+};
 export const FileCard = ({
 	appearance = 'auto',
 	resizeMode = 'crop',
@@ -213,12 +224,7 @@ export const FileCard = ({
 	const mediaViewerButtonRef = useRef<HTMLButtonElement>(null);
 
 	// Generate unique traceId for file
-	const traceContext = useMemo<MediaTraceContext>(
-		() => ({
-			traceId: getRandomHex(8),
-		}),
-		[],
-	);
+	const traceContext = useMemo<MediaTraceContext>(traceContextRetriever, []);
 
 	const [status, setStatus] = useState<CardStatus>('loading');
 

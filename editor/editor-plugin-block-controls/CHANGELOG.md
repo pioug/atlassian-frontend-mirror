@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.5.3
+
+### Patch Changes
+
+- [#131048](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131048)
+  [`40f0ae20820a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40f0ae20820a0) -
+  Clean up platform_editor_advanced_layouts_a11y
+- [#128309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128309)
+  [`5668591816f6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5668591816f6a) -
+  Clean up platform_editor_advanced_layouts_dnd_remove_layout
+- [#130397](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130397)
+  [`632086ddddec2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/632086ddddec2) -
+  [ux] fix drag handlers for multibodied extensions
+- Updated dependencies
+
 ## 3.5.2
 
 ### Patch Changes

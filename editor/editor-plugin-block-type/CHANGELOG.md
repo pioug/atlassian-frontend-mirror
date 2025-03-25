@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.1.8
+
+### Patch Changes
+
+- [#130218](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130218)
+  [`7decc0df6c7e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7decc0df6c7e9) -
+  [ED-26003] This change is cleaning up the feature gate
+  platform_editor_toolbar_fix_for_disabled_options.
+- Updated dependencies
+
 ## 5.1.7
 
 ### Patch Changes

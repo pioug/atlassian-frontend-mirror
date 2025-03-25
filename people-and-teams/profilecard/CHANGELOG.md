@@ -1,5 +1,35 @@
 # @atlaskit/profilecard
 
+## 23.6.2
+
+### Patch Changes
+
+- [#131187](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131187)
+  [`b300f83f46aa6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b300f83f46aa6) -
+  Add scroll to team connections
+- Updated dependencies
+
+## 23.6.1
+
+### Patch Changes
+
+- [#131208](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131208)
+  [`26ee5c0f97018`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26ee5c0f97018) -
+  few style fixes for profile card
+- Updated dependencies
+
+## 23.6.0
+
+### Minor Changes
+
+- [#130947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130947)
+  [`c5e3a2024c40b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5e3a2024c40b) -
+  [ux] Show team connections on profile card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.5.0
 
 ### Minor Changes

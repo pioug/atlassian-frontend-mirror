@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "25.0.1",
+	"version": "25.0.2",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -136,7 +136,7 @@
 		"@testing-library/react": "^13.4.0",
 		"fs-extra": "^4.0.2",
 		"globby": "^6.1.0",
-		"jscodeshift": "^0.13.0",
+		"jscodeshift": "^17.0.0",
 		"lodash": "^4.17.21",
 		"nullthrows": "^1.1.1",
 		"pkg-dir": "^4.2.0",

@@ -7,7 +7,7 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import type { EditorState, PluginKey, Transaction } from '@atlaskit/editor-prosemirror/state';
-import QuestionIcon from '@atlaskit/icon/glyph/question';
+import QuestionIcon from '@atlaskit/icon/core/migration/question-circle--question';
 import type { PositionType } from '@atlaskit/tooltip/types';
 
 import { useEditorContext } from '../EditorContext';

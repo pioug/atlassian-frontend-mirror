@@ -15,7 +15,6 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
 import MinusIcon from '@atlaskit/icon/core/minus';
 import CheckMarkIcon from '@atlaskit/icon/utility/check-mark';
-import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
 import { HeadingItem } from '@atlaskit/menu';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
@@ -30,32 +29,9 @@ export const getOverflowFloatingToolbarConfig = ({
 	api,
 	toolbarDocking,
 }: OverflowToobarConfigOptions): FloatingToolbarItem<Command>[] => {
-	const dropdownOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
-		{
-			title: 'Create Jira issue',
-			onClick: () => {
-				return false;
-			},
-			elemAfter: <ChevronRightIcon spacing="spacious" label="" />,
-		},
-		{
-			title: 'Define',
-			onClick: () => {
-				return false;
-			},
-		},
-		{
-			title: 'Apps',
-			onClick: () => {
-				return false;
-			},
-			elemAfter: <ChevronRightIcon spacing="spacious" label="" />,
-		},
-	];
-
 	const isDockedToTop = toolbarDocking === 'top';
 
-	dropdownOptions.push(
+	const dropdownOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
 		{
 			type: 'overflow-dropdown-heading',
 			title: 'Toolbar appears',
@@ -78,7 +54,7 @@ export const getOverflowFloatingToolbarConfig = ({
 			selected: isDockedToTop,
 			elemAfter: isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
 		},
-	);
+	];
 
 	return [
 		{ type: 'separator', fullHeight: true },

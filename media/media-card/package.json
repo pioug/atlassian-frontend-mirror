@@ -111,6 +111,9 @@
 		"wait-for-expect": "^1.2.0"
 	},
 	"platform-feature-flags": {
+		"platform-filecard-ufo-trace": {
+			"type": "boolean"
+		},
 		"platform.media-card-performance-observer_a803k": {
 			"type": "boolean"
 		},

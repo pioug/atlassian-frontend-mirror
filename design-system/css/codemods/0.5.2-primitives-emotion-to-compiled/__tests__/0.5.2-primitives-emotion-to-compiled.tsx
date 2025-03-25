@@ -405,18 +405,18 @@ variant?: 'normal' | 'inverted';
 }
 
 const CardLink = ({ to, children, variant = 'normal' }: CardLinkProps) => {
-return (
-<Anchor
-xcss={[
-cardStyles,
-variant === 'normal' && normalCardStyles,
-variant === 'inverted' && invertedCardStyles,
-]}
-href={to}
->
-{children}
-</Anchor>
-);
+	return (
+		<Anchor
+			xcss={[
+				cardStyles,
+				variant === 'normal' && normalCardStyles,
+				variant === 'inverted' && invertedCardStyles,
+			]}
+			href={to}
+		>
+			{children}
+		</Anchor>
+	);
 };
 
 export default CardLink;
@@ -467,18 +467,18 @@ variant?: 'normal' | 'inverted';
 }
 
 const CardLink = ({ to, children, variant = 'normal' }: CardLinkProps) => {
-return (
-    <Anchor
-    xcss={[
-    styles.card,
-    variant === 'normal' && styles.normalCard,
-    variant === 'inverted' && styles.invertedCard,
-    ]}
-    href={to}
-    >
-    {children}
-    </Anchor>
-);
+	return (
+        <Anchor
+			xcss={[
+				styles.card,
+				variant === 'normal' && styles.normalCard,
+				variant === 'inverted' && styles.invertedCard,
+			]}
+			href={to}
+		>
+            {children}
+        </Anchor>
+    );
 };
 
 export default CardLink;`,
@@ -684,8 +684,8 @@ const ContentRenderer = ({ id, body, exportPropTypes }: ContentRendererProps) =>
 					height={height}
 					width={width}
 				>
-					{children}
-				</ThemedImgMdx>
+                    {children}
+                </ThemedImgMdx>
             );
 		},
 		TSMorphProps: ({ exportName, packageName, filter }) => {
@@ -733,8 +733,8 @@ const ContentRenderer = ({ id, body, exportPropTypes }: ContentRendererProps) =>
 		blockquote: ({ children }) => {
 			return (
                 <Box as="blockquote" xcss={styles.blockquote}>
-					{children}
-				</Box>
+                    {children}
+                </Box>
             );
 		},
 	};
@@ -938,20 +938,20 @@ const titleWithFileSize = \`\${title} (\${(KB > 1000 ? KB / 1024 : KB).toFixed(2
 
 return (
     <Anchor xcss={styles.card} href={link}>
-    <VisuallyHidden>Download \${titleWithFileSize}</VisuallyHidden>
-    <Box xcss={styles.header}>
-    <Text maxLines={1}>\${titleWithFileSize}</Text>
-    <DownloadIcon label="" size="medium" />
-    </Box>
-    <Box xcss={styles.content}>
-    <ThemedImg
-    src={{
-    light: thumbnail.light,
-    dark: thumbnail.dark,
-    }}
-    alt=""
-    />
-    </Box>
+        <VisuallyHidden>Download \${titleWithFileSize}</VisuallyHidden>
+        <Box xcss={styles.header}>
+        <Text maxLines={1}>\${titleWithFileSize}</Text>
+        <DownloadIcon label="" size="medium" />
+        </Box>
+        <Box xcss={styles.content}>
+        <ThemedImg
+        src={{
+        light: thumbnail.light,
+        dark: thumbnail.dark,
+        }}
+        alt=""
+        />
+        </Box>
     </Anchor>
 );
 };

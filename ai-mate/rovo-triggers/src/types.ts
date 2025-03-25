@@ -77,6 +77,8 @@ export type ChatDraftPayload = PayloadCore<'chat-draft'>;
 
 export type OpenBrowseAgentPayload = PayloadCore<'open-browse-agent-modal'>;
 
+export type OpenBrowseAgentSidebarPayload = PayloadCore<'open-browse-agent-sidebar'>;
+
 export type EditorSuggestionPayload = PayloadCore<
 	'editor-suggestion',
 	{
@@ -169,6 +171,7 @@ export type Payload =
 	| EditorContextPayload
 	| ChatOpenPayload
 	| OpenBrowseAgentPayload
+	| OpenBrowseAgentSidebarPayload
 	| EditorSuggestionPayload
 	| EditorAgentChangedPayload
 	| BrowserContextPayload

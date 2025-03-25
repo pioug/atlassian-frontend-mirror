@@ -18,6 +18,13 @@ jest.mock('../utils/ufoExperiences', () => {
 		abortUfoExperience: jest.fn(actualModule.abortUfoExperience),
 	};
 });
+
+jest.mock('@atlaskit/react-ufo/experience-trace-id-context', () => ({
+	getActiveTrace: jest.fn(() => {
+		return { traceId: 'traceid', spanId: 'spanid' };
+	}),
+}));
+
 import { useAnalyticsEvents, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import * as svgHelpersModule from './svgView/helpers';
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
@@ -105,8 +112,8 @@ describe('Card ', () => {
 
 		jest.spyOn(globalMediaEventEmitter, 'emit');
 		/*
-      NOTE: This test case's speed can be improved by implementing jest.useFakeTimers({doNotFake: ['performance']}) after adopting jest version 28.x and above, see https://jest-archive-august-2023.netlify.app/docs/28.x/jest-object#jestusefaketimersfaketimersconfig for more detail.
-    */
+	  NOTE: This test case's speed can be improved by implementing jest.useFakeTimers({doNotFake: ['performance']}) after adopting jest version 28.x and above, see https://jest-archive-august-2023.netlify.app/docs/28.x/jest-object#jestusefaketimersfaketimersconfig for more detail.
+	*/
 		jest.spyOn(performanceModule, 'performanceNow').mockReturnValue(PERFORMANCE_NOW);
 
 		(shouldPerformanceBeSampled as jest.Mock).mockReturnValue(true);
@@ -3030,7 +3037,7 @@ describe('Card ', () => {
 
 		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-			traceContext: { traceId: expect.any(String) },
+			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});
 
 		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
@@ -3058,9 +3065,9 @@ describe('Card ', () => {
 					spanId: expect.any(String),
 					traceId: expect.any(String),
 				},
-				traceContext: {
+				traceContext: expect.objectContaining({
 					traceId: expect.any(String),
-				},
+				}),
 			},
 		});
 	});
@@ -3091,7 +3098,7 @@ describe('Card ', () => {
 
 		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-			traceContext: { traceId: expect.any(String) },
+			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});
 
 		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
@@ -3119,9 +3126,9 @@ describe('Card ', () => {
 					spanId: expect.any(String),
 					traceId: expect.any(String),
 				},
-				traceContext: {
+				traceContext: expect.objectContaining({
 					traceId: expect.any(String),
-				},
+				}),
 			},
 		});
 	});
@@ -3200,7 +3207,7 @@ describe('Card ', () => {
 
 		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-			traceContext: { traceId: expect.any(String) },
+			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});
 
 		expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
@@ -3224,9 +3231,9 @@ describe('Card ', () => {
 					spanId: expect.any(String),
 					traceId: expect.any(String),
 				},
-				traceContext: {
+				traceContext: expect.objectContaining({
 					traceId: expect.any(String),
-				},
+				}),
 				request: {
 					attempts: 5,
 					clientExhaustedRetries: true,
@@ -3274,7 +3281,7 @@ describe('Card ', () => {
 
 		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
 		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-			traceContext: { traceId: expect.any(String) },
+			traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 		});
 
 		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(2);
@@ -3307,9 +3314,9 @@ describe('Card ', () => {
 					spanId: expect.any(String),
 					traceId: expect.any(String),
 				},
-				traceContext: {
+				traceContext: expect.objectContaining({
 					traceId: expect.any(String),
-				},
+				}),
 			},
 		});
 	});
@@ -4428,7 +4435,7 @@ describe('Card ', () => {
 							},
 							status: 'success',
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-							traceContext: { traceId: expect.any(String) },
+							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
@@ -4557,7 +4564,7 @@ describe('Card ', () => {
 								mediaRegion: 'test-media-region',
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-							traceContext: { traceId: expect.any(String) },
+							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
@@ -4619,7 +4626,7 @@ describe('Card ', () => {
 							errorDetail: 'pollingMaxAttemptsExceeded',
 							request: { attempts: 2 },
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-							traceContext: { traceId: expect.any(String) },
+							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: undefined,
 						},
 					});
@@ -4674,7 +4681,7 @@ describe('Card ', () => {
 							status: 'fail',
 							failReason: 'failed-processing',
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-							traceContext: { traceId: expect.any(String) },
+							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
@@ -4743,7 +4750,7 @@ describe('Card ', () => {
 								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-							traceContext: { traceId: expect.any(String) },
+							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
@@ -4812,7 +4819,7 @@ describe('Card ', () => {
 								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-							traceContext: { traceId: expect.any(String) },
+							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
@@ -4875,7 +4882,7 @@ describe('Card ', () => {
 								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-							traceContext: { traceId: expect.any(String) },
+							traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
@@ -4943,7 +4950,7 @@ describe('Card ', () => {
 					errorDetail: 'mediaApi.getImage: remote-preview-fetch',
 					request: undefined,
 					ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-					traceContext: { traceId: expect.any(String) },
+					traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 					metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 					cardStatus: 'loading-preview',
 				},
@@ -5120,7 +5127,7 @@ describe('Card ', () => {
 						spanId: expect.any(String),
 						traceId: expect.any(String),
 					},
-					traceContext: { traceId: expect.any(String) },
+					traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 				},
 				eventType: 'operational',
 			});
@@ -5184,7 +5191,7 @@ describe('Card ', () => {
 						spanId: expect.any(String),
 						traceId: expect.any(String),
 					},
-					traceContext: { traceId: expect.any(String) },
+					traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 				},
 				eventType: 'operational',
 			});
@@ -5243,7 +5250,7 @@ describe('Card ', () => {
 						spanId: expect.any(String),
 						traceId: expect.any(String),
 					},
-					traceContext: { traceId: expect.any(String) },
+					traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 				},
 				eventType: 'operational',
 			});
@@ -5303,7 +5310,7 @@ describe('Card ', () => {
 						spanId: expect.any(String),
 						traceId: expect.any(String),
 					},
-					traceContext: { traceId: expect.any(String) },
+					traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 				},
 				eventType: 'operational',
 			});
@@ -5372,7 +5379,7 @@ describe('Card ', () => {
 							spanId: expect.any(String),
 							traceId: expect.any(String),
 						},
-						traceContext: { traceId: expect.any(String) },
+						traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 					},
 					eventType: 'operational',
 				});
@@ -5432,7 +5439,7 @@ describe('Card ', () => {
 							spanId: expect.any(String),
 							traceId: expect.any(String),
 						},
-						traceContext: { traceId: expect.any(String) },
+						traceContext: expect.objectContaining({ traceId: expect.any(String) }),
 					},
 					eventType: 'operational',
 				});
@@ -5494,7 +5501,9 @@ describe('Card ', () => {
 							spanId: expect.any(String),
 							traceId: expect.any(String),
 						},
-						traceContext: { traceId: expect.any(String) },
+						traceContext: expect.objectContaining({
+							traceId: expect.any(String),
+						}),
 					},
 					eventType: 'operational',
 				});
@@ -5614,6 +5623,35 @@ describe('Card ', () => {
 					fireEvent.load(imgElem);
 					expect(imgElem).toHaveStyle(expectedStyle);
 				});
+			});
+		});
+	});
+
+	ffTest.on('platform-filecard-ufo-trace', 'trace context', () => {
+		it('UFO trace context should be used', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.failedPdf();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const binaryUrl = 'binary-url';
+			jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+			const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
+			const user = userEvent.setup();
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			const btn = await screen.findByLabelText('Download');
+			await user.click(btn);
+
+			// expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+				traceContext: { traceId: 'traceid', spanId: 'spanid' },
 			});
 		});
 	});

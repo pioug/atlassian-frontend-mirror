@@ -33,6 +33,7 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-statuses': true,
+		'platform-component-visual-refresh': [true, false],
 	},
 	ignoredErrors: [
 		{
@@ -54,6 +55,7 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-datasources-enable-two-way-sync-statuses': true,
+		'platform-component-visual-refresh': [true, false],
 	},
 	ignoredErrors: [
 		{

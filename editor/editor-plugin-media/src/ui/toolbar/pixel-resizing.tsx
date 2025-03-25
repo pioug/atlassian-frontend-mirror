@@ -1,10 +1,23 @@
 import React from 'react';
 
-import { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
+import { IntlShape } from 'react-intl-next';
 
+import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
+import {
+	FloatingToolbarConfig,
+	FloatingToolbarOverflowDropdownOptions,
+	Command,
+} from '@atlaskit/editor-common/types';
+import { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { openPixelEditor } from '../../pm-plugins/pixel-resizing/commands';
 import { Props, PixelEntry } from '../../pm-plugins/pixel-resizing/ui';
 import { PIXEL_RESIZING_TOOLBAR_WIDTH } from '../../pm-plugins/pixel-resizing/ui/constants';
-import { MediaToolbarBaseConfig } from '../../types';
+import { MediaOptions, MediaToolbarBaseConfig } from '../../types';
 
 import { getSelectedMediaSingle } from './utils';
 
@@ -48,3 +61,35 @@ export const getPixelResizingToolbar = (
 		},
 	],
 });
+
+export const getResizeDropdownOption = (
+	mediaOptions: MediaOptions,
+	state: EditorState,
+	formatMessage: IntlShape['formatMessage'],
+	selectedNodeType?: NodeType,
+): FloatingToolbarOverflowDropdownOptions<Command> => {
+	if (selectedNodeType?.name !== 'mediaSingle') {
+		return [];
+	}
+
+	const { allowResizing, allowResizingInTables, allowAdvancedToolBarOptions } = mediaOptions;
+
+	const isWithinTable = hasParentNodeOfType(state.schema.nodes.table)(state.selection);
+	if (
+		allowAdvancedToolBarOptions &&
+		allowResizing &&
+		(!isWithinTable || allowResizingInTables === true) &&
+		fg('platform_editor_media_extended_resize_experience')
+	) {
+		return [
+			{
+				title: formatMessage(messages.resizeOption),
+				onClick: openPixelEditor(),
+				icon: <GrowHorizontalIcon label="" />,
+				testId: 'media-pixel-resizing-dropdown-option',
+			},
+		];
+	}
+
+	return [];
+};

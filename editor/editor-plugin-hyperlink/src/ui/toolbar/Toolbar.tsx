@@ -44,6 +44,7 @@ import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -231,8 +232,9 @@ export const getToolbarConfig =
 							type: 'button',
 							onClick: editInsertedLink(editorAnalyticsApi),
 							title: editLink,
-							showTitle: true,
+							showTitle: editorExperiment('platform_editor_controls', 'variant1') ? false : true,
 							metadata: metadata,
+							icon: editorExperiment('platform_editor_controls', 'variant1') ? EditIcon : undefined,
 						},
 						{
 							type: 'separator',

@@ -137,6 +137,8 @@ export interface LinkPickerProps {
 	url?: string;
 	/** The desired text to be displayed alternatively to the title of the linked resource for editing. */
 	displayText?: string | null;
+	/** The desired text to be displayed below the display text input field. Only displayed when `platform-linking-visual-refresh-link-picker` gate is enabled. */
+	displayHelperText?: string | null;
 	/** Plugins that provide link suggestions / search capabilities. */
 	plugins?: LinkPickerPlugin[];
 	/** If set true, Link picker will show the loading spinner where the tabs and results will show. */
@@ -177,6 +179,8 @@ type CustomLinkPickerMessages = {
 	linkTextLabel?: MessageDescriptor;
 	/** Placeholder for the link display text field */
 	linkTextPlaceholder?: MessageDescriptor;
+	/** Helper text for the link display text field */
+	linkHelperTextLabel?: MessageDescriptor;
 	/** Label for the submit button */
 	submitButtonLabel?: MessageDescriptor;
 };

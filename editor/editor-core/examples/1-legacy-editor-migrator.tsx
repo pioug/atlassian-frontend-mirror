@@ -7,7 +7,7 @@ import { code } from '@atlaskit/docs';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/preset';
 import { type EditorProps } from '@atlaskit/editor-core';
 import { createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import { Box } from '@atlaskit/primitives';
 
 import { getDefaultPresetOptionsFromEditorProps } from '../src/create-editor/create-plugins-list';

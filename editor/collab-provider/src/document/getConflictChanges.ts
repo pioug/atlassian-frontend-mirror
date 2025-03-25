@@ -71,7 +71,10 @@ const getConflicts = ({
 				// Partial overlap with the start
 				(localChange.fromA < remoteChange.fromA &&
 					localChange.toA > remoteChange.fromA &&
-					localChange.toA <= remoteChange.toA)
+					localChange.toA <= remoteChange.toA) ||
+				// One of the edges match
+				localChange.fromA === remoteChange.toA ||
+				remoteChange.fromA === localChange.toA
 			) {
 				const remoteSlice = remoteDoc.slice(remoteChange.fromB, remoteChange.toB);
 				const isDeletion = remoteSlice.size === 0;
@@ -164,6 +167,9 @@ export function getConflictChanges({ localSteps, remoteSteps, tr }: Options): Co
 	const isConflictChange = (value: ConflictChange | undefined): value is ConflictChange =>
 		Boolean(value);
 
+	// Prevent duplicate ranges occuring
+	const seenInsertions = new Set<string>();
+
 	return {
 		inserted: conflictingChanges
 			.filter((i) => i.remote.size !== 0)
@@ -172,7 +178,14 @@ export function getConflictChanges({ localSteps, remoteSteps, tr }: Options): Co
 				from: mapping.map(i.from, -1),
 				to: mapping.map(i.to),
 			}))
-			.filter(isConflictChange),
+			.filter((i) => {
+				const identifier = `${i.from}-${i.to}`;
+				if (seenInsertions.has(identifier)) {
+					return false;
+				}
+				seenInsertions.add(identifier);
+				return isConflictChange(i);
+			}),
 		deleted: conflictingChanges
 			.filter((d) => d.remote.size === 0)
 			.map((d) => ({

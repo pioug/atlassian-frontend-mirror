@@ -1,3 +1,4 @@
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
@@ -22,6 +23,9 @@ export type FindReplacePlugin = NextEditorPlugin<
 		dependencies: FindReplacePluginDependencies;
 		actions: {
 			getToolbarButton: (params: FindReplaceToolbarButtonActionProps) => React.ReactNode;
+			activateFindReplace: (
+				triggerMethod?: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL,
+			) => boolean;
 		};
 	}
 >;

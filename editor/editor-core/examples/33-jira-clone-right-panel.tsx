@@ -9,12 +9,12 @@ import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Button, { IconButton } from '@atlaskit/button/new';
-import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
-import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
-import LikeIcon from '@atlaskit/icon/glyph/like';
-import MoreIcon from '@atlaskit/icon/glyph/more';
-import ShareIcon from '@atlaskit/icon/glyph/share';
-import WatchFilledIcon from '@atlaskit/icon/glyph/watch-filled';
+import WatchFilledIcon from '@atlaskit/icon/core/migration/eye-open-filled--watch-filled';
+import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
+import ShareIcon from '@atlaskit/icon/core/migration/share';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -134,7 +134,7 @@ export default function CommentWithJiraCardsExample() {
 									onClick={handleClick}
 								>
 									<strong>Details</strong>
-									<ChevronDown label="" size="medium" />
+									<ChevronDown label="" LEGACY_size="medium" />
 								</div>
 								{isOpen && (
 									<div css={detialsContentContainer}>

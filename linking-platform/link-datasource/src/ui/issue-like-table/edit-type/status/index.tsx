@@ -4,6 +4,7 @@ import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import { type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -67,7 +68,15 @@ const StatusEditType = (props: StatusEditTypeProps) => {
 				labelId={labelId}
 				formatOptionLabel={(option) => (
 					<Tooltip content={option.text}>
-						<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
+						<Lozenge
+							testId={`inline-edit-status-option-${option.text}`}
+							{...option.style}
+							isBold={
+								fg('platform-component-visual-refresh')
+									? option.style?.isBold !== false
+									: option.style?.isBold
+							}
+						>
 							{option.text}
 						</Lozenge>
 					</Tooltip>

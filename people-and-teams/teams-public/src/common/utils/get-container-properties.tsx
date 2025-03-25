@@ -17,10 +17,15 @@ interface ContainerProperties {
 	containerTypeText: ReactNode;
 }
 
+type IconSize = 'small' | 'medium';
 const styles = cssMap({
 	iconWrapper: {
 		width: '12px',
 		height: '12px',
+	},
+	mediumIconWrapper: {
+		width: '16px',
+		height: '16px',
 	},
 });
 
@@ -67,13 +72,16 @@ export const messages = defineMessages({
 	},
 });
 
-export const getContainerProperties = (containerType: ContainerTypes): ContainerProperties => {
+export const getContainerProperties = (
+	containerType: ContainerTypes,
+	iconSize?: IconSize,
+): ContainerProperties => {
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
 				icon: (
-					<Box xcss={styles.iconWrapper}>
+					<Box xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 						<Image src={ConfluenceIcon} alt="confluence-project" />
 					</Box>
 				),
@@ -84,7 +92,7 @@ export const getContainerProperties = (containerType: ContainerTypes): Container
 			return {
 				description: <FormattedMessage {...messages.jiraProjectDescription} />,
 				icon: (
-					<Box xcss={styles.iconWrapper}>
+					<Box xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 						<Image src={JiraIcon} alt="jira-project" />
 					</Box>
 				),

@@ -40,7 +40,7 @@ type InlineNodeViewComponent<ExtraComponentProps> = React.ComponentType<
 	React.PropsWithChildren<InlineNodeViewComponentProps & ExtraComponentProps>
 >;
 
-type CreateNodeViewOptions<ExtraComponentProps> = {
+export type CreateNodeViewOptions<ExtraComponentProps> = {
 	nodeViewParams: NodeViewParams;
 	pmPluginFactoryParams: PMPluginFactoryParams;
 	Component: InlineNodeViewComponent<ExtraComponentProps>;
@@ -50,65 +50,29 @@ type CreateNodeViewOptions<ExtraComponentProps> = {
 
 export const inlineNodeViewClassname = 'inlineNodeView';
 
-// number of initial nodes to allow React to render before switching to fallback
-let initialReactRenderedNodeCount = 0;
-
 const canRenderFallback = (node: PMNode): boolean => {
 	return node.type.isInline && node.type.isAtom && node.type.isLeaf;
 };
 
 // list of inline nodes with toDOM fallback implementations that can be virtualized. As
 // additional nodes are converted they should be added here
-const virtualizedNodeWhitelist = ['status', 'mention', 'emoji', 'date', 'inlineCard'];
+const virtualizedNodeAllowlist = ['status', 'mention', 'emoji', 'date', 'inlineCard'];
 
-const virtualisationConfiguration = () => {
-	let enableVirtualization = false;
-	let reactRenderedDocumentPositionThreshold = 0;
-
-	if (isSSR) {
-		return {
-			enableVirtualization,
-			reactRenderedDocumentPositionThreshold,
-			virtualizeCurrentNode: () => false,
-		};
+function checkExperimentExposure() {
+	if (editorExperiment('platform_editor_inline_node_virtualization', 'off', { exposure: true })) {
+		return false;
 	}
 
-	if (editorExperiment('platform_editor_inline_node_virtualization', 'off', { exposure: true })) {
-		enableVirtualization = false;
-	} else if (
+	if (
 		editorExperiment('platform_editor_inline_node_virtualization', 'fallback-small', {
 			exposure: true,
 		})
 	) {
-		enableVirtualization = true;
-		reactRenderedDocumentPositionThreshold = 100;
-	} else if (
-		editorExperiment('platform_editor_inline_node_virtualization', 'fallback-large', {
-			exposure: true,
-		})
-	) {
-		enableVirtualization = true;
-		reactRenderedDocumentPositionThreshold = 400;
+		return true;
 	}
 
-	// we need to be able to override the threshold to 0
-	// for specific situation, primarily testing
-	if (
-		reactRenderedDocumentPositionThreshold !== 0 &&
-		fg('platform_editor_inline_node_virt_threshold_override')
-	) {
-		reactRenderedDocumentPositionThreshold = 0;
-	}
-
-	return {
-		enableVirtualization,
-		reactRenderedDocumentPositionThreshold,
-		virtualizeCurrentNode: (nodeType: string) =>
-			enableVirtualization &&
-			virtualizedNodeWhitelist.includes(nodeType) &&
-			!(initialReactRenderedNodeCount < reactRenderedDocumentPositionThreshold),
-	};
-};
+	return false;
+}
 
 function createNodeView<ExtraComponentProps>({
 	nodeViewParams,
@@ -117,9 +81,140 @@ function createNodeView<ExtraComponentProps>({
 	extraComponentProps,
 	extraNodeViewProps,
 }: CreateNodeViewOptions<ExtraComponentProps>) {
-	const { enableVirtualization, virtualizeCurrentNode } = virtualisationConfiguration();
+	// We set a variable for the current node which is
+	// used for comparisions when doing updates, before being
+	// overwritten to the updated node.
+	let currentNode = nodeViewParams.node;
+	const key = generateUniqueNodeKey();
 
-	const virtualizeNode = virtualizeCurrentNode(nodeViewParams.node.type.name);
+	// First we setup the dom element which will be rendered and "tracked" by prosemirror
+	// and also used as a "editor portal" (not react portal) target by the editor
+	// portal provider api, for rendering the Component passed.
+
+	let domRef: HTMLSpanElement = document.createElement('span');
+	domRef.contentEditable = 'false';
+	setDomAttrs(nodeViewParams.node, domRef);
+
+	const fallbackRef: { current: null | HTMLElement | Node } = { current: null };
+
+	// @see ED-3790
+	// something gets messed up during mutation processing inside of a
+	// nodeView if DOM structure has nested plain "div"s, it doesn't see the
+	// difference between them and it kills the nodeView
+	domRef.classList.add(
+		`${nodeViewParams.node.type.name}View-content-wrap`,
+		`${inlineNodeViewClassname}`,
+	);
+
+	// This util is shared for tracking rendering, and the ErrorBoundary that
+	// is setup to wrap the Component when rendering
+	// NOTE: This is not a prosemirror dispatch
+	function dispatchAnalyticsEvent(payload: AnalyticsEventPayload) {
+		pmPluginFactoryParams.eventDispatcher.emit(analyticsEventKey, {
+			payload,
+		});
+	}
+
+	// This is called to render the Component into domRef which is inside the
+	// prosemirror View.
+	// Internally it uses the unstable_renderSubtreeIntoContainer api to render,
+	// to the passed dom element (domRef) which means it is automatically
+	// "cleaned up" when you do a "re render".
+	function renderComponent() {
+		pmPluginFactoryParams.portalProviderAPI.render(
+			getPortalChildren({
+				dispatchAnalyticsEvent,
+				currentNode,
+				nodeViewParams,
+				Component,
+				extraComponentProps,
+			}),
+			domRef,
+			key,
+		);
+	}
+
+	const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
+		nodeViewParams.view,
+	);
+
+	trackingEnabled && startMeasureReactNodeViewRendered({ nodeTypeName: currentNode.type.name });
+
+	// We render the component while creating the node view
+	renderComponent();
+
+	trackingEnabled &&
+		stopMeasureReactNodeViewRendered({
+			nodeTypeName: currentNode.type.name,
+			dispatchAnalyticsEvent,
+			samplingRate,
+			slowThreshold,
+		});
+
+	const extraNodeViewPropsWithStopEvent = {
+		...extraNodeViewProps,
+	};
+
+	// https://prosemirror.net/docs/ref/#view.NodeView
+	const nodeView: NodeView = {
+		get dom() {
+			return domRef;
+		},
+		update(nextNode, _decorations) {
+			// Let ProseMirror handle the update if node types are different.
+			// This prevents an issue where it was not possible to select the
+			// inline node view then replace it by entering text - the node
+			// view contents would be deleted but the node view itself would
+			// stay in the view and become uneditable.
+			if (currentNode.type !== nextNode.type) {
+				return false;
+			}
+			// On updates, we only set the new attributes if the type, attributes, and marks
+			// have changed on the node.
+
+			// NOTE: this could mean attrs changes aren't reflected in the dom,
+			// when an attribute key which was previously present is no longer
+			// present.
+			// ie.
+			// -> Original attributes { text: "hello world", color: "red" }
+			// -> Updated attributes { color: "blue" }
+			// in this case, the dom text attribute will not be cleared.
+			//
+			// This may not be an issue with any of our current node schemas.
+			if (!currentNode.sameMarkup(nextNode)) {
+				setDomAttrs(nextNode, domRef);
+			}
+
+			currentNode = nextNode;
+
+			renderComponent();
+
+			return true;
+		},
+		destroy() {
+			// When prosemirror destroys the node view, we need to clean up
+			// what we have previously rendered using the editor portal
+			// provider api.
+			pmPluginFactoryParams.portalProviderAPI.remove(key);
+			// @ts-expect-error Expect an error as domRef is expected to be
+			// of HTMLSpanElement type however once the node view has
+			// been destroyed no other consumers should still be using it.
+			domRef = undefined;
+
+			fallbackRef.current = null;
+		},
+		...extraNodeViewPropsWithStopEvent,
+	};
+	return nodeView;
+}
+
+function createNodeViewVirtualized<ExtraComponentProps>({
+	nodeViewParams,
+	pmPluginFactoryParams,
+	Component,
+	extraComponentProps,
+	extraNodeViewProps,
+}: CreateNodeViewOptions<ExtraComponentProps>) {
 	// We set a variable for the current node which is
 	// used for comparisions when doing updates, before being
 	// overwritten to the updated node.
@@ -178,7 +273,7 @@ function createNodeView<ExtraComponentProps>({
 			}),
 			domRef,
 			key,
-			enableVirtualization ? onBeforeReactDomRender : undefined,
+			onBeforeReactDomRender,
 		);
 	}
 
@@ -187,11 +282,15 @@ function createNodeView<ExtraComponentProps>({
 	let removeIntersectionObserver = () => {};
 
 	function renderFallback() {
-		if (canRenderFallback(currentNode) && typeof currentNode.type?.spec?.toDOM === 'function') {
-			const fallback = DOMSerializer.renderSpec(document, currentNode.type.spec.toDOM(currentNode));
-			fallbackRef.current = fallback.dom;
-			domRef.replaceChildren(fallback.dom);
+		if (!canRenderFallback(currentNode) || typeof currentNode.type?.spec?.toDOM !== 'function') {
+			return;
 		}
+
+		const fallback = DOMSerializer.renderSpec(document, currentNode.type.spec.toDOM(currentNode));
+		const dom = fallback.dom;
+
+		fallbackRef.current = dom;
+		domRef.replaceChildren(dom);
 	}
 
 	function attachNodeViewObserver() {
@@ -206,49 +305,23 @@ function createNodeView<ExtraComponentProps>({
 		}
 	}
 
-	if (virtualizeNode) {
-		renderFallback();
-		// allow the fallback to render first before attaching the observer.
-		// Will tweak this in a follow up PR to optimise rendering of visible
-		// nodes without fallback rendering.
-		setTimeout(() => {
-			attachNodeViewObserver();
-		}, 0);
-	} else {
-		initialReactRenderedNodeCount = initialReactRenderedNodeCount + 1;
-		const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
-			nodeViewParams.view,
-		);
-
-		trackingEnabled && startMeasureReactNodeViewRendered({ nodeTypeName: currentNode.type.name });
-
-		// We render the component while creating the node view
-		renderComponent();
-
-		trackingEnabled &&
-			stopMeasureReactNodeViewRendered({
-				nodeTypeName: currentNode.type.name,
-				dispatchAnalyticsEvent,
-				samplingRate,
-				slowThreshold,
-			});
-	}
+	renderFallback();
+	// allow the fallback to render first before attaching the observer.
+	// Will tweak this in a follow up PR to optimise rendering of visible
+	// nodes without fallback rendering.
+	setTimeout(() => {
+		attachNodeViewObserver();
+	}, 0);
 
 	const extraNodeViewPropsWithStopEvent = {
 		...extraNodeViewProps,
-		...(enableVirtualization
-			? {
-					// This is not related to virtualization, but it's something we should fix/handle
-					// Remove this comment when virtualization experiment is cleaned up
-					stopEvent(event: Event) {
-						const maybeStopEvent = extraNodeViewProps?.stopEvent;
-						if (typeof maybeStopEvent === 'function') {
-							return maybeStopEvent(event);
-						}
-						return false;
-					},
-				}
-			: {}),
+		stopEvent: (event: Event) => {
+			const maybeStopEvent = extraNodeViewProps?.stopEvent;
+			if (typeof maybeStopEvent === 'function') {
+				return maybeStopEvent(event);
+			}
+			return false;
+		},
 	};
 
 	// https://prosemirror.net/docs/ref/#view.NodeView
@@ -283,20 +356,15 @@ function createNodeView<ExtraComponentProps>({
 
 			currentNode = nextNode;
 
-			if (virtualizeNode) {
-				if (didRenderComponentWithIntersectionObserver) {
-					renderComponent();
-				}
-			} else {
+			if (didRenderComponentWithIntersectionObserver) {
 				renderComponent();
 			}
 
 			return true;
 		},
 		destroy() {
-			if (virtualizeNode) {
-				removeIntersectionObserver();
-			}
+			removeIntersectionObserver();
+			destroyed = true;
 
 			// When prosemirror destroys the node view, we need to clean up
 			// what we have previously rendered using the editor portal
@@ -308,10 +376,6 @@ function createNodeView<ExtraComponentProps>({
 			domRef = undefined;
 
 			fallbackRef.current = null;
-
-			if (virtualizeNode) {
-				destroyed = true;
-			}
 		},
 		...extraNodeViewPropsWithStopEvent,
 	};
@@ -432,6 +496,7 @@ type NodeViewParams = {
 	decorations: Parameters<NodeViewProducer>[3];
 };
 
+const counterPerEditorViewMap = new WeakMap();
 // This return of this function is intended to be the value of a key
 // in a ProseMirror nodeViews object.
 export function getInlineNodeViewProducer<ExtraComponentProps>({
@@ -449,10 +514,12 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
 	extraNodeViewProps?: Pick<NodeView, 'stopEvent'>;
 }): NodeViewProducer {
 	function nodeViewProducer(...nodeViewProducerParameters: NodeViewProducerParameters) {
-		const nodeView = createNodeView({
+		const view = nodeViewProducerParameters[1];
+		const node = nodeViewProducerParameters[0];
+		const parameters = {
 			nodeViewParams: {
-				node: nodeViewProducerParameters[0],
-				view: nodeViewProducerParameters[1],
+				node,
+				view,
 				getPos: nodeViewProducerParameters[2],
 				decorations: nodeViewProducerParameters[3],
 			},
@@ -460,9 +527,38 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
 			Component,
 			extraComponentProps,
 			extraNodeViewProps,
-		});
+		};
+		const isNodeTypeAllowedToBeVirtualized = virtualizedNodeAllowlist.includes(
+			node?.type?.name || '',
+		);
 
-		return nodeView;
+		if (!isNodeTypeAllowedToBeVirtualized || isSSR) {
+			return createNodeView(parameters);
+		}
+
+		if (fg('platform_editor_inline_node_virt_threshold_override')) {
+			return createNodeViewVirtualized(parameters);
+		}
+
+		let inlineNodeViewsVirtualizationCounter = counterPerEditorViewMap.get(view) || 0;
+
+		inlineNodeViewsVirtualizationCounter += 1;
+		counterPerEditorViewMap.set(view, inlineNodeViewsVirtualizationCounter);
+
+		// We never virtualize the 100th first elements
+		if (inlineNodeViewsVirtualizationCounter <= 100) {
+			return createNodeView(parameters);
+		}
+
+		if (
+			// Due to the experiment, we need to check experiment exposure
+			// when a document has more than 100 (virtulizables) nodes.
+			checkExperimentExposure()
+		) {
+			return createNodeViewVirtualized(parameters);
+		}
+
+		return createNodeView(parameters);
 	}
 
 	return nodeViewProducer;

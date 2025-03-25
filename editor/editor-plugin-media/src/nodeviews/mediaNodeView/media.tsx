@@ -23,6 +23,7 @@ import type {
 import { Card, CardLoading } from '@atlaskit/media-card';
 import type { Identifier } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -49,6 +50,7 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 	mediaProvider?: Promise<MediaProvider>;
 	isLoading?: boolean;
 	mediaOptions?: MediaOptions;
+	isViewOnly?: boolean;
 }
 
 interface MediaNodeState {
@@ -176,6 +178,13 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 	private selectMediaSingleFromCard = ({ event }: CardEvent) => {
 		this.selectMediaSingle(event);
+
+		// In edit mode (node content wrapper has contenteditable set to true), link redirection is disabled by default
+		// We need to call "stopPropagation" here in order to prevent in editor view mode, the browser from navigating to
+		// another URL if the media node is wrapped in a link mark.
+		if (this.props.isViewOnly && editorExperiment('platform_editor_controls', 'variant1')) {
+			event.preventDefault();
+		}
 	};
 
 	private selectMediaSingle = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -185,9 +194,13 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			return;
 		}
 
+		// NOTE: This does not prevent the link navigation in the editor view mode, .preventDefault is needed (see selectMediaSingleFromCard)
+		// Hence it should be removed
 		// We need to call "stopPropagation" here in order to prevent the browser from navigating to
 		// another URL if the media node is wrapped in a link mark.
-		event.stopPropagation();
+		if (editorExperiment('platform_editor_controls', 'control')) {
+			event.stopPropagation();
+		}
 
 		const { state } = this.props.view;
 

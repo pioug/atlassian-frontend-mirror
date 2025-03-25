@@ -3,6 +3,7 @@ import memoizeOne from 'memoize-one';
 import type { ExternalMediaAttributes, MediaADFAttrs, RichMediaLayout } from '@atlaskit/adf-schema';
 import type { LayoutIcon } from '@atlaskit/editor-common/card';
 import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
+import { Command, FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import { nonWrappedLayouts } from '@atlaskit/editor-common/utils';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -178,4 +179,13 @@ export const canShowSwitchButtons = (mediaSingleNode?: ProseMirrorNode) => {
 		return mediaNode && !isVideo(mediaNode.attrs.__fileMimeType);
 	}
 	return false;
+};
+
+export const updateToFullHeightSeparator = (items: FloatingToolbarItem<Command>[]) => {
+	const lastItem = items.at(-1);
+	if (lastItem?.type === 'separator') {
+		lastItem.fullHeight = true;
+	} else if (items.length) {
+		items.push({ type: 'separator', fullHeight: true });
+	}
 };

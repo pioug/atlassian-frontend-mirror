@@ -4,7 +4,19 @@ import { type Action, createHook, createStore } from 'react-sweet-state';
 
 import { type TeamContainer } from '../../../common/types';
 import { teamsClient } from '../../../services';
-import { type TeamContainers, type UnlinkContainerMutationError } from '../../../services/types';
+import {
+	type TeamContainers,
+	TeamWithMemberships,
+	type UnlinkContainerMutationError,
+} from '../../../services/types';
+
+type ConnectedTeams = {
+	containerId: string | undefined;
+	isLoading: boolean;
+	hasLoaded: boolean;
+	teams: TeamWithMemberships[] | undefined;
+	error: Error | null;
+};
 
 type State = {
 	teamContainers: TeamContainers;
@@ -12,9 +24,18 @@ type State = {
 	error: Error | null;
 	unlinkError: UnlinkContainerMutationError | null;
 	teamId: string | null;
+	connectedTeams: ConnectedTeams;
 };
 
 type Actions = typeof actions;
+
+const initialConnectedTeamsState = {
+	containerId: undefined,
+	isLoading: false,
+	hasLoaded: false,
+	teams: undefined,
+	error: null,
+};
 
 const initialState: State = {
 	teamContainers: [],
@@ -22,6 +43,7 @@ const initialState: State = {
 	error: null,
 	unlinkError: null,
 	teamId: null,
+	connectedTeams: initialConnectedTeamsState,
 };
 
 const actions = {
@@ -40,6 +62,47 @@ const actions = {
 				setState({ teamContainers: [], error: err as Error, loading: false });
 			}
 		},
+	fetchConnectedTeams:
+		(containerId: string): Action<State> =>
+		async ({ setState, getState }) => {
+			const {
+				connectedTeams: { containerId: currentContainerId },
+			} = getState();
+			if (currentContainerId === containerId) {
+				return;
+			}
+			setState({
+				connectedTeams: {
+					containerId,
+					isLoading: true,
+					hasLoaded: false,
+					teams: undefined,
+					error: null,
+				},
+			});
+			try {
+				const teams = await teamsClient.getConnectedTeams(containerId);
+				setState({
+					connectedTeams: {
+						containerId,
+						isLoading: false,
+						hasLoaded: true,
+						teams,
+						error: null,
+					},
+				});
+			} catch (e) {
+				setState({
+					connectedTeams: {
+						containerId,
+						isLoading: false,
+						hasLoaded: false,
+						teams: [],
+						error: e as Error,
+					},
+				});
+			}
+		},
 	unlinkTeamContainers:
 		(teamId: string, containerId: string): Action<State> =>
 		async ({ setState, getState }) => {
@@ -52,9 +115,13 @@ const actions = {
 						unlinkError: mutationResult.deleteTeamConnectedToContainer.errors[0],
 					});
 				} else {
-					const { teamContainers } = getState();
+					const { teamContainers, connectedTeams } = getState();
 					const newContainers = teamContainers.filter((container) => container.id !== containerId);
-					setState({ teamContainers: newContainers });
+					if (connectedTeams.containerId === containerId) {
+						setState({ teamContainers: newContainers, connectedTeams: initialConnectedTeamsState });
+					} else {
+						setState({ teamContainers: newContainers });
+					}
 				}
 			} catch (err) {
 				setState({ unlinkError: err as Error });
@@ -63,13 +130,22 @@ const actions = {
 	addTeamContainer:
 		(teamContainer: TeamContainer): Action<State> =>
 		async ({ setState, getState }) => {
-			const { teamContainers } = getState();
+			const { teamContainers, connectedTeams } = getState();
 			const containerExists = teamContainers.some((container) => container.id === teamContainer.id);
+
 			if (containerExists) {
 				return;
 			}
-
-			setState({ teamContainers: [teamContainer, ...teamContainers] });
+			if (connectedTeams.containerId === teamContainer.id) {
+				setState({
+					teamContainers: [...teamContainers, teamContainer],
+					connectedTeams: initialConnectedTeamsState,
+				});
+			} else {
+				setState({
+					teamContainers: [...teamContainers, teamContainer],
+				});
+			}
 		},
 };
 
@@ -91,4 +167,10 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 	}, [teamId, actions, enable]);
 
 	return { ...state, addTeamContainer: actions.addTeamContainer };
+};
+
+export const useConnectedTeams = () => {
+	const [state, actions] = useTeamContainersHook();
+
+	return { ...state.connectedTeams, fetchConnectedTeams: actions.fetchConnectedTeams };
 };

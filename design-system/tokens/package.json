@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "4.5.1",
+	"version": "4.5.2",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,7 +80,7 @@
 		"color-blend": "^4.0.0",
 		"echarts": "^5.4.1",
 		"echarts-for-react": "^3.0.2",
-		"jscodeshift": "^0.13.0",
+		"jscodeshift": "^17.0.0",
 		"lodash": "^4.17.21",
 		"postcss": "^8.4.7",
 		"postcss-less": "^6.0.0",

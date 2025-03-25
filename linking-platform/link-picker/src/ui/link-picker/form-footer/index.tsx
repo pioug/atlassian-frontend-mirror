@@ -10,6 +10,8 @@ import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next
 import Button, { ButtonGroup } from '@atlaskit/button';
 import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
 import EditorAddIcon from '@atlaskit/icon/utility/add';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -24,6 +26,12 @@ import { LinkPickerSubmitButton } from './link-picker-submit-button';
 const formFooterStyles = css({
 	display: 'flex',
 	justifyContent: 'flex-end',
+});
+
+const formFooterV2Styles = css({
+	display: 'flex',
+	justifyContent: 'flex-end',
+	paddingTop: token('space.200'),
 });
 
 const formFooterActionStyles = css({
@@ -114,8 +122,14 @@ export const FormFooter = memo(
 		);
 
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			<footer css={formFooterStyles} className={className} {...restProps}>
+			<footer
+				css={[
+					fg('platform-linking-visual-refresh-link-picker') ? formFooterV2Styles : formFooterStyles,
+				]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
+				{...restProps}
+			>
 				{isSubmitting && (
 					<VisuallyHidden
 						role="status"

@@ -556,7 +556,11 @@ export const DragHandle = ({
 		);
 
 		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
-		const isExtension = nodeType === 'extension' || nodeType === 'bodiedExtension';
+		const isExtension =
+			nodeType === 'extension' ||
+			nodeType === 'bodiedExtension' ||
+			(nodeType === 'multiBodiedExtension' &&
+				fg('platform_editor_multi_body_extension_extensibility'));
 		const isBlockCard = nodeType === 'blockCard' && !!blockCardWidth;
 		const isEmbedCard = nodeType === 'embedCard';
 

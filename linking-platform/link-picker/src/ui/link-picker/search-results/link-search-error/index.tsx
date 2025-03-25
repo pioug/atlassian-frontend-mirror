@@ -4,8 +4,10 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 import Button from '@atlaskit/button';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { GenericErrorSVG } from '../../../../common/generic-error-svg';
+import { GenericErrorSVGV2 } from '../../../../common/generic-error-svg-v2';
 import { EmptyState } from '../../../../common/ui/empty-state';
 
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
@@ -24,13 +26,23 @@ export const messages = defineMessages({
 			'Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.',
 		description: 'Describes possible actions when search throws an error',
 	},
+	searchErrorAction: {
+		id: 'fabric.linkPicker.search.error.retry',
+		defaultMessage: 'Refresh',
+		description: 'Describe the action user can take to retry the search',
+	},
 });
 
 export const testIds = {
 	searchError: 'link-search-error',
 };
 
-export const LinkSearchError = () => {
+type LinkSearchErrorProps = {
+	/** Only used if fg `platform-linking-visual-refresh-link-picker` is enabled */
+	onRetry?: () => void;
+};
+
+export const LinkSearchError = ({ onRetry }: LinkSearchErrorProps) => {
 	const intl = useIntl();
 
 	return (
@@ -55,7 +67,18 @@ export const LinkSearchError = () => {
 					}}
 				/>
 			}
-			renderImage={() => <GenericErrorSVG />}
+			action={
+				onRetry && fg('platform-linking-visual-refresh-link-picker') ? (
+					<Button appearance="primary" onClick={onRetry}>
+						<FormattedMessage {...messages.searchErrorAction} />
+					</Button>
+				) : null
+			}
+			renderImage={
+				fg('platform-linking-visual-refresh-link-picker')
+					? () => <GenericErrorSVGV2 />
+					: () => <GenericErrorSVG />
+			}
 		/>
 	);
 };

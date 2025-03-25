@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "204.6.1",
+	"version": "204.7.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -117,7 +117,7 @@
 		"@types/is-number": "^7.0.0",
 		"diff": "^4.0.1",
 		"enzyme": "^3.10.0",
-		"jscodeshift": "^0.13.0",
+		"jscodeshift": "^17.0.0",
 		"mockdate": "^3.0.5",
 		"raf-stub": "^2.0.1",
 		"react": "^18.2.0",
@@ -343,10 +343,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_advanced_layouts_a11y": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_floating_toolbar_padding_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -421,10 +417,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_table_layout_shift_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_advanced_layouts_dnd_remove_layout": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -522,6 +514,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_split_list_item_for_gap_cursor": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_non_macros_list_indent_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -550,6 +546,9 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_lcm_styling_uplift": {
+			"type": "boolean"
+		},
 		"platform_editor_scroll_table_flickering_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -565,6 +564,12 @@
 		"platform_editor_tables_numbered_column_correction": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_keep_focus_on_content_comp_clicks": {
+			"type": "boolean"
+		},
+		"platform_editor_posfromdom_null_fix": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

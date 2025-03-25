@@ -172,6 +172,7 @@ export const MediaInline = (props: MediaInlineProps) => {
 					borderSize: borderMark?.attrs.size,
 					borderColor: borderMark?.attrs.color,
 				}}
+				isViewOnly={props.editorViewMode}
 			/>
 		);
 	}

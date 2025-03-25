@@ -22,17 +22,6 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		await screen.findByLabelText('Add reaction');
 		const addReactionText = screen.getByText('Add a reaction');
 		expect(addReactionText).toBeInTheDocument();
-
-		expect(addReactionText).not.toHaveStyleRule('margin-top', 'var(--ds-space-025, 2px)');
-	});
-
-	it('should render "Add a reaction" text with correct style useButtonAlignmentStyling is true', async () => {
-		renderWithIntl(<Trigger tooltipContent="" showAddReactionText useButtonAlignmentStyling />);
-		await screen.findByLabelText('Add reaction');
-		const addReactionText = screen.getByText('Add a reaction');
-		expect(addReactionText).toBeInTheDocument();
-
-		expect(addReactionText).toHaveStyleRule('margin-top', 'var(--ds-space-025, 2px)');
 	});
 
 	it('should have miniMode css when miniMode is true', async () => {

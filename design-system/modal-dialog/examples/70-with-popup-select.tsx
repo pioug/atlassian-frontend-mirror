@@ -38,10 +38,23 @@ export default function ModalWithPopupSelect() {
 						</ModalHeader>
 						<ModalBody>
 							<PopupSelect
+								isSearchable={false}
 								options={options}
-								placeholder="Choose a City"
-								searchThreshold={10}
-								target={({ ref }) => <Button ref={ref}>Choose</Button>}
+								menuPlacement="bottom"
+								popperProps={{
+									modifiers: [
+										{ name: 'offset', options: { offset: [0, 8] } },
+										{
+											name: 'preventOverflow',
+											enabled: false,
+										},
+									],
+								}}
+								target={({ isOpen, ...triggerProps }) => (
+									<Button {...triggerProps} isSelected={isOpen}>
+										{isOpen ? 'Close' : 'Open'}
+									</Button>
+								)}
 							/>
 						</ModalBody>
 					</ModalDialog>

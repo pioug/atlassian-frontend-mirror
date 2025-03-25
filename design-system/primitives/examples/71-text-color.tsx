@@ -8,6 +8,10 @@ const inheritContainerStyles = xcss({
 	color: 'color.text.brand',
 });
 
+const overrideBoldBackgroundStyles = xcss({
+	backgroundColor: 'color.background.information',
+});
+
 export default () => {
 	return (
 		<Stack space="space.300">
@@ -61,12 +65,22 @@ export default () => {
 							Text with color prop on a regular surface displays prop color
 						</Text>
 					</Box>
-					<Box padding="space.100" backgroundColor="color.background.brand.bold">
-						<Text color="color.text.danger">
-							Text with color prop on a bold surface displays{' '}
-							{fg('platform-typography-improved-color-control') ? 'prop' : 'inverse'} color
-						</Text>
-					</Box>
+					{fg('platform-typography-improved-color-control') ? (
+						<Box padding="space.050" backgroundColor="color.background.brand.bold">
+							{/* Override the parent Box background color to pass A11Y checks */}
+							<Box padding="space.050" xcss={overrideBoldBackgroundStyles}>
+								<Text color="color.text.danger">
+									Text with color prop on a bold surface displays prop color
+								</Text>
+							</Box>
+						</Box>
+					) : (
+						<Box padding="space.100" backgroundColor="color.background.brand.bold">
+							<Text color="color.text.danger">
+								Text with color prop on a bold surface displays inverse color
+							</Text>
+						</Box>
+					)}
 				</Stack>
 			</section>
 			<section>

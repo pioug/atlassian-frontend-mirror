@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.4.0
+
+### Minor Changes
+
+- [#131059](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131059)
+  [`dce67fd9ee5e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dce67fd9ee5e2) -
+  [ux] ED-26802 tidying contextual formatting experiment
+
+### Patch Changes
+
+- [#131375](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131375)
+  [`31ca9bdace9ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31ca9bdace9ea) -
+  Add null check in the case that an experiment is not correctly defined
+
+## 4.3.0
+
+### Minor Changes
+
+- [#128664](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128664)
+  [`abca3266336d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abca3266336d9) -
+  [ED-23250] Remove form element from MediaFromUrl and consolidate experiments and feature flags in
+  prepartion for jira release
+
 ## 4.2.0
 
 ### Minor Changes

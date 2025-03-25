@@ -1,13 +1,20 @@
 import { teamIdToAri } from '../../common/utils/team-id-to-ari';
+import { toUserId } from '../../common/utils/user-ari';
 import { type ClientConfig } from '../base-client';
 import { DEFAULT_CONFIG } from '../constants';
 import { BaseGraphQlClient } from '../graphql-client';
+import { TeamMember, TeamWithMemberships } from '../types';
 
 import {
 	UnlinkContainerMutation,
 	type UnlinkContainerMutationResponse,
 	type UnlinkContainerMutationVariables,
 } from './utils/mutations/unlink-container-mutation';
+import {
+	TeamConnectedToContainerQuery,
+	type TeamConnectedToContainerQueryResponse,
+	type TeamConnectedToContainerQueryVariables,
+} from './utils/queries/team-connected-to-container-query';
 import {
 	TeamContainersQuery,
 	type TeamContainersQueryResponse,
@@ -86,6 +93,50 @@ export class AGGClient extends BaseGraphQlClient {
 		);
 
 		return response.graphStore;
+	}
+
+	async queryTeamsConnectedToContainer(containerId: string): Promise<TeamWithMemberships[]> {
+		const response = await this.makeGraphQLRequest<
+			'graphStore',
+			TeamConnectedToContainerQueryResponse,
+			TeamConnectedToContainerQueryVariables
+		>(
+			{
+				query: TeamConnectedToContainerQuery,
+				variables: {
+					containerId,
+				},
+			},
+			{
+				operationName: 'TeamConnectedToContainerQuery',
+			},
+		);
+		return response?.graphStore?.teamConnectedToContainerInverse?.edges?.map<TeamWithMemberships>(
+			({ node }) => ({
+				id: node.id,
+				displayName: node.displayName,
+				description: node.description,
+				state: node.state,
+				membershipSettings: node.membershipSettings,
+				organizationId: node.organizationId,
+				creatorId: node.creator.id,
+				isVerified: node.isVerified,
+				members:
+					node.members?.nodes.map<TeamMember>(({ member }) => ({
+						id: member?.id ? toUserId(member?.id) : '',
+						fullName: member?.name ?? '',
+						avatarUrl: member?.picture,
+						status: member?.accountStatus,
+					})) ?? [],
+				includesYou: false, // to-do - this needs to be computed - https://product-fabric.atlassian.net/browse/CCECO-4368
+				memberCount: node.members?.nodes.length ?? 0,
+				largeAvatarImageUrl: node.largeAvatarImageUrl,
+				smallAvatarImageUrl: node.smallAvatarImageUrl,
+				largeHeaderImageUrl: node.largeHeaderImageUrl,
+				smallHeaderImageUrl: node.smallHeaderImageUrl,
+				restriction: 'ORG_MEMBERS', // to-do - figure out if this should be optional (it's deprecated) - https://product-fabric.atlassian.net/browse/CCECO-4368
+			}),
+		);
 	}
 }
 

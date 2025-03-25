@@ -46,7 +46,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // TODO: ED-20519 - Needs Macro extraction
 
@@ -372,25 +371,8 @@ export function handlePasteNonNestableBlockNodesIntoList(slice: Slice): Command 
 		const listItemWrappingOffset = $to.depth - selectionParentListNodeWithPos.depth; // difference in depth between to position and list item node
 
 		// Anything to do with nested lists should safeInsert and not be handled here
-		if (fg('platform_editor_fix_paste_action_item_in_list')) {
-			if (checkIfSelectionInNestedList(state)) {
-				return false;
-			}
-		} else {
-			const grandParentListNode = findParentNodeOfTypeClosestToPos(
-				tr.doc.resolve(selectionParentListNodeWithPos.pos),
-				[bulletList, orderedList],
-			);
-			const selectionIsInNestedList = !!grandParentListNode;
-			let selectedListItemHasNestedList = false;
-			selectionParentListItemNode.node.content.forEach((child) => {
-				if (isListNode(child)) {
-					selectedListItemHasNestedList = true;
-				}
-			});
-			if (selectedListItemHasNestedList || selectionIsInNestedList) {
-				return false;
-			}
+		if (checkIfSelectionInNestedList(state)) {
+			return false;
 		}
 
 		// Node after the insert position
@@ -1344,20 +1326,13 @@ export function handleRichText(
 				sliceHasList
 			) {
 				tr.replaceSelection(slice);
-			} else if (
-				checkTaskListInList(state, slice) &&
-				(!fg('platform_editor_fix_paste_action_item_in_list') ||
-					!checkIfSelectionInNestedList(state))
-			) {
+			} else if (checkTaskListInList(state, slice) && !checkIfSelectionInNestedList(state)) {
 				insertSliceForTaskInsideList({ tr, slice });
 			} else {
 				// need safeInsert rather than replaceSelection, so that nodes aren't split in half
 				// e.g. when pasting a layout into a table, replaceSelection splits the table in half and adds the layout in the middle
 				tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
-				if (
-					checkTaskListInList(state, slice) &&
-					fg('platform_editor_fix_paste_action_item_in_list')
-				) {
+				if (checkTaskListInList(state, slice)) {
 					updateSelectionAfterReplace({ tr });
 				}
 			}

@@ -94,6 +94,9 @@ filters.forEach((filter) => {
 			await firstOption.waitFor({ state: 'visible' });
 		},
 		description: `${filter} open trigger`,
+		featureFlags: {
+			'platform-component-visual-refresh': [true, false],
+		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -103,6 +106,9 @@ filters.forEach((filter) => {
 			await selectOption(page, filter, 1, false);
 		},
 		description: `${filter} open and option selected`,
+		featureFlags: {
+			'platform-component-visual-refresh': [true, false],
+		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -126,6 +132,9 @@ filters.forEach((filter) => {
 			await page.getByText('Unassigned', { exact: true }).waitFor({ state: 'detached' });
 		},
 		description: `${filter} open and search text entered`,
+		featureFlags: {
+			'platform-component-visual-refresh': [true, false],
+		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -235,5 +244,8 @@ filters.forEach((filter) => {
 			await page.keyboard.press('Tab');
 		},
 		description: `${filter} open and focus show more button`,
+		featureFlags: {
+			'platform-component-visual-refresh': [true, false],
+		},
 	});
 });

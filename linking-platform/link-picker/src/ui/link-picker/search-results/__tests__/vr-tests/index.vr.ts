@@ -32,6 +32,12 @@ snapshot(DefaultExample, {
 		'platform_bandicoots-link-picker-css': [true, false],
 	},
 });
+snapshot(DefaultExample, {
+	...options,
+	featureFlags: {
+		'platform-linking-visual-refresh-link-picker': [true, false],
+	},
+});
 snapshot(DefaultAdaptiveHeightExample, {
 	...options,
 	featureFlags: {

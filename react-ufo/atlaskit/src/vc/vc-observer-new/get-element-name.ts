@@ -19,6 +19,9 @@ export default function getElementName(selectorConfig: SelectorConfig, element: 
 	const tagName = element.localName;
 
 	const encodeValue = (s: string) => {
+		if (typeof encodeURIComponent !== 'function') {
+			return '';
+		}
 		try {
 			return encodeURIComponent(s);
 		} catch (e) {
@@ -28,6 +31,9 @@ export default function getElementName(selectorConfig: SelectorConfig, element: 
 
 	// Helper function to construct attribute selectors.
 	const getAttributeSelector = (attributeName: string, prefix: string = ''): string => {
+		if (element && typeof element.getAttribute !== 'function') {
+			return '';
+		}
 		const attrValue = element.getAttribute(attributeName);
 		if (!attrValue) {
 			return '';
@@ -38,7 +44,7 @@ export default function getElementName(selectorConfig: SelectorConfig, element: 
 	};
 
 	// Construct the data-vc attribute selector if specified in the config.
-	const dataVC = selectorConfig.dataVC ? getAttributeSelector('data-vc') : '';
+	const dataVC = selectorConfig.dataVC !== false ? getAttributeSelector('data-vc') : '';
 
 	// Construct the ID selector if specified in the config and the element has an ID.
 	const id = selectorConfig.id && element.id ? `#${encodeValue(element.id)}` : '';

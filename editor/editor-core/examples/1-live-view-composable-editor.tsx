@@ -70,6 +70,7 @@ function ComposableEditorPage() {
 					},
 				}),
 			},
+			allowBorderMark: true,
 			allowStatus: true,
 			allowTasksAndDecisions: true,
 			allowAnalyticsGASV3: true,
@@ -107,7 +108,7 @@ function ComposableEditorPage() {
 				allowAltTextOnImages: true,
 				allowCaptions: true,
 				allowMediaInlineImages: true,
-				allowImagePreview: false,
+				allowImagePreview: true,
 				featureFlags: {
 					...exampleMediaFeatureFlags,
 					mediaInline: true,

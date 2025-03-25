@@ -57,4 +57,9 @@ export const pixelEntryMessages = defineMessages({
 		description:
 			'The text give to the close button used to close the pixel inputs and go back to main toolbar',
 	},
+	resizeOption: {
+		id: 'fabric.editor.media.pixelEntry.ResizeOption',
+		defaultMessage: 'Resize',
+		description: 'The text give to the resize option in the overflow dropdown for images',
+	},
 });

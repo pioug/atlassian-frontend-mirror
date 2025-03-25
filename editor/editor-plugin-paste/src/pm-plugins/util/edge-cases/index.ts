@@ -5,7 +5,6 @@ import type { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/st
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isCursorSelectionAtTextStartOrEnd, isEmptyNode, isSelectionInsidePanel } from '../index';
 
@@ -116,11 +115,7 @@ export function insertSliceForTaskInsideList({ tr, slice }: { tr: Transaction; s
 	//To avoid the list being replaced with the tasklist, enclose the slice within a taskItem.
 	const selectionBeforeReplace = tr.selection.from;
 	tr.replaceSelection(new Slice(Fragment.from(schema.nodes.taskItem.createAndFill()), 0, 0));
-	if (fg('platform_editor_fix_paste_action_item_in_list')) {
-		const nextSelection = Selection.near(tr.doc.resolve(selectionBeforeReplace + 1));
-		tr.setSelection(nextSelection);
-	} else {
-		updateSelectionAfterReplace({ tr });
-	}
+	const nextSelection = Selection.near(tr.doc.resolve(selectionBeforeReplace + 1));
+	tr.setSelection(nextSelection);
 	tr.replaceSelection(slice);
 }

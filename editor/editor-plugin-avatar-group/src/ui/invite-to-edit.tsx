@@ -9,7 +9,7 @@ import { jsx } from '@emotion/react';
 
 import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import InviteTeamIcon from '@atlaskit/icon/glyph/editor/add';
+import AddIcon from '@atlaskit/icon/core/migration/add--editor-add';
 
 import { inviteTeamWrapperStyles } from './styles';
 
@@ -25,7 +25,7 @@ export type InviteToEditButtonProps = PropsWithChildren<{
 export const InviteToEditButton = (props: InviteToEditButtonProps) => {
 	const { Component, onClick, selected, title } = props;
 
-	const iconBefore = React.useMemo(() => <InviteTeamIcon label={title} />, [title]);
+	const iconBefore = React.useMemo(() => <AddIcon label={title} />, [title]);
 
 	if (!Component && !onClick) {
 		return null;

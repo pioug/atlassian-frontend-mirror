@@ -1,23 +1,11 @@
-import jscodeshift from 'jscodeshift';
-
 import transform from '../transform';
 
-interface Options {
-	parser: string;
-}
+const apply = require('jscodeshift/dist/testUtils').applyTransform;
 
-async function applyTransform(
-	transform: any,
-	input: string,
-	options: Options = {
-		parser: 'tsx',
-	},
-) {
-	const transformer = transform.default ? transform.default : transform;
-	const withParser = jscodeshift.withParser(options.parser);
-	const output = await transformer({ source: input }, { j: withParser, jscodeshift: withParser });
+async function applyTransform(transform: any, input: string) {
+	const output = await apply(transform, { parser: 'tsx' }, { source: input });
 
-	return !output ? input : output.trim();
+	return output.trimEnd();
 }
 
 describe('transform', () => {
@@ -52,26 +40,20 @@ import { Stack } from "@atlaskit/primitives/compiled";`);
 
 	it('should NOT transform other imports', async () => {
 		const input = `
-			import { Box } from '@atlaskit/primitives';
-			import { something } from '@atlaskit/other-package';
-			import { Stack } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives';
+import { something } from '@atlaskit/other-package';
+import { Stack } from '@atlaskit/primitives';
 		`;
 		const output = await applyTransform(transform, input);
 		expect(output).toEqual(`import { Box } from "@atlaskit/primitives/compiled";
-			import { something } from '@atlaskit/other-package';
-			import { Stack } from "@atlaskit/primitives/compiled";`);
+import { something } from '@atlaskit/other-package';
+import { Stack } from "@atlaskit/primitives/compiled";`);
 	});
 
 	it('should handle empty imports', async () => {
 		const input = `import {} from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
 		expect(output).toEqual(`import {} from "@atlaskit/primitives/compiled";`);
-	});
-
-	it('should handle imports with type specifiers', async () => {
-		const input = `import type { BoxProps } from '@atlaskit/primitives';`;
-		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import type { BoxProps } from "@atlaskit/primitives/compiled";`);
 	});
 
 	it('should transform aliased named imports', async () => {
@@ -100,5 +82,240 @@ import { Stack } from "@atlaskit/primitives/compiled";`);
 		const input = `import { Box as AtlaskitBox, xcss } from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
 		expect(output).toEqual(`import { Box as AtlaskitBox, xcss } from '@atlaskit/primitives';`);
+	});
+});
+
+describe('prop to xcss transformation', () => {
+	it('should transform Grid props to xcss', async () => {
+		const input = `
+import { Grid } from '@atlaskit/primitives';
+
+const MyComponent = () => (
+	<Grid templateRows="auto 1fr" templateColumns="200px 1fr" />
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
+import { Grid } from "@atlaskit/primitives/compiled";
+
+const gridStyles = cssMap({
+    root: {
+        templateRows: "auto 1fr",
+        templateColumns: "200px 1fr"
+    }
+});
+
+const MyComponent = () => (
+	<Grid xcss={gridStyles.root} />
+);`);
+	});
+
+	it('should transform Anchor props to xcss', async () => {
+		const input = `
+import { Anchor } from '@atlaskit/primitives';
+
+const MyComponent = () => (
+	<Anchor backgroundColor="blue" padding="8px" paddingBlock="16px" />
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
+import { Anchor } from "@atlaskit/primitives/compiled";
+
+const anchorStyles = cssMap({
+    root: {
+        backgroundColor: "blue",
+        padding: "8px",
+        paddingBlock: "16px"
+    }
+});
+
+const MyComponent = () => (
+	<Anchor xcss={anchorStyles.root} />
+);`);
+	});
+
+	it('should handle components with existing xcss prop', async () => {
+		const input = `
+import { Grid } from '@atlaskit/primitives';
+
+const MyComponent = () => (
+	<Grid templateRows="auto 1fr" xcss={{ color: 'red' }} />
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
+import { Grid } from "@atlaskit/primitives/compiled";
+
+const gridStyles = cssMap({
+    root: {
+        templateRows: "auto 1fr"
+    }
+});
+
+const MyComponent = () => (
+	<Grid xcss={[gridStyles.root, { color: 'red' }]} />
+);`);
+	});
+
+	it('should handle existing cssMap import', async () => {
+		const input = `
+import { Grid } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+
+const MyComponent = () => (
+	<Grid templateRows="auto 1fr" />
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { Grid } from "@atlaskit/primitives/compiled";
+import { cssMap } from '@atlaskit/css';
+
+const gridStyles = cssMap({
+    root: {
+        templateRows: "auto 1fr"
+    }
+});
+
+const MyComponent = () => (
+	<Grid xcss={gridStyles.root} />
+);`);
+	});
+
+	it('should handle aliased cssMap import', async () => {
+		const input = `
+import { Grid } from '@atlaskit/primitives';
+import { cssMap as emotionCssMap } from '@atlaskit/css';
+
+const MyComponent = () => (
+	<Grid templateRows="auto 1fr" />
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { Grid } from "@atlaskit/primitives/compiled";
+import { cssMap as emotionCssMap } from '@atlaskit/css';
+
+const gridStyles = emotionCssMap({
+    root: {
+        templateRows: "auto 1fr"
+    }
+});
+
+const MyComponent = () => (
+	<Grid xcss={gridStyles.root} />
+);`);
+	});
+
+	it('should handle multiple components in the same file', async () => {
+		const input = `
+import { Grid, Anchor } from '@atlaskit/primitives';
+
+const gridStyles = cssMap({
+    root: {
+        templateRows: "auto 1fr"
+    }
+});
+
+const anchorStyles = cssMap({
+    root: {
+        backgroundColor: "blue",
+        padding: "8px"
+    }
+});
+
+const MyComponent = () => (
+	<>
+		<Grid templateRows="auto 1fr" />
+		<Anchor backgroundColor="blue" padding="8px" />
+	</>
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
+import { Grid, Anchor } from "@atlaskit/primitives/compiled";
+
+const gridStyles = cssMap({
+    root: {
+        templateRows: "auto 1fr"
+    }
+});
+
+const anchorStyles = cssMap({
+    root: {
+        backgroundColor: "blue",
+        padding: "8px"
+    }
+});
+
+const MyComponent = () => (
+	<>
+		<Grid xcss={gridStyles.root} />
+		<Anchor xcss={anchorStyles.root} />
+	</>
+);`);
+	});
+
+	it('should handle multiple components of same type in the same file', async () => {
+		const input = `
+import { Grid, Anchor } from '@atlaskit/primitives';
+
+const gridStyles = cssMap({
+    root: {
+        templateRows: "auto 1fr"
+    }
+});
+
+const MyComponent = () => (
+	<>
+		<Grid templateRows="auto 1fr" />
+		<Grid templateRows="auto 1fr" />
+	</>
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
+import { Grid, Anchor } from "@atlaskit/primitives/compiled";
+
+const gridStyles = cssMap({
+    root: {
+        templateRows: "auto 1fr"
+    }
+});
+
+const MyComponent = () => (
+	<>
+		<Grid xcss={gridStyles.root} />
+		<Grid xcss={gridStyles.root} />
+	</>
+);`);
+	});
+
+	it('should preserve other props while transforming to xcss', async () => {
+		const input = `
+import { Grid } from '@atlaskit/primitives';
+
+const gridStyles = cssMap({
+	root: {
+		templateRows: "auto 1fr"
+	}
+});
+
+const MyComponent = () => (
+	<Grid templateRows="auto 1fr" data-testid="my-grid" onClick={() => {}} />
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
+import { Grid } from "@atlaskit/primitives/compiled";
+
+const gridStyles = cssMap({
+	root: {
+		templateRows: "auto 1fr"
+	}
+});
+
+const MyComponent = () => (
+	<Grid data-testid="my-grid" onClick={() => {}} xcss={gridStyles.root} />
+);`);
 	});
 });

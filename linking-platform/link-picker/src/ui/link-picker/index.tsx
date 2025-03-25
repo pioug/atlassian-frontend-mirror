@@ -20,10 +20,12 @@ import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
+import { HelperMessage } from '@atlaskit/form';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -59,6 +61,13 @@ const styles = cssMap({
 		display: 'flex',
 		flexDirection: 'column',
 	},
+	linkDisplayHelperTextContainer: {
+		marginTop: token('space.050'),
+		color: token('color.text.subtlest', N700),
+	},
+	linkDisplayHelperText: {
+		font: token('font.body.small'),
+	},
 });
 
 const baseRootContainerStyles = css({
@@ -85,6 +94,7 @@ export const testIds = {
 	linkPicker: 'link-picker',
 	urlInputField: 'link-url',
 	textInputField: 'link-text',
+	linkHelperText: 'link-helper-text',
 	...searchTestIds,
 	...formFooterTestIds,
 	...textFieldTestIds,
@@ -494,26 +504,35 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						onChange={handleChangeUrl}
 					/>
 					{!hideDisplayText && (
-						<DisplayTextInputField
-							autoComplete="off"
-							name="displayText"
-							testId={testIds.textInputField}
-							value={displayText}
-							label={
-								customMessages?.linkTextLabel
-									? intl.formatMessage(customMessages.linkTextLabel)
-									: intl.formatMessage(linkTextMessages.linkTextLabel)
-							}
-							placeholder={
-								customMessages?.linkTextPlaceholder
-									? intl.formatMessage(customMessages?.linkTextPlaceholder)
-									: intl.formatMessage(linkTextMessages.linkTextPlaceholder)
-							}
-							clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
-							readOnly={isSubmitting}
-							onClear={handleClear}
-							onChange={handleChangeText}
-						/>
+						<Fragment>
+							<DisplayTextInputField
+								autoComplete="off"
+								name="displayText"
+								testId={testIds.textInputField}
+								value={displayText}
+								label={
+									customMessages?.linkTextLabel
+										? intl.formatMessage(customMessages.linkTextLabel)
+										: intl.formatMessage(linkTextMessages.linkTextLabel)
+								}
+								placeholder={
+									customMessages?.linkTextPlaceholder
+										? intl.formatMessage(customMessages?.linkTextPlaceholder)
+										: intl.formatMessage(linkTextMessages.linkTextPlaceholder)
+								}
+								clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
+								readOnly={isSubmitting}
+								onClear={handleClear}
+								onChange={handleChangeText}
+							/>
+							{fg('platform-linking-visual-refresh-link-picker') && (
+								<HelperMessage testId={testIds.linkHelperText}>
+									{customMessages?.linkHelperTextLabel
+										? intl.formatMessage(customMessages?.linkHelperTextLabel)
+										: intl.formatMessage(linkTextMessages.linkHelperTextLabel)}
+								</HelperMessage>
+							)}
+						</Fragment>
 					)}
 					{moveSubmitButton && (
 						<Box xcss={styles.fullWidthSubmitButton}>

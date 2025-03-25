@@ -4,8 +4,34 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { useTeamContainers } from '@atlaskit/teams-public';
+
 import { TeamProfileCard } from './main';
 import { mockProfileData } from './mocks';
+
+jest.mock('@atlaskit/teams-public', () => ({
+	...jest.requireActual('@atlaskit/teams-public'),
+	useTeamContainers: jest.fn(),
+	TeamContainers: () => <div data-testid="mocked-div">Mocked Team Containers</div>,
+}));
+
+const JiraProject = {
+	id: '5678',
+	type: 'JiraProject',
+	name: 'Jira Project Name',
+	icon: 'icon',
+	link: 'link',
+};
+const ConfluenceSpace = {
+	id: '1234',
+	type: 'ConfluenceSpace',
+	name: 'Confluence Space Name',
+	icon: 'icon',
+	link: 'link',
+};
+
+const mockUserId = 'mockUser1';
+const mockCloudId = 'mocktenant1';
 
 describe('TeamProfileCard', () => {
 	let originalWindowOpen: typeof window.open;
@@ -23,9 +49,15 @@ describe('TeamProfileCard', () => {
 	});
 
 	test('should render with given team data', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [] });
 		render(
 			<IntlProvider locale="en">
-				<TeamProfileCard {...mockProfileData} />
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+				/>
 			</IntlProvider>,
 		);
 
@@ -50,10 +82,57 @@ describe('TeamProfileCard', () => {
 		expect(viewProfileButton).toBeInTheDocument();
 	});
 
+	test('should render the team connections if the team has containers other than the current one', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [JiraProject, ConfluenceSpace],
+		});
+		render(
+			<IntlProvider locale="en">
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+				/>
+			</IntlProvider>,
+		);
+
+		const teamConnectionsHeading = screen.getByText(/Where we work/);
+		expect(teamConnectionsHeading).toBeInTheDocument();
+
+		const teamContainers = screen.getByText('Mocked Team Containers');
+		expect(teamContainers).toBeInTheDocument();
+	});
+
+	test('should not render the team connections if the team does not have containers other than the current one', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [ConfluenceSpace] });
+		render(
+			<IntlProvider locale="en">
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+				/>
+			</IntlProvider>,
+		);
+
+		const teamConnectionsHeading = screen.queryByText(/Where we work/);
+		expect(teamConnectionsHeading).not.toBeInTheDocument();
+
+		const teamContainers = screen.queryByText('Mocked Team Containers');
+		expect(teamContainers).not.toBeInTheDocument();
+	});
+
 	test('should open the team profile in a new tab on click of View profile button', async () => {
 		render(
 			<IntlProvider locale="en">
-				<TeamProfileCard {...mockProfileData} />
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+				/>
 			</IntlProvider>,
 		);
 		const viewProfileButton = screen.getByTestId('view-profile-button');

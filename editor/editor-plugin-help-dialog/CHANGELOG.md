@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 2.0.6
+
+### Patch Changes
+
+- [#130436](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130436)
+  [`b3c680bf28b52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3c680bf28b52) -
+  [ux] Fixing sizing of Help icon so that it aligns with the sizing of the other editor icons.
+- [#130436](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130436)
+  [`b3c680bf28b52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3c680bf28b52) -
+  [ux] Fixing sizing of Help icon so that it aligns with the sizing of the other editor icons.
+
 ## 2.0.5
 
 ### Patch Changes

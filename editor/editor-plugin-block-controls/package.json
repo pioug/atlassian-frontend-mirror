@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.5.2",
+	"version": "3.5.3",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -126,9 +126,6 @@
 		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean"
 		},
-		"platform_editor_advanced_layouts_dnd_remove_layout": {
-			"type": "boolean"
-		},
 		"platform_editor_dnd_update_drag_start_target": {
 			"type": "boolean"
 		},
@@ -136,9 +133,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_advanced_layouts_accessibility": {
-			"type": "boolean"
-		},
-		"platform_editor_advanced_layouts_a11y": {
 			"type": "boolean"
 		},
 		"platform_editor_track_node_types": {
@@ -169,6 +163,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_elements_dnd_multi_select_patch_2": {
+			"type": "boolean"
+		},
+		"platform_editor_multi_body_extension_extensibility": {
 			"type": "boolean"
 		}
 	}

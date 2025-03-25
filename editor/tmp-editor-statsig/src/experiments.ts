@@ -68,11 +68,11 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 	// Typescript is complaining here about accessing the productKeys property
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const experimentKey = (experimentConfig.productKeys as { [key: string]: string })?.[_product!];
+	const experimentKey = (experimentConfig?.productKeys as { [key: string]: string })?.[_product!];
 
 	if (!experimentKey) {
 		// This will be hit in the case of an experiment not being set up for the product
-		return editorExperimentsConfig[experimentName].defaultValue === expectedExperimentValue;
+		return editorExperimentsConfig[experimentName]?.defaultValue === expectedExperimentValue;
 	}
 
 	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils

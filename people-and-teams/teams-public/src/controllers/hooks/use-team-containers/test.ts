@@ -1,14 +1,19 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { waitFor } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react-hooks';
 
 import { teamsClient } from '../../../services';
-import { MOCK_TEAM_CONTAINERS } from '../../../services/agg-client/mocks';
+import {
+	MOCK_CONNECTED_TEAMS_RESULT,
+	MOCK_TEAM_CONTAINERS,
+} from '../../../services/agg-client/mocks';
 
-import { useTeamContainers, useTeamContainersHook } from './index';
+import { useConnectedTeams, useTeamContainers, useTeamContainersHook } from './index';
 
 jest.mock('../../../services', () => ({
 	teamsClient: {
 		getTeamContainers: jest.fn(),
 		unlinkTeamContainer: jest.fn(),
+		getConnectedTeams: jest.fn(),
 	},
 }));
 
@@ -48,6 +53,49 @@ describe('useTeamContainers', () => {
 		expect(result.current.loading).toBe(false);
 		expect(result.current.teamContainers).toEqual([]);
 		expect(result.current.error).toEqual(mockError);
+	});
+});
+
+describe('useConnectedTeams', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
+	test('should return initial connectedTeamsState', () => {
+		const { result } = renderHook(() => useConnectedTeams());
+
+		expect(result.current.isLoading).toBe(false);
+		expect(result.current.teams).toEqual(undefined);
+		expect(result.current.error).toBeNull();
+	});
+
+	test('should fetch and set connected teams successfully', async () => {
+		const mockTeams = [MOCK_CONNECTED_TEAMS_RESULT];
+		(teamsClient.getConnectedTeams as jest.Mock).mockResolvedValueOnce(mockTeams);
+
+		const { result } = renderHook(() => useConnectedTeams());
+
+		act(() => {
+			result.current.fetchConnectedTeams('mock-container-id');
+		});
+		await waitFor(() => expect(result.current.teams).toEqual(mockTeams));
+		expect(result.current.isLoading).toBe(false);
+
+		expect(result.current.error).toBeNull();
+	});
+
+	test('should handle errors during fetch', async () => {
+		const mockError = new Error('Failed to fetch');
+		(teamsClient.getConnectedTeams as jest.Mock).mockRejectedValueOnce(mockError);
+
+		const { result } = renderHook(() => useConnectedTeams());
+		act(() => {
+			result.current.fetchConnectedTeams('mock-container-id-fail');
+		});
+		await waitFor(() => expect(result.current.error).toEqual(mockError));
+
+		expect(result.current.isLoading).toBe(false);
+		expect(result.current.teams).toEqual([]);
 	});
 });
 
@@ -94,5 +142,26 @@ describe('useTeamContainersHook', () => {
 
 		expect(result.current[0].unlinkError).toEqual(mockError);
 		expect(teamsClient.unlinkTeamContainer).toHaveBeenCalledWith('team-id-127', containerId);
+	});
+
+	test('should fetch connectedTeams successfully', async () => {
+		const mockTeams = [MOCK_CONNECTED_TEAMS_RESULT];
+		(teamsClient.getConnectedTeams as jest.Mock).mockResolvedValueOnce(mockTeams);
+		const { result } = renderHook(() => useTeamContainersHook());
+
+		act(() => {
+			result.current[1].fetchConnectedTeams('mock-container-id');
+		});
+		await waitFor(() =>
+			expect(teamsClient.getConnectedTeams).toHaveBeenCalledWith('mock-container-id'),
+		);
+
+		expect(result.current[0].connectedTeams).toEqual({
+			containerId: 'mock-container-id',
+			isLoading: false,
+			hasLoaded: true,
+			teams: mockTeams,
+			error: null,
+		});
 	});
 });

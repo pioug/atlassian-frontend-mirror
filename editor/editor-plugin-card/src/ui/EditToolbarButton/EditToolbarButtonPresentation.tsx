@@ -17,11 +17,13 @@ import {
 	ArrowKeyNavigationType,
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
+import EditIcon from '@atlaskit/icon/core/edit';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView } from '../../pm-plugins/utils';
@@ -75,16 +77,22 @@ const EditToolbarButtonPresentation = ({
 		}
 	}, [currentAppearance, datasourceId, editorAnalyticsApi, editorView, extensionKey]);
 
+	const icon = editorExperiment('platform_editor_controls', 'variant1') ? (
+		<EditIcon label="" />
+	) : undefined;
+
 	switch (editVariant) {
 		case 'edit-link': {
 			return (
 				<Flex gap="space.050">
-					<Button testId="edit-link" onClick={onEditLink}>
-						<FormattedMessage
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...linkToolbarMessages.editLink}
-						/>
+					<Button testId="edit-link" onClick={onEditLink} icon={icon}>
+						{editorExperiment('platform_editor_controls', 'control') && (
+							<FormattedMessage
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...linkToolbarMessages.editLink}
+							/>
+						)}
 					</Button>
 					<Separator />
 				</Flex>

@@ -1,5 +1,20 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.6.0
+
+### Minor Changes
+
+- [#130720](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130720)
+  [`a71a4d0c5409e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a71a4d0c5409e) -
+  Adds custom theming support to Jira, Jira Service Management, Jira Product Discovery, Confluence
+  and Trello logos
+
+### Patch Changes
+
+- [#130720](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130720)
+  [`67549aa946404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67549aa946404) -
+  Adds new logo to available set
+
 ## 0.5.1
 
 ### Patch Changes

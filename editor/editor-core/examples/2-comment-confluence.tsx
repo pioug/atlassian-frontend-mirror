@@ -10,7 +10,7 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
+import LockCircleIcon from '@atlaskit/icon/core/migration/lock-locked--lock-circle';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -192,7 +192,7 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 									allowExtension={true}
 									extensionHandlers={extensionHandlers}
 									secondaryToolbarComponents={[
-										<LockCircleIcon key="permission" size="large" label="Permissions" />,
+										<LockCircleIcon key="permission" LEGACY_size="large" label="Permissions" />,
 									]}
 									{...editorProps}
 								/>

@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 29.1.0
+
+### Minor Changes
+
+- [#129898](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129898)
+  [`81e708666c01b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81e708666c01b) -
+  [ux] Fix reactions button alignment styling
+
 ## 29.0.1
 
 ### Patch Changes

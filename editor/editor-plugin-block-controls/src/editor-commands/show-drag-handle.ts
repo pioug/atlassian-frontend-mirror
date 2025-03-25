@@ -3,7 +3,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isInTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -191,6 +190,6 @@ const showDragHandleAtSelectionNew =
 export const showDragHandleAtSelection =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>): Command =>
 	(state, dispatch, view) =>
-		editorExperiment('nested-dnd', true) && fg('platform_editor_advanced_layouts_a11y')
+		editorExperiment('nested-dnd', true)
 			? showDragHandleAtSelectionNew(api)(state)
 			: showDragHandleAtSelectionOld(api)(state, dispatch, view);

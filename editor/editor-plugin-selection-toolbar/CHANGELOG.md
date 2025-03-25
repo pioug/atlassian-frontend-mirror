@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.3.0
+
+### Minor Changes
+
+- [#128813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128813)
+  [`6ced71640a4ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ced71640a4ba) -
+  ED-26877 selection toolbar plugin refreshes with user preferences
+
 ## 2.2.0
 
 ### Minor Changes

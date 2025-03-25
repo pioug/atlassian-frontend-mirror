@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { FormattedMessage } from 'react-intl-next';
-
 import { cssMap } from '@atlaskit/css';
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import type { LinkedContainerCardProps } from '@atlaskit/teams-public';
+import { getContainerProperties, type LinkedContainerCardProps } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -15,20 +12,13 @@ const styles = cssMap({
 	},
 	containerIconStyles: {
 		borderRadius: token('border.radius.100'),
-		height: '30px',
-		width: '30px',
+		height: '24px',
+		width: '24px',
 	},
 	containerTypeIconButtonStyles: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		borderRadius: token('border.radius.100'),
-		borderWidth: token('border.width'),
-		borderStyle: 'solid',
-		borderColor: token('color.border'),
 		marginLeft: 'auto',
-		height: '20px',
-		width: '20px',
+		height: '16px',
+		width: '16px',
 	},
 });
 
@@ -37,6 +27,7 @@ export const TeamConnections = ({
 	title,
 	containerIcon,
 }: LinkedContainerCardProps) => {
+	const { description, icon, containerTypeText } = getContainerProperties(containerType, 'medium');
 	return (
 		<Inline space="space.100" xcss={styles.containerWrapperStyles}>
 			<Box
@@ -47,33 +38,24 @@ export const TeamConnections = ({
 				xcss={styles.containerIconStyles}
 			/>
 			<Stack>
-				<Text maxLines={1} weight="medium" color="color.text">
+				<Text maxLines={1} color="color.text">
 					{title}
 				</Text>
-				<Text maxLines={1} color="color.text.subtlest">
-					{containerType === 'ConfluenceSpace' ? (
-						<FormattedMessage
-							defaultMessage="Confluence space"
-							id="people-and-teams.team-connections.container-type"
-						/>
-					) : (
-						<FormattedMessage
-							defaultMessage="Jira project"
-							id="people-and-teams.team-connections.container-type"
-						/>
-					)}
-				</Text>
+				<Inline space="space.050">
+					<Text size="small" color="color.text.subtlest">
+						{description}
+					</Text>
+					<Text size="small" color="color.text.subtlest">
+						{containerTypeText}
+					</Text>
+				</Inline>
 			</Stack>
 			<Box
 				backgroundColor={'color.background.neutral.subtle'}
 				xcss={styles.containerTypeIconButtonStyles}
 				testId="container-type-icon"
 			>
-				{containerType === 'ConfluenceSpace' ? (
-					<ConfluenceIcon appearance="brand" size="xsmall" />
-				) : (
-					<JiraIcon appearance="brand" size="xsmall" />
-				)}
+				{icon}
 			</Box>
 		</Inline>
 	);

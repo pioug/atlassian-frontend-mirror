@@ -9,7 +9,7 @@ import { type IntlShape, useIntl } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
-import { B100, B400, B50, N20, N200, N300, N400 } from '@atlaskit/theme/colors';
+import { B100, B400, B50, N20, N200, N300, N400, N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkSearchListItemData } from '../../../../../common/types';
@@ -51,6 +51,10 @@ const listItemContainerInnerStyles = css({
 const listItemContainerInnerStylesA11yRefresh = css({
 	color: token('color.text.subtle', N400),
 	whiteSpace: 'nowrap',
+});
+
+const listItemContainerInnerStylesSeparatorLinkPickerRefresh = css({
+	color: token('color.border', N40A),
 });
 
 const itemNameStyles = css({
@@ -129,7 +133,13 @@ const ListItemSubtitle = ({ items: [firstItem, secondItem] }: SubtitleProps) => 
 							: listItemContainerInnerStyles,
 					]}
 				>
-					<Fragment>&nbsp; •&nbsp; </Fragment>
+					{fg('platform-linking-visual-refresh-link-picker') ? (
+						<span css={listItemContainerInnerStylesSeparatorLinkPickerRefresh}>
+							<Fragment>&nbsp; •&nbsp; </Fragment>
+						</span>
+					) : (
+						<Fragment>&nbsp; •&nbsp; </Fragment>
+					)}
 					<Fragment>{secondItem}</Fragment>
 				</div>
 			)}

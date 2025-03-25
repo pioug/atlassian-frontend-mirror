@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "2.3.1",
+	"version": "2.3.2",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -101,9 +101,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
-		"platform_editor_advanced_layouts_dnd_remove_layout": {
 			"type": "boolean"
 		}
 	}

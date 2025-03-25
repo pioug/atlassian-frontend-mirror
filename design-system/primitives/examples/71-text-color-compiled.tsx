@@ -18,6 +18,13 @@ const styles = cssMap({
 		paddingLeft: token('space.100'),
 	},
 	inheritContainer: { color: token('color.text.brand') },
+	overrideBoldBackground: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		backgroundColor: token('color.background.information'),
+	},
 });
 
 export default () => {
@@ -73,12 +80,22 @@ export default () => {
 							Text with color prop on a regular surface displays prop color
 						</Text>
 					</Box>
-					<Box padding="space.100" backgroundColor="color.background.brand.bold">
-						<Text color="color.text.danger">
-							Text with color prop on a bold surface displays{' '}
-							{fg('platform-typography-improved-color-control') ? 'prop' : 'inverse'} color
-						</Text>
-					</Box>
+					{fg('platform-typography-improved-color-control') ? (
+						<Box padding="space.050" backgroundColor="color.background.brand.bold">
+							{/* Override the parent Box background color to pass A11Y checks */}
+							<div css={styles.overrideBoldBackground}>
+								<Text color="color.text.danger">
+									Text with color prop on a bold surface displays prop color
+								</Text>
+							</div>
+						</Box>
+					) : (
+						<Box padding="space.100" backgroundColor="color.background.brand.bold">
+							<Text color="color.text.danger">
+								Text with color prop on a bold surface displays inverse color
+							</Text>
+						</Box>
+					)}
 				</Stack>
 			</section>
 			<section>

@@ -1,7 +1,6 @@
 import { Fragment, type ResolvedPos, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { isFragmentOfType } from './check-fragment';
@@ -30,10 +29,7 @@ export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: numbe
 
 			// Currently, we assume that the MIN_LAYOUT_COLUMN is set to 2.
 			// This value may require an update when we introduce support for a single-column layout.
-			if (
-				sourceParent.childCount === 2 &&
-				fg('platform_editor_advanced_layouts_dnd_remove_layout')
-			) {
+			if (sourceParent.childCount === 2) {
 				const layoutContentFragment =
 					$from.parentOffset === 0
 						? Fragment.from($from.parent.lastChild?.content)

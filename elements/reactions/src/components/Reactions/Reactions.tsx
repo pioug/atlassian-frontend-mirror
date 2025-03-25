@@ -575,7 +575,6 @@ export const Reactions = React.memo(
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
-							useButtonAlignmentStyling={useButtonAlignmentStyling}
 							reactionPickerPlacement={reactionPickerPlacement}
 							reactionsPickerPreventOverflowOptions={reactionsPickerPreventOverflowOptions}
 						/>

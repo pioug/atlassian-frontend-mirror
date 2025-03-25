@@ -1,5 +1,75 @@
 # @atlaskit/editor-core
 
+## 204.7.2
+
+### Patch Changes
+
+- [#131485](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131485)
+  [`bd6274bb72cb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd6274bb72cb1) -
+  ENGHEALTH-23692 Iconography uplift for editor-core
+- [#131407](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131407)
+  [`59a88ee61a0c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59a88ee61a0c5) -
+  [ux] EDF-2626: Add view isDestroyed check in editor auto-focusing logic to ensure bail before
+  posFromDOM and editor selection operations committed on destroyed docView instance, behind
+  platform_editor_posfromdom_null_fix
+- [#131280](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131280)
+  [`9ff92ea2432f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff92ea2432f2) -
+  [ED-27082] Fix media overflow toolbar to show correct options + update separators between button
+  groups
+- Updated dependencies
+
+## 204.7.1
+
+### Patch Changes
+
+- [#131048](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131048)
+  [`40f0ae20820a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40f0ae20820a0) -
+  Clean up platform_editor_advanced_layouts_a11y
+- [#128309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128309)
+  [`5668591816f6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5668591816f6a) -
+  Clean up platform_editor_advanced_layouts_dnd_remove_layout
+- Updated dependencies
+
+## 204.7.0
+
+### Minor Changes
+
+- [#130191](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130191)
+  [`e1cf89e2fc15b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1cf89e2fc15b) -
+  [ED-26903] Add class to full page editor content area region
+
+### Patch Changes
+
+- Updated dependencies
+
+## 204.6.4
+
+### Patch Changes
+
+- [#130479](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130479)
+  [`e78bc5ec9103d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e78bc5ec9103d) -
+  Call quick insert get items with dummy extension API if extension plugin is not enabled.
+- Updated dependencies
+
+## 204.6.3
+
+### Patch Changes
+
+- [#127093](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127093)
+  [`1378ea7a99ce1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1378ea7a99ce1) -
+  Upgrades `jscodeshift` to handle generics properly.
+- Updated dependencies
+
+## 204.6.2
+
+### Patch Changes
+
+- [#128664](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128664)
+  [`abca3266336d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abca3266336d9) -
+  [ED-23250] Remove form element from MediaFromUrl and consolidate experiments and feature flags in
+  prepartion for jira release
+- Updated dependencies
+
 ## 204.6.1
 
 ### Patch Changes

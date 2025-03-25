@@ -14,7 +14,6 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Change, PresetLayout } from '../types';
@@ -480,15 +479,12 @@ const getDefaultPresetLayout = (layoutNode: Node): PresetLayout => {
 	const layoutColumnCount = layoutNode.childCount;
 
 	if (layoutColumnCount <= 1) {
-		if (fg('platform_editor_advanced_layouts_dnd_remove_layout')) {
-			return 'single';
-		}
-
-		// This prevents the creation of a single column layout
-		// once we support single column layout, we can return 'single'
-		return 'two_equal';
+		return 'single';
 	}
+
 	switch (layoutColumnCount) {
+		case 1:
+			return 'single';
 		case 2:
 			return 'two_equal';
 		case 3:

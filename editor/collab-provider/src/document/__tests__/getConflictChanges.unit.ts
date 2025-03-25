@@ -751,4 +751,69 @@ describe('conflicting steps', () => {
 			inserted: [],
 		});
 	});
+
+	it('should have conflicts if replaces two words', () => {
+		const defaultDoc = doc(p('We are typing in a live doc {<}somethingothing{>}! thereere'));
+
+		const editor = new Editor(defaultDoc);
+
+		editor.insert('something');
+		editor.setSelection(editor.getTr().doc.nodeSize - 2);
+		editor.delete({ repeat: 8 });
+		editor.insert('there');
+
+		const localSteps = editor.getUnconfirmed();
+		const tr = editor.getTr();
+
+		const remoteEditor = new Editor(defaultDoc);
+		remoteEditor.insertAsChars('nothing');
+		remoteEditor.setSelection(remoteEditor.getTr().doc.nodeSize - 2);
+		remoteEditor.delete({ repeat: 8 });
+		remoteEditor.insertAsChars('here');
+		const remoteSteps = remoteEditor.getSteps();
+
+		expect(editor.getDoc()).toEqualDocument(doc(p('We are typing in a live doc something! there')));
+		expect(remoteEditor.getDoc()).toEqualDocument(
+			doc(p('We are typing in a live doc nothing! here')),
+		);
+
+		editor.rebaseWithRemoteSteps(remoteSteps);
+		expect(editor.getDoc()).toEqualDocument(
+			doc(p('We are typing in a live doc somethingothing! herethere')),
+		);
+
+		const { changes, deleted, inserted } = setupConflicts(
+			getConflictChanges({
+				localSteps,
+				remoteSteps: (remoteSteps as Step[]) ?? [],
+				tr,
+			}),
+		);
+
+		expect({
+			inserted,
+			deleted,
+		}).toEqual({
+			deleted: [],
+			inserted: [
+				expect.objectContaining({
+					from: 29,
+					to: 44,
+				}),
+				expect.objectContaining({
+					from: 46,
+					to: 55,
+				}),
+			],
+		});
+
+		expect(getAllHighlights(changes, editor.getDoc())).toEqual([
+			{
+				content: [{ text: 'somethingothing', type: 'text' }],
+			},
+			{
+				content: [{ text: 'herethere', type: 'text' }],
+			},
+		]);
+	});
 });

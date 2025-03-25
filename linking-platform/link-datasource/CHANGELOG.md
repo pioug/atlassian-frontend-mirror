@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 4.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.3
+
+### Patch Changes
+
+- [#130107](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130107)
+  [`630a33a18f844`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/630a33a18f844) -
+  [ux] Update status lozenge to bold in edit mode and modal behind platform-component-visual-refresh
+  fg
+
+## 4.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

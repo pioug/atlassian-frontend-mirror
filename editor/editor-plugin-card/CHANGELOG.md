@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.1
+
+### Patch Changes
+
+- [#130882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130882)
+  [`df1c29f476539`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df1c29f476539) -
+  [ux] Adds a new i18n message and updates icons and tooltips on links, media and extensions.
+- Updated dependencies
+
 ## 5.4.0
 
 ### Minor Changes

@@ -1,5 +1,5 @@
 export type UserPreferences = {
-	toolbarDockingInitialPosition?: 'top' | 'none';
+	toolbarDockingInitialPosition?: 'top' | 'none' | null;
 };
 export interface UserPreferencesProvider {
 	/**

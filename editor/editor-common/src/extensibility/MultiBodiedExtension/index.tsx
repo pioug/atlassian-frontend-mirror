@@ -278,6 +278,7 @@ const MultiBodiedExtensionWithWidth = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={mbeExtensionWrapperCSSStyles}
 				data-testid="multiBodiedExtension--wrapper"
+				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={mbeWrapperStyles}
 				onMouseEnter={() => handleMouseEvent(true)}

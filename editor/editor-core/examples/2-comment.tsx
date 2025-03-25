@@ -10,7 +10,7 @@ import Button from '@atlaskit/button/new';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
+import LockCircleIcon from '@atlaskit/icon/core/migration/lock-locked--lock-circle';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
@@ -191,7 +191,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 											allowExtension={true}
 											extensionHandlers={extensionHandlers}
 											secondaryToolbarComponents={[
-												<LockCircleIcon key="permission" size="large" label="Permissions" />,
+												<LockCircleIcon key="permission" LEGACY_size="large" label="Permissions" />,
 											]}
 											featureFlags={{
 												...this.props.editorProps?.featureFlags,

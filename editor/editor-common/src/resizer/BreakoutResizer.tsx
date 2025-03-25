@@ -310,22 +310,20 @@ const BreakoutResizer = ({
 			return;
 		}
 
-		if (fg('platform_editor_advanced_layouts_a11y')) {
-			const editorViewDom = editorView.dom;
-			const unbindEditorViewDom: UnbindFn = bind(editorViewDom, {
-				type: 'keydown',
-				listener: resizerGlobalKeyDownHandler,
-			});
-			const unbindResizeHandle: UnbindFn = bindAll(resizeHandleThumbEl, [
-				{ type: 'keydown', listener: resizeHandleKeyDownHandler },
-				{ type: 'keyup', listener: resizeHandleKeyUpHandler },
-			]);
+		const editorViewDom = editorView.dom;
+		const unbindEditorViewDom: UnbindFn = bind(editorViewDom, {
+			type: 'keydown',
+			listener: resizerGlobalKeyDownHandler,
+		});
+		const unbindResizeHandle: UnbindFn = bindAll(resizeHandleThumbEl, [
+			{ type: 'keydown', listener: resizeHandleKeyDownHandler },
+			{ type: 'keyup', listener: resizeHandleKeyUpHandler },
+		]);
 
-			return () => {
-				unbindEditorViewDom();
-				unbindResizeHandle();
-			};
-		}
+		return () => {
+			unbindEditorViewDom();
+			unbindResizeHandle();
+		};
 	}, [
 		editorView,
 		resizerGlobalKeyDownHandler,

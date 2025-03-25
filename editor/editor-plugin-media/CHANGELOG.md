@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.15
+
+### Patch Changes
+
+- [#131280](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131280)
+  [`9ff92ea2432f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff92ea2432f2) -
+  [ED-27082] Fix media overflow toolbar to show correct options + update separators between button
+  groups
+- Updated dependencies
+
+## 2.3.14
+
+### Patch Changes
+
+- [#130717](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130717)
+  [`ee87c286f2f80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee87c286f2f80) -
+  ED-27126 Multiple images upload overridden fix
+- Updated dependencies
+
+## 2.3.13
+
+### Patch Changes
+
+- [#130882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130882)
+  [`df1c29f476539`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df1c29f476539) -
+  [ux] Adds a new i18n message and updates icons and tooltips on links, media and extensions.
+- Updated dependencies
+
+## 2.3.12
+
+### Patch Changes
+
+- [#128664](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128664)
+  [`abca3266336d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abca3266336d9) -
+  [ED-23250] Remove form element from MediaFromUrl and consolidate experiments and feature flags in
+  prepartion for jira release
+- Updated dependencies
+
 ## 2.3.11
 
 ### Patch Changes

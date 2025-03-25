@@ -80,6 +80,9 @@
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
+			"path": "../teams-public/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{

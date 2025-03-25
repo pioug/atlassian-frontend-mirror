@@ -20,6 +20,7 @@ import type { FileIdentifier, FileState, MediaClient } from '@atlaskit/media-cli
 import { FileFetcherError } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react';
 import { MediaViewer } from '@atlaskit/media-viewer';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { messages } from '../messages/media-inline-card';
 
@@ -42,6 +43,7 @@ export interface MediaInlineImageCardProps {
 	};
 	ssr?: MediaSSR;
 	shouldOpenMediaViewer?: boolean;
+	isViewOnly?: boolean;
 }
 
 export const MediaInlineImageCardInternal = ({
@@ -57,6 +59,7 @@ export const MediaInlineImageCardInternal = ({
 	ssr,
 	serializeDataAttrs,
 	shouldOpenMediaViewer,
+	isViewOnly,
 }: MediaInlineImageCardProps & WrappedComponentProps & MediaInlineAttrs) => {
 	const [fileState, setFileState] = useState<FileState | undefined>();
 	const [subscribeError, setSubscribeError] = useState<Error>();
@@ -210,11 +213,21 @@ export const MediaInlineImageCardInternal = ({
 		return {};
 	}, [alt, fileState, height, identifier, width, serializeDataAttrs]);
 
-	const onMediaInlineImageClick = useCallback(() => {
-		if (shouldOpenMediaViewer) {
-			setMediaViewerVisible(true);
-		}
-	}, [shouldOpenMediaViewer]);
+	const onMediaInlineImageClick = useCallback(
+		(e: React.MouseEvent) => {
+			if (shouldOpenMediaViewer) {
+				setMediaViewerVisible(true);
+			}
+
+			// In edit mode (node content wrapper has contenteditable set to true), link redirection is disabled by default
+			// We need to call "stopPropagation" here in order to prevent in editor view mode, the browser from navigating to
+			// another URL if the media node is wrapped in a link mark.
+			if (isViewOnly && editorExperiment('platform_editor_controls', 'variant1')) {
+				e.preventDefault();
+			}
+		},
+		[shouldOpenMediaViewer, isViewOnly],
+	);
 
 	const onMediaInlinePreviewClose = useCallback(() => {
 		setMediaViewerVisible(false);

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.6
+
+### Patch Changes
+
+- [#131564](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131564)
+  [`e4cc2be4d7e50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4cc2be4d7e50) -
+  Fix get element name to use data vc by default unless specifically disabled
+
 ## 3.4.5
 
 ### Patch Changes

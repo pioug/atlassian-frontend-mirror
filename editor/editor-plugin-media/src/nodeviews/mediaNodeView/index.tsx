@@ -178,6 +178,10 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 					contextIdentifierProvider={contextIdentifierProvider}
 					mediaOptions={mediaOptions}
 					onExternalImageLoaded={this.onExternalImageLoaded}
+					isViewOnly={
+						this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState()
+							?.mode === 'view'
+					}
 				/>
 			);
 		};

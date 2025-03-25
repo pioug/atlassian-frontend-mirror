@@ -23,7 +23,7 @@ import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
 import { findPositionOfNodeBefore, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -53,7 +53,14 @@ export const enterKeyCommand =
 		if (selection.empty) {
 			const { $from } = selection;
 			const { listItem, codeBlock } = state.schema.nodes;
-			const wrapper = $from.node($from.depth - 1);
+
+			// the list item is the parent of the gap cursor
+			// while for text, list item is the grant parent of the text node
+			const isGapCursorSelection = selection instanceof GapCursorSelection;
+			const wrapper =
+				isGapCursorSelection && fg('platform_editor_split_list_item_for_gap_cursor')
+					? $from.parent
+					: $from.node($from.depth - 1);
 
 			if (wrapper && wrapper.type === listItem) {
 				/** Check if the wrapper has any visible content */
@@ -245,7 +252,15 @@ function splitListItem(itemType: NodeType): Command {
 		if ((node && node.isBlock) || $from.depth < 2 || !$from.sameParent($to)) {
 			return false;
 		}
-		const grandParent = $from.node(-1);
+
+		// list item is the parent of the gap cursor instead of grant parent;
+		// rename grantParent to WrapperlistItem once we clean up platform_editor_split_list_item_for_gap_cursor
+		const isGapCursorSelection = ref instanceof GapCursorSelection;
+		const grandParent =
+			isGapCursorSelection && fg('platform_editor_split_list_item_for_gap_cursor')
+				? $from.parent
+				: $from.node(-1);
+
 		if (grandParent.type !== itemType) {
 			return false;
 		}
@@ -297,10 +312,36 @@ function splitListItem(itemType: NodeType): Command {
 		const tr = state.tr.delete($from.pos, $to.pos);
 		const types = nextType && [null, { type: nextType }];
 
-		if (dispatch) {
-			dispatch(tr.split($from.pos, 2, types ?? undefined).scrollIntoView());
+		if (fg('platform_editor_split_list_item_for_gap_cursor')) {
+			if (dispatch) {
+				if (ref instanceof TextSelection) {
+					dispatch(tr.split($from.pos, 2, types ?? undefined).scrollIntoView());
+					return true;
+				}
+
+				// create new list item with empty paragraph when user click enter on gap cursor
+				if (isGapCursorSelection && $from.nodeBefore?.isBlock) {
+					// For gap cursor selection , we can not split the list item directly
+					// We need to insert a new list item after the current list item to simulate the split behaviour
+					const { listItem, paragraph } = state.schema.nodes;
+					const newListItem = listItem.createChecked({}, paragraph.createChecked());
+					dispatch(
+						tr
+							.insert($from.pos, newListItem)
+							.setSelection(Selection.near(tr.doc.resolve($to.pos + 1)))
+							.scrollIntoView(),
+					);
+					return true;
+				}
+			}
+
+			return false;
+		} else {
+			if (dispatch) {
+				dispatch(tr.split($from.pos, 2, types ?? undefined).scrollIntoView());
+			}
+			return true;
 		}
-		return true;
 	};
 }
 

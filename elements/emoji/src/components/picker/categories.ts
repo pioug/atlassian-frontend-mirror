@@ -1,14 +1,14 @@
-import EmojiActivityIcon from '@atlaskit/icon/glyph/emoji/activity';
-import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
-import EmojiFlagsIcon from '@atlaskit/icon/glyph/emoji/flags';
-import EmojiFoodIcon from '@atlaskit/icon/glyph/emoji/food';
-import EmojiFrequentIcon from '@atlaskit/icon/glyph/emoji/frequent';
-import EmojiNatureIcon from '@atlaskit/icon/glyph/emoji/nature';
-import EmojiObjectsIcon from '@atlaskit/icon/glyph/emoji/objects';
-import EmojiPeopleIcon from '@atlaskit/icon/glyph/emoji/people';
-import EmojiSymbolsIcon from '@atlaskit/icon/glyph/emoji/symbols';
-import EmojiTravelIcon from '@atlaskit/icon/glyph/emoji/travel';
-import EmojiProductivityIcon from '@atlaskit/icon/glyph/emoji/productivity';
+import BasketballIcon from '@atlaskit/icon/core/migration/basketball--emoji-activity';
+import AddIcon from '@atlaskit/icon/core/migration/add--emoji-custom';
+import FlagIcon from '@atlaskit/icon/core/migration/flag--emoji-flags';
+import TakeoutFoodIcon from '@atlaskit/icon/core/migration/takeout-food--emoji-food';
+import ClockIcon from '@atlaskit/icon/core/migration/clock--emoji-frequent';
+import TreeIcon from '@atlaskit/icon/core/migration/tree--emoji-nature';
+import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb--emoji-objects';
+import EmojiIcon from '@atlaskit/icon/core/migration/emoji--emoji-people';
+import HeartIcon from '@atlaskit/icon/core/migration/heart--emoji-symbols';
+import VehicleCarIcon from '@atlaskit/icon/core/migration/vehicle-car--emoji-travel';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/check-circle--emoji-productivity';
 
 import type { CategoryDescription } from '../../types';
 import { customCategory, userCustomTitle, customTitle } from '../../util/constants';
@@ -42,73 +42,73 @@ export const CategoryDescriptionMap: CategoryDescriptionRecord = {
 	FREQUENT: {
 		id: 'FREQUENT',
 		name: 'frequentCategory',
-		icon: EmojiFrequentIcon,
+		icon: ClockIcon,
 		order: 1,
 	},
 	PEOPLE: {
 		id: 'PEOPLE',
 		name: 'peopleCategory',
-		icon: EmojiPeopleIcon,
+		icon: EmojiIcon,
 		order: 2,
 	},
 	NATURE: {
 		id: 'NATURE',
 		name: 'natureCategory',
-		icon: EmojiNatureIcon,
+		icon: TreeIcon,
 		order: 3,
 	},
 	FOODS: {
 		id: 'FOODS',
 		name: 'foodsCategory',
-		icon: EmojiFoodIcon,
+		icon: TakeoutFoodIcon,
 		order: 4,
 	},
 	ACTIVITY: {
 		id: 'ACTIVITY',
 		name: 'activityCategory',
-		icon: EmojiActivityIcon,
+		icon: BasketballIcon,
 		order: 5,
 	},
 	PLACES: {
 		id: 'PLACES',
 		name: 'placesCategory',
-		icon: EmojiTravelIcon,
+		icon: VehicleCarIcon,
 		order: 6,
 	},
 	OBJECTS: {
 		id: 'OBJECTS',
 		name: 'objectsCategory',
-		icon: EmojiObjectsIcon,
+		icon: LightbulbIcon,
 		order: 7,
 	},
 	SYMBOLS: {
 		id: 'SYMBOLS',
 		name: 'symbolsCategory',
-		icon: EmojiSymbolsIcon,
+		icon: HeartIcon,
 		order: 8,
 	},
 	FLAGS: {
 		id: 'FLAGS',
 		name: 'flagsCategory',
-		icon: EmojiFlagsIcon,
+		icon: FlagIcon,
 		order: 9,
 	},
 	ATLASSIAN: {
 		id: 'ATLASSIAN',
 		name: 'productivityCategory',
-		icon: EmojiProductivityIcon,
+		icon: CheckCircleIcon,
 		order: 10,
 	},
 	USER_CUSTOM: {
 		id: customCategory,
 		name: userCustomTitle,
-		icon: EmojiCustomIcon,
+		icon: AddIcon,
 		order: 11,
 	},
 	CUSTOM: {
 		id: customCategory,
 		name: customTitle,
-		icon: EmojiCustomIcon,
+		icon: AddIcon,
 		order: 12,
 	},
 };

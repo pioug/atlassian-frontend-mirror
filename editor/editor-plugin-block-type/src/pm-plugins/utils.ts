@@ -3,7 +3,6 @@ import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common
 import { createRule, createWrappingJoinRule } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { WRAPPER_BLOCK_TYPES, FORMATTING_NODE_TYPES, FORMATTING_MARK_TYPES } from './block-types';
@@ -96,10 +95,7 @@ function getSelectedWrapperNodes(state: EditorState): NodeType[] {
 			taskList,
 		];
 
-		if (fg('platform_editor_toolbar_fix_for_disabled_options')) {
-			wrapperNodes.push(caption);
-		}
-
+		wrapperNodes.push(caption);
 		state.doc.nodesBetween($from.pos, $to.pos, (node) => {
 			if (node.isBlock && wrapperNodes.indexOf(node.type) >= 0) {
 				nodes.push(node.type);

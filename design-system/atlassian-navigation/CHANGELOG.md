@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 5.1.0
+
+### Minor Changes
+
+- [#130720](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130720)
+  [`2b4555de9adf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b4555de9adf4) -
+  Minor type adjustment to support different logo types
+
 ## 5.0.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 2.5.0
+
+### Minor Changes
+
+- [#130965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130965)
+  [`224b0a23d3ee0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/224b0a23d3ee0) -
+  EDF-2621 Added open-browse-agent-sidebar payload type to open rovo chat with browse agent tab
+  active.
+
 ## 2.4.0
 
 ### Minor Changes

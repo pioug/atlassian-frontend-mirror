@@ -4,8 +4,7 @@
  */
 import { useEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { UNSAFE_useColorModeForMigration } from '@atlaskit/app-provider';
 import { useThemeObserver } from '@atlaskit/tokens';
@@ -29,14 +28,6 @@ const baseImageStyles = css({
 	height: 'auto',
 });
 
-const themedImageStyles = css({
-	content: `url(var(--img-source))`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'html[data-color-mode=dark] &': {
-		content: `var(--img-source-dark)`,
-	},
-});
-
 /**
  * __Image__
  *
@@ -46,7 +37,7 @@ const themedImageStyles = css({
  * - [Code](https://atlassian.design/components/image/code)
  * - [Usage](https://atlassian.design/components/image/usage)
  */
-export default function Image({ src, srcDark, alt, testId, ...props }: ImageProps) {
+export default function Image({ src, srcDark, alt, testId, className, ...props }: ImageProps) {
 	const imgRef = useRef<HTMLImageElement>(null);
 	const providedColorMode = UNSAFE_useColorModeForMigration();
 	const { colorMode: observedColorMode } = useThemeObserver();
@@ -69,14 +60,9 @@ export default function Image({ src, srcDark, alt, testId, ...props }: ImageProp
 			alt={alt}
 			data-testid={testId}
 			src={src}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={
-				{
-					'--img-source': src,
-					'--img-source-dark': srcDark || src,
-				} as React.CSSProperties
-			}
-			css={[baseImageStyles, themedImageStyles]}
+			css={baseImageStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 			ref={imgRef}
 			// The spread operator is necessary since the component can accept all the props of an `img` element.
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 6.2.0
+
+### Minor Changes
+
+- [#128664](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128664)
+  [`abca3266336d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abca3266336d9) -
+  [ED-23250] Remove form element from MediaFromUrl and consolidate experiments and feature flags in
+  prepartion for jira release
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.4
 
 ### Patch Changes

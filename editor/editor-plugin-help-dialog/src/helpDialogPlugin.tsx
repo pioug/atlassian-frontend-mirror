@@ -47,7 +47,7 @@ export const helpDialogPlugin: HelpDialogPlugin = ({
 				keywords: ['?'],
 				priority: 4000,
 				keyshortcut: tooltip(openHelp),
-				icon: () => <QuestionCircleIcon label="" color="currentColor" />,
+				icon: () => <QuestionCircleIcon label="" color="currentColor" spacing="spacious" />,
 				action(insert) {
 					const tr = insert('');
 					openHelpCommand(tr);

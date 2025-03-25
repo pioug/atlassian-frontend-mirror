@@ -47,6 +47,9 @@
 		},
 		"bandicoots-a11y-link-picker-styling": {
 			"type": "boolean"
+		},
+		"platform-linking-visual-refresh-link-picker": {
+			"type": "boolean"
 		}
 	},
 	"scripts": {

@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 28.1.2
+
+### Patch Changes
+
+- [#131280](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131280)
+  [`9ff92ea2432f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ff92ea2432f2) -
+  [ED-27082] Fix media overflow toolbar to show correct options + update separators between button
+  groups
+- Updated dependencies
+
 ## 28.1.1
 
 ### Patch Changes

@@ -12,7 +12,7 @@ import ModalDialog, {
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
 const allowlistElement = (element: HTMLElement) => {

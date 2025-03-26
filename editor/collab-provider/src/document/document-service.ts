@@ -543,43 +543,30 @@ export class DocumentService implements DocumentServiceInterface {
 			});
 			this.metadataService.updateMetadata(metadata);
 
-			if (fg('restore_localstep_fallback_reconcile')) {
-				try {
-					this.analyticsHelper?.sendActionEvent(
-						EVENT_ACTION.REINITIALISE_DOCUMENT,
-						EVENT_STATUS.INFO,
-						{
-							numUnconfirmedSteps: unconfirmedSteps?.length,
-							obfuscatedSteps,
-							obfuscatedDoc,
-							hasTitle: !!metadata?.title,
-							clientId: this.clientId,
-							targetClientId,
-							triggeredByCatchup: !!targetClientId,
-						},
-					);
-
-					if (unconfirmedSteps?.length) {
-						this.applyLocalSteps(unconfirmedSteps);
-					}
-				} catch (applyLocalStepsError) {
-					this.analyticsHelper?.sendErrorEvent(
-						applyLocalStepsError,
-						`Error while onRestore with applyLocalSteps. Will fallback to fetchReconcile`,
-					);
-
-					useReconcile = true;
-					await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
-				}
-			} else {
-				// If there are unconfirmed steps, attempt to reconcile our current state with with recovered document
-				if (useReconcile && currentState) {
-					await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
-				} else if (unconfirmedSteps?.length) {
-					// we don't want to use reconcile for restore triggered by catchup client out of sync (when targetClientId is provided)
-					// as this results in all changes made while the client was out of sync being lost
+			try {
+				this.analyticsHelper?.sendActionEvent(
+					EVENT_ACTION.REINITIALISE_DOCUMENT,
+					EVENT_STATUS.INFO,
+					{
+						numUnconfirmedSteps: unconfirmedSteps?.length,
+						obfuscatedSteps,
+						obfuscatedDoc,
+						hasTitle: !!metadata?.title,
+						clientId: this.clientId,
+						targetClientId,
+						triggeredByCatchup: !!targetClientId,
+					},
+				);
+				if (unconfirmedSteps?.length) {
 					this.applyLocalSteps(unconfirmedSteps);
 				}
+			} catch (applyLocalStepsError) {
+				this.analyticsHelper?.sendErrorEvent(
+					applyLocalStepsError,
+					`Error while onRestore with applyLocalSteps. Will fallback to fetchReconcile`,
+				);
+				useReconcile = true;
+				await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
 			}
 
 			this.analyticsHelper?.sendActionEvent(

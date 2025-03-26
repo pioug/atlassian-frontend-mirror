@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::5942979cde91d2222f548b777090a0da>>
+ * @codegen <<SignedSource::7cde9f6c8a89f4e1d8266994276fbcf1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -16,6 +16,7 @@ import { css, jsx } from '@compiled/react';
 
 import { Inline } from '@atlaskit/primitives';
 
+import AccessibilityIcon from '../../../../../core/accessibility';
 import AddIcon from '../../../../../core/add';
 import AiAgentIcon from '../../../../../core/ai-agent';
 import AiChatIcon from '../../../../../core/ai-chat';
@@ -118,6 +119,8 @@ import DownloadIcon from '../../../../../core/download';
 import DragHandleIcon from '../../../../../core/drag-handle';
 import DragHandleHorizontalIcon from '../../../../../core/drag-handle-horizontal';
 import DragHandleVerticalIcon from '../../../../../core/drag-handle-vertical';
+import DrawerLeftIcon from '../../../../../core/drawer-left';
+import DrawerRightIcon from '../../../../../core/drawer-right';
 import EditIcon from '../../../../../core/edit';
 import EditBulkIcon from '../../../../../core/edit-bulk';
 import EmailIcon from '../../../../../core/email';
@@ -371,10 +374,13 @@ import VolumeLowIcon from '../../../../../core/volume-low';
 import VolumeMutedIcon from '../../../../../core/volume-muted';
 import WarningIcon from '../../../../../core/warning';
 import WhiteboardIcon from '../../../../../core/whiteboard';
+import WorkItemIcon from '../../../../../core/work-item';
+import WorkItemsIcon from '../../../../../core/work-items';
 import ZoomInIcon from '../../../../../core/zoom-in';
 import ZoomOutIcon from '../../../../../core/zoom-out';
 
 const Icons = [
+	AccessibilityIcon,
 	AddIcon,
 	AiAgentIcon,
 	AiChatIcon,
@@ -477,6 +483,8 @@ const Icons = [
 	DragHandleIcon,
 	DragHandleHorizontalIcon,
 	DragHandleVerticalIcon,
+	DrawerLeftIcon,
+	DrawerRightIcon,
 	EditIcon,
 	EditBulkIcon,
 	EmailIcon,
@@ -730,6 +738,8 @@ const Icons = [
 	VolumeMutedIcon,
 	WarningIcon,
 	WhiteboardIcon,
+	WorkItemIcon,
+	WorkItemsIcon,
 	ZoomInIcon,
 	ZoomOutIcon,
 ];
@@ -790,3 +800,5 @@ export const IconGroup15 = allExamples[15];
 export const IconGroup16 = allExamples[16];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconGroup17 = allExamples[17];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup18 = allExamples[18];

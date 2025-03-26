@@ -1,5 +1,20 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.5.7
+
+### Patch Changes
+
+- [#131531](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131531)
+  [`aae37ba80f8cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aae37ba80f8cc) -
+  ENGHEALTH-23697 Iconography uplift for extension-dropbox
+- Updated dependencies
+
+## 0.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.5
 
 ### Patch Changes

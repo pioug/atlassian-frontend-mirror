@@ -41,7 +41,7 @@ export type IconSize = 'small' | 'large' | 'xlarge';
  * be making this public API and re-exporting from the root */
 type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
-export type CommonButtonProps<TagName extends HTMLElement> = {
+export type CommonBaseProps = {
 	/**
 	 * Set the button to autofocus on mount.
 	 */
@@ -59,6 +59,17 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
 	 */
 	testId?: string;
 	/**
+	 * Additional information to be included in the `context` of Atlaskit analytics events that come from button. See [the pressable or anchor primitive code examples](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
+	 */
+	analyticsContext?: Record<string, any>;
+	/**
+	 * An optional name used to identify the button to interaction content listeners. By default, button fires React UFO (Unified Frontend Observability) press interactions for available listeners. This helps Atlassian measure performance and reliability. See [the pressable or anchor primitive code examples](https://atlassian.design/components/primitives/anchor/examples#react-ufo-press-interactions) for more information.
+	 */
+	interactionName?: string;
+};
+
+export type CommonButtonProps<TagName extends HTMLElement = HTMLButtonElement> = CommonBaseProps & {
+	/**
 	 * Handler called on blur.
 	 */
 	onBlur?: React.FocusEventHandler<TagName>;
@@ -69,16 +80,32 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
 	/**
 	 * Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).
 	 */
-	onClick?: (e: React.MouseEvent<TagName>, analyticsEvent: UIAnalyticsEvent) => void;
-	/**
-	 * Additional information to be included in the `context` of Atlaskit analytics events that come from button. See [the pressable or anchor primitive code examples](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
-	 */
-	analyticsContext?: Record<string, any>;
-	/**
-	 * An optional name used to identify the button to interaction content listeners. By default, button fires React UFO (Unified Frontend Observability) press interactions for available listeners. This helps Atlassian measure performance and reliability. See [the pressable or anchor primitive code examples](https://atlassian.design/components/primitives/anchor/examples#react-ufo-press-interactions) for more information.
-	 */
-	interactionName?: string;
+	onClick?: (e: React.MouseEvent<TagName, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void;
 };
+
+// Anchor specific props (including onClick that uses HTMLAnchorElement)
+export type CommonAnchorProps<RouterLinkConfig extends Record<string, any> = never> =
+	CommonBaseProps & {
+		/**
+		 * Handler called on blur.
+		 */
+		onBlur?: React.FocusEventHandler<HTMLAnchorElement>;
+		/**
+		 * Handler called on focus.
+		 */
+		onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
+		/**
+		 * Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).
+		 */
+		onClick?: (
+			e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+			analyticsEvent: UIAnalyticsEvent,
+		) => void;
+		/**
+		 * URL to navigate to.
+		 */
+		href?: string | RouterLinkConfig;
+	};
 
 type SupportedElementAttributes =
 	| React.ButtonHTMLAttributes<HTMLButtonElement>

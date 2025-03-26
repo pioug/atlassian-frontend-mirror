@@ -7,7 +7,7 @@ import { defineMessages, useIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Pressable, Box, xcss, type XCSS } from '@atlaskit/primitives';
+import { Pressable, Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
@@ -55,10 +55,6 @@ export interface TriggerProps {
 	 * Optional prop for applying subtle styling to reaction picker
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
-	/**
-	 * Option prop for controlling the reaction picker selection style
-	 */
-	selectionStyle?: XCSS;
 	/**
 	 * Optional prop for controlling icon inside Trigger
 	 */
@@ -157,7 +153,6 @@ export const Trigger = React.forwardRef(
 			showOpaqueBackground = false,
 			showAddReactionText = false,
 			subtleReactionsSummaryAndPicker = false,
-			selectionStyle,
 			reactionPickerTriggerIcon,
 		} = props;
 
@@ -185,8 +180,6 @@ export const Trigger = React.forwardRef(
 								: transparentEnabledTriggerStyles,
 						miniMode && miniModeStyles,
 						fg('platform-component-visual-refresh') && triggerStylesRefresh,
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-						selectionStyle,
 					]}
 					onClick={handleMouseDown}
 					isDisabled={disabled}

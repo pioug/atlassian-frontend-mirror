@@ -4,12 +4,10 @@
  */
 import { type CSSProperties, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
-import { media } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -34,14 +32,16 @@ const positionerStyles = css({
 const viewportScrollStyles = css({
 	height: 'auto',
 	position: 'relative',
-	[media.above.xs]: {
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
 		margin: `${gutter}px auto`,
 		pointerEvents: 'none',
 	},
 });
 
 const bodyScrollStyles = css({
-	[media.above.xs]: {
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
 		maxWidth: maxWidthDimensions,
 		maxHeight: maxHeightDimensions,
 		position: 'absolute',
@@ -55,10 +55,7 @@ const bodyScrollStyles = css({
 });
 
 const stackTransitionStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	transitionDuration: `${durations.medium}ms`,
 	transitionProperty: 'transform',
-	transitionTimingFunction: easeInOut,
 
 	/**
 	 * Duplicated from @atlaskit/motion/accessibility
@@ -95,8 +92,11 @@ const Positioner = (props: PositionerProps) => {
 			style={
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					'--modal-dialog-translate-y': `calc(${stackIndex}px * ${token('space.100', '8px')})`,
+					'--modal-dialog-translate-y': `calc(${stackIndex}px * ${token('space.100')})`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					transitionDuration: `${durations.medium}ms`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					transitionTimingFunction: easeInOut,
 				} as CSSProperties
 			}
 			css={[

@@ -60,6 +60,7 @@ export interface SmartCardProps extends CardProps {
 	allowEmbeds?: boolean;
 	allowBlockCards?: boolean;
 	enableInlineUpgradeFeatures?: boolean;
+	isPageSSRed?: boolean;
 }
 
 const WithClickHandler = ({

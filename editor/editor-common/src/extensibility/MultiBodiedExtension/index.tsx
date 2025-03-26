@@ -12,7 +12,7 @@ import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
+import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
 
 import type { EventDispatcher } from '../../event-dispatcher';
 import type { MultiBodiedExtensionActions } from '../../extensions';

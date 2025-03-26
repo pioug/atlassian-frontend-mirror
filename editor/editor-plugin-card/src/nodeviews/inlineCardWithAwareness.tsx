@@ -29,6 +29,8 @@ export const InlineCardWithAwareness = memo(
 		isPulseEnabled,
 		isOverlayEnabled,
 		isSelected,
+		isPageSSRed,
+		appearance,
 	}: SmartCardProps & InlineCardWithAwarenessProps) => {
 		const [isHovered, setIsHovered] = useState(false);
 		const [isInserted, setIsInserted] = useState(false);
@@ -81,6 +83,7 @@ export const InlineCardWithAwareness = memo(
 					onClick={onClick}
 					cardContext={cardContext}
 					isHovered={isHovered}
+					isPageSSRed={isPageSSRed}
 				/>
 			),
 			[
@@ -93,6 +96,7 @@ export const InlineCardWithAwareness = memo(
 				onResolve,
 				useAlternativePreloader,
 				view,
+				isPageSSRed,
 			],
 		);
 
@@ -110,6 +114,7 @@ export const InlineCardWithAwareness = memo(
 				markMostRecentlyInsertedLink={markMostRecentlyInsertedLink}
 				pluginInjectionApi={pluginInjectionApi}
 				setOverlayHoveredStyles={setOverlayHoveredStyles}
+				appearance={appearance}
 			>
 				{innerCard}
 			</AwarenessWrapper>

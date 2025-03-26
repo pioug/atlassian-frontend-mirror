@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { cssVar } from '../../../constants';
+import { backgroundDefaultCssVar, borderRadiusCssVar, textDefaultCssVar } from '../../../constants';
 import * as tagStyles from '../../../styles';
 import BaseTag from '../../internal/shared/base';
 import getCSSVar from '../_utils/get-css-var';
@@ -13,7 +13,7 @@ describe('<BaseTag />', () => {
 			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 
 			const tag = screen.getByTestId('tag');
-			expect(tag).toHaveStyle(`border-radius: var(${cssVar.borderRadius})`);
+			expect(tag).toHaveStyle(`border-radius: var(${borderRadiusCssVar})`);
 		});
 
 		it('should use the default border radius', () => {
@@ -40,21 +40,19 @@ describe('<BaseTag />', () => {
 			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 			const tag = screen.getByTestId('tag');
 			expect(tag).toHaveStyle({
-				backgroundColor: `var(${cssVar.color.background.default})`,
+				backgroundColor: `var(${backgroundDefaultCssVar})`,
 			});
 
-			expect(tag).toHaveStyle(`color: var(${cssVar.color.text.default})`);
+			expect(tag).toHaveStyle(`color: var(${textDefaultCssVar})`);
 		});
 
 		it.each(tagColors)('should be configured by the color prop (color="%s")', (tagColor) => {
 			render(<BaseTag color={tagColor} contentElement={<span>Hello world</span>} testId="tag" />);
 			const tag = screen.getByTestId('tag');
 
-			expect(getCSSVar(tag, cssVar.color.background.default)).toBe(
-				tagStyles.backgroundColors[tagColor],
-			);
+			expect(getCSSVar(tag, backgroundDefaultCssVar)).toBe(tagStyles.backgroundColors[tagColor]);
 
-			expect(getCSSVar(tag, cssVar.color.text.default)).toBe(tagStyles.textColors[tagColor]);
+			expect(getCSSVar(tag, textDefaultCssVar)).toBe(tagStyles.textColors[tagColor]);
 		});
 	});
 });

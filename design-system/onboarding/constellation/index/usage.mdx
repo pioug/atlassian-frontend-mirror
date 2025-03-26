@@ -76,6 +76,9 @@ The spotlight target can have a pulse animation to draw attention to the focused
 - Add an option to dismiss or cancel reassures people that they can opt out.
 - For the last in a series of steps, or for any action which confirms or closes a spotlight message,
   use "OK".
+- Spotlight components clone HTML elements they encompass. However, if there are internal components
+  such as HTMLCanvasElement, these will not be cloned automatically. You'll need to find the canvas
+  element in the DOM and clone it manually.
 
 ## First impressions
 

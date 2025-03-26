@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SteppedRainbowIconDecoration } from '@atlaskit/editor-common/icons';
-import EditFilledIcon from '@atlaskit/icon/glyph/edit-filled';
+import EditFilledIcon from '@atlaskit/icon/core/migration/edit--edit-filled';
 import { Box } from '@atlaskit/primitives';
 
 type EditorHighlightIconProps = {
@@ -14,7 +14,7 @@ export const EditorHighlightIcon = ({ disabled, selectedColor }: EditorHighlight
 		<SteppedRainbowIconDecoration
 			selectedColor={selectedColor}
 			disabled={disabled}
-			icon={<EditFilledIcon size="small" label="" />}
+			icon={<EditFilledIcon LEGACY_size="small" label="" />}
 		/>
 	</Box>
 );

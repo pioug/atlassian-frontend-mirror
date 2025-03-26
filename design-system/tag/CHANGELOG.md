@@ -1,5 +1,14 @@
 # @atlaskit/tag
 
+## 14.0.7
+
+### Patch Changes
+
+- [#131491](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131491)
+  [`23dc57fec1763`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23dc57fec1763) -
+  Removed css variables mapping object from tag styles. This will fix the missing border color and
+  other styles on colored tags.
+
 ## 14.0.6
 
 ### Patch Changes

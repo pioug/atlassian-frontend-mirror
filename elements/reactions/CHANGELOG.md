@@ -1,5 +1,27 @@
 # @atlaskit/reactions
 
+## 30.0.1
+
+### Patch Changes
+
+- [#131283](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131283)
+  [`8ee415b479d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ee415b479d07) -
+  Migrates reactions dialog to compiled css
+
+## 30.0.0
+
+### Major Changes
+
+- [#131299](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131299)
+  [`0875459adf75f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0875459adf75f) -
+  [ux] removing reactionPickerAdditionalStyle
+
+## 29.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.1.0
 
 ### Minor Changes

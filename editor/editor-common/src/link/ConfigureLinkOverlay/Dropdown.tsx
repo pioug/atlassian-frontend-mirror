@@ -15,9 +15,9 @@ import DropdownMenu, {
 	type OnOpenChangeArgs,
 } from '@atlaskit/dropdown-menu';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import PreferencesIcon from '@atlaskit/icon/core/migration/customize--preferences';
+import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 
 import { cardMessages as messages } from '../../messages';
 
@@ -97,7 +97,7 @@ const Dropdown = ({
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
-					iconBefore={<ChevronDownIcon label={configureLinkLabel} size={'small'} />}
+					iconBefore={<ChevronDownIcon label={configureLinkLabel} LEGACY_size="small" />}
 					onClick={(e) => {
 						onClick?.(e);
 						fireLinkClickEvent();
@@ -109,14 +109,14 @@ const Dropdown = ({
 		>
 			<DropdownItemGroup>
 				<DropdownItem
-					elemBefore={<ShortcutIcon label={goToLinkLabel} size={'medium'} />}
+					elemBefore={<LinkExternalIcon label={goToLinkLabel} LEGACY_size="medium" />}
 					testId={`${testId}-dropdown-item-open-link`}
 					onClick={onGoToLinkClick}
 				>
 					{goToLinkLabel}
 				</DropdownItem>
 				<DropdownItem
-					elemBefore={<PreferencesIcon label={configureLinkLabel} size={'medium'} />}
+					elemBefore={<PreferencesIcon label={configureLinkLabel} LEGACY_size="medium" />}
 					onClick={onConfigureClick}
 					testId={`${testId}-dropdown-item-configure`}
 				>

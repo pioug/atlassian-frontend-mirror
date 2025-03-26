@@ -16,11 +16,11 @@ import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import AlignImageRightIcon from '@atlaskit/icon/core/align-image-right';
 import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
 import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
+import ContentWidthWide from '@atlaskit/icon/core/migration/content-width-wide--editor-media-wide';
+import FullWidthIcon from '@atlaskit/icon/core/migration/expand-horizontal--editor-media-full-width';
 import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
 import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import EditorAlignImageRight from '@atlaskit/icon/glyph/editor/align-image-right';
-import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
-import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import WrapLeftIcon from '@atlaskit/icon/glyph/editor/media-wrap-left';
 import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -121,7 +121,7 @@ export const wrappingIcons: LayoutIcon[] = [
 ];
 
 const breakoutIcons: LayoutIcon[] = [
-	{ value: 'wide', icon: WideIcon },
+	{ value: 'wide', icon: ContentWidthWide },
 	{ value: 'full-width', icon: FullWidthIcon },
 ];
 

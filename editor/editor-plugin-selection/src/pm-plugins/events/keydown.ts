@@ -168,6 +168,16 @@ export function createOnKeydown({ __livePage = false }: { __livePage?: boolean }
 			return false;
 		}
 
+		// Override the default behaviour to make sure that the selection always extends to
+		// the start of the document and not just the first inline position.
+		if (event.shiftKey && event.metaKey && event.key === 'ArrowUp') {
+			const selection = TextSelection.create(view.state.doc, view.state.selection.$anchor.pos, 0);
+			view.dispatch(view.state.tr.setSelection(selection));
+
+			event.preventDefault();
+			return true;
+		}
+
 		if (isSelectionLineShortcutWhenCursorIsInsideInlineNode(view, event)) {
 			return true;
 		}

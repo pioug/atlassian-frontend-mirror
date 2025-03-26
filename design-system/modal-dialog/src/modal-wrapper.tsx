@@ -5,8 +5,7 @@
 
 import { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import FocusLock from 'react-focus-lock';
 import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 
@@ -157,7 +156,13 @@ const ModalWrapper = (props: ModalDialogProps) => {
 			<Portal zIndex={layers.modal()}>
 				<FadeIn>
 					{(fadeInProps) => (
-						<div {...fadeInProps} css={fillScreenStyles} aria-hidden={!isForeground}>
+						<div
+							{...fadeInProps}
+							css={fillScreenStyles}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+							className={fadeInProps.className}
+							aria-hidden={!isForeground}
+						>
 							<FocusLock
 								autoFocus={autoFocusLock}
 								returnFocus={returnFocus}

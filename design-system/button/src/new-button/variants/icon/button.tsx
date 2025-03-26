@@ -1,13 +1,15 @@
 import React from 'react';
 
-import Pressable from '@atlaskit/primitives/pressable';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Tooltip from '@atlaskit/tooltip';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
+import ButtonBase from '../shared/button-base';
+import Content from '../shared/content';
+import IconRenderer from '../shared/icon-renderer';
 import { type CommonButtonVariantProps } from '../types';
 
 import { type CommonIconButtonProps } from './types';
-import useIconButton from './use-icon-button';
-
 export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
 
 /**
@@ -31,7 +33,7 @@ const IconButton = React.memo(
 			icon,
 			interactionName,
 			isDisabled,
-			isLoading,
+			isLoading = false,
 			isSelected,
 			isTooltipDisabled = true,
 			label,
@@ -57,146 +59,127 @@ const IconButton = React.memo(
 		// @ts-expect-error
 		const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
 
-		/**
-		 * TODO: At some stage I'll look into re-using more logic across 'default' and 'icon'
-		 * buttons. It's currently duplicated and mostly the same.
-		 */
-		const baseProps = useIconButton<HTMLButtonElement>({
-			analyticsContext,
-			appearance,
-			ariaLabelledBy,
-			autoFocus,
-			buttonType: 'button',
-			icon,
-			interactionName,
-			isDisabled,
-			isLoading,
-			isSelected,
-			label,
-			onClick,
-			onClickCapture,
-			onKeyDownCapture,
-			onKeyUpCapture,
-			onMouseDownCapture,
-			onMouseUpCapture,
-			onPointerDownCapture,
-			onPointerUpCapture,
-			onTouchEndCapture,
-			onTouchStartCapture,
-			ref,
-			shape,
-			spacing,
-			testId,
-		});
-
-		if (!isTooltipDisabled) {
+		if (isTooltipDisabled) {
 			return (
-				<Tooltip
-					content={tooltip?.content ?? label}
-					testId={tooltip?.testId}
-					position={tooltip?.position}
-					delay={tooltip?.delay}
-					onShow={tooltip?.onShow}
-					onHide={tooltip?.onHide}
-					mousePosition={tooltip?.mousePosition}
-					analyticsContext={tooltip?.analyticsContext}
-					strategy={tooltip?.strategy}
-					tag={tooltip?.tag}
-					truncate={tooltip?.truncate}
-					component={tooltip?.component}
-					hideTooltipOnClick={tooltip?.hideTooltipOnClick}
-					hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
-					ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
+				<ButtonBase
+					{...saferRest}
+					ref={ref}
+					appearance={appearance}
+					autoFocus={autoFocus}
+					isDisabled={isDisabled}
+					isLoading={isLoading}
+					isSelected={isSelected}
+					isIconButton
+					isCircle={shape === 'circle'}
+					hasIconBefore={!!icon}
+					spacing={spacing}
+					ariaLabelledBy={ariaLabelledBy}
+					onClick={onClick}
+					onClickCapture={onClickCapture}
+					onKeyDownCapture={onKeyDownCapture}
+					onKeyUpCapture={onKeyUpCapture}
+					onMouseDownCapture={onMouseDownCapture}
+					onMouseUpCapture={onMouseUpCapture}
+					onPointerDownCapture={onPointerDownCapture}
+					onPointerUpCapture={onPointerUpCapture}
+					onTouchStartCapture={onTouchStartCapture}
+					onTouchEndCapture={onTouchEndCapture}
+					testId={testId}
+					componentName="IconButton"
+					analyticsContext={analyticsContext}
+					type={type}
+					interactionName={interactionName}
 				>
-					{(triggerProps) => (
-						<Pressable
-							{...saferRest}
-							// Top level props
-							aria-labelledby={baseProps['aria-labelledby']}
-							type={type}
-							testId={testId}
-							componentName="IconButton"
-							analyticsContext={analyticsContext}
-							interactionName={interactionName}
-							// Shared between tooltip and native props
-							onMouseOver={(e) => {
-								triggerProps.onMouseOver?.(e);
-								saferRest.onMouseOver?.(e);
-							}}
-							onMouseOut={(e) => {
-								triggerProps.onMouseOut?.(e);
-								saferRest.onMouseOut?.(e);
-							}}
-							onMouseMove={(e) => {
-								triggerProps.onMouseMove?.(e);
-								saferRest.onMouseMove?.(e);
-							}}
-							onMouseDown={(e) => {
-								triggerProps.onMouseDown?.(e);
-								saferRest.onMouseDown?.(e);
-							}}
-							onFocus={(e) => {
-								triggerProps.onFocus?.(e);
-								saferRest.onFocus?.(e);
-							}}
-							onBlur={(e) => {
-								triggerProps.onBlur?.(e);
-								saferRest.onBlur?.(e);
-							}}
-							// Shared between tooltip and base props
-							onClick={(event, analyticsEvent) => {
-								baseProps?.onClick?.(event, analyticsEvent);
-								triggerProps?.onClick?.(event);
-							}}
-							ref={(ref) => {
-								baseProps.ref(ref);
-								triggerProps?.ref?.(ref);
-							}}
-							// Base props only
-							xcss={baseProps.xcss}
-							isDisabled={baseProps.isDisabled}
-							onMouseDownCapture={baseProps.onMouseDownCapture}
-							onMouseUpCapture={baseProps.onMouseUpCapture}
-							onKeyDownCapture={baseProps.onKeyDownCapture}
-							onKeyUpCapture={baseProps.onKeyUpCapture}
-							onTouchStartCapture={baseProps.onTouchStartCapture}
-							onTouchEndCapture={baseProps.onTouchEndCapture}
-							onPointerDownCapture={baseProps.onPointerDownCapture}
-							onPointerUpCapture={baseProps.onPointerUpCapture}
-							onClickCapture={baseProps.onClickCapture}
-						>
-							{baseProps.children}
-						</Pressable>
-					)}
-				</Tooltip>
+					<Content type="icon" isLoading={isLoading}>
+						<IconRenderer icon={icon} />
+						<VisuallyHidden>{label}</VisuallyHidden>
+					</Content>
+				</ButtonBase>
 			);
 		}
 
 		return (
-			<Pressable
-				{...saferRest}
-				aria-labelledby={baseProps['aria-labelledby']}
-				ref={baseProps.ref}
-				xcss={baseProps.xcss}
-				isDisabled={baseProps.isDisabled}
-				onClick={baseProps.onClick}
-				onMouseDownCapture={baseProps.onMouseDownCapture}
-				onMouseUpCapture={baseProps.onMouseUpCapture}
-				onKeyDownCapture={baseProps.onKeyDownCapture}
-				onKeyUpCapture={baseProps.onKeyUpCapture}
-				onTouchStartCapture={baseProps.onTouchStartCapture}
-				onTouchEndCapture={baseProps.onTouchEndCapture}
-				onPointerDownCapture={baseProps.onPointerDownCapture}
-				onPointerUpCapture={baseProps.onPointerUpCapture}
-				onClickCapture={baseProps.onClickCapture}
-				type={type}
-				testId={testId}
-				componentName="IconButton"
-				analyticsContext={analyticsContext}
-				interactionName={interactionName}
+			<Tooltip
+				content={tooltip?.content ?? label}
+				testId={tooltip?.testId}
+				position={tooltip?.position}
+				delay={tooltip?.delay}
+				onShow={tooltip?.onShow}
+				onHide={tooltip?.onHide}
+				mousePosition={tooltip?.mousePosition}
+				analyticsContext={tooltip?.analyticsContext}
+				strategy={tooltip?.strategy}
+				tag={tooltip?.tag}
+				truncate={tooltip?.truncate}
+				component={tooltip?.component}
+				hideTooltipOnClick={tooltip?.hideTooltipOnClick}
+				hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
+				ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
 			>
-				{baseProps.children}
-			</Pressable>
+				{(triggerProps) => (
+					<ButtonBase
+						{...saferRest}
+						appearance={appearance}
+						autoFocus={autoFocus}
+						isDisabled={isDisabled}
+						isLoading={isLoading}
+						isSelected={isSelected}
+						isIconButton
+						isCircle={shape === 'circle'}
+						hasIconBefore={false}
+						spacing={spacing}
+						ariaLabelledBy={ariaLabelledBy}
+						onClick={(e, analyticsEvent) => {
+							onClick?.(e, analyticsEvent);
+							triggerProps.onClick?.(e);
+						}}
+						onMouseOver={(e) => {
+							triggerProps.onMouseOver?.(e);
+							saferRest.onMouseOver?.(e);
+						}}
+						onMouseOut={(e) => {
+							triggerProps.onMouseOut?.(e);
+							saferRest.onMouseOut?.(e);
+						}}
+						onMouseMove={(e) => {
+							triggerProps.onMouseMove?.(e);
+							saferRest.onMouseMove?.(e);
+						}}
+						onMouseDown={(e) => {
+							triggerProps.onMouseDown?.(e);
+							saferRest.onMouseDown?.(e);
+						}}
+						onFocus={(e) => {
+							triggerProps.onFocus?.(e);
+							saferRest.onFocus?.(e);
+						}}
+						onBlur={(e) => {
+							triggerProps.onBlur?.(e);
+							saferRest.onBlur?.(e);
+						}}
+						ref={mergeRefs([ref, triggerProps?.ref].filter(Boolean))}
+						onMouseDownCapture={onMouseDownCapture}
+						onMouseUpCapture={onMouseUpCapture}
+						onKeyDownCapture={onKeyDownCapture}
+						onKeyUpCapture={onKeyUpCapture}
+						onTouchStartCapture={onTouchStartCapture}
+						onTouchEndCapture={onTouchEndCapture}
+						onPointerDownCapture={onPointerDownCapture}
+						onPointerUpCapture={onPointerUpCapture}
+						onClickCapture={onClickCapture}
+						type={type}
+						testId={testId}
+						analyticsContext={analyticsContext}
+						interactionName={interactionName}
+						componentName="IconButton"
+					>
+						<Content type="icon" isLoading={isLoading}>
+							<IconRenderer icon={icon} />
+							<VisuallyHidden>{label}</VisuallyHidden>
+						</Content>
+					</ButtonBase>
+				)}
+			</Tooltip>
 		);
 	}),
 );

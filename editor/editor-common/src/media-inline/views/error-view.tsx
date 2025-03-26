@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -36,8 +36,8 @@ export const InlineImageCardErrorView = ({
 					{icon || (
 						<WarningIcon
 							label="error"
-							size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'}
-							primaryColor={token('color.icon.danger')}
+							LEGACY_size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'}
+							color={token('color.icon.danger')}
 						/>
 					)}
 				</IconWrapper>

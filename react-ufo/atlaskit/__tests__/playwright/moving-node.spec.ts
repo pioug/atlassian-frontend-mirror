@@ -4,6 +4,10 @@
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: Revisions - moving-node', () => {
+	test.fixme(
+		true,
+		'The chromium fork version in our current Playwrigth does not support LayoutShift api',
+	);
 	test.use({
 		examplePage: 'moving-node',
 		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
@@ -20,10 +24,6 @@ test.describe('ReactUFO: Revisions - moving-node', () => {
 				waitForReactUFOPayload,
 				getSectionVisibleAt,
 			}) => {
-				test.fixme(
-					true,
-					'The chromium fork version in our current Playwrigth does not support LayoutShift api',
-				);
 				const mainDiv = page.locator('[data-testid="main"]');
 				const contentToMutateDiv = page.locator('[data-testid="content-to-mutate"]');
 
@@ -39,7 +39,8 @@ test.describe('ReactUFO: Revisions - moving-node', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				for (const rev of ufoRevisions!) {
+				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				for (const rev of applicableRevisions!) {
 					const revisionName = rev['revision'];
 
 					await test.step(`checking revision ${revisionName}`, () => {

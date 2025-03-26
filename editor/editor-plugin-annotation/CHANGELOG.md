@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.1.9
+
+### Patch Changes
+
+- [#131690](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131690)
+  [`4ef6e6cdd0cec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef6e6cdd0cec) -
+  Fix deleting inline comment view component if it is moved
+
 ## 2.1.8
 
 ### Patch Changes

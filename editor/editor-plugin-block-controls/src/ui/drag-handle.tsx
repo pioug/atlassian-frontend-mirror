@@ -690,50 +690,45 @@ export const DragHandle = ({
 		view.state.selection,
 	]);
 
-	let helpDescriptors =
-		isTopLevelNode && fg('platform_editor_advanced_layouts_accessibility')
-			? [
-					{
-						description: formatMessage(blockControlsMessages.dragToMove),
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveUp),
-						keymap: dragToMoveUp,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveDown),
-						keymap: dragToMoveDown,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveLeft),
-						keymap: dragToMoveLeft,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveRight),
-						keymap: dragToMoveRight,
-					},
-				]
-			: [
-					{
-						description: formatMessage(blockControlsMessages.dragToMove),
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveUp),
-						keymap: dragToMoveUp,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveDown),
-						keymap: dragToMoveDown,
-					},
-				];
+	let helpDescriptors = isTopLevelNode
+		? [
+				{
+					description: formatMessage(blockControlsMessages.dragToMove),
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveUp),
+					keymap: dragToMoveUp,
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveDown),
+					keymap: dragToMoveDown,
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveLeft),
+					keymap: dragToMoveLeft,
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveRight),
+					keymap: dragToMoveRight,
+				},
+			]
+		: [
+				{
+					description: formatMessage(blockControlsMessages.dragToMove),
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveUp),
+					keymap: dragToMoveUp,
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveDown),
+					keymap: dragToMoveDown,
+				},
+			];
 
 	let isParentNodeOfTypeLayout;
 
-	if (
-		!isTopLevelNode &&
-		(fg('platform_editor_advanced_layouts_accessibility') || handleOptions?.isFocused) &&
-		editorExperiment('nested-dnd', true)
-	) {
+	if (!isTopLevelNode && editorExperiment('nested-dnd', true)) {
 		const pos = getPos();
 		if (typeof pos === 'number') {
 			const $pos = view.state.doc.resolve(pos);
@@ -757,33 +752,27 @@ export const DragHandle = ({
 
 	// When advanced layout is on, layout column drag handle show only show 'Drag to move', no shortcuts
 	if (editorExperiment('advanced_layouts', true) && nodeType === 'layoutColumn') {
-		helpDescriptors = fg('platform_editor_advanced_layouts_accessibility')
-			? [
-					{
-						description: formatMessage(blockControlsMessages.dragToRearrange),
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveUp),
-						keymap: dragToMoveUp,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveDown),
-						keymap: dragToMoveDown,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveLeft),
-						keymap: dragToMoveLeft,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveRight),
-						keymap: dragToMoveRight,
-					},
-				]
-			: [
-					{
-						description: formatMessage(blockControlsMessages.dragToMove),
-					},
-				];
+		helpDescriptors = [
+			{
+				description: formatMessage(blockControlsMessages.dragToRearrange),
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveUp),
+				keymap: dragToMoveUp,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveDown),
+				keymap: dragToMoveDown,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveLeft),
+				keymap: dragToMoveLeft,
+			},
+			{
+				description: formatMessage(blockControlsMessages.moveRight),
+				keymap: dragToMoveRight,
+			},
+		];
 	}
 
 	if (editorExperiment('platform_editor_controls', 'variant1')) {

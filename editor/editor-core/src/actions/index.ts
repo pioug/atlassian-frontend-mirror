@@ -40,6 +40,14 @@ const fakePluginKey = {
 	},
 } as PluginKey;
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-26729 Internal documentation for deprecation (no external access)} Editor actions is no longer supported and will be removed in a future version. Please use the core actions, or Plugin APIs directly instead
+ * @example If you were using editorActions.getValue() replace with:
+	const { editorApi, preset } = usePreset(...);
+	editorApi?.core.actions.requestDocument((doc) => {
+  		// use doc as desired
+	})
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	private editorView?: EditorView;

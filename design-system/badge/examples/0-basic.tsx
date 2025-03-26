@@ -40,7 +40,7 @@ export default function Example() {
 				<div css={styles.root}>
 					<p>Added</p>
 					<Badge appearance="added" max={99}>
-						{3000}
+						3000
 					</Badge>
 				</div>
 				<div css={styles.root}>
@@ -78,7 +78,7 @@ export default function Example() {
 				<div css={styles.root}>
 					<p>Added</p>
 					<Badge appearance="added" max={4000}>
-						{3000}
+						3000
 					</Badge>
 				</div>
 			</div>

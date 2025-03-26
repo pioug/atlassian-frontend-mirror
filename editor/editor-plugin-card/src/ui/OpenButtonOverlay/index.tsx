@@ -9,8 +9,8 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { LinkButton } from '@atlaskit/button/new';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import type { OpenButtonOverlayProps } from './types';
@@ -19,24 +19,40 @@ const containerStyles = css({
 	position: 'relative',
 });
 
-const overlayStyles = css({
-	position: 'absolute',
-	left: '2px',
-	top: 0,
-	backgroundColor: token('color.background.accent.gray.subtlest', '#F1F2F4'),
-	borderRadius: token('border.radius', '3px'),
+const iconWrapperStyles = xcss({
 	display: 'inline-flex',
-	justifyContent: 'flex-start',
+	justifyContent: 'center',
 	alignItems: 'center',
-	verticalAlign: 'text-top',
-	height: '19px',
-	overflow: 'hidden',
-	// EDM-1717: box-shadow Safari fix bring load wrapper zIndex to 1
-	zIndex: 2,
+	height: '17px',
+	width: '17px',
+});
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	a: {
-		padding: `${token('border.width', '1px')} ${token('space.050', '4px')} 0 ${token('space.025', '2px')}`,
+const linkStyles = xcss({
+	position: 'absolute',
+	left: 'space.025',
+	top: '-1px',
+
+	display: 'inline-flex',
+	alignItems: 'center',
+	verticalAlign: 'middle',
+
+	paddingBlock: 'space.025',
+	paddingInline: 'space.050',
+	gap: 'space.025',
+	overflow: 'hidden',
+
+	zIndex: 'card',
+
+	backgroundColor: 'color.background.accent.gray.subtlest',
+	borderRadius: token('border.radius', '3px'),
+	color: 'color.text.subtle',
+
+	textDecoration: 'none',
+
+	':hover': {
+		backgroundColor: 'elevation.surface.hovered',
+		color: 'color.text.subtle',
+		textDecoration: 'none',
 	},
 });
 
@@ -52,7 +68,7 @@ const OpenButtonOverlay = ({
 	const label = 'Open';
 
 	const containerRef = useRef<HTMLSpanElement>(null);
-	const openButtonRef = useRef<HTMLDivElement>(null);
+	const openButtonRef = useRef<HTMLAnchorElement>(null);
 	const [showLabel, setShowLabel] = useState(true);
 
 	const handleDoubleClick = () => {
@@ -80,17 +96,16 @@ const OpenButtonOverlay = ({
 		<span ref={containerRef} {...props} css={containerStyles} onDoubleClick={handleDoubleClick}>
 			{children}
 			{isVisible && (
-				<div ref={openButtonRef} css={[overlayStyles]}>
-					<LinkButton
-						spacing="compact"
-						href={url}
-						target="_blank"
-						iconBefore={LinkExternalIcon}
-						appearance="default"
-					>
-						{showLabel ? label : ''}
-					</LinkButton>
-				</div>
+				<Anchor ref={openButtonRef} xcss={linkStyles} href={url} target="_blank">
+					<Box xcss={iconWrapperStyles}>
+						<LinkExternalIcon label="" />
+					</Box>
+					{showLabel && (
+						<Text size="small" color="color.text.subtle" maxLines={1}>
+							{label}
+						</Text>
+					)}
+				</Anchor>
 			)}
 		</span>
 	);

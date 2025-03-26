@@ -5,17 +5,15 @@
 
 import { type CSSProperties, useEffect, useMemo } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import FocusRing from '@atlaskit/focus-ring';
 import { useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { media } from '@atlaskit/primitives';
-import { N0, N30A, N60A, N900 } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
@@ -28,47 +26,70 @@ import { dialogHeight, dialogWidth } from '../utils';
 
 import Positioner from './positioner';
 
-const dialogStyles = css({
-	display: 'flex',
+const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
+	'--ds-elevation-surface-current';
 
-	width: '100%',
-	maxWidth: '100vw',
+const dialogStyles = cssMap({
+	root: {
+		display: 'flex',
 
-	height: '100%',
-	minHeight: 0,
-	maxHeight: '100vh',
+		width: '100%',
+		maxWidth: '100vw',
 
-	// Flex-grow set to 0 to prevent this element from filling its parent flexbox container
-	flex: '0 1 auto',
-	flexDirection: 'column',
+		height: '100%',
+		minHeight: '0px',
+		maxHeight: '100vh',
 
-	backgroundColor: token('elevation.surface.overlay', N0),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: token('color.text', N900),
-	[CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
-	pointerEvents: 'auto',
+		// Flex-grow set to 0 to prevent this element from filling its parent flexbox container
+		flex: '0 1 auto',
+		flexDirection: 'column',
 
-	[media.above.xs]: {
-		width: 'var(--modal-dialog-width)',
-		maxWidth: 'inherit',
-		borderRadius: token('border.radius', '3px'),
-		boxShadow: token(
-			'elevation.shadow.overlay',
-			`0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
-		),
-		marginInlineEnd: 'inherit',
-		marginInlineStart: 'inherit',
-	},
+		backgroundColor: token('elevation.surface.overlay'),
+		color: token('color.text'),
+		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
+		pointerEvents: 'auto',
 
-	/**
-	 * This is to support scrolling if the modal's children are wrapped in
-	 * a form.
-	 */
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'& > form:only-child': {
-		display: 'inherit',
-		maxHeight: 'inherit',
-		flexDirection: 'inherit',
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		'@media (min-width: 30rem)': {
+			// @ts-expect-error
+			width: 'var(--modal-dialog-width)',
+			// @ts-expect-error
+			maxWidth: 'inherit',
+			borderRadius: token('border.radius', '3px'),
+			boxShadow: token('elevation.shadow.overlay'),
+			// @ts-expect-error
+			marginInlineEnd: 'inherit',
+			// @ts-expect-error
+			marginInlineStart: 'inherit',
+		},
+
+		// focus ring styles
+		'&:focus-visible': {
+			outlineColor: token('color.border.focused'),
+			// @ts-expect-error
+			outlineOffset: token('border.width.outline'),
+			outlineStyle: 'solid',
+			outlineWidth: token('border.width.outline'),
+		},
+
+		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
+			'&:focus-visible': {
+				outlineStyle: 'solid',
+				// @ts-expect-error
+				outlineWidth: 1,
+			},
+		},
+
+		/**
+		 * This is to support scrolling if the modal's children are wrapped in
+		 * a form.
+		 */
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'& > form:only-child': {
+			display: 'inherit',
+			maxHeight: 'inherit',
+			flexDirection: 'inherit',
+		},
 	},
 });
 
@@ -81,13 +102,15 @@ const viewportScrollStyles = css({
 	minHeight: '100vh',
 	maxHeight: 'none',
 
-	[media.above.xs]: {
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
 		minHeight: 'var(--modal-dialog-height)',
 	},
 });
 
 const bodyScrollStyles = css({
-	[media.above.xs]: {
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
 		height: 'var(--modal-dialog-height)',
 		maxHeight: 'inherit',
 	},
@@ -171,37 +194,36 @@ const ModalDialog = (
 				<ScrollContext.Provider value={shouldScrollInViewport}>
 					<FadeIn entranceDirection="bottom" onFinish={onMotionFinish}>
 						{(bottomFadeInProps) => (
-							<FocusRing>
-								{/* TODO: Use `dialog` element instead of overriding section semantics (DSP-11588) */}
-								<section
-									{...bottomFadeInProps}
-									aria-label={label}
-									ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									style={
-										{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-											'--modal-dialog-width': dialogWidth(width),
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-											'--modal-dialog-height': dialogHeight(height),
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										} as CSSProperties
-									}
-									css={[
-										dialogStyles,
-										shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
-									]}
-									role="dialog"
-									aria-labelledby={label ? undefined : titleId}
-									data-testid={testId}
-									data-modal-stack={stackIndex}
-									tabIndex={-1}
-									aria-modal={true}
-									data-ds--level={currentLevel}
-								>
-									{children}
-								</section>
-							</FocusRing>
+							// TODO: Use `dialog` element instead of overriding section semantics (DSP-11588)
+							<section
+								{...bottomFadeInProps}
+								aria-label={label}
+								ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								style={
+									{
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+										'--modal-dialog-width': dialogWidth(width),
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+										'--modal-dialog-height': dialogHeight(height),
+									} as CSSProperties
+								}
+								css={[
+									dialogStyles.root,
+									shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
+								]}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+								className={bottomFadeInProps.className}
+								role="dialog"
+								aria-labelledby={label ? undefined : titleId}
+								data-testid={testId}
+								data-modal-stack={stackIndex}
+								tabIndex={-1}
+								aria-modal={true}
+								data-ds--level={currentLevel}
+							>
+								{children}
+							</section>
 						)}
 					</FadeIn>
 				</ScrollContext.Provider>

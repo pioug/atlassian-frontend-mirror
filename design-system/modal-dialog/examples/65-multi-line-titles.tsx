@@ -13,7 +13,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 
 const longNonBreakableTitle = `ThisIs${'long'.repeat(20)}NonBreakableTitle`;

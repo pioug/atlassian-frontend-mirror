@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 2.3.1
+
+### Patch Changes
+
+- [#131384](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131384)
+  [`e3a1b4a5535aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3a1b4a5535aa) -
+  [ux] ED-26882 remove mock extension toolbar items
+
 ## 2.3.0
 
 ### Minor Changes

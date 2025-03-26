@@ -15,6 +15,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -41,6 +42,7 @@ export const InlineCard = memo(
 		isHovered,
 		showHoverPreview,
 		hoverPreviewOptions,
+		isPageSSRed,
 	}: SmartCardProps) => {
 		const { url, data } = node.attrs;
 		const refId = useRef(uuid());
@@ -108,8 +110,27 @@ export const InlineCard = memo(
 			[onResolve],
 		);
 
-		const card = useMemo(
-			() => (
+		const card = useMemo(() => {
+			if (isPageSSRed && url && fg('platform_ssr_smartlinks_editor')) {
+				return (
+					<CardSSR
+						key={url}
+						url={url}
+						appearance="inline"
+						onClick={onClick}
+						container={scrollContainer}
+						onResolve={onResolve}
+						onError={onError}
+						inlinePreloaderStyle={useAlternativePreloader ? 'on-right-without-skeleton' : undefined}
+						actionOptions={actionOptions}
+						isHovered={isHovered}
+						showHoverPreview={showHoverPreview}
+						hoverPreviewOptions={hoverPreviewOptions}
+					/>
+				);
+			}
+
+			return (
 				<SmartCard
 					key={url}
 					url={url ?? data.url}
@@ -124,21 +145,21 @@ export const InlineCard = memo(
 					showHoverPreview={showHoverPreview}
 					hoverPreviewOptions={hoverPreviewOptions}
 				/>
-			),
-			[
-				url,
-				data,
-				onClick,
-				scrollContainer,
-				onResolve,
-				onError,
-				useAlternativePreloader,
-				actionOptions,
-				isHovered,
-				showHoverPreview,
-				hoverPreviewOptions,
-			],
-		);
+			);
+		}, [
+			url,
+			data,
+			onClick,
+			scrollContainer,
+			onResolve,
+			onError,
+			useAlternativePreloader,
+			actionOptions,
+			isHovered,
+			showHoverPreview,
+			hoverPreviewOptions,
+			isPageSSRed,
+		]);
 
 		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,
 		// otherwise if we got data, we can render the card directly since it doesn't need the Provider
@@ -163,6 +184,7 @@ export type InlineCardNodeViewProps = Pick<
 	| 'pluginInjectionApi'
 	| 'onClickCallback'
 	| '__livePage'
+	| 'isPageSSRed'
 >;
 
 export function InlineCardNodeView(
@@ -180,6 +202,7 @@ export function InlineCardNodeView(
 		pluginInjectionApi,
 		onClickCallback,
 		__livePage,
+		isPageSSRed,
 	} = props;
 
 	const [isOverlayHovered, setIsOverlayHovered] = useState(false);
@@ -207,6 +230,7 @@ export function InlineCardNodeView(
 				onClickCallback={onClickCallback}
 				showHoverPreview={showHoverPreview}
 				hoverPreviewOptions={{ fadeInDelay: livePagesHoverCardFadeInDelay }}
+				isPageSSRed={isPageSSRed}
 			/>
 		);
 
@@ -240,6 +264,8 @@ export function InlineCardNodeView(
 			useAlternativePreloader={useAlternativePreloader}
 			pluginInjectionApi={pluginInjectionApi}
 			onClickCallback={onClickCallback}
+			isPageSSRed={isPageSSRed}
+			appearance="inline"
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(enableInlineUpgradeFeatures &&
@@ -258,6 +284,7 @@ export function InlineCardNodeView(
 
 export interface InlineCardNodeViewProperties {
 	inlineCardViewProducer: ReturnType<typeof getInlineNodeViewProducer>;
+	isPageSSRed?: boolean;
 }
 
 export const inlineCardNodeView =

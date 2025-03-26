@@ -44,7 +44,7 @@ export const cardState: any = {
 			},
 			preview: {
 				'@type': 'Link',
-				href: 'https://smart-links-cc-embed.prod.atl-paas.net/?hostname=pug.jira-dev.com&contentId=452399595559&parentProduct=smartlink&userId=5c36c7dd13a8bb0b103988fe&userInfo=atlassianAccount&spaceKey=%7E986526081',
+				href: 'https://lp-cc-embed.prod-east.frontend.public.atl-paas.net/?hostname=pug.jira-dev.com&contentId=452399595559&parentProduct=smartlink&userId=5c36c7dd13a8bb0b103988fe&userInfo=atlassianAccount&spaceKey=%7E986526081',
 				'atlassian:supportedPlatforms': ['web'],
 			},
 		},

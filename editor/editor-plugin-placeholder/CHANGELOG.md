@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 2.0.9
+
+### Patch Changes
+
+- [#131399](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131399)
+  [`3e2bb97c408f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e2bb97c408f7) -
+  Add className to nested nodes for placeholder text to selectively apply truncation on long text
+
 ## 2.0.8
 
 ### Patch Changes

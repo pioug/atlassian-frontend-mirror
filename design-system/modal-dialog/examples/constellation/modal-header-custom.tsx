@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import Modal, {
 	CloseButton,
@@ -9,18 +10,20 @@ import Modal, {
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const headerStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'space-between',
+const styles = cssMap({
+	header: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
 });
 
 const CustomHeader = () => {
 	const { onClose, titleId } = useModal();
 	return (
-		<Box xcss={headerStyles} padding="space.300">
+		<Box xcss={styles.header} padding="space.300">
 			<Heading as="h1" size="medium" id={titleId}>
 				Custom modal header
 			</Heading>

@@ -1,5 +1,20 @@
 # @atlaskit/prosemirror-collab
 
+## 0.16.0
+
+### Minor Changes
+
+- [#131596](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131596)
+  [`7482e321a16a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7482e321a16a7) -
+  ED-25490 added platform_editor_collab_text_selection_override. When the feature flag (FG) is
+  enabled, we create a new TextSelection in packages/editor/prosemirror-collab/src/index.ts during
+  the mapping of text selections. This change ensures that selections don’t collapse unexpectedly in
+  collaborative editing scenarios. The current implementation attempts to resolve selections to a
+  valid inline content position, but we intentionally allow selections to start at the first
+  position in the document (position 0), which corresponds to the doc node and isn’t inline content.
+  This adjustment accommodates collaborative users by preserving their selections even at the
+  document’s start.
+
 ## 0.15.0
 
 ### Minor Changes

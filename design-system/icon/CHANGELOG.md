@@ -1,5 +1,23 @@
 # @atlaskit/icon
 
+## 25.1.0
+
+### Minor Changes
+
+- [#131966](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131966)
+  [`bb527c6817e2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb527c6817e2b) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `accessibility`
+  - `drawer-left`
+  - `drawer-right`
+  - `work-item`
+  - `work-items`
+
 ## 25.0.2
 
 ### Patch Changes

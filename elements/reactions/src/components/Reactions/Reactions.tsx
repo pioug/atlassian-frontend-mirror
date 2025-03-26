@@ -18,8 +18,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 import { token } from '@atlaskit/tokens';
 
-import { type XCSS } from '@atlaskit/primitives';
-
 import {
 	createAndFireSafe,
 	createPickerButtonClickedEvent,
@@ -219,10 +217,6 @@ export interface ReactionsProps
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
 	 */
 	isViewOnly?: boolean;
-	/**
-	 * Option prop for controlling the reaction picker selection style
-	 */
-	reactionPickerAdditionalStyle?: XCSS;
 	/*
 	 * Optional prop for disabling the wrap behavior on the reactions container
 	 */
@@ -305,7 +299,6 @@ export const Reactions = React.memo(
 		reactionPickerPlacement,
 		reactionsPickerPreventOverflowOptions,
 		isViewOnly = false,
-		reactionPickerAdditionalStyle,
 		noWrap = false,
 		noRelativeContainer = false,
 		showSubtleDefaultReactions,
@@ -574,7 +567,6 @@ export const Reactions = React.memo(
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
-							reactionPickerAdditionalStyle={reactionPickerAdditionalStyle}
 							reactionPickerPlacement={reactionPickerPlacement}
 							reactionsPickerPreventOverflowOptions={reactionsPickerPreventOverflowOptions}
 						/>

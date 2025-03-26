@@ -6,6 +6,7 @@ import { Global } from '@emotion/react';
 import { bindAll } from 'bind-event-listener';
 import invariant from 'tiny-invariant';
 
+import { cssMap, cx } from '@atlaskit/css';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
 	draggable,
@@ -13,7 +14,7 @@ import {
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import { dropTargetForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/text-selection/adapter';
-import { Box, Flex, Inline, Text, xcss } from '@atlaskit/primitives';
+import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
@@ -23,16 +24,20 @@ import { disableDraggingToCrossOriginIFramesForExternal } from '../src/internal/
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../src/internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 
-const inIframeStyles = xcss({
-	backgroundColor: 'color.background.accent.red.subtler',
-	borderWidth: token('border.width.outline'),
-	borderRadius: token('border.radius'),
-	borderColor: 'color.border.accent.red',
-	display: 'flex',
-	flexDirection: 'column',
-	padding: 'space.100',
-	gap: 'space.100',
-	height: '100%',
+const inIframeStyles = cssMap({
+	root: {
+		borderWidth: token('border.width.outline'),
+		borderRadius: token('border.radius'),
+		borderColor: token('color.border.accent.red'),
+		display: 'flex',
+		flexDirection: 'column',
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		gap: token('space.100'),
+		height: '100%',
+	},
 });
 
 function InIframe() {
@@ -48,7 +53,7 @@ function InIframe() {
 	}, []);
 
 	return (
-		<Box xcss={inIframeStyles}>
+		<Box xcss={inIframeStyles.root} backgroundColor="color.background.accent.red.subtler">
 			<span>
 				<code>iframe</code> on same <code>origin</code>
 			</span>
@@ -59,20 +64,28 @@ function InIframe() {
 }
 
 type DropTargetState = 'idle' | 'over-with-element' | 'over-with-external' | 'over-with-text';
+type DropTargetTokens =
+	| 'color.background.accent.purple.subtle'
+	| 'color.background.accent.purple.bolder.hovered';
 
-const dropTargetStateStyles: { [Key in DropTargetState]: ReturnType<typeof xcss> } = {
-	idle: xcss({ backgroundColor: 'color.background.accent.purple.subtle' }),
-	'over-with-element': xcss({ backgroundColor: 'color.background.accent.purple.bolder.hovered' }),
-	'over-with-external': xcss({ backgroundColor: 'color.background.accent.purple.bolder.hovered' }),
-	'over-with-text': xcss({ backgroundColor: 'color.background.accent.purple.bolder.hovered' }),
+const dropTargetBackgroundColorMap: { [Key in DropTargetState]: DropTargetTokens } = {
+	idle: 'color.background.accent.purple.subtle',
+	'over-with-element': 'color.background.accent.purple.bolder.hovered',
+	'over-with-external': 'color.background.accent.purple.bolder.hovered',
+	'over-with-text': 'color.background.accent.purple.bolder.hovered',
 };
 
-const dropTargetStyles = xcss({
-	padding: 'space.100',
-	display: 'flex',
-	flexDirection: 'column',
-	flexGrow: '1',
-	borderRadius: token('border.radius'),
+const dropTargetStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		display: 'flex',
+		flexDirection: 'column',
+		flexGrow: '1',
+		borderRadius: token('border.radius'),
+	},
 });
 
 function DropTarget() {
@@ -124,7 +137,11 @@ function DropTarget() {
 	}, []);
 
 	return (
-		<Box ref={ref} xcss={[dropTargetStyles, dropTargetStateStyles[state]]}>
+		<Box
+			ref={ref}
+			xcss={dropTargetStyles.root}
+			backgroundColor={dropTargetBackgroundColorMap[state]}
+		>
 			<div>Drop target</div>
 			<div>
 				(state: <code>{state}</code>)
@@ -134,22 +151,42 @@ function DropTarget() {
 }
 
 type DraggableState = 'idle' | 'preview' | 'dragging';
-
-const draggableStateStyles: { [Key in DraggableState]: ReturnType<typeof xcss> } = {
-	idle: xcss({ backgroundColor: 'color.background.accent.green.subtle', cursor: 'grab' }),
-	preview: xcss({ backgroundColor: 'color.background.accent.green.subtler' }),
-	dragging: xcss({ backgroundColor: 'color.background.accent.gray.subtle' }),
+type DraggableBackgroundToken =
+	| 'color.background.accent.green.subtle'
+	| 'color.background.accent.green.subtler'
+	| 'color.background.accent.gray.subtle';
+const backgroundColorMap: { [Key in DraggableState]: DraggableBackgroundToken } = {
+	idle: 'color.background.accent.green.subtle',
+	preview: 'color.background.accent.green.subtler',
+	dragging: 'color.background.accent.gray.subtle',
 };
 
-const draggableStyles = xcss({
-	padding: 'space.100',
-	borderRadius: token('border.radius'),
+const draggableStateStyles = cssMap({
+	idle: {
+		cursor: 'grab',
+	},
+	preview: {},
+	dragging: {},
 });
 
-const unmanagedDraggableStyles = xcss({
-	padding: 'space.100',
-	borderRadius: token('border.radius'),
-	backgroundColor: 'color.background.accent.orange.subtle',
+const draggableStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		borderRadius: token('border.radius'),
+	},
+});
+
+const unmanagedDraggableStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		borderRadius: token('border.radius'),
+	},
 });
 
 function Draggable() {
@@ -178,66 +215,74 @@ function Draggable() {
 		});
 	}, []);
 	return (
-		<Box ref={ref} xcss={[draggableStyles, draggableStateStyles[state]]}>
+		<Box
+			ref={ref}
+			xcss={cx(draggableStyles.root, draggableStateStyles[state])}
+			backgroundColor={backgroundColorMap[state]}
+		>
 			Draggable element
 		</Box>
 	);
 }
 
-const labelStyles = xcss({
-	display: 'flex',
-	flexDirection: 'row',
-	gap: 'space.100',
-});
-
-const dropTargetContainerStyles = xcss({
-	height: '200px',
-	display: 'flex',
-	flexDirection: 'column',
-});
-
-const panelStyles = xcss({
-	backgroundColor: 'color.background.accent.blue.subtler',
-	borderRadius: token('border.radius'),
-	borderWidth: token('border.width.outline'),
-	borderColor: 'color.border.accent.blue',
-	display: 'flex',
-	flexDirection: 'column',
-	gap: 'space.100',
-	padding: 'space.100',
-	width: '300px',
-});
-
-const panelOnTopStyles = xcss({
-	position: 'absolute',
-	boxShadow: 'elevation.shadow.raised',
-	insetInlineStart: '200px',
-	insetBlockStart: '100px',
-});
-
-const parentWindowContainer = xcss({
-	display: 'flex',
-	flexDirection: 'column',
-	gap: 'space.100',
-	padding: 'space.100',
-	borderWidth: token('border.width.outline'),
-	borderStyle: 'dashed',
-	borderColor: 'color.border.accent.blue',
-});
-
-const relativeParentStyles = xcss({
-	position: 'relative',
-});
-
-const iframeContainerStyles = xcss({
-	display: 'flex',
-	flexDirection: 'column',
-	padding: 'space.100',
-	gap: 'space.100',
-	borderWidth: token('border.width.outline'),
-	borderStyle: 'dashed',
-	borderRadius: token('border.radius'),
-	borderColor: 'color.border.accent.red',
+const parentStyles = cssMap({
+	label: {
+		display: 'flex',
+		flexDirection: 'row',
+		gap: token('space.100'),
+	},
+	dropTargetContainer: {
+		height: '200px',
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	panel: {
+		borderRadius: token('border.radius'),
+		borderWidth: token('border.width.outline'),
+		borderColor: token('color.border.accent.blue'),
+		display: 'flex',
+		flexDirection: 'column',
+		gap: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		width: '300px',
+	},
+	panelOnTop: {
+		position: 'absolute',
+		boxShadow: token('elevation.shadow.raised'),
+		insetInlineStart: token('space.100'),
+		insetBlockStart: token('space.250'),
+	},
+	parentWindowContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		borderWidth: token('border.width.outline'),
+		borderStyle: 'dashed',
+		borderColor: token('color.border.accent.blue'),
+	},
+	relativeParent: {
+		position: 'relative',
+	},
+	iframeContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+		gap: token('space.100'),
+		borderWidth: token('border.width.outline'),
+		borderStyle: 'dashed',
+		borderRadius: token('border.radius'),
+		borderColor: token('color.border.accent.red'),
+	},
 });
 
 function Parent() {
@@ -258,10 +303,10 @@ function Parent() {
 	}, [applyFix]);
 
 	return (
-		<Box xcss={parentWindowContainer}>
+		<Box xcss={parentStyles.parentWindowContainer}>
 			<Text color="color.text.accent.blue">Parent window</Text>
-			<Inline space="space.300" xcss={relativeParentStyles}>
-				<Box xcss={iframeContainerStyles}>
+			<Inline space="space.300" xcss={parentStyles.relativeParent}>
+				<Box xcss={parentStyles.iframeContainer}>
 					<Text color="color.text.accent.red">iframe</Text>
 					<Box
 						as="iframe"
@@ -272,16 +317,23 @@ function Parent() {
 						height={600}
 					/>
 				</Box>
-				<Box xcss={[panelStyles, isOnTop ? panelOnTopStyles : undefined]}>
+				<Box
+					xcss={cx(parentStyles.panel, isOnTop ? parentStyles.panelOnTop : undefined)}
+					backgroundColor="color.background.accent.blue.subtler"
+				>
 					<span>In parent window</span>
 					<Draggable />
-					<Box draggable="true" xcss={unmanagedDraggableStyles}>
+					<Box
+						draggable="true"
+						xcss={unmanagedDraggableStyles.root}
+						backgroundColor="color.background.accent.orange.subtle"
+					>
 						Unmanaged draggable element
 					</Box>
-					<Flex direction="column" xcss={dropTargetContainerStyles}>
+					<Flex direction="column" xcss={parentStyles.dropTargetContainer}>
 						<DropTarget />
 					</Flex>
-					<Box as="label" xcss={labelStyles}>
+					<Box as="label" xcss={parentStyles.label}>
 						<input
 							type="checkbox"
 							checked={isIframeOnSameOrigin}
@@ -289,11 +341,11 @@ function Parent() {
 						/>
 						<code>iframe</code> on same origin?
 					</Box>
-					<Box as="label" xcss={labelStyles}>
+					<Box as="label" xcss={parentStyles.label}>
 						<input type="checkbox" checked={isOnTop} onChange={() => setIsOnTop(!isOnTop)} />
 						Place this panel on top?
 					</Box>
-					<Box as="label" xcss={labelStyles}>
+					<Box as="label" xcss={parentStyles.label}>
 						<input type="checkbox" checked={applyFix} onChange={() => setApplyFix(!applyFix)} />
 						Apply fix?
 					</Box>

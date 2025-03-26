@@ -89,5 +89,10 @@
 				"compiled"
 			]
 		}
+	},
+	"platform-feature-flags": {
+		"platform_ssr_smartlinks_editor": {
+			"type": "boolean"
+		}
 	}
 }

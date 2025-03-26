@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 2.2.2
+
+### Patch Changes
+
+- [#131510](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131510)
+  [`0433df7db759b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0433df7db759b) -
+  ENGHEALTH-23697 Iconography uplift for editor-plugin-highlight
+
 ## 2.2.1
 
 ### Patch Changes

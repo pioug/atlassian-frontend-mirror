@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { N200, N500, B400 } from '@atlaskit/theme/colors';
-import LinkIcon from '@atlaskit/icon/glyph/link';
+import LinkIcon from '@atlaskit/icon/core/migration/link';
 import Tooltip from '@atlaskit/tooltip';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -108,8 +108,8 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			>
 				<LinkIcon
 					label={this.getCopyAriaLabel()}
-					size={this.props.level > 3 ? 'small' : 'medium'}
-					primaryColor={
+					LEGACY_size={this.props.level > 3 ? 'small' : 'medium'}
+					color={
 						this.state.isClicked
 							? token('color.icon.selected', B400)
 							: token('color.icon.subtle', N200)

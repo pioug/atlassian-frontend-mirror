@@ -11,7 +11,7 @@ import { useIntl } from 'react-intl-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
+import PreferencesIcon from '@atlaskit/icon/core/migration/customize--preferences';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -124,7 +124,7 @@ export const OverlayButton = withAnalyticsContext()(({
 						iconBefore={
 							<PreferencesIcon
 								label={configureLinkLabel}
-								size="small"
+								LEGACY_size="small"
 								testId={`${testId}-configure-icon`}
 							/>
 						}

@@ -502,7 +502,7 @@ const baseGenerateComponentPropTypeSourceCode = (
 	});
 };
 
-const boxPropsCodeConsolidator: CodeConsolidator = ({
+const handleXCSSProp: CodeConsolidator = ({
 	sourceFile,
 	importCode,
 	externalTypesCode,
@@ -510,7 +510,14 @@ const boxPropsCodeConsolidator: CodeConsolidator = ({
 	componentPropCode,
 	componentTypeCode,
 }) => {
-	const xcssValidator = sourceFile.getVariableDeclarationOrThrow('xcssValidator').getText();
+	const xcssValidatorfile = sourceFile
+		.getProject()
+		.addSourceFileAtPath(require.resolve('@atlassian/forge-ui/utils/xcssValidator'));
+	const xcssValidator = xcssValidatorfile.getVariableDeclarationOrThrow('xcssValidator').getText();
+	const XCSSPropType = xcssValidatorfile
+		.getTypeAliasOrThrow('XCSSProp')
+		.setIsExported(false)
+		.getText();
 
 	const utilsFile = sourceFile
 		.getProject()
@@ -522,6 +529,7 @@ const boxPropsCodeConsolidator: CodeConsolidator = ({
 		const xcssValidatorVariableDeclarationCode = [
 			xcssValidatorDeclarationCode,
 			`const ${xcssValidator};`,
+			XCSSPropType,
 		].join('\n');
 
 		return [
@@ -541,7 +549,8 @@ const boxPropsCodeConsolidator: CodeConsolidator = ({
 };
 
 const codeConsolidators: Record<string, CodeConsolidator> = {
-	BoxProps: boxPropsCodeConsolidator,
+	BoxProps: handleXCSSProp,
+	PressableProps: handleXCSSProp,
 };
 
 const generateComponentPropTypeSourceCode = (

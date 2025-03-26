@@ -4,21 +4,19 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { type NewIconProps } from '@atlaskit/icon';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import WarningIcon from '@atlaskit/icon/core/migration/warning';
-import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
 import { type Appearance } from './types';
 
 const iconColor: { [key in Appearance]: NewIconProps['color'] } = {
-	danger: token('color.icon.danger', R400),
-	warning: token('color.icon.warning', '#D97008'),
+	danger: token('color.icon.danger'),
+	warning: token('color.icon.warning'),
 } as const;
 
 const iconStyles = css({
@@ -41,11 +39,12 @@ const iconStyles = css({
 const titleStyles = css({
 	display: 'flex',
 	minWidth: 0,
-
-	margin: token('space.0', '0px'),
 	gap: token('space.100'),
-
 	font: token('font.heading.medium'),
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
+	marginInlineEnd: token('space.0'),
+	marginInlineStart: token('space.0'),
 });
 
 const textStyles = css({

@@ -1,5 +1,23 @@
 # @atlaskit/forge-react-types
 
+## 0.38.0
+
+### Minor Changes
+
+- [#130951](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130951)
+  [`2741aeb65fe46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2741aeb65fe46) -
+  Allow xcss in Pressable
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.37.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.37.13
 
 ### Patch Changes

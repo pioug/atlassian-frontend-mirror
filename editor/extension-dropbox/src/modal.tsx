@@ -12,7 +12,7 @@ import ModalDialog, {
 	ModalBody as AKModalBody,
 } from '@atlaskit/modal-dialog';
 
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
 

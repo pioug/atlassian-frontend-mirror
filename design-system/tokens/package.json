@@ -156,9 +156,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"platform-token-runtime-call-tracking": {
-			"type": "boolean"
-		},
 		"platform-default-typography-modernized": {
 			"type": "boolean"
 		}

@@ -30,8 +30,7 @@ import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 
@@ -159,7 +158,7 @@ const PrimaryToolbarHighlightColor = ({
 										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										css={expandIconWrapperStyle}
 									>
-										<ExpandIcon label="" />
+										<ChevronDownIcon label="" />
 									</span>
 								</Flex>
 							)

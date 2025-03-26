@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d25a2654a95241ca8decc1ab6a780010>>
+ * @codegen <<SignedSource::4d19bb1c1b0fdd0ce172b538f655af72>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -71,6 +71,17 @@ interface metadata {
 }
 
 const metadata: Record<string, metadata> = {
+	accessibility: {
+		keywords: ['accessibility', 'icon', 'core', 'a11y', 'accessibility', 'WCAG'],
+		componentName: 'AccessibilityIcon',
+		package: '@atlaskit/icon/core/accessibility',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for representing accessibility and accessibility-related features and settings',
+		team: 'Design System Team',
+		slackChannel: '#icon-contributions',
+	},
 	add: {
 		keywords: ['add', 'plus', 'create', 'new', 'icon', 'core', 'create', 'plus', 'jira status'],
 		componentName: 'AddIcon',
@@ -1516,6 +1527,42 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for dragging elements along a vertical axis.',
 		team: 'Design System Team',
 		slackChannel: '#icon-contributions',
+	},
+	'drawer-left': {
+		keywords: [
+			'drawer-left',
+			'drawerleft',
+			'icon',
+			'core',
+			'sidebar',
+			'detail view',
+			'left rail',
+			'drawer',
+		],
+		componentName: 'DrawerLeftIcon',
+		package: '@atlaskit/icon/core/drawer-left',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for opening a drawer or sidebar to the left of the viewport edge.',
+		team: 'Design System Team',
+	},
+	'drawer-right': {
+		keywords: [
+			'drawer-right',
+			'drawerright',
+			'icon',
+			'core',
+			'sidebar',
+			'detail view',
+			'right rail',
+			'drawer',
+		],
+		componentName: 'DrawerRightIcon',
+		package: '@atlaskit/icon/core/drawer-right',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for opening a drawer or sidebar to the right of the viewport edge.',
+		team: 'Design System Team',
 	},
 	edit: {
 		keywords: ['edit', 'pencil', 'write', 'icon', 'core', 'pencil', 'pencil on page'],
@@ -5185,6 +5232,44 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for whiteboards in Confluence.',
+		team: 'Design System Team',
+	},
+	'work-item': {
+		keywords: [
+			'work-item',
+			'workitem',
+			'icon',
+			'core',
+			'single issue',
+			'check mark',
+			'tick',
+			'work item',
+			'work type',
+		],
+		componentName: 'WorkItemIcon',
+		package: '@atlaskit/icon/core/work-item',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing work items.',
+		team: 'Design System Team',
+	},
+	'work-items': {
+		keywords: [
+			'work-items',
+			'workitems',
+			'icon',
+			'core',
+			'multiple issues',
+			'check mark',
+			'tick',
+			'work items',
+			'work type',
+		],
+		componentName: 'WorkItemsIcon',
+		package: '@atlaskit/icon/core/work-items',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing multiple work items.',
 		team: 'Design System Team',
 	},
 	'zoom-in': {

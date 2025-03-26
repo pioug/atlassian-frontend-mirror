@@ -214,7 +214,7 @@ export const placeholderStyles = css({
 
 const placeholderOverflowStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'.ProseMirror p:has(.placeholder-decoration)': {
+	'.ProseMirror p:has(.placeholder-decoration-hide-overflow)': {
 		overflow: 'hidden',
 		whiteSpace: 'nowrap',
 		textOverflow: 'ellipsis',

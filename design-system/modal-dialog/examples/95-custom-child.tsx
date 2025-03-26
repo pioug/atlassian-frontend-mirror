@@ -4,13 +4,12 @@
  */
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
 import Modal, { ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
@@ -18,9 +17,13 @@ const childStyles = css({
 	height: '400px',
 	backgroundColor: token('color.background.accent.magenta.subtler'),
 });
-
-const containerStyles = xcss({
-	padding: 'space.200',
+const containerStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+	},
 });
 
 type BorderRadius = 'less' | 'same' | 'more';
@@ -46,11 +49,11 @@ const borderRadiuses = [
 	},
 ];
 
-const borderRadiusMap: { [key in BorderRadius]: SerializedStyles } = {
-	less: css({ borderRadius: 0 }),
-	same: css({ borderRadius: token('border.radius', '3px') }),
-	more: css({ borderRadius: token('border.radius.200', '6px') }),
-};
+const borderRadiusMap = cssMap({
+	less: { borderRadius: 0 },
+	same: { borderRadius: token('border.radius') },
+	more: { borderRadius: token('border.radius.200') },
+});
 
 export default function ModalWithCustomChild() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +62,7 @@ export default function ModalWithCustomChild() {
 	const close = useCallback(() => setIsOpen(false), []);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<p>
 				If using a custom child which has its own background you should set the border radius to be
 				3px. If it is set less than 3px the border radius will not match the box shadow, and if set

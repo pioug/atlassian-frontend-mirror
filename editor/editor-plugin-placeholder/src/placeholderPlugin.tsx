@@ -66,6 +66,14 @@ export function createPlaceholderDecoration(
 		placeholderDecoration.appendChild(buffNode);
 	}
 
+	const isTargetNested = editorState.doc.resolve(pos).depth > 1;
+
+	// only truncate text for nested nodes, otherwise applying 'overflow: hidden;' to top level nodes
+	// creates issues with quick insert button
+	if (isTargetNested && editorExperiment('platform_editor_controls', 'variant1')) {
+		placeholderDecoration.classList.add('placeholder-decoration-hide-overflow');
+	}
+
 	return DecorationSet.create(editorState.doc, [
 		Decoration.widget(pos, placeholderDecoration, {
 			side: 0,

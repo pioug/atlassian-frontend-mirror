@@ -13,37 +13,35 @@ import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
 
 const headingWithAlignmentStyles = () =>
 	// Override marginTop: 0 with default margin found in headingsSharedStyles for first heading in alignment block that is not the first child
-	fg('platform_editor_heading_margin_fix')
-		? {
-				'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
-					'> h1:first-child': {
-						marginTop: '1.667em',
-					},
-					' > h2:first-child': {
-						marginTop: '1.8em',
-					},
-					'> h3:first-child': {
-						marginTop: '2em',
-					},
-					'> h4:first-child': {
-						marginTop: '1.357em',
-					},
-					'> h5:first-child': {
-						marginTop: '1.667em',
-					},
-					'> h6:first-child': {
-						marginTop: '1.455em',
-					},
+	({
+		'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
+			'> h1:first-child': {
+				marginTop: '1.667em',
+			},
+			' > h2:first-child': {
+				marginTop: '1.8em',
+			},
+			'> h3:first-child': {
+				marginTop: '2em',
+			},
+			'> h4:first-child': {
+				marginTop: '1.357em',
+			},
+			'> h5:first-child': {
+				marginTop: '1.667em',
+			},
+			'> h6:first-child': {
+				marginTop: '1.455em',
+			},
+		},
+		// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
+		'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
+			{
+				'> :is(h1, h2, h3, h4, h5, h6):first-child': {
+					marginTop: '0',
 				},
-				// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
-				'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
-					{
-						'> :is(h1, h2, h3, h4, h5, h6):first-child': {
-							marginTop: '0',
-						},
-					},
-			}
-		: {};
+			},
+	});
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 // text sizing prototype: http://proto/fabricrender/

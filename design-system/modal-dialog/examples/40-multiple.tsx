@@ -5,6 +5,7 @@ import Lorem from 'react-lorem-component';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
+import { cssMap } from '@atlaskit/css';
 import { Field } from '@atlaskit/form';
 import ModalDialog, {
 	ModalBody,
@@ -13,12 +14,19 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const sizes = ['large', 'medium', 'small'];
 
-const multipleContainerStyles = xcss({
-	maxWidth: '400',
+const multipleContainerStyles = cssMap({
+	root: {
+		maxWidth: '400px',
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+	},
 });
 
 export default function NestedDemo() {
@@ -48,7 +56,7 @@ export default function NestedDemo() {
 	};
 
 	return (
-		<Box xcss={multipleContainerStyles} padding="space.200">
+		<Box xcss={multipleContainerStyles.root} padding="space.200">
 			<Field name="sb" label="Scrolling behavior">
 				{() => (
 					<Checkbox

@@ -50,6 +50,7 @@ const styles = cssMap({
 export interface LinkedContainerCardProps {
 	containerType: ContainerTypes;
 	title: string;
+	containerId?: string;
 	containerIcon?: string;
 	link?: string;
 	onDisconnectButtonClick: () => void;
@@ -67,7 +68,9 @@ const LinkedCardWrapper = ({
 	href,
 	handleMouseEnter,
 	handleMouseLeave,
-}: CustomItemComponentPropsWithHref) => {
+	containerType,
+	containerId,
+}: CustomItemComponentPropsWithHref & { containerType: ContainerTypes; containerId?: string }) => {
 	const [hovered, setHovered] = useState(false);
 	const onMouseEnter = () => {
 		handleMouseEnter();
@@ -96,6 +99,7 @@ const LinkedCardWrapper = ({
 						action: AnalyticsAction.CLICKED,
 						actionSubject: 'container',
 						actionSubjectId: 'teamContainer',
+						attributes: { containerSelected: { container: containerType, containerId } },
 					});
 				}}
 			>
@@ -110,6 +114,7 @@ export const LinkedContainerCard = ({
 	title,
 	containerIcon,
 	link,
+	containerId,
 	onDisconnectButtonClick,
 }: LinkedContainerCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -123,6 +128,8 @@ export const LinkedContainerCard = ({
 			href={link || '#'}
 			handleMouseEnter={() => setShowCloseIcon(true)}
 			handleMouseLeave={() => setShowCloseIcon(false)}
+			containerType={containerType}
+			containerId={containerId}
 		>
 			<Inline space="space.100" xcss={styles.card}>
 				<Avatar

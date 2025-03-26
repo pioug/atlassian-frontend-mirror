@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
 	ModalBody,
@@ -12,15 +13,21 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	padding: 'space.200',
+const styles = cssMap({
+	container: {
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+	},
+	title: {
+		marginBlockEnd: token('space.200'),
+	},
 });
 
-const titleStyles = xcss({
-	marginBlockEnd: 'space.200',
-});
 const units = [420, '42em', '100%'];
 
 export default function ModalDemo() {
@@ -34,9 +41,9 @@ export default function ModalDemo() {
 	);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={styles.container}>
 			<Heading id="units-title" as="h2" size="large">
-				<Inline xcss={titleStyles}>Units</Inline>
+				<Inline xcss={styles.title}>Units</Inline>
 			</Heading>
 			<ButtonGroup titleId="units-title">{units.map(btn)}</ButtonGroup>
 

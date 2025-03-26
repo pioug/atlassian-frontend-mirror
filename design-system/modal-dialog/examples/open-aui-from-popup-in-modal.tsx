@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Modal, {
 	ModalBody,
@@ -13,17 +14,18 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
-
+import { Box } from '@atlaskit/primitives/compiled';
 declare global {
 	interface Window {
 		AJS: any;
 	}
 }
 
-const wrapperStyles = xcss({
-	display: 'flex',
-	flexDirection: 'column',
+const wrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
 });
 const OpenAuiFromModalExample = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -86,7 +88,7 @@ const OpenAuiFromModalExample = () => {
 								onClose={() => setIsPopupOpen(false)}
 								placement="bottom"
 								content={() => (
-									<Box xcss={wrapperStyles}>
+									<Box xcss={wrapperStyles.root}>
 										<Button>Button 1</Button>
 										<Button>Button 2</Button>
 										<Button testId="aui-trigger" id="dialog-show-button">

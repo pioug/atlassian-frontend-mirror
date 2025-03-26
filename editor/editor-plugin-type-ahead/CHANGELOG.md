@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.2.2
+
+### Patch Changes
+
+- [#132152](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132152)
+  [`4d3f5ccdc005c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d3f5ccdc005c) -
+  [https://product-fabric.atlassian.net/browse/ED-26645](ED-26645) - fix typeahead height issue
+- Updated dependencies
+
+## 2.2.1
+
+### Patch Changes
+
+- [#130684](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130684)
+  [`0656a8915e18f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0656a8915e18f) -
+  updated existing fix for focusOut typeahead trigger duplication to also include IE/Edge
+
 ## 2.2.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "204.7.2",
+	"version": "204.8.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -252,10 +252,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_heading_margin_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_element_dnd_nested_fix_patch_6": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -390,10 +386,6 @@
 			"referenceOnly": true
 		},
 		"live_pages_content_jump_mitigation": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_advanced_layouts_accessibility": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -570,6 +562,14 @@
 		},
 		"platform_editor_posfromdom_null_fix": {
 			"type": "boolean"
+		},
+		"platform_editor_collab_text_selection_override": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_1": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

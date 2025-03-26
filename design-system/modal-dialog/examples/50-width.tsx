@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
 	ModalBody,
@@ -12,7 +13,8 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { width } from '../src/internal/utils';
@@ -20,12 +22,16 @@ import { width } from '../src/internal/utils';
 const units = [420, '42%', '42em', '100%'];
 const sizes: (string | number)[] = width.values;
 
-const containerStyles = xcss({
-	padding: 'space.200',
-});
-
-const titleStyles = xcss({
-	marginBlockEnd: 'space.200',
+const styles = cssMap({
+	container: {
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+	},
+	title: {
+		marginBlockEnd: token('space.200'),
+	},
 });
 
 export default function ModalDemo() {
@@ -44,14 +50,14 @@ export default function ModalDemo() {
 	);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={styles.container}>
 			<Stack space="space.200" alignInline="start">
 				<Heading as="h2" size="large" id="sizes">
-					<Inline xcss={titleStyles}>Sizes</Inline>
+					<Inline xcss={styles.title}>Sizes</Inline>
 				</Heading>
 				<ButtonGroup titleId="sizes">{sizes.map(btn)}</ButtonGroup>
 				<Heading as="h2" size="large" id="units">
-					<Inline xcss={titleStyles}>Units</Inline>
+					<Inline xcss={styles.title}>Units</Inline>
 				</Heading>
 				<ButtonGroup titleId="units">{units.map(btn)}</ButtonGroup>
 			</Stack>

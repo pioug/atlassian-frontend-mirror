@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 
 import { ActionName, CardDisplay } from '../../../constants';
@@ -234,6 +235,7 @@ export const HoverCardComponent = ({
 					onContextMenu={onContextMenuClick}
 					data-testid="hover-card-trigger-wrapper"
 					aria-label={formatMessage(messages.more_information_about_this_work_item)}
+					{...(fg('fix_a11y_violation_in_hover_card_trigger') ? { role: 'button' } : {})}
 				>
 					{children}
 				</span>

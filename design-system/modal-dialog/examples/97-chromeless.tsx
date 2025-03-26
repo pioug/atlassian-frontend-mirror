@@ -1,12 +1,23 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Flex, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const wrapperStyles = xcss({ height: '100%', padding: 'space.300' });
-const bodyStyles = xcss({ flexGrow: '2' });
+const styles = cssMap({
+	wrapper: {
+		height: '100%',
+		paddingBlockEnd: token('space.300'),
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
+	},
+	body: {
+		flexGrow: 2,
+	},
+});
 
 export default function Example() {
 	return (
@@ -28,9 +39,9 @@ export default function Example() {
 				boxShadow: token('elevation.shadow.overlay'),
 			}}
 		>
-			<Flex gap="space.300" direction="column" xcss={wrapperStyles}>
+			<Flex gap="space.300" direction="column" xcss={styles.wrapper}>
 				<Heading size="medium">You’re about to delete this page</Heading>
-				<Box xcss={bodyStyles}>
+				<Box xcss={styles.body}>
 					<p>Before you delete it permanently, there’s some things you should know:</p>
 					<ul>
 						<li>4 pages have links to this page that will break</li>

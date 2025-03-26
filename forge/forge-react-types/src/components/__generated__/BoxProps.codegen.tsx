@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::8ab6a67fa03d077a43a19a7e31c78146>>
+ * @codegen <<SignedSource::c3ad3413cf478b4f6da470a99c029688>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::898e2c561f956fd22d43ade8ef60ca57>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::cd2255d6156809f22f110b9eb0936c9d>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
@@ -186,9 +186,9 @@ const xcssValidator = makeXCSSValidator({
 		supportedValues: ['relative', 'static'],
 	},
 });
+type XCSSProp = ReturnType<typeof xcssValidator>;
 
 type PlatformBoxProps = React.ComponentProps<typeof PlatformBox>;
-type XCSSProp = ReturnType<typeof xcssValidator>;
 
 export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 	/**

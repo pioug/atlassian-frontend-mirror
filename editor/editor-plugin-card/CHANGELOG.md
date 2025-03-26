@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.4
+
+### Patch Changes
+
+- [#132051](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132051)
+  [`d4b3a24694bb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b3a24694bb8) -
+  [ux] [ED-27252] Hide open link overlay in editor view mode
+
+## 5.4.3
+
+### Patch Changes
+
+- [#131428](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131428)
+  [`3aa1f96909918`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aa1f96909918) -
+  [ux] Update OpenButtonOverlay to fix styles.
+
+## 5.4.2
+
+### Patch Changes
+
+- [#129138](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129138)
+  [`9f003b1dbcdb5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f003b1dbcdb5) -
+  Render ssred smartlink for editor under feature gate 'platform_ssr_smartlinks_editor'
+
 ## 5.4.1
 
 ### Patch Changes

@@ -28,7 +28,7 @@ export const findPointers = (id: string, decorations: DecorationSet): Decoration
 
 function style(options: { color: string }) {
 	const color = (options && options.color) || 'black';
-	return `border-right: 2px solid ${color}; margin-right: -2px;`;
+	return `border-right: 2px solid ${color}; margin-right: -2px; z-index: 1`;
 }
 
 export function getAvatarColor(str: string) {

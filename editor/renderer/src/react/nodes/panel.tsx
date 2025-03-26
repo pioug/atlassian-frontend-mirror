@@ -5,7 +5,7 @@
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import TipIcon from '@atlaskit/icon/glyph/editor/hint';
+import TipIcon from '@atlaskit/icon/core/migration/lightbulb--editor-hint';
 import { PanelType } from '@atlaskit/adf-schema';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -13,7 +13,7 @@ import {
 	panelSharedStylesWithoutPrefix,
 } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
+import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
 import EmojiItem from './emoji';
 import {
 	PanelInfoIcon,

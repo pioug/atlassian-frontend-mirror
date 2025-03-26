@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 36.1.0
+
+### Minor Changes
+
+- [#129342](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129342)
+  [`047d66b55d480`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/047d66b55d480) -
+  Fix bug with Inline not applying data-smart-element-badge
+
+## 36.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.3
 
 ### Patch Changes

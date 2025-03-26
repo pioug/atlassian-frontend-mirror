@@ -26,9 +26,11 @@ export type ChatNewPayload = PayloadCore<
 		dialogues: Array<{
 			human_message: {
 				content: string;
+				mimeType?: 'text/markdown' | 'text/adf';
 			};
 			agent_message: {
 				content: string;
+				mimeType?: 'text/markdown' | 'text/adf';
 			};
 		}>;
 		// Used for follow-up prompt once chat is created
@@ -137,30 +139,75 @@ export type InsertPromptPayload = PayloadCore<
 >;
 export type TransitionId = string;
 export type StatusId = string;
-export type AddNewTransitionPayload = {
+export type StatusCategory = 'TODO' | 'IN_PROGRESS' | 'DONE';
+export type RuleConfig = {
+	[key: string]: string;
+};
+export type AddNewTransitionRovoPayload = {
 	id: TransitionId;
 	name: string;
-	toRef?: StatusId;
+	toStatusId: StatusId;
+	toStatusName: string;
+	toStatusCategory: StatusCategory;
 	links: {
-		fromRef: StatusId;
-		fromPort?: number;
-		toPort?: number;
+		fromStatusId: StatusId;
+		fromStatusName: string;
+		fromStatusCategory: StatusCategory;
 	}[];
 };
-
-export type AddRulePayload = {
+export type UpdateTransitionRovoPayload = {
 	id: TransitionId;
+	name: string;
+	toStatusId: StatusId;
+	toStatusName: string;
+	toStatusCategory: StatusCategory;
+	links: {
+		fromStatusId: StatusId;
+		fromStatusName: string;
+		fromStatusCategory: StatusCategory;
+	}[];
+};
+export type DeleteTransitionRovoPayload = {
+	transitionId: TransitionId;
+	transitionName: string;
+};
+export type AddRuleRovoPayload = {
+	ruleTemplateKey: string;
+	transitionId: TransitionId;
+	ruleConfig: RuleConfig;
+};
+export type UpdateRuleRovoPayload = {
+	ruleTemplateKey: string;
+	transitionId: TransitionId;
+	ruleConfig: RuleConfig;
+	ruleIdBeingEdited: string;
+};
+export type DeleteRuleRovoPayload = {
 	ruleId: string;
 };
-
+export type AddStatusRovoPayload = {
+	statusName: string;
+	statusCategory: StatusCategory;
+};
+export type DeleteStatusRovoPayload = {
+	statusId: string;
+	statusName: string;
+	statusCategory: StatusCategory;
+};
 export type JiraWorkflowWizardAction =
-	| { type: 'addTransition'; payload: AddNewTransitionPayload }
-	| { type: 'ADD_RULE'; payload: AddRulePayload };
+	| { operationType: 'ADD_TRANSITION'; payload: AddNewTransitionRovoPayload }
+	| { operationType: 'UPDATE_TRANSITION'; payload: UpdateTransitionRovoPayload }
+	| { operationType: 'DELETE_TRANSITION'; payload: DeleteTransitionRovoPayload }
+	| { operationType: 'ADD_RULE'; payload: AddRuleRovoPayload }
+	| { operationType: 'UPDATE_RULE'; payload: UpdateRuleRovoPayload }
+	| { operationType: 'DELETE_RULE'; payload: DeleteRuleRovoPayload }
+	| { operationType: 'ADD_STATUS'; payload: AddStatusRovoPayload }
+	| { operationType: 'DELETE_STATUS'; payload: DeleteStatusRovoPayload };
 
 export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	'jira-workflow-wizard-actions',
 	{
-		actions: JiraWorkflowWizardAction[];
+		operations: JiraWorkflowWizardAction[];
 	}
 >;
 

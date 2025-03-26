@@ -18,7 +18,7 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -634,7 +634,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 									<Pressable xcss={clearTextButtonStyles} onClick={this.handleClearText}>
 										<CrossCircleIcon
 											label={formatClearLinkText}
-											primaryColor={token('color.icon.subtle')}
+											color={token('color.icon.subtle')}
 										/>
 									</Pressable>
 								</Tooltip>
@@ -666,7 +666,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 									>
 										<CrossCircleIcon
 											label={formatMessage(messages.clearText)}
-											primaryColor={token('color.icon.subtle')}
+											color={token('color.icon.subtle')}
 										/>
 									</Pressable>
 								</Tooltip>

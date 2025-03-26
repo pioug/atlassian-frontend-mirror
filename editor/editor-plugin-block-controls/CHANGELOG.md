@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.5.4
+
+### Patch Changes
+
+- [#131064](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131064)
+  [`24cad3d2de85a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24cad3d2de85a) -
+  ED-27155: Clean up platform_editor_advanced_layouts_accessibility
+- Updated dependencies
+
 ## 3.5.3
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import AddCommentIcon from '@atlaskit/icon/glyph/comment';
+import AddCommentIcon from '@atlaskit/icon/core/migration/comment';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Popup } from '@atlaskit/editor-common/ui';
 import uuid from 'uuid/v4';
@@ -52,7 +52,7 @@ const AnnotationSelectionComponentMock = (
 				<div>
 					<Button
 						appearance="subtle"
-						iconBefore={<AddCommentIcon size="medium" label="" />}
+						iconBefore={<AddCommentIcon LEGACY_size="medium" label="" />}
 						isDisabled={!isAnnotationAllowed}
 						testId="createInlineCommentButton"
 						onClick={onToolbarCreateButtonClick}

@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
+import { cssMap } from '@atlaskit/css';
 import { Field } from '@atlaskit/form';
 import Modal, {
 	ModalBody,
@@ -12,10 +13,12 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-const containerStyles = xcss({
-	height: '200%',
+const containerStyles = cssMap({
+	root: {
+		height: '200%',
+	},
 });
 
 export default function ExampleScroll() {
@@ -30,7 +33,7 @@ export default function ExampleScroll() {
 	const scrollToBottom = useCallback(() => bottomRef.current?.scrollIntoView(true), []);
 
 	return (
-		<Box xcss={containerStyles} padding="space.200">
+		<Box xcss={containerStyles.root} padding="space.200">
 			<Stack space="space.200" alignInline="start">
 				<p>
 					The scroll behavior of modals can be configured so that scrolling happens inside the modal

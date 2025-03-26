@@ -1,5 +1,21 @@
 # @atlaskit/rovo-triggers
 
+## 2.7.0
+
+### Minor Changes
+
+- [#131838](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131838)
+  [`afdb0a7ae2e5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afdb0a7ae2e5b) -
+  updated types for rovo workflow wizard agent
+
+## 2.6.0
+
+### Minor Changes
+
+- [#131371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131371)
+  [`bcdda396edf72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcdda396edf72) -
+  Support mimeType as optional prop in ChatNewPayload type
+
 ## 2.5.0
 
 ### Minor Changes

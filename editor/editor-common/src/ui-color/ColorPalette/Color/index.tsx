@@ -7,7 +7,7 @@ import React, { type ReactElement } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
+import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -89,7 +89,9 @@ const Color = (props: Props) => {
 					}}
 					autoFocus={autoFocus}
 				>
-					{!decorator && isSelected && <EditorDoneIcon primaryColor={checkMarkColor} label="" />}
+					{!decorator && isSelected && (
+						<EditorDoneIcon LEGACY_primaryColor={checkMarkColor} label="" />
+					)}
 					{decorator}
 				</button>
 			</span>

@@ -86,35 +86,62 @@ const rule = createLintRule({
 				let modalHeaderNode: JSXElement | null = null;
 				let closeButtonNode: JSXElement | null = null;
 
-				const searchChildren = (node: JSXElement) => {
-					for (let child of node.children) {
-						if (modalHeaderNode && closeButtonNode) {
-							continue;
-						}
-						// Skip if not a JSX Element
-						if (!isNodeOfType(child, 'JSXElement')) {
-							continue;
-						}
+				const checkNode = (node: any) => {
+					if (modalHeaderNode && closeButtonNode) {
+						return;
+					}
 
-						// Skip if opening element is not an identifier
-						if (!isNodeOfType(child.openingElement.name, 'JSXIdentifier')) {
-							continue;
+					// Add expression conatiner's body if an expression container
+					if (isNodeOfType(node, 'JSXExpressionContainer')) {
+						if (
+							(isNodeOfType(node.expression, 'ArrowFunctionExpression') ||
+								isNodeOfType(node.expression, 'FunctionExpression')) &&
+							isNodeOfType(node.expression.body, 'JSXElement')
+						) {
+							searchNode(node.expression.body, true);
+						} else if (isNodeOfType(node.expression, 'LogicalExpression')) {
+							const { left, right } = node.expression;
+							[left, right].forEach((e) => {
+								if (isNodeOfType(e, 'JSXElement')) {
+									searchNode(e, true);
+								}
+							});
 						}
+					}
 
-						// if child is CloseButton, return true
-						if (child.openingElement.name.name === closeButtonLocalName) {
-							closeButtonNode = child;
-						} else if (child.openingElement.name.name === modalHeaderLocalName) {
-							modalHeaderNode = child;
-						}
+					// Skip if not a JSX Element
+					if (!isNodeOfType(node, 'JSXElement')) {
+						return;
+					}
 
-						if (child.children) {
-							searchChildren(child);
-						}
+					// Skip if opening element is not an identifier
+					if (!isNodeOfType(node.openingElement.name, 'JSXIdentifier')) {
+						return;
+					}
+
+					// if child is CloseButton, return true
+					if (node.openingElement.name.name === closeButtonLocalName) {
+						closeButtonNode = node;
+					} else if (node.openingElement.name.name === modalHeaderLocalName) {
+						modalHeaderNode = node;
+					}
+
+					if (node.children) {
+						searchNode(node);
 					}
 				};
 
-				searchChildren(node);
+				const searchNode = (node: JSXElement, searchSelf: boolean = false) => {
+					if (searchSelf) {
+						checkNode(node);
+					}
+
+					for (let child of node.children) {
+						checkNode(child);
+					}
+				};
+
+				searchNode(node);
 
 				// If there is a close button, skip the rest, as this satisfies the rule.
 				if (closeButtonNode) {

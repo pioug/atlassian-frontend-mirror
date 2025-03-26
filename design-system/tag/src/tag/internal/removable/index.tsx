@@ -25,22 +25,11 @@ import { type SimpleTagProps } from '../shared/types';
 
 import RemoveButton from './remove-button';
 
-const cssVar = {
-	color: {
-		background: {
-			default: '--ds-cb',
-			hover: '--ds-cbh',
-			active: '--ds-cba',
-		},
-
-		text: {
-			default: '--ds-ct',
-			hover: '--ds-cth',
-			active: '--ds-ctp',
-			link: '--ds-ctl',
-		},
-	},
-};
+const textLinkCssVar = '--ds-ctl';
+const textDefaultCssVar = '--ds-ct';
+const textActiveCssVar = '--ds-ctp';
+const backgroundHoverCssVar = '--ds-cbh';
+const backgroundActiveCssVar = '--ds-cba';
 
 export interface RemovableTagProps extends SimpleTagProps, WithAnalyticsEventsProps {
 	/**
@@ -180,25 +169,19 @@ const RemovableTagComponent = forwardRef<any, RemovableTagProps>(
 				? token('color.background.neutral.subtle')
 				: undefined,
 			// Tag background color on hover
-			[cssVar.color.background.hover]: fg('platform-component-visual-refresh')
+			[backgroundHoverCssVar]: fg('platform-component-visual-refresh')
 				? undefined
 				: removalHoverBackgroundColors,
 			// Tag background color on press
-			[cssVar.color.background.active]: fg('platform-component-visual-refresh')
+			[backgroundActiveCssVar]: fg('platform-component-visual-refresh')
 				? undefined
 				: removalActiveBackgroundColors,
 			// The tag text on hover of remove button
-			[cssVar.color.text.default]: fg('platform-component-visual-refresh')
-				? undefined
-				: removalTextColors,
+			[textDefaultCssVar]: fg('platform-component-visual-refresh') ? undefined : removalTextColors,
 			// 'elemBefore' text on press of remove button
-			[cssVar.color.text.active]: fg('platform-component-visual-refresh')
-				? undefined
-				: removalTextColors,
+			[textActiveCssVar]: fg('platform-component-visual-refresh') ? undefined : removalTextColors,
 			// The tag link text on hover of remove button
-			[cssVar.color.text.link]: fg('platform-component-visual-refresh')
-				? undefined
-				: removalTextColors,
+			[textLinkCssVar]: fg('platform-component-visual-refresh') ? undefined : removalTextColors,
 		};
 
 		return (

@@ -79,6 +79,7 @@ export const createPlugin =
 			onClickCallback,
 			// @ts-ignore Temporary solution to check for Live Page editor.
 			__livePage,
+			isPageSSRed,
 		} = options;
 
 		const enableInlineUpgradeFeatures = !!showUpgradeDiscoverability;
@@ -95,6 +96,7 @@ export const createPlugin =
 				pluginInjectionApi,
 				onClickCallback,
 				__livePage,
+				isPageSSRed,
 			},
 			...(__livePage &&
 				fg('linking_platform_smart_links_in_live_pages') && {
@@ -314,6 +316,7 @@ export const createPlugin =
 				nodeViews: {
 					inlineCard: lazyInlineCardView({
 						inlineCardViewProducer,
+						isPageSSRed,
 					}),
 					blockCard: lazyBlockCardView({
 						pmPluginFactoryParams,

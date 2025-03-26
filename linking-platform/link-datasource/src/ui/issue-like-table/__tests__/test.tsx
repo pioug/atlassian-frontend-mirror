@@ -2475,8 +2475,8 @@ describe('IssueLikeDataTableView', () => {
 						fireEvent.mouseOver(cell1);
 					});
 
-					expect(within(cell1).getByText('Unassigned')).toBeVisible();
-					expect(within(cell2).queryByText('Unassigned')).not.toBeInTheDocument();
+					expect(cell1).toHaveTextContent('Unassigned');
+					expect(cell2).not.toHaveTextContent('Unassigned');
 				});
 
 				it('should NOT show empty Avatar on hover for user cell when is not editable', async () => {

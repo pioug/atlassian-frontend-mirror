@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { createHook, createStore } from 'react-sweet-state';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import Modal, {
 	ModalBody,
@@ -12,7 +13,8 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const Store = createStore({
 	// value of the store on initialisation
@@ -34,8 +36,13 @@ const Store = createStore({
 
 export const useIsFocused = createHook(Store);
 
-const contentStyles = xcss({
-	padding: 'space.200',
+const contentStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+	},
 });
 
 const PopupDefaultExample = () => {
@@ -52,7 +59,7 @@ const PopupDefaultExample = () => {
 				placement="bottom-start"
 				content={() => (
 					<Box>
-						<Box xcss={contentStyles}>Contents of Popup</Box>
+						<Box xcss={contentStyles.root}>Contents of Popup</Box>
 						<Button
 							appearance="primary"
 							onClick={() => {

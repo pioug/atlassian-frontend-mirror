@@ -18,17 +18,17 @@ ${(<AtlassianInternalWarning />)}
 
   ## Prerequisites
 
-  * **React 16:** at the time of writing, the Atlassian Editor is built on top of React 16 and doesn’t explicitly support any higher versions of React yet, which means both the \`react\` and \`react-dom\` libraries and their dependencies need to be set to React 16 compatible version.
+  * **React 18:** at the time of writing, the Atlassian Editor is built on top of React 18 and doesn’t explicitly support any higher versions of React yet, which means both the \`react\` and \`react-dom\` libraries and their dependencies need to be set to React 18 compatible version.
   * **Singleton:** the ProseMirror libraries in use and the document format \(Atlassian Document Format, ADF\) demand that some of the libraries using them are singletons, as multiple versions of the library will cause breaking issues. So, consumers of the Atlassian Editor need to enforce these singletons; this is usually done by deduplicating after installing the dependencies or by setting libraries to specific versions through resolutions to avoid multiple versions. Our recommendation is to use [yarn-deduplicate](https://www.npmjs.com/package/yarn-deduplicate).
 
   ## Installation
 
-  1. Install the editor libraries  
+  1. Install the editor libraries
     - **npm:** \`npm install --save @atlaskit/editor-core @atlaskit/css-reset\`
     - **yarn:** \`yarn add @atlaskit/editor-core @atlaskit/css-reset\`
 
   2. Deduplicate the dependencies \(if necessary\) by setting resolutions to avoid multiple versions of the editor libraries or by running [npm dedupe](https://docs.npmjs.com/cli/v6/commands/npm-dedupe) or [yarn dedupe](https://yarnpkg.com/cli/dedupe) after installation.
-  3. Setup the CSS reset in your application  
+  3. Setup the CSS reset in your application
     \`import '@atlaskit/css-reset';\`
 
   ## Usage
@@ -112,7 +112,7 @@ const createPreset = () =>
       }
       return builder; // Don't add the plugin
     });
-    
+
 const { preset } = usePreset(createPreset);
 `}
 
@@ -199,7 +199,7 @@ ${code`
   const createPreset = () =>
     createDefaultPreset({ featureFlags: {}, paste: {} });
   const { preset } = usePreset(createPreset);
-  
+
   return <ComposableEditor appearance='full-page' preset={preset} />;
   // Or full-width
   return <ComposableEditor appearance='full-width' preset={preset} />;
@@ -231,7 +231,7 @@ ${code`
 
   ### Collapsible Editor
 
-  Sometimes, you may not want to display the whole Editor initially, and you'd prefer to show it in a collapsed state so that users can expand it when needed. 
+  Sometimes, you may not want to display the whole Editor initially, and you'd prefer to show it in a collapsed state so that users can expand it when needed.
 
   Here's how you can implement this behavior:
 
@@ -368,7 +368,7 @@ function EditorInternal() {
   const { editorApi, preset } = usePreset(createPreset);
 
   // We memoise the transformer in case this component renders frequently
-  const transformer = useMemo(() => 
+  const transformer = useMemo(() =>
     editorApi?.core?.actions?.createTransformer((schema) => new BitbucketTransformer(schema))
   , [editorApi])
 

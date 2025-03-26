@@ -7,7 +7,7 @@ import ModalDialog, {
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 export default function ReturnFocusToElement() {
 	const [isOpen, setIsOpen] = useState(false);

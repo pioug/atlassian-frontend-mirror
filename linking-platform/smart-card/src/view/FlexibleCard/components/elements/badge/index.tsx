@@ -5,11 +5,11 @@
  */
 import React, { forwardRef } from 'react';
 
-import { css, cssMap, cx, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../constants';
@@ -168,12 +168,11 @@ const BadgeRefreshNew = forwardRef(
 		}
 
 		return (
-			<Inline
-				as="span"
+			<span
 				data-smart-element={name}
 				data-smart-element-badge
-				testId={testId}
-				xcss={cx(styles.container, colorMap[appearance])}
+				data-testid={testId}
+				css={[styles.container, colorMap[appearance]]}
 				ref={ref}
 			>
 				{!hideIcon && (
@@ -184,7 +183,7 @@ const BadgeRefreshNew = forwardRef(
 				<Box as="span" testId={`${testId}-label`} xcss={styles.text}>
 					{formattedMessageOrLabel}
 				</Box>
-			</Inline>
+			</span>
 		);
 	},
 );
@@ -220,7 +219,6 @@ const BadgeCompiledNew = ({
 	if (!formattedMessageOrLabel || !badgeIcon) {
 		return null;
 	}
-
 	return (
 		<span
 			css={[badgeStyles]}

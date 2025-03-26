@@ -184,6 +184,7 @@ export const TeamContainers = ({
 								title={container.name}
 								containerIcon={container.icon || undefined}
 								link={container.link || undefined}
+								containerId={container.id}
 								onDisconnectButtonClick={() =>
 									handleOpenDisconnectDialog({
 										containerId: container.id,
@@ -213,6 +214,7 @@ export const TeamContainers = ({
 									key={container.id}
 									containerType={container.type}
 									title={container.name}
+									containerId={container.id}
 									containerIcon={container.icon || undefined}
 									link={container.link || undefined}
 									onDisconnectButtonClick={() =>

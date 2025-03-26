@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 102.13.7
+
+### Patch Changes
+
+- [#130660](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130660)
+  [`35cca6367a1ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35cca6367a1ba) -
+  ED-27007 Clean up feature flag platform_editor_heading_margin_fix
+- [#131474](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131474)
+  [`c3e241e444446`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3e241e444446) -
+  ENGHEALTH-23692 Iconography uplift for editor-common
+- Updated dependencies
+
 ## 102.13.6
 
 ### Patch Changes

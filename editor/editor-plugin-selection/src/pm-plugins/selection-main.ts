@@ -12,6 +12,7 @@ import { selectionPluginKey } from '../types';
 import { SelectionActionTypes } from './actions';
 import { onCreateSelectionBetween } from './events/create-selection-between';
 import { createOnKeydown } from './events/keydown';
+import { onMouseOut } from './events/mouseout';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { getDecorations, shouldRecalcDecorations } from './utils';
 
@@ -88,6 +89,9 @@ export const createPlugin = (
 
 			handleDOMEvents: {
 				keydown: createOnKeydown({ __livePage: options.__livePage }),
+				// Without this event, it is not possible to click and drag to select the first node in the
+				// document if the node is a block with content (e.g. a panel with a paragraph inside).
+				mouseout: onMouseOut,
 			},
 		},
 	});

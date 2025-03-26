@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.5.3",
+	"version": "3.5.4",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -130,9 +130,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_dnd_handle_highlight_fix_firefox": {
-			"type": "boolean"
-		},
-		"platform_editor_advanced_layouts_accessibility": {
 			"type": "boolean"
 		},
 		"platform_editor_track_node_types": {

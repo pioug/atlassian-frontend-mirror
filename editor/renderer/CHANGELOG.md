@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 114.5.2
+
+### Patch Changes
+
+- [#130660](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130660)
+  [`35cca6367a1ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35cca6367a1ba) -
+  ED-27007 Clean up feature flag platform_editor_heading_margin_fix
+- Updated dependencies
+
+## 114.5.1
+
+### Patch Changes
+
+- [#131541](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131541)
+  [`14e2b8676868b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14e2b8676868b) -
+  ENGHEALTH-23692 Iconography lift for renderer
+
 ## 114.5.0
 
 ### Minor Changes

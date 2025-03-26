@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "36.0.3",
+	"version": "36.1.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -212,6 +212,9 @@
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {
+			"type": "boolean"
+		},
+		"fix_a11y_violation_in_hover_card_trigger": {
 			"type": "boolean"
 		}
 	}

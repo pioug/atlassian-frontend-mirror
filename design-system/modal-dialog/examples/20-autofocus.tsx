@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
 	ModalBody,
@@ -10,10 +11,16 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	padding: 'space.200',
+const containerStyles = cssMap({
+	root: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
 });
 
 export default function ModalDemo() {
@@ -31,7 +38,7 @@ export default function ModalDemo() {
 	};
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<Heading as="h2" size="large">
 				Variants
 			</Heading>

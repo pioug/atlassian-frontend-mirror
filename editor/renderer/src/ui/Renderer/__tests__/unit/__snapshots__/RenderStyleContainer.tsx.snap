@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RendererStyleContainer should have same renderer styles platform_editor_emotion_refactor_renderer is on with fg on platform_editor_typography_ugc is on with fg on platform_editor_heading_margin_fix is on with fg on editor_inline_comments_on_inline_nodes is on with fg on annotations_align_editor_and_renderer_styles is on with fg on should have correct renderer styles 1`] = `
+exports[`RendererStyleContainer should have same renderer styles platform_editor_emotion_refactor_renderer is on with fg on platform_editor_typography_ugc is on with fg on editor_inline_comments_on_inline_nodes is on with fg on annotations_align_editor_and_renderer_styles is on with fg on should have correct renderer styles 1`] = `
 .emotion-0 {
   font-size: var(--ak-renderer-base-font-size);
   line-height: 1.5rem;

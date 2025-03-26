@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -10,15 +11,15 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const customContainerStyles = xcss({
-	display: 'flex',
-	height: '700px',
-	flex: '1 1 auto',
-	flexDirection: 'column',
-	background: token('color.background.warning'),
+const customContainerStyles = cssMap({
+	root: {
+		display: 'flex',
+		height: '700px',
+		flex: '1 1 auto',
+		flexDirection: 'column',
+	},
 });
 
 export default function DefaultModal() {
@@ -36,7 +37,11 @@ export default function DefaultModal() {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
-						<Box xcss={customContainerStyles} testId="custom-container">
+						<Box
+							xcss={customContainerStyles.root}
+							backgroundColor="color.background.warning"
+							testId="custom-container"
+						>
 							<ModalHeader hasCloseButton>
 								<ModalTitle>Modal Title</ModalTitle>
 							</ModalHeader>

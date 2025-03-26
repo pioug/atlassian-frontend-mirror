@@ -23,28 +23,18 @@ import {
 	textHoverColors,
 } from '../../../styles';
 
-const cssVar = {
-	color: {
-		background: {
-			default: '--ds-cb',
-			hover: '--ds-cbh',
-			active: '--ds-cba',
-		},
-		borderColor: '--ds-bc',
-		focusRing: '--ds-cfr',
-		text: {
-			default: '--ds-ct',
-			hover: '--ds-cth',
-			active: '--ds-ctp',
-			link: '--ds-ctl',
-		},
-		removeButton: {
-			default: '--ds-rb',
-			hover: '--ds-rbh',
-		},
-	},
-	borderRadius: '--ds-br',
-};
+const borderColorCssVar = '--ds-bc';
+const focusRingCssVar = '--ds-cfr';
+const textLinkCssVar = '--ds-ctl';
+const textDefaultCssVar = '--ds-ct';
+const textHoverCssVar = '--ds-cth';
+const textActiveCssVar = '--ds-ctp';
+const backgroundDefaultCssVar = '--ds-cb';
+const backgroundHoverCssVar = '--ds-cbh';
+const backgroundActiveCssVar = '--ds-cba';
+const removeButtonDefaultCssVar = '--ds-rb';
+const removeButtonHoverCssVar = '--ds-rbh';
+const borderRadiusCssVar = '--ds-br';
 
 type BaseProps = React.AllHTMLAttributes<HTMLElement> & {
 	before?: JSX.Element;
@@ -65,11 +55,11 @@ const baseStylesOld = css({
 	height: token('space.250'),
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	backgroundColor: `var(${cssVar.color.background.default})`,
+	backgroundColor: `var(${backgroundDefaultCssVar})`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	borderRadius: `var(${cssVar.borderRadius})`,
+	borderRadius: `var(${borderRadiusCssVar})`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	color: `var(${cssVar.color.text.default})`,
+	color: `var(${textDefaultCssVar})`,
 	cursor: 'default',
 	marginBlock: token('space.050'),
 	marginInline: token('space.050'),
@@ -87,7 +77,7 @@ const baseStyles = css({
 	gap: token('space.050', '4px'),
 	backgroundColor: token('color.background.neutral.subtle'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	borderColor: `var(${cssVar.color.borderColor})`,
+	borderColor: `var(${borderColorCssVar})`,
 	borderRadius: token('border.radius', '3px'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width', '1px'),
@@ -102,11 +92,11 @@ const baseStyles = css({
 const interactiveStylesOld = css({
 	'&:hover': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: `var(${cssVar.color.background.hover})`,
+		backgroundColor: `var(${backgroundHoverCssVar})`,
 	},
 	'&:active': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: `var(${cssVar.color.background.active})`,
+		backgroundColor: `var(${backgroundActiveCssVar})`,
 	},
 });
 
@@ -123,7 +113,7 @@ const interactiveStyles = css({
 const focusRingStylesOld = css({
 	'&:focus-within': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		boxShadow: `0 0 0 2px var(${cssVar.color.focusRing})`,
+		boxShadow: `0 0 0 2px var(${focusRingCssVar})`,
 		outline: 'none',
 	},
 });
@@ -140,7 +130,7 @@ const focusRingStyles = css({
 const nonStandardLinkStyles = css({
 	'&:active': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: `var(${cssVar.color.text.active})`,
+		color: `var(${textActiveCssVar})`,
 	},
 });
 
@@ -191,31 +181,33 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
 					nonStandardLinkStyles,
 				!fg('platform-component-visual-refresh') && isInteractive && interactiveStylesOld,
 			]}
-			style={{
-				// NOTE: The vast majority of these styles have zero purpose to be runtime computed
-				// This can all be migrated to statically distributed atomic CSS with Compiled in the future
-				// The main reason for not touching this is there is to avoid excessive changes in the same PR on non-visual-refresh code
+			style={
+				{
+					// NOTE: The vast majority of these styles have zero purpose to be runtime computed
+					// This can all be migrated to statically distributed atomic CSS with Compiled in the future
+					// The main reason for not touching this is there is to avoid excessive changes in the same PR on non-visual-refresh code
 
-				/* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
-				/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
-				[cssVar.color.borderColor]: borderColors[color],
-				[cssVar.color.text.default]: textColors[color],
-				[cssVar.color.text.hover]: textHoverColors[color],
-				[cssVar.color.text.active]: textActiveColors[color],
-				[cssVar.color.text.link]: textLinkColors,
-				[cssVar.color.background.default]: backgroundColors[color],
-				[cssVar.color.background.hover]: backgroundHoverColors,
-				[cssVar.color.background.active]: backgroundActiveColors,
-				[cssVar.color.focusRing]: focusRingColors,
-				[cssVar.color.removeButton.default]: removeButtonColors[color],
-				[cssVar.color.removeButton.hover]: removeButtonHoverColors[color],
-				[cssVar.borderRadius]: appearance === 'rounded' ? '10px' : '3px',
-				/* eslint-enable @atlaskit/ui-styling-standard/enforce-style-prop */
-				/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
+					/* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
+					/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+					[borderColorCssVar]: borderColors[color],
+					[textDefaultCssVar]: textColors[color],
+					[textHoverCssVar]: textHoverColors[color],
+					[textActiveCssVar]: textActiveColors[color],
+					[textLinkCssVar]: textLinkColors,
+					[backgroundDefaultCssVar]: backgroundColors[color],
+					[backgroundHoverCssVar]: backgroundHoverColors,
+					[backgroundActiveCssVar]: backgroundActiveColors,
+					[focusRingCssVar]: focusRingColors,
+					[removeButtonDefaultCssVar]: removeButtonColors[color],
+					[removeButtonHoverCssVar]: removeButtonHoverColors[color],
+					[borderRadiusCssVar]: appearance === 'rounded' ? '10px' : '3px',
+					/* eslint-enable @atlaskit/ui-styling-standard/enforce-style-prop */
+					/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
 
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				...style,
-			}}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					...style,
+				} as React.CSSProperties
+			}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			data-testid={testId}

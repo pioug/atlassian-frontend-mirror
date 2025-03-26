@@ -11,7 +11,7 @@ import { injectIntl } from 'react-intl-next';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
+import QuestionsIcon from '@atlaskit/icon/core/migration/question-circle';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -88,7 +88,7 @@ const UnsupportedBlockNode = ({
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<span style={style}>
-					<QuestionsIcon label="?" size="small" />
+					<QuestionsIcon label="?" LEGACY_size="small" />
 				</span>
 			</Tooltip>
 		</div>

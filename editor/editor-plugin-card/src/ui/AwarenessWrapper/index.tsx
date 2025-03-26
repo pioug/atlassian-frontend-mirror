@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SmartCardProps } from '../../nodeviews/genericCard';
@@ -59,6 +60,7 @@ export const AwarenessWrapper = ({
 	pluginInjectionApi,
 	setOverlayHoveredStyles,
 	url,
+	appearance,
 }: AwarenessWrapperProps) => {
 	const [isHovered, setIsHovered] = useState(false);
 
@@ -136,17 +138,29 @@ export const AwarenessWrapper = ({
 	]);
 
 	const cardWithOpenButtonOverlay: JSX.Element = useMemo(() => {
-		return (
-			<OpenButtonOverlay
-				isVisible={isResolvedViewRendered && isHovered}
-				onMouseEnter={() => handleOverlayChange(true)}
-				onMouseLeave={() => handleOverlayChange(false)}
-				url={url}
-			>
-				{children}
-			</OpenButtonOverlay>
-		);
-	}, [children, isHovered, url, handleOverlayChange, isResolvedViewRendered]);
+		if (shouldShowLinkOverlay || !fg('platform_editor_controls_patch_1')) {
+			return (
+				<OpenButtonOverlay
+					isVisible={isResolvedViewRendered && isHovered}
+					onMouseEnter={() => handleOverlayChange(true)}
+					onMouseLeave={() => handleOverlayChange(false)}
+					url={url}
+				>
+					{children}
+				</OpenButtonOverlay>
+			);
+		}
+		return children;
+	}, [
+		children,
+		isHovered,
+		url,
+		handleOverlayChange,
+		isResolvedViewRendered,
+		shouldShowLinkOverlay,
+	]);
+
+	const isInline = appearance === 'inline';
 
 	return useMemo(
 		() => (
@@ -163,6 +177,7 @@ export const AwarenessWrapper = ({
 						discoveryMode="start"
 						shouldShowPulse={isResolvedViewRendered && shouldShowLinkPulse}
 						testId="link-discovery-pulse"
+						isInline={isInline}
 					>
 						{editorExperiment('platform_editor_controls', 'variant1')
 							? cardWithOpenButtonOverlay
@@ -178,6 +193,7 @@ export const AwarenessWrapper = ({
 			isResolvedViewRendered,
 			cardWithOverlay,
 			cardWithOpenButtonOverlay,
+			isInline,
 		],
 	);
 };

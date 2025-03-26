@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-import Pressable from '@atlaskit/primitives/pressable';
-
+import ButtonBase from '../shared/button-base';
+import Content from '../shared/content';
+import IconRenderer from '../shared/icon-renderer';
 import { type CommonButtonVariantProps } from '../types';
 
 import { type CommonDefaultButtonProps } from './types';
-import useDefaultButton from './use-default-button';
 
 export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;
 
@@ -31,7 +31,7 @@ const Button = React.memo(
 			iconBefore,
 			interactionName,
 			isDisabled,
-			isLoading,
+			isLoading = false,
 			isSelected,
 			onClick,
 			onClickCapture,
@@ -48,69 +48,57 @@ const Button = React.memo(
 			testId,
 			type = 'button',
 			...unsafeRest
-		},
-		ref,
+		}: ButtonProps,
+		ref: React.Ref<HTMLButtonElement>,
 	) {
 		// @ts-expect-error
 		const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
 
-		const baseProps = useDefaultButton<HTMLButtonElement>({
-			ariaLabel,
-			ariaLabelledBy,
-			analyticsContext,
-			appearance,
-			autoFocus,
-			buttonType: 'button',
-			children,
-			iconAfter,
-			iconBefore,
-			interactionName,
-			isDisabled,
-			isLoading,
-			isSelected,
-			onClick,
-			onClickCapture,
-			onKeyDownCapture,
-			onKeyUpCapture,
-			onMouseDownCapture,
-			onMouseUpCapture,
-			onPointerDownCapture,
-			onPointerUpCapture,
-			onTouchEndCapture,
-			onTouchStartCapture,
-			ref,
-			shouldFitContainer,
-			spacing,
-			testId,
-		});
-
 		return (
-			<Pressable
-				// TODO: Remove spread props
-				{...saferRest}
-				aria-label={baseProps['aria-label']}
-				aria-labelledby={baseProps['aria-labelledby']}
-				ref={baseProps.ref}
-				xcss={baseProps.xcss}
-				isDisabled={baseProps.isDisabled}
-				onClick={baseProps.onClick}
-				onMouseDownCapture={baseProps.onMouseDownCapture}
-				onMouseUpCapture={baseProps.onMouseUpCapture}
-				onKeyDownCapture={baseProps.onKeyDownCapture}
-				onKeyUpCapture={baseProps.onKeyUpCapture}
-				onTouchStartCapture={baseProps.onTouchStartCapture}
-				onTouchEndCapture={baseProps.onTouchEndCapture}
-				onPointerDownCapture={baseProps.onPointerDownCapture}
-				onPointerUpCapture={baseProps.onPointerUpCapture}
-				onClickCapture={baseProps.onClickCapture}
-				type={type}
-				testId={testId}
+			<ButtonBase
 				analyticsContext={analyticsContext}
-				interactionName={interactionName}
+				ref={ref}
+				appearance={appearance}
+				autoFocus={autoFocus}
+				isDisabled={isDisabled}
+				isLoading={isLoading}
+				isSelected={isSelected}
+				hasIconBefore={Boolean(iconBefore)}
+				hasIconAfter={Boolean(iconAfter)}
+				shouldFitContainer={shouldFitContainer}
+				spacing={spacing}
+				ariaLabel={ariaLabel}
+				ariaLabelledBy={ariaLabelledBy}
+				onClick={onClick}
+				onClickCapture={onClickCapture}
+				onKeyDownCapture={onKeyDownCapture}
+				onKeyUpCapture={onKeyUpCapture}
+				onMouseDownCapture={onMouseDownCapture}
+				onMouseUpCapture={onMouseUpCapture}
+				onPointerDownCapture={onPointerDownCapture}
+				onPointerUpCapture={onPointerUpCapture}
+				onTouchStartCapture={onTouchStartCapture}
+				onTouchEndCapture={onTouchEndCapture}
+				testId={testId}
 				componentName="Button"
+				type={type}
+				interactionName={interactionName}
+				{...saferRest}
 			>
-				{baseProps.children}
-			</Pressable>
+				<Fragment>
+					{iconBefore && (
+						<Content type="icon" position="before" isLoading={isLoading}>
+							<IconRenderer icon={iconBefore} />
+						</Content>
+					)}
+					{children && <Content isLoading={isLoading}>{children}</Content>}
+					{iconAfter && (
+						<Content type="icon" position="after" isLoading={isLoading}>
+							<IconRenderer icon={iconAfter} />
+						</Content>
+					)}
+				</Fragment>
+			</ButtonBase>
 		);
 	}),
 );

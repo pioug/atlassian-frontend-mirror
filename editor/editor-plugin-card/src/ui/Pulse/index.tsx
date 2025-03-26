@@ -37,6 +37,11 @@ export interface PulseProps {
 	 * A custom test id
 	 */
 	testId?: string;
+
+	/*
+	 * Determine if rendering inline
+	 */
+	isInline?: boolean;
 }
 
 export const DiscoveryPulse = ({
@@ -46,6 +51,7 @@ export const DiscoveryPulse = ({
 	discoveryMode = 'iteration',
 	shouldShowPulse,
 	testId,
+	isInline,
 }: PulseProps) => {
 	const discovered = isLocalStorageKeyDiscovered(localStorageKey);
 	const showPulse = shouldShowPulse ?? !discovered;
@@ -77,6 +83,7 @@ export const DiscoveryPulse = ({
 			onAnimationStart={discoveryMode === 'start' ? onDiscovery : undefined}
 			showPulse={showPulse}
 			testId={testId}
+			isInline={isInline}
 		>
 			{children}
 		</Pulse>

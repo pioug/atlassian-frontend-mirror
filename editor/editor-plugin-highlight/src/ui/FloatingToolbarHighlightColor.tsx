@@ -31,8 +31,7 @@ import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -158,7 +157,7 @@ const FloatingToolbarHighlightColor = ({
 						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						fg('platform-visual-refresh-icons') ? undefined : (
 							<span css={expandIconContainerHighlightStyle}>
-								<ExpandIcon label="" />
+								<ChevronDownIcon label="" color="currentColor" />
 							</span>
 						)
 					}

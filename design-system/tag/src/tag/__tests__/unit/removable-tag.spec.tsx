@@ -2,7 +2,11 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { cssVar } from '../../../constants';
+import {
+	backgroundActiveCssVar,
+	backgroundHoverCssVar,
+	textDefaultCssVar,
+} from '../../../constants';
 import * as styles from '../../../styles';
 import RemovableTag from '../../internal/removable';
 import getCSSVar from '../_utils/get-css-var';
@@ -20,15 +24,11 @@ describe('<RemovableTag />', () => {
 			const removeButton = screen.getByTestId('close-button-tag');
 			fireEvent.mouseOver(removeButton);
 
-			expect(getCSSVar(tag, cssVar.color.background.hover)).toBe(
-				styles.removalHoverBackgroundColors,
-			);
+			expect(getCSSVar(tag, backgroundHoverCssVar)).toBe(styles.removalHoverBackgroundColors);
 
-			expect(getCSSVar(tag, cssVar.color.background.active)).toBe(
-				styles.removalActiveBackgroundColors,
-			);
+			expect(getCSSVar(tag, backgroundActiveCssVar)).toBe(styles.removalActiveBackgroundColors);
 
-			expect(getCSSVar(tag, cssVar.color.text.default)).toBe(styles.removalTextColors);
+			expect(getCSSVar(tag, textDefaultCssVar)).toBe(styles.removalTextColors);
 		});
 	});
 });

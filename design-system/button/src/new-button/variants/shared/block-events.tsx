@@ -1,4 +1,4 @@
-import { type ControlledEvents } from './use-button-base';
+import { type ControlledEvents } from './button-base';
 
 function abort(event: React.SyntheticEvent) {
 	event.preventDefault();

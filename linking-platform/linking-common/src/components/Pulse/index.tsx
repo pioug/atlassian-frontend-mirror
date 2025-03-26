@@ -4,6 +4,7 @@
  */
 import { css, jsx, keyframes } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import React, { type SyntheticEvent, useRef } from 'react';
 
@@ -29,6 +30,7 @@ export interface PulseProps {
 	onAnimationIteration?: React.AnimationEventHandler<HTMLSpanElement>;
 	onAnimationStart?: React.AnimationEventHandler<HTMLSpanElement>;
 	testId?: string;
+	isInline?: boolean;
 }
 
 export const Pulse = ({
@@ -37,6 +39,7 @@ export const Pulse = ({
 	onAnimationIteration,
 	onAnimationStart,
 	testId = 'discovery-pulse',
+	isInline = false,
 }: PulseProps): JSX.Element => {
 	// this ref is to persist the animation through rerenders
 	const pulseStarted = useRef<boolean>(false);
@@ -47,6 +50,22 @@ export const Pulse = ({
 	const stopPropagation = React.useCallback((e: SyntheticEvent) => {
 		e.stopPropagation();
 	}, []);
+
+	const WrapperTag = isInline ? 'span' : 'div';
+	if (fg('platform_ssr_smartlinks_editor')) {
+		return (
+			<WrapperTag
+				data-testid={testId}
+				css={[commonStyles, pulseStarted.current && pulseStyles]}
+				onAnimationIteration={onAnimationIteration}
+				onAnimationStart={onAnimationStart}
+			>
+				<span onAnimationIteration={stopPropagation} onAnimationStart={stopPropagation}>
+					{children}
+				</span>
+			</WrapperTag>
+		);
+	}
 
 	return (
 		<div

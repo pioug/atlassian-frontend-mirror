@@ -274,11 +274,16 @@ export function receiveTransaction(
 	const newCollabState = new CollabState(version, unconfirmed);
 	if (options && options.mapSelectionBackward && state.selection instanceof TextSelection) {
 		tr.setSelection(
-			TextSelection.between(
-				tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
-				tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
-				-1,
-			),
+			fg('platform_editor_collab_text_selection_override')
+				? new TextSelection(
+						tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
+						tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
+					)
+				: TextSelection.between(
+						tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
+						tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
+						-1,
+					),
 		);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

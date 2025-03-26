@@ -4,8 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -19,78 +18,87 @@ import type {
 } from './types';
 import { getActions } from './utils';
 
-const baseDividerStyles = css({
-	width: token('border.width'),
-	position: 'relative',
-	// This is 1 so it appears above buttons by default.
-	// When buttons are selected they have a zIndex of 2 applied.
-	// See use-button-base.tsx.
-	zIndex: 1,
+const dividerStyles = cssMap({
+	baseDivider: {
+		width: token('border.width'),
+		position: 'relative',
+		// This is 1 so it appears above buttons by default.
+		// When buttons are selected they have a zIndex of 2 applied.
+		// See use-button-base.tsx.
+		zIndex: 1,
+	},
+	dividerDisabled: {
+		backgroundColor: token('color.text.disabled', '#091E4224'),
+		cursor: 'not-allowed',
+		opacity: 0.51,
+	},
+	dividerDisabledRefreshed: {
+		backgroundColor: token('color.border.disabled', '#091E4224'),
+		cursor: 'not-allowed',
+	},
+	dividerOffsetRefreshed: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginInline: -1,
+	},
 });
 
-const dividerDisabledStyles = css({
-	backgroundColor: token('color.text.disabled', '#091E4224'),
-	cursor: 'not-allowed',
-	opacity: 0.51,
-});
-
-const dividerDisabledRefreshedStyles = css({
-	backgroundColor: token('color.border.disabled', '#091E4224'),
-	cursor: 'not-allowed',
-});
-
-const dividerAppearance: Record<SplitButtonContextAppearance, SerializedStyles> = {
-	default: css({
+const dividerAppearanceStyles = cssMap({
+	default: {
 		backgroundColor: token('color.text', '#172B4D'),
 		opacity: 0.51,
-	}),
-	primary: css({
+	},
+	primary: {
 		backgroundColor: token('color.text.inverse', '#FFF'),
 		opacity: 0.64,
-	}),
-	navigation: css({
+	},
+	navigation: {
 		height: '16px',
-		margin: `${token('space.100', '8px')} -0.5px`,
+		marginBlock: token('space.100', '8px'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginInline: '-0.03125rem', // -0.5px
 		backgroundColor: token('color.text.subtle', '#0052cc'),
 		opacity: 0.62,
-	}),
-};
-
-const dividerRefreshedAppearance: Record<SplitButtonContextAppearance, SerializedStyles> = {
-	...dividerAppearance,
-	default: css({
-		backgroundColor: token('color.border', '#091E4224'),
-	}),
-	primary: css({
-		backgroundColor: token('color.border.inverse', '#FFF'),
-		opacity: 0.64,
-	}),
-};
-
-const dividerRefreshedOffsetStyles = css({
-	marginInline: `calc(0px - ${token('border.width')})`,
+	},
 });
 
-const dividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
-	default: css({
-		height: '2rem',
-	}),
-	compact: css({
-		height: '1.5rem',
-	}),
-};
+const dividerRefreshedAppearanceStyles = cssMap({
+	default: {
+		backgroundColor: token('color.border', '#091E4224'),
+	},
+	primary: {
+		backgroundColor: token('color.border.inverse', '#FFF'),
+		opacity: 0.64,
+	},
+	navigation: {
+		height: '16px',
+		marginBlock: token('space.100', '8px'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginInline: '-0.03125rem', // -0.5px
+		backgroundColor: token('color.text.subtle', '#0052cc'),
+		opacity: 0.62,
+	},
+});
 
-const defaultDividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
-	// The divider height is calculated by subtracting twice the border width from the button height.
-	// This ensures the divider does not intersect with the button's border, avoiding visual issues
-	// caused by overlapping alpha colors (color.border) at the intersection.
-	default: css({
+const dividerHeightStyles = cssMap({
+	default: {
+		height: '2rem',
+	},
+	compact: {
+		height: '1.5rem',
+	},
+});
+
+// The divider height is calculated by subtracting twice the border width from the button height.
+// This ensures the divider does not intersect with the button's border, avoiding visual issues
+// caused by overlapping alpha colors (color.border) at the intersection.
+const defaultDividerHeightStyles = cssMap({
+	default: {
 		height: `calc(2rem - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
-	}),
-	compact: css({
+	},
+	compact: {
 		height: `calc(1.5rem - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
-	}),
-};
+	},
+});
 
 type DividerProps = {
 	appearance: SplitButtonContextAppearance;
@@ -102,57 +110,60 @@ type DividerProps = {
  * TODO: Add JSDoc
  */
 export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProps) => {
+	const isDefaultDivider =
+		appearance === 'default' && !isDisabled && fg('platform-component-visual-refresh');
 	return (
 		// I find it funny to provide a div for Divider
 		<div
 			css={[
-				baseDividerStyles,
-				appearance === 'default' && !isDisabled && fg('platform-component-visual-refresh')
-					? defaultDividerHeight[spacing]
-					: dividerHeight[spacing],
+				dividerStyles.baseDivider,
+				isDefaultDivider && defaultDividerHeightStyles[spacing],
+				!isDefaultDivider && dividerHeightStyles[spacing],
 				isDisabled &&
-					(fg('platform-component-visual-refresh')
-						? dividerDisabledRefreshedStyles
-						: dividerDisabledStyles),
+					fg('platform-component-visual-refresh') &&
+					dividerStyles.dividerDisabledRefreshed,
+				isDisabled && !fg('platform-component-visual-refresh') && dividerStyles.dividerDisabled,
 				!isDisabled &&
-					(fg('platform-component-visual-refresh')
-						? dividerRefreshedAppearance[appearance]
-						: dividerAppearance[appearance]),
-				fg('platform-component-visual-refresh') && dividerRefreshedOffsetStyles,
+					fg('platform-component-visual-refresh') &&
+					dividerRefreshedAppearanceStyles[appearance],
+				!isDisabled &&
+					!fg('platform-component-visual-refresh') &&
+					dividerAppearanceStyles[appearance],
+				fg('platform-component-visual-refresh') && dividerStyles.dividerOffsetRefreshed,
 			]}
 		/>
 	);
 };
 
-const splitButtonStyles = css({
-	display: 'inline-flex',
-	position: 'relative',
-	alignItems: 'center',
-	whiteSpace: 'nowrap',
-});
-
-const primaryButtonStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'button,a': {
-		borderEndEndRadius: 0,
-		borderStartEndRadius: 0,
+const buttonStyles = cssMap({
+	splitButton: {
+		display: 'inline-flex',
+		position: 'relative',
+		alignItems: 'center',
+		whiteSpace: 'nowrap',
 	},
-});
-
-const secondaryButtonStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'button,a': {
-		borderEndStartRadius: 0,
-		borderStartStartRadius: 0,
+	primaryButton: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'button,a': {
+			borderEndEndRadius: 0,
+			borderStartEndRadius: 0,
+		},
 	},
-});
-
-const defaultAppearanceContainerStyles = css({
-	borderRadius: token('border.radius', '3px'),
-	outlineColor: token('color.border'),
-	outlineOffset: `calc(0px - ${token('border.width')})`,
-	outlineStyle: 'solid',
-	outlineWidth: token('border.width'),
+	secondaryButton: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'button,a': {
+			borderEndStartRadius: 0,
+			borderStartStartRadius: 0,
+		},
+	},
+	defaultAppearanceContainer: {
+		borderRadius: token('border.radius', '3px'),
+		outlineColor: token('color.border'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		outlineOffset: -1,
+		outlineStyle: 'solid',
+		outlineWidth: 1,
+	},
 });
 
 /**
@@ -173,8 +184,8 @@ export const SplitButtonContainer = ({
 				appearance === 'default' &&
 					!isDisabled &&
 					fg('platform-component-visual-refresh') &&
-					defaultAppearanceContainerStyles,
-				splitButtonStyles,
+					buttonStyles.defaultAppearanceContainer,
+				buttonStyles.splitButton,
 			]}
 		>
 			{children}
@@ -208,9 +219,9 @@ export const SplitButton = ({
 					isDisabled,
 				}}
 			>
-				<div css={primaryButtonStyles}>{PrimaryAction}</div>
+				<div css={buttonStyles.primaryButton}>{PrimaryAction}</div>
 				<Divider appearance={appearance} spacing={spacing} isDisabled={isDisabled} />
-				<div css={secondaryButtonStyles}>{SecondaryAction}</div>
+				<div css={buttonStyles.secondaryButton}>{SecondaryAction}</div>
 			</SplitButtonContext.Provider>
 		</SplitButtonContainer>
 	);
@@ -251,9 +262,9 @@ export const SplitButtonWithSlots = ({
 					isDisabled,
 				}}
 			>
-				<div css={primaryButtonStyles}>{primaryAction}</div>
+				<div css={buttonStyles.primaryButton}>{primaryAction}</div>
 				<Divider appearance={appearance} spacing={spacing} isDisabled={isDisabled} />
-				<div css={secondaryButtonStyles}>{secondaryAction}</div>
+				<div css={buttonStyles.secondaryButton}>{secondaryAction}</div>
 			</SplitButtonContext.Provider>
 		</SplitButtonContainer>
 	);

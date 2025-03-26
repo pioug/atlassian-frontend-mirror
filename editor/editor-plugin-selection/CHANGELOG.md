@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.1.3
+
+### Patch Changes
+
+- [#129221](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129221)
+  [`aad9678b8d08a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aad9678b8d08a) -
+  [ux] ED-25490 Fixes an issue where it was not possible to select block nodes at the top of the
+  document if they contain content.
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

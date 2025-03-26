@@ -2028,7 +2028,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					fg('platform_editor_typography_ugc')
 						? headingsSharedStylesWithEditorUGC
 						: headingsSharedStyles,
-					fg('platform_editor_heading_margin_fix') && headingWithAlignmentStyles,
+					headingWithAlignmentStyles,
 					ruleSharedStyles,
 					fg('platform_editor_typography_ugc')
 						? paragraphSharedStylesWithEditorUGC

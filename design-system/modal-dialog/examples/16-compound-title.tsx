@@ -2,38 +2,39 @@ import React, { useCallback, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
 import ModalDialog, {
-	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const headerStyles: React.CSSProperties = {
-	background:
-		'url(https://atlassian.design/react_assets/images/cards/personality.png) center top no-repeat',
-	backgroundSize: 'cover',
-	borderRadius: '4px 4px 0 0',
-	paddingTop: 170,
-	position: 'relative',
-};
-
-const titleStyles: React.CSSProperties = {
-	top: 100,
-	position: 'absolute',
-	padding: `${token('space.025', '2px')} ${token('space.300', '24px')}`,
-	textTransform: 'uppercase',
-};
-
-const customCloseStyles = xcss({
-	position: 'absolute',
-	insetInlineEnd: token('space.0', '0'),
-	insetBlockStart: token('space.050', '4px'),
+const styles = cssMap({
+	header: {
+		backgroundImage: `linear-gradient(${token('color.background.accent.blue.subtler')}, ${token('color.background.accent.purple.subtler')})`,
+		paddingBlockStart: token('space.1000'),
+		position: 'relative',
+	},
+	title: {
+		top: token('space.500'),
+		position: 'absolute',
+		paddingTop: token('space.025'),
+		paddingRight: token('space.300'),
+		paddingBottom: token('space.025'),
+		paddingLeft: token('space.300'),
+		textTransform: 'uppercase',
+	},
+	customClose: {
+		position: 'absolute',
+		insetInlineEnd: token('space.0'),
+		insetBlockStart: token('space.050'),
+	},
 });
 
 const CustomHeader = () => {
@@ -41,15 +42,19 @@ const CustomHeader = () => {
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<Box style={headerStyles}>
+		<Box xcss={styles.header}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<Box style={titleStyles}>
+			<Box xcss={styles.title}>
 				<Heading id={titleId} size="large" as="h1">
 					A customised header
 				</Heading>
 			</Box>
-			<Inline xcss={customCloseStyles}>
-				<CloseButton onClick={onClose} />
+			<Inline xcss={styles.customClose}>
+				<IconButton
+					onClick={onClose}
+					label="Close Modal"
+					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+				/>
 			</Inline>
 		</Box>
 	);

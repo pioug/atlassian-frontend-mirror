@@ -5,8 +5,7 @@
 
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 
@@ -14,21 +13,23 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 import FocusRing from '@atlaskit/focus-ring';
-import { media } from '@atlaskit/primitives';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const keylineColor = token('color.border', N30);
+const keylineColor = token('color.border');
 
 const baseStyles = css({
 	display: 'inherit',
-	margin: token('space.0', '0px'),
 	flex: 'inherit',
 	flexDirection: 'inherit',
 	flexGrow: 1,
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
+	marginInlineEnd: token('space.0'),
+	marginInlineStart: token('space.0'),
 	overflowX: 'hidden',
 	overflowY: 'auto',
-	[media.above.xs]: {
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
 		height: 'unset',
 		overflowY: 'auto',
 	},

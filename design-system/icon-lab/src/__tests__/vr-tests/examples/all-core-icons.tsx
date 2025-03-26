@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::b435f57bb485c6d2c73596be484900c8>>
+ * @codegen <<SignedSource::9e5af611f22488f2227067993a392004>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -25,7 +25,9 @@ import AlignContentTopIcon from '../../../../core/align-content-top';
 import AlignPositionBottomIcon from '../../../../core/align-position-bottom';
 import AlignPositionCenterVerticalIcon from '../../../../core/align-position-center-vertical';
 import AlignPositionTopIcon from '../../../../core/align-position-top';
+import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-up-right-down-left';
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
+import AssetsGraphIcon from '../../../../core/assets-graph';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
 import BookOpenIcon from '../../../../core/book-open';
@@ -54,11 +56,15 @@ import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
 import HandIcon from '../../../../core/hand';
 import IfElseIcon from '../../../../core/if-else';
+import ImageAltTextIcon from '../../../../core/image-alt-text';
+import ImageCropIcon from '../../../../core/image-crop';
 import IncognitoIcon from '../../../../core/incognito';
 import InitiativeIcon from '../../../../core/initiative';
 import JiraIcon from '../../../../core/jira';
 import JiraAddIcon from '../../../../core/jira-add';
 import JiraUploadIcon from '../../../../core/jira-upload';
+import LayoutFiveColumnsIcon from '../../../../core/layout-five-columns';
+import LayoutFourColumnsIcon from '../../../../core/layout-four-columns';
 import LozengeIcon from '../../../../core/lozenge';
 import NodeParallelBottomLeftIcon from '../../../../core/node-parallel-bottom-left';
 import NodeParallelBottomRightIcon from '../../../../core/node-parallel-bottom-right';
@@ -66,13 +72,16 @@ import NodeParallelTopLeftIcon from '../../../../core/node-parallel-top-left';
 import NodeParallelTopRightIcon from '../../../../core/node-parallel-top-right';
 import NodeSingleLeftIcon from '../../../../core/node-single-left';
 import NodeSingleRightIcon from '../../../../core/node-single-right';
+import NotepadIcon from '../../../../core/notepad';
 import PageLiveDocIcon from '../../../../core/page-live-doc';
 import PaintBrushIcon from '../../../../core/paint-brush';
 import PaintRollerIcon from '../../../../core/paint-roller';
+import PanelIcon from '../../../../core/panel';
 import PartyPopperIcon from '../../../../core/party-popper';
 import QrCodeIcon from '../../../../core/qr-code';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
+import RecurIcon from '../../../../core/recur';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import SectionIcon from '../../../../core/section';
@@ -97,11 +106,13 @@ import StrokePropertiesIcon from '../../../../core/stroke-properties';
 import StrokeStyleDashedIcon from '../../../../core/stroke-style-dashed';
 import StrokeStyleDottedIcon from '../../../../core/stroke-style-dotted';
 import StrokeStyleSolidIcon from '../../../../core/stroke-style-solid';
+import SuggestedEditIcon from '../../../../core/suggested-edit';
 import SunsetIcon from '../../../../core/sunset';
 import SwapIcon from '../../../../core/swap';
 import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
+import TalentIcon from '../../../../core/talent';
 import TemplateIcon from '../../../../core/template';
 import TextBoldItalicIcon from '../../../../core/text-bold-italic';
 import TextBoldItalicStrikethroughIcon from '../../../../core/text-bold-italic-strikethrough';
@@ -110,21 +121,30 @@ import TextBoldItalicUnderlineStrikethroughIcon from '../../../../core/text-bold
 import TextBoldStrikethroughIcon from '../../../../core/text-bold-strikethrough';
 import TextBoldUnderlineIcon from '../../../../core/text-bold-underline';
 import TextBoldUnderlineStrikethroughIcon from '../../../../core/text-bold-underline-strikethrough';
+import TextConclusionAddIcon from '../../../../core/text-conclusion-add';
+import TextIntroductionAddIcon from '../../../../core/text-introduction-add';
 import TextItalicStrikethroughIcon from '../../../../core/text-italic-strikethrough';
 import TextItalicUnderlineIcon from '../../../../core/text-italic-underline';
 import TextItalicUnderlineStrikethroughIcon from '../../../../core/text-italic-underline-strikethrough';
+import TextLengthenIcon from '../../../../core/text-lengthen';
+import TextParagraphIcon from '../../../../core/text-paragraph';
+import TextRephraseIcon from '../../../../core/text-rephrase';
 import TextUnderlineStrikethroughIcon from '../../../../core/text-underline-strikethrough';
 import TicketIcon from '../../../../core/ticket';
 import TidyIcon from '../../../../core/tidy';
 import VehicleAirplaneIcon from '../../../../core/vehicle-airplane';
 import VehicleTrainIcon from '../../../../core/vehicle-train';
+import VideoHdIcon from '../../../../core/video-hd';
+import VideoHdFilledIcon from '../../../../core/video-hd-filled';
 import ViewTypeBoardHomeIcon from '../../../../core/view-type-board-home';
 import ViewTypeCardHomeIcon from '../../../../core/view-type-card-home';
 import ViewTypeTableHomeIcon from '../../../../core/view-type-table-home';
 import VulnerabilityIcon from '../../../../core/vulnerability';
 import WalletIcon from '../../../../core/wallet';
+import WarningOutlineIcon from '../../../../core/warning-outline';
 import WebhookIcon from '../../../../core/webhook';
 import WelcomeFeedIcon from '../../../../core/welcome-feed';
+import WorkItemAddIcon from '../../../../core/work-item-add';
 import WorkflowControlsIcon from '../../../../core/workflow-controls';
 import WrenchIcon from '../../../../core/wrench';
 
@@ -138,7 +158,9 @@ const Icons = [
 	AlignPositionBottomIcon,
 	AlignPositionCenterVerticalIcon,
 	AlignPositionTopIcon,
+	ArrowsDiagonalUpRightDownLeftIcon,
 	AssetsDataManagerIcon,
+	AssetsGraphIcon,
 	AssetsSchemaIcon,
 	BeachUmbrellaIcon,
 	BookOpenIcon,
@@ -167,11 +189,15 @@ const Icons = [
 	GroupUngroupSelectionIcon,
 	HandIcon,
 	IfElseIcon,
+	ImageAltTextIcon,
+	ImageCropIcon,
 	IncognitoIcon,
 	InitiativeIcon,
 	JiraIcon,
 	JiraAddIcon,
 	JiraUploadIcon,
+	LayoutFiveColumnsIcon,
+	LayoutFourColumnsIcon,
 	LozengeIcon,
 	NodeParallelBottomLeftIcon,
 	NodeParallelBottomRightIcon,
@@ -179,13 +205,16 @@ const Icons = [
 	NodeParallelTopRightIcon,
 	NodeSingleLeftIcon,
 	NodeSingleRightIcon,
+	NotepadIcon,
 	PageLiveDocIcon,
 	PaintBrushIcon,
 	PaintRollerIcon,
+	PanelIcon,
 	PartyPopperIcon,
 	QrCodeIcon,
 	QueuePopInIcon,
 	QueuePopOutIcon,
+	RecurIcon,
 	RoadmapsPlanIcon,
 	RoadmapsServiceIcon,
 	SectionIcon,
@@ -210,11 +239,13 @@ const Icons = [
 	StrokeStyleDashedIcon,
 	StrokeStyleDottedIcon,
 	StrokeStyleSolidIcon,
+	SuggestedEditIcon,
 	SunsetIcon,
 	SwapIcon,
 	SwitchCaseIcon,
 	SyncIcon,
 	TakeoutContainerIcon,
+	TalentIcon,
 	TemplateIcon,
 	TextBoldItalicIcon,
 	TextBoldItalicStrikethroughIcon,
@@ -223,21 +254,30 @@ const Icons = [
 	TextBoldStrikethroughIcon,
 	TextBoldUnderlineIcon,
 	TextBoldUnderlineStrikethroughIcon,
+	TextConclusionAddIcon,
+	TextIntroductionAddIcon,
 	TextItalicStrikethroughIcon,
 	TextItalicUnderlineIcon,
 	TextItalicUnderlineStrikethroughIcon,
+	TextLengthenIcon,
+	TextParagraphIcon,
+	TextRephraseIcon,
 	TextUnderlineStrikethroughIcon,
 	TicketIcon,
 	TidyIcon,
 	VehicleAirplaneIcon,
 	VehicleTrainIcon,
+	VideoHdIcon,
+	VideoHdFilledIcon,
 	ViewTypeBoardHomeIcon,
 	ViewTypeCardHomeIcon,
 	ViewTypeTableHomeIcon,
 	VulnerabilityIcon,
 	WalletIcon,
+	WarningOutlineIcon,
 	WebhookIcon,
 	WelcomeFeedIcon,
+	WorkItemAddIcon,
 	WorkflowControlsIcon,
 	WrenchIcon,
 ];
@@ -274,3 +314,5 @@ export const IconGroup3 = allExamples[3];
 export const IconGroup4 = allExamples[4];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconGroup5 = allExamples[5];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup6 = allExamples[6];

@@ -13,13 +13,13 @@ import {
 	Wordmark,
 } from '@atlaskit/navigation-next';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-import BacklogIcon from '@atlaskit/icon/glyph/backlog';
-import BoardIcon from '@atlaskit/icon/glyph/board';
-import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
+import BacklogIcon from '@atlaskit/icon/core/migration/backlog';
+import BoardIcon from '@atlaskit/icon/core/migration/board';
+import GraphLineIcon from '@atlaskit/icon/core/migration/chart-trend--graph-line';
 import Avatar from '@atlaskit/avatar';
-import AddIcon from '@atlaskit/icon/glyph/add';
-import SearchIcon from '@atlaskit/icon/glyph/search';
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import AddIcon from '@atlaskit/icon/core/migration/add';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
+import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import { token } from '@atlaskit/tokens';
 
 type ClassNameProps = { className: string };

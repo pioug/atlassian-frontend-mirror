@@ -5,6 +5,7 @@ import Lorem from 'react-lorem-component';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
+import { cssMap } from '@atlaskit/css';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
@@ -20,7 +21,7 @@ import ModalDialog, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -247,9 +248,11 @@ type FlagData = {
 	title: string;
 };
 
-const flagGroupContainerStyles = xcss({
-	width: '100%',
-	textAlign: 'right',
+const flagGroupContainerStyles = cssMap({
+	root: {
+		width: '100%',
+		textAlign: 'right',
+	},
 });
 
 const FlagGroupExample = () => {
@@ -267,7 +270,7 @@ const FlagGroupExample = () => {
 	);
 
 	return (
-		<Box xcss={flagGroupContainerStyles}>
+		<Box xcss={flagGroupContainerStyles.root}>
 			<Button testId="flag-trigger" appearance="primary" onClick={addFlag}>
 				Add flag
 			</Button>

@@ -13,7 +13,7 @@ import { AGGPageInfo } from '../../types';
 export const TeamConnectedToContainerQuery = print(gql`
 	query getTeamsForContainer($containerId: ID!) {
 		graphStore @optIn(to: "GraphStore") {
-			teamConnectedToContainerInverse(id: $containerId)
+			teamConnectedToContainerInverse(id: $containerId, consistentRead: true)
 				@optIn(to: "GraphStoreTeamConnectedToContainer") {
 				edges {
 					node {

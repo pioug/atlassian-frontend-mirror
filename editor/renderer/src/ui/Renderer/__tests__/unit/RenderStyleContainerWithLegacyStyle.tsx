@@ -30,28 +30,26 @@ describe('RendererStyleContainer with legacy emotion styles', () => {
 	describe('should have same renderer styles', () => {
 		ffTest.off('platform_editor_emotion_refactor_renderer', 'with fg off', () => {
 			ffTest.on('platform_editor_typography_ugc', 'with fg on', () => {
-				ffTest.on('platform_editor_heading_margin_fix', 'with fg on', () => {
-					ffTest.on('editor_inline_comments_on_inline_nodes', 'with fg on', () => {
-						ffTest.on('annotations_align_editor_and_renderer_styles', 'with fg on', () => {
-							it('should have correct renderer styles before refactor', () => {
-								render(
-									<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
-										<RendererStyleContainer
-											appearance="full-page"
-											testId="testRendererEmotion"
-											allowNestedHeaderLinks={false}
-											useBlockRenderForCodeBlock={false}
-										>
-											<div>Hello world Emotion</div>
-										</RendererStyleContainer>
-									</BaseTheme>,
-								);
-								// If the snapshot fails, it means the styles have changed
-								// Please update the snapshot and git diff to see the changes
-								// and then apply the changes to the new renderer styles in packages/editor/renderer/src/ui/Renderer/RendererStyleContainer.tsx
-								// and update the snapshots of packages/editor/renderer/src/ui/Renderer/__tests__/unit/RenderStyleContainer.tsx
-								expect(screen.getByTestId('testRendererEmotion')).toMatchSnapshot();
-							});
+				ffTest.on('editor_inline_comments_on_inline_nodes', 'with fg on', () => {
+					ffTest.on('annotations_align_editor_and_renderer_styles', 'with fg on', () => {
+						it('should have correct renderer styles before refactor', () => {
+							render(
+								<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+									<RendererStyleContainer
+										appearance="full-page"
+										testId="testRendererEmotion"
+										allowNestedHeaderLinks={false}
+										useBlockRenderForCodeBlock={false}
+									>
+										<div>Hello world Emotion</div>
+									</RendererStyleContainer>
+								</BaseTheme>,
+							);
+							// If the snapshot fails, it means the styles have changed
+							// Please update the snapshot and git diff to see the changes
+							// and then apply the changes to the new renderer styles in packages/editor/renderer/src/ui/Renderer/RendererStyleContainer.tsx
+							// and update the snapshots of packages/editor/renderer/src/ui/Renderer/__tests__/unit/RenderStyleContainer.tsx
+							expect(screen.getByTestId('testRendererEmotion')).toMatchSnapshot();
 						});
 					});
 				});

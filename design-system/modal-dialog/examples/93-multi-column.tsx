@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import Modal, {
 	ModalFooter,
@@ -10,30 +11,30 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const modalBodyStyles = xcss({
-	display: 'flex',
-	height: '100%',
-	flexDirection: 'column',
-	overflowY: 'auto',
-});
-
-const columnNonFlexWrapperStyles = xcss({
-	height: 'calc(100% - 80px)',
-});
-
-const columnContainerStyles = xcss({
-	display: 'flex',
-	height: '100%',
-	flexGrow: 1,
-	background: token('color.background.neutral'),
-});
-
-const columnStyles = xcss({
-	flex: '1 0 50%',
-	overflowY: 'auto',
+const styles = cssMap({
+	modalBody: {
+		display: 'flex',
+		height: '100%',
+		flexDirection: 'column',
+		overflowY: 'auto',
+		paddingBlockStart: token('space.0'),
+		paddingBlockEnd: token('space.300'),
+	},
+	columnNonFlexWrapper: {
+		height: '80%',
+	},
+	columnContainer: {
+		display: 'flex',
+		height: '100%',
+		flexGrow: 1,
+	},
+	column: {
+		flex: '1 0 50%',
+		overflowY: 'auto',
+	},
 });
 
 export default function Example() {
@@ -66,17 +67,14 @@ export default function Example() {
 						<ModalHeader hasCloseButton>
 							<ModalTitle>Two-column layout</ModalTitle>
 						</ModalHeader>
-						<Box xcss={modalBodyStyles} paddingBlockStart="space.0" paddingBlockEnd="space.300">
+						<Box xcss={styles.modalBody}>
 							<p>These columns should scroll independently</p>
 							<Button onClick={toggleContentLength}>Toggle short/long content</Button>
-							<Box xcss={columnNonFlexWrapperStyles}>
-								<Box xcss={columnContainerStyles}>
+							<Box xcss={styles.columnNonFlexWrapper}>
+								<Box xcss={styles.columnContainer} backgroundColor="color.background.neutral">
 									<Box
-										xcss={columnStyles}
-										style={{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											background: token('color.background.accent.yellow.subtler'),
-										}}
+										xcss={styles.column}
+										backgroundColor="color.background.accent.yellow.subtler"
 									>
 										<Heading as="h2" size="large">
 											Column 1
@@ -92,7 +90,7 @@ export default function Example() {
 									</Box>
 
 									<Box
-										xcss={columnStyles}
+										xcss={styles.column}
 										style={{
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 											background: token('color.background.accent.teal.subtler'),

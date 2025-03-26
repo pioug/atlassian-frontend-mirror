@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import Modal, {
 	ModalBody,
@@ -9,14 +10,15 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const containerStyles = xcss({
-	position: 'relative',
-});
-
-const stickyStyles = xcss({
-	position: 'sticky',
+const styles = cssMap({
+	container: {
+		position: 'relative',
+	},
+	sticky: {
+		position: 'sticky',
+	},
 });
 
 function SurfaceAwareBox() {
@@ -44,8 +46,8 @@ export default function Example() {
 							<ModalTitle>Our voice and tone</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<Box xcss={containerStyles}>
-								<Box xcss={stickyStyles} paddingBlockStart="space.0" paddingBlockEnd="space.0">
+							<Box xcss={styles.container}>
+								<Box xcss={styles.sticky} paddingBlockStart="space.0" paddingBlockEnd="space.0">
 									<SurfaceAwareBox />
 								</Box>
 								<Heading as="h3" size="medium">

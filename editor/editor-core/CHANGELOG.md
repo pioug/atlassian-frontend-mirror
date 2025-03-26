@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 204.8.2
+
+### Patch Changes
+
+- [#130660](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130660)
+  [`35cca6367a1ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35cca6367a1ba) -
+  ED-27007 Clean up feature flag platform_editor_heading_margin_fix
+- [#131064](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131064)
+  [`24cad3d2de85a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24cad3d2de85a) -
+  ED-27155: Clean up platform_editor_advanced_layouts_accessibility
+- Updated dependencies
+
+## 204.8.1
+
+### Patch Changes
+
+- [#131399](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131399)
+  [`3e2bb97c408f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e2bb97c408f7) -
+  Add className to nested nodes for placeholder text to selectively apply truncation on long text
+- Updated dependencies
+
+## 204.8.0
+
+### Minor Changes
+
+- [#126109](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/126109)
+  [`b8eb107432364`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8eb107432364) -
+  marked EditorActions as deprecated
+
+### Patch Changes
+
+- [#130624](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130624)
+  [`8f52e4f05f49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f52e4f05f49b) -
+  updated docs to reflect our upgrade of editor-core to React 18
+- Updated dependencies
+
 ## 204.7.2
 
 ### Patch Changes

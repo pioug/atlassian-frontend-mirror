@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Link from '@atlaskit/link';
 import Modal, {
 	ModalBody,
@@ -11,11 +12,17 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	height: '100%',
-	padding: 'space.200',
+const containerStyles = cssMap({
+	root: {
+		height: '100%',
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+	},
 });
 
 export default function Parent() {
@@ -34,7 +41,7 @@ function Child() {
 	const close = () => setIsOpen(false);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<p>
 				This shows a use case where the parent of modal dialog rapidly re-renders, which is not
 				always in sync with the duration of modal dialog's enter/exit animation.

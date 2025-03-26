@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.1.2
+
+### Patch Changes
+
+- [#131298](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131298)
+  [`13ebcc2fd6d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13ebcc2fd6d07) -
+  Update `use-modal-dialog-close-button` rule to include code within expression containers and
+  logical expressions.
+
 ## 13.1.1
 
 ### Patch Changes

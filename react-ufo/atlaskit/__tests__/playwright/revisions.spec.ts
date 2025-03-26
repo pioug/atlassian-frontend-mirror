@@ -6,11 +6,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - basic', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: [
-			'platform_ufo_vc_observer_new',
-			'platform_ufo_vc_ttai_on_paint',
-			'platform_ufo_multiheatmap_killswitch',
-		],
+		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
 	});
 
 	for (const viewport of viewports) {
@@ -39,7 +35,8 @@ test.describe('ReactUFO: Revisions - basic', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				for (const rev of ufoRevisions!) {
+				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				for (const rev of applicableRevisions!) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();
@@ -56,11 +53,7 @@ test.describe('ReactUFO: Revisions - basic', () => {
 test.describe('ReactUFO: Revisions - nested', () => {
 	test.use({
 		examplePage: 'nested-elements',
-		featureFlags: [
-			'platform_ufo_vc_observer_new',
-			'platform_ufo_vc_ttai_on_paint',
-			'platform_ufo_multiheatmap_killswitch',
-		],
+		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
 	});
 
 	for (const viewport of viewports) {
@@ -89,7 +82,8 @@ test.describe('ReactUFO: Revisions - nested', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				for (const rev of ufoRevisions!) {
+				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				for (const rev of applicableRevisions!) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();

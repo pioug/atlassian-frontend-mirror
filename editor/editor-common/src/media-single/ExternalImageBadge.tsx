@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type MediaType } from '@atlaskit/adf-schema';
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import InfoIcon from '@atlaskit/icon/core/migration/information--info';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -53,7 +53,7 @@ export const ExternalImageBadge = ({ type, url }: ExternalImageBadgeProps) => {
 		<Box padding="space.050" xcss={baseStyles} tabIndex={0}>
 			<div data-testid="external-image-badge" />
 			<Tooltip content={message} position="top">
-				<InfoIcon size="small" label={message} />
+				<InfoIcon LEGACY_size="small" label={message} />
 			</Tooltip>
 		</Box>
 	);

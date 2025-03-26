@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
@@ -15,34 +16,35 @@ import ModalDialog, {
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, Flex, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Flex, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];
 
-const containerStyles = xcss({
-	padding: 'space.200',
-});
-
-const titleStyles = xcss({
-	marginBlockEnd: 'space.200',
-});
-
-const headerStyles = xcss({
-	background:
-		'url(https://atlassian.design/react_assets/images/cards/personality.png) center top no-repeat',
-	backgroundSize: 'cover',
-	borderRadius: '4px 4px 0 0',
-	padding: 'space.200',
+const styles = cssMap({
+	container: {
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+	},
+	title: {
+		marginBlockEnd: token('space.200'),
+	},
+	header: {
+		backgroundImage: `linear-gradient(${token('color.background.accent.blue.subtler')}, ${token('color.background.accent.purple.subtler')})`,
+		paddingBlockStart: token('space.1000'),
+		position: 'relative',
+	},
 });
 
 const CustomHeader = () => {
 	const { onClose } = useModal();
 
 	return (
-		<Flex alignItems="center" justifyContent="space-between" xcss={headerStyles}>
+		<Flex alignItems="center" justifyContent="space-between" xcss={styles.header}>
 			<ModalTitle>Custom header</ModalTitle>
 			<CloseButton onClick={onClose} />
 		</Flex>
@@ -94,14 +96,14 @@ export default function ModalDemo() {
 	);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={styles.container}>
 			<Heading size="large" as="h2" id="default-header-footer">
-				<Inline xcss={titleStyles}>Default Header/Footer</Inline>
+				<Inline xcss={styles.title}>Default Header/Footer</Inline>
 			</Heading>
 			<ButtonGroup titleId="default-header-footer">{defaults.map(btn)}</ButtonGroup>
 
 			<Heading size="large" as="h2" id="custom-components">
-				<Inline xcss={titleStyles}>Custom Components</Inline>
+				<Inline xcss={styles.title}>Custom Components</Inline>
 			</Heading>
 			<ButtonGroup titleId="custom-components">{custom.map(btn)}</ButtonGroup>
 

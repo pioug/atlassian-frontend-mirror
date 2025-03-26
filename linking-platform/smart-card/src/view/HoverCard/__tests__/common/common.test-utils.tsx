@@ -1,5 +1,7 @@
 import { act, fireEvent, screen, within } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import * as analytics from '../../../../utils/analytics/analytics';
 import { mocks } from '../../../../utils/mocks';
@@ -185,6 +187,33 @@ export const runCommonHoverCardTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
 	config: TestConfig,
 ) => {
+	describe('hover card trigger', () => {
+		ffTest.on('fix_a11y_violation_in_hover_card_trigger', 'fix is on', () => {
+			it('should show compliant hover card trigger', async () => {
+				await setup();
+				await act(async () => {
+					jest.runAllTimers();
+				});
+
+				expect(await screen.findByTestId('hover-card-trigger-wrapper')).toHaveAttribute(
+					'role',
+					'button',
+				);
+			});
+		});
+
+		ffTest.off('fix_a11y_violation_in_hover_card_trigger', 'fix is off', () => {
+			it('should show incompliant hover card trigger', async () => {
+				await setup();
+				await act(async () => {
+					jest.runAllTimers();
+				});
+
+				expect(await screen.findByTestId('hover-card-trigger-wrapper')).not.toHaveAttribute('role');
+			});
+		});
+	});
+
 	it('should be accessible', async () => {
 		const { container } = await setup();
 		await act(async () => {

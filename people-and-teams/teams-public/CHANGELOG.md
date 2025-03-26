@@ -1,5 +1,26 @@
 # @atlaskit/teams-public
 
+## 0.19.0
+
+### Minor Changes
+
+- [#131672](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131672)
+  [`42b808c675de5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42b808c675de5) -
+  Add missing attributes for on container click event
+- [#131952](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131952)
+  [`479e74907ec65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/479e74907ec65) -
+  add consistentRead to teamConnectedToContainerInverse query
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.18.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.18.1
 
 ### Patch Changes

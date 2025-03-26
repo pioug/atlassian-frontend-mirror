@@ -3,13 +3,14 @@ import { closeHistory, history, redo, undo } from '@atlaskit/editor-prosemirror/
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	collab,
@@ -42,12 +43,12 @@ class DummyServer {
 		}
 	}
 
-	sync(n: number) {
+	sync(n: number, opts: { mapSelectionBackward?: boolean } = {}) {
 		let state = this.states[n],
 			version = this.plugins[n].getState(state).version;
 		if (version !== this.steps.length) {
 			this.states[n] = state.apply(
-				receiveTransaction(state, this.steps.slice(version), this.clientIDs.slice(version)),
+				receiveTransaction(state, this.steps.slice(version), this.clientIDs.slice(version), opts),
 			);
 		}
 	}
@@ -62,22 +63,26 @@ class DummyServer {
 		}
 	}
 
-	broadcast(n: number) {
+	broadcast(n: number, opts: { mapSelectionBackward?: boolean } = {}) {
 		if (this.delayed.indexOf(n) > -1) {
 			return;
 		}
-		this.sync(n);
+		this.sync(n, opts);
 		this.send(n);
 		for (let i = 0; i < this.states.length; i++) {
 			if (i !== n) {
-				this.sync(i);
+				this.sync(i, opts);
 			}
 		}
 	}
 
-	update(n: number, f: (state: EditorState) => Transaction) {
+	update(
+		n: number,
+		f: (state: EditorState) => Transaction,
+		opts: { mapSelectionBackward?: boolean } = {},
+	) {
 		this.states[n] = this.states[n].apply(f(this.states[n]));
-		this.broadcast(n);
+		this.broadcast(n, opts);
 	}
 
 	type(n: number, text: string, pos?: number) {
@@ -308,5 +313,47 @@ describe('collab', () => {
 				expect(tr.getMeta('addToHistory')).toBe(false);
 			});
 		});
+
+		ffTest.on(
+			'platform_editor_collab_text_selection_override',
+			'preserves range selection with mapSelectionBackward',
+			() => {
+				it('when another user updates the document', () => {
+					const s = new DummyServer(doc(panel()(p('')), p('hello'))(schema));
+
+					// User 0 sets a range selection to pos 0
+					s.update(0, (state) => {
+						const $anchor = state.doc.resolve(10);
+						const $head = state.doc.resolve(0);
+						const selection = new TextSelection($anchor, $head);
+						return state.tr.setSelection(selection);
+					});
+
+					// Verify User 0's initial selection
+					expect(s.states[0].selection).toBeInstanceOf(TextSelection);
+					expect(s.states[0].selection.from).toBe(0);
+					expect(s.states[0].selection.to).toBe(10);
+					expect(s.states[0].selection.$from.pos).toBe(0);
+					expect(s.states[0].selection.$to.pos).toBe(10);
+
+					// User 1 makes a single document change
+					s.update(
+						1,
+						(state) => {
+							const tr = state.tr;
+							tr.insertText(' ', 11);
+							return tr;
+						},
+						{ mapSelectionBackward: true },
+					);
+
+					const user0State = s.states[0];
+					expect(user0State.selection.from).toBe(0);
+					expect(user0State.selection.to).toBe(10);
+					expect(user0State.selection.$from.pos).toBe(0);
+					expect(user0State.selection.$to.pos).toBe(10);
+				});
+			},
+		);
 	});
 });

@@ -6,7 +6,6 @@ import userEvent from '@testing-library/user-event';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { width } from '../../internal/utils';
@@ -176,8 +175,8 @@ describe('<ModalDialog />', () => {
 			 * is only supported in @testing-library/jest-dom 5.11.3.
 			 */
 			expect(styles).toContain('--modal-dialog-height: 42px;');
-			expect(modalDialog).toHaveStyleDeclaration('height', 'var(--modal-dialog-height)', {
-				media: `(min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min})`,
+			expect(modalDialog).toHaveCompiledCss('height', '42px', {
+				media: `(min-width: 30rem)`,
 			});
 		});
 
@@ -246,8 +245,8 @@ describe('<ModalDialog />', () => {
 			 * is only supported in @testing-library/jest-dom 5.11.3.
 			 */
 			expect(styles).toContain('--modal-dialog-width: 42px;');
-			expect(modalDialog).toHaveStyleDeclaration('width', 'var(--modal-dialog-width)', {
-				media: `(min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min})`,
+			expect(modalDialog).toHaveCompiledCss('width', '42px', {
+				media: `(min-width: 30rem)`,
 			});
 		});
 
@@ -851,12 +850,12 @@ describe('multiple modals', () => {
 		expect(screen.getByTestId('back--positioner')).toHaveStyle(
 			'--modal-dialog-translate-y: calc(1px * var(--ds-space-100, 8px));',
 		);
-		expect(screen.getByTestId('back--positioner')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('back--positioner')).toHaveCompiledCss(
 			'transform',
-			'translateY(var(--modal-dialog-translate-y))',
+			'translateY(calc(1px * var(--ds-space-100, 8px)))',
 		);
 
-		expect(screen.getByTestId('front--positioner')).toHaveStyleDeclaration('transform', 'none');
+		expect(screen.getByTestId('front--positioner')).toHaveCompiledCss('transform', 'none');
 
 		rerender(
 			<>
@@ -869,6 +868,6 @@ describe('multiple modals', () => {
 
 		// Now that the modal has shifted to the front and is active,
 		// it should set transform back to 'none'.
-		expect(screen.getByTestId('back--positioner')).toHaveStyleDeclaration('transform', 'none');
+		expect(screen.getByTestId('back--positioner')).toHaveCompiledCss('transform', 'none');
 	});
 });

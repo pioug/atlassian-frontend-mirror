@@ -1,4 +1,3 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Provider } from '../..';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
@@ -238,12 +237,23 @@ describe('DocumentService onRestore', () => {
 			});
 
 			it('fires analytics with correct unconfirmedSteps length', () => {
-				expect(sendActionEventSpy).toBeCalledTimes(1);
-				expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'SUCCESS', {
+				expect(sendActionEventSpy).toBeCalledTimes(2);
+				expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
+					numUnconfirmedSteps: 0,
+					clientId: '123456',
 					hasTitle: true,
+					targetClientId: undefined,
+					triggeredByCatchup: false,
+					obfuscatedSteps: [],
+					obfuscatedDoc: undefined,
+				});
+
+				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
 					numUnconfirmedSteps: 0,
 					useReconcile: false,
 					clientId: '123456',
+					hasTitle: true,
+					targetClientId: undefined,
 					triggeredByCatchup: false,
 				});
 			});
@@ -262,14 +272,32 @@ describe('DocumentService onRestore', () => {
 
 			it('fires analytics with correct unconfirmedSteps length', async () => {
 				await provider.documentService.onRestore(dummyPayload);
-				expect(sendActionEventSpy).toBeCalledTimes(1);
-				expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'SUCCESS', {
-					hasTitle: true,
-					numUnconfirmedSteps: 2,
-					useReconcile: false,
-					clientId: '123456',
-					triggeredByCatchup: false,
-				});
+				expect(sendActionEventSpy).toBeCalledTimes(2);
+				expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+					1,
+					'reinitialiseDocument',
+					'INFO',
+					expect.objectContaining({
+						numUnconfirmedSteps: 2,
+						clientId: '123456',
+						hasTitle: true,
+						targetClientId: undefined,
+						triggeredByCatchup: false,
+					}),
+				);
+				expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+					2,
+					'reinitialiseDocument',
+					'SUCCESS',
+					expect.objectContaining({
+						numUnconfirmedSteps: 2,
+						useReconcile: false,
+						clientId: '123456',
+						hasTitle: true,
+						targetClientId: undefined,
+						triggeredByCatchup: false,
+					}),
+				);
 			});
 
 			it('calls applyLocalSteps with steps to apply', async () => {
@@ -287,27 +315,39 @@ describe('DocumentService onRestore', () => {
 					fetchReconcileSpy.mockReturnValue('thing');
 				});
 
-				it('doesnt call applyLocalSteps', async () => {
+				it('call applyLocalSteps by default', async () => {
 					await provider.documentService.onRestore(dummyPayload);
-					expect(applyLocalStepsSpy).toBeCalledTimes(0);
-				});
-
-				it('calls reconcile', async () => {
-					await provider.documentService.onRestore(dummyPayload);
-					expect(getCurrentStateSpy).toBeCalledTimes(1);
-					expect(fetchReconcileSpy).toBeCalledTimes(1);
+					expect(applyLocalStepsSpy).toBeCalledTimes(1);
 				});
 
 				it('fires analytics with correct unconfirmedSteps length', async () => {
 					await provider.documentService.onRestore(dummyPayload);
-					expect(sendActionEventSpy).toBeCalledTimes(1);
-					expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'SUCCESS', {
-						hasTitle: true,
-						numUnconfirmedSteps: 2,
-						useReconcile: true,
-						clientId: '123456',
-						triggeredByCatchup: false,
-					});
+					expect(sendActionEventSpy).toBeCalledTimes(2);
+					expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+						1,
+						'reinitialiseDocument',
+						'INFO',
+						expect.objectContaining({
+							numUnconfirmedSteps: 2,
+							clientId: '123456',
+							hasTitle: true,
+							targetClientId: undefined,
+							triggeredByCatchup: false,
+						}),
+					);
+					expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+						2,
+						'reinitialiseDocument',
+						'SUCCESS',
+						expect.objectContaining({
+							numUnconfirmedSteps: 2,
+							useReconcile: true,
+							clientId: '123456',
+							hasTitle: true,
+							targetClientId: undefined,
+							triggeredByCatchup: false,
+						}),
+					);
 				});
 			});
 		});
@@ -360,62 +400,6 @@ describe('DocumentService onRestore', () => {
 			});
 			expect.assertions(8);
 		});
-
-		it('when applyLocalSteps throws', async () => {
-			jest.spyOn(provider.documentService, 'applyLocalSteps').mockImplementation(() => {
-				throw new Error('testing');
-			});
-			jest.spyOn(provider.documentService, 'updateDocument').mockImplementation(() => {
-				// Mockout updateDocument to exclude its own metrics that it can emit
-			});
-			provider.on('error', (err: any) => {
-				expect(err).toEqual({
-					recoverable: false,
-					code: 'DOCUMENT_RESTORE_ERROR',
-					message: 'Collab service unable to restore document',
-					status: 500,
-				});
-			});
-			await provider.documentService.onRestore(dummyPayload);
-
-			expect(sendActionEventSpy).toBeCalledTimes(1);
-			expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'FAILURE', {
-				numUnconfirmedSteps: 2,
-				useReconcile: false,
-				clientId: '123456',
-				triggeredByCatchup: false,
-			});
-			expect(sendErrorEventSpy).toBeCalledTimes(2);
-			expect(sendProviderErrorEventSpy).toBeCalledTimes(1);
-			expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-				1,
-				testError,
-				'Error while reinitialising document. Use Reconcile: false',
-			);
-			expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-				2,
-				{
-					data: { code: 'DOCUMENT_RESTORE_ERROR', status: 500 },
-					message: 'Caught error while trying to recover the document',
-				},
-				'Error handled',
-			);
-			expect(sendProviderErrorEventSpy).toHaveBeenCalledWith({
-				code: 'DOCUMENT_RESTORE_ERROR',
-				recoverable: false,
-				message: 'Collab service unable to restore document',
-				status: 500,
-			});
-			expect(onErrorHandledSpy).toBeCalledTimes(1);
-			expect(onErrorHandledSpy).toBeCalledWith({
-				message: 'Caught error while trying to recover the document',
-				data: {
-					status: 500,
-					code: 'DOCUMENT_RESTORE_ERROR',
-				},
-			});
-			expect.assertions(10);
-		});
 	});
 
 	describe('Targeting clients', () => {
@@ -438,125 +422,68 @@ describe('DocumentService onRestore', () => {
 	});
 
 	describe('onRestore with applyLocalSteps only', () => {
-		ffTest(
-			'restore_localstep_fallback_reconcile',
-			async () => {
-				// test case when FF is true.
-
-				// When unconfirmedSteps are in range and targetClientId is provided and matches clientId
-				// should restore document using applyLocalSteps only
-				getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
-				getCurrentStateSpy.mockReturnValue(editorState);
-
-				await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
-				expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
-				expect(fetchReconcileSpy).not.toHaveBeenCalled();
-				expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
-				expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
-
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
-					numUnconfirmedSteps: 2,
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: '123456',
-					triggeredByCatchup: true,
-					obfuscatedSteps: expectedObfuscatedSteps,
-					obfuscatedDoc: expectedObfuscatedDoc,
-				});
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
-					numUnconfirmedSteps: 2,
-					useReconcile: false, // use useReconcile when FF is ON as fallback
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: '123456',
-					triggeredByCatchup: true,
-				});
-			},
-			async () => {
-				// test case when FF is false.
-
-				// when targetClientId is provided and matches clientId
-				// should restore document using applyLocalSteps
-				getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
-				getCurrentStateSpy.mockReturnValue({ content: 'something' });
-
-				await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
-				expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
-				expect(fetchReconcileSpy).not.toHaveBeenCalled();
-				expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
-				expect(sendActionEventSpy).toHaveBeenCalledWith('reinitialiseDocument', 'SUCCESS', {
-					numUnconfirmedSteps: 2,
-					useReconcile: false, // not useReconcile when FF is OFF as targetClientId presents and matches
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: '123456',
-					triggeredByCatchup: true,
-				});
-			},
-		);
+		it('should restore document using applyLocalSteps only', async () => {
+			// When unconfirmedSteps are in range and targetClientId is provided and matches clientId
+			// should restore document using applyLocalSteps only
+			getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
+			getCurrentStateSpy.mockReturnValue(editorState);
+			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
+			expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
+			expect(fetchReconcileSpy).not.toHaveBeenCalled();
+			expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
+				numUnconfirmedSteps: 2,
+				clientId: '123456',
+				hasTitle: true,
+				targetClientId: '123456',
+				triggeredByCatchup: true,
+				obfuscatedSteps: expectedObfuscatedSteps,
+				obfuscatedDoc: expectedObfuscatedDoc,
+			});
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
+				numUnconfirmedSteps: 2,
+				useReconcile: false, // use useReconcile as fallback
+				clientId: '123456',
+				hasTitle: true,
+				targetClientId: '123456',
+				triggeredByCatchup: true,
+			});
+		});
 	});
 
 	describe('onRestore with applyLocalSteps, fetchReconcile when catching error', () => {
-		ffTest(
-			'restore_localstep_fallback_reconcile',
-			async () => {
-				// test case when FF is true.
-
-				// When unconfirmedSteps are out of range and targetClientId is provided and matches clientId
-				// should restore document using applyLocalSteps first and then catching error to fetch reconcile
-				getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
-				getCurrentStateSpy.mockReturnValue(editorState);
-				applyLocalStepsSpy.mockImplementation(() => {
-					throw new RangeError('Out of range index');
-				});
-				fetchReconcileSpy.mockReturnValue('thing');
-
-				await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
-				expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
-				expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
-				expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
-				expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
-
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
-					numUnconfirmedSteps: 2,
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: '123456',
-					triggeredByCatchup: true,
-					obfuscatedSteps: expectedObfuscatedSteps,
-					obfuscatedDoc: expectedObfuscatedDoc,
-				});
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
-					numUnconfirmedSteps: 2,
-					useReconcile: true, // use useReconcile when FF is ON as fallback
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: '123456',
-					triggeredByCatchup: true,
-				});
-			},
-			async () => {
-				// test case when FF is false.
-
-				// when no targetClientId is provided
-				// should restore document using fetchReconcile
-				getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
-				getCurrentStateSpy.mockReturnValue({ content: 'something' });
-				fetchReconcileSpy.mockReturnValue('thing');
-
-				await provider.documentService.onRestore({ ...dummyPayload });
-				expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
-				expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
-				expect(applyLocalStepsSpy).not.toHaveBeenCalled();
-				expect(sendActionEventSpy).toHaveBeenCalledWith('reinitialiseDocument', 'SUCCESS', {
-					numUnconfirmedSteps: 2,
-					useReconcile: true, // use useReconcile when FF is OFF as no targetClientId presents
-					clientId: '123456',
-					hasTitle: true,
-					targetClientId: undefined,
-					triggeredByCatchup: false,
-				});
-			},
-		);
+		it('should restore document using applyLocalSteps first and then catching error to fetch reconcile', async () => {
+			// When unconfirmedSteps are out of range and targetClientId is provided and matches clientId
+			// should restore document using applyLocalSteps first and then catching error to fetch reconcile
+			getUnconfirmedStepsSpy.mockReturnValue(pmSteps);
+			getCurrentStateSpy.mockReturnValue(editorState);
+			applyLocalStepsSpy.mockImplementation(() => {
+				throw new RangeError('Out of range index');
+			});
+			fetchReconcileSpy.mockReturnValue('thing');
+			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
+			expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
+			expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
+			expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
+				numUnconfirmedSteps: 2,
+				clientId: '123456',
+				hasTitle: true,
+				targetClientId: '123456',
+				triggeredByCatchup: true,
+				obfuscatedSteps: expectedObfuscatedSteps,
+				obfuscatedDoc: expectedObfuscatedDoc,
+			});
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'reinitialiseDocument', 'SUCCESS', {
+				numUnconfirmedSteps: 2,
+				useReconcile: true, // use useReconcile as fallback
+				clientId: '123456',
+				hasTitle: true,
+				targetClientId: '123456',
+				triggeredByCatchup: true,
+			});
+		});
 	});
 });

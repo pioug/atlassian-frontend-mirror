@@ -4,6 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
+import { cssMap } from '@atlaskit/css';
 import { Field } from '@atlaskit/form';
 import ModalDialog, {
 	ModalBody,
@@ -12,12 +13,14 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const containerStyles = xcss({
-	display: 'grid',
-	width: '250%',
-	gridTemplateColumns: 'repeat(2, 1fr)',
+const containerStyles = cssMap({
+	root: {
+		display: 'grid',
+		width: '250%',
+		gridTemplateColumns: 'repeat(2, 1fr)',
+	},
 });
 
 export default function ExampleScroll() {
@@ -34,7 +37,7 @@ export default function ExampleScroll() {
 	);
 
 	return (
-		<Box xcss={containerStyles} padding="space.200">
+		<Box xcss={containerStyles.root} padding="space.200">
 			<Box>
 				<p>The width of body is greater than viewport width (horizontally scrollable).</p>
 

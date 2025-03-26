@@ -3,6 +3,7 @@ import React, { type FC, useCallback, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -11,20 +12,27 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const spacerStyles = xcss({
-	margin: 'space.100',
+const styles = cssMap({
+	spacer: {
+		marginTop: token('space.100'),
+		marginRight: token('space.100'),
+		marginBottom: token('space.100'),
+		marginLeft: token('space.100'),
+	},
+	sizedContent: {
+		paddingTop: token('space.400'),
+		paddingRight: token('space.400'),
+		paddingBottom: token('space.400'),
+		paddingLeft: token('space.400'),
+		alignItems: 'center',
+		overflow: 'auto',
+		textAlign: 'center',
+		verticalAlign: 'center',
+	},
 });
-
-const sizedContentStyles = xcss({
-	padding: 'space.400',
-	alignItems: 'center',
-	overflow: 'auto',
-	textAlign: 'center',
-	verticalAlign: 'center',
-});
-
 const PopupContent: FC = () => {
 	const [showModal, setShowModal] = useState(false);
 
@@ -32,7 +40,7 @@ const PopupContent: FC = () => {
 	const close = useCallback(() => setShowModal(false), []);
 
 	return (
-		<Box xcss={sizedContentStyles}>
+		<Box xcss={styles.sizedContent}>
 			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
@@ -65,7 +73,7 @@ const PopupPlacementExample = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<Box xcss={spacerStyles}>
+		<Box xcss={styles.spacer}>
 			<Popup
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}

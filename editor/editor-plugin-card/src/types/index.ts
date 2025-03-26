@@ -121,6 +121,7 @@ export type CardPluginOptions = CardOptions & {
 	lpLinkPicker?: boolean;
 	disableFloatingToolbar?: boolean;
 	onClickCallback?: OnClickCallback;
+	isPageSSRed?: boolean;
 };
 
 // actions

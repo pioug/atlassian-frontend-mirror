@@ -7,8 +7,8 @@ import type { ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
 import { token } from '@atlaskit/tokens';
 
 const errorColor = css({
@@ -54,7 +54,7 @@ export const ErrorMessage = ({ children }: Props) => (
 		}}
 	>
 		<span css={iconWrapperStyle}>
-			<ErrorIcon size="small" label="error" aria-label="error" />
+			<ErrorIcon LEGACY_size="small" label="error" aria-label="error" />
 		</span>
 		{children}
 	</div>
@@ -67,7 +67,7 @@ export const ValidMessage = ({ children }: Props) => (
 		}}
 	>
 		<span css={iconWrapperStyle}>
-			<SuccessIcon size="small" label="success" />
+			<SuccessIcon LEGACY_size="small" label="success" />
 		</span>
 		{children}
 	</div>

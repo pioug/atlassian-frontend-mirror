@@ -1,5 +1,42 @@
 # @atlaskit/icon-lab
 
+## 4.4.0
+
+### Minor Changes
+
+- [#131966](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131966)
+  [`bb527c6817e2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb527c6817e2b) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `arrows-diagonal-up-right-down-left`
+  - `assets-graph`
+  - `image-alt-text`
+  - `image-crop`
+  - `layout-five-columns`
+  - `layout-four-columns`
+  - `notepad`
+  - `panel`
+  - `recur`
+  - `suggested-edit`
+  - `talent`
+  - `text-conclusion-add`
+  - `text-introduction-add`
+  - `text-lengthen`
+  - `text-paragraph`
+  - `text-rephrase`
+  - `video-hd-filled`
+  - `video-hd`
+  - `warning-outline`
+  - `work-item-add`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

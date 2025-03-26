@@ -213,7 +213,7 @@ export function InlineCommentView({
 				dom={dom}
 				onDelete={(id) =>
 					removeInlineCommentNearSelection(id, inlineCommentProvider.supportedBlockNodes)(
-						state,
+						editorView.state,
 						dispatch,
 					)
 				}

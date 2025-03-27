@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 2.3.2
+
+### Patch Changes
+
+- [#131989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131989)
+  [`3c353c272040f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c353c272040f) -
+  Update types for Workflow builder Rovo agent, update agent icon, and add presentational card for
+  transition actions
+
 ## 2.3.1
 
 ### Patch Changes

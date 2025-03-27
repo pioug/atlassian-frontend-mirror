@@ -48,7 +48,7 @@ type Props = React.PropsWithChildren<{
 const containerStyles = css({
 	// Remove top margin if MBE is the first on the doc/page (MBE can only be on the first level)
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-	'&:first-of-type > .ak-renderer-extension': {
+	'&:first-child > .ak-renderer-extension': {
 		marginTop: 0,
 	},
 });
@@ -182,6 +182,7 @@ const MultiBodiedExtension = (props: Props) => {
 		<section
 			css={[containerStyles, containerActiveFrameStyles]}
 			data-testid="multiBodiedExtension--container"
+			data-multiBodiedExtension-container
 			data-active-child-index={activeChildIndex}
 			data-layout={layout}
 		>

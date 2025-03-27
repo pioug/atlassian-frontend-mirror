@@ -4,6 +4,7 @@ import type {
 	default as core,
 	FileInfo,
 	ImportDeclaration,
+	Node,
 	Options,
 } from 'jscodeshift';
 
@@ -92,6 +93,9 @@ function replaceXcssWithCssMap(
 	specifier: string,
 ) {
 	const cssMapProperties: core.ObjectProperty[] = [];
+	let firstXcssPath: ASTPath<core.CallExpression> | null = null;
+	let firstUsagePath: ASTPath<core.Node> | null = null;
+	const styleVariables = new Set<string>();
 
 	source
 		.find(j.CallExpression, {
@@ -114,15 +118,68 @@ function replaceXcssWithCssMap(
 
 					if (variableDeclarator && variableDeclarator.type === 'VariableDeclarator') {
 						const variableName = variableDeclarator.id.name; // e.g. buttonStyles
-						const key = getCssMapKey(variableName); // buttonStyles -> button to put in cssMap as the key e.g. styles = cssMap({ button: { color: 'red' } });
+						styleVariables.add(variableName);
+					}
+				}
+			}
+		});
 
+	// find the first usage of any style variable
+	source.find(j.Identifier).forEach((path) => {
+		if (
+			styleVariables.has(path.node.name) &&
+			(!firstUsagePath ||
+				(path.node.loc?.start &&
+					firstUsagePath.node.loc?.start &&
+					(path.node.loc.start.line < firstUsagePath.node.loc.start.line ||
+						(path.node.loc.start.line === firstUsagePath.node.loc.start.line &&
+							path.node.loc.start.column < firstUsagePath.node.loc.start.column))))
+		) {
+			firstUsagePath = path;
+		}
+	});
+
+	// find all xcss function calls
+	source
+		.find(j.CallExpression, {
+			callee: {
+				type: 'Identifier',
+				name: specifier,
+			},
+		})
+		.forEach((path) => {
+			const args = path.node.arguments;
+			// only process xcss calls that have a single object argument
+			if (args.length === 1 && args[0].type === 'ObjectExpression') {
+				// get the parent variable declaration that contains this xcss call
+				// e.g. const buttonStyles = xcss({...})
+				const parentVariableDeclaration = path.parentPath?.parentPath?.parentPath?.node;
+				if (parentVariableDeclaration && parentVariableDeclaration.type === 'VariableDeclaration') {
+					// find the variable declarator that initialises with this xcss call
+					// e.g. const buttonStyles = xcss({ color: 'red' });
+					const variableDeclarator = parentVariableDeclaration.declarations.find(
+						(declaration: core.VariableDeclarator) => declaration.init === path.node,
+					);
+
+					if (variableDeclarator && variableDeclarator.type === 'VariableDeclarator') {
+						// convert the variable name to a cssMap key (e.g. myStyles -> root)
+						const variableName = variableDeclarator.id.name;
+						const key = getCssMapKey(variableName);
+
+						// create a new cssMap property with the key and the processed styles
 						const cssMapObject = j.objectProperty(
 							j.identifier(key),
 							ensureSelectorAmpersand(j, args[0]),
 						);
 						cssMapProperties.push(cssMapObject);
 
-						j(path.parentPath.parentPath.parentPath).remove(); // remove original xcss object
+						// track the first xcss call
+						if (!firstXcssPath) {
+							firstXcssPath = path;
+						}
+
+						// remove the original xcss variable declaration since we'll replace it with cssMap
+						j(path.parentPath.parentPath.parentPath).remove();
 					}
 				}
 			}
@@ -138,9 +195,41 @@ function replaceXcssWithCssMap(
 			),
 		]);
 
-		// insert the cssMap var after all imports
-		const lastImportIndex = source.find(j.ImportDeclaration).size();
-		source.get().node.program.body.splice(lastImportIndex, 0, cssMapVariableDeclaration);
+		// insert the cssMap declaration before its first usage
+		if (firstUsagePath) {
+			const programBody = source.get().node.program.body;
+			const firstUsageIndex = programBody.findIndex((node: Node) => {
+				const nodeStart = node.loc?.start;
+				const usageStart = firstUsagePath?.node.loc?.start;
+
+				if (!nodeStart || !usageStart) {
+					return false;
+				}
+
+				return (
+					nodeStart.line > usageStart.line ||
+					(nodeStart.line === usageStart.line && nodeStart.column > usageStart.column)
+				);
+			});
+
+			if (firstUsageIndex !== -1) {
+				// find the last import or variable declaration before the first usage
+				let insertIndex = firstUsageIndex;
+				while (insertIndex > 0) {
+					const node = programBody[insertIndex - 1];
+					if (
+						node.type === 'ImportDeclaration' ||
+						node.type === 'VariableDeclaration' ||
+						node.type === 'TypeAlias' ||
+						node.type === 'InterfaceDeclaration'
+					) {
+						break;
+					}
+					insertIndex--;
+				}
+				programBody.splice(insertIndex, 0, cssMapVariableDeclaration);
+			}
+		}
 	}
 
 	// update the xcss prop references to use the new cssMap object

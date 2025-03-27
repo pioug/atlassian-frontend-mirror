@@ -239,8 +239,8 @@ const PanelStyledNew = ({
 	...props
 }: React.PropsWithChildren<PanelStyledProps & React.HTMLAttributes<HTMLDivElement>>) => {
 	const customBackgroundColor = backgroundColor
-		? hexToEditorBackgroundPaletteColor(backgroundColor)
-		: backgroundColor;
+		? hexToEditorBackgroundPaletteColor(backgroundColor) || backgroundColor
+		: undefined;
 	return (
 		<div
 			style={

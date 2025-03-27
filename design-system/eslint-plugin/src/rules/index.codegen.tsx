@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4655f06909a45281bdcc9780314776c5>>
+ * @codegen <<SignedSource::551d1887446166d5a78fc51663d43e9c>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -9,6 +9,7 @@ import ensureDesignTokenUsagePreview from './ensure-design-token-usage-preview';
 import ensureIconColor from './ensure-icon-color';
 import iconLabel from './icon-label';
 import noBannedImports from './no-banned-imports';
+import noBooleanAutofocusOnModalDialog from './no-boolean-autofocus-on-modal-dialog';
 import noCssTaggedTemplateExpression from './no-css-tagged-template-expression';
 import noCustomIcons from './no-custom-icons';
 import noDarkThemeVrTests from './no-dark-theme-vr-tests';
@@ -59,6 +60,7 @@ export const rules = {
 	'ensure-icon-color': ensureIconColor,
 	'icon-label': iconLabel,
 	'no-banned-imports': noBannedImports,
+	'no-boolean-autofocus-on-modal-dialog': noBooleanAutofocusOnModalDialog,
 	'no-css-tagged-template-expression': noCssTaggedTemplateExpression,
 	'no-custom-icons': noCustomIcons,
 	'no-dark-theme-vr-tests': noDarkThemeVrTests,

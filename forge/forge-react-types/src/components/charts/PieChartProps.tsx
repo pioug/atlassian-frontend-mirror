@@ -1,5 +1,3 @@
-import type { ChartColorTokens } from '../../types';
-
 export type PieChartProps = {
 	/**
 	 * The static width of the chart in pixels. If this is not specified, the width is responsive.
@@ -15,10 +13,6 @@ export type PieChartProps = {
 	 * 2. [Array of objects](https://developer.atlassian.com/platform/forge/ui-kit/components/pie-chart/#2--array-of-objects).
 	 */
 	data: unknown[];
-	/**
-	 * Boolean to display the chart border. Defaults to `false`.
-	 */
-	showBorder?: boolean;
 	/**
 	 * Accessor to define the color grouping. This can be a numerical or string index.
 	 * For more information on all accessors, see [Data](https://developer.atlassian.com/platform/forge/ui-kit/components/pie-chart/#data).
@@ -41,18 +35,9 @@ export type PieChartProps = {
 	 */
 	subtitle?: string;
 	/**
-	 * Boolean to render the pie as the donut variation. Defaults to `false`.
-	 */
-	isDonut?: boolean;
-	/**
 	 * Boolean to display labels on top of each slice. Defaults to `false`.
 	 */
 	showMarkLabels?: boolean;
-	/**
-	 * An array of [chart color tokens](https://atlassian.design/components/tokens/all-tokens#color-chart).
-	 * This is utilized to render each slice with the specified colors, based on the color grouping given by colorAccessor.
-	 */
-	colors?: ChartColorTokens[];
 };
 
 /**

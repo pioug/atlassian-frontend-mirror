@@ -23,7 +23,7 @@ export default () => {
 							emojis.
 						</strong>
 					</p>
-					<hr />
+					<hr role="presentation" />
 					<ConnectedReactionsView
 						store={store}
 						containerAri={`${Constants.ContainerAriPrefix}1`}

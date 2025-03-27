@@ -104,7 +104,7 @@ describe('TeamProfileCard', () => {
 		expect(teamContainers).toBeInTheDocument();
 	});
 
-	test('should not render the team connections if the team does not have containers other than the current one', () => {
+	test('should not render the "Where we work" section if the team does not have containers other than the current one', () => {
 		(useTeamContainers as jest.Mock).mockReturnValue({ teamContainers: [ConfluenceSpace] });
 		render(
 			<IntlProvider locale="en">

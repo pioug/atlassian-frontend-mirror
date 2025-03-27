@@ -407,7 +407,7 @@ const SmartUserPickerCustomizableExample = () => {
 					</div>
 				</Fragment>
 			)}
-			<hr />
+			<hr role="presentation" />
 			<label htmlFor="smart-user-picker-example">User Picker</label>
 			<AnalyticsListener onEvent={onEvent} channel="fabric-elements">
 				<IntlProvider locale={state.locale}>

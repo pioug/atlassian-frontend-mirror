@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/storybook-addon-design-system",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "Design token storybook addon",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

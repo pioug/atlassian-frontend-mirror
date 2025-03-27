@@ -16,7 +16,7 @@ import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const blockOverrideCss = css({
-	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+	backgroundColor: token('color.background.accent.green.subtlest', '#DBFFF0'),
 	paddingTop: token('space.200', '1rem'),
 	paddingRight: token('space.200', '1rem'),
 	paddingBottom: token('space.200', '1rem'),

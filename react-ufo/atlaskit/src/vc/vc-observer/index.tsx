@@ -361,8 +361,9 @@ export class VCObserver implements VCObserverInterface {
 		const isMultiHeatmapEnabled = !fg('platform_ufo_multiheatmap_killswitch');
 
 		const pageVisibilityUpToTTAI = getPageVisibilityState(start, stop);
+		const isVisiblePageVisibleUpToTTAI = pageVisibilityUpToTTAI === 'visible';
 
-		const shouldHaveVCmetric = isVCClean && !isEventAborted && pageVisibilityUpToTTAI;
+		const shouldHaveVCmetric = isVCClean && !isEventAborted && isVisiblePageVisibleUpToTTAI;
 
 		const revisionsData = isMultiHeatmapEnabled
 			? fg('platform_ufo_vc_observer_new')

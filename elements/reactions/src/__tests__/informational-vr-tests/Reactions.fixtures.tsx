@@ -1,29 +1,25 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Reactions, ReactionStatus } from '../../../src/';
-import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
-import { getFallbackEmojis, getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 import { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
 import { IntlProvider } from 'react-intl-next';
-import { EmojiProvider } from '@atlaskit/emoji';
+import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
+import { getMockEmojisForReactions } from '@atlaskit/editor-test-helpers/mock-emojis';
 
 const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;
 const ari = `${ExampleConstants.AriPrefix}1`;
-
-const useProvider = (useFallback: boolean = false) => {
-	return useMemo<Promise<EmojiProvider>>(() => {
-		return getEmojiProvider(
-			{
-				currentUser,
-			},
-			useFallback ? getFallbackEmojis : getMockEmojis,
-		);
-	}, [useFallback]);
-};
 const loadReaction = () => {};
 const onSelection = () => {};
 const onReactionClick = () => {};
+const useEmojiProvider = () => {
+	return getEmojiProvider(
+		{
+			currentUser,
+		},
+		getMockEmojisForReactions,
+	);
+};
 
 const loadedReactions: ReactionSummary[] = [
 	{
@@ -98,26 +94,40 @@ const loadedReactions: ReactionSummary[] = [
 	},
 ];
 
-export const LoadedReactions = () => {
-	const emojiProvider = useProvider(false);
+export const LoadedReactions = () => <LoadedReactionsCreater />;
+export const LoadedReactionsMiniMode = () => <LoadedReactionsCreater miniMode />;
+export const LoadedReactionsDisallowAllEmojis = () => (
+	<LoadedReactionsCreater allowAllEmojis={false} />
+);
+export const LoadedReactionsWithPickerQuickReactionEmojiIds = () => {
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
 			<Reactions
 				emojiProvider={emojiProvider}
-				reactions={loadedReactions}
+				reactions={[]}
 				status={ReactionStatus.ready}
 				loadReaction={loadReaction}
 				onSelection={onSelection}
 				onReactionClick={onReactionClick}
 				allowAllEmojis
+				pickerQuickReactionEmojiIds={[{ id: '2764', shortName: ':heart:' }]}
 			/>
 		</IntlProvider>
 	);
 };
 
-export const LoadedReactionsWithSummaryView = () => {
-	const emojiProvider = useProvider(false);
+const LoadedReactionsCreater = ({
+	subtleReactionsSummaryAndPicker = false,
+	showOpaqueBackground = false,
+	isViewOnly = false,
+	allowSelectFromSummaryView = false,
+	summaryViewEnabled = false,
+	miniMode = false,
+	allowAllEmojis = true,
+}) => {
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -128,28 +138,13 @@ export const LoadedReactionsWithSummaryView = () => {
 				loadReaction={loadReaction}
 				onSelection={onSelection}
 				onReactionClick={onReactionClick}
-				allowAllEmojis
-				summaryViewEnabled
-			/>
-		</IntlProvider>
-	);
-};
-
-export const LoadedReactionsWithSummaryViewAndViewOnly = () => {
-	const emojiProvider = useProvider(false);
-
-	return (
-		<IntlProvider locale="en">
-			<Reactions
-				emojiProvider={emojiProvider}
-				reactions={loadedReactions}
-				status={ReactionStatus.ready}
-				loadReaction={loadReaction}
-				onSelection={onSelection}
-				onReactionClick={onReactionClick}
-				allowAllEmojis
-				summaryViewEnabled
-				isViewOnly
+				allowAllEmojis={allowAllEmojis}
+				summaryViewEnabled={summaryViewEnabled}
+				subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+				showOpaqueBackground={showOpaqueBackground}
+				isViewOnly={isViewOnly}
+				allowSelectFromSummaryView={allowSelectFromSummaryView}
+				miniMode={miniMode}
 			/>
 		</IntlProvider>
 	);

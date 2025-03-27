@@ -111,7 +111,7 @@ const sidebarHeading = css({
 	alignItems: 'center',
 	paddingLeft: token('space.150'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	font: editorUGCToken('editor.font.heading.h1', 'typography-modernized'), // use editor h1 modernized here as the style matches
+	font: editorUGCToken('editor.font.heading.h1'),
 });
 
 const mobileMainContent = css({

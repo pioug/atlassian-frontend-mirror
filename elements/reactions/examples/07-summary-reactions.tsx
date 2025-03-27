@@ -23,7 +23,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					<Example
 						title={'Summary mode - empty state'}
@@ -38,7 +38,7 @@ export default () => {
 							/>
 						}
 					/>
-					<hr />
+					<hr role="presentation" />
 
 					<Example
 						title={'Summary mode with subtle styling'}
@@ -54,7 +54,7 @@ export default () => {
 							/>
 						}
 					/>
-					<hr />
+					<hr role="presentation" />
 
 					<Example
 						title={'Summary mode with subtle styling in view only mode, disabling the picker'}
@@ -71,7 +71,7 @@ export default () => {
 							/>
 						}
 					/>
-					<hr />
+					<hr role="presentation" />
 
 					<Example
 						title={'Summary mode allowing selection from emoji picker'}
@@ -88,7 +88,7 @@ export default () => {
 							/>
 						}
 					/>
-					<hr />
+					<hr role="presentation" />
 				</>
 			)}
 		</ExampleWrapper>

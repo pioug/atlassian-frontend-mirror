@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 30.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.2
+
+### Patch Changes
+
+- [#130224](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130224)
+  [`d075c99b9abd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d075c99b9abd7) -
+  migrate to compiled css for reaction picker and reaction summary view
+
 ## 30.0.1
 
 ### Patch Changes

@@ -17,7 +17,7 @@ export default () => {
 						to show a full user list associated with all reactions
 					</p>
 
-					<hr />
+					<hr role="presentation" />
 					<Example
 						title={'Connected reactions with reactions dialog enabled'}
 						body={

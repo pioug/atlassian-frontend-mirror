@@ -23,7 +23,7 @@ export default () => {
 				<input id="label-input" value={label} onChange={(e) => setLabel(e.target.value)} />
 			</label>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<hr style={{ margin: '15px 0px' }} />
+			<hr role="presentation" style={{ margin: '15px 0px' }} />
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ maxWidth: '500px' }}>
 				<Breadcrumbs maxItems={5} ellipsisLabel={label}>

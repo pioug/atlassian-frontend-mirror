@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ac88a118102db0ff0962b7e8a1adae3a>>
+ * @codegen <<SignedSource::bbf0a620b439f947d4e41cc4cd52674e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "SidebarLeft".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for opening a sidebar to the left of the viewport edge.
+ * Usage guidance: Reserved for opening a drawer or sidebar to the left of the viewport edge.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

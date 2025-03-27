@@ -30,7 +30,7 @@ export default () => {
 					</Fragment>
 				);
 			})}
-			<hr />
+			<hr role="presentation" />
 			<h4>
 				<code>{'<Hide>'}</code>:
 			</h4>

@@ -151,7 +151,7 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 					</Box>
 				</Inline>
 			</Box>
-			<hr />
+			<hr role="presentation" />
 		</Box>
 	);
 };

@@ -3,9 +3,8 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@compiled/react';
-
-import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+import { Pressable } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
 	staticReaction: {
@@ -14,7 +13,7 @@ const styles = cssMap({
 		alignItems: 'flex-start',
 		minWidth: '36px',
 		height: '24px',
-		// backgroundColor: token('color.background.neutral.subtle'),
+		backgroundColor: token('color.background.neutral.subtle'),
 		color: token('color.text.subtle'),
 		marginBlockStart: token('space.050'),
 		marginInlineEnd: token('space.050'),
@@ -27,6 +26,7 @@ const styles = cssMap({
 		borderRadius: token('border.radius'),
 		'&:hover': {
 			cursor: 'default',
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
 	},
 });
@@ -47,15 +47,14 @@ export const StaticReaction = ({
 	dataAttributes = {},
 }: StaticReactionProps) => {
 	return (
-		<Box
+		<Pressable
 			onMouseEnter={onMouseEnter}
 			onFocus={onFocus}
 			testId={testId}
 			xcss={styles.staticReaction}
-			backgroundColor="color.background.neutral.subtle"
 			{...dataAttributes}
 		>
 			{children}
-		</Box>
+		</Pressable>
 	);
 };

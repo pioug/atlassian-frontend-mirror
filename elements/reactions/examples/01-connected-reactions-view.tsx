@@ -25,7 +25,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					{/* Example 2 */}
 					<Example
@@ -42,7 +42,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					<strong
 						style={{
@@ -87,7 +87,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					<strong
 						style={{
@@ -137,7 +137,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					<strong
 						style={{
@@ -206,7 +206,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					<strong
 						style={{
@@ -236,7 +236,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					<strong
 						style={{
@@ -277,7 +277,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					{/* Example 11 */}
 					<Example
@@ -291,6 +291,20 @@ export default () => {
 								ari={`${ExampleConstants.AriPrefix}1`}
 								emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
 								particleEffectByEmojiEnabled
+							/>
+						}
+					/>
+
+					{/* Example 12 */}
+					<Example
+						title={'"ConnectedReactionsView" with isViewOnly'}
+						body={
+							<ConnectedReactionsView
+								store={store}
+								containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+								ari={`${ExampleConstants.AriPrefix}1`}
+								emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+								isViewOnly
 							/>
 						}
 					/>

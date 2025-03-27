@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 102.13.9
+
+### Patch Changes
+
+- [#132083](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132083)
+  [`fd96380b3ebf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd96380b3ebf5) -
+  [ux] ED-27218: Made editorUGCToken depends on fg instead of typo theme
+- Updated dependencies
+
+## 102.13.8
+
+### Patch Changes
+
+- [#132166](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132166)
+  [`e1c6dcf47a8a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1c6dcf47a8a2) -
+  ED-24538 Clean up platform_editor_basic_text_transformations
+- Updated dependencies
+
 ## 102.13.7
 
 ### Patch Changes

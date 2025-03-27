@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 4.2.3
+
+### Patch Changes
+
+- [#131493](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131493)
+  [`3bc29223cad42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bc29223cad42) -
+  ENGHEALTH-23697 Iconography update for editor-plugin-code-block
+
 ## 4.2.2
 
 ### Patch Changes

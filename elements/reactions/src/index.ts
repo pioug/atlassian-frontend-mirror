@@ -24,6 +24,8 @@ import { Reaction as EmotionReaction } from './components/Reaction';
 import { Reaction as CompiledReaction } from './components/compiled/Reaction';
 import { Reactions as EmotionReactions } from './components/Reactions';
 import { Reactions as CompiledReactions } from './components/compiled/Reactions';
+import { ReactionPicker as EmotionReactionPicker } from './components/ReactionPicker/ReactionPicker';
+import { ReactionPicker as CompiledReactionPicker } from './components/ReactionPicker/ReactionPicker';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 const Reaction = componentWithFG(
@@ -38,10 +40,17 @@ const Reactions = componentWithFG(
 	EmotionReactions,
 );
 
+const ReactionPicker = componentWithFG(
+	'platform_editor_css_migrate_reactions',
+	CompiledReactionPicker,
+	EmotionReactionPicker,
+);
+
 export { ReactionServiceClient } from './client';
 
-export { Reaction, Reactions };
-export { ReactionPicker } from './components/ReactionPicker/ReactionPicker';
+export { Reaction };
+export { Reactions };
+export { ReactionPicker };
 
 export { useCloseManager } from './hooks/useCloseManager';
 export { ConnectedReactionPicker, ConnectedReactionsView } from './containers';

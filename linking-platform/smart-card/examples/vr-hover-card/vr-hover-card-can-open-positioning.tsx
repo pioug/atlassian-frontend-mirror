@@ -31,7 +31,7 @@ const styles = css({
 		padding: '1rem',
 		backgroundColor: token('color.background.accent.lime.subtlest', '#eefbda'),
 		'&:hover': {
-			backgroundColor: token('color.background.accent.lime.bolder', '#5b7f24'),
+			backgroundColor: token('color.background.accent.lime.subtle', '#94C747'),
 		},
 	},
 });

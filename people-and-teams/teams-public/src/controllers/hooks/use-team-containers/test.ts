@@ -14,6 +14,7 @@ jest.mock('../../../services', () => ({
 		getTeamContainers: jest.fn(),
 		unlinkTeamContainer: jest.fn(),
 		getConnectedTeams: jest.fn(),
+		getNumberOfConnectedTeams: jest.fn(),
 	},
 }));
 
@@ -66,6 +67,21 @@ describe('useConnectedTeams', () => {
 
 		expect(result.current.isLoading).toBe(false);
 		expect(result.current.teams).toEqual(undefined);
+		expect(result.current.numberOfTeams).toEqual(undefined);
+		expect(result.current.error).toBeNull();
+	});
+
+	test('should fetch and set number of connected teams successfully', async () => {
+		(teamsClient.getNumberOfConnectedTeams as jest.Mock).mockResolvedValueOnce(2);
+
+		const { result } = renderHook(() => useConnectedTeams());
+
+		act(() => {
+			result.current.fetchNumberOfConnectedTeams('mock-container-id');
+		});
+		await waitFor(() => expect(result.current.numberOfTeams).toEqual(2));
+		expect(result.current.isLoading).toBe(false);
+
 		expect(result.current.error).toBeNull();
 	});
 
@@ -162,6 +178,7 @@ describe('useTeamContainersHook', () => {
 			hasLoaded: true,
 			teams: mockTeams,
 			error: null,
+			numberOfTeams: 2,
 		});
 	});
 });

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.1.4
+
+### Patch Changes
+
+- [#132086](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132086)
+  [`0c61b5cc7a789`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c61b5cc7a789) -
+  [ux] ED-27255 Fix bug which prevented the gap cursor from appearing sometimes when a table is
+  nested in another table, layout or expand
+
 ## 2.1.3
 
 ### Patch Changes

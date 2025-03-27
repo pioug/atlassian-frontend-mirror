@@ -2,11 +2,11 @@ import React, { useCallback, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
 import ModalDialog, {
+	CloseButton,
 	ModalBody,
 	ModalFooter,
 	ModalTransition,
@@ -32,7 +32,7 @@ const styles = cssMap({
 	},
 	customClose: {
 		position: 'absolute',
-		insetInlineEnd: token('space.0'),
+		insetInlineEnd: token('space.050'),
 		insetBlockStart: token('space.050'),
 	},
 });
@@ -50,11 +50,7 @@ const CustomHeader = () => {
 				</Heading>
 			</Box>
 			<Inline xcss={styles.customClose}>
-				<IconButton
-					onClick={onClose}
-					label="Close Modal"
-					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-				/>
+				<CloseButton onClick={onClose} />
 			</Inline>
 		</Box>
 	);

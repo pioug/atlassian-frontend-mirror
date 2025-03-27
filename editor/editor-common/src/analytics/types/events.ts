@@ -59,6 +59,7 @@ import type { SelectionEventPayload } from './selection-events';
 import type { SelectionExtensionEventPayload } from './selection-extension-events';
 import type { SubstituteEventPayload } from './substitute-events';
 import type { TableEventPayload } from './table-events';
+import type { TelepointerClickPayload } from './telepointer-events';
 import type { TypeAheadPayload } from './type-ahead';
 import type { MediaUploadEventPayload } from './upload-media-events';
 import type { OperationalAEP, OperationalExposureAEP, TrackAEP } from './utils';
@@ -129,7 +130,8 @@ export type AnalyticsEventPayload<T = void> =
 	| BreakoutEventPayload
 	| ActiveSessionEventPayload
 	| AIInlineSuggestionPayload
-	| SelectionExtensionEventPayload;
+	| SelectionExtensionEventPayload
+	| TelepointerClickPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

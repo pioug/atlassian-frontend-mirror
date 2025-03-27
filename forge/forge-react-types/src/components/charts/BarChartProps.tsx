@@ -1,5 +1,3 @@
-import type { ChartColorTokens } from '../../types';
-
 export type BarChartProps = {
 	/**
 	 * The static width of the chart in pixels. If this is not specified, the width is responsive.
@@ -15,10 +13,6 @@ export type BarChartProps = {
 	 * 2. An [array of objects](https://developer.atlassian.com/platform/forge/ui-kit/components/bar-chart/#2--array-of-objects).
 	 */
 	data: unknown[];
-	/**
-	 * Boolean to display the chart border. Defaults to `false`.
-	 */
-	showBorder?: boolean;
 	/**
 	 * Accessor to define the x-axis values. This can be a numerical or string index.
 	 * For more information on all accessors, see [Data](https://developer.atlassian.com/platform/forge/ui-kit/components/bar-chart/#data).
@@ -40,11 +34,6 @@ export type BarChartProps = {
 	 * A string value that represents the subtitle of the chart. This appears below the title.
 	 */
 	subtitle?: string;
-	/**
-	 * An array of [chart color tokens](https://atlassian.design/components/tokens/all-tokens#color-chart).
-	 * This is utilized to render each bar with the specified colors, based on the color grouping given by colorAccessor.
-	 */
-	colors?: ChartColorTokens[];
 };
 
 type StackChartProps = BarChartProps & {

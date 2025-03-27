@@ -3,17 +3,11 @@ import React, { useEffect } from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import {
-	contentAllowedInCodeBlock,
-	shouldSplitSelectedNodeOnNodeInsertion,
-} from '@atlaskit/editor-common/insert';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
-	DropdownOptions,
 	EditorAppearance,
 	ExtractInjectionAPI,
 	PMPlugin,
@@ -21,10 +15,8 @@ import type {
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import { getWrappingOptions } from '@atlaskit/editor-common/utils';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -33,12 +25,10 @@ import type { InsertBlockPlugin } from './insertBlockPluginType';
 import { elementBrowserPmKey, elementBrowserPmPlugin } from './pm-plugins/elementBrowser';
 import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
 import type { InsertBlockOptions } from './types';
-import SwitchIcon from './ui/assets/switch';
 import { InsertMenuRail } from './ui/ElementRail';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
-import { transformationOptions } from './ui/transformOptions';
 
 export const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
 	// Different button numbers for full-page to better match full page toolbar breakpoints
@@ -252,69 +242,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 
 			return plugins;
 		},
-
-		pluginsOptions: {
-			// This is added for basic text transformations experiment.
-			// This may not be the most ideal plugin to add this to, but it is suitable for experiment purpose
-			// as relevant plugin dependencies are already set up.
-			// If we decide to ship the feature, we will consider a separate plugin if needed.
-			// Experiment one-pager: https://hello.atlassian.net/wiki/spaces/ETM/pages/3931754727/Experiment+Elements+Basic+Text+Transformations
-			selectionToolbar: (state, intl) => {
-				const isEligible =
-					// basicTextTransformations is used to present AI enablement status to avoid adding editor props
-					api?.featureFlags?.sharedState.currentState()?.basicTextTransformations;
-
-				if (!isEligible) {
-					return;
-				}
-
-				if (editorExperiment('basic-text-transformations', true, { exposure: true })) {
-					const { formatMessage } = intl;
-					const options: DropdownOptions<Command> = transformationOptions(api, state.schema).map(
-						(option) => {
-							let canWrap;
-							if (option.type.name === 'codeBlock') {
-								const { $from } = state.selection;
-								const grandParentNodeType = $from.node(-1)?.type;
-								const parentNodeType = $from.parent.type;
-								canWrap =
-									shouldSplitSelectedNodeOnNodeInsertion({
-										parentNodeType,
-										grandParentNodeType,
-										content: option.type.createAndFill() as PMNode,
-									}) && contentAllowedInCodeBlock(state);
-							} else {
-								canWrap = !!getWrappingOptions(state, option.type).wrapping;
-							}
-
-							const IconBefore = option.icon;
-							return {
-								title: formatMessage(option.title),
-								icon: <IconBefore label="" disabled={!canWrap} />,
-								disabled: !canWrap,
-								onClick: (state, dispatch) => {
-									option.command?.(INPUT_METHOD.FLOATING_TB)(state, dispatch);
-									return true;
-								},
-							};
-						},
-					);
-
-					return {
-						items: [
-							{
-								type: 'dropdown',
-								title: formatMessage(messages.turnInto),
-								iconBefore: SwitchIcon,
-								options,
-							},
-						],
-						rank: -9,
-					};
-				}
-			},
-		},
-
+		pluginsOptions: {},
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 

@@ -16,6 +16,7 @@ type ConnectedTeams = {
 	hasLoaded: boolean;
 	teams: TeamWithMemberships[] | undefined;
 	error: Error | null;
+	numberOfTeams: number | undefined;
 };
 
 type State = {
@@ -35,6 +36,7 @@ const initialConnectedTeamsState = {
 	hasLoaded: false,
 	teams: undefined,
 	error: null,
+	numberOfTeams: undefined,
 };
 
 const initialState: State = {
@@ -62,7 +64,7 @@ const actions = {
 				setState({ teamContainers: [], error: err as Error, loading: false });
 			}
 		},
-	fetchConnectedTeams:
+	fetchNumberOfConnectedTeams:
 		(containerId: string): Action<State> =>
 		async ({ setState, getState }) => {
 			const {
@@ -73,11 +75,47 @@ const actions = {
 			}
 			setState({
 				connectedTeams: {
+					...initialConnectedTeamsState,
+					containerId,
+					numberOfTeams: undefined,
+				},
+			});
+			try {
+				const numberOfTeams = await teamsClient.getNumberOfConnectedTeams(containerId);
+				setState({
+					connectedTeams: {
+						...initialConnectedTeamsState,
+						containerId,
+						numberOfTeams,
+					},
+				});
+			} catch (e) {
+				setState({
+					connectedTeams: {
+						...initialConnectedTeamsState,
+						containerId,
+						error: e as Error,
+					},
+				});
+			}
+		},
+	fetchConnectedTeams:
+		(containerId: string): Action<State> =>
+		async ({ setState, getState }) => {
+			const {
+				connectedTeams: { containerId: currentContainerId, numberOfTeams, hasLoaded },
+			} = getState();
+			if (currentContainerId === containerId && hasLoaded) {
+				return;
+			}
+			setState({
+				connectedTeams: {
 					containerId,
 					isLoading: true,
 					hasLoaded: false,
 					teams: undefined,
 					error: null,
+					numberOfTeams,
 				},
 			});
 			try {
@@ -89,6 +127,7 @@ const actions = {
 						hasLoaded: true,
 						teams,
 						error: null,
+						numberOfTeams,
 					},
 				});
 			} catch (e) {
@@ -99,6 +138,7 @@ const actions = {
 						hasLoaded: false,
 						teams: [],
 						error: e as Error,
+						numberOfTeams,
 					},
 				});
 			}
@@ -172,5 +212,9 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 export const useConnectedTeams = () => {
 	const [state, actions] = useTeamContainersHook();
 
-	return { ...state.connectedTeams, fetchConnectedTeams: actions.fetchConnectedTeams };
+	return {
+		...state.connectedTeams,
+		fetchNumberOfConnectedTeams: actions.fetchNumberOfConnectedTeams,
+		fetchConnectedTeams: actions.fetchConnectedTeams,
+	};
 };

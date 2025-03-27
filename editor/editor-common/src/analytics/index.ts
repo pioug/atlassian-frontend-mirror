@@ -221,3 +221,5 @@ export {
 	type AIInlineSuggestionPayload,
 	AI_SUGGESTION_TRIGGERED_FROM,
 } from './types/ai-inline-suggestion-events';
+
+export { type TelepointerClickPayload } from './types/telepointer-events';

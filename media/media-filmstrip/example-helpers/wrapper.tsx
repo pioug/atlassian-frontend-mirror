@@ -31,7 +31,7 @@ export const EditableBox = ({ grow, children }: { grow?: number; children: React
 );
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-export const Separator = () => <hr css={separatorStyles} />;
+export const Separator = () => <hr role="presentation" css={separatorStyles} />;
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 export const PureComponentBox = () => <div css={pureComponentBoxStyles} />;

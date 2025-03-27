@@ -55,56 +55,56 @@ export const headingsSharedStyles = (
 	if (fg('platform_editor_typography_ugc')) {
 		return css({
 			'& h1': {
-				font: editorUGCToken('editor.font.heading.h1', typographyTheme),
+				font: editorUGCToken('editor.font.heading.h1'),
 				marginBottom: 0,
 				marginTop: '1.45833em',
 				'& strong': {
-					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold'),
 				},
 				'&::before': {},
 			},
 
 			'& h2': {
-				font: editorUGCToken('editor.font.heading.h2', typographyTheme),
+				font: editorUGCToken('editor.font.heading.h2'),
 				marginTop: '1.4em',
 				marginBottom: 0,
 				'& strong': {
-					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold'),
 				},
 			},
 
 			'& h3': {
-				font: editorUGCToken('editor.font.heading.h3', typographyTheme),
+				font: editorUGCToken('editor.font.heading.h3'),
 				marginTop: '1.31249em',
 				marginBottom: 0,
 				'& strong': {
-					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold'),
 				},
 			},
 
 			'& h4': {
-				font: editorUGCToken('editor.font.heading.h4', typographyTheme),
+				font: editorUGCToken('editor.font.heading.h4'),
 				marginTop: '1.25em',
 				'& strong': {
-					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold'),
 				},
 			},
 
 			'& h5': {
-				font: editorUGCToken('editor.font.heading.h5', typographyTheme),
+				font: editorUGCToken('editor.font.heading.h5'),
 				marginTop: '1.45833em',
 				textTransform: 'none',
 				'& strong': {
-					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold'),
 				},
 			},
 
 			'& h6': {
-				font: editorUGCToken('editor.font.heading.h6', typographyTheme),
+				font: editorUGCToken('editor.font.heading.h6'),
 				marginTop: '1.59091em',
 				textTransform: 'none',
 				'& strong': {
-					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold'),
 				},
 			},
 

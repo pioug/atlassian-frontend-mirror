@@ -11,6 +11,11 @@ import {
 	type UnlinkContainerMutationVariables,
 } from './utils/mutations/unlink-container-mutation';
 import {
+	NumberOfTeamConnectedToContainerQuery,
+	NumberOfTeamConnectedToContainerQueryResponse,
+	NumberOfTeamConnectedToContainerQueryVariables,
+} from './utils/queries/number-of-team-connected-to-container-query';
+import {
 	TeamConnectedToContainerQuery,
 	type TeamConnectedToContainerQueryResponse,
 	type TeamConnectedToContainerQueryVariables,
@@ -93,6 +98,25 @@ export class AGGClient extends BaseGraphQlClient {
 		);
 
 		return response.graphStore;
+	}
+
+	async queryNumberOfTeamConnectedToContainer(containerId: string): Promise<number> {
+		const response = await this.makeGraphQLRequest<
+			'graphStore',
+			NumberOfTeamConnectedToContainerQueryResponse,
+			NumberOfTeamConnectedToContainerQueryVariables
+		>(
+			{
+				query: NumberOfTeamConnectedToContainerQuery,
+				variables: {
+					containerId,
+				},
+			},
+			{
+				operationName: 'NumberOfTeamConnectedToContainerQuery',
+			},
+		);
+		return response?.graphStore?.teamConnectedToContainerInverse?.edges?.length;
 	}
 
 	async queryTeamsConnectedToContainer(containerId: string): Promise<TeamWithMemberships[]> {

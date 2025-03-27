@@ -35,7 +35,7 @@ const ValidationExample = () => (
 					)}
 				</Field>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<hr style={{ border: 0, margin: '1em 0' }} />
+				<hr role="presentation" style={{ border: 0, margin: '1em 0' }} />
 				<Field
 					label="City"
 					id="success"

@@ -61,7 +61,7 @@ export default () => {
 						these events inside the console.info under the `ufoEvent` wrapper
 					</p>
 
-					<hr />
+					<hr role="presentation" />
 
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={{ marginTop: '30px' }}>

@@ -131,14 +131,14 @@ export type {
 	HorizontalStackBarChartProps,
 	HorizontalBarChartProps,
 	LineChartProps,
-	SingleValueChartProps,
+	DonutChartProps,
 	PieChartProps,
 	TBarChart,
 	TStackBarChart,
 	THorizontalStackBarChart,
 	THorizontalBarChart,
 	TLineChart,
-	TSingleValueChart,
+	TDonutChart,
 	TPieChart,
 } from './components/charts';
 

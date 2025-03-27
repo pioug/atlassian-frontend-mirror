@@ -17,7 +17,6 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorAppearance,
-	EditorPlugin,
 	EmptyStateHandler,
 	FeedbackInfo,
 	LinkingOptions,
@@ -255,18 +254,6 @@ export interface EditorProps
 		EditorPluginFeatureProps,
 		EditorSharedPropsWithPlugins,
 		EditorProviderProps {
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-	/**
-	 * @deprecated Do not use outside of Editor team.
-	 * This has subtle side effects - you __WILL__ break functionality without implementer knowledge of editor-core internals
-	 */
-	dangerouslyAppendPlugins?: {
-		// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-		/**
-		 * @deprecated Do not use outside of Editor team.
-		 */
-		__plugins: EditorPlugin[];
-	};
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;

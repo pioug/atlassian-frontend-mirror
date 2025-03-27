@@ -12,8 +12,8 @@ import type {
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import CopyIcon from '@atlaskit/icon/core/migration/copy';
+import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 import {
 	changeLanguage,

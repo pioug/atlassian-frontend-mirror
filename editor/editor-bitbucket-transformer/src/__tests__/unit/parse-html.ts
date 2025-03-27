@@ -1198,11 +1198,13 @@ describe('BitbucketTransformer: parser', () => {
 	describe('code suggestions', () => {
 		it('should convert code block to suggestion extension if shouldParseCodeSuggestions is true', () => {
 			const extensionAttrs = {
+				localId: '0',
 				extensionType: 'com.atlassian.bbc.code-suggestions',
 				extensionKey: 'codesuggestions:suggestion-node',
 				parameters: {
 					suggestionIndex: 0,
 					suggestionText: 'this is a suggestion',
+					extensionTitle: 'Suggesting',
 				},
 			};
 

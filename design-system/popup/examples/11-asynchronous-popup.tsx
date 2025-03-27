@@ -101,7 +101,7 @@ const PopupContent: FC<PopupProps> = ({
 			<Text as="p">
 				Current position: <Text as="strong">{position}</Text>
 			</Text>
-			<hr />
+			<hr role="presentation" />
 			<Button
 				onClick={() => {
 					updateButtonWidth(buttonWidth + 15);
@@ -116,7 +116,7 @@ const PopupContent: FC<PopupProps> = ({
 			>
 				Reset Button
 			</Button>
-			<hr />
+			<hr role="presentation" />
 			<Button onClick={addContent}>Add Content</Button>
 			<Button onClick={clearContent}>Clear Content</Button>
 			<br />

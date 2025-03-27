@@ -1,5 +1,41 @@
 # @atlaskit/popup
 
+## 3.0.0
+
+### Major Changes
+
+- [#127309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127309)
+  [`42392c8a66f3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42392c8a66f3d) -
+  The `onClose` prop type has been updated, to make the first argument nullable. This argument is
+  for the corresponding `event` that led to the callback being called.
+
+  This is to support programatically closing the popup.
+
+  Previously, the type of `onClose` was:
+
+  ```ts
+  onClose?(
+   event: Event | React.MouseEvent | React.KeyboardEvent,
+   currentLevel?: number | any,
+  ): void;
+
+  ```
+
+  It is now:
+
+  ```ts
+  onClose?(
+   event: Event | React.MouseEvent | React.KeyboardEvent | null,
+   currentLevel?: number | any,
+  ): void;
+  ```
+
+  When the popup is closed programatically, the `event` argument will be `null`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.5
 
 ### Patch Changes

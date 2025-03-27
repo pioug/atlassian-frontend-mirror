@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.2.0
+
+### Minor Changes
+
+- [#132664](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132664)
+  [`30cdea781a4b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30cdea781a4b2) -
+  Add rule for booleans on `autoFocus` in modal dialog.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.2
 
 ### Patch Changes

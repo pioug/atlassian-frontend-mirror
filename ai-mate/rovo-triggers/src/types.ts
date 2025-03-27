@@ -137,9 +137,10 @@ export type InsertPromptPayload = PayloadCore<
 		placeholderType?: 'person' | 'link' | 'generic';
 	}
 >;
+
 export type TransitionId = string;
 export type StatusId = string;
-export type StatusCategory = 'TODO' | 'IN_PROGRESS' | 'DONE';
+export type StatusCategory = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'UNDEFINED';
 export type RuleConfig = {
 	[key: string]: string;
 };

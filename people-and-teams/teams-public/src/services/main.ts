@@ -42,6 +42,15 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Get the number of teams connected to a container (Confluence space or Jira project)
+	 * @param {string} containerId
+	 * @returns {Promise}
+	 */
+	async getNumberOfConnectedTeams(containerId: string): Promise<number> {
+		return this._aggClient.queryNumberOfTeamConnectedToContainer(containerId);
+	}
+
+	/**
 	 * Get teams connected to a container (Confluence space or Jira project)
 	 * @param {string} containerId
 	 * @returns {Promise}

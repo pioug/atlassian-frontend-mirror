@@ -22,7 +22,7 @@ import {
 	Y300,
 	Y75,
 } from '@atlaskit/theme/colors';
-import { getGlobalTheme, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
 import { type RendererWrapperProps } from './index';
 import { FullPagePadding, rendererStyles } from './style';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -1291,11 +1291,9 @@ const tableSharedStyle = css({
 		'th td': {
 			backgroundColor: token('color.background.neutral.subtle', 'white'),
 		},
-		// platform_editor_nested_tables_renderer_styles has already been lunched, so assume it's on
 		'> tbody > tr > td': {
 			backgroundColor: token('elevation.surface'),
 		},
-
 		th: {
 			backgroundColor: token('color.background.accent.gray.subtlest', akEditorTableToolbar),
 			textAlign: 'left',
@@ -1693,7 +1691,6 @@ const rendererTableColumnStyles = css({
 	},
 });
 
-// assume FG platform_editor_nested_tables_renderer_styles and platform_editor_renderer_table_header_styles on
 const rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
@@ -1996,7 +1993,6 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 	} = props;
 
 	const isAdvancedLayoutsOn = editorExperiment('advanced_layouts', true);
-	const { typography } = getGlobalTheme();
 
 	if (fg('platform_editor_emotion_refactor_renderer')) {
 		return (
@@ -2008,13 +2004,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				style={
 					{
 						'--ak-renderer-base-font-size': `${getBaseFontSize(appearance)}px`,
-						'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1', typography)}`,
-						'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2', typography)}`,
-						'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3', typography)}`,
-						'--ak-renderer-editor-font-heading-h4': `${editorUGCToken('editor.font.heading.h4', typography)}`,
-						'--ak-renderer-editor-font-heading-h5': `${editorUGCToken('editor.font.heading.h5', typography)}`,
-						'--ak-renderer-editor-font-heading-h6': `${editorUGCToken('editor.font.heading.h6', typography)}`,
-						'--ak-renderer-editor-font-normal-text': `${editorUGCToken('editor.font.body', typography)}`,
+						'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1')}`,
+						'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2')}`,
+						'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3')}`,
+						'--ak-renderer-editor-font-heading-h4': `${editorUGCToken('editor.font.heading.h4')}`,
+						'--ak-renderer-editor-font-heading-h5': `${editorUGCToken('editor.font.heading.h5')}`,
+						'--ak-renderer-editor-font-heading-h6': `${editorUGCToken('editor.font.heading.h6')}`,
+						'--ak-renderer-editor-font-normal-text': `${editorUGCToken('editor.font.body')}`,
 					} as React.CSSProperties
 				}
 				css={[

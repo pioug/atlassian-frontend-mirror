@@ -40,7 +40,7 @@ const TokenNegativeSpace = () => {
 		<div css={containerStyles}>
 			<p>A container with an inset</p>
 			<Bleed inline="space.200">
-				<hr css={dividerStyles}></hr>
+				<hr role="presentation" css={dividerStyles}></hr>
 			</Bleed>
 		</div>
 	);

@@ -16,6 +16,7 @@ import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit
 import { token } from '@atlaskit/tokens';
 
 import { TeamConnections } from './team-connections/main';
+import { TeamContainersSkeleton } from './team-containers-skeleton';
 
 const noop = () => {};
 
@@ -51,12 +52,16 @@ const styles = cssMap({
 		marginTop: token('space.100'),
 		marginRight: token('space.300'),
 	},
-	teamConnectionStyles: {
+	teamConnectionHeaderStyles: {
 		marginLeft: token('space.300'),
 		marginTop: token('space.200'),
 		marginRight: token('space.300'),
 		maxHeight: '265px',
 		overflowY: 'auto',
+	},
+	teamConnectionContainerStyles: {
+		marginLeft: token('space.300'),
+		marginRight: token('space.300'),
 	},
 	viewProfileContainerStyles: {
 		alignItems: 'center',
@@ -124,7 +129,7 @@ export const TeamProfileCard = ({
 	isVerified,
 	teamProfileUrl,
 }: TeamProfileCardProps) => {
-	const { teamContainers } = useTeamContainers(teamId);
+	const { teamContainers, loading } = useTeamContainers(teamId);
 	// Ensure that the current container is not the only connection for this team before showing the "Where we work" section
 	const hasOtherTeamConnections = useMemo(
 		() =>
@@ -166,20 +171,32 @@ export const TeamProfileCard = ({
 						</Text>
 					)}
 				</Stack>
-				{hasOtherTeamConnections && (
-					<Stack xcss={styles.teamConnectionStyles} space="space.200">
-						<Heading size="xxsmall">
-							<FormattedMessage
-								defaultMessage="Where we work"
-								id="people-and-teams.team-profile-card.team-connections"
-							/>
-						</Heading>
+				{(loading || hasOtherTeamConnections) && (
+					<Stack
+						space={'space.200'}
+						xcss={
+							hasOtherTeamConnections
+								? styles.teamConnectionHeaderStyles
+								: styles.teamConnectionContainerStyles
+						}
+					>
+						{hasOtherTeamConnections && (
+							<Heading size="xxsmall">
+								<FormattedMessage
+									defaultMessage="Where we work"
+									id="people-and-teams.team-profile-card.team-connections"
+								/>
+							</Heading>
+						)}
 						<TeamContainers
 							teamId={teamId}
 							onAddAContainerClick={noop}
 							userId={userId}
 							cloudId={cloudId}
-							components={{ ContainerCard: TeamConnections }}
+							components={{
+								ContainerCard: TeamConnections,
+								TeamContainersSkeleton: TeamContainersSkeleton,
+							}}
 							filterContainerId={containerId}
 							isDisplayedOnProfileCard
 						/>

@@ -140,7 +140,9 @@ snapshot(InlineCardForbiddenDirectAccess, {
 });
 snapshot(InlineCardForbiddenPendingSiteAccess, {
 	description: 'inline card forbidden view with pending site access',
-	featureFlags: {},
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+	},
 });
 snapshot(InlineCardForbiddenDeniedSiteAccess, {
 	description: 'inline card forbidden view with denied site access',

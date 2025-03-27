@@ -42,7 +42,7 @@ export default () => {
 					</IntlProvider>
 				}
 			/>
-			<hr />
+			<hr role="presentation" />
 
 			{/* Example 2 */}
 			<Example
@@ -62,7 +62,7 @@ export default () => {
 				}
 			/>
 
-			<hr />
+			<hr role="presentation" />
 
 			{/* Example 3 */}
 			<Example
@@ -82,7 +82,7 @@ export default () => {
 				}
 			/>
 
-			<hr />
+			<hr role="presentation" />
 
 			{/* Example 4 */}
 			<Example
@@ -103,7 +103,7 @@ export default () => {
 				}
 			/>
 
-			<hr />
+			<hr role="presentation" />
 
 			{/* Example 5 */}
 			<Example

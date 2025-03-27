@@ -78,6 +78,7 @@ export function transformHtml(
 			suggestionDiv.setAttribute('data-node-type', 'extension');
 			suggestionDiv.setAttribute('data-extension-type', 'com.atlassian.bbc.code-suggestions');
 			suggestionDiv.setAttribute('data-extension-key', 'codesuggestions:suggestion-node');
+			suggestionDiv.setAttribute('data-local-id', index.toString());
 			// remove trailing newline from suggestion text
 			const suggestionText = div.textContent ? div.textContent.replace(/\n$/u, '') : '';
 			suggestionDiv.setAttribute(
@@ -85,6 +86,7 @@ export function transformHtml(
 				JSON.stringify({
 					suggestionIndex: index,
 					suggestionText: suggestionText,
+					extensionTitle: 'Suggesting',
 				}),
 			);
 			if (div.parentNode) {

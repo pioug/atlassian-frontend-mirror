@@ -246,7 +246,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 				))}
 			</div>
 
-			<hr />
+			<hr role="presentation" />
 			<label>
 				<input
 					type="radio"
@@ -277,7 +277,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 				/>
 			</div>
 
-			<hr />
+			<hr role="presentation" />
 
 			<div>
 				<p>
@@ -308,7 +308,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 				/>
 			</div>
 
-			<hr />
+			<hr role="presentation" />
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 			<div className="action-buttons">

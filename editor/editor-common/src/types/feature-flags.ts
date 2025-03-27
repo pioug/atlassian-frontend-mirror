@@ -269,15 +269,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables basic text transformations options in floating toolbar
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-24447
-	 * @default false
-	 */
-	basicTextTransformations?: boolean;
-
-	/**
-	 * @description
 	 * Enables nesting nested expands in expands
 	 *
 	 * @see https://hello.jira.atlassian.cloud/browse/FD-72082

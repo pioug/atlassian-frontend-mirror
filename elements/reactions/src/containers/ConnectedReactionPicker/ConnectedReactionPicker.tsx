@@ -1,7 +1,17 @@
 import React from 'react';
-import { ReactionPicker, type ReactionPickerProps, UfoErrorBoundary } from '../../components';
+import { type ReactionPickerProps, UfoErrorBoundary } from '../../components';
 import { type StorePropInput } from '../../types';
 import { PickerRender } from '../../ufo';
+
+import { ReactionPicker as EmotionReactionPicker } from '../../components/ReactionPicker';
+import { ReactionPicker as CompiledReactionPicker } from '../../components/compiled/ReactionPicker';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+const ReactionPicker = componentWithFG(
+	'platform_editor_css_migrate_reactions',
+	CompiledReactionPicker,
+	EmotionReactionPicker,
+);
 
 export interface ConnectedReactionPickerProps extends Omit<ReactionPickerProps, 'onSelection'> {
 	/**

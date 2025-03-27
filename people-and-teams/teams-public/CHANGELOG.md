@@ -1,5 +1,29 @@
 # @atlaskit/teams-public
 
+## 0.22.0
+
+### Minor Changes
+
+- [#131460](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131460)
+  [`c890581942f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c890581942f6e) -
+  [ux] Add loading skeleton for team containers in profile card
+
+## 0.21.0
+
+### Minor Changes
+
+- [#132354](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132354)
+  [`6a5be2324873a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a5be2324873a) -
+  [ux] add a new query to only fetch number of connected teams
+
+## 0.20.0
+
+### Minor Changes
+
+- [#132367](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132367)
+  [`4e35f939f5756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e35f939f5756) -
+  Pass container id to analytics on continer click
+
 ## 0.19.0
 
 ### Minor Changes

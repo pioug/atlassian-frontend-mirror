@@ -82,6 +82,8 @@ const UnauthorisedViewContent = ({
 					target="_blank"
 					data-testid={`${testId}-learn-more`}
 					onClick={handleLearnMoreClick}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					style={{ textDecoration: 'underline' }}
 				>
 					<FormattedMessage {...learnMoreMessage} />
 				</a>

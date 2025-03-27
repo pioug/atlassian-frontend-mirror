@@ -43,13 +43,6 @@ const styles = cssMap({
 		borderRadius: token('border.radius'),
 	},
 
-	borderless: {
-		borderTop: 'none',
-		borderLeft: 'none',
-		borderRight: 'none',
-		borderBottom: 'none',
-	},
-
 	reacted: {
 		backgroundColor: token('color.background.selected'),
 		borderColor: token('color.border.selected'),
@@ -69,6 +62,16 @@ const styles = cssMap({
 		'&:active': {
 			backgroundColor: token('elevation.surface.pressed'),
 		},
+	},
+
+	compactButton: {
+		height: '20px',
+		alignItems: 'center',
+		marginTop: token('space.075'),
+	},
+
+	borderless: {
+		borderStyle: 'none',
 	},
 });
 
@@ -109,6 +112,7 @@ interface ReactionButtonProps extends Pick<ReactionProps, 'flash'> {
 	children?: React.ReactNode;
 	showSubtleStyle?: boolean;
 	showOpaqueBackground?: boolean;
+	useCompactStyles?: boolean;
 	reacted?: boolean;
 }
 export const ReactionButton = ({
@@ -116,6 +120,7 @@ export const ReactionButton = ({
 	flash = false,
 	showSubtleStyle,
 	showOpaqueBackground,
+	useCompactStyles,
 	reacted,
 	ariaLabel,
 	ariaPressed,
@@ -135,6 +140,7 @@ export const ReactionButton = ({
 			testId={testId}
 			xcss={cx(
 				styles.reactionButton,
+				useCompactStyles && styles.compactButton,
 				reacted && styles.reacted,
 				!reacted && showSubtleStyle && styles.borderless,
 				!reacted && showOpaqueBackground && styles.opaqueBackground,

@@ -6,10 +6,12 @@ import { generateRendererComponent } from '../__helpers/rendererComponents';
 export const PanelRenderer = generateRendererComponent({
 	document: panelNodeAdf,
 	appearance: 'full-width',
+	allowCustomPanels: true,
 });
 
 export const PanelRendererWithReactLooselyLazy = generateRendererComponent({
 	document: panelNodeAdf,
 	appearance: 'full-width',
 	nodeComponents: looselyLazyNodes,
+	allowCustomPanels: true,
 });

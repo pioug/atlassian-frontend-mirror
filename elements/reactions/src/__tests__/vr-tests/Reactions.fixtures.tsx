@@ -1,25 +1,22 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { Reactions, ReactionStatus } from '../../../src/';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
-import { getFallbackEmojis, getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
+import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 import { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
 import { IntlProvider } from 'react-intl-next';
-import { EmojiProvider } from '@atlaskit/emoji';
 
 const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;
 const ari = `${ExampleConstants.AriPrefix}1`;
 
-const useProvider = (useFallback: boolean = false) => {
-	return useMemo<Promise<EmojiProvider>>(() => {
-		return getEmojiProvider(
-			{
-				currentUser,
-			},
-			useFallback ? getFallbackEmojis : getMockEmojis,
-		);
-	}, [useFallback]);
+const useEmojiProvider = () => {
+	return getEmojiProvider(
+		{
+			currentUser,
+		},
+		getMockEmojis,
+	);
 };
 const loadReaction = () => {};
 const onSelection = () => {};
@@ -53,7 +50,7 @@ const loadedReactions: ReactionSummary[] = [
 ];
 
 export const DisabledReactions = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -71,7 +68,7 @@ export const DisabledReactions = () => {
 };
 
 export const NotLoadedReactions = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -89,7 +86,7 @@ export const NotLoadedReactions = () => {
 };
 
 export const LoadingReactions = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -107,7 +104,7 @@ export const LoadingReactions = () => {
 };
 
 export const ErrorReactions = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -126,7 +123,7 @@ export const ErrorReactions = () => {
 };
 
 export const LoadedReactions = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -143,8 +140,63 @@ export const LoadedReactions = () => {
 	);
 };
 
+export const ReactionsWithShowAddReactionText = () => {
+	const emojiProvider = useEmojiProvider();
+
+	return (
+		<IntlProvider locale="en">
+			<Reactions
+				emojiProvider={emojiProvider}
+				reactions={[]}
+				status={ReactionStatus.ready}
+				loadReaction={loadReaction}
+				onSelection={onSelection}
+				onReactionClick={onReactionClick}
+				allowAllEmojis
+				showAddReactionText
+			/>
+		</IntlProvider>
+	);
+};
+
+export const LoadedReactionSingleReactionReacted = () => {
+	const emojiProvider = useEmojiProvider();
+
+	return (
+		<IntlProvider locale="en">
+			<Reactions
+				emojiProvider={emojiProvider}
+				reactions={loadedReactions.slice(0, 1)}
+				status={ReactionStatus.ready}
+				loadReaction={loadReaction}
+				onSelection={onSelection}
+				onReactionClick={onReactionClick}
+				allowAllEmojis
+			/>
+		</IntlProvider>
+	);
+};
+
+export const LoadedReactionSingleReaction = () => {
+	const emojiProvider = useEmojiProvider();
+
+	return (
+		<IntlProvider locale="en">
+			<Reactions
+				emojiProvider={emojiProvider}
+				reactions={loadedReactions.slice(1, 2)}
+				status={ReactionStatus.ready}
+				loadReaction={loadReaction}
+				onSelection={onSelection}
+				onReactionClick={onReactionClick}
+				allowAllEmojis
+			/>
+		</IntlProvider>
+	);
+};
+
 export const LoadedReactionsMiniMode = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -162,8 +214,46 @@ export const LoadedReactionsMiniMode = () => {
 	);
 };
 
+export const LoadedReactionsWithOpaqueBackground = () => {
+	const emojiProvider = useEmojiProvider();
+
+	return (
+		<IntlProvider locale="en">
+			<Reactions
+				emojiProvider={emojiProvider}
+				reactions={loadedReactions}
+				status={ReactionStatus.ready}
+				loadReaction={loadReaction}
+				onSelection={onSelection}
+				onReactionClick={onReactionClick}
+				allowAllEmojis
+				showOpaqueBackground
+			/>
+		</IntlProvider>
+	);
+};
+
+export const LoadedReactionsWithOnlyRenderPicker = () => {
+	const emojiProvider = useEmojiProvider();
+
+	return (
+		<IntlProvider locale="en">
+			<Reactions
+				emojiProvider={emojiProvider}
+				reactions={loadedReactions}
+				status={ReactionStatus.ready}
+				loadReaction={loadReaction}
+				onSelection={onSelection}
+				onReactionClick={onReactionClick}
+				allowAllEmojis
+				onlyRenderPicker
+			/>
+		</IntlProvider>
+	);
+};
+
 export const StaticReactions = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">
@@ -181,8 +271,27 @@ export const StaticReactions = () => {
 	);
 };
 
+export const StaticReactionsSingleReaction = () => {
+	const emojiProvider = useEmojiProvider();
+
+	return (
+		<IntlProvider locale="en">
+			<Reactions
+				emojiProvider={emojiProvider}
+				reactions={loadedReactions.slice(0, 1)}
+				status={ReactionStatus.ready}
+				loadReaction={loadReaction}
+				onSelection={onSelection}
+				onReactionClick={onReactionClick}
+				allowAllEmojis
+				isViewOnly
+			/>
+		</IntlProvider>
+	);
+};
+
 export const QuickReactions = () => {
-	const emojiProvider = useProvider(false);
+	const emojiProvider = useEmojiProvider();
 
 	return (
 		<IntlProvider locale="en">

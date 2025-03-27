@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.0.4
+
+### Patch Changes
+
+- [#132688](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132688)
+  [`2ce9c474cca2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ce9c474cca2d) -
+  Updates typeahead imports to use compiled components under FG
+
 ## 69.0.3
 
 ### Patch Changes

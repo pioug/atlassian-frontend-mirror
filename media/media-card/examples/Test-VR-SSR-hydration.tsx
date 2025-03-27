@@ -142,7 +142,7 @@ export default () => {
 						id={hydrationSingleId}
 					></div>
 				</div>
-				<hr />
+				<hr role="presentation" />
 				<h2>Media Video</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={rowStyle}>
@@ -157,7 +157,7 @@ export default () => {
 						id={hydrationVideoId}
 					></div>
 				</div>
-				<hr />
+				<hr role="presentation" />
 				<h2>Media Group</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={rowStyle}>

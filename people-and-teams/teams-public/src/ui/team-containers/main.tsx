@@ -156,12 +156,18 @@ export const TeamContainers = ({
 		],
 	);
 
+	const TeamContainersSkeletonComponent =
+		components?.TeamContainersSkeleton || TeamContainersSkeleton;
+
 	if (loading || productPermissionIsLoading) {
-		return <TeamContainersSkeleton numberOfContainers={MAX_NUMBER_OF_CONTAINERS_TO_SHOW} />;
+		return (
+			<TeamContainersSkeletonComponent numberOfContainers={MAX_NUMBER_OF_CONTAINERS_TO_SHOW} />
+		);
 	}
 
 	if (
 		filteredTeamContainers.length === 0 &&
+		!isDisplayedOnProfileCard &&
 		(!productPermissions ||
 			!(
 				productPermissions &&

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::4d19bb1c1b0fdd0ce172b538f655af72>>
+ * @codegen <<SignedSource::be906599bbf63c34e6dec034db63f5b1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2306,16 +2306,17 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'single issue',
-			'jira status',
 			'check mark',
 			'tick',
+			'work item',
 		],
 		componentName: 'IssueIcon',
 		package: '@atlaskit/icon/core/issue',
 		oldName: ['issue'],
 		type: 'core',
+		replacement: { name: 'work-item', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for issues in Jira.',
+		usage: 'Reserved for representing work items.',
 		team: 'Design System Team',
 	},
 	issues: {
@@ -2330,13 +2331,16 @@ const metadata: Record<string, metadata> = {
 			'multiple issues',
 			'check mark',
 			'tick',
+			'work items',
+			'work type',
 		],
 		componentName: 'IssuesIcon',
 		package: '@atlaskit/icon/core/issues',
 		oldName: ['issues'],
 		type: 'core',
+		replacement: { name: 'work-items', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for multiple issues in Jira.',
+		usage: 'Reserved for representing multiple work items.',
 		team: 'Design System Team',
 	},
 	'key-result': {
@@ -3883,8 +3887,9 @@ const metadata: Record<string, metadata> = {
 		componentName: 'SidebarLeftIcon',
 		package: '@atlaskit/icon/core/sidebar-left',
 		type: 'core',
+		replacement: { name: 'drawer-left', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Reserved for opening a sidebar to the left of the viewport edge.',
+		usage: 'Reserved for opening a drawer or sidebar to the left of the viewport edge.',
 		team: 'Design System Team',
 	},
 	'sidebar-right': {
@@ -3902,8 +3907,9 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/sidebar-right',
 		oldName: ['detail-view', 'room-menu'],
 		type: 'core',
+		replacement: { name: 'drawer-right', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Reserved for opening a sidebar to the right of the viewport edge.',
+		usage: 'Reserved for opening a drawer or sidebar to the right of the viewport edge.',
 		team: 'Design System Team',
 	},
 	'smart-link': {

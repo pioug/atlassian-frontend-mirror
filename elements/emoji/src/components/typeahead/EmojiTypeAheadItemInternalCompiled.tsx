@@ -12,7 +12,7 @@ import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { leftClick } from '../../util/mouse';
 import { toEmojiId } from '../../util/type-helpers';
 
-import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
+import { EmojiPreviewComponent } from '../compiled/common/EmojiPreviewComponent';
 
 import { type EmojiTypeAheadWidth } from '../../util/shared-styles';
 import { typeaheadSelected } from './styles';

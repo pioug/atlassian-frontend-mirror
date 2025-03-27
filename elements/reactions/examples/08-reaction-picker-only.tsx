@@ -23,7 +23,7 @@ export default () => {
 						}
 					/>
 
-					<hr />
+					<hr role="presentation" />
 
 					<Example
 						title={'Reaction Picker Only - empty state'}
@@ -38,7 +38,7 @@ export default () => {
 							/>
 						}
 					/>
-					<hr />
+					<hr role="presentation" />
 				</>
 			)}
 		</ExampleWrapper>

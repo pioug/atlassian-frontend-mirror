@@ -261,7 +261,7 @@ export const generateStoriesForEditableCards = () => {
 								{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 								<div css={sliderWrapperStyles}>
 									<div>
-										Card dimensions <hr />
+										Card dimensions <hr role="presentation" />
 										<div>
 											Width ({width}) | Percentage
 											<Toggle
@@ -290,7 +290,7 @@ export const generateStoriesForEditableCards = () => {
 										</div>
 									</div>
 									<div>
-										Parent properties <hr />
+										Parent properties <hr role="presentation" />
 										<div>
 											Has width
 											<Toggle
@@ -336,7 +336,7 @@ export const generateStoriesForEditableCards = () => {
 										/>
 									</div>
 									<div>
-										Actions <hr />
+										Actions <hr role="presentation" />
 										<div>
 											<input
 												type="checkbox"
@@ -365,20 +365,20 @@ export const generateStoriesForEditableCards = () => {
 									<div>
 										Selectable
 										<Toggle defaultChecked={selectable} onChange={this.onSelectableChange} />
-										<hr />
+										<hr role="presentation" />
 										Selected
 										<Toggle defaultChecked={selected} onChange={this.onSelectedChange} />
 									</div>
 									<div>
 										On click
 										<Toggle defaultChecked={isClickHandlerActive} onChange={this.onClickChange} />
-										<hr />
+										<hr role="presentation" />
 										On mouse enter
 										<Toggle
 											defaultChecked={isMouseEnterHandlerActive}
 											onChange={this.onMouseEnterChange}
 										/>
-										<hr />
+										<hr role="presentation" />
 										use dimensions
 										<Toggle defaultChecked={useDimensions} onChange={this.onUseDimensionsChange} />
 									</div>

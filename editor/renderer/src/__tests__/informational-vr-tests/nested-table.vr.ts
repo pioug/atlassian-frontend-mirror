@@ -11,7 +11,6 @@ import { snapshotInformational } from '@af/visual-regression';
 snapshotInformational(NestedTableRenderer, {
 	description: 'should render nested table in background color cell correctly',
 	featureFlags: {
-		platform_editor_nested_tables_renderer_styles: true,
 		platform_editor_use_nested_table_pm_nodes: true,
 	},
 	variants: [
@@ -32,7 +31,6 @@ snapshotInformational(NestedTableNumberedColumnRenderer, {
 	description:
 		'should render nested table numbered column correctly if parent cell has a background color',
 	featureFlags: {
-		platform_editor_nested_tables_renderer_styles: true,
 		platform_editor_use_nested_table_pm_nodes: true,
 		platform_editor_tables_numbered_column_correction: true,
 	},
@@ -53,7 +51,6 @@ snapshotInformational(NestedTableNumberedColumnRenderer, {
 snapshotInformational(NestedTableRenderer, {
 	description: 'should only render parent table sort buttons on hover of parent table header cell',
 	featureFlags: {
-		platform_editor_nested_tables_renderer_styles: true,
 		platform_editor_use_nested_table_pm_nodes: true,
 	},
 	variants: [
@@ -80,7 +77,6 @@ snapshotInformational(NestedTableRenderer, {
 snapshotInformational(NestedTableRenderer, {
 	description: 'should only render nested table sort buttons on hover of nested table header cell',
 	featureFlags: {
-		platform_editor_nested_tables_renderer_styles: true,
 		platform_editor_use_nested_table_pm_nodes: true,
 	},
 	variants: [

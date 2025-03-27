@@ -180,12 +180,11 @@ const tableSharedStyle = () => css`
 				}
 			}
 
-			${fg('platform_editor_nested_tables_renderer_styles')
-				? `// Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected
+			// Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected
 			> tbody > tr > td {
 				background-color: ${token('elevation.surface')};
-			}`
-				: ''}
+			}
+
 			th {
 				background-color: ${token('color.background.accent.gray.subtlest', akEditorTableToolbar)};
 				text-align: left;

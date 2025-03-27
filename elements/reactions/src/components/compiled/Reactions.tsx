@@ -39,9 +39,9 @@ import {
 import { ReactionDialogOpened, ReactionDialogSelectedReactionChanged } from '../../ufo';
 import { Reaction } from './Reaction';
 import { ReactionsDialog } from './ReactionsDialog';
-import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
-import { type SelectorProps } from '../Selector';
-import { ReactionSummaryView } from '../ReactionSummary/';
+import { ReactionPicker, type ReactionPickerProps } from './ReactionPicker';
+import { type SelectorProps } from './Selector';
+import { ReactionSummaryView } from './ReactionSummaryView';
 
 const wrapperStyle = css({
 	display: 'flex',
@@ -299,7 +299,7 @@ export const Reactions = React.memo(
 		allowSelectFromSummaryView = false,
 		useButtonAlignmentStyling = false,
 	}: ReactionsProps) => {
-		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
+		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 
 		let openTime = useRef<number>();

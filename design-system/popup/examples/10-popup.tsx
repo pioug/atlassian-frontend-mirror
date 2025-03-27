@@ -49,7 +49,7 @@ const PopupContent: FC<PopupProps> = ({ setPosition, placement }) => {
 					Current placement: <strong>{placement}</strong>
 				</p>
 			</div>
-			<hr />
+			<hr role="presentation" />
 			<p>Scroll down.</p>
 			<Button>Button 5</Button>
 			<Button>Button 6</Button>

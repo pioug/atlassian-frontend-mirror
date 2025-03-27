@@ -912,6 +912,60 @@ export const panelNodeAdf: DocNode = {
 				},
 			],
 		},
+		{
+			type: 'panel',
+			attrs: {
+				panelType: PanelType.CUSTOM,
+				panelColor: '#998DD9',
+			},
+			content: [
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'This is a custom panel with background color from ',
+						},
+						{
+							type: 'text',
+							text: 'color palette',
+							marks: [
+								{
+									type: 'strong',
+								},
+							] as const,
+						},
+					],
+				},
+			],
+		},
+		{
+			type: 'panel',
+			attrs: {
+				panelType: PanelType.CUSTOM,
+				panelColor: '#FF0000',
+			},
+			content: [
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'This is a custom panel with background color from ',
+						},
+						{
+							type: 'text',
+							text: 'hex color code',
+							marks: [
+								{
+									type: 'strong',
+								},
+							] as const,
+						},
+					],
+				},
+			],
+		},
 	],
 };
 

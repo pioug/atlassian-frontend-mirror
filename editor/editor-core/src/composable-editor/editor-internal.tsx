@@ -23,7 +23,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
-import ReactEditorViewNext from '../create-editor/ReactEditorViewNext';
+import ReactEditorViewNext from '../create-editor/ReactEditorView';
 import { type EditorAppearanceComponentProps } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';

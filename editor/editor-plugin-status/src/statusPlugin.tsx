@@ -16,7 +16,6 @@ import { IconStatus } from '@atlaskit/editor-common/quick-insert';
 import type { FloatingToolbarItem, Command } from '@atlaskit/editor-common/types';
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { statusNodeSpec } from './nodeviews/statusNodeSpec';
 import {
@@ -98,8 +97,7 @@ export const statusPlugin: StatusPlugin = ({ config: options, api }) => ({
 		},
 		floatingToolbar(state, intl) {
 			const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-
-			if (!fg('platform_inline_node_as_valid_annotation_selection') || !isViewMode()) {
+			if (!isViewMode()) {
 				return undefined;
 			}
 

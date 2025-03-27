@@ -47,13 +47,13 @@ export default () => (
 						</p>
 						<br />
 						<EmojiPickerPopup emojiProvider={provider} />
-						<hr />
+						<hr role="presentation" />
 						<br />
 						<RenderRealResourcedEmojis emailProvider={provider} />
-						<hr />
+						<hr role="presentation" />
 						<h4>Sprite Emoji:</h4>
 						<RenderSpriteEmojis />
-						<hr />
+						<hr role="presentation" />
 						<h4>Emoji Typeahead:</h4>
 						<EmojiTypeAheadTextInput
 							label="Emoji search"

@@ -116,9 +116,6 @@
 	"platform-feature-flags": {
 		"editor_inline_comments_paste_insert_nodes": {
 			"type": "boolean"
-		},
-		"platform_inline_node_as_valid_annotation_selection": {
-			"type": "boolean"
 		}
 	}
 }

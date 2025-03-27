@@ -62,7 +62,7 @@ const LegacyIconMarginExample = () => {
 				New icons
 			</Inline>
 
-			<hr css={dividerStyles} />
+			<hr role="presentation" css={dividerStyles} />
 
 			<Inline space="space.100">
 				<IconContainer>
@@ -112,7 +112,7 @@ const LegacyIconMarginExample = () => {
 				Old Icons with the margin on parent element set as "-4px 10px 40px 5px"
 			</Inline>
 
-			<hr css={dividerStyles} />
+			<hr role="presentation" css={dividerStyles} />
 
 			<Inline space="space.100">
 				<IconContainer>

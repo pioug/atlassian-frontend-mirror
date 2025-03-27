@@ -1,6 +1,7 @@
 import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '@atlaskit/editor-common/selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getComputedStyleForLayoutMode, getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
 
@@ -109,7 +110,12 @@ export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
 			gapCursor.style.marginTop = style.getPropertyValue('margin-top');
 		}
 
-		if (layoutMode) {
+		// Tables nested inside other elements such as layouts, expands and other tables do not have fixed width
+		const isNestedTable = fg('platform_editor_nested_tables_gap_cursor')
+			? node?.type.name === 'table' && selection.$to.depth > 0
+			: false;
+
+		if (layoutMode && !isNestedTable) {
 			gapCursor.setAttribute('layout', layoutMode);
 			const breakoutModeStyle = getComputedStyleForLayoutMode(dom, node, style);
 			gapCursor.style.width = `${measureWidth(breakoutModeStyle)}px`;

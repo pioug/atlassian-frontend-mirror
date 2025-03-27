@@ -130,14 +130,29 @@ export const FullPageEditor = (props: ComponentProps) => {
 
 	const { customPrimaryToolbarComponents } = props;
 
-	if (
-		toolbarDocking === 'none' &&
-		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-	) {
-		primaryToolbarComponents = [];
+	if (fg('platform_editor_controls_patch_1')) {
+		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
+			if (toolbarDocking !== 'top') {
+				primaryToolbarComponents = [];
+			}
 
-		if (!hasCustomComponents(customPrimaryToolbarComponents)) {
-			isEditorToolbarHidden = true;
+			if (
+				!primaryToolbarComponents?.length &&
+				!hasCustomComponents(customPrimaryToolbarComponents)
+			) {
+				isEditorToolbarHidden = true;
+			}
+		}
+	} else {
+		if (
+			toolbarDocking === 'none' &&
+			editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+		) {
+			primaryToolbarComponents = [];
+
+			if (!hasCustomComponents(customPrimaryToolbarComponents)) {
+				isEditorToolbarHidden = true;
+			}
 		}
 	}
 

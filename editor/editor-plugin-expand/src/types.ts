@@ -26,10 +26,7 @@ export type ExpandPluginAction = {
 	};
 };
 
-export type InsertMethod =
-	| INPUT_METHOD.QUICK_INSERT
-	| INPUT_METHOD.INSERT_MENU
-	| INPUT_METHOD.FLOATING_TB;
+export type InsertMethod = INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU;
 
 export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
 	allowInsertion?: boolean;

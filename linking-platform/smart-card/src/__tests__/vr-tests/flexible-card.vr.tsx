@@ -196,6 +196,14 @@ snapshot(FlexibleUiElementLozenge, {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(FlexibleUiElementBadge, {
 	ignoredErrors: [

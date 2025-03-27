@@ -1,2 +1,2 @@
 /* eslint-disable */
-import './dist/esm/manager';
+import './dist/esm/manager.js';

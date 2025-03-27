@@ -37,6 +37,15 @@ const CustomContainerCard = ({ containerType, title }: LinkedContainerCardProps)
 	);
 };
 
+const CustomTeamContainersSkeleton = () => {
+	return (
+		<Box backgroundColor="elevation.surface.sunken">
+			<Box backgroundColor="color.background.neutral" />
+			<Box backgroundColor="color.background.neutral" />
+		</Box>
+	);
+};
+
 export default function Basic() {
 	const locale = 'en';
 	return (
@@ -46,7 +55,10 @@ export default function Basic() {
 					<TeamContainers
 						teamId="team-id"
 						onAddAContainerClick={() => {}}
-						components={{ ContainerCard: CustomContainerCard }}
+						components={{
+							ContainerCard: CustomContainerCard,
+							TeamContainersSkeleton: CustomTeamContainersSkeleton,
+						}}
 						userId={'user-id'}
 						cloudId={'cloud-id'}
 					/>

@@ -393,6 +393,82 @@ const MyComponent = () => <Box xcss={styles} />`;
 			const MyComponent = () => <Box xcss={styles.root} />"
 		`);
 		});
+
+		it('should move cssMap declarations up after variable declarations to ensure they are declared before use', async () => {
+			const input = `import { Box, xcss } from "@atlaskit/primitives";
+
+const opacityVar = "0.5";
+
+const MyComponent = () => <Box xcss={styles} />;
+
+const styles = xcss({
+	color: "color.text",
+	backgroundColor: "color.background.accent.lime.subtlest",
+	opacity: \`\${opacityVar}\`,
+});
+
+export default MyComponent;`;
+
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Box } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const opacityVar = "0.5";
+
+			const MyComponent = () => <Box xcss={styles.root} />;
+
+			const styles = cssMap({
+			    root: {
+			        color: token("color.text"),
+			        backgroundColor: token("color.background.accent.lime.subtlest"),
+			        opacity: \`\${opacityVar}\`,
+			    }
+			});
+
+			export default MyComponent;"
+		`);
+		});
+
+		it('should place cssMap before component declarations that use the styles', async () => {
+			const input = `import { Box, xcss } from "@atlaskit/primitives";
+
+const styles = xcss({
+	color: "color.text",
+	backgroundColor: "color.background.accent.lime.subtlest",
+});
+
+const BackToTop = () => <Box xcss={styles} />;
+
+export default BackToTop;`;
+
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Box } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const styles = cssMap({
+			    root: {
+			        color: token("color.text"),
+			        backgroundColor: token("color.background.accent.lime.subtlest"),
+			    }
+			});
+
+			const BackToTop = () => <Box xcss={styles.root} />;
+
+			export default BackToTop;"
+		`);
+		});
 	});
 
 	describe('file transformations', () => {

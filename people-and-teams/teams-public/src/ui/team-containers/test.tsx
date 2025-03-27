@@ -13,6 +13,7 @@ import {
 } from '../../controllers/hooks/use-team-containers';
 
 import { TeamContainers } from './main';
+import { TeamContainersComponent } from './types';
 
 jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
@@ -86,6 +87,7 @@ describe('TeamContainers', () => {
 		teamId: string,
 		filterContainerId?: string,
 		isDisplayedOnProfileCard?: boolean,
+		components?: TeamContainersComponent,
 	) => {
 		return renderWithIntl(
 			<TeamContainers
@@ -95,6 +97,7 @@ describe('TeamContainers', () => {
 				cloudId={'test-cloud-id'}
 				filterContainerId={filterContainerId}
 				isDisplayedOnProfileCard={isDisplayedOnProfileCard}
+				components={components}
 			/>,
 		);
 	};
@@ -147,6 +150,24 @@ describe('TeamContainers', () => {
 		expect(
 			await screen.findByTestId('team-containers-no-product-access-state'),
 		).toBeInTheDocument();
+	});
+
+	it('should not render the no product access state when displayed from profile card', async () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [],
+		});
+
+		(useProductPermissions as jest.Mock).mockReturnValue({
+			loading: false,
+			data: {
+				jira: {},
+				confluence: {},
+			},
+			error: null,
+		});
+
+		renderTeamContainers(teamId, '', true);
+		expect(screen.queryByTestId('team-containers-no-product-access-state')).not.toBeInTheDocument();
 	});
 
 	it('should NOT render add Jira and Confluence container card when the team has Jira project and Confluence space linked, and should render linked containers', () => {
@@ -277,6 +298,24 @@ describe('TeamContainers', () => {
 		renderTeamContainers(teamId);
 
 		expect(screen.getByTestId('team-containers-skeleton')).toBeInTheDocument();
+	});
+
+	it('should show a custom skeleton component if passed in', () => {
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			loading: true,
+			teamContainers: [],
+		});
+
+		const customContainer = () => <></>;
+		const customSkeletonComponent = () => (
+			<div data-testid="mocked-skeleton">Mocked Team Containers Skeleton</div>
+		);
+		renderTeamContainers(teamId, '', true, {
+			ContainerCard: customContainer,
+			TeamContainersSkeleton: customSkeletonComponent,
+		});
+
+		expect(screen.getByTestId('mocked-skeleton')).toBeInTheDocument();
 	});
 
 	it('should not render disconnect dialog initially', () => {

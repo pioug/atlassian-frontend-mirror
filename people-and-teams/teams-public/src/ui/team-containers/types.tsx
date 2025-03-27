@@ -1,6 +1,7 @@
 import { type ComponentType } from 'react';
 
 import { type LinkedContainerCardProps } from './linked-container-card';
+import { type TeamContainersSkeletonProps } from './team-containers-skeleton';
 
 export interface TeamContainerProps {
 	/**
@@ -38,4 +39,5 @@ export interface TeamContainerProps {
 
 export interface TeamContainersComponent {
 	ContainerCard: ComponentType<LinkedContainerCardProps>;
+	TeamContainersSkeleton: ComponentType<TeamContainersSkeletonProps>;
 }

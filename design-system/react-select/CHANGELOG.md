@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.0.7
+
+### Patch Changes
+
+- [#131835](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131835)
+  [`11b3a9f6a407e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11b3a9f6a407e) -
+  [Popup Select] Improve assistive technology support by reducing reliance on live regions.
+
 ## 2.0.6
 
 ### Patch Changes

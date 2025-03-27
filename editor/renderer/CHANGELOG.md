@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 114.5.4
+
+### Patch Changes
+
+- [#132974](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132974)
+  [`fff402bebd3b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fff402bebd3b3) -
+  fix custom background color issue with custom color panel
+
+## 114.5.3
+
+### Patch Changes
+
+- [#132083](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132083)
+  [`fd96380b3ebf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd96380b3ebf5) -
+  [ux] ED-27218: Made editorUGCToken depends on fg instead of typo theme
+- Updated dependencies
+
 ## 114.5.2
 
 ### Patch Changes

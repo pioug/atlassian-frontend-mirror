@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 36.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.0
+
+### Minor Changes
+
+- [#129557](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129557)
+  [`d9a93c1c21746`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9a93c1c21746) -
+  [ux] EDM-11945 fixing color contrast a11y violations in smart-card by updating examples and text
+  color for pending state
+
 ## 36.1.0
 
 ### Minor Changes

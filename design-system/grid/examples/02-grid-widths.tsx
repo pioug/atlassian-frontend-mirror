@@ -6,7 +6,7 @@ export default () => (
 	<React.Fragment>
 		{([undefined, 'wide', 'narrow'] as const).map((maxWidth) => (
 			<div>
-				<hr />
+				<hr role="presentation" />
 				<h3>{maxWidth}:</h3>
 
 				<GridCards maxWidth={maxWidth} />

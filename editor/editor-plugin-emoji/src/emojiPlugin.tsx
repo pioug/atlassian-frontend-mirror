@@ -373,7 +373,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			typeAhead,
 			floatingToolbar: (state, intl) => {
 				const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-				if (!isViewMode() || !fg('platform_inline_node_as_valid_annotation_selection')) {
+				if (!isViewMode()) {
 					return undefined;
 				}
 				const onClick: Command = (stateFromClickEvent, dispatch) => {

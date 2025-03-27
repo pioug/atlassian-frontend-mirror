@@ -1,2 +1,2 @@
 /* eslint-disable */
-module.exports = require('./dist/esm/preset.js');
+export { webpack } from './dist/esm/preset.js';

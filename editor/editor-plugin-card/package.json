@@ -134,9 +134,6 @@
 		"platform_editor_ssr_fix_smartlinks": {
 			"type": "boolean"
 		},
-		"platform_inline_node_as_valid_annotation_selection": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_card_plugin_state": {
 			"type": "boolean"
 		},

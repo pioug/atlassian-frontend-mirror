@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createDeprecatedIconDocs` in icon-build-process/src/create-deprecated-icon-docs.tsx.
  *
- * @codegen <<SignedSource::55fb779a9011f99fef900f3ab2221b1c>>
+ * @codegen <<SignedSource::c2c64d32be380c3e7cc94588fb166f0e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {
@@ -46,6 +46,20 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 	'@atlaskit/icon/core/drag-handle': {
 		message:
 			'The icon "drag-handle" is deprecated in favour of "drag-handle-vertical" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/issue': {
+		message: 'The icon "issue" is deprecated in favour of "work-item" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/issues': {
+		message: 'The icon "issues" is deprecated in favour of "work-items" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/sidebar-left': {
+		message:
+			'The icon "sidebar-left" is deprecated in favour of "drawer-left" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/sidebar-right': {
+		message:
+			'The icon "sidebar-right" is deprecated in favour of "drawer-right" from “@atlaskit/icon/core”',
 	},
 	'@atlaskit/icon/core/migration/align-center--editor-align-center': {
 		message:

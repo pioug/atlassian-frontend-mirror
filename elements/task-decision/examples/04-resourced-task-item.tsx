@@ -19,7 +19,7 @@ export default () => (
 				>
 					Have a Swedish Fika
 				</ResourcedTaskItem>
-				<hr />
+				<hr role="presentation" />
 				<ResourcedTaskItem
 					taskId="bff0c423-3bba-45c4-a310-d49f7a95003e"
 					objectAri="ari:cloud:app.cloud:f7ebe2c0-0309-4687-b913-41d422f2110b:message/f1328342-7c28-11e7-a5e8-02420aff0003"
@@ -39,7 +39,7 @@ export default () => (
 				>
 					Have a Swedish Fika
 				</ResourcedTaskItem>
-				<hr />
+				<hr role="presentation" />
 				<ResourcedTaskItem
 					taskId="bff0c423-3bba-45c4-a310-d49f7a95003e"
 					objectAri="ari:cloud:app.cloud:f7ebe2c0-0309-4687-b913-41d422f2110b:message/f1328342-7c28-11e7-a5e8-02420aff0003"

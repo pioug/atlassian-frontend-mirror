@@ -1,5 +1,3 @@
-import type { ChartColorTokens } from '../../types';
-
 export type LineChartProps = {
 	/**
 	 * The static width of the chart in pixels. If this is not specified, the width is responsive.
@@ -15,7 +13,6 @@ export type LineChartProps = {
 	 * 2. An [array of objects](https://developer.atlassian.com/platform/forge/ui-kit/components/line-chart/#2--array-of-objects).
 	 */
 	data: unknown[];
-	showBorder?: boolean;
 	/**
 	 * Accessor to define the x-axis values. This can be a numerical or string index.
 	 * For more information on all accessors, see [Data](https://developer.atlassian.com/platform/forge/ui-kit/components/line-chart/#data).
@@ -37,11 +34,6 @@ export type LineChartProps = {
 	 * A string value that represents the subtitle of the chart. This appears below the title.
 	 */
 	subtitle?: string;
-	/**
-	 * An array of [chart color tokens](https://atlassian.design/components/tokens/all-tokens#color-chart).
-	 * This is utilized to render each line with the specified colors, based on the color grouping given by colorAccessor.
-	 */
-	colors?: ChartColorTokens[];
 };
 
 /**

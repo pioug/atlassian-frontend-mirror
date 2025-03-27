@@ -28,7 +28,6 @@ import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatePlugin } from './datePluginType';
 import { dateNodeSpec } from './nodeviews/dateNodeSpec';
@@ -234,7 +233,7 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 		floatingToolbar: (state, intl) => {
 			const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
-			if (!isViewMode() || !fg('platform_inline_node_as_valid_annotation_selection')) {
+			if (!isViewMode()) {
 				return undefined;
 			}
 

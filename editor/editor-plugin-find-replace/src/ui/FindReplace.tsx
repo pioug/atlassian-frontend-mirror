@@ -167,7 +167,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 					setFindTyped={this.setFindTyped}
 				/>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<hr css={ruleStyles} id="replace-hr-element" />
+				<hr role="presentation" css={ruleStyles} id="replace-hr-element" />
 				<Replace
 					canReplace={count.total > 0}
 					replaceText={replaceText}

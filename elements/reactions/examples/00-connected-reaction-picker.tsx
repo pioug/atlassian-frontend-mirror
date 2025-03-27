@@ -12,7 +12,7 @@ export default () => {
 					<p>
 						<strong>Memory store and Connected Picker view (same store)</strong>
 					</p>
-					<hr />
+					<hr role="presentation" />
 					<Example
 						title={'Regular picker view'}
 						body={
@@ -24,7 +24,7 @@ export default () => {
 							/>
 						}
 					/>
-					<hr />
+					<hr role="presentation" />
 					<Example
 						title={
 							'Use picker to add reaction, it will update reactions in a separate ConnectedReactionsView component below.'

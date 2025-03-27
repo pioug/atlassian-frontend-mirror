@@ -24,7 +24,7 @@ import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const overrideCss = css({
-	color: token('color.background.accent.blue.subtle', '#579DFF'),
+	color: token('color.text.brand', '#0B66E4'),
 	fontStyle: 'italic',
 });
 

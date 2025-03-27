@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c56c230a12c67a383718da986206fb61>>
+ * @codegen <<SignedSource::fefd55e03651589ebea21ae171c33b84>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CalculateIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M4 1v3m0 3V4m0 0h3M4 4H1m.5 6 2.25 2.25m0 0L6 14.5m-2.25-2.25L6 10m-2.25 2.25L1.5 14.5M9 4h6m-6 8h6"/><circle cx="12" cy="9.5" r=".75" fill="currentcolor"/><circle cx="12" cy="14.5" r=".75" fill="currentcolor"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3.25 3.25V1h1.5v2.25H7v1.5H4.75V7h-1.5V4.75H1v-1.5zm-.56 9L.97 10.53l1.06-1.06 1.72 1.72 1.72-1.72 1.06 1.06-1.72 1.72 1.72 1.72-1.06 1.06-1.72-1.72-1.72 1.72-1.06-1.06zM15 4.75H9v-1.5h6zm0 8H9v-1.5h6z" clip-rule="evenodd"/><path fill="currentcolor" d="M12.75 9.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m0 5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CalculateIcon.displayName = 'CalculateIcon';

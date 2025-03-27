@@ -10,5 +10,5 @@ export type {
 } from './BarChartProps';
 
 export type { LineChartProps, TLineChart } from './LineChartProps';
-export type { SingleValueChartProps, TSingleValueChart } from './SingleValueChartProps';
 export type { PieChartProps, TPieChart } from './PieChartProps';
+export type { DonutChartProps, TDonutChart } from './DonutChartProps';

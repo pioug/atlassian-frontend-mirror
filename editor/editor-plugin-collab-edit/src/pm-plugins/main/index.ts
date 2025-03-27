@@ -10,6 +10,7 @@ import * as atlaskKitCustomSteps from '@atlaskit/custom-steps';
 import {
 	ACTION,
 	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
@@ -95,6 +96,41 @@ export const createPlugin = (
 		props: {
 			decorations(state: EditorState) {
 				return pluginKey.getState(state)?.decorations;
+			},
+			handleDOMEvents: {
+				click(view: EditorView, event: MouseEvent) {
+					if (!(event.target instanceof HTMLElement)) {
+						return false;
+					}
+
+					if (!view.state.selection.empty) {
+						return false;
+					}
+
+					const { pos } = view.state.tr.selection.$from;
+					if (!pos) {
+						return false;
+					}
+
+					// check if the pos is the same pos as a telepointer decoration
+					const decorations = pluginKey.getState(view.state)?.decorations?.find(pos, pos);
+					if (!decorations?.length) {
+						return false;
+					}
+					// analytics to track telepointer clicks as they sometimes cause broken selections
+					const fireAnalyticsCallback = fireAnalyticsEvent(
+						pluginInjectionApi?.analytics?.sharedState.currentState()?.createAnalyticsEvent ??
+							undefined,
+					);
+					fireAnalyticsCallback({
+						payload: {
+							action: ACTION.CLICKED,
+							actionSubject: ACTION_SUBJECT.TELEPOINTER,
+							actionSubjectId: ACTION_SUBJECT_ID.TELEPOINTER,
+							eventType: EVENT_TYPE.TRACK,
+						},
+					});
+				},
 			},
 		},
 		filterTransaction(tr: Transaction, state: EditorState) {

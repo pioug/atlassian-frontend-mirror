@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.1.2
+
+### Patch Changes
+
+- [#132166](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132166)
+  [`e1c6dcf47a8a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1c6dcf47a8a2) -
+  ED-24538 Clean up platform_editor_basic_text_transformations
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

@@ -89,7 +89,7 @@ const Example = () => {
 				</li>
 				<li>Press the button to open Media Viewer.</li>
 			</ul>
-			<hr />
+			<hr role="presentation" />
 			<Button
 				onClick={() => {
 					setMediaViewerOpened(true);

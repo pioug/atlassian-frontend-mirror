@@ -1,5 +1,13 @@
 # @atlaskit/storybook-addon-design-system
 
+## 3.0.0
+
+### Major Changes
+
+- [#106696](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/106696)
+  [`5341965ff8dbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5341965ff8dbe) -
+  Updated to use ESM syntax for exports.
+
 ## 2.0.0
 
 ### Major Changes

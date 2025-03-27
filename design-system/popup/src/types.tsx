@@ -185,11 +185,19 @@ interface BaseProps {
 
 	/**
 	 * Handler that is called when the popup wants to close itself.
-	 * This happens either when clicking away from the popup or pressing the escape key.
+	 * This can happen when:
+	 * - the user clicks away from the popup
+	 * - the user presses the escape key
+	 * - the popup is closed programatically. In this case, the `event` argument will be `null`.
+	 *
 	 * You'll want to use this to set open state accordingly, and then pump it back into the `isOpen` prop.
 	 */
 	onClose?(
-		event: Event | React.MouseEvent | React.KeyboardEvent,
+		/**
+		 * The event that triggered the close.
+		 * The argument value will be `null` when the popup is closed programatically and has no corresponding event.
+		 */
+		event: Event | React.MouseEvent | React.KeyboardEvent | null,
 		currentLevel?: number | any,
 	): void;
 

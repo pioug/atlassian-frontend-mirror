@@ -20,7 +20,7 @@ export default () => {
 							matching key)
 						</strong>
 					</p>
-					<hr />
+					<hr role="presentation" />
 					<ConnectedReactionsView
 						store={store}
 						containerAri={`${Constants.ContainerAriPrefix}1`}
@@ -39,7 +39,7 @@ export default () => {
 								This renders an empty selected list from the mockClient object
 							</strong>
 						</p>
-						<hr />
+						<hr role="presentation" />
 					</div>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={{ marginLeft: '10px' }}>

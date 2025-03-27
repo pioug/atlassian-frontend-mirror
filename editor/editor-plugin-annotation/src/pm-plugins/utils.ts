@@ -366,9 +366,7 @@ export const isSelectionValid = (
 	const isTextOrAllSelection =
 		selection instanceof TextSelection || selection instanceof AllSelection;
 	const isValidNodeSelection =
-		selection instanceof NodeSelection &&
-		allowedInlineNodes.includes(selection.node.type.name) &&
-		fg('platform_inline_node_as_valid_annotation_selection');
+		selection instanceof NodeSelection && allowedInlineNodes.includes(selection.node.type.name);
 	const isValidSelection = isTextOrAllSelection || isValidNodeSelection;
 
 	// Allow media so that it can enter draft mode

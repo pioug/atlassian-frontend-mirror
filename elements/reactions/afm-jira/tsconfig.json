@@ -33,6 +33,9 @@
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../emoji/afm-jira/tsconfig.json"
 		},
 		{

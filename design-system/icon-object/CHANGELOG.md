@@ -1,5 +1,14 @@
 # @atlaskit/icon-object
 
+## 7.0.2
+
+### Patch Changes
+
+- [#132394](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132394)
+  [`b76796edb29d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b76796edb29d7) -
+  Migrate from deprecated issue icon to work-item.
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

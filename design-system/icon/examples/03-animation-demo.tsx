@@ -45,7 +45,7 @@ const AnimationDemo = () => {
 				<input type="checkbox" id="animate" onChange={toggleAnimation} ref={checkboxRef} /> Animate
 				(every 3 seconds)
 			</label>
-			<hr />
+			<hr role="presentation" />
 			<div>
 				<RandomIcon />
 				<RandomIcon />

@@ -165,7 +165,7 @@ const UserPickerExample = React.memo(() => {
 			{createBoolean('includeGroups', 'includeGroups')}
 			{createBoolean('isPreloadOn', 'isPreloadOn')}
 			{createBoolean('isMulti', 'isMulti')}
-			<hr />
+			<hr role="presentation" />
 			<label htmlFor="user-picker">User Picker</label>
 			<UserPicker
 				maxOptions={10}

@@ -865,7 +865,7 @@ export default class Select<
 		this.state.instancePrefix = 'react-select-' + (this.props.instanceId || ++instanceId);
 		this.state.selectValue = cleanValue(props.value);
 		// Set focusedOption if menuIsOpen is set on init (e.g. defaultMenuIsOpen)
-		if (props.menuIsOpen && this.state.selectValue.length) {
+		if (props.menuIsOpen) {
 			const focusableOptionsWithIds: FocusableOptionWithId<Option>[] =
 				this.getFocusableOptionsWithIds();
 			const focusableOptions = this.buildFocusableOptions();
@@ -2300,6 +2300,20 @@ export default class Select<
 			menuShouldScrollIntoView,
 		};
 
+		const calculateListboxLabel = () => {
+			// First in name calculation, overwrites aria-label
+			if (labelId) {
+				return { 'aria-labelledby': labelId };
+			}
+			// Second in name calcuation, overwrites everything else except aria-labelledby
+			if (label) {
+				return { 'aria-label': label };
+			}
+			// Fallback if no label or labelId is provided, might catch label via <label for> otherwise
+			// will most likely not have an accessible name
+			return { 'aria-labelledby': this.inputRef?.id || this.getElementId('input') };
+		};
+
 		const menuElement = (
 			<MenuPlacer {...commonProps} {...menuPlacementProps}>
 				{({ ref, placerProps: { placement, maxHeight } }) => (
@@ -2343,10 +2357,7 @@ export default class Select<
 											'data-testid': `${testId}-select--listbox`,
 										}),
 										// add aditional label on listbox when ff is on
-										...(fg('design_system_select-a11y-improvement') && {
-											'aria-label': label,
-											'aria-labelledby': `${labelId || this.inputRef?.id || this.getElementId('input')}`,
-										}),
+										...(fg('design_system_select-a11y-improvement') && calculateListboxLabel()),
 									}}
 									isLoading={isLoading}
 									maxHeight={maxHeight}

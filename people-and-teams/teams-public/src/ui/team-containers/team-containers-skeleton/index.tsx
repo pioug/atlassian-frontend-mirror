@@ -16,7 +16,8 @@ const styles = cssMap({
 		paddingBlock: token('space.050'),
 	},
 });
-interface TeamContainersSkeletonProps {
+
+export interface TeamContainersSkeletonProps {
 	numberOfContainers: number;
 }
 

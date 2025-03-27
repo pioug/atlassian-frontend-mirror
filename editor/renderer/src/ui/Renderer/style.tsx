@@ -320,69 +320,41 @@ const tableSortableColumnStyle = ({
 				${headingsCss}
 			}
 
-			${fg('platform_editor_nested_tables_renderer_styles')
-				? css`
-						// New styles
-						> .${RendererCssClassName.SORTABLE_COLUMN}
-							> .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
-							margin: 0;
+			${css`
+				// New styles
+				> .${RendererCssClassName.SORTABLE_COLUMN}
+					> .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
+					margin: 0;
 
-							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-								opacity: 1;
-								transition: opacity 0.2s ease-in-out;
-							}
+					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+						opacity: 1;
+						transition: opacity 0.2s ease-in-out;
+					}
+				}
+
+				> .${RendererCssClassName.SORTABLE_COLUMN}
+					> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+						opacity: 0;
+						&:focus {
+							opacity: 1;
 						}
+					}
+				}
 
-						> .${RendererCssClassName.SORTABLE_COLUMN}
-							> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-								opacity: 0;
-								&:focus {
-									opacity: 1;
-								}
-							}
-						}
-
-						&:hover:not(
-								:has(
-										.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
-											.${RendererCssClassName.SORTABLE_COLUMN}:hover
-									)
+				&:hover:not(
+						:has(
+								.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
+									.${RendererCssClassName.SORTABLE_COLUMN}:hover
 							)
-							> .${RendererCssClassName.SORTABLE_COLUMN}
-							> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-								opacity: 1;
-							}
-						}
-					`
-				: css`
-						// old styles
-						.${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
-							margin: 0;
-							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-								opacity: 1;
-								transition: opacity 0.2s ease-in-out;
-							}
-						}
-
-						.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-								opacity: 0;
-								&:focus {
-									opacity: 1;
-								}
-							}
-						}
-
-						&:hover {
-							.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-								.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-									opacity: 1;
-								}
-							}
-						}
-					`}
+					)
+					> .${RendererCssClassName.SORTABLE_COLUMN}
+					> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+						opacity: 1;
+					}
+				}
+			`}
 		}
 	`;
 };

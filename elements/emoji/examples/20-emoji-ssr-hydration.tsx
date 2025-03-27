@@ -90,7 +90,7 @@ export default () => {
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={{ marginRight: 20 }} id={hydrationResourceId}></div>
 				</div>
-				<hr />
+				<hr role="presentation" />
 				<h2>Simple Emoji</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={rowStyle}>
@@ -99,7 +99,7 @@ export default () => {
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={{ marginRight: 20 }} id={hydrationSingleId}></div>
 				</div>
-				<hr />
+				<hr role="presentation" />
 				<h2>Emoji Picker</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={rowStyle}>
@@ -108,7 +108,7 @@ export default () => {
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={{ marginRight: 20 }} id={hydrationPickerId}></div>
 				</div>
-				<hr />
+				<hr role="presentation" />
 			</div>
 		</div>
 	);

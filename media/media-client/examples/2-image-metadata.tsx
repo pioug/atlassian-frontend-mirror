@@ -31,7 +31,7 @@ class Example extends Component<{}, ExampleState> {
 		return (
 			<div>
 				<h1>Image metadata for {imageFileId.id}</h1>
-				<hr />
+				<hr role="presentation" />
 				{metadata ? JSON.stringify(metadata, undefined, 2) : 'fetching metadata'}
 			</div>
 		);

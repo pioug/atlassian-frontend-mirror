@@ -107,9 +107,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"platform_inline_node_as_valid_annotation_selection": {
-			"type": "boolean"
-		},
 		"visual-refresh_drop_5": {
 			"type": "boolean"
 		},

@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 9.2.1
+
+### Patch Changes
+
+- [#132599](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132599)
+  [`88a8d97c36264`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a8d97c36264) -
+  added more node attrs to code suggestions
+
 ## 9.2.0
 
 ### Minor Changes

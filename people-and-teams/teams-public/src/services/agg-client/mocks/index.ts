@@ -49,6 +49,18 @@ export const MOCK_TEAM_CONTAINERS = {
 	},
 };
 
+export const MOCK_NUMBER_OF_CONNECTED_TEAMS = {
+	graphStore: {
+		teamConnectedToContainerInverse: {
+			edges: [
+				{
+					id: 'ari:cloud:identity::team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
+				},
+			],
+		},
+	},
+};
+
 export const MOCK_CONNECTED_TEAMS = {
 	graphStore: {
 		teamConnectedToContainerInverse: {

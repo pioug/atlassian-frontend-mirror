@@ -27,7 +27,7 @@ import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const overrideCss = css({
-	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+	backgroundColor: token('color.background.brand.bold', '#0B66E4'),
 	borderRadius: '1rem',
 	padding: '0.2rem',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

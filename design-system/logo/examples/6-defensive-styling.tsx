@@ -26,7 +26,7 @@ const inlineStyles = css({
 export default () => (
 	<div css={ancestorStyles}>
 		<p>Logo should be resilient against inherited styles.</p>
-		<hr />
+		<hr role="presentation" />
 		<div data-testid="defensive-styling">
 			<div css={inlineStyles}>
 				<ConfluenceIcon size="xsmall" appearance="brand" />

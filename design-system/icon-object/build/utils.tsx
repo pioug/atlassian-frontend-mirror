@@ -53,7 +53,7 @@ export const iconObjectMapping: Record<
 		packageName: 'icon',
 	},
 	issue: {
-		icon: 'issue',
+		icon: 'work-item',
 		appearance: 'blueBold',
 		packageName: 'icon',
 	},

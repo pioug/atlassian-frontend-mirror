@@ -220,7 +220,7 @@ function ExampleTabsWithObs(props: { tabs: { label: string; content: React.React
 				first time you open an example will be the most accurate (as subsequent opens will have
 				various parts cached).
 			</p>
-			<hr />
+			<hr role="presentation" />
 			<form onSubmit={handleChangeExample}>
 				<fieldset>
 					<legend>Select an example</legend>

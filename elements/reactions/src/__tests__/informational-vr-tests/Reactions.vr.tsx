@@ -1,9 +1,73 @@
-import { LoadedReactions, LoadedReactionsWithSummaryView } from './Reactions.fixtures';
+import {
+	LoadedReactions,
+	LoadedReactionsDisallowAllEmojis,
+	LoadedReactionsMiniMode,
+	LoadedReactionsWithPickerQuickReactionEmojiIds,
+} from './Reactions.fixtures';
 import { snapshotInformational } from '@af/visual-regression';
 
 const featureFlags = {
+	'platform-component-visual-refresh': true,
 	platform_editor_css_migrate_reactions: [true, false],
 };
+
+snapshotInformational(LoadedReactions, {
+	description: 'Reactions trigger button selected',
+	prepare: async (page) => {
+		await page.getByTestId('render-trigger-button').click();
+	},
+	selector: {
+		byTestId: 'render-reactions',
+	},
+	featureFlags,
+});
+
+snapshotInformational(LoadedReactionsMiniMode, {
+	description: 'Reactions miniMode trigger button selected',
+	selector: {
+		byTestId: 'render-reactions',
+	},
+	prepare: async (page) => {
+		await page.getByTestId('render-trigger-button').click();
+	},
+	featureFlags,
+});
+
+snapshotInformational(LoadedReactions, {
+	description: 'Reactions Picker',
+	prepare: async (page) => {
+		await page.getByTestId('render-trigger-button').click();
+		await page.waitForTimeout(200);
+	},
+	featureFlags,
+	selector: {
+		byTestId: 'reactionPickerPanel-testid',
+	},
+});
+
+snapshotInformational(LoadedReactionsDisallowAllEmojis, {
+	description: 'Reactions Picker with allowAllEmojis false',
+	prepare: async (page) => {
+		await page.getByTestId('render-trigger-button').click();
+		await page.waitForTimeout(200);
+	},
+	featureFlags,
+	selector: {
+		byTestId: 'reactionPickerPanel-testid',
+	},
+});
+
+snapshotInformational(LoadedReactionsWithPickerQuickReactionEmojiIds, {
+	description: 'Reactions Picker with pickerQuickReactionEmojiIds',
+	prepare: async (page) => {
+		await page.getByTestId('render-trigger-button').click();
+		await page.waitForTimeout(200);
+	},
+	featureFlags,
+	selector: {
+		byTestId: 'reactionPickerPanel-testid',
+	},
+});
 
 snapshotInformational(LoadedReactions, {
 	description: 'Reaction tooltip with users less than limit',
@@ -25,33 +89,6 @@ snapshotInformational(LoadedReactions, {
 	},
 	selector: {
 		byTestId: 'render-reactionTooltip',
-	},
-	featureFlags,
-});
-
-snapshotInformational(LoadedReactionsWithSummaryView, {
-	description: 'Reactions summary view',
-	selector: {
-		byTestId: 'render-reactions',
-	},
-	featureFlags,
-});
-
-snapshotInformational(LoadedReactionsWithSummaryView, {
-	description: 'Reactions summary view on click to show reactions',
-	selector: {
-		byTestId: 'render-summary-view-popup',
-	},
-	prepare: async (page) => {
-		await page.getByTestId('reaction-summary-button').click();
-	},
-	featureFlags,
-});
-
-snapshotInformational(LoadedReactionsWithSummaryView, {
-	description: 'Reactions summary view with viewOnly mode',
-	selector: {
-		byTestId: 'render-reactions',
 	},
 	featureFlags,
 });

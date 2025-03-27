@@ -33,7 +33,7 @@ export default () => (
 						emojiProvider={emojiProvider}
 						allowAllEmojis
 					/>
-					<hr />
+					<hr role="presentation" />
 					<p>Second Comment</p>
 					<ConnectedReactionsView
 						store={store}
@@ -42,7 +42,7 @@ export default () => (
 						emojiProvider={emojiProvider}
 						allowAllEmojis
 					/>
-					<hr />
+					<hr role="presentation" />
 					<p>One more Comment</p>
 					<ConnectedReactionsView
 						store={store}
@@ -51,7 +51,7 @@ export default () => (
 						emojiProvider={emojiProvider}
 						allowAllEmojis
 					/>
-					<hr />
+					<hr role="presentation" />
 					<p>Last comment</p>
 					<ConnectedReactionsView
 						store={store}
@@ -60,7 +60,7 @@ export default () => (
 						emojiProvider={emojiProvider}
 						allowAllEmojis
 					/>
-					<hr />
+					<hr role="presentation" />
 					<div>
 						Within a different Container.
 						<ConnectedReactionsView

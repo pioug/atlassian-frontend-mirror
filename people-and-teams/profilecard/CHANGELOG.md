@@ -1,5 +1,35 @@
 # @atlaskit/profilecard
 
+## 23.7.0
+
+### Minor Changes
+
+- [#131460](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131460)
+  [`c890581942f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c890581942f6e) -
+  [ux] Add loading skeleton for team containers in profile card
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.6.4
 
 ### Patch Changes

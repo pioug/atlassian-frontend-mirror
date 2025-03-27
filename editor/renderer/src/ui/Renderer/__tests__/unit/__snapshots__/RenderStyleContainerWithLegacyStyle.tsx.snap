@@ -1340,6 +1340,12 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
   margin-top: var(--ds-space-150, 12px);
 }
 
+.emotion-0 .pm-table-container>table >tbody>tr>td,
+.emotion-0 .pm-table-wrapper>table >tbody>tr>td,
+.emotion-0 .pm-table-sticky-wrapper>table >tbody>tr>td {
+  background-color: var(--ds-surface, #FFFFFF);
+}
+
 .emotion-0 .pm-table-container>table th,
 .emotion-0 .pm-table-wrapper>table th,
 .emotion-0 .pm-table-sticky-wrapper>table th {

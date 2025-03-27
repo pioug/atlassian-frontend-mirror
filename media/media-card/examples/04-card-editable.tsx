@@ -110,7 +110,7 @@ class EditableCard extends Component<{}, EditableCardState> {
 				<div>
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={editableCardOptionsStyles}>
-						Card dimensions <hr />
+						Card dimensions <hr role="presentation" />
 						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={cardDimensionsWrapperStyles}>
 							<div>

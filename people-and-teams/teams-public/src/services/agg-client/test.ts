@@ -1,6 +1,11 @@
 import { DEFAULT_CONFIG } from '../constants';
 
-import { MOCK_CONNECTED_TEAMS, MOCK_CONNECTED_TEAMS_RESULT, MOCK_TEAM_CONTAINERS } from './mocks';
+import {
+	MOCK_CONNECTED_TEAMS,
+	MOCK_CONNECTED_TEAMS_RESULT,
+	MOCK_NUMBER_OF_CONNECTED_TEAMS,
+	MOCK_TEAM_CONTAINERS,
+} from './mocks';
 
 import { AGGClient } from './index';
 
@@ -64,6 +69,37 @@ describe('AGGClient', () => {
 					operationName: 'UnlinkContainerMutation',
 				},
 			);
+		});
+	});
+
+	describe('queryNumberOfTeamConnectedToContainer', () => {
+		const containerId = 'mock-container-id';
+
+		it('should call makeGraphQLRequest with correct parameters', async () => {
+			const makeRequestSpy = jest
+				.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
+				.mockResolvedValue(MOCK_NUMBER_OF_CONNECTED_TEAMS);
+			await aggClient.queryNumberOfTeamConnectedToContainer(containerId);
+			expect(makeRequestSpy).toHaveBeenCalledWith(
+				{
+					query: expect.any(String),
+					variables: {
+						containerId,
+					},
+				},
+				{
+					operationName: 'NumberOfTeamConnectedToContainerQuery',
+				},
+			);
+		});
+
+		it('should return the correct result', async () => {
+			jest
+				.spyOn(AGGClient.prototype, 'makeGraphQLRequest')
+				.mockResolvedValue(MOCK_NUMBER_OF_CONNECTED_TEAMS);
+
+			const result = await aggClient.queryNumberOfTeamConnectedToContainer(containerId);
+			expect(result).toEqual(1);
 		});
 	});
 

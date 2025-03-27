@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f4b6800bf45a85f5c3acea28681b1cbc>>
+ * @codegen <<SignedSource::f468eaa1b0e61e0eba404cafc58f6977>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Linter } from 'eslint';
@@ -15,6 +15,7 @@ export default {
 		'@atlaskit/design-system/ensure-icon-color': 'error',
 		'@atlaskit/design-system/icon-label': 'warn',
 		'@atlaskit/design-system/no-banned-imports': 'error',
+		'@atlaskit/design-system/no-boolean-autofocus-on-modal-dialog': 'warn',
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-custom-icons': 'warn',
 		'@atlaskit/design-system/no-dark-theme-vr-tests': 'error',

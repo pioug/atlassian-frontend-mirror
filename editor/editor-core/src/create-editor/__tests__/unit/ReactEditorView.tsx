@@ -102,8 +102,8 @@ import {
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
 } from '../../consts';
 import { createUniversalPreset } from '../../create-universal-preset';
+import ReactEditorView from '../../ReactEditorView';
 import * as useDispatchTransactionModule from '../../ReactEditorView/useDispatchTransaction';
-import ReactEditorView from '../../ReactEditorViewNext';
 
 const initializeCollab = (view: EditorView) =>
 	view.dispatch(view.state.tr.setMeta('collabInitialised', true));

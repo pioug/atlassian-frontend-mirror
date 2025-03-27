@@ -58,7 +58,6 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -361,8 +360,7 @@ const generateToolbarItems =
 			!annotationApiState.bookmark &&
 			!annotationApiState.mouseData.isSelecting &&
 			!activeCommentMark &&
-			node.type === state.schema.nodes.inlineCard &&
-			fg('platform_inline_node_as_valid_annotation_selection');
+			node.type === state.schema.nodes.inlineCard;
 
 		const onCommentButtonClick: Command = (state, dispatch) => {
 			if (!pluginInjectionApi?.annotation || !isCommentEnabled) {

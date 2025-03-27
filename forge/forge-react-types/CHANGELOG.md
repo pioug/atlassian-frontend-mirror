@@ -1,5 +1,18 @@
 # @atlaskit/forge-react-types
 
+## 0.39.0
+
+### Minor Changes
+
+- [#130095](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130095)
+  [`5cbce3c0a85b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cbce3c0a85b2) -
+  Update props for chart components to remove showBorder and colors props. Add prop types for
+  DonutChart component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.38.0
 
 ### Minor Changes

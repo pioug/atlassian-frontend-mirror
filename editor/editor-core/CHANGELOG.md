@@ -1,5 +1,60 @@
 # @atlaskit/editor-core
 
+## 205.0.1
+
+### Patch Changes
+
+- [#132779](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132779)
+  [`077245336ff88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/077245336ff88) -
+  [ux] ED-27287 fix toolbar flicker
+- Updated dependencies
+
+## 205.0.0
+
+### Major Changes
+
+- [#130490](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130490)
+  [`5e13e0e59f2d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e13e0e59f2d9) -
+  Sunsetting prop on the Editor component - "dangerouslyAppendPlugins".
+
+  This shouldn't affect any consumers as it has been cleaned up internally.
+
+  WHAT? `dangerouslyAppendPlugins` will no longer be available as a prop on the deprecated `Editor`
+  react component.
+
+  WHY? This prop has been deprecated for several years and was always discouraged by its name. It
+  was a workaround for adding new external plugins. This is no longer necessary with the
+  `ComposableEditor`.
+
+  HOW TO UPDATE? You can use the `ComposableEditor` to add plugins now which is typesafe and
+  declarative.
+
+  Example:
+
+  ```tsx
+  import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+  import { usePreset } from '@atlaskit/editor-core/use-preset';
+
+  const customPlugin: NextEditorPlugin<'custom'> = () => {
+    return {
+      name: 'custom',
+      pmPlugins: () => {
+        // Add any custom prosemirror plugins
+        return [...];
+      }
+    }
+  }
+
+  function Editor() {
+    const { preset } = usePreset((b) => b.add(customPlugin));
+    return <ComposableEditor preset={preset} />
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 204.8.2
 
 ### Patch Changes

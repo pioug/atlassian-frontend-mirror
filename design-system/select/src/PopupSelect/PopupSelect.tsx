@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
 
@@ -8,7 +9,7 @@ import FocusLock from 'react-focus-lock';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
 import { shallowEqualObjects } from 'shallow-equal';
 
-import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
+import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
@@ -549,6 +550,7 @@ export default class PopupSelect<
 			// Update aria-label to get first announcement when popup opened.
 			if (this.selectRef?.select?.inputRef) {
 				if (providedAriaLabel) {
+					// I might want to use a comma instead of a period here, when the feature flag is removed.
 					ariaLabelText = `${providedAriaLabel}. ${ariaLabelText}`;
 				}
 
@@ -570,7 +572,7 @@ export default class PopupSelect<
 					: focused.label;
 
 			const ariaLabelText = fg('design_system_select-a11y-improvement')
-				? `${optionName}`
+				? `${optionName}, (${optionIndex + 1} of ${totalLength})`
 				: `Option ${optionName} focused, ${optionIndex + 1} of ${totalLength}.
 			${totalLength} results available.
 			${ariaLabelSuffix}
@@ -602,7 +604,14 @@ export default class PopupSelect<
 					);
 					ariaLiveMessage = ariaLabelText;
 				}
-				updateInputAriaLabel(ariaLabelText);
+				// Safari still does not announce the first option when menu is opened, so forcing a change to the input label
+				// will include the first option in the initial announcement.
+				if (
+					!fg('design_system_select-a11y-improvement') ||
+					(isSafari() && fg('design_system_select-a11y-improvement'))
+				) {
+					updateInputAriaLabel(ariaLabelText);
+				}
 				return ariaLiveMessage;
 			}
 			return ariaLiveMessage;

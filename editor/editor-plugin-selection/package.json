@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "2.1.4",
+	"version": "2.1.5",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -89,9 +89,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_fix_drag_and_drop_lists": {
-			"type": "boolean"
-		},
-		"editor_auto_expand_selection_on_inline_node": {
 			"type": "boolean"
 		},
 		"platform_editor_lcm_inline_node_selection_fix": {

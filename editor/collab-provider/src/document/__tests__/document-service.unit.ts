@@ -919,6 +919,8 @@ describe('document-service', () => {
 					__livePage: false,
 					hasRecovered: false,
 					collabMode: participantsServiceMock.getCollabMode(),
+					numberOfStepCommitsSent: 0,
+					setNumberOfCommitsSent: service.setNumberOfCommitsSent,
 				});
 				if (shouldLogError) {
 					expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);

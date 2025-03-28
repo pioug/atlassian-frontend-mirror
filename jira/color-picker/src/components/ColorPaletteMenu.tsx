@@ -20,8 +20,7 @@ import {
 } from '@atlaskit/analytics-next';
 import ColorCard, { type ColorCardRef } from './ColorCard';
 import { getOptions, getWidth } from '../utils';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import {
 	COLOR_PALETTE_MENU,
@@ -201,24 +200,36 @@ export default withAnalyticsContext({
 
 const colorCardWrapperStyles = css({
 	display: 'flex',
-	margin: token('space.025', '2px'),
-	height: token('space.400', '32px'),
+	marginTop: token('space.025', '2px'),
+	marginRight: token('space.025', '2px'),
+	marginBottom: token('space.025', '2px'),
+	marginLeft: token('space.025', '2px'),
+	height: '32px',
 });
 
 const colorPaletteContainerStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
-	padding: token('space.050', '4px'),
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
 });
 
 const colorPaletteContainerCompactStyles = css({
-	padding: token('space.0', '0'),
+	paddingTop: token('space.0', '0'),
+	paddingRight: token('space.0', '0'),
+	paddingBottom: token('space.0', '0'),
+	paddingLeft: token('space.0', '0'),
 });
 
 const colorPaletteMenuStyles = css({
 	display: 'flex',
 	position: 'relative',
-	margin: token('space.0', '0'),
+	marginTop: token('space.0', '0'),
+	marginRight: token('space.0', '0'),
+	marginBottom: token('space.0', '0'),
+	marginLeft: token('space.0', '0'),
 	backgroundColor: token('elevation.surface.overlay', N0),
 });
 

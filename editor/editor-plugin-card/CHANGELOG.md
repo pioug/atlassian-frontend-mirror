@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.7
+
+### Patch Changes
+
+- [#132269](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132269)
+  [`f6984f0b31c02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6984f0b31c02) -
+  [ux] Fixed alignment of the icon in OpenButtonOverlay on header link.
+- Updated dependencies
+
+## 5.4.6
+
+### Patch Changes
+
+- [#133060](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133060)
+  [`4e22e38db002e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e22e38db002e) -
+  [ux] Fix for Editor Controls. When link appearance options are not available, we do not render
+  these options in the floating toolbar.
+
+## 5.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.4
 
 ### Patch Changes

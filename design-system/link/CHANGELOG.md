@@ -1,5 +1,13 @@
 # @atlaskit/link
 
+## 3.1.0
+
+### Minor Changes
+
+- [#130861](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130861)
+  [`d9382f9b1d1a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9382f9b1d1a6) -
+  Explicit typography tokens for link components. No UI change expected.
+
 ## 3.0.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.10.4
+
+### Patch Changes
+
+- [#133515](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133515)
+  [`3e092526fea27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e092526fea27) -
+  Fix codemod config.
+
 ## 0.10.3
 
 ### Patch Changes

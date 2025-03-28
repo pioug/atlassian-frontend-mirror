@@ -47,6 +47,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"jscodeshift": "^17.0.0",
 		"lodash": "^4.17.21",

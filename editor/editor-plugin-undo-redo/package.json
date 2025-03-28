@@ -94,5 +94,10 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_cmd_y_mac_redo_shortcut": {
+			"type": "boolean"
+		}
 	}
 }

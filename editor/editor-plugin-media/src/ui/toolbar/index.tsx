@@ -50,10 +50,10 @@ import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
+import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -165,6 +165,7 @@ const generateMediaCardFloatingToolbar = (
 		icon: editorExperiment('platform_editor_controls', 'variant1')
 			? GrowDiagonalIcon
 			: MaximizeIcon,
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		iconFallback: FilePreviewIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
@@ -659,6 +660,7 @@ const generateMediaSingleFloatingToolbar = (
 							icon: editorExperiment('platform_editor_controls', 'variant1')
 								? GrowDiagonalIcon
 								: MaximizeIcon,
+							// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 							iconFallback: FilePreviewIcon,
 							title: intl.formatMessage(messages.preview),
 							onClick: () => {
@@ -756,6 +758,7 @@ const generateMediaSingleFloatingToolbar = (
 						icon: editorExperiment('platform_editor_controls', 'variant1')
 							? GrowDiagonalIcon
 							: MaximizeIcon,
+						// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 						iconFallback: FilePreviewIcon,
 						title: intl.formatMessage(messages.preview),
 						onClick: () => {

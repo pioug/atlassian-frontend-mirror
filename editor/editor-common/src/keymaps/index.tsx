@@ -50,6 +50,7 @@ export const moveLeft = makeKeyMapWithCommon('Move left', 'ArrowLeft');
 export const moveRight = makeKeyMapWithCommon('Move right', 'ArrowRight');
 export const indentList = makeKeyMapWithCommon('Indent List', 'Tab');
 export const outdentList = makeKeyMapWithCommon('Outdent List', 'Shift-Tab');
+export const redoAlt = makeKeyMapWithCommon('Redo', 'Mod-y');
 export const redo = makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z');
 export const openHelp = makeKeyMapWithCommon('Open Help', 'Mod-/');
 export const addLink = makeKeyMapWithCommon('Link', 'Mod-k');

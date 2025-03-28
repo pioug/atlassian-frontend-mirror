@@ -77,7 +77,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"tiny-invariant": "^1.2.0",

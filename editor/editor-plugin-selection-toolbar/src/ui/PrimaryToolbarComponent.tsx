@@ -5,8 +5,7 @@
  */
 import { useCallback, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
-
+import { css, jsx } from '@atlaskit/css';
 import { addLink, getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -23,6 +22,13 @@ import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 import { getOverflowPrimaryToolbarConfig } from './overflow-toolbar-config';
 
 const DROPDOWN_WIDTH = 240;
+
+const buttonStyles = css({
+	paddingTop: token('space.075'),
+	paddingBottom: token('space.075'),
+	paddingLeft: token('space.075'),
+	paddingRight: token('space.075'),
+});
 
 type Props = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
@@ -78,7 +84,3 @@ export function PrimaryToolbarComponent({
 		</DropdownMenu>
 	);
 }
-
-const buttonStyles = css({
-	padding: token('space.075'),
-});

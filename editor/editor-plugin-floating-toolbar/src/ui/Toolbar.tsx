@@ -259,11 +259,7 @@ const ToolbarItems = React.memo(
 							setDisableParentScroll={scrollable ? setDisableScroll : undefined}
 							dropdownListId={item?.id && `${item.id}-dropdownList`}
 							alignDropdownWithToolbar={items.length === 1}
-							onToggle={item.onToggle}
-							footer={item.footer}
-							onMount={item.onMount}
 							onClick={item.onClick}
-							pulse={item.pulse}
 						/>
 					);
 
@@ -555,11 +551,20 @@ const toolbarOverflow = ({
 							css({
 								overflow: 'hidden',
 							})
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							css({
-								overflowX: 'auto',
-								overflowY: 'hidden',
-							}),
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							fg('platform_editor_fix_floating_toolbar_scrollbar')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								css({
+									overflowX: 'auto',
+									overflowY: 'hidden',
+									// When scrollable is true, ScrollButtons will be shown, hence we want to hide show default horizontal scrollbar
+									scrollbarWidth: 'none',
+								})
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								css({
+									overflowX: 'auto',
+									overflowY: 'hidden',
+								}),
 					{
 						WebkitOverflowScrolling: 'touch',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

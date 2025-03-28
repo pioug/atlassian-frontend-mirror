@@ -6,8 +6,7 @@ import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import React, { type FormEvent, PureComponent } from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import ColorPalette from './internal/color-palette';
 import { type Color } from './Status';
 import { messages } from './i18n';
@@ -15,7 +14,10 @@ import { messages } from './i18n';
 export type ColorType = Color;
 
 const fieldTextWrapperStyles = css({
-	margin: `0 ${token('space.100')}`,
+	marginTop: 0,
+	marginBottom: 0,
+	marginRight: token('space.100'),
+	marginLeft: token('space.100'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& [data-ds--text-field--container]': {
 		borderColor: token('color.border.bold'),

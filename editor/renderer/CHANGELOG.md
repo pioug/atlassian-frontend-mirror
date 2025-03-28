@@ -1,5 +1,34 @@
 # @atlaskit/renderer
 
+## 114.6.1
+
+### Patch Changes
+
+- [#132819](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132819)
+  [`f873ba0617c6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f873ba0617c6b) -
+  ED-2684 Cleaned up platform_editor_nested_tables_renderer_colgroup to true behaviour.
+- Updated dependencies
+
+## 114.6.0
+
+### Minor Changes
+
+- [#130223](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130223)
+  [`f39f31807f1d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f39f31807f1d2) -
+  Introduce a prop UNSTABLE_isPresentational in the renderer. When true, elements may render without
+  their default semantic roles (e.g., using role="presentation"), indicating that they are used
+  solely for layout or styling purposes. Elements currently affected: Tables.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.5.4
 
 ### Patch Changes

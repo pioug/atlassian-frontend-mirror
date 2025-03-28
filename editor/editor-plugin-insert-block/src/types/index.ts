@@ -69,5 +69,4 @@ export interface InsertBlockOptions {
 
 export interface InsertBlockPluginState {
 	showElementBrowser: boolean;
-	menuBrowserOpen?: boolean;
 }

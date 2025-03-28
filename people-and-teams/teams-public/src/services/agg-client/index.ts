@@ -72,6 +72,16 @@ export class AGGClient extends BaseGraphQlClient {
 				edge.node.to.data.__typename === 'ConfluenceSpace'
 					? `${edge.node.to.data.links.base}${edge.node.to.data.links.webUi}`
 					: edge.node.to.data.webUrl,
+			containerTypeProperties: {
+				subType:
+					edge.node.to.data.__typename === 'JiraProject'
+						? edge.node.to.data.projectType || ''
+						: undefined,
+				name:
+					edge.node.to.data.__typename === 'JiraProject'
+						? edge.node.to.data.projectTypeName || ''
+						: undefined,
+			},
 		}));
 
 		return containersResult;

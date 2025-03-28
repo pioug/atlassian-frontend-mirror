@@ -145,8 +145,6 @@ const addSortableColumn = (
 type TableProps = SharedTableProps & {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children: React.ReactElement<any> | Array<React.ReactElement<any>>;
 	tableNode?: PMNode;
 	rendererAppearance?: RendererAppearance;
@@ -154,6 +152,7 @@ type TableProps = SharedTableProps & {
 	stickyHeaders?: StickyHeaderConfig;
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
+	isPresentational?: boolean;
 };
 
 const isHeaderRowEnabled = (
@@ -421,6 +420,7 @@ export class TableContainer extends React.Component<
 			isinsideMultiBodiedExtension,
 			allowTableAlignment,
 			allowTableResizing,
+			isPresentational,
 		} = this.props;
 
 		const { stickyMode } = this.state;
@@ -662,6 +662,7 @@ export class TableContainer extends React.Component<
 							isInsideOfTable={isInsideOfTable}
 							isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 							allowTableResizing={allowTableResizing}
+							isPresentational={isPresentational}
 						>
 							{this.grabFirstRowRef(children)}
 						</Table>

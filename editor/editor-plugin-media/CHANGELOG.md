@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.16
+
+### Patch Changes
+
+- [#131525](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131525)
+  [`cb8403ffb5a8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb8403ffb5a8b) -
+  ENGHEALTH-23697 Iconography update for editor-plugin-media
+- Updated dependencies
+
 ## 2.3.15
 
 ### Patch Changes

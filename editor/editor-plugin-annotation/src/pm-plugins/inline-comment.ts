@@ -167,7 +167,12 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 			const setVisibility = (isVisible: boolean) => onSetVisibility(editorView)(isVisible);
 
 			const setSelectedAnnotationFn = (annotationId?: string) => {
-				if (!annotationId) {
+				const pluginState = getPluginState(editorView.state);
+				if (
+					!annotationId ||
+					(pluginState?.isInlineCommentViewClosed &&
+						fg('platform_editor_listen_for_annotation_clicks'))
+				) {
 					closeComponent()(editorView.state, editorView.dispatch);
 				} else {
 					setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
@@ -244,6 +249,40 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					// Mouseup won't be triggered after dropping
 					// Hence, update the mouse data to cancel selecting when drag starts
 					return onMouseUp(view.state, view.dispatch)(event);
+				},
+				click: (view: EditorView, event: MouseEvent) => {
+					if (!fg('platform_editor_listen_for_annotation_clicks')) {
+						return false;
+					}
+
+					if (!(event.target instanceof HTMLElement)) {
+						return false;
+					}
+
+					// Find the nearest ancestor (or self) with the data-id attribute
+					const annotationId = event.target.closest('[data-id]')?.getAttribute('data-id');
+					if (!annotationId) {
+						return false;
+					}
+
+					const pluginState = getPluginState(view.state);
+					const isSelected = pluginState?.selectedAnnotations?.some(
+						(selectedAnnotation) => selectedAnnotation.id === annotationId,
+					);
+					// If the annotation is selected and the inline comment view is open, do nothing
+					// as the user is already in the comment view.
+					if (isSelected && !pluginState?.isInlineCommentViewClosed) {
+						return false;
+					}
+
+					const { annotations } = pluginState || {};
+					const isUnresolved = annotations && annotations[annotationId] === false;
+					if (!isUnresolved) {
+						return false;
+					}
+
+					setSelectedAnnotation(annotationId)(view.state, view.dispatch);
+					return true;
 				},
 			},
 			decorations(state: EditorState) {

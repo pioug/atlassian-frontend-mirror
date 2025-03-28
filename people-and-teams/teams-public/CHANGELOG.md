@@ -1,5 +1,27 @@
 # @atlaskit/teams-public
 
+## 0.23.2
+
+### Patch Changes
+
+- [#133042](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133042)
+  [`5168674830838`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5168674830838) -
+  make the connection item clickable
+
+## 0.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.23.0
+
+### Minor Changes
+
+- [#132911](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132911)
+  [`ade9c4818f77b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ade9c4818f77b) -
+  [ux] Render app icon for jira according to its type
+
 ## 0.22.0
 
 ### Minor Changes

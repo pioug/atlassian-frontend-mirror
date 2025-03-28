@@ -106,6 +106,7 @@ const dateTimePickerDefaultProps: DateTimePickerBaseProps = {
 export const datePickerDefaultAriaLabel = 'Date';
 export const timePickerDefaultAriaLabel = 'Time';
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, State> {
 	static defaultProps = dateTimePickerDefaultProps;
 

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.3.3
+
+### Patch Changes
+
+- [#132712](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132712)
+  [`03a53eb22fbba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03a53eb22fbba) -
+  [ED-27288] Hide horizontal scrollbar for floating toolbar in narrow editor (e.g. inline comment)
+- Updated dependencies
+
 ## 3.3.2
 
 ### Patch Changes

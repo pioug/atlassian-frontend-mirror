@@ -4,43 +4,49 @@
  */
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import { token } from '@atlaskit/tokens';
-import { Pressable, xcss } from '@atlaskit/primitives';
-import React, { PureComponent } from 'react';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { PureComponent } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
 import { type Color as ColorType } from '../Status';
 
-const buttonStyles = xcss({
-	height: '24px',
-	width: '24px',
-	background: 'color.background.neutral',
-	padding: 'space.0',
-	borderRadius: 'border.radius',
-	borderWidth: 'border.width',
-	borderStyle: 'solid',
-	borderColor: 'color.border',
-	display: 'block',
-	overflow: 'hidden',
+const styles = cssMap({
+	button: {
+		height: '24px',
+		width: '24px',
+		backgroundColor: token('color.background.neutral'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		borderRadius: token('border.radius'),
+		border: `${token('border.width')} solid ${token('color.border')}`,
+		display: 'block',
+		overflow: 'hidden',
+	},
 });
 
 // We have tried with changing border and padding from 1px to token near version 2px,
 // the pop - up is being expanded to two lines.
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-const buttonWrapperStyles = css`
-	border: 1px solid transparent;
-	margin: 0 ${token('space.025')};
-	font-size: 0;
-	display: flex;
-	align-items: center;
-	padding: 1px;
-	border-radius: ${token('space.075')};
-	&:hover {
-		border: 1px solid ${token('color.border')};
-	}
-`;
+const buttonWrapperStyles = css({
+	borderWidth: '1px',
+	borderStyle: 'solid',
+	borderColor: 'transparent',
+	marginTop: '0px',
+	marginRight: token('space.025'),
+	marginBottom: '0px',
+	marginLeft: token('space.025'),
+	display: 'flex',
+	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	padding: '1px',
+	borderRadius: token('space.075'),
+	'&:hover': {
+		border: `1px solid ${token('color.border')}`,
+	},
+});
 
 export interface ColorProps {
 	value: ColorType;
@@ -65,7 +71,7 @@ export default class Color extends PureComponent<ColorProps> {
 				<FormattedMessage {...messages[`${value}Color` as keyof typeof messages]}>
 					{(labels) => (
 						<Pressable
-							xcss={buttonStyles}
+							xcss={styles.button}
 							onClick={this.onClick}
 							onMouseEnter={this.onMouseEnter}
 							onMouseLeave={this.onMouseLeave}

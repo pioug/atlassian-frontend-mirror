@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Fabric Date React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,11 +41,9 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1",
 		"date-fns": "^2.17.0"
 	},
 	"peerDependencies": {
@@ -54,8 +52,6 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/elements-test-helpers": "workspace:^",
-		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/date-fns": "^2.6.0",
@@ -72,12 +68,10 @@
 		"@repo/internal": {
 			"design-tokens": [
 				"color"
+			],
+			"styling": [
+				"compiled"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_css_migrate_stage_1": {
-			"type": "boolean"
 		}
 	}
 }

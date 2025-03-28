@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "3.3.2",
+	"version": "3.3.3",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -126,6 +126,12 @@
 			"type": "boolean"
 		},
 		"forge-ui-macro-autoconvert": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_floating_toolbar_scrollbar": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_1": {
 			"type": "boolean"
 		}
 	}

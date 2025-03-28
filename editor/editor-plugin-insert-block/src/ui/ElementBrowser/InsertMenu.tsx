@@ -32,7 +32,6 @@ import {
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { InsertMenuProps, SvgGetterParams } from './types';
@@ -104,21 +103,12 @@ const InsertMenu = ({
 			if (!editorView.hasFocus()) {
 				editorView.focus();
 			}
-
-			if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
-				pluginInjectionApi?.quickInsert?.actions.insertItem(
-					item,
-					// @ts-expect-error
-					INPUT_METHOD.INSERT_MENU_RIGHT_RAIL,
-				)(editorView.state, editorView.dispatch);
-			} else {
-				pluginInjectionApi?.quickInsert?.actions.insertItem(item, INPUT_METHOD.TOOLBAR)(
-					editorView.state,
-					editorView.dispatch,
-				);
-			}
+			pluginInjectionApi?.quickInsert?.actions.insertItem(item, INPUT_METHOD.TOOLBAR)(
+				editorView.state,
+				editorView.dispatch,
+			);
 		},
-		[editorView, toggleVisiblity, pluginInjectionApi, isFullPageAppearance],
+		[editorView, toggleVisiblity, pluginInjectionApi],
 	);
 
 	const { connectivityState } = useSharedPluginState(pluginInjectionApi, ['connectivity']);
@@ -171,36 +161,6 @@ const InsertMenu = ({
 	const emptyStateHandler =
 		pluginInjectionApi?.quickInsert?.sharedState.currentState()?.emptyStateHandler;
 
-	/**
-	 * For insert menu in right rail experiment
-	 * - Clean up ticket ED-24801
-	 *
-	 * The insert menu is not rendered in a popup so need to avoid wrapping it in outer click
-	 * listeners because it will cause the editor to focus certain extensions (e.g. Jira legacy)
-	 */
-
-	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
-		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			<div css={insertMenuWrapper(height, isFullPageAppearance)}>
-				<FlexWrapper>
-					<ElementBrowser
-						mode="inline"
-						getItems={getItems}
-						emptyStateHandler={emptyStateHandler}
-						onInsertItem={onInsertItem}
-						showSearch
-						showCategories={false}
-						// On page resize we want the InlineElementBrowser to show updated tools/overflow items
-						key={quickInsertDropdownItems.length}
-						viewMoreItem={viewMoreItem}
-						cache={cache}
-					/>
-				</FlexWrapper>
-			</div>
-		);
-	}
-
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 		<div css={insertMenuWrapper(height, isFullPageAppearance)}>
@@ -246,20 +206,6 @@ const getSvgIconForItem = ({ name }: SvgGetterParams): ReactElement | undefined 
 };
 
 const insertMenuWrapper = (height: number, isFullPageAppearance?: boolean) => {
-	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
-		return css({
-			display: 'flex',
-			flexDirection: 'column',
-			width: '314px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: 'calc(100% - 32px)',
-			margin: `0 -12px`,
-			backgroundColor: `${token('elevation.surface.overlay', N0)}`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderRadius: `${borderRadius()}px`,
-		});
-	}
-
 	return css({
 		display: 'flex',
 		flexDirection: 'column',

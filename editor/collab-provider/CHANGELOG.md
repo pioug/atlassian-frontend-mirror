@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.11.0
+
+### Minor Changes
+
+- [#130166](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130166)
+  [`1d522a3c3f04a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d522a3c3f04a) -
+  handle corrupt step validation errors and tag first steps from client
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.10.2
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/rovo-triggers
 
+## 2.9.0
+
+### Minor Changes
+
+- [#133407](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133407)
+  [`9e51ca53f3752`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e51ca53f3752) -
+  Add JiraIssueWorkBreakdownAction type and support JiraIssueWorkBreakdownUIAction
+
+## 2.8.0
+
+### Minor Changes
+
+- [#132823](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132823)
+  [`baec8548ddfdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baec8548ddfdd) -
+  Add support for status and rule presentation components in workflow builder rovo agent
+
 ## 2.7.1
 
 ### Patch Changes

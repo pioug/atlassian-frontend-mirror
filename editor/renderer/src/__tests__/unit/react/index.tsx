@@ -433,7 +433,7 @@ describe('Renderer - ReactSerializer', () => {
 					// Not ideal but using a querySelector here because I can't find a better way to target only the root table and its sticky table
 					// eslint-disable-next-line testing-library/no-container
 					const nestedTable = container.querySelector(
-						':scope > .pm-table-container  .pm-table-container',
+						':scope > div > .pm-table-container  .pm-table-container',
 					);
 					expect(nestedTable).toBeDefined();
 					expect(nestedTable?.querySelector(':scope > [class$=StickyTable]')).toBeNull();
@@ -450,7 +450,7 @@ describe('Renderer - ReactSerializer', () => {
 
 					// Not ideal but using a querySelector here because I can't find a better way to target only the root table and its sticky table
 					// eslint-disable-next-line testing-library/no-container
-					const rootTable = container.querySelector(':scope > .pm-table-container');
+					const rootTable = container.querySelector(':scope > div > .pm-table-container');
 					expect(rootTable?.querySelector(':scope > [class$=StickyTable]')).toBeDefined();
 				});
 			});

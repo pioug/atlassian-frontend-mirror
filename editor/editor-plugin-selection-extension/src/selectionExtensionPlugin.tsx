@@ -1,16 +1,22 @@
 import React from 'react';
 
-import type { Command, FloatingToolbarCustom } from '@atlaskit/editor-common/types';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+	Command,
+	OverflowDropdownHeading,
+	OverflowDropdownOption,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { selectionExtensionPluginKey, createPlugin } from './pm-plugins/main';
+import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
-import type { SelectionExtensionContract } from './types';
+import type { SelectionExtension } from './types';
 import { SelectionExtensionComponentWrapper } from './ui/extension/SelectionExtensionComponentWrapper';
 import { getBoundingBoxFromSelection } from './ui/getBoundingBoxFromSelection';
-import { SelectionExtensionItems } from './ui/toolbar/SelectionExtensionItems';
 
 export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config }) => {
+	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+
 	return {
 		name: 'selectionExtension',
 		getSharedState(editorState) {
@@ -56,7 +62,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				 *
 				 * Check whether plugin contains any selection extensions
 				 */
-				if (!extensions || extensions.length === 0) {
+				if (!extensions?.firstParty && !extensions?.external) {
 					return;
 				}
 
@@ -94,57 +100,94 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					return;
 				}
 
-				const handleOnExtensionClick =
-					(view: EditorView) => (extension: SelectionExtensionContract) => {
-						const { selection: currentSelection } = state;
-						const { from, to } = currentSelection;
+				const getSelection = (view: EditorView) => {
+					const { selection: currentSelection } = state;
+					const { from, to } = currentSelection;
 
-						const text = state.doc.textBetween(from, to, '\n');
-						const coords = getBoundingBoxFromSelection(view, from, to);
-						const selection = { text, selection: { from, to }, coords };
-
-						// Render component here
-						if (extension.component) {
-							api?.core.actions.execute(
-								api?.selectionExtension.commands.setActiveExtension({
-									extension,
-									selection,
-								}),
-							);
-						}
-
-						if (extension.onClick) {
-							extension.onClick(selection);
-						}
-					};
-
-				/**
-				 * Renders custom dropdown menu with active selection extensions
-				 */
-				const selectionExtensionDropdown: FloatingToolbarCustom<Command> = {
-					type: 'custom',
-					supportsViewMode: true,
-					render: (view) => {
-						if (!view) {
-							return;
-						}
-
-						return (
-							<SelectionExtensionItems
-								api={api}
-								editorView={view}
-								editorAnalyticsAPI={api?.analytics?.actions}
-								extensions={extensions}
-								onExtensionClick={handleOnExtensionClick(view)}
-							/>
-						);
-					},
-					fallback: [],
+					const text = state.doc.textBetween(from, to, '\n');
+					const coords = getBoundingBoxFromSelection(view, from, to);
+					return { text, from, to, coords };
 				};
 
+				const handleOnExtensionClick = (view: EditorView) => (extension: SelectionExtension) => {
+					const selection = getSelection(view);
+
+					if (extension.component) {
+						api?.core.actions.execute(
+							api?.selectionExtension.commands.setActiveExtension({
+								extension,
+								selection,
+							}),
+						);
+					}
+
+					if (extension.onClick) {
+						extension.onClick({ selection });
+					}
+				};
+
+				const convertExtensionToDropdownMenuItem = (
+					extension: SelectionExtension,
+					rank?: number,
+				) => {
+					return {
+						title: extension.name,
+						icon: extension.icon ? <extension.icon label={''} /> : undefined,
+						disabled: extension?.isDisabled?.({
+							selection: editorViewRef.current ? getSelection(editorViewRef.current) : undefined,
+						}),
+						rank,
+						onClick: () => {
+							editorViewRef.current && handleOnExtensionClick(editorViewRef.current)(extension);
+							return true;
+						},
+					} as OverflowDropdownOption<Command>;
+				};
+
+				const getFirstPartyExtensions = (extensions: SelectionExtension[]) => {
+					return extensions.map((ext) => convertExtensionToDropdownMenuItem(ext, 30));
+				};
+
+				/**
+				 * Add a heading to the external extensions
+				 */
+				const getExternalExtensions = (extensions: SelectionExtension[]) => {
+					let externalExtensions: (OverflowDropdownOption<Command> | OverflowDropdownHeading)[] =
+						[];
+					if (extensions?.length) {
+						externalExtensions = extensions.map((ext, index) =>
+							convertExtensionToDropdownMenuItem(ext),
+						);
+
+						const externalExtensionsHeading: OverflowDropdownHeading = {
+							type: 'overflow-dropdown-heading',
+							title: 'Apps',
+						};
+						externalExtensions.unshift(externalExtensionsHeading);
+					}
+					return externalExtensions;
+				};
+				const groupedExtensionsArray = [
+					...getFirstPartyExtensions(extensions.firstParty || []),
+					...getExternalExtensions(extensions.external || []),
+				];
+
+				const overflowMenu = {
+					type: 'overflow-dropdown' as const,
+					dropdownWidth: 240,
+					supportsViewMode: true,
+					options: groupedExtensionsArray,
+				};
 				return {
 					isToolbarAbove: true,
-					items: [selectionExtensionDropdown],
+					items: [
+						{
+							type: 'separator',
+							fullHeight: true,
+							supportsViewMode: true,
+						},
+						overflowMenu,
+					],
 					rank: -6,
 				};
 			},
@@ -153,6 +196,21 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 			{
 				name: 'selectionExtension',
 				plugin: () => createPlugin(),
+			},
+			{
+				name: 'selectionExtensionGetEditorViewReferencePlugin',
+				plugin: () => {
+					return new SafePlugin({
+						view: (editorView: EditorView) => {
+							editorViewRef.current = editorView;
+							return {
+								destroy: () => {
+									editorViewRef.current = null;
+								},
+							};
+						},
+					});
+				},
 			},
 		],
 	};

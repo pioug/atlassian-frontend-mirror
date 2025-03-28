@@ -13,8 +13,8 @@ import React, {
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import Tooltip from '@atlaskit/tooltip';
 import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@atlaskit/css';
+import { css as cssUnbounded } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { mergeRefs } from 'use-callback-ref';
@@ -158,7 +158,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 					>
 						<div css={colorCardWrapperStyles}>
 							<div
-								css={isOutlineVariant ? colorCardContentStylesOutline : colorCardContentStyles}
+								css={[colorCardContentStyles, isOutlineVariant && colorCardContentStylesOutline]}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 								style={
 									isOutlineVariant
@@ -186,8 +186,10 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 export default ColorCard;
 
 const colorCardOptionTabbingStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover, :focus': {
+	'&:hover': {
+		borderColor: token('color.border.focused', B75),
+	},
+	'&:focus': {
 		borderColor: token('color.border.focused', B75),
 	},
 });
@@ -199,15 +201,17 @@ const colorCardOptionFocusedStyles = css({
 const sharedColorContainerStyles = css({
 	display: 'inline-block',
 	position: 'relative',
-	width: token('space.400', '32px'),
-	height: token('space.400', '32px'),
-	border: '2px solid transparent',
+	width: '32px',
+	height: '32px',
+	border: `${token('border.width.outline', '2px')} solid transparent`,
 	boxSizing: 'border-box',
 	borderRadius: token('border.radius.200', '6px'),
 	transition: 'border-color 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
 	backgroundColor: token('color.background.neutral.subtle', N0),
-	borderColor: token('color.background.neutral.subtle', N0),
-	padding: token('space.0', '0px'),
+	paddingTop: token('space.0', '0px'),
+	paddingRight: token('space.0', '0px'),
+	paddingBottom: token('space.0', '0px'),
+	paddingLeft: token('space.0', '0px'),
 	cursor: 'pointer',
 	outline: 'none',
 });
@@ -220,16 +224,15 @@ const colorCardWrapperStyles = css({
 	justifyContent: 'center',
 });
 
-const colorCardContentStyles = css({
-	width: token('space.300', '24px'),
-	height: token('space.300', '24px'),
+const colorCardContentStyles = cssUnbounded({
+	width: '24px',
+	height: '24px',
 	borderRadius: token('border.radius.100', '3px'),
 	boxShadow: `inset 0px 0px 0px 1px ${token('color.background.inverse.subtle', DN600A)}`,
 });
-const colorCardContentStylesOutline = css({
-	width: token('space.300', '24px'),
-	height: token('space.300', '24px'),
-	borderRadius: token('border.radius.100', '3px'),
+
+const colorCardContentStylesOutline = cssUnbounded({
+	boxShadow: 'none',
 	borderWidth: token('border.width.outline', '2px'),
 	borderStyle: 'solid',
 });

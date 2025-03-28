@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
@@ -11,10 +11,13 @@ import { token } from '@atlaskit/tokens';
 
 const popupStyles = css({
 	maxWidth: '160px',
-	padding: token('space.100', '8px'),
-	background: token('elevation.surface.overlay'),
+	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.raised'),
+	paddingBlockEnd: token('space.100', '8px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 const BasicPositioningExample = () => (

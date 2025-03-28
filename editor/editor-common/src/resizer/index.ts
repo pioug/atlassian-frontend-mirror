@@ -15,3 +15,4 @@ export type {
 	Dimensions,
 } from './types';
 export { BreakoutResizer, ignoreResizerMutations } from './BreakoutResizer';
+export { useBreakoutGuidelines } from './useBreakoutGuidelines';

@@ -59,9 +59,6 @@
 			"path": "../drawer/tsconfig.app.json"
 		},
 		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
 			"path": "../form/tsconfig.app.json"
 		},
 		{
@@ -86,10 +83,10 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+			"path": "../tokens/tsconfig.app.json"
 		},
 		{
-			"path": "../tokens/tsconfig.app.json"
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]
 }

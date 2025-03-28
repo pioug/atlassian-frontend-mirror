@@ -69,6 +69,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"jest-in-case": "^1.0.2",

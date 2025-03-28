@@ -542,7 +542,7 @@ describe('Popup Select', () => {
 
 			const body = container.parentElement as HTMLBodyElement;
 
-			const popupWrapper = body.querySelector(`#${controlledId}`);
+			const popupWrapper = body.querySelector(`[id="${controlledId}"]`);
 			expect(popupWrapper).toBeDefined();
 		});
 	});

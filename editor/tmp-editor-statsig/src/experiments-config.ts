@@ -53,28 +53,10 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-08-28
-	'element-level-templates': {
-		productKeys: {
-			confluence: 'platform_editor_element_level_templates',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-08-30
 	'nested-dnd': {
 		productKeys: {
 			confluence: 'platform_editor_element_drag_and_drop_nested',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
-	// Added 2024-08-29
-	'insert-menu-in-right-rail': {
-		productKeys: {
-			confluence: 'platform_editor_insert_menu_in_right_rail',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

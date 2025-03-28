@@ -21,7 +21,7 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
-import type { SelectionExtensionContract, MenuItemsType } from '../../types';
+import type { SelectionExtension, MenuItemsType } from '../../types';
 
 import { SelectionExtensionDropdownMenu } from './SelectionExtensionDropdownMenu';
 
@@ -29,11 +29,11 @@ type SelectionExtensionItemsProps = {
 	editorView: EditorView;
 	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
-	extensions: SelectionExtensionContract[];
-	onExtensionClick: (extension: SelectionExtensionContract) => void;
+	extensions: SelectionExtension[];
+	onExtensionClick: (extension: SelectionExtension) => void;
 } & WrappedComponentProps;
 
-type SelectionExtensionContractWithIdentifier = SelectionExtensionContract & { id: string };
+type SelectionExtensionContractWithIdentifier = SelectionExtension & { id: string };
 
 const transformExtensionsToItems = (
 	extensions: SelectionExtensionContractWithIdentifier[],

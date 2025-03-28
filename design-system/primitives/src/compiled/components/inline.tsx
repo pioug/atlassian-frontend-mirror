@@ -63,9 +63,9 @@ export type InlineProps<T extends ElementType = 'div'> = {
 	rowSpace?: FlexProps['rowGap'];
 
 	/**
-	 * Renders a separator string between each child.
+	 * Renders a separator string between each child. Avoid using `separator="•"` when `as="ul" | "ol" | "dl"` to preserve proper list semantics.
 	 */
-	separator?: string;
+	separator?: ReactNode;
 
 	/**
 	 * Elements to be rendered inside the Inline.

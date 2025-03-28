@@ -211,6 +211,7 @@ export class __RendererClassComponent extends PureComponent<
 			nextProps.allowCustomPanels !== this.props.allowCustomPanels ||
 			nextProps.extensionHandlers !== this.props.extensionHandlers ||
 			nextProps.allowHeadingAnchorLinks !== this.props.allowHeadingAnchorLinks ||
+			nextProps.UNSTABLE_isPresentational !== this.props.UNSTABLE_isPresentational ||
 			nextMedia.allowLinking !== media.allowLinking
 		) {
 			this.serializer = new ReactSerializer(this.deriveSerializerProps(nextProps));
@@ -235,7 +236,6 @@ export class __RendererClassComponent extends PureComponent<
 			props.featureFlags,
 			props.isTopLevelRenderer,
 		);
-
 		return {
 			startPos: props.startPos,
 			providers: this.providerFactory,
@@ -269,6 +269,7 @@ export class __RendererClassComponent extends PureComponent<
 			allowSelectAllTrap: props.allowSelectAllTrap,
 			allowPlaceholderText: props.allowPlaceholderText,
 			nodeComponents: props.nodeComponents,
+			isPresentational: props.UNSTABLE_isPresentational,
 			// does not currently support SSR, should not be enabled in environments where Renderer is SSR-ed
 			allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
 			isInsideOfInlineExtension: props.isInsideOfInlineExtension,
@@ -751,7 +752,6 @@ const RendererFunctionalComponent = (
 					annotationProvider.inlineComment &&
 					annotationProvider.inlineComment.allowDraftMode,
 			);
-
 			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
 
 			return {
@@ -791,6 +791,7 @@ const RendererFunctionalComponent = (
 				nodeComponents: props.nodeComponents,
 				allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
 				isInsideOfInlineExtension: props.isInsideOfInlineExtension,
+				isPresentational: props.UNSTABLE_isPresentational,
 				textHighlighter: props.textHighlighter || props.UNSTABLE_textHighlighter,
 				allowTableAlignment: props.UNSTABLE_allowTableAlignment,
 				allowTableResizing: props.UNSTABLE_allowTableResizing,
@@ -931,7 +932,6 @@ const RendererFunctionalComponent = (
 
 	try {
 		const schema = getSchema(props.schema, props.adfStage);
-
 		const { result, stat, pmDoc } = renderDocument(
 			props.shouldRemoveEmptySpaceAroundContent
 				? removeEmptySpaceAroundContent(props.document)
@@ -947,7 +947,6 @@ const RendererFunctionalComponent = (
 			props.includeNodesCountInStats,
 			props.skipValidation,
 		);
-
 		if (props.onComplete) {
 			props.onComplete(stat);
 		}

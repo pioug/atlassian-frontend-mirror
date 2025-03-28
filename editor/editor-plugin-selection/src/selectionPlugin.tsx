@@ -1,6 +1,5 @@
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createAutoExpandSelectionRangeOnInlineNodePlugin } from './pm-plugins/auto-expand-selection-range-on-inline-node-main';
 import { selectNearNode } from './pm-plugins/commands';
@@ -93,14 +92,10 @@ export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
 				name: 'markBoundaryCursor',
 				plugin: () => createMarkBoundaryCursorPlugin(),
 			},
-			...(fg('editor_auto_expand_selection_on_inline_node')
-				? [
-						{
-							name: 'autoExpandSelectionRangeOnInlineNode',
-							plugin: () => createAutoExpandSelectionRangeOnInlineNodePlugin(),
-						},
-					]
-				: []),
+			{
+				name: 'autoExpandSelectionRangeOnInlineNode',
+				plugin: () => createAutoExpandSelectionRangeOnInlineNodePlugin(),
+			},
 			{
 				name: 'selectionAnalytics',
 				plugin: ({ dispatch, dispatchAnalyticsEvent }) =>

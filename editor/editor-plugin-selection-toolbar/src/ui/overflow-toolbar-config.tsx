@@ -3,8 +3,7 @@
  * @jsx jsx
  * @jsxFrag
  */
-import { jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
-
+import { jsx } from '@atlaskit/css';
 import type {
 	Command,
 	FloatingToolbarItem,

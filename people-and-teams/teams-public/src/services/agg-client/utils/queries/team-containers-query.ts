@@ -36,6 +36,8 @@ export const TeamContainersQuery = print(gql`
 									avatar {
 										medium
 									}
+									projectType
+									projectTypeName
 								}
 							}
 						}
@@ -75,6 +77,8 @@ type JiraProject = {
 	avatar: {
 		medium: string;
 	};
+	projectType: string;
+	projectTypeName: string;
 };
 
 type ConfluenceSpace = {

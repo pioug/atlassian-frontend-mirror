@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { axe } from '@af/accessibility-testing';
 
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import { axe } from '@af/accessibility-testing';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import InfoIcon from '@atlaskit/icon/glyph/info';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { AutoDismissFlag, FlagGroup } from '../../index';

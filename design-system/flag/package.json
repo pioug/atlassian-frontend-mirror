@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "17.1.1",
+	"version": "17.1.2",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -84,9 +84,9 @@
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@emotion/jest": "^11.8.0",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
@@ -98,28 +98,26 @@
 		"ui"
 	],
 	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
 		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
 			"design-system": "v1",
+			"dom-events": "use-bind-event-listener",
+			"styling": [
+				"static",
+				"emotion"
+			],
 			"ui-components": [
-				"lite-mode",
-				"primitives"
+				"primitives",
+				"lite-mode"
 			],
-			"analytics": [
-				"analytics-next"
-			],
+			"analytics": "analytics-next",
 			"design-tokens": [
 				"color",
 				"spacing"
 			],
-			"theming": [
-				"react-context"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
+			"deprecation": "no-deprecated-imports"
 		}
 	},
 	"homepage": "https://atlassian.design/components/flag/",

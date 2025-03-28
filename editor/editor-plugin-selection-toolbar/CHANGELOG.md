@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.0.0
+
+### Major Changes
+
+- [#132776](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132776)
+  [`555c2073facfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/555c2073facfe) -
+  Upgrade to used compile css and remove dependency on emotion
+
 ## 2.3.1
 
 ### Patch Changes

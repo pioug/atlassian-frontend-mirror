@@ -1,5 +1,14 @@
 # @atlaskit/teams-avatar
 
+## 2.3.2
+
+### Patch Changes
+
+- [#132848](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132848)
+  [`95e57fc68ae05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95e57fc68ae05) -
+  Fix for visibile avatar background due to radius change
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

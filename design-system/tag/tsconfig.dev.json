@@ -65,9 +65,6 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-		},
-		{
 			"path": "../tag-group/tsconfig.app.json"
 		},
 		{
@@ -75,6 +72,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]
 }

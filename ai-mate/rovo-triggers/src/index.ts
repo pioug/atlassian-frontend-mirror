@@ -14,6 +14,7 @@ export type {
 	AddStatusRovoPayload,
 	DeleteStatusRovoPayload,
 	JiraWorkflowWizardAction,
+	JiraIssueWorkBreakdownAction,
 } from './types';
 export {
 	getRovoParams,

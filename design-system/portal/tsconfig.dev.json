@@ -50,9 +50,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
 			"path": "../flag/tsconfig.app.json"
 		},
 		{
@@ -77,9 +74,6 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-		},
-		{
 			"path": "../theme/tsconfig.app.json"
 		},
 		{
@@ -93,6 +87,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]
 }

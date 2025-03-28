@@ -45,7 +45,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",

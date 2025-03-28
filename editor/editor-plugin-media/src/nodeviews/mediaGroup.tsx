@@ -24,7 +24,7 @@ import type { EditorDisabledPluginState } from '@atlaskit/editor-plugin-editor-d
 import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 import type { Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';

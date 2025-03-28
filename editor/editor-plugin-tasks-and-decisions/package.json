@@ -114,9 +114,6 @@
 		},
 		"platform_editor_lazy_task_item_check": {
 			"type": "boolean"
-		},
-		"platform_editor_action_decisions_ssr_fix": {
-			"type": "boolean"
 		}
 	}
 }

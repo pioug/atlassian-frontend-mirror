@@ -9,7 +9,7 @@ import { injectIntl } from 'react-intl-next';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
 import { dropPlaceholderMessages } from '@atlaskit/editor-common/media';
-import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
+import DocumentFilledIcon from '@atlaskit/icon/core/migration/file--document-filled';
 import { B200, B300, B400 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -53,7 +53,7 @@ const IconWrapperComponent = (props: WrappedComponentProps) => {
 
 	return (
 		<div css={iconWrapperStyles}>
-			<DocumentFilledIcon label={intl.formatMessage(dropPlaceholderLabel)} size="medium" />
+			<DocumentFilledIcon label={intl.formatMessage(dropPlaceholderLabel)} LEGACY_size="medium" />
 		</div>
 	);
 };

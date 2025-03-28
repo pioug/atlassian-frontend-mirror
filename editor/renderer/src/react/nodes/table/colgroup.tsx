@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { SharedTableProps } from './types';
 import { useFeatureFlags } from '../../../use-feature-flags';
 import type { RendererContextProps } from '../../../renderer-context';
@@ -124,7 +123,7 @@ const renderScaleDownColgroup = (
 	if (
 		allowTableResizing &&
 		!isInsideOfBlockNode &&
-		!(fg('platform_editor_nested_tables_renderer_colgroup') && isInsideOfTable) &&
+		!isInsideOfTable &&
 		!isinsideMultiBodiedExtension &&
 		!tableColumnResized
 	) {

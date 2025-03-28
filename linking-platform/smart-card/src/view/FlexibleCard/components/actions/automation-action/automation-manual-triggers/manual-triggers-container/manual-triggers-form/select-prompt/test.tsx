@@ -27,7 +27,8 @@ describe('Text field input prompt', () => {
 		expect(screen.getByText(userInputPrompts.displayName)).toBeInTheDocument();
 		expect(screen.getByText(userInputPrompts.displayName)).toHaveAttribute(
 			'id',
-			'testUserInput-mock-id1-label',
+			// eg. `testUserInput-:r0:-label` coming from `React.useId()`
+			expect.stringMatching(/^testUserInput-:[^:]+:-label$/),
 		);
 		expect(
 			selectInputPrompt.container.querySelector('input[name="testUserInput"]'),

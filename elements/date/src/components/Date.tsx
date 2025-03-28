@@ -1,4 +1,4 @@
-import { DateLozenge } from './index';
+import { DateLozenge } from './DateLozenge';
 import type { Color } from './DateLozenge';
 import React from 'react';
 import format from 'date-fns/format';

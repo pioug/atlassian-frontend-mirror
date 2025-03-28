@@ -3,9 +3,8 @@
  * @jsx jsx
  */
 import { PureComponent, type MouseEvent } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
+import { css, jsx } from '@compiled/react';
+import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge/compiled';
 import {
 	type WithAnalyticsEventsProps,
 	type CreateUIAnalyticsEvent,
@@ -15,12 +14,9 @@ import {
 import { createStatusAnalyticsAndFire } from './analytics';
 import { ANALYTICS_HOVER_DELAY } from './constants';
 
-// Disabling linting for nextline since these values are used as text reference, but not used as part of the CSS
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
 export type Color = 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
 export type StatusStyle = 'bold' | 'subtle';
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
 	neutral: 'default',
 	purple: 'new',
@@ -29,7 +25,6 @@ const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
 	yellow: 'moved',
 	green: 'success',
 };
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 
 const DEFAULT_APPEARANCE = 'default';
 const MAX_WIDTH = 200;
@@ -102,7 +97,7 @@ class StatusInternal extends PureComponent<Props, any> {
 		return (
 			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<span
-				css={isAndroidChromium ? inlineBlockStyles : undefined}
+				css={[isAndroidChromium ? inlineBlockStyles : undefined]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="status-lozenge-span"
 				onClick={onClick}

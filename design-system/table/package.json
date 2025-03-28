@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/table",
-	"version": "0.11.4",
+	"version": "0.11.5",
 	"description": "A table is used to display data.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -71,8 +71,8 @@
 		"@atlaskit/dynamic-table": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"raw-loader": "^0.5.1",

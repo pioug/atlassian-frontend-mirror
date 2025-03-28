@@ -14,7 +14,14 @@ import ExitingPersistence, {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalTransition = (props: Pick<ExitingPersistenceProps, 'children'>) => {
-	return <ExitingPersistence appear>{props.children}</ExitingPersistence>;
+	return (
+		<ExitingPersistence appear>
+			{
+				//Checking if children are undefined to prevent potential runtime errors in React 17
+				props.children ?? null
+			}
+		</ExitingPersistence>
+	);
 };
 
 export default ModalTransition;

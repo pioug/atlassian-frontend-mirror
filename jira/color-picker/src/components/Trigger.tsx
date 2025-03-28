@@ -5,8 +5,8 @@
 import { type MouseEvent, useCallback } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import { fg } from '@atlaskit/platform-feature-flags';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@atlaskit/css';
+import { css as cssUnbounded } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { B100, DN600A, N0 } from '@atlaskit/theme/colors';
 import { type SwatchSize, type ColorCardVariant } from '../types';
@@ -92,29 +92,31 @@ export default ColorCard;
 const sharedColorContainerStyles = css({
 	display: 'inline-block',
 	position: 'relative',
-	border: '2px solid transparent',
+	border: `${token('border.width.outline')} solid transparent`,
 	boxSizing: 'border-box',
-	borderRadius: '6px',
+	borderRadius: token('border.radius.200', '6px'),
 	transition: 'border-color 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
 	backgroundColor: token('color.background.neutral.subtle', N0),
-	borderColor: token('color.background.neutral.subtle', N0),
-	padding: token('space.0', '0px'),
+	paddingTop: token('space.0', '0px'),
+	paddingRight: token('space.0', '0px'),
+	paddingBottom: token('space.0', '0px'),
+	paddingLeft: token('space.0', '0px'),
 	cursor: 'pointer',
 	outline: 'none',
 });
 
 const smallColorContainerSize = css({
-	width: token('space.300', '24px'),
-	height: token('space.300', '24px'),
+	width: '24px',
+	height: '24px',
 	top: token('space.negative.025', '-2px'),
 });
 
 const defaultColorContainerSize = css({
-	width: token('space.400', '32px'),
-	height: token('space.400', '32px'),
+	width: '32px',
+	height: '32px',
 });
 
-const colorCardButtonStyles = css({
+const colorCardButtonStyles = cssUnbounded({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		borderColor: token('color.background.neutral.subtle', N0),
@@ -139,10 +141,11 @@ const colorCardWrapperStyles = css({
 	justifyContent: 'center',
 });
 
-const colorCardContentStyles = css({
+const colorCardContentStyles = cssUnbounded({
 	borderRadius: token('border.radius.100', '3px'),
 	boxShadow: `inset 0px 0px 0px 1px ${token('color.background.inverse.subtle', DN600A)}`,
 });
+
 const colorCardContentStylesOutline = css({
 	borderRadius: token('border.radius.100', '3px'),
 	borderWidth: token('border.width.outline', '2px'),
@@ -150,11 +153,11 @@ const colorCardContentStylesOutline = css({
 });
 
 const smallColorCardContentSize = css({
-	width: token('space.200', '16px'),
-	height: token('space.200', '16px'),
+	width: '16px',
+	height: '16px',
 });
 
 const defaultColorCardContentSize = css({
-	width: token('space.300', '24px'),
-	height: token('space.300', '24px'),
+	width: '24px',
+	height: '24px',
 });

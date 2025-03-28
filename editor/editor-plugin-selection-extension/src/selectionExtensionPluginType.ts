@@ -1,17 +1,17 @@
 import type {
+	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-	EditorCommand,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 
 import type {
+	SelectionExtension,
 	SelectionExtensionPluginConfiguration,
 	SelectionExtensionPluginState,
-	SelectionExtensionContract,
-	SelectionExtensionSelectType,
+	SelectionExtensionSelectionInfo,
 } from './types';
 
 export type SelectionExtensionPlugin = NextEditorPlugin<
@@ -29,8 +29,8 @@ export type SelectionExtensionPlugin = NextEditorPlugin<
 				extension,
 				selection,
 			}: {
-				extension: SelectionExtensionContract;
-				selection: SelectionExtensionSelectType;
+				extension: SelectionExtension;
+				selection: SelectionExtensionSelectionInfo;
 			}) => EditorCommand;
 			clearActiveExtension: () => EditorCommand;
 		};

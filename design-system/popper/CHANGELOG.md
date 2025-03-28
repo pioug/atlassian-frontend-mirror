@@ -1,5 +1,13 @@
 # @atlaskit/popper
 
+## 7.0.2
+
+### Patch Changes
+
+- [#132096](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132096)
+  [`6763869be8bd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6763869be8bd0) -
+  [ux] Moved example code and package.json to compiled/react from emotion/react
+
 ## 7.0.1
 
 ### Patch Changes

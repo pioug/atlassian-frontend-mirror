@@ -72,7 +72,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@types/react-node-resolver": "^2.0.0",
 		"react-dom": "^18.2.0",

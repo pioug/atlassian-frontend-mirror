@@ -242,7 +242,12 @@ export type ChannelEvent = {
 	'participant:left': PresencePayload;
 	'participant:telepointer': TelepointerPayload;
 	'participant:updated': PresencePayload;
-	'steps:commit': StepsPayload & { userId: string; collabMode: string; forcePublish?: boolean };
+	'steps:commit': StepsPayload & {
+		userId: string;
+		collabMode: string;
+		forcePublish?: boolean;
+		skipValidation: boolean;
+	};
 	'steps:added': StepsPayload;
 	'metadata:changed': Metadata;
 	permission: UserPermitType;

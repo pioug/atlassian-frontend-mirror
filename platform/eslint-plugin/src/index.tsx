@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import compiledPlugin from '@compiled/eslint-plugin';
 import type { ESLint, Linter } from 'eslint';
+import { join } from 'node:path';
 import ensureFeatureFlagRegistration from './rules/ensure-feature-flag-registration';
 import noPreAndPostInstallScripts from './rules/no-pre-post-installs';
 import ensureTestRunnerArguments from './rules/ensure-test-runner-arguments';
@@ -112,6 +113,9 @@ const jsonPrefix =
 const jsonPrefixForFlatConfig =
 	'/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, no-template-curly-in-string */ module.exports = ';
 
+const jsonPrefixForFlatConfigInJira =
+	'/* eslint-disable no-template-curly-in-string, @stylistic/semi */ module.exports = ';
+
 const { name, version } = packageJson;
 const plugin = {
 	meta: {
@@ -151,7 +155,12 @@ const plugin = {
 	},
 	processors: {
 		'package-json-processor': {
-			preprocess: (source: string) => {
+			preprocess: (source, filename) => {
+				if (filename.startsWith(join(__dirname, 'jira'))) {
+					// augment the json into a js file
+					return [jsonPrefixForFlatConfigInJira + source.trim()];
+				}
+
 				// augment the json into a js file
 				return [jsonPrefix + source.trim()];
 			},
@@ -177,7 +186,11 @@ const plugin = {
 		// This processor is used for ESLint FlatConfig,
 		// once we roll out FlatConfig, we can remove the above processor
 		'package-json-processor-for-flat-config': {
-			preprocess: (source: string) => {
+			preprocess: (source, filename) => {
+				if (filename.startsWith(join(__dirname, 'jira'))) {
+					// augment the json into a js file
+					return [jsonPrefixForFlatConfigInJira + source.trim()];
+				}
 				// augment the json into a js file
 				return [jsonPrefixForFlatConfig + source.trim()];
 			},

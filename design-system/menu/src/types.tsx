@@ -183,6 +183,11 @@ export interface MenuItemProps {
 	cssFn?: CSSFn;
 
 	/**
+	 * Not recommended for general use as it enables unsafe style overrides.
+	 */
+	className?: string;
+
+	/**
 	 * Element to render before the item text.
 	 * Usually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
 	 */

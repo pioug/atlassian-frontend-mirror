@@ -48,6 +48,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^13.4.0",
 		"lodash": "^4.17.21",

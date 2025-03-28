@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
@@ -14,6 +15,7 @@ export type LayoutPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<WidthPlugin>,
 	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<GuidelinePlugin>,
 ];
 
 export type LayoutPlugin = NextEditorPlugin<

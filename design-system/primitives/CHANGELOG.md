@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 14.2.3
+
+### Patch Changes
+
+- [#133540](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133540)
+  [`606c6a34e6c24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/606c6a34e6c24) -
+  Fix type of `separator` in the Compiled variant of Inline.
+
 ## 14.2.2
 
 ### Patch Changes

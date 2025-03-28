@@ -1,16 +1,16 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag Fragment
+ */
+
+import { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { css, jsx, styled } from '@compiled/react';
 
 import { Manager, type Placement, Popper, Reference } from '@atlaskit/popper';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-interface PopupProps {
-	isReferenceHidden: boolean | undefined;
-}
 
 const POPPER_OFFSET = 8;
 const POPPER_FLIP_PADDING = 5;
@@ -21,44 +21,57 @@ const POPUP_HEIGHT = 40;
 const SPACING = 35;
 
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Popup = styled.div`
-	background: white;
-	border: 2px solid red;
-	border-radius: ${borderRadius()}px;
-	max-width: 110px;
-	min-height: ${POPUP_HEIGHT - 20}px;
-	padding: ${token('space.100', '8px')};
-	text-overflow: 'ellipsis';
-	transition: opacity 200ms ease-in-out;
-	opacity: ${(p: PopupProps) => (p.isReferenceHidden === false ? 1 : 0)};
-	box-shadow: ${token('elevation.shadow.overlay')};
-`;
+const Popup = styled.div({
+	background: 'white',
+	borderColor: 'red',
+	borderStyle: 'solid',
+	borderWidth: '2px',
+	borderRadius: '3px',
+	maxWidth: '110px',
+	minHeight: `${POPUP_HEIGHT - 20}px`,
+	paddingTop: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: token('space.100', '8px'),
+	textOverflow: 'ellipsis',
+	transition: 'opacity 200ms ease-in-out',
+	boxShadow: token('elevation.shadow.overlay'),
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBox = styled.div({
-	background: token('color.background.brand.bold'),
-	padding: token('space.100', '8px'),
+	backgroundColor: token('color.background.brand.bold'),
+	paddingTop: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: token('space.100', '8px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	borderRadius: '3px',
 	color: 'white',
 	textAlign: 'center',
 	width: `${REF_WIDTH - 20}px`,
 	height: `${REF_HEIGHT - 20}px`,
-	textOverflow: "'ellipsis'",
+	textOverflow: 'ellipsis',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBoundaries = styled.div({
 	background: 'lightblue',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
-	padding: token('space.100', '8px'),
+	borderRadius: '3px',
+	paddingTop: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: token('space.100', '8px'),
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
 	width: 'fit-content',
 	height: 'fit-content',
 });
+
+const referenceShown = css({ opacity: 1 });
+const referenceHidden = css({ opacity: 0 });
 
 const BasicPopper = ({
 	children,
@@ -73,10 +86,10 @@ const BasicPopper = ({
 			<Popper placement={placement}>
 				{({ ref, style, placement, isReferenceHidden }) => (
 					<Popup
-						isReferenceHidden={isReferenceHidden}
 						ref={ref}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={style}
+						css={[referenceShown, isReferenceHidden && referenceHidden]}
 						data-placement={placement}
 					>
 						{children || 'Popper'}
@@ -136,54 +149,53 @@ const Test = () => (
 	</>
 );
 
+const scrollContainerStyles = css({
+	width: '1000px',
+	margin: '0px',
+	boxShadow: 'inset 0px 0px 0px 10px lightgrey',
+});
+
+const contentStyles = css({
+	boxSizing: 'border-box',
+	width: '200%',
+	height: '200%',
+});
+
+const headingWrapperStyles = css({
+	paddingBlockEnd: token('space.250', '20px'),
+	paddingBlockStart: token('space.250', '20px'),
+	paddingInlineEnd: token('space.250', '20px'),
+	paddingInlineStart: token('space.250', '20px'),
+});
+
+const contentWrapperStyles = css({
+	width: '90%',
+	height: '400px',
+	borderColor: 'black',
+	borderStyle: 'solid',
+	borderWidth: '1px',
+	boxShadow: 'inset 0px 0px 0px 10px lightgrey',
+	marginBlockStart: token('space.250', '20px'),
+	overflow: 'auto',
+});
+
 export default () => (
-	<div
-		style={{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			margin: '0px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			width: '1000px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			boxShadow: 'inset 0px 0px 0px 10px lightgrey',
-		}}
-	>
+	// eslint-disable-next-line @atlaskit/design-system/use-primitives
+	<div css={scrollContainerStyles}>
 		<Test />
-		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-		<div style={{ padding: token('space.250', '20px') }}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<h3 style={{ marginTop: SPACING }}> Scroll Container</h3>
+		{/* eslint-disable-next-line @atlaskit/design-system/use-primitives */}
+		<div css={headingWrapperStyles}>
+			<h3>Scroll Container</h3>
 		</div>
 		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				border: '1px solid black',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				boxShadow: 'inset 0px 0px 0px 10px lightgrey',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				height: '400px',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '90%',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				marginTop: token('space.250', '20px'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				overflow: 'auto',
-			}}
+			css={contentWrapperStyles}
 			// Tab index required here to support keyboard users scrolling the container
 			// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 			tabIndex={0}
 			role="region"
 			aria-label="Scrollable content"
 		>
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: '200%',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					height: '200%',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					boxSizing: 'border-box',
-				}}
-			>
+			<div css={contentStyles}>
 				<Test />
 			</div>
 		</div>

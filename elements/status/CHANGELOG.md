@@ -1,5 +1,13 @@
 # @atlaskit/status
 
+## 3.0.3
+
+### Patch Changes
+
+- [#132887](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132887)
+  [`25d637f6d1758`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25d637f6d1758) -
+  Cleans up status compiled css migration feature flag
+
 ## 3.0.2
 
 ### Patch Changes

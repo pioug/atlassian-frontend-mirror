@@ -63,6 +63,7 @@ export class DocumentService implements DocumentServiceInterface {
 	private aggressiveCatchup: boolean = false;
 	private catchUpOutofSync: boolean = false;
 	private hasRecovered: boolean = false;
+	private numberOfStepCommitsSent: number = 0;
 
 	// ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
 	private clientId?: number | string;
@@ -127,6 +128,15 @@ export class DocumentService implements DocumentServiceInterface {
 	);
 
 	/**
+	 * Updates the number of commits sent since connect/reconnect
+	 * This is used to track the number of commits sent to the server.
+	 * currently we are validating the first steps from a user after connect/reconnect - CEPS-710
+	 */
+	setNumberOfCommitsSent = (steps: number) => {
+		this.numberOfStepCommitsSent = steps;
+	};
+
+	/**
 	 * Called when:
 	 *   * session established(offline -> online)
 	 *   * try to accept steps but version is behind.
@@ -179,7 +189,7 @@ export class DocumentService implements DocumentServiceInterface {
 				analyticsHelper: this.analyticsHelper,
 				clientId: this.clientId,
 				onStepsAdded: this.onStepsAdded,
-				catchUpOutofSync: this.catchUpOutofSync,
+				catchUpOutofSync: reason === CatchupEventReason.CORRUPT_STEP ? true : this.catchUpOutofSync,
 				reason,
 				onCatchupComplete: (steps) => {
 					// We want to capture the number of steps made while offline vs. online
@@ -1002,6 +1012,8 @@ export class DocumentService implements DocumentServiceInterface {
 			hasRecovered: this.hasRecovered,
 			collabMode: this.participantsService.getCollabMode(),
 			reason,
+			numberOfStepCommitsSent: this.numberOfStepCommitsSent,
+			setNumberOfCommitsSent: this.setNumberOfCommitsSent,
 		});
 	}
 }

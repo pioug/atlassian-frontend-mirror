@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "21.1.7",
+	"version": "22.0.2",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -131,6 +131,7 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"ast-types": "^0.13.3",

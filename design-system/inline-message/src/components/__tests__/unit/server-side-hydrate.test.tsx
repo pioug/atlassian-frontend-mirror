@@ -1,31 +1,9 @@
-import { screen } from '@testing-library/react';
+import React from 'react';
 
-import noop from '@atlaskit/ds-lib/noop';
-import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
+import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
 
-// Skipped due to HOT-111922 Fails for React 18
-test.skip('should ssr then hydrate correctly', async () => {
-	const examplePath = require.resolve('../../../../examples/01-basic.tsx');
-	const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
-	const elem = document.createElement('div');
-	const { html, styles } = await ssr(examplePath);
-	elem.innerHTML = html;
-	hydrateWithAct(examplePath, elem, styles);
+import Example from '../../../../examples/01-basic';
 
-	// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
-	await screen.findByText('Inline Message Title Example');
-
-	// eslint-disable-next-line no-console
-	const mockCalls = (console.error as jest.Mock).mock.calls;
-
-	// Logs console errors if they exist to quickly surface errors for debuggin in CI
-	if (mockCalls.length) {
-		console.warn('Hydration errors:');
-		mockCalls.forEach((call) => console.warn(call));
-	}
-
-	expect(mockCalls.length).toBe(0);
-
-	cleanup();
-	consoleMock.mockRestore();
+test('should ssr then hydrate correctly', async () => {
+	expect(await doesHydrateWithSsr(<Example />)).toBe(true);
 });

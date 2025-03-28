@@ -41,10 +41,6 @@ const ButtonItem = memo(
 				onMouseDown,
 				shouldTitleWrap,
 				shouldDescriptionWrap,
-				// Although this isn't defined on props it is available because we've used
-				// Spread props below and on the jsx element. To forcibly block usage I've
-				// picked it out and supressed the expected type error.
-				// @ts-expect-error
 				className: UNSAFE_className,
 				interactionName,
 				...rest

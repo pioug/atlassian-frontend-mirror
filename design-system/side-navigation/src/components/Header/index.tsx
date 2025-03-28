@@ -128,7 +128,6 @@ const Header = forwardRef<HTMLElement, HeaderProps>((props: HeaderProps, ref) =>
 			{...props}
 			ref={ref}
 			component={props.component || Container}
-			// @ts-expect-error
 			css={styles.header}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{

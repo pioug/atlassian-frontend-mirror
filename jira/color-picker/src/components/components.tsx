@@ -7,8 +7,7 @@ import { type Color } from '../types';
 import ColorCard from './ColorCard';
 import { getWidth } from '../utils';
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@atlaskit/css';
 import { COLOR_PICKER } from '../constants';
 import { useIntl } from 'react-intl-next';
 import messages from '../messages';
@@ -81,12 +80,18 @@ export const Placeholder = () => null;
 
 const colorCardWrapperStyles = css({
 	display: 'flex',
-	margin: token('space.025', '2px'),
-	height: token('space.400', '32px'),
+	marginTop: token('space.025', '2px'),
+	marginRight: token('space.025', '2px'),
+	marginBottom: token('space.025', '2px'),
+	marginLeft: token('space.025', '2px'),
+	height: '32px',
 });
 
 const colorPaletteContainerStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
-	padding: token('space.050', '4px'),
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
 });

@@ -44,4 +44,6 @@ export class NullDocumentService implements DocumentServiceInterface {
 	}
 
 	onErrorHandled = () => {};
+
+	setNumberOfCommitsSent = () => {};
 }

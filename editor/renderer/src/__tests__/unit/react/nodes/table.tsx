@@ -22,7 +22,6 @@ import type { ReactWrapper } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererContextProps } from '../../../../renderer-context';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const checkColWidths = (table: ReactWrapper, expectedColWidths: number[]) => {
 	table.find('col').forEach((col, index) => {
@@ -1232,56 +1231,28 @@ describe('Renderer - React/Nodes/Table', () => {
 				wrap.unmount();
 			});
 
-			describe('should NOT render a colgroup when isInsideOfTable and columns have not been resized', () => {
-				ffTest(
-					'platform_editor_nested_tables_renderer_colgroup',
-					() => {
-						const tableWidth = 500;
-						const scale = 0.6;
-						const tableNode = createTable(tableWidth, 'default');
-						const rendererWidth = tableWidth * scale;
-						// column widths 0 as they're undefined
-						const colWidths = [0, 0, 0];
+			it('should NOT render a colgroup when isInsideOfTable and columns have not been resized', () => {
+				const tableWidth = 500;
+				const scale = 0.6;
+				const tableNode = createTable(tableWidth, 'default');
+				const rendererWidth = tableWidth * scale;
+				// column widths 0 as they're undefined
+				const colWidths = [0, 0, 0];
 
-						const wrap = mountTable(
-							tableNode,
-							rendererWidth,
-							colWidths,
-							undefined,
-							false,
-							false,
-							true,
-							true,
-						);
-						const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-						expect(tableContainer.find('colgroup')).toHaveLength(0);
-						wrap.unmount();
-					},
-					() => {
-						const tableWidth = 500;
-						const scale = 0.6;
-						const tableNode = createTable(tableWidth, 'default');
-						const rendererWidth = tableWidth * scale;
-						// column widths 0 as they're undefined
-						const colWidths = [0, 0, 0];
-
-						const wrap = mountTable(
-							tableNode,
-							rendererWidth,
-							colWidths,
-							undefined,
-							false,
-							false,
-							true,
-							true,
-						);
-						const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-						expect(tableContainer.find('colgroup')).toHaveLength(1);
-						wrap.unmount();
-					},
+				const wrap = mountTable(
+					tableNode,
+					rendererWidth,
+					colWidths,
+					undefined,
+					false,
+					false,
+					true,
+					true,
 				);
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.find('colgroup')).toHaveLength(0);
+				wrap.unmount();
 			});
 
 			// When Renderer is nested (eg: Renderer is used to render contents inside an extension

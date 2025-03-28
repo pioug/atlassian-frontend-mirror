@@ -1,5 +1,20 @@
 # @atlaskit/color-picker
 
+## 5.0.0
+
+### Major Changes
+
+- [#127705](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127705)
+  [`d68c1c13db233`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d68c1c13db233) -
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR.
+
+  Please note, in order to use this version of `@atlaskit/color-picker`, you will need to ensure
+  that your bundler is configured to handle `.css` imports correctly. Most bundlers come with
+  built-in support for `.css` imports, so you may not need to do anything. If you are using a
+  different bundler, please refer to the documentation for that bundler to understand how to handle
+  `.css` imports.
+
 ## 4.0.5
 
 ### Patch Changes

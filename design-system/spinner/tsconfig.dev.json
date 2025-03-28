@@ -53,9 +53,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
 			"path": "../dynamic-table/tsconfig.app.json"
 		},
 		{
@@ -80,13 +77,13 @@
 			"path": "../select/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-		},
-		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../visually-hidden/tsconfig.app.json"
+		},
+		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]
 }

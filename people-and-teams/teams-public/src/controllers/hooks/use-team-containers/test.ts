@@ -116,6 +116,7 @@ describe('useConnectedTeams', () => {
 });
 
 describe('useTeamContainersHook', () => {
+	const fireAnalytics = jest.fn();
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
@@ -129,7 +130,7 @@ describe('useTeamContainersHook', () => {
 		const { result } = renderHook(() => useTeamContainersHook());
 
 		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce([{ id: '1' }, { id: '2' }]);
-		await result.current[1].fetchTeamContainers('team-id-126');
+		await result.current[1].fetchTeamContainers('team-id-126', fireAnalytics);
 
 		const containerId = MOCK_TEAM_CONTAINERS.graphStore.cypherQuery.edges[0].node.to.id;
 
@@ -150,7 +151,7 @@ describe('useTeamContainersHook', () => {
 		const { result } = renderHook(() => useTeamContainersHook());
 
 		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERS);
-		await result.current[1].fetchTeamContainers('team-id-127');
+		await result.current[1].fetchTeamContainers('team-id-127', fireAnalytics);
 
 		const containerId = MOCK_TEAM_CONTAINERS.graphStore.cypherQuery.edges[0].node.to.id;
 

@@ -77,13 +77,13 @@
 			"path": "../select/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-		},
-		{
 			"path": "../textfield/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]
 }

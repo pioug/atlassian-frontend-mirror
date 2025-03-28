@@ -18,9 +18,7 @@ export const unwrapContentFromTable = (maybeTable: PMNode): PMNode | PMNode[] =>
 		maybeTable.descendants((maybeCell) => {
 			if (maybeCell.type === tableCell || maybeCell.type === tableHeader) {
 				content.push(...flatten(maybeCell, false).map((child) => child.node));
-				if (fg('platform_editor_nested_tables_paste_dupe_fix')) {
-					return false;
-				}
+				return false;
 			}
 			return true;
 		});

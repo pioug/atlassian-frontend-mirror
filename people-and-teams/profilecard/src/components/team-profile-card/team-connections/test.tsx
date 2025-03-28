@@ -62,7 +62,7 @@ describe('TeamConnections', () => {
 			</IntlProvider>,
 		);
 
-		const containerTypeIcon = screen.getByRole('img', { name: 'confluence-project' });
+		const containerTypeIcon = screen.getByTestId('confluence-space-container-icon');
 		expect(containerTypeIcon).toBeInTheDocument();
 	});
 
@@ -77,7 +77,23 @@ describe('TeamConnections', () => {
 			</IntlProvider>,
 		);
 
-		const containerTypeIcon = screen.getByRole('img', { name: 'jira-project' });
+		const containerTypeIcon = screen.getByTestId('jira-project-container-icon');
 		expect(containerTypeIcon).toBeInTheDocument();
+	});
+
+	test('should render a link with the item', async () => {
+		render(
+			<IntlProvider locale="en">
+				<TeamConnections
+					containerType={'JiraProject'}
+					title={'Test Jira Project'}
+					onDisconnectButtonClick={() => {}}
+					link="https://test-dev.com"
+				/>
+			</IntlProvider>,
+		);
+
+		const downloadCsvLink = screen.getByRole('link', { name: 'Test Jira Project Jira project' });
+		expect(downloadCsvLink).toHaveAttribute('href', 'https://test-dev.com');
 	});
 });

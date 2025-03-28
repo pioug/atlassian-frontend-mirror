@@ -4,10 +4,12 @@ import { Colgroup } from './colgroup';
 import type { SharedTableProps } from './types';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type TableProps = SharedTableProps & {
 	innerRef?: React.RefObject<HTMLTableElement>;
 	children: React.ReactNode[];
+	isPresentational?: boolean;
 };
 
 export const Table = React.memo(
@@ -24,6 +26,7 @@ export const Table = React.memo(
 		isInsideOfTable,
 		isinsideMultiBodiedExtension,
 		allowTableResizing,
+		isPresentational,
 	}: TableProps) => {
 		let tableWidth: number | 'inherit' = tableNode
 			? getTableContainerWidth(tableNode)
@@ -46,6 +49,10 @@ export const Table = React.memo(
 
 		return (
 			<table
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...(fg('platform_renderer_isPresentational') && {
+					role: isPresentational ? 'presentation' : undefined,
+				})}
 				data-testid="renderer-table"
 				data-number-column={isNumberColumnEnabled}
 				data-table-width={tableWidth}

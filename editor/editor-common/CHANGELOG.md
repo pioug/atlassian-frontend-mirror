@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 102.14.0
+
+### Minor Changes
+
+- [#132381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132381)
+  [`19e52e77d3cfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19e52e77d3cfc) -
+  ED-27195 enable guildeline for breakout resizer
+
+### Patch Changes
+
+- [#132269](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132269)
+  [`f6984f0b31c02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6984f0b31c02) -
+  [ux] Fixed alignment of the icon in OpenButtonOverlay on header link.
+- Updated dependencies
+
+## 102.13.11
+
+### Patch Changes
+
+- [#133639](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133639)
+  [`371bad9b8ae73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/371bad9b8ae73) -
+  [ux] Increase the space between column drag handle and the Text Formatting toolbar.
+
+## 102.13.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 102.13.9
 
 ### Patch Changes

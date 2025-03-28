@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.1.5
+
+### Patch Changes
+
+- [#132699](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132699)
+  [`eee4cd1d4f4d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eee4cd1d4f4d8) -
+  remove feature gate
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

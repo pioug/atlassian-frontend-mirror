@@ -14,6 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	visitedLink: {
+		fontFamily: token('font.family.body'),
 		'&:visited': {
 			color: token('color.link.visited'),
 		},
@@ -32,7 +33,7 @@ const styles = cssMap({
 	defaultAppearance: {
 		textDecoration: 'underline',
 		color: token('color.link'),
-
+		fontFamily: token('font.family.body'),
 		'&:hover': {
 			color: token('color.link'),
 			textDecoration: 'none',
@@ -50,6 +51,7 @@ const styles = cssMap({
 	},
 
 	subtleAppearance: {
+		fontFamily: token('font.family.body'),
 		textDecoration: 'none',
 		color: token('color.text.subtle'),
 
@@ -71,6 +73,7 @@ const styles = cssMap({
 	},
 
 	inverseAppearance: {
+		fontFamily: token('font.family.body'),
 		textDecoration: 'underline',
 		color: token('color.text.inverse'),
 

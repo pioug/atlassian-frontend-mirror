@@ -5,7 +5,6 @@ import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
 	EditorAppearance,
@@ -17,15 +16,11 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';
-import { elementBrowserPmKey, elementBrowserPmPlugin } from './pm-plugins/elementBrowser';
 import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
 import type { InsertBlockOptions } from './types';
-import { InsertMenuRail } from './ui/ElementRail';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
@@ -113,8 +108,6 @@ function delayUntilIdle(cb: Function) {
 }
 
 export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api }) => {
-	const editorViewRef: Record<'current', EditorView | null> = { current: null };
-
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		editorActions,
@@ -181,18 +174,9 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			}
 
 			const toggleInsertBlockPluginState = toggleInsertBlockPmKey.getState(editorState);
-			const elementBrowserPluginState = elementBrowserPmKey.getState(editorState);
 
 			return {
 				showElementBrowser: toggleInsertBlockPluginState?.showElementBrowser || false,
-				/**
-				 * For insert menu in right rail experiment
-				 * - Clean up ticket ED-24801
-				 * Experiment: `insert-menu-in-right-rail`
-				 */
-				menuBrowserOpen: editorExperiment('insert-menu-in-right-rail', true)
-					? elementBrowserPluginState?.menuBrowserOpen
-					: false,
 			};
 		},
 
@@ -214,27 +198,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 
 			const plugins: PMPlugin[] = [];
 
-			if (editorExperiment('insert-menu-in-right-rail', true)) {
-				plugins.push(
-					{
-						name: 'elementBrowserPmPlugin',
-						plugin: () => elementBrowserPmPlugin(),
-					},
-					{
-						name: 'elementBrowserEditorViewRef',
-						plugin: () => {
-							return new SafePlugin({
-								view: (editorView) => {
-									// Workaround - need reference to editorView for contextPanel component
-									editorViewRef.current = editorView;
-									return {};
-								},
-							});
-						},
-					},
-				);
-			}
-
 			plugins.push({
 				name: 'toggleInsertBlockPmPlugin',
 				plugin: () => toggleInsertBlockPmPlugin(),
@@ -245,24 +208,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		pluginsOptions: {},
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
-
-	if (
-		// @ts-ignore
-		['full-page', 'full-width'].includes(options.appearance ?? '') &&
-		editorExperiment('insert-menu-in-right-rail', true)
-	) {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		plugin.pluginsOptions!.contextPanel = (state) => {
-			// api.getSharedState() will have an outdated reference to editorState on first mount of this component
-			// so instead just rely on plugin key as we don't need to be reactive to changes here
-			const pluginState = elementBrowserPmKey.getState(state);
-			if (pluginState?.menuBrowserOpen && editorViewRef.current) {
-				return <InsertMenuRail editorView={editorViewRef.current} options={options} api={api} />;
-			}
-			return;
-		};
-	}
 
 	return plugin;
 };

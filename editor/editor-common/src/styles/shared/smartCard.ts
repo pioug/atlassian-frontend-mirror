@@ -9,6 +9,7 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { SmartCardSharedCssClassName } from './smart-card';
@@ -41,6 +42,13 @@ export const smartCardStyles = () => css`
 				${getSelectionStyles([SelectionStyle.BoxShadow])}
 			}
 		}
+
+		${editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_1')
+			? `[data-inlinecard-button-overlay='icon-wrapper-line-height'] span {
+				line-height: 0;
+			}`
+			: ''}
 
 		&.${akEditorSelectedNodeClassName} .${SmartCardSharedCssClassName.LOADER_WRAPPER} > a {
 			${getSelectionStyles([SelectionStyle.BoxShadow])}

@@ -1,6 +1,7 @@
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PopupPosition as Position } from '../ui';
 
@@ -165,6 +166,7 @@ export type CoordsAtPos = {
 
 const cellSelectionToolbarCffsetTop = 10;
 const scrollbarWidth = 20;
+const offsetTopOnColumnSelection = 4;
 export const calculateToolbarPositionOnCellSelection =
 	(toolbarTitle: string) =>
 	(editorView: EditorView, nextPos: Position): Position => {
@@ -234,6 +236,12 @@ export const calculateToolbarPositionOnCellSelection =
 				left = left;
 			} else {
 				left = anchorCellRect.left + (headCellRect.right - anchorCellRect.left) / 2;
+			}
+
+			// When column is selected, adjust top position to ensure that the toolbar does not
+			// touch column drag handle
+			if (fg('platform_editor_controls_patch_1')) {
+				top = top - offsetTopOnColumnSelection;
 			}
 		}
 

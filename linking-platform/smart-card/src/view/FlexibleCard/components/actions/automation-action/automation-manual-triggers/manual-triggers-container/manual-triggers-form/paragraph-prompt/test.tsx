@@ -26,7 +26,8 @@ describe('Paragraph field input prompt', () => {
 		expect(screen.getByText(userInputPrompts.displayName)).toBeInTheDocument();
 		expect(screen.getByText(userInputPrompts.displayName)).toHaveAttribute(
 			'id',
-			'testUserInput-mock-id1-label',
+			// eg. `testUserInput-:r0:-label` coming from `React.useId()`
+			expect.stringMatching(/^testUserInput-:[^:]+:-label$/),
 		);
 		expect(screen.getByTitle('required')).toBeInTheDocument();
 	});

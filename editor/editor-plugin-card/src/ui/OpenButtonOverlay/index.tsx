@@ -97,7 +97,7 @@ const OpenButtonOverlay = ({
 			{children}
 			{isVisible && (
 				<Anchor ref={openButtonRef} xcss={linkStyles} href={url} target="_blank">
-					<Box xcss={iconWrapperStyles}>
+					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
 						<LinkExternalIcon label="" />
 					</Box>
 					{showLabel && (

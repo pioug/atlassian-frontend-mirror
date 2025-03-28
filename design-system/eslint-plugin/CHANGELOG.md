@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.3.0
+
+### Minor Changes
+
+- [#131514](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131514)
+  [`74ddca032fe0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74ddca032fe0f) -
+  Fixes @atlaskit/eslint-plugin-ui-styling-standard/consistent-css-prop-usage to allow aliased
+  imports, eg., import { css as css2 } from '@compiled/react'
+
 ## 13.2.0
 
 ### Minor Changes

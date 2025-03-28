@@ -32,9 +32,6 @@
 	},
 	"references": [
 		{
-			"path": "../../design-system/button/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -122,9 +119,6 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/heading/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -138,9 +132,6 @@
 		},
 		{
 			"path": "../../design-system/theme/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.2.4
+
+### Patch Changes
+
+- [#133624](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133624)
+  [`0054ad6978c1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0054ad6978c1b) -
+  Fixed issue when search term is added to document when opening view more from Quickinsert
+- Updated dependencies
+
+## 2.2.3
+
+### Patch Changes
+
+- [#132892](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132892)
+  [`6db8f28318224`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6db8f28318224) -
+  update type ahead locale, add key to ai preview react list child
+- Updated dependencies
+
 ## 2.2.2
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 export type ContainerTypes = 'ConfluenceSpace' | 'JiraProject';
 
+export enum JiraProjectTypes {
+	PRODUCT_DISCOVERY = 'Product Discovery',
+	SOFTWARE = 'Software',
+	SERVICE_DESK = 'Service Desk',
+	BUSINESS = 'Business',
+	CUSTOMER_SERVICE = 'Customer Service',
+}
+
+export type ContainerSubTypes = keyof typeof JiraProjectTypes | string;
+
 export type TeamContainer = {
 	id: string;
 	type: ContainerTypes;
@@ -7,6 +17,10 @@ export type TeamContainer = {
 	icon?: string | null;
 	createdDate: Date;
 	link?: string | null;
+	containerTypeProperties?: {
+		subType?: ContainerSubTypes;
+		name?: string;
+	};
 };
 
 export const USER_ARI_PREFIX = 'ari:cloud:identity::user/' as const;

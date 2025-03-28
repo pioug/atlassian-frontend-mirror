@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.4.3
+
+### Patch Changes
+
+- [#132261](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132261)
+  [`a8fe96525eb2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8fe96525eb2c) -
+  ED-24801 Clean up platform_editor_insert_menu_in_right_rail
+
+## 4.4.2
+
+### Patch Changes
+
+- [#133358](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133358)
+  [`d2fa1a1a5d369`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2fa1a1a5d369) -
+  [ED-24873] clean up platform_editor_element_level_templates
+
 ## 4.4.1
 
 ### Patch Changes

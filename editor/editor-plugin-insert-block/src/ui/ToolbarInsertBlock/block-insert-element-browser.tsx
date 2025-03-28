@@ -32,7 +32,6 @@ export interface BlockInsertElementBrowserProps {
 	togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
 	isFullPageAppearance?: boolean;
-	isActive: boolean;
 }
 
 // This determines how the popup should fit. We prefer the insert menu
@@ -70,7 +69,7 @@ export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps)
 				aria-expanded={props.open}
 				aria-haspopup
 				handleRef={props.onRef}
-				selected={props.open || props.isActive}
+				selected={props.open}
 				disabled={props.disabled}
 				onClick={props.onClick}
 				onKeyDown={props.onKeyDown}

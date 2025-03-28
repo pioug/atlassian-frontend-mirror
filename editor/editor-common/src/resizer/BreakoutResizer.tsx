@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { bind, bindAll, type UnbindFn } from 'bind-event-listener';
 
@@ -12,15 +12,17 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import type { EditorAnalyticsAPI } from '../analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import { type BreakoutEventPayload } from '../analytics/types/breakout-events';
+import { GuidelineConfig } from '../guideline';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
 import { type EditorContainerWidth, type getPosHandlerNode } from '../types';
 import { browser } from '../utils/browser';
 
 import Resizer from './Resizer';
 import { type HandleResize, type HandleResizeStart } from './types';
+import { SNAP_GAP, useBreakoutGuidelines } from './useBreakoutGuidelines';
 
 type ResizingState = {
 	isResizing: boolean;
@@ -110,6 +112,7 @@ const BreakoutResizer = ({
 	disabled,
 	getEditorWidth,
 	parentRef,
+	displayGuidelines,
 	editorAnalyticsApi,
 	displayGapCursor,
 }: {
@@ -121,6 +124,7 @@ const BreakoutResizer = ({
 	getEditorWidth: () => EditorContainerWidth | undefined;
 	parentRef?: HTMLElement;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
+	displayGuidelines?: (guidelines: GuidelineConfig[]) => void;
 	displayGapCursor: (toggle: boolean) => boolean;
 }) => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
@@ -128,8 +132,20 @@ const BreakoutResizer = ({
 		maxWidth: undefined,
 		isResizing: false,
 	});
+
 	const areResizeMetaKeysPressed = useRef(false);
 	const resizerRef = useRef<ResizerNextHandler>(null);
+
+	const { snaps, currentLayout, guidelines, setCurrentWidth } = useBreakoutGuidelines(
+		getEditorWidth,
+		isResizing && editorExperiment('single_column_layouts', true),
+	);
+
+	useEffect(() => {
+		if (displayGuidelines) {
+			displayGuidelines(guidelines || []);
+		}
+	}, [displayGuidelines, guidelines]);
 
 	// Relying on re-renders caused by selection changes inside/around node
 	const isSelectionInNode = useMemo(() => {
@@ -170,6 +186,16 @@ const BreakoutResizer = ({
 		dispatch(state.tr.setMeta('is-resizer-resizing', true));
 	}, [getEditorWidth, editorView, displayGapCursor]);
 
+	const handleResize = useCallback<HandleResize>(
+		(originalState, delta) => {
+			if (editorExperiment('single_column_layouts', true)) {
+				const newWidth = originalState.width + delta.width;
+				setCurrentWidth(newWidth);
+			}
+		},
+		[setCurrentWidth],
+	);
+
 	const handleResizeStop = useCallback<HandleResize>(
 		(originalState, delta) => {
 			const newWidth = originalState.width + delta.width;
@@ -183,29 +209,40 @@ const BreakoutResizer = ({
 			const newTr = state.tr;
 
 			if (node && breakoutSupportedNodes.includes(node.type.name)) {
-				const newBreakoutWidth = Math.max(newWidth, akEditorDefaultLayoutWidth);
-				newTr.setNodeMarkup(pos, node.type, node.attrs, [
-					breakout.create({ width: newBreakoutWidth }),
-				]);
+				if (
+					currentLayout &&
+					['wide', 'full-width'].includes(currentLayout) &&
+					editorExperiment('single_column_layouts', true)
+				) {
+					newTr.setNodeMarkup(pos, node.type, node.attrs, [
+						breakout.create({ mode: currentLayout, width: null }),
+					]);
+				} else {
+					const newBreakoutWidth = Math.max(newWidth, akEditorDefaultLayoutWidth);
+					newTr.setNodeMarkup(pos, node.type, node.attrs, [
+						breakout.create({ width: newBreakoutWidth, mode: null }),
+					]);
 
-				const breakoutResizePayload: BreakoutEventPayload = {
-					action: ACTION.RESIZED,
-					actionSubject: ACTION_SUBJECT.ELEMENT,
-					eventType: EVENT_TYPE.TRACK,
-					attributes: {
-						nodeType: node.type.name as BreakoutSupportedNodes,
-						prevWidth: originalState.width,
-						newWidth: newBreakoutWidth,
-					},
-				};
-				editorAnalyticsApi?.attachAnalyticsEvent(breakoutResizePayload)(newTr);
+					const breakoutResizePayload: BreakoutEventPayload = {
+						action: ACTION.RESIZED,
+						actionSubject: ACTION_SUBJECT.ELEMENT,
+						eventType: EVENT_TYPE.TRACK,
+						attributes: {
+							nodeType: node.type.name as BreakoutSupportedNodes,
+							prevWidth: originalState.width,
+							newWidth: newBreakoutWidth,
+						},
+					};
+					editorAnalyticsApi?.attachAnalyticsEvent(breakoutResizePayload)(newTr);
+				}
 			}
 			newTr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
 			displayGapCursor(true);
 			dispatch(newTr);
 			setResizingState({ isResizing: false, minWidth: undefined, maxWidth: undefined });
+			setCurrentWidth(null);
 		},
-		[getPos, editorView, displayGapCursor, editorAnalyticsApi],
+		[getPos, editorView, displayGapCursor, setCurrentWidth, currentLayout, editorAnalyticsApi],
 	);
 	const handleEscape = useCallback((): void => {
 		editorView?.focus();
@@ -347,6 +384,8 @@ const BreakoutResizer = ({
 				left: true,
 				right: true,
 			}}
+			snap={snaps || undefined}
+			snapGap={SNAP_GAP}
 			handleStyles={getHandleStyle(nodeType)}
 			minWidth={minWidth}
 			maxWidth={maxWidth}
@@ -354,6 +393,7 @@ const BreakoutResizer = ({
 			style={isResizing ? resizingStyles : defaultStyles}
 			handleResizeStart={handleResizeStart}
 			handleResizeStop={handleResizeStop}
+			handleResize={handleResize}
 			childrenDOMRef={getRef}
 			resizeRatio={2}
 			isHandleVisible={isSelectionInNode}

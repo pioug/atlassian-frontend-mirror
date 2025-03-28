@@ -25,6 +25,7 @@ import type {
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
+	FloatingToolbarOverflowDropdown,
 	PMPlugin,
 	UiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
@@ -35,6 +36,7 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	editorExperiment,
 	unstable_editorExperimentParam,
@@ -54,6 +56,7 @@ import { findNode } from './pm-plugins/utils';
 import { ConfirmationModal } from './ui/ConfirmationModal';
 import { ExpandButton } from './ui/ExpandButton';
 import { ToolbarLoader } from './ui/ToolbarLoader';
+import { consolidateOverflowDropdownItems } from './ui/utils';
 
 // TODO: AFP-2532 - Fix automatic suppressions below
 export const getRelevantConfig = (
@@ -314,6 +317,34 @@ export function ContentComponent({
 		items = iterableItems.filter(
 			(item) => toolbarItemViewModeProp in item && !!item[toolbarItemViewModeProp],
 		);
+	}
+
+	if (
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_1')
+	) {
+		// Consolidate floating toolbar items
+		const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
+		const overflowDropdownItems = toolbarItemsArray.filter(
+			(item) => item.type === 'overflow-dropdown',
+		) as FloatingToolbarOverflowDropdown<Command>[];
+		if (overflowDropdownItems.length > 1) {
+			const consolidatedOverflowDropdown = consolidateOverflowDropdownItems(overflowDropdownItems);
+			const otherItems = toolbarItemsArray.filter((item) => item.type !== 'overflow-dropdown');
+
+			if (otherItems.length > 0) {
+				// remove the last separators
+				while (otherItems.at(-1)?.type === 'separator') {
+					otherItems.pop();
+				}
+			}
+
+			items = [
+				...otherItems,
+				{ type: 'separator', fullHeight: true, supportsViewMode: true },
+				consolidatedOverflowDropdown,
+			];
+		}
 	}
 
 	let customPositionCalculation;

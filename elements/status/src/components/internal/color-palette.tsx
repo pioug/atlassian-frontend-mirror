@@ -4,8 +4,7 @@
  */
 import { token } from '@atlaskit/tokens';
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type Color as ColorType } from '../Status';
 import Color from './color';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -99,13 +98,16 @@ const getPalette = () =>
 const palette = getPalette();
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-const colorPaletteWrapperStyles = css`
-	padding-left: 0px;
-	margin: ${token('space.100')} ${token('space.100')} 0 ${token('space.100')};
+const colorPaletteWrapperStyles = css({
+	paddingLeft: '0px',
+	marginTop: token('space.100'),
+	marginRight: token('space.100'),
+	marginBottom: '0px',
+	marginLeft: token('space.100'),
 	/* Firefox bug fix: https://product-fabric.atlassian.net/browse/ED-1789 */
-	display: flex;
-	flex-wrap: wrap;
-`;
+	display: 'flex',
+	flexWrap: 'wrap',
+});
 
 interface ColorPaletteProps {
 	selectedColor?: ColorType;

@@ -55,16 +55,17 @@ typescriptEslintTester.run(
 				name: 'hoists css object in ternary expression (second branch)',
 				options: [{ stylesPlacement: 'bottom' }],
 				code: outdent`
-          const containerStyles = css({
-            padding: 8,
-          });
+					import { css } from '@compiled/react';
+					const containerStyles = css({
+						padding: 8,
+					});
 
-          <div css={[isPrimary ? containerStyles : {}]} />
+					<div css={[isPrimary ? containerStyles : {}]} />
         `,
 				output: outdent`
           import { css } from '@compiled/react';
           const containerStyles = css({
-            padding: 8,
+          	padding: 8,
           });
 
           <div css={[isPrimary ? containerStyles : styles]} />
@@ -79,8 +80,12 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from function: css attribute value is css tagged template literal',
 				options: [{ stylesPlacement: 'bottom' }],
-				code: outdent`function Button({children}) { return <button css={css\`\`}>{children}</button>; }`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					function Button({children}) { return <button css={css\`\`}>{children}</button>; }
+				`,
 				output: outdent`
+          import { css } from '@compiled/react';
           function Button({children}) { return <button css={styles}>{children}</button>; }
           const styles = css\`\`;
         `,
@@ -93,7 +98,10 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from function: css attribute value is empty object',
 				options: [{ stylesPlacement: 'bottom' }],
-				code: outdent`function Button({children}) { return <button css={{}}>{children}</button>; }`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					function Button({children}) { return <button css={{}}>{children}</button>; }
+				`,
 				output: outdent`
           import { css } from '@compiled/react';
           function Button({children}) { return <button css={styles}>{children}</button>; }
@@ -108,8 +116,12 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from function: css attribute value is empty template literal',
 				options: [{ stylesPlacement: 'bottom' }],
-				code: outdent`function Button({children}) { return <button css={\`\`}>{children}</button>; }`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					function Button({children}) { return <button css={\`\`}>{children}</button>; }
+				`,
 				output: outdent`
+          import { css } from '@compiled/react';
           function Button({children}) { return <button css={styles}>{children}</button>; }
           const styles = \`\`;
         `,
@@ -149,6 +161,7 @@ typescriptEslintTester.run(
 				name: 'hoists from function: css attribute value is css function call',
 				options: [{ stylesPlacement: 'bottom' }],
 				code: outdent`
+          import { css } from '@compiled/react';
           function Button({children}) {
             const containerStyles = css({
               padding: 8,
@@ -157,13 +170,14 @@ typescriptEslintTester.run(
           }
         `,
 				output: outdent`
-          function Button({children}) {
-            //
-            return <button css={containerStyles}>{children}</button>;
-          }
-          const containerStyles = css({
-              padding: 8,
-            });
+					import { css } from '@compiled/react';
+					function Button({children}) {
+					  //
+					  return <button css={containerStyles}>{children}</button>;
+					}
+					const containerStyles = css({
+					    padding: 8,
+					  });
         `,
 				errors: [
 					{
@@ -175,6 +189,7 @@ typescriptEslintTester.run(
 				name: 'hoists from function: css attribute value is css function call, where usage is inside arrow function within function',
 				options: [{ stylesPlacement: 'bottom' }],
 				code: outdent`
+          import { css } from '@compiled/react';
           function Button({children}) {
             const containerStyles = css({
               padding: 8,
@@ -189,19 +204,20 @@ typescriptEslintTester.run(
           }
         `,
 				output: outdent`
-          function Button({children}) {
-            //
-            return (
-              <Component>
-                {
-                  () => <button css={containerStyles}>{children}</button>
-                }
-              </Component>
-            );
-          }
-          const containerStyles = css({
-              padding: 8,
-            });
+					import { css } from '@compiled/react';
+					function Button({children}) {
+					  //
+					  return (
+					    <Component>
+					      {
+					        () => <button css={containerStyles}>{children}</button>
+					      }
+					    </Component>
+					  );
+					}
+					const containerStyles = css({
+					    padding: 8,
+					  });
         `,
 				errors: [
 					{
@@ -213,6 +229,7 @@ typescriptEslintTester.run(
 				name: 'hoists from function: css attribute value is another function that returns a css object',
 				options: [{ stylesPlacement: 'bottom' }],
 				code: outdent`
+          import { css } from '@compiled/react';
           function Button({children}) {
             const getStyles = () => ({
               padding: 8,
@@ -240,10 +257,14 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from arrow function: css attribute value is inline css function call',
 				options: [{ stylesPlacement: 'bottom' }],
-				code: `const Button = ({children}) => { return <button css={css({color: 'red'})}>{children}</button>;}`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					const Button = ({children}) => { return <button css={css({color: 'red'})}>{children}</button>;}
+				`,
 				output: outdent`
-          const Button = ({children}) => { return <button css={styles}>{children}</button>;}
-          const styles = css({color: 'red'});
+					import { css } from '@compiled/react';
+					const Button = ({children}) => { return <button css={styles}>{children}</button>;}
+					const styles = css({color: 'red'});
         `,
 				errors: [
 					{
@@ -254,10 +275,14 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from function: css attribute value is inline css function call',
 				options: [{ stylesPlacement: 'bottom' }],
-				code: `function Button({children}){ return <button css={css({color: 'red'})}>{children}</button>;}`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					function Button({children}){ return <button css={css({color: 'red'})}>{children}</button>;}
+				`,
 				output: outdent`
-          function Button({children}){ return <button css={styles}>{children}</button>;}
-          const styles = css({color: 'red'});
+					import { css } from '@compiled/react';
+					function Button({children}){ return <button css={styles}>{children}</button>;}
+					const styles = css({color: 'red'});
         `,
 				errors: [
 					{
@@ -268,8 +293,12 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from arrow function: css attribute value is cssMap function call',
 				options: [{ stylesPlacement: 'bottom', cssFunctions: ['css'] }],
-				code: outdent`const Component = () => <div css={cssMap({'color': 'red'})} />;`,
+				code: outdent`
+					import { cssMap } from '@compiled/react';
+					const Component = () => <div css={cssMap({'color': 'red'})} />;
+				`,
 				output: outdent`
+          import { cssMap } from '@compiled/react';
           const Component = () => <div css={styles} />;
           const styles = cssMap({'color': 'red'});
         `,
@@ -283,14 +312,14 @@ typescriptEslintTester.run(
 				name: 'hoists cssMap function call below existing styles variable',
 				options: [{ stylesPlacement: 'bottom', cssFunctions: ['css'] }],
 				code: outdent`
-          import { css } from '@compiled/react';
+          import { css, cssMap } from '@compiled/react';
 
           const Component = () => <div css={cssMap({'color': 'red'})} />;
           const ComponentTwo = () => <div css={styles} />;
           const styles = css({color: 'blue'});
         `,
 				output: outdent`
-          import { css } from '@compiled/react';
+          import { css, cssMap } from '@compiled/react';
 
           const Component = () => <div css={styles2} />;
           const ComponentTwo = () => <div css={styles} />;

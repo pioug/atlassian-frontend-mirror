@@ -4,6 +4,7 @@ const config = {
 	presets: {
 		'primitives-emotion-to-compiled': primitivesEmotionToCompiled,
 	},
+	dependencies: ['@emotion/react'],
 };
 
 export default config;

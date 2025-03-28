@@ -40,10 +40,8 @@ import type { EmojiId } from '@atlaskit/emoji/types';
 // eslint-disable-next-line import/no-namespace
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N20A, N30A } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import { toggleInsertMenuRightRail } from '../../pm-plugins/commands';
 import type { OnInsert } from '../ElementBrowser/types';
 
 import { BlockInsertMenu } from './block-insert-menu';
@@ -553,11 +551,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 						editorView={this.props.editorView}
 						spacing={this.props.isReducedSpacing ? 'none' : 'default'}
 						label={this.props.intl.formatMessage(messages.insertMenu)}
-						open={
-							editorExperiment('insert-menu-in-right-rail', true)
-								? !isFullPageAppearance && this.state.isPlusMenuOpen
-								: this.state.isPlusMenuOpen
-						}
+						open={this.state.isPlusMenuOpen}
 						plusButtonRef={this.plusButtonRef?.deref()}
 						items={this.state.dropdownItems}
 						onRef={this.handleDropDownButtonRef}
@@ -583,55 +577,11 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 	}
 
 	private handleClick = () => {
-		/**
-		 * For insert menu in right rail experiment
-		 * - Clean up ticket ED-24801
-		 */
-		if (
-			['full-page', 'full-width'].includes(this.props.editorAppearance ?? '') &&
-			editorExperiment('insert-menu-in-right-rail', true, { exposure: true })
-		) {
-			const { pluginInjectionApi } = this.props;
-			if (!pluginInjectionApi) {
-				return;
-			}
-			pluginInjectionApi.core.actions.execute(({ tr }) => {
-				toggleInsertMenuRightRail(tr);
-				pluginInjectionApi.contextPanel?.actions.applyChange(tr);
-				pluginInjectionApi.analytics?.actions.attachAnalyticsEvent({
-					action: ACTION.CLICKED,
-					// @ts-expect-error
-					actionSubject: ACTION_SUBJECT.TOOLBAR_BUTTON,
-					// @ts-expect-error
-					actionSubjectId: INPUT_METHOD.INSERT_MENU_RIGHT_RAIL,
-					eventType: EVENT_TYPE.UI,
-				})(tr);
-				return tr;
-			});
-			return;
-		}
-
 		this.togglePlusMenuVisibility();
 	};
 
 	private handleOpenByKeyboard = (event: React.KeyboardEvent) => {
 		if (event.key === 'Enter' || event.key === ' ') {
-			/**
-			 * For insert menu in right rail experiment
-			 * - Clean up ticket ED-24801
-			 */
-			if (
-				['full-page', 'full-width'].includes(this.props.editorAppearance ?? '') &&
-				editorExperiment('insert-menu-in-right-rail', true, { exposure: true })
-			) {
-				this.props.pluginInjectionApi?.core.actions.execute(({ tr }) => {
-					toggleInsertMenuRightRail(tr);
-					this.props.pluginInjectionApi?.contextPanel?.actions.applyChange(tr);
-					return tr;
-				});
-				return;
-			}
-
 			this.setState({ ...this.state, isOpenedByKeyboard: true });
 			event.preventDefault();
 			this.togglePlusMenuVisibility();

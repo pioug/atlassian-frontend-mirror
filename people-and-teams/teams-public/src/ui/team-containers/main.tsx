@@ -181,12 +181,16 @@ export const TeamContainers = ({
 	return (
 		<>
 			<Stack space="space.200">
-				<Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap="space.100">
+				<Grid
+					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
+				>
 					{filteredTeamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
 						return (
 							<LinkedContainerCardComponent
 								key={container.id}
 								containerType={container.type}
+								containerTypeProperties={container.containerTypeProperties}
 								title={container.name}
 								containerIcon={container.icon || undefined}
 								link={container.link || undefined}
@@ -219,6 +223,7 @@ export const TeamContainers = ({
 								<LinkedContainerCardComponent
 									key={container.id}
 									containerType={container.type}
+									containerTypeProperties={container.containerTypeProperties}
 									title={container.name}
 									containerId={container.id}
 									containerIcon={container.icon || undefined}

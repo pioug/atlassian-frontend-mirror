@@ -1,11 +1,14 @@
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 interface TransactionMetadata {
 	from: number;
 	to: number;
 	numReplaceSteps: number;
 	isAllText: boolean;
+	// represents if the transaction contains replaced content with another of the same size (e.g. empty paragraph node with a paragraph node)
+	isReplacedWithSameSize: boolean;
 }
 
 /**
@@ -29,6 +32,20 @@ export const isStepDelete = (s: ReplaceStep): boolean => {
 };
 
 /**
+ * Check if content being replaced is replaced with another of the same size
+ * This can occur on empty docs and 'backspace' is pressed, the paragraph node is re-drawn
+ * @param s
+ * @returns True if content being replaced is replaced with another of the same size
+ */
+const isStepContentReplacedWithAnotherOfSameSize = (s: Step): boolean => {
+	if (s instanceof ReplaceAroundStep) {
+		const replacedContentSize = s.to - s.from;
+		return s.slice.content.size === replacedContentSize;
+	}
+	return false;
+};
+
+/**
  * Get metadata from the transaction.
  * @param tr
  * @returns Min 'from', max 'to' (from + slice size, or mapped 'to', whichever is larger). If no steps, returns pos range of entire doc.
@@ -40,6 +57,7 @@ export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): Transactio
 	let to: number | undefined;
 	let numReplaceSteps = 0;
 	let isAllText = true;
+	let isReplacedWithSameSize = false;
 
 	tr.steps.forEach((s: Step) => {
 		if (s instanceof ReplaceStep || s instanceof ReplaceAroundStep) {
@@ -48,6 +66,9 @@ export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): Transactio
 				(s instanceof ReplaceStep && !isStepText(s) && !isStepDelete(s))
 			) {
 				isAllText = false;
+			}
+			if (editorExperiment('platform_editor_controls', 'variant1')) {
+				isReplacedWithSameSize = isStepContentReplacedWithAnotherOfSameSize(s);
 			}
 			const mappedTo = tr.mapping.map(s.to);
 			let $to = s.from + s.slice.size;
@@ -63,5 +84,5 @@ export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): Transactio
 	if (to === undefined || to > tr.doc.nodeSize - 2) {
 		to = tr.doc.nodeSize - 2;
 	}
-	return { from, to, numReplaceSteps, isAllText };
+	return { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize };
 };

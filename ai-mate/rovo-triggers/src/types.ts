@@ -176,6 +176,8 @@ export type AddRuleRovoPayload = {
 	ruleTemplateKey: string;
 	transitionId: TransitionId;
 	ruleConfig: RuleConfig;
+	ruleType: string;
+	ruleDescription: string;
 };
 export type UpdateRuleRovoPayload = {
 	ruleTemplateKey: string;
@@ -212,6 +214,24 @@ export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	}
 >;
 
+type ChildIssues = {
+	summary: string;
+	description: string;
+	issueType: string;
+};
+
+export type JiraIssueWorkBreakdownAction = {
+	operationType: 'UPDATE'; // can extend to have more types here
+	childIssues: ChildIssues[];
+};
+
+export type JiraIssueWorkBreakdownActionPayload = PayloadCore<
+	'jira-issue-work-breakdown-actions',
+	{
+		operations: JiraIssueWorkBreakdownAction;
+	}
+>;
+
 export type Payload =
 	| MessageSendPayload
 	| ChatNewPayload
@@ -226,7 +246,8 @@ export type Payload =
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure
 	| JiraWorkflowWizardActionsPayload
-	| InsertPromptPayload;
+	| InsertPromptPayload
+	| JiraIssueWorkBreakdownActionPayload;
 
 export type Callback = (payload: Payload) => void;
 

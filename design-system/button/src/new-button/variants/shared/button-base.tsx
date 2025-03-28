@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { cssMap, cx, jsx } from '@atlaskit/css';
@@ -14,7 +14,10 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
+import {
+	SplitButtonContext,
+	useSplitButtonContext,
+} from '../../containers/split-button/split-button-context';
 import {
 	type Appearance,
 	type CommonBaseProps,
@@ -771,7 +774,7 @@ const ButtonBase = React.forwardRef(
 				onPointerDown={onPointerDown}
 				onPointerUp={onPointerUp}
 			>
-				<Fragment>
+				<SplitButtonContext.Provider value={undefined}>
 					{children}
 					{isLoading && (
 						<span css={styles.loadingOverlay}>
@@ -787,7 +790,7 @@ const ButtonBase = React.forwardRef(
 					{isLoading && (ariaLabelledBy || !ariaLabel) && (
 						<VisuallyHidden id={loadingLabelId}>{LOADING_LABEL}</VisuallyHidden>
 					)}
-				</Fragment>
+				</SplitButtonContext.Provider>
 			</Pressable>
 		);
 	},

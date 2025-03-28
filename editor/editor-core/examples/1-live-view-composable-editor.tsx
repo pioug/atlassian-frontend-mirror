@@ -19,6 +19,7 @@ import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-exte
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+import AppIcon from '@atlaskit/icon/core/app';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -150,30 +151,39 @@ function ComposableEditorPage() {
 			.add([
 				selectionExtensionPlugin,
 				{
-					pageModes: ['view', 'live-view'],
-					extensions: [
-						{
-							name: 'Selection Extension Component Example',
-							component: ({ closeExtension, selection }) => {
-								return <ExampleForgeApp closeExtension={closeExtension} selection={selection} />;
+					pageModes: ['view', 'live-view', 'edit', 'live-edit'],
+					extensions: {
+						firstParty: [
+							{
+								name: 'Create Jira Issue',
+								onClick: (params) => {
+									console.log(JSON.stringify(params));
+								},
 							},
-						},
-						{
-							name: 'Selection Extension Example',
-							onClick: (params) => {
-								console.log(JSON.stringify(params));
+							{
+								name: 'Component Example',
+								component: ({ closeExtension, selection }) => {
+									return <ExampleForgeApp closeExtension={closeExtension} selection={selection} />;
+								},
 							},
-						},
-						{
-							name: 'Word Count',
-							onClick: (params) => {
-								console.log(
-									'Word count: ' +
-										params.text.split(/[ \n]+/u).filter((word) => word !== '').length,
-								);
+						],
+						external: [
+							{
+								name: 'App 1',
+								icon: AppIcon,
+								onClick: (params) => {
+									console.log(JSON.stringify(params));
+								},
 							},
-						},
-					],
+							{
+								name: 'App 2',
+								icon: AppIcon,
+								component: ({ closeExtension, selection }) => {
+									return <ExampleForgeApp closeExtension={closeExtension} selection={selection} />;
+								},
+							},
+						],
+					},
 				},
 			]);
 

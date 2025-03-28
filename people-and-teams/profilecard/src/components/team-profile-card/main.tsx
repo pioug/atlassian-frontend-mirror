@@ -2,10 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
@@ -14,6 +15,8 @@ import { Box, Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compil
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
+
+import { fireEvent } from '../../util/analytics';
 
 import { TeamConnections } from './team-connections/main';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
@@ -28,9 +31,6 @@ const styles = cssMap({
 		width: '360px',
 		minWidth: '340px',
 		height: 'auto',
-		borderWidth: token('border.width'),
-		borderStyle: 'solid',
-		borderColor: token('color.border'),
 		transition: 'box-shadow 0.25s ease-in-out',
 		overflow: 'hidden',
 	},
@@ -53,15 +53,22 @@ const styles = cssMap({
 		marginRight: token('space.300'),
 	},
 	teamConnectionHeaderStyles: {
-		marginLeft: token('space.300'),
-		marginTop: token('space.200'),
-		marginRight: token('space.300'),
+		marginLeft: token('space.100'),
+		marginRight: token('space.100'),
 		maxHeight: '265px',
 		overflowY: 'auto',
 	},
 	teamConnectionContainerStyles: {
 		marginLeft: token('space.300'),
 		marginRight: token('space.300'),
+	},
+	connectionTitleStyles: {
+		marginLeft: token('space.200'),
+		marginTop: token('space.200'),
+		marginRight: token('space.200'),
+		marginBottom: token('space.075'),
+		color: token('color.text.subtle'),
+		font: token('font.heading.xxsmall'),
 	},
 	viewProfileContainerStyles: {
 		alignItems: 'center',
@@ -130,6 +137,7 @@ export const TeamProfileCard = ({
 	teamProfileUrl,
 }: TeamProfileCardProps) => {
 	const { teamContainers, loading } = useTeamContainers(teamId);
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 	// Ensure that the current container is not the only connection for this team before showing the "Where we work" section
 	const hasOtherTeamConnections = useMemo(
 		() =>
@@ -137,6 +145,18 @@ export const TeamProfileCard = ({
 			teamContainers.length,
 		[containerId, teamContainers],
 	);
+
+	const onClick = useCallback(() => {
+		if (createAnalyticsEvent) {
+			fireEvent(createAnalyticsEvent, {
+				action: 'clicked',
+				actionSubject: 'button',
+				actionSubjectId: 'viewTeamProfileButton',
+				attributes: {},
+			});
+		}
+		window.open(teamProfileUrl, '_blank');
+	}, [createAnalyticsEvent, teamProfileUrl]);
 
 	return (
 		<TeamCardWrapper id={teamId}>
@@ -172,8 +192,7 @@ export const TeamProfileCard = ({
 					)}
 				</Stack>
 				{(loading || hasOtherTeamConnections) && (
-					<Stack
-						space={'space.200'}
+					<Box
 						xcss={
 							hasOtherTeamConnections
 								? styles.teamConnectionHeaderStyles
@@ -181,12 +200,12 @@ export const TeamProfileCard = ({
 						}
 					>
 						{hasOtherTeamConnections && (
-							<Heading size="xxsmall">
+							<Box xcss={styles.connectionTitleStyles}>
 								<FormattedMessage
 									defaultMessage="Where we work"
 									id="people-and-teams.team-profile-card.team-connections"
 								/>
-							</Heading>
+							</Box>
 						)}
 						<TeamContainers
 							teamId={teamId}
@@ -200,12 +219,12 @@ export const TeamProfileCard = ({
 							filterContainerId={containerId}
 							isDisplayedOnProfileCard
 						/>
-					</Stack>
+					</Box>
 				)}
 				{teamProfileUrl && (
 					<Stack xcss={styles.viewProfileContainerStyles}>
 						<Pressable
-							onClick={() => window.open(teamProfileUrl, '_blank')}
+							onClick={onClick}
 							xcss={styles.viewProfileButtonStyles}
 							testId="view-profile-button"
 						>

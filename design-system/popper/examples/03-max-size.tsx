@@ -5,51 +5,60 @@
 
 import { type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { Manager, type Placement, Popper, Reference } from '@atlaskit/popper';
 import { token } from '@atlaskit/tokens';
 
-const popupStyles = {
-	root: css({
+const popupStyles = cssMap({
+	root: {
 		boxSizing: 'border-box',
-		padding: token('space.150'),
 		backgroundColor: token('elevation.surface.overlay'),
 		borderRadius: token('border.radius'),
 		boxShadow: token('elevation.shadow.overlay'),
 		overflow: 'auto',
-	}),
-	content: css({
+		paddingBlockEnd: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
+	},
+	content: {
 		display: 'contents',
-	}),
-};
+	},
+});
 
-const contentStyles = {
-	root: css({
-		padding: token('space.100'),
+const contentStyles = cssMap({
+	root: {
 		border: `1px solid ${token('color.border.accent.blue')}`,
-	}),
-	wide: css({
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
+	wide: {
 		width: '110vw',
-	}),
-	tall: css({
+	},
+	tall: {
 		height: '110vh',
-	}),
-};
+	},
+});
 
-const containerStyles = {
-	root: css({
+const containerStyles = cssMap({
+	root: {
 		display: 'inline-flex',
-		padding: token('space.200'),
-	}),
-	top: css({
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+	},
+	top: {
 		marginBlockStart: 400,
-	}),
-	left: css({
+	},
+	left: {
 		marginInlineStart: 1000,
-	}),
-};
+	},
+});
 
 function MaxSizeExample({ children, placement }: { children: ReactNode; placement: Placement }) {
 	return (

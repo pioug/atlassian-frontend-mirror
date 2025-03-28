@@ -92,6 +92,7 @@ export interface ReactSerializerInit {
 	textHighlighter?: TextHighlighter;
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
+	isPresentational?: boolean;
 }
 
 interface ParentInfo {
@@ -195,6 +196,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private textHighlighter?: TextHighlighter;
 	private allowTableAlignment?: boolean;
 	private allowTableResizing?: boolean;
+	private isPresentational?: boolean;
 
 	constructor(init: ReactSerializerInit) {
 		if (editorExperiment('comment_on_bodied_extensions', true)) {
@@ -236,6 +238,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.textHighlighter = init.textHighlighter;
 		this.allowTableAlignment = init.allowTableAlignment;
 		this.allowTableResizing = init.allowTableResizing;
+		this.isPresentational = init.isPresentational;
 	}
 
 	private resetState() {
@@ -520,7 +523,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		// TODO: CEMS-1048 - Support sticky headers inside breakout + layout
 		const stickyHeaders =
 			!isInsideOfTable && !insideBreakoutLayout(path) ? this.stickyHeaders : undefined;
-
 		return {
 			...this.getProps(node),
 			allowColumnSorting: this.allowColumnSorting,
@@ -538,6 +540,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			isInsideMultiBodiedExtension,
 			allowTableAlignment: this.allowTableAlignment,
 			allowTableResizing: this.allowTableResizing,
+			isPresentational: fg('platform_renderer_isPresentational') ? this.isPresentational : false,
 		};
 	}
 

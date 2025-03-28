@@ -40,16 +40,27 @@ const isDOMElementName = (elementName: string): boolean =>
 	elementName.charAt(0) !== elementName.charAt(0).toUpperCase() &&
 	elementName.charAt(0) === elementName.charAt(0).toLowerCase();
 
-function isCssCallExpression(node: EslintNode, cssFunctions: string[]): node is ES.CallExpression {
+function isCssCallExpression(
+	node: EslintNode,
+	cssFunctions: string[],
+	context: Rule.RuleContext,
+): node is ES.CallExpression {
 	cssFunctions = [...cssFunctions, 'cssMap'];
-	return !!(
-		isNodeOfType(node, 'CallExpression') &&
-		node.callee &&
-		node.callee.type === 'Identifier' &&
-		cssFunctions.includes(node.callee.name) &&
-		node.arguments.length &&
-		node.arguments[0].type === 'ObjectExpression'
-	);
+
+	if (!isNodeOfType(node, 'CallExpression') || !isNodeOfType(node.callee, 'Identifier')) {
+		return false;
+	}
+
+	const module = getModuleOfIdentifier(getSourceCode(context), node.callee.name);
+	if (!module) {
+		return false;
+	}
+
+	if (!cssFunctions.includes(module.importName)) {
+		return false;
+	}
+
+	return node.arguments.length > 0 && node.arguments[0].type === 'ObjectExpression';
 }
 
 function findSpreadProperties(node: ES.ObjectExpression): ES.SpreadElement[] {
@@ -196,7 +207,7 @@ class JSXExpressionLinter {
 		if (
 			identifier.parent &&
 			identifier.parent.init &&
-			!isCssCallExpression(identifier.parent.init, this.configuration.cssFunctions)
+			!isCssCallExpression(identifier.parent.init, this.configuration.cssFunctions, this.context)
 		) {
 			// When variable value is not of type css({})
 			const value = (identifier.parent as ES.VariableDeclarator).init;
@@ -553,7 +564,7 @@ class JSXExpressionLinter {
 						// Don't fix CallExpressions unless they're from cssFunctions or cssMap
 						if (
 							expression.type === 'CallExpression' &&
-							!isCssCallExpression(expression, this.configuration.cssFunctions)
+							!isCssCallExpression(expression, this.configuration.cssFunctions, this.context)
 						) {
 							return [];
 						}

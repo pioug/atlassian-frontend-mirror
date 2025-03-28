@@ -253,26 +253,32 @@ export const newApply = (
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
-	const { from, to, numReplaceSteps, isAllText } = getTrMetadata(tr);
+	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr);
+	const meta = tr.getMeta(key);
 
 	// When steps exist, remap existing decorations, activeNode and multi select positions
 	if (tr.docChanged) {
 		decorations = decorations.map(tr.mapping, tr.doc);
 
-		if (activeNode) {
-			const mappedPos = tr.mapping.mapResult(activeNode.pos);
-			isActiveNodeDeleted = mappedPos.deleted;
-			if (editorExperiment('platform_editor_controls', 'control')) {
+		// don't remap activeNode if it's being dragged
+		if (editorExperiment('platform_editor_controls', 'control')) {
+			if (activeNode) {
+				const mappedPos = tr.mapping.mapResult(activeNode.pos);
+				isActiveNodeDeleted = mappedPos.deleted;
 				activeNode = {
 					pos: mappedPos.pos,
 					anchorName: activeNode.anchorName,
 					nodeType: activeNode.nodeType,
 				};
-			} else {
+			}
+		} else {
+			if (activeNode && meta?.isDragging !== true) {
+				const mappedPos = tr.mapping.mapResult(activeNode.pos, -1);
+				isActiveNodeDeleted = mappedPos.deletedAfter;
 				// for editor controls, remap the rootPos as well
 				let mappedRootPos;
 				if (activeNode.rootPos !== undefined) {
-					mappedRootPos = tr.mapping.mapResult(activeNode.rootPos);
+					mappedRootPos = tr.mapping.mapResult(activeNode.rootPos, -1);
 				}
 
 				activeNode = {
@@ -285,13 +291,13 @@ export const newApply = (
 				};
 			}
 		}
+
 		if (multiSelectDnD && flags.isMultiSelectEnabled) {
 			multiSelectDnD.anchor = tr.mapping.map(multiSelectDnD.anchor);
 			multiSelectDnD.head = tr.mapping.map(multiSelectDnD.head);
 		}
 	}
 
-	const meta = tr.getMeta(key);
 	const resizerMeta = tr.getMeta('is-resizer-resizing');
 	isResizerResizing = resizerMeta ?? isResizerResizing;
 	multiSelectDnD = meta?.multiSelectDnD ?? multiSelectDnD;
@@ -304,7 +310,7 @@ export const newApply = (
 	let latestActiveNode;
 	if (fg('platform_editor_remove_drag_handle_fix')) {
 		latestActiveNode = meta?.activeNode;
-		if (!latestActiveNode && !isActiveNodeDeleted) {
+		if (!latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
 			latestActiveNode = activeNode;
 		}
 	} else {
@@ -332,8 +338,8 @@ export const newApply = (
 		);
 		decorations = decorations.add(newState.doc, newNodeDecs);
 
-		if (latestActiveNode && !isActiveNodeDeleted) {
-			if (editorExperiment('platform_editor_controls', 'control')) {
+		if (editorExperiment('platform_editor_controls', 'control')) {
+			if (latestActiveNode && !isActiveNodeDeleted) {
 				// Find the newly minted node decs that touch the active node
 				const findNewNodeDecs = findNodeDecs(decorations, latestActiveNode.pos - 1, to);
 
@@ -351,7 +357,9 @@ export const newApply = (
 					latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
 					latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
 				}
-			} else {
+			}
+		} else {
+			if (latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
 				const nodeDecAtActivePos = getDecorationAtPos(decorations, latestActiveNode.pos, to);
 				const rootNodeDecAtActivePos = getDecorationAtPos(
 					decorations,
@@ -412,7 +420,7 @@ export const newApply = (
 	if (fg('platform_editor_remove_drag_handle_fix')) {
 		// If the active node is missing, we need to remove the handle
 		shouldRemoveHandle = latestActiveNode
-			? isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved
+			? isResizerResizing || (isActiveNodeDeleted && !isReplacedWithSameSize) || meta?.nodeMoved
 			: true;
 	} else {
 		// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node

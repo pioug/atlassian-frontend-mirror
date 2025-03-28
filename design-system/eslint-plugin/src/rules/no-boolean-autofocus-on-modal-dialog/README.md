@@ -11,7 +11,6 @@ This rule will warn makers if the `autoFocus` prop is set using a boolean.
 ```tsx
 <ModalDialog autoFocus={true}>
  ^^^^^^^^^^^ `autoFocus` should be set to a component's `ref` or left to resolve to the default value of `true`. It is recommended to leave it as is for a maximally accessible experience.
-.
 	<ModalHeader hasCloseButton>
 		<ModalTitle>Modal Title</ModalTitle>
 	</ModalHeader>
@@ -39,8 +38,6 @@ This rule will warn makers if the `autoFocus` prop is set using a boolean.
 const ref = useRef<HTMLElement>(null);
 
 <ModalDialog autoFocus={ref}>
-	^^^^^^^^^^^ `autoFocus` should be set to a component's `ref` or left to resolve to the default
-	value of `true`. It is recommended to leave it as is for a maximally accessible experience.
 	<ModalHeader hasCloseButton>
 		<ModalTitle>Modal Title</ModalTitle>
 	</ModalHeader>

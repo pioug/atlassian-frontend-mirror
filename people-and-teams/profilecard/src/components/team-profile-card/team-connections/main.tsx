@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
+import { LinkItem } from '@atlaskit/menu';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { getContainerProperties, type LinkedContainerCardProps } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
+
+import { fireEvent } from '../../../util/analytics';
 
 const styles = cssMap({
 	containerWrapperStyles: {
@@ -26,37 +30,50 @@ export const TeamConnections = ({
 	containerType,
 	title,
 	containerIcon,
+	link,
 }: LinkedContainerCardProps) => {
 	const { description, icon, containerTypeText } = getContainerProperties(containerType, 'medium');
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const onClick = useCallback(() => {
+		fireEvent(createAnalyticsEvent, {
+			action: 'clicked',
+			actionSubject: 'teamConnectionItem',
+			actionSubjectId: 'teamProfileCard',
+			attributes: { container: containerType },
+		});
+	}, [containerType, createAnalyticsEvent]);
+
 	return (
-		<Inline space="space.100" xcss={styles.containerWrapperStyles}>
-			<Box
-				as="img"
-				src={containerIcon}
-				alt=""
-				testId="linked-container-icon"
-				xcss={styles.containerIconStyles}
-			/>
-			<Stack>
-				<Text maxLines={1} color="color.text">
-					{title}
-				</Text>
-				<Inline space="space.050">
-					<Text size="small" color="color.text.subtlest">
-						{description}
+		<LinkItem href={link} onClick={onClick}>
+			<Inline space="space.100" xcss={styles.containerWrapperStyles}>
+				<Box
+					as="img"
+					src={containerIcon}
+					alt=""
+					testId="linked-container-icon"
+					xcss={styles.containerIconStyles}
+				/>
+				<Stack>
+					<Text maxLines={1} color="color.text">
+						{title}
 					</Text>
-					<Text size="small" color="color.text.subtlest">
-						{containerTypeText}
-					</Text>
-				</Inline>
-			</Stack>
-			<Box
-				backgroundColor={'color.background.neutral.subtle'}
-				xcss={styles.containerTypeIconButtonStyles}
-				testId="container-type-icon"
-			>
-				{icon}
-			</Box>
-		</Inline>
+					<Inline space="space.050">
+						<Text size="small" color="color.text.subtlest">
+							{description}
+						</Text>
+						<Text size="small" color="color.text.subtlest">
+							{containerTypeText}
+						</Text>
+					</Inline>
+				</Stack>
+				<Box
+					backgroundColor={'color.background.neutral.subtle'}
+					xcss={styles.containerTypeIconButtonStyles}
+					testId="container-type-icon"
+				>
+					{icon}
+				</Box>
+			</Inline>
+		</LinkItem>
 	);
 };

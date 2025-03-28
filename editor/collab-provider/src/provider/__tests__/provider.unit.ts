@@ -337,6 +337,16 @@ describe('Provider', () => {
 			provider.initialize(() => editorState);
 			channel.emit('connected', { sid: 'sid-123' });
 		});
+		it('Should set numberOfStepCommitsSent to 0 on connection', async () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			// @ts-ignore - Spy on private member for test
+			const documentService = provider.documentService;
+			jest.spyOn(documentService, 'setNumberOfCommitsSent');
+
+			provider.initialize(() => editorState);
+			channel.emit('connected', { sid: 'sid-123' });
+			expect(documentService.setNumberOfCommitsSent).toHaveBeenCalledWith(0);
+		});
 		it("Should emit 'init' with the initialisation data from the collab service", async () => {
 			let expectedSid: any;
 			const sid = 'expected-sid-123';

@@ -14,7 +14,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -74,7 +73,7 @@ export const commentButton = (
 		type: 'button',
 		testId: 'add-comment-media-button',
 		icon: CommentIcon,
-		iconFallback: hasActiveComments ? CommentWithDotIcon : LegacyCommentIcon,
+		iconFallback: hasActiveComments ? CommentWithDotIcon : CommentIcon,
 		title: editorExperiment('platform_editor_controls', 'control') ? title : buttonLabel,
 		showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
 		onClick: onClickHandler,

@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 3.2.0
+
+### Minor Changes
+
+- [#132213](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132213)
+  [`df53b836e03ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df53b836e03ce) -
+  Adds the className prop to the MenuItem type. Although the className prop was already supported by
+  the Menu Item components, this change enables its usage with type safety.
+
 ## 3.1.2
 
 ### Patch Changes

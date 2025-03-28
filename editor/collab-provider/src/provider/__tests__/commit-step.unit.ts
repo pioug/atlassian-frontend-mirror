@@ -1,3 +1,4 @@
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
@@ -12,6 +13,10 @@ import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
 import { NotConnectedError } from '../../errors/custom-errors';
+
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	getExperimentValue: jest.fn(),
+}));
 
 // create editor state
 const { collab: collabPlugin } = jest.requireActual('@atlaskit/prosemirror-collab');
@@ -29,6 +34,7 @@ const provider = createSocketIOCollabProvider(config);
 const fakeStep = new ReplaceStep(1, 1, Slice.empty);
 
 const emitMock = jest.fn();
+const setNumberOfCommitsSentMock = jest.fn();
 
 const createTestHelpers = () => {
 	// using the Object['attribute'] syntax here to avoid calling
@@ -47,12 +53,14 @@ const createTestHelpers = () => {
 			collabMode?: string;
 			offlineBroadcast?: boolean;
 			isPublish?: boolean;
+			numberOfStepCommitsSent?: number;
 		} = {
 			__livePage: false,
 			hasRecovered: false,
 			collabMode: 'collab',
 			offlineBroadcast: false,
 			isPublish: false,
+			numberOfStepCommitsSent: 0,
 		},
 	) => {
 		commitStepQueue({
@@ -73,6 +81,8 @@ const createTestHelpers = () => {
 			hasRecovered: options.hasRecovered ?? false,
 			collabMode: options.collabMode ?? 'collab',
 			reason: options.isPublish ? 'publish' : undefined,
+			numberOfStepCommitsSent: options.numberOfStepCommitsSent ?? 0,
+			setNumberOfCommitsSent: setNumberOfCommitsSentMock,
 		});
 	};
 
@@ -165,6 +175,7 @@ describe('commitStepQueue', () => {
 				version: 1,
 				userId: 'user1',
 				collabMode: 'collab',
+				skipValidation: true,
 			},
 			expect.any(Function),
 		);
@@ -196,6 +207,7 @@ describe('commitStepQueue', () => {
 						version: 1,
 						userId: 'user1',
 						collabMode: 'collab',
+						skipValidation: true,
 					},
 					expect.any(Function),
 				);
@@ -221,6 +233,7 @@ describe('commitStepQueue', () => {
 						version: 1,
 						userId: 'user1',
 						collabMode: 'collab',
+						skipValidation: true,
 					},
 					expect.any(Function),
 				);
@@ -594,5 +607,48 @@ describe('commitStepQueue', () => {
 				);
 			});
 		});
+	});
+	it('sets skipValidation flag to true after sending N steps:commit messages', () => {
+		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(2); // N = 2
+
+		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+			numberOfStepCommitsSent: 0,
+		});
+
+		expect(broadcastSpy).toHaveBeenCalledWith(
+			'steps:commit',
+			expect.objectContaining({
+				skipValidation: false,
+			}),
+			expect.any(Function),
+		);
+		expect(setNumberOfCommitsSentMock).toHaveBeenCalledWith(1);
+
+		jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
+		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+			numberOfStepCommitsSent: 1,
+		});
+
+		expect(broadcastSpy).toHaveBeenCalledWith(
+			'steps:commit',
+			expect.objectContaining({
+				skipValidation: false,
+			}),
+			expect.any(Function),
+		);
+		expect(setNumberOfCommitsSentMock).toHaveBeenCalledWith(2);
+
+		jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
+		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+			numberOfStepCommitsSent: 2,
+		});
+
+		expect(broadcastSpy).toHaveBeenCalledWith(
+			'steps:commit',
+			expect.objectContaining({
+				skipValidation: true,
+			}),
+			expect.any(Function),
+		);
 	});
 });

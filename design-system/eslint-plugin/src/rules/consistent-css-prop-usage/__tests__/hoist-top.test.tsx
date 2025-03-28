@@ -54,44 +54,42 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists css object in ternary expression (second branch)',
 				code: outdent`
-          const containerStyles = css({
-            padding: 8,
-          });
+					import { css } from '@compiled/react';
+					const containerStyles = css({
+						padding: 8,
+					});
 
-          <div css={[isPrimary ? containerStyles : {}]} />
-        `,
+					<div css={[isPrimary ? containerStyles : {}]} />
+				`,
 				output: outdent`
-          import { css } from '@compiled/react';
-          const styles = css({});
-          const containerStyles = css({
-            padding: 8,
-          });
+					import { css } from '@compiled/react';
+					const styles = css({});
+					const containerStyles = css({
+						padding: 8,
+					});
 
-          <div css={[isPrimary ? containerStyles : styles]} />
-        `,
-
-				errors: [
-					{
-						messageId: 'cssAtTopOfModule',
-					},
-				],
+					<div css={[isPrimary ? containerStyles : styles]} />
+				`,
+				errors: [{ messageId: 'cssAtTopOfModule' }],
 			},
 			{
 				name: 'hoists from function: css attribute value is css tagged template literal',
-				code: outdent`function Button({children}) { return <button css={css\`\`}>{children}</button>; }`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					function Button({children}) { return <button css={css\`\`}>{children}</button>; }
+				`,
 				output: outdent`
-          const styles = css\`\`;
-          function Button({children}) { return <button css={styles}>{children}</button>; }
-        `,
-				errors: [
-					{
-						messageId: 'cssAtTopOfModule',
-					},
-				],
+					import { css } from '@compiled/react';
+					const styles = css\`\`;
+					function Button({children}) { return <button css={styles}>{children}</button>; }
+				`,
+				errors: [{ messageId: 'cssAtTopOfModule' }],
 			},
 			{
 				name: 'hoists from function: css attribute value is empty object',
-				code: outdent`function Button({children}) { return <button css={{}}>{children}</button>; }`,
+				code: outdent`
+					function Button({children}) { return <button css={{}}>{children}</button>; }
+				`,
 				output: outdent`
           import { css } from '@compiled/react';
           const styles = css({});
@@ -105,16 +103,16 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'hoists from function: css attribute value is empty template literal',
-				code: outdent`function Button({children}) { return <button css={\`\`}>{children}</button>; }`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					function Button({children}) { return <button css={\`\`}>{children}</button>; }
+				`,
 				output: outdent`
-          const styles = \`\`;
-          function Button({children}) { return <button css={styles}>{children}</button>; }
-        `,
-				errors: [
-					{
-						messageId: 'cssAtTopOfModule',
-					},
-				],
+					import { css } from '@compiled/react';
+					const styles = \`\`;
+					function Button({children}) { return <button css={styles}>{children}</button>; }
+				`,
+				errors: [{ messageId: 'cssAtTopOfModule' }],
 			},
 			{
 				name: 'hoists from function: css attribute value in css object',
@@ -144,27 +142,23 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from function: css attribute is css function call',
 				code: outdent`
-          function Button({children}) {
-            const containerStyles = css({
-              padding: 8,
-            });//
-            return <button css={containerStyles}>{children}</button>;
-          }
-        `,
-				output: outdent`
-          const containerStyles = css({
-              padding: 8,
-            });
-          function Button({children}) {
-            //
-            return <button css={containerStyles}>{children}</button>;
-          }
-        `,
-				errors: [
-					{
-						messageId: 'cssAtTopOfModule',
-					},
-				],
+					import { css } from '@compiled/react';
+					function Button({children}) {
+						const containerStyles = css({
+							padding: 8,
+						});//
+						return <button css={containerStyles}>{children}</button>;
+					}
+				`,
+				output: `import { css } from '@compiled/react';
+const containerStyles = css({
+		padding: 8,
+	});
+function Button({children}) {
+	//
+	return <button css={containerStyles}>{children}</button>;
+}`,
+				errors: [{ messageId: 'cssAtTopOfModule' }],
 			},
 			{
 				name: 'hoists from function: css attribute value is css function call, where usage is inside arrow function within function',
@@ -231,46 +225,44 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'hoists from arrow function: css attribute value is inline css function call',
-				code: `const Button = ({children}) => { return <button css={css({color: 'red'})}>{children}</button>;}`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					const Button = ({children}) => { return <button css={css({color: 'red'})}>{children}</button>;}
+				`,
 				output: outdent`
-          const styles = css({color: 'red'});
-          const Button = ({children}) => { return <button css={styles}>{children}</button>;}
-        `,
-				errors: [
-					{
-						messageId: 'cssAtTopOfModule',
-					},
-				],
+					import { css } from '@compiled/react';
+					const styles = css({color: 'red'});
+					const Button = ({children}) => { return <button css={styles}>{children}</button>;}
+				`,
+				errors: [{ messageId: 'cssAtTopOfModule' }],
 			},
 			{
 				name: 'hoists from function: css attribute value is inline css function call',
 				options: [{ stylesPlacement: 'top' }],
-				code: `function Button({children}){ return <button css={css({color: 'red'})}>{children}</button>;}`,
+				code: outdent`
+					import { css } from '@compiled/react';
+					function Button({children}){ return <button css={css({color: 'red'})}>{children}</button>;}
+				`,
 				output: outdent`
-          const styles = css({color: 'red'});
-          function Button({children}){ return <button css={styles}>{children}</button>;}
-        `,
-				errors: [
-					{
-						messageId: 'cssAtTopOfModule',
-					},
-				],
+					import { css } from '@compiled/react';
+					const styles = css({color: 'red'});
+					function Button({children}){ return <button css={styles}>{children}</button>;}
+				`,
+				errors: [{ messageId: 'cssAtTopOfModule' }],
 			},
 			{
 				name: 'hoists from arrow function: css attribute value is cssMap function call',
 				options: [{ cssFunctions: ['css'] }],
 				code: outdent`
-          const Component = () => <div css={cssMap({'color': 'red'})} />;
-        `,
+					import { cssMap } from '@compiled/react';
+					const Component = () => <div css={cssMap({'color': 'red'})} />;
+				`,
 				output: outdent`
-          const styles = cssMap({'color': 'red'});
-          const Component = () => <div css={styles} />;
-        `,
-				errors: [
-					{
-						messageId: 'cssAtTopOfModule',
-					},
-				],
+					import { cssMap } from '@compiled/react';
+					const styles = cssMap({'color': 'red'});
+					const Component = () => <div css={styles} />;
+				`,
+				errors: [{ messageId: 'cssAtTopOfModule' }],
 			},
 			{
 				name: 'hoists cssMap function call above existing styles variable',

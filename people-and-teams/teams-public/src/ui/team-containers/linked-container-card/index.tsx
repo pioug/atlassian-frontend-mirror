@@ -12,7 +12,7 @@ import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { type ContainerTypes } from '../../../common/types';
+import { type ContainerSubTypes, type ContainerTypes } from '../../../common/types';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
@@ -54,6 +54,10 @@ export interface LinkedContainerCardProps {
 	containerIcon?: string;
 	link?: string;
 	onDisconnectButtonClick: () => void;
+	containerTypeProperties?: {
+		subType?: ContainerSubTypes;
+		name?: string;
+	};
 }
 
 interface CustomItemComponentPropsWithHref {
@@ -115,10 +119,16 @@ export const LinkedContainerCard = ({
 	containerIcon,
 	link,
 	containerId,
+	containerTypeProperties,
 	onDisconnectButtonClick,
 }: LinkedContainerCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { description, icon, containerTypeText } = getContainerProperties(containerType);
+	const { description, icon, containerTypeText } = getContainerProperties(
+		containerType,
+		'small',
+		containerTypeProperties,
+	);
+
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.4.0
+
+### Minor Changes
+
+- [#132381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132381)
+  [`19e52e77d3cfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19e52e77d3cfc) -
+  ED-27195 enable guildeline for breakout resizer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.2
 
 ### Patch Changes

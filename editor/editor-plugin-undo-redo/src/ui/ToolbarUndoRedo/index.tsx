@@ -10,7 +10,8 @@ import { injectIntl } from 'react-intl-next';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
-	redo as redoKeymap,
+	redo,
+	redoAlt,
 	tooltip,
 	ToolTipContent,
 	undo as undoKeymap,
@@ -61,6 +62,8 @@ export const ToolbarUndoRedo = ({
 	const labelRedo = formatMessage(undoRedoMessages.redo);
 
 	const { canUndo, canRedo } = historyState ?? {};
+
+	const redoKeymap = fg('platform_editor_cmd_y_mac_redo_shortcut') ? redoAlt : redo;
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

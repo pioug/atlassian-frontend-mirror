@@ -12,6 +12,7 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -132,7 +133,14 @@ export const factoryDecorations = ({
 				nodeViewPortalProviderAPI.render(
 					() => (
 						<IntlProvider
-							locale={intl.locale || 'en'}
+							defaultLocale={
+								fg('platform_editor_update_type_ahead_locale')
+									? intl.defaultLocale || 'en-US'
+									: undefined
+							}
+							locale={
+								intl.locale || (fg('platform_editor_update_type_ahead_locale') ? 'en-US' : 'en')
+							}
 							messages={intl.messages}
 							formats={intl.formats}
 						>

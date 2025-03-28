@@ -44,6 +44,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -89,6 +90,11 @@
 				"emotion",
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_cmd_y_mac_redo_shortcut": {
+			"type": "boolean"
 		}
 	}
 }

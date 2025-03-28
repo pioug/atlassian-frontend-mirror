@@ -55,6 +55,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@compiled/react": "^0.18.3",
 		"@testing-library/react": "^13.4.0",
 		"@types/jscodeshift": "^0.11.0",

@@ -14,8 +14,7 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { getOptions } from '../utils';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@atlaskit/css';
 import { injectIntl } from 'react-intl-next';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { fg } from '@atlaskit/platform-feature-flags';

@@ -1,8 +1,11 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { type Action, createHook, createStore } from 'react-sweet-state';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
 import { type TeamContainer } from '../../../common/types';
+import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { teamsClient } from '../../../services';
 import {
 	type TeamContainers,
@@ -50,7 +53,10 @@ const initialState: State = {
 
 const actions = {
 	fetchTeamContainers:
-		(teamId: string): Action<State> =>
+		(
+			teamId: string,
+			fireOperationalAnalytics: (action: string, actionSubject: string) => void,
+		): Action<State> =>
 		async ({ setState, getState }) => {
 			const { teamId: currentTeamId } = getState();
 			if (currentTeamId === teamId) {
@@ -59,8 +65,10 @@ const actions = {
 			setState({ loading: true, error: null, teamContainers: [], teamId });
 			try {
 				const containers = await teamsClient.getTeamContainers(teamId);
+				fireOperationalAnalytics(AnalyticsAction.SUCCEEDED, 'fetchTeamContainers');
 				setState({ teamContainers: containers, loading: false, error: null });
 			} catch (err) {
+				fireOperationalAnalytics(AnalyticsAction.FAILED, 'fetchTeamContainers');
 				setState({ teamContainers: [], error: err as Error, loading: false });
 			}
 		},
@@ -199,12 +207,24 @@ export const useTeamContainersHook = createHook(Store);
 
 export const useTeamContainers = (teamId: string, enable = true) => {
 	const [state, actions] = useTeamContainersHook();
+	const { fireOperationalEvent } = usePeopleAndTeamAnalytics();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
+	const fireOperationalAnalytics = useCallback(
+		(action: string, actionSubject: string) => {
+			fireOperationalEvent(createAnalyticsEvent, {
+				action: action,
+				actionSubject: actionSubject,
+			});
+		},
+		[fireOperationalEvent, createAnalyticsEvent],
+	);
 
 	useEffect(() => {
 		if (enable) {
-			actions.fetchTeamContainers(teamId);
+			actions.fetchTeamContainers(teamId, fireOperationalAnalytics);
 		}
-	}, [teamId, actions, enable]);
+	}, [teamId, actions, enable, fireOperationalAnalytics]);
 
 	return { ...state, addTeamContainer: actions.addTeamContainer };
 };

@@ -78,7 +78,10 @@ export type {
 	FloatingToolbarHandler,
 	FloatingToolbarButtonSpotlightConfig,
 	typeOption,
+	FloatingToolbarOverflowDropdown,
 	FloatingToolbarOverflowDropdownOptions,
+	OverflowDropdownHeading,
+	OverflowDropdownOption,
 } from './floating-toolbar';
 
 export type { MarkOptions, NodeOptions } from './copy-button';

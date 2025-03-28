@@ -33,8 +33,8 @@ import {
 } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
+import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
 import { N200, N30, N80, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

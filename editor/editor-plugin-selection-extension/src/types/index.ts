@@ -7,26 +7,45 @@ export type MenuItemsType = Array<{
 
 export type SelectionExtensionComponentProps = {
 	closeExtension: () => void;
-	selection: SelectionExtensionSelectType;
+	selection: SelectionExtensionSelectionInfo;
 };
 
-export type SelectionExtensionSelectType = {
+export type SelectionExtensionCallbackOptions = {
+	selection?: SelectionExtensionSelectionInfo;
+};
+
+export type SelectionExtensionSelectionInfo = {
 	text: string;
-	selection: { from: number; to: number };
+	from: number;
+	to: number;
 	coords: SelectionExtensionCoords;
 };
 
-export type SelectionExtensionContract = {
+export type SelectionCoords = {
+	left: number;
+	right: number;
+	top: number;
+	bottom: number;
+};
+
+export type SelectionExtension = {
 	name: string;
-	onClick?: (params: SelectionExtensionSelectType) => void;
+	icon?: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
+	isDisabled?: (params: SelectionExtensionCallbackOptions) => boolean;
+	onClick?: (params: SelectionExtensionCallbackOptions) => void;
 	component?: React.ComponentType<SelectionExtensionComponentProps>;
+};
+
+export type SelectionExtensions = {
+	firstParty?: SelectionExtension[];
+	external?: SelectionExtension[];
 };
 
 type SelectionExtensionModes = ViewMode | ContentMode;
 
 export type SelectionExtensionPluginConfiguration = {
 	pageModes?: SelectionExtensionModes | SelectionExtensionModes[];
-	extensions?: SelectionExtensionContract[];
+	extensions?: SelectionExtensions;
 };
 
 export type SelectionExtensionCoords = { left: number; right: number; top: number; bottom: number };
@@ -40,7 +59,7 @@ export enum SelectionExtensionActionTypes {
 export type UpdateActiveExtensionAction =
 	| {
 			type: SelectionExtensionActionTypes.SET_ACTIVE_EXTENSION;
-			extension: SelectionExtensionContract;
+			extension: SelectionExtension;
 	  }
 	| {
 			type: SelectionExtensionActionTypes.UPDATE_ACTIVE_EXTENSION_COORDS;
@@ -50,8 +69,8 @@ export type UpdateActiveExtensionAction =
 
 export type SelectionExtensionPluginState = {
 	activeExtension?: {
-		extension: SelectionExtensionContract;
-		selection: SelectionExtensionSelectType;
+		extension: SelectionExtension;
+		selection: SelectionExtensionSelectionInfo;
 		coords: SelectionExtensionCoords;
 	};
 };

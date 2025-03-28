@@ -102,12 +102,7 @@ const OldFooter = (props: HeaderProps) => {
 		testId,
 	}))(props);
 	return (
-		<CustomItem
-			{...safeProps}
-			component={props.component || Container}
-			// @ts-expect-error
-			css={styles.oldFooter}
-		/>
+		<CustomItem {...safeProps} component={props.component || Container} css={styles.oldFooter} />
 	);
 };
 

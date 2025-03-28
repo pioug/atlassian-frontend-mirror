@@ -92,6 +92,12 @@ export interface RendererProps {
 	 */
 	addTelepointer?: boolean;
 	textHighlighter?: TextHighlighter;
+	/**
+	 * When true, elements may render without their default semantic roles
+	 * (e.g., using role="presentation"), indicating that they are used solely for layout or styling purposes.
+	 * Elements currently affected: Tables.
+	 */
+	UNSTABLE_isPresentational?: boolean;
 
 	/**
 	 * @default undefined

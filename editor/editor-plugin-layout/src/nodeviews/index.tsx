@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
@@ -13,6 +14,7 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type LayoutPlugin } from '../layoutPluginType';
 import { type LayoutPluginOptions } from '../types';
@@ -91,6 +93,15 @@ const LayoutBreakoutResizer = ({
 		[pluginInjectionApi],
 	);
 
+	const displayGuidelines = useCallback(
+		(guidelines: GuidelineConfig[]) => {
+			pluginInjectionApi?.guideline?.actions?.displayGuideline(view)({
+				guidelines,
+			});
+		},
+		[pluginInjectionApi, view],
+	);
+
 	return (
 		<BreakoutResizer
 			getRef={forwardRef}
@@ -103,6 +114,9 @@ const LayoutBreakoutResizer = ({
 			}
 			parentRef={parentRef}
 			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
+			displayGuidelines={
+				editorExperiment('single_column_layouts', true) ? displayGuidelines : undefined
+			}
 			displayGapCursor={displayGapCursor}
 		/>
 	);

@@ -25,6 +25,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { closeTypeAhead } from '../pm-plugins/commands/close-type-ahead';
 import {
 	CloseSelectionOptions,
 	TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE,
@@ -365,17 +366,31 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	// @ts-ignore
 	const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
 
+	const close = (editorView: EditorView) => {
+		const {
+			state: { tr },
+		} = editorView;
+		closeTypeAhead(tr);
+		editorView.dispatch(tr);
+	};
+
 	const onViewMoreClick = useCallback(() => {
+		if (fg('platform_editor_controls_patch_1')) {
+			close(editorView);
+		}
+
 		// TODO: ED-26959 - when clean up, remove config in quick insert plugin
 		// platform/packages/editor/editor-plugin-quick-insert/src/quickInsertPlugin.tsx (typeAhead.openElementBrowserModal)
 		openElementBrowserModal?.();
 
-		cancel({
-			addPrefixTrigger: false,
-			setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
-			forceFocusOnEditor: false,
-		});
-	}, [openElementBrowserModal, cancel]);
+		if (!fg('platform_editor_controls_patch_1')) {
+			cancel({
+				addPrefixTrigger: false,
+				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
+				forceFocusOnEditor: false,
+			});
+		}
+	}, [cancel, editorView, openElementBrowserModal]);
 
 	return (
 		<Popup

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
@@ -12,10 +12,13 @@ import { token } from '@atlaskit/tokens';
 
 const popupStyles = css({
 	maxWidth: '160px',
-	padding: token('space.100', '8px'),
-	background: token('elevation.surface.overlay'),
+	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.raised'),
+	paddingBlockEnd: token('space.100', '8px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 const popupHiddenStyles = css({
@@ -49,41 +52,45 @@ const BasicPopper = () => (
 	</Manager>
 );
 
+const containerStyles = css({
+	maxWidth: '800px',
+	maxHeight: '400px',
+	borderColor: 'black',
+	borderStyle: 'solid',
+	borderWidth: '1px',
+	marginBlockStart: token('space.250', '20px'),
+	overflow: 'auto',
+});
+
+const innerStyles = css({
+	boxSizing: 'border-box',
+	width: '300%',
+	height: '250%',
+	backgroundColor: token('elevation.surface'),
+	paddingBlockEnd: token('space.200', '16px'),
+	paddingBlockStart: token('space.200', '16px'),
+	paddingInlineEnd: token('space.200', '16px'),
+	paddingInlineStart: token('space.200', '16px'),
+});
+
+const popperWrapperStyles = css({
+	display: 'flex',
+	justifyContent: 'center',
+});
+
+const instructionStyles = css({
+	display: 'block',
+	marginBlockEnd: token('space.400', '2rem'),
+});
+
 const ScrollContainerExample = () => (
-	<div
-		style={{
-			border: `1px solid ${token('color.border.bold')}`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			maxHeight: '400px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			maxWidth: '800px',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			marginTop: token('space.250', '20px'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			overflow: 'auto',
-		}}
-	>
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '300%',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				height: '250%',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				boxSizing: 'border-box',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				padding: token('space.200', '16px'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				background: token('elevation.surface'),
-			}}
-		>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<b style={{ display: 'block', marginBottom: token('space.400', '2rem') }}>
+	<div css={containerStyles}>
+		<div css={innerStyles}>
+			<b css={instructionStyles}>
 				Scroll to the middle of this container to see the popper <span>↘</span>
 			</b>
 			<Lorem count={10} />
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ display: 'flex', justifyContent: 'center' }}>
+			<div css={popperWrapperStyles}>
 				<BasicPopper />
 			</div>
 			<Lorem count={10} />

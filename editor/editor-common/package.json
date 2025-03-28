@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "102.13.9",
+	"version": "102.14.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -413,6 +413,9 @@
 			"type": "boolean"
 		},
 		"atlas_editor_typography_refreshed": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_1": {
 			"type": "boolean"
 		}
 	}

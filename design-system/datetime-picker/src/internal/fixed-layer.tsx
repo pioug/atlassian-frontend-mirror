@@ -33,6 +33,7 @@ interface FixedLayerProps {
  * Scroll is locked outside the layer to prevent the layered content from detaching from the
  * container ref.
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class FixedLayer extends React.Component<FixedLayerProps> {
 	update: () => void = noop;
 

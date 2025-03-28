@@ -13,14 +13,10 @@ export default () => {
 				<ModalTransition>
 					{isOpen && (
 						<Modal onClose={() => setIsOpen(true)}>
-							<ModalBody>Call to action buttons below should be red</ModalBody>
+							<ModalBody>Call to action buttons below should be neutral grey (not blue)</ModalBody>
 							<ModalFooter>
-								<Button appearance="danger" onClick={() => setIsOpen(false)}>
-									Cancel
-								</Button>
-								<Button appearance="danger" onClick={() => setIsOpen(false)}>
-									Duplicate
-								</Button>
+								<Button onClick={() => setIsOpen(false)}>Cancel</Button>
+								<Button onClick={() => setIsOpen(false)}>Duplicate</Button>
 							</ModalFooter>
 						</Modal>
 					)}

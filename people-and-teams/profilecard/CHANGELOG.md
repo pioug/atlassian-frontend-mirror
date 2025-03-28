@@ -1,5 +1,34 @@
 # @atlaskit/profilecard
 
+## 23.7.4
+
+### Patch Changes
+
+- [#133042](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133042)
+  [`5168674830838`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5168674830838) -
+  make the connection item clickable
+- Updated dependencies
+
+## 23.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.7.2
+
+### Patch Changes
+
+- [#132098](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132098)
+  [`80f62470e832d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80f62470e832d) -
+  Addi analytics to Team button, team selector and team card.
+
+## 23.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.7.0
 
 ### Minor Changes

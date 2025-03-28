@@ -11,7 +11,8 @@ typescriptEslintTester.run(
 		valid: [
 			{
 				name: 'valid cssMap usage passed to cx in css prop',
-				code: `
+				code: outdent`
+					import { cssMap } from '@compiled/react';
           const styles = cssMap({ root: { color: 'red' } });
 
           <Button xcss={cx(styles.root)} />
@@ -19,7 +20,7 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'non-existent value passed to css prop',
-				code: `
+				code: outdent`
           <button css={asdasd} />
         `,
 			},
@@ -29,7 +30,8 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'css prop value already hoisted',
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -39,7 +41,8 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'css prop contains array with values already hoisted',
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -52,7 +55,8 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'css prop contains logical expression',
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -62,7 +66,8 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'css prop contains array with logical expression',
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -72,7 +77,8 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'css prop contains ternary expression',
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -82,7 +88,8 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'css prop contains ternary expression in array',
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -94,7 +101,8 @@ typescriptEslintTester.run(
 				// this looks invalid but because we are saying we only want to target `xcss` no error is raised
 				name: "doesn't error for css attribute when cssFunctions doesn't contain css",
 				options: [{ cssFunctions: ['xcss'] }],
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           const container = css({});
 
           <div css={container} />
@@ -104,7 +112,8 @@ typescriptEslintTester.run(
 				// this looks invalid but because we are saying we only want to target `css` no error is raised
 				name: "doesn't error for xcss attribute when cssFunctions doesn't contain xcss",
 				options: [{ cssFunctions: ['css'] }],
-				code: `
+				code: outdent`
+					import { xcss } from '@atlaskit/primitives';
           const container = xcss({});
 
           <div xcss={container} />
@@ -114,19 +123,19 @@ typescriptEslintTester.run(
 				// this looks invalid but because we are saying we only want to target `xcss` no error is raised
 				name: "doesn't error for css attribute when cssFunctions doesn't contain css (with logical expression)",
 				options: [{ cssFunctions: ['xcss'] }],
-				code: `<div css={isPrimary && {}} />`,
+				code: outdent`<div css={isPrimary && {}} />`,
 			},
 			{
 				// this looks invalid but because we are saying we only want to target `css` no error is raised
 				name: "doesn't error for xcss attribute when cssFunctions doesn't contain xcss (with logical expression)",
 				options: [{ cssFunctions: ['css'] }],
-				code: `<div xcss={isPrimary && {}} />`,
+				code: outdent`<div xcss={isPrimary && {}} />`,
 			},
 			{
 				// this looks invalid but because we are saying we only want to target `xcss` no error is raised
 				name: "doesn't error for css attribute when cssFunctions doesn't contain css (with imported value)",
 				options: [{ cssFunctions: ['xcss'] }],
-				code: `
+				code: outdent`
           import { containerStyles } from './styles';
 
           function Button({children}) {
@@ -138,7 +147,7 @@ typescriptEslintTester.run(
 				// this looks invalid but because we are saying we only want to target `css` no error is raised
 				name: "doesn't error for xcss attribute when cssFunctions doesn't contain xcss (with imported value)",
 				options: [{ cssFunctions: ['css'] }],
-				code: `
+				code: outdent`
           import { containerStyles } from './styles';
 
           function Button({children}) {
@@ -150,7 +159,8 @@ typescriptEslintTester.run(
 				// cssMap objects accessed using string literal
 				name: 'valid cssMap usage, using string literal',
 				options: [{ cssFunctions: ['css'] }],
-				code: `
+				code: outdent`
+          import { cssMap } from '@compiled/react';
           const borderStyleMapStyles = cssMap({
             'no.border': { borderStyle: 'none' },
             solid: { borderStyle: 'solid' },
@@ -163,7 +173,8 @@ typescriptEslintTester.run(
 				// cssMap objects accessed using props
 				name: 'valid cssMap usage, using props',
 				options: [{ cssFunctions: ['xcss'] }],
-				code: `
+				code: outdent`
+          import { cssMap } from '@compiled/react';
           const borderStyleMapStyles = cssMap({
             'no.border': { borderStyle: 'none' },
             solid: { borderStyle: 'solid' },
@@ -207,7 +218,8 @@ typescriptEslintTester.run(
 			},
 			{
 				name: 'parses exported, hoisted css function calls correctly',
-				code: `
+				code: outdent`
+					import { css } from '@compiled/react';
           export const wrapper: any = css({
             boxSizing: 'border-box',
             height: '100%',
@@ -311,6 +323,34 @@ typescriptEslintTester.run(
 					}
 				`,
 			},
+			{
+				name: 'allows a renamed css import',
+				code: outdent`
+					import { css as css2 } from '@compiled/react';
+					import { css as cssBounded } from '@atlaskit/css';
+
+					const boundedStyles = cssBounded({ display: 'block' });
+					const unboundedStyles = css2({ color: 'red' });
+
+					function Component({ children }) {
+						return <div css={[boundedStyles, unboundedStyles]}>{children}</div>;
+					}
+				`,
+			},
+			{
+				name: 'allows a renamed cssMap import',
+				code: outdent`
+					import { cssMap as cssMapUnbounded } from '@compiled/react';
+					import { cssMap as cssMapBounded } from '@atlaskit/css';
+
+					const boundedStyles = cssBounded({ root: { display: 'block' } });
+					const unboundedStyles = cssMapUnbounded({ root: { color: 'red' } });
+
+					function Component({ children }) {
+						return <div css={[boundedStyles.root, unboundedStyles.root]}>{children}</div>;
+					}
+				`,
+			},
 		],
 		invalid: [
 			{
@@ -362,6 +402,7 @@ typescriptEslintTester.run(
 			{
 				name: "errors but doesn't autofix when using css tagged template expression",
 				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css\`
             padding: 8,
           \`;
@@ -394,8 +435,8 @@ typescriptEslintTester.run(
 				},
 				{
 					name: "errors but doesn't autofix when using css tagged template expression through array",
-					code: `
-            import { css } from '@compiled/react';
+					code: outdent`
+            import { ${style} } from '@any/package';
             const containerStyles = ${style}({
               padding: 8,
             });
@@ -414,6 +455,7 @@ typescriptEslintTester.run(
 				{
 					name: "doesn't hoist custom function call returning an object (through array)",
 					code: outdent`
+						import { ${style} } from '@any/package';
             const containerStyles = ${style}({
               padding: 8,
             });
@@ -433,11 +475,15 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `hoists ${style} function call in ${style} prop`,
-					code: outdent`function Button({children}) { return <button ${style}={${style}({})}>{children}</button>; }`,
+					code: outdent`
+						import { ${style} } from '@any/package';
+						function Button({children}) { return <button ${style}={${style}({})}>{children}</button>; }
+					`,
 					output: outdent`
-          const styles = ${style}({});
-          function Button({children}) { return <button ${style}={styles}>{children}</button>; }
-        `,
+						import { ${style} } from '@any/package';
+						const styles = ${style}({});
+						function Button({children}) { return <button ${style}={styles}>{children}</button>; }
+					`,
 					errors: [
 						{
 							messageId: 'cssAtTopOfModule',
@@ -446,7 +492,9 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `doesn't hoist unknown function call in ${style} prop`,
-					code: outdent`function Button({children}) { return <button ${style}={someCss({})}>{children}</button>; }`,
+					code: outdent`
+						function Button({children}) { return <button ${style}={someCss({})}>{children}</button>; }
+					`,
 					errors: [
 						{
 							messageId: 'cssAtTopOfModule',
@@ -455,7 +503,7 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `doesn't hoist imported styles in ${style} prop`,
-					code: `
+					code: outdent`
             import { containerStyles } from './styles';
 
             function Button({children}) {
@@ -470,7 +518,7 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `doesn't hoist imported styles (default import) in ${style} prop`,
-					code: `
+					code: outdent`
             import containerStyles from './styles';
 
             function Button({children}) {
@@ -485,7 +533,8 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `doesn't hoist imported styles in array in ${style} prop`,
-					code: `
+					code: outdent`
+						import { ${style} } from '@any/package';
             import { baseContainerStyles } from './styles';
 
             const containerStyles = ${style}({
@@ -504,7 +553,8 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `doesn't hoist imported styles (default import) in array in ${style} prop`,
-					code: `
+					code: outdent`
+						import { ${style} } from '@any/package';
             import baseContainerStyles from './styles';
 
             const containerStyles = ${style}({
@@ -523,7 +573,8 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `errors for spread operator in ${style} prop`,
-					code: `
+					code: outdent`
+						import { ${style} } from '@any/package';
             const baseContainerStyles = ${style}({
               padding: 10,
             });
@@ -543,7 +594,8 @@ typescriptEslintTester.run(
 				},
 				{
 					name: `errors for spread operator in array in ${style} prop`,
-					code: `
+					code: outdent`
+						import { ${style} } from '@any/package';
             const baseContainerStyles = ${style}({
               padding: 10,
             });
@@ -567,6 +619,7 @@ typescriptEslintTester.run(
 			{
 				name: 'adds css function call to css object in array',
 				code: outdent`
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -577,7 +630,7 @@ typescriptEslintTester.run(
           function Button({children}) { return <button css={[containerStyles, baseContainerStyles]}>{children}</button>; }
         `,
 				output: outdent`
-          import { css } from '@compiled/react';
+					import { css } from '@compiled/react';
           const containerStyles = css({
             padding: 8,
           });
@@ -586,7 +639,7 @@ typescriptEslintTester.run(
           });
 
           function Button({children}) { return <button css={[containerStyles, baseContainerStyles]}>{children}</button>; }
-        `,
+				`,
 				errors: [
 					{
 						messageId: 'cssObjectTypeOnly',
@@ -596,6 +649,7 @@ typescriptEslintTester.run(
 			{
 				name: 'adds css function call to xcss object',
 				code: outdent`
+          import { xcss } from '@atlaskit/primitives';
           const containerStyles = xcss({
             padding: 8,
           });
@@ -625,6 +679,7 @@ typescriptEslintTester.run(
 			{
 				name: 'hoists from function: css object in ternary expression',
 				code: outdent`
+					import { css } from '@compiled/react';
           const styles = css({color: 'red'});
 
           const Component = () => {
@@ -632,14 +687,14 @@ typescriptEslintTester.run(
           }
         `,
 				output: outdent`
-          import { css } from '@compiled/react';
+					import { css } from '@compiled/react';
           const styles2 = css({});
-          const styles = css({color: 'red'});
+					const styles = css({color: 'red'});
 
           const Component = () => {
             return <div css={isPrimary ? styles : styles2}/>
           }
-        `,
+				`,
 				errors: [
 					{
 						messageId: 'cssAtTopOfModule',

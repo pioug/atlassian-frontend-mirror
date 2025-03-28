@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.0.1",
+	"version": "205.0.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -230,10 +230,6 @@
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
 		},
-		"platform_editor_action_decisions_ssr_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_ssr_fix_block_controls": {
 			"type": "boolean"
 		},
@@ -354,10 +350,6 @@
 		"platform_editor_ease_of_use_metrics": {
 			"type": "boolean"
 		},
-		"platform_editor_nested_tables_renderer_colgroup": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_table_use_shared_state_hook_fg": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -378,10 +370,6 @@
 			"referenceOnly": true
 		},
 		"live_pages_content_jump_mitigation": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_nested_tables_paste_dupe_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -552,6 +540,10 @@
 		"platform_editor_keep_focus_on_content_comp_clicks": {
 			"type": "boolean"
 		},
+		"platform_editor_cmd_y_mac_redo_shortcut": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_posfromdom_null_fix": {
 			"type": "boolean"
 		},
@@ -564,6 +556,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_controls_patch_1": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_listen_for_annotation_clicks": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

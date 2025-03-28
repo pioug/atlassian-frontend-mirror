@@ -8,7 +8,9 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import ConfluenceIcon from '../assets/ConfluenceIcon.svg';
 import JiraIcon from '../assets/JiraIcon.svg';
-import { type ContainerTypes } from '../types';
+import JiraProjectDiscovery from '../assets/JiraProjectDiscovery.svg';
+import JiraServiceManagement from '../assets/JiraServiceManagement.svg';
+import { type ContainerSubTypes, type ContainerTypes } from '../types';
 
 interface ContainerProperties {
 	description: ReactNode;
@@ -72,9 +74,54 @@ export const messages = defineMessages({
 	},
 });
 
+const getJiraIcon = (containerSubTypes?: string) => {
+	switch (containerSubTypes) {
+		case 'PRODUCT_DISCOVERY':
+			return JiraProjectDiscovery;
+		case 'SERVICE_DESK':
+			return JiraServiceManagement;
+		default:
+			return JiraIcon;
+	}
+};
+
+const getJiraContainerProperties = (containerTypeProperties?: {
+	subType?: ContainerSubTypes;
+	name?: string;
+}): ContainerProperties => {
+	const { subType, name } = containerTypeProperties || {};
+
+	const baseProperties = {
+		description: <FormattedMessage {...messages.jiraProjectDescription} />,
+		icon: (
+			<Box xcss={styles.iconWrapper}>
+				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
+			</Box>
+		),
+		title: <FormattedMessage {...messages.addJiraProjectTitle} />,
+		containerTypeText: <FormattedMessage {...messages.projectContainerText} />,
+	};
+
+	switch (subType) {
+		case 'PRODUCT_DISCOVERY':
+		case 'SERVICE_DESK':
+			return {
+				...baseProperties,
+				containerTypeText: '',
+				description: name || baseProperties.description,
+			};
+		default:
+			return baseProperties;
+	}
+};
+
 export const getContainerProperties = (
 	containerType: ContainerTypes,
-	iconSize?: IconSize,
+	iconSize: IconSize = 'small',
+	containerTypeProperties?: {
+		subType?: ContainerSubTypes;
+		name?: string;
+	},
 ): ContainerProperties => {
 	switch (containerType) {
 		case 'ConfluenceSpace':
@@ -82,23 +129,14 @@ export const getContainerProperties = (
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
 				icon: (
 					<Box xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
-						<Image src={ConfluenceIcon} alt="confluence-project" />
+						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
 					</Box>
 				),
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'JiraProject':
-			return {
-				description: <FormattedMessage {...messages.jiraProjectDescription} />,
-				icon: (
-					<Box xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
-						<Image src={JiraIcon} alt="jira-project" />
-					</Box>
-				),
-				title: <FormattedMessage {...messages.addJiraProjectTitle} />,
-				containerTypeText: <FormattedMessage {...messages.projectContainerText} />,
-			};
+			return getJiraContainerProperties(containerTypeProperties);
 		default:
 			return {
 				description: null,

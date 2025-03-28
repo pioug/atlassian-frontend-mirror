@@ -21,7 +21,7 @@ import type { MarkOptions, NodeOptions } from './copy-button';
 /**
  * New dropdown types to support editor controls
  */
-type OverflowDropdownHeading = {
+export type OverflowDropdownHeading = {
 	type: 'overflow-dropdown-heading';
 	title: string;
 };
@@ -36,14 +36,16 @@ type OverflowDropdownCustom<T extends Object> = {
 	hidden?: boolean;
 };
 
+export type OverflowDropdownOption<T extends Object> = DropdownOptionT<T> & { rank?: number };
+
 export type FloatingToolbarOverflowDropdownOptions<T extends Object> = Array<
-	| DropdownOptionT<T>
+	| OverflowDropdownOption<T>
 	| FloatingToolbarSeparator
 	| OverflowDropdownHeading
 	| OverflowDropdownCustom<T>
 >;
 
-type FloatingToolbarOverflowDropdown<T extends Object> = {
+export type FloatingToolbarOverflowDropdown<T extends Object> = {
 	type: 'overflow-dropdown';
 	options: FloatingToolbarOverflowDropdownOptions<T>;
 	testId?: string;
@@ -55,11 +57,7 @@ type FloatingToolbarOverflowDropdown<T extends Object> = {
 	showSelected?: boolean;
 	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
 	alignDropdownWithToolbar?: boolean;
-	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
-	footer?: React.ReactNode;
-	/** If true, the component will have pulse onboarding effect around it. */
-	pulse?: boolean;
-	onMount?: () => void;
+	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 	onClick?: () => void;
 };
 

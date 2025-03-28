@@ -369,4 +369,5 @@ export enum CatchupEventReason {
 	STEPS_REJECTED = 'onStepsRejected',
 	PROCESS_STEPS = 'processSteps',
 	RECONNECTED = 'reconnected',
+	CORRUPT_STEP = 'corruptStep',
 }

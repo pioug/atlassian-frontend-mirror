@@ -1,5 +1,13 @@
 # @atlaskit/date
 
+## 2.0.2
+
+### Patch Changes
+
+- [#133298](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133298)
+  [`c2eecefdad39b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2eecefdad39b) -
+  tidy up fg of compiled css migration
+
 ## 2.0.1
 
 ### Patch Changes

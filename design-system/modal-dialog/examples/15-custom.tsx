@@ -37,6 +37,7 @@ const styles = cssMap({
 		backgroundImage: `linear-gradient(${token('color.background.accent.blue.subtler')}, ${token('color.background.accent.purple.subtler')})`,
 		paddingBlockStart: token('space.1000'),
 		position: 'relative',
+		flexDirection: 'row-reverse',
 	},
 });
 
@@ -45,8 +46,8 @@ const CustomHeader = () => {
 
 	return (
 		<Flex alignItems="center" justifyContent="space-between" xcss={styles.header}>
-			<ModalTitle>Custom header</ModalTitle>
 			<CloseButton onClick={onClose} />
+			<ModalTitle>Custom header</ModalTitle>
 		</Flex>
 	);
 };

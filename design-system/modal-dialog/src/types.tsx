@@ -25,8 +25,11 @@ export type { ModalAttributes } from './internal/context';
 
 export interface ModalDialogProps {
 	/**
-	 * Focus is moved to the first interactive element inside the modal dialog when `true`.
-	 * Pass an element `ref` to focus on a specific element.
+	 * Focus is moved to the first interactive element inside the modal dialog
+	 * when `true`. It is not recommended to set to `false` as this creates
+	 * accessibility regressions. Pass an element `ref` to focus on a specific element.
+	 *
+	 * Default value is `true`.
 	 */
 	autoFocus?: boolean | RefObject<HTMLElement | null | undefined>;
 
@@ -125,6 +128,7 @@ export interface ModalDialogProps {
 	 * If not overridden using `testId` prop in the respective components, this will set `data-testid` on these elements when defined:
 	 * - Modal dialog: `{testId}`
 	 * - Modal header: `{testId}--header`
+	 * - Close button: `{testId}--close-button`
 	 * - Modal title: `{testId}--title`
 	 * - Modal body: `{testId}--body`
 	 * - Modal footer: `{testId}--footer`

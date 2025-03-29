@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 25.3.0
+
+### Minor Changes
+
+- [#132827](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132827)
+  [`b69d7b27b4b5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b69d7b27b4b5f) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `assets`
+
 ## 25.2.0
 
 ### Minor Changes

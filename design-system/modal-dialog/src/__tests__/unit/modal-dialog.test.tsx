@@ -50,7 +50,7 @@ const LayeredModal = () => {
 			</Button>
 
 			{isOpen && (
-				<ModalDialog onClose={close} testId="modal" autoFocus={false} label="Layered">
+				<ModalDialog onClose={close} testId="modal" label="Layered">
 					<ModalBody>
 						<DropdownMenu testId="dropdown-menu" trigger="I'm a dropdown menu, click me!">
 							<DropdownItemGroup>

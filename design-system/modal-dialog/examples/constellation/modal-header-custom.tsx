@@ -17,6 +17,7 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		flexDirection: 'row-reverse',
 	},
 });
 
@@ -24,10 +25,15 @@ const CustomHeader = () => {
 	const { onClose, titleId } = useModal();
 	return (
 		<Box xcss={styles.header} padding="space.300">
+			{/* We have the close button first in the DOM and then are reversing it
+			using the flex styles to ensure that it is focused as the first
+			interactive element in the modal, *before* any other relevant content
+			inside the modal. This ensures users of assistive technology get all
+			relevant content. */}
+			<CloseButton onClick={onClose} />
 			<Heading as="h1" size="medium" id={titleId}>
 				Custom modal header
 			</Heading>
-			<CloseButton onClick={onClose} />
 		</Box>
 	);
 };

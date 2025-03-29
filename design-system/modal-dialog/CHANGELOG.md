@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 14.0.4
+
+### Patch Changes
+
+- [#133231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133231)
+  [`82b4213bf8e20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82b4213bf8e20) -
+  Update the DOM order of the modal header when using the `hasCloseButton` prop to give maximal
+  information to users of assistive technology.
+
 ## 14.0.3
 
 ### Patch Changes

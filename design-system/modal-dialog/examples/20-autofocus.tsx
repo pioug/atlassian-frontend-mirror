@@ -45,7 +45,7 @@ export default function ModalDemo() {
 			<p>Using ModalDialog autoFocus prop, not to be confused with the HTML autofocus attribute.</p>
 			<ButtonGroup label="Auto focus options">
 				<Button aria-haspopup="dialog" testId="boolean-trigger" onClick={openRoot}>
-					Boolean on dialog
+					Boolean `true` on dialog
 				</Button>
 
 				<Button aria-haspopup="dialog" testId="autofocus-trigger" onClick={openAutoFocus}>
@@ -53,11 +53,11 @@ export default function ModalDemo() {
 				</Button>
 			</ButtonGroup>
 
-			<p>When boolean applied to the dialog, we search inside for tabbable elements.</p>
 			<p>
-				The autoFocus property must be a function rather the node itself so its evaluated at the
-				right time and ensures a node is returned.
+				It is recommended to use a ref for <code>autoFocus</code> and to avoid using boolean values.
+				This is because the default is `true` and `false` will result in accessibility regressions.
 			</p>
+			<p>This example is here for testing purposes only.</p>
 
 			<ModalTransition>
 				{isOpen === 'root' && (

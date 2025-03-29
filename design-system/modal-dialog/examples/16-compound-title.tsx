@@ -12,7 +12,7 @@ import ModalDialog, {
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -42,17 +42,17 @@ const CustomHeader = () => {
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<Box xcss={styles.header}>
+		<Flex alignItems="center" justifyContent="space-between" xcss={styles.header}>
+			<Inline xcss={styles.customClose}>
+				<CloseButton onClick={onClose} />
+			</Inline>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<Box xcss={styles.title}>
 				<Heading id={titleId} size="large" as="h1">
 					A customised header
 				</Heading>
 			</Box>
-			<Inline xcss={styles.customClose}>
-				<CloseButton onClick={onClose} />
-			</Inline>
-		</Box>
+		</Flex>
 	);
 };
 

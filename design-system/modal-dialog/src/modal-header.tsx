@@ -6,7 +6,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { Flex, Grid, xcss } from '@atlaskit/primitives';
+import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { CloseButton } from './close-button';
@@ -23,16 +23,9 @@ const headerStyles = css({
 	paddingInline: token('space.300'),
 });
 
-const gridStyles = xcss({
+const flexStyles = xcss({
+	flexDirection: 'row-reverse',
 	width: '100%',
-});
-
-const closeContainerStyles = xcss({
-	gridArea: 'close',
-});
-
-const titleContainerStyles = xcss({
-	gridArea: 'title',
 });
 
 export interface ModalHeaderProps {
@@ -76,14 +69,18 @@ const ModalHeader = (props: ModalHeaderProps) => {
 	return (
 		<div css={headerStyles} data-testid={testId}>
 			{shouldShowCloseButton ? (
-				<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
-					<Flex xcss={titleContainerStyles} justifyContent="start" alignItems="center">
-						{children}
-					</Flex>
-					<Flex xcss={closeContainerStyles} justifyContent="end">
+				// The reason we are putting the close button first in the DOM and then
+				// reordering them is to ensure that users of assistive technology get
+				// all the context of a modal when initial focus is placed on the close
+				// button, since it's the first interactive element.
+				<Flex gap="space.200" justifyContent="space-between" xcss={flexStyles}>
+					<Flex justifyContent="end">
 						<CloseButton onClick={onClose} testId={modalTestId} />
 					</Flex>
-				</Grid>
+					<Flex justifyContent="start" alignItems="center">
+						{children}
+					</Flex>
+				</Flex>
 			) : (
 				children
 			)}

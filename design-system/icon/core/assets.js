@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2789010db62094e158a102dc5941d60f>>
+ * @codegen <<SignedSource::ea280bac576388029b4a72ef87c208cb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AssetsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3.28 2.22a.75.75 0 1 0-1.06 1.06.75.75 0 0 0 1.06-1.06M1.16 1.159A2.25 2.25 0 0 1 4.781 3.72l1.695 1.695a3 3 0 0 1 3.048 0l1.695-1.695a2.251 2.251 0 1 1 1.06 1.06l-1.694 1.696a3 3 0 0 1 0 3.048l1.695 1.695a2.251 2.251 0 1 1-1.06 1.06l-1.696-1.694a3 3 0 0 1-3.048 0L4.78 12.28a2.251 2.251 0 1 1-1.06-1.06l1.694-1.696a3 3 0 0 1 0-3.048L3.72 4.78a2.25 2.25 0 0 1-2.56-3.621m12.621 1.06a.75.75 0 1 0-1.06 1.061.75.75 0 0 0 1.06-1.06M9.06 6.94a1.5 1.5 0 1 0-2.12 2.122A1.5 1.5 0 0 0 9.06 6.94m-5.78 5.78a.75.75 0 1 0-1.06 1.061.75.75 0 0 0 1.06-1.06m10.5 0a.75.75 0 1 0-1.06 1.061.75.75 0 0 0 1.06-1.06" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.487 2.013a1.75 1.75 0 1 0-2.474 2.474 1.75 1.75 0 0 0 2.474-2.474M.952.952A3.25 3.25 0 0 1 6.412 2.5H9.5V4H6.413a3.24 3.24 0 0 1-.865 1.548c-.442.442-.98.73-1.548.865V9.5H2.5V6.413A3.25 3.25 0 0 1 .952.953M10.5 3.25a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0m3 3.25v3H12v-3zM1 12.75a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0m9.5 0a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0m-1 .75h-3V12h3z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AssetsIcon.displayName = 'AssetsIcon';

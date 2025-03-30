@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.8
+
+### Patch Changes
+
+- [#133350](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133350)
+  [`9873ae0c37080`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9873ae0c37080) -
+  clean up LCP featrue flags
+
 ## 3.4.7
 
 ### Patch Changes

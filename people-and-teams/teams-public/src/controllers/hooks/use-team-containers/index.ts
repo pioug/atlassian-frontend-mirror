@@ -33,6 +33,14 @@ type State = {
 
 type Actions = typeof actions;
 
+type FireAnalyticsProps = {
+	action: string;
+	actionSubject: string;
+	containerId: string;
+	numberOfTeams?: number;
+	error?: Error;
+};
+
 const initialConnectedTeamsState = {
 	containerId: undefined,
 	isLoading: false,
@@ -55,7 +63,7 @@ const actions = {
 	fetchTeamContainers:
 		(
 			teamId: string,
-			fireOperationalAnalytics: (action: string, actionSubject: string) => void,
+			fireAnalytics: (action: string, actionSubject: string, error?: Error) => void,
 		): Action<State> =>
 		async ({ setState, getState }) => {
 			const { teamId: currentTeamId } = getState();
@@ -65,15 +73,15 @@ const actions = {
 			setState({ loading: true, error: null, teamContainers: [], teamId });
 			try {
 				const containers = await teamsClient.getTeamContainers(teamId);
-				fireOperationalAnalytics(AnalyticsAction.SUCCEEDED, 'fetchTeamContainers');
+				fireAnalytics(AnalyticsAction.SUCCEEDED, 'fetchTeamContainers');
 				setState({ teamContainers: containers, loading: false, error: null });
 			} catch (err) {
-				fireOperationalAnalytics(AnalyticsAction.FAILED, 'fetchTeamContainers');
+				fireAnalytics(AnalyticsAction.FAILED, 'fetchTeamContainers', err as Error);
 				setState({ teamContainers: [], error: err as Error, loading: false });
 			}
 		},
 	fetchNumberOfConnectedTeams:
-		(containerId: string): Action<State> =>
+		(containerId: string, fireAnalytics: (props: FireAnalyticsProps) => void): Action<State> =>
 		async ({ setState, getState }) => {
 			const {
 				connectedTeams: { containerId: currentContainerId },
@@ -90,6 +98,12 @@ const actions = {
 			});
 			try {
 				const numberOfTeams = await teamsClient.getNumberOfConnectedTeams(containerId);
+				fireAnalytics({
+					action: AnalyticsAction.SUCCEEDED,
+					actionSubject: 'fetchNumberOfConnectedTeams',
+					containerId,
+					numberOfTeams,
+				});
 				setState({
 					connectedTeams: {
 						...initialConnectedTeamsState,
@@ -98,6 +112,13 @@ const actions = {
 					},
 				});
 			} catch (e) {
+				fireAnalytics({
+					action: AnalyticsAction.FAILED,
+					actionSubject: 'fetchNumberOfConnectedTeams',
+					containerId,
+					numberOfTeams: initialConnectedTeamsState.numberOfTeams,
+					error: e as Error,
+				});
 				setState({
 					connectedTeams: {
 						...initialConnectedTeamsState,
@@ -108,7 +129,7 @@ const actions = {
 			}
 		},
 	fetchConnectedTeams:
-		(containerId: string): Action<State> =>
+		(containerId: string, fireAnalytics: (props: FireAnalyticsProps) => void): Action<State> =>
 		async ({ setState, getState }) => {
 			const {
 				connectedTeams: { containerId: currentContainerId, numberOfTeams, hasLoaded },
@@ -128,6 +149,13 @@ const actions = {
 			});
 			try {
 				const teams = await teamsClient.getConnectedTeams(containerId);
+				fireAnalytics({
+					action: AnalyticsAction.SUCCEEDED,
+					actionSubject: 'fetchConnectedTeams',
+					containerId,
+					numberOfTeams,
+				});
+
 				setState({
 					connectedTeams: {
 						containerId,
@@ -139,6 +167,13 @@ const actions = {
 					},
 				});
 			} catch (e) {
+				fireAnalytics({
+					action: AnalyticsAction.FAILED,
+					actionSubject: 'fetchConnectedTeams',
+					containerId,
+					numberOfTeams,
+					error: e as Error,
+				});
 				setState({
 					connectedTeams: {
 						containerId,
@@ -211,13 +246,17 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const fireOperationalAnalytics = useCallback(
-		(action: string, actionSubject: string) => {
+		(action: string, actionSubject: string, error?: Error) => {
 			fireOperationalEvent(createAnalyticsEvent, {
 				action: action,
 				actionSubject: actionSubject,
+				attributes: {
+					teamId,
+					error: error?.message || JSON.stringify(error),
+				},
 			});
 		},
-		[fireOperationalEvent, createAnalyticsEvent],
+		[fireOperationalEvent, createAnalyticsEvent, teamId],
 	);
 
 	useEffect(() => {
@@ -231,10 +270,29 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 
 export const useConnectedTeams = () => {
 	const [state, actions] = useTeamContainersHook();
+	const { fireOperationalEvent } = usePeopleAndTeamAnalytics();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
+	const fireOperationalAnalytics = useCallback(
+		({ action, actionSubject, containerId, numberOfTeams, error }: FireAnalyticsProps) => {
+			fireOperationalEvent(createAnalyticsEvent, {
+				action: action,
+				actionSubject: actionSubject,
+				attributes: {
+					containerId,
+					numberOfTeams,
+					error: error?.message || JSON.stringify(error),
+				},
+			});
+		},
+		[fireOperationalEvent, createAnalyticsEvent],
+	);
 
 	return {
 		...state.connectedTeams,
-		fetchNumberOfConnectedTeams: actions.fetchNumberOfConnectedTeams,
-		fetchConnectedTeams: actions.fetchConnectedTeams,
+		fetchNumberOfConnectedTeams: (containerId: string) =>
+			actions.fetchNumberOfConnectedTeams(containerId, fireOperationalAnalytics),
+		fetchConnectedTeams: (containerId: string) =>
+			actions.fetchConnectedTeams(containerId, fireOperationalAnalytics),
 	};
 };

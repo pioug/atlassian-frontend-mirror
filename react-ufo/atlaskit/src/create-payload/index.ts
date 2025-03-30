@@ -195,11 +195,9 @@ const getPaintMetrics = async (type: InteractionType, end: number) => {
 		}
 	});
 
-	if (fg('ufo_lcp')) {
-		const lcp = await getLCP(end);
-		if (lcp) {
-			metrics['metric:lcp'] = Math.round(lcp);
-		}
+	const lcp = await getLCP(end);
+	if (lcp) {
+		metrics['metric:lcp'] = Math.round(lcp);
 	}
 
 	return metrics;

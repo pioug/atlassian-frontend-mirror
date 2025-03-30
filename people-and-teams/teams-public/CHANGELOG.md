@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.23.3
+
+### Patch Changes
+
+- [#133520](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133520)
+  [`3e1cbce464584`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e1cbce464584) -
+  Operational analytics
+
 ## 0.23.2
 
 ### Patch Changes

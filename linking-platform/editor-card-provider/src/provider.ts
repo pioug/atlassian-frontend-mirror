@@ -20,7 +20,7 @@ import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { CardClient } from '@atlaskit/link-provider';
 import { type EnvironmentsKeys, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import * as api from './api';
 
 const BATCH_WAIT_TIME = 50;

@@ -35,6 +35,9 @@
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
+			"path": "../json-ld-types/tsconfig.app.json"
+		},
+		{
 			"path": "../link-client-extension/tsconfig.app.json"
 		},
 		{

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client } from '@atlaskit/link-provider';
 
 import { JiraIssue, JiraIssueAssigned, JiraProject } from '../../examples-helpers/_jsonLDExamples';

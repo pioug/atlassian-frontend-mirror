@@ -16,7 +16,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { JsonLd } from 'json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 import { default as React_2 } from 'react';
 
 // @public (undocumented)

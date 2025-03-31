@@ -3,9 +3,9 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 

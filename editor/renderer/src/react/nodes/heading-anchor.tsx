@@ -7,6 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { N200, N500, B400 } from '@atlaskit/theme/colors';
+import { fg } from '@atlaskit/platform-feature-flags';
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 import Tooltip from '@atlaskit/tooltip';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -51,6 +52,7 @@ type Props = {
 	enableNestedHeaderLinks?: boolean;
 	level: number;
 	hideFromScreenReader?: boolean;
+	headingId?: string;
 };
 
 type HeadingAnchorProps = Props & React.PropsWithChildren<unknown> & WrappedComponentProps;
@@ -94,7 +96,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 	};
 
 	renderAnchorButton = () => {
-		const { hideFromScreenReader = false } = this.props;
+		const { hideFromScreenReader = false, headingId } = this.props;
 		return (
 			<button
 				data-testid="anchor-button"
@@ -104,6 +106,13 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 				aria-hidden={hideFromScreenReader}
 				tabIndex={hideFromScreenReader ? undefined : -1}
 				aria-label={hideFromScreenReader ? undefined : this.state.tooltipMessage}
+				aria-labelledby={
+					fg('platform_editor_accessible_heading_copy_link')
+						? hideFromScreenReader
+							? undefined
+							: headingId
+						: undefined
+				}
 				type="button"
 			>
 				<LinkIcon

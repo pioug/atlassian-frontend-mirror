@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import Button from '@atlaskit/button/new';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { Flex } from '@atlaskit/primitives';
 
 import * as examples from '../../examples-helpers/_jsonLDExamples';

@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import FabricAnalyticsListener, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { TaskList, TaskItem } from '../../../';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('<TaskList/>', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
@@ -16,203 +15,101 @@ describe('<TaskList/>', () => {
 		};
 	});
 
-	ffTest.on('platform_editor_css_migrate_stage_1', 'with fg on', () => {
-		it('should render all TaskItems', () => {
-			const component = mount(
-				<TaskList>
-					<TaskItem taskId="task-1">1</TaskItem>
-					<TaskItem taskId="task-2">2</TaskItem>
-				</TaskList>,
-			);
-			expect(component.find(TaskItem).length).toEqual(2);
-		});
-
-		it('should render single TaskItem', () => {
-			const component = mount(
-				<TaskList>
-					<TaskItem taskId="task-1">1</TaskItem>
-				</TaskList>,
-			);
-			expect(component.find(TaskItem).length).toEqual(1);
-		});
-
-		it("shouldn't render list when no items", () => {
-			const component = mount(<TaskList />);
-			expect(component.find('ol').length).toEqual(0);
-			expect(component.find('li').length).toEqual(0);
-			expect(component.find(TaskItem).length).toEqual(0);
-		});
-
-		it('should include data attributes on ol/li', () => {
-			const component = mount(
-				<TaskList>
-					<TaskItem taskId="task-1">1</TaskItem>
-				</TaskList>,
-			);
-			const divs = component.find('div');
-			expect(divs.length).toEqual(4);
-			expect(divs.first().prop('data-task-list-local-id')).toEqual('');
-
-			expect(component.find('div[data-task-local-id]').length).toEqual(1);
-
-			expect(component.find('div[data-task-local-id]').prop('data-task-local-id')).toEqual('');
-		});
-
-		describe('analytics', () => {
-			it('check action fires an event', () => {
-				const component = mount(
-					<FabricAnalyticsListener client={analyticsWebClientMock}>
-						<TaskList listId="list-1">
-							<TaskItem taskId="task-1">
-								Hello <b>world</b>
-							</TaskItem>
-						</TaskList>
-					</FabricAnalyticsListener>,
-				);
-				component.find('input').simulate('change');
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'checked',
-						actionSubject: 'action',
-						attributes: {
-							listLocalId: 'list-1',
-							position: 0,
-							listSize: 1,
-							localId: 'task-1',
-						},
-					}),
-				);
-			});
-
-			it('uncheck action fires an event', () => {
-				const component = mount(
-					<FabricAnalyticsListener client={analyticsWebClientMock}>
-						<TaskList listId="list-1">
-							<TaskItem taskId="task-1" isDone={false}>
-								Hello <b>world</b>
-							</TaskItem>
-							<TaskItem taskId="task-2" isDone={true}>
-								Goodbye <b>world</b>
-							</TaskItem>
-						</TaskList>
-					</FabricAnalyticsListener>,
-				);
-				component.find('input').at(1).simulate('change');
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'unchecked',
-						actionSubject: 'action',
-						attributes: {
-							listLocalId: 'list-1',
-							position: 1,
-							listSize: 2,
-							localId: 'task-2',
-						},
-					}),
-				);
-			});
-		});
+	it('should render all TaskItems', () => {
+		const component = mount(
+			<TaskList>
+				<TaskItem taskId="task-1">1</TaskItem>
+				<TaskItem taskId="task-2">2</TaskItem>
+			</TaskList>,
+		);
+		expect(component.find(TaskItem).length).toEqual(2);
 	});
 
-	ffTest.off('platform_editor_css_migrate_stage_1', 'with fg off', () => {
-		it('should render all TaskItems', () => {
+	it('should render single TaskItem', () => {
+		const component = mount(
+			<TaskList>
+				<TaskItem taskId="task-1">1</TaskItem>
+			</TaskList>,
+		);
+		expect(component.find(TaskItem).length).toEqual(1);
+	});
+
+	it("shouldn't render list when no items", () => {
+		const component = mount(<TaskList />);
+		expect(component.find('ol').length).toEqual(0);
+		expect(component.find('li').length).toEqual(0);
+		expect(component.find(TaskItem).length).toEqual(0);
+	});
+
+	it('should include data attributes on ol/li', () => {
+		const component = mount(
+			<TaskList>
+				<TaskItem taskId="task-1">1</TaskItem>
+			</TaskList>,
+		);
+		const divs = component.find('div');
+		expect(divs.length).toEqual(4);
+		expect(divs.first().prop('data-task-list-local-id')).toEqual('');
+
+		expect(component.find('div[data-task-local-id]').length).toEqual(1);
+
+		expect(component.find('div[data-task-local-id]').prop('data-task-local-id')).toEqual('');
+	});
+
+	describe('analytics', () => {
+		it('check action fires an event', () => {
 			const component = mount(
-				<TaskList>
-					<TaskItem taskId="task-1">1</TaskItem>
-					<TaskItem taskId="task-2">2</TaskItem>
-				</TaskList>,
+				<FabricAnalyticsListener client={analyticsWebClientMock}>
+					<TaskList listId="list-1">
+						<TaskItem taskId="task-1">
+							Hello <b>world</b>
+						</TaskItem>
+					</TaskList>
+				</FabricAnalyticsListener>,
 			);
-			expect(component.find(TaskItem).length).toEqual(2);
+			component.find('input').simulate('change');
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'checked',
+					actionSubject: 'action',
+					attributes: {
+						listLocalId: 'list-1',
+						position: 0,
+						listSize: 1,
+						localId: 'task-1',
+					},
+				}),
+			);
 		});
 
-		it('should render single TaskItem', () => {
+		it('uncheck action fires an event', () => {
 			const component = mount(
-				<TaskList>
-					<TaskItem taskId="task-1">1</TaskItem>
-				</TaskList>,
+				<FabricAnalyticsListener client={analyticsWebClientMock}>
+					<TaskList listId="list-1">
+						<TaskItem taskId="task-1" isDone={false}>
+							Hello <b>world</b>
+						</TaskItem>
+						<TaskItem taskId="task-2" isDone={true}>
+							Goodbye <b>world</b>
+						</TaskItem>
+					</TaskList>
+				</FabricAnalyticsListener>,
 			);
-			expect(component.find(TaskItem).length).toEqual(1);
-		});
-
-		it("shouldn't render list when no items", () => {
-			const component = mount(<TaskList />);
-			expect(component.find('ol').length).toEqual(0);
-			expect(component.find('li').length).toEqual(0);
-			expect(component.find(TaskItem).length).toEqual(0);
-		});
-
-		it('should include data attributes on ol/li', () => {
-			const component = mount(
-				<TaskList>
-					<TaskItem taskId="task-1">1</TaskItem>
-				</TaskList>,
+			component.find('input').at(1).simulate('change');
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'unchecked',
+					actionSubject: 'action',
+					attributes: {
+						listLocalId: 'list-1',
+						position: 1,
+						listSize: 2,
+						localId: 'task-2',
+					},
+				}),
 			);
-			const divs = component.find('div');
-			expect(divs.length).toEqual(4);
-			expect(divs.first().prop('data-task-list-local-id')).toEqual('');
-
-			expect(component.find('div[data-task-local-id]').length).toEqual(1);
-
-			expect(component.find('div[data-task-local-id]').prop('data-task-local-id')).toEqual('');
-		});
-
-		describe('analytics', () => {
-			it('check action fires an event', () => {
-				const component = mount(
-					<FabricAnalyticsListener client={analyticsWebClientMock}>
-						<TaskList listId="list-1">
-							<TaskItem taskId="task-1">
-								Hello <b>world</b>
-							</TaskItem>
-						</TaskList>
-					</FabricAnalyticsListener>,
-				);
-				component.find('input').simulate('change');
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'checked',
-						actionSubject: 'action',
-						attributes: {
-							listLocalId: 'list-1',
-							position: 0,
-							listSize: 1,
-							localId: 'task-1',
-						},
-					}),
-				);
-			});
-
-			it('uncheck action fires an event', () => {
-				const component = mount(
-					<FabricAnalyticsListener client={analyticsWebClientMock}>
-						<TaskList listId="list-1">
-							<TaskItem taskId="task-1" isDone={false}>
-								Hello <b>world</b>
-							</TaskItem>
-							<TaskItem taskId="task-2" isDone={true}>
-								Goodbye <b>world</b>
-							</TaskItem>
-						</TaskList>
-					</FabricAnalyticsListener>,
-				);
-				component.find('input').at(1).simulate('change');
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
-				expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'unchecked',
-						actionSubject: 'action',
-						attributes: {
-							listLocalId: 'list-1',
-							position: 1,
-							listSize: 2,
-							localId: 'task-2',
-						},
-					}),
-				);
-			});
 		});
 	});
 });

@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 114.6.3
+
+### Patch Changes
+
+- [#129599](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129599)
+  [`4498c19bca034`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4498c19bca034) -
+  [ux] [A11Y-20936] Announce status elements in the renderer to screen readers
+- Updated dependencies
+
+## 114.6.2
+
+### Patch Changes
+
+- [#132126](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132126)
+  [`5d45dce9796da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d45dce9796da) -
+  Updated dependency json-ld-types to @atlaskit/json-ld-types
+- Updated dependencies
+
 ## 114.6.1
 
 ### Patch Changes

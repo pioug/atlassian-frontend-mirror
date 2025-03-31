@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { type AISummaryActionData } from '../../../state/flexible-ui-context/types';
 import { type AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';

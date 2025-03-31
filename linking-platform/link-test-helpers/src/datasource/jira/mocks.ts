@@ -1,5 +1,4 @@
-import { defaults } from 'json-ld-types';
-
+import { defaults } from '@atlaskit/json-ld-types';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceDetailsResponse,

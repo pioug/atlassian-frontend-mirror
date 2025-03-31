@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.0.6
+
+### Patch Changes
+
+- [#134347](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134347)
+  [`41b8c673a02ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41b8c673a02ed) -
+  Import React in EmojiPicker to avoid broken CJS module
+
 ## 69.0.5
 
 ### Patch Changes

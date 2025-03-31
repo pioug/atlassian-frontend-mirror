@@ -14,7 +14,7 @@ import {
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { type Reducer } from 'react';
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { cardReducer } from '../..';
 
 describe('Smart Card: Reducers', () => {

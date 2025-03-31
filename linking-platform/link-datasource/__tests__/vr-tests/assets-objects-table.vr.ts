@@ -13,5 +13,6 @@ snapshot(AssetsObjectsTable, {
 	],
 	featureFlags: {
 		assets_as_an_app_v2: [true, false],
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

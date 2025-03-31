@@ -1,42 +1,9 @@
-import EmotionDecisionItem from './components/DecisionItem';
-import CompiledDecisionItem from './components/compiled/DecisionItem';
-
-import EmotionDecisionList from './components/DecisionList';
-import CompiledDecisionList from './components/compiled/DecisionList';
-
+import DecisionItem from './components/DecisionItem';
+import DecisionList from './components/DecisionList';
 import ResourcedTaskItem from './components/ResourcedTaskItem';
 import TaskDecisionResource from './api/TaskDecisionResource';
-import EmotionTaskItem from './components/TaskItem';
-import CompiledTaskItem from './components/compiled/TaskItem';
-
-import EmotionTaskList from './components/TaskList';
-import CompiledTaskList from './components/compiled/TaskList';
-
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-
-const DecisionItem = componentWithFG(
-	'platform_editor_css_migrate_stage_1',
-	CompiledDecisionItem,
-	EmotionDecisionItem,
-);
-
-const DecisionList = componentWithFG(
-	'platform_editor_css_migrate_stage_1',
-	CompiledDecisionList,
-	EmotionDecisionList,
-);
-
-const TaskItem = componentWithFG(
-	'platform_editor_css_migrate_stage_1',
-	CompiledTaskItem,
-	EmotionTaskItem,
-);
-
-const TaskList = componentWithFG(
-	'platform_editor_css_migrate_stage_1',
-	CompiledTaskList,
-	EmotionTaskList,
-);
+import TaskItem from './components/TaskItem';
+import TaskList from './components/TaskList';
 
 export { PubSubSpecialEventType } from './types';
 export type {

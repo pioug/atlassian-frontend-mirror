@@ -13,6 +13,9 @@ async function openDropDown(page: Page) {
 snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal with drop down closed',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });
 snapshotInformational(WithJiraIssuesModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -22,6 +25,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 
@@ -33,6 +37,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': false,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 snapshotInformational(WithJiraIssuesModal, {
@@ -42,6 +47,9 @@ snapshotInformational(WithJiraIssuesModal, {
 	},
 	description: 'jira issues modal after selecting Inline link from the drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });
 snapshotInformational(WithJiraIssuesModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -53,6 +61,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 snapshotInformational(WithJiraIssuesModal, {
@@ -66,11 +75,15 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': false,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
 	description: 'confluence search modal with drop down closed',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -80,6 +93,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
@@ -91,6 +105,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': false,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
@@ -100,6 +115,9 @@ snapshotInformational(WithConfluenceSearchModal, {
 	},
 	description: 'confluence search modal after selecting Inline link from the drop down',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
 	prepare: async (page: Page, _component: Locator) => {
@@ -111,6 +129,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
@@ -124,5 +143,6 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'bandicoots-update-sllv-icons': false,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

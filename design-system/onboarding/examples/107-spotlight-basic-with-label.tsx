@@ -1,34 +1,35 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-
-import { useCallback, useState } from 'react';
-
-import { jsx } from '@emotion/react';
+import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import {
 	Spotlight,
 	SpotlightManager,
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const spotlightWrapperStyles = xcss({
-	display: 'flex',
-	height: '100%',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flexDirection: 'column',
+const spotlightWrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		height: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flexDirection: 'column',
+	},
 });
 
-const wrapperStyles = xcss({
-	display: 'flex',
-	justifyContent: 'space-between',
-	padding: 'space.500',
+const wrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		paddingTop: token('space.500'),
+		paddingRight: token('space.500'),
+		paddingBottom: token('space.500'),
+		paddingLeft: token('space.500'),
+	},
 });
 
 const SpotlightWithLabelExample = () => {
@@ -50,8 +51,8 @@ const SpotlightWithLabelExample = () => {
 	}, [setIsSpotlightVisibleWithAriaLabel]);
 
 	return (
-		<Box xcss={wrapperStyles}>
-			<Box xcss={spotlightWrapperStyles} testId="spotlight-visible-label">
+		<Box xcss={wrapperStyles.root}>
+			<Box xcss={spotlightWrapperStyles.root} testId="spotlight-visible-label">
 				<SpotlightManager blanketIsTinted={false}>
 					<SpotlightTarget name="button">
 						<Button testId="open-spotlight-referenced-label" onClick={toggleAriaLabelledBy}>
@@ -83,7 +84,7 @@ const SpotlightWithLabelExample = () => {
 					</SpotlightTransition>
 				</SpotlightManager>
 			</Box>
-			<Box xcss={spotlightWrapperStyles} testId="spotlight-hidden-label">
+			<Box xcss={spotlightWrapperStyles.root} testId="spotlight-hidden-label">
 				<SpotlightManager blanketIsTinted={false}>
 					<SpotlightTarget name="button">
 						<Button testId="open-spotlight-explicit-label" onClick={toggleAriaLabel}>

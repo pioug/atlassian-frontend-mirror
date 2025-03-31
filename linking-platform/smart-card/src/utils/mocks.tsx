@@ -1,5 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type BatchResponse, CardClient } from '@atlaskit/link-provider';
 
 export const mockContext = {

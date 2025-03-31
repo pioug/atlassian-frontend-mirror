@@ -36,7 +36,7 @@ import { EmbedCardAdf } from '@atlaskit/linking-common';
 import { ErrorInfo } from 'react';
 import { GasPayload } from '@atlaskit/analytics-gas-types';
 import { InlineCardAdf } from '@atlaskit/linking-common';
-import { JsonLd } from 'json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 import { MessageDescriptor } from 'react-intl-next';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { ProviderProps } from '@atlaskit/link-provider';

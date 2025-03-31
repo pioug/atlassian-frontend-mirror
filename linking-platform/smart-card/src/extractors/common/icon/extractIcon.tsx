@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import BranchIcon from '@atlaskit/icon-object/glyph/branch/16';
 import RepoIcon from '@atlaskit/icon-object/glyph/code/16';
 import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
 import PullRequestIcon from '@atlaskit/icon-object/glyph/pull-request/16';
 import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
 import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
 	extractProvider,
 	extractTitle,
@@ -32,11 +31,13 @@ export interface IconOpts {
 	taskType?: LinkTaskType;
 	priority?: IconPriority;
 	icon?: string;
+	showIconLabel?: boolean;
 }
 
 export const extractIcon = (
 	jsonLd: JsonLd.Data.BaseData,
 	priority: IconPriority = 'type',
+	showIconLabel = true,
 ): React.ReactNode | undefined => {
 	const type = jsonLd['@type'];
 	const opts = {
@@ -46,6 +47,7 @@ export const extractIcon = (
 		taskType: extractTaskType(jsonLd as JsonLd.Data.Task),
 		icon: jsonLd.icon && extractUrlFromIconJsonLd(jsonLd.icon),
 		priority,
+		showIconLabel,
 	};
 	if (Array.isArray(type)) {
 		const highestPriorityType = type.sort(

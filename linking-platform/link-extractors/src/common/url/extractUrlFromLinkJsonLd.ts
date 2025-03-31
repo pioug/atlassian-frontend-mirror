@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 /**
  * Extracts the URL from a JSON-LD Link object or array of link objects.

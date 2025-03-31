@@ -1,6 +1,6 @@
-import { type JsonLd } from 'json-ld-types';
 import { type MessageDescriptor } from 'react-intl-next';
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState, type LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 

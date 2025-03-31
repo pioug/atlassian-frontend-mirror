@@ -118,7 +118,8 @@ export const rule: Rule.RuleModule = createLintRule({
 						}
 
 						yield fixer.replaceText(
-							// @ts-expect-error - types don't accept comment nodes
+							// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+							// @ts-ignore - types don't accept comment nodes
 							pragma,
 							`/** @jsxImportSource @compiled/react */`,
 						);

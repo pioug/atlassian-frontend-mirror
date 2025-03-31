@@ -69,6 +69,9 @@ snapshotInformational(WithModal, {
 		await page.getByTestId('mode-toggle-basic').click();
 	},
 	description: 'basic mode with basic filters',
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });
 
 snapshotInformational(WithIssueModalWithParameters, {
@@ -80,6 +83,9 @@ snapshotInformational(WithIssueModalWithParameters, {
 	description: 'basic mode with basic filters with each filter selected',
 	selector: {
 		byTestId: 'jlol-basic-filter-container',
+	},
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 
@@ -96,6 +102,7 @@ filters.forEach((filter) => {
 		description: `${filter} open trigger`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 
@@ -108,6 +115,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and option selected`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 
@@ -118,6 +126,9 @@ filters.forEach((filter) => {
 			await selectOption(page, filter);
 		},
 		description: `${filter} closed and multiple options selected`,
+		featureFlags: {
+			'platform-linking-visual-refresh-sllv': [true, false],
+		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -134,6 +145,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and search text entered`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 
@@ -154,6 +166,9 @@ filters.forEach((filter) => {
 				.waitFor({ state: 'visible' });
 		},
 		description: `${filter} open and view loading state`,
+		featureFlags: {
+			'platform-linking-visual-refresh-sllv': [true, false],
+		},
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -173,6 +188,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and view empty state`,
 		featureFlags: {
 			'bandicoots-update-sllv-icons': true,
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 
@@ -193,6 +209,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and view empty state - bandicoots-update-sllv-icons false`,
 		featureFlags: {
 			'bandicoots-update-sllv-icons': false,
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 
@@ -213,6 +230,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and view error state`,
 		featureFlags: {
 			'bandicoots-update-sllv-icons': true,
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 
@@ -233,6 +251,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and view error state - bandicoots-update-sllv-icons false`,
 		featureFlags: {
 			'bandicoots-update-sllv-icons': false,
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 
@@ -246,6 +265,7 @@ filters.forEach((filter) => {
 		description: `${filter} open and focus show more button`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
+			'platform-linking-visual-refresh-sllv': [true, false],
 		},
 	});
 });

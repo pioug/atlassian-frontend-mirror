@@ -30,7 +30,7 @@ import {
 import { Transformer } from './transformer';
 
 import CardClient from '../client';
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 const BATCH_WAIT_TIME = 50;
 

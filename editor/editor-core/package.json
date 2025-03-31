@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.0.2",
+	"version": "205.0.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -236,10 +236,6 @@
 		"platform_editor_react18_mention_with_provider_fix": {
 			"type": "boolean"
 		},
-		"platform_editor_ssr_fix_smartlinks": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_react18_phase2_v2": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -339,6 +335,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"editor_a11y_status_renderer_description": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_axe_leading_paragraph_from_media": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -389,10 +389,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_table_layout_shift_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_css_migrate_stage_1": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -559,7 +555,19 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_numbered_column_misalignment": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_comments_toolbar_responsiveness": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_listen_for_annotation_clicks": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_nested_tables_cellselection_paste": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

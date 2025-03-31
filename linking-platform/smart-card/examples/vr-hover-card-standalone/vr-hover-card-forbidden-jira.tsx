@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardProviderStoreOpts, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 
 import { getMockForbiddenDirectAccessResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';

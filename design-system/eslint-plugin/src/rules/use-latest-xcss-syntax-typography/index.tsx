@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
-import { getConfig, PATTERNS } from './config';
+import { getConfig, PATTERNS, type RuleConfig } from './config';
 import { RestrictedCapitalisation, RestrictedProperty, WrappedTokenValue } from './linters';
 
 const typescriptErrorMessage =
@@ -49,7 +49,8 @@ const rule = createLintRule({
 		},
 	},
 	create(context) {
-		const config = getConfig(context.options[0]);
+		// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+		const config = getConfig(context.options[0] as unknown as Partial<RuleConfig>);
 
 		return errorBoundary(
 			{

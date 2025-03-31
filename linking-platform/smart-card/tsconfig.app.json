@@ -79,6 +79,9 @@
 			"path": "../../design-system/icon-object/tsconfig.app.json"
 		},
 		{
+			"path": "../json-ld-types/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
 		},
 		{

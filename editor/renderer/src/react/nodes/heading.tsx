@@ -63,6 +63,7 @@ function WrappedHeadingAnchor({
 						return copyTextToClipboard(getCurrentUrlWithHash(headingId));
 					}}
 					hideFromScreenReader={hideFromScreenReader}
+					headingId={headingId}
 				/>
 			)}
 		</AnalyticsContext.Consumer>

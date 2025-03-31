@@ -21,7 +21,7 @@
 /// <reference types="react" />
 
 import { AnyAction } from 'redux';
-import { JsonLd } from 'json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 import { default as React_2 } from 'react';
 import { Store } from 'redux';
 

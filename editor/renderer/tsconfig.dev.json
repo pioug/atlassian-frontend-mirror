@@ -96,6 +96,9 @@
 			"path": "../../design-system/inline-edit/tsconfig.app.json"
 		},
 		{
+			"path": "../../linking-platform/json-ld-types/tsconfig.app.json"
+		},
+		{
 			"path": "../../linking-platform/link-datasource/tsconfig.app.json"
 		},
 		{

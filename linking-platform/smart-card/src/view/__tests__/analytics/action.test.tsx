@@ -4,10 +4,10 @@ import React from 'react';
 
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as jestExtendedMatchers from 'jest-extended';
-import { type JsonLd } from 'json-ld-types';
 import uuid from 'uuid';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
 	type CardClient,
 	SmartCardProvider as Provider,

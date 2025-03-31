@@ -4,8 +4,10 @@
  */
 import { type ImgHTMLAttributes, type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const imageStyles = css({
@@ -13,16 +15,24 @@ const imageStyles = css({
 	height: 'auto',
 });
 
-const actionItemContainerStyles = css({
-	display: 'flex',
-	margin: `${token('space.0', '0px')} -4px`,
-	/* When there is more than one action, place primary action visually on the
-  right, but keep it's position as the first focusable element in the DOM */
-	flexDirection: 'row-reverse',
+const actionItemContainerStyles = cssMap({
+	root: {
+		display: 'flex',
+		flexDirection: 'row-reverse',
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.negative.050'),
+		marginInlineStart: token('space.negative.050'),
+	},
 });
 
-const actionItemStyles = css({
-	margin: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
+const actionItemStyles = cssMap({
+	root: {
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.050'),
+		marginInlineStart: token('space.050'),
+	},
 });
 
 /**
@@ -45,7 +55,7 @@ export const DialogImage = ({ alt, ...props }: ImgHTMLAttributes<HTMLImageElemen
  * @internal
  */
 export const DialogActionItemContainer = ({ children }: { children: ReactNode }) => (
-	<div css={actionItemContainerStyles}>{children}</div>
+	<Box xcss={actionItemContainerStyles.root}>{children}</Box>
 );
 
 /**
@@ -56,5 +66,5 @@ export const DialogActionItemContainer = ({ children }: { children: ReactNode })
  * @internal
  */
 export const DialogActionItem = ({ children }: { children: ReactNode }) => (
-	<div css={actionItemStyles}>{children}</div>
+	<Box xcss={actionItemStyles.root}>{children}</Box>
 );

@@ -119,25 +119,45 @@ const documentFileFormatToIcon = (opts: IconOpts): React.ReactNode | undefined =
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {
 	switch (type) {
 		case 'schema:BlogPosting':
-			return <BlogIcon label={opts.title || 'blog'} testId="blog-icon" />;
+			return <BlogIcon label={opts.showIconLabel ? opts.title || 'blog' : ''} testId="blog-icon" />;
 		case 'schema:DigitalDocument':
 			return digitalDocumentToIcon(opts);
 		case 'schema:TextDigitalDocument':
-			return <DocumentIcon label={opts.title || 'document'} testId="document-icon" />;
+			return (
+				<DocumentIcon
+					label={opts.showIconLabel ? opts.title || 'document' : ''}
+					testId="document-icon"
+				/>
+			);
 		case 'schema:PresentationDigitalDocument':
-			return <PresentationIcon label={opts.title || 'presentation'} testId="presentation-icon" />;
+			return (
+				<PresentationIcon
+					label={opts.showIconLabel ? opts.title || 'presentation' : ''}
+					testId="presentation-icon"
+				/>
+			);
 		case 'schema:SpreadsheetDigitalDocument':
-			return <SpreadsheetIcon label={opts.title || 'spreadsheet'} testId="spreadsheet-icon" />;
+			return (
+				<SpreadsheetIcon
+					label={opts.showIconLabel ? opts.title || 'spreadsheet' : ''}
+					testId="spreadsheet-icon"
+				/>
+			);
 		case 'atlassian:Template':
 			return (
 				<DocumentFilledIcon
 					color="currentColor"
-					label={opts.title || 'template'}
+					label={opts.showIconLabel ? opts.title || 'template' : ''}
 					testId="document-filled-icon"
 				/>
 			);
 		case 'atlassian:UndefinedLink':
-			return <DocumentIcon label={opts.title || 'undefinedLink'} testId="document-icon" />;
+			return (
+				<DocumentIcon
+					label={opts.showIconLabel ? opts.title || 'undefinedLink' : ''}
+					testId="document-icon"
+				/>
+			);
 	}
 };
 
@@ -153,6 +173,6 @@ const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
 	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
 		return <LiveDocumentIcon label="live-doc" testId="live-doc-icon" />;
 	} else {
-		return <FileIcon label={opts.title || 'file'} testId="file-icon" />;
+		return <FileIcon label={opts.showIconLabel ? opts.title || 'file' : ''} testId="file-icon" />;
 	}
 };

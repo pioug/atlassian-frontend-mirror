@@ -112,7 +112,13 @@ export const AwarenessWrapper = ({
 	);
 
 	const cardWithOverlay = useMemo(() => {
-		if (shouldShowLinkOverlay) {
+		if (
+			shouldShowLinkOverlay &&
+			!(
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_patch_1')
+			)
+		) {
 			return (
 				<InlineCardOverlay
 					isSelected={isSelected}
@@ -138,27 +144,17 @@ export const AwarenessWrapper = ({
 	]);
 
 	const cardWithOpenButtonOverlay: JSX.Element = useMemo(() => {
-		if (shouldShowLinkOverlay || !fg('platform_editor_controls_patch_1')) {
-			return (
-				<OpenButtonOverlay
-					isVisible={isResolvedViewRendered && isHovered}
-					onMouseEnter={() => handleOverlayChange(true)}
-					onMouseLeave={() => handleOverlayChange(false)}
-					url={url}
-				>
-					{children}
-				</OpenButtonOverlay>
-			);
-		}
-		return children;
-	}, [
-		children,
-		isHovered,
-		url,
-		handleOverlayChange,
-		isResolvedViewRendered,
-		shouldShowLinkOverlay,
-	]);
+		return (
+			<OpenButtonOverlay
+				isVisible={isResolvedViewRendered && isHovered}
+				onMouseEnter={() => handleOverlayChange(true)}
+				onMouseLeave={() => handleOverlayChange(false)}
+				url={url}
+			>
+				{children}
+			</OpenButtonOverlay>
+		);
+	}, [children, isHovered, url, handleOverlayChange, isResolvedViewRendered]);
 
 	const isInline = appearance === 'inline';
 
@@ -179,7 +175,8 @@ export const AwarenessWrapper = ({
 						testId="link-discovery-pulse"
 						isInline={isInline}
 					>
-						{editorExperiment('platform_editor_controls', 'variant1')
+						{editorExperiment('platform_editor_controls', 'variant1') &&
+						!fg('platform_editor_controls_patch_1')
 							? cardWithOpenButtonOverlay
 							: cardWithOverlay}
 					</DiscoveryPulse>

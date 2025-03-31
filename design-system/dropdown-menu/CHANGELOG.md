@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 13.1.0
+
+### Minor Changes
+
+- [#134128](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134128)
+  [`8255a77865aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8255a77865aac) -
+  Added support for an optional role attribute on dropdown items to allow customization of ARIA
+  roles. Defaults to menuitem.
+
 ## 13.0.6
 
 ### Patch Changes

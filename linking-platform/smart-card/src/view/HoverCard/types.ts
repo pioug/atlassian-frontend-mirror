@@ -1,8 +1,7 @@
 import { type MouseEventHandler, type ReactElement } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
 
@@ -89,6 +88,10 @@ export interface HoverCardInternalProps {
 	 * Suspend hover card UI delays (fade-in, fade-out) for VR testing purposes.
 	 */
 	noFadeDelay?: boolean;
+	/**
+	 * A flag to determine whether to show aria-label
+	 */
+	showLabel?: boolean;
 }
 
 export interface HoverCardComponentProps extends HoverCardProps, HoverCardInternalProps {

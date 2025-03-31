@@ -26,7 +26,7 @@ import { Context } from 'react';
 import { EnvironmentsKeys } from '@atlaskit/linking-common';
 import { InvocationSearchPayload } from '@atlaskit/linking-common';
 import { InvokePayload } from '@atlaskit/linking-common';
-import { JsonLd } from 'json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 import { LinkPreview } from '@atlaskit/link-extractors';
 import { ServerActionOpts } from '@atlaskit/linking-common';

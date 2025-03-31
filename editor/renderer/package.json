@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.6.1",
+	"version": "114.6.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -170,6 +170,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_accessible_heading_copy_link": {
+			"type": "boolean"
+		},
+		"editor_a11y_status_renderer_description": {
 			"type": "boolean"
 		},
 		"use_comments_data_annotation_updater": {

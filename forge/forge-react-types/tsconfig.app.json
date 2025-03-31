@@ -47,6 +47,9 @@
 			"path": "../../design-system/code/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/comment/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/datetime-picker/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ElementName } from '../../../../constants';

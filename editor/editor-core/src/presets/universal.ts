@@ -62,8 +62,8 @@ import type {
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { version as coreVersion } from '../version-wrapper';
 
-import { createDefaultPreset } from './default';
 import type { DefaultPresetPluginOptions } from './default';
+import { createDefaultPreset } from './default';
 
 export type UniversalPresetProps = DefaultPresetPluginOptions &
 	EditorSharedPropsWithPlugins &

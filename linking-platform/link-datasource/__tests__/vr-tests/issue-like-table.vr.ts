@@ -16,6 +16,7 @@ snapshot(IssueLikeTable, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 
@@ -31,6 +32,7 @@ snapshot(IssueLikeTableReadonly, {
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 
@@ -44,4 +46,8 @@ snapshot(IssueLikeTableCustomColumns, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });

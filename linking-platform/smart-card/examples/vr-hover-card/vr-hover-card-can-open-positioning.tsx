@@ -5,10 +5,10 @@
 import { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { type JsonLd } from 'json-ld-types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 

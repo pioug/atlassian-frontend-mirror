@@ -131,9 +131,6 @@
 		"linking_platform_smart_links_in_live_pages": {
 			"type": "boolean"
 		},
-		"platform_editor_ssr_fix_smartlinks": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_card_plugin_state": {
 			"type": "boolean"
 		},

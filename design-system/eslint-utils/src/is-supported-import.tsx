@@ -42,7 +42,10 @@ export const DEFAULT_IMPORT_SOURCES: ImportSource[] = Object.values(CSS_IN_JS_IM
  *          on the rule options configuration.
  */
 export const getImportSources = (context: Rule.RuleContext): ImportSource[] => {
-	const options = context.options;
+	// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+	const { options } = context as Omit<Rule.RuleContext, 'options'> & {
+		options: Array<{ importSources?: ImportSource[] }>;
+	};
 	if (!options.length) {
 		return DEFAULT_IMPORT_SOURCES;
 	}

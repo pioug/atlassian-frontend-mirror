@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.6.0
+
+### Minor Changes
+
+- [#134217](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134217)
+  [`96617e3a637fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96617e3a637fe) -
+  ED-27127 updated text selection insertion logic
+
 ## 3.5.4
 
 ### Patch Changes

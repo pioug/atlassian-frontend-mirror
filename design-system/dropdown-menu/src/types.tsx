@@ -357,6 +357,13 @@ export interface DropdownItemProps {
 	 * An optional boolean value used to indicate if the dropdown item has popup or not.
 	 */
 	'aria-haspopup'?: boolean | 'dialog';
+	/**
+	 * An optional string value that specifies the role of the dropdown item.
+	 * Use this to indicate whether the item is
+	 * or presentational (e.g., 'presentation') for accessibility purposes.
+	 * If not specified, it defaults to role="menuitem".
+	 */
+	role?: string;
 }
 
 export interface DropdownItemCheckboxProps {

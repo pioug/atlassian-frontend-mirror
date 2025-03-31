@@ -1,28 +1,26 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
 
+const wrapperStyles = cssMap({
+	root: {
+		paddingInlineStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingBlockEnd: token('space.400'),
+	},
+});
 function SpotlightTargetTabs() {
 	const [active, setActive] = useState(true);
 
 	return (
 		<SpotlightManager>
-			<Box
-				padding="space.400"
-				backgroundColor="color.background.discovery"
-				paddingBlock="space.400"
-			>
+			<Box xcss={wrapperStyles.root} backgroundColor="color.background.discovery">
 				<Button appearance="primary" onClick={() => setActive(true)}>
 					Show spotlight
 				</Button>

@@ -3,10 +3,10 @@ import './card.test.mock';
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
-import { type JsonLd } from 'json-ld-types';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';

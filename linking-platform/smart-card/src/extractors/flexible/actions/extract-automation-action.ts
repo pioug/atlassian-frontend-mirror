@@ -1,4 +1,4 @@
-import type { JsonLd } from 'json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types';
 
 import { ActionName } from '../../../constants';
 import { type AutomationActionData } from '../../../state/flexible-ui-context/types';

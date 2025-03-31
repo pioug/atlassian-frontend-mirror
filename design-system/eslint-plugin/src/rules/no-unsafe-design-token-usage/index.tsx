@@ -87,7 +87,8 @@ token('color.background.blanket');
 		],
 	},
 	create(context) {
-		const config: PluginConfig = { ...context.options[0] };
+		// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+		const config: PluginConfig = { ...(context.options[0] as unknown as PluginConfig) };
 
 		if (!config.fallbackUsage) {
 			config.fallbackUsage = config.shouldEnforceFallbacks ? 'forced' : 'none';

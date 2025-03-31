@@ -10,4 +10,7 @@ snapshotInformational(SiteSelector, {
 		await page.locator('.jira-datasource-modal--site-selector__control').first().click();
 	},
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });

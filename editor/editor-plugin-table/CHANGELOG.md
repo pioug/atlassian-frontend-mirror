@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 10.5.6
+
+### Patch Changes
+
+- [#133110](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133110)
+  [`fe61757a1a76f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe61757a1a76f) -
+  [ux] ED-27309 Fix numbered column is misaligned in live page viewing mode
+
 ## 10.5.5
 
 ### Patch Changes

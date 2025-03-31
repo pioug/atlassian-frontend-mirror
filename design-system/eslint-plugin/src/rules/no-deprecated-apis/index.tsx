@@ -83,7 +83,9 @@ const rule = createLintRule({
 		// Get the rule configuration specified otherwise use default config.
 		// A bit confusing as it seems that the default options have precedence over the user specified options.
 		const deprecatedConfig: DeprecatedConfig =
-			context.options[0]?.deprecatedConfig || getConfig('jsxAttributes');
+			// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+			(context.options[0] as unknown as { deprecatedConfig?: DeprecatedConfig } | undefined)
+				?.deprecatedConfig || getConfig('jsxAttributes');
 
 		return {
 			// find JSX attribute - find name of attribute - get source and find relevant identifiers.

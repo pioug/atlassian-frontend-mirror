@@ -5,4 +5,7 @@ import ConfluenceSearchConfigModalNoInitialSearch from '../../examples/vr/conflu
 snapshot(ConfluenceSearchConfigModalNoInitialSearch, {
 	description: 'Confluence search config modal no initial search',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });

@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 205.0.3
+
+### Patch Changes
+
+- [#134202](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134202)
+  [`1c44e9c82bcce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c44e9c82bcce) -
+  [ux] ED-27384 fix comments toolbar responsiveness
+- Updated dependencies
+
 ## 205.0.2
 
 ### Patch Changes

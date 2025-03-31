@@ -3,13 +3,12 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
 import { SpotlightCard } from '@atlaskit/onboarding';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import welcomeImage from './assets/this-is-new-jira.png';
@@ -18,11 +17,14 @@ const wrapperStyles = css({
 	display: 'flex',
 	width: '600px',
 	height: '500px',
-	padding: token('space.200', '16px'),
 	alignItems: 'space-evenly',
 	justifyContent: 'space-evenly',
 	flexDirection: 'column',
 	flexWrap: 'wrap',
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const copy =

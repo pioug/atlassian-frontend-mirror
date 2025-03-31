@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { extractEmbedProps } from '../../extractors/embed';

@@ -4,10 +4,11 @@
  */
 import { type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
 type ModalImageProps = { alt: string; src?: string };
 
 type ModalActionContainerProps = {
@@ -16,7 +17,10 @@ type ModalActionContainerProps = {
 };
 
 const modalBodyStyles = css({
-	padding: `${token('space.500', '40px')} ${token('space.200', '16px')}`,
+	paddingBlockEnd: token('space.500'),
+	paddingBlockStart: token('space.500'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 	textAlign: 'center',
 });
 
@@ -40,18 +44,27 @@ const modalImageStyles = css({
 
 const modalActionContainerStyles = css({
 	display: 'flex',
-	padding: `${token('space.0', '0px')} ${token('space.500', '40px')} 36px`,
 	justifyContent: 'center',
-	flexDirection: 'row',
-	flexFlow: 'wrap',
+
+	flexFlow: 'row wrap',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBlockEnd: '36px',
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.500'),
+	paddingInlineStart: token('space.500'),
 });
 
 const modalActionContainerReversedStyles = css({
 	flexDirection: 'row-reverse',
 });
 
-const modalActionItemStyles = css({
-	margin: `${token('space.0', '0px')} ${token('space.050', '4px')} ${token('space.050', '4px')}`,
+const modalActionItemStyles = cssMap({
+	root: {
+		marginBlockEnd: token('space.050'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.050'),
+		marginInlineStart: token('space.050'),
+	},
 });
 
 /**
@@ -111,5 +124,5 @@ export const ModalActionContainer = ({
  * @internal
  */
 export const ModalActionItem = ({ children }: { children: ReactNode }) => (
-	<div css={modalActionItemStyles}>{children}</div>
+	<Box xcss={modalActionItemStyles.root}>{children}</Box>
 );

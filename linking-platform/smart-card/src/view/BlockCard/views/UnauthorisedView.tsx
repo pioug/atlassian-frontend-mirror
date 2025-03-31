@@ -5,9 +5,9 @@
 import { useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { type JsonLd } from 'json-ld-types';
 import { FormattedMessage } from 'react-intl-next';
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';

@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { type JsonLd } from 'json-ld-types';
+
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { mocks } from '../../../utils/mocks';
 import useInvokeClientAction from '../../hooks/use-invoke-client-action';

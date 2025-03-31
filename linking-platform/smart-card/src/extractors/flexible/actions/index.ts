@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { type FireEventFunction } from '../../../common/analytics/types';
 import { ActionName, InternalActionName } from '../../../constants';

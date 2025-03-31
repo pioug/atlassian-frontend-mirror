@@ -21,6 +21,9 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../json-ld-types/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../link-client-extension/afm-jira/tsconfig.json"
 		},
 		{

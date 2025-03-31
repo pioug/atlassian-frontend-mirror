@@ -9,7 +9,7 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { findKeymapByDescription, tooltip, clearFormatting } from '@atlaskit/editor-common/keymaps';
+import { clearFormatting, findKeymapByDescription, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -17,6 +17,8 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { ThemeMutationObserver } from '@atlaskit/tokens';
 
@@ -30,14 +32,18 @@ import { BlockTypeButton } from './blocktype-button';
 import { Text } from './icons';
 import {
 	blockTypeMenuItemStyle,
+	floatingToolbarWrapperStyle,
 	keyboardShortcut,
 	keyboardShortcutSelect,
-	floatingToolbarWrapperStyle,
 } from './styled';
 
 export type DropdownItem = MenuItem & {
 	value: BlockType;
 };
+
+const buttonWrapperStyles = xcss({
+	flexShrink: 0,
+});
 
 export interface Props {
 	isDisabled?: boolean;
@@ -138,6 +144,23 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 
 		if (!this.props.isDisabled && !blockTypesDisabled) {
 			const items = this.createItems();
+
+			const button = (
+				<BlockTypeButton
+					isSmall={isSmall}
+					isReducedSpacing={isReducedSpacing}
+					selected={active}
+					disabled={false}
+					title={blockTypeTitles[0]}
+					onClick={this.handleTriggerClick}
+					onKeyDown={this.handleTriggerByKeyboard}
+					formatMessage={formatMessage}
+					aria-expanded={active}
+					blockTypeName={currentBlockType.name}
+					blockTypeIcon={currentBlockType?.icon || <Text />}
+				/>
+			);
+
 			return (
 				<span
 					css={
@@ -170,19 +193,12 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 							return isOpenedByKeyboard;
 						}}
 					>
-						<BlockTypeButton
-							isSmall={isSmall}
-							isReducedSpacing={isReducedSpacing}
-							selected={active}
-							disabled={false}
-							title={blockTypeTitles[0]}
-							onClick={this.handleTriggerClick}
-							onKeyDown={this.handleTriggerByKeyboard}
-							formatMessage={formatMessage}
-							aria-expanded={active}
-							blockTypeName={currentBlockType.name}
-							blockTypeIcon={currentBlockType?.icon || <Text />}
-						/>
+						{fg('platform_editor_comments_toolbar_responsiveness') ? (
+							// extra wrapper added to prevent flex shrinking of the button
+							<Box xcss={buttonWrapperStyles}>{button}</Box>
+						) : (
+							button
+						)}
 					</DropdownMenu>
 					{!api?.primaryToolbar && (
 						<span
@@ -260,7 +276,9 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 				value: blockType,
 				'aria-label': tooltip(keyMap, formatMessage(blockType.title)),
 				key: `${blockType.name}-${index}`,
-				elemBefore: blockType?.icon,
+				elemBefore: editorExperiment('platform_editor_controls', 'variant1')
+					? blockType?.icon
+					: undefined,
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={[keyboardShortcut, isActive && keyboardShortcutSelect]}>{tooltip(keyMap)}</div>

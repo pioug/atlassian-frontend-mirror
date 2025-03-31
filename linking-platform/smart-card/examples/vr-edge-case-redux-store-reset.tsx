@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import Button from '@atlaskit/button/new';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { type CardStore } from '@atlaskit/linking-common';
 import { Card } from '@atlaskit/smart-card';

@@ -1,4 +1,11 @@
 import createMutationObserver from './index';
+// import { fg } from '@atlaskit/platform-feature-flags';
+
+const mockedFg = new Map<string, boolean>();
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn((flag: string) => mockedFg.get(flag)),
+}));
+
 describe('createMutationObserver', () => {
 	let mockObserver: MutationObserver;
 	let onAttributeMutation: jest.Mock;
@@ -20,6 +27,8 @@ describe('createMutationObserver', () => {
 		jest.spyOn(window, 'MutationObserver').mockImplementation((callback) => {
 			return mockObserver;
 		});
+
+		mockedFg.clear();
 	});
 
 	it('should return a MutationObserver when supported', () => {
@@ -73,5 +82,91 @@ describe('createMutationObserver', () => {
 				targets: targetNodes,
 			}),
 		);
+	});
+	describe('when platform_ufo_vc_ignore_same_value_mutation flag is enabled', () => {
+		beforeEach(() => {
+			mockedFg.set('platform_ufo_vc_ignore_same_value_mutation', true);
+		});
+
+		it('should not call onAttributeMutation when attribute value has not changed', () => {
+			createMutationObserver({
+				onAttributeMutation,
+				onChildListMutation,
+				onMutationFinished,
+			});
+
+			const target = document.createElement('div');
+			target.setAttribute('data-testid', 'test');
+
+			const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
+			callback([
+				{
+					type: 'attributes',
+					target,
+					attributeName: 'data-testid',
+					oldValue: 'test',
+				},
+			]);
+
+			expect(onAttributeMutation).not.toHaveBeenCalled();
+		});
+
+		it('should call onAttributeMutation when attribute value has changed', () => {
+			createMutationObserver({
+				onAttributeMutation,
+				onChildListMutation,
+				onMutationFinished,
+			});
+
+			const target = document.createElement('div');
+			target.setAttribute('data-testid', 'new-value');
+
+			const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
+			callback([
+				{
+					type: 'attributes',
+					target,
+					attributeName: 'data-testid',
+					oldValue: 'old-value',
+				},
+			]);
+
+			expect(onAttributeMutation).toHaveBeenCalledWith({
+				target,
+				attributeName: 'data-testid',
+			});
+		});
+	});
+
+	describe('when platform_ufo_vc_ignore_same_value_mutation flag is disabled', () => {
+		beforeEach(() => {
+			mockedFg.set('platform_ufo_vc_ignore_same_value_mutation', false);
+		});
+
+		it('should call onAttributeMutation regardless of attribute value change', () => {
+			createMutationObserver({
+				onAttributeMutation,
+				onChildListMutation,
+				onMutationFinished,
+			});
+
+			const target = document.createElement('div');
+			target.setAttribute('data-testid', 'test');
+
+			const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
+			callback([
+				{
+					type: 'attributes',
+					target,
+					attributeName: 'data-testid',
+					oldValue: 'test',
+				},
+			]);
+
+			expect(onAttributeMutation).toHaveBeenCalledWith({
+				target,
+				attributeName: 'data-testid',
+			});
+		});
 	});
 });

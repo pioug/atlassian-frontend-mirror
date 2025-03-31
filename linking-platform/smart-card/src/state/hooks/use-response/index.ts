@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
 import { unstable_batchedUpdates } from 'react-dom';
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
 	ACTION_ERROR,

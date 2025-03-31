@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { type AnalyticsOrigin } from '../../../utils/types';
 import { type CardActionOptions, type CardInnerAppearance } from '../../../view/Card/types';

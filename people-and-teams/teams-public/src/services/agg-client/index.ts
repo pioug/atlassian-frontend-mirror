@@ -153,7 +153,7 @@ export class AGGClient extends BaseGraphQlClient {
 				state: node.state,
 				membershipSettings: node.membershipSettings,
 				organizationId: node.organizationId,
-				creatorId: node.creator.id,
+				creatorId: node.creator?.id,
 				isVerified: node.isVerified,
 				members:
 					node.members?.nodes.map<TeamMember>(({ member }) => ({

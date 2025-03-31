@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
 import Form, { Field } from '@atlaskit/form';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Grid, Stack } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';

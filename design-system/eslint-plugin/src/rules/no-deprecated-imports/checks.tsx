@@ -10,7 +10,11 @@ import {
 } from 'eslint-codemod-utils';
 
 import { getConfig } from '../utils/get-deprecated-config';
-import { isDeprecatedImportConfig } from '../utils/types';
+import {
+	type DeprecatedImportConfig,
+	type DeprecatedJSXAttributeConfig,
+	isDeprecatedImportConfig,
+} from '../utils/types';
 
 import { importNameWithCustomMessageId, pathWithCustomMessageId } from './constants';
 import { getDeprecationIconHandler } from './handlers/icon';
@@ -70,7 +74,13 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		node,
 		importNames,
 	}: checkRestrictedPathAndReportArgs): void {
-		const restrictedPathMessages = context.options[0]?.deprecatedConfig || getConfig('imports');
+		const restrictedPathMessages =
+			// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+			(
+				context.options[0] as unknown as {
+					deprecatedConfig: DeprecatedJSXAttributeConfig | DeprecatedImportConfig;
+				}
+			)?.deprecatedConfig || getConfig('imports');
 
 		if (!isDeprecatedImportConfig(restrictedPathMessages)) {
 			throw new Error('Config is invalid for deprecated imports');

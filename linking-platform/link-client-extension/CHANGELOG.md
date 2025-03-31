@@ -1,5 +1,14 @@
 # @atlaskit/link-client-extension
 
+## 4.0.1
+
+### Patch Changes
+
+- [#132126](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132126)
+  [`5d45dce9796da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d45dce9796da) -
+  Updated dependency json-ld-types to @atlaskit/json-ld-types
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

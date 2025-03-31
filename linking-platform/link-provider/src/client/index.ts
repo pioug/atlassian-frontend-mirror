@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import retry, { type Options } from 'async-retry';
 import pThrottle from 'p-throttle';
 import {

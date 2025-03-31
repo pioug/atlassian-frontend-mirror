@@ -99,16 +99,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-09-23
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/editor_ai_-_multi_prompts/setup
-	'editor_ai_-_multi_prompts': {
-		productKeys: {
-			confluence: 'editor_ai_-_multi_prompts',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
 	// Added 2024-10-01
 	comment_on_bodied_extensions: {
 		productKeys: {
@@ -299,5 +289,14 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
+	},
+	// Added 2025-03-26
+	platform_editor_markdown_next_media_plugin_exp: {
+		productKeys: {
+			confluence: 'platform_editor_markdown_next_media_plugin_exp',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

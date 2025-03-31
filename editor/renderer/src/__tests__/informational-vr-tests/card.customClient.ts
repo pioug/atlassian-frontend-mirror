@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { JsonLd } from 'json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
 
 import { dropboxImage } from './images/dropbox';

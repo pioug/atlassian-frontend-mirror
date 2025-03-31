@@ -1,4 +1,4 @@
-import type { JsonLd } from 'json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types';
 
 import type { CardActionOptions } from '../../view/Card/types';
 import type { FlexibleCardProps } from '../../view/FlexibleCard/types';

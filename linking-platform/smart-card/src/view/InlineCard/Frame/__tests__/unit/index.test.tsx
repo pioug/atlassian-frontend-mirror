@@ -18,7 +18,9 @@ describe('Frame', () => {
 					/* noop */
 				}}
 				testId="frame"
-			/>,
+			>
+				Dummy link
+			</Frame>,
 		);
 		expect(await screen.findByRole('button')).toBeInTheDocument();
 		expect(screen.getByTestId('frame')).toHaveAttribute('tabindex', '0');
@@ -26,14 +28,14 @@ describe('Frame', () => {
 
 	it('should call onClick when the card is clicked', () => {
 		const onClick = jest.fn();
-		render(<Frame onClick={onClick} />);
+		render(<Frame onClick={onClick}>Dummy link</Frame>);
 		fireEvent.click(screen.getByRole('button'));
 		expect(onClick).toHaveBeenCalled();
 	});
 
 	it('should call onClick when the space key is pressed', () => {
 		const onClick = jest.fn();
-		render(<Frame onClick={onClick} />);
+		render(<Frame onClick={onClick}>Dummy link</Frame>);
 
 		screen.getByRole('button').focus();
 
@@ -46,7 +48,7 @@ describe('Frame', () => {
 
 	it('should call onClick when the enter key is pressed', () => {
 		const onClick = jest.fn();
-		render(<Frame onClick={onClick} />);
+		render(<Frame onClick={onClick}>Dummy link</Frame>);
 		fireEvent.keyPress(screen.getByRole('button'), {
 			keyCode: '13',
 		});
@@ -55,17 +57,21 @@ describe('Frame', () => {
 
 	describe('a11y', () => {
 		it('should be accessible with url', async () => {
-			const { container } = render(<Frame link="www.link-url" />);
+			const { container } = render(<Frame link="www.link-url">Dummy link</Frame>);
 			await expect(container).toBeAccessible();
 		});
 
 		it('should be accessible with onClick', async () => {
-			const { container } = render(<Frame onClick={() => {}} />);
+			const { container } = render(<Frame onClick={() => {}}>Dummy link</Frame>);
 			await expect(container).toBeAccessible();
 		});
 
 		it('should be accessible with url and onClick', async () => {
-			const { container } = render(<Frame link="www.link-url" onClick={() => {}} />);
+			const { container } = render(
+				<Frame link="www.link-url" onClick={() => {}}>
+					Dummy link
+				</Frame>,
+			);
 			await expect(container).toBeAccessible();
 		});
 
@@ -74,9 +80,9 @@ describe('Frame', () => {
 			await expect(container).toBeAccessible();
 		});
 
-		it('should be accessible with empty whitespace as children', async () => {
+		it('should not be accessible with empty whitespace as children', async () => {
 			const { container } = render(<Frame link="www.link-url"> </Frame>);
-			await expect(container).toBeAccessible();
+			await expect(container).not.toBeAccessible();
 		});
 
 		it('should be accessible with span', async () => {

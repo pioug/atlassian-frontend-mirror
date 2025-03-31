@@ -86,7 +86,10 @@ type MentionTypeaheadInsertedPayload = UIAEP<
 		objectId?: string;
 		childObjectId?: string;
 	},
-	undefined
+	undefined,
+	string | undefined,
+	string | undefined,
+	string | undefined
 >;
 
 type MentionTypeaheadRenderedPayload = OperationalAEP<

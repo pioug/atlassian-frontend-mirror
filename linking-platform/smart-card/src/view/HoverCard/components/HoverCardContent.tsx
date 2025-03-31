@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';

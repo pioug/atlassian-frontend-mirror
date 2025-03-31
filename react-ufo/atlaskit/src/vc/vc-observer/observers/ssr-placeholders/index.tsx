@@ -1,4 +1,5 @@
-const EQUALITY_THRESHOLD = 0.1;
+import { fg } from '@atlaskit/platform-feature-flags';
+
 const ANCESTOR_LOOKUP_LIMIT = 10;
 
 type Rect = {
@@ -14,6 +15,7 @@ export class SSRPlaceholderHandlers {
 	private getSizeCallbacks = new Map<string, (resolve: Rect) => void>();
 	private reactValidateCallbacks = new Map<string, (resolve: boolean) => void>();
 	private intersectionObserver: IntersectionObserver | undefined;
+	private EQUALITY_THRESHOLD = fg('platform_ufo_ssr_placeholder_round_rect_size_check') ? 1 : 0.1;
 
 	constructor() {
 		if (typeof IntersectionObserver === 'function') {
@@ -133,10 +135,10 @@ export class SSRPlaceholderHandlers {
 	hasSameSizePosition(rect: Rect | undefined, boundingClientRect: DOMRectReadOnly) {
 		return (
 			(rect &&
-				Math.abs(rect.x - boundingClientRect.x) < EQUALITY_THRESHOLD &&
-				Math.abs(rect.y - boundingClientRect.y) < EQUALITY_THRESHOLD &&
-				Math.abs(rect.width - boundingClientRect.width) < EQUALITY_THRESHOLD &&
-				Math.abs(rect.height - boundingClientRect.height) < EQUALITY_THRESHOLD) ||
+				Math.abs(rect.x - boundingClientRect.x) < this.EQUALITY_THRESHOLD &&
+				Math.abs(rect.y - boundingClientRect.y) < this.EQUALITY_THRESHOLD &&
+				Math.abs(rect.width - boundingClientRect.width) < this.EQUALITY_THRESHOLD &&
+				Math.abs(rect.height - boundingClientRect.height) < this.EQUALITY_THRESHOLD) ||
 			false
 		);
 	}

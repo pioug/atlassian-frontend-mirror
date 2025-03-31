@@ -4,12 +4,11 @@
  */
 import { type ComponentType, forwardRef, type ReactNode, type Ref } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
 import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
+import { css, cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { useLayering } from '@atlaskit/layering';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { DialogActionItem, DialogActionItemContainer } from '../styled/dialog';
@@ -19,8 +18,11 @@ import { spotlightButtonTheme } from './theme';
 
 const bodyStyles = css({
 	display: 'flex',
-	padding: `${token('space.200', '16px')} ${token('space.250', '20px')}`,
 	flexDirection: 'column',
+	paddingBlockEnd: token('space.200', '16px'),
+	paddingBlockStart: token('space.200', '16px'),
+	paddingInlineEnd: token('space.250', '20px'),
+	paddingInlineStart: token('space.250', '20px'),
 });
 
 const imageStyles = css({
@@ -46,21 +48,26 @@ const defaultFooterStyles = css({
 });
 
 const DefaultFooter = ({ children }: { children: ReactNode }) => (
-	<div css={defaultFooterStyles}>{children}</div>
+	<div data-testid="spotlight--dialog-footer" css={defaultFooterStyles}>
+		{children}
+	</div>
 );
 
-const containerStyles = xcss({
-	height: 'fit-content',
-	zIndex: 'spotlight',
-	borderRadius: 'border.radius',
-	color: 'color.text.inverse',
-	overflow: 'auto',
-	minWidth: '160px',
-	maxWidth: '600px',
+const containerStyles = cssMap({
+	root: {
+		height: 'fit-content',
+		borderRadius: token('border.radius'),
+		color: token('color.text.inverse'),
+		overflow: 'auto',
+		minWidth: '160px',
+		maxWidth: '600px',
+	},
 });
 
-const containerShadowStyles = xcss({
-	boxShadow: 'elevation.shadow.raised',
+const containerShadowStyles = cssMap({
+	root: {
+		boxShadow: token('elevation.shadow.raised'),
+	},
 });
 
 interface SpotlightCardProps {
@@ -162,7 +169,7 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
 			<ButtonTheme.Provider value={spotlightButtonTheme}>
 				<Box
 					backgroundColor="color.background.discovery.bold"
-					xcss={[containerStyles, !isFlat && containerShadowStyles]}
+					xcss={cx(containerStyles.root, !isFlat && containerShadowStyles.root)}
 					style={{ width }}
 					ref={ref || innerRef}
 					testId={testId}

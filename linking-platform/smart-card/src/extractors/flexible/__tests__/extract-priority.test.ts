@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { IconType } from '../../../constants';
 import { TEST_BASE_DATA } from '../../common/__mocks__/jsonld';

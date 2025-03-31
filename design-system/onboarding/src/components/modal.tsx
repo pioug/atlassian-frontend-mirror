@@ -1,10 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { Component, type ElementType, type ReactNode } from 'react';
-
-import { jsx } from '@emotion/react';
+import React, { Component, type ElementType, type ReactNode } from 'react';
 
 import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
 import Modal, {
@@ -56,6 +50,10 @@ type ModalProps = {
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	experimental_shouldShowPrimaryButtonOnRight?: boolean;
+	/**
+	 * This prop is a unique string that appears as an attribute `data-testid` in the rendered HTML output serving as a hook for automated tests.
+	 */
+	testId?: string;
 };
 
 /**

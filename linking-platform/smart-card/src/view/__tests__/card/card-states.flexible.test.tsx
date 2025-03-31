@@ -4,9 +4,9 @@ import '@atlaskit/link-test-helpers/jest';
 import React, { useState } from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { type JsonLd } from 'json-ld-types';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
 	type CardClient,
 	type CardProviderStoreOpts,

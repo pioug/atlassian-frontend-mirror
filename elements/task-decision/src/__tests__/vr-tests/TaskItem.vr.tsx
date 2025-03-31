@@ -6,13 +6,7 @@ import {
 	TaskItemDoneRenderer,
 } from './TaskItem.fixtures';
 
-const featureFlags = {
-	platform_editor_css_migrate_stage_1: [true, false],
-};
-
-snapshot(TaskItemEditor, {
-	featureFlags,
-});
+snapshot(TaskItemEditor);
 snapshot(TaskItemEditor, {
 	description: 'Task Item Editor - hovered',
 	states: [
@@ -21,7 +15,6 @@ snapshot(TaskItemEditor, {
 			selector: { byRole: 'checkbox' },
 		},
 	],
-	featureFlags,
 });
 snapshot(TaskItemEditor, {
 	description: 'Task Item Editor - focused',
@@ -31,11 +24,8 @@ snapshot(TaskItemEditor, {
 			selector: { byRole: 'checkbox' },
 		},
 	],
-	featureFlags,
 });
-snapshot(TaskItemDoneEditor, {
-	featureFlags,
-});
+snapshot(TaskItemDoneEditor);
 snapshot(TaskItemDoneEditor, {
 	description: 'Task Item Editor - completed and focused',
 	states: [
@@ -44,12 +34,9 @@ snapshot(TaskItemDoneEditor, {
 			selector: { byRole: 'checkbox' },
 		},
 	],
-	featureFlags,
 });
 
-snapshot(TaskItemRenderer, {
-	featureFlags,
-});
+snapshot(TaskItemRenderer);
 snapshot(TaskItemRenderer, {
 	description: 'Task Item Renderer - focused',
 	states: [
@@ -58,11 +45,8 @@ snapshot(TaskItemRenderer, {
 			selector: { byRole: 'checkbox' },
 		},
 	],
-	featureFlags,
 });
-snapshot(TaskItemDoneRenderer, {
-	featureFlags,
-});
+snapshot(TaskItemDoneRenderer);
 snapshot(TaskItemDoneRenderer, {
 	description: 'Task Item Renderer - completed and focused',
 	states: [
@@ -71,5 +55,4 @@ snapshot(TaskItemDoneRenderer, {
 			selector: { byRole: 'checkbox' },
 		},
 	],
-	featureFlags,
 });

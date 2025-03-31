@@ -24,6 +24,9 @@
             "path": "../../../design-system/css/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../json-ld-types/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {

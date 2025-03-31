@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { type CardPlatform } from '../../types';
 import { extractPlatformIsSupported } from '../platform/extractPlatformIsSupported';

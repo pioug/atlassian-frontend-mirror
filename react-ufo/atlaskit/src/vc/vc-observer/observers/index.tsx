@@ -284,13 +284,28 @@ export class Observers implements BrowserObservers {
 							});
 						} else if (mutation.type === 'attributes') {
 							if (mutation.target instanceof HTMLElement) {
-								if (fg('platform-ufo-vc-observe-attributes')) {
+								if (fg('platform_ufo_vc_ignore_same_value_mutation')) {
+									/*
+											"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
+											I think it might have been something along the lines that for consistency every setAttribute call should create a record.
+											Conceptually there is after all a mutation: there is an old value replaced with a new one,
+											and whether or not they are the same doesn't really matter.
+											And Custom elements should work the same way as MutationObserver."
+											https://github.com/whatwg/dom/issues/520#issuecomment-336574796
+										*/
+									const oldValue = mutation.oldValue ?? undefined;
+									const newValue = mutation.attributeName
+										? mutation.target.getAttribute(mutation.attributeName)
+										: undefined;
+									if (oldValue !== newValue) {
+										this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
+									}
+								} else {
 									this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
 								}
 							}
 						}
 					});
-					this.measureStop();
 				})
 			: null;
 	}

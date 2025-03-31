@@ -3,10 +3,10 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 

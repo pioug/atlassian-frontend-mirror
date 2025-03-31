@@ -45,9 +45,9 @@ export const ResponsiveCustomButtonToolbarNext: Record<ToolbarSize, IconTypes[]>
 	[ToolbarSize.XXL]: DefaultButtonsToolbarNext,
 	[ToolbarSize.XL]: DefaultButtonsToolbarNext,
 	[ToolbarSize.L]: DefaultButtonsToolbarNext,
-	[ToolbarSize.M]: DefaultButtonsToolbarNext,
-	[ToolbarSize.S]: DefaultButtonsToolbarNext,
-	[ToolbarSize.XXXS]: [],
+	[ToolbarSize.M]: [IconTypes.strong, IconTypes.em],
+	[ToolbarSize.S]: [IconTypes.strong, IconTypes.em],
+	[ToolbarSize.XXXS]: [IconTypes.strong],
 };
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
@@ -68,12 +68,7 @@ export const ResponsiveCustomMenuNext: Record<ToolbarSize, IconTypes[]> = {
 	[ToolbarSize.XXL]: DefaultButtonsMenuNext,
 	[ToolbarSize.XL]: DefaultButtonsMenuNext,
 	[ToolbarSize.L]: DefaultButtonsMenuNext,
-	[ToolbarSize.M]: DefaultButtonsMenuNext,
-	[ToolbarSize.S]: DefaultButtonsMenuNext,
-	[ToolbarSize.XXXS]: [
-		IconTypes.strong,
-		IconTypes.em,
-		IconTypes.underline,
-		...DefaultButtonsMenuNext,
-	],
+	[ToolbarSize.M]: [IconTypes.underline, ...DefaultButtonsMenuNext],
+	[ToolbarSize.S]: [IconTypes.underline, ...DefaultButtonsMenuNext],
+	[ToolbarSize.XXXS]: [IconTypes.em, IconTypes.underline, ...DefaultButtonsMenuNext],
 };

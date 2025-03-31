@@ -4,8 +4,7 @@
  */
 import { Component } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import Lorem from 'react-lorem-component';
 
 import { Code } from '@atlaskit/code';
@@ -15,9 +14,12 @@ import { token } from '@atlaskit/tokens';
 import { Highlight, HighlightGroup } from './styled';
 
 const wrapperStyles = css({
-	padding: token('space.500', '40px'),
 	backgroundColor: token('elevation.surface.raised'),
-	borderRadius: token('border.radius', '4px'),
+	borderRadius: token('border.radius'),
+	paddingBlockEnd: token('space.500'),
+	paddingBlockStart: token('space.500'),
+	paddingInlineEnd: token('space.500'),
+	paddingInlineStart: token('space.500'),
 });
 
 interface State {

@@ -1,5 +1,4 @@
-import type { JsonLd } from 'json-ld-types';
-
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import { extractLink, extractType } from '@atlaskit/link-extractors';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 

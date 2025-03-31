@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 36.2.3
+
+### Patch Changes
+
+- [#132126](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132126)
+  [`5d45dce9796da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d45dce9796da) -
+  Updated dependency json-ld-types to @atlaskit/json-ld-types
+- [#132869](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132869)
+  [`02c6598e7fcbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02c6598e7fcbd) -
+  Add showLabel flag to control showing aria-labels on the inlineCard / HoverCard
+- Updated dependencies
+
 ## 36.2.2
 
 ### Patch Changes

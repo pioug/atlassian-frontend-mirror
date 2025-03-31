@@ -5,9 +5,7 @@ type OpenAEP = UIAEP<
 	ACTION.OPENED,
 	ACTION_SUBJECT.CONFIG_PANEL,
 	undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
-	{},
+	{ extensionKey?: string; extensionType?: string },
 	undefined
 >;
 
@@ -15,9 +13,7 @@ type CloseAEP = UIAEP<
 	ACTION.CLOSED,
 	ACTION_SUBJECT.CONFIG_PANEL,
 	undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
-	{},
+	{ extensionKey?: string; extensionType?: string },
 	undefined
 >;
 

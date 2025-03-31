@@ -1145,9 +1145,17 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 
 	.${ClassName.ROW_CONTROLS_WRAPPER} {
 		position: absolute;
-		/* top of corner control is table margin top - corner control height + 1 pixel of table border. */
-		top: ${tableMarginTop - cornerControlHeight + 1}px;
-		left: -${tableToolbarSize}px;
+		/* this is to fix the misalignment of the numbered column in live page view mode */
+		${props.featureFlags?.tableDragAndDrop && fg('platform_editor_numbered_column_misalignment')
+			? `
+			margin-top: ${tableMarginTop}px;
+			left: -${tableToolbarSize + 1}px;
+		`
+			: `
+			/* top of corner control is table margin top - corner control height + 1 pixel of table border. */
+			top: ${tableMarginTop - cornerControlHeight + 1}px;
+			left: -${tableToolbarSize}px;
+		`}
 	}
 
 	.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}.${ClassName.TABLE_LEFT_SHADOW},

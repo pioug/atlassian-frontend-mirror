@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.1.10
+
+### Patch Changes
+
+- [#134532](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134532)
+  [`0348d508d8954`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0348d508d8954) -
+  [ux] Do not show icons in the Text styles dropdown when Editor Controls is disabled
+- [#134202](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134202)
+  [`1c44e9c82bcce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c44e9c82bcce) -
+  [ux] ED-27384 fix comments toolbar responsiveness
+
 ## 5.1.9
 
 ### Patch Changes

@@ -102,9 +102,6 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"platform-feature-flags": {
-		"platform_editor_ai_remove_mentions_record": {
-			"type": "boolean"
-		},
 		"team-avatar-in-mention-picker": {
 			"type": "boolean"
 		}

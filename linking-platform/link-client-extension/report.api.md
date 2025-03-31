@@ -24,7 +24,7 @@ import type { DatasourceDetailsResponse } from '@atlaskit/linking-types';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 import { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 import { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
-import { JsonLd } from 'json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 
 // @public (undocumented)
 export type DatasourceResolveResponse = {

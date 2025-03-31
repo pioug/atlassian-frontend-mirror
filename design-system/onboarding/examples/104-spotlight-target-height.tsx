@@ -5,8 +5,7 @@
 
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
@@ -16,7 +15,10 @@ import { token } from '@atlaskit/tokens';
 const targetContainerStyles = css({
 	width: 200,
 	height: 400,
-	margin: token('space.250', '20px'),
+	marginBlockEnd: token('space.250'),
+	marginBlockStart: token('space.250'),
+	marginInlineEnd: token('space.250'),
+	marginInlineStart: token('space.250'),
 });
 
 const targetStyles = css({
@@ -24,10 +26,13 @@ const targetStyles = css({
 	boxSizing: 'border-box',
 	width: '100%',
 	height: '100%',
-	padding: token('space.100', '8px'),
 	alignItems: 'center',
 	justifyContent: 'center',
-	background: token('color.background.accent.gray.subtlest'),
+	backgroundColor: token('color.background.accent.gray.subtlest'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 function SpotlightTargetHeight() {

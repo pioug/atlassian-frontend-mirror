@@ -1,5 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 export { type CardContext } from '@atlaskit/link-provider';
 import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 

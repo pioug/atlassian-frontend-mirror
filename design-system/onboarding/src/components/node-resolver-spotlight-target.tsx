@@ -4,7 +4,7 @@
  */
 import { type ReactElement, useEffect, useRef } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import NodeResolver from 'react-node-resolver';
 
 interface NodeResolverSpotlightTargetProps {

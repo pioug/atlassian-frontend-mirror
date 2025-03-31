@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.5.0
+
+### Minor Changes
+
+- [#127912](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127912)
+  [`d3364031ea983`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3364031ea983) -
+  [NO-ISSUE] Cleaning up remaining pass experiments + follow ups
+
 ## 4.4.3
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.10
+
+### Patch Changes
+
+- [#134112](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134112)
+  [`b993bf17b9c1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b993bf17b9c1b) -
+  Ignore same value attribute mutation
+
+## 3.4.9
+
+### Patch Changes
+
+- [#134300](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134300)
+  [`5fb9bf529d095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fb9bf529d095) -
+  SSR placeholder rectangle size comparison to ignore decimal places
+
 ## 3.4.8
 
 ### Patch Changes

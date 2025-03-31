@@ -160,6 +160,9 @@ export const buildTypeAheadInsertedPayload = (
 		action: isClicked(insertType) ? ACTION.CLICKED : ACTION.PRESSED,
 		actionSubject: ACTION_SUBJECT.MENTION_TYPEAHEAD,
 		eventType: EVENT_TYPE.UI,
+		containerId,
+		objectId,
+		childObjectId,
 		attributes: {
 			sessionId,
 			duration,

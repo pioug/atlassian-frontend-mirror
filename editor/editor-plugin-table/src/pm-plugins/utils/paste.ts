@@ -4,6 +4,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Slice, Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { flatten, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { CellSelection } from '@atlaskit/editor-tables';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -100,19 +101,21 @@ export const transformSliceToRemoveNestedTables = (
 		// if pasted content is a node that supports nesting a table
 		// such as layoutSection or expand allow 1 level by default
 		let allowedTableNesting = 1;
+		const isCellSelection = selection instanceof CellSelection;
+		const isPasteInTable = hasParentNodeOfType([table, tableCell, tableHeader])(selection);
+		const isPasteInNestedTable = getParentOfTypeCount(schema.nodes.table)(selection.$from) > 1;
+		const isPasteFullTableInsideEmptyCellEnabled = fg(
+			'platform_editor_paste_full_table_inside_empty_cell',
+		);
+
+		// Pasted content only contains a table and no other content
+		const isCellPaste =
+			isPasteInTable &&
+			slice.content.childCount === 1 &&
+			slice.content.firstChild?.type === table &&
+			(!isPasteFullTableInsideEmptyCellEnabled || (slice.openStart !== 0 && slice.openEnd !== 0));
 
 		if (isNestingAllowed) {
-			const isPasteInTable = hasParentNodeOfType([table, tableCell, tableHeader])(selection);
-			const isPasteInNestedTable = getParentOfTypeCount(schema.nodes.table)(selection.$from) > 1;
-			const isPasteFullTableInsideEmptyCellEnabled = fg(
-				'platform_editor_paste_full_table_inside_empty_cell',
-			);
-			const isCellPaste =
-				isPasteInTable &&
-				slice.content.childCount === 1 &&
-				slice.content.firstChild?.type === table &&
-				(!isPasteFullTableInsideEmptyCellEnabled || (slice.openStart !== 0 && slice.openEnd !== 0));
-
 			// if nesting is allowed we bump up the default nesting allowance to 2 to support
 			// two levels of nesting in nodes that support table nesting already such as layoutSection and expands
 			allowedTableNesting = 2;
@@ -134,7 +137,10 @@ export const transformSliceToRemoveNestedTables = (
 
 				// paste of table cells into a table cell - content is spread across multiple cells
 				// by editor-tables so needs to be treated a little differently
-				if (isCellPaste) {
+				if (
+					isCellPaste ||
+					(isCellSelection && fg('platform_editor_nested_tables_cellselection_paste'))
+				) {
 					allowedTableNesting = 1;
 					if (isPasteInNestedTable) {
 						allowedTableNesting = 0;
@@ -164,9 +170,18 @@ export const transformSliceToRemoveNestedTables = (
 			}
 		}
 
-		// after we've worked out what the allowed nesting depth is, unwrap nested tables
-		const newChildren = unwrapNestedTables(node.content, schema, allowedTableNesting);
-		return node.copy(Fragment.fromArray(newChildren));
+		if (
+			isCellSelection &&
+			!isCellPaste &&
+			fg('platform_editor_nested_tables_cellselection_paste')
+		) {
+			// if pasting into a cell selection, we need to flatten the parent table as well
+			return unwrapNestedTables(Fragment.fromArray([node]), schema, allowedTableNesting);
+		} else {
+			// after we've worked out what the allowed nesting depth is, unwrap nested tables
+			const newChildren = unwrapNestedTables(node.content, schema, allowedTableNesting);
+			return node.copy(Fragment.fromArray(newChildren));
+		}
 	});
 
 	return new Slice(newFragment, slice.openStart, openEnd);

@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { type LinkLozenge } from './types';
 import { isValidAppearance } from './utils';

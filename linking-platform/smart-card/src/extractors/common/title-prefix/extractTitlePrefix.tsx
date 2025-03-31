@@ -1,7 +1,6 @@
 import type React from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 
 import { type CardAppearance } from '../../../view/Card';

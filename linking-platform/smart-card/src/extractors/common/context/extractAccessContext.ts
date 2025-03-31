@@ -1,6 +1,5 @@
-import { type JsonLd } from 'json-ld-types';
-
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { messages } from '../../../messages';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';

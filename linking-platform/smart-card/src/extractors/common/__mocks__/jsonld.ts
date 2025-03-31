@@ -1,6 +1,6 @@
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+
 export const TEST_URL = 'https://my.url.com';
 export const TEST_VISIT_URL = 'https://visit.url.com';
 export const TEST_NAME = 'my name';

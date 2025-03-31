@@ -18,6 +18,9 @@
     ],
     "references": [
         {
+            "path": "../../json-ld-types/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../linking-common/afm-cc/tsconfig.json"
         },
         {

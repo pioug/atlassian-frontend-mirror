@@ -1,4 +1,4 @@
-import type { JsonLd } from 'json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types';
 
 import { ActionName, CardAction } from '../../index';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';

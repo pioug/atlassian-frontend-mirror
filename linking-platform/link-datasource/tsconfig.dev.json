@@ -75,6 +75,9 @@
 			"path": "../../jql/jql-editor-autocomplete-rest/tsconfig.app.json"
 		},
 		{
+			"path": "../json-ld-types/tsconfig.app.json"
+		},
+		{
 			"path": "../link-client-extension/tsconfig.app.json"
 		},
 		{

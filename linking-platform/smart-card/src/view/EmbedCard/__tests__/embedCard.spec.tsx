@@ -2,9 +2,9 @@ import React from 'react';
 
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { type JsonLd } from 'json-ld-types';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
 import {

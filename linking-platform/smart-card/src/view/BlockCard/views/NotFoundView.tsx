@@ -5,11 +5,11 @@
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { type JsonLd } from 'json-ld-types';
 import { useIntl } from 'react-intl-next';
 
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { R300 } from '@atlaskit/theme/colors';

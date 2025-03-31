@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import JsonldEditorInput from '../jsonld-editor/jsonld-editor-input';

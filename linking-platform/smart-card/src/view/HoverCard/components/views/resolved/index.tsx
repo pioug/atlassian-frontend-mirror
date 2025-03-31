@@ -5,8 +5,8 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { type JsonLd } from 'json-ld-types';
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 

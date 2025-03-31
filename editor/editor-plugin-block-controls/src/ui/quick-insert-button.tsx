@@ -8,8 +8,10 @@ import { blockControlsMessages as messages } from '@atlaskit/editor-common/messa
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AddIcon from '@atlaskit/icon/utility/add';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -25,11 +27,14 @@ import {
 	QUICK_INSERT_LEFT_OFFSET,
 } from './consts';
 import {
+	isInTextSelection,
 	isNestedNodeSelected,
 	isNonEditableBlock,
 	isSelectionInNode,
 } from './utils/document-checks';
 import { createNewLine } from './utils/editor-commands';
+
+const TEXT_PARENT_TYPES = ['paragraph', 'heading', 'blockquote', 'taskItem', 'decisionItem'];
 
 const buttonStyles = xcss({
 	boxSizing: 'border-box',
@@ -190,19 +195,48 @@ export const TypeAheadControl = ({
 				api.core.actions.execute(createNewLine(start));
 			}
 
-			if (isSelectionInNode(start, view) && isNestedNodeSelected(view)) {
-				// if the nested selected node is non-editable, then insert a newline below the selected node
-				if (isNonEditableBlock(view.state.selection.from, view)) {
-					api.core.actions.execute(createNewLine(view.state.selection.from));
-				} else {
-					// otherwise need to force the selection to be at the start of the node, because
-					// prosemirror is keeping it as NodeSelection for nested nodes. Do this to keep it
-					// consistent NodeSelection for root level nodes.
-					api.core.actions.execute(({ tr }) => {
-						createNewLine(view.state.selection.from)({ tr });
-						tr.setSelection(TextSelection.create(tr.doc, view.state.selection.from));
-						return tr;
-					});
+			if (isSelectionInNode(start, view)) {
+				// text or element with be deselected and the / added immediately after the paragraph
+				// unless the selection is empty
+				const currentSelection = view.state.selection;
+
+				if (
+					isInTextSelection(view) &&
+					currentSelection.from !== currentSelection.to &&
+					fg('platform_editor_controls_patch_1')
+				) {
+					const currentParagraphNode = findParentNode((node) =>
+						TEXT_PARENT_TYPES.includes(node.type.name),
+					)(currentSelection);
+
+					if (currentParagraphNode) {
+						const newPos =
+							//if the current selection is selected from right to left, then set the selection to the start of the paragraph
+							currentSelection.anchor === currentSelection.to
+								? currentParagraphNode.pos
+								: currentParagraphNode.pos + currentParagraphNode.node.nodeSize - 1;
+
+						api.core.actions.execute(({ tr }) => {
+							tr.setSelection(TextSelection.create(view.state.selection.$from.doc, newPos));
+							return tr;
+						});
+					}
+				}
+
+				if (isNestedNodeSelected(view)) {
+					// if the nested selected node is non-editable, then insert a newline below the selected node
+					if (isNonEditableBlock(view.state.selection.from, view)) {
+						api.core.actions.execute(createNewLine(view.state.selection.from));
+					} else {
+						// otherwise need to force the selection to be at the start of the node, because
+						// prosemirror is keeping it as NodeSelection for nested nodes. Do this to keep it
+						// consistent NodeSelection for root level nodes.
+						api.core.actions.execute(({ tr }) => {
+							createNewLine(view.state.selection.from)({ tr });
+							tr.setSelection(TextSelection.create(tr.doc, view.state.selection.from));
+							return tr;
+						});
+					}
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type InvokePayload, type ServerActionOpts } from '@atlaskit/linking-common';
 import { type BatchResponse } from './responses';
 

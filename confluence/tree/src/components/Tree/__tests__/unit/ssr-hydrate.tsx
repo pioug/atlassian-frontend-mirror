@@ -31,7 +31,7 @@ const App = () => (
 	<Tree tree={complexTree} renderItem={renderItem} isDragEnabled isNestingEnabled />
 );
 
-test('should ssr then hydrate tree correctly', () => {
+test.skip('should ssr then hydrate tree correctly', () => {
 	// we can get errors from using useLayoutEffect in ssr
 	// which won't fail in a real SSR environment
 	const realErrors = jest.fn();

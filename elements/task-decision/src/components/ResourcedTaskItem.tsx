@@ -1,7 +1,6 @@
 import React, { type RefObject } from 'react';
 import { PureComponent } from 'react';
-import EmotionTaskItem from './TaskItem';
-import CompiledTaskItem from './compiled/TaskItem';
+import TaskItem from './TaskItem';
 import {
 	type Appearance,
 	type BaseItem,
@@ -11,7 +10,6 @@ import {
 	type DecisionState,
 } from '../types';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface Props {
 	taskId: string;
@@ -169,40 +167,13 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 			inputRef,
 		} = this.props;
 
-		if (fg('platform_editor_css_migrate_stage_1')) {
-			return (
-				<FabricElementsAnalyticsContext
-					data={{
-						objectAri,
-					}}
-				>
-					<CompiledTaskItem
-						isDone={isDone}
-						isRenderer={isRenderer}
-						isFocused={isFocused}
-						taskId={taskId}
-						onChange={this.handleOnChange}
-						onClick={this.handleOnClick}
-						appearance={appearance}
-						contentRef={contentRef}
-						showPlaceholder={showPlaceholder}
-						placeholder={placeholder}
-						disabled={disabled}
-						dataAttributes={dataAttributes}
-						inputRef={inputRef}
-					>
-						{children}
-					</CompiledTaskItem>
-				</FabricElementsAnalyticsContext>
-			);
-		}
 		return (
 			<FabricElementsAnalyticsContext
 				data={{
 					objectAri,
 				}}
 			>
-				<EmotionTaskItem
+				<TaskItem
 					isDone={isDone}
 					isRenderer={isRenderer}
 					isFocused={isFocused}
@@ -218,7 +189,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 					inputRef={inputRef}
 				>
 					{children}
-				</EmotionTaskItem>
+				</TaskItem>
 			</FabricElementsAnalyticsContext>
 		);
 	}

@@ -1,4 +1,4 @@
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export const isNestedNodeSelected = (view: EditorView) => {
@@ -16,6 +16,18 @@ export const isSelectionInNode = (start: number, view: EditorView) => {
 	const { $from, $to } = view.state.selection;
 
 	return $from.pos >= startPos && endPos >= $to.pos;
+};
+
+// checks if the selection is in a text node
+export const isInTextSelection = (view: EditorView) => {
+	const selection = view.state.selection;
+
+	if (selection instanceof TextSelection) {
+		return true;
+	} else if (selection instanceof NodeSelection) {
+		// check if this is a node that can appear among text
+		return selection.node.isInline;
+	}
 };
 
 export const isNonEditableBlock = (start: number, view: EditorView) => {

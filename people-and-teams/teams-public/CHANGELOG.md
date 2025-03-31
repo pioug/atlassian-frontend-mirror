@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.23.4
+
+### Patch Changes
+
+- [#134430](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134430)
+  [`c539cb7171334`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c539cb7171334) -
+  fix up the bug for team without creator
+
 ## 0.23.3
 
 ### Patch Changes

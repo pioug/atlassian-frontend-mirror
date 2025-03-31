@@ -1,5 +1,4 @@
-import type { JsonLd } from 'json-ld-types';
-
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {

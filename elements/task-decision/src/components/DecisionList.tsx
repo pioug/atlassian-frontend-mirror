@@ -2,16 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React, { PureComponent, type ReactNode } from 'react';
 
-import React from 'react';
-import { PureComponent, type ReactNode } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { listStyles } from './styles';
+import { css, jsx } from '@compiled/react';
 
 export interface Props {
 	children?: ReactNode;
 }
+
+/*
+	Increasing specificity with double ampersand to ensure these rules take
+	priority over the global styles applied to 'ol' elements.
+*/
+const listStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&': {
+		listStyleType: 'none',
+		paddingLeft: 0,
+	},
+});
 
 export default class DecisionList extends PureComponent<Props, {}> {
 	render() {

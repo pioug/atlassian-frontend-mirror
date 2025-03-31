@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractAri, extractLink } from '@atlaskit/link-extractors';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';

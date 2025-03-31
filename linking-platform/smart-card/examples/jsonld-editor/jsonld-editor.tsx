@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
 import uuid from 'uuid';
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractPreview, extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 

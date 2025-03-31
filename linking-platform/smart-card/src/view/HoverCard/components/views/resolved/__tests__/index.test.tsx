@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { act, fireEvent, render, type RenderOptions } from '@testing-library/react';
-import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardState, ProductType } from '@atlaskit/linking-common';

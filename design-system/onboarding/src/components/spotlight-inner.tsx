@@ -7,7 +7,6 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 import { Layering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
-import { layers } from '@atlaskit/theme/constants';
 
 import { type ScrollLogicalPosition, type SpotlightProps } from '../types';
 import { type ElementBoundingBox, ElementBox } from '../utils/use-element-box';
@@ -134,7 +133,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		return (
 			<SpotlightTransitionConsumer>
 				{({ isOpen, onExited }) => (
-					<Portal zIndex={layers.spotlight() + 1}>
+					<Portal zIndex={701}>
 						{TargetReplacement ? (
 							<NodeResolverSpotlightInner
 								hasNodeResolver={!fg('platform_design_system_team_onboarding_noderesolve')}

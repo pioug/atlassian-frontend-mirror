@@ -4,7 +4,6 @@ import memoizeOne from 'memoize-one';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
-import { layers } from '@atlaskit/theme/constants';
 
 import Blanket from '../styled/blanket';
 
@@ -147,7 +146,7 @@ export default class SpotlightManager extends PureComponent<
 					<Container component={Tag || React.Fragment}>
 						<Fade hasEntered={this.state.spotlightCount > 0}>
 							{(animationStyles) => (
-								<Portal zIndex={layers.spotlight()}>
+								<Portal zIndex={700}>
 									<Blanket
 										/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */
 										style={animationStyles}

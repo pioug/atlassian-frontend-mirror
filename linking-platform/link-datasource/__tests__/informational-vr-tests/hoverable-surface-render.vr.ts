@@ -34,6 +34,9 @@ snapshotInformational(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });
 
 snapshotInformational(EmptyState, {
@@ -49,4 +52,7 @@ snapshotInformational(EmptyState, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });

@@ -36,6 +36,7 @@ export const HoverCardComponent = ({
 	role,
 	label,
 	titleId,
+	showLabel = true,
 }: HoverCardComponentProps) => {
 	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
 	const [isOpen, setIsOpen] = React.useState(false);
@@ -234,7 +235,9 @@ export const HoverCardComponent = ({
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
 					data-testid="hover-card-trigger-wrapper"
-					aria-label={formatMessage(messages.more_information_about_this_work_item)}
+					aria-label={
+						showLabel ? formatMessage(messages.more_information_about_this_work_item) : undefined
+					}
 					{...(fg('fix_a11y_violation_in_hover_card_trigger') ? { role: 'button' } : {})}
 				>
 					{children}
@@ -249,6 +252,7 @@ export const HoverCardComponent = ({
 			onContextMenuClick,
 			setMousePosition,
 			formatMessage,
+			showLabel,
 		],
 	);
 

@@ -2,42 +2,42 @@ import React, { useCallback, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
+import { cssMap, cx } from '@atlaskit/css';
 import {
 	Spotlight,
 	SpotlightManager,
 	SpotlightTarget,
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const targetGroupStyles = xcss({
-	justifyContent: 'space-between',
-	padding: 'space.400',
-	listStyleType: 'none',
+const targetGroupStyles = cssMap({
+	root: {
+		justifyContent: 'space-between',
+		paddingTop: token('space.400'),
+		paddingRight: token('space.400'),
+		paddingBottom: token('space.400'),
+		paddingLeft: token('space.400'),
+		listStyleType: 'none',
+	},
 });
 
-const targetStyles = {
-	root: xcss({
-		padding: 'space.200',
-		borderRadius: '12px',
-		backgroundColor: 'color.background.neutral',
-		borderWidth: '1px',
+const targetStyles = cssMap({
+	root: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+		borderRadius: token('border.radius.300'),
+		borderWidth: token('border.width'),
 		borderStyle: 'solid',
-		borderColor: 'color.border',
-	}),
-	green: xcss({
-		backgroundColor: 'color.background.accent.green.subtle',
-		borderColor: 'color.border.accent.green',
-	}),
-	yellow: xcss({
-		backgroundColor: 'color.background.accent.yellow.subtle',
-		borderColor: 'color.border.accent.yellow',
-	}),
-	red: xcss({
-		backgroundColor: 'color.background.accent.red.subtle',
-		borderColor: 'color.border.accent.red',
-	}),
-};
+		borderColor: token('color.border'),
+	},
+	green: {
+		borderColor: token('color.border.accent.green'),
+	},
+});
 
 export default function SpotlightBasicChildrenFunctionExample({
 	defaultIsActive = false,
@@ -56,11 +56,15 @@ export default function SpotlightBasicChildrenFunctionExample({
 
 	return (
 		<SpotlightManager>
-			<Inline xcss={targetGroupStyles} as="ul">
+			<Inline xcss={targetGroupStyles.root} as="ul">
 				<SpotlightTarget name="green">
 					{({ targetRef }) => (
 						<li>
-							<Box ref={targetRef} xcss={[targetStyles.root, targetStyles.green]}>
+							<Box
+								ref={targetRef}
+								xcss={cx(targetStyles.root, targetStyles.green)}
+								backgroundColor="color.background.accent.green.subtle"
+							>
 								Element inside a <code>{'<li>'}</code>
 							</Box>
 						</li>

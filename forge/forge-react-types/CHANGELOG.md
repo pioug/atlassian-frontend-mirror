@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.40.0
+
+### Minor Changes
+
+- [#128054](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/128054)
+  [`2bac28d495a29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bac28d495a29) -
+  Added Comment component from Atlaskit into Forge UI Kit 2
+
 ## 0.39.1
 
 ### Patch Changes

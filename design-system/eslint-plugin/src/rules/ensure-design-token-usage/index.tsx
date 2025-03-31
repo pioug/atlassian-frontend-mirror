@@ -60,7 +60,8 @@ const defaultConfig: RuleConfig = {
 
 const createWithConfig: (initialConfig: RuleConfig) => Rule.RuleModule['create'] =
 	(initialConfig: RuleConfig) => (context: Rule.RuleContext) => {
-		const userConfig = context.options[0];
+		// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+		const userConfig = context.options[0] as unknown as Partial<RuleConfig>;
 		// merge configs
 		const config: RuleConfig = {
 			domains: userConfig?.domains || initialConfig.domains,

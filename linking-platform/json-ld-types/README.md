@@ -37,5 +37,5 @@ const file: JsonLd.Object<JsonLd.Meta.Granted, JsonLd.Data.TextDocument> = {
 };
 ```
 
-Owned by Bandicoots team #help-linking-platform
+Owned by Bandicoots team #help-twg-linking-platform
 

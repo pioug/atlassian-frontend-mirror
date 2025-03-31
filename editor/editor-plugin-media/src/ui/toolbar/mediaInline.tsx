@@ -33,7 +33,6 @@ import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
-import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import { messages } from '@atlaskit/media-ui';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -102,7 +101,7 @@ export const generateMediaInlineFloatingToolbar = (
 			? GrowDiagonalIcon
 			: MaximizeIcon,
 		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-		iconFallback: FilePreviewIcon,
+		iconFallback: MaximizeIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -441,8 +440,7 @@ const getMediaInlineImageToolbar = (
 				testId: 'file-preview-toolbar-button',
 				type: 'button',
 				icon: isEditorControlsEnabled ? GrowDiagonalIcon : MaximizeIcon,
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-				iconFallback: FilePreviewIcon,
+				iconFallback: MaximizeIcon,
 				title: intl.formatMessage(messages.preview),
 				onClick: () => {
 					return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;

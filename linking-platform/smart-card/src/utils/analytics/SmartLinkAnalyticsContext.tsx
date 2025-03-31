@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { type CardState, getUrl } from '@atlaskit/linking-common';

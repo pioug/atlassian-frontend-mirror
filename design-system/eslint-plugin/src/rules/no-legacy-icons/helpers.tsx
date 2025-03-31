@@ -448,7 +448,11 @@ const getLiteralStringValue = (value: any): string | undefined => {
 	return;
 };
 
-export const createHelpers = (context: Rule.RuleContext) => {
+export const createHelpers = (ctx: Rule.RuleContext) => {
+	// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+	const context = ctx as unknown as Omit<Rule.RuleContext, 'options'> & {
+		options: [{ [key: string]: boolean }];
+	};
 	/**
 	 * Extracts the token name of a token() call from a JSXExpressionContainer
 	 * @param value The JSXExpressionContainer to extract the token call from

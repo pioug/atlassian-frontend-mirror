@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 19.1.3
+
+### Patch Changes
+
+- [#133301](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133301)
+  [`626015a52ee65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/626015a52ee65) -
+  tidy up fg of compiled css migration
+
 ## 19.1.2
 
 ### Patch Changes

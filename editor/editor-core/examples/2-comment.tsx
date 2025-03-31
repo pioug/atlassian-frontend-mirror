@@ -11,6 +11,7 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import LockCircleIcon from '@atlaskit/icon/core/migration/lock-locked--lock-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
@@ -172,6 +173,13 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 												allowMediaSingle: true,
 												allowResizing: true,
 											}}
+											textFormatting={
+												fg('platform_editor_comments_toolbar_responsiveness')
+													? {
+															responsiveToolbarMenu: true,
+														}
+													: {}
+											}
 											taskDecisionProvider={taskDecisionProvider}
 											contextIdentifierProvider={contextIdentifierProvider}
 											onChange={onChange}

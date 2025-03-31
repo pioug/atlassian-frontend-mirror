@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 export const YouTubeVideoUrl = 'https://www.youtube.com/watch?v=9tpySewzRG0';
 export const YouTubeVideo = {

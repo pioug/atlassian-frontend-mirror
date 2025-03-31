@@ -8,6 +8,7 @@ export type { CalendarProps, TCalendar } from './CalendarProps.codegen';
 export type { CheckboxGroupProps, TCheckboxGroup } from './CheckboxGroupProps.codegen';
 export type { CodeBlockProps, TCodeBlock } from './CodeBlockProps.codegen';
 export type { CodeProps, TCode } from './CodeProps.codegen';
+export type { CommentProps, TComment } from './CommentProps.codegen';
 export type { DatePickerProps, TDatePicker } from './DatePickerProps.codegen';
 export type { DynamicTableProps, TDynamicTable } from './DynamicTableProps.codegen';
 export type { EmptyStateProps, TEmptyState } from './EmptyStateProps.codegen';
@@ -40,7 +41,10 @@ export type { ProgressTrackerProps, TProgressTracker } from './ProgressTrackerPr
 export type { RadioGroupProps, TRadioGroup } from './RadioGroupProps.codegen';
 export type { RadioProps, TRadio } from './RadioProps.codegen';
 export type { RangeProps, TRange } from './RangeProps.codegen';
-export type { SectionMessageActionProps, TSectionMessageAction } from './SectionMessageActionProps.codegen';
+export type {
+	SectionMessageActionProps,
+	TSectionMessageAction,
+} from './SectionMessageActionProps.codegen';
 export type { SectionMessageProps, TSectionMessage } from './SectionMessageProps.codegen';
 export type { SelectProps, TSelect } from './SelectProps.codegen';
 export type { SpinnerProps, TSpinner } from './SpinnerProps.codegen';

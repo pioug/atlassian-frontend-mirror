@@ -38,7 +38,14 @@ const rule = createLintRule({
 
 	create(context: Rule.RuleContext) {
 		const isIconBase = createIsFromImportSourceFor('@atlaskit/icon', '@atlaskit/icon/base');
-		const { centralLocation = '', failSilently = false } = context.options[0] ?? {};
+
+		// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+		const { centralLocation = '', failSilently = false } = (context.options[0] ??
+			{}) as unknown as {
+			centralLocation?: string;
+			failSilently?: boolean;
+		};
+
 		const locationMessage = centralLocation
 			? `, move the icon to '${centralLocation}', or, if it's a third party logo, migrate to a standard <svg> element with a \`label\`.`
 			: '';

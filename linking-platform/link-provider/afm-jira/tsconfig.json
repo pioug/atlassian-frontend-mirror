@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../json-ld-types/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../link-extractors/afm-jira/tsconfig.json"
 		},
 		{

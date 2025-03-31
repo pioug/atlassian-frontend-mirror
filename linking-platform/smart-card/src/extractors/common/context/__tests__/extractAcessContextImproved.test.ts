@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import { TEST_META_DATA, TEST_VISIT_URL } from '../../__mocks__/jsonld';

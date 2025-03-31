@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
-import { getConfig, ruleSchema } from './config';
+import { getConfig, type RuleConfig, ruleSchema } from './config';
 import { BannedProperties } from './transformers/banned-properties';
 import { FontFamily } from './transformers/font-family';
 import { FontWeight } from './transformers/font-weight';
@@ -12,7 +12,8 @@ import { StyleObject } from './transformers/style-object';
 import { UntokenizedProperties } from './transformers/untokenized-properties';
 
 const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {
-	const config = getConfig(context.options[0]);
+	// TODO: JFP-2823 - this type cast was added due to Jira's ESLint v9 migration
+	const config = getConfig(context.options[0] as unknown as Partial<RuleConfig>);
 
 	return errorBoundary(
 		{

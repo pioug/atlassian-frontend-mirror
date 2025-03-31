@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { createStore, type Reducer } from 'redux';
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardStore, getUrl } from '@atlaskit/linking-common';
 import { extractPreview, type LinkPreview, type CardPlatform } from '@atlaskit/link-extractors';
 import { cardReducer } from './reducers';

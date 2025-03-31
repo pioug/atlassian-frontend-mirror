@@ -3,10 +3,10 @@ import './card-states.card.test.mock';
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
-import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
 	type CardClient,
 	type CardProviderStoreOpts,

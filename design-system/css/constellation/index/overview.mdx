@@ -39,7 +39,7 @@ values, such as `color: 'rgba(123, 45, 67)'` nor `padding: 8`. Typically, only t
 allowed. Additionally, there are some restrictions, such as `zIndex`, which only supports a limited
 set of numeric values.
 
-### cssMap
+### cssMap()
 
 We recommend using `cssMap` to create style maps. These maps can be applied and reused on both
 native elements and React components using `props.css` and `props.xcss` respectively.
@@ -47,6 +47,22 @@ native elements and React components using `props.css` and `props.xcss` respecti
 Make sure to define the styles before using them in your components, i.e. at the top of the file.
 
 <Example Component={CssMapExample} packageName="@atlaskit/css" />
+
+### css()
+
+The `css()` function is a lower-level API that creates a single style object. Unlike `cssMap()`,
+it's best suited for one-off styles. Use it with elements that accept a `css` prop. While `css()` is
+simpler to use, we recommend `cssMap()` for most cases because it provides better reusability and
+type safety.
+
+```tsx
+const styles = css({
+	padding: token('space.100'),
+	color: token('color.text'),
+});
+
+<div css={styles}>Hello world!</div>;
+```
 
 ### Primitives
 

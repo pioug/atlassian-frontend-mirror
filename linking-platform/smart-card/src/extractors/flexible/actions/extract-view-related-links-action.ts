@@ -1,5 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
-
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractAri } from '@atlaskit/link-extractors';
 
 import { type ViewRelatedLinksActionData } from '../../../state/flexible-ui-context/types';

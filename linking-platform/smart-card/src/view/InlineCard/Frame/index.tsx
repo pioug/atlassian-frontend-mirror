@@ -75,7 +75,6 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, 
 			isSelected={isSelected}
 			isInteractive={isInteractive}
 			tabIndex={isInteractive ? 0 : undefined}
-			aria-label={isAnchor ? link ?? 'Link' : undefined}
 			role={isInteractive ? 'button' : undefined}
 			onClick={handleClick}
 			onMouseDown={handleMouseDown}

@@ -8,7 +8,6 @@ export const lazyInlineCardView = (props: InlineCardNodeViewProperties) => {
 	const isPageSSRed = props.isPageSSRed || false;
 	if (
 		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		!fg('platform_editor_ssr_fix_smartlinks') ||
 		(isPageSSRed && fg('platform_ssr_smartlinks_editor'))
 	) {
 		return inlineCardNodeView(props);

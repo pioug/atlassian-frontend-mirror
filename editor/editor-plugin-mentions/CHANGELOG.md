@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.2.0
+
+### Minor Changes
+
+- [#133497](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133497)
+  [`dccd8bcdef0a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dccd8bcdef0a3) -
+  [ED-23460] Adding the objectId, containerId and childObjectId to the mention typeahead inserted
+  events
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.7
 
 ### Patch Changes

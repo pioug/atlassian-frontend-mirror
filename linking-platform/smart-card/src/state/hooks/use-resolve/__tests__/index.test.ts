@@ -2,8 +2,8 @@
 import * as testMocks from './index.test.mock';
 
 import { renderHook } from '@testing-library/react-hooks';
-import { type JsonLd } from 'json-ld-types';
 
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';

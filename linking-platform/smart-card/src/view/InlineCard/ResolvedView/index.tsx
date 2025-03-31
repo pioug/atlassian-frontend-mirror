@@ -111,6 +111,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 					url={link}
 					actionOptions={actionOptions}
 					hoverPreviewOptions={hoverPreviewOptions}
+					showLabel={false}
 				>
 					{inlineCardResolvedView}
 				</HoverCard>

@@ -38,6 +38,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 			UNSAFE_shouldDisableRouterLink,
 			returnFocusRef,
 			interactionName,
+			role,
 			...rest
 		}: DropdownItemProps,
 		ref,
@@ -120,7 +121,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					isSelected={isSelected}
 					onClick={handleItemClick}
 					ref={mergeRefs([ref, itemRef])}
-					role="menuitem"
+					role={role || 'menuitem'}
 					shouldDescriptionWrap={shouldDescriptionWrap}
 					shouldTitleWrap={shouldTitleWrap}
 					testId={testId}

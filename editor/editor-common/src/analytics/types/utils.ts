@@ -10,10 +10,16 @@ type AEP<
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
 	ImplicitAttributes extends Object = {},
+	ContainerId extends string | undefined = undefined,
+	ObjectId extends string | undefined = undefined,
+	ChildObjectId extends string | undefined = undefined,
 > = {
 	action: Action;
 	actionSubject: ActionSubject;
 	actionSubjectId?: ActionSubjectID;
+	containerId?: ContainerId;
+	objectId?: ObjectId;
+	childObjectId?: ChildObjectId;
 	attributes?: Attributes & {
 		[key in keyof ImplicitAttributes]?: ImplicitAttributes[key];
 	};
@@ -25,8 +31,27 @@ type AEP<
 	| { eventType: EVENT_TYPE.OPERATIONAL }
 );
 
-export type UIAEP<Action, ActionSubject, ActionSubjectID, Attributes, NonPrivacySafeAttributes> =
-	AEP<Action, ActionSubject, ActionSubjectID, Attributes, NonPrivacySafeAttributes, EVENT_TYPE.UI>;
+export type UIAEP<
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes = undefined,
+	ContainerId extends string | undefined = undefined,
+	ObjectId extends string | undefined = undefined,
+	ChildObjectId extends string | undefined = undefined,
+> = AEP<
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes,
+	EVENT_TYPE.UI,
+	Object,
+	ContainerId,
+	ObjectId,
+	ChildObjectId
+>;
 
 export type TrackAEP<
 	Action,

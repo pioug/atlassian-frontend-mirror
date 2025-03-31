@@ -4,12 +4,9 @@
  */
 
 import { PureComponent } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type Appearance, type ContentRef, type TaskType, type DecisionType } from '../types';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
-import { contentStyles, taskStyles, decisionStyles, placeholderStyles } from './styles';
+import { token } from '@atlaskit/tokens';
 
 export interface Props {
 	icon: JSX.Element;
@@ -23,6 +20,54 @@ export interface Props {
 	checkBoxId?: string;
 }
 
+const placeholderStyles = css({
+	position: 'absolute',
+	color: token('color.text.subtlest'),
+	margin: `0 0 0 calc(${token('space.100', '8px')} * 3.5)`,
+	pointerEvents: 'none',
+	textOverflow: 'ellipsis',
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
+	maxWidth: 'calc(100% - 50px)',
+});
+
+const placeholderTaskStyles = css({
+	margin: `0 0 0 calc(${token('space.100', '8px')} * 3)`,
+});
+
+const decisionStyles = css({
+	display: 'flex',
+	flexDirection: 'row',
+	marginTop: token('space.100', '8px'),
+	marginRight: 0,
+	marginBottom: 0,
+	marginLeft: 0,
+	paddingTop: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: token('space.150', '12px'),
+	borderRadius: token('border.radius.100', '3px'),
+	backgroundColor: token('color.background.neutral'),
+	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.decision-item': {
+		cursor: 'initial',
+	},
+});
+
+const contentStyles = css({
+	margin: 0,
+	wordWrap: 'break-word',
+	minWidth: 0,
+	flex: '1 1 auto',
+});
+
+const taskStyles = css({
+	display: 'flex',
+	flexDirection: 'row',
+	position: 'relative',
+});
+
 export default class Item extends PureComponent<Props, {}> {
 	public static defaultProps: Partial<Props> = {
 		appearance: 'inline',
@@ -34,15 +79,11 @@ export default class Item extends PureComponent<Props, {}> {
 			return null;
 		}
 
-		// TODO: Migrate away from gridSize
-		// Recommendation: Replace gridSize with 8
-		const offset = gridSize() * (itemType === 'TASK' ? 3 : 3.5);
 		return (
 			<span
 				data-testid="task-decision-item-placeholder"
 				data-component="placeholder"
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={placeholderStyles(offset)}
+				css={[placeholderStyles, itemType === 'TASK' && placeholderTaskStyles]}
 				contentEditable={false}
 			>
 				{placeholder}
@@ -55,11 +96,9 @@ export default class Item extends PureComponent<Props, {}> {
 
 		if (itemType === 'TASK') {
 			return (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={taskStyles} id={`${checkBoxId}-wrapper`}>
 					{icon}
 					{this.renderPlaceholder()}
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div data-component="content" css={contentStyles} ref={contentRef} {...dataAttributes}>
 						{children}
 					</div>
@@ -67,15 +106,9 @@ export default class Item extends PureComponent<Props, {}> {
 			);
 		} else if (itemType === 'DECISION') {
 			return (
-				<div
-					data-testid="elements-decision-item"
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={decisionStyles()}
-					data-decision-wrapper="true"
-				>
+				<div data-testid="elements-decision-item" css={decisionStyles} data-decision-wrapper="true">
 					{icon}
 					{this.renderPlaceholder()}
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div data-component="content" css={contentStyles} ref={contentRef} {...dataAttributes}>
 						{children}
 					</div>

@@ -16,7 +16,6 @@ import {
 	SpotlightPulse,
 	SpotlightTarget,
 } from '../../../index';
-import { pulseKeyframesName } from '../../../styled/target';
 
 interface ElementStubProps {
 	testId?: string;
@@ -250,9 +249,8 @@ describe('<Spotlight />', () => {
 			</SpotlightManager>,
 		);
 
-		expect(screen.getByTestId('spotlight--target')).toHaveStyle(
-			`animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-		);
+		const targetStyles = getComputedStyle(screen.getByTestId('spotlight--target'));
+		expect(targetStyles.animation).toMatch(/\w+ 3s cubic-bezier\(.55,.055,.675,.19\) infinite/);
 	});
 
 	it('pulse should not appear on target element when SpotlightPulse pulse prop is false', () => {
@@ -277,9 +275,8 @@ describe('<Spotlight />', () => {
 			</SpotlightManager>,
 		);
 
-		expect(screen.getByTestId('spotlight--target')).not.toHaveStyle(
-			`animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-		);
+		const targetStyles = getComputedStyle(screen.getByTestId('spotlight--target'));
+		expect(targetStyles.animation).not.toMatch(/\w+ 3s cubic-bezier\(.55,.055,.675,.19\) infinite/);
 	});
 
 	it('pulse should not appear on element when SpotlightPulse pulse prop is false', () => {
@@ -295,9 +292,8 @@ describe('<Spotlight />', () => {
 			</SpotlightManager>,
 		);
 
-		expect(screen.getByTestId('spotlight-pulse')).not.toHaveStyle(
-			`animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-		);
+		const targetStyles = getComputedStyle(screen.getByTestId('spotlight-pulse'));
+		expect(targetStyles.animation).not.toMatch(/\w+ 3s cubic-bezier\(.55,.055,.675,.19\) infinite/);
 	});
 
 	it('pulse should appear on element when SpotlightPulse pulse prop is true', () => {
@@ -313,9 +309,8 @@ describe('<Spotlight />', () => {
 			</SpotlightManager>,
 		);
 
-		expect(screen.getByTestId('spotlight-pulse')).toHaveStyle(
-			`animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-		);
+		const targetStyles = getComputedStyle(screen.getByTestId('spotlight-pulse'));
+		expect(targetStyles.animation).toMatch(/\w+ 3s cubic-bezier\(.55,.055,.675,.19\) infinite/);
 	});
 
 	// Skipped due to HOT-111922 Fails for React 18

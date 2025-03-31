@@ -19,7 +19,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import MediaServicesTextIcon from '@atlaskit/icon/glyph/media-services/text';
+import TextIcon from '@atlaskit/icon/core/text';
 
 import {
 	hidePlaceholderFloatingToolbar,
@@ -283,7 +283,7 @@ const decorateWithPluginOptions = (
 				description: formatMessage(messages.placeholderTextDescription),
 				priority: 1400,
 				keywords: ['placeholder'],
-				icon: () => <MediaServicesTextIcon label="" />,
+				icon: () => <TextIcon label="" />,
 				action(insert, state) {
 					const tr = state.tr;
 					tr.setMeta(pluginKey, { showInsertPanelAt: tr.selection.anchor });

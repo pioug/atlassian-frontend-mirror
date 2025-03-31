@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { type JsonLd } from 'json-ld-types';
-
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 
@@ -67,6 +66,7 @@ export const InlineCard = ({
 					cardDetails as JsonLd.Data.BaseData,
 					renderers,
 					removeTextHighlightingFromTitle,
+					false,
 				)
 			: {};
 

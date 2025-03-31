@@ -2,17 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import { N100A } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 // IE11 and Edge: z-index needed because fixed position calculates z-index relative
 // to body instead of nearest stacking context (Portal in our case).
 const blanketStyles = css({
 	position: 'fixed',
-	zIndex: layers.spotlight(),
+	zIndex: 700,
 	inset: 0,
 	transition: 'opacity 220ms',
 });
@@ -43,7 +41,7 @@ const Blanket = ({ isTinted, onBlanketClicked, style }: BlanketProps) => {
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Pass-through style props are not allowed
 					...style,
-					backgroundColor: isTinted ? token('color.blanket', N100A) : 'transparent',
+					backgroundColor: isTinted ? token('color.blanket') : 'transparent',
 				} as React.CSSProperties
 			}
 			onClick={onBlanketClicked}

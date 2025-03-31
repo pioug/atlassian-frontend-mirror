@@ -58,3 +58,11 @@ export const inlineCommentMessages = defineMessages({
 			'Ending marker to indicate that text was highlighted with an inline comment by a screen reader.',
 	},
 });
+
+export const statusMessages = defineMessages({
+	accessibilityLabelForStatus: {
+		id: 'fabric.editor.status.accessibilityLabel',
+		defaultMessage: 'status: ',
+		description: 'Accessibility label for status',
+	},
+});

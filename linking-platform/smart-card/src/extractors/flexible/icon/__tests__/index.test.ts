@@ -1,4 +1,4 @@
-import { type JsonLd } from 'json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import { IconType, SmartLinkStatus } from '../../../../constants';
 import { extractErrorIcon } from '../index';

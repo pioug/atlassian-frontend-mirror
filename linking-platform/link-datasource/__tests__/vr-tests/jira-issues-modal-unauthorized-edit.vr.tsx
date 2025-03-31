@@ -5,4 +5,7 @@ import { JiraIssuesConfigModalUnauthorizedEditState } from '../../examples/vr/ji
 snapshot(JiraIssuesConfigModalUnauthorizedEditState, {
 	description: 'Jira issues config modal unauthorized edit view',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-visual-refresh-sllv': [true, false],
+	},
 });

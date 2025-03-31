@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "8.0.3",
+	"version": "8.0.4",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,12 +37,12 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
-		"json-ld-types": "^4.1.0",
 		"linkify-it": "^3.0.3",
 		"redux": "^3.7.2"
 	},

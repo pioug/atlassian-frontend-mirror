@@ -4,12 +4,10 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
 import Button from '@atlaskit/button/new';
+import { css, cssMap, jsx } from '@atlaskit/css';
 import { SpotlightCard } from '@atlaskit/onboarding';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { token } from '@atlaskit/tokens';
 
@@ -30,12 +28,18 @@ const taglineStyles = css({
 	paddingBlockEnd: token('space.200', '16px'),
 });
 
-const optionStyles = xcss({
-	padding: 'space.050',
+const optionStyles = cssMap({
+	root: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+	},
 });
 
-const Option = ({ children }: { children: ReactNode }) => <Box xcss={optionStyles}>{children}</Box>;
-
+const Option = ({ children }: { children: ReactNode }) => (
+	<Box xcss={optionStyles.root}>{children}</Box>
+);
 const SpotlightCardIsFlat = () => {
 	return (
 		<div css={wrapperStyles}>

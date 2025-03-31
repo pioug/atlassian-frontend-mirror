@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../json-ld-types/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/logo/afm-post-office/tsconfig.json"
 		}
 	]

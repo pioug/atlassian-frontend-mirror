@@ -24,7 +24,7 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Confluence Discovery & Organization",
-		"runReact18": false,
+		"runReact18": true,
 		"website": {
 			"name": "Tree",
 			"deprecated": "This package has been deprecated."

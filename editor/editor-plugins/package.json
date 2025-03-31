@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "8.0.66",
+	"version": "8.0.69",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -393,10 +393,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_nest_in_quotes_adf_change": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_ssr_fix_smartlinks": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

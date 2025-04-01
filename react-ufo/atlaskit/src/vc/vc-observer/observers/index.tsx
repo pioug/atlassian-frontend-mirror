@@ -128,9 +128,7 @@ export class Observers implements BrowserObservers {
 			renderStop: -1,
 		};
 		this.mutationObserver?.observe(document.body, {
-			attributeFilter: fg('platform-ufo-vc-observe-attributes')
-				? ['hidden', 'style', 'src', 'class']
-				: ['hidden', 'style', 'src'],
+			attributeFilter: ['hidden', 'style', 'src', 'class'],
 			attributeOldValue: true,
 			attributes: true,
 			childList: true,
@@ -361,10 +359,8 @@ export class Observers implements BrowserObservers {
 								return;
 							}
 
-							if (fg('platform-ufo-invisible-element-vc-calculations')) {
-								if (!isElementVisible(target)) {
-									data.ignoreReason = 'not-visible';
-								}
+							if (!isElementVisible(target)) {
+								data.ignoreReason = 'not-visible';
 							}
 
 							if (fg('platform_editor_ed-25937_ignore_mutations_for_ttvc')) {

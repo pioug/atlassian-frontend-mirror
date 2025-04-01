@@ -92,7 +92,11 @@ export interface CustomTriggerProps<TriggerElement extends HTMLElement = any>
 
 export interface OnOpenChangeArgs {
 	isOpen: boolean;
-	event: MouseEvent | KeyboardEvent;
+	/**
+	 * The event that triggered the close.
+	 * The value will be `null` when the dropdown is closed programatically and has no corresponding event.
+	 */
+	event: Event | MouseEvent | KeyboardEvent | null;
 }
 
 export interface MenuWrapperProps extends MenuGroupProps {
@@ -207,6 +211,8 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 
 	/**
 	 * Called when the menu should be open/closed. Receives an object with `isOpen` state.
+	 *
+	 * If the dropdown was closed programatically, the `event` parameter will be `null`.
 	 */
 	onOpenChange?: (args: OnOpenChangeArgs) => void;
 	/**

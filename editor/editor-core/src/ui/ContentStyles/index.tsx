@@ -14,7 +14,7 @@ import { css, jsx, useTheme, type Theme } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import { telepointerStyle } from '@atlaskit/editor-common/collab';
-import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
+import { EmojiSharedCssClassName, defaultEmojiHeight } from '@atlaskit/editor-common/emoji';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
@@ -172,7 +172,7 @@ const listsStyles = css`
 	}
 `;
 
-const emojiStyles = css`
+const reactEmojiStyles = css`
 	.${EmojiSharedCssClassName.EMOJI_CONTAINER} {
 		display: inline-block;
 
@@ -183,6 +183,31 @@ const emojiStyles = css`
 				/** needed for selection style to cover custom emoji image properly */
 				display: flex;
 			}
+		}
+
+		&.${akEditorSelectedNodeClassName} {
+			.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
+				border-radius: 2px;
+				${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
+			}
+		}
+	}
+`;
+
+const emojiStyles = css`
+	[data-prosemirror-node-view-type='vanilla'] {
+		.${EmojiSharedCssClassName.EMOJI_CONTAINER} {
+			display: inline-block;
+		}
+
+		.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
+			background: no-repeat transparent;
+			display: inline-block;
+			height: ${defaultEmojiHeight}px;
+			max-height: ${defaultEmojiHeight}px;
+			cursor: pointer;
+			vertical-align: middle;
+			user-select: all;
 		}
 
 		&.${akEditorSelectedNodeClassName} {
@@ -401,7 +426,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${gapCursorStyles};
 	${panelStyles()}
 	${mentionsStyles}
-  ${emojiStyles}
+	${editorExperiment('platform_editor_vanilla_dom', true) ? emojiStyles : reactEmojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}

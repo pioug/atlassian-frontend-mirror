@@ -31,7 +31,7 @@
 		"./media": "./src/media.ts"
 	},
 	"atlassian": {
-		"team": "Editor: ADF",
+		"team": "Editor: Collaboration",
 		"website": {
 			"name": "Editor Markdown Transformer"
 		},

@@ -42,8 +42,9 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
 import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './emojiPluginType';
-import { EmojiNodeView } from './nodeviews/emoji';
+import { EmojiNodeView as EmojiNodeViewReact } from './nodeviews/emoji';
 import { emojiNodeSpec } from './nodeviews/emojiNodeSpec';
+import { EmojiNodeView } from './nodeviews/EmojiNodeView';
 import {
 	ACTIONS,
 	openTypeAhead as openTypeAheadAction,
@@ -583,15 +584,21 @@ export function createEmojiPlugin(
 		} as SafeStateField<EmojiPluginState>,
 		props: {
 			nodeViews: {
-				emoji: getInlineNodeViewProducer({
-					pmPluginFactoryParams,
-					Component: EmojiNodeView,
-					extraComponentProps: {
-						providerFactory: pmPluginFactoryParams.providerFactory,
-						options,
-						api,
-					},
-				}),
+				emoji: editorExperiment('platform_editor_vanilla_dom', true)
+					? (node) =>
+							new EmojiNodeView(node, {
+								intl: pmPluginFactoryParams.getIntl(),
+								api,
+							})
+					: getInlineNodeViewProducer({
+							pmPluginFactoryParams,
+							Component: EmojiNodeViewReact,
+							extraComponentProps: {
+								providerFactory: pmPluginFactoryParams.providerFactory,
+								options,
+								api,
+							},
+						}),
 			},
 		},
 		view(editorView) {

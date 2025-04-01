@@ -32,6 +32,9 @@ function escapeCsvValue(value: string): string {
 
 export async function clearFolder(reportFolder: string) {
 	console.log('Clearing report folder:', reportFolder);
+	// Create the folder if it doesn't exist
+	await fs.mkdir(reportFolder, { recursive: true });
+
 	const filesToDelete = await fs.readdir(reportFolder);
 	for (const file of filesToDelete) {
 		const filePath = path.join(reportFolder, file);
@@ -41,11 +44,10 @@ export async function clearFolder(reportFolder: string) {
 
 async function saveFilePaths(reportFolder: string, files: Set<string>) {
 	const filesTxtPath = path.join(reportFolder, 'files.txt');
+	const sortedFiles = Array.from(files).sort(); // Sort the file paths alphabetically
 	await fs.writeFile(
 		filesTxtPath,
-		Array.from(files)
-			.map((filePath) => `"${filePath}"`)
-			.join(' '),
+		sortedFiles.map((filePath) => `"${filePath}"`).join('\n'),
 		'utf-8',
 	);
 }

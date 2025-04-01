@@ -1,5 +1,8 @@
 import React from 'react';
 
+import type { Card } from '@atlaskit/smart-card';
+import type { CardSSR } from '@atlaskit/smart-card/ssr';
+
 import type CardView from '../utils/card-view';
 import {
 	ErroredClient,
@@ -28,6 +31,7 @@ const CardViewExample = ({
 	...props
 }: Omit<React.ComponentProps<typeof CardView>, 'client'> & {
 	fontSize?: React.CSSProperties['fontSize'];
+	CardComponent?: typeof Card | typeof CardSSR;
 }) => (
 	<React.Fragment>
 		<CardViewSection {...props} client={new ResolvingClient()} title="[Resolving]" />

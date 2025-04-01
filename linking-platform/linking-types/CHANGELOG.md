@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.7.0
+
+### Minor Changes
+
+- [#134983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134983)
+  [`f6072af13c4e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6072af13c4e9) -
+  Adding an additional supported feature to linking-types to control DSP exporting
+
 ## 9.6.0
 
 ### Minor Changes

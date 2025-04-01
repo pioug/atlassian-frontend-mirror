@@ -326,8 +326,24 @@ export const moveToLayout =
 		const breakoutMode =
 			getBreakoutMode(toNode, breakout) || getBreakoutMode(sourceContent, breakout);
 
+		// we don't want to remove marks when moving/re-ordering layoutSection
+		const shouldRemoveMarks = !(
+			$sourceFrom.node().type === layoutSection &&
+			editorExperiment('platform_editor_element_drag_and_drop_multiselect', true) &&
+			fg('platform_editor_elements_dnd_multi_select_patch_3')
+		);
+
+		const fromContentBeforeBreakoutMarksRemoved = editorExperiment(
+			'platform_editor_element_drag_and_drop_multiselect',
+			true,
+		)
+			? tr.doc.slice($sourceFrom.pos, sourceTo).content
+			: $sourceFrom.nodeAfter;
+
 		// remove breakout from source content
-		let fromContentWithoutBreakout = removeBreakoutMarks(tr, $sourceFrom, sourceTo);
+		let fromContentWithoutBreakout = shouldRemoveMarks
+			? removeBreakoutMarks(tr, $sourceFrom, sourceTo)
+			: fromContentBeforeBreakoutMarksRemoved;
 
 		if (!fromContentWithoutBreakout) {
 			return tr;

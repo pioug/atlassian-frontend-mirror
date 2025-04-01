@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::58a5410f3478761fe38a89a56184aefb>>
+ * @codegen <<SignedSource::61c8e5972c67cf6862ba338f4468f558>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -81,6 +81,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Reserved for creating and adding an object as a secondary/tertiary action in a menu item.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-down': {
 		keywords: ['arrow-down', 'arrowdown', 'icon', 'utility', 'down', 'bottom', 'sorting'],
@@ -91,6 +92,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Know uses: sorting table headers or Bitbucket code difference.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-left': {
 		keywords: [
@@ -110,6 +112,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Known uses: back to previous screen, previous slide.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-right': {
 		keywords: [
@@ -130,6 +133,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Known uses: link to nested menu item, a linked menu item, next slide.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-up': {
 		keywords: ['arrow-up', 'arrowup', 'icon', 'utility', 'improvement', 'jira status'],
@@ -140,6 +144,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Known uses: back to top.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'check-circle': {
 		keywords: [
@@ -159,6 +164,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: '📦 @atlaskit/icon/utility/check-circle',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'check-mark': {
 		keywords: ['check-mark', 'checkmark', 'icon', 'utility', 'tick'],
@@ -169,6 +175,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: '📦 @atlaskit/icon/utility/check-mark',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chevron-double-left': {
 		keywords: [
@@ -187,6 +194,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for calendar year button.',
 		team: 'Design System Team',
+		status: 'ready-to-publish',
 		slackChannel: '#help-design-system',
 	},
 	'chevron-double-right': {
@@ -206,6 +214,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for calendar year button.',
 		team: 'Design System Team',
+		status: 'ready-to-publish',
 		slackChannel: '#help-design-system',
 	},
 	'chevron-down': {
@@ -226,6 +235,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for dropdown menus, selects, accordions, and expands.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chevron-left': {
 		keywords: [
@@ -246,6 +256,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for collapse side nav and to indicate previous in dates.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chevron-right': {
 		keywords: [
@@ -266,6 +277,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for menu fly outs and to indicate next in dates.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chevron-up': {
 		keywords: [
@@ -285,6 +297,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for accordions.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	cross: {
 		keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'utility', 'remove', 'clear', 'x'],
@@ -295,6 +308,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Known uses: remove tag.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'cross-circle': {
 		keywords: [
@@ -319,6 +333,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'drag-handle': {
 		keywords: [
@@ -339,6 +354,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for draggable elements.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'drag-handle-horizontal': {
 		keywords: [
@@ -357,6 +373,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for dragging elements along a horizontal axis.',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'drag-handle-vertical': {
@@ -377,6 +394,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for dragging elements along a vertical axis.',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	error: {
@@ -398,6 +416,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	information: {
 		keywords: ['information', 'icon', 'utility', 'info', 'filled', 'helper', 'tip', 'form'],
@@ -408,6 +427,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'link-external': {
 		keywords: [
@@ -437,6 +457,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for links that open up a new tab as a secondary/tertiary action.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'lock-locked': {
 		keywords: [
@@ -461,6 +482,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'lock-unlocked': {
 		keywords: [
@@ -483,6 +505,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'show-more-horizontal': {
 		keywords: [
@@ -504,6 +527,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for secondary/tertiary more action menus.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'show-more-vertical': {
 		keywords: [
@@ -524,6 +548,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for secondary/tertiary action menus, traditionally on mobile.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'star-starred': {
 		keywords: [
@@ -546,6 +571,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for starred or favourited objects as a secondary/tertiary action.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'star-unstarred': {
 		keywords: [
@@ -566,6 +592,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for starring or favoriting objects as a secondary/tertiary action.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	success: {
 		keywords: ['success', 'icon', 'utility', 'tick', 'yes', 'success', 'filled'],
@@ -576,6 +603,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	warning: {
 		keywords: [
@@ -598,6 +626,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 };
 

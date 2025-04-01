@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InteractionMetrics } from '../../common';
-import type { VCResult } from '../../common/vc/types';
+import type { MultiHeatmapPayload, VCResult } from '../../common/vc/types';
 import { getConfig } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
 import { getVCObserver } from '../../vc';
@@ -56,23 +56,37 @@ export default async function getVCMetrics(
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
-	const VC = result?.['metrics:vc'] as {
-		[key: string]: number | null;
-	};
+	if (fg('platform_ufo_disable_ttvc_v1')) {
+		const ttvcV2Revision = (result?.['ufo:vc:rev'] as MultiHeatmapPayload).find(
+			({ revision }) => revision === 'fy25.02',
+		);
+		if (!ttvcV2Revision?.clean) {
+			return result;
+		}
 
-	if (!VC || !result?.[`${prefix}:vc:clean`]) {
-		return result;
+		return {
+			...result,
+			'metric:vc90': ttvcV2Revision['metric:vc90'],
+		};
+	} else {
+		const VC = result?.['metrics:vc'] as {
+			[key: string]: number | null;
+		};
+
+		if (!VC || !result?.[`${prefix}:vc:clean`]) {
+			return result;
+		}
+
+		if (
+			interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
+			pageVisibilityUpToTTAI !== 'visible'
+		) {
+			return result;
+		}
+
+		return {
+			...result,
+			'metric:vc90': VC['90'],
+		};
 	}
-
-	if (
-		interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
-		pageVisibilityUpToTTAI !== 'visible'
-	) {
-		return result;
-	}
-
-	return {
-		...result,
-		'metric:vc90': VC['90'],
-	};
 }

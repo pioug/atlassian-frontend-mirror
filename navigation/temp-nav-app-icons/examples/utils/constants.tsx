@@ -4,6 +4,7 @@ export const selectOptions = [
 ] as const;
 
 export const appOrder = [
+	'More Atlassian Apps',
 	'Jira',
 	'Confluence',
 	'Loom',
@@ -18,8 +19,8 @@ export const appOrder = [
 	'Jira Service Management',
 	'Assets',
 	'Opsgenie',
+	'Customer Service Management',
 	'Jira Product Discovery',
-	'Jira Customer Service',
 	'Trello',
 	'Guard',
 	'Guard Detect',
@@ -33,6 +34,5 @@ export const appOrder = [
 	'Studio',
 	'Analytics',
 	'Admin',
-	'More Atlassian rows',
 	'Custom Link',
 ];

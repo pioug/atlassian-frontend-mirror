@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.2.0
+
+### Minor Changes
+
+- [#133398](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133398)
+  [`fd3381fec1435`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3381fec1435) -
+  clearing the selectedAnnotations on close of inline comment
+
+## 2.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.9
 
 ### Patch Changes

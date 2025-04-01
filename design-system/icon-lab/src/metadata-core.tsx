@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::c463643dfa00b2d23410a6ab68f4315d>>
+ * @codegen <<SignedSource::8b821faf28eb47c5581103ee5b11b7bb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -90,6 +90,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for aligning bottom edges of content in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-content-center-horizontal': {
 		keywords: [
@@ -111,6 +112,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for aligning horizontal centers of content in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-content-center-vertical': {
 		keywords: [
@@ -131,6 +133,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for aligning vertical centers of content in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-content-left': {
 		keywords: [
@@ -151,6 +154,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for aligning left edges of content in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-content-right': {
 		keywords: [
@@ -171,6 +175,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for aligning right edges of content in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-content-top': {
 		keywords: [
@@ -191,6 +196,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for aligning top edges of content in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-position-bottom': {
 		keywords: [
@@ -212,6 +218,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Bottom-aligned text position within sticky notes in Whiteboards.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-position-center-vertical': {
 		keywords: [
@@ -233,6 +240,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Center-aligned text position within sticky notes in Whiteboards.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'align-position-top': {
 		keywords: [
@@ -253,6 +261,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Top-aligned text position within sticky notes in Whiteboards.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'arrows-diagonal-up-right-down-left': {
 		keywords: [
@@ -273,6 +282,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used within Jira Pages to connect or switch to a Space or page.',
 		team: 'Confluence Integrations',
+		status: 'published',
 	},
 	'assets-data-manager': {
 		keywords: [
@@ -292,6 +302,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for JSM Assets.',
 		team: 'Assets',
+		status: 'published',
 	},
 	'assets-graph': {
 		keywords: ['assets-graph', 'assetsgraph', 'icon', 'icon-lab', 'core', 'assets', 'graph'],
@@ -301,6 +312,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Assets graph',
 		team: 'Assets',
+		status: 'published',
 	},
 	'assets-schema': {
 		keywords: [
@@ -319,6 +331,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for JSM Assets.',
 		team: 'Assets',
+		status: 'published',
 	},
 	'beach-umbrella': {
 		keywords: [
@@ -338,6 +351,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'User-selectable icon choice for calendars',
 		team: 'Growth Buy',
+		status: 'published',
 	},
 	'book-open': {
 		keywords: [
@@ -355,6 +369,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: None',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	calculate: {
 		keywords: ['calculate', 'icon', 'icon-lab', 'core', 'Calculate', 'databases', 'summation'],
@@ -364,6 +379,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Calculate for databases',
 		team: 'Databases',
+		status: 'published',
 	},
 	'cloud-offline': {
 		keywords: [
@@ -383,6 +399,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: "Reserved for showing when a connection can't be established to the cloud.",
 		team: 'Content Types',
+		status: 'published',
 	},
 	'cloud-saved': {
 		keywords: [
@@ -402,6 +419,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for showing saved status after successful cloud synchronisation.',
 		team: 'Content Types',
+		status: 'published',
 	},
 	coins: {
 		keywords: ['coins', 'icon', 'icon-lab', 'core', 'money', 'loose change', 'currency'],
@@ -411,6 +429,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'colour-none': {
 		keywords: [
@@ -431,6 +450,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: "Remove colours from Whiteboard's colour picker",
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'continue-when': {
 		keywords: ['continue-when', 'continuewhen', 'icon', 'icon-lab', 'core'],
@@ -440,6 +460,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for continue when delay in automation.',
 		team: 'Automation',
+		status: 'published',
 		slackChannel: '#help-automation-design',
 	},
 	'cross-octagon': {
@@ -460,6 +481,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	cursor: {
 		keywords: ['cursor', 'icon', 'icon-lab', 'core', 'Whiteboards', 'Cursor'],
@@ -469,6 +491,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Selecting the cursor in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'cursor-strikethrough': {
 		keywords: [
@@ -489,6 +512,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Hide collaborator cursors in the Whiteboard',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'database-storage': {
 		keywords: [
@@ -508,6 +532,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: SQL database in Developer Console',
 		team: 'Ecosystem',
+		status: 'published',
 		slackChannel: '#forge-sql',
 	},
 	'database-storage-cache': {
@@ -529,6 +554,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Storage cache in Developer Console.',
 		team: 'Ecosystem',
+		status: 'published',
 		slackChannel: '#forge-sql',
 	},
 	'distribute-spacing-horizontal': {
@@ -550,6 +576,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Evenly distributing the horizontal space between multiple selected objects on Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'distribute-spacing-vertical': {
 		keywords: [
@@ -570,6 +597,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Evenly distributing the vertical space between multiple selected objects on Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'divider-element': {
 		keywords: [
@@ -588,6 +616,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for inserting divider elements in Confluence',
 		team: 'editor-design',
+		status: 'published',
 		slackChannel: '#editor-controls-project',
 	},
 	'dock-toolbar-top': {
@@ -607,6 +636,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for docking a toolbar to the top of a page',
 		team: 'Editor-design',
+		status: 'ready-to-publish',
 		slackChannel: '#Editor-design',
 	},
 	'drop-shadow': {
@@ -617,6 +647,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Toggle drop shadow on and off',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	duplicate: {
 		keywords: ['duplicate', 'icon', 'icon-lab', 'core', 'clone', 'duplicate', 'plus'],
@@ -626,6 +657,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for cloning and duplicating objects.',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	editions: {
@@ -647,6 +679,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Reserved for representing premium features and functionality. Editions may replace the current premium sparkle icon.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'expand-element': {
 		keywords: [
@@ -664,6 +697,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for inserting expand elements in Confluence',
 		team: 'editor-design',
+		status: 'published',
 		slackChannel: '#editor-controls-project',
 	},
 	'field-text': {
@@ -685,6 +719,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	gift: {
 		keywords: ['gift', 'icon', 'icon-lab', 'core', 'gift', 'present'],
@@ -694,6 +729,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'User-selectable icon choice for calendars',
 		team: 'Growth Buy',
+		status: 'published',
 	},
 	'group-selection': {
 		keywords: [
@@ -712,6 +748,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Grouping selected objects in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'group-ungroup-selection': {
 		keywords: [
@@ -730,6 +767,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Ungrouping selected objects in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	hand: {
 		keywords: ['hand', 'icon', 'icon-lab', 'core', 'hand', 'grab', 'move', 'open palm'],
@@ -739,6 +777,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for move/hand tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'if-else': {
 		keywords: ['if-else', 'ifelse', 'icon', 'icon-lab', 'core', 'condition', 'statement', 'branch'],
@@ -748,6 +787,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for If Else conditions',
 		team: 'Automation',
+		status: 'published',
 		slackChannel: '#help-automation-design',
 	},
 	'image-alt-text': {
@@ -758,6 +798,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for creating alt text for an image',
 		team: 'Editor',
+		status: 'published',
 		slackChannel: '#editor-design',
 	},
 	'image-crop': {
@@ -768,6 +809,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for cropping images',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	incognito: {
 		keywords: ['incognito', 'icon', 'icon-lab', 'core', 'Whiteboards', 'Private', 'Incognito'],
@@ -777,6 +819,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Toggle Whiteboards private mode on and off.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	initiative: {
 		keywords: [
@@ -797,6 +840,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Representing Jira Initiatives',
 		team: 'Jira Enterprise',
+		status: 'published',
 	},
 	jira: {
 		keywords: ['jira', 'icon', 'icon-lab', 'core'],
@@ -806,6 +850,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Representing JIRA',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'jira-add': {
 		keywords: ['jira-add', 'jiraadd', 'icon', 'icon-lab', 'core', 'Jira', 'Work items', 'Create'],
@@ -815,6 +860,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for adding Jira work items',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'jira-upload': {
 		keywords: [
@@ -834,6 +880,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for importing Jira work items',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'layout-five-columns': {
 		keywords: [
@@ -853,6 +900,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for 5 column layout option in Confluence Editor.',
 		team: 'Confluence Editor',
+		status: 'published',
 	},
 	'layout-four-columns': {
 		keywords: [
@@ -872,6 +920,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for 4 columns layout option in Confluence Editor.',
 		team: 'Confluence Editor',
+		status: 'published',
 	},
 	lozenge: {
 		keywords: ['lozenge', 'icon', 'icon-lab', 'core', 'insert', 'status', 'badge'],
@@ -881,6 +930,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for inserting status lozenges in Editor.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'node-parallel-bottom-left': {
 		keywords: [
@@ -900,6 +950,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for whiteboard’s node parallel-bottom-left',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'node-parallel-bottom-right': {
 		keywords: [
@@ -919,6 +970,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for whiteboard’s node parallel-bottom-right',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'node-parallel-top-left': {
 		keywords: [
@@ -938,6 +990,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for whiteboard’s node parallel-top-left',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'node-parallel-top-right': {
 		keywords: [
@@ -957,6 +1010,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for whiteboard’s node parallel-top-right',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'node-single-left': {
 		keywords: [
@@ -975,6 +1029,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for whiteboard’s node single-left alignment',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'node-single-right': {
 		keywords: [
@@ -993,6 +1048,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for whiteboard’s node single-right',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	notepad: {
 		keywords: ['notepad', 'icon', 'icon-lab', 'core', 'Card', 'Note', 'Notepad', 'Memo'],
@@ -1002,6 +1058,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Whiteboard component 'card'",
 		team: 'Confluence Whiteboards',
+		status: 'published',
 	},
 	'page-live-doc': {
 		keywords: [
@@ -1023,6 +1080,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for Live Document content type.',
 		team: 'Content Types',
+		status: 'published',
 	},
 	'paint-brush': {
 		keywords: [
@@ -1041,6 +1099,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'paint-roller': {
 		keywords: [
@@ -1059,6 +1118,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	panel: {
 		keywords: ['panel', 'icon', 'icon-lab', 'core', 'panel', 'card'],
@@ -1068,6 +1128,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Panel category in Confluence',
 		team: 'Editor AI',
+		status: 'published',
 	},
 	'party-popper': {
 		keywords: [
@@ -1087,6 +1148,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'User-selectable icon choice for calendars',
 		team: 'Growth Buy',
+		status: 'published',
 	},
 	'qr-code': {
 		keywords: ['qr-code', 'qrcode', 'icon', 'icon-lab', 'core', 'QR code', 'barcode'],
@@ -1096,6 +1158,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for QR code experiences.',
 		team: 'Assets',
+		status: 'published',
 	},
 	'queue-pop-in': {
 		keywords: [
@@ -1115,6 +1178,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for JSM queue navigation to move back to sidebar',
 		team: 'JSM core capabilities',
+		status: 'published',
 	},
 	'queue-pop-out': {
 		keywords: [
@@ -1134,6 +1198,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for JSM queue navigation to pop out from sidebar',
 		team: 'JSM core capabilities',
+		status: 'published',
 	},
 	recur: {
 		keywords: ['recur', 'icon', 'icon-lab', 'core', 'recur', 'recurring', 'repeat', 'repeating'],
@@ -1143,6 +1208,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
 		team: 'Pandora',
+		status: 'published',
 		slackChannel: '#horizon-pandora-eng',
 	},
 	'roadmaps-plan': {
@@ -1163,6 +1229,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for roadmaps plan.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'roadmaps-service': {
 		keywords: [
@@ -1182,6 +1249,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for roadmaps service.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	section: {
 		keywords: ['section', 'icon', 'icon-lab', 'core', 'section', 'related content'],
@@ -1191,6 +1259,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for section tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-diamond': {
 		keywords: [
@@ -1208,6 +1277,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Diamond shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-ellipse': {
 		keywords: [
@@ -1226,6 +1296,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Ellipse shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-parallelogram-skew-left': {
 		keywords: [
@@ -1245,6 +1316,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Left parallelogram shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-parallelogram-skew-right': {
 		keywords: [
@@ -1264,6 +1336,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Right parallelogram shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-rectangle': {
 		keywords: [
@@ -1282,6 +1355,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Rectangle shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-rectangle-rounded': {
 		keywords: [
@@ -1301,6 +1375,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Rounded rectangle shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-triangle': {
 		keywords: [
@@ -1319,6 +1394,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Triangle shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'shape-triangle-inverted': {
 		keywords: [
@@ -1337,6 +1413,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Upside down triangle shape tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	signature: {
 		keywords: [
@@ -1357,6 +1434,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Toggle author visibility on sticky notes in Whiteboards.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'sort-options': {
 		keywords: [
@@ -1377,6 +1455,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for accessing sorting options.',
 		team: 'Databases',
+		status: 'published',
 	},
 	speedometer: {
 		keywords: ['speedometer', 'icon', 'icon-lab', 'core', 'speed', 'performance', 'dial'],
@@ -1386,6 +1465,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'split-parallel': {
 		keywords: ['split-parallel', 'splitparallel', 'icon', 'icon-lab', 'core', 'router', 'branches'],
@@ -1395,6 +1475,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for split parallel branches in Automation',
 		team: 'Automation',
+		status: 'published',
 		slackChannel: '#help-automation-design',
 	},
 	stamp: {
@@ -1405,6 +1486,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for stamp tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	sticker: {
 		keywords: ['sticker', 'icon', 'icon-lab', 'core', 'sticker', 'peel-off'],
@@ -1414,6 +1496,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for sticker tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-curvature-curved': {
 		keywords: [
@@ -1434,6 +1517,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for curved line type setting for line tool in Whiteboards.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-curvature-dynamic': {
 		keywords: [
@@ -1453,6 +1537,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for dynamic line type setting for line tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-curvature-straight': {
 		keywords: [
@@ -1473,6 +1558,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for straight line type setting for line tool in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-properties': {
 		keywords: [
@@ -1490,6 +1576,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for stroke properties in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-style-dashed': {
 		keywords: [
@@ -1510,6 +1597,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing dashed stroke and border styles.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-style-dotted': {
 		keywords: [
@@ -1530,6 +1618,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing dotted stroke and border styles.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-style-solid': {
 		keywords: [
@@ -1550,6 +1639,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing solid stroke and border styles.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'suggested-edit': {
 		keywords: [
@@ -1570,6 +1660,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for suggestions powered by Atlassian Intelligence',
 		team: 'Editor AI',
+		status: 'published',
 	},
 	sunset: {
 		keywords: [
@@ -1590,6 +1681,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Farewell feed in hello.',
 		team: 'confluence insights',
+		status: 'published',
 	},
 	swap: {
 		keywords: [
@@ -1608,6 +1700,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Swapping between Jira tickets in Whiteboard smart section',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'switch-case': {
 		keywords: [
@@ -1627,6 +1720,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for switch case conditions in automation',
 		team: 'Automations',
+		status: 'published',
 		slackChannel: '#help-automation-design',
 	},
 	sync: {
@@ -1648,6 +1742,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for syncing changes and save operations.',
 		team: 'Content Types',
+		status: 'published',
 	},
 	'takeout-container': {
 		keywords: [
@@ -1666,6 +1761,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known usages: Alternative option for food emoji category.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	talent: {
 		keywords: ['talent', 'icon', 'icon-lab', 'core', 'talent', 'person', 'star'],
@@ -1675,6 +1771,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for functional representation of Talent app',
 		team: 'Talent',
+		status: 'published',
 	},
 	template: {
 		keywords: ['template', 'icon', 'icon-lab', 'core', 'template', 'templates'],
@@ -1684,6 +1781,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Used for templates in Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-bold-italic': {
 		keywords: [
@@ -1704,6 +1802,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for bold text with italic',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-bold-italic-strikethrough': {
 		keywords: [
@@ -1724,6 +1823,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for italic bold text with a strikethrough',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-bold-italic-underline': {
 		keywords: [
@@ -1745,6 +1845,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for bold italic text with underline',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-bold-italic-underline-strikethrough': {
 		keywords: [
@@ -1765,6 +1866,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for bold italic text with underline and strikethrough',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-bold-strikethrough': {
 		keywords: [
@@ -1784,6 +1886,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for bold strikethrough text',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-bold-underline': {
 		keywords: [
@@ -1802,6 +1905,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for bold text with underline',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-bold-underline-strikethrough': {
 		keywords: [
@@ -1821,6 +1925,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for bold text with underline and strikethrough',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-conclusion-add': {
 		keywords: [
@@ -1840,6 +1945,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Confluence Editor AI action for generating a conclusion',
 		team: 'Editor AI',
+		status: 'published',
 	},
 	'text-introduction-add': {
 		keywords: [
@@ -1859,6 +1965,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Confluence Editor AI action for generating an introduction',
 		team: 'Editor AI',
+		status: 'published',
 	},
 	'text-italic-strikethrough': {
 		keywords: [
@@ -1879,6 +1986,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for italic text with strikethrough',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-italic-underline': {
 		keywords: [
@@ -1899,6 +2007,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for italic text with underline',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-italic-underline-strikethrough': {
 		keywords: [
@@ -1918,6 +2027,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for italic text with underline and strikethrough',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'text-lengthen': {
 		keywords: [
@@ -1938,6 +2048,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Lengthening text content with Atlassian Intelligence',
 		team: 'Editor AI',
+		status: 'published',
 	},
 	'text-paragraph': {
 		keywords: [
@@ -1959,6 +2070,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Confluence Editor AI action for reformatting paragraphs into multiple shorter paragraphs',
 		team: 'Editor AI',
+		status: 'published',
 	},
 	'text-rephrase': {
 		keywords: [
@@ -1978,6 +2090,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Confluence Editor AI action for rephrasing text',
 		team: 'Editor AI',
+		status: 'published',
 	},
 	'text-underline-strikethrough': {
 		keywords: [
@@ -1998,6 +2111,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for underline text with a strikethrough',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	ticket: {
 		keywords: ['ticket', 'icon', 'icon-lab', 'core', 'stub', 'ticket'],
@@ -2007,6 +2121,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	tidy: {
 		keywords: ['tidy', 'icon', 'icon-lab', 'core', 'Tidy', 'Clean up', 'Tidy up', 'Grid'],
@@ -2016,6 +2131,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Tidy up objects on Whiteboards',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'vehicle-airplane': {
 		keywords: [
@@ -2036,6 +2152,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'User-selectable icon choice for calendars',
 		team: 'Growth Buy',
+		status: 'published',
 	},
 	'vehicle-train': {
 		keywords: [
@@ -2054,6 +2171,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known usages: Alternative option for transport emoji category.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-hd': {
 		keywords: ['video-hd', 'videohd', 'icon', 'icon-lab', 'core', 'high definition', 'hi def'],
@@ -2063,6 +2181,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for enabling high definition videos',
 		team: 'Atlassian Design System',
+		status: 'published',
 	},
 	'video-hd-filled': {
 		keywords: [
@@ -2080,6 +2199,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved to show that high definition is enabled for videos',
 		team: 'Atlassian Design System',
+		status: 'published',
 	},
 	'view-type-board-home': {
 		keywords: [
@@ -2099,6 +2219,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Home view for database board layout',
 		team: 'Databases',
+		status: 'published',
 	},
 	'view-type-card-home': {
 		keywords: [
@@ -2118,6 +2239,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Home view for database card layout',
 		team: 'Databases',
+		status: 'published',
 	},
 	'view-type-table-home': {
 		keywords: [
@@ -2137,6 +2259,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Home view for database table layout',
 		team: 'Databases',
+		status: 'published',
 	},
 	vulnerability: {
 		keywords: [
@@ -2155,6 +2278,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for security vulnerabilities.',
 		team: 'Automation',
+		status: 'published',
 	},
 	wallet: {
 		keywords: ['wallet', 'icon', 'icon-lab', 'core', 'money', 'sales', 'payment', 'wallet'],
@@ -2164,6 +2288,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'warning-outline': {
 		keywords: [
@@ -2184,6 +2309,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Low-impact warnings. Overdue dates in Atlassian Home.',
 		team: 'Atlassian Home',
+		status: 'published',
 	},
 	webhook: {
 		keywords: ['webhook', 'icon', 'icon-lab', 'core', 'api', 'callback', 'payload'],
@@ -2193,6 +2319,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for using a webhook to send data between applications via HTTP',
 		team: 'Automation',
+		status: 'published',
 		slackChannel: '#help-automation-design',
 	},
 	'welcome-feed': {
@@ -2214,6 +2341,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Intro blog feed picker on Hello',
 		team: 'Insights',
+		status: 'published',
 		slackChannel: '#cc-insights-and-reporting',
 	},
 	'work-item-add': {
@@ -2236,6 +2364,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for adding or creating a new work item.',
 		team: 'Jira',
+		status: 'published',
 	},
 	'workflow-controls': {
 		keywords: [
@@ -2252,6 +2381,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for workflow controls in automation',
 		team: 'Automation',
+		status: 'published',
 		slackChannel: '#help-automation-design',
 	},
 	wrench: {
@@ -2262,6 +2392,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 };
 

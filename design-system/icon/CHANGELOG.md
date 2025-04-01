@@ -1,5 +1,23 @@
 # @atlaskit/icon
 
+## 25.4.0
+
+### Minor Changes
+
+- [#134572](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134572)
+  [`9ae8e789e419b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ae8e789e419b) -
+  Icons are now shipped using paths instead of strokes and no longer require SVG filter overrides
+  when using disabled tokens for color.
+
+## 25.3.1
+
+### Patch Changes
+
+- [#130237](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130237)
+  [`2648b1745d092`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2648b1745d092) -
+  Added status information in icon metadata
+- Updated dependencies
+
 ## 25.3.0
 
 ### Minor Changes

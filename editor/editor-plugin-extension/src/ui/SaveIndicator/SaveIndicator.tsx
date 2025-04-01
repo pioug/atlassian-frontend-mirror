@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { messages } from '@atlaskit/editor-common/extensions';
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { G300, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -74,8 +74,9 @@ export const SaveIndicator = ({ children, duration, visible = true }: SaveIndica
 					<div css={saveIndicatorContentStyles} data-testid="save-indicator-content">
 						<CheckCircleIcon
 							label="Saving"
-							primaryColor={token('color.icon.success', G300)}
-							size="small"
+							color={token('color.icon.success', G300)}
+							LEGACY_size="small"
+							spacing="none"
 						/>
 						<Box xcss={saveIndicatorTextStyles}>
 							<Text>

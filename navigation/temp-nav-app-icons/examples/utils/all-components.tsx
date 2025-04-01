@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::09295df429882c402b20f2e77a4fdffc>>
+ * @codegen <<SignedSource::2790c8ccdb9c76b4149452e82c63a555>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -15,16 +15,16 @@ import { CompanyHubIcon, CompanyHubLogo } from '@atlaskit/temp-nav-app-icons/com
 import { CompassIcon, CompassLogo } from '@atlaskit/temp-nav-app-icons/compass';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/temp-nav-app-icons/confluence';
 import { CustomLinkIcon } from '@atlaskit/temp-nav-app-icons/custom-link';
+import {
+	CustomerServiceManagementIcon,
+	CustomerServiceManagementLogo,
+} from '@atlaskit/temp-nav-app-icons/customer-service-management';
 import { FocusIcon, FocusLogo } from '@atlaskit/temp-nav-app-icons/focus';
 import { GoalsIcon, GoalsLogo } from '@atlaskit/temp-nav-app-icons/goals';
 import { GuardIcon, GuardLogo } from '@atlaskit/temp-nav-app-icons/guard';
 import { GuardDetectIcon, GuardDetectLogo } from '@atlaskit/temp-nav-app-icons/guard-detect';
 import { HomeIcon, HomeLogo } from '@atlaskit/temp-nav-app-icons/home';
 import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
-import {
-	JiraCustomerServiceIcon,
-	JiraCustomerServiceLogo,
-} from '@atlaskit/temp-nav-app-icons/jira-customer-service';
 import {
 	JiraProductDiscoveryIcon,
 	JiraProductDiscoveryLogo,
@@ -119,6 +119,13 @@ export const rows: Array<{
 		Logo: (props) => <ConfluenceLogo {...props} />,
 	},
 	{
+		name: 'Customer Service Management',
+		Icon20: (props) => <CustomerServiceManagementIcon {...props} size="20" />,
+		Icon24: (props) => <CustomerServiceManagementIcon {...props} size="24" />,
+		Icon32: (props) => <CustomerServiceManagementIcon {...props} size="32" />,
+		Logo: (props) => <CustomerServiceManagementLogo {...props} />,
+	},
+	{
 		name: 'Focus',
 		Icon20: (props) => <FocusIcon {...props} size="20" />,
 		Icon24: (props) => <FocusIcon {...props} size="24" />,
@@ -152,13 +159,6 @@ export const rows: Array<{
 		Icon24: (props) => <HomeIcon {...props} size="24" />,
 		Icon32: (props) => <HomeIcon {...props} size="32" />,
 		Logo: (props) => <HomeLogo {...props} />,
-	},
-	{
-		name: 'Jira Customer Service',
-		Icon20: (props) => <JiraCustomerServiceIcon {...props} size="20" />,
-		Icon24: (props) => <JiraCustomerServiceIcon {...props} size="24" />,
-		Icon32: (props) => <JiraCustomerServiceIcon {...props} size="32" />,
-		Logo: (props) => <JiraCustomerServiceLogo {...props} />,
 	},
 	{
 		name: 'Jira Product Discovery',

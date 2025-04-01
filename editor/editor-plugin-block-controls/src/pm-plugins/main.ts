@@ -452,6 +452,7 @@ export const newApply = (
 				latestActiveNode?.nodeType,
 				nodeViewPortalProviderAPI,
 				latestActiveNode?.handleOptions,
+				anchorRectCache,
 			);
 
 			decorations = decorations.add(newState.doc, [handleDec]);
@@ -478,6 +479,7 @@ export const newApply = (
 				nodeViewPortalProviderAPI,
 				latestActiveNode?.rootAnchorName,
 				latestActiveNode?.rootNodeType,
+				anchorRectCache,
 			);
 			decorations = decorations.add(newState.doc, [quickInsertButton]);
 		}

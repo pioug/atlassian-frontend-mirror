@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, memo, useState } from 'react';
+import { type FC, memo, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -71,7 +71,11 @@ export const Popup: FC<PopupProps> = memo(
 
 		const id = providedId || generatedId;
 
-		useNotifyOpenLayerObserver({ isOpen });
+		const handleOpenLayerObserverCloseSignal = useCallback(() => {
+			onClose?.(null);
+		}, [onClose]);
+
+		useNotifyOpenLayerObserver({ isOpen, onClose: handleOpenLayerObserverCloseSignal });
 
 		const renderPopperWrapper = (
 			<Layering isDisabled={false}>

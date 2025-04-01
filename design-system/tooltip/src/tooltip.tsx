@@ -8,6 +8,7 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { type Direction, ExitingPersistence, FadeIn, type Transition } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -407,7 +408,25 @@ function Tooltip({
 
 	const shouldRenderTooltipChildren: boolean = state !== 'hide' && state !== 'fade-out';
 
-	useNotifyOpenLayerObserver({ isOpen: shouldRenderTooltipPopup });
+	const handleOpenLayerObserverCloseSignal = useCallback(() => {
+		apiRef.current?.requestHide({ isImmediate: true });
+	}, []);
+
+	useNotifyOpenLayerObserver({
+		// Layer is only visually open if both the tooltip popup (container) and children are rendered.
+		isOpen:
+			shouldRenderTooltipPopup &&
+			(fg('platform_dst_open_layer_observer_close_layers') ? shouldRenderTooltipChildren : true),
+		/**
+		 * We don't strictly need to provide an onClose callback at this time, as there is
+		 * already code that handles hiding the tooltip when a drag is started (and the only
+		 * usage right now is closing all layers when the user resizes the side nav).
+		 *
+		 * However, for future-proofing and semantic reasons, it makes sense to close the tooltip
+		 * whenever the open layer observer requests a close.
+		 */
+		onClose: handleOpenLayerObserverCloseSignal,
+	});
 
 	const getReferenceElement = () => {
 		if (position === 'mouse' && apiRef.current?.mousePosition) {

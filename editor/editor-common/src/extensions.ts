@@ -58,6 +58,7 @@ export type {
 export type {
 	ExtensionAutoConvertHandler,
 	ExtensionComponentProps,
+	ExtensionDeprecationStatus,
 	ExtensionKey,
 	ExtensionManifest,
 	ExtensionModule,

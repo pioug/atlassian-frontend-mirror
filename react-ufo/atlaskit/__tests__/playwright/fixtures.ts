@@ -87,6 +87,19 @@ export const test = base.extend<{
 	 * It does that by using a `expect.poll`.
 	 */
 	getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
+
+	/*
+	 * Usage:
+	 *
+	 * Best way to found out when a Section div has attribute mutation.
+	 *
+	 * This function will wait until the given Element testId is added into an internal map.
+	 * It does that by using a `expect.poll`.
+	 */
+	getSectionAttributeNthChange: (
+		sectionTestId: string,
+		nthChange: number,
+	) => Promise<DOMHighResTimeStamp | null>;
 }>({
 	viewport: {
 		width: 900,
@@ -103,6 +116,7 @@ export const test = base.extend<{
 		await page.addInitScript(() => {
 			(window as WindowWithReactUFOTestGlobals).__sectionAddedAt = new Map();
 			(window as WindowWithReactUFOTestGlobals).__sectionVisibleAt = new Map();
+			(window as WindowWithReactUFOTestGlobals).__sectionAttributeChanges = new Map();
 
 			const intersectionObserver = new IntersectionObserver((entries) => {
 				for (const entry of entries) {
@@ -116,25 +130,43 @@ export const test = base.extend<{
 				}
 			});
 
+			const recordNodeAdded = (node: Element) => {
+				const testId = node.getAttribute('data-testid');
+				if (testId) {
+					(window as WindowWithReactUFOTestGlobals).__sectionAddedAt.set(testId, performance.now());
+					intersectionObserver.observe(node);
+				}
+			};
 			// setup integration testing globals
 			const observer = new MutationObserver((records) => {
 				for (const record of records) {
 					for (const addedNode of record.addedNodes) {
-						if (addedNode instanceof HTMLElement) {
-							const testId = addedNode.getAttribute('data-testid');
-							if (testId) {
-								intersectionObserver.observe(addedNode);
+						if (addedNode instanceof Element) {
+							recordNodeAdded(addedNode);
 
-								(window as WindowWithReactUFOTestGlobals).__sectionAddedAt.set(
-									testId,
-									performance.now(),
-								);
-							}
+							addedNode.querySelectorAll('*').forEach((node) => {
+								recordNodeAdded(node);
+							});
 						}
 					}
 
 					if (record.type === 'attributes' && record.target instanceof HTMLElement) {
-						intersectionObserver.observe(record.target);
+						const testId = record.target.getAttribute('data-testid');
+						if (testId) {
+							intersectionObserver.observe(record.target);
+							type MutationRecordWithTimestamp = MutationRecord & { timestamp: number };
+							const mutation = record as MutationRecordWithTimestamp;
+
+							const changes =
+								(window as WindowWithReactUFOTestGlobals).__sectionAttributeChanges.get(testId) ||
+								[];
+							const changeTimestamp = mutation.timestamp ?? performance.now();
+							changes.push(changeTimestamp);
+							(window as WindowWithReactUFOTestGlobals).__sectionAttributeChanges.set(
+								testId,
+								changes,
+							);
+						}
 					}
 				}
 			});
@@ -239,7 +271,7 @@ export const test = base.extend<{
 						return value;
 					},
 					{
-						message: `React UFO payload never received.`,
+						message: `Section [data-testid="${sectionTestId}"] isn't added into the DOM.`,
 						intervals: [500],
 						timeout: 10000,
 					},
@@ -268,6 +300,38 @@ export const test = base.extend<{
 					},
 					{
 						message: `Element [data-testid="${sectionTestId}"] isn't visible.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return result;
+		};
+
+		await use(getValue);
+	},
+
+	getSectionAttributeNthChange: async ({ page }, use) => {
+		const getValue = async (sectionTestId: string, nthChange: number) => {
+			let result: number | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate(
+							({ sectionTestId: _sectionTestId, nthChange: _nthChange }) => {
+								const myMap = (window as WindowWithReactUFOTestGlobals).__sectionAttributeChanges;
+								const changes = myMap.get(_sectionTestId) || [];
+								return changes[_nthChange] || null;
+							},
+							{ sectionTestId, nthChange },
+						);
+
+						result = value;
+						return value;
+					},
+					{
+						message: `Element [data-testid="${sectionTestId}"] has no ${nthChange}-th attribute changes.`,
 						intervals: [500],
 						timeout: 10000,
 					},

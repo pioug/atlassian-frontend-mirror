@@ -6,11 +6,11 @@
 import React from 'react';
 
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/temp-nav-app-icons/confluence';
-import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
 import {
-	JiraCustomerServiceIcon,
-	JiraCustomerServiceLogo,
-} from '@atlaskit/temp-nav-app-icons/jira-customer-service';
+	CustomerServiceManagementIcon,
+	CustomerServiceManagementLogo,
+} from '@atlaskit/temp-nav-app-icons/customer-service-management';
+import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
 import {
 	JiraProductDiscoveryIcon,
 	JiraProductDiscoveryLogo,
@@ -52,11 +52,11 @@ export const customThemeApps: Array<{
 		Logo: (props) => <JiraServiceManagementLogo {...props} />,
 	},
 	{
-		name: 'Jira Customer Service',
-		Icon20: (props) => <JiraCustomerServiceIcon {...props} size="20" />,
-		Icon24: (props) => <JiraCustomerServiceIcon {...props} size="24" />,
-		Icon32: (props) => <JiraCustomerServiceIcon {...props} size="32" />,
-		Logo: (props) => <JiraCustomerServiceLogo {...props} />,
+		name: 'Customer Service Management',
+		Icon20: (props) => <CustomerServiceManagementIcon {...props} size="20" />,
+		Icon24: (props) => <CustomerServiceManagementIcon {...props} size="24" />,
+		Icon32: (props) => <CustomerServiceManagementIcon {...props} size="32" />,
+		Logo: (props) => <CustomerServiceManagementLogo {...props} />,
 	},
 	{
 		name: 'Jira',

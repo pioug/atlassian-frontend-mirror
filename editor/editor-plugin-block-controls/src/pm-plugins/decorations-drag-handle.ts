@@ -14,6 +14,7 @@ import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginT
 import { DragHandle } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
+import { AnchorRectCache } from './utils/anchor-utils';
 
 export const emptyParagraphNodeDecorations = () => {
 	const anchorName = `--node-anchor-paragraph-0`;
@@ -43,6 +44,7 @@ export const dragHandleDecoration = (
 	nodeType: string,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	handleOptions?: HandleOptions,
+	anchorRectCache?: AnchorRectCache,
 ) => {
 	unmountDecorations(
 		nodeViewPortalProviderAPI,
@@ -127,6 +129,7 @@ export const dragHandleDecoration = (
 					nodeType,
 					handleOptions,
 					isTopLevelNode,
+					anchorRectCache,
 				}),
 				element,
 			);

@@ -4,6 +4,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { cssMap, cx } from '@atlaskit/css';
+import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { N20, N200 } from '@atlaskit/theme/colors';
@@ -199,7 +200,13 @@ const CardContentLegacy = styled.div({
 
 export const TeamName = (props: { children: React.ReactNode }) =>
 	fg('compiled-migration-profilecard') ? (
-		<Box xcss={cx(styles.teamname)} {...props} />
+		fg('enable_profilecard_h2tag_a11y_fix') ? (
+			<Box xcss={cx(styles.teamname)}>
+				<Heading size="medium" as="h2" children={props.children} />
+			</Box>
+		) : (
+			<Box xcss={cx(styles.teamname)} {...props} />
+		)
 	) : (
 		<TeamNameLegacy {...props} />
 	);

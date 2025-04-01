@@ -11,9 +11,13 @@ import { injectIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
 import type { Icon } from '@atlaskit/editor-common/extensions';
-import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+import {
+	configPanelMessages as messages,
+	type ExtensionDeprecationStatus,
+} from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -100,6 +104,7 @@ type Props = {
 	title: string;
 	description?: string;
 	summary?: string;
+	deprecation?: ExtensionDeprecationStatus;
 	documentationUrl?: string;
 	enableHelpCTA?: boolean;
 	icon: Icon;
@@ -111,6 +116,7 @@ const Header = ({
 	title,
 	description,
 	summary,
+	deprecation,
 	documentationUrl,
 	enableHelpCTA,
 	onClose,
@@ -181,6 +187,11 @@ const Header = ({
 								}{' '}
 							</Fragment>
 						)}
+						{deprecation?.isDeprecated &&
+							deprecation?.message &&
+							fg('platform_editor_extension_deprecation_status') && (
+								<Box paddingBlockStart="space.150">{deprecation.message}</Box>
+							)}
 						{documentationUrl &&
 							(enableHelpCTA ? (
 								<Box xcss={helpLinkStyles}>

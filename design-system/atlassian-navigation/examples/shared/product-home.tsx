@@ -14,9 +14,25 @@ import {
 } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
+	BitbucketIcon as BitbucketIconTemp,
+	BitbucketLogo as BitbucketLogoTemp,
+} from '@atlaskit/temp-nav-app-icons/bitbucket';
+import {
+	CompassIcon as CompassIconTemp,
+	CompassLogo as CompassLogoTemp,
+} from '@atlaskit/temp-nav-app-icons/compass';
+import {
+	ConfluenceIcon as ConfluenceIconTemp,
+	ConfluenceLogo as ConfluenceLogoTemp,
+} from '@atlaskit/temp-nav-app-icons/confluence';
+import {
 	JiraIcon as JiraIconTemp,
 	JiraLogo as JiraLogoTemp,
 } from '@atlaskit/temp-nav-app-icons/jira';
+import {
+	JiraServiceManagementIcon as JiraServiceManagementIconTemp,
+	JiraServiceManagementLogo as JiraServiceManagementLogoTemp,
+} from '@atlaskit/temp-nav-app-icons/jira-service-management';
 
 import { CustomProductHome, ProductHome } from '../../src';
 
@@ -27,8 +43,8 @@ export const BitbucketProductHome = () => (
 	<ProductHome
 		onClick={console.log}
 		siteTitle="Extranet"
-		icon={BitbucketIcon}
-		logo={BitbucketLogo}
+		icon={fg('platform-team25-app-icon-tiles') ? BitbucketIconTemp : BitbucketIcon}
+		logo={fg('platform-team25-app-icon-tiles') ? BitbucketLogoTemp : BitbucketLogo}
 		testId="bitbucket-product-home"
 	/>
 );
@@ -36,8 +52,8 @@ export const BitbucketProductHome = () => (
 export const ConfluenceProductHome = () => (
 	<ProductHome
 		siteTitle="Extranet"
-		icon={ConfluenceIcon}
-		logo={ConfluenceLogo}
+		icon={fg('platform-team25-app-icon-tiles') ? ConfluenceIconTemp : ConfluenceIcon}
+		logo={fg('platform-team25-app-icon-tiles') ? ConfluenceLogoTemp : ConfluenceLogo}
 		href="#"
 		testId="confluence-product-home"
 	/>
@@ -57,8 +73,16 @@ export const JiraProductHome = () => (
 export const JiraServiceManagementProductHome = () => (
 	<ProductHome
 		siteTitle="Extranet"
-		icon={JiraServiceManagementIcon}
-		logo={JiraServiceManagementLogo}
+		icon={
+			fg('platform-team25-app-icon-tiles')
+				? JiraServiceManagementIconTemp
+				: JiraServiceManagementIcon
+		}
+		logo={
+			fg('platform-team25-app-icon-tiles')
+				? JiraServiceManagementLogoTemp
+				: JiraServiceManagementLogo
+		}
 		href="#"
 		testId="jsm-product-home"
 	/>
@@ -67,8 +91,8 @@ export const JiraServiceManagementProductHome = () => (
 export const CompassProductHome = () => (
 	<ProductHome
 		siteTitle="Extranet"
-		icon={CompassIcon}
-		logo={CompassLogo}
+		icon={fg('platform-team25-app-icon-tiles') ? CompassIconTemp : CompassIcon}
+		logo={fg('platform-team25-app-icon-tiles') ? CompassLogoTemp : CompassLogo}
 		href="#"
 		testId="confluence-product-home"
 	/>

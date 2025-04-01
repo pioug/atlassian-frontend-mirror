@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.6.0
+
+### Minor Changes
+
+- [#134562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134562)
+  [`f008c541bb06b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f008c541bb06b) -
+  [ux] EDF-2645 Introduce an experiment to cut off low-quality nudges.
+
 ## 4.5.0
 
 ### Minor Changes

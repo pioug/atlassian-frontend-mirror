@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 69.0.7
+
+### Patch Changes
+
+- [#132929](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132929)
+  [`17079e4180214`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17079e4180214) -
+  Add FG to rollout react 18 emoji changes to Jira/BB
+- Updated dependencies
+
 ## 69.0.6
 
 ### Patch Changes

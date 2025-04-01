@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
+ * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::cf2b47b1bc08d6d34157afc1d58e9c22>>
+ * @codegen <<SignedSource::2cb06874e0c72b72a42ba781acd2ee06>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import { snapshot } from '@af/visual-regression';

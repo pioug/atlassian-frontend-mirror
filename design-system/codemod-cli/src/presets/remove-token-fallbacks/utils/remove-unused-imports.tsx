@@ -72,14 +72,14 @@ export function removeUnusedImports(
 	};
 
 	const processImportDeclaration = (importDeclaration: ASTPath<ImportDeclaration>): boolean => {
-		if (importDeclaration.value.specifiers?.length === 0) {
+		if (importDeclaration.value?.specifiers?.length === 0) {
 			return false;
 		}
 
 		const hadUnusedDefaultImport = removeUnusedDefaultImport(importDeclaration);
 		const hadUnusedNonDefaultImports = removeUnusedNonDefaultImports(importDeclaration);
 
-		if (importDeclaration.value.specifiers?.length === 0) {
+		if (importDeclaration.value?.specifiers?.length === 0) {
 			j(importDeclaration).remove();
 			return true;
 		}

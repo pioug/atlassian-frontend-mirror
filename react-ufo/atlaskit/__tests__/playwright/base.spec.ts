@@ -48,7 +48,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 				viewport,
 			});
 
-			test(`section nine should exist inside the ufo:vc:update`, async ({
+			test(`section nine should exist inside the ufo:vc:dom['90']`, async ({
 				page,
 				waitForReactUFOPayload,
 				getSectionDOMAddedAt,
@@ -65,20 +65,12 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 				const reactUFOPayload = await waitForReactUFOPayload();
 				expect(reactUFOPayload).toBeDefined();
 
-				const ufoVCUpdates = reactUFOPayload!.attributes.properties['ufo:vc:updates'];
-				expect(ufoVCUpdates).toContainEqual(
-					expect.objectContaining({
-						time: expect.any(Number),
-						vc: expect.any(Number),
-						elements: expect.arrayContaining(['div[testid=sectionNine]']),
-					}),
-				);
+				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
+				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
 
-				const sectionNineUpdate = ufoVCUpdates.find((v) =>
-					v.elements.includes('div[testid=sectionNine]'),
-				);
-				expect(sectionNineUpdate!.time).toMatchTimeInSeconds(sectionNineVisibleAt);
-				// expect(sectionNineUpdate!.vc).toEqual(90);
+				expect(ttvcV2Revision).toBeTruthy();
+				expect(ttvcV2Revision!.vcDetails?.['90'].e).toStrictEqual(['div[testid=sectionNine]']);
+				expect(ttvcV2Revision!.vcDetails?.['90'].t).toMatchTimeInSeconds(sectionNineVisibleAt);
 			});
 
 			test(`VC90 should matches when the section nine was visible`, async ({
@@ -118,7 +110,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 				viewport,
 			});
 
-			test('section three should exist inside the ufo:vc:update', async ({
+			test("section three should exist inside the ufo:vc:dom['90']", async ({
 				page,
 				waitForReactUFOPayload,
 				getSectionDOMAddedAt,
@@ -135,20 +127,12 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 				const reactUFOPayload = await waitForReactUFOPayload();
 				expect(reactUFOPayload).toBeDefined();
 
-				const ufoVCUpdates = reactUFOPayload!.attributes.properties['ufo:vc:updates'];
-				expect(ufoVCUpdates).toContainEqual(
-					expect.objectContaining({
-						time: expect.any(Number),
-						vc: expect.any(Number),
-						elements: expect.arrayContaining(['div[testid=sectionThree]']),
-					}),
-				);
+				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
+				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
 
-				const sectionThreeUpdate = ufoVCUpdates.find((v) =>
-					v.elements.includes('div[testid=sectionThree]'),
-				);
-				expect(sectionThreeUpdate!.time).toMatchTimeInSeconds(sectionThreeVisibleAt);
-				// expect(sectionThreeUpdate!.vc).toEqual(90);
+				expect(ttvcV2Revision).toBeTruthy();
+				expect(ttvcV2Revision!.vcDetails?.['90'].e).toStrictEqual(['div[testid=sectionThree]']);
+				expect(ttvcV2Revision!.vcDetails?.['90'].t).toMatchTimeInSeconds(sectionThreeVisibleAt);
 			});
 
 			test('VC90 should matches when the section three was visible', async ({

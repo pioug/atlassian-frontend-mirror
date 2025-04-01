@@ -109,6 +109,7 @@ export type Config = {
 	readonly manuallyTrackReactProfilerMounts?: boolean;
 	readonly enableEditorLnvHandler?: boolean;
 	/**
+	 * @private
 	 * @deprecated setting this will do nothing now
 	 */
 	readonly enableCompleteUsingDoubleRAF?: boolean;

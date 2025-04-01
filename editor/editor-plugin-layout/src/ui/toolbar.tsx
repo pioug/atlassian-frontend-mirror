@@ -21,6 +21,7 @@ import type {
 import { type NodeType, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import LayoutOneColumnIcon from '@atlaskit/icon/core/migration/layout-one-column--editor-layout-single';
@@ -29,6 +30,7 @@ import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/migration/layout
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
 import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-left--editor-layout-two-left-sidebar';
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-right--editor-layout-two-right-sidebar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../index';
@@ -306,6 +308,15 @@ export const buildToolbar = (
 		};
 
 		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
+		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
+			fg('platform_editor_controls_patch_1')
+				? {
+						onMouseEnter: hoverDecoration?.(nodeType, true, className),
+						onMouseLeave: hoverDecoration?.(nodeType, false, className),
+						onFocus: hoverDecoration?.(nodeType, true, className),
+						onBlur: hoverDecoration?.(nodeType, false, className),
+					}
+				: undefined;
 		const overflowMenu: FloatingToolbarItem<Command> = {
 			type: 'overflow-dropdown',
 			options: [
@@ -319,11 +330,13 @@ export const buildToolbar = (
 						return true;
 					},
 					icon: <CopyIcon label="Copy" />,
+					...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 				},
 				{
 					title: 'Delete',
 					onClick: deleteActiveLayoutNode(editorAnalyticsAPI),
 					icon: <DeleteIcon label="Delete" />,
+					...hoverDecorationProps(nodeType),
 				},
 			],
 		};

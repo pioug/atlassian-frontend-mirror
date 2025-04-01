@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.11.1
+
+### Patch Changes
+
+- [#133477](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133477)
+  [`7e502ba2970b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e502ba2970b9) -
+  Remove media script added during SSR to prevent hydrateRoot mismatch
+
 ## 0.11.0
 
 ### Minor Changes

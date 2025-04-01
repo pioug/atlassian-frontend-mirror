@@ -17,7 +17,14 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-import { getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
+import { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
+import {
+	getControlBottomCSSValue,
+	getControlHeightCSSValue,
+	getNodeHeight,
+	getTopPosition,
+	shouldBeSticky,
+} from '../pm-plugins/utils/drag-handle-positions';
 import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positions';
 
 import {
@@ -63,8 +70,60 @@ const buttonStyles = xcss({
 	},
 });
 
+const disabledStyles = xcss({
+	pointerEvents: 'none',
+
+	':hover': {
+		backgroundColor: 'color.background.disabled',
+	},
+
+	':active': {
+		backgroundColor: 'color.background.disabled',
+	},
+});
+
+const stickyButtonStyles = xcss({
+	top: '0',
+	position: 'sticky',
+	boxSizing: 'border-box',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
+	height: token('space.300'),
+	width: token('space.300'),
+	border: 'none',
+	backgroundColor: 'color.background.neutral.subtle',
+	borderRadius: '50%',
+	zIndex: 'card',
+	outline: 'none',
+
+	':hover': {
+		backgroundColor: 'color.background.neutral.subtle.hovered',
+	},
+
+	':active': {
+		backgroundColor: 'color.background.neutral.subtle.pressed',
+	},
+
+	':focus': {
+		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
+	},
+});
+
 const containerStaticStyles = xcss({
 	position: 'absolute',
+	zIndex: 'card',
+});
+
+const disabledContainerStyles = xcss({
+	cursor: 'not-allowed',
+});
+
+const tooltipContainerStyles = xcss({
+	top: '8px',
+	bottom: '-8px',
+	position: 'sticky',
 	zIndex: 'card',
 });
 
@@ -78,6 +137,7 @@ type Props = {
 	anchorName: string;
 	rootAnchorName?: string;
 	rootNodeType: string;
+	anchorRectCache?: AnchorRectCache;
 };
 
 export const TypeAheadControl = ({
@@ -85,13 +145,17 @@ export const TypeAheadControl = ({
 	api,
 	formatMessage,
 	getPos,
+	nodeType,
+	anchorName,
 	rootAnchorName,
 	rootNodeType,
+	anchorRectCache,
 }: Props) => {
 	const macroInteractionUpdates = useSharedPluginStateSelector(
 		api,
 		'featureFlags.macroInteractionUpdates',
 	);
+	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
 
 	const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({ display: 'none' });
 
@@ -130,6 +194,11 @@ export const TypeAheadControl = ({
 		}
 
 		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
+		const isSticky = shouldBeSticky(rootNodeType);
+
+		const bottom = fg('platform_editor_controls_sticky_controls')
+			? getControlBottomCSSValue(rootAnchorName || anchorName, isSticky, true)
+			: {};
 
 		if (supportsAnchor) {
 			return {
@@ -138,8 +207,20 @@ export const TypeAheadControl = ({
 					: `calc(anchor(${rootAnchorName} start) - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 
 				top: `calc(anchor(${rootAnchorName} start) + ${topPositionAdjustment(rootNodeType)}px)`,
+				...bottom,
 			};
 		}
+
+		// expensive, calls offsetHeight, guard behind FG
+		const nodeHeight =
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			(fg('platform_editor_controls_sticky_controls') &&
+				getNodeHeight(dom, rootAnchorName || anchorName, anchorRectCache)) ||
+			0;
+
+		const height = fg('platform_editor_controls_sticky_controls')
+			? getControlHeightCSSValue(nodeHeight, isSticky, true, token('space.300'))
+			: {};
 
 		return {
 			left: isEdgeCase
@@ -152,8 +233,16 @@ export const TypeAheadControl = ({
 						isMacroInteractionUpdates,
 					)} + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 			top: getTopPosition(dom, rootNodeType),
+			...height,
 		};
-	}, [rootAnchorName, view.dom, rootNodeType, macroInteractionUpdates]);
+	}, [
+		rootAnchorName,
+		view.dom,
+		rootNodeType,
+		macroInteractionUpdates,
+		anchorName,
+		anchorRectCache,
+	]);
 
 	useEffect(() => {
 		let cleanUpTransitionListener: () => void;
@@ -251,23 +340,45 @@ export const TypeAheadControl = ({
 		}
 	}, [api, view.state]);
 
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-		<Box style={positionStyles} xcss={[containerStaticStyles]}>
-			<Tooltip
-				position="top"
-				content={<ToolTipContent description={formatMessage(messages.insert)} />}
+	const tooltipPressable = () => (
+		<Tooltip
+			position="top"
+			content={<ToolTipContent description={formatMessage(messages.insert)} />}
+		>
+			<Pressable
+				testId="editor-quick-insert-button"
+				type="button"
+				aria-label={formatMessage(messages.insert)}
+				xcss={[
+					fg('platform_editor_controls_sticky_controls') ? buttonStyles : stickyButtonStyles,
+					isTypeAheadOpen && fg('platform_editor_controls_patch_1') && disabledStyles,
+				]}
+				onClick={handleQuickInsert}
+				onMouseDown={fg('platform_editor_controls_patch_1') ? undefined : handleMouseDown}
+				isDisabled={fg('platform_editor_controls_patch_1') ? isTypeAheadOpen : undefined}
 			>
-				<Pressable
-					type="button"
-					aria-label={formatMessage(messages.insert)}
-					xcss={[buttonStyles]}
-					onClick={handleQuickInsert}
-					onMouseDown={handleMouseDown}
-				>
-					<AddIcon label="add" color={token('color.icon.subtle')} />
-				</Pressable>
-			</Tooltip>
+				<AddIcon
+					label="add"
+					color={isTypeAheadOpen ? token('color.icon.disabled') : token('color.icon.subtle')}
+				/>
+			</Pressable>
+		</Tooltip>
+	);
+
+	return (
+		<Box
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={positionStyles}
+			xcss={[
+				containerStaticStyles,
+				isTypeAheadOpen && fg('platform_editor_controls_patch_1') && disabledContainerStyles,
+			]}
+		>
+			{fg('platform_editor_controls_sticky_controls') ? (
+				<Box xcss={[tooltipContainerStyles]}>{tooltipPressable()}</Box>
+			) : (
+				tooltipPressable()
+			)}
 		</Box>
 	);
 };

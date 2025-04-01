@@ -47,13 +47,19 @@ export default abstract class LoadingEmojiComponent<
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Readonly<P>) {
-		if (!fg('platform_editor_react18_elements_emoji')) {
+		if (
+			!fg('platform_editor_react18_elements_emoji') ||
+			!fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			this.loadEmojiProvider(nextProps.emojiProvider);
 		}
 	}
 
 	componentDidUpdate(prevProps: Readonly<P>) {
-		if (fg('platform_editor_react18_elements_emoji')) {
+		if (
+			fg('platform_editor_react18_elements_emoji') ||
+			fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			if (this.props !== prevProps) {
 				this.loadEmojiProvider(this.props.emojiProvider);
 			}

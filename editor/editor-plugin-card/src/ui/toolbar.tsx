@@ -47,6 +47,7 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
@@ -631,6 +632,15 @@ const generateToolbarItems =
 			}
 
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
+				const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
+					fg('platform_editor_controls_patch_1')
+						? {
+								onMouseEnter: hoverDecoration?.(nodeType, true, className),
+								onMouseLeave: hoverDecoration?.(nodeType, false, className),
+								onFocus: hoverDecoration?.(nodeType, true, className),
+								onBlur: hoverDecoration?.(nodeType, false, className),
+							}
+						: undefined;
 				const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 					{ type: 'separator', fullHeight: true },
 					{
@@ -646,11 +656,13 @@ const generateToolbarItems =
 									return true;
 								},
 								icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+								...hoverDecorationProps(node.type, akEditorSelectedNodeClassName),
 							},
 							{
 								title: intl.formatMessage(commonMessages.delete),
 								onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
 								icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+								...hoverDecorationProps(node.type),
 							},
 						],
 					},
@@ -874,11 +886,19 @@ const getDatasourceButtonGroup = (
 							);
 							return true;
 						},
+						onMouseEnter: hoverDecoration?.(node.type, true, akEditorSelectedNodeClassName),
+						onMouseLeave: hoverDecoration?.(node.type, false, akEditorSelectedNodeClassName),
+						onFocus: hoverDecoration?.(node.type, true, akEditorSelectedNodeClassName),
+						onBlur: hoverDecoration?.(node.type, false, akEditorSelectedNodeClassName),
 						icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
 					},
 					{
 						title: intl.formatMessage(commonMessages.delete),
 						onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+						onMouseEnter: hoverDecoration?.(node.type, true),
+						onMouseLeave: hoverDecoration?.(node.type, false),
+						onFocus: hoverDecoration?.(node.type, true),
+						onBlur: hoverDecoration?.(node.type, false),
 						icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
 					},
 				],

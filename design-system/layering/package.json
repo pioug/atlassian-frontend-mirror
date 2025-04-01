@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
@@ -77,6 +78,9 @@
 	},
 	"platform-feature-flags": {
 		"layering-top-level-use-array": {
+			"type": "boolean"
+		},
+		"platform_dst_open_layer_observer_close_layers": {
 			"type": "boolean"
 		}
 	}

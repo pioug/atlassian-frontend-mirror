@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.3.1
+
+### Patch Changes
+
+- [#134468](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134468)
+  [`e312ec529d05a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e312ec529d05a) -
+  [ux] Apply hover decoration when hovering on copy/delete button on overflow menu
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

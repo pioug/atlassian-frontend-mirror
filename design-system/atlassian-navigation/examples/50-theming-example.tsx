@@ -6,7 +6,7 @@ import { DefaultCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';
 import { NotificationsPopup } from './shared/notifications-popup';
 import { defaultPrimaryItems } from './shared/primary-items';
-import { DefaultProductHome } from './shared/product-home';
+import { JiraServiceManagementProductHome } from './shared/product-home';
 import { ProfilePopup } from './shared/profile-popup';
 import { DefaultSearch } from './shared/search';
 import { DefaultSettings } from './shared/settings';
@@ -24,7 +24,7 @@ const ThemingExample = () => (
 					renderCreate={DefaultCreate}
 					renderHelp={HelpPopup}
 					renderNotifications={NotificationsPopup}
-					renderProductHome={DefaultProductHome}
+					renderProductHome={JiraServiceManagementProductHome}
 					renderProfile={ProfilePopup}
 					renderSearch={DefaultSearch}
 					renderSettings={DefaultSettings}

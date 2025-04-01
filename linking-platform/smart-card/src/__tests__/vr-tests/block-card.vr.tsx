@@ -3,8 +3,16 @@ import { snapshot } from '@af/visual-regression';
 import { BlockCardErrorView } from '../../../examples/vr-block-card/vr-block-card-error';
 import { BlockCardForbiddenView } from '../../../examples/vr-block-card/vr-block-card-forbidden';
 import {
-	BlockCardLazyIcons,
-	BlockCardLazyIconsFileType,
+	BlockCardLazyIcon1,
+	BlockCardLazyIcon2,
+	BlockCardLazyIcon3,
+	BlockCardLazyIcon4,
+	BlockCardLazyIcon5,
+	BlockCardLazyIcon6,
+	BlockCardLazyIconsFileType1,
+	BlockCardLazyIconsFileType2,
+	BlockCardLazyIconsFileType3,
+	BlockCardLazyIconsFileType4,
 } from '../../../examples/vr-block-card/vr-block-card-lazy-icons';
 import { BlockCardNotFoundView } from '../../../examples/vr-block-card/vr-block-card-not-found';
 import { BlockCardNotFoundSiteAccessExists } from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists';
@@ -133,16 +141,80 @@ snapshot(BlockCardForbiddenViews, {
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
-snapshot(BlockCardLazyIcons, {
-	description: `block card with lazy load icons`,
+snapshot(BlockCardLazyIcon1, {
+	description: `block card with lazy load icons, slice 1`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
-snapshot(BlockCardLazyIconsFileType, {
-	description: `block card with lazy load icons per file format`,
+snapshot(BlockCardLazyIcon2, {
+	description: `block card with lazy load icons, slice 2`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIcon3, {
+	description: `block card with lazy load icons, slice 3`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIcon4, {
+	description: `block card with lazy load icons, slice 4`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIcon5, {
+	description: `block card with lazy load icons, slice 5`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIcon6, {
+	description: `block card with lazy load icons, slice 6`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIconsFileType1, {
+	description: `block card with lazy load icons per file format, slice 1`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIconsFileType2, {
+	description: `block card with lazy load icons per file format, slice 2`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIconsFileType3, {
+	description: `block card with lazy load icons per file format, slice 3`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardLazyIconsFileType4, {
+	description: `block card with lazy load icons per file format, slice 4`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,

@@ -1,5 +1,29 @@
 # @atlaskit/button
 
+## 23.0.0
+
+### Major Changes
+
+- [#134520](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134520)
+  [`f3c903c332453`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3c903c332453) -
+  Remove unused xcss prop from LinkButton and LinkIconButton.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.3
 
 ### Patch Changes
@@ -26,7 +50,7 @@
   [`569a36a196e14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/569a36a196e14) -
   Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
   the rest of the Atlaskit techstack, and support React 18 Streaming SSR.Please note, in order to
-  use this version of `@atlaskit/banner`, you will need to ensure that your bundler is configured to
+  use this version of `@atlaskit/button`, you will need to ensure that your bundler is configured to
   handle `.css` imports correctly.
 
   Most bundlers come with built-in support for `.css` imports, so you may not need to do anything.

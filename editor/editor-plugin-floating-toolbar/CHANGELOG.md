@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.3.5
+
+### Patch Changes
+
+- [#134885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134885)
+  [`0d61709802162`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d61709802162) -
+  [ux] [ED-27312] Implement new scroll left/right buttons for scrollable floating toolbars
+
+## 3.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.3
 
 ### Patch Changes

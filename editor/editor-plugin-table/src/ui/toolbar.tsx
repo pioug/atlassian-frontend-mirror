@@ -634,6 +634,16 @@ export const getToolbarConfig =
 			const isNestedTable =
 				fg('platform_editor_use_nested_table_pm_nodes') && isSelectionTableNestedInTable(state);
 
+			const hoverTableProps = (isInDanger?: boolean, isSelected?: boolean) =>
+				fg('platform_editor_controls_patch_1')
+					? {
+							onMouseEnter: hoverTable(isInDanger, isSelected),
+							onMouseLeave: clearHoverSelection(),
+							onFocus: hoverTable(isInDanger, isSelected),
+							onBlur: clearHoverSelection(),
+						}
+					: undefined;
+
 			return {
 				title: 'Table floating controls',
 				getDomRef,
@@ -710,11 +720,13 @@ export const getToolbarConfig =
 												return true;
 											},
 											icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+											...hoverTableProps(false, true),
 										},
 										{
 											title: intl.formatMessage(commonMessages.delete),
 											onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
 											icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+											...hoverTableProps(true),
 										},
 									],
 								},

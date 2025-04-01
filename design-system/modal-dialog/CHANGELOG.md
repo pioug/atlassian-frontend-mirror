@@ -1,5 +1,18 @@
 # @atlaskit/modal-dialog
 
+## 14.1.0
+
+### Minor Changes
+
+- [#134997](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134997)
+  [`1c7642dd77422`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c7642dd77422) -
+  Increased the specificity of the `width` CSS property in desktop view to prevent full-width modal
+  dialogs. This was caused by an odd CSS ordering issue in Compiled.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.4
 
 ### Patch Changes

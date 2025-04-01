@@ -36,6 +36,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -44,6 +45,7 @@ import {
 	hasParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
@@ -73,7 +75,7 @@ import { isVideo } from '../../pm-plugins/utils/media-single';
 import type { MediaFloatingToolbarOptions, MediaToolbarBaseConfig } from '../../types';
 import ImageBorderItem from '../../ui/ImageBorder';
 
-import { altTextButton, getAltTextToolbar, getAltTextDropdownOption } from './alt-text';
+import { altTextButton, getAltTextDropdownOption, getAltTextToolbar } from './alt-text';
 import {
 	changeMediaCardToInline,
 	changeMediaSingleToMediaInline,
@@ -988,6 +990,16 @@ export const floatingToolbar = (
 			customOptions.push({ type: 'separator' });
 		}
 
+		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
+			fg('platform_editor_controls_patch_1')
+				? {
+						onMouseEnter: hoverDecoration?.(nodeType, true, className),
+						onMouseLeave: hoverDecoration?.(nodeType, false, className),
+						onFocus: hoverDecoration?.(nodeType, true, className),
+						onBlur: hoverDecoration?.(nodeType, false, className),
+					}
+				: undefined;
+
 		items.push({
 			type: 'overflow-dropdown',
 			id: 'media',
@@ -1003,11 +1015,13 @@ export const floatingToolbar = (
 						return true;
 					},
 					icon: <CopyIcon label="" />,
+					...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 				},
 				{
 					title: 'Delete',
 					onClick: remove,
 					icon: <DeleteIcon label="" />,
+					...hoverDecorationProps(nodeType),
 				},
 			],
 		});

@@ -8,7 +8,11 @@ import { Stack } from '@atlaskit/primitives';
 
 import { DefaultCreate } from '../../../examples/shared/create';
 import { jiraPrimaryItems } from '../../../examples/shared/primary-items';
-import { DefaultCustomProductHome, JiraProductHome } from '../../../examples/shared/product-home';
+import {
+	DefaultCustomProductHome,
+	JiraProductHome,
+	JiraServiceManagementProductHome,
+} from '../../../examples/shared/product-home';
 import { DefaultProfile } from '../../../examples/shared/profile';
 import Search from '../../../examples/shared/search';
 import { themes } from '../../../examples/shared/themes';
@@ -58,7 +62,7 @@ const ThemingExample = () => (
 				<AtlassianNavigation
 					label="site"
 					renderAppSwitcher={DefaultAppSwitcher}
-					renderProductHome={JiraProductHome}
+					renderProductHome={JiraServiceManagementProductHome}
 					primaryItems={jiraPrimaryItems}
 					renderHelp={() => <Help tooltip="Get help" />}
 					renderSettings={DefaultSettings}

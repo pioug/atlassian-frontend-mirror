@@ -27,7 +27,15 @@ import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-c
 import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon';
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
 import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate';
-import InlineCardWordWrap from '../../../examples/vr-inline-card/vr-inline-card-word-wrap';
+import {
+	InlineCardWordWrapForbidden,
+	InlineCardWordWrapForbiddenWithSitePendingRequest,
+	InlineCardWordWrapForbiddenWithSiteRequestAccess,
+	InlineCardWordWrapNotFoundWithSiteAccessExists,
+	InlineCardWordWrapResolved,
+	InlineCardWordWrapResolving,
+	InlineCardWordWrapUnAuth,
+} from '../../../examples/vr-inline-card/vr-inline-card-word-wrap';
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
@@ -240,13 +248,48 @@ snapshot(InlineCardFontSize16, {
 	},
 });
 
-snapshot(InlineCardWordWrap, {
+snapshot(InlineCardWordWrapResolving, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 	waitForReactLazy: true,
 });
-
+snapshot(InlineCardWordWrapResolved, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+	waitForReactLazy: true,
+});
+snapshot(InlineCardWordWrapForbidden, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+	waitForReactLazy: true,
+});
+snapshot(InlineCardWordWrapForbiddenWithSiteRequestAccess, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+	waitForReactLazy: true,
+});
+snapshot(InlineCardWordWrapForbiddenWithSitePendingRequest, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+	waitForReactLazy: true,
+});
+snapshot(InlineCardWordWrapNotFoundWithSiteAccessExists, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+	waitForReactLazy: true,
+});
+snapshot(InlineCardWordWrapUnAuth, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+	waitForReactLazy: true,
+});
 // Design refresh: emotion + legacy icon
 snapshot(InlineCardUnauthorisedDefaultIcon, {
 	description: 'inline card unauthorised view with default legacy icon',

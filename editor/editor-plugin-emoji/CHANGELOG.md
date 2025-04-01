@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.3.0
+
+### Minor Changes
+
+- [#133547](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133547)
+  [`d13f959c13041`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d13f959c13041) -
+  [https://product-fabric.atlassian.net/browse/ED-27374](ED-27374) - rewrite editor-emoji-plugin in
+  vanilla JS
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.3
 
 ### Patch Changes

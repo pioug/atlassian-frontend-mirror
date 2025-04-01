@@ -46,7 +46,15 @@ import Tooltip from '@atlaskit/tooltip';
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
 import { getMultiSelectAnalyticsAttributes } from '../pm-plugins/utils/analytics';
-import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
+import { AnchorRectCache } from '../pm-plugins/utils/anchor-utils';
+import {
+	getControlBottomCSSValue,
+	getControlHeightCSSValue,
+	getLeftPosition,
+	getNodeHeight,
+	getTopPosition,
+	shouldBeSticky,
+} from '../pm-plugins/utils/drag-handle-positions';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 import {
 	alignAnchorHeadInDirectionOfPos,
@@ -80,6 +88,48 @@ const dragHandleColor = css({
 });
 
 const dragHandleButtonStyles = css({
+	display: 'flex',
+	boxSizing: 'border-box',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	height: DRAG_HANDLE_HEIGHT,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	width: DRAG_HANDLE_WIDTH,
+	border: 'none',
+	background: 'transparent',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
+	// when platform_editor_controls is enabled, the drag handle color is overridden. Update color here when experiment is cleaned up.
+	color: token('color.icon', '#44546F'),
+	cursor: 'grab',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	zIndex: DRAG_HANDLE_ZINDEX,
+	outline: 'none',
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
+	},
+
+	'&:active': {
+		backgroundColor: token('color.background.neutral.subtle.pressed', '#091E4224'),
+	},
+
+	'&:focus': {
+		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
+	},
+
+	'&:disabled': {
+		color: token('color.icon.disabled', '#8993A4'),
+		backgroundColor: 'transparent',
+	},
+
+	'&:hover:disabled': {
+		backgroundColor: token('color.background.disabled', 'transparent'),
+	},
+});
+
+const dragHandleButtonStylesOld = css({
 	position: 'absolute',
 	padding: `${token('space.025', '2px')} 0`,
 	boxSizing: 'border-box',
@@ -122,6 +172,19 @@ const dragHandleButtonStyles = css({
 	'&:hover:disabled': {
 		backgroundColor: token('color.background.disabled', 'transparent'),
 	},
+});
+
+const dragHandleContainerStyles = xcss({
+	position: 'absolute',
+	boxSizing: 'border-box',
+	zIndex: 'card',
+});
+
+const tooltipContainerStyles = xcss({
+	top: '8px',
+	bottom: '-8px',
+	position: 'sticky',
+	zIndex: 'card',
 });
 
 const dragHandleMultiLineSelectionFixFirefox = css({
@@ -196,6 +259,7 @@ export const DragHandle = ({
 	nodeType,
 	handleOptions,
 	isTopLevelNode = true,
+	anchorRectCache,
 }: {
 	view: EditorView;
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
@@ -204,7 +268,8 @@ export const DragHandle = ({
 	anchorName: string;
 	nodeType: string;
 	handleOptions?: HandleOptions;
-	isTopLevelNode?: Boolean;
+	isTopLevelNode?: boolean;
+	anchorRectCache?: AnchorRectCache;
 }) => {
 	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -581,8 +646,13 @@ export const DragHandle = ({
 		}
 
 		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
+		const isSticky = shouldBeSticky(nodeType);
 
 		if (supportsAnchor) {
+			const bottom = fg('platform_editor_controls_sticky_controls')
+				? getControlBottomCSSValue(anchorName, isSticky, isTopLevelNode, isLayoutColumn)
+				: {};
+
 			return {
 				left: isEdgeCase
 					? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
@@ -594,16 +664,39 @@ export const DragHandle = ({
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${anchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
 						: `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`,
+
+				...bottom,
 			};
 		}
 
+		const height = fg('platform_editor_controls_sticky_controls')
+			? getControlHeightCSSValue(
+					getNodeHeight(dom, anchorName, anchorRectCache) || 0,
+					isSticky,
+					isTopLevelNode,
+					`${DRAG_HANDLE_HEIGHT}`,
+					isLayoutColumn,
+				)
+			: {};
 		return {
 			left: isEdgeCase
 				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
 				: getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType),
 			top: getTopPosition(dom, nodeType),
+			...height,
 		};
-	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates, getPos, isLayoutColumn]);
+	}, [
+		anchorName,
+		view.dom,
+		view.state.doc,
+		nodeType,
+		blockCardWidth,
+		macroInteractionUpdates,
+		isTopLevelNode,
+		isLayoutColumn,
+		getPos,
+		anchorRectCache,
+	]);
 
 	const [positionStyles, setPositionStyles] = useState<CSSProperties>({ display: 'none' });
 
@@ -801,7 +894,9 @@ export const DragHandle = ({
 		<button
 			type="button"
 			css={[
-				dragHandleButtonStyles,
+				fg('platform_editor_controls_sticky_controls')
+					? dragHandleButtonStyles
+					: dragHandleButtonStylesOld,
 				editorExperiment('platform_editor_controls', 'variant1') && dragHandleColor,
 				// ED-26266: Fixed the drag handle highlight when selecting multiple line in Firefox
 				// See https://product-fabric.atlassian.net/browse/ED-26266
@@ -815,7 +910,7 @@ export const DragHandle = ({
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={positionStyles}
+			style={(!fg('platform_editor_controls_sticky_controls') && positionStyles) || {}}
 			onClick={handleOnClick}
 			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}
@@ -842,18 +937,58 @@ export const DragHandle = ({
 		</button>
 	);
 
-	return !dragHandleDisabled && fg('platform_editor_element_drag_and_drop_ed_23873') ? (
+	const stickyWithTooltip = () => (
+		<Box
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={positionStyles}
+			xcss={[dragHandleContainerStyles]}
+			as="span"
+			testId="block-ctrl-drag-handle-container"
+		>
+			<Box xcss={[tooltipContainerStyles]} as="span">
+				<Tooltip
+					content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
+					ignoreTooltipPointerEvents={true}
+					position={'top'}
+					onShow={() => {
+						api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
+					}}
+				>
+					{renderButton()}
+				</Tooltip>
+			</Box>
+		</Box>
+	);
+
+	const stickyWithoutTooltip = () => (
+		<Box
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={positionStyles}
+			xcss={[dragHandleContainerStyles]}
+			as="span"
+			testId="block-ctrl-drag-handle-container"
+		>
+			<Box xcss={[tooltipContainerStyles]} as="span">
+				{renderButton()}
+			</Box>
+		</Box>
+	);
+
+	const buttonWithTooltip = () => (
 		<Tooltip
 			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 			ignoreTooltipPointerEvents={true}
-			position={editorExperiment('platform_editor_controls', 'variant1') ? 'top' : undefined}
 			onShow={() => {
 				api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 			}}
 		>
 			{renderButton()}
 		</Tooltip>
-	) : (
-		renderButton()
 	);
+
+	const isTooltip = !dragHandleDisabled && fg('platform_editor_element_drag_and_drop_ed_23873');
+	const stickyRender = isTooltip ? stickyWithTooltip() : stickyWithoutTooltip();
+	const render = isTooltip ? buttonWithTooltip() : renderButton();
+
+	return fg('platform_editor_controls_sticky_controls') ? stickyRender : render;
 };

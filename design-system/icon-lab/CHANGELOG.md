@@ -1,5 +1,14 @@
 # @atlaskit/icon-lab
 
+## 4.5.1
+
+### Patch Changes
+
+- [#130237](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130237)
+  [`2648b1745d092`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2648b1745d092) -
+  Added status information in icon metadata
+- Updated dependencies
+
 ## 4.5.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.7.0
+
+### Minor Changes
+
+- [#134670](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134670)
+  [`cfffaa5ad7fac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfffaa5ad7fac) -
+  Slight sizing adjustments to icon designs, adds custom theming support to Bitbucket logo, and
+  fixes bug where logo text was rendering with currentColor instead of a design token
+
 ## 0.6.0
 
 ### Minor Changes

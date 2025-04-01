@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 3.0.1
+
+### Patch Changes
+
+- [#134955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134955)
+  [`ba294ad0536de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba294ad0536de) -
+  An onClose listener is being provided to the experimental open layer observer.
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

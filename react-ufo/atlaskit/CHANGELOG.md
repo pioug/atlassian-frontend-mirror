@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.11
+
+### Patch Changes
+
+- [#134206](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134206)
+  [`073d4d11dd3d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/073d4d11dd3d6) -
+  add FG to disable TTVC v1 calculations
+
 ## 3.4.10
 
 ### Patch Changes

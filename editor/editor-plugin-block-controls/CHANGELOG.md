@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.8.0
+
+### Minor Changes
+
+- [#132443](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132443)
+  [`d4f6243b5f21a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4f6243b5f21a) -
+  [ux] Add sticky controls under experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.7.1
+
+### Patch Changes
+
+- [#134680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134680)
+  [`e031bb5981334`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e031bb5981334) -
+  ED-27127 added tests for type ahead control
+- Updated dependencies
+
+## 3.7.0
+
+### Minor Changes
+
+- [#134661](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134661)
+  [`78fa52a2a4178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78fa52a2a4178) -
+  Fix layoutColumn losing breakout mark on re-order
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.0
 
 ### Minor Changes

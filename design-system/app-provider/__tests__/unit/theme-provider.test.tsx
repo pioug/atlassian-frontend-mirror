@@ -13,6 +13,7 @@ import ThemeProvider, {
 	useColorMode,
 	useSetColorMode,
 	useSetTheme,
+	useTheme,
 } from '../../src/theme-provider';
 
 jest.mock('@atlaskit/tokens', () => ({
@@ -229,6 +230,120 @@ describe('ThemeProvider', () => {
 				</ThemeProvider>,
 			);
 			expect(screen.getByTestId('color-mode')).toHaveTextContent('dark');
+		});
+	});
+
+	describe('useTheme', () => {
+		beforeEach(() => {
+			document.documentElement.removeAttribute('data-theme');
+			document.documentElement.removeAttribute('data-color-mode');
+			jest.resetAllMocks();
+		});
+
+		afterEach(() => {
+			document.documentElement.removeAttribute('data-theme');
+			document.documentElement.removeAttribute('data-color-mode');
+			jest.resetAllMocks();
+		});
+
+		function ThemeTestComponent() {
+			const theme = useTheme();
+			return (
+				<div>
+					<div data-testid="theme-light">{theme.light}</div>
+					<div data-testid="theme-dark">{theme.dark}</div>
+					<div data-testid="theme-spacing">{theme.spacing}</div>
+				</div>
+			);
+		}
+
+		it('should return the theme from context when provided', async () => {
+			const customTheme = {
+				light: 'legacy-light' as const,
+				dark: 'legacy-dark' as const,
+				spacing: 'spacing' as const,
+			};
+
+			render(
+				<ThemeProvider defaultColorMode="light" defaultTheme={customTheme}>
+					<ThemeTestComponent />
+				</ThemeProvider>,
+			);
+
+			expect(screen.getByTestId('theme-light')).toHaveTextContent('legacy-light');
+			expect(screen.getByTestId('theme-dark')).toHaveTextContent('legacy-dark');
+			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+		});
+
+		it('should return default theme when no theme is provided', async () => {
+			render(
+				<ThemeProvider defaultColorMode="light">
+					<ThemeTestComponent />
+				</ThemeProvider>,
+			);
+
+			expect(screen.getByTestId('theme-light')).toHaveTextContent('light');
+			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
+			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+		});
+
+		it('should merge partial theme updates with existing theme', async () => {
+			const initialTheme = {
+				light: 'legacy-light' as const,
+				dark: 'legacy-dark' as const,
+				spacing: 'spacing' as const,
+			};
+
+			const { rerender } = render(
+				<ThemeProvider defaultColorMode="light" defaultTheme={initialTheme}>
+					<ThemeTestComponent />
+				</ThemeProvider>,
+			);
+
+			// Update only part of the theme
+			const partialTheme = {
+				dark: 'dark' as const,
+			};
+
+			// Mock getGlobalTheme to return merged theme
+			jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
+				...initialTheme,
+				...partialTheme,
+			});
+
+			// Trigger a re-render to observe theme changes
+			rerender(
+				<ThemeProvider defaultColorMode="light" defaultTheme={initialTheme}>
+					<ThemeTestComponent />
+				</ThemeProvider>,
+			);
+
+			expect(screen.getByTestId('theme-light')).toHaveTextContent('legacy-light');
+			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
+			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
+		});
+
+		// Tests for fallback logic when ThemeProvider is not used
+		it('should return default theme when no theme is provided', async () => {
+			document.documentElement.setAttribute(
+				'data-theme',
+				tokens.themeObjectToString({
+					light: 'light',
+					dark: 'dark',
+					spacing: 'spacing',
+				}),
+			);
+
+			jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
+				light: 'light',
+				dark: 'dark',
+				spacing: 'spacing',
+			});
+
+			render(<ThemeTestComponent />);
+			expect(screen.getByTestId('theme-light')).toHaveTextContent('light');
+			expect(screen.getByTestId('theme-dark')).toHaveTextContent('dark');
+			expect(screen.getByTestId('theme-spacing')).toHaveTextContent('spacing');
 		});
 	});
 });

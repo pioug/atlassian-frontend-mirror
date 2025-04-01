@@ -54,7 +54,10 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 	}
 
 	UNSAFE_componentWillUpdate(nextProps: Props) {
-		if (!fg('platform_editor_react18_elements_emoji')) {
+		if (
+			!fg('platform_editor_react18_elements_emoji') ||
+			!fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			if (nextProps.emoji.id !== this.props.emoji.id) {
 				this.setState({ error: false });
 			}
@@ -62,7 +65,10 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 	}
 
 	componentDidUpdate(prevProps: Props) {
-		if (fg('platform_editor_react18_elements_emoji')) {
+		if (
+			fg('platform_editor_react18_elements_emoji') ||
+			fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			if (prevProps.emoji.id !== this.props.emoji.id) {
 				this.setState({ error: false });
 			}

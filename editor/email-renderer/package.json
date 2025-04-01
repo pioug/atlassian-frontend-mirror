@@ -51,7 +51,7 @@
 		"./table-util": "./src/table-util.ts"
 	},
 	"atlassian": {
-		"team": "Editor: ADF",
+		"team": "Editor: Collaboration",
 		"website": {
 			"name": "Email Renderer"
 		},

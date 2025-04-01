@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
+ * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::10c09b23d81d090ea52970d06babdebf>>
+ * @codegen <<SignedSource::664fa87e1653ae16032056a3c3ad1821>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -47,35 +47,35 @@ import SuccessIcon from '../../../../../utility/success';
 import WarningIcon from '../../../../../utility/warning';
 
 const Icons = [
-	AddIcon,
-	ArrowDownIcon,
-	ArrowLeftIcon,
-	ArrowRightIcon,
-	ArrowUpIcon,
-	CheckCircleIcon,
-	CheckMarkIcon,
-	ChevronDoubleLeftIcon,
-	ChevronDoubleRightIcon,
-	ChevronDownIcon,
-	ChevronLeftIcon,
-	ChevronRightIcon,
-	ChevronUpIcon,
-	CrossIcon,
-	CrossCircleIcon,
-	DragHandleIcon,
-	DragHandleHorizontalIcon,
-	DragHandleVerticalIcon,
 	ErrorIcon,
 	InformationIcon,
-	LinkExternalIcon,
-	LockLockedIcon,
-	LockUnlockedIcon,
-	ShowMoreHorizontalIcon,
+	CrossCircleIcon,
+	CheckCircleIcon,
+	ChevronRightIcon,
+	AddIcon,
+	ChevronLeftIcon,
+	ChevronDownIcon,
+	WarningIcon,
+	ChevronUpIcon,
 	ShowMoreVerticalIcon,
+	ShowMoreHorizontalIcon,
 	StarStarredIcon,
 	StarUnstarredIcon,
+	LinkExternalIcon,
+	LockUnlockedIcon,
+	LockLockedIcon,
+	CheckMarkIcon,
+	CrossIcon,
 	SuccessIcon,
-	WarningIcon,
+	ArrowUpIcon,
+	ArrowLeftIcon,
+	ArrowRightIcon,
+	ArrowDownIcon,
+	DragHandleIcon,
+	ChevronDoubleLeftIcon,
+	ChevronDoubleRightIcon,
+	DragHandleVerticalIcon,
+	DragHandleHorizontalIcon,
 ];
 
 const groupSize = 20;

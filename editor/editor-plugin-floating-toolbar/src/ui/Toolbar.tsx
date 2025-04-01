@@ -45,6 +45,7 @@ import Dropdown from './Dropdown';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import { Input } from './Input';
+import { ScrollButton } from './ScrollButton';
 import { ScrollButtons } from './ScrollButtons';
 import Select from './Select';
 
@@ -724,6 +725,9 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
+		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+		const isEditorControlsPatch2Enabled =
+			isEditorControlsEnabled && fg('platform_editor_controls_patch_2');
 
 		if (!items || !items.length) {
 			return null;
@@ -757,11 +761,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 						data-testid="editor-floating-toolbar"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}
-						onMouseDown={
-							editorExperiment('platform_editor_controls', 'variant1')
-								? this.captureMouseEvent
-								: undefined
-						}
+						onMouseDown={isEditorControlsEnabled ? this.captureMouseEvent : undefined}
 					>
 						<Announcer
 							text={
@@ -773,6 +773,15 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							}
 							delay={250}
 						/>
+						{scrollable && isEditorControlsPatch2Enabled && (
+							<ScrollButton
+								intl={intl}
+								scrollContainerRef={this.scrollContainerRef}
+								node={node}
+								disabled={this.state.scrollDisabled}
+								side="left"
+							/>
+						)}
 						<div
 							data-testid="floating-toolbar-items"
 							ref={this.scrollContainerRef}
@@ -794,14 +803,23 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 								mounted={this.state.mounted}
 							/>
 						</div>
-						{scrollable && (
-							<ScrollButtons
-								intl={intl}
-								scrollContainerRef={this.scrollContainerRef}
-								node={node}
-								disabled={this.state.scrollDisabled}
-							/>
-						)}
+						{scrollable &&
+							(isEditorControlsPatch2Enabled ? (
+								<ScrollButton
+									intl={intl}
+									scrollContainerRef={this.scrollContainerRef}
+									node={node}
+									disabled={this.state.scrollDisabled}
+									side="right"
+								/>
+							) : (
+								<ScrollButtons
+									intl={intl}
+									scrollContainerRef={this.scrollContainerRef}
+									node={node}
+									disabled={this.state.scrollDisabled}
+								/>
+							))}
 					</div>
 					<div ref={this.mountRef}></div>
 				</ToolbarArrowKeyNavigationProvider>

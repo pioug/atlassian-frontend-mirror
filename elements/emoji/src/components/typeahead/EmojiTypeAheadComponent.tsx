@@ -164,7 +164,10 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (!fg('platform_editor_react18_elements_emoji')) {
+		if (
+			!fg('platform_editor_react18_elements_emoji') ||
+			!fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			const prevEmojiProvider = this.props.emojiProvider;
 			const nextEmojiProvider = nextProps.emojiProvider;
 			if (prevEmojiProvider !== nextEmojiProvider) {
@@ -178,7 +181,10 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 	}
 
 	componentDidUpdate(prevProps: Props) {
-		if (fg('platform_editor_react18_elements_emoji')) {
+		if (
+			fg('platform_editor_react18_elements_emoji') ||
+			fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			if (prevProps !== this.props) {
 				const prevEmojiProvider = prevProps.emojiProvider;
 				const nextEmojiProvider = this.props.emojiProvider;

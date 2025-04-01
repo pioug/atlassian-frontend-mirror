@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
+import { Card } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
 
-import { Card, type CardProps } from '../../src';
+import { CardProps } from '../../src/view/Card';
 
 const CardViewSection = ({
 	description,
@@ -13,11 +15,14 @@ const CardViewSection = ({
 	platform = 'web',
 	url = 'https://some.url',
 	fontSize,
+	CardComponent = CardSSR,
 	...props
-}: { description?: string; title: string; fontSize?: React.CSSProperties['fontSize'] } & Pick<
-	ProviderProps,
-	'client'
-> &
+}: {
+	description?: string;
+	title: string;
+	fontSize?: React.CSSProperties['fontSize'];
+	CardComponent?: typeof Card | typeof CardSSR;
+} & Pick<ProviderProps, 'client'> &
 	CardProps) => (
 	<React.Fragment>
 		<h6>{title}</h6>
@@ -25,7 +30,7 @@ const CardViewSection = ({
 		<SmartCardProvider client={client}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
 			<p style={{ fontSize }}>
-				<Card {...props} platform={platform} url={url} />
+				<CardComponent {...props} platform={platform} url={url} />
 			</p>
 		</SmartCardProvider>
 	</React.Fragment>

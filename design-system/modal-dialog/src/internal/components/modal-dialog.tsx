@@ -51,8 +51,10 @@ const dialogStyles = cssMap({
 
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 		'@media (min-width: 30rem)': {
-			// @ts-expect-error
-			width: 'var(--modal-dialog-width)',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&&': {
+				width: 'var(--modal-dialog-width)',
+			},
 			// @ts-expect-error
 			maxWidth: 'inherit',
 			borderRadius: token('border.radius', '3px'),

@@ -307,7 +307,7 @@ const getAssetsMetrics = (interaction: InteractionMetrics, SSRDoneTime: number |
 	try {
 		const config = getConfig();
 		const { type } = interaction;
-		const allowedTypes = ['page_load', 'transition'];
+		const allowedTypes = ['page_load'];
 		const assetsConfig = config?.assetsConfig;
 		if (!allowedTypes.includes(type) || !assetsConfig) {
 			// Skip if: type not allowed or assetsClassification isn't configured

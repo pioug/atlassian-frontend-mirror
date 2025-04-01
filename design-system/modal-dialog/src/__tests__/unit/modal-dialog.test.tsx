@@ -245,9 +245,6 @@ describe('<ModalDialog />', () => {
 			 * is only supported in @testing-library/jest-dom 5.11.3.
 			 */
 			expect(styles).toContain('--modal-dialog-width: 42px;');
-			expect(modalDialog).toHaveCompiledCss('width', '42px', {
-				media: `(min-width: 30rem)`,
-			});
 		});
 
 		it('should set width in the passed value if a % is passed', () => {

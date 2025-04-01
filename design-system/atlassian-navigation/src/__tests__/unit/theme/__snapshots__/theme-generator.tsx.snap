@@ -115,6 +115,7 @@ exports[`generateTheme atlassian theme should match theme object for "productHom
   "borderRight": "1px solid var(--ds-border, rgba(107, 119, 140, 0.3))",
   "color": "var(--ds-text, #253858)",
   "iconColor": "#357DE8",
+  "textColor": "var(--ds-text, #253858)",
 }
 `;
 
@@ -264,6 +265,8 @@ exports[`generateTheme custom black text theme should match theme object for "pr
   "backgroundColor": "#E94E34",
   "borderRight": "1px solid rgba(255, 255, 255, 0.5)",
   "color": "#ffffff",
+  "iconColor": undefined,
+  "textColor": undefined,
 }
 `;
 
@@ -415,6 +418,8 @@ exports[`generateTheme custom white text theme should match theme object for "pr
   "backgroundColor": "#333333",
   "borderRight": "1px solid rgba(0, 0, 0, 0.5)",
   "color": "#000000",
+  "iconColor": undefined,
+  "textColor": undefined,
 }
 `;
 

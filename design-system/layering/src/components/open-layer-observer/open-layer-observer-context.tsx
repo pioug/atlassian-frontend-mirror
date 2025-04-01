@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { type OpenLayerObserverInternalAPI } from './types';
+import type { OpenLayerObserverInternalAPI } from './types';
 
 /**
  * Context for the open layer observer.

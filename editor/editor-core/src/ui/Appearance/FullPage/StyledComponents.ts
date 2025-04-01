@@ -162,13 +162,17 @@ export const editorContentAreaStyle = ({
 	editorContentArea,
 	!fullWidthMode && editorContentAreaWithLayoutWith(layoutMaxWidth),
 	editorContentAreaContainerStyle(),
-	editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-		contentAreaReducedHeaderSpace,
-	isEditorToolbarHidden &&
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-		contentAreaReservedPrimaryToolbarSpace,
+	...(fg('platform_editor_controls_no_toolbar_space')
+		? []
+		: [
+				editorExperiment('platform_editor_controls', 'variant1') &&
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+					contentAreaReducedHeaderSpace,
+				isEditorToolbarHidden &&
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+					contentAreaReservedPrimaryToolbarSpace,
+			]),
 ];
 
 const editorContentAreaWithLayoutWith = (layoutMaxWidth: number) =>

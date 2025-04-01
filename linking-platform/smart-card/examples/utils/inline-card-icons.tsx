@@ -3,6 +3,8 @@ import React from 'react';
 import { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
+import type { Card } from '@atlaskit/smart-card';
+import type { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import {
 	generateContext,
@@ -65,7 +67,7 @@ const iconGroups = [
 	['Inline Icons', inlineIcons],
 ] as const;
 
-export const InlineCardIcons = () => (
+export const InlineCardIcons = (props: { CardComponent?: typeof Card | typeof CardSSR }) => (
 	<>
 		{iconGroups.map(([title, icons], index) => (
 			<Box key={index} xcss={style}>
@@ -74,6 +76,7 @@ export const InlineCardIcons = () => (
 					{icons.map((icon, index2) => (
 						<Box key={index2} xcss={style}>
 							<CardViewSection
+								{...props}
 								appearance="inline"
 								client={new DynamicIconCard(icon[1])}
 								title={icon[0]}

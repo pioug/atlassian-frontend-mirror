@@ -69,7 +69,10 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (!fg('platform_editor_react18_elements_emoji')) {
+		if (
+			!fg('platform_editor_react18_elements_emoji') ||
+			!fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			// adjust selection
 			const { emojis } = nextProps;
 			const { selectedKey } = this.state;
@@ -98,7 +101,10 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 			this.revealItem(selectedEmoji.id || selectedEmoji.shortName);
 		}
 
-		if (fg('platform_editor_react18_elements_emoji')) {
+		if (
+			fg('platform_editor_react18_elements_emoji') ||
+			fg('platform_editor_react18_elements_emoji_jira_bb')
+		) {
 			if (prevProps !== this.props) {
 				// adjust selection
 				if (!selectedKey) {

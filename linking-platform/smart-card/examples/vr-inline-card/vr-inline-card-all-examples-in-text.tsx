@@ -9,16 +9,18 @@ import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import ImageLoader from 'react-render-image';
 
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Box, xcss } from '@atlaskit/primitives';
+import { Card } from '@atlaskit/smart-card';
 
 import { AtlasProject } from '../../examples-helpers/_jsonLDExamples';
 import ImageIconWithColor from '../../src/common/ui/icons/image-icon';
 import { InlineCardErroredView } from '../../src/view/InlineCard/ErroredView';
 import { InlineCardForbiddenView } from '../../src/view/InlineCard/ForbiddenView';
 import { InlineCardResolvedView as ResolvedView } from '../../src/view/InlineCard/ResolvedView';
-import { InlineCardResolvingView } from '../../src/view/InlineCard/ResolvingView';
 import { InlineCardUnauthorizedView } from '../../src/view/InlineCard/UnauthorisedView';
 import { CardLinkView } from '../../src/view/LinkView';
+import { ResolvingClient } from '../utils/custom-client';
 
 const ImageLoaderMock = (props: ComponentPropsWithoutRef<typeof ImageLoader>) => (
 	<ImageLoader {...props} loaded={props.loading} />
@@ -40,18 +42,26 @@ const VRInlineCardAllExamplesInText = () => {
 					/>
 					. There is also spinning links with the spinner on the left side{' '}
 					<span css={animationStyles}>
-						<InlineCardResolvingView
-							url={'https://atlassian.design'}
-							resolvingPlaceholder={'Resolving...'}
-						/>
+						{/* Note: Card was used here instead of the individual view component due to flakiness associated with the spinner */}
+						<SmartCardProvider client={new ResolvingClient()}>
+							<Card
+								appearance="inline"
+								url={'https://atlassian.design'}
+								resolvingPlaceholder={'Resolving...'}
+							/>
+						</SmartCardProvider>
 					</span>{' '}
 					and also with spinner on the right side{' '}
 					<span css={animationStyles}>
-						<InlineCardResolvingView
-							url={'https://atlassian.design'}
-							resolvingPlaceholder={'Resolving...'}
-							inlinePreloaderStyle="on-right-without-skeleton"
-						/>
+						{/* Note: Card was used here instead of the individual view component due to flakiness associated with the spinner */}
+						<SmartCardProvider client={new ResolvingClient()}>
+							<Card
+								appearance="inline"
+								url={'https://atlassian.design'}
+								resolvingPlaceholder={'Resolving...'}
+								inlinePreloaderStyle="on-right-without-skeleton"
+							/>
+						</SmartCardProvider>
 					</span>
 					. Some of the resolved links don't have a lozenge button{' '}
 					<ResolvedView link={'some-url'} title="Link without Lozenge" />. Some links have icons

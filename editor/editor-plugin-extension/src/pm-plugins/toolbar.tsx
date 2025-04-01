@@ -22,21 +22,17 @@ import type {
 	DecorationsPlugin,
 	HoverDecorationHandler,
 } from '@atlaskit/editor-plugin-decorations';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import ContentWidthNarrowIcon from '@atlaskit/icon/core/content-width-narrow';
 import ContentWidthWideIcon from '@atlaskit/icon/core/content-width-wide';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import EditIcon from '@atlaskit/icon/core/edit';
 import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
-import LegacyEditIcon from '@atlaskit/icon/glyph/editor/edit';
-import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
-import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
-import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import EditIcon from '@atlaskit/icon/core/migration/edit--editor-edit';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -51,8 +47,8 @@ import type { ExtensionState } from '../extensionPluginType';
 
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import { getPluginState } from './plugin-factory';
-import { getSelectedExtension } from './utils';
 import type { Position } from './utils';
+import { getSelectedExtension } from './utils';
 
 // non-bodied extensions nested inside panels, blockquotes and lists do not support layouts
 const isNestedNBM = (state: EditorState, selectedExtNode: { pos: number; node: PMNode }) => {
@@ -126,8 +122,13 @@ const breakoutButtonListOptions = (
 		return [
 			{
 				type: 'button',
-				icon: ContentWidthNarrowIcon,
-				iconFallback: CenterIcon,
+				icon: () => (
+					<ContentWidthNarrowIcon
+						label={formatMessage(commonMessages.layoutFixedWidth)}
+						spacing="spacious"
+					/>
+				),
+				iconFallback: ContentWidthNarrowIcon,
 				onClick: updateExtensionLayout('default', editorAnalyticsAPI),
 				selected: layout === 'default',
 				title: formatMessage(commonMessages.layoutFixedWidth),
@@ -135,8 +136,13 @@ const breakoutButtonListOptions = (
 			},
 			{
 				type: 'button',
-				icon: ContentWidthWideIcon,
-				iconFallback: WideIcon,
+				icon: () => (
+					<ContentWidthWideIcon
+						label={formatMessage(commonMessages.layoutWide)}
+						spacing="spacious"
+					/>
+				),
+				iconFallback: ContentWidthWideIcon,
 				onClick: updateExtensionLayout('wide', editorAnalyticsAPI),
 				selected: layout === 'wide',
 				title: formatMessage(commonMessages.layoutWide),
@@ -144,8 +150,13 @@ const breakoutButtonListOptions = (
 			},
 			{
 				type: 'button',
-				icon: ExpandHorizontalIcon,
-				iconFallback: FullWidthIcon,
+				icon: () => (
+					<ExpandHorizontalIcon
+						label={formatMessage(commonMessages.layoutFullWidth)}
+						spacing="spacious"
+					/>
+				),
+				iconFallback: ExpandHorizontalIcon,
 				onClick: updateExtensionLayout('full-width', editorAnalyticsAPI),
 				selected: layout === 'full-width',
 				title: formatMessage(commonMessages.layoutFullWidth),
@@ -282,7 +293,7 @@ const editButton = (
 			id: 'editor.extension.edit',
 			type: 'button',
 			icon: EditIcon,
-			iconFallback: LegacyEditIcon,
+			iconFallback: EditIcon,
 			testId: 'extension-toolbar-edit-button',
 			// Taking the latest `updateExtension` from plugin state to avoid race condition @see ED-8501
 			onClick: (state, dispatch, view) => {
@@ -446,7 +457,15 @@ export const getToolbarConfig =
 				};
 			};
 		}
-
+		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
+			fg('platform_editor_controls_patch_1')
+				? {
+						onMouseEnter: hoverDecoration?.(nodeType, true, className),
+						onMouseLeave: hoverDecoration?.(nodeType, false, className),
+						onFocus: hoverDecoration?.(nodeType, true, className),
+						onBlur: hoverDecoration?.(nodeType, false, className),
+					}
+				: undefined;
 		return {
 			title: 'Extension floating controls',
 			// Ignored via go/ees005
@@ -458,7 +477,8 @@ export const getToolbarConfig =
 			items: [
 				...editButtonItems,
 				...breakoutItems,
-				...(editorExperiment('platform_editor_controls', 'control')
+				...(editorExperiment('platform_editor_controls', 'control') ||
+				fg('platform_editor_controls_patch_2')
 					? [
 							{
 								type: 'separator',
@@ -482,8 +502,10 @@ export const getToolbarConfig =
 							{
 								id: 'editor.extension.delete',
 								type: 'button',
-								icon: DeleteIcon,
-								iconFallback: RemoveIcon,
+								icon: () => (
+									<DeleteIcon label={formatMessage(commonMessages.remove)} spacing="spacious" />
+								),
+								iconFallback: DeleteIcon,
 								appearance: 'danger',
 								onClick: removeExtension(editorAnalyticsAPI),
 								onMouseEnter: hoverDecoration?.(nodeType, true),
@@ -515,11 +537,13 @@ export const getToolbarConfig =
 											return true;
 										},
 										icon: <CopyIcon label="Copy" />,
+										...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 									},
 									{
 										title: 'Delete',
 										onClick: removeExtension(editorAnalyticsAPI),
 										icon: <DeleteIcon label="Delete" />,
+										...hoverDecorationProps(nodeType),
 									},
 								],
 							},

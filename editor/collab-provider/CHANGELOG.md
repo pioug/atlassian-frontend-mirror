@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 10.11.1
+
+### Patch Changes
+
+- [#135065](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135065)
+  [`26470c154bcf0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26470c154bcf0) -
+  Update step validation feature gate key
+- Updated dependencies
+
 ## 10.11.0
 
 ### Minor Changes

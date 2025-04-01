@@ -180,30 +180,13 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 
 	const viewBoxSize = baseSize + 2 * viewBoxPadding;
 
-	// Workaround for the transparency in our disabled icon token.
-	// Because we have multiple strokes in icons, opacities overlap
-	// This filter has an impact on render performance, but this is
-	// acceptable as icons aren't commonly disabled en-masse
-	let iconColor = color;
-	if (dangerouslySetInnerHTML && color === token('color.icon.disabled')) {
-		dangerouslySetInnerHTML.__html = `
-<filter id="ds-newIconOpacityFilter">
-  <feFlood flood-color="var(--ds-icon-disabled)" />
-  <feComposite in2="SourceGraphic" operator="in" />
-</filter>
-<g filter="url(#ds-newIconOpacityFilter)">
-  ${dangerouslySetInnerHTML.__html}
-</g>`;
-		iconColor = token('color.icon');
-	}
-
 	return (
 		<span
 			data-testid={testId}
 			role={label ? 'img' : undefined}
 			aria-label={label ? label : undefined}
 			aria-hidden={label ? undefined : true}
-			style={{ color: iconColor }}
+			style={{ color }}
 			css={[
 				iconStyles,
 				baseHcmStyles,

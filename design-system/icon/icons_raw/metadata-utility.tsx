@@ -1,4 +1,5 @@
 import { type IconMetadata } from '@af/icon-build-process';
+
 const metadata: IconMetadata = {
 	add: {
 		keywords: ['create', 'plus'],
@@ -7,6 +8,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7367',
 		usage:
 			'Reserved for creating and adding an object as a secondary/tertiary action in a menu item.',
 	},
@@ -17,6 +19,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '15144:15529',
 		usage: 'Know uses: sorting table headers or Bitbucket code difference.',
 	},
 	'arrow-left': {
@@ -26,6 +29,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '15144:15527',
 		usage: 'Known uses: back to previous screen, previous slide.',
 	},
 	'arrow-right': {
@@ -35,6 +39,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '15144:15528',
 		usage: 'Known uses: link to nested menu item, a linked menu item, next slide.',
 	},
 	'arrow-up': {
@@ -44,6 +49,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '15144:15526',
 		usage: 'Known uses: back to top.',
 	},
 	'check-circle': {
@@ -53,6 +59,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7365',
 		usage: '📦 @atlaskit/icon/utility/check-circle',
 	},
 	'check-mark': {
@@ -62,6 +69,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10271:13763',
 		usage: '📦 @atlaskit/icon/utility/check-mark',
 	},
 	'chevron-double-left': {
@@ -71,6 +79,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'ready-to-publish',
+		id: '31300:8198',
 		usage: 'Reserved for calendar year button.',
 		slackChannel: '#help-design-system',
 	},
@@ -81,6 +90,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'ready-to-publish',
+		id: '31300:11074',
 		usage: 'Reserved for calendar year button.',
 		slackChannel: '#help-design-system',
 	},
@@ -91,6 +101,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7369',
 		usage: 'Reserved for dropdown menus, selects, accordions, and expands.',
 	},
 	'chevron-left': {
@@ -100,6 +111,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7368',
 		usage: 'Reserved for collapse side nav and to indicate previous in dates.',
 	},
 	'chevron-right': {
@@ -109,6 +121,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7366',
 		usage: 'Reserved for menu fly outs and to indicate next in dates.',
 	},
 	'chevron-up': {
@@ -118,6 +131,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7371',
 		usage: 'Reserved for accordions.',
 	},
 	cross: {
@@ -127,6 +141,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10522:17206',
 		usage: 'Known uses: remove tag.',
 	},
 	'cross-circle': {
@@ -136,7 +151,23 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7364',
 		usage: 'Reserved for Helper Messages in Forms.',
+	},
+	'drag-handle': {
+		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
+		categorization: 'utility',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'utility',
+		status: 'deprecated',
+		id: '15317:13062',
+		usage: 'Reserved for draggable elements.',
+		replacement: {
+			name: 'drag-handle-vertical',
+			type: 'utility',
+			location: '@atlaskit/icon',
+		},
 	},
 	'drag-handle-horizontal': {
 		keywords: ['drag', 'drag handler', 'reorder columns', 'move'],
@@ -145,6 +176,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '37548:2891',
 		usage: 'Reserved for dragging elements along a horizontal axis.',
 		slackChannel: '#icon-contributions',
 	},
@@ -155,6 +187,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '37548:2047',
 		usage: 'Reserved for dragging elements along a vertical axis.',
 		slackChannel: '#icon-contributions',
 	},
@@ -165,6 +198,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7362',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 	information: {
@@ -174,6 +208,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7363',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 	'link-external': {
@@ -198,6 +233,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10130:11770',
 		usage: 'Reserved for links that open up a new tab as a secondary/tertiary action.',
 	},
 	'lock-locked': {
@@ -217,6 +253,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10252:13024',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 	},
 	'lock-unlocked': {
@@ -234,6 +271,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10252:13023',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 	},
 	'show-more-horizontal': {
@@ -243,6 +281,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10060:11268',
 		usage: 'Reserved for secondary/tertiary more action menus.',
 	},
 	'show-more-vertical': {
@@ -252,6 +291,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10060:11267',
 		usage: 'Reserved for secondary/tertiary action menus, traditionally on mobile.',
 	},
 	'star-starred': {
@@ -261,6 +301,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10069:11366',
 		usage: 'Reserved for starred or favourited objects as a secondary/tertiary action.',
 	},
 	'star-unstarred': {
@@ -270,6 +311,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10069:11367',
 		usage: 'Reserved for starring or favoriting objects as a secondary/tertiary action.',
 	},
 	success: {
@@ -279,6 +321,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '15049:30793',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 	warning: {
@@ -288,21 +331,8 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'utility',
 		status: 'published',
+		id: '10003:7370',
 		usage: 'Reserved for Helper Messages in Forms.',
-	},
-	'drag-handle': {
-		keywords: ['drag handler', 'drag dots', 'reorder', 'move'],
-		categorization: 'utility',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'utility',
-		status: 'deprecated',
-		usage: 'Reserved for draggable elements.',
-		replacement: {
-			name: 'drag-handle-vertical',
-			type: 'utility',
-			location: '@atlaskit/icon',
-		},
 	},
 };
 

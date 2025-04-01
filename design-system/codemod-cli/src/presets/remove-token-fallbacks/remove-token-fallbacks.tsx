@@ -11,6 +11,7 @@ import type { API, ASTPath, FileInfo, VariableDeclarator } from 'jscodeshift';
 
 import { RemoveTokenFallbackOptions, TransformationDetails } from './types';
 import { getTokenMap } from './utils/all-tokens';
+import { chunkArray } from './utils/chunk';
 import { getTeamInfo } from './utils/get-team-info';
 import { removeUnusedImports } from './utils/remove-unused-imports';
 import { removeUnusedVariables } from './utils/remove-unused-variables';
@@ -133,28 +134,150 @@ export async function beforeAll(options: RemoveTokenFallbackOptions): Promise<vo
 
 /**
  * Function executed after all transformations to combine individual file reports into a comprehensive transformation report.
- * It also applies prettier to the affected files.
+ * It also applies prettier and eslint (to remove dangling suppressions) to the affected files.
  */
 export async function afterAll(options: RemoveTokenFallbackOptions): Promise<void> {
 	if (options.reportFolder) {
 		await combineReports(options.reportFolder);
 	}
-
 	if (options.reportFolder && !options.dry) {
 		try {
 			const filesTxtPath = path.join(options.reportFolder, 'files.txt');
 			const fileContent = await fs.readFile(filesTxtPath, 'utf-8');
 			if (fileContent.length > 0) {
-				console.log(`Running prettier on files: ${chalk.magenta(fileContent)}`);
-				await execAsync(`yarn prettier --write ${fileContent}`);
-				console.log(chalk.green(`Prettier was run successfully`));
+				const filePaths = fileContent.split(/\r?\n/).filter(Boolean);
+
+				// Get the first file path and strip any quotes
+				const firstFilePath = filePaths[0].replace(/^['"]|['"]$/g, '');
+
+				// Determine the root directory using findRoot
+				const rootDir = await findRoot(path.dirname(firstFilePath));
+				console.log('Root directory:', rootDir);
+
+				await gitStage(filePaths, rootDir);
+				await runEslint(filePaths, rootDir);
+				await runPrettier(filePaths, rootDir);
 			}
 		} catch (error: unknown) {
 			if (error instanceof Error) {
-				console.error(chalk.red(`Unexpected error running Prettier: ${error.message}`));
+				console.error(chalk.red(`Unexpected error: ${error.message}`));
 			} else {
-				console.error(chalk.red('An unknown error occurred while running Prettier.'));
+				console.error(chalk.red('An unknown error occurred.'));
 			}
 		}
 	}
+}
+
+async function gitStage(filePaths: string[], cwd: string) {
+	const gitAddCommand = `git add ${filePaths.join(' ')}`;
+	console.log(`Executing command: ${gitAddCommand}`);
+	const { stdout: gitAddStdout, stderr: gitAddStderr } = await execAsync(gitAddCommand, { cwd });
+	if (gitAddStdout) {
+		console.log(chalk.blue(`Git add output:\n${gitAddStdout}`));
+	}
+	if (gitAddStderr) {
+		console.error(chalk.yellow(`Git add errors:\n${gitAddStderr}`));
+	}
+	console.log(chalk.green(`All changes have been staged.`));
+}
+
+async function runPrettier(filePaths: string[], cwd: string) {
+	const prettierCommand = `yarn prettier --write ${filePaths.join(' ')}`;
+	console.log(`Executing command: ${prettierCommand}`);
+	const { stdout: prettierStdout, stderr: prettierStderr } = await execAsync(prettierCommand, {
+		cwd,
+	});
+	if (prettierStdout) {
+		console.log(chalk.blue(`Prettier output:\n${prettierStdout}`));
+	}
+	if (prettierStderr) {
+		console.error(chalk.yellow(`Prettier errors:\n${prettierStderr}`));
+	}
+	console.log(chalk.green(`Prettier was run successfully`));
+}
+
+async function runEslint(filePaths: string[], cwd: string) {
+	const fileChunks = chunkArray(filePaths, 20);
+	const totalChunks = fileChunks.length;
+
+	for (const [chunkIndex, fileChunk] of fileChunks.entries()) {
+		const eslintCommand = `yarn eslint ${fileChunk.join(' ')} --report-unused-disable-directives --fix`;
+		console.log(
+			`Executing command for chunk ${chunkIndex + 1} of ${totalChunks}: ${eslintCommand}`,
+		);
+
+		try {
+			const result = await execAsync(eslintCommand, { cwd });
+
+			const { stdout, stderr } = result;
+			if (stdout) {
+				console.log(
+					chalk.blue(`ESLint output for chunk ${chunkIndex + 1} of ${totalChunks}:\n${stdout}`),
+				);
+			}
+			if (stderr) {
+				console.error(
+					chalk.yellow(`ESLint errors for chunk ${chunkIndex + 1} of ${totalChunks}:\n${stderr}`),
+				);
+			}
+		} catch (error: unknown) {
+			console.error(
+				chalk.red(`Error running ESLint on chunk ${chunkIndex + 1} of ${totalChunks}: ${error}`),
+			);
+
+			// Retry each file individually
+			console.log(
+				chalk.yellow(
+					`Retrying each file in chunk ${chunkIndex + 1} of ${totalChunks} individually...`,
+				),
+			);
+
+			// Chunk the files into smaller groups of 5 for parallel retry
+			const smallerChunks = chunkArray(fileChunk, 5);
+			const totalSmallerChunks = smallerChunks.length;
+
+			for (const [smallChunkIndex, smallerChunk] of smallerChunks.entries()) {
+				await Promise.all(
+					smallerChunk.map(async (file) => {
+						try {
+							const individualEslintCommand = `yarn eslint ${file} --report-unused-disable-directives --fix`;
+							console.log(
+								`Executing command for file in small chunk ${smallChunkIndex + 1} of ${totalSmallerChunks}: ${individualEslintCommand}`,
+							);
+
+							const result = await execAsync(individualEslintCommand, { cwd });
+
+							const { stdout, stderr } = result;
+							if (stdout) {
+								console.log(
+									chalk.blue(
+										`ESLint output for file ${file} in small chunk ${smallChunkIndex + 1} of ${totalSmallerChunks}:\n${stdout}`,
+									),
+								);
+							}
+							if (stderr) {
+								console.error(
+									chalk.yellow(
+										`ESLint errors for file ${file} in small chunk ${smallChunkIndex + 1} of ${totalSmallerChunks}:\n${stderr}`,
+									),
+								);
+							}
+						} catch (fileError: unknown) {
+							console.error(
+								chalk.red(
+									`Error running ESLint on file ${file} in small chunk ${smallChunkIndex + 1} of ${totalSmallerChunks}: ${fileError}`,
+								),
+							);
+						}
+					}),
+				);
+			}
+		}
+
+		console.log(
+			chalk.green(`Finished running ESLint for chunk ${chunkIndex + 1} of ${totalChunks}.`),
+		);
+	}
+
+	console.log(chalk.green(`ESLint was run on all files successfully`));
 }

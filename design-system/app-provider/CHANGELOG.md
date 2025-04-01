@@ -1,5 +1,19 @@
 # @atlaskit/app-provider
 
+## 2.1.0
+
+### Minor Changes
+
+- [#130763](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/130763)
+  [`42fdfd64b606b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42fdfd64b606b) -
+  useTheme now falls back to reading theme state from the DOM for cases where the
+  AppProvider/ThemeProvider is not in use. This allows us to replace all usage of `useThemeObserver`
+  with `useTheme` in other Design System packages without issue.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

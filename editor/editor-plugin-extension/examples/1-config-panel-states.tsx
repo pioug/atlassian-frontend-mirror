@@ -8,6 +8,8 @@ import { IntlProvider } from 'react-intl-next';
 
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { ExtensionManifest, ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -105,6 +107,18 @@ const exampleManifest: ExtensionManifest = {
 
 const FakeContextPanel = createFakeContextPanel(new DefaultExtensionProvider([exampleManifest]));
 
+const manifestWithDeprecation = {
+	...exampleManifest,
+	deprecation: {
+		isDeprecated: true,
+		message: (
+			<div>
+				A deprecation message can include <Link href="#link">links</Link> or <b>styling.</b>
+			</div>
+		),
+	},
+};
+
 const manifestWithSummary = {
 	...exampleManifest,
 	summary: 'Short text describing this extension',
@@ -142,6 +156,10 @@ const manifestWithoutSummaryAndDescriptionAndDocumentation = {
 	documentationUrl: undefined,
 };
 
+const FaceContextPanelWithDeprecation = createFakeContextPanel(
+	new DefaultExtensionProvider([manifestWithDeprecation]),
+);
+
 const FakeContextPanelWithSummary = createFakeContextPanel(
 	new DefaultExtensionProvider([manifestWithSummary]),
 );
@@ -174,10 +192,12 @@ export default function Example() {
 			<div css={wrapperStyles}>
 				<FakeContextPanel nodeKey="loading" title="Loading state" />
 				<FakeContextPanel nodeKey="error" title="Error state" />
-				<FakeContextPanel nodeKey="loaded" title="Loaded state" />
 			</div>
 			<div css={wrapperStyles}>
+				<FakeContextPanel nodeKey="loaded" title="Loaded state" />
 				<FakeContextPanelWithSummary nodeKey="loaded" title="With summary" />
+			</div>
+			<div css={wrapperStyles}>
 				<FakeContextPanelWithoutDescription nodeKey="loaded" title="Missing description" />
 				<FakeContextPanelWithoutDescriptionOrDocumentation
 					nodeKey="loaded"
@@ -190,10 +210,15 @@ export default function Example() {
 					nodeKey="loaded"
 					title="Missing summary and docs"
 				/>
+			</div>
+			<div css={wrapperStyles}>
 				<FakeContextPanelWithoutSummaryAndDescriptionAndDocumentation
 					nodeKey="loaded"
 					title="Missing description, summary and docs"
 				/>
+				{fg('platform_editor_extension_deprecation_status') && (
+					<FaceContextPanelWithDeprecation nodeKey="loaded" title="With deprecation status" />
+				)}
 			</div>
 		</IntlProvider>
 	);

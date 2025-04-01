@@ -88,4 +88,9 @@ export type CardProviderProps = {
 	 * Required for features such as AI summary in Smart Links, Loom embed Smart Links, etc.
 	 */
 	product?: ProductType;
+	/**
+	 * Flag indicated by compliance to determine whether the content of this link should be controlled for data export.
+	 * This controls whether or not the link data should be blocked for data export during certain features, such as PDF export in Confluence.
+	 */
+	shouldControlDataExport?: boolean;
 } & CardAuthFlowOpts;

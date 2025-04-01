@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Stack } from '@atlaskit/primitives';
+import { Card } from '@atlaskit/smart-card';
 
 import ExampleContainer from './utils/example-container';
 import { InlineCardIcons } from './utils/inline-card-icons';
@@ -8,7 +9,7 @@ import { InlineCardIcons } from './utils/inline-card-icons';
 export default () => (
 	<ExampleContainer title="InlineCard Lazy Icons">
 		<Stack>
-			<InlineCardIcons />
+			<InlineCardIcons CardComponent={Card} />
 		</Stack>
 	</ExampleContainer>
 );

@@ -178,7 +178,8 @@ const generateSharedTypesFile = (componentOutputDir: string) => {
 		fs.readFileSync(uiKit2TypesFile, 'utf8'),
 		'yarn workspace @atlaskit/forge-react-types codegen',
 		{
-			description: 'Shared types file from UIKit 2',
+			description:
+				'Shared types file for UI Kit components. Add shared types to `packages/forge/forge-ui/src/components/UIKit/types.ts` for it to be code generated here and imported correctly into prop type files',
 			dependencies: [uiKit2TypesFile],
 			outputFolder: componentOutputDir,
 		},

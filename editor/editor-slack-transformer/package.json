@@ -23,7 +23,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Editor: ADF",
+		"team": "Editor: Collaboration",
 		"website": {
 			"name": "Editor Slack Transformer"
 		},

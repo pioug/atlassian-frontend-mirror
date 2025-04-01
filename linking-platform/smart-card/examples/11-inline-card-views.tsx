@@ -6,6 +6,7 @@ import { HelperMessage } from '@atlaskit/form';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
+import { Card } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 
 import CardViewExample from './card-view';
@@ -71,6 +72,7 @@ export default () => {
 						appearance="inline"
 						showHoverPreview={true}
 						truncateInline={truncateInline}
+						CardComponent={Card}
 					/>
 				</Box>
 			</Stack>

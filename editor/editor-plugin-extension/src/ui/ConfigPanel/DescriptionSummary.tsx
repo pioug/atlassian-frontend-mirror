@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import { HelpLink } from './HelpLink';
@@ -22,7 +23,7 @@ type DescriptionSummaryProps = {
 
 export function DescriptionSummary({ extensionManifest }: DescriptionSummaryProps) {
 	const { formatMessage } = useIntl();
-	const { description, documentationUrl } = extensionManifest;
+	const { description, deprecation, documentationUrl } = extensionManifest;
 	// Use a temporary allowlist of top 3 macros to test out a new "Documentation" CTA ("Need help?")
 	// This will be removed when Top 5 Modernized Macros updates are rolled out
 	const modernizedMacrosList = ['children', 'recently-updated', 'excerpt'];
@@ -42,6 +43,11 @@ export function DescriptionSummary({ extensionManifest }: DescriptionSummaryProp
 								}{' '}
 							</Fragment>
 						)}
+						{deprecation?.isDeprecated &&
+							deprecation?.message &&
+							fg('platform_editor_extension_deprecation_status') && (
+								<Box paddingBlockStart="space.150">{deprecation.message}</Box>
+							)}
 						{documentationUrl &&
 							(enableHelpCTA ? (
 								<Box xcss={helpLinkStyles}>

@@ -38,6 +38,7 @@ interface ScrollButtonsProps {
 	disabled: boolean;
 }
 
+// Remove this component (replaced by ScrollButton) as part of platform_editor_controls clean up
 export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: ScrollButtonsProps) => {
 	const buttonsContainerRef = useRef<HTMLDivElement>(null);
 	const [needScroll, setNeedScroll] = useState(false);

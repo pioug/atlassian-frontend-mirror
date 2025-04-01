@@ -4,14 +4,7 @@
  */
 import { forwardRef, memo, type Ref, useRef } from 'react';
 
-import {
-	cssMap,
-	cx,
-	jsx,
-	type StrictXCSSProp,
-	type XCSSAllProperties,
-	type XCSSAllPseudos,
-} from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -29,9 +22,7 @@ import { type CommonIconButtonProps } from './types';
 export type LinkIconButtonProps<RouterLinkConfig extends Record<string, any> = never> =
 	CommonIconButtonProps &
 		CommonLinkVariantProps<RouterLinkConfig> &
-		CommonAnchorProps<RouterLinkConfig> & {
-			xcss?: StrictXCSSProp<XCSSAllProperties, XCSSAllPseudos>;
-		};
+		CommonAnchorProps<RouterLinkConfig>;
 
 const styles = cssMap({
 	base: {
@@ -340,7 +331,6 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 		spacing,
 		testId,
 		tooltip,
-		xcss,
 		...unsafeRest
 	}: LinkIconButtonProps<RouterLinkConfig>,
 	ref: Ref<HTMLAnchorElement>,

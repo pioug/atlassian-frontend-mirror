@@ -9,7 +9,14 @@ import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-fl
 import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states';
 import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
 import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
-import FlexibleUiBlockPreview from '../../../examples/vr-flexible-card/vr-flexible-ui-block-preview';
+import {
+	FlexibleUiBlockPreviewLarge,
+	FlexibleUiBlockPreviewMedium,
+	FlexibleUiBlockPreviewMixedPadding,
+	FlexibleUiBlockPreviewOverrideCSS,
+	FlexibleUiBlockPreviewSmall,
+	FlexibleUiBlockPreviewXLarge,
+} from '../../../examples/vr-flexible-card/vr-flexible-ui-block-preview';
 import FlexibleUiBlockSnippet from '../../../examples/vr-flexible-card/vr-flexible-ui-block-snippet';
 import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title';
 import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexible-ui-composition';
@@ -140,7 +147,37 @@ snapshot(FlexibleUiBlockFooter, {
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
-snapshot(FlexibleUiBlockPreview, {
+snapshot(FlexibleUiBlockPreviewXLarge, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockPreviewLarge, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockPreviewMedium, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockPreviewSmall, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockPreviewMixedPadding, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],

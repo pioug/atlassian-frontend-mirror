@@ -34,4 +34,10 @@ export type WindowWithReactUFOTestGlobals = typeof window & {
 	// using the `page.addInitScript`.
 	// The observer is grouping the nodes based on the `data-testid` only
 	__sectionVisibleAt: Map<string, DOMHighResTimeStamp>;
+
+	// Best way to found out when a DOM was "rendered"
+	// We are adding a Mutation Observer inside the `./fixtures.ts`
+	// using the `page.addInitScript`.
+	// The observer is grouping the nodes based on the `data-testid` only
+	__sectionAttributeChanges: Map<string, DOMHighResTimeStamp[]>;
 };

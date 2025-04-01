@@ -82,6 +82,7 @@ export const themes = [
 		highlightColor: '#E94E34',
 	}),
 	generateTheme({
+		// naming a theme "atlassian" forces the theme to be the default theme; the colors below aren't used
 		name: 'atlassian',
 		backgroundColor: B400,
 		highlightColor: N0,

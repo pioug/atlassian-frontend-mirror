@@ -43,19 +43,19 @@ describe('ResolvedView', () => {
 		);
 	});
 
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should render a lozenge when one is provided', async () => {
+	it('should render a lozenge when one is provided', async () => {
 		const lozengeProps: LozengeProps = {
 			text: 'some-lozenge-text',
 			isBold: true,
 			appearance: 'inprogress',
 		};
 		render(<InlineCardResolvedView title="some text content" lozenge={lozengeProps} />);
-		const lozenge = await screen.findByText('some-lozenge-text');
-		expect(lozenge).toHaveStyle(
-			`background-color: ${token('color.background.information.bold', '#0052CC')}`,
+		const lozenge = await screen.findByTestId('inline-card-resolved-view-lozenge');
+		expect(lozenge).toHaveCompiledCss(
+			'background-color',
+			token('color.background.information.bold', '#0052CC'),
 		);
+
 		expect(lozenge).toHaveStyle(`color: ${token('color.text.inverse', '#FFFFFF')}`);
 	});
 

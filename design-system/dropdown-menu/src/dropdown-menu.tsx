@@ -69,6 +69,16 @@ const getFallbackPlacements = (placement: Placement): Placement[] | undefined =>
 	}
 };
 
+function isKeyboardEvent(
+	event: KeyboardEvent | MouseEvent | React.KeyboardEvent | React.MouseEvent | null,
+): event is KeyboardEvent | React.KeyboardEvent {
+	return (
+		event !== null &&
+		(event instanceof KeyboardEvent ||
+			('nativeEvent' in event && event.nativeEvent instanceof KeyboardEvent))
+	);
+}
+
 /**
  * __Dropdown menu__
  *
@@ -139,11 +149,18 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	);
 
 	const handleOnClose = useCallback(
-		(event: any, currentLevel?: number) => {
+		(
+			event: KeyboardEvent | MouseEvent | React.KeyboardEvent | React.MouseEvent | null,
+			currentLevel?: number,
+		) => {
+			const isTabOrEscapeKey =
+				isKeyboardEvent(event) && (event.key === 'Tab' || event.key === 'Escape');
+
 			if (
-				event.key !== 'Escape' &&
-				event.key !== 'Tab' &&
-				event.target?.closest?.(`[id^=${PREFIX}] [aria-haspopup]`)
+				event !== null &&
+				!isTabOrEscapeKey &&
+				event.target instanceof HTMLElement &&
+				event.target.closest?.(`[id^=${PREFIX}] [aria-haspopup]`)
 			) {
 				// Check if it is within dropdown and it is a trigger button
 				// if it is a nested dropdown, clicking trigger won't close the dropdown
@@ -166,7 +183,10 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				requestAnimationFrame(() => {
 					returnFocusRef.current?.focus();
 				});
-			} else if ((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape') {
+			} else if (
+				isKeyboardEvent(event) &&
+				((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape')
+			) {
 				requestAnimationFrame(() => {
 					itemRef.current?.focus();
 				});

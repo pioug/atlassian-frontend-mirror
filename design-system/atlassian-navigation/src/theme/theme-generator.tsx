@@ -1,4 +1,6 @@
-import defaultTheme, { DEFAULT_THEME_NAME } from './default-theme';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import defaultTheme, { DEFAULT_THEME_NAME, defaultThemeBrandRefresh } from './default-theme';
 import { generateTextColor, getBoxShadow, getContrastColor, hexToRGBA } from './theme-helpers';
 import { type ButtonCSSContext, type GenerateThemeArgs, type NavigationTheme } from './types';
 
@@ -71,7 +73,7 @@ export const generateTheme = (themeColors: GenerateThemeArgs): NavigationTheme =
 	const colors = { ...themeColors, color };
 
 	if (name === DEFAULT_THEME_NAME) {
-		return defaultTheme;
+		return fg('platform-team25-app-icon-tiles') ? defaultThemeBrandRefresh : defaultTheme;
 	}
 
 	return {
@@ -88,6 +90,8 @@ export const generateTheme = (themeColors: GenerateThemeArgs): NavigationTheme =
 			},
 			productHome: {
 				color,
+				iconColor: fg('platform-team25-app-icon-tiles') ? color : undefined,
+				textColor: fg('platform-team25-app-icon-tiles') ? color : undefined,
 				backgroundColor: highlightColor,
 				borderRight: `1px solid ${hexToRGBA(color, 0.5)}`,
 			},

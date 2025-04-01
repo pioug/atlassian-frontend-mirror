@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 114.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.7.0
+
+### Minor Changes
+
+- [#133705](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133705)
+  [`a78567c4a63e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a78567c4a63e2) -
+  Reduced the shadows for inline comments
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.6.4
+
+### Patch Changes
+
+- [#131961](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131961)
+  [`4d3050222b5bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d3050222b5bc) -
+  fixed issue where providerFactory needed to be passed fresh on every render
+
 ## 114.6.3
 
 ### Patch Changes

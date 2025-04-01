@@ -113,10 +113,19 @@ export class TokenProcessor {
 				resolvedLocalVarDeclaration: undefined,
 			};
 		}
-		const isSkipped =
-			tokenKey.startsWith('elevation.shadow') ||
-			tokenKey.startsWith('font.body') ||
-			tokenKey.startsWith('font.heading');
+		if (tokenKey.startsWith('border')) {
+			this.logVerbose(`Don't modify border token: ${chalk.yellow(tokenKey)}`);
+			return {
+				shouldLog: false,
+				fallbackRemoved: false,
+				resolvedImportDeclaration: undefined,
+				resolvedLocalVarDeclaration: undefined,
+			};
+		}
+		const isSkipped = false;
+		// tokenKey.startsWith('elevation.shadow') ||
+		// tokenKey.startsWith('font.body') ||
+		// tokenKey.startsWith('font.heading');
 		const tokenValue = isSkipped ? '' : this.tokenMap[tokenKey];
 		this.logVerbose(
 			`Token value from tokenMap: ${chalk.magenta(tokenValue)} for key: ${chalk.yellow(tokenKey)}`,
@@ -306,6 +315,67 @@ export class TokenProcessor {
 		let objectName: string | undefined;
 		let propertyName: string | undefined;
 		let fallbackValue: string | undefined;
+		let resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
+		let resolvedLocalVarDeclaration: ASTPath<VariableDeclarator> | undefined;
+
+		// Function to get full member expression path as string
+		const getFullMemberPath = (node: MemberExpression | Identifier): string => {
+			if (node.type === 'Identifier') {
+				return node.name;
+			} else if (node.type === 'MemberExpression') {
+				return `${getFullMemberPath((node as any).object)}.${node.property.type === 'Identifier' ? node.property.name : ''}`;
+			}
+			return '';
+		};
+
+		const fullMemberPath = getFullMemberPath(fallbackValueNode);
+
+		// Detect long member expression paths
+		const pathSegments = fullMemberPath.split('.');
+		if (pathSegments.length > 2) {
+			this.logVerbose(
+				`Detected long member expression: ${chalk.yellow(fullMemberPath)}. Just resolving import or local variable declaration.`,
+			);
+
+			// Find the import statement or local variable for the top-level object
+			objectName = pathSegments[0];
+
+			// Check if it's a local variable
+			const localVarDeclaration = this.source
+				.find(this.j.VariableDeclarator, {
+					id: { name: objectName },
+				})
+				.at(0);
+
+			if (localVarDeclaration.size()) {
+				resolvedLocalVarDeclaration = localVarDeclaration.paths()[0];
+				this.logVerbose(`Resolved local variable declaration for: ${chalk.yellow(objectName)}`);
+			} else {
+				// Search for import declaration
+				const importDeclaration = this.source
+					.find(this.j.ImportDeclaration)
+					.filter(this.createImportFilter(objectName))
+					.at(0);
+
+				if (importDeclaration.size()) {
+					resolvedImportDeclaration = importDeclaration.paths()[0];
+					this.logVerbose(`Resolved import declaration for: ${chalk.yellow(objectName)}`);
+				} else {
+					this.logError(
+						`Could not resolve import or local variable for: ${chalk.yellow(objectName)}`,
+					);
+				}
+			}
+
+			return {
+				rawFallbackValue: fullMemberPath,
+				fallbackValue: undefined,
+				resolvedImportDeclaration,
+				resolvedLocalVarDeclaration,
+			};
+		}
+
+		// Existing logic for member expressions with shorter paths
 		if (fallbackValueNode.object.type === 'Identifier') {
 			objectName = (fallbackValueNode.object as Identifier).name;
 		}
@@ -333,7 +403,6 @@ export class TokenProcessor {
 		this.logVerbose(
 			`Fallback is a member expression: ${chalk.yellow(rawFallbackValue)}, attempting to resolve...`,
 		);
-		let resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
 
 		// Find the import statement for the object
 		const importDeclaration = this.source
@@ -371,23 +440,47 @@ export class TokenProcessor {
 		fallbackValueNode: TemplateLiteral,
 	): Promise<FallbackResolveResult> {
 		const expressions = fallbackValueNode.expressions;
+		const quasis = fallbackValueNode.quasis;
+		let resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
+		let resolvedLocalVarDeclaration: ASTPath<VariableDeclarator> | undefined;
 		let rawFallbackValue: string = '';
 		let fallbackValue: string | undefined;
-		const quasis = fallbackValueNode.quasis;
+
 		if (expressions.length !== 1 || quasis.length !== 2) {
 			this.logError(`Unsupported template literal structure`);
+
+			// Attempt to resolve any imports or local variables used in expressions
+			for (const expression of expressions) {
+				if (expression.type === 'Identifier') {
+					const result = await this.processFallbackAsIdentifier(expression);
+					if (result.resolvedImportDeclaration) {
+						resolvedImportDeclaration = result.resolvedImportDeclaration;
+					}
+					if (result.resolvedLocalVarDeclaration) {
+						resolvedLocalVarDeclaration = result.resolvedLocalVarDeclaration;
+					}
+				} else if (expression.type === 'MemberExpression') {
+					const result = await this.processFallbackAsMemberExpression(expression);
+					if (result.resolvedImportDeclaration) {
+						resolvedImportDeclaration = result.resolvedImportDeclaration;
+					}
+					if (result.resolvedLocalVarDeclaration) {
+						resolvedLocalVarDeclaration = result.resolvedLocalVarDeclaration;
+					}
+				}
+			}
 
 			return {
 				rawFallbackValue,
 				fallbackValue,
-				resolvedImportDeclaration: undefined,
-				resolvedLocalVarDeclaration: undefined,
+				resolvedImportDeclaration,
+				resolvedLocalVarDeclaration,
 			};
 		}
+
+		// Handle supported template literal structures as before
 		let exprValue: string | undefined;
 		const expression = expressions[0];
-		let resolvedImportDeclaration: ASTPath<ImportDeclaration> | undefined;
-		let resolvedLocalVarDeclaration: ASTPath<VariableDeclarator> | undefined;
 
 		if (expression.type === 'Identifier') {
 			const result = await this.processFallbackAsIdentifier(expression);
@@ -399,6 +492,7 @@ export class TokenProcessor {
 			exprValue = result.fallbackValue;
 			resolvedImportDeclaration = result.resolvedImportDeclaration;
 		}
+
 		if (exprValue !== undefined) {
 			rawFallbackValue = `${quasis[0].value.raw}\${${exprValue}}${quasis[1].value.raw}`;
 			fallbackValue = `${quasis[0].value.cooked}${exprValue}${quasis[1].value.cooked}`;
@@ -407,6 +501,7 @@ export class TokenProcessor {
 				`Resolved fallback value from template literal: ${chalk.yellow(fallbackValue)}`,
 			);
 		}
+
 		return {
 			rawFallbackValue,
 			fallbackValue,

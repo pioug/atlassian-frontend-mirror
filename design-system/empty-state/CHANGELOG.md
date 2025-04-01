@@ -1,5 +1,19 @@
 # @atlaskit/empty-state
 
+## 9.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.4
+
+### Patch Changes
+
+- [#134760](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134760)
+  [`1621a41fa7055`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1621a41fa7055) -
+  Do not render button group when there is only one action
+
 ## 9.0.3
 
 ### Patch Changes

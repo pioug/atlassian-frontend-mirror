@@ -171,9 +171,7 @@ describe('providers > editor', () => {
 		(global as any).fetch = mockFetch;
 		setBooleanFeatureFlagResolver(
 			(flag) =>
-				flag === 'smart_links_for_plans_platform' ||
-				flag === 'rovo_agent_profile_page_default_embed' ||
-				flag === 'smartlink_jira_software_form',
+				flag === 'smart_links_for_plans_platform' || flag === 'smartlink_jira_software_form',
 		);
 	});
 

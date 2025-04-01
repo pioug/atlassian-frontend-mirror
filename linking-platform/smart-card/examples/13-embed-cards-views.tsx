@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Stack } from '@atlaskit/primitives';
+import { Card } from '@atlaskit/smart-card';
 
 import CardViewExample from './card-view';
 import CardViewSection from './card-view/card-view-section';
@@ -14,14 +15,19 @@ import ExampleContainer from './utils/example-container';
 export default () => (
 	<ExampleContainer title="EmbedCard Views">
 		<Stack>
-			<CardViewExample appearance="embed" frameStyle="show" url={ResolvedClientEmbedUrl} />
-
+			<CardViewExample
+				appearance="embed"
+				frameStyle="show"
+				url={ResolvedClientEmbedUrl}
+				CardComponent={Card}
+			/>
 			<CardViewSection
 				appearance="embed"
 				frameStyle="show"
 				url={ResolvedClientUrlNoPreview}
 				client={new ResolvedClient()}
 				title="[Resolved] No preview fallback"
+				CardComponent={Card}
 			/>
 		</Stack>
 	</ExampleContainer>

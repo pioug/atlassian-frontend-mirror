@@ -12,10 +12,10 @@ import type {
 	VCRawDataType,
 	VCResult,
 } from '../../common/vc/types';
-import { getPageVisibilityState } from '../../hidden-timing';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
+import { getVCRevisionsData } from './getVCRevisionsData';
 import { getViewportHeight, getViewportWidth } from './getViewport';
 import { MultiRevisionHeatmap } from './heatmap/heatmap';
 import { type ObservedMutationType, Observers } from './observers';
@@ -122,7 +122,9 @@ export class VCObserver implements VCObserverInterface {
 				dataVC: true,
 			},
 		});
-		this.heatmap = this.getCleanHeatmap();
+
+		this.heatmap = fg('platform_ufo_disable_ttvc_v1') ? [] : this.getCleanHeatmap();
+
 		this.heatmapNext = this.getCleanHeatmap();
 		this.multiHeatmap = new MultiRevisionHeatmap({
 			viewport: this.viewport,
@@ -241,38 +243,35 @@ export class VCObserver implements VCObserverInterface {
 			};
 		}
 
-		const { VC, VCBox, VCEntries, totalPainted } = VCObserver.calculateVC({
-			heatmap,
-			ssr,
-			componentsLog: { ...componentsLog },
-			viewport,
-		});
+		const isTTVCv1Disabled = fg('platform_ufo_disable_ttvc_v1');
 
-		try {
-			if (!this.isPostInteraction) {
-				VCObserver.VCParts.forEach((key) => {
-					const duration = VC[key];
-					if (duration !== null && duration !== undefined) {
-						performance.measure(`VC${key}`, { start, duration });
-					}
-				});
-			}
-		} catch (e) {
-			/* empty */
-		}
-
-		let _componentsLog: ComponentsLogType = {};
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		if (fg('ufo-remove-vc-component-observations-after-ttai')) {
-			Object.entries(this.componentsLog).forEach(([_timestamp, value]) => {
-				const timestamp = Number(_timestamp);
-				if (stop > timestamp) {
-					_componentsLog[timestamp] = value;
+		const ttvcV1Result = isTTVCv1Disabled
+			? {
+					VC: {},
+					VCBox: {},
+					VCEntries: {
+						abs: [],
+						rel: [],
+						speedIndex: -1,
+					},
+					totalPainted: -1,
 				}
-			});
-		} else {
-			_componentsLog = { ...componentsLog };
-		}
+			: VCObserver.calculateVC({
+					heatmap,
+					ssr,
+					componentsLog: { ...componentsLog },
+					viewport,
+				});
+
+		const { VC, VCBox, VCEntries, totalPainted } = ttvcV1Result;
+
+		const _componentsLog: ComponentsLogType = {};
+		Object.entries(this.componentsLog).forEach(([_timestamp, value]) => {
+			const timestamp = Number(_timestamp);
+			if (stop > timestamp) {
+				_componentsLog[timestamp] = value;
+			}
+		});
 
 		const vcNext = VCObserver.calculateVC({
 			heatmap: heatmapNext,
@@ -284,9 +283,22 @@ export class VCObserver implements VCObserverInterface {
 		try {
 			if (!this.isPostInteraction) {
 				VCObserver.VCParts.forEach((key) => {
-					const duration = vcNext.VC[key];
-					if (duration !== null && duration !== undefined) {
-						performance.measure(`VC_Next${key}`, { start, duration });
+					if (isTTVCv1Disabled) {
+						const duration = vcNext.VC[key];
+						if (duration !== null && duration !== undefined) {
+							performance.measure(`VC${key}`, { start, duration });
+							performance.measure(`VC_Next${key}`, { start, duration });
+						}
+					} else {
+						const ttvcV1duration = VC[key];
+						if (ttvcV1duration !== null && ttvcV1duration !== undefined) {
+							performance.measure(`VC${key}`, { start, duration: ttvcV1duration });
+						}
+
+						const ttvcV2duration = vcNext.VC[key];
+						if (ttvcV2duration !== null && ttvcV2duration !== undefined) {
+							performance.measure(`VC_Next${key}`, { start, duration: ttvcV2duration });
+						}
 					}
 				});
 			}
@@ -302,27 +314,29 @@ export class VCObserver implements VCObserverInterface {
 		// exposing data to devtools
 		try {
 			if (!this.isPostInteraction && devToolsEnabled) {
-				window.__vc = {
-					entries: VCEntries.rel,
-					log: componentsLog,
-					metrics: {
-						'75': VC['75'],
-						'80': VC['80'],
-						'85': VC['85'],
-						'90': VC['90'],
-						'95': VC['95'],
-						'98': VC['98'],
-						'99': VC['99'],
-						tti,
-						ttai: stop - start,
-					},
-					start,
-					stop,
-					heatmap,
-					ratios,
-				};
+				const ttvcV1DevToolInfo = isTTVCv1Disabled
+					? undefined
+					: {
+							entries: VCEntries.rel,
+							log: componentsLog,
+							metrics: {
+								'75': VC['75'],
+								'80': VC['80'],
+								'85': VC['85'],
+								'90': VC['90'],
+								'95': VC['95'],
+								'98': VC['98'],
+								'99': VC['99'],
+								tti,
+								ttai: stop - start,
+							},
+							start,
+							stop,
+							heatmap,
+							ratios,
+						};
 
-				window.__vcNext = {
+				const ttvcV2DevToolInfo = {
 					entries: vcNext.VCEntries.rel,
 					log: componentsLog,
 					metrics: {
@@ -342,12 +356,20 @@ export class VCObserver implements VCObserverInterface {
 					ratios,
 				};
 
+				if (isTTVCv1Disabled) {
+					window.__vc = ttvcV2DevToolInfo;
+					window.__vcNext = ttvcV2DevToolInfo;
+				} else {
+					window.__vc = ttvcV1DevToolInfo;
+					window.__vcNext = ttvcV2DevToolInfo;
+				}
+
 				// Emitting a custom event to make it available in the Chrome extension
 				window.dispatchEvent(
 					new CustomEvent('vcReady', {
 						detail: {
 							log: filterComponentsLog(componentsLog),
-							entries: VCEntries.rel,
+							entries: isTTVCv1Disabled ? vcNext.VCEntries.rel : VCEntries.rel,
 						},
 					}),
 				);
@@ -358,76 +380,37 @@ export class VCObserver implements VCObserverInterface {
 
 		const isVCClean = !abortReasonInfo;
 
-		const isMultiHeatmapEnabled = !fg('platform_ufo_multiheatmap_killswitch');
-
-		const pageVisibilityUpToTTAI = getPageVisibilityState(start, stop);
-		const isVisiblePageVisibleUpToTTAI = pageVisibilityUpToTTAI === 'visible';
-
-		const shouldHaveVCmetric = isVCClean && !isEventAborted && isVisiblePageVisibleUpToTTAI;
-
-		const revisionsData = isMultiHeatmapEnabled
-			? fg('platform_ufo_vc_observer_new')
-				? {
-						[`${fullPrefix}vc:rev`]: [
-							{
-								revision: 'fy25.01',
-								clean: isVCClean,
-								'metric:vc90': shouldHaveVCmetric ? VC['90'] : null,
-								vcDetails: shouldHaveVCmetric
-									? Object.fromEntries(
-											VCObserver.VCParts.map((key) => [
-												key,
-												{
-													t: VC[key],
-													e: VCBox[key] ?? [],
-												},
-											]),
-										)
-									: [],
-							},
-							{
-								revision: 'fy25.02',
-								clean: isVCClean,
-								'metric:vc90': shouldHaveVCmetric ? VC['90'] : null,
-								vcDetails: shouldHaveVCmetric
-									? Object.fromEntries(
-											VCObserver.VCParts.map((key) => [
-												key,
-												{
-													t: vcNext.VC[key],
-													e: vcNext.VCBox[key] ?? [],
-												},
-											]),
-										)
-									: [],
-							},
-						],
-					}
-				: multiHeatmap !== null
-					? {
-							[`${fullPrefix}vc:rev`]: multiHeatmap?.getPayloadShapedData({
-								VCParts: VCObserver.VCParts.map((v) => parseInt(v)),
-								VCCalculationMethods: getRevisions().map(
-									({ classifier }) => classifier.VCCalculationMethod,
-								),
-								filterComponentsLog: getRevisions().map(
-									({ classifier }) => classifier.filterComponentsLog,
-								),
-								isEventAborted,
-								interactionStart: start,
-								ttai: stop,
-								ssr,
-								clean: isVCClean,
-							}),
-						}
-					: null
-			: null;
+		const revisionsData = getVCRevisionsData({
+			fullPrefix,
+			interaction: {
+				start,
+				end: stop,
+			},
+			isVCClean,
+			multiHeatmap,
+			ssr,
+			calculatedVC: { VC, VCBox },
+			calculatedVCNext: { VC: vcNext.VC, VCBox: vcNext.VCBox },
+			isEventAborted,
+		});
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
 		const speedIndex = {
-			[`ufo:speedIndex`]: VCEntries.speedIndex,
+			[`ufo:speedIndex`]: isTTVCv1Disabled ? vcNext.VCEntries.speedIndex : VCEntries.speedIndex,
 			[`ufo:next:speedIndex`]: vcNext.VCEntries.speedIndex,
 		};
+
+		if (isTTVCv1Disabled) {
+			return {
+				[`${fullPrefix}vc:size`]: viewport,
+				[`${fullPrefix}vc:time`]: Math.round(totalTime + (stopTime - startTime)),
+				[`${fullPrefix}vc:ratios`]: ratios,
+				...outOfBoundary,
+				[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
+				...revisionsData,
+				...(isCalcSpeedIndexEnabled ? speedIndex : {}),
+			};
+		}
 
 		return {
 			'metrics:vc': VC,
@@ -443,7 +426,6 @@ export class VCObserver implements VCObserverInterface {
 			[`${fullPrefix}vc:next`]: vcNext.VC,
 			[`${fullPrefix}vc:next:updates`]: vcNext.VCEntries.rel.slice(0, 50),
 			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
-			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 			...revisionsData,
 			...(isCalcSpeedIndexEnabled ? speedIndex : {}),
@@ -621,8 +603,13 @@ export class VCObserver implements VCObserverInterface {
 			if (!ignoreReason) {
 				this.applyChangesToHeatMap(mappedValues, time, this.heatmapNext);
 			}
+			const isTTVCv1Disabled = fg('platform_ufo_disable_ttvc_v1');
 
-			if ((!ignoreReason || ignoreReason === 'not-visible') && type !== 'attr') {
+			if (
+				!isTTVCv1Disabled &&
+				(!ignoreReason || ignoreReason === 'not-visible') &&
+				type !== 'attr'
+			) {
 				this.applyChangesToHeatMap(mappedValues, time, this.heatmap);
 			}
 
@@ -695,7 +682,7 @@ export class VCObserver implements VCObserverInterface {
 			blocking: false,
 		};
 		this.detachAbortListeners();
-		this.heatmap = this.getCleanHeatmap();
+		this.heatmap = fg('platform_ufo_disable_ttvc_v1') ? [] : this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
 		this.multiHeatmap = new MultiRevisionHeatmap({
 			viewport: this.viewport,

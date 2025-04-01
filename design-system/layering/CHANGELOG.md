@@ -1,5 +1,23 @@
 # @atlaskit/layering
 
+## 2.1.0
+
+### Minor Changes
+
+- [#134955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134955)
+  [`eff111bcc88a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eff111bcc88a5) -
+  The experimental OpenLayerObserver now supports:
+
+  - Closing layers - the `useNotifyOpenLayerObserver` hook now requires an `onClose` callback.
+  - Grouping layers within a namespace. This allows observers to check the number of open layers
+    within a specific "namespace", and narrow their onChange listeners to only be called when the
+    layer count within that namespace has been changed.
+
+  These changes are behind a feature flag.
+
+  The `isOpen` parameter of the `useNotifyOpenLayerObserver` hook is now required to remove any
+  ambiguity.
+
 ## 2.0.1
 
 ### Patch Changes

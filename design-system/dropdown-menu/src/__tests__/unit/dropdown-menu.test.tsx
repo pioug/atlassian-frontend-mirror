@@ -71,7 +71,7 @@ describe('dropdown menu', () => {
 					children: (
 						<DropdownItemGroup>
 							{items.map((text) => (
-								<DropdownItem>{text}</DropdownItem>
+								<DropdownItem key={text}>{text}</DropdownItem>
 							))}
 						</DropdownItemGroup>
 					),
@@ -91,7 +91,7 @@ describe('dropdown menu', () => {
 					children: (
 						<DropdownItemGroup>
 							{items.map((text) => (
-								<DropdownItem>{text}</DropdownItem>
+								<DropdownItem key={text}>{text}</DropdownItem>
 							))}
 						</DropdownItemGroup>
 					),
@@ -219,7 +219,7 @@ describe('dropdown menu', () => {
 					children: (
 						<DropdownItemGroup>
 							{items.map((text) => (
-								<DropdownItem>{text}</DropdownItem>
+								<DropdownItem key={text}>{text}</DropdownItem>
 							))}
 						</DropdownItemGroup>
 					),
@@ -255,7 +255,7 @@ describe('dropdown menu', () => {
 					children: (
 						<DropdownItemGroup>
 							{items.map((text) => (
-								<DropdownItem>{text}</DropdownItem>
+								<DropdownItem key={text}>{text}</DropdownItem>
 							))}
 						</DropdownItemGroup>
 					),
@@ -382,7 +382,7 @@ describe('dropdown menu', () => {
 					children: (
 						<DropdownItemGroup>
 							{items.map((text) => (
-								<DropdownItem>{text}</DropdownItem>
+								<DropdownItem key={text}>{text}</DropdownItem>
 							))}
 						</DropdownItemGroup>
 					),
@@ -406,7 +406,7 @@ describe('dropdown menu', () => {
 					children: (
 						<DropdownItemGroup>
 							{items.map((text) => (
-								<DropdownItem>{text}</DropdownItem>
+								<DropdownItem key={text}>{text}</DropdownItem>
 							))}
 						</DropdownItemGroup>
 					),

@@ -125,7 +125,9 @@ export const commitStepQueue = ({
 	const start = new Date().getTime();
 	emit('commit-status', { status: 'attempt', version });
 	try {
-		const n = FeatureGates.getExperimentValue('validate-first-n-steps-experiment', 'steps', 0) ?? 0;
+		const n =
+			FeatureGates.getExperimentValue('platform_editor_step_validation_on_connect', 'steps', 0) ??
+			0;
 		const isExperimentEnabled = n > 0;
 		// skip validation if FG is on and we have already sent n steps, or if FG is off
 		const skipValidation = isExperimentEnabled ? numberOfStepCommitsSent >= n : true;

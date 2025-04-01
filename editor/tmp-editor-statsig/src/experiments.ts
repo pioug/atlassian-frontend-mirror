@@ -91,6 +91,9 @@ type Unstable_EditorExperimentParams = {
 	live_pages_graceful_edit: {
 		params: 'view-mode-intent-to-edit' | 'delay' | 'intent-mode' | 'toolbar-entry';
 	};
+	platform_editor_ai_proactive_ai_nudge_score: {
+		params: 'score';
+	};
 };
 
 // type Unstable_EditorExperimentParams = {};

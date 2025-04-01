@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::87cc25d6c4be6d71bae23f79888c87d2>>
+ * @codegen <<SignedSource::de5c69473813aa0b9cc332ff54c82b56>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -9,9 +9,9 @@ import { IconWrapper } from '../../utils/icon-wrapper';
 import type { AppIconProps } from '../../utils/types';
 
 // `height` is set to 100% to allow the SVG to scale with the parent element
-const svg = `<svg height="100%" fill="none" viewBox="0 0 32 32">
-    <path fill="var(--tile-color,#1868db)" d="M0 8a8 8 0 0 1 8-8h16a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H8a8 8 0 0 1-8-8z"/>
-    <path fill="var(--icon-color, white)" d="M25.917 14.897h-5.8l5.023-2.9-1.103-1.91-5.023 2.9 2.9-5.023-1.912-1.104-2.899 5.023v-5.8h-2.206v5.8l-2.9-5.023-1.91 1.103 2.899 5.023-5.023-2.9-1.103 1.91 5.023 2.9h-5.8v2.207h5.8l-5.023 2.9 1.103 1.91 5.022-2.899-2.9 5.023 1.912 1.103 2.9-5.023v5.8h2.205v-5.8l2.9 5.023 1.91-1.103-2.9-5.023 5.024 2.9 1.103-1.911-5.022-2.9h5.799v-2.206M16 19a3.012 3.012 0 1 1 0-6.023A3.012 3.012 0 0 1 16 19"/>
+const svg = `<svg height="100%" viewBox="0 0 24 24">
+    <path fill="var(--tile-color,#1868db)" d="M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z"/>
+    <path fill="var(--icon-color, white)" d="M19.438 11.173h-4.35l3.767-2.175-.827-1.433L14.26 9.74l2.174-3.767-1.433-.828-2.175 3.767v-4.35h-1.654v4.35L8.997 5.145l-1.432.827L9.739 9.74 5.972 7.565l-.827 1.433 3.767 2.175h-4.35v1.654h4.35l-3.767 2.175.827 1.433 3.767-2.174-2.175 3.767 1.433.827 2.175-3.767v4.35h1.655v-4.35L15 18.855l1.434-.828-2.175-3.767 3.767 2.175.827-1.433-3.767-2.174h4.35v-1.655M12 14.25a2.259 2.259 0 1 1 0-4.517 2.259 2.259 0 0 1 0 4.517"/>
 </svg>
 `;
 

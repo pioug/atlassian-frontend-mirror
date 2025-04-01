@@ -134,12 +134,18 @@ type AutoConvertMatches = {
 	pattern: string;
 };
 
+export type ExtensionDeprecationStatus = {
+	isDeprecated: boolean;
+	message?: string | React.ReactNode;
+};
+
 export type ExtensionManifest<T extends Parameters = Parameters> = {
 	type: ExtensionType;
 	key: ExtensionKey;
 	title: string;
 	description?: string;
 	summary?: string;
+	deprecation?: ExtensionDeprecationStatus;
 	categories?: string[];
 	keywords?: string[];
 	documentationUrl?: string;

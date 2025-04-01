@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::be906599bbf63c34e6dec034db63f5b1>>
+ * @codegen <<SignedSource::2ca31b9abe775e60f7646b017697a863>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -80,6 +80,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Reserved for representing accessibility and accessibility-related features and settings',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	add: {
@@ -91,6 +92,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for creating and adding an object.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'ai-agent': {
 		keywords: ['ai-agent', 'aiagent', 'icon', 'core', 'Rovo', 'AI', 'chat agent', 'ai'],
@@ -100,6 +102,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for Rovo Agent.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'ai-chat': {
 		keywords: ['ai-chat', 'aichat', 'icon', 'core', 'Rovo', 'AI', 'chat agent', 'ai'],
@@ -109,6 +112,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for Rovo Chat.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	alert: {
 		keywords: ['alert', 'icon', 'core', 'alert', 'event', 'operations'],
@@ -118,6 +122,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for alerts in JSM and Compass.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'align-center': {
 		keywords: ['align-center', 'aligncenter', 'icon', 'core', 'alignment', 'text', 'content'],
@@ -129,6 +134,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: align text center, align center.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'align-image-center': {
 		keywords: [
@@ -149,6 +155,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for center aligning media and content.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'align-image-left': {
 		keywords: [
@@ -169,6 +176,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for left aligning media and content.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'align-image-right': {
 		keywords: [
@@ -189,6 +197,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for right aligning media and content.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'align-left': {
 		keywords: [
@@ -209,6 +218,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: align text left, align content left, summary.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'align-right': {
 		keywords: ['align-right', 'alignright', 'icon', 'core', 'alignment', 'text', 'content'],
@@ -220,6 +230,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: align text right, align content right.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'align-text-center': {
 		keywords: [
@@ -238,6 +249,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: align text center, align center.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'align-text-left': {
 		keywords: [
@@ -257,6 +269,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: align text left, align content left, summary.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'align-text-right': {
 		keywords: [
@@ -275,6 +288,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: align text right, align content right.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'angle-brackets': {
 		keywords: [
@@ -295,6 +309,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: code or source code in Bitbucket and Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	api: {
 		keywords: ['api', 'icon', 'core', 'application programming interface', 'api', 'operations'],
@@ -304,6 +319,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Application Programming Interfaces (APIs).',
 		team: 'Enterprise Operations Center',
+		status: 'published',
 	},
 	app: {
 		keywords: [
@@ -323,6 +339,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for marketplace apps and integrations across products.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'app-switcher': {
 		keywords: [
@@ -342,6 +359,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for app switcher in global product navigation.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'app-switcher-legacy': {
 		keywords: [
@@ -360,6 +378,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for the legacy app switcher in global product navigation.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	apps: {
 		keywords: ['apps', 'icon', 'core', 'third-party', 'applications'],
@@ -369,6 +388,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for adding or viewing apps.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'archive-box': {
 		keywords: ['archive-box', 'archivebox', 'icon', 'core', 'file box'],
@@ -379,6 +399,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: archiving pages, storage.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-down': {
 		keywords: ['arrow-down', 'arrowdown', 'icon', 'core', 'down', 'bottom', 'sorting'],
@@ -389,6 +410,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Know uses: sorting table headers or Bitbucket code difference.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-down-left': {
 		keywords: [
@@ -407,6 +429,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Adding content from Rovo Chat into Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-down-right': {
 		keywords: [
@@ -425,6 +448,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: TBC',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-left': {
 		keywords: ['arrow-left', 'arrowleft', 'back', 'previous', 'icon', 'core', 'back', 'previous'],
@@ -435,6 +459,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: back to previous screen, previous slide.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-right': {
 		keywords: [
@@ -455,6 +480,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: link to nested menu item, a linked menu item, next slide.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-up': {
 		keywords: ['arrow-up', 'arrowup', 'icon', 'core', 'improvement', 'jira status'],
@@ -465,6 +491,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: back to top.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-up-left': {
 		keywords: [
@@ -483,6 +510,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: TBC',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'arrow-up-right': {
 		keywords: ['arrow-up-right', 'arrowupright', 'icon', 'core', 'open', 'diagonal arrow'],
@@ -493,6 +521,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	assets: {
 		keywords: ['assets', 'icon', 'core', 'assets', 'CMDB', 'configuration management database'],
@@ -502,6 +531,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for JSM Assets.',
 		team: 'Assets',
+		status: 'published',
 	},
 	'atlassian-intelligence': {
 		keywords: ['atlassian-intelligence', 'atlassianintelligence', 'icon', 'core', 'AI'],
@@ -511,6 +541,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for Atlassian Intelligence products or experiences.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	attachment: {
 		keywords: ['attachment', 'paperclip', 'icon', 'core', 'paperclip', 'attach'],
@@ -521,6 +552,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for attaching files to issues or other objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	audio: {
 		keywords: ['audio', 'music', 'note', 'sound', 'icon', 'core', 'music', 'musical note'],
@@ -531,6 +563,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: '📦 @atlaskit/icon/core/audio',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	automation: {
 		keywords: ['automation', 'icon', 'core', 'lightningbolt', 'automation rule'],
@@ -540,6 +573,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved to represent an Automation.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	backlog: {
 		keywords: ['backlog', 'icon', 'core', 'rows'],
@@ -550,6 +584,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for backlogs in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	basketball: {
 		keywords: ['basketball', 'icon', 'core', 'ball', 'sports', 'basketball'],
@@ -560,6 +595,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Sport emoji category.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	board: {
 		keywords: ['board', 'icon', 'core', 'columns', 'active sprint'],
@@ -570,6 +606,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for boards in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	boards: {
 		keywords: ['boards', 'icon', 'core'],
@@ -580,6 +617,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved as the icon to represent multiple boards.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'book-with-bookmark': {
 		keywords: [
@@ -598,6 +636,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: knowledge bases, articles, and other representations of books or info.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	border: {
 		keywords: [
@@ -616,6 +655,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for toggling the visibility of a border on an object.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'border-weight-medium': {
 		keywords: [
@@ -638,6 +678,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing medium border stroke widths.',
 		team: 'Editor',
+		status: 'deprecated',
 	},
 	'border-weight-thick': {
 		keywords: [
@@ -660,6 +701,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing thick border stroke widths.',
 		team: 'Editor',
+		status: 'deprecated',
 	},
 	'border-weight-thin': {
 		keywords: [
@@ -682,6 +724,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing thin border stroke widths.',
 		team: 'Editor',
+		status: 'deprecated',
 	},
 	branch: {
 		keywords: [
@@ -700,6 +743,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for branches in Bitbucket and Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	briefcase: {
 		keywords: ['briefcase', 'icon', 'core', 'suitcase', 'toolbox', 'operations', 'business'],
@@ -710,6 +754,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: Job title in Atlas, Operations in JSM.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	bug: {
 		keywords: ['bug', 'icon', 'core', 'bug report', 'test'],
@@ -720,6 +765,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	calendar: {
 		keywords: ['calendar', 'date', 'icon', 'core', 'date', 'month', 'day', 'year', 'jira status'],
@@ -731,6 +777,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: date metadata, date input field, calendar view, jira status.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'calendar-plus': {
 		keywords: [
@@ -750,6 +797,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Auto-scheduling in Jira Plans. Scheduled dates.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	camera: {
 		keywords: ['camera', 'photo', 'icon', 'core'],
@@ -760,6 +808,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: upload photo in Trello, photos.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	capture: {
 		keywords: ['capture', 'icon', 'core'],
@@ -770,6 +819,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: '📦 @atlaskit/icon/core/capture',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	card: {
 		keywords: ['card', 'icon', 'core', 'card'],
@@ -779,6 +829,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Representing cards in Trello. Toggling card detail in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	cash: {
 		keywords: ['cash', 'icon', 'core', 'currency', 'money', 'cash', 'dollar', 'bill'],
@@ -788,6 +839,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'Sales' Jira issue type.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	changes: {
 		keywords: ['changes', 'icon', 'core', 'jira status', 'horizontal arrows'],
@@ -797,6 +849,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for changes in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chart-bar': {
 		keywords: ['chart-bar', 'chartbar', 'icon', 'core', 'graph', 'bar', 'analytics', 'report'],
@@ -808,6 +861,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: Reports in JSM, Space Analytics in Confluence, and other graph charts.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chart-matrix': {
 		keywords: ['chart-matrix', 'chartmatrix', 'icon', 'core', 'dot chart', 'graph', 'matrix', ''],
@@ -817,6 +871,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chart-pie': {
 		keywords: ['chart-pie', 'chartpie', 'icon', 'core', 'segment', 'chart', 'graph', 'pie'],
@@ -826,6 +881,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: pie charts.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chart-trend': {
 		keywords: [
@@ -845,6 +901,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: charts, reports in Jira, and sprint insights.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'chat-widget': {
 		keywords: [
@@ -863,6 +920,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing a chat widget triggered by a floating action button.',
 		team: 'JSM',
+		status: 'published',
 	},
 	'check-circle': {
 		keywords: [
@@ -884,6 +942,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: completed items, productivity emoji category. Completed task issue status in JSM Calendar view.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'check-mark': {
 		keywords: ['check-mark', 'checkmark', 'icon', 'core', 'tick'],
@@ -894,6 +953,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: table cells, checkboxes.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'checkbox-checked': {
 		keywords: [
@@ -913,6 +973,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'checkbox-indeterminate': {
 		keywords: [
@@ -931,6 +992,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'checkbox-unchecked': {
 		keywords: ['checkbox-unchecked', 'checkboxunchecked', 'icon', 'core', 'unchecked'],
@@ -941,6 +1003,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'child-issues': {
 		keywords: ['child-issues', 'childissues', 'icon', 'core'],
@@ -951,6 +1014,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for child issues in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	clipboard: {
 		keywords: ['clipboard', 'icon', 'core', 'clipboard', 'paste'],
@@ -960,6 +1024,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Pasting content from clipboard.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	clock: {
 		keywords: ['clock', 'icon', 'core', 'time', 'recent', 'history'],
@@ -971,6 +1036,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: recent, time input, sprint time remaining. Overdue task issue status in JSM Calendar view.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	close: {
 		keywords: ['close', 'icon', 'core', 'cross', 'x'],
@@ -981,6 +1047,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for closing an element.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'cloud-arrow-up': {
 		keywords: ['cloud-arrow-up', 'cloudarrowup', 'icon', 'core', 'deployments', 'up arrow'],
@@ -991,6 +1058,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: deployments in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'collapse-horizontal': {
 		keywords: [
@@ -1009,6 +1077,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for contracting or reducing the width of an element to its smallest size.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'collapse-vertical': {
 		keywords: [
@@ -1027,6 +1096,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for contracting or reducing the height of an element to its smallest size.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	comment: {
 		keywords: ['comment', 'chat', 'speech', 'icon', 'core', 'speech bubble'],
@@ -1037,6 +1107,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for comments on objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'comment-add': {
 		keywords: ['comment-add', 'commentadd', 'icon', 'core', 'speech bubble', 'plus'],
@@ -1047,6 +1118,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for adding a comment to an object.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	commit: {
 		keywords: ['commit', 'icon', 'core', 'git commit', 'bitbucket commit'],
@@ -1057,6 +1129,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for commits in Jira or Bitbucket.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	compass: {
 		keywords: ['compass', 'icon', 'core', 'template'],
@@ -1067,6 +1140,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: templates.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	component: {
 		keywords: ['component', 'block', 'lego', 'icon', 'core', 'lego', 'brick', 'block'],
@@ -1077,6 +1151,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for components in Jira and Compass.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'content-align-center': {
 		keywords: [
@@ -1098,6 +1173,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for center aligning media and content.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'content-align-left': {
 		keywords: [
@@ -1119,6 +1195,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for left aligning media and content.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'content-align-right': {
 		keywords: [
@@ -1140,6 +1217,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for right aligning media and content.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'content-width-narrow': {
 		keywords: [
@@ -1161,6 +1239,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for setting media and content to a narrow width.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'content-width-wide': {
 		keywords: [
@@ -1182,6 +1261,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for setting media and content to a wide width.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'content-wrap-left': {
 		keywords: [
@@ -1204,6 +1284,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for left aligning media and content with wrapping enabled.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'content-wrap-right': {
 		keywords: [
@@ -1226,6 +1307,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for right aligning media and content with wrapping enabled.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	copy: {
 		keywords: ['copy', 'duplicate', 'icon', 'core', 'copy', 'object'],
@@ -1236,6 +1318,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for copying data such as text, code or other objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'credit-card': {
 		keywords: ['credit-card', 'creditcard', 'icon', 'core', 'payment', 'invoice'],
@@ -1246,6 +1329,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: billing in Admin, invoices in PPC, payments.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'cross-circle': {
 		keywords: [
@@ -1269,6 +1353,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: clear text field, error status.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'curly-brackets': {
 		keywords: [
@@ -1286,6 +1371,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Represents Smart values in Proforma.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	customize: {
 		keywords: [
@@ -1306,6 +1392,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: customize sidebar, customize view, settings.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	dashboard: {
 		keywords: ['dashboard', 'window', 'grid', 'icon', 'core', 'activity', 'view'],
@@ -1316,6 +1403,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for dashboards in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'data-flow': {
 		keywords: ['data-flow', 'dataflow', 'icon', 'core', 'relationship', 'data', 'flow chart'],
@@ -1325,6 +1413,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Database schema in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'data-number': {
 		keywords: [
@@ -1343,6 +1432,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Representing number datatype fields in Proforma and databases.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'data-string': {
 		keywords: [
@@ -1362,6 +1452,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Representing string datatype fields in Proforma and databases.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	database: {
 		keywords: ['database', 'icon', 'core', 'spreadsheet', 'table', 'data', 'cells'],
@@ -1371,6 +1462,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for databases in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	decision: {
 		keywords: ['decision', 'icon', 'core', 'fork', 'diagonal arrow'],
@@ -1381,6 +1473,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for decisions.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	defect: {
 		keywords: ['defect', 'icon', 'core', 'square', 'broken', 'defect', 'fragile', 'cracked'],
@@ -1390,6 +1483,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for Defect Jira issue type.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	delete: {
 		keywords: ['delete', 'icon', 'core', 'trash', 'bin', 'remove'],
@@ -1400,6 +1494,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for removing or deleting an object.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	department: {
 		keywords: [
@@ -1419,6 +1514,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for departments, reporting lines, or other tree chart representations.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'device-mobile': {
 		keywords: [
@@ -1437,6 +1533,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: call, contact us.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	devices: {
 		keywords: ['devices', 'icon', 'core', 'devices', 'assets', 'laptop', 'phone', 'hardware'],
@@ -1446,6 +1543,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'Asset' Jira issue type.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	discovery: {
 		keywords: ['discovery', 'icon', 'core', 'discovery', 'note', 'filled'],
@@ -1457,6 +1555,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for representing discovery. Used for Note info panel variant in Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	download: {
 		keywords: ['download', 'cloud', 'icon', 'core', 'down arrow', 'file download'],
@@ -1467,6 +1566,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for file downloads.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'drag-handle': {
 		keywords: [
@@ -1487,6 +1587,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for draggable elements along a vertical axis.',
 		team: 'Design System Team',
+		status: 'deprecated',
 		slackChannel: '#icon-contributions',
 	},
 	'drag-handle-horizontal': {
@@ -1506,6 +1607,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for dragging elements along a horizontal axis.',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'drag-handle-vertical': {
@@ -1526,6 +1628,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for dragging elements along a vertical axis.',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'drawer-left': {
@@ -1545,6 +1648,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for opening a drawer or sidebar to the left of the viewport edge.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'drawer-right': {
 		keywords: [
@@ -1563,6 +1667,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for opening a drawer or sidebar to the right of the viewport edge.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	edit: {
 		keywords: ['edit', 'pencil', 'write', 'icon', 'core', 'pencil', 'pencil on page'],
@@ -1573,6 +1678,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for editing objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'edit-bulk': {
 		keywords: [
@@ -1592,6 +1698,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for editing multiple objects in bulk.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	email: {
 		keywords: ['email', 'icon', 'core', 'envelope', 'message'],
@@ -1602,6 +1709,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for when an email-related things.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	emoji: {
 		keywords: ['emoji', 'emoticon', 'smiley', 'icon', 'core', 'smiley face', 'emoticon'],
@@ -1612,6 +1720,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: "Single purpose - Reserved for Editor as a category for Emoji's.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'emoji-add': {
 		keywords: ['emoji-add', 'emojiadd', 'icon', 'core', 'smiley face', 'emoticon', 'plus'],
@@ -1622,6 +1731,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for adding an emoji reaction.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'emoji-casual': {
 		keywords: [
@@ -1641,6 +1751,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing a casual or relaxed tone or sentiment.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'emoji-neutral': {
 		keywords: ['emoji-neutral', 'emojineutral', 'icon', 'core', 'emoji', 'neutral', 'ambivalent'],
@@ -1650,6 +1761,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing a neutral tone or sentiment.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'emoji-remove': {
 		keywords: ['emoji-remove', 'emojiremove', 'icon', 'core', 'emoji', 'remove', 'strikethrough'],
@@ -1659,6 +1771,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for removing emoji.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	epic: {
 		keywords: ['epic', 'icon', 'core', 'lightning bolt', 'jira status', 'filled'],
@@ -1668,6 +1781,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for epics in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	error: {
 		keywords: [
@@ -1690,6 +1804,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for when there is an error.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'exclamation-square': {
 		keywords: [
@@ -1709,6 +1824,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Exclamation Jira issue type',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'expand-horizontal': {
@@ -1731,6 +1847,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for expanding an element to its maximum width.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'expand-vertical': {
 		keywords: [
@@ -1751,6 +1868,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for expanding an element to its maximum height.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'eye-open': {
 		keywords: [
@@ -1771,6 +1889,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'eye-open-filled': {
 		keywords: [
@@ -1791,6 +1910,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: watched pages in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'eye-open-strikethrough': {
 		keywords: [
@@ -1810,6 +1930,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Intended uses: unwatch page in Confluence, hide password in text field, and unfollow in Atlas.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	feed: {
 		keywords: ['feed', 'icon', 'core', 'feed', 'updates', 'release notes', "what's new"],
@@ -1819,6 +1940,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for update feeds in Atlassian Home.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	feedback: {
 		keywords: [
@@ -1840,6 +1962,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Known uses: customer feedback.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	field: {
 		keywords: ['field', 'icon', 'core', 'field', 'form', 'input', 'label'],
@@ -1849,6 +1972,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Field suggestions provided by Atlassian Intelligence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'field-alert': {
 		keywords: ['field-alert', 'fieldalert', 'icon', 'core', 'field', 'alert', 'warning', 'change'],
@@ -1858,6 +1982,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Changed field values in Automation.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'field-checkbox-group': {
 		keywords: [
@@ -1878,6 +2003,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Checkbox group field type in Proforma.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'field-dropdown': {
 		keywords: [
@@ -1896,6 +2022,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Dropdown field type in Proforma.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'field-radio-group': {
 		keywords: [
@@ -1916,6 +2043,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Radio group field type in Proforma.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	file: {
 		keywords: [
@@ -1938,6 +2066,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			"Multi purpose - Known uses: document, file. Do not use to represent a page — use the dedicated 'Page' icon instead.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	files: {
 		keywords: ['files', 'icon', 'core', 'documents', 'files', 'papers'],
@@ -1949,6 +2078,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			"Multi purpose - Known uses: documents, files. Do not use to represent pages — use the dedicated 'Pages' icon instead.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	filter: {
 		keywords: ['filter', 'icon', 'core', 'funnel', 'refine'],
@@ -1959,6 +2089,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for filterting data or objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	flag: {
 		keywords: ['flag', 'icon', 'core', 'important', 'emoji category'],
@@ -1969,6 +2100,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: flags in Editor, feature flags.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'flag-filled': {
 		keywords: ['flag-filled', 'flagfilled', 'icon', 'core', 'flag', 'important', 'filled'],
@@ -1979,6 +2111,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: active feature flags.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	flask: {
 		keywords: ['flask', 'icon', 'core', 'labs', 'test', 'erlenmeyer flask', 'beaker'],
@@ -1989,6 +2122,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: labs in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'folder-closed': {
 		keywords: ['folder-closed', 'folderclosed', 'icon', 'core', 'directory'],
@@ -1999,6 +2133,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for folders in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'folder-open': {
 		keywords: ['folder-open', 'folderopen', 'icon', 'core', 'directory'],
@@ -2008,6 +2143,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for open folders in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	form: {
 		keywords: ['form', 'icon', 'core', 'form', 'fields'],
@@ -2017,6 +2153,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Represents forms across Atlassian products, including Proforma.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'fullscreen-enter': {
 		keywords: ['fullscreen-enter', 'fullscreenenter', 'icon', 'core', 'full screen'],
@@ -2027,6 +2164,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for full screen videos or objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'fullscreen-exit': {
 		keywords: [
@@ -2044,6 +2182,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for return screen videos or objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	glasses: {
 		keywords: [
@@ -2063,6 +2202,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Known uses: Changing tone of written content to Educational with Atlassian Intelligence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	globe: {
 		keywords: ['globe', 'icon', 'core', 'world'],
@@ -2074,6 +2214,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: public link in Confluence share dialog, global rules in Automation.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	goal: {
 		keywords: ['goal', 'icon', 'core', 'target'],
@@ -2083,6 +2224,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for goals in Atlas.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	grid: {
 		keywords: ['grid', 'icon', 'core', 'view all content', 'tile view', 'layout', 'grid', 'tiles'],
@@ -2094,6 +2236,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: spaces in Confluence, and grid view, all content in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'grow-diagonal': {
 		keywords: [
@@ -2113,6 +2256,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for increasing the size of an element when height and width are changed concurrently.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'grow-horizontal': {
 		keywords: [
@@ -2131,6 +2275,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for increasing the width of an element.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'grow-vertical': {
 		keywords: [
@@ -2148,6 +2293,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for increasing the height of an element.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	hashtag: {
 		keywords: ['hashtag', 'icon', 'core', 'tag', 'topic', 'pound'],
@@ -2157,6 +2303,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: topics in Atlas, tags.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	headphones: {
 		keywords: ['headphones', 'icon', 'core', 'audio', 'music'],
@@ -2166,6 +2313,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: music, audio.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	heart: {
 		keywords: ['heart', 'icon', 'core', 'like', 'love', 'emoji category'],
@@ -2176,6 +2324,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: emoji symbols in Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	highlight: {
 		keywords: ['highlight', 'icon', 'core', 'highlight', 'highlighter', 'stabilo', 'pen'],
@@ -2185,6 +2334,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for highlight text tool in Confluence Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	home: {
 		keywords: ['home', 'icon', 'core', 'house', 'building'],
@@ -2196,6 +2346,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for home in navigation. When a user clicks on this, they should return to the homepage.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	image: {
 		keywords: ['image', 'picture', 'photo', 'icon', 'core', 'picture', 'asset'],
@@ -2212,6 +2363,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: images, image upload.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'image-fullscreen': {
 		keywords: [
@@ -2229,6 +2381,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for viewing an image in a fullscreen view or modal.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'image-inline': {
 		keywords: ['image-inline', 'imageinline', 'icon', 'core', 'image', 'layout', 'inline'],
@@ -2238,6 +2391,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing inline images in Editor.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'image-scaled': {
 		keywords: ['image-scaled', 'imagescaled', 'icon', 'core', 'image', 'layout', 'scaled'],
@@ -2247,6 +2401,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing scaled images in layouts akin to display block.',
 		team: 'Editor',
+		status: 'published',
 	},
 	inbox: {
 		keywords: ['inbox', 'icon', 'core', 'document tray', 'work', 'letter', 'post'],
@@ -2257,6 +2412,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known uses: 'Your work' in Confluence, inbox, mail.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	incident: {
 		keywords: ['incident', 'icon', 'core', 'witches hat', 'traffic cone', 'jira status'],
@@ -2266,6 +2422,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for incidents in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	information: {
 		keywords: ['information', 'icon', 'core', 'info', 'filled', 'tip'],
@@ -2276,6 +2433,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Known uses: information state in section messages or inline messages.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'information-circle': {
 		keywords: [
@@ -2294,6 +2452,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Known uses: For highlighting information when less visual emphasis is needed within the UI compared to the filled information status icon.',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	issue: {
@@ -2318,6 +2477,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing work items.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	issues: {
 		keywords: [
@@ -2342,6 +2502,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing multiple work items.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'key-result': {
 		keywords: [
@@ -2363,6 +2524,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing key results.',
 		team: 'Atlas',
+		status: 'published',
 	},
 	'layout-one-column': {
 		keywords: ['layout-one-column', 'layoutonecolumn', 'icon', 'core', 'layout', 'column', '1 col'],
@@ -2373,6 +2535,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for single column layout option in Confluence Editor',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'layout-three-columns': {
 		keywords: [
@@ -2392,6 +2555,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for 3 column layout option in Confluence Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'layout-three-columns-sidebars': {
 		keywords: [
@@ -2414,6 +2578,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'layout-two-columns': {
 		keywords: [
@@ -2433,6 +2598,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for 2 column layout option in Confluence Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'layout-two-columns-sidebar-left': {
 		keywords: [
@@ -2455,6 +2621,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'layout-two-columns-sidebar-right': {
 		keywords: [
@@ -2477,6 +2644,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for 2 column layout with right sidebar option in Confluence Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	library: {
 		keywords: ['library', 'icon', 'core', 'library', 'drawer', 'drawers', 'filing cabinet'],
@@ -2486,6 +2654,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for library view in Atlassian Home.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	lightbulb: {
 		keywords: [
@@ -2506,6 +2675,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: learnings in Atlas.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	link: {
 		keywords: ['link', 'icon', 'core', 'url', 'hyperlink', 'website', 'www', 'http', ''],
@@ -2516,6 +2686,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for links, urls, or copy link.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'link-broken': {
 		keywords: [
@@ -2539,6 +2710,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for removing a link.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'link-external': {
 		keywords: [
@@ -2567,6 +2739,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for links that open up a new tab.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'list-bulleted': {
 		keywords: ['list-bulleted', 'listbulleted', 'icon', 'core', 'bullets', 'unordered list'],
@@ -2577,6 +2750,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: bulleted lists, view all.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'list-checklist': {
 		keywords: [
@@ -2595,6 +2769,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'Requirement' Jira issue type.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'list-numbered': {
 		keywords: ['list-numbered', 'listnumbered', 'icon', 'core', 'list', 'numbers'],
@@ -2605,6 +2780,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Numbered list in Confluence Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'lobby-bell': {
 		keywords: ['lobby-bell', 'lobbybell', 'icon', 'core', 'ding', 'risks'],
@@ -2615,6 +2791,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: risks in Atlas.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	location: {
 		keywords: ['location', 'pin', 'gps', 'map', 'icon', 'core', 'map', 'pin', 'address'],
@@ -2625,6 +2802,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: location in Atlas.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'lock-locked': {
 		keywords: [
@@ -2647,6 +2825,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: secure password in textfields, locked page in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'lock-unlocked': {
 		keywords: [
@@ -2667,6 +2846,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: unlocked page in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'log-in': {
 		keywords: ['log-in', 'login', 'icon', 'core', 'sign in', 'enter', 'account'],
@@ -2677,6 +2857,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for log in.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'log-out': {
 		keywords: ['log-out', 'logout', 'icon', 'core', 'sign out', 'exit', 'account'],
@@ -2687,6 +2868,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for log out.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'magic-wand': {
 		keywords: ['magic-wand', 'magicwand', 'icon', 'core', 'magic', 'wand', 'suggestion'],
@@ -2696,6 +2878,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	markdown: {
 		keywords: ['markdown', 'icon', 'core', 'markdown', 'md', 'markup'],
@@ -2705,6 +2888,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing the Markdown markup language.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	marketplace: {
 		keywords: [
@@ -2725,6 +2909,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for Atlassian Marketplace.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	maximize: {
 		keywords: ['maximize', 'icon', 'core', 'diagonal', 'resize', 'enlarge'],
@@ -2736,6 +2921,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	megaphone: {
 		keywords: ['megaphone', 'icon', 'core', 'announcement', 'bullhorn', 'feedback', 'news'],
@@ -2745,6 +2931,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: feedback in products.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	mention: {
 		keywords: [
@@ -2766,6 +2953,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for user mentions.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	menu: {
 		keywords: [
@@ -2788,6 +2976,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for accessing the menu in global product navigation.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'merge-failure': {
 		keywords: [
@@ -2808,6 +2997,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for branches in Bitbucket and Jira that have failed to merge.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'merge-success': {
 		keywords: [
@@ -2827,6 +3017,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for branches in Bitbucket and Jira that have successfully merged.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	microphone: {
 		keywords: ['microphone', 'icon', 'core', 'mic', 'mic on', 'voice', 'speak'],
@@ -2837,6 +3028,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: record sounds in Trello.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	minimize: {
 		keywords: ['minimize', 'icon', 'core', 'minimize', 'dock'],
@@ -2848,6 +3040,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for minimizing or docking modals to the bottom of the viewport.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	minus: {
 		keywords: ['minus', 'icon', 'core', 'rule', 'horizontal line', 'divider', 'minus', 'subtract'],
@@ -2858,6 +3051,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: horizontal rule in Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'minus-square': {
 		keywords: ['minus-square', 'minussquare', 'icon', 'core', 'square', 'minus', 'subtract'],
@@ -2867,6 +3061,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'Remove feature' Jira issue status.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	node: {
 		keywords: ['node', 'icon', 'core', 'page', 'dot', 'page tree', 'navigation'],
@@ -2876,6 +3071,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for a non-expandable item in a page tree.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	note: {
 		keywords: ['note', 'icon', 'core', 'note', 'post-it', 'sticky'],
@@ -2885,6 +3081,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for notes.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	notification: {
 		keywords: ['notification', 'bell', 'alarm', 'icon', 'core', 'bell', 'alert'],
@@ -2896,6 +3093,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for notifications within global product navigation and within product screens.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'notification-muted': {
 		keywords: [
@@ -2914,6 +3112,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for muting or disabling notifications.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	objective: {
 		keywords: ['objective', 'icon', 'core', 'target', 'bullseye', 'objective'],
@@ -2923,6 +3122,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for objectives.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'office-building': {
 		keywords: [
@@ -2941,6 +3141,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: office in Atlas, company.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'on-call': {
 		keywords: ['on-call', 'oncall', 'icon', 'core', 'phone', 'on-call', 'support'],
@@ -2951,6 +3152,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for representing on-call across Atlassian products.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	operations: {
 		keywords: [
@@ -2970,6 +3172,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for IT Operations.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	page: {
 		keywords: [
@@ -2997,6 +3200,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for pages in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	pages: {
 		keywords: ['pages', 'icon', 'core', 'multiple pages', 'feeds', 'documents'],
@@ -3007,6 +3211,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for multipe pages in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'paint-bucket': {
 		keywords: [
@@ -3027,6 +3232,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Customize fill color.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'paint-palette': {
 		keywords: ['paint-palette', 'paintpalette', 'icon', 'core', 'background', 'customize'],
@@ -3036,6 +3242,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Customize.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	pen: {
 		keywords: ['pen', 'icon', 'core', 'pen tool', 'nib', 'fountain pen', 'design'],
@@ -3045,6 +3252,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'Design task' Jira issue type.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'people-group': {
 		keywords: [
@@ -3066,6 +3274,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Known uses: representing a group or collection of people or users.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	person: {
 		keywords: ['person', 'person', 'user', 'avatar', 'icon', 'core', 'user', 'customer'],
@@ -3076,6 +3285,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Known uses: representing a person or user, owner, contributor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'person-add': {
 		keywords: ['person-add', 'personadd', 'icon', 'core', 'user', 'customer', 'plus'],
@@ -3086,6 +3296,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for adding a user to an object.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'person-added': {
 		keywords: ['person-added', 'personadded', 'icon', 'core', 'user', 'customer', 'check', 'tick'],
@@ -3096,6 +3307,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for a user added to an object.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'person-avatar': {
 		keywords: ['person-avatar', 'personavatar', 'icon', 'core', 'user', 'customer'],
@@ -3106,6 +3318,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for user avatar.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'person-offboard': {
 		keywords: [
@@ -3124,6 +3337,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: '📦 @atlaskit/icon/core/person-offboard',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'person-remove': {
 		keywords: [
@@ -3142,6 +3356,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for removing and unfollowing people and teammates.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'person-warning': {
 		keywords: ['person-warning', 'personwarning', 'icon', 'core', 'person', 'warning', 'alert'],
@@ -3151,6 +3366,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for showing a warning related to a person or teammate.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	phone: {
 		keywords: ['phone', 'icon', 'core', 'call', 'dial out'],
@@ -3161,6 +3377,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: call us, phone number input.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	pin: {
 		keywords: ['pin', 'icon', 'core', 'push pin', 'thumbtack', 'tack'],
@@ -3170,6 +3387,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: pinning Jira issue fields.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'pin-filled': {
 		keywords: [
@@ -3188,6 +3406,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: pinned Jira issue fields.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'plus-square': {
 		keywords: ['plus-square', 'plussquare', 'icon', 'core', 'square', 'plus', 'add'],
@@ -3198,6 +3417,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'New feature' Jira issue status.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'power-plug': {
 		keywords: ['power-plug', 'powerplug', 'icon', 'core', 'plug-in', 'add-on', 'socket'],
@@ -3207,6 +3427,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: plugins, add ons.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	premium: {
 		keywords: ['premium', 'icon', 'core', 'AI', 'sparkles', 'stars', 'new', 'feature'],
@@ -3217,6 +3438,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for premium features.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'presenter-mode': {
 		keywords: [
@@ -3235,6 +3457,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for presenter mode in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	printer: {
 		keywords: ['printer', 'icon', 'core', 'print'],
@@ -3244,6 +3467,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: print page, print-friendly view.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-blocker': {
 		keywords: [
@@ -3261,6 +3485,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for blocker issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-critical': {
 		keywords: [
@@ -3278,6 +3503,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for critial issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-high': {
 		keywords: ['priority-high', 'priorityhigh', 'icon', 'core', 'issue', 'priority', 'jira status'],
@@ -3287,6 +3513,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for high issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-highest': {
 		keywords: [
@@ -3304,6 +3531,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for highest issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-low': {
 		keywords: ['priority-low', 'prioritylow', 'icon', 'core', 'issue', 'priority', 'jira status'],
@@ -3313,6 +3541,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for low issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-lowest': {
 		keywords: [
@@ -3330,6 +3559,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for lowest issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-major': {
 		keywords: [
@@ -3347,6 +3577,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for major issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-medium': {
 		keywords: [
@@ -3364,6 +3595,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for medium issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-minor': {
 		keywords: [
@@ -3381,6 +3613,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for minor issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'priority-trivial': {
 		keywords: [
@@ -3398,6 +3631,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for trivial issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	problem: {
 		keywords: ['problem', 'icon', 'core', 'stop', 'issue', 'priority', 'jira status'],
@@ -3407,6 +3641,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for problem issue priority.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	project: {
 		keywords: ['project', 'icon', 'core', 'rocket', 'rocketship', 'spaceship'],
@@ -3416,6 +3651,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for projects in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'project-status': {
 		keywords: ['project-status', 'projectstatus', 'icon', 'core', 'status', 'traffic lights'],
@@ -3425,6 +3661,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing project status in Atlassian Home.',
 		team: 'Atlassian Home',
+		status: 'published',
 	},
 	'projection-screen': {
 		keywords: [
@@ -3443,6 +3680,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Intended usages: Presentation mode.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'pull-request': {
 		keywords: [
@@ -3461,6 +3699,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for pull requests.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	pulse: {
 		keywords: ['pulse', 'icon', 'core', 'pulse', 'wave', 'heartbeat', 'health'],
@@ -3470,6 +3709,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Single purpose - Known uses: work health in Atlassian Home.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'question-circle': {
 		keywords: [
@@ -3490,6 +3730,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: help, tip.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'quotation-mark': {
 		keywords: [
@@ -3509,6 +3750,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: blockquote, comment, testimonial, blogs in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'radio-checked': {
 		keywords: ['radio-checked', 'radiochecked', 'icon', 'core', 'radio', 'input type', 'selected'],
@@ -3519,6 +3761,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for the selected state of radio controls.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'radio-unchecked': {
 		keywords: [
@@ -3537,6 +3780,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for the unselected state of radio controls.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	redo: {
 		keywords: ['redo', 'icon', 'core', 'editor', 'redo', 'backwards'],
@@ -3547,6 +3791,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for redo in Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	refresh: {
 		keywords: [
@@ -3566,6 +3811,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for reloading content.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	release: {
 		keywords: ['release', 'icon', 'core', 'ship', 'boat'],
@@ -3576,6 +3822,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for releases in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	retry: {
 		keywords: ['retry', 'icon', 'core', 'try again', ''],
@@ -3586,6 +3833,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for retry.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	roadmap: {
 		keywords: ['roadmap', 'icon', 'core'],
@@ -3596,6 +3844,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for roadmaps in Jira or Trello.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	scales: {
 		keywords: ['scales', 'icon', 'core', 'scales', 'rule', 'law'],
@@ -3605,6 +3854,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Customer rating in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	scorecard: {
 		keywords: ['scorecard', 'icon', 'core', 'tick', 'check', 'circle', 'unfinished'],
@@ -3614,6 +3864,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for Scorecard in Analytics.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	screen: {
 		keywords: [
@@ -3634,6 +3885,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: assets in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'screen-plus': {
 		keywords: [
@@ -3653,6 +3905,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: TBC',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	search: {
 		keywords: ['search', 'find', 'magnify', 'icon', 'core', 'magnifying glass'],
@@ -3663,6 +3916,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for searching objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	send: {
 		keywords: ['send', 'mail', 'icon', 'core', 'submit', 'paper airplane', 'paper aeroplane'],
@@ -3673,6 +3927,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for sending messages in Rovo Chat.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	settings: {
 		keywords: [
@@ -3693,6 +3948,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for any object or user settings.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	shapes: {
 		keywords: ['shapes', 'icon', 'core', 'objects', 'whiteboard', 'asset', 'graphic'],
@@ -3702,6 +3958,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for shapes in Whiteboards.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	share: {
 		keywords: ['share', 'icon', 'core', 'share', 'access'],
@@ -3712,6 +3969,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for sharing an object.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	shield: {
 		keywords: [
@@ -3732,6 +3990,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'shield-strikethrough': {
 		keywords: [
@@ -3754,6 +4013,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: No classification in Enterprise Trust',
 		team: 'Enterprise Trust',
+		status: 'published',
 	},
 	shortcut: {
 		keywords: ['shortcut', 'export', 'icon', 'core', 'addshortcut', 'square', 'plus'],
@@ -3764,6 +4024,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for shortcuts in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'show-more-horizontal': {
 		keywords: [
@@ -3783,6 +4044,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for more action menus.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'show-more-vertical': {
 		keywords: [
@@ -3801,6 +4063,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for more action menus, traditionally on mobile.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'shrink-diagonal': {
 		keywords: ['shrink-diagonal', 'shrinkdiagonal', 'icon', 'core', 'resize', 'diagonal arrows'],
@@ -3812,6 +4075,7 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'shrink-horizontal': {
 		keywords: [
@@ -3830,6 +4094,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'shrink-vertical': {
 		keywords: [
@@ -3847,6 +4112,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for contracting or reducing the height of an element.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'sidebar-collapse': {
 		keywords: [
@@ -3863,6 +4129,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for collapsing the navigation sidebar.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'sidebar-expand': {
 		keywords: ['sidebar-expand', 'sidebarexpand', 'icon', 'core', 'navigation', 'open sidebar'],
@@ -3872,6 +4139,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for expanding the navigation sidebar.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'sidebar-left': {
 		keywords: [
@@ -3891,6 +4159,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for opening a drawer or sidebar to the left of the viewport edge.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'sidebar-right': {
 		keywords: [
@@ -3911,6 +4180,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for opening a drawer or sidebar to the right of the viewport edge.',
 		team: 'Design System Team',
+		status: 'deprecated',
 	},
 	'smart-link': {
 		keywords: ['smart-link', 'smartlink', 'icon', 'core', 'smart link'],
@@ -3920,6 +4190,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Smart links.',
 		team: 'Linking platform',
+		status: 'published',
 	},
 	'smart-link-card': {
 		keywords: [
@@ -3938,6 +4209,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Smart link preview cards.',
 		team: 'Linking platform',
+		status: 'published',
 	},
 	'smart-link-embed': {
 		keywords: ['smart-link-embed', 'smartlinkembed', 'icon', 'core', 'smart link', 'url', 'embed'],
@@ -3947,6 +4219,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Smart link embeds.',
 		team: 'Linking platform',
+		status: 'published',
 	},
 	'smart-link-inline': {
 		keywords: [
@@ -3964,6 +4237,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing inline Smart link lozenges.',
 		team: 'Linking platform',
+		status: 'published',
 	},
 	'smart-link-list': {
 		keywords: [
@@ -3984,6 +4258,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Smart link embedded link lists.',
 		team: 'Linking platform',
+		status: 'published',
 	},
 	snippet: {
 		keywords: ['snippet', 'icon', 'core', 'scissors', 'cut'],
@@ -3994,6 +4269,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for snippets in Bitbucket.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'sort-ascending': {
 		keywords: ['sort-ascending', 'sortascending', 'icon', 'core', 'data', 'sort', 'up'],
@@ -4003,6 +4279,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for sorting data.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'sort-descending': {
 		keywords: ['sort-descending', 'sortdescending', 'icon', 'core', 'data', 'sort', 'down'],
@@ -4012,6 +4289,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for sorting data.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	spreadsheet: {
 		keywords: ['spreadsheet', 'icon', 'core', 'table', 'cells', 'data'],
@@ -4022,6 +4300,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for spreadsheets.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	sprint: {
 		keywords: ['sprint', 'icon', 'core', 'loop', 'iterate'],
@@ -4032,6 +4311,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for sprints in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'star-starred': {
 		keywords: [
@@ -4051,6 +4331,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for starred or favourited objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'star-unstarred': {
 		keywords: ['star-unstarred', 'starunstarred', 'icon', 'core', 'favourite', 'star'],
@@ -4061,6 +4342,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for starring or favoriting objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'status-verified': {
 		keywords: ['status-verified', 'statusverified', 'icon', 'core', 'verified badge', 'status'],
@@ -4070,6 +4352,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing verified content.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	stopwatch: {
 		keywords: ['stopwatch', 'icon', 'core', 'timer'],
@@ -4080,6 +4363,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: timer in Confluence Whiteboards.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	story: {
 		keywords: ['story', 'icon', 'core', 'bookmark', 'issue', 'jira status'],
@@ -4089,6 +4373,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for stories in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'stroke-weight-extra-large': {
 		keywords: [
@@ -4111,6 +4396,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing the thickest border stroke width.',
 		team: 'Whiteboards',
+		status: 'published',
 	},
 	'stroke-weight-large': {
 		keywords: [
@@ -4133,6 +4419,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing thick border stroke widths.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'stroke-weight-medium': {
 		keywords: [
@@ -4155,6 +4442,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing medium border stroke widths.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'stroke-weight-small': {
 		keywords: [
@@ -4178,6 +4466,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing thin border stroke widths.',
 		team: 'Editor',
+		status: 'published',
 	},
 	subtasks: {
 		keywords: ['subtasks', 'icon', 'core', 'issue', 'todo', 'checklist', 'jira status'],
@@ -4188,6 +4477,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for subtasks in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	success: {
 		keywords: ['success', 'icon', 'core', 'tick', 'completed', 'success', 'filled'],
@@ -4198,6 +4488,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single-purpose - Reserved for success section messages and form validation messages.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	summarize: {
 		keywords: ['summarize', 'icon', 'core', 'summarize', 'summarise', 'quote', 'quotes'],
@@ -4207,6 +4498,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for summarizing content with Atlassian Intelligence.',
 		team: 'Atlassian Intelligence',
+		status: 'published',
 	},
 	support: {
 		keywords: [
@@ -4226,6 +4518,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing help support.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'table-cell-clear': {
 		keywords: [
@@ -4244,6 +4537,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for clearing the contents of table cells.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-cell-merge': {
 		keywords: [
@@ -4263,6 +4557,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for merging table cells.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-cell-split': {
 		keywords: [
@@ -4282,6 +4577,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for splitting joined table cells.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-column-add-left': {
 		keywords: [
@@ -4302,6 +4598,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for adding a table column to the left of the selected column.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-column-add-right': {
 		keywords: [
@@ -4321,6 +4618,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for adding a table column to the right of the selected column.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-column-delete': {
 		keywords: [
@@ -4340,6 +4638,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for deleting a table column.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-column-move-left': {
 		keywords: [
@@ -4359,6 +4658,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for moving a table column to the left of its current location.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-column-move-right': {
 		keywords: [
@@ -4378,6 +4678,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for moving a table column to the right of its current location.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-columns-distribute': {
 		keywords: [
@@ -4397,6 +4698,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for distributing the width of table columns evenly.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-row-add-above': {
 		keywords: [
@@ -4417,6 +4719,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for adding a table row above the selected row.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-row-add-below': {
 		keywords: [
@@ -4437,6 +4740,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for adding a table row below the selected row.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-row-delete': {
 		keywords: [
@@ -4456,6 +4760,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for deleting a table row.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-row-move-down': {
 		keywords: [
@@ -4476,6 +4781,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for moving a table row below its current location.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'table-row-move-up': {
 		keywords: [
@@ -4496,6 +4802,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for moving a table row above its current location.',
 		team: 'Editor',
+		status: 'published',
 	},
 	tag: {
 		keywords: ['tag', 'icon', 'core', 'label', 'topic'],
@@ -4506,6 +4813,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for tags in Atlas.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'takeout-food': {
 		keywords: [
@@ -4526,6 +4834,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Food emoji category.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	target: {
 		keywords: ['target', 'icon', 'core', 'target', 'bullseye'],
@@ -4535,6 +4844,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for targets.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	task: {
 		keywords: [
@@ -4556,6 +4866,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for tasks in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'task-in-progress': {
 		keywords: [
@@ -4574,6 +4885,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for in progress task status. Used in JSM Calendar view.',
 		team: 'JSM Calendar',
+		status: 'published',
 	},
 	'task-to-do': {
 		keywords: [
@@ -4593,6 +4905,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for to-do task status. Used in JSM Calendar view.',
 		team: 'JSM Calendar',
+		status: 'published',
 	},
 	tasks: {
 		keywords: ['tasks', 'icon', 'core', 'multiple tasks', 'todo', 'list', 'check mark', 'tick'],
@@ -4602,6 +4915,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for multiple tasks in Jira.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	teams: {
 		keywords: ['teams', 'icon', 'core', 'infinite love', 'people', 'persons', 'customers', 'users'],
@@ -4612,6 +4926,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for teams in Atlassian.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	text: {
 		keywords: ['text', 'icon', 'core', 'character', 'font', 'letter', 'type', 'typography', 'text'],
@@ -4621,6 +4936,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for representing text objects.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'text-bold': {
 		keywords: ['text-bold', 'textbold', 'icon', 'core', 'text', 'type', 'bold', 'font'],
@@ -4631,6 +4947,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for bolding text.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'text-heading': {
 		keywords: [
@@ -4650,6 +4967,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing heading styles',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'text-indent-left': {
@@ -4670,6 +4988,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for shifting the indent of text content left.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'text-indent-right': {
 		keywords: [
@@ -4689,6 +5008,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for shifting the indent of text content right.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'text-italic': {
 		keywords: ['text-italic', 'textitalic', 'icon', 'core', 'text', 'type', 'italic', 'font'],
@@ -4699,6 +5019,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for italicizing text.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'text-shorten': {
 		keywords: [
@@ -4718,6 +5039,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for shortening text content with Atlassian Intelligence.',
 		team: 'Atlassian Intelligence',
+		status: 'published',
 	},
 	'text-spellcheck': {
 		keywords: [
@@ -4736,6 +5058,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for spellchecking.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'text-strikethrough': {
 		keywords: [
@@ -4754,6 +5077,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for strikethrough text tool',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'text-style': {
@@ -4775,6 +5099,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for text styles in Editor.',
 		team: 'Editor',
+		status: 'published',
 	},
 	'text-underline': {
 		keywords: [
@@ -4793,6 +5118,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for underlined text tool',
 		team: 'Design System Team',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'text-wrap': {
@@ -4803,6 +5129,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for wrapping text so it spans multiple lines.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	theme: {
 		keywords: ['theme', 'icon', 'core', 'theme', 'light mode', 'dark mode', 'theme switcher'],
@@ -4812,6 +5139,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for representing themes and theme switching.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'thumbs-down': {
 		keywords: [
@@ -4831,6 +5159,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: voting, feedback in AI.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'thumbs-up': {
 		keywords: [
@@ -4851,6 +5180,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: voting options in Jira, like.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	timeline: {
 		keywords: ['timeline', 'icon', 'core', 'gantt', 'calendar'],
@@ -4860,6 +5190,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for timelines in Jira or Trello.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	tools: {
 		keywords: ['tools', 'icon', 'core', 'tools', 'wrench', 'spanner', 'screwdriver'],
@@ -4869,6 +5200,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: "Multi purpose - Known usages: 'Service request' Jira issue type.",
 		team: 'Design System Team',
+		status: 'published',
 	},
 	transition: {
 		keywords: ['transition', 'icon', 'core', 'connector', 'movement'],
@@ -4878,6 +5210,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for transitions in Analytics.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	translate: {
 		keywords: [
@@ -4896,6 +5229,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing language translations.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	tree: {
 		keywords: ['tree', 'icon', 'core', 'tree', 'nature'],
@@ -4906,6 +5240,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Nature emoji category.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	undo: {
 		keywords: ['undo', 'icon', 'core', 'backward', 'mistake', 'correct'],
@@ -4916,6 +5251,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for undo in Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	upload: {
 		keywords: ['upload', 'cloud', 'icon', 'core', 'stream', 'file'],
@@ -4926,6 +5262,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for upload in Editor.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'vehicle-car': {
 		keywords: ['vehicle-car', 'vehiclecar', 'icon', 'core', 'car', 'transportation', 'vehicle'],
@@ -4936,6 +5273,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known usages: Transport emoji category.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	video: {
 		keywords: ['video', 'icon', 'core', 'media', 'movie'],
@@ -4952,6 +5290,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for representing video content across Atlassian and Loom.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-next': {
 		keywords: ['video-next', 'videonext', 'icon', 'core', 'skip', 'next', 'media', 'forward'],
@@ -4961,6 +5300,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for next video in Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-next-overlay': {
 		keywords: [
@@ -4980,6 +5320,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for next video when icon is overlayed on Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-pause': {
 		keywords: ['video-pause', 'videopause', 'icon', 'core', 'media', 'video'],
@@ -4990,6 +5331,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for pause video in Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-pause-overlay': {
 		keywords: [
@@ -5007,6 +5349,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for pause video when icon is overlayed on Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-play': {
 		keywords: ['video-play', 'videoplay', 'icon', 'core', 'media', 'video'],
@@ -5017,6 +5360,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for play video in Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-play-overlay': {
 		keywords: [
@@ -5034,6 +5378,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for play video when icon is overlayed on Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-previous': {
 		keywords: [
@@ -5052,6 +5397,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for previous video in Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-previous-overlay': {
 		keywords: [
@@ -5071,6 +5417,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for previous video when icon is overlayed on Media.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-skip-backward-fifteen': {
 		keywords: [
@@ -5091,6 +5438,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for skipping video content backward by 15 seconds.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-skip-backward-ten': {
 		keywords: [
@@ -5111,6 +5459,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for skipping video content backwards by 10 seconds.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-skip-forward-fifteen': {
 		keywords: [
@@ -5131,6 +5480,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for skipping video content forward by 15 seconds.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-skip-forward-ten': {
 		keywords: [
@@ -5151,6 +5501,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for skipping video content forward by 10 seconds.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-stop': {
 		keywords: ['video-stop', 'videostop', 'icon', 'core', 'video', 'stop'],
@@ -5160,6 +5511,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for stopping video content.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'video-stop-overlay': {
 		keywords: [
@@ -5178,6 +5530,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for stopping video content. Use on dark or translucent backgrounds.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'volume-high': {
 		keywords: ['volume-high', 'volumehigh', 'icon', 'core', 'louder', 'volume up'],
@@ -5188,6 +5541,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: '📦 @atlaskit/icon/core/volume-high',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'volume-low': {
 		keywords: ['volume-low', 'volumelow', 'icon', 'core', 'quiter', 'volume down'],
@@ -5198,6 +5552,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: '📦 @atlaskit/icon/core/volume-low',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'volume-muted': {
 		keywords: ['volume-muted', 'volumemuted', 'icon', 'core', 'volume off', 'no volume'],
@@ -5208,6 +5563,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: '📦 @atlaskit/icon/core/volume-muted',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	warning: {
 		keywords: [
@@ -5230,6 +5586,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for warning system status.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	whiteboard: {
 		keywords: ['whiteboard', 'icon', 'core', 'shapes', 'canvas'],
@@ -5239,6 +5596,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for whiteboards in Confluence.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'work-item': {
 		keywords: [
@@ -5258,6 +5616,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing work items.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'work-items': {
 		keywords: [
@@ -5277,6 +5636,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing multiple work items.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'zoom-in': {
 		keywords: ['zoom-in', 'zoomin', 'icon', 'core', 'magnify', 'magnifying glass'],
@@ -5287,6 +5647,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for zooming in of an object or view.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 	'zoom-out': {
 		keywords: ['zoom-out', 'zoomout', 'icon', 'core', 'minify', 'magnifying glass'],
@@ -5297,6 +5658,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for zooming out of an object or view.',
 		team: 'Design System Team',
+		status: 'published',
 	},
 };
 

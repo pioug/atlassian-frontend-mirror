@@ -18,7 +18,7 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Editor: ADF"
+		"team": "Editor: Collaboration"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

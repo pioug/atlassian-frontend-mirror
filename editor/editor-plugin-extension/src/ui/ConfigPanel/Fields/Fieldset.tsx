@@ -18,7 +18,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import Heading from '@atlaskit/heading';
-import AddCircleIcon from '@atlaskit/icon/glyph/add-circle';
+import AddCircleIcon from '@atlaskit/icon/core/migration/add--add-circle';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
@@ -252,7 +252,8 @@ class FieldsetField extends React.Component<Props, State> {
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...iconProps}
-								size="small"
+								LEGACY_size="small"
+								spacing="none"
 								label={intl.formatMessage(messages.addField)}
 							/>
 						)}

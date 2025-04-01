@@ -181,7 +181,8 @@ const EmojiPickerComponent = ({
 
 	const emojiPickerList = useMemo(
 		() =>
-			fg('platform_editor_react18_elements_emoji')
+			fg('platform_editor_react18_elements_emoji') ||
+			fg('platform_editor_react18_elements_emoji_jira_bb')
 				? createRef<PickerListRef>()
 				: createRef<EmojiPickerListOld>(),
 		[],
@@ -672,7 +673,8 @@ const EmojiPickerComponent = ({
 				disableCategories={disableCategories}
 				onCategorySelected={onCategorySelected}
 			/>
-			{fg('platform_editor_react18_elements_emoji') ? (
+			{fg('platform_editor_react18_elements_emoji') ||
+			fg('platform_editor_react18_elements_emoji_jira_bb') ? (
 				<EmojiPickerListNew
 					emojis={filteredEmojis}
 					currentUser={currentUser}

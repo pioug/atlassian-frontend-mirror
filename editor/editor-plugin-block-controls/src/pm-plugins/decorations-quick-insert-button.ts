@@ -10,6 +10,8 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { TypeAheadControl } from '../ui/quick-insert-button';
 
+import { AnchorRectCache } from './utils/anchor-utils';
+
 const TYPE_QUICK_INSERT = 'INSERT_BUTTON';
 
 export const findQuickInsertInsertButtonDecoration = (
@@ -29,6 +31,7 @@ export const quickInsertButtonDecoration = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	rootAnchorName?: string,
 	rootNodeType?: string,
+	anchorRectCache?: AnchorRectCache,
 ) => {
 	const key = uuid();
 
@@ -51,6 +54,7 @@ export const quickInsertButtonDecoration = (
 						anchorName,
 						rootAnchorName,
 						rootNodeType: rootNodeType ?? nodeType,
+						anchorRectCache,
 					}),
 				element,
 				key,

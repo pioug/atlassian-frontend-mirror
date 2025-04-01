@@ -79,6 +79,7 @@ export const themes: Themes = [
 				color: '#253858',
 				borderRight: '1px solid rgba(107, 119, 140, 0.3)',
 				iconColor: '#2684FF',
+				textColor: 'var(--ds-text, #253858)',
 			},
 			primaryButton: {
 				active: {
@@ -239,6 +240,8 @@ export const themes: Themes = [
 				color: '#000000',
 				backgroundColor: '#333333',
 				borderRight: '1px solid rgba(0, 0, 0, 0.5)',
+				iconColor: 'hi',
+				textColor: 'hi',
 			},
 			search: {
 				default: {
@@ -361,6 +364,8 @@ export const themes: Themes = [
 				color: '#ffffff',
 				backgroundColor: '#E94E34',
 				borderRight: '1px solid rgba(255, 255, 255, 0.5)',
+				iconColor: 'hi',
+				textColor: 'hi',
 			},
 			search: {
 				default: {

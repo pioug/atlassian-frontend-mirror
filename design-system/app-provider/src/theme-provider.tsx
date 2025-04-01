@@ -3,7 +3,12 @@ import React, { createContext, useCallback, useContext, useEffect, useRef, useSt
 import { bind } from 'bind-event-listener';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { setGlobalTheme, type ThemeState } from '@atlaskit/tokens';
+import {
+	getGlobalTheme,
+	setGlobalTheme,
+	ThemeMutationObserver,
+	type ThemeState,
+} from '@atlaskit/tokens';
 
 export type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 export type ColorMode = 'light' | 'dark' | 'auto';
@@ -69,13 +74,22 @@ export function useSetColorMode(): (value: ColorMode) => void {
  *
  * Returns the current theme settings when inside the app provider.
  */
-export function useTheme(): Theme {
-	const value = useContext(ThemeContext);
-	if (!value) {
-		throw new Error('useTheme must be used within AppProvider.');
-	}
+export function useTheme(): Partial<Theme> {
+	const theme = useContext(ThemeContext);
+	const [resolvedTheme, setResolvedTheme] = useState(theme || getGlobalTheme());
 
-	return value;
+	useEffect(() => {
+		// We are using theme from context so no need to reference the DOM
+		if (theme) {
+			return;
+		}
+
+		const observer = new ThemeMutationObserver(setResolvedTheme);
+		observer.observe();
+		return () => observer.disconnect();
+	}, [theme]);
+
+	return resolvedTheme;
 }
 
 /**

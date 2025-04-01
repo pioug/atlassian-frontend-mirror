@@ -415,6 +415,7 @@ class ConfigPanel extends React.Component<Props, State> {
 				icon={extensionManifest.icons['48']}
 				title={extensionManifest.title}
 				description={extensionManifest.description}
+				deprecation={extensionManifest.deprecation}
 				summary={extensionManifest.summary}
 				documentationUrl={extensionManifest.documentationUrl}
 				onClose={onCancel}

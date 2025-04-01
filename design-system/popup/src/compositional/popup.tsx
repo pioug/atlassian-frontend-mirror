@@ -2,6 +2,7 @@ import React, {
 	createContext,
 	type Dispatch,
 	type SetStateAction,
+	useCallback,
 	useContext,
 	useState,
 } from 'react';
@@ -224,7 +225,11 @@ export const PopupContent = ({
 		shouldRenderToParent: inShouldRenderToParent,
 	});
 
-	useNotifyOpenLayerObserver({ isOpen });
+	const handleOpenLayerObserverCloseSignal = useCallback(() => {
+		onClose?.(null);
+	}, [onClose]);
+
+	useNotifyOpenLayerObserver({ isOpen, onClose: handleOpenLayerObserverCloseSignal });
 
 	if (!isOpen) {
 		return null;

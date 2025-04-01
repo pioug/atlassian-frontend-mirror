@@ -57,6 +57,18 @@ const markStylesNew = css({
 	},
 });
 
+const markStylesWithUpdatedShadow = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:focus, &[data-has-focus="true"]': {
+			background: token('color.background.accent.yellow.subtlest.pressed'),
+			borderBottomColor: token('color.border.accent.yellow'),
+			boxShadow: token('elevation.shadow.raised'),
+		},
+	},
+});
+
 const markStylesNewWithInlineComments = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
@@ -278,6 +290,7 @@ export const MarkComponent = ({
 						fg('editor_inline_comments_on_inline_nodes') && markStylesNewWithInlineComments,
 						fg('confluence-frontend-comments-panel') && markStylesNewWithCommentsPanel,
 						!isMobile() && accessibilityStylesNew,
+						fg('inline_comment_shadow_update') && markStylesWithUpdatedShadow,
 					],
 					style: {
 						'--ak-renderer-annotation-startmarker': intl.formatMessage(

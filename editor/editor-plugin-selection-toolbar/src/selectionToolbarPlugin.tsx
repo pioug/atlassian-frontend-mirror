@@ -19,6 +19,7 @@ import {
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setToolbarDocking, toggleToolbar } from './pm-plugins/commands';
@@ -219,6 +220,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				) as SelectionToolbarPluginState;
 
 				const isCellSelection = '$anchorCell' in state.selection;
+				const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
 				if (
 					state.selection.empty ||
 					!selectionStable ||
@@ -226,7 +228,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					state.selection instanceof NodeSelection ||
 					// $anchorCell is only available in CellSelection, this check is to
 					// avoid importing CellSelection from @atlaskit/editor-tables
-					(isCellSelection && editorExperiment('platform_editor_controls', 'control')) // for Editor Controls we want to show the toolbar on CellSelection
+					(isCellSelection && !isEditorControlsEnabled) // for Editor Controls we want to show the toolbar on CellSelection
 				) {
 					// If there is no active selection, or the selection is not stable, or the selection is a node selection,
 					// do not show the toolbar.
@@ -281,18 +283,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					}
 				}
 
-				if (
-					items.length > 0 &&
-					contextualFormattingEnabled &&
-					editorExperiment('platform_editor_controls', 'variant1')
-				) {
+				if (items.length > 0 && contextualFormattingEnabled && isEditorControlsEnabled) {
 					items.push(...getOverflowFloatingToolbarConfig({ api, toolbarDocking }));
 				}
 
 				let onPositionCalculated;
 				const toolbarTitle = 'Selection toolbar';
 
-				if (isCellSelection && editorExperiment('platform_editor_controls', 'variant1')) {
+				if (isCellSelection && isEditorControlsEnabled) {
 					onPositionCalculated = calculateToolbarPositionOnCellSelection(toolbarTitle);
 				} else {
 					const calcToolbarPosition = config.preferenceToolbarAboveSelection
@@ -308,6 +306,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					title: 'Selection toolbar',
 					nodeType: nodeType,
 					items: items,
+					...(isEditorControlsEnabled &&
+						fg('platform_editor_controls_patch_2') && { scrollable: true }),
 					onPositionCalculated,
 				};
 			},

@@ -10,6 +10,7 @@ export default {
   'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Bearbeitung abgeschlossen',
   'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Änderungen vornehmen',
   'editor-common-extensibility.macro.button.configure': '{macroName} konfigurieren',
+  'fablric.editor.viewAllInserts': 'Alle Einfügungen anzeigen',
   'fabric.editor.action': 'Aufgabe',
   'fabric.editor.action.description': 'Aufgaben erstellen und zuweisen',
   'fabric.editor.addAltText': 'Alternativtext',
@@ -22,15 +23,291 @@ export default {
   'fabric.editor.addMediaFiles': 'Bild, Video oder Datei hinzufügen',
   'fabric.editor.addRowAbove': 'Zeile oberhalb hinzufügen',
   'fabric.editor.addRowBelow': 'Zeile unterhalb hinzufügen',
+  'fabric.editor.addUpdatedAltText': 'Alternativtext hinzufügen',
+  'fabric.editor.ai.ai-panels.actionItemsPageDescription':
+    'Atlassian Intelligence kann Aufgaben suchen und sie in einem Panel anzeigen.',
+  'fabric.editor.ai.ai-panels.actionItemsPageTitle': 'Aufgaben-Panel (Betaversion)',
+  'fabric.editor.ai.ai-panels.summarizePageDescription':
+    'Atlassian Intelligence kann diese Seite zusammenfassen und sie in einem Panel anzeigen.',
+  'fabric.editor.ai.ai-panels.summarizePageTitle': 'Panel für Seitenzusammenfassung (Betaversion)',
+  'fabric.editor.ai.ai-smart-button.context.reference': 'Ausgewählter Inhalt',
+  'fabric.editor.ai.atlas-prebuilt.atlasGenerateContentConfigItemDescription':
+    'Erstellt Inhalte, die dem Update hinzugefügt werden',
+  'fabric.editor.ai.atlas-prebuilt.atlasSummarizePageConfigItemDescription': 'Fasst die Inhalte des Updates zusammen',
+  'fabric.editor.ai.commandPalette.promptBuilderForm.buttons.submit': 'Generieren',
+  'fabric.editor.ai.config.item.action.insert': 'Einfügen',
+  'fabric.editor.ai.config.item.action.insertAtTop': 'Oben einfügen',
+  'fabric.editor.ai.config.item.action.insertBelow': 'Unten einfügen',
+  'fabric.editor.ai.config.item.action.replace': 'Ersetzen',
+  'fabric.editor.ai.config.item.action.replaceTitle': 'Titel ersetzen',
+  'fabric.editor.ai.config.item.action.replaceTitleTooLongDisabledTooltip':
+    'Der Titel darf nicht mehr als {maxLength} Zeichen enthalten.',
+  'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': 'Im Chat öffnen',
+  'fabric.editor.ai.config.item.advanced-prompt.form.instructions.label': 'Anweisungen',
+  'fabric.editor.ai.config.item.advancedPrompt.description': 'Aufgabe, Anweisungen und Regeln angeben',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.label': 'Kreativität',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.option.high': 'Hoch',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.option.low': 'Niedrig',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.option.medium': 'Mittel',
+  'fabric.editor.ai.config.item.advancedPrompt.form.instructions.helperMessage':
+    'Ein Beispiel: 1. Geben Sie im Dokument zunächst einen kurzen Überblick über unsere Unternehmensziele. 2. Erstellen Sie eine Liste mit den wichtigsten Teammitgliedern, die neue Mitarbeiter in der ersten Woche treffen sollten.',
+  'fabric.editor.ai.config.item.advancedPrompt.form.instructions.placeholder':
+    'Stellen Sie Aufgabenanweisungen bereit, um die Generierung bestimmter Ausgaben zu unterstützen.',
+  'fabric.editor.ai.config.item.advancedPrompt.form.rules.helperMessage':
+    'Ein Beispiel: Die Ausgabe muss den Stilrichtlinien des Unternehmens entsprechen und darf keine unbestätigten Daten enthalten.',
+  'fabric.editor.ai.config.item.advancedPrompt.form.rules.label': 'Regeln',
+  'fabric.editor.ai.config.item.advancedPrompt.form.rules.placeholder':
+    'Beschreiben Sie alle Regeln, die befolgt werden sollen.',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.error.required': 'Bitte geben Sie eine Aufgabe an.',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.helperMessage':
+    'Ein Beispiel: Erstellen Sie eine Onboarding-Dokumentation für neue Mitarbeiter, die dem Team beitreten.',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.label': 'Aufgabe',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.placeholder': 'Beschreiben Sie die zu erledigende Aufgabe.',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.label': 'Ton',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.casual': 'Locker',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.educational': 'Informativ',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.empathetic': 'Empathisch',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.neutral': 'Neutral',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.professional': 'Professionell',
+  'fabric.editor.ai.config.item.advancedPrompt.promptLabel': 'Einen erweiterten Prompt erstellen',
+  'fabric.editor.ai.config.item.advancedPrompt.title': 'Einen erweiterten Prompt erstellen',
+  'fabric.editor.ai.config.item.agent.title': 'Rovo-Agent von Atlassian Intelligence',
+  'fabric.editor.ai.config.item.atlas-shorten-update.description': 'Kürzt den Inhalt, um ihn präziser zu machen',
+  'fabric.editor.ai.config.item.atlas-shorten-update.title': 'Update verkürzen',
+  'fabric.editor.ai.config.item.bb.pr.description.description':
+    'Erstellt eine Beschreibung der Pull-Anfrage mit einer Zusammenfassung der Änderungen',
+  'fabric.editor.ai.config.item.bb.pr.description.title': 'Beschreibung für Pull-Anfrage erstellen',
+  'fabric.editor.ai.config.item.brainstorm.description':
+    'Generiert eine Liste von Ideen für einen Themenbereich, den Sie bereitstellen',
+  'fabric.editor.ai.config.item.brainstorm.promptHint': 'Themenbereich eingeben …',
+  'fabric.editor.ai.config.item.brainstorm.promptLabel': 'Brainstorming durchführen',
+  'fabric.editor.ai.config.item.brainstorm.title': 'Brainstorming durchführen',
+  'fabric.editor.ai.config.item.changeTone.casualTone.description': 'Ändert den Ton des Inhalts zu "locker"',
+  'fabric.editor.ai.config.item.changeTone.casualTone.selectionToolbar.dropdownItem.title': 'Locker',
+  'fabric.editor.ai.config.item.changeTone.casualTone.shortTitle': 'Locker',
+  'fabric.editor.ai.config.item.changeTone.casualTone.title': 'Zu lockerem Ton wechseln',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.description': 'Ändert den Ton des Inhalts zu "informativ"',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.selectionToolbar.dropdownItem.title': 'Informativ',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.shortTitle': 'Informativ',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.title': 'Zu informativem Ton wechseln',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.description': 'Ändert den Ton des Inhalts zu "empathisch"',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.selectionToolbar.dropdownItem.title': 'Empathisch',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.shortTitle': 'Empathisch',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.title': 'Zu empathischem Ton wechseln',
+  'fabric.editor.ai.config.item.changeTone.nestingParentTitlePostGA': 'Ton ändern zu …',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.description': 'Ändert den Ton des Inhalts zu "neutral"',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.selectionToolbar.dropdownItem.title': 'Neutral',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.shortTitle': 'Neutral',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.title': 'Zu neutralem Ton wechseln',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.description':
+    'Ändert den Ton des Inhalts zu "professionell"',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.selectionToolbar.dropdownItem.title': 'Professionell',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.shortTitle': 'Professionell',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.title': 'Zu professionellem Ton wechseln',
+  'fabric.editor.ai.config.item.convertToBulletList.description':
+    'Formatiert Inhalt in eine Liste mit Aufzählungszeichen um',
+  'fabric.editor.ai.config.item.convertToBulletList.title': 'In Liste mit Aufzählungszeichen umwandeln',
+  'fabric.editor.ai.config.item.convertToTable.description':
+    'Formatiert den Inhalt in eine Tabelle mit Überschriften um',
+  'fabric.editor.ai.config.item.convertToTable.title': 'In Tabelle umwandeln',
+  'fabric.editor.ai.config.item.draftReply.description':
+    'Verfasst eine Antwort, die auf ähnlichen Vorgängen basiert wie dem, an dem Sie gerade arbeiten.',
+  'fabric.editor.ai.config.item.draftReply.title': 'Antwort verfassen',
+  'fabric.editor.ai.config.item.enhance.fixSpellingGrammar.description': 'Behebt Rechtschreib- und Grammatikfehler',
+  'fabric.editor.ai.config.item.enhance.fixSpellingGrammar.selectionToolbar.dropdownItem.title':
+    'Rechtschreibung und Grammatik',
+  'fabric.editor.ai.config.item.enhance.fixSpellingGrammar.title': 'Rechtschreibung und Grammatik korrigieren',
+  'fabric.editor.ai.config.item.enhance.improveWriting.description':
+    'Verbessert Klarheit, Struktur und Ton für mehr Teilhabe und Verständnis.',
+  'fabric.editor.ai.config.item.enhance.improveWriting.selectionToolbar.dropdownItem.title':
+    'Texterstellung optimieren',
+  'fabric.editor.ai.config.item.enhance.improveWriting.title': 'Texterstellung optimieren',
+  'fabric.editor.ai.config.item.findActionItems.description':
+    'Sucht Aufgaben in den von Ihnen bereitgestellten Inhalten',
+  'fabric.editor.ai.config.item.findActionItems.title': 'Aufgaben suchen',
+  'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
+    'Unten auswählen (aktuell ist die kostenlose Erstellung von Prompts in Elevate deaktiviert)',
+  'fabric.editor.ai.config.item.generateContent.promptHint': 'Mit AI schreiben oder von unten auswählen',
+  'fabric.editor.ai.config.item.improveDescription.default.description':
+    'Strukturiert die Vorgangsbeschreibung anhand des Vorgangstyps neu',
+  'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one': 'Beschreibung verbessern',
+  'fabric.editor.ai.config.item.makeLonger.description':
+    'Erweitert den Inhalt basierend auf dem von Ihnen angegebenen Kontext',
+  'fabric.editor.ai.config.item.makeLonger.title': 'Erweitern',
+  'fabric.editor.ai.config.item.range.agent.description': 'Keine Beschreibung',
+  'fabric.editor.ai.config.item.range.agent.prompt.hint':
+    'Bitten Sie den Agenten, etwas zu schreiben, oder wählen Sie unten eine Option aus.',
+  'fabric.editor.ai.config.item.rephrase.description': 'Erstellt einen Vorschlag zum Umformulieren Ihrer Sätze',
+  'fabric.editor.ai.config.item.rephrase.title': 'Umformulieren',
+  'fabric.editor.ai.config.item.shorten.description': 'Kürzt den Inhalt, um ihn präziser zu machen',
+  'fabric.editor.ai.config.item.shorten.selectionToolbar.dropdownItem.title': 'Verkürzen',
+  'fabric.editor.ai.config.item.shorten.title': 'Verkürzen',
+  'fabric.editor.ai.config.item.suggest.description': 'Schlägt einen Titel für von Ihnen bereitgestellte Inhalte vor',
+  'fabric.editor.ai.config.item.suggest.title': 'Einen Titel vorschlagen',
+  'fabric.editor.ai.config.item.summarize.description':
+    'Erstellt eine Zusammenfassung des Textes, an dem Sie arbeiten, und hebt die wichtigsten Punkte hervor',
+  'fabric.editor.ai.config.item.summarize.dropdownItem.title': 'Schriftstück zusammenfassen',
+  'fabric.editor.ai.config.item.summarize.title': 'Schriftstück zusammenfassen',
+  'fabric.editor.ai.config.item.translate.czech': 'Tschechisch',
+  'fabric.editor.ai.config.item.translate.danish': 'Dänisch',
+  'fabric.editor.ai.config.item.translate.dutch': 'Holländisch',
+  'fabric.editor.ai.config.item.translate.english': 'Englisch',
+  'fabric.editor.ai.config.item.translate.finnish': 'Finnisch',
+  'fabric.editor.ai.config.item.translate.french': 'Französisch',
+  'fabric.editor.ai.config.item.translate.german': 'Deutsch',
+  'fabric.editor.ai.config.item.translate.hungarian': 'Ungarisch',
+  'fabric.editor.ai.config.item.translate.italian': 'Italienisch',
+  'fabric.editor.ai.config.item.translate.japanese': 'Japanisch',
+  'fabric.editor.ai.config.item.translate.nestingParentTitle.ga': 'Übersetzen',
+  'fabric.editor.ai.config.item.translate.nestingParentTitlePostGA': 'Übersetzen in folgende Sprache:',
+  'fabric.editor.ai.config.item.translate.norwegian': 'Norwegisch',
+  'fabric.editor.ai.config.item.translate.russian': 'Russisch',
+  'fabric.editor.ai.config.item.translate.spanish': 'Spanisch',
+  'fabric.editor.ai.config.item.translate.swedish': 'Schwedisch',
+  'fabric.editor.ai.config.item.translateTo.chineseSimplified.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Chinesische (Vereinfacht)',
+  'fabric.editor.ai.config.item.translateTo.chineseSimplified.title': 'Ins Chinesische (Vereinfacht) übersetzen',
+  'fabric.editor.ai.config.item.translateTo.chineseTraditional.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Chinesische (Traditionell)',
+  'fabric.editor.ai.config.item.translateTo.chineseTraditional.title': 'Ins Chinesische (Traditionell) übersetzen',
+  'fabric.editor.ai.config.item.translateTo.czech.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Tschechische',
+  'fabric.editor.ai.config.item.translateTo.czech.title': 'Ins Tschechische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.danish.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Dänische',
+  'fabric.editor.ai.config.item.translateTo.danish.title': 'Ins Dänische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.dutch.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Niederländische',
+  'fabric.editor.ai.config.item.translateTo.dutch.title': 'Ins Niederländische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.english.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Englische',
+  'fabric.editor.ai.config.item.translateTo.english.title': 'Ins Englische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.finnish.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Finnische',
+  'fabric.editor.ai.config.item.translateTo.finnish.title': 'Ins Finnische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.french.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Französische',
+  'fabric.editor.ai.config.item.translateTo.french.title': 'Ins Französische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.german.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Deutsche',
+  'fabric.editor.ai.config.item.translateTo.german.title': 'Ins Deutsche übersetzen',
+  'fabric.editor.ai.config.item.translateTo.hungarian.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Ungarische',
+  'fabric.editor.ai.config.item.translateTo.hungarian.title': 'Ins Ungarische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.italian.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Italienische',
+  'fabric.editor.ai.config.item.translateTo.italian.title': 'Ins Italienische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.japanese.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Japanische',
+  'fabric.editor.ai.config.item.translateTo.japanese.title': 'Ins Japanische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.korean.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Koreanische',
+  'fabric.editor.ai.config.item.translateTo.korean.title': 'Ins Koreanische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.norwegian.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Norwegische',
+  'fabric.editor.ai.config.item.translateTo.norwegian.title': 'Ins Norwegische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.polish.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Polnische',
+  'fabric.editor.ai.config.item.translateTo.polish.title': 'Ins Polnische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.portugueseBrazilian.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Portugiesische (Brasilianisch)',
+  'fabric.editor.ai.config.item.translateTo.portugueseBrazilian.title': 'Ins Portugiesische (Brasilianisch) übersetzen',
+  'fabric.editor.ai.config.item.translateTo.russian.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Russische',
+  'fabric.editor.ai.config.item.translateTo.russian.title': 'Ins Russische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.spanish.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Spanische',
+  'fabric.editor.ai.config.item.translateTo.spanish.title': 'Ins Spanische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.swedish.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Schwedische',
+  'fabric.editor.ai.config.item.translateTo.swedish.title': 'Ins Schwedische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.thai.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Thailändische',
+  'fabric.editor.ai.config.item.translateTo.thai.title': 'Ins Thailändische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.turkish.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Türkische',
+  'fabric.editor.ai.config.item.translateTo.turkish.title': 'Ins Türkische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.ukrainian.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Ukrainische',
+  'fabric.editor.ai.config.item.translateTo.ukrainian.title': 'Ins Ukrainische übersetzen',
+  'fabric.editor.ai.config.item.translateTo.vietnamese.description':
+    'Übersetzt den Text, an dem Sie gerade arbeiten, ins Vietnamesische',
+  'fabric.editor.ai.config.item.translateTo.vietnamese.title': 'Ins Vietnamesische übersetzen',
+  'fabric.editor.ai.confluence-prebuilt.confluenceChangeToneSelectionToolbarDropdownMenuTitle': 'Ton ändern',
+  'fabric.editor.ai.confluence-prebuilt.confluenceRewriteSelectionToolbarDropdownMenuTitle': 'Umformulieren',
+  'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle': 'Übersetzen',
+  'fabric.editor.ai.eventHub.fallbackSuggestedTitle': 'Seitentitel',
+  'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': 'Seite',
+  'fabric.editor.ai.experience-application.documentInsertError':
+    'Beim Einfügen der Antwort ist ein Problem aufgetreten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
+  'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
+    'Beim Erstellen der Vorschau ist ein Problem aufgetreten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
+  'fabric.editor.ai.experience-application.rateLimitEnforced':
+    'Wir haben kürzlich zu viele Anfragen für Atlassian Intelligence (AI) erhalten. Versuchen Sie es in ein paar Minuten erneut oder erfahren Sie mehr über die <link>übermäßige Nutzung von AI</link>.',
+  'fabric.editor.ai.experience-application.tokenLimitExceeded':
+    'Es konnte keine Antwort abgerufen werden. Ihre Aufforderung oder Antwort hat das Limit für diese Anfrage überschritten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
+  'fabric.editor.ai.experience-application.unhandledErrorMessage':
+    'Es ist ein Problem aufgetreten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
+  'fabric.editor.ai.experience.apiError': 'Wir haben keine Antwort erhalten. Bitte versuchen Sie es erneut.',
+  'fabric.editor.ai.experience.aupViolationMessage':
+    'Ihr Prompt oder Ihr Inhalt entspricht möglicherweise nicht unseren Richtlinien zur akzeptablen Nutzung. Bitte überprüfen Sie beides und lesen Sie bei Bedarf unsere <link>Richtlinie zur akzeptablen Nutzung</link>. Fall dieses Problem weiterhin besteht, versuchen Sie es mit einem anderen Prompt oder Inhalt.',
+  'fabric.editor.ai.experience.browseMore.agents': 'Agenten durchsuchen',
+  'fabric.editor.ai.experience.discardMessagePrompt': 'Möchten Sie Ihre Aufforderung wirklich verwerfen?',
+  'fabric.editor.ai.experience.discardMessageResponse': 'Möchten Sie Ihre Antwort wirklich verwerfen?',
+  'fabric.editor.ai.experience.elevateDisabledGenetateError':
+    'Aktuell ist die freie Erstellung von Aufforderungen in Elevate deaktiviert.',
+  'fabric.editor.ai.experience.engagementBannerLinksText':
+    '🚀 Sie können in Ihren Prompts jetzt Links 🔗 in Jira- oder Confluence-Inhalte einfügen.',
+  'fabric.editor.ai.experience.footerRightText.agents': 'Bereitgestellt von Rovo',
+  'fabric.editor.ai.experience.hipaaContentError':
+    'Atlassian Intelligence konnte Ihre Anfrage nicht bearbeiten, da sie Links zu HIPAA-beschränkten Inhalten enthält. Bitte entfernen Sie diese Links und versuchen Sie es erneut.',
+  'fabric.editor.ai.experience.inputTooShortError':
+    'Der Inhalt ist zu kurz, um ihn zusammenzufassen. Bitte fügen Sie mehr Inhalt hinzu und versuchen Sie es erneut.',
+  'fabric.editor.ai.experience.internalServerError':
+    'Atlassian Intelligence (AI) reagiert nicht. Versuchen Sie es später erneut oder <link>überprüfen Sie den Status von AI</link>.',
+  'fabric.editor.ai.experience.labelRight.atlassianIntelligence': 'Atlassian Intelligence',
+  'fabric.editor.ai.experience.labelRight.rovo': 'Rovo',
+  'fabric.editor.ai.experience.loadingTitle': 'Wird erstellt',
+  'fabric.editor.ai.experience.messageTemplateAnalysingQuery': 'Analyse läuft: Ihre Frage wird überprüft.',
+  'fabric.editor.ai.experience.messageTemplateContentSearch':
+    'Suche läuft: Warten Sie einen Moment, während wir nach Informationen suchen.',
+  'fabric.editor.ai.experience.messageTemplateNextBestTask':
+    'Suche läuft: Warten Sie einen Moment, während wir Jira durchsuchen.',
+  'fabric.editor.ai.experience.messageTemplatePageHydration':
+    'Suche läuft: Warten Sie einen Moment, während wir die Seite durchsuchen.',
+  'fabric.editor.ai.experience.noResultsSuggestion': 'Keine Ergebnisse',
+  'fabric.editor.ai.experience.responseTooSimilarMessage':
+    'Es gibt momentan keine Vorschläge von Atlassian Intelligence. Versuchen Sie es mit einem anderen Prompt oder Inhalt.',
+  'fabric.editor.ai.experience.showMoreButton': 'Mehr anzeigen',
+  'fabric.editor.ai.experience.suggestionGroupHeading.actions': 'Aktionen',
+  'fabric.editor.ai.experience.suggestionGroupHeading.agents': 'Agenten',
+  'fabric.editor.ai.experience.suggestionGroupHeading.atlassianIntelligence': 'Atlassian Intelligence',
+  'fabric.editor.ai.experience.suggestionGroupHeading.knowledgeSource': 'Wissensquelle',
+  'fabric.editor.ai.experience.suggestionGroupHeading.rovoAgents': 'Rovo-Agenten',
+  'fabric.editor.ai.experience.suggestionGroupHeading.rovoAgentsCount': 'Rovo-Agenten ({numberOfAgents})',
+  'fabric.editor.ai.experience.suggestionGroupHeading.studio': 'Studio',
+  'fabric.editor.ai.experience.suggestionGroupHeading.useRovoAgentsCount': 'Rovo-Agenten verwenden ({numberOfAgents})',
+  'fabric.editor.ai.experience.useGeneralAiKnowledgeLabel': 'Allgemeines Wissen verwenden',
+  'fabric.editor.ai.experience.useRovoOrganisationKnowledgeLabel': 'Wissen aus Ihrer Organisation verwenden',
   'fabric.editor.ai.proactive.error.markdownErrorMessage':
     'Beim Erstellen der Vorschau ist ein Problem aufgetreten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
   'fabric.editor.ai.proactive.error.unhandledErrorMessage':
     'Ein Problem ist aufgetreten. Schließen Sie das Dialogfeld und versuchen Sie es dann erneut.',
   'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Unten einfügen',
   'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Ersetzen',
+  'fabric.editor.ai.screens.preview.convoAIBeta':
+    'Anfragen zur Inhaltserstellung, die auf URLs verweisen, befinden sich in der Beta-Phase.',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip':
     'Markieren Sie einen Begriff, ein Akronym oder eine Abkürzung.',
   'fabric.editor.ai.selectionToolbar.define.title': 'Definieren',
+  'fabric.editor.ai.toolbar.askAI.title': 'Atlassian Intelligence fragen',
+  'fabric.editor.ai.toolbar.improveWriting.title': 'Texterstellung optimieren',
+  'fabric.editor.ai.toolbar.improveWriting.tooltip':
+    'Weisen Sie Atlassian Intelligence an, den von Ihnen ausgewählten Text zu verbessern.',
+  'fabric.editor.ai.toolbar.simplifiedAI.title': 'AI',
+  'fabric.editor.ai.toolbar.titleText': 'Atlassian Intelligence',
+  'fabric.editor.ai.toolbar.tryAI.title': 'AI testen',
+  'fabric.editor.ai.toolbar.tryAI.tooltip': 'Atlassian Intelligence öffnen',
   'fabric.editor.alignCenter': 'Mittig ausrichten',
   'fabric.editor.alignImageCenter': 'Mittig ausrichten',
   'fabric.editor.alignImageLeft': 'Links ausrichten',
@@ -47,7 +324,9 @@ export default {
   'fabric.editor.backgroundColor': 'Hintergrundfarbe',
   'fabric.editor.blockCardUnavailable':
     'Die Ansicht des Inline-Links kann nicht geändert werden, da sich der Link innerhalb von {node} befindet.',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Per Ziehen neu anordnen',
+  'fabric.editor.blockControlDelete': 'Löschen',
+  'fabric.editor.blockControlDragHandleMove': 'Zum Verschieben ziehen',
+  'fabric.editor.blockControlDragHandleRearrange': 'Zum Neuanordnen ziehen',
   'fabric.editor.blockControlInsert': 'Einfügen',
   'fabric.editor.blockControlMoveDown': 'Nach unten verschieben',
   'fabric.editor.blockControlMoveLeft': 'Nach links',
@@ -99,6 +378,7 @@ export default {
   'fabric.editor.columns': 'Layouts',
   'fabric.editor.columns.advanced.layout.description':
     '{numberOfColumns, plural, one {{numberOfColumns} gleich große Spalte einfügen} other {{numberOfColumns} gleich große Spalten einfügen}}',
+  'fabric.editor.columns.advanced.layout.single.description': 'Layout mit einer Spalte einfügen',
   'fabric.editor.columns.description': 'Seite mithilfe von Abschnitten strukturieren',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {Eine Spalte wurde hinzugefügt.} other {{count} Spalten wurden hinzugefügt.}}',
@@ -146,6 +426,9 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira-Vorgänge',
   'fabric.editor.datasource.jiraIssue.description':
     'Fügen Sie Jira-Vorgänge aus Jira Cloud mit verbesserten Such-, Filter- und Konfigurationsfunktionen ein.',
+  'fabric.editor.datasource.jiraIssue.description.issue-term-refresh':
+    'Fügen Sie Jira-Vorgänge aus Jira Cloud mit verbesserten Such-, Filter- und Konfigurationsfunktionen ein.',
+  'fabric.editor.datasource.jiraIssue.issue-term-refresh': 'Jira-Vorgänge',
   'fabric.editor.datasourceAppearanceTitle': 'Liste',
   'fabric.editor.datasourceTitle': 'Suchanfrage bearbeiten',
   'fabric.editor.date': 'Datum',
@@ -155,6 +438,7 @@ export default {
   'fabric.editor.decisionPlaceholder': 'Entscheidung hinzufügen …',
   'fabric.editor.decreaseSize': 'Tabellen- oder Mediengröße verringern',
   'fabric.editor.defaultAltText': 'Dokument',
+  'fabric.editor.delete': 'Löschen',
   'fabric.editor.description': 'Beschreibung',
   'fabric.editor.displayBlock': 'Karte anzeigen',
   'fabric.editor.displayEmbed': 'Einbettung anzeigen',
@@ -185,6 +469,7 @@ export default {
   'fabric.editor.editorHelp': 'Editorhilfe',
   'fabric.editor.editors': 'Editoren',
   'fabric.editor.elementBrowser.help': 'Hilfe',
+  'fabric.editor.elementInsertSidePanel.title': 'Einfügen',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administration',
   'fabric.editor.elementbrowser.categorylist.category-ai': 'Atlassian Intelligence',
   'fabric.editor.elementbrowser.categorylist.category-all': 'Alle',
@@ -212,6 +497,8 @@ export default {
   'fabric.editor.emoji': 'Emoji',
   'fabric.editor.emoji.description': 'Verwenden Sie Emojis, um Ideen 🎉 und Emotionen 😄 auszudrücken.',
   'fabric.editor.emptyLink': 'Bitte geben Sie einen Link ein.',
+  'fabric.editor.emptySearchResults': 'Es wurden keine Ergebnisse gefunden.',
+  'fabric.editor.emptySearchResultsSuggestion': 'Wählen Sie {buttonName} aus, um Einfügungen zu durchsuchen.',
   'fabric.editor.epic': 'Epic',
   'fabric.editor.error': 'Fehler',
   'fabric.editor.errorPanel': 'Fehler-Panel',
@@ -270,6 +557,7 @@ export default {
   'fabric.editor.headingLink.hyperlinkIconBlogLabel': 'Blog',
   'fabric.editor.headingLink.hyperlinkIconBugLabel': 'Bug',
   'fabric.editor.headingLink.hyperlinkIconIssueLabel': 'Vorgang',
+  'fabric.editor.headingLink.hyperlinkIconIssueLabel.issue-term-refresh': 'Vorgang',
   'fabric.editor.headingLink.hyperlinkIconPageLabel': 'Seite',
   'fabric.editor.headingLink.hyperlinkIconStoryLabel': 'Story',
   'fabric.editor.headingLink.hyperlinkIconTaskLabel': 'Task',
@@ -326,10 +614,14 @@ export default {
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastenkombinationen',
   'fabric.editor.layout.columnOption': '{count, plural, one {Spalte} other {{count} Spalten}}',
+  'fabric.editor.layout.controls.placeholder': '/ eingeben, um etwas einzufügen',
   'fabric.editor.layout.placeholder': 'Inhalt hinzufügen',
   'fabric.editor.layout.resizeLayout': 'Größe des Layouts ändern',
   'fabric.editor.layoutFixedWidth': 'Zurück zur Mitte',
   'fabric.editor.layoutFullWidth': 'Volle Breite wählen',
+  'fabric.editor.layoutStateFixedWidth': 'Zentriert',
+  'fabric.editor.layoutStateFullWidth': 'Maximale Breite',
+  'fabric.editor.layoutStateWide': 'Breit',
   'fabric.editor.layoutWide': 'Verbreitern',
   'fabric.editor.leftSidebar': 'Layout der linken Seitenleiste',
   'fabric.editor.link': 'Link',
@@ -364,9 +656,12 @@ export default {
   'fabric.editor.media.insert.pasteLinkToUpload': 'Link zum Hochladen einfügen',
   'fabric.editor.media.insert.upload': 'Hochladen',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medien auf maximale Größe erhöht',
+  'fabric.editor.media.pixelEntry.ResizeOption': 'Größe ändern',
+  'fabric.editor.media.pixelEntry.closePixelEntry': 'Schließen',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'Eingabe der Höhe',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Höhe',
   'fabric.editor.media.pixelEntry.inputWidthAriaLabel': 'Maximale Breite: {maxWidth} px',
+  'fabric.editor.media.pixelEntry.inputWidthLabel': 'Breite',
   'fabric.editor.media.pixelEntry.inputWidthTooltip': 'Maximale Breite: {maxWidth} px',
   'fabric.editor.media.pixelEntry.migrationButtonText': 'In Pixel umwandeln',
   'fabric.editor.media.pixelEntry.migrationButtonTooltip': 'Von prozentualer zu fester Pixelgröße migrieren',
@@ -414,6 +709,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Seitenaktionen',
   'fabric.editor.panel': 'Panel',
   'fabric.editor.panel.backgroundColor': 'Hintergrundfarbe',
+  'fabric.editor.panel.custom': 'Benutzerdefiniert',
   'fabric.editor.panel.emoji': 'Emoji hinzufügen',
   'fabric.editor.panel.panelsGroup': 'Panel-Typen',
   'fabric.editor.pasteOptions': 'Optionen zum Einfügen',
@@ -423,6 +719,7 @@ export default {
   'fabric.editor.placeholderText.description': 'Textplatzhalter in die Seite einfügen',
   'fabric.editor.placeholderTextPlaceholder': 'Platzhaltertext hinzufügen',
   'fabric.editor.plainText': 'Nur-Text verwenden',
+  'fabric.editor.preferencesLink': 'Verknüpfungseinstellungen',
   'fabric.editor.quickInsert': 'Schnelleinfügung',
   'fabric.editor.recordLoomShortTitle': 'Aufzeichnen',
   'fabric.editor.recordVideo': 'Loom-Video aufnehmen',
@@ -461,9 +758,11 @@ export default {
   'fabric.editor.selectLanguage': 'Sprache auswählen',
   'fabric.editor.selectTableColumn': 'Spalte auswählen',
   'fabric.editor.selectTableRow': 'Zeile auswählen',
+  'fabric.editor.selectionExtensionDropdownButtonLabel': 'App auswählen',
   'fabric.editor.settingsLinks': 'Zu den Link-Einstellungen',
   'fabric.editor.shortcut': 'Textverknüpfung',
   'fabric.editor.single': 'Layout mit einer Spalte',
+  'fabric.editor.singleColumns': 'Layout mit 1 Spalte',
   'fabric.editor.sortColumnASC': 'Spalte sortieren: A → Z',
   'fabric.editor.sortColumnDESC': 'Spalte sortieren: Z → A',
   'fabric.editor.sortColumnDecreasing': 'Absteigend sortieren',
@@ -544,6 +843,7 @@ export default {
   'fabric.editor.typeAhead.popupLabel': 'Ergebnisse der Vorschlagsfunktion',
   'fabric.editor.typeAhead.quickInsertInputLabel':
     'Beginnen Sie die Eingabe, um nach Optionen für Tastenkombinationen zu suchen oder diese zu filtern',
+  'fabric.editor.typeAhead.quickInsertInputPlaceholderLabel': 'Suchen',
   'fabric.editor.typeAhead.quickInsertPopupLabel': 'Tastenkombination für Einfügungen und Formatierung',
   'fabric.editor.typeahead.emojiInputLabel':
     'Beginnen Sie mit der Eingabe, um nach Optionen für Emojis zu suchen oder diese zu filtern',
@@ -636,4 +936,6 @@ export default {
   'fabric.theme.white': 'Weiß',
   'fabric.theme.yellow': 'Gelb',
   'fabrid.editor.rowNumbers': 'Zeilennummern',
+  'rovo.agents.dropdown.title': 'Agenten',
+  'rovo.agents.dropdown.viewAgents.label': 'Alle Agenten anzeigen',
 };

@@ -1,5 +1,49 @@
 # @atlaskit/dropdown-menu
 
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Major Changes
+
+- [#134856](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134856)
+  [`948a950e395ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/948a950e395ad) -
+  The `onOpenChange` prop type has been updated, to make the `event` parameter nullable. This
+  property is for the corresponding `event` that led to the callback being called.
+
+  This is to support programatically closing the dropdown menu.
+
+  We are also adding the native `Event` type in the type union, to better align with the underlying
+  `Popup` component that `DropdownMenu` is built on top of.
+
+  Previously, the type of `onOpenChange` was:
+
+  ```ts
+  onOpenChange?: (args: {
+    isOpen: boolean;
+    event: React.MouseEvent | React.KeyboardEvent;
+  }) => void;
+  ```
+
+  It is now:
+
+  ```ts
+  onOpenChange?: (args: {
+    isOpen: boolean;
+    event: Event | React.MouseEvent | React.KeyboardEvent | null;
+  }) => void;
+  ```
+
+  When the dropdown is closed programatically, the `event` parameter will be `null`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

@@ -52,13 +52,17 @@ const EmptyState = ({
 	const actionsContainer =
 		primaryAction || secondaryAction || isLoading ? (
 			<ActionsContainer>
-				<ButtonGroup
-					label={buttonGroupLabel || 'Button group'}
-					testId={testId && `${testId}-button-group`}
-				>
-					{secondaryAction}
-					{primaryAction}
-				</ButtonGroup>
+				{primaryAction && secondaryAction ? (
+					<ButtonGroup
+						label={buttonGroupLabel || 'Button group'}
+						testId={testId && `${testId}-button-group`}
+					>
+						{secondaryAction}
+						{primaryAction}
+					</ButtonGroup>
+				) : (
+					primaryAction || secondaryAction
+				)}
 				<SpinnerContainer>{isLoading && <Spinner testId="empty-state-spinner" />}</SpinnerContainer>
 			</ActionsContainer>
 		) : null;

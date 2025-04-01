@@ -47,7 +47,7 @@
 		"./utils": "./src/utils.ts"
 	},
 	"atlassian": {
-		"team": "Editor: ADF",
+		"team": "Editor: Collaboration",
 		"website": {
 			"name": "Editor Confluence Transformer"
 		},

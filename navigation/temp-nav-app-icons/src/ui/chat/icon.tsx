@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::20c21ec560e441d09d4e354473a8bc30>>
+ * @codegen <<SignedSource::5675837f6dbd5bc86da70ed9a9f9b4f9>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -9,9 +9,9 @@ import { IconWrapper } from '../../utils/icon-wrapper';
 import type { AppIconProps } from '../../utils/types';
 
 // `height` is set to 100% to allow the SVG to scale with the parent element
-const svg = `<svg height="100%" fill="none" viewBox="0 0 32 32">
-    <path fill="#dddee1" d="M0 8a8 8 0 0 1 8-8h16a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H8a8 8 0 0 1-8-8z"/>
-    <path fill="#1e1f21" fill-rule="evenodd" d="M13.403 22.539h11.25V8H7.345v18zm2.596-6.058a1.212 1.212 0 1 0 0-2.424 1.212 1.212 0 0 0 0 2.424m5.538-1.212a1.212 1.212 0 1 1-2.423 0 1.212 1.212 0 0 1 2.423 0m-9.865 1.212a1.212 1.212 0 1 0 0-2.423 1.212 1.212 0 0 0 0 2.423" clip-rule="evenodd"/>
+const svg = `<svg height="100%" viewBox="0 0 24 24">
+    <path fill="#dddee1" d="M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z"/>
+    <path fill="#101214" fill-rule="evenodd" d="M18.125 16.375H10.25L5.875 19V5.875h12.25zM8.937 12a.875.875 0 1 0 0-1.75.875.875 0 0 0 0 1.75M12 12a.875.875 0 1 0 0-1.75.875.875 0 0 0 0 1.75m3.938-.875a.875.875 0 1 1-1.75 0 .875.875 0 0 1 1.75 0" clip-rule="evenodd"/>
 </svg>
 `;
 

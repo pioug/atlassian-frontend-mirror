@@ -10,6 +10,7 @@ export default {
   'editor-common-extensibility-extension-lozenge-editToggle.done.editing': '⁣⁢Done editing‍⁭⁯⁠⁡⁭؜⁮⁡⁫⁮‍⁫‍‌⁮⁠⁭⁡⁯⁯⁯⁬؜‌⁣⁤',
   'editor-common-extensibility-extension-lozenge-editToggle.make.edits': '⁣⁢Make edits⁫⁭‌‌⁪⁮⁠‍⁪؜‌⁯‍⁫‌⁯⁭⁮‍⁯⁫⁭؜⁯⁣⁤',
   'editor-common-extensibility.macro.button.configure': '⁣⁢Configure {macroName}⁫⁯⁠⁯⁪؜‍⁭⁬‌⁡‌⁬⁡‍⁠⁯⁪؜⁪⁪⁣⁤',
+  'fablric.editor.viewAllInserts': '⁣⁢View all inserts⁯⁫⁬‌؜⁯⁫⁡⁡⁪⁡⁡⁬⁬‌⁭⁮⁮⁡⁯⁡⁭؜⁣⁤',
   'fabric.editor.action': '⁣⁢Action item⁭⁫⁬؜⁭⁯⁯⁫⁫⁫‍⁭⁠⁫⁠؜⁡⁭‌⁫‍⁡‍‌⁣⁤',
   'fabric.editor.action.description': '⁣⁢Create and assign action items⁫⁭‌‌⁬⁡⁯‌⁯⁪⁡‌⁭⁮⁪؜⁯⁪⁮⁬⁯⁠⁡⁣⁤',
   'fabric.editor.addAltText': '⁣⁢Alt text‌⁭‍⁡⁫⁪⁡⁪⁪⁠⁫؜‍⁭⁪⁡‌⁪‍⁪‌⁯⁠‌⁭⁣⁤',
@@ -22,6 +23,315 @@ export default {
   'fabric.editor.addMediaFiles': '⁣⁢Add image, video, or file‌⁭‍؜؜⁪⁭⁯‍‍؜‍⁬؜⁮⁬⁬⁬⁯؜⁮‍⁣⁤',
   'fabric.editor.addRowAbove': '⁣⁢Add row above‌‍‍⁡⁠⁯⁭‌⁬⁬‍⁪⁡⁯⁯⁡⁭؜⁠⁯⁮‌⁠⁯⁬⁣⁤',
   'fabric.editor.addRowBelow': '⁣⁢Add row below⁯⁭⁮⁯⁬⁮⁭⁫⁪⁮‌‌⁭⁠⁡⁯⁠‌⁡⁡⁫⁬؜⁬⁣⁤',
+  'fabric.editor.addUpdatedAltText': '⁣⁢Add alt text‍⁬⁬⁯⁡⁮⁮⁡⁭⁬‍⁬؜؜؜⁬‌⁮⁬‍⁯‌⁣⁤',
+  'fabric.editor.ai.ai-panels.actionItemsPageDescription':
+    '⁣⁢Use Atlassian Intelligence to find action items and display in a panel؜⁭؜⁡⁭؜‌⁠⁮⁪‍⁪؜⁪‌⁯⁪⁮⁯⁭⁪⁫⁪⁪‌⁠⁯⁠⁣⁤',
+  'fabric.editor.ai.ai-panels.actionItemsPageTitle': '⁣⁢Action items panel (Beta)⁪‍⁫⁭⁭؜⁡؜⁭⁫⁮⁡⁮‌؜⁫⁫⁠⁯⁭‌؜⁣⁤',
+  'fabric.editor.ai.ai-panels.summarizePageDescription':
+    '⁣⁢Use Atlassian Intelligence to summarize this page and display in a panel‍‌⁠⁭⁮⁭؜‌⁪‍‌⁫⁪⁯⁭⁡⁫⁬⁭⁮⁪؜؜⁪⁮⁣⁤',
+  'fabric.editor.ai.ai-panels.summarizePageTitle': '⁣⁢Page summary panel (Beta)⁡⁫⁫⁡⁮⁡‌؜‍‍⁪⁡‌⁮؜‌‌⁭⁬⁭⁪؜⁫⁠⁣⁤',
+  'fabric.editor.ai.ai-smart-button.context.reference': '⁣⁢Selected content⁭⁠⁮⁯⁪‌⁠⁡‌⁪⁡؜؜⁠⁭⁭‍⁭⁣⁤',
+  'fabric.editor.ai.atlas-prebuilt.atlasGenerateContentConfigItemDescription':
+    '⁣⁢Generates content to be inserted into the update⁡‌⁭‍⁭⁪⁪⁠⁠⁮⁯⁭⁡⁮⁡⁯⁬⁡⁫⁯⁪⁬⁯⁫⁠‍⁣⁤',
+  'fabric.editor.ai.atlas-prebuilt.atlasSummarizePageConfigItemDescription':
+    '⁣⁢Summarizes the content of the update⁪⁮⁫‍⁯‍؜⁡⁮⁬‍⁫⁯⁫⁫⁯‌⁭؜‌‌⁬⁭⁣⁤',
+  'fabric.editor.ai.commandPalette.promptBuilderForm.buttons.submit': '⁣⁢Generate⁯‍⁡؜⁯⁮؜⁪⁪‍؜⁪⁪؜⁬⁪⁪‍⁬⁣⁤',
+  'fabric.editor.ai.config.item.action.insert': '⁣⁢Insert‌‍⁡⁮⁫‍⁫⁫⁠‍⁬⁬⁪؜⁭⁫؜⁬⁭⁪⁭⁡⁭⁣⁤',
+  'fabric.editor.ai.config.item.action.insertAtTop': '⁣⁢Insert at top⁪⁯⁫⁮⁪⁪⁯⁬؜⁮⁫⁫⁯⁡⁡‍⁭؜⁣⁤',
+  'fabric.editor.ai.config.item.action.insertBelow': '⁣⁢Insert below‍⁬⁮⁬⁯⁮؜⁯؜‍⁯⁭⁠⁡⁫⁮‌⁭‍‌‌⁪⁠؜⁭⁣⁤',
+  'fabric.editor.ai.config.item.action.replace': '⁣⁢Replace⁭⁭⁫‌⁯‍⁬⁭⁯‌⁭⁮⁡⁬‌‍⁡‍‍‍⁡⁭⁣⁤',
+  'fabric.editor.ai.config.item.action.replaceTitle': '⁣⁢Replace title⁮⁡⁯⁠⁠⁫⁫؜⁡⁫؜⁬⁯⁫⁪⁬؜‍‌⁭‌⁣⁤',
+  'fabric.editor.ai.config.item.action.replaceTitleTooLongDisabledTooltip':
+    '⁣⁢Title cannot exceed {maxLength} characters⁪⁫‍⁭‌؜⁯‍⁮؜؜؜⁠⁯⁮⁡؜⁫‍⁠⁠؜⁫⁬⁫⁡⁣⁤',
+  'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel': '⁣⁢Open in Chat‍⁡⁠⁡⁬⁭⁪⁮⁫⁪⁪⁫؜⁡⁫⁬⁯⁬⁬‌⁪⁪⁡⁮⁪⁣⁤',
+  'fabric.editor.ai.config.item.advanced-prompt.form.instructions.label': '⁣⁢Instructions‍⁮⁡⁬⁠⁡⁪⁭‍‍‌؜⁮⁠⁫⁯‌⁭⁬‌⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.description':
+    '⁣⁢Specify task, instructions and rules⁫‍⁯⁡⁯⁭⁬⁮⁭⁪⁯⁭⁬⁠‌‍⁠؜‌⁯‌‍؜؜⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.label': '⁣⁢Creativity⁫⁠؜⁬⁪؜؜⁮⁮⁪⁪⁯⁭⁯⁬⁫⁮⁪⁮‍⁫⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.option.high': '⁣⁢High⁯⁯⁠⁠⁮⁠⁠⁯⁠⁮؜⁮⁭⁫⁡⁬⁡⁭‌⁡⁭؜‌⁫⁬⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.option.low': '⁣⁢Low⁭⁫⁠⁭⁬⁫⁪؜⁮⁡‌⁠⁮⁪⁯⁡⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.creativity.option.medium': '⁣⁢Medium⁮؜‌؜⁯‍⁭‌⁮؜⁪⁠؜⁫⁡‍⁪⁫⁮⁮⁡⁪⁡⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.instructions.helperMessage':
+    '⁣⁢For example: 1. Start the document with a brief overview of our company goals. 2. Create a list of key team members to meet in their first week.⁬‌⁠⁭‌⁪⁮⁯⁪⁪⁡‍؜‌⁯⁯؜⁠⁫⁬؜⁮⁠⁡؜⁪‌⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.instructions.placeholder':
+    '⁣⁢Provide task instructions to help generate specific outputs.⁫⁫؜⁠⁠⁫⁠⁫⁯‍‌⁫⁪⁯⁮⁮⁫⁪⁯⁫⁡⁬⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.rules.helperMessage':
+    '⁣⁢For example: The output must follow the company style guidelines and not use unverified data.‍‍؜⁮⁯‌⁪‌⁪⁯‍‌⁮⁬⁮‍⁯⁭‌‌⁮؜⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.rules.label': '⁣⁢Rules⁪⁭⁯⁪‌⁯⁬‌؜⁪⁯⁫⁪⁭⁯⁮⁪‍⁮⁭⁯‍⁬⁭⁮⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.rules.placeholder':
+    '⁣⁢Outline any rules you want followed.⁭‌⁬⁫⁫؜⁫‌‌‌‍⁯⁪⁫⁪⁬⁡⁪⁪⁮⁠‌؜⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.error.required': '⁣⁢Please provide task⁬⁮؜‌⁠⁠‍⁮‌⁡⁮⁭⁫‍⁫⁯⁠⁠؜⁮⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.helperMessage':
+    '⁣⁢For example: Create an onboarding documentation for new employees joining the team.⁪؜⁠‌⁪⁮⁬؜⁡؜⁯⁡‌⁫⁯⁫؜؜⁮⁪⁠⁫⁮⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.label': '⁣⁢Task⁭⁭⁬⁭⁯‍⁡⁬⁬⁠⁬⁪⁭؜⁬‍‍⁬⁬‍⁯⁫⁬⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.task.placeholder':
+    '⁣⁢Describe the task that needs completing.⁡⁯؜⁫⁡⁫⁭⁫؜‍⁬‌⁠⁮‌⁡؜؜⁯⁯⁬⁬⁡⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.label': '⁣⁢Tone⁠‌⁯⁫⁯‍⁪⁯؜⁭⁪⁮‌‌⁠⁬⁯⁬‍‍⁠⁡⁭⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.casual': '⁣⁢Casual⁭‌⁡؜⁮⁠⁮⁫⁠‍⁭⁪‍⁭⁡⁮⁭⁫⁠⁪⁫⁭⁭⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.educational': '⁣⁢Educational⁮‌‍‍⁯‍⁯‍⁭‍⁡؜⁬‌⁠⁠⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.empathetic': '⁣⁢Empathetic⁭⁯⁬⁭⁡⁠⁮‌⁡⁪⁫⁠⁭⁯‌⁫⁠⁮⁫⁠⁠⁬‍⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.neutral': '⁣⁢Neutral؜⁬⁯‍⁪⁭⁪⁭⁫⁫‍⁠⁠⁮⁬⁡⁫⁡⁪⁠⁪⁬⁭⁫⁬⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.form.tone.option.professional':
+    '⁣⁢Professional⁫⁡⁫⁪⁯⁫⁪⁭⁠⁭⁯⁫⁫⁡‌⁡‍⁡⁫⁬⁯⁡⁮⁠؜⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.promptLabel': '⁣⁢Build an advanced prompt⁬⁭⁬⁫⁫‍⁬⁫⁫‌⁬؜⁯؜⁠⁫؜⁪⁯⁣⁤',
+  'fabric.editor.ai.config.item.advancedPrompt.title': '⁣⁢Build an advanced prompt⁫⁡⁮⁮⁮⁮⁪⁡⁪⁭⁫⁮⁫⁮⁮؜‌⁬⁠⁫⁪‍⁠⁠⁫⁣⁤',
+  'fabric.editor.ai.config.item.agent.title': '⁣⁢Atlassian Intelligence Rovo Agent⁫‍⁪‍⁭⁮⁠⁭⁯؜‍⁭⁭‍⁬⁬⁡⁡‌⁯⁭⁯⁫‌⁬⁫‍⁣⁤',
+  'fabric.editor.ai.config.item.atlas-shorten-update.description':
+    '⁣⁢Shortens the content to make it more concise⁡⁯⁯⁫⁯⁫‍‌⁪⁪⁠‌⁪⁡‌⁭‍؜؜‌⁮⁡⁡⁯⁣⁤',
+  'fabric.editor.ai.config.item.atlas-shorten-update.title': '⁣⁢Shorten update‍⁪⁬⁫⁮⁠‌⁮‌‍⁭⁭‌‍⁮⁯‌⁯⁯⁯⁪⁣⁤',
+  'fabric.editor.ai.config.item.bb.pr.description.description':
+    '⁣⁢Creates a pull request description with a summary of changes⁮⁡⁭؜⁪⁠‍⁭‌⁡⁬⁯⁠⁫⁡‌‍⁬⁬⁮⁫⁠⁫⁣⁤',
+  'fabric.editor.ai.config.item.bb.pr.description.title': '⁣⁢Create pull request description⁮‌⁪⁡⁪‌⁯‌⁪⁭‍⁠⁮⁮⁣⁤',
+  'fabric.editor.ai.config.item.brainstorm.description':
+    '⁣⁢Generates a list of ideas for a topic you provide⁬⁯⁫⁡⁪⁬⁯؜⁬⁡‍⁡⁮⁭⁭؜؜⁮⁬⁣⁤',
+  'fabric.editor.ai.config.item.brainstorm.promptHint': '⁣⁢Tell me the topic...⁪⁯‌⁬⁪؜؜⁪⁬‍‍⁭‌⁭⁭⁯⁬؜⁪‍⁣⁤',
+  'fabric.editor.ai.config.item.brainstorm.promptLabel': '⁣⁢Brainstorm⁫⁡⁭؜‍⁭⁮⁭⁡⁭⁬‍⁬⁮⁭⁭‍⁡⁮⁭⁪⁣⁤',
+  'fabric.editor.ai.config.item.brainstorm.title': '⁣⁢Brainstorm⁡⁪⁮⁠⁮⁫⁮‌⁪⁫⁯⁬‍⁭‌⁭‍‍⁮⁯⁭⁪⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.casualTone.description':
+    '⁣⁢Changes the tone of the content to casual‌⁠⁪؜⁠⁭‍⁠⁪؜‌⁬؜⁭⁭⁫‍‍⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.casualTone.selectionToolbar.dropdownItem.title':
+    '⁣⁢Casual⁠؜⁫⁯⁪‌‌⁡⁭⁫⁮؜⁮‍⁭⁪⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.casualTone.shortTitle': '⁣⁢Casual⁪⁯⁮⁮⁡‌‍⁡⁯‌⁯؜⁮⁮⁡⁫‌⁡‌⁪⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.casualTone.title': '⁣⁢Change tone to casual⁡⁬⁫؜⁠‌⁠⁯⁫‍⁬⁯⁪⁯⁡⁡⁪⁠؜⁭⁫‍⁬⁮؜⁯⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.description':
+    '⁣⁢Changes the tone of the content to educational⁡‌⁫⁭⁡‍‌⁠⁬⁪⁪⁮⁬؜؜⁬‌؜⁪⁡⁯⁫⁮‍⁬⁭⁫⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.selectionToolbar.dropdownItem.title':
+    '⁣⁢Educational⁠⁠؜⁪⁭⁡⁪‍⁠⁡‌‌‍؜‍⁡⁫⁯⁭⁪⁬⁠⁬⁮⁡⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.shortTitle': '⁣⁢Educational⁬⁯⁯⁡⁫⁬‍⁪⁯⁭⁪؜⁭⁪⁡⁠⁫⁫⁬‍⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.educationalTone.title':
+    '⁣⁢Change tone to educational⁯⁪⁮؜⁭⁭⁬‌⁭‌⁡⁮⁬⁯⁠⁫⁫⁡‍⁭⁡⁠⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.description':
+    '⁣⁢Changes the tone of the content to empathetic؜⁭⁮⁪⁮⁠⁡⁡⁭⁡⁡⁠⁮⁪؜⁠⁫⁫⁪⁠⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.selectionToolbar.dropdownItem.title':
+    '⁣⁢Empathetic⁠⁠⁭‌‌⁡⁮⁭؜⁯‌⁪⁯⁪⁠‌⁬⁯⁪‌⁮⁪⁭⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.shortTitle': '⁣⁢Empathetic‍⁮⁯⁠⁪⁬⁪⁮⁮⁫⁠⁡⁮‍⁡⁡⁠⁪‍‍⁯⁪⁭⁭‌⁬⁬⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.empatheticTone.title':
+    '⁣⁢Change tone to empathetic‍⁯⁮‍⁡‍⁪⁯⁠⁠⁯⁭⁭‌⁡⁬‍⁮‌⁠⁫⁫⁪⁮⁫‍⁮⁯⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.nestingParentTitlePostGA': '⁣⁢Change tone to ...⁫؜‌‌⁯⁬⁮‍⁫‍؜⁪⁮‌⁯⁠⁯⁠⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.description':
+    '⁣⁢Changes the tone of the content to neutral⁮‍⁪⁠⁠⁬‌⁫⁪⁠⁫⁫⁪⁬⁫⁮‍؜⁭⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.selectionToolbar.dropdownItem.title':
+    '⁣⁢Neutral⁯‌⁮‍؜⁯⁠⁭⁪؜⁠‌⁫⁡⁡⁠⁫‍‍؜‍⁮⁡⁠⁠‍⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.shortTitle': '⁣⁢Neutral⁬⁫⁬؜‌⁯⁫⁪‌⁪⁪‍⁮⁠⁡‌⁬⁡⁮⁯؜‍‍⁬⁡⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.neutralTone.title': '⁣⁢Change tone to neutral⁪⁡⁪⁮⁠⁪⁮⁫⁡⁬⁫⁭⁡‌⁬‌⁫⁫⁬⁮‌⁮⁫⁮⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.description':
+    '⁣⁢Changes the tone of the content to professional⁮؜؜⁫⁪⁫⁪⁬⁭⁭⁯⁮⁮⁯⁮⁮‌⁠⁬⁠⁭⁯‍⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.selectionToolbar.dropdownItem.title':
+    '⁣⁢Professional⁬⁭؜⁠⁯⁪⁭⁪⁫⁠⁠⁭⁭⁯⁡⁡⁭⁮⁮⁫⁡⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.shortTitle': '⁣⁢Professional⁭‍⁫⁠⁬⁯⁬⁪⁮⁬⁮⁯⁡⁯؜⁮⁯⁠⁬⁣⁤',
+  'fabric.editor.ai.config.item.changeTone.professionalTone.title':
+    '⁣⁢Change tone to professional⁬⁫⁫⁮⁬⁬⁭‍⁪‍‍⁯⁮⁪⁭‌⁠⁡‌⁮⁮⁮⁣⁤',
+  'fabric.editor.ai.config.item.convertToBulletList.description':
+    '⁣⁢Reformats content to a bulleted list⁫⁠⁯⁪⁫⁪⁡⁫⁭⁪⁠؜⁮؜؜⁡‌؜⁡⁬⁠⁣⁤',
+  'fabric.editor.ai.config.item.convertToBulletList.title': '⁣⁢Convert to bulleted list⁠‍‍⁫‍⁡⁪⁯؜؜⁠⁫⁪⁮⁫⁫⁭⁬⁮⁡⁮⁣⁤',
+  'fabric.editor.ai.config.item.convertToTable.description':
+    '⁣⁢Reformats content to a table with headings⁭⁫⁠⁫⁮⁠⁮⁠‍⁮‌⁯⁫⁯⁮⁡⁭⁭⁮⁪؜⁣⁤',
+  'fabric.editor.ai.config.item.convertToTable.title': '⁣⁢Convert to table⁯⁡⁪؜⁭؜⁫⁫‌⁪‍؜⁫⁡‍⁫⁣⁤',
+  'fabric.editor.ai.config.item.draftReply.description':
+    '⁣⁢Drafts a reply based on issues similar to the one you’re working on‍⁬⁮؜؜‌⁮⁠⁯‌‌⁪‍⁪⁫⁪⁡⁫⁮⁯⁬⁪⁮‍⁠⁫⁯‌⁣⁤',
+  'fabric.editor.ai.config.item.draftReply.title': '⁣⁢Draft reply⁠⁠؜⁡⁡⁫⁬⁫⁠‌⁬⁯⁯⁡⁫⁫⁭‍⁫⁮⁬؜‍⁠⁠⁣⁤',
+  'fabric.editor.ai.config.item.enhance.fixSpellingGrammar.description':
+    '⁣⁢Fixes spelling and grammar mistakes⁪⁡⁡‌‍⁯⁯⁮؜⁬⁠⁭⁭⁭‌⁬؜⁡⁭‍‌⁡‍؜⁣⁤',
+  'fabric.editor.ai.config.item.enhance.fixSpellingGrammar.selectionToolbar.dropdownItem.title':
+    '⁣⁢Spelling & grammar؜⁮⁠⁬‌⁯⁯⁯⁮⁬⁠⁡⁫؜‌⁮⁬⁡⁯‌⁠⁬⁣⁤',
+  'fabric.editor.ai.config.item.enhance.fixSpellingGrammar.title': '⁣⁢Fix spelling & grammar⁬⁡⁮‌⁮⁡⁫‍⁠⁠⁬⁬⁭⁯⁮⁬⁬⁠‌‍⁪⁣⁤',
+  'fabric.editor.ai.config.item.enhance.improveWriting.description':
+    '⁣⁢Enhances clarity, structure, and tone for better engagement and comprehension⁭⁫⁫؜⁮⁭⁮‌⁫⁬⁡⁡⁡⁫⁭؜‍‌⁬⁡⁣⁤',
+  'fabric.editor.ai.config.item.enhance.improveWriting.selectionToolbar.dropdownItem.title':
+    '⁣⁢Improve writing⁫⁮⁯⁠⁮⁫⁠⁡⁬⁬⁡؜⁡⁯‍‌⁭؜⁮⁡؜⁪؜‍⁣⁤',
+  'fabric.editor.ai.config.item.enhance.improveWriting.title': '⁣⁢Improve writing⁡⁯⁠⁭⁯⁮⁭⁫⁮‌⁬⁡‍⁮⁫⁯⁫⁡⁠⁫⁭⁬⁫⁣⁤',
+  'fabric.editor.ai.config.item.findActionItems.description':
+    '⁣⁢Finds action items in the content you provide⁬⁭‌⁬‍⁠⁮⁠‍⁭⁠⁯؜‍⁬⁡⁪‌⁣⁤',
+  'fabric.editor.ai.config.item.findActionItems.title': '⁣⁢Find action items⁬⁪؜⁪؜؜⁪⁮‌⁭⁬‍⁮⁪⁯⁪⁫⁯⁯⁡⁫‍⁬⁡‌⁣⁤',
+  'fabric.editor.ai.config.item.freeGenerate.disabled.promptHint':
+    '⁣⁢Select from below (free generate is disabled in Elevate at this time)⁡‌⁯⁪⁠⁯⁪⁡؜⁭⁡⁡⁮⁪⁯⁫‌⁬⁣⁤',
+  'fabric.editor.ai.config.item.generateContent.promptHint':
+    '⁣⁢Write with AI or select from below⁠⁭؜؜⁭⁬‌⁡؜؜‌‌⁬⁮⁠⁡⁬⁪‌⁬‍‍⁭⁣⁤',
+  'fabric.editor.ai.config.item.improveDescription.default.description':
+    '⁣⁢Restructure the issue description based on the issue type؜⁮⁡؜⁠⁭⁮؜‍⁪‍‍⁡⁠⁯⁬⁡⁬؜⁠‌⁣⁤',
+  'fabric.editor.ai.config.item.improveDescription.default.title.experiment.one':
+    '⁣⁢Improve description⁬⁯⁪⁫⁠‍‌⁯⁫⁪⁮⁪⁠⁡⁮⁭⁮⁮⁮⁡؜⁬⁮⁣⁤',
+  'fabric.editor.ai.config.item.makeLonger.description':
+    '⁣⁢Expands the content based on the context you provide‌⁯‌؜‌؜⁫؜⁪‍‌⁬⁮⁠⁠‍‍⁡⁠؜⁮⁮⁬⁣⁤',
+  'fabric.editor.ai.config.item.makeLonger.title': '⁣⁢Make longer‌‌‍؜⁫⁬⁭⁪‌؜‍؜؜⁯⁫⁬⁡⁫⁪‍‌‍⁣⁤',
+  'fabric.editor.ai.config.item.range.agent.description': '⁣⁢No description⁯⁪⁫⁡⁭⁡⁫⁮⁭؜⁡؜⁪⁫‌⁫⁪‍⁣⁤',
+  'fabric.editor.ai.config.item.range.agent.prompt.hint':
+    '⁣⁢Tell the Agent to write anything or choose from below⁭⁭‌⁭⁫⁡⁯؜؜⁭‍⁮⁭⁭⁪⁬⁭⁬؜⁠‌⁪⁬‍⁣⁤',
+  'fabric.editor.ai.config.item.rephrase.description':
+    '⁣⁢Creates a suggestion for rewriting your sentences‍⁪⁯⁡⁠‌⁮⁫‌⁯⁡⁫⁫⁫‌⁪⁯⁫‌⁡‍⁮⁬‍‍⁯⁣⁤',
+  'fabric.editor.ai.config.item.rephrase.title': '⁣⁢Rephrase⁠⁬⁭‍⁪⁪⁫؜‌⁮‌⁭⁯‍⁭⁯⁠⁡؜‍⁠⁪⁭‍⁯⁣⁤',
+  'fabric.editor.ai.config.item.shorten.description':
+    '⁣⁢Shortens the content to make it more concise⁫⁠⁠‌⁪‍⁠⁠‌⁪⁪⁫‌‌⁪⁪⁮⁪⁡⁮⁯⁬⁯⁣⁤',
+  'fabric.editor.ai.config.item.shorten.selectionToolbar.dropdownItem.title': '⁣⁢Make shorter⁭⁭⁠⁫⁡؜⁡⁭⁡⁫⁮‍⁪⁠⁡⁯⁠⁡⁭⁬⁮⁯⁠⁣⁤',
+  'fabric.editor.ai.config.item.shorten.title': '⁣⁢Make shorter‌⁫‌⁮⁫⁪⁭⁮⁠⁮⁭⁪⁪⁬‌⁪؜⁪⁭⁡⁣⁤',
+  'fabric.editor.ai.config.item.suggest.description':
+    '⁣⁢Suggests a title for content you provide⁡⁭⁡⁭⁬⁮⁯‍؜‍⁠⁪⁠؜⁮⁡⁬⁪⁬⁪⁣⁤',
+  'fabric.editor.ai.config.item.suggest.title': '⁣⁢Suggest a title⁠⁯؜؜⁫؜⁡⁭⁠‍⁫⁪‌⁮⁡⁭⁭⁫؜⁡⁣⁤',
+  'fabric.editor.ai.config.item.summarize.description':
+    "⁣⁢Creates a summary of the text you're working on, highlighting key points⁯⁪‍‌⁭؜⁮⁡⁯⁯⁫⁪⁯‌⁡⁯⁠⁠؜‍⁫⁪⁬⁮⁣⁤",
+  'fabric.editor.ai.config.item.summarize.dropdownItem.title': '⁣⁢Summarize writing⁬⁡⁪⁭‌؜⁮⁪⁠⁪⁫⁬‌؜⁮⁠⁮⁡⁫‌⁫‌⁣⁤',
+  'fabric.editor.ai.config.item.summarize.title': '⁣⁢Summarize writing⁠⁬⁪⁡؜⁡⁭‌⁭⁭⁪⁯⁪⁪⁡⁮⁡‌؜؜⁭⁪⁡‌⁣⁤',
+  'fabric.editor.ai.config.item.translate.chineseSimplified': '⁣⁢Chinese (Simplified)⁪⁪⁯؜⁬⁬‌⁮⁪؜⁯‌⁭⁪⁫⁫‍⁮⁭⁬⁭⁫⁮⁬⁣⁤',
+  'fabric.editor.ai.config.item.translate.chineseTraditional': '⁣⁢Chinese (Traditional)⁪⁯‍؜⁭⁫⁯⁠‌⁠‍⁪⁡⁭⁬⁯⁪؜⁡⁮‍⁣⁤',
+  'fabric.editor.ai.config.item.translate.czech': '⁣⁢Czech‍‍⁫⁡⁠⁡⁬⁠⁡⁮⁡⁭⁠⁮⁫⁡⁮⁭⁮⁠‌⁣⁤',
+  'fabric.editor.ai.config.item.translate.danish': '⁣⁢Danish⁪؜⁠⁬⁮‍⁮‍⁫⁠⁡⁬⁮‌⁮⁪‍⁬⁡⁫⁮⁫⁣⁤',
+  'fabric.editor.ai.config.item.translate.dutch': '⁣⁢Dutch⁬⁯‍⁬؜⁬⁡⁯⁭⁯⁫⁫‍⁠⁫⁮⁬⁠⁬⁣⁤',
+  'fabric.editor.ai.config.item.translate.english': '⁣⁢English⁠‌⁬⁡⁯⁬⁯‍⁯⁠⁭⁡⁡⁡⁡‍؜⁠⁫⁫⁠⁡⁯‌‌⁮⁡⁣⁤',
+  'fabric.editor.ai.config.item.translate.finnish': '⁣⁢Finnish⁫⁫⁠⁯⁪⁪⁭‌⁡⁬؜‍‍⁭‌⁪⁠⁠⁫؜⁫⁣⁤',
+  'fabric.editor.ai.config.item.translate.french': '⁣⁢French⁫⁯⁭⁪‌⁠‌⁬⁬‌⁪⁪⁫⁬‍⁠⁠⁮⁯⁣⁤',
+  'fabric.editor.ai.config.item.translate.german': '⁣⁢German‌⁯⁬⁪⁮⁮⁬⁠⁬⁬؜‌⁠⁮‍⁫⁭⁯؜‌⁫؜⁠؜⁫⁯⁭⁣⁤',
+  'fabric.editor.ai.config.item.translate.hungarian': '⁣⁢Hungarian⁠⁪⁪⁡⁫⁭؜؜⁡⁡⁫⁠⁫⁡⁡⁡⁭؜⁪⁠⁡⁯⁠⁣⁤',
+  'fabric.editor.ai.config.item.translate.italian': '⁣⁢Italian⁠‍⁠‍⁭‍⁬⁯‌⁭‌⁯⁮؜⁫⁡؜⁫‍⁯⁡⁭‌‌؜⁣⁤',
+  'fabric.editor.ai.config.item.translate.japanese': '⁣⁢Japanese⁬⁠⁯‍⁯‌⁭⁫⁠⁪⁯⁯⁭⁭‍⁯⁬⁭⁪⁫⁭⁯⁬⁣⁤',
+  'fabric.editor.ai.config.item.translate.korean': '⁣⁢Korean⁬⁭⁬⁯⁠‌؜⁬⁫‍⁠⁠⁯⁬‌‍⁠‍‍⁮؜⁫⁠⁮⁮⁡⁣⁤',
+  'fabric.editor.ai.config.item.translate.nestingParentTitle.ga': '⁣⁢Translate⁫⁭⁫⁠‍⁭⁪‌⁭‌⁯‌؜⁪؜⁡؜⁡‌⁠⁫⁫⁠⁠⁣⁤',
+  'fabric.editor.ai.config.item.translate.nestingParentTitlePostGA': '⁣⁢Translate to ...‍⁫⁪⁫⁠‌⁫⁡⁪⁠⁭‌‍⁯⁫⁭⁯⁬⁫⁡⁭⁫⁫⁣⁤',
+  'fabric.editor.ai.config.item.translate.norwegian': '⁣⁢Norwegian⁮⁭⁯⁠⁡⁡؜⁬⁬‌‌⁪؜‌⁫⁡؜⁠⁮‍⁡⁣⁤',
+  'fabric.editor.ai.config.item.translate.polish': '⁣⁢Polish⁯⁫‍⁮⁯⁬⁯⁪⁭⁠‍⁯⁠‌‌‌⁭⁮⁡⁫⁡⁯⁮⁬؜⁣⁤',
+  'fabric.editor.ai.config.item.translate.portugueseBrazilian': '⁣⁢Portuguese (Brazilian)⁬⁯⁫⁯⁪⁡⁯⁠‍⁠⁯⁬⁭‍⁬⁬⁡⁯؜‌⁠⁠⁣⁤',
+  'fabric.editor.ai.config.item.translate.russian': '⁣⁢Russian⁫؜‍‌؜⁮⁪‍⁠⁭⁫⁬؜‍⁬‌‌‍‍⁮⁠⁪⁬؜⁡⁣⁤',
+  'fabric.editor.ai.config.item.translate.spanish': '⁣⁢Spanish⁮⁫⁬⁡⁯⁭⁠⁠⁪⁯؜‍‍⁪⁬‍⁡⁮‌⁣⁤',
+  'fabric.editor.ai.config.item.translate.swedish': '⁣⁢Swedish⁮⁪⁭⁪‍‍‍⁭⁮‍⁮‌⁯⁠‌⁮؜⁠⁡⁭⁬⁫‍⁯؜⁮⁣⁤',
+  'fabric.editor.ai.config.item.translate.thai': '⁣⁢Thai⁯⁠⁫⁯⁠⁡⁬⁪؜⁠؜⁠؜⁬⁡⁡؜⁠‌⁣⁤',
+  'fabric.editor.ai.config.item.translate.turkish': '⁣⁢Turkish⁮⁮‌⁭⁫⁪⁮⁮⁬⁫⁮⁠⁯‍؜⁠⁯⁡‍⁯⁪⁡⁣⁤',
+  'fabric.editor.ai.config.item.translate.ukrainian': '⁣⁢Ukrainian‍؜⁫⁮‌؜‍⁯⁡⁫⁭⁬⁬⁡⁠⁮⁬⁡⁬‍⁠⁣⁤',
+  'fabric.editor.ai.config.item.translate.vietnamese': '⁣⁢Vietnamese⁪‍‌⁭⁯⁡‌⁮⁭‌⁮‍⁪⁫⁪⁯⁮⁭⁭⁯‍⁮⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.chineseSimplified.description':
+    "⁣⁢Translates the text you're working on to Chinese (Simplified)؜⁫⁮⁪⁮⁬‌‍⁫⁡⁫⁯؜‌⁫‍⁬⁡⁡⁠⁠⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.chineseSimplified.title':
+    '⁣⁢Translate to Chinese (Simplified)؜⁬⁯⁬‌‍؜⁡⁯⁮⁯⁬⁡⁮⁯‍⁪⁯⁫⁫⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.chineseTraditional.description':
+    "⁣⁢Translates the text you're working on to Chinese (Traditional)⁬‍⁪⁬⁯⁡⁭⁮⁡؜⁡⁠؜⁬؜⁬⁭⁪⁡⁠⁯⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.chineseTraditional.title':
+    '⁣⁢Translate to Chinese (Traditional)⁡⁪‍‌⁠‌⁪⁮⁬⁪⁫‍؜⁭⁪⁬‌‌⁬‌‍⁪⁮⁭⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.czech.description':
+    "⁣⁢Translates the text you're working on to Czech⁯‍⁡⁫‍⁬‍⁪‍‍⁪⁠⁫⁯⁬⁭؜⁮⁡⁠⁭⁭؜⁪⁭‌‍؜⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.czech.title': '⁣⁢Translate to Czech⁯؜⁪‌⁮‍‌⁫⁬⁫‍‌⁭⁫⁪⁬؜⁡⁠⁯⁭⁫‌⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.danish.description':
+    "⁣⁢Translates the text you're working on to Danish⁯⁪⁪⁬⁫⁯‌⁠⁬⁮⁭‌⁯⁫⁮‌⁠‍⁮⁠‍‍⁠⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.danish.title': '⁣⁢Translate to Danish⁡⁬⁭⁬⁡⁡⁪‌‌‍؜‌⁡⁡⁭⁡⁪⁯⁪؜⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.dutch.description':
+    "⁣⁢Translates the text you're working on to Dutch⁫⁯‌⁮‍⁠⁪⁡⁬؜⁡‌؜⁯⁬⁡⁯⁪⁪⁠⁡⁯⁭⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.dutch.title': '⁣⁢Translate to Dutch‍‍⁬؜⁫⁫⁪⁠⁠⁫؜⁪⁭⁮⁯‌‍⁬⁭⁬⁠⁮⁭⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.english.description':
+    "⁣⁢Translates the text you're working on to English‍⁠⁮⁫⁡⁠⁠⁫؜⁮⁠‌⁡؜‌⁬⁡⁬⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.english.title': '⁣⁢Translate to English⁬‍⁡⁠؜⁯؜⁠⁪‍⁬⁪⁮⁮⁭؜⁪⁡⁡‍‍⁬⁬‍⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.finnish.description':
+    "⁣⁢Translates the text you're working on to Finnish⁯‍⁡⁭؜⁫⁠⁠⁡⁭‌⁭⁭⁡‌⁠⁭‌⁫⁡⁮⁬⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.finnish.title': '⁣⁢Translate to Finnish⁮⁬⁬⁠⁠⁠⁯⁭⁯⁪⁭⁠⁮‍⁡‍‌⁠⁭⁠⁠⁫⁬⁫⁭⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.french.description':
+    "⁣⁢Translates the text you're working on to French⁠⁯⁭⁭‍‌⁮⁭⁯⁠⁪⁡⁭⁠⁭⁬⁠؜⁭؜‌⁭⁪⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.french.title': '⁣⁢Translate to French⁫⁯⁬⁯‍⁯⁮⁡⁯⁮؜⁪‍‍⁫⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.german.description':
+    "⁣⁢Translates the text you're working on to German‌⁪؜⁮⁫‍⁮⁮⁠؜⁫⁪⁫⁯؜⁫⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.german.title': '⁣⁢Translate to German‌⁮‍⁬⁮؜‍‍‌⁭⁪⁯‍⁯⁫⁫؜؜⁭‌⁪‌⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.hungarian.description':
+    "⁣⁢Translates the text you're working on to Hungarian‌‍⁠⁬⁫؜⁮‍⁯⁭⁭⁪‍⁡⁭⁡⁮⁮⁬⁯‌⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.hungarian.title': '⁣⁢Translate to Hungarian⁪⁡⁪⁫⁮⁪‌‍؜؜⁫⁫⁫؜‍⁮⁪‍‌؜⁮؜⁬⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.italian.description':
+    "⁣⁢Translates the text you're working on to Italian⁭⁠⁠‌⁭؜⁬؜⁠‌⁡⁠؜⁮‍‍‍⁯⁡⁮‍⁯⁡⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.italian.title': '⁣⁢Translate to Italian⁫⁯؜⁪⁬⁭⁬⁠⁭⁠⁪⁪‍⁫⁯؜؜⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.japanese.description':
+    "⁣⁢Translates the text you're working on to Japanese⁫⁫‌⁡⁠⁪⁠⁫⁭⁮⁭⁪‌⁡⁯⁫؜⁯⁪⁮⁬⁮‌⁡⁪⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.japanese.title': '⁣⁢Translate to Japanese⁠⁭⁬⁮⁯⁫⁯⁠⁭⁡⁬⁮⁬⁯⁯⁫‍⁪⁬⁡‍⁭⁬⁭⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.korean.description':
+    "⁣⁢Translates the text you're working on to Korean⁡⁡‌‌⁮⁡⁭⁠⁬‍⁯⁮⁭‌⁪⁠⁯⁮⁠⁯⁯⁪⁪⁠⁪⁭⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.korean.title': '⁣⁢Translate to Korean⁬⁬‌⁭‍⁯؜⁠⁪⁫⁪؜⁮‍⁠⁠⁬⁫⁬⁠⁪⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.norwegian.description':
+    "⁣⁢Translates the text you're working on to Norwegian‌⁬⁬⁮⁭‌⁯⁮⁭⁯⁫⁭⁪‍⁫⁡⁮⁡‍؜⁮⁬⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.norwegian.title': '⁣⁢Translate to Norwegian‍⁠⁫‌⁬‌⁫‌⁪‍⁭⁡⁡⁡‌⁫؜⁫⁪⁮؜؜⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.polish.description':
+    "⁣⁢Translates the text you're working on to Polish⁠⁫؜⁭⁪⁬⁮⁯⁫‌⁯⁠⁡‍‌⁯‍⁮⁬⁯⁪⁮⁯⁪⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.polish.title': '⁣⁢Translate to Polish‍⁮⁬‍⁯⁠⁭⁮‌⁫⁪‍⁪⁬⁭⁠⁪⁯⁮⁫⁭؜⁫⁠⁭⁪⁪⁪⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.portugueseBrazilian.description':
+    "⁣⁢Translates the text you're working on to Portuguese (Brazilian)⁡⁪؜⁯⁪⁭⁬‍⁡⁬⁬⁠⁠⁪⁮⁠‍⁡‌⁪‍⁭⁪⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.portugueseBrazilian.title':
+    '⁣⁢Translate to Portuguese (Brazilian)⁭؜⁬‍‍⁬⁫⁬‌⁯⁯⁫⁫⁯⁮⁬⁮⁠؜⁡⁬⁡⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.russian.description':
+    "⁣⁢Translates the text you're working on to Russian⁪‌⁫⁯؜⁭⁫⁬⁯⁯‍⁪⁡⁯⁪⁯⁫⁮‌⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.russian.title': '⁣⁢Translate to Russian⁯؜⁫‍‍‍⁫⁫⁠‍‌⁮⁠⁭⁮⁬⁯؜⁡⁫⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.spanish.description':
+    "⁣⁢Translates the text you're working on to Spanish⁪⁭؜‌⁠⁮⁪⁠⁠‍⁡‌⁮⁯⁯⁯‌⁫؜⁬⁪؜⁫⁪⁡⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.spanish.title': '⁣⁢Translate to Spanish⁠⁭⁬⁫⁮⁯؜⁫‌⁬⁬⁬‍⁡⁫⁮‍⁫⁪⁮⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.swedish.description':
+    "⁣⁢Translates the text you're working on to Swedish⁯⁫⁮⁫‌⁠⁪⁯‍⁫⁡؜⁡⁬⁪⁯⁭⁮⁬⁬⁡⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.swedish.title': '⁣⁢Translate to Swedish⁠⁮⁠⁡⁫⁡⁬⁯⁯⁭⁮⁫⁬⁡⁡⁬⁮⁫‍⁮⁪⁠‌⁬⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.thai.description':
+    "⁣⁢Translates the text you're working on to Thai⁡⁮⁪‍⁫⁭⁭⁭⁯⁫؜⁭⁡‌⁪⁠‌⁬؜⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.thai.title': '⁣⁢Translate to Thai⁯⁬‌⁯⁯⁬⁪⁡‌⁭⁠⁡⁪⁠؜‍⁭⁡⁫⁪⁯‍‌⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.turkish.description':
+    "⁣⁢Translates the text you're working on to Turkish⁮⁠⁯⁫⁪⁯⁠⁡⁪‌‍⁬⁯⁪⁫⁬⁪‍⁡⁯⁡⁠⁬⁬⁬⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.turkish.title': '⁣⁢Translate to Turkish؜؜⁭⁠⁫⁯⁬‍‍⁠⁪⁮⁬⁪؜؜‍⁮‍⁯⁮⁬⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.ukrainian.description':
+    "⁣⁢Translates the text you're working on to Ukrainian⁠؜⁡‍‍‍‍؜؜⁯⁯⁫⁭⁮‌⁫⁮⁠⁮‌⁮⁪⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.ukrainian.title': '⁣⁢Translate to Ukrainian؜⁫⁫‌⁪⁬⁯؜⁮؜⁬⁯⁫⁫⁪‌⁮⁭؜⁣⁤',
+  'fabric.editor.ai.config.item.translateTo.vietnamese.description':
+    "⁣⁢Translates the text you're working on to Vietnamese⁮⁫⁬؜⁠‍⁪⁠⁫⁬⁯⁭⁡⁬‍⁠⁭⁮؜⁪؜⁯⁡⁡⁣⁤",
+  'fabric.editor.ai.config.item.translateTo.vietnamese.title': '⁣⁢Translate to Vietnamese⁫؜؜⁯⁡⁡⁬؜⁮⁠؜⁠⁫⁡‌⁭⁬⁮⁭⁠⁫⁠⁫⁪⁯⁫⁭⁣⁤',
+  'fabric.editor.ai.confluence-prebuilt.confluenceChangeToneSelectionToolbarDropdownMenuTitle':
+    '⁣⁢Change tone⁬⁡؜‌⁬⁡⁠⁭؜‌⁫⁯⁭⁪⁬‍‌⁫⁠⁣⁤',
+  'fabric.editor.ai.confluence-prebuilt.confluenceRewriteSelectionToolbarDropdownMenuTitle':
+    '⁣⁢Rewrite⁪⁫⁠⁫⁭⁯‍⁪⁫‌⁯⁭‌⁬⁭؜⁪‌⁠‍⁣⁤',
+  'fabric.editor.ai.confluence-prebuilt.confluenceTranslateSelectionToolbarDropdownMenuTitle':
+    '⁣⁢Translate⁬‌‍‌؜⁪⁫⁪⁭⁫⁡⁠⁭⁠⁪⁬‍⁣⁤',
+  'fabric.editor.ai.eventHub.fallbackSuggestedTitle': '⁣⁢Page title؜‌⁯⁬⁯⁬⁬⁬⁡⁬؜؜⁫⁮⁠⁪⁪⁪⁠⁡‌⁣⁤',
+  'fabric.editor.ai.eventHub.fallbackSuggestedTitlePrefix': '⁣⁢Page؜⁬⁭‌⁭⁬⁠⁭⁭⁪⁮⁡⁪⁪‍‌⁭⁡؜⁣⁤',
+  'fabric.editor.ai.experience-application.documentInsertError':
+    "⁣⁢We're having trouble inserting the response. Close the dialog and try again.⁠⁡؜⁭⁫⁫‌⁮‍⁪‍؜‌⁯⁪⁡‍‍‌‍‍⁡‍⁬⁣⁤",
+  'fabric.editor.ai.experience-application.error-boundary.markdownErrorMessage':
+    "⁣⁢We're having trouble generating the preview. Close the dialog and try again.⁭⁡⁫‍؜‌⁬⁪⁮⁫؜‍‌‌‌؜⁡⁠⁡⁯⁪⁯⁣⁤",
+  'fabric.editor.ai.experience-application.rateLimitEnforced':
+    '⁣⁢We’ve received too many recent requests for Atlassian Intelligence (AI). Try again in a few minutes or read about <link>excessive use of AI</link>.⁪⁭⁫⁫⁡‍⁪⁭⁫⁯؜⁬⁯⁮⁠⁡⁡⁠⁭⁮⁭⁡⁡⁬⁣⁤',
+  'fabric.editor.ai.experience-application.tokenLimitExceeded':
+    "⁣⁢We couldn't get a response. Your prompt or response was over the limit for this request. Close the dialog and try again.⁬⁫⁠⁫⁮‍‍⁡‌⁯⁭⁯‍⁮⁫؜⁮؜⁡⁯‌⁣⁤",
+  'fabric.editor.ai.experience-application.unhandledErrorMessage':
+    "⁣⁢We're having trouble. Close the dialog and try again.⁯‍⁯‍⁬‌⁯‍‌‌⁪⁪⁠⁠؜‍⁠⁡؜⁯⁬؜؜⁡⁪⁪⁠⁣⁤",
+  'fabric.editor.ai.experience.apiError': '⁣⁢We couldn’t get a response, please try again.⁫‌⁠⁯‍⁮؜‌‌⁭؜⁯⁡⁡⁪؜⁫؜‍⁠⁬‌⁣⁤',
+  'fabric.editor.ai.experience.aupViolationMessage':
+    '⁣⁢Your prompt or content might not comply with our Acceptable Use Policy. Please review both and refer to our <link>Acceptable Use Policy</link> if needed. If the problem persists, consider trying a different prompt or content.⁫⁭⁬⁯⁮‌؜‍⁠⁯⁡⁬⁡⁡⁪⁡⁡⁬⁫؜⁫⁫⁭⁬⁣⁤',
+  'fabric.editor.ai.experience.browseMore.agents': '⁣⁢Browse Agents⁭⁮⁮⁪⁭‍‍‌⁮⁡⁯⁯⁫⁬⁬⁫⁮⁠⁯‍⁠⁮⁫⁯⁬⁭⁣⁤',
+  'fabric.editor.ai.experience.discardMessagePrompt': '⁣⁢Do you want to discard your prompt?؜‌⁯⁯⁪⁯⁮⁫⁫؜⁪⁬⁬⁬‌⁪⁬؜⁠⁬‌⁪⁣⁤',
+  'fabric.editor.ai.experience.discardMessageResponse': '⁣⁢Do you want to discard your response?⁠⁡⁠‌⁡⁬‌⁮⁠؜‌⁭⁬⁡‌⁪⁠⁡⁭⁭⁣⁤',
+  'fabric.editor.ai.experience.elevateDisabledGenetateError':
+    '⁣⁢Free generate is disabled in Elevate at this time.⁠⁯⁬⁮⁫⁬؜⁯⁫⁯‍‍⁮⁯⁫‍⁫⁭‍⁭⁡⁮⁣⁤',
+  'fabric.editor.ai.experience.engagementBannerLinksText':
+    '⁣⁢🚀 You can now paste links 🔗 to Jira and Confluence content in your prompts.⁪؜⁮‌⁡‍⁠⁫؜⁫⁮؜⁠⁯؜⁡؜⁮⁡⁫؜⁭⁯⁣⁤',
+  'fabric.editor.ai.experience.footerRightText.agents': '⁣⁢Powered by Rovo‍⁫⁮⁫⁪⁭⁬‌⁭⁯‍⁭⁯⁬⁯⁠‌⁡؜⁮⁫؜⁣⁤',
+  'fabric.editor.ai.experience.hipaaContentError':
+    '⁣⁢Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content. Please remove these links and try again.⁪‌⁫⁪؜⁠⁫⁬⁫⁬⁮‍⁮⁯⁡⁪⁬⁣⁤',
+  'fabric.editor.ai.experience.inputTooShortError':
+    '⁣⁢The content is too short to summarize. Please add more and try again.⁡‌⁡⁫؜⁡⁯⁫⁭⁭‌⁬⁫⁬⁫⁪⁮⁬⁡‌‌⁫؜⁣⁤',
+  'fabric.editor.ai.experience.internalServerError':
+    '⁣⁢Atlassian Intelligence (AI) isn’t responding. Try again later or <link>check the status of AI</link>.؜⁬‍⁮⁮⁮‌⁯⁡⁪⁠⁠⁮⁫‍⁯⁯‍‌⁯⁡⁣⁤',
+  'fabric.editor.ai.experience.labelRight.atlassianIntelligence': '⁣⁢Atlassian Intelligence⁪⁮⁯⁪؜؜⁭⁮⁪⁪‌⁭⁫⁫⁯⁪‍‌؜⁮‍⁪⁯‌⁣⁤',
+  'fabric.editor.ai.experience.labelRight.rovo': '⁣⁢Rovo⁭‍⁡⁪‍⁠⁬⁬‍؜⁭‌⁡‍⁠‌⁬⁠⁡⁠⁣⁤',
+  'fabric.editor.ai.experience.loadingTitle': '⁣⁢Generating⁡⁭‌⁬⁭⁪⁫⁫⁯⁯؜⁬‌⁡⁫‌‌⁠⁡⁯‌⁣⁤',
+  'fabric.editor.ai.experience.messageTemplateAnalysingQuery':
+    '⁣⁢Analyzing: Reviewing your question.؜⁬⁬‍⁬⁡⁪⁯‍⁬⁠‍⁪⁭⁫⁫⁠⁮⁡‍⁬⁡⁡⁣⁤',
+  'fabric.editor.ai.experience.messageTemplateContentSearch':
+    '⁣⁢Searching: One moment while we search for information.⁮⁪⁯⁯‌‌؜⁯⁭⁠⁯⁡؜⁭‍⁯⁭⁫‌⁪⁫⁣⁤',
+  'fabric.editor.ai.experience.messageTemplateNextBestTask':
+    '⁣⁢Searching: One moment while we search Jira.⁭⁮⁬⁡⁡‌‌؜⁬⁠⁪⁠⁡⁮⁭⁡‍⁬‌⁡⁯‍⁯⁣⁤',
+  'fabric.editor.ai.experience.messageTemplatePageHydration':
+    '⁣⁢Searching: One moment while we search the page.؜⁠⁯⁠⁬⁬‌⁬‍⁬‍؜‌⁬⁬⁠‍⁬⁬⁭‌⁣⁤',
+  'fabric.editor.ai.experience.noResultsSuggestion': '⁣⁢No results⁭⁫؜‌‍⁡؜⁭‌⁬⁭⁬⁮⁮‌⁮⁮⁮⁮⁠⁯⁡⁮⁣⁤',
+  'fabric.editor.ai.experience.responseTooSimilarMessage':
+    '⁣⁢Atlassian Intelligence has no suggestions at this time. Feel free to try a different prompt or content.؜⁭‌⁭⁭‌⁮⁭⁠⁡‌⁯؜⁠‌⁬⁯⁭⁮⁣⁤',
+  'fabric.editor.ai.experience.showMoreButton': '⁣⁢Show more‌⁮⁫⁬⁠⁡⁯⁭‍⁬‍⁬⁬⁮‍⁮⁮⁭‍⁮⁠؜⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.actions': '⁣⁢Actions‌⁮⁡⁬‌⁯⁪؜⁫⁫‌‌؜⁪⁯⁮⁮⁠⁪⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.agents': '⁣⁢Agents⁫⁬⁮‌⁪⁪‍‍‌⁪⁫⁯‍⁮⁬⁬⁬⁮⁭⁮⁡⁠⁯؜⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.atlassianIntelligence':
+    '⁣⁢Atlassian intelligence؜⁠⁠⁫⁬⁭⁮⁬⁯⁭⁯⁭⁫‌⁮⁯‍‍⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.knowledgeSource': '⁣⁢Knowledge source⁠⁡⁮⁫⁡‍⁫⁫⁫⁪‍‍⁯‍⁭؜؜‌⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.rovoAgents': '⁣⁢Rovo agents⁮⁫‌⁫⁯⁮⁫⁫‍؜⁯⁫؜⁬⁡⁡⁬؜‌⁫⁮‍‌⁪⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.rovoAgentsCount':
+    '⁣⁢Rovo agents ({numberOfAgents})‌⁪؜⁮⁫⁯⁯⁠‍⁪⁫‌⁭‌⁪⁭‍‍⁭⁡⁪⁫⁯⁬⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.studio': '⁣⁢Studio⁫⁡؜⁠‍⁭⁪؜⁯⁪⁬⁮‌⁫⁠⁠⁡⁬⁡‍⁫⁮⁪⁭⁠‌‍⁣⁤',
+  'fabric.editor.ai.experience.suggestionGroupHeading.useRovoAgentsCount':
+    '⁣⁢Use a Rovo agent ({numberOfAgents})⁬⁯⁪⁪‍⁬⁭⁭⁬⁪⁫⁪‍‌⁠‌⁬⁮‍⁮⁣⁤',
+  'fabric.editor.ai.experience.useGeneralAiKnowledgeLabel': '⁣⁢Use general knowledge؜‌⁡⁪⁯⁪‌⁯‌⁡‌⁭⁭؜⁡⁮⁬⁬⁭⁣⁤',
+  'fabric.editor.ai.experience.useRovoOrganisationKnowledgeLabel':
+    '⁣⁢Use knowledge from your organization؜⁪⁯⁭⁡‌⁡⁯⁠⁡⁭‍⁡؜⁯⁫⁬⁬⁡⁮⁮⁫⁣⁤',
   'fabric.editor.ai.proactive.askAIButtonLabel.non-final': '⁣⁢Ask AI⁠⁡⁭⁡⁮⁬⁯‍⁮؜‌⁪⁫⁮⁭؜‍⁪⁮⁣⁤',
   'fabric.editor.ai.proactive.beta.label.non-final': '⁣⁢BETA؜⁪⁡؜‍؜⁪⁠⁭⁫‍⁡⁭⁫‌‌⁭⁠‌⁪⁫⁮‍⁭⁡⁪‌⁪⁫⁣⁤',
   'fabric.editor.ai.proactive.close.label.non-final': '⁣⁢Close⁠‍⁫⁫⁬⁫؜‍؜⁠⁠⁯⁬‍⁠؜⁭⁣⁤',
@@ -148,9 +458,19 @@ export default {
     '⁣⁢Your content’s looking good‍⁪⁠⁭⁮‌⁪⁠⁪⁠⁫‌⁬⁪⁫‌‍⁭⁮⁬⁭⁪‍؜⁣⁤',
   'fabric.editor.ai.proactive.spellingAndGrammar.label.non-final': '⁣⁢Spelling and grammar؜⁪⁭⁫⁠⁬‌⁫‌⁯⁭⁠⁯‌⁮‌؜⁪⁣⁤',
   'fabric.editor.ai.proactive.suggestions.title.non-final': '⁣⁢Suggestions⁮⁪⁮؜⁪‌‌⁪⁯⁯⁪‌‌⁮⁮⁫⁪‌⁡⁭⁣⁤',
+  'fabric.editor.ai.screens.preview.convoAIBeta':
+    '⁣⁢Content generation requests that reference URLs is in beta.⁮⁬⁠⁬⁭⁠⁭⁪⁡؜⁠⁬؜⁫⁪⁡⁬؜⁫⁫⁭؜‍‍⁣⁤',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip':
     '⁣⁢Highlight a term, acronym, or abbreviation؜⁬‌⁬‌⁯⁠⁡⁮⁪⁮‌‌⁠⁮‍⁫‌⁠⁣⁤',
   'fabric.editor.ai.selectionToolbar.define.title': '⁣⁢Define⁠⁠⁯⁮؜⁭‍⁭⁮⁫⁯⁡⁮⁬⁪⁠؜⁠⁡⁫⁪⁣⁤',
+  'fabric.editor.ai.toolbar.askAI.title': '⁣⁢Ask AI⁫؜‌‍⁪⁫⁠؜؜⁯؜‍‍⁬⁠⁯؜⁮⁪‍⁫⁡‍⁣⁤',
+  'fabric.editor.ai.toolbar.improveWriting.title': '⁣⁢Improve writing‌⁠⁭⁪⁫⁬⁯⁬⁬‍⁭⁮⁪‍⁪⁬⁯؜؜⁫⁬⁯⁣⁤',
+  'fabric.editor.ai.toolbar.improveWriting.tooltip':
+    '⁣⁢Tell Atlassian Intelligence to improve the writing of your selection‌⁯⁯⁠⁮‍⁬⁫؜⁭⁡⁠؜‍⁫⁡⁪⁪⁮⁮⁯⁠؜⁬⁬⁣⁤',
+  'fabric.editor.ai.toolbar.simplifiedAI.title': '⁣⁢AI⁪⁯‍⁯⁠‍⁡⁭⁪⁬⁫⁫‍⁭؜⁪⁡⁭⁣⁤',
+  'fabric.editor.ai.toolbar.titleText': '⁣⁢Atlassian Intelligence⁡⁡⁭⁬⁠⁪⁬⁭⁪‍⁪⁫⁫؜⁯‌؜⁠⁬‍⁣⁤',
+  'fabric.editor.ai.toolbar.tryAI.title': '⁣⁢Try AI⁡⁮؜⁫⁫⁯⁡⁠⁬⁭؜⁮‌⁬⁮⁭⁡⁬‌‍⁮⁯⁫⁣⁤',
+  'fabric.editor.ai.toolbar.tryAI.tooltip': '⁣⁢Open Atlassian Intelligence⁫⁬⁡⁯‌⁠⁬⁮⁮⁭؜⁡⁠⁭‌⁯؜⁪‍⁠⁡‍⁬؜⁫⁣⁤',
   'fabric.editor.alignCenter': '⁣⁢Align center⁫؜⁡‍⁮⁠⁪⁪⁭⁯⁭⁡⁠⁫⁭‍⁭⁡⁭‌‍⁬⁮⁪⁯⁬⁯⁣⁤',
   'fabric.editor.alignImageCenter': '⁣⁢Align center⁭⁡⁡⁫⁬‍⁫⁠⁫‌⁮⁭⁡⁭⁯⁠⁡⁡‌⁯⁡⁮⁣⁤',
   'fabric.editor.alignImageLeft': '⁣⁢Align left⁠⁪⁠‍؜⁯⁭⁫⁭⁪⁡⁡⁭⁠⁡⁠⁯⁬‍؜‌⁡⁣⁤',
@@ -167,7 +487,9 @@ export default {
   'fabric.editor.backgroundColor': '⁣⁢Background color⁪‍⁫⁬⁯⁬⁪⁯‍⁬⁭⁪؜⁭⁬⁪‍⁮⁫⁬⁯⁡⁣⁤',
   'fabric.editor.blockCardUnavailable':
     '⁣⁢The inline link is inside {node} and cannot have its view changed⁮⁬⁫⁮⁬⁮‌⁬⁭⁠⁯⁬⁫‌⁠⁯⁪‍⁠⁪⁮⁣⁤',
-  'fabric.editor.blockControlDragHandleUsageInfo': '⁣⁢Drag to rearrange⁬⁭‍⁡⁪⁪؜⁡⁮‌⁡⁡⁮؜⁯⁪⁫⁭⁫؜⁯⁫؜⁠⁣⁤',
+  'fabric.editor.blockControlDelete': '⁣⁢Delete؜‍‌⁭‍⁠⁠⁠⁬⁮⁪⁫⁡⁫⁬⁡⁬؜⁮‌⁫‌⁣⁤',
+  'fabric.editor.blockControlDragHandleMove': '⁣⁢Drag to move⁪⁫‍⁡‌⁯⁭؜⁪⁪⁮‌؜⁭⁯⁮⁭⁡⁫‌⁯⁭‌⁡⁪‌⁣⁤',
+  'fabric.editor.blockControlDragHandleRearrange': '⁣⁢Drag to rearrange⁬؜⁭‍⁮⁯⁮⁭⁯؜⁯⁠⁭‍⁬‍⁬⁭⁠‌‌⁮⁣⁤',
   'fabric.editor.blockControlInsert': '⁣⁢Insert⁫⁠⁭‌‍⁪⁮‌⁯‌⁭⁭⁪⁮⁭⁮‍⁪⁠‍⁡؜⁮⁫⁭⁭⁣⁤',
   'fabric.editor.blockControlMoveDown': '⁣⁢Move down⁠⁯⁬⁡‌⁭⁬‍؜‌‍⁪‌‍⁭⁬⁡⁭⁫⁠⁭⁠⁬⁣⁤',
   'fabric.editor.blockControlMoveLeft': '⁣⁢Move left⁮⁫⁠⁭⁡⁯⁭⁮⁭⁡‌⁪⁡⁬⁭⁪⁠‌⁬⁫⁪؜‌؜‌⁣⁤',
@@ -220,6 +542,7 @@ export default {
   'fabric.editor.columns': '⁣⁢Layouts⁬⁪⁡⁮⁪⁬⁭⁠‍⁬⁬⁠⁡⁫‌⁠⁮‍⁡⁬⁮⁣⁤',
   'fabric.editor.columns.advanced.layout.description':
     '{numberOfColumns, plural, one {⁣⁢Insert {numberOfColumns} equal column⁯⁫‍⁯⁫؜؜؜⁫‍⁬⁠⁫⁭⁡‍⁡⁪⁮؜‍⁫⁡⁠‍⁣⁤} other {⁣⁢Insert {numberOfColumns} equal columns⁯⁫‍⁯⁫؜؜؜⁫‍⁬⁠⁫⁭⁡‍⁡⁪⁮؜‍⁫⁡⁠‍⁣⁤}}',
+  'fabric.editor.columns.advanced.layout.single.description': '⁣⁢Insert a single column layout؜⁫⁪‌⁬⁡⁬⁬⁡⁡⁠⁭⁠⁪⁬⁬‌‍⁣⁤',
   'fabric.editor.columns.description': '⁣⁢Structure your page using sections‌⁯‍⁠⁠‍⁮⁬؜⁪⁭‍⁯⁯⁫⁮⁡⁡⁪⁬⁡⁣⁤',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {⁣⁢A column has been inserted⁭⁬⁪⁡‌‍⁡⁫⁭⁠؜⁭؜‍⁡⁡‌⁯⁫؜⁡⁯⁬⁯؜‌⁣⁤} other {⁣⁢{count} columns have been inserted⁭⁬⁪⁡‌‍⁡⁫⁭⁠؜⁭؜‍⁡⁡‌⁯⁫؜⁡⁯⁬⁯؜‌⁣⁤}}',
@@ -267,6 +590,9 @@ export default {
   'fabric.editor.datasource.jiraIssue': '⁣⁢Jira Issues⁪⁪⁬⁪⁠⁡⁬⁫⁭⁠⁪‍‍⁯⁡⁮⁪⁮⁪⁬⁫؜⁮⁣⁤',
   'fabric.editor.datasource.jiraIssue.description':
     '⁣⁢Insert Jira issues from Jira Cloud with enhanced search, filtering, and configuration.⁬⁮؜⁯‌⁫‍⁠⁯⁡⁫⁯‌⁬‍⁯⁬⁪⁫⁣⁤',
+  'fabric.editor.datasource.jiraIssue.description.issue-term-refresh':
+    '⁣⁢Insert Jira work items from Jira Cloud with enhanced search, filtering, and configuration.⁫؜⁡⁡⁡⁮⁭⁫⁡⁭⁪‌؜⁪⁭⁮⁡⁪⁯⁣⁤',
+  'fabric.editor.datasource.jiraIssue.issue-term-refresh': '⁣⁢Jira Work Items⁪⁡‌⁭‌⁡‌⁡‍‍⁪⁬⁭⁡⁮⁮⁮⁪⁮⁫⁠‌؜؜⁣⁤',
   'fabric.editor.datasourceAppearanceTitle': '⁣⁢List⁡⁠⁮⁭⁭⁯⁭⁫‍؜⁮⁪⁪؜⁯⁫⁬⁮⁫⁭⁪⁮؜⁮⁣⁤',
   'fabric.editor.datasourceTitle': '⁣⁢Edit search query⁪⁯‌؜⁡⁯⁫⁠‍⁭⁯⁯⁫⁯؜⁯‌⁠⁪‌‍⁫⁠⁬⁪⁣⁤',
   'fabric.editor.date': '⁣⁢Date⁡⁡⁠⁮‍‍؜⁠⁮‌‍⁯⁫⁭⁬⁬⁪؜⁣⁤',
@@ -276,6 +602,7 @@ export default {
   'fabric.editor.decisionPlaceholder': '⁣⁢Add a decision…⁯⁭⁠⁡‌⁮⁭⁫‍⁫⁫⁬؜⁬⁪‍⁠⁭‍⁮⁮⁣⁤',
   'fabric.editor.decreaseSize': '⁣⁢Decrease table or media size⁭‌⁯⁭⁮⁭‌‍⁭⁫⁠⁠‌‍⁬⁬⁯⁮⁮⁯‌⁣⁤',
   'fabric.editor.defaultAltText': '⁣⁢Document⁠‌⁠⁬‍⁬⁠⁮⁯⁬⁡⁬‍⁮⁭‍⁮⁬⁣⁤',
+  'fabric.editor.delete': '⁣⁢Delete‍‍‍⁠⁭⁭⁬‌⁬⁬⁠⁫⁮⁮⁠⁬⁪⁪⁠⁡⁬⁫⁣⁤',
   'fabric.editor.description': '⁣⁢Description⁫⁬‌⁪؜⁬⁭‍‌؜⁮⁫‌⁮⁭‌⁮؜⁫⁮⁬‌⁡⁡⁣⁤',
   'fabric.editor.displayBlock': '⁣⁢Display card⁡؜‍⁫‌⁪⁫⁫⁭‌؜‌⁪⁮⁡‍⁮‍⁣⁤',
   'fabric.editor.displayEmbed': '⁣⁢Display embed⁭⁫⁯⁪‍؜‌؜⁬؜‌⁬⁯⁪⁮⁬؜⁫⁬‌⁯⁣⁤',
@@ -307,6 +634,7 @@ export default {
   'fabric.editor.editorHelp': '⁣⁢Editor help‌⁠‍⁯⁬‍⁭⁭‌⁬⁭⁯⁪؜⁪؜⁮⁮⁫⁭⁬‌⁣⁤',
   'fabric.editor.editors': '⁣⁢Editors⁠⁭‍⁫⁮⁡‌⁭⁪⁭‍؜⁡⁬⁡⁭⁬⁡⁠؜⁠⁮⁠⁣⁤',
   'fabric.editor.elementBrowser.help': '⁣⁢Help‌⁬⁠؜⁯؜⁫⁡؜⁫‍⁡⁡‍⁭⁡‌؜⁠⁣⁤',
+  'fabric.editor.elementInsertSidePanel.title': '⁣⁢Insert؜‍⁬⁫⁡⁠؜⁬⁯⁡⁭⁫⁭⁡‍⁣⁤',
   'fabric.editor.elementbrowser.categorylist.category-admin': '⁣⁢Administration⁮⁪؜‍⁡⁬؜⁫⁬⁠⁪⁮⁬⁭⁫⁮⁭⁡⁯؜؜⁯⁠⁮‍؜⁮⁣⁤',
   'fabric.editor.elementbrowser.categorylist.category-ai': '⁣⁢Atlassian Intelligence⁭‌‌⁮⁬‍⁬⁪⁪⁪⁪‌⁪⁮⁭؜⁪⁭؜⁪⁯⁪⁯⁬⁣⁤',
   'fabric.editor.elementbrowser.categorylist.category-all': '⁣⁢All‍⁭⁠⁠⁠⁫‌⁫⁪⁡‌⁫‍⁬⁬⁬⁮‍⁮⁡⁪⁣⁤',
@@ -335,6 +663,8 @@ export default {
   'fabric.editor.emoji': '⁣⁢Emoji⁮؜⁫⁠⁠‌؜⁬⁪‍⁪؜⁠⁪⁠⁬⁡‌⁮⁪⁣⁤',
   'fabric.editor.emoji.description': '⁣⁢Use emojis to express ideas 🎉 and emotions 😄⁮⁮⁭⁯⁬⁫‍⁫⁫⁡⁠⁪‍؜⁬⁪⁪؜⁪‍⁣⁤',
   'fabric.editor.emptyLink': '⁣⁢Please enter a link.؜؜⁡⁫‌⁪⁡⁠⁪⁮⁭⁫⁡⁠⁯⁯⁠⁭⁣⁤',
+  'fabric.editor.emptySearchResults': "⁣⁢We couldn't find any results.⁯⁫؜⁬‌⁡‌⁫⁮⁮⁫‍⁯‍‍⁣⁤",
+  'fabric.editor.emptySearchResultsSuggestion': '⁣⁢Select {buttonName} to browse inserts.⁪⁫⁫‍⁬⁪⁯؜⁮⁡‌⁭⁭⁭؜‌‌؜⁪⁪⁣⁤',
   'fabric.editor.epic': '⁣⁢Epic‌‍⁬؜‍⁠‌⁭⁬⁯⁠؜⁡؜‍⁪⁯⁮⁯⁯‍⁯⁣⁤',
   'fabric.editor.error': '⁣⁢Error‌‍⁮⁠؜⁭⁬؜⁪‍‍⁠؜⁯⁫⁫‌؜⁭⁣⁤',
   'fabric.editor.errorPanel': '⁣⁢Error panel⁪⁯⁯⁯⁪⁯⁠⁡⁮؜؜⁡⁪⁡⁭‌⁪⁡⁬⁯⁪⁭⁣⁤',
@@ -395,6 +725,7 @@ export default {
   'fabric.editor.headingLink.hyperlinkIconBlogLabel': '⁣⁢Blog⁡‌⁯؜⁪⁪⁯⁡⁮⁯⁫؜‍⁫⁡⁠⁪⁯⁮⁣⁤',
   'fabric.editor.headingLink.hyperlinkIconBugLabel': '⁣⁢Bug⁡⁯⁭⁫⁪⁡⁡⁯⁡؜⁫⁫؜⁬⁫‍⁪⁮⁫⁣⁤',
   'fabric.editor.headingLink.hyperlinkIconIssueLabel': '⁣⁢Issue⁫⁠‌⁭⁫⁬⁬⁬⁭⁭⁠‌⁫⁠‌⁬⁬‍⁪‌⁬⁬‌‌⁣⁤',
+  'fabric.editor.headingLink.hyperlinkIconIssueLabel.issue-term-refresh': '⁣⁢Work Item⁯⁮⁡⁪⁭‍⁠⁮⁭⁮؜⁪⁮⁬⁬⁫‍⁣⁤',
   'fabric.editor.headingLink.hyperlinkIconPageLabel': '⁣⁢Page⁠⁮⁬⁫⁡⁠‍⁯⁪؜⁭⁡⁭⁫⁡⁡⁯‍؜‌⁭؜⁬؜⁪⁮⁣⁤',
   'fabric.editor.headingLink.hyperlinkIconStoryLabel': '⁣⁢Story⁮⁫⁡⁪⁠؜‍‍‍‍‍⁬⁮⁠⁬⁯⁡⁫‌⁮‌⁡⁪⁣⁤',
   'fabric.editor.headingLink.hyperlinkIconTaskLabel': '⁣⁢Task⁫⁪⁠‌⁮⁠⁡‌⁮؜⁪⁪⁡⁮⁪⁪⁫⁡⁭‌‌⁠⁣⁤',
@@ -453,11 +784,15 @@ export default {
   'fabric.editor.italic': '⁣⁢Italic⁪⁫؜⁪‌⁯⁠⁡⁮؜⁮⁠‍⁫⁪⁭⁬⁯‌؜⁬⁠⁮⁭‌⁭⁡⁣⁤',
   'fabric.editor.keyboardShortcuts': '⁣⁢Keyboard shortcuts⁮؜⁬‍⁬⁫⁪‍⁯⁮؜⁯⁠⁫⁡‍⁬⁡‍⁡⁮⁯⁠⁣⁤',
   'fabric.editor.layout.columnOption':
-    '{count, plural, one {⁣⁢Column‍⁫⁯⁠⁮⁠؜⁭⁫⁫⁠⁠⁫⁮⁫⁪⁯⁡‌⁡⁪⁣⁤} other {⁣⁢{count} Columns‍⁫⁯⁠⁮⁠؜⁭⁫⁫⁠⁠⁫⁮⁫⁪⁯⁡‌⁡⁪⁣⁤}}',
+    '{count, plural, one {⁣⁢{count} Column‍⁫⁯⁠⁮⁠؜⁭⁫⁫⁠⁠⁫⁮⁫⁪⁯⁡‌⁡⁪⁣⁤} other {⁣⁢{count} Columns‍⁫⁯⁠⁮⁠؜⁭⁫⁫⁠⁠⁫⁮⁫⁪⁯⁡‌⁡⁪⁣⁤}}',
+  'fabric.editor.layout.controls.placeholder': '⁣⁢/ to insert⁭‌⁪⁠⁪⁯⁭⁯؜⁬⁠؜⁬؜⁯⁬⁮⁪؜⁬‍⁠⁣⁤',
   'fabric.editor.layout.placeholder': '⁣⁢Add content‌؜⁫؜⁫؜⁬⁠⁠⁬‍⁯⁫⁪⁭⁭‍⁡؜⁫⁠⁪⁣⁤',
   'fabric.editor.layout.resizeLayout': '⁣⁢Resize layout⁫⁡⁠⁬⁭⁭⁮‌⁯؜⁪‍⁠⁡‍⁮؜⁭⁬⁪⁡⁯⁮⁣⁤',
   'fabric.editor.layoutFixedWidth': '⁣⁢Back to center؜⁭؜؜⁠‌‍⁬⁪⁬⁠⁬⁭⁯‌⁬⁮⁬‌⁬⁯⁭⁮⁮⁣⁤',
   'fabric.editor.layoutFullWidth': '⁣⁢Go full width⁡⁭⁫⁯⁡‌⁠‌⁮⁡⁫⁮⁭‍⁠⁭⁪⁪⁡⁯‌؜⁯؜⁣⁤',
+  'fabric.editor.layoutStateFixedWidth': '⁣⁢Centered‌⁡⁭‍⁮⁯⁠⁠⁯‌⁮⁠‍⁬⁬⁬⁠⁫‌⁡⁣⁤',
+  'fabric.editor.layoutStateFullWidth': '⁣⁢Full width؜⁫⁡‌⁫⁫‌⁮؜؜⁪⁡⁡‍⁭‍⁫‍⁬⁡⁣⁤',
+  'fabric.editor.layoutStateWide': '⁣⁢Wide⁭‌؜⁠‌⁠⁮‍⁡؜‌‍⁯⁫‍⁮⁯⁠‌⁯⁣⁤',
   'fabric.editor.layoutWide': '⁣⁢Go wide⁬‌⁫⁯⁯⁭⁯؜⁯؜‍⁮⁫⁭‍⁡⁡⁪؜⁫⁣⁤',
   'fabric.editor.leftSidebar': '⁣⁢Left sidebar layout⁭⁯؜⁭⁫⁬⁬⁡⁫⁫⁭⁯؜⁯‍⁫⁬⁬؜⁮‌⁣⁤',
   'fabric.editor.link': '⁣⁢Link⁡⁬‍⁭⁬⁬⁪⁪⁡⁪⁮⁯⁫‍؜؜⁮؜⁠⁮⁠⁣⁤',
@@ -492,9 +827,12 @@ export default {
   'fabric.editor.media.insert.pasteLinkToUpload': '⁣⁢Paste link to upload⁡⁬⁪⁮⁯⁭⁪⁭⁠⁯‍⁮⁪⁡⁮⁬⁫⁮؜⁯⁡‍⁪⁪⁣⁤',
   'fabric.editor.media.insert.upload': '⁣⁢Upload⁯⁠‌؜⁬‌⁡⁭⁭‌⁪‍⁠؜‌⁮⁠⁮‌؜⁣⁤',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': '⁣⁢Media increased to the maximum size⁯⁡⁫؜⁬⁪؜⁠⁬‍⁯⁯‍⁪⁬‍⁮⁪‌⁮‌⁭‍⁡⁯⁠⁣⁤',
+  'fabric.editor.media.pixelEntry.ResizeOption': '⁣⁢Resize؜؜‍⁪⁡⁪؜⁡‌‌⁯‌⁪‍‌⁮؜‌؜⁮⁡⁡⁭⁣⁤',
+  'fabric.editor.media.pixelEntry.closePixelEntry': '⁣⁢Close‌⁡‌⁯⁪⁮‍⁡⁮⁭⁯‍؜‍⁠⁬⁡⁮⁮⁮⁡⁭⁪⁬‌⁪⁣⁤',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': '⁣⁢height input⁬⁭؜⁯⁭⁭⁠؜⁫⁫⁫⁭⁬⁯⁬⁮‍؜‌⁭؜⁪‍⁪⁣⁤',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': '⁣⁢Height⁫⁪⁫⁡⁯⁪⁪⁠⁮⁮⁭⁮⁪⁠⁡⁫⁠⁮⁮⁪؜⁠⁠⁫⁪⁪⁣⁤',
   'fabric.editor.media.pixelEntry.inputWidthAriaLabel': '⁣⁢Max width {maxWidth}px⁫⁪⁭‍⁬⁫‌‍⁭‍‌؜⁫⁠⁯⁮؜⁪‌⁠⁫⁣⁤',
+  'fabric.editor.media.pixelEntry.inputWidthLabel': '⁣⁢Width⁮⁯⁪⁪⁠⁪⁮؜⁠⁡‌؜⁡⁡⁫⁫⁪⁪⁯‍⁣⁤',
   'fabric.editor.media.pixelEntry.inputWidthTooltip': '⁣⁢Max width {maxWidth}px⁪؜⁪⁪‍⁫⁮‌⁭⁮⁬⁪؜⁪⁫⁬‍‍‍‍‌؜⁣⁤',
   'fabric.editor.media.pixelEntry.migrationButtonText': '⁣⁢Convert to pixels‍⁡⁪‍‍؜⁮⁠⁯⁫‌‍⁫⁠؜⁠⁬⁡؜⁬⁬⁯⁭⁫⁡⁠‌⁣⁤',
   'fabric.editor.media.pixelEntry.migrationButtonTooltip':
@@ -545,6 +883,7 @@ export default {
   'fabric.editor.pageActionsLabel': '⁣⁢Page actions‌؜؜⁫؜⁭⁫‍⁡⁭⁯‍⁯؜‌⁫‍⁬⁫⁯⁣⁤',
   'fabric.editor.panel': '⁣⁢Panel‌‍⁫⁭⁭؜‌⁡⁪⁬‌‍⁠⁯⁡⁯⁭⁭⁣⁤',
   'fabric.editor.panel.backgroundColor': '⁣⁢Background color⁯⁭‍⁪‌⁭⁠⁪⁠⁭‌⁪⁫‌⁮⁮‍⁬⁪‍⁮⁠⁫⁠⁣⁤',
+  'fabric.editor.panel.custom': '⁣⁢Custom⁫⁫⁭⁠؜⁬⁠⁠⁯⁬⁫⁮؜⁡⁯‍⁬‌⁯⁪⁫⁡؜⁣⁤',
   'fabric.editor.panel.emoji': '⁣⁢Add emoji⁠؜‍‍⁪⁯⁫‌⁠⁭؜⁠⁮⁭⁯؜⁪؜⁮⁭⁮⁯‍⁣⁤',
   'fabric.editor.panel.panelsGroup': '⁣⁢Panel Types؜⁬⁯⁮⁬⁡⁮⁯⁮‍⁪؜⁯⁮؜‍‍⁪⁪‌‍⁮⁣⁤',
   'fabric.editor.pasteOptions': '⁣⁢Paste options⁫⁪⁭؜‍⁯⁬؜‌⁬؜⁡⁭؜⁯⁠‍⁫⁫⁯⁯⁠⁣⁤',
@@ -554,6 +893,7 @@ export default {
   'fabric.editor.placeholderText.description': '⁣⁢Insert a text placeholder into the page؜‍‍⁯⁬⁬⁪⁪⁯‍⁫⁠⁪⁠؜⁭⁠⁡⁯⁣⁤',
   'fabric.editor.placeholderTextPlaceholder': '⁣⁢Add placeholder text⁬⁭⁫⁯‍⁭⁫⁠⁫؜⁮⁬⁠⁮⁪⁭‍⁭⁯⁣⁤',
   'fabric.editor.plainText': '⁣⁢Use plain text⁠⁮⁡⁯⁠‌⁫⁡⁡؜⁡⁭⁡⁡⁪‌⁫⁪؜‌⁮⁣⁤',
+  'fabric.editor.preferencesLink': '⁣⁢Link preferences⁫⁫⁯⁠⁮⁫‌⁠⁬‌⁡⁬⁠⁫‌⁬⁫⁮‍⁯⁣⁤',
   'fabric.editor.quickInsert': '⁣⁢Quick insert⁠⁭⁬‍⁬⁯؜⁠⁫⁡⁭؜⁪‍⁡⁪⁫⁯⁡⁮⁮⁮⁪⁣⁤',
   'fabric.editor.recordLoomShortTitle': '⁣⁢Record⁪؜⁠⁮⁠؜‍⁭⁮⁬⁮‌‍؜⁡⁭⁠⁫‌⁯⁠⁫⁠؜⁭⁯⁣⁤',
   'fabric.editor.recordVideo': '⁣⁢Record a Loom video‍‍⁯‌⁠⁬⁮⁭⁭⁫⁡؜⁬⁠⁭⁪⁪‍⁮⁣⁤',
@@ -594,9 +934,11 @@ export default {
   'fabric.editor.selectLanguage': '⁣⁢Select language⁮⁮⁪⁯⁪⁫⁡‍‌؜⁡⁡؜⁯⁫⁫؜⁠‍⁪⁣⁤',
   'fabric.editor.selectTableColumn': '⁣⁢Select table column⁬‌⁯⁬⁮‍⁮⁭⁮⁮⁫‍‌⁫⁭⁬⁭⁪؜⁠⁡⁡⁬⁠⁪؜⁡⁣⁤',
   'fabric.editor.selectTableRow': '⁣⁢Select table row⁮⁯⁫⁭⁪⁭‌⁪⁡⁮⁠⁡⁠؜‍⁪⁫‌⁡⁪⁬⁫⁣⁤',
+  'fabric.editor.selectionExtensionDropdownButtonLabel': '⁣⁢Select app⁡‍⁮⁭⁠⁡⁡⁬⁡‌؜⁫⁠⁯⁬⁮⁬⁭⁮‍⁮⁫⁯⁯⁯⁠⁣⁤',
   'fabric.editor.settingsLinks': '⁣⁢Go to Link Preferences⁬⁯⁪⁭⁭⁫⁯⁠‌⁫؜‌⁡؜⁬⁮⁬‍⁫⁡⁡⁫⁣⁤',
   'fabric.editor.shortcut': '⁣⁢Text shortcut⁠⁪‍⁬‌⁯⁪؜؜⁠⁮⁮⁠⁮⁡‌⁯⁭‍‌⁪‍‌⁣⁤',
   'fabric.editor.single': '⁣⁢Single column layout⁫؜⁭⁡؜‍‌⁡⁯؜‍‍⁠⁬⁫؜⁫‍⁣⁤',
+  'fabric.editor.singleColumns': '⁣⁢1 Column layout⁫⁪‍⁡‍‍⁬⁪⁯⁫⁪⁠⁪⁮‍؜⁡⁫⁣⁤',
   'fabric.editor.sortColumnASC': '⁣⁢Sort column A → Z⁬⁠⁡⁭⁠⁪‍⁪⁡‍⁮؜⁠‍⁯⁭⁬⁬⁠⁪‍⁣⁤',
   'fabric.editor.sortColumnDESC': '⁣⁢Sort column Z → A⁫‌⁯⁪⁪⁭⁫⁡⁯⁪⁬⁮⁬⁬⁭⁪⁯‍؜‌⁫‍؜⁡⁯⁣⁤',
   'fabric.editor.sortColumnDecreasing': '⁣⁢Sort decreasing؜⁮⁬⁮⁬⁪⁮⁭⁮⁭⁭⁪⁮⁠⁭⁮؜⁠⁡⁪⁭‍⁣⁤',
@@ -677,6 +1019,7 @@ export default {
   'fabric.editor.typeAhead.popupLabel': '⁣⁢Typeahead results⁠⁬⁪⁭⁠⁠⁯⁯⁡⁠‍⁬⁭‍؜⁠⁭⁪⁭‌⁬⁣⁤',
   'fabric.editor.typeAhead.quickInsertInputLabel':
     '⁣⁢Begin typing to search or filter shortcut options⁡‌⁬⁠⁡⁪⁭⁠⁪‌⁮⁡⁪‌‍؜⁮⁡‌‍⁪⁡⁬⁣⁤',
+  'fabric.editor.typeAhead.quickInsertInputPlaceholderLabel': '⁣⁢Search⁪⁡⁮‍⁠⁯⁮؜‌‌؜⁮⁮⁫⁯⁪⁯؜⁬⁮⁠‌‌⁣⁤',
   'fabric.editor.typeAhead.quickInsertPopupLabel': '⁣⁢Shortcuts for inserts and formatting؜‌⁬‍⁯⁠‍⁮؜⁪‍⁭؜‍⁬‍؜؜⁡‌؜⁠⁭؜⁬⁣⁤',
   'fabric.editor.typeahead.emojiInputLabel': '⁣⁢Begin typing to search or filter emoji options⁠؜‍⁯⁮⁫⁪⁫⁬‌؜‍‍⁠‍⁠⁯⁠⁭⁪‍‍⁣⁤',
   'fabric.editor.typeahead.emojiListItemLabel': '⁣⁢Emoji {name} Text Shortcut {shortcut}؜⁯‍⁫؜⁭؜⁠⁠⁮⁭؜⁫؜⁪‌⁠‌⁠⁭⁠⁣⁤',
@@ -768,4 +1111,6 @@ export default {
   'fabric.theme.white': '⁣⁢White⁮⁡⁮⁫‌⁫‌؜⁭⁯⁮⁫⁫⁠⁡⁠‌⁬‌⁪؜⁫⁣⁤',
   'fabric.theme.yellow': '⁣⁢Yellow⁬⁪⁮⁫‌⁭⁡⁠‍؜⁡‌‌⁬⁠‌⁭‌‍⁡⁮⁠‍؜⁣⁤',
   'fabrid.editor.rowNumbers': '⁣⁢Row numbers‍⁮؜⁠⁭⁡‌‌⁡؜⁡‌‌⁯⁫؜⁯⁯⁪⁭⁮⁬⁭⁣⁤',
+  'rovo.agents.dropdown.title': '⁣⁢Agents⁠⁭⁫⁫⁮⁯⁭‌⁯⁬⁫⁬⁪؜⁡‌⁡؜⁮⁣⁤',
+  'rovo.agents.dropdown.viewAgents.label': '⁣⁢View all agents⁭⁬‍⁫⁫‍⁪⁬‌‍⁪⁠⁪؜؜⁡‌‌⁡‍⁬⁣⁤',
 };

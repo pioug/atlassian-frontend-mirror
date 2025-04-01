@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 0.41.0
+
+### Minor Changes
+
+- [#129564](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/129564)
+  [`803baa6281f4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/803baa6281f4d) -
+  Add Editor component
+
+## 0.40.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.40.0
 
 ### Minor Changes

@@ -3,9 +3,10 @@ import chalk from 'chalk';
 import { colorToHex, compareHex, isValidColor } from './color-utils';
 
 // so far allowing to remove only exact matches in values. Can be increased to auto-remove fallbacks with similar values
-const ACCEPTABLE_COLOR_DIFFERENCE = 0;
+const ACCEPTABLE_COLOR_DIFFERENCE = 15;
 const ACCEPTABLE_SPACE_DIFFERENCE = 0;
 const ACCEPTABLE_NUMERIC_DIFFERENCE = 0;
+const ACCEPTABLE_BORDER_DIFFERENCE = 0;
 
 export function normalizeValues(
 	tokenKey: string,
@@ -42,13 +43,17 @@ export function normalizeValues(
 			difference = compareHex(normalizedTokenValue, normalizedFallbackValue);
 			isAcceptableDifference = difference <= ACCEPTABLE_COLOR_DIFFERENCE;
 		}
-	} else if (lowerCaseTokenKey.startsWith('space')) {
+	} else if (lowerCaseTokenKey.startsWith('space') || lowerCaseTokenKey.startsWith('border')) {
 		const tokenValueInPx = tokenValue ? convertToPx(tokenValue) : undefined;
 		const fallbackValueInPx = fallbackValue ? convertToPx(fallbackValue) : undefined;
 		if (tokenValueInPx !== undefined && fallbackValueInPx !== undefined) {
 			const maxVal = Math.max(tokenValueInPx, fallbackValueInPx);
 			difference = (Math.abs(tokenValueInPx - fallbackValueInPx) / maxVal) * 100;
-			isAcceptableDifference = difference <= ACCEPTABLE_SPACE_DIFFERENCE;
+			isAcceptableDifference =
+				difference <=
+				(lowerCaseTokenKey.startsWith('space')
+					? ACCEPTABLE_SPACE_DIFFERENCE
+					: ACCEPTABLE_BORDER_DIFFERENCE);
 		}
 		// Log the normalized values
 		normalizedTokenValue = tokenValue;

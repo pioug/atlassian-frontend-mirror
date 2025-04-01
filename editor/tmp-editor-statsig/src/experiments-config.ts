@@ -281,6 +281,16 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-04-01
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_vanilla_dom/setup
+	platform_editor_vanilla_dom: {
+		productKeys: {
+			confluence: 'platform_editor_vanilla_dom',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 	// Added 2025-03-13
 	editor_text_highlight_orange_to_yellow: {
 		productKeys: {
@@ -289,6 +299,15 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
+	},
+	// Added 2025-03-28
+	platform_editor_ai_proactive_ai_nudge_score: {
+		productKeys: {
+			confluence: 'platform_editor_ai_proactive_ai_nudge_score',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'variant1']),
+		defaultValue: 'control' as 'control' | 'variant1',
 	},
 	// Added 2025-03-26
 	platform_editor_markdown_next_media_plugin_exp: {

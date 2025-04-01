@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 23.7.6
+
+### Patch Changes
+
+- [#134630](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134630)
+  [`b76e2126fff89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b76e2126fff89) -
+  Header Structure a11y fix in profile card
+- Updated dependencies
+
+## 23.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.7.4
 
 ### Patch Changes

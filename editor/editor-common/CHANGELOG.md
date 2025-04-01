@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 102.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 102.16.0
+
+### Minor Changes
+
+- [#133547](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133547)
+  [`d13f959c13041`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d13f959c13041) -
+  [https://product-fabric.atlassian.net/browse/ED-27374](ED-27374) - rewrite editor-emoji-plugin in
+  vanilla JS
+- [#133705](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133705)
+  [`a78567c4a63e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a78567c4a63e2) -
+  Reduced the shadows for inline comments
+
+### Patch Changes
+
+- Updated dependencies
+
+## 102.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 102.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 102.15.0
 
 ### Minor Changes

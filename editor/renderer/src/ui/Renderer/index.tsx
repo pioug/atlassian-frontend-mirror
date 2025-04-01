@@ -921,7 +921,10 @@ const RendererFunctionalComponent = (
 				window.cancelAnimationFrame(rafID);
 			}
 
-			if (dataProviders) {
+			// if this is the ProviderFactory which was created in constructor
+			// it's safe to destroy it on Renderer unmount
+			// updated to match existing class component
+			if (!dataProviders) {
 				providerFactory.destroy();
 			}
 		};

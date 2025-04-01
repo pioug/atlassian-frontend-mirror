@@ -1,14 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * To change the format of this file, modify `createIconVRTest` in icon-build-process/src/create-vr-test.tsx.
+ * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::1d7688496a50372ae393400bdc7404af>>
+ * @codegen <<SignedSource::eb2d7e0ca7808980d5ac3e4d40b073a6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import { snapshot } from '@af/visual-regression';
 
-import { IconGroup0, IconGroup1 } from './examples/all-core-icons';
+import { IconGroup0, IconGroup1 } from './examples/all-utility-icons';
 
 snapshot(IconGroup0, {
 	variants: [

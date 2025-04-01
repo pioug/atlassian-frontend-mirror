@@ -1,3 +1,5 @@
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
 import {
 	DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT,
 	DRAG_HANDLE_H1_TOP_ADJUSTMENT,
@@ -10,6 +12,10 @@ import {
 	DRAG_HANDLE_WIDTH,
 	dragHandleGap,
 } from '../../ui/consts';
+
+import { AnchorRectCache } from './anchor-utils';
+
+const STICKY_NODES = ['panel', 'table', 'expand', 'layoutSection', 'bodiedExtension'];
 
 export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
 	if (!dom) {
@@ -70,4 +76,44 @@ export const getLeftPosition = (
 	return getComputedStyle(innerContainer).transform === 'none'
 		? `${innerContainer.offsetLeft + leftAdjustment - dragHandleGap(type, parentType) - DRAG_HANDLE_WIDTH}px`
 		: `${innerContainer.offsetLeft + leftAdjustment - innerContainer.offsetWidth / 2 - dragHandleGap(type, parentType) - DRAG_HANDLE_WIDTH}px`;
+};
+
+// anchorRectCache seems to have a 100% cache miss rate
+export const getNodeHeight = (
+	dom: HTMLElement | null,
+	anchor: string,
+	anchorRectCache?: AnchorRectCache,
+): number | undefined => anchorRectCache?.getHeight(anchor) || dom?.offsetHeight;
+
+export const shouldBeSticky = (nodeType: string): boolean => {
+	return (
+		editorExperiment('platform_editor_controls', 'variant1') && STICKY_NODES.includes(nodeType)
+	);
+};
+
+export const getControlBottomCSSValue = (
+	anchor: string,
+	isSticky: boolean,
+	isTopLevelNode: boolean,
+	isLayoutColumn?: boolean,
+): { bottom: String } => {
+	return (editorExperiment('advanced_layouts', true) && isLayoutColumn) ||
+		!isSticky ||
+		!isTopLevelNode
+		? { bottom: 'unset' }
+		: { bottom: `anchor(${anchor} end)` };
+};
+
+export const getControlHeightCSSValue = (
+	nodeHeight: number,
+	isSticky: boolean,
+	isTopLevelNode: boolean,
+	fallbackPxHeight: string,
+	isLayoutColumn?: boolean,
+): { height: string } => {
+	return (editorExperiment('advanced_layouts', true) && isLayoutColumn) ||
+		!isSticky ||
+		!isTopLevelNode
+		? { height: 'unset' }
+		: { height: `${nodeHeight || fallbackPxHeight}px` };
 };

@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.1.2
+
+### Patch Changes
+
+- [#131500](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131500)
+  [`0afe8d0b15393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0afe8d0b15393) -
+  ENGHEALTH-23697 Iconography uplift for editor-plugin-extension
+- [#135110](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135110)
+  [`be99401173db3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be99401173db3) -
+  [ux] Move copy and delete button out of toobar overflow menu for macro
+- Updated dependencies
+
+## 5.1.1
+
+### Patch Changes
+
+- [#134468](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134468)
+  [`e312ec529d05a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e312ec529d05a) -
+  [ux] Apply hover decoration when hovering on copy/delete button on overflow menu
+- Updated dependencies
+
+## 5.1.0
+
+### Minor Changes
+
+- [#131974](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131974)
+  [`b09c9ea34848f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b09c9ea34848f) -
+  [PGXT-7297] Add support for deprecation status to extension manifest
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.11
 
 ### Patch Changes

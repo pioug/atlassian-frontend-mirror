@@ -151,8 +151,10 @@ const ProductHome = ({
 }: ProductHomeProps) => {
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
-	const { iconColor = 'inherit', textColor = theme.mode.productHome.color } =
-		theme.mode.productHome;
+	const {
+		iconColor = fg('platform-team25-app-icon-tiles') ? undefined : 'inherit',
+		textColor = fg('platform-team25-app-icon-tiles') ? undefined : theme.mode.productHome.color,
+	} = theme.mode.productHome;
 
 	const Tag = getTag(onClick, href);
 

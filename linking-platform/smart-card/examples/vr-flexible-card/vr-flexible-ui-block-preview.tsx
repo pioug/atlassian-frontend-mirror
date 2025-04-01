@@ -34,39 +34,28 @@ const cardState = getCardState({
 	},
 });
 
-const configurations: () => Array<{
+type Config = {
 	size: SmartLinkSize;
 	placement: MediaPlacement | undefined;
 	ignorePadding: boolean;
-}> = () => {
-	let configs = [];
-	for (const size of Object.values(SmartLinkSize)) {
-		for (const placement of [...Object.values(MediaPlacement), undefined]) {
-			for (const ignorePadding of [true, false]) {
-				configs.push({ size, placement, ignorePadding });
-			}
+};
+
+const configurations = (size: SmartLinkSize): Config[] => {
+	const configs: Config[] = [];
+	for (const placement of [...Object.values(MediaPlacement), undefined]) {
+		for (const ignorePadding of [true, false]) {
+			configs.push({ size, placement, ignorePadding });
 		}
 	}
 	return configs;
 };
 
-export default () => {
+const FlexibleUiBlockPreviewDefault = ({ size }: { size: SmartLinkSize }) => {
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>
-				{configurations().map(
-					(
-						{
-							size,
-							placement,
-							ignorePadding,
-						}: {
-							size: SmartLinkSize;
-							placement: MediaPlacement | undefined;
-							ignorePadding: boolean;
-						},
-						idx: React.Key | undefined,
-					) => (
+				{configurations(size).map(
+					({ size, placement, ignorePadding }: Config, idx: React.Key | undefined) => (
 						<React.Fragment key={idx}>
 							<div css={styles}>
 								<h5>
@@ -82,7 +71,32 @@ export default () => {
 						</React.Fragment>
 					),
 				)}
+				<h5>Override CSS</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<PreviewBlock css={blockOverrideCss} />
+				</FlexibleCard>
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
+};
 
+export const FlexibleUiBlockPreviewXLarge = () => (
+	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.XLarge} />
+);
+export const FlexibleUiBlockPreviewLarge = () => (
+	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.Large} />
+);
+export const FlexibleUiBlockPreviewMedium = () => (
+	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.Medium} />
+);
+export const FlexibleUiBlockPreviewSmall = () => (
+	<FlexibleUiBlockPreviewDefault size={SmartLinkSize.Small} />
+);
+
+export const FlexibleUiBlockPreviewMixedPadding = () => {
+	return (
+		<VRTestWrapper>
+			<SmartCardProvider>
 				<h5>Multiple Previews with mixed padding</h5>
 				<FlexibleCard cardState={cardState} url="link-url">
 					<PreviewBlock />
@@ -92,7 +106,15 @@ export default () => {
 					<PreviewBlock placement={MediaPlacement.Right} ignoreContainerPadding={true} />
 					<PreviewBlock ignoreContainerPadding={true} />
 				</FlexibleCard>
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
+};
 
+export const FlexibleUiBlockPreviewOverrideCSS = () => {
+	return (
+		<VRTestWrapper>
+			<SmartCardProvider>
 				<h5>Override CSS</h5>
 				<FlexibleCard cardState={cardState} url="link-url">
 					<PreviewBlock css={blockOverrideCss} />

@@ -38,7 +38,7 @@ const withGeminiInteractionContext = (Component: React.ComponentType<unknown>) =
 	</GeminiInteractionContext>
 );
 
-export const withWaitForItem = (Component: React.ComponentType<unknown>, getItem: () => unknown) =>
+export const withWaitForItem = (Component: React.ComponentType<any>, getItem: () => unknown) =>
 	withGeminiInteractionContext(() => {
 		const [error, setError] = useState(false);
 

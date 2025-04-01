@@ -5,6 +5,7 @@
 import { Fragment, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Inline } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 import Table, { Cell, HeadCell, Row, TBody, THead } from '@atlaskit/table';
 
@@ -13,7 +14,7 @@ import { appOrder, selectOptions } from './utils/constants';
 
 const wrapperStyles = cssMap({
 	root: {
-		width: '600px',
+		width: '700px',
 		position: 'relative',
 		zIndex: 0,
 	},
@@ -37,13 +38,17 @@ export default function ShowcaseExample({
 
 	return (
 		<Fragment>
-			<label htmlFor="appearance">Appearance</label>
-			<Select<(typeof selectOptions)[number]>
-				inputId="appearance"
-				options={selectOptions}
-				defaultOption={selectOptions[0]}
-				onChange={(newValue) => setAppearance(newValue?.value ?? 'brand')}
-			/>
+			<Box padding="space.200" backgroundColor="color.background.neutral">
+				<Inline space="space.100" alignBlock="center">
+					<label htmlFor="appearance">Appearance</label>
+					<Select<(typeof selectOptions)[number]>
+						inputId="appearance"
+						options={selectOptions}
+						defaultOption={selectOptions[0]}
+						onChange={(newValue) => setAppearance(newValue?.value ?? 'brand')}
+					/>
+				</Inline>
+			</Box>
 
 			<div css={wrapperStyles.root}>
 				<Table>
@@ -52,7 +57,7 @@ export default function ShowcaseExample({
 						<HeadCell>20x20</HeadCell>
 						<HeadCell>24x24</HeadCell>
 						<HeadCell>32x32</HeadCell>
-						<HeadCell>Wordmark</HeadCell>
+						<HeadCell width="290px">Wordmark</HeadCell>
 					</THead>
 					<TBody>
 						{/* Order rows based on appOrder */}
@@ -65,10 +70,10 @@ export default function ShowcaseExample({
 								return (
 									<Row key={name}>
 										<Cell>{name}</Cell>
-										<Cell>{<Icon20 {...customisedProps} />}</Cell>
-										<Cell>{<Icon24 {...customisedProps} />}</Cell>
-										<Cell>{<Icon32 {...customisedProps} />}</Cell>
-										<Cell>
+										<Cell width="60px">{<Icon20 {...customisedProps} />}</Cell>
+										<Cell width="60px">{<Icon24 {...customisedProps} />}</Cell>
+										<Cell width="60px">{<Icon32 {...customisedProps} />}</Cell>
+										<Cell width="290px">
 											{Logo === null ? (
 												'N/A'
 											) : (

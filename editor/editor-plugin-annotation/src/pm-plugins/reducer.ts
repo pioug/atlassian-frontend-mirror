@@ -1,5 +1,6 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TargetType } from '../types';
 
@@ -46,6 +47,9 @@ export default (
 				isInlineCommentViewClosed: true,
 				isDrafting: false,
 				isOpeningMediaCommentFromToolbar: false,
+				...(fg('platform_editor_annotation_selected_annotation') && {
+					selectedAnnotations: [],
+				}),
 			};
 		case ACTIONS.ADD_INLINE_COMMENT:
 			const updatedPluginState = getNewDraftState(

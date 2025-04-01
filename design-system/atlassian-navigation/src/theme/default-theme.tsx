@@ -69,8 +69,10 @@ const defaultTheme: { mode: Mode } = {
 			backgroundColor: token('color.text.brand', B400),
 			color: token('color.text', N700),
 			borderRight: `1px solid ${token('color.border', hexToRGBA(N200, 0.3))}`,
+			// TODO: replace with token after brand refresh
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			iconColor: '#357DE8', // TODO: replace with token after brand refresh
+			iconColor: '#357DE8',
+			textColor: token('color.text', N700),
 		},
 		primaryButton: {
 			active: {
@@ -125,6 +127,13 @@ const defaultTheme: { mode: Mode } = {
 		},
 	},
 };
+
+// Create deep copy of defaultTheme
+export const defaultThemeBrandRefresh = JSON.parse(JSON.stringify(defaultTheme));
+
+// Update iconColor and textColor in defaultThemeBrandRefresh
+defaultThemeBrandRefresh.mode.productHome.iconColor = undefined;
+defaultThemeBrandRefresh.mode.productHome.textColor = undefined;
 
 export const DEFAULT_THEME_NAME = 'atlassian';
 export default defaultTheme;

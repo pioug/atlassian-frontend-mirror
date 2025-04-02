@@ -2,19 +2,9 @@
 // Entry file in package.json
 
 import { isBoolean, oneOf } from './type-guards';
+import { ExperimentConfigValue } from './types';
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
-
-type EditorExperimentConfigValue = {
-	productKeys?: {
-		confluence?: string;
-		jira?: string;
-		test?: string;
-	};
-	param: string;
-	typeGuard: (value: unknown) => boolean;
-	defaultValue: boolean | string;
-};
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -272,15 +262,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['off', 'fallback-small', 'fallback-large']),
 		defaultValue: 'off' as 'off' | 'fallback-small' | 'fallback-large',
 	},
-	// Added 2025-03-03
-	platform_editor_cmd_a_progressively_select_nodes: {
-		productKeys: {
-			confluence: 'platform_editor_cmd_a_progressively_select_nodes',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2025-04-01
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_vanilla_dom/setup
 	platform_editor_vanilla_dom: {
@@ -318,4 +299,4 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-} satisfies Record<string, EditorExperimentConfigValue>;
+} satisfies Record<string, ExperimentConfigValue>;

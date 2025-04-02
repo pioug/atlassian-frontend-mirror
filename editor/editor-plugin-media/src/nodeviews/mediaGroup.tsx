@@ -325,7 +325,11 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 				onClick: () => {
 					setNodeSelection(this.props.view, getNodePos());
 				},
-				...mediaInlineOptions(getMediaFeatureFlag('mediaInline', mediaOptions.featureFlags)),
+				...mediaInlineOptions(
+					fg('platform_editor_remove_media_inline_feature_flag')
+						? mediaOptions.allowMediaInlineImages
+						: getMediaFeatureFlag('mediaInline', mediaOptions.featureFlags),
+				),
 			};
 		});
 

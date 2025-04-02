@@ -7,7 +7,7 @@ import { useIntl } from 'react-intl-next';
 import { jsx, css, cssMap } from '@compiled/react';
 
 import { token, useThemeObserver } from '@atlaskit/tokens';
-import { type OnCloseHandler } from '@atlaskit/modal-dialog';
+import { CloseButton, type OnCloseHandler } from '@atlaskit/modal-dialog';
 import { Tab, TabList } from '@atlaskit/tabs';
 import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { IconButton } from '@atlaskit/button/new';
@@ -19,6 +19,7 @@ import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import CloseIcon from '@atlaskit/icon/core/close';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../shared/i18n';
 import { Counter } from './Counter';
@@ -156,7 +157,7 @@ interface ReactionsDialogModalHeaderProps {
 }
 
 type CloseButtonProp = Pick<ReactionsDialogModalHeaderProps, 'handleCloseReactionsDialog'>;
-const CloseButton = ({ handleCloseReactionsDialog }: CloseButtonProp) => {
+const CloseButtonCustom = ({ handleCloseReactionsDialog }: CloseButtonProp) => {
 	const intl = useIntl();
 
 	return (
@@ -263,7 +264,11 @@ export const ReactionsDialogHeader = ({
 						count: totalReactionsCount,
 					})}
 				</Heading>
-				<CloseButton handleCloseReactionsDialog={handleCloseReactionsDialog} />
+				{fg('platform-make-accessible-close-button') ? (
+					<CloseButton onClick={handleCloseReactionsDialog} />
+				) : (
+					<CloseButtonCustom handleCloseReactionsDialog={handleCloseReactionsDialog} />
+				)}
 			</Flex>
 			<Inline>
 				<div css={customTabListStyles} id="reactions-dialog-tabs-list">

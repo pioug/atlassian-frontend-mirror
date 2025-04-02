@@ -14,6 +14,7 @@ export const getPopupProps = memoizeOne(
 		rootBoundary?: RootBoundary,
 		shouldFlip?: boolean,
 		popupTitle?: string,
+		strategy?: 'fixed' | 'absolute',
 	) => ({
 		searchThreshold: -1,
 		controlShouldRenderValue: true,
@@ -24,7 +25,7 @@ export const getPopupProps = memoizeOne(
 		popupTitle,
 		popperProps: {
 			placement: placement || 'auto',
-			strategy: 'fixed',
+			strategy: strategy || 'fixed',
 			modifiers: [
 				{
 					name: 'offset',

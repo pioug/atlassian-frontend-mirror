@@ -4,7 +4,12 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+	ModalBody,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 import { PopupSelect } from '@atlaskit/select';
 
 const options = [
@@ -64,6 +69,9 @@ const SelectPopupModalExample = () => {
 			<ModalTransition>
 				{type === 'modal' && (
 					<ModalDialog onClose={() => setType(undefined)}>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Popup select modal</ModalTitle>
+						</ModalHeader>
 						<ModalBody>{popupSelectElement}</ModalBody>
 					</ModalDialog>
 				)}

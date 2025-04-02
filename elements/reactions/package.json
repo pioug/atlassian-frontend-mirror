@@ -134,6 +134,9 @@
 		},
 		"platform_editor_css_migrate_reactions": {
 			"type": "boolean"
+		},
+		"platform-make-accessible-close-button": {
+			"type": "boolean"
 		}
 	},
 	"sideEffects": [

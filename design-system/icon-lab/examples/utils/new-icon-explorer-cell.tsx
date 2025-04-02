@@ -115,7 +115,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 
 	const modal = (
 		<Modal onClose={closeModal}>
-			<ModalHeader>
+			<ModalHeader hasCloseButton>
 				<Inline space="space.100" alignBlock="center">
 					{type !== 'utility' ? (
 						<IconTile label={componentName} appearance={'blue'} icon={Icon} size="32" />

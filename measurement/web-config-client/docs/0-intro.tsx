@@ -84,9 +84,35 @@ export default md`
 	}
 	~~~
 
-	    ## Feature Flag Service base urls
+	## Options
 
-	    - Production: https://api.atlassian.com/flags
-	    - Staging: https://api.stg.atlassian.com/flags
-	    - Development: https://api.dev.atlassian.com/flags
+	### API key
+
+	The Feature Flag Service API key for your target app. This is not a secret and is allowed to be checked into your frontend codebase. The list of existing keys can be found [here](https://developer.atlassian.com/platform/frontend-feature-flags/resources/api-keys/). If your target app does not have the keys you need already, you can create new ones here:
+	
+	- [Commercial](https://hello.help.atlassian.cloud/servicedesk/customer/portal/3450/group/4513/create/37729)
+	- [FEDRAMP](https://hello.help.atlassian.cloud/servicedesk/customer/portal/3450/group/4513/create/39322)
+
+	### Feature Flag Service base urls
+
+	- Production: https://api.atlassian.com/flags
+	- Staging: https://api.stg.atlassian.com/flags
+	- Development: https://api.dev.atlassian.com/flags
+	- FEDRAMP staging: https://api.stg.atlassian-us-gov-mod.com/flags
+	- FEDRAMP production: https://api.atlassian-us-gov-mod.com/flags
+	- Stargate: ~/gateway/api/flags~
+
+	### Context
+
+	#### Namespace
+
+	This is the name of your target app.
+
+	#### Identifiers
+
+	Values used for targeting in rules. See documentation for allowed identifiers [here](https://hello.atlassian.net/wiki/spaces/ED4/pages/2838426703/How+to+Setup+Identifiers+in+Statsig).
+
+	#### Metadata
+
+	For targeting in rules under "custom fields". This is a dictionary where the keys and values can be anything you want. These have less capabilities than identifiers and are not standardized so identifiers should be used if possible.
 `;

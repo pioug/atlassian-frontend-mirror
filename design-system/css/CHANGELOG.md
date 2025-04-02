@@ -1,5 +1,14 @@
 # @atlaskit/css
 
+## 0.10.5
+
+### Patch Changes
+
+- [#135712](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135712)
+  [`fa9caa5adb7a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa9caa5adb7a3) -
+  Improvements to `xcss()` -> `cssMap()` codemod.
+- Updated dependencies
+
 ## 0.10.4
 
 ### Patch Changes

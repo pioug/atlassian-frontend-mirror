@@ -37,25 +37,6 @@ const styles = cssMap({
 	},
 });
 
-const CustomHeader = () => {
-	const { titleId, onClose } = useModal();
-
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<Flex alignItems="center" justifyContent="space-between" xcss={styles.header}>
-			<Inline xcss={styles.customClose}>
-				<CloseButton onClick={onClose} />
-			</Inline>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<Box xcss={styles.title}>
-				<Heading id={titleId} size="large" as="h1">
-					A customised header
-				</Heading>
-			</Box>
-		</Flex>
-	);
-};
-
 export default function CompoundTitleModal() {
 	const [isOpen, setOpen] = useState(false);
 
@@ -63,6 +44,7 @@ export default function CompoundTitleModal() {
 	const close = useCallback(() => setOpen(false), []);
 
 	const secondaryAction = useCallback(({ target }: any) => console.log(target.innerText), []);
+	const { titleId } = useModal();
 
 	return (
 		<>
@@ -73,7 +55,16 @@ export default function CompoundTitleModal() {
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog onClose={close}>
-						<CustomHeader />
+						<Flex alignItems="center" justifyContent="space-between" xcss={styles.header}>
+							<Inline xcss={styles.customClose}>
+								<CloseButton onClick={close} />
+							</Inline>
+							<Box xcss={styles.title}>
+								<Heading id={titleId} size="large" as="h1">
+									A customised header
+								</Heading>
+							</Box>
+						</Flex>
 						<ModalBody>
 							<Lorem count={2} />
 						</ModalBody>

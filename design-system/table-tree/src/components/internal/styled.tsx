@@ -2,15 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { FC, HTMLAttributes, ReactNode } from 'react';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-export const indentBase = token('space.300', '25px');
 
 const treeRowContainerStyles = css({
 	display: 'flex',
@@ -36,7 +33,7 @@ const commonCellElementStyles = css({
 	position: 'absolute',
 	alignItems: 'center',
 	// indentBase is re-used elsewhere and is primarily used as positive value; we need to negate it here
-	marginInlineStart: `calc(${indentBase} * -1)`,
+	marginInlineStart: `calc(${token('space.300', '25px')} * -1)`,
 });
 
 const commonChevronContainerStyles = css({

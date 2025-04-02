@@ -14,7 +14,6 @@ import {
 	nestedExpand,
 	p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { JSONTransformer } from '../../index';
 import type { JSONDocNode } from '../../index';
@@ -29,9 +28,6 @@ describe('JSONTransformer - Nested content', () => {
 		const toJSON = (node: PMNode) => transformer.encode(node);
 
 		it('should encode a document with nestedExpand nested in expand', () => {
-			(fg as jest.Mock).mockImplementation(
-				(name) => name === 'platform_editor_nested_expand_in_expand_adf_change',
-			);
 			const document = doc(
 				expand({
 					title: 'Parent expand title',

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.19
+
+### Patch Changes
+
+- [#134978](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134978)
+  [`e4ea317cdb9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4ea317cdb9ac) -
+  [EDITOR-549] Update mediaInline usage behind fg platform_editor_remove_media_inline_feature_flag
+- Updated dependencies
+
 ## 2.3.18
 
 ### Patch Changes

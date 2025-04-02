@@ -1,8 +1,9 @@
 import React, { type ReactNode } from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import CommonCell from './internal/common-cell';
 import OverflowContainer from './internal/overflow-container';
-import { indentBase } from './internal/styled';
 import withColumnWidth from './internal/with-column-width';
 
 export interface CellProps {
@@ -38,7 +39,7 @@ const CellComponent = ({
 	...props
 }: CellProps) => (
 	<CommonCell
-		indent={indentLevel ? `calc(${indentBase} * ${indentLevel})` : undefined}
+		indent={indentLevel ? `calc(${token('space.300', '25px')} * ${indentLevel})` : undefined}
 		width={width}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={className}

@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::cc0f430b2dc9a266797e1ba536c0ff30>>
+ * @codegen <<SignedSource::2125a8127cb232c547872341120f268c>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -321,8 +321,10 @@ export type Space =
 	| 'var(--ds-space-negative-200)'
 	| 'var(--ds-space-negative-250)'
 	| 'var(--ds-space-negative-300)'
-	| 'var(--ds-space-negative-400)';
-export type SpaceMargin = Space | 'auto' | '0 auto' | '0' | 0;
+	| 'var(--ds-space-negative-400)'
+	| 0
+	| '0';
+export type SpaceMargin = Space | 'auto' | '0 auto';
 export type Shadow =
 	| 'var(--ds-shadow-overflow)'
 	| 'var(--ds-shadow-overflow-perimeter)'

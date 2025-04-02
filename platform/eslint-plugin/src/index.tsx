@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import compiledPlugin from '@compiled/eslint-plugin';
 import type { ESLint, Linter } from 'eslint';
-import { join } from 'node:path';
 import ensureFeatureFlagRegistration from './rules/ensure-feature-flag-registration';
 import noPreAndPostInstallScripts from './rules/no-pre-post-installs';
 import ensureTestRunnerArguments from './rules/ensure-test-runner-arguments';
@@ -29,6 +28,28 @@ import useEntrypointsInExamples from './rules/use-entrypoints-in-examples';
 import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
+import { join, normalize } from 'node:path';
+import { readFileSync } from 'node:fs';
+
+let jiraRoot: string | undefined;
+
+try {
+	const findUp = require('find-up') as typeof import('find-up');
+	findUp.sync((dir) => {
+		const productsJsonPath = join(dir, 'products.json');
+		if (findUp.sync.exists(productsJsonPath)) {
+			const productJson: Record<string, { path: string }> = JSON.parse(
+				readFileSync(productsJsonPath, 'utf-8'),
+			);
+			if (productJson.Jira) {
+				jiraRoot = normalize(join(dir, productJson.Jira.path));
+				return findUp.stop;
+			}
+		}
+	});
+} catch {
+	// we aren't running inside of AFM, so we can ignore this.
+}
 
 const packageJson: {
 	name: string;
@@ -113,8 +134,7 @@ const jsonPrefix =
 const jsonPrefixForFlatConfig =
 	'/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, no-template-curly-in-string */ module.exports = ';
 
-const jsonPrefixForFlatConfigInJira =
-	'/* eslint-disable no-template-curly-in-string, @stylistic/semi */ module.exports = ';
+const jsonPrefixForJira = 'module.exports = ';
 
 const { name, version } = packageJson;
 const plugin = {
@@ -156,9 +176,11 @@ const plugin = {
 	processors: {
 		'package-json-processor': {
 			preprocess: (source, filename) => {
-				if (filename.startsWith(join(__dirname, 'jira'))) {
+				// we only need to check for jiraRoot because it uses a different
+				// ESLint version and produces fake errors due to how this processor handles JSON
+				if (jiraRoot && filename.startsWith(jiraRoot)) {
 					// augment the json into a js file
-					return [jsonPrefixForFlatConfigInJira + source.trim()];
+					return [jsonPrefixForJira + source.trim()];
 				}
 
 				// augment the json into a js file
@@ -186,10 +208,12 @@ const plugin = {
 		// This processor is used for ESLint FlatConfig,
 		// once we roll out FlatConfig, we can remove the above processor
 		'package-json-processor-for-flat-config': {
+			// we only need to check for jiraRoot because it uses a different
+			// ESLint version and produces fake errors due to how this processor handles JSON
 			preprocess: (source, filename) => {
-				if (filename.startsWith(join(__dirname, 'jira'))) {
+				if (jiraRoot && filename.startsWith(jiraRoot)) {
 					// augment the json into a js file
-					return [jsonPrefixForFlatConfigInJira + source.trim()];
+					return [jsonPrefixForJira + source.trim()];
 				}
 				// augment the json into a js file
 				return [jsonPrefixForFlatConfig + source.trim()];

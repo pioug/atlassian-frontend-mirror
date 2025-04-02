@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 2.1.0
+
+### Minor Changes
+
+- [#132362](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132362)
+  [`2e90b51d52288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e90b51d52288) -
+  [ux] [ED-26841] Do not autofocus editor when it is a live page with content. Additionally hide
+  cursor marks and ensure cursor starts at the very start of document to prevent selection
+  appearance and toolbars.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.4
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 205.1.4
+
+### Patch Changes
+
+- [#133495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133495)
+  [`6e3c24aeec2b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e3c24aeec2b7) -
+  ED-25981 Clean up feature flag platform_editor_set_alignment_when_resized
+- Updated dependencies
+
+## 205.1.3
+
+### Patch Changes
+
+- [#132362](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132362)
+  [`2e90b51d52288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e90b51d52288) -
+  [ux] [ED-26841] Do not autofocus editor when it is a live page with content. Additionally hide
+  cursor marks and ensure cursor starts at the very start of document to prevent selection
+  appearance and toolbars.
+- Updated dependencies
+
 ## 205.1.2
 
 ### Patch Changes

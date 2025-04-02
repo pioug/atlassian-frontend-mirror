@@ -43,6 +43,7 @@ import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,
 } from '@atlaskit/editor-common/utils/analytics';
+import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import type { CardPlugin } from '@atlaskit/editor-plugins/card';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
 import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
@@ -50,7 +51,12 @@ import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+	EditorState,
+	NodeSelection,
+	Selection,
+	TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -131,6 +137,15 @@ type ReactEditorViewPlugins = [
 	OptionalPlugin<CustomAutoformatPlugin>,
 ];
 
+const focusElementOutsideEditor = () => {
+	// TODO: ED-26841 - This is an awful way of selecting this, would love a
+	// better way be that a ref or even an id or data attibute.
+	const aiButton = document.querySelector('[data-testid="platform-ai-button"]');
+	if (aiButton && aiButton instanceof HTMLElement) {
+		aiButton.focus();
+	}
+};
+
 export function ReactEditorView(props: EditorViewProps) {
 	const {
 		preset,
@@ -140,7 +155,11 @@ export function ReactEditorView(props: EditorViewProps) {
 			featureFlags: editorPropFeatureFlags,
 			errorReporterHandler,
 			defaultValue,
+			shouldFocus,
+			__livePage,
 		},
+		onEditorCreated,
+		onEditorDestroyed,
 	} = props;
 	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<ReactEditorViewPlugins> | undefined>(
 		undefined,
@@ -300,6 +319,33 @@ export function ReactEditorView(props: EditorViewProps) {
 					selection = options.selectionAtStart ? Selection.atStart(doc) : Selection.atEnd(doc);
 				}
 			}
+
+			if (fg('platform_editor_no_cursor_on_live_doc_init')) {
+				if (!options.selectionAtStart) {
+					// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
+					selection = selection
+						? Selection.findFrom(selection.$head, -1, true) || undefined
+						: undefined;
+				}
+
+				// When in live mode, unless the document is empty we do not focus the editor and
+				// want to avoid placing the cursor inside any nodes which may show selection states
+				// or toolbar based on the cursor being inside them. As such we hard set the
+				// selection to the very start of the document regardless of whether that is a
+				// gapCursor or not.
+				// __livePage necessary because editorViewMode still thinks it is in 'edit' mode
+				// when this is called
+				if (doc && options.selectionAtStart && __livePage) {
+					selection = NodeSelection.create(doc, 0);
+				}
+				return EditorState.create({
+					schema,
+					plugins: plugins as Plugin[],
+					doc,
+					selection,
+				});
+			}
+
 			// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
 			const patchedSelection = selection
 				? Selection.findFrom(selection.$head, -1, true) || undefined
@@ -313,6 +359,7 @@ export function ReactEditorView(props: EditorViewProps) {
 			});
 		},
 		[
+			__livePage,
 			errorReporter,
 			featureFlags,
 			props.intl,
@@ -626,21 +673,20 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	const [editorView, setEditorView] = useState<EditorView | undefined>(undefined);
 
-	const {
-		onEditorCreated,
-		onEditorDestroyed,
-		editorProps: { shouldFocus },
-	} = props;
-
 	useLayoutEffect(() => {
 		if (
 			shouldFocus &&
 			editorView?.props.editable?.(editorView.state) &&
 			fg('platform_editor_react_18_autofocus_fix')
 		) {
-			focusTimeoutId.current = handleEditorFocus(editorView);
+			const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
+			if (liveDocWithContent && fg('platform_editor_no_cursor_on_live_doc_init')) {
+				focusElementOutsideEditor();
+			} else {
+				focusTimeoutId.current = handleEditorFocus(editorView);
+			}
 		}
-	}, [editorView, shouldFocus]);
+	}, [editorView, shouldFocus, __livePage]);
 
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
@@ -672,9 +718,19 @@ export function ReactEditorView(props: EditorViewProps) {
 						setEditorView(view);
 					});
 				} else {
-					if (shouldFocus && view.props.editable && view.props.editable(view.state)) {
+					const isLivePageWithContent =
+						__livePage &&
+						!isEmptyDocument(view.state.doc) &&
+						fg('platform_editor_no_cursor_on_live_doc_init');
+					if (
+						!isLivePageWithContent &&
+						shouldFocus &&
+						view.props.editable &&
+						view.props.editable(view.state)
+					) {
 						focusTimeoutId.current = handleEditorFocus(view);
 					}
+
 					// Force React to re-render so consumers get a reference to the editor view
 					setEditorView(view);
 				}
@@ -708,11 +764,12 @@ export function ReactEditorView(props: EditorViewProps) {
 		},
 		[
 			createEditorView,
-			handleAnalyticsEvent,
-			onEditorDestroyed,
 			onEditorCreated,
-			shouldFocus,
 			eventDispatcher,
+			shouldFocus,
+			__livePage,
+			onEditorDestroyed,
+			handleAnalyticsEvent,
 		],
 	);
 
@@ -760,11 +817,15 @@ export function ReactEditorView(props: EditorViewProps) {
 				editable: (_state) => !disabled,
 			} as DirectEditorProps);
 
-			if (!disabled && shouldFocus) {
+			const isLivePageWithContent =
+				__livePage &&
+				!isEmptyDocument(viewRef.current.state.doc) &&
+				fg('platform_editor_no_cursor_on_live_doc_init');
+			if (!disabled && shouldFocus && !isLivePageWithContent) {
 				focusTimeoutId.current = handleEditorFocus(viewRef.current);
 			}
 		}
-	}, [disabled, shouldFocus, previousDisabledState]);
+	}, [disabled, shouldFocus, previousDisabledState, __livePage]);
 
 	useFireFullWidthEvent(nextAppearance, dispatchAnalyticsEvent);
 

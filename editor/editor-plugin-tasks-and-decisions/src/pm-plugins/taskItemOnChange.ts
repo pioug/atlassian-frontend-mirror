@@ -1,5 +1,4 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export function taskItemOnChange(view: EditorView, event: Event) {
 	const { target } = event;
@@ -7,8 +6,7 @@ export function taskItemOnChange(view: EditorView, event: Event) {
 		!target ||
 		!(target instanceof HTMLInputElement) ||
 		target.type !== 'checkbox' ||
-		target.getAttribute('data-input-type') !== 'lazy-task-item' ||
-		!fg('platform_editor_lazy_task_item_check')
+		target.getAttribute('data-input-type') !== 'lazy-task-item'
 	) {
 		return;
 	}

@@ -8,19 +8,16 @@ import { type ComponentType, type FC, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import Modal, { ModalBody, ModalFooter, ModalTransition } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
+import { Box, Inline } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-
-const iconModalHeaderStyles = css({
-	display: 'flex',
-	padding: token('space.250', '20px'),
-	alignItems: 'center',
-	justifyContent: 'flex-start',
-	flexDirection: 'row',
-});
 
 const dividerStyles = css({
 	width: '100%',
@@ -82,10 +79,14 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 
 	const modal = (
 		<Modal onClose={closeModal}>
-			<h3 css={iconModalHeaderStyles}>
-				<Icon label={componentName} size="medium" />
-				{componentName}
-			</h3>
+			<ModalHeader hasCloseButton>
+				<ModalTitle>
+					<Inline alignBlock="center" space="space.100">
+						<Icon label={componentName} size="medium" />
+						<span>{componentName}</span>
+					</Inline>
+				</ModalTitle>
+			</ModalHeader>
 			<ModalBody>
 				<Textfield
 					isReadOnly
@@ -100,7 +101,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 				<Button onClick={closeModal} appearance="subtle">
 					Close
 				</Button>
-				<Button onClick={copyToClipboard} appearance="primary" autoFocus>
+				<Button onClick={copyToClipboard} appearance="primary">
 					Copy
 				</Button>
 			</ModalFooter>

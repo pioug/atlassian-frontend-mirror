@@ -1,12 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 /* eslint-disable @repo/internal/react/no-clone-element */
-import { cloneElement, type ReactElement } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { cloneElement, type ReactElement } from 'react';
 
 import toItemId from '../../utils/to-item-id';
 import { type RowProps } from '../row';

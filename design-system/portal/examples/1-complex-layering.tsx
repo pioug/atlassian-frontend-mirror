@@ -117,7 +117,7 @@ function Modal(props: ModalProps) {
 	return (
 		<React.Fragment>
 			<ModalDialog onClose={onClose} testId="modal">
-				<ModalHeader>
+				<ModalHeader hasCloseButton>
 					<ModalTitle>Modal dialog</ModalTitle>
 				</ModalHeader>
 				<ModalBody>
@@ -148,7 +148,7 @@ function Modal(props: ModalProps) {
 					<Button appearance="subtle" onClick={onOpen}>
 						Open another
 					</Button>
-					<Button appearance="primary" autoFocus onClick={onClose}>
+					<Button appearance="primary" onClick={onClose}>
 						Close
 					</Button>
 				</ModalFooter>

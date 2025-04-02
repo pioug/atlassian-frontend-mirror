@@ -53,6 +53,9 @@ export const toDOM = (
 				{
 					// prettier-ignore
 					'class': expandClassNames.titleInput,
+					'aria-label':
+						(intl && intl.formatMessage(expandMessages.expandArialabel)) ||
+						expandMessages.expandArialabel.defaultMessage,
 					value: node.attrs.title,
 					placeholder:
 						(intl &&

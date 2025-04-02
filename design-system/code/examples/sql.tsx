@@ -20,7 +20,7 @@ export default function ExampleSQL() {
 	return (
 		<div>
 			<h2>SQL</h2>
-			<CodeBlock language="ABAP" text={exampleCodeBlock} />
+			<CodeBlock language="sql" text={exampleCodeBlock} />
 		</div>
 	);
 }

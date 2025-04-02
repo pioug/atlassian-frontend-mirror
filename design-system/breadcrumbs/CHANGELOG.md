@@ -1,5 +1,18 @@
 # @atlaskit/breadcrumbs
 
+## 15.1.0
+
+### Minor Changes
+
+- [#135755](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135755)
+  [`b28b05cd16f4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b28b05cd16f4e) -
+  Set explicit font family on `BreadcrumbsItem` using tokens to ensure Breadcrumbs do not inherit
+  font family.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.5
 
 ### Patch Changes

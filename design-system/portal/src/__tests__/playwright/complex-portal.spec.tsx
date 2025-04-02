@@ -32,7 +32,7 @@ test('When we click on "Open Dialog" button then a parent modal dialog should be
 	const modalHeader = modal.locator('[data-testid="modal--header"]').first();
 
 	await expect(modal).toBeVisible();
-	await expect(modalHeader).toHaveText('Modal dialog');
+	await expect(modalHeader).toHaveText(/Modal dialog/);
 });
 
 test('When we click on "Show onboarding" button then a spot light should be visible and a portal should be created', async ({

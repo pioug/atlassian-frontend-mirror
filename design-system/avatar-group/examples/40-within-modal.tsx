@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
-import Modal, { ModalBody } from '@atlaskit/modal-dialog';
+import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 
 import { RANDOM_USERS } from '../examples-util/data';
 import ExampleImage from '../examples-util/nucleus.png';
@@ -20,6 +20,9 @@ export default () => {
 	return (
 		<div>
 			<Modal>
+				<ModalHeader hasCloseButton>
+					<ModalTitle>Lorem Ipsum</ModalTitle>
+				</ModalHeader>
 				<ModalBody>
 					<AvatarGroup testId="within-modal" appearance="stack" data={data} size="large" />
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt

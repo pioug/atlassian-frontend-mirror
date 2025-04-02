@@ -4,7 +4,6 @@ import type {
 	default as core,
 	FileInfo,
 	ImportDeclaration,
-	Node,
 	Options,
 } from 'jscodeshift';
 
@@ -96,6 +95,7 @@ function replaceXcssWithCssMap(
 	let firstXcssPath: ASTPath<core.CallExpression> | null = null;
 	let firstUsagePath: ASTPath<core.Node> | null = null;
 	const styleVariables = new Set<string>();
+	const variableDependencies = new Map<string, Set<string>>();
 
 	source
 		.find(j.CallExpression, {
@@ -119,6 +119,23 @@ function replaceXcssWithCssMap(
 					if (variableDeclarator && variableDeclarator.type === 'VariableDeclarator') {
 						const variableName = variableDeclarator.id.name; // e.g. buttonStyles
 						styleVariables.add(variableName);
+
+						// find dependencies in the xcss object
+						const dependencies = new Set<string>();
+						if (args[0].type === 'ObjectExpression') {
+							args[0].properties.forEach((prop) => {
+								if (prop.type === 'ObjectProperty' && prop.value.type === 'TemplateLiteral') {
+									prop.value.expressions.forEach((expr) => {
+										if (expr.type === 'Identifier') {
+											dependencies.add(expr.name);
+										}
+									});
+								}
+							});
+						}
+						if (dependencies.size > 0) {
+							variableDependencies.set(variableName, dependencies);
+						}
 					}
 				}
 			}
@@ -198,39 +215,163 @@ function replaceXcssWithCssMap(
 		// insert the cssMap declaration before its first usage
 		if (firstUsagePath) {
 			const programBody = source.get().node.program.body;
-			const firstUsageIndex = programBody.findIndex((node: Node) => {
-				const nodeStart = node.loc?.start;
-				const usageStart = firstUsagePath?.node.loc?.start;
+			let insertIndex = 0;
 
-				if (!nodeStart || !usageStart) {
-					return false;
-				}
-
-				return (
-					nodeStart.line > usageStart.line ||
-					(nodeStart.line === usageStart.line && nodeStart.column > usageStart.column)
-				);
-			});
-
-			if (firstUsageIndex !== -1) {
-				// find the last import or variable declaration before the first usage
-				let insertIndex = firstUsageIndex;
-				while (insertIndex > 0) {
-					const node = programBody[insertIndex - 1];
-					if (
-						node.type === 'ImportDeclaration' ||
-						node.type === 'VariableDeclaration' ||
-						node.type === 'TypeAlias' ||
-						node.type === 'InterfaceDeclaration'
-					) {
-						break;
+			// find the last variable declaration that any style depends on
+			let lastDependencyIndex = -1;
+			for (let i = 0; i < programBody.length; i++) {
+				const node = programBody[i];
+				if (node.type === 'VariableDeclaration') {
+					const varName = node.declarations[0]?.id.name;
+					if (varName) {
+						// check if this variable is a dependency of any style
+						for (const [, deps] of variableDependencies.entries()) {
+							if (deps.has(varName)) {
+								lastDependencyIndex = i;
+								break;
+							}
+						}
 					}
-					insertIndex--;
 				}
-				programBody.splice(insertIndex, 0, cssMapVariableDeclaration);
 			}
+
+			// insert after the last dependency
+			if (lastDependencyIndex !== -1) {
+				insertIndex = lastDependencyIndex + 1;
+			} else {
+				// if no dependencies, find the first non-import/type declaration
+				insertIndex = programBody.findIndex(
+					(node: { type: string }) =>
+						node.type !== 'ImportDeclaration' &&
+						node.type !== 'TypeAlias' &&
+						node.type !== 'InterfaceDeclaration',
+				);
+			}
+
+			programBody.splice(insertIndex, 0, cssMapVariableDeclaration);
 		}
 	}
+
+	// First handle backgroundColor transformation for Box components
+	source
+		.find(j.JSXAttribute, {
+			name: {
+				type: 'JSXIdentifier',
+				name: 'xcss',
+			},
+		})
+		.forEach((path) => {
+			const value = path.node.value;
+			if (value && value.type === 'JSXExpressionContainer') {
+				const expression = value.expression;
+				const parentElement = path.parentPath?.node;
+				const isBoxComponent = parentElement?.name?.name === 'Box';
+
+				if (isBoxComponent) {
+					if (expression.type === 'Identifier') {
+						const styleKey = getCssMapKey(expression.name);
+						const styleObject = cssMapProperties.find(
+							(prop) => prop.key.type === 'Identifier' && prop.key.name === styleKey,
+						)?.value;
+						if (styleObject?.type === 'ObjectExpression') {
+							const backgroundColorProp = styleObject.properties.find(
+								(prop) =>
+									prop.type === 'ObjectProperty' &&
+									prop.key.type === 'Identifier' &&
+									prop.key.name === 'backgroundColor',
+							);
+							if (
+								backgroundColorProp?.type === 'ObjectProperty' &&
+								backgroundColorProp.value.type === 'StringLiteral'
+							) {
+								// add backgroundColor prop to Box component
+								parentElement.attributes.push(
+									j.jsxAttribute(
+										j.jsxIdentifier('backgroundColor'),
+										j.stringLiteral(backgroundColorProp.value.value),
+									),
+								);
+								// remove backgroundColor from cssMap
+								styleObject.properties = styleObject.properties.filter(
+									(prop) =>
+										!(
+											prop.type === 'ObjectProperty' &&
+											prop.key.type === 'Identifier' &&
+											prop.key.name === 'backgroundColor'
+										),
+								);
+							}
+						}
+					} else if (expression.type === 'ArrayExpression') {
+						// handle array of styles
+						const backgroundColorValues: string[] = [];
+						expression.elements.forEach((element) => {
+							if (element?.type === 'Identifier') {
+								const styleKey = getCssMapKey(element.name);
+								const styleObject = cssMapProperties.find(
+									(prop) => prop.key.type === 'Identifier' && prop.key.name === styleKey,
+								)?.value;
+								if (styleObject?.type === 'ObjectExpression') {
+									const backgroundColorProp = styleObject.properties.find(
+										(prop) =>
+											prop.type === 'ObjectProperty' &&
+											prop.key.type === 'Identifier' &&
+											prop.key.name === 'backgroundColor',
+									);
+									if (
+										backgroundColorProp?.type === 'ObjectProperty' &&
+										backgroundColorProp.value.type === 'StringLiteral'
+									) {
+										backgroundColorValues.push(backgroundColorProp.value.value);
+										// remove backgroundColor from cssMap
+										styleObject.properties = styleObject.properties.filter(
+											(prop) =>
+												!(
+													prop.type === 'ObjectProperty' &&
+													prop.key.type === 'Identifier' &&
+													prop.key.name === 'backgroundColor'
+												),
+										);
+									}
+								}
+							}
+						});
+
+						// if we found backgroundColor values, add to Box component
+						if (backgroundColorValues.length > 0) {
+							if (backgroundColorValues.length === 1) {
+								// single backgroundColor value
+								parentElement.attributes.push(
+									j.jsxAttribute(
+										j.jsxIdentifier('backgroundColor'),
+										j.stringLiteral(backgroundColorValues[0]),
+									),
+								);
+							} else {
+								// multiple backgroundColor values - use ternary for conditional
+								const conditions = expression.elements
+									.map((element, index) => {
+										if (
+											element?.type === 'LogicalExpression' &&
+											element.left.type === 'Identifier'
+										) {
+											return `${element.left.name} ? "${backgroundColorValues[index]}" :`;
+										}
+										return `"${backgroundColorValues[index]}"`;
+									})
+									.join(' ');
+								parentElement.attributes.push(
+									j.jsxAttribute(
+										j.jsxIdentifier('backgroundColor'),
+										j.jsxExpressionContainer(j.identifier(conditions)),
+									),
+								);
+							}
+						}
+					}
+				}
+			}
+		});
 
 	// update the xcss prop references to use the new cssMap object
 	source
@@ -249,7 +390,7 @@ function replaceXcssWithCssMap(
 					// <Box xcss={buttonStyles} /> -> <Box xcss={styles.button} />
 					expression.name = `styles.${getCssMapKey(expression.name)}`;
 				} else if (expression.type === 'ArrayExpression') {
-					// <Box xcss={[baseStyles, otherStyles]} /> -> <Box xcss={[styles.base, styles.otherStyles]} />
+					// <Box xcss={[baseStyles, otherStyles]} /> -> <Box xcss={[styles.base, styles.other]} />
 					expression.elements.forEach((element) => {
 						if (element?.type === 'Identifier') {
 							element.name = `styles.${getCssMapKey(element.name)}`;

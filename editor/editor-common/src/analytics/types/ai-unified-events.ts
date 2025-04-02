@@ -15,6 +15,13 @@ export type AIUnifiedCommonAttributes = {
 	isAIFeature: 1;
 	aiExperienceName?: string;
 	traceIds?: string[];
+	invokedFrom?: string;
+	/**
+	 * Confidence score will be used passed in analytics events.
+	 * It is currently only set when "Improve writing" is triggered from the
+	 * 	"Improve writing" nudge.
+	 */
+	confidenceScore?: number;
 };
 
 type AIUnifiedAgentAttributes = {

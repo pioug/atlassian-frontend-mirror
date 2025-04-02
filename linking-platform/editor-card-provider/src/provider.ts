@@ -86,8 +86,12 @@ const isJiraBoard = (url: string) => {
 };
 
 const isJiraPlan = (url: string) => {
-	return url.match(
-		/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/,
+	return (
+		(url.match(/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/) &&
+			fg('plan_smart_link_base_url')) ||
+		url.match(
+			/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/,
+		)
 	);
 };
 

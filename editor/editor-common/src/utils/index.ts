@@ -316,6 +316,12 @@ export {
 export const pmHistoryPluginKey = 'history$';
 export { gridTypeForLayout } from './grid';
 
+/**
+ * @private
+ * @deprecated
+ *
+ * Use `@atlaskit/editor-common/utils/document` entry-point instead.
+ */
 export {
 	nodesBetweenChanged,
 	getStepRange,

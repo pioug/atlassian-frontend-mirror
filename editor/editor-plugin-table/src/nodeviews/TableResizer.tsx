@@ -580,21 +580,15 @@ export const TableResizer = ({
 			}
 
 			if (typeof pos === 'number') {
-				if (fg('platform_editor_set_alignment_when_resized')) {
-					tr = tr.setNodeMarkup(pos, undefined, {
-						...node.attrs,
-						width: newWidth,
-						layout:
-							node.attrs.layout !== ALIGN_START && node.attrs.layout !== ALIGN_CENTER
-								? ALIGN_CENTER
-								: node.attrs.layout,
-					});
-				} else {
-					tr = tr.setNodeMarkup(pos, undefined, {
-						...node.attrs,
-						width: newWidth,
-					});
-				}
+				tr = tr.setNodeMarkup(pos, undefined, {
+					...node.attrs,
+					width: newWidth,
+					layout:
+						node.attrs.layout !== ALIGN_START && node.attrs.layout !== ALIGN_CENTER
+							? ALIGN_CENTER
+							: node.attrs.layout,
+				});
+
 
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.1.2",
+	"version": "205.1.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -240,6 +240,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_react18_phase2_v2_extended": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_vs_code_block_paste": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -290,10 +294,6 @@
 		},
 		"platform_editor_content_component_ignore_click": {
 			"type": "boolean"
-		},
-		"platform_editor_set_alignment_when_resized": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_media_block_default": {
 			"type": "boolean",
@@ -532,6 +532,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"editor_a11y_remove_redundant_wrap_icon_label": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_tables_numbered_column_correction": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -549,6 +553,9 @@
 		"platform_editor_nested_tables_gap_cursor": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_no_cursor_on_live_doc_init": {
+			"type": "boolean"
 		},
 		"platform_editor_controls_no_toolbar_space": {
 			"type": "boolean",

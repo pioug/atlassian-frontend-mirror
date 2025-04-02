@@ -15,7 +15,6 @@ describe('0.5.2-primitives-emotion-to-compiled', () => {
 const styles = xcss({
 color: "color.text",
 zIndex: "layer",
-backgroundColor: "elevation.surface.hovered"
 });
 
 const MyComponent = () => <Box xcss={styles} />`;
@@ -34,7 +33,6 @@ const MyComponent = () => <Box xcss={styles} />`;
 			  root: {
 			  color: token("color.text"),
 			  zIndex: 400,
-			  backgroundColor: token("elevation.surface.hovered")
 			  }
 			});
 
@@ -52,7 +50,6 @@ import { Box, xcss } from "@atlaskit/primitives";
 const styles = xcss({
 color: "color.text",
 zIndex: "layer",
-backgroundColor: "elevation.surface.hovered"
 });
 
 const MyComponent = () => <Box xcss={styles} />`;
@@ -71,7 +68,6 @@ const MyComponent = () => <Box xcss={styles} />`;
 			 root: {
 			 color: token("color.text"),
 			 zIndex: 400,
-			 backgroundColor: token("elevation.surface.hovered")
 			 }
 			});
 
@@ -86,7 +82,6 @@ const styles = xcss({
 color: "color.text",
 zIndex: "layer",
 width: "size.100",
-backgroundColor: "color.background.accent.lime.subtlest",
 borderRadius: "border.radius.050",
 borderColor: "color.border.accent.orange",
 borderWidth: "border.width.indicator",
@@ -116,7 +111,6 @@ const MyComponent = () => <Box xcss={styles} />`;
 			  color: token("color.text"),
 			  zIndex: 400,
 			  width: "1rem",
-			  backgroundColor: token("color.background.accent.lime.subtlest"),
 			  borderRadius: token("border.radius.050"),
 			  borderColor: token("color.border.accent.orange"),
 			  borderWidth: token("border.width.indicator"),
@@ -224,12 +218,13 @@ const MyComponent = () => <Box xcss={styles} />`;
 
 			const styles = cssMap({
 			  root: {
-			  backgroundColor: token("color.background.accent.lime.subtlest"),
-			  display: "flex",
+			    display: "flex"
 			  }
 			});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
+			const MyComponent = () => <Box
+			  xcss={styles.root}
+			  backgroundColor="color.background.accent.lime.subtlest" />"
 		`);
 		});
 
@@ -421,15 +416,16 @@ export default MyComponent;`;
 
 			const opacityVar = "0.5";
 
-			const MyComponent = () => <Box xcss={styles.root} />;
-
 			const styles = cssMap({
 			    root: {
 			        color: token("color.text"),
-			        backgroundColor: token("color.background.accent.lime.subtlest"),
-			        opacity: \`\${opacityVar}\`,
+			        opacity: \`\${opacityVar}\`
 			    }
 			});
+
+			const MyComponent = () => <Box
+			    xcss={styles.root}
+			    backgroundColor="color.background.accent.lime.subtlest" />;
 
 			export default MyComponent;"
 		`);
@@ -459,14 +455,133 @@ export default BackToTop;`;
 
 			const styles = cssMap({
 			    root: {
-			        color: token("color.text"),
-			        backgroundColor: token("color.background.accent.lime.subtlest"),
+			        color: token("color.text")
 			    }
 			});
 
-			const BackToTop = () => <Box xcss={styles.root} />;
+			const BackToTop = () => <Box
+			    xcss={styles.root}
+			    backgroundColor="color.background.accent.lime.subtlest" />;
 
 			export default BackToTop;"
+		`);
+		});
+
+		it('should move backgroundColor from cssMap to Box props when used on Box component', async () => {
+			const input = `import { Box, xcss } from "@atlaskit/primitives";
+
+const styles = xcss({
+	color: "color.text",
+	backgroundColor: "color.background.discovery",
+	padding: "space.200",
+});
+
+const MyComponent = () => <Box xcss={styles} />`;
+
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Box } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const styles = cssMap({
+			    root: {
+			        color: token("color.text"),
+			        padding: token("space.200")
+			    }
+			});
+
+			const MyComponent = () => <Box xcss={styles.root} backgroundColor="color.background.discovery" />"
+		`);
+		});
+
+		it('should not move backgroundColor from cssMap when used on non-Box components', async () => {
+			const input = `import { Stack, xcss } from "@atlaskit/primitives";
+
+const styles = xcss({
+	color: "color.text",
+	backgroundColor: "color.background.discovery",
+	padding: "space.200",
+});
+
+const MyComponent = () => <Stack xcss={styles} />`;
+
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Stack } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const styles = cssMap({
+			    root: {
+			        color: token("color.text"),
+			        backgroundColor: token("color.background.discovery"),
+			        padding: token("space.200"),
+			    }
+			});
+
+			const MyComponent = () => <Stack xcss={styles.root} />"
+		`);
+		});
+
+		it('should handle multiple Box components with different backgroundColors', async () => {
+			const input = `import { Box, xcss } from "@atlaskit/primitives";
+
+const styles = xcss({
+	color: "color.text",
+	backgroundColor: "color.background.discovery",
+	padding: "space.200",
+});
+
+const otherStyles = xcss({
+	color: "color.text",
+	backgroundColor: "color.background.success",
+	padding: "space.200",
+});
+
+const MyComponent = () => (
+	<>
+		<Box xcss={styles} />
+		<Box xcss={otherStyles} />
+	</>
+);`;
+
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Box } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const styles = cssMap({
+			    root: {
+			        color: token("color.text"),
+			        padding: token("space.200")
+			    },
+
+			    other: {
+			        color: token("color.text"),
+			        padding: token("space.200")
+			    }
+			});
+
+			const MyComponent = () => (
+				<>
+					<Box xcss={styles.root} backgroundColor="color.background.discovery" />
+					<Box xcss={styles.other} backgroundColor="color.background.success" />
+				</>
+			);"
 		`);
 		});
 	});
@@ -732,7 +847,6 @@ export default AssetCard;`;
 			    header: {
 			        paddingBlock: token("space.250"),
 			        paddingInline: token("space.200"),
-			        backgroundColor: token("color.background.neutral"),
 			        overflow: 'hidden',
 			        color: token("color.text"),
 			        display: 'flex',
@@ -740,7 +854,7 @@ export default AssetCard;`;
 			        justifyContent: 'space-between',
 			        lineHeight: '20px',
 			        borderStartStartRadius: token("border.radius"),
-			        borderStartEndRadius: token("border.radius"),
+			        borderStartEndRadius: token("border.radius")
 			    },
 
 			    content: {
@@ -784,7 +898,7 @@ export default AssetCard;`;
 			return (
 			    <Anchor xcss={styles.card} href={link}>
 			        <VisuallyHidden>Download \${titleWithFileSize}</VisuallyHidden>
-			        <Box xcss={styles.header}>
+			        <Box xcss={styles.header} backgroundColor="color.background.neutral">
 			        <Text maxLines={1}>\${titleWithFileSize}</Text>
 			        <DownloadIcon label="" size="medium" />
 			        </Box>

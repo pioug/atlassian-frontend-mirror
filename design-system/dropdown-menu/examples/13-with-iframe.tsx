@@ -49,7 +49,7 @@ export default () => {
 			<ModalTransition>
 				{isModalOpen && (
 					<ModalDialog testId="dialogBox" onClose={() => setModalOpen(false)}>
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Hi there</ModalTitle>
 						</ModalHeader>
 

@@ -151,7 +151,7 @@ const baseStyles = css({
 });
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
-const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
+const IS_NON_HTTP_BASED = /^(((mailto|tel|sms|blob):)|(#))/;
 // Comma is added here to add a slight pause between announcing the anchor label and "opens in new window"
 const OPENS_NEW_WINDOW_LABEL = '(opens new window)';
 

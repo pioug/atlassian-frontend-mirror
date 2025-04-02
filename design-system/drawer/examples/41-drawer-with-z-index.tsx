@@ -10,13 +10,14 @@ import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import Drawer from '@atlaskit/drawer';
-import Modal from '@atlaskit/modal-dialog';
+import Modal, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { layers } from '@atlaskit/theme/constants';
 
 interface State {
 	isDrawerOpen: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DrawersExample extends Component<{}, State> {
 	state = {
 		isDrawerOpen: false,
@@ -43,8 +44,9 @@ export default class DrawersExample extends Component<{}, State> {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ padding: '2rem' }}>
 				<Modal>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<div style={{ padding: '2rem' }}>This is a modal</div>
+					<ModalHeader hasCloseButton>
+						<ModalTitle>Drawer modal</ModalTitle>
+					</ModalHeader>
 					<Drawer
 						onClose={this.onClose}
 						onCloseComplete={this.onCloseComplete}

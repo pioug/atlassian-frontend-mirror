@@ -219,7 +219,7 @@ export default () => {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Modal dialog</ModalTitle>
 						</ModalHeader>
 						<ModalBody>Modal dialog body</ModalBody>
@@ -285,7 +285,7 @@ const ConfluenceEditorTopBarExample = () => {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Update page</ModalTitle>
 						</ModalHeader>
 						<ModalBody>Update page form</ModalBody>

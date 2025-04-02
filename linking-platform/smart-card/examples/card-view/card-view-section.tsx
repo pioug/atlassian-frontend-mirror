@@ -25,8 +25,8 @@ const CardViewSection = ({
 } & Pick<ProviderProps, 'client'> &
 	CardProps) => (
 	<React.Fragment>
-		<h6>{title}</h6>
-		{description ? <p>Context: {description}</p> : undefined}
+		{title !== '' ? <h6>{title}</h6> : undefined}
+		{description !== undefined && description !== '' ? <p>Context: {description}</p> : undefined}
 		<SmartCardProvider client={client}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
 			<p style={{ fontSize }}>

@@ -171,7 +171,9 @@ describe('providers > editor', () => {
 		(global as any).fetch = mockFetch;
 		setBooleanFeatureFlagResolver(
 			(flag) =>
-				flag === 'smart_links_for_plans_platform' || flag === 'smartlink_jira_software_form',
+				flag === 'smart_links_for_plans_platform' ||
+				flag === 'smartlink_jira_software_form' ||
+				flag === 'plan_smart_link_base_url',
 		);
 	});
 
@@ -559,6 +561,7 @@ describe('providers > editor', () => {
 			'Jira board embed (company managed) with query params',
 			'https://maguilar-stg.jira-dev.com/jira/software/c/projects/ACMP/boards/2?assignee=712020%3A415eb090-5446-408d-b958-82871ce65b6b',
 		],
+		['Jira plan embed', 'https://hello.atlassian.net/jira/plans/24'],
 		['Jira plan timeline embed', 'https://hello.atlassian.net/jira/plans/24/scenarios/24/timeline'],
 		['Jira plan summary embed', 'https://hello.atlassian.net/jira/plans/24/scenarios/24/summary'],
 		['Jira plan calendar embed', 'https://hello.atlassian.net/jira/plans/24/scenarios/24/calendar'],

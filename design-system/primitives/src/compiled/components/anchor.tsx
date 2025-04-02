@@ -80,7 +80,7 @@ const styles = unboundedCssMap({
 });
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
-const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
+const IS_NON_HTTP_BASED = /^(((mailto|tel|sms|blob):)|(#))/;
 
 /**
  * __Anchor__

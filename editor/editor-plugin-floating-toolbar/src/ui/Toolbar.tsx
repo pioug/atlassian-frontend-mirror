@@ -186,13 +186,26 @@ const ToolbarItems = React.memo(
 										<ButtonIcon
 											color={getIconColor(item.disabled, item.selected)}
 											spacing="spacious"
-											label={item.title}
+											label={
+												fg('editor_a11y_remove_redundant_wrap_icon_label') ? undefined : item.title
+											}
 											LEGACY_fallbackIcon={item.iconFallback}
 											LEGACY_primaryColor="currentColor"
 											Legacy_secondaryColor={token('elevation.surface')}
+											aria-hidden={
+												fg('editor_a11y_remove_redundant_wrap_icon_label') ? true : false
+											} // Icon is described by the button for screen readers
 										/>
 									) : (
-										<ButtonIcon label={item.title} spacing="spacious" />
+										<ButtonIcon
+											spacing="spacious"
+											label={
+												fg('editor_a11y_remove_redundant_wrap_icon_label') ? undefined : item.title
+											}
+											aria-hidden={
+												fg('editor_a11y_remove_redundant_wrap_icon_label') ? true : false
+											} // Icon is described by the button for screen readers
+										/>
 									)
 								) : undefined
 							}

@@ -36,14 +36,20 @@ export const getMediaNodeInsertionType = (
 		(!isInsidePotentialEmptyParagraph(state) || isInSupportedInlineImageParent(state)) &&
 		canInsertMediaInline(state);
 
-	if (
-		mediaInlineImagesEnabled(
-			getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags),
-			mediaOptions?.allowMediaInlineImages,
-		)
-	) {
-		if (canInsertInlineNode && !isVideo(fileMimeType)) {
+	if (fg('platform_editor_remove_media_inline_feature_flag')) {
+		if (mediaOptions?.allowMediaInlineImages) {
 			return 'inline';
+		}
+	} else {
+		if (
+			mediaInlineImagesEnabled(
+				getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags),
+				mediaOptions?.allowMediaInlineImages,
+			)
+		) {
+			if (canInsertInlineNode && !isVideo(fileMimeType)) {
+				return 'inline';
+			}
 		}
 	}
 

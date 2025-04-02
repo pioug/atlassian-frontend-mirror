@@ -40,7 +40,7 @@ describe('eeTest describe', () => {
 				expect(editorExperiment('example-boolean', false)).toBe(true);
 			});
 		});
-		let results: boolean[] = [];
+		const results: boolean[] = [];
 		eeTest.describe('example-boolean', 'Works with a single override').each(() => {
 			// Ignored via go/ees005
 			// eslint-disable-next-line jest/no-identical-title
@@ -68,7 +68,7 @@ describe('eeTest describe', () => {
 				expect(editorExperiment('example-multivariate', 'three')).toBe(true);
 			});
 		});
-		let results: [boolean, boolean, boolean][] = [];
+		const results: [boolean, boolean, boolean][] = [];
 		eeTest.describe('example-multivariate', 'Works with a single override').each(() => {
 			// Ignored via go/ees005
 			// eslint-disable-next-line jest/no-identical-title

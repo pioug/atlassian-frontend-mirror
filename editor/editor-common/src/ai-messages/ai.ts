@@ -136,6 +136,11 @@ export const aiMessages = defineMessages({
 	},
 
 	// Prompt Builder messages
+	promptbuilderAriaLabel: {
+		id: 'fabric.editor.ai.commandPalette.promptBuilderForm.generateContent.ariaLabel',
+		defaultMessage: 'Ask Atlassian Intelligence',
+		description: 'Aria label for prompt builder form',
+	},
 	promptBuilderFromButton: {
 		id: 'fabric.editor.ai.commandPalette.promptBuilderForm.buttons.submit',
 		defaultMessage: 'Generate',

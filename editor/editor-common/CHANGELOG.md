@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 102.17.2
+
+### Patch Changes
+
+- [#135979](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135979)
+  [`9e83a79d2c8ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e83a79d2c8ad) -
+  [HOT-116417] Revert null mode which was causing layouts to lose their width breakout mark on
+  publish
+
+## 102.17.1
+
+### Patch Changes
+
+- [#134378](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134378)
+  [`210a48c778086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/210a48c778086) -
+  EDITOR-546 Cleaned up platform_editor_cmd_a_progressively_select_nodes to revert to control
+  behaviour.
+- [#135717](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135717)
+  [`5e9c4ce5c11da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e9c4ce5c11da) -
+  [ux] Show Text Formatting toolbar in the view when table is large and column is selected via drag
+  handle.
+- Updated dependencies
+
+## 102.17.0
+
+### Minor Changes
+
+- [#132362](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132362)
+  [`2e90b51d52288`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e90b51d52288) -
+  [ux] [ED-26841] Do not autofocus editor when it is a live page with content. Additionally hide
+  cursor marks and ensure cursor starts at the very start of document to prevent selection
+  appearance and toolbars.
+
+### Patch Changes
+
+- [#135116](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135116)
+  [`989fa04bd7476`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/989fa04bd7476) -
+  [A11Y-9876] Confluence AI: Inappropriate aria-label defined to textarea fix
+- Updated dependencies
+
 ## 102.16.1
 
 ### Patch Changes

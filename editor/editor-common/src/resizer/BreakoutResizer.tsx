@@ -220,7 +220,7 @@ const BreakoutResizer = ({
 				} else {
 					const newBreakoutWidth = Math.max(newWidth, akEditorDefaultLayoutWidth);
 					newTr.setNodeMarkup(pos, node.type, node.attrs, [
-						breakout.create({ width: newBreakoutWidth, mode: null }),
+						breakout.create({ width: newBreakoutWidth }),
 					]);
 
 					const breakoutResizePayload: BreakoutEventPayload = {

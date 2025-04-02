@@ -51,6 +51,8 @@ export default function Example() {
 
 			<ModalTransition>
 				{isOpen && (
+					// This is fixed in the custom header
+					// eslint-disable-next-line @atlaskit/design-system/use-modal-dialog-close-button
 					<Modal onClose={closeModal}>
 						<CustomHeader />
 						<ModalBody>

@@ -33,6 +33,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Give this expand a title...',
 		description: 'Placeholder text for an expand node title input field',
 	},
+	expandArialabel: {
+		id: 'fabric.editor.expandAriaLabel',
+		defaultMessage: 'Give this expand a title',
+		description: 'aria label for an expand node title input field',
+	},
 });
 
 export const ExpandIconWrapper = ({

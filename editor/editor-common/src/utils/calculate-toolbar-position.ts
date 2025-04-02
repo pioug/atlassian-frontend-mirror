@@ -164,7 +164,7 @@ export type CoordsAtPos = {
 	right: number;
 };
 
-const cellSelectionToolbarCffsetTop = 10;
+const cellSelectionToolbarOffsetTop = 10;
 const scrollbarWidth = 20;
 const offsetTopOnColumnSelection = 4;
 export const calculateToolbarPositionOnCellSelection =
@@ -195,10 +195,10 @@ export const calculateToolbarPositionOnCellSelection =
 		let top;
 		if (headCellRect.top <= anchorCellRect.top) {
 			// Display Selection toolbar at the top of the selection
-			top = headCellRect.top - toolbarRect.height - cellSelectionToolbarCffsetTop;
+			top = headCellRect.top - toolbarRect.height - cellSelectionToolbarOffsetTop;
 		} else {
 			// Display Selection toolbar at the bottom of the selection
-			top = headCellRect.bottom + cellSelectionToolbarCffsetTop;
+			top = headCellRect.bottom + cellSelectionToolbarOffsetTop;
 		}
 
 		// scroll wrapper for full page, fall back to document body
@@ -210,7 +210,7 @@ export const calculateToolbarPositionOnCellSelection =
 		const wrapperBounds = scrollWrapper.getBoundingClientRect();
 		// Place toolbar below selection if not sufficient space above
 		if (top < wrapperBounds.top && headCellRect.top <= anchorCellRect.top) {
-			top = anchorCellRect.bottom + cellSelectionToolbarCffsetTop;
+			top = anchorCellRect.bottom + cellSelectionToolbarOffsetTop;
 		}
 
 		let left;
@@ -248,6 +248,20 @@ export const calculateToolbarPositionOnCellSelection =
 		let adjustedLeft = Math.max(0, left - toolbarRect.width / 2 - wrapperBounds.left);
 		if (adjustedLeft + toolbarRect.width > wrapperBounds.width) {
 			adjustedLeft = Math.max(0, wrapperBounds.width - (toolbarRect.width + scrollbarWidth));
+		}
+
+		// If the toolbar is to be placed at the bottom of the selection (it happens when
+		// there is no sufficient space above) and the bottom of the selection is not in the view,
+		// place the toolbar at the bottom of the visible part of selection
+		if (
+			selection.isColSelection() &&
+			top + toolbarRect.height > wrapperBounds.bottom &&
+			fg('platform_editor_controls_patch_2')
+		) {
+			top =
+				top -
+				(top - wrapperBounds.bottom) -
+				(toolbarRect.height + 2 * cellSelectionToolbarOffsetTop);
 		}
 
 		return {

@@ -49,6 +49,15 @@
 		"@atlassian/ts-loader": "workspace:^",
 		"@types/eslint": "^8.56.6",
 		"eslint": "^8.57.0",
+		"find-up": "^4 || ^5",
 		"outdent": "^0.5.0"
+	},
+	"peerDependencies": {
+		"find-up": "^4 || ^5"
+	},
+	"peerDependenciesMeta": {
+		"find-up": {
+			"optional": true
+		}
 	}
 }

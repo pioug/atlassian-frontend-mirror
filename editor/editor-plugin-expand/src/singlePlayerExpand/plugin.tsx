@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-	expand,
 	expandWithNestedExpand,
 	nestedExpand,
 	nestedExpandWithoutNonBodiedMacros,
@@ -31,9 +30,6 @@ import { getToolbarConfig } from './toolbar';
 export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 	// Confluence is injecting the FF through editor props, from an experiment
 	// Jira is pulling it in through platform feature flags, from a feature gate
-	const isNestingExpandsSchemaChanged =
-		fg('platform_editor_nested_expand_in_expand_adf_change') ||
-		fg('platform_editor_nest_nested_expand_in_expand_jira');
 	const isNestingExpandsSupported =
 		api?.featureFlags?.sharedState.currentState()?.nestedExpandInExpandEx ||
 		fg('platform_editor_nest_nested_expand_in_expand_jira');
@@ -48,7 +44,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 			return [
 				{
 					name: 'expand',
-					node: isNestingExpandsSchemaChanged ? expandWithNestedExpand : expand,
+					node: expandWithNestedExpand,
 				},
 				{ name: 'nestedExpand', node: nestedExpandNode },
 			];

@@ -2,10 +2,7 @@ import { snapshot } from '@af/visual-regression';
 
 import FlexibleUiAccessibility from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility';
 import FlexibleUiAccessibilityForbidden from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility-forbidden';
-import FlexibleUiBlockAction from '../../../examples/vr-flexible-card/vr-flexible-ui-action';
 import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block';
-import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action';
-import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action-group';
 import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states';
 import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
 import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
@@ -178,43 +175,6 @@ snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	},
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
-	},
-});
-snapshot(FlexibleUiBlockActionList, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
-	},
-});
-snapshot(FlexibleUiBlockAction, {
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
-	},
-});
-snapshot(FlexibleUiBlockActionGroup, {
-	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
-	},
-});
-snapshot(FlexibleUiBlockActionGroup, {
-	description: 'flexible-ui-block-action-group--item hovered',
-	drawsOutsideBounds: true,
-	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' }],
-	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
-	},
-});
-snapshot(FlexibleUiBlockActionGroup, {
-	description: 'flexible-ui-block-action-group--item focused',
-	drawsOutsideBounds: true,
-	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],

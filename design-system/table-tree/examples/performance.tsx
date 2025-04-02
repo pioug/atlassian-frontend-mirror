@@ -4,8 +4,7 @@
  */
 import { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
@@ -48,14 +47,17 @@ function generateChildItems(parent: Item, count: number) {
 }
 
 const performanceTweakContainerStyles = css({
-	width: '450px',
-	padding: token('space.250', '20px'),
-	position: 'fixed',
-	background: token('elevation.surface'),
-	border: `5px solid ${token('color.border')}`,
-	borderWidth: '5px 0 0 5px',
-	insetBlockEnd: token('space.0', '0px'),
-	insetInlineEnd: token('space.0', '0px'),
+  width: '450px',
+  position: 'fixed',
+  backgroundColor: token('elevation.surface'),
+  border: `5px solid ${token('color.border')}`,
+  borderWidth: '5px 0 0 5px',
+  insetBlockEnd: token('space.0', '0px'),
+  insetInlineEnd: token('space.0', '0px'),
+  paddingBlockEnd: token('space.250', '20px'),
+  paddingBlockStart: token('space.250', '20px'),
+  paddingInlineEnd: token('space.250', '20px'),
+  paddingInlineStart: token('space.250', '20px')
 });
 
 const childCountPerItem = 100;

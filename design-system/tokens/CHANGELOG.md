@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.6.0
+
+### Minor Changes
+
+- [#135818](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135818)
+  [`0337728c792a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0337728c792a2) -
+  Update type for `@atlaskit/css` padding to include 0.
+
 ## 4.5.2
 
 ### Patch Changes

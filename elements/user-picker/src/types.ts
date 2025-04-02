@@ -175,6 +175,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	UNSAFE_hasDraggableParentComponent?: boolean;
 	/** Override the internal behaviour of default menu open on focus and applicable for single value select  */
 	openMenuOnClick?: boolean;
+	/** Positioning strategy for the popper element */
+	strategy?: 'fixed' | 'absolute';
 };
 
 export type PopupUserPickerProps = UserPickerProps & {

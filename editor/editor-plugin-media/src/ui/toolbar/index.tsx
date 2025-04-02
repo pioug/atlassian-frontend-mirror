@@ -377,10 +377,12 @@ const generateMediaSingleFloatingToolbar = (
 			true,
 			isChangingLayoutDisabled,
 		);
-		if (mediaInlineImagesEnabled(allowMediaInline, allowMediaInlineImages) && selectedNode) {
+
+		const addLayoutDropdownToToolbar = () => {
 			const selectedLayoutIcon = getSelectedLayoutIcon(
 				[...alignmentIcons, ...wrappingIcons],
-				selectedNode.node,
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				selectedNode!.node,
 			);
 
 			if (selectedLayoutIcon && layoutButtons.length) {
@@ -409,11 +411,27 @@ const generateMediaSingleFloatingToolbar = (
 
 				toolbarButtons = [...toolbarButtons, trigger, { type: 'separator' }];
 			}
-		} else {
-			toolbarButtons = [...toolbarButtons, ...layoutButtons];
+		};
 
-			if (layoutButtons.length) {
-				toolbarButtons.push({ type: 'separator' });
+		if (fg('platform_editor_remove_media_inline_feature_flag')) {
+			if (allowMediaInlineImages && selectedNode) {
+				addLayoutDropdownToToolbar();
+			} else {
+				toolbarButtons = [...toolbarButtons, ...layoutButtons];
+
+				if (layoutButtons.length) {
+					toolbarButtons.push({ type: 'separator' });
+				}
+			}
+		} else {
+			if (mediaInlineImagesEnabled(allowMediaInline, allowMediaInlineImages) && selectedNode) {
+				addLayoutDropdownToToolbar();
+			} else {
+				toolbarButtons = [...toolbarButtons, ...layoutButtons];
+
+				if (layoutButtons.length) {
+					toolbarButtons.push({ type: 'separator' });
+				}
 			}
 		}
 
@@ -841,12 +859,19 @@ export const floatingToolbar = (
 		allowLinking,
 		allowAltTextOnImages,
 		providerFactory,
-		allowMediaInline,
+		allowMediaInlineImages,
 		allowResizing,
 		isViewOnly,
 		allowResizingInTables,
 		allowAdvancedToolBarOptions,
 	} = options;
+
+	let { allowMediaInline } = options;
+
+	allowMediaInline = fg('platform_editor_remove_media_inline_feature_flag')
+		? allowMediaInlineImages
+		: allowMediaInline;
+
 	const mediaPluginState: MediaPluginState | undefined = stateKey.getState(state);
 
 	const mediaLinkingState: MediaLinkingState = getMediaLinkingState(state);

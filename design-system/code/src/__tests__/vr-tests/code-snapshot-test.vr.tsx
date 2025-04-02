@@ -69,8 +69,4 @@ snapshot(CodeBlockHighlightingLongLines);
 snapshot(VrPythonTestIdAndWrapping);
 snapshot(CodeOverrideBackground);
 snapshot(ExampleSQL);
-snapshot(ExampleABAP, {
-	featureFlags: {
-		platform_dst_code_abap_syntax: [true, false],
-	},
-});
+snapshot(ExampleABAP);

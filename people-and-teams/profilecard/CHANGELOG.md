@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 23.7.7
+
+### Patch Changes
+
+- [#131544](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/131544)
+  [`302f011a91ef3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302f011a91ef3) -
+  a11y fix added labels to profile card buttons
+- Updated dependencies
+
 ## 23.7.6
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-code-block
 
+## 4.2.4
+
+### Patch Changes
+
+- [#134378](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134378)
+  [`210a48c778086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/210a48c778086) -
+  EDITOR-546 Cleaned up platform_editor_cmd_a_progressively_select_nodes to revert to control
+  behaviour.
+- Updated dependencies
+
 ## 4.2.3
 
 ### Patch Changes

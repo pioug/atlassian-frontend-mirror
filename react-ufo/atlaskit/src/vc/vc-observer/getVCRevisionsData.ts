@@ -84,14 +84,10 @@ export function getVCRevisionsData({
 			: {},
 	};
 
-	const ttvcV2ReportedMetric = fg('platform_ufo_fix_v2_reported_vc90')
-		? calculatedVCNext.VC['90']
-		: calculatedVC.VC['90'];
-
 	const ttvcV2Revision = {
 		revision: 'fy25.02',
 		clean: isVCClean,
-		'metric:vc90': shouldHaveVCmetric ? ttvcV2ReportedMetric : null,
+		'metric:vc90': shouldHaveVCmetric ? calculatedVCNext.VC['90'] : null,
 		vcDetails: shouldHaveVCmetric
 			? Object.fromEntries(
 					VCParts.map((key) => [

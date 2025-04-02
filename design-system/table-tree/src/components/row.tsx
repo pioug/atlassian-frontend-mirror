@@ -4,8 +4,7 @@
  */
 import React, { Fragment, type ReactNode, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
@@ -231,7 +230,7 @@ function Row<Item extends { id: string }>({
 	return (
 		<Fragment>
 			<TreeRowContainer
-				css={hasChildren && shouldExpandOnClick ? treeRowClickableStyles : undefined}
+				css={[hasChildren && shouldExpandOnClick ? treeRowClickableStyles : undefined]}
 				onClick={hasChildren && shouldExpandOnClick ? onClickHandler : undefined}
 				aria-expanded={hasChildren ? isExpandedState : undefined}
 				aria-level={depth ? depth : undefined}

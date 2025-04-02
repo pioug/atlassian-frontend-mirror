@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 10.5.10
+
+### Patch Changes
+
+- [#133495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133495)
+  [`6e3c24aeec2b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e3c24aeec2b7) -
+  ED-25981 Clean up feature flag platform_editor_set_alignment_when_resized
+- [#134378](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134378)
+  [`210a48c778086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/210a48c778086) -
+  EDITOR-546 Cleaned up platform_editor_cmd_a_progressively_select_nodes to revert to control
+  behaviour.
+- Updated dependencies
+
 ## 10.5.9
 
 ### Patch Changes

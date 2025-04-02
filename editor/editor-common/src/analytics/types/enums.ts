@@ -99,7 +99,6 @@ export enum ACTION {
 	RESOLVED = 'resolved',
 	REQUEST_TO_EDIT = 'requestToEdit',
 	SELECTED = 'selected',
-	SELECT_ALL = 'selectAll',
 	SHOWN = 'shown',
 	SLOW_INPUT = 'slowInput',
 	STARTED = 'started',

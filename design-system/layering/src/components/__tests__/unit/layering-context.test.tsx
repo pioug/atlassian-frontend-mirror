@@ -71,7 +71,7 @@ describe('Layering', () => {
 		const ChildModal = ({ onCancel, onClose }: { onCancel: () => void; onClose: () => void }) => {
 			return (
 				<Modal width={400} onClose={onCancel} label="child modal">
-					<ModalHeader>Are you sure?</ModalHeader>
+					<ModalHeader hasCloseButton>Are you sure?</ModalHeader>
 					<ModalBody>
 						<Button onClick={onCancel}>Whoops go back!!!</Button>
 						<Button onClick={onClose}>Yep shut it all down!</Button>
@@ -98,7 +98,7 @@ describe('Layering', () => {
 								setIsChildOpen(true);
 							}}
 						>
-							<ModalHeader>Primary Modal</ModalHeader>
+							<ModalHeader hasCloseButton>Primary Modal</ModalHeader>
 							<ModalBody>
 								{isChildOpen && (
 									<ChildModal
@@ -226,7 +226,7 @@ describe('Layering', () => {
 			const ChildModal = ({ onCancel, onClose }: { onCancel: () => void; onClose: () => void }) => {
 				return (
 					<Modal width={400} onClose={onCancel} label="child modal">
-						<ModalHeader>Are you sure?</ModalHeader>
+						<ModalHeader hasCloseButton>Are you sure?</ModalHeader>
 						<ModalBody>
 							<Button onClick={onCancel}>Whoops go back!!!</Button>
 							<Button onClick={onClose}>Yep shut it all down!</Button>
@@ -253,7 +253,7 @@ describe('Layering', () => {
 									setIsChildOpen(true);
 								}}
 							>
-								<ModalHeader>Primary Modal</ModalHeader>
+								<ModalHeader hasCloseButton>Primary Modal</ModalHeader>
 								<ModalBody>
 									{isChildOpen && (
 										<ChildModal

@@ -3,7 +3,12 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
-import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+	ModalBody,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 import { PopupSelect } from '@atlaskit/select';
 
 const options = [
@@ -67,6 +72,9 @@ export default () => {
 			<ModalTransition>
 				{type === 'modal' && isOpen && (
 					<ModalDialog onClose={() => setIsOpen(false)}>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Popup select modal</ModalTitle>
+						</ModalHeader>
 						<ModalBody>{select}</ModalBody>
 					</ModalDialog>
 				)}

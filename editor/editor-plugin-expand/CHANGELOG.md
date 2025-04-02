@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 3.2.3
+
+### Patch Changes
+
+- [#134373](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134373)
+  [`2260b25ebfbe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2260b25ebfbe9) -
+  A11Y-10088 fixing aria-label for expand
+- Updated dependencies
+
 ## 3.2.2
 
 ### Patch Changes

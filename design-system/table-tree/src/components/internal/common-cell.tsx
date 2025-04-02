@@ -2,26 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { CSSProperties, FC, HTMLAttributes, ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { CSSProperties, FC, HTMLAttributes, ReactNode } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { indentBase } from './styled';
 
 const commonStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
 	minHeight: 40,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: `${token('space.100', '10px')} ${indentBase} ${token(
+	padding: `${token('space.100', '10px')} ${token('space.300', '25px')} ${token(
 		'space.100',
 		'10px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	)} var(--indent, ${indentBase})`,
+	)} var(--indent, ${token('space.300', '25px')})`,
 	position: 'relative',
 	alignItems: 'center',
 	color: token('color.text', N800),

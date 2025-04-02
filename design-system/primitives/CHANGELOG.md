@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 14.3.0
+
+### Minor Changes
+
+- [#135655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135655)
+  [`71f8afb32ade5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71f8afb32ade5) -
+  Anchor will no longer render as a RouterLink for urls that use the blob: protocol.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.3
 
 ### Patch Changes

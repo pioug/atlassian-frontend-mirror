@@ -37,7 +37,7 @@ export default () => {
 						<ModalTransition>
 							{isOpen && (
 								<Modal onClose={close} testId="modal">
-									<ModalHeader>
+									<ModalHeader hasCloseButton>
 										<ModalTitle>Modal Title</ModalTitle>
 									</ModalHeader>
 									<ModalBody>This is inside the modal body.</ModalBody>
@@ -45,7 +45,7 @@ export default () => {
 										<Button testId="secondary" appearance="subtle" onClickCapture={secondaryAction}>
 											Secondary Action
 										</Button>
-										<Button autoFocus testId="primary" appearance="primary" onClick={close}>
+										<Button testId="primary" appearance="primary" onClick={close}>
 											Close
 										</Button>
 									</ModalFooter>

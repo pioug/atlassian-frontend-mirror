@@ -162,10 +162,13 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				allowMediaGroup = true,
 				allowMediaSingle = false,
 				allowCaptions,
+				allowMediaInlineImages,
 				featureFlags: mediaFeatureFlags,
 			} = options || {};
 
-			const allowMediaInline = getMediaFeatureFlag('mediaInline', mediaFeatureFlags);
+			const allowMediaInline = fg('platform_editor_remove_media_inline_feature_flag')
+				? allowMediaInlineImages
+				: getMediaFeatureFlag('mediaInline', mediaFeatureFlags);
 
 			const mediaSingleOption = fg('platform_editor_media_extended_resize_experience')
 				? {

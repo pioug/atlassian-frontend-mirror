@@ -128,6 +128,8 @@ export default class BenefitsModal extends Component<ModalProps> {
 		};
 
 		return (
+			// TODO: This is a problem that needs solving: https://product-fabric.atlassian.net/browse/DSP-22238
+			// eslint-disable-next-line @atlaskit/design-system/use-modal-dialog-close-button
 			<Modal
 				autoFocus
 				shouldCloseOnEscapePress={false}

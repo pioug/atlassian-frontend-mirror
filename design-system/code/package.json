@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "16.1.0",
+	"version": "16.2.0",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/codemod-utils": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
@@ -123,11 +122,6 @@
 		"./block": "./src/entry-points/block.tsx",
 		"./inline": "./src/entry-points/inline.tsx",
 		"./constants": "./src/entry-points/constants.tsx"
-	},
-	"platform-feature-flags": {
-		"platform_dst_code_abap_syntax": {
-			"type": "boolean"
-		}
 	},
 	"homepage": "https://atlassian.design/components/code/"
 }

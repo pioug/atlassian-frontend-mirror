@@ -33,7 +33,7 @@ const FormModalDialogExample = () => {
 						>
 							{({ formProps }) => (
 								<form id="form-with-id" {...formProps}>
-									<ModalHeader>
+									<ModalHeader hasCloseButton>
 										<ModalTitle>Modal dialog with form</ModalTitle>
 									</ModalHeader>
 

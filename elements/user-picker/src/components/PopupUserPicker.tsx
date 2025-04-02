@@ -21,6 +21,7 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 		placement: 'auto',
 		rootBoundary: 'viewport',
 		shouldFlip: true,
+		strategy: 'fixed',
 	};
 	state = {
 		flipped: false,
@@ -52,6 +53,7 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 			rootBoundary,
 			shouldFlip,
 			styles,
+			strategy,
 		} = this.props;
 		const width = this.props.width as string | number;
 
@@ -80,6 +82,7 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 					rootBoundary,
 					shouldFlip,
 					popupTitle,
+					strategy,
 				)}
 			/>
 		);

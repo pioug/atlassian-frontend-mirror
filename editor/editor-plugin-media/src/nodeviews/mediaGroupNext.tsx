@@ -21,6 +21,7 @@ import type { Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
@@ -64,6 +65,7 @@ const isNodeSelected =
 const prepareFilmstripItem =
 	({
 		allowLazyLoading,
+		allowMediaInlineImages,
 		enableDownloadButton,
 		handleMediaNodeRemoval,
 		getPos,
@@ -74,6 +76,7 @@ const prepareFilmstripItem =
 	}: {
 		getPos: () => number | undefined;
 		allowLazyLoading: boolean | undefined;
+		allowMediaInlineImages: boolean | undefined;
 		enableDownloadButton: boolean | undefined;
 		handleMediaNodeRemoval: (node: PMNode | undefined, getPos: () => number | undefined) => void;
 		isMediaItemSelected: (mediaItemPos: number, mediaGroupPos: number) => boolean;
@@ -124,7 +127,11 @@ const prepareFilmstripItem =
 			onClick: () => {
 				setMediaGroupNodeSelection(getNodePos());
 			},
-			...mediaInlineOptions(getMediaFeatureFlag('mediaInline', featureFlags)),
+			...mediaInlineOptions(
+				fg('platform_editor_remove_media_inline_feature_flag')
+					? allowMediaInlineImages
+					: getMediaFeatureFlag('mediaInline', featureFlags),
+			),
 		};
 	};
 
@@ -206,7 +213,12 @@ type MediaGroupProps = {
 export const MediaGroupNext = injectIntl(
 	React.memo((props: MediaGroupProps) => {
 		const {
-			mediaOptions: { allowLazyLoading, enableDownloadButton, featureFlags },
+			mediaOptions: {
+				allowLazyLoading,
+				allowMediaInlineImages,
+				enableDownloadButton,
+				featureFlags,
+			},
 			intl,
 			getPos,
 			anchorPos,
@@ -263,6 +275,7 @@ export const MediaGroupNext = injectIntl(
 		const filmstripItem = useMemo(() => {
 			return prepareFilmstripItem({
 				allowLazyLoading,
+				allowMediaInlineImages,
 				enableDownloadButton,
 				handleMediaNodeRemoval,
 				getPos,
@@ -273,6 +286,7 @@ export const MediaGroupNext = injectIntl(
 			});
 		}, [
 			allowLazyLoading,
+			allowMediaInlineImages,
 			enableDownloadButton,
 			handleMediaNodeRemoval,
 			getPos,

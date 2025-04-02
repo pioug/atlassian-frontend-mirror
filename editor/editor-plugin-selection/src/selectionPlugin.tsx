@@ -8,7 +8,6 @@ import gapCursorPlugin from './pm-plugins/gap-cursor-main';
 import { gapCursorPluginKey } from './pm-plugins/gap-cursor-plugin-key';
 import selectionKeymapPlugin from './pm-plugins/keymap';
 import { createMarkBoundaryCursorPlugin } from './pm-plugins/mark-boundary-cursor-main';
-import { createSelectionAnalyticsPlugin } from './pm-plugins/selection-analytics';
 import { createPlugin } from './pm-plugins/selection-main';
 import type { SelectionPlugin } from './selectionPluginType';
 import { selectionPluginKey } from './types';
@@ -95,11 +94,6 @@ export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
 			{
 				name: 'autoExpandSelectionRangeOnInlineNode',
 				plugin: () => createAutoExpandSelectionRangeOnInlineNodePlugin(),
-			},
-			{
-				name: 'selectionAnalytics',
-				plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
-					createSelectionAnalyticsPlugin(dispatchAnalyticsEvent),
 			},
 		];
 	},

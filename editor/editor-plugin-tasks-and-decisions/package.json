@@ -111,9 +111,6 @@
 	"platform-feature-flags": {
 		"editor_request_to_edit_task": {
 			"type": "boolean"
-		},
-		"platform_editor_lazy_task_item_check": {
-			"type": "boolean"
 		}
 	}
 }

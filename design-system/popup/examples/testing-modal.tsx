@@ -1,7 +1,7 @@
 import React, { type FC, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Modal from '@atlaskit/modal-dialog';
+import Modal, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -32,6 +32,9 @@ const ModalDialog = () => {
 						setShowModal(false);
 					}}
 				>
+					<ModalHeader hasCloseButton>
+						<ModalTitle>Modal</ModalTitle>
+					</ModalHeader>
 					<Box xcss={modalStyles}>
 						<h1>Form</h1>
 						<p>Clicking inside a modal does not cause the modal or popup to close</p>

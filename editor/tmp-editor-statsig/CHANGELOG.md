@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.6.1
+
+### Patch Changes
+
+- [#134378](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134378)
+  [`210a48c778086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/210a48c778086) -
+  EDITOR-546 Cleaned up platform_editor_cmd_a_progressively_select_nodes to revert to control
+  behaviour.
+
 ## 4.6.0
 
 ### Minor Changes

@@ -129,6 +129,9 @@
 		"forge-ui-macro-autoconvert": {
 			"type": "boolean"
 		},
+		"editor_a11y_remove_redundant_wrap_icon_label": {
+			"type": "boolean"
+		},
 		"platform_editor_fix_floating_toolbar_scrollbar": {
 			"type": "boolean"
 		},

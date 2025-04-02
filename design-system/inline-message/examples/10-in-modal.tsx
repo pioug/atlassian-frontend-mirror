@@ -27,7 +27,7 @@ export default () => {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

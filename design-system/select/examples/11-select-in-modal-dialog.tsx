@@ -26,6 +26,7 @@ const options = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class SelectInModal extends Component<{}, State> {
 	state: State = { isOpen: false };
 
@@ -43,7 +44,7 @@ class SelectInModal extends Component<{}, State> {
 				<ModalTransition>
 					{isOpen && (
 						<Modal onClose={this.close}>
-							<ModalHeader>
+							<ModalHeader hasCloseButton>
 								<ModalTitle>Modal Title</ModalTitle>
 							</ModalHeader>
 							<ModalBody>
@@ -60,6 +61,7 @@ class SelectInModal extends Component<{}, State> {
 									// for more examples of modal usage with select.
 									// See ticket to have these styles baked into <Select>: https://product-fabric.atlassian.net/browse/DSP-1826
 									menuPortalTarget={document.body}
+									// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 									styles={{
 										menuPortal: (base) => ({
 											...base,

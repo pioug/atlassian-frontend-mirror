@@ -1,15 +1,23 @@
-import React, { useRef, useState, type ComponentType, type FC } from 'react';
+import React, { type ComponentType, type FC, useRef, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import Textfield from '@atlaskit/textfield';
 import Button from '@atlaskit/button/new';
-import Modal, { ModalTransition, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
-import Tooltip from '@atlaskit/tooltip';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
+import { Inline } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-html-anchor -- To migrate as part of go/ui-styling-standard
 const IconExplorerLink = styled.a({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&, &:hover, &:active, &:focus': {
@@ -23,15 +31,6 @@ const IconExplorerLink = styled.a({
 	'&:hover': {
 		background: N30A,
 	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const IconModalHeader = styled.h3({
-	display: 'flex',
-	padding: token('space.250', '20px'),
-	alignItems: 'center',
-	justifyContent: 'flex-start',
-	flexDirection: 'row',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -94,10 +93,12 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 
 	const modal = (
 		<Modal onClose={closeModal}>
-			<IconModalHeader>
-				<Icon label={componentName} size="medium" />
-				{componentName}
-			</IconModalHeader>
+			<ModalHeader hasCloseButton>
+				<Inline alignBlock="center" space="space.100">
+					<Icon label={componentName} size="medium" />
+					<ModalTitle>{componentName}</ModalTitle>
+				</Inline>
+			</ModalHeader>
 			<ModalBody>
 				{/* Add onClick handler to select the value from read only input */}
 				<Textfield
@@ -111,7 +112,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 				<Button onClick={closeModal} appearance="subtle">
 					Close
 				</Button>
-				<Button onClick={copyToClipboard} appearance="primary" autoFocus>
+				<Button onClick={copyToClipboard} appearance="primary">
 					Copy
 				</Button>
 			</ModalFooter>

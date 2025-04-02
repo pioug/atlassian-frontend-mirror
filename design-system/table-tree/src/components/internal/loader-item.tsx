@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 
 import CommonCell from './common-cell';
-import { indentBase, LoaderItemContainer, TreeRowContainer } from './styled';
+import { LoaderItemContainer, TreeRowContainer } from './styled';
 
 interface LoaderItemProps {
 	/**
@@ -30,7 +31,7 @@ const LoaderItem = ({ depth = 1, loadingLabel, isCompleting, onComplete }: Loade
 
 	return phase === 'loading' ? (
 		<TreeRowContainer>
-			<CommonCell indent={`calc(${indentBase} * ${depth})`} width="100%">
+			<CommonCell indent={`calc(${token('space.300', '25px')} * ${depth})`} width="100%">
 				<LoaderItemContainer isRoot={depth === 1}>
 					<Spinner size="small" testId="table-tree-spinner" label={loadingLabel} />
 				</LoaderItemContainer>

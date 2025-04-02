@@ -23,7 +23,10 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, Obj
 	}
 
 	render() {
-		if (fg('platform_editor_react18_phase2_v2')) {
+		if (
+			fg('platform_editor_react18_phase2_v2') ||
+			fg('platform_editor_react18_phase2_v2_extended')
+		) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <LegacyEditorContextNew {...this.props}>{this.props.children}</LegacyEditorContextNew>;

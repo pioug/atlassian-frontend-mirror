@@ -120,7 +120,7 @@ const Modal = (props: ModalProps) => {
 	return (
 		<Fragment>
 			<ModalDialog onClose={onClose} testId="modal">
-				<ModalHeader>
+				<ModalHeader hasCloseButton>
 					<ModalTitle>Modal dialog</ModalTitle>
 				</ModalHeader>
 				<ModalBody>

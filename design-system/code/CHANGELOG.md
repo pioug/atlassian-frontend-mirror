@@ -1,5 +1,14 @@
 # @atlaskit/code
 
+## 16.2.0
+
+### Minor Changes
+
+- [#135035](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135035)
+  [`0d6128bb1e136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d6128bb1e136) -
+  CodeBlock now correctly applies syntax highlighting for the ABAP language. This change is no
+  longer behind a feature flag.
+
 ## 16.1.0
 
 ### Minor Changes

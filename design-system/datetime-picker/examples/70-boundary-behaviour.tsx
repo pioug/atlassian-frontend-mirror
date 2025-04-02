@@ -5,7 +5,7 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/new';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
-import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box, Text } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 
@@ -41,6 +41,9 @@ export default () => {
 			<ModalTransition>
 				{isModalOpen && (
 					<Modal onClose={() => setIsModalOpen(false)}>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Date picker modal</ModalTitle>
+						</ModalHeader>
 						<ModalBody>
 							<Label htmlFor="paragraphs-above">Paragraphs above: {textAbove}</Label>
 							<Range

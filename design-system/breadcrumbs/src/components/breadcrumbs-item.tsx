@@ -22,6 +22,7 @@ const itemWrapperStyles = css({
 	maxWidth: '100%',
 	height: `${24 / 14}em`,
 	flexDirection: 'row',
+	fontFamily: token('font.family.body'),
 	marginBlockEnd: token('space.0', '0px'),
 	marginBlockStart: token('space.0', '0px'),
 	marginInlineEnd: token('space.0', '0px'),

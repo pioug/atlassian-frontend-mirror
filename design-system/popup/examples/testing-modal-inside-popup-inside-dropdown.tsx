@@ -35,7 +35,7 @@ const ModalDialogComponent = forwardRef<any, any>(({}, ref) => {
 						setShowModal(false);
 					}}
 				>
-					<ModalHeader>
+					<ModalHeader hasCloseButton>
 						<ModalTitle>Form</ModalTitle>
 					</ModalHeader>
 					<ModalBody>

@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 4.2.3
+
+### Patch Changes
+
+- [#135566](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135566)
+  [`610d0b7771536`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/610d0b7771536) -
+  Added support for base plan URL smart link
+
 ## 4.2.2
 
 ### Patch Changes

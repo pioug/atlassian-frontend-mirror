@@ -666,6 +666,9 @@ export default class PopupSelect<
 									onFocus: onReactSelectFocus,
 									...props.ariaLiveMessages, // priority to use user handlers if provided
 								}}
+								// When the internal select menu closes, we also need to close the popup too.
+								// For example: when the OpenLayerObserver tells the Select menu to close, we also close PopupSelect's popup.
+								onMenuClose={fg('platform_dst_layer_observer_select') ? this.close : undefined}
 							/>
 							{footer}
 						</FocusLock>

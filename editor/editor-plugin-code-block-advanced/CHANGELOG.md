@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.1.4
+
+### Patch Changes
+
+- [#136263](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136263)
+  [`602e9a7824b0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/602e9a7824b0c) -
+  Fix editor crashing with advanced code blocks due to infinite codemirror loop with decorations
+  when changing breakout.
+- Updated dependencies
+
 ## 2.1.3
 
 ### Patch Changes

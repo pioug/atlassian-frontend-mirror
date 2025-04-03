@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.10.0
+
+### Minor Changes
+
+- [#136531](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136531)
+  [`bf09e88468d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf09e88468d38) -
+  Allow New Chat Payload to support ADF prompts.
+
 ## 2.9.0
 
 ### Minor Changes

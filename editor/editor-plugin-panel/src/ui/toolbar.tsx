@@ -359,7 +359,7 @@ export const getToolbarItems = (
 				type: 'overflow-dropdown',
 				options: [
 					{
-						title: 'Copy',
+						title: formatMessage(commonMessages.copyToClipboard),
 						onClick: () => {
 							api?.core?.actions.execute(
 								// @ts-ignore
@@ -367,13 +367,13 @@ export const getToolbarItems = (
 							);
 							return true;
 						},
-						icon: <CopyIcon label="Copy" />,
+						icon: <CopyIcon label="" />,
 						...hoverDecorationProps(panelNodeType, akEditorSelectedNodeClassName),
 					},
 					{
-						title: 'Delete',
+						title: formatMessage(commonMessages.delete),
 						onClick: removePanel(editorAnalyticsAPI),
-						icon: <DeleteIcon label="Delete" />,
+						icon: <DeleteIcon label="" />,
 						...hoverDecorationProps(panelNodeType),
 					},
 				],

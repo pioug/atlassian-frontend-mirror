@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.3.6
+
+### Patch Changes
+
+- [#135586](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135586)
+  [`3aeba66081612`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aeba66081612) -
+  ED-26593 Add missing i18n for editor control
+- Updated dependencies
+
 ## 3.3.5
 
 ### Patch Changes

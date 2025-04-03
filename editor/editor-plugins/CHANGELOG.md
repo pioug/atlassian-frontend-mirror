@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugins
 
+## 8.0.83
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.82
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.81
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.80
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.79
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.78
 
 ### Patch Changes

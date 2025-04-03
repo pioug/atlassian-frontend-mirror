@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -15,6 +15,7 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { Item } from '@atlaskit/editor-common/floating-toolbar';
 import { areSameItems, messages } from '@atlaskit/editor-common/floating-toolbar';
+import commonMessages from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI, SelectOption } from '@atlaskit/editor-common/types';
 import {
@@ -133,10 +134,12 @@ const ToolbarItems = React.memo(
 		setDisableScroll,
 		mountRef,
 		api,
+		intl,
 	}: Props & {
 		setDisableScroll?: (disable: boolean) => void;
 		mountRef: React.RefObject<HTMLDivElement>;
 		mounted: boolean;
+		intl: IntlShape;
 	}) => {
 		const emojiAndColourPickerMountPoint = scrollable
 			? popupsMountPoint ||
@@ -255,8 +258,7 @@ const ToolbarItems = React.memo(
 					return (
 						<Dropdown
 							key={idx}
-							// TODO: ED-26959 - Find more appropriate copy
-							title={'Show more items'}
+							title={intl.formatMessage(commonMessages.viewMore)}
 							icon={<ShowMoreHorizontalIcon label="" spacing="spacious" />}
 							dispatchCommand={dispatchCommand}
 							options={item.options}

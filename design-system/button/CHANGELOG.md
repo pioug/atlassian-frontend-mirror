@@ -1,5 +1,19 @@
 # @atlaskit/button
 
+## 23.0.3
+
+### Patch Changes
+
+- [#136521](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136521)
+  [`2954f5ca1bc29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2954f5ca1bc29) -
+  Update dependencies.
+
+## 23.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.1
 
 ### Patch Changes

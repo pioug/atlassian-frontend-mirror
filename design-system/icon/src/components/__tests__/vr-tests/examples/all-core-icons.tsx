@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::4d01f7dbb0aedffb0cb3f8a3aa9d5978>>
+ * @codegen <<SignedSource::8b1f7870880280d30705c70b82e5f2ce>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -20,6 +20,7 @@ import AccessibilityIcon from '../../../../../core/accessibility';
 import AddIcon from '../../../../../core/add';
 import AiAgentIcon from '../../../../../core/ai-agent';
 import AiChatIcon from '../../../../../core/ai-chat';
+import AiGenerativeTextSummaryIcon from '../../../../../core/ai-generative-text-summary';
 import AlertIcon from '../../../../../core/alert';
 import AlignCenterIcon from '../../../../../core/align-center';
 import AlignImageCenterIcon from '../../../../../core/align-image-center';
@@ -667,7 +668,7 @@ const Icons = [
 	TableColumnMoveRightIcon,
 	TableRowMoveUpIcon,
 	TableRowMoveDownIcon,
-	SummarizeIcon,
+	AiGenerativeTextSummaryIcon,
 	TextShortenIcon,
 	GlassesIcon,
 	EmojiNeutralIcon,
@@ -742,6 +743,7 @@ const Icons = [
 	IssuesIcon,
 	SidebarLeftIcon,
 	SidebarRightIcon,
+	SummarizeIcon,
 ];
 
 const groupSize = 20;

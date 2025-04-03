@@ -3,7 +3,10 @@
  * @jsx jsx
  * @jsxFrag
  */
+import { IntlShape } from 'react-intl-next';
+
 import { jsx } from '@atlaskit/css';
+import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
 	FloatingToolbarItem,
@@ -21,35 +24,37 @@ import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 type OverflowToobarConfigOptions = {
 	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
 	toolbarDocking?: 'top' | 'none';
+	intl: IntlShape;
 };
 
 // New editor controls
 export const getOverflowFloatingToolbarConfig = ({
 	api,
 	toolbarDocking,
+	intl,
 }: OverflowToobarConfigOptions): FloatingToolbarItem<Command>[] => {
 	const isDockedToTop = toolbarDocking === 'top';
 
 	const dropdownOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
 		{
 			type: 'overflow-dropdown-heading',
-			title: 'Toolbar appears',
+			title: intl.formatMessage(selectionToolbarMessages.toolbarAppears),
 		},
 		{
-			title: 'In-line with text',
+			title: intl.formatMessage(selectionToolbarMessages.toolbarPositionInline),
 			onClick: () => {
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 			},
-			icon: MinusIcon({ label: 'Contextual toolbar' }),
+			icon: MinusIcon({ label: '' }),
 			selected: !isDockedToTop,
 			elemAfter: !isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
 		},
 		{
-			title: 'Fixed at top',
+			title: intl.formatMessage(selectionToolbarMessages.toolbarPositionFixedAtTop),
 			onClick: () => {
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 			},
-			icon: DockToolbarTopIcon({ label: 'Fixed toolbar' }),
+			icon: DockToolbarTopIcon({ label: '' }),
 			selected: isDockedToTop,
 			elemAfter: isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
 		},
@@ -67,28 +72,31 @@ export const getOverflowFloatingToolbarConfig = ({
 
 export const getOverflowPrimaryToolbarConfig = ({
 	api,
+	intl,
 }: OverflowToobarConfigOptions): { items: MenuItem[] }[] => [
 	{
 		items: [
 			{
-				content: <HeadingItem>Toolbar appears</HeadingItem>,
+				content: (
+					<HeadingItem>{intl.formatMessage(selectionToolbarMessages.toolbarAppears)}</HeadingItem>
+				),
 				value: {
 					name: '',
 				},
 				isDisabled: true,
 			},
 			{
-				content: 'In-line with text',
+				content: intl.formatMessage(selectionToolbarMessages.toolbarPositionInline),
 				value: {
 					name: 'contextual',
 				},
 				onClick: () => {
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 				},
-				elemBefore: MinusIcon({ label: 'Contextual toolbar' }),
+				elemBefore: MinusIcon({ label: '' }),
 			},
 			{
-				content: 'Fixed at top',
+				content: intl.formatMessage(selectionToolbarMessages.toolbarPositionFixedAtTop),
 				value: {
 					name: 'fixed',
 				},
@@ -96,7 +104,7 @@ export const getOverflowPrimaryToolbarConfig = ({
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 				},
 				isActive: true,
-				elemBefore: DockToolbarTopIcon({ label: 'Fixed toolbar' }),
+				elemBefore: DockToolbarTopIcon({ label: '' }),
 				elemAfter: <CheckMarkIcon label="" />,
 			},
 		],

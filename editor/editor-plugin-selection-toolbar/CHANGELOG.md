@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.1.0
+
+### Minor Changes
+
+- [#135115](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135115)
+  [`599ab2e1d386c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/599ab2e1d386c) -
+  ED-27314 add user preferece analytics for toolbar docking
+
+### Patch Changes
+
+- [#135586](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135586)
+  [`3aeba66081612`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aeba66081612) -
+  ED-26593 Add missing i18n for editor control
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

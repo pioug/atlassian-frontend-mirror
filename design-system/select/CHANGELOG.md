@@ -1,5 +1,21 @@
 # @atlaskit/select
 
+## 20.1.0
+
+### Minor Changes
+
+- [#135853](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135853)
+  [`63233b4c0a6a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63233b4c0a6a7) -
+  PopupSelect will now close when the internal select menu's onMenuClose is called.
+
+  This is used to close any open select menus when page layout slots are resized.
+
+  This change is behind a feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.8
 
 ### Patch Changes

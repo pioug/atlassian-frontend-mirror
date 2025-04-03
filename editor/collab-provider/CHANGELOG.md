@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 10.12.0
+
+### Minor Changes
+
+- [#136400](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136400)
+  [`33cb0f625cf8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33cb0f625cf8c) -
+  clean up logObfuscatedSteps feature flag
+
 ## 10.11.1
 
 ### Patch Changes

@@ -8,6 +8,7 @@ import { Fragment, type MouseEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
@@ -151,10 +152,24 @@ const ProductHome = ({
 }: ProductHomeProps) => {
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
-	const {
+	// After the brand refresh, iconColor and textColor should be set to 'undefined' to allow the original
+	// multi-color logo tile colors to be visible, rather than a hardcoded blue.
+	let {
 		iconColor = fg('platform-team25-app-icon-tiles') ? undefined : 'inherit',
 		textColor = fg('platform-team25-app-icon-tiles') ? undefined : theme.mode.productHome.color,
 	} = theme.mode.productHome;
+
+	// The default theme is set at module scope and immediately used in context.
+	// To allow the feature flag to switch the logo color at runtime, we also detect the original hardcoded
+	// values and override them to undefined.
+	if (
+		iconColor === '#357DE8' &&
+		textColor === token('color.text', N700) &&
+		fg('platform-team25-app-icon-tiles')
+	) {
+		iconColor = undefined;
+		textColor = undefined;
+	}
 
 	const Tag = getTag(onClick, href);
 
@@ -195,7 +210,12 @@ const ProductHome = ({
 					css={[customMaxHeightStyles, productLogoStyles]}
 					data-testid={testId && `${testId}-logo`}
 				>
-					<Logo iconColor={iconColor} textColor={textColor} />
+					<Logo
+						iconColor={iconColor}
+						textColor={textColor}
+						// @ts-ignore - The new icons don't have an appearance prop at the moment
+						appearance={fg('platform-team25-app-icon-tiles') ? 'brand' : undefined}
+					/>
 				</div>
 				<div
 					css={[customMaxHeightStyles, productIconStyles]}
@@ -204,6 +224,8 @@ const ProductHome = ({
 					<Icon
 						iconColor={iconColor}
 						size={fg('platform-team25-app-icon-tiles') ? 'small' : undefined}
+						// @ts-ignore - The new icons don't have an appearance prop at the moment
+						appearance={fg('platform-team25-app-icon-tiles') ? 'brand' : undefined}
 					/>
 				</div>
 			</Tag>

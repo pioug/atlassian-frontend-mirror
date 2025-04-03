@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "2.0.7",
+	"version": "2.1.0",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,6 +39,7 @@
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -76,6 +77,9 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons-legacy-facade": {
+			"type": "boolean"
+		},
+		"platform_dst_layer_observer_select": {
 			"type": "boolean"
 		}
 	},

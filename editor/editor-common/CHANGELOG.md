@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 102.18.2
+
+### Patch Changes
+
+- [#136524](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136524)
+  [`d70621353e0f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d70621353e0f7) -
+  [ux] [EDITOR-266] Fix nested panel icon colours in LCM
+- Updated dependencies
+
+## 102.18.1
+
+### Patch Changes
+
+- [#134366](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134366)
+  [`6dc568b170746`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dc568b170746) -
+  updated handling of urls on export to exclude marking data urls as external for images
+
+## 102.18.0
+
+### Minor Changes
+
+- [#135586](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135586)
+  [`3aeba66081612`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aeba66081612) -
+  ED-26593 Add missing i18n for editor control
+- [#135115](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135115)
+  [`599ab2e1d386c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/599ab2e1d386c) -
+  ED-27314 add user preferece analytics for toolbar docking
+- [#135301](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135301)
+  [`282513a152fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/282513a152fa2) -
+  [A11Y-9960] Extract the AssistiveText component from the typeahead plugin for reuse in other
+  editor plugins
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 102.17.2
 
 ### Patch Changes

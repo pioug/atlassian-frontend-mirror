@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.3.0
+
+### Minor Changes
+
+- [#135301](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135301)
+  [`282513a152fa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/282513a152fa2) -
+  [A11Y-9960] Extract the AssistiveText component from the typeahead plugin for reuse in other
+  editor plugins
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.4
 
 ### Patch Changes

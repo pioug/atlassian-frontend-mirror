@@ -3,7 +3,6 @@ import type { InternalError } from '../errors/internal-errors';
 import { createLogger, getObfuscatedSteps, getDocAdfWithObfuscation } from '../helpers/utils';
 import type { Catchupv2Options, StepsPayload } from '../types';
 import type { StepJson } from '@atlaskit/editor-common/collab';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const logger = createLogger('Catchupv2', 'red');
 
@@ -60,14 +59,12 @@ export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
 };
 
 const logObfuscatedSteps = (steps: StepJson[], opt: Catchupv2Options) => {
-	if (fg('platform_editor_log_obfuscated_steps')) {
-		const state = opt.getState?.();
-		opt.analyticsHelper?.sendActionEvent(EVENT_ACTION.OUT_OF_SYNC, EVENT_STATUS.FAILURE, {
-			obfuscatedSteps: getObfuscatedSteps(steps),
-			obfuscatedDoc: state ? getDocAdfWithObfuscation(state.doc) : null,
-			catchupReason: opt.reason,
-		});
-	}
+	const state = opt.getState?.();
+	opt.analyticsHelper?.sendActionEvent(EVENT_ACTION.OUT_OF_SYNC, EVENT_STATUS.FAILURE, {
+		obfuscatedSteps: getObfuscatedSteps(steps),
+		obfuscatedDoc: state ? getDocAdfWithObfuscation(state.doc) : null,
+		catchupReason: opt.reason,
+	});
 };
 
 /**

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block",
-	"version": "4.2.4",
+	"version": "4.2.5",
 	"description": "Code block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -101,6 +101,9 @@
 			"type": "boolean"
 		},
 		"editor_code_wrapping_perf_improvement_ed-25141": {
+			"type": "boolean"
+		},
+		"editor_a11y_remove_unwrap_button": {
 			"type": "boolean"
 		}
 	}

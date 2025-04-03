@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.8.1
+
+### Patch Changes
+
+- [#135962](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135962)
+  [`b7caf17e63935`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7caf17e63935) -
+  Add refreshAnchorName function to fetch new anchor name if current anchor name isnt provided,
+  which is possible as a new mouseDown event listener has been added to fetch position even if
+  editor isnt ready
+
 ## 3.8.0
 
 ### Minor Changes

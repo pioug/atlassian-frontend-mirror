@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::72b1219c39ec41a01abd717d9bdbcb50>>
+ * @codegen <<SignedSource::35c7f112427ce9af782f8e52ddc292b8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -16,6 +16,11 @@ import { css, jsx } from '@compiled/react';
 
 import { Inline } from '@atlaskit/primitives';
 
+import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
+import AiGenerativeRemoveIcon from '../../../../core/ai-generative-remove';
+import AiGenerativeRemoveSilenceIcon from '../../../../core/ai-generative-remove-silence';
+import AiGenerativeTextIcon from '../../../../core/ai-generative-text';
+import AiGenerativeTextTitleIcon from '../../../../core/ai-generative-text-title';
 import AlignContentBottomIcon from '../../../../core/align-content-bottom';
 import AlignContentCenterHorizontalIcon from '../../../../core/align-content-center-horizontal';
 import AlignContentCenterVerticalIcon from '../../../../core/align-content-center-vertical';
@@ -29,8 +34,11 @@ import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsGraphIcon from '../../../../core/assets-graph';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
+import AudioWaveformIcon from '../../../../core/audio-waveform';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
+import BlurIcon from '../../../../core/blur';
 import BookOpenIcon from '../../../../core/book-open';
+import BrowserExtensionIcon from '../../../../core/browser-extension';
 import CalculateIcon from '../../../../core/calculate';
 import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
@@ -51,10 +59,13 @@ import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
 import ExpandElementIcon from '../../../../core/expand-element';
 import FieldTextIcon from '../../../../core/field-text';
+import FolderSharedIcon from '../../../../core/folder-shared';
 import GiftIcon from '../../../../core/gift';
+import GlobeStrikethroughIcon from '../../../../core/globe-strikethrough';
 import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
 import HandIcon from '../../../../core/hand';
+import HistoryIcon from '../../../../core/history';
 import IfElseIcon from '../../../../core/if-else';
 import ImageAltTextIcon from '../../../../core/image-alt-text';
 import ImageCropIcon from '../../../../core/image-crop';
@@ -65,7 +76,9 @@ import JiraAddIcon from '../../../../core/jira-add';
 import JiraUploadIcon from '../../../../core/jira-upload';
 import LayoutFiveColumnsIcon from '../../../../core/layout-five-columns';
 import LayoutFourColumnsIcon from '../../../../core/layout-four-columns';
+import LinkRestrictedAccessIcon from '../../../../core/link-restricted-access';
 import LozengeIcon from '../../../../core/lozenge';
+import MicrophoneStrikethroughIcon from '../../../../core/microphone-strikethrough';
 import NodeParallelBottomLeftIcon from '../../../../core/node-parallel-bottom-left';
 import NodeParallelBottomRightIcon from '../../../../core/node-parallel-bottom-right';
 import NodeParallelTopLeftIcon from '../../../../core/node-parallel-top-left';
@@ -78,12 +91,21 @@ import PaintBrushIcon from '../../../../core/paint-brush';
 import PaintRollerIcon from '../../../../core/paint-roller';
 import PanelIcon from '../../../../core/panel';
 import PartyPopperIcon from '../../../../core/party-popper';
+import PencilIcon from '../../../../core/pencil';
+import PersonVoiceoverIcon from '../../../../core/person-voiceover';
+import PlusCircleIcon from '../../../../core/plus-circle';
+import PowerIcon from '../../../../core/power';
 import QrCodeIcon from '../../../../core/qr-code';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
 import RecurIcon from '../../../../core/recur';
+import RepeatIcon from '../../../../core/repeat';
+import ReplyLeftIcon from '../../../../core/reply-left';
+import ReplyRightIcon from '../../../../core/reply-right';
+import ReturnIcon from '../../../../core/return';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
+import ScreenRecordIcon from '../../../../core/screen-record';
 import SectionIcon from '../../../../core/section';
 import ShapeDiamondIcon from '../../../../core/shape-diamond';
 import ShapeEllipseIcon from '../../../../core/shape-ellipse';
@@ -95,7 +117,11 @@ import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
 import SortOptionsIcon from '../../../../core/sort-options';
+import SpaceIcon from '../../../../core/space';
 import SpeedometerIcon from '../../../../core/speedometer';
+import SpeedometerLeftIcon from '../../../../core/speedometer-left';
+import SpeedometerRightIcon from '../../../../core/speedometer-right';
+import SpeedometerUpIcon from '../../../../core/speedometer-up';
 import SplitParallelIcon from '../../../../core/split-parallel';
 import StampIcon from '../../../../core/stamp';
 import StickerIcon from '../../../../core/sticker';
@@ -111,9 +137,11 @@ import SunsetIcon from '../../../../core/sunset';
 import SwapIcon from '../../../../core/swap';
 import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
+import TabIcon from '../../../../core/tab';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TalentIcon from '../../../../core/talent';
 import TemplateIcon from '../../../../core/template';
+import TextAudioTranscriptIcon from '../../../../core/text-audio-transcript';
 import TextBoldItalicIcon from '../../../../core/text-bold-italic';
 import TextBoldItalicStrikethroughIcon from '../../../../core/text-bold-italic-strikethrough';
 import TextBoldItalicUnderlineIcon from '../../../../core/text-bold-italic-underline';
@@ -122,6 +150,12 @@ import TextBoldStrikethroughIcon from '../../../../core/text-bold-strikethrough'
 import TextBoldUnderlineIcon from '../../../../core/text-bold-underline';
 import TextBoldUnderlineStrikethroughIcon from '../../../../core/text-bold-underline-strikethrough';
 import TextConclusionAddIcon from '../../../../core/text-conclusion-add';
+import TextHeadingFiveIcon from '../../../../core/text-heading-five';
+import TextHeadingFourIcon from '../../../../core/text-heading-four';
+import TextHeadingOneIcon from '../../../../core/text-heading-one';
+import TextHeadingSixIcon from '../../../../core/text-heading-six';
+import TextHeadingThreeIcon from '../../../../core/text-heading-three';
+import TextHeadingTwoIcon from '../../../../core/text-heading-two';
 import TextIntroductionAddIcon from '../../../../core/text-introduction-add';
 import TextItalicStrikethroughIcon from '../../../../core/text-italic-strikethrough';
 import TextItalicUnderlineIcon from '../../../../core/text-italic-underline';
@@ -132,10 +166,28 @@ import TextRephraseIcon from '../../../../core/text-rephrase';
 import TextUnderlineStrikethroughIcon from '../../../../core/text-underline-strikethrough';
 import TicketIcon from '../../../../core/ticket';
 import TidyIcon from '../../../../core/tidy';
+import VariableIcon from '../../../../core/variable';
 import VehicleAirplaneIcon from '../../../../core/vehicle-airplane';
 import VehicleTrainIcon from '../../../../core/vehicle-train';
+import VideoCaptionsStylizedIcon from '../../../../core/video-captions-stylized';
+import VideoClipIcon from '../../../../core/video-clip';
+import VideoClosedCaptionsIcon from '../../../../core/video-closed-captions';
+import VideoClosedCaptionsFilledIcon from '../../../../core/video-closed-captions-filled';
 import VideoHdIcon from '../../../../core/video-hd';
 import VideoHdFilledIcon from '../../../../core/video-hd-filled';
+import VideoMiniplayerIcon from '../../../../core/video-miniplayer';
+import VideoOverlayToolsIcon from '../../../../core/video-overlay-tools';
+import VideoPlayCircleIcon from '../../../../core/video-play-circle';
+import VideoRecordIcon from '../../../../core/video-record';
+import VideoRewindOverlayIcon from '../../../../core/video-rewind-overlay';
+import VideoSkipBackwardFiveIcon from '../../../../core/video-skip-backward-five';
+import VideoSkipForwardFiveIcon from '../../../../core/video-skip-forward-five';
+import VideoStrikethroughIcon from '../../../../core/video-strikethrough';
+import VideoTheaterModeIcon from '../../../../core/video-theater-mode';
+import VideoTimelineClipSplitIcon from '../../../../core/video-timeline-clip-split';
+import VideoTimelineEditorIcon from '../../../../core/video-timeline-editor';
+import VideoWatchLaterRemoveIcon from '../../../../core/video-watch-later-remove';
+import VideoWatchLaterSavedIcon from '../../../../core/video-watch-later-saved';
 import ViewTypeBoardHomeIcon from '../../../../core/view-type-board-home';
 import ViewTypeCardHomeIcon from '../../../../core/view-type-card-home';
 import ViewTypeTableHomeIcon from '../../../../core/view-type-table-home';
@@ -273,6 +325,7 @@ const Icons = [
 	TextBoldItalicUnderlineStrikethroughIcon,
 	TextBoldUnderlineStrikethroughIcon,
 	TextItalicUnderlineStrikethroughIcon,
+	SpaceIcon,
 	JiraAddIcon,
 	JiraUploadIcon,
 	AssetsGraphIcon,
@@ -280,6 +333,57 @@ const Icons = [
 	TalentIcon,
 	LayoutFourColumnsIcon,
 	LayoutFiveColumnsIcon,
+	TextHeadingOneIcon,
+	BlurIcon,
+	VideoClipIcon,
+	PencilIcon,
+	BrowserExtensionIcon,
+	HistoryIcon,
+	FolderSharedIcon,
+	VideoMiniplayerIcon,
+	VideoPlayCircleIcon,
+	PlusCircleIcon,
+	PowerIcon,
+	VideoRecordIcon,
+	VideoTimelineEditorIcon,
+	VariableIcon,
+	AiGenerativeChaptersIcon,
+	AiGenerativeTextIcon,
+	AiGenerativeTextTitleIcon,
+	VideoCaptionsStylizedIcon,
+	AiGenerativeRemoveIcon,
+	AiGenerativeRemoveSilenceIcon,
+	TextAudioTranscriptIcon,
+	PersonVoiceoverIcon,
+	VideoSkipBackwardFiveIcon,
+	VideoClosedCaptionsIcon,
+	VideoClosedCaptionsFilledIcon,
+	GlobeStrikethroughIcon,
+	LinkRestrictedAccessIcon,
+	MicrophoneStrikethroughIcon,
+	ReplyLeftIcon,
+	ReplyRightIcon,
+	SpeedometerUpIcon,
+	SpeedometerLeftIcon,
+	VideoSkipForwardFiveIcon,
+	VideoStrikethroughIcon,
+	VideoRewindOverlayIcon,
+	ScreenRecordIcon,
+	VideoTimelineClipSplitIcon,
+	VideoTheaterModeIcon,
+	VideoOverlayToolsIcon,
+	VideoWatchLaterSavedIcon,
+	VideoWatchLaterRemoveIcon,
+	AudioWaveformIcon,
+	TextHeadingTwoIcon,
+	TextHeadingThreeIcon,
+	ReturnIcon,
+	TextHeadingFourIcon,
+	TextHeadingFiveIcon,
+	TextHeadingSixIcon,
+	SpeedometerRightIcon,
+	TabIcon,
+	RepeatIcon,
 ];
 
 const groupSize = 20;
@@ -316,3 +420,9 @@ export const IconGroup4 = allExamples[4];
 export const IconGroup5 = allExamples[5];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconGroup6 = allExamples[6];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup7 = allExamples[7];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup8 = allExamples[8];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup9 = allExamples[9];

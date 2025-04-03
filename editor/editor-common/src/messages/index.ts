@@ -37,6 +37,7 @@ export { highlightMessages } from './highlight';
 export { messages as blockControlsMessages } from './block-controls';
 export { mediaInsertMessages } from './media-insert';
 export { selectionExtensionMessages } from './selection-extension';
+export { selectionToolbarMessages } from './selection-toolbar';
 
 export default defineMessages({
 	layoutFixedWidth: {
@@ -178,5 +179,10 @@ export default defineMessages({
 		id: 'fabric.editor.copiedToClipboard',
 		defaultMessage: 'Copied!',
 		description: 'Copied the whole content of the element to clipboard',
+	},
+	viewMore: {
+		id: 'fabric.editor.overflowMenuViewMore',
+		defaultMessage: 'View more',
+		description: 'View more options in toolbar',
 	},
 });

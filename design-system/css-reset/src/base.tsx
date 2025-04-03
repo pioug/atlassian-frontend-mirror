@@ -1,5 +1,3 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors, typography } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
@@ -124,28 +122,47 @@ export default evaluateInner`
   li + li {
     margin-top: ${token('space.050', '4px')};
   }
+
   ul ul:not(:first-child),
+	ul style:first-child ~ * + ul,
   ol ul:not(:first-child),
+	ol style:first-child ~ * + ul,
   ul ol:not(:first-child),
-  ol ol:not(:first-child) {
+	ul style:first-child ~ * + ol,
+  ol ol:not(:first-child),
+	ol style:first-child ~ * + ol {
     margin-top: ${token('space.050', '4px')};
   }
 
   /* remove top margin for first element */
   p:first-child,
+  style:first-child ~ p,
   ul:first-child,
+  style:first-child ~ ul,
   ol:first-child,
+  style:first-child ~ ol,
   dl:first-child,
+  style:first-child ~ dl,
   h1:first-child,
+  style:first-child ~ h1,
   h2:first-child,
+  style:first-child ~ h2,
   h3:first-child,
+  style:first-child ~ h3,
   h4:first-child,
+  style:first-child ~ h4,
   h5:first-child,
+  style:first-child ~ h5,
   h6:first-child,
+  style:first-child ~ h6,
   blockquote:first-child,
+  style:first-child ~ blockquote,
   pre:first-child,
+  style:first-child ~ pre,
   form:first-child,
-  table:first-child {
+  style:first-child ~ form,
+  table:first-child,
+  style:first-child ~ table {
     margin-top: 0;
   }
 

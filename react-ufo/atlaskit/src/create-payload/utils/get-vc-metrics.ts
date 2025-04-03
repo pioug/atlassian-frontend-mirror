@@ -57,7 +57,7 @@ export default async function getVCMetrics(
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
 	if (fg('platform_ufo_disable_ttvc_v1')) {
-		const ttvcV2Revision = (result?.['ufo:vc:rev'] as MultiHeatmapPayload).find(
+		const ttvcV2Revision = (result?.['ufo:vc:rev'] as MultiHeatmapPayload)?.find(
 			({ revision }) => revision === 'fy25.02',
 		);
 		if (!ttvcV2Revision?.clean) {

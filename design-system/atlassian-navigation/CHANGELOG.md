@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 5.1.4
+
+### Patch Changes
+
+- [#133393](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133393)
+  [`379be130e4891`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379be130e4891) -
+  Fixes bug with internal feature flagging logic
+
 ## 5.1.3
 
 ### Patch Changes

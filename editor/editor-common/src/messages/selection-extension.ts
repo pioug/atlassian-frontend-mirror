@@ -5,4 +5,9 @@ export const selectionExtensionMessages = defineMessages({
 		defaultMessage: 'Select app',
 		description: 'Label for the selection extension dropdown button',
 	},
+	externalExtensionsHeading: {
+		id: 'fabric.editor.externalExtensionsHeading',
+		defaultMessage: 'Apps',
+		description: 'Label for external extensions',
+	},
 });

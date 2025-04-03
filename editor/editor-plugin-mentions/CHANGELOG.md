@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.3.0
+
+### Minor Changes
+
+- [#134205](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134205)
+  [`7751c880c8ebf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7751c880c8ebf) -
+  Refactor mentions node view to vanilla javascript.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

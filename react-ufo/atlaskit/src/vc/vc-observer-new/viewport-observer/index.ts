@@ -1,4 +1,5 @@
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
+import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
 import { type VCObserverEntryType } from '../types';
 
 import { createIntersectionObserver, type VCIntersectionObserver } from './intersection-observer';
@@ -122,6 +123,15 @@ export default class ViewportObserver {
 					if (isContainedWithinMediaWrapper(target)) {
 						return {
 							type: 'mutation:media',
+							mutationData: {
+								attributeName,
+							},
+						};
+					}
+
+					if (isNonVisualStyleMutation({ target, attributeName, type: 'attributes' })) {
+						return {
+							type: 'mutation:attribute:non-visual-style',
 							mutationData: {
 								attributeName,
 							},

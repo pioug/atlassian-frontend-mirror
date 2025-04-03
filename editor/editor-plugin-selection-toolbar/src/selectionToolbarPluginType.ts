@@ -3,6 +3,7 @@ import type {
 	OptionalPlugin,
 	UserPreferencesProvider,
 } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
@@ -22,7 +23,11 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			userPreferencesProvider?: UserPreferencesProvider;
 			contextualFormattingEnabled?: boolean;
 		};
-		dependencies: [OptionalPlugin<EditorViewModePlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
+		dependencies: [
+			OptionalPlugin<EditorViewModePlugin>,
+			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<AnalyticsPlugin>,
+		];
 		actions?: {
 			suppressToolbar?: () => boolean;
 			unsuppressToolbar?: () => boolean;

@@ -4,7 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 
@@ -26,6 +26,13 @@ const iconWrapperStyles = xcss({
 	alignItems: 'center',
 	height: '17px',
 	width: '17px',
+});
+
+const hiddenTextStyle = css({
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
+	position: 'absolute',
+	visibility: 'hidden',
 });
 
 const linkStyles = xcss({
@@ -58,6 +65,8 @@ const linkStyles = xcss({
 });
 
 const MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY = 45;
+const ICON_WIDTH = 16;
+const DEFAULT_OPEN_TEXT_WIDTH = 28; // Default open text width in English
 
 const OpenButtonOverlay = ({
 	children,
@@ -70,13 +79,32 @@ const OpenButtonOverlay = ({
 
 	const containerRef = useRef<HTMLSpanElement>(null);
 	const openButtonRef = useRef<HTMLAnchorElement>(null);
+	const hiddenTextRef = useRef<HTMLDivElement>(null);
 	const [showLabel, setShowLabel] = useState(true);
 	const [isHovered, setHovered] = useState(false);
+	const openTextWidthRef = useRef(DEFAULT_OPEN_TEXT_WIDTH);
 
 	const handleDoubleClick = () => {
 		// Double click opens the link in a new tab
 		window.open(url, '_blank');
 	};
+
+	useLayoutEffect(() => {
+		const hiddenText = hiddenTextRef.current;
+		if (!hiddenText) {
+			return;
+		}
+		// Measure the width of the hidden text
+		// Temporarily make the element visible to measure its width
+		hiddenText.style.visibility = 'hidden';
+		hiddenText.style.display = 'inline';
+
+		openTextWidthRef.current = hiddenText.offsetWidth;
+
+		// Reset the hiddenText's display property
+		hiddenText.style.display = 'none';
+		hiddenText.style.visibility = 'inherit';
+	}, []);
 
 	useLayoutEffect(() => {
 		if (!isVisible || !isHovered) {
@@ -85,16 +113,24 @@ const OpenButtonOverlay = ({
 		const cardWidth = containerRef.current?.offsetWidth;
 		const openButtonWidth = openButtonRef.current?.offsetWidth;
 
-		const canShowLabel =
-			cardWidth && openButtonWidth
-				? cardWidth - openButtonWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY
-				: true;
+		if (!cardWidth || !openButtonWidth) {
+			return;
+		}
+
+		let canShowLabel = true;
+		if (fg('platform_editor_controls_patch_2')) {
+			canShowLabel =
+				cardWidth - openTextWidthRef.current > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY + ICON_WIDTH;
+		} else {
+			canShowLabel = cardWidth - openButtonWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY;
+		}
+
 		setShowLabel(canShowLabel);
 	}, [isVisible, isHovered]);
 
-	const handleOverlayChange = useCallback((isHovered: boolean) => {
+	const handleOverlayChange = (isHovered: boolean) => {
 		setHovered(isHovered);
-	}, []);
+	};
 
 	if (fg('platform_editor_controls_patch_1')) {
 		return (
@@ -107,9 +143,18 @@ const OpenButtonOverlay = ({
 				onMouseLeave={() => handleOverlayChange(false)}
 			>
 				{children}
+
+				{fg('platform_editor_controls_patch_2') && (
+					<span css={hiddenTextStyle} aria-hidden="true">
+						<Text ref={hiddenTextRef} size="small" maxLines={1}>
+							{label}
+						</Text>
+					</span>
+				)}
+
 				{isHovered && (
 					<Anchor ref={openButtonRef} xcss={linkStyles} href={url} target="_blank">
-						<Box xcss={iconWrapperStyles}>
+						<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
 							<LinkExternalIcon label="" />
 						</Box>
 						{showLabel && (

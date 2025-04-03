@@ -23,9 +23,11 @@ import {
 	type SliNames,
 } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mention';
+import { mentionNodeView } from '../nodeviews/mentionNodeView';
 import {
 	type FireElementsChannelEvent,
 	MENTION_PROVIDER_REJECTED,
@@ -152,15 +154,23 @@ export function createMentionPlugin({
 		} as SafeStateField<MentionPluginState>,
 		props: {
 			nodeViews: {
-				mention: getInlineNodeViewProducer({
-					pmPluginFactoryParams,
-					Component: MentionNodeView,
-					extraComponentProps: {
-						providerFactory: pmPluginFactoryParams.providerFactory,
-						pluginInjectionApi: api,
-						options,
-					},
-				}),
+				mention: (node, view, getPos, decorations, innerDecorations) => {
+					return editorExperiment('platform_editor_vanilla_dom', true)
+						? mentionNodeView({
+								options,
+								api,
+								portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
+							})(node, view, getPos, decorations, innerDecorations)
+						: getInlineNodeViewProducer({
+								pmPluginFactoryParams,
+								Component: MentionNodeView,
+								extraComponentProps: {
+									providerFactory: pmPluginFactoryParams.providerFactory,
+									pluginInjectionApi: api,
+									options,
+								},
+							})(node, view, getPos, decorations);
+				},
 			},
 		},
 		view(editorView) {
@@ -236,7 +246,7 @@ export function createMentionPlugin({
 				},
 				update(view: EditorView, prevState: EditorState) {
 					const newState = view.state;
-					if (options?.handleMentionsChanged && fg('confluence_updated_mentions_livepages')) {
+					if (options?.handleMentionsChanged) {
 						const mentionSchema = newState.schema.nodes.mention;
 						const mentionNodesBefore = findChildrenByType(prevState.doc, mentionSchema);
 						const mentionLocalIdsAfter = new Set(

@@ -16,6 +16,7 @@ import { List } from 'react-virtualized/dist/commonjs/List';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
+import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -28,7 +29,6 @@ import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/uti
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler } from '../types';
 
-import { AssistiveText } from './AssistiveText';
 import { ListRow } from './ListRow';
 import { TypeAheadListItem } from './TypeAheadListItem';
 import { ViewMore } from './ViewMore';

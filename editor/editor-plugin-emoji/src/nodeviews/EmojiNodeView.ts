@@ -5,6 +5,7 @@ import {
 	EmojiSharedCssClassName,
 	defaultEmojiHeight,
 } from '@atlaskit/editor-common/emoji';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
@@ -35,6 +36,12 @@ export class EmojiNodeView implements NodeView {
 	// The pure `span` element will be used as a worse fallback only
 	// if DOMSerializer.renderSpec() in constructor fails.
 	readonly dom: HTMLElement = document.createElement('span');
+
+	private static logError(error: Error) {
+		void logException(error, {
+			location: 'editor-plugin-emoji/EmojiNodeView',
+		});
+	}
 
 	constructor(node: PMNode, { intl, api }: Params) {
 		this.node = node;
@@ -77,23 +84,15 @@ export class EmojiNodeView implements NodeView {
 				unsubscribe();
 			};
 		} catch (error) {
-			// TODO: ED-27390 - send analytics event with error
+			EmojiNodeView.logError(
+				error instanceof Error ? error : new Error('Unknown error on EmojiNodeView constructor'),
+			);
 
 			this.renderFallback();
 		}
 	}
 
 	private async updateDom(emojiProvider: EmojiProvider | undefined) {
-		// Clean up the DOM before rendering the new emoji
-		this.dom.innerHTML = '';
-		this.dom.style.cssText = '';
-		this.dom.classList.remove(EmojiSharedCssClassName.EMOJI_PLACEHOLDER);
-		this.dom.removeAttribute('aria-label'); // The label is set in the renderEmoji method
-		this.dom.removeAttribute('aria-busy');
-
-		// Each vanilla JS node implementation should have this data attribute
-		this.dom.setAttribute('data-prosemirror-node-view-type', 'vanilla');
-
 		try {
 			const { shortName, id, text: fallback } = this.node.attrs;
 
@@ -105,23 +104,34 @@ export class EmojiNodeView implements NodeView {
 				},
 				true,
 			);
-
-			const emojiRepresentation = emojiDescription?.representation;
-			if (emojiDescription && this.isEmojiRepresentationSupported(emojiRepresentation)) {
-				this.renderEmoji(emojiDescription, emojiRepresentation);
-			} else {
-				// TODO: ED-27390 - send analytics event with info that emoji description is not supported
+			if (!emojiDescription) {
+				EmojiNodeView.logError(new Error('Emoji description is not loaded'));
 
 				this.renderFallback();
+
+				return;
 			}
+
+			const emojiRepresentation = emojiDescription?.representation;
+			if (!EmojiNodeView.isEmojiRepresentationSupported(emojiRepresentation)) {
+				EmojiNodeView.logError(new Error('Emoji representation is not supported'));
+
+				this.renderFallback();
+
+				return;
+			}
+
+			this.renderEmoji(emojiDescription, emojiRepresentation);
 		} catch (error) {
-			// TODO: ED-27390 - send analytics event with error
+			EmojiNodeView.logError(
+				error instanceof Error ? error : new Error('Unknown error on EmojiNodeView updateDom'),
+			);
 
 			this.renderFallback();
 		}
 	}
 
-	private isEmojiRepresentationSupported(
+	private static isEmojiRepresentationSupported(
 		representation: EmojiRepresentation,
 	): representation is Exclude<EmojiRepresentation, undefined> {
 		return (
@@ -130,13 +140,27 @@ export class EmojiNodeView implements NodeView {
 		);
 	}
 
+	// Pay attention, this method should be called only when the emoji provider returns
+	// emoji data to prevent rendering empty emoji during loading.
+	private cleanUpAndRenderCommonAttributes() {
+		// Clean up the DOM before rendering the new emoji
+		this.dom.innerHTML = '';
+		this.dom.style.cssText = '';
+		this.dom.classList.remove(EmojiSharedCssClassName.EMOJI_PLACEHOLDER);
+		this.dom.removeAttribute('aria-label'); // The label is set in the renderEmoji method
+		this.dom.removeAttribute('aria-busy');
+
+		// Each vanilla JS node implementation should have this data attribute
+		this.dom.setAttribute('data-prosemirror-node-view-type', 'vanilla');
+	}
+
 	private renderFallback() {
-		// TODO: ED-27390 - send analytics event with info that fallback was used
+		this.cleanUpAndRenderCommonAttributes();
 
 		const fallbackElement = document.createElement('span');
 		fallbackElement.innerText = this.node.attrs.text || this.node.attrs.shortName;
-		fallbackElement.setAttribute('data-testid', `sprite-emoji-${this.node.attrs.shortName}`);
-		fallbackElement.setAttribute('data-emoji-type', 'sprite');
+		fallbackElement.setAttribute('data-testid', `fallback-emoji-${this.node.attrs.shortName}`);
+		fallbackElement.setAttribute('data-emoji-type', 'fallback');
 
 		this.dom.appendChild(fallbackElement);
 	}
@@ -145,7 +169,7 @@ export class EmojiNodeView implements NodeView {
 		description: EmojiDescription,
 		representation: Exclude<EmojiRepresentation, undefined>,
 	) {
-		// TODO: ED-27390 - Add necessary analytics UFO events
+		this.cleanUpAndRenderCommonAttributes();
 
 		const emojiType = 'sprite' in representation ? 'sprite' : 'image';
 

@@ -5,6 +5,7 @@ import { shouldHandleEditorLnv } from '../../../config';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
 import { EditorLnvHandler } from './editor-lnv';
+import isNonVisualStyleMutation from './non-visual-styles/is-non-visual-style-mutation';
 import { SSRPlaceholderHandlers } from './ssr-placeholders';
 import type {
 	BrowserObservers,
@@ -296,9 +297,15 @@ export class Observers implements BrowserObservers {
 										? mutation.target.getAttribute(mutation.attributeName)
 										: undefined;
 									if (oldValue !== newValue) {
+										if (isNonVisualStyleMutation(mutation)) {
+											ignoreReason = 'non-visual-style';
+										}
 										this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
 									}
 								} else {
+									if (isNonVisualStyleMutation(mutation)) {
+										ignoreReason = 'non-visual-style';
+									}
 									this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
 								}
 							}

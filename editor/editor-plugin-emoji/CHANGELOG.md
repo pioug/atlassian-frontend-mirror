@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.5.1
+
+### Patch Changes
+
+- [#136443](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136443)
+  [`884806f5c2215`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/884806f5c2215) -
+  [https://product-fabric.atlassian.net/browse/ED-27433](ED-27433) - fix vanilla JS emoji
+  implementation loading state issue
+- Updated dependencies
+
+## 3.5.0
+
+### Minor Changes
+
+- [#135687](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135687)
+  [`e24c34980067a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e24c34980067a) -
+  [https://product-fabric.atlassian.net/browse/ED-27390](ED-27390) - add error handling for Editor
+  emoji vanilla JS implementation
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.0
+
+### Minor Changes
+
+- [#135822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135822)
+  [`020b063194651`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/020b063194651) -
+  [https://product-fabric.atlassian.net/browse/ED-27424](ED-27424) - add exposure point to
+  `platform_editor_vanilla_dom` Statsig experiment into `editor-plugin-emoji` plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

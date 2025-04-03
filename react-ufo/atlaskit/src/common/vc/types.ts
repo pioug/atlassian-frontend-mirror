@@ -48,6 +48,7 @@ export type VCIgnoreReason =
 	| 'editor-lazy-node-view'
 	| 'not-visible'
 	| 'editor-container-mutation'
+	| 'non-visual-style'
 	| '';
 
 export type ComponentsLogEntry = {

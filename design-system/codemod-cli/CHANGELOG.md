@@ -1,5 +1,14 @@
 # @atlaskit/codemod-cli
 
+## 0.28.0
+
+### Minor Changes
+
+- [#135751](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135751)
+  [`320e4346043c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/320e4346043c0) -
+  Allows specifying multiple ignore patterns using | symbol. Fixes minor issues in
+  remove-token-fallbacks preset
+
 ## 0.27.4
 
 ### Patch Changes

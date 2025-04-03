@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.23.6
+
+### Patch Changes
+
+- [#135344](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135344)
+  [`a4cd3d4782e62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4cd3d4782e62) -
+  Add error prop to analytics
+- Updated dependencies
+
 ## 0.23.5
 
 ### Patch Changes

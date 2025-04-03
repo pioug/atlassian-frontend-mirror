@@ -86,6 +86,10 @@ export default async function transformer(
 
 	const unusedVars: ASTPath<VariableDeclarator>[] = [];
 
+	if (options.reportFolder) {
+		await writeReports(details, options.reportFolder);
+	}
+
 	if (results.some((result) => result.fallbackRemoved)) {
 		const allImports = results.flatMap((result) => result.resolvedImportDeclaration ?? []);
 		const allVars = results.flatMap((result) => result.resolvedLocalVarDeclaration ?? []);
@@ -101,23 +105,24 @@ export default async function transformer(
 			}
 			removeUnusedImports(allImports, j);
 		}
-	}
 
-	removeUnusedVariables(unusedVars, j);
-
-	if (options.reportFolder) {
-		await writeReports(details, options.reportFolder);
-	}
-
-	if (options.dry) {
-		if (options.verbose) {
-			console.log(chalk.cyan(`${fileInfo.path}: dry run mode active. Source was not modified.`));
+		if (unusedVars.length) {
+			removeUnusedVariables(unusedVars, j);
 		}
+
+		if (options.dry) {
+			if (options.verbose) {
+				console.log(chalk.cyan(`${fileInfo.path}: dry run mode active. Source was not modified.`));
+			}
+			// Return the unmodified source if dryRun is true
+			return fileInfo.source;
+		} else {
+			// Return the transformed source
+			return source.toSource();
+		}
+	} else {
 		// Return the unmodified source if dryRun is true
 		return fileInfo.source;
-	} else {
-		// Return the transformed source
-		return source.toSource();
 	}
 }
 

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 4.2.5
+
+### Patch Changes
+
+- [#133457](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133457)
+  [`3feb915ee0488`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3feb915ee0488) -
+  [ux] A11Y-10108 fixing Inappropriate accessible name for code block wrap toggle button
+- Updated dependencies
+
 ## 4.2.4
 
 ### Patch Changes

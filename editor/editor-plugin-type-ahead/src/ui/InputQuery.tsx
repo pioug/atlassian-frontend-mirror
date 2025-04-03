@@ -13,6 +13,7 @@ import { keyName as keyNameNormalized } from 'w3c-keyname';
 import { browser } from '@atlaskit/editor-common/browser';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
+import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -24,8 +25,6 @@ import {
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../pm-plugins/constants';
 import { getPluginState } from '../pm-plugins/utils';
-
-import { AssistiveText } from './AssistiveText';
 
 const placeholderStyles = css({
 	'&::after': {

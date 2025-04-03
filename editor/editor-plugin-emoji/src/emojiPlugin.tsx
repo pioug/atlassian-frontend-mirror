@@ -584,21 +584,22 @@ export function createEmojiPlugin(
 		} as SafeStateField<EmojiPluginState>,
 		props: {
 			nodeViews: {
-				emoji: editorExperiment('platform_editor_vanilla_dom', true)
-					? (node) =>
-							new EmojiNodeView(node, {
+				emoji: (node, view, getPos, decorations) => {
+					return editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })
+						? new EmojiNodeView(node, {
 								intl: pmPluginFactoryParams.getIntl(),
 								api,
 							})
-					: getInlineNodeViewProducer({
-							pmPluginFactoryParams,
-							Component: EmojiNodeViewReact,
-							extraComponentProps: {
-								providerFactory: pmPluginFactoryParams.providerFactory,
-								options,
-								api,
-							},
-						}),
+						: getInlineNodeViewProducer({
+								pmPluginFactoryParams,
+								Component: EmojiNodeViewReact,
+								extraComponentProps: {
+									providerFactory: pmPluginFactoryParams.providerFactory,
+									options,
+									api,
+								},
+							})(node, view, getPos, decorations);
+				},
 			},
 		},
 		view(editorView) {

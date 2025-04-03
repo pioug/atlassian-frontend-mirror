@@ -1,5 +1,17 @@
 # @atlaskit/pagination
 
+## 16.1.0
+
+### Minor Changes
+
+- [#135819](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135819)
+  [`e50ee190f35f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e50ee190f35f1) -
+  Set explicit font family on Pagination using tokens to ensure it does not inherit font family.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.5
 
 ### Patch Changes

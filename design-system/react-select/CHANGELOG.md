@@ -1,5 +1,18 @@
 # @atlaskit/react-select
 
+## 2.1.0
+
+### Minor Changes
+
+- [#135853](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135853)
+  [`37d9e41733fc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37d9e41733fc5) -
+  Select components now sync with the experimental open layer observer, using the
+  useNotifyOpenLayerObserver hook.
+
+  This is used to close any open select menus when page layout slots are resized.
+
+  These changes are behind feature flags.
+
 ## 2.0.7
 
 ### Patch Changes

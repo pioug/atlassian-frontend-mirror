@@ -308,6 +308,7 @@ export enum ACTION_SUBJECT {
 	EDITOR_PLUGIN_AI = 'editorPluginAI',
 	EDITOR_PLUGIN_SELECTION_EXTENSION = 'editorPluginSelectionExtension',
 	AI_DEFINITIONS = 'aiDefinitions',
+	USER_PREFERENCES = 'userPreferences',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -460,6 +461,7 @@ export enum ACTION_SUBJECT_ID {
 	ON_UNSUPPORTED_BLOCK = 'onUnsupportedBlock',
 	MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
 	UPLOAD_MEDIA = 'uploadMedia',
+	SELECTION_TOOLBAR_PREFERENCES = 'selectionToolbarPreferences',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_DROPDOWN = 'editorPluginSelectionExtensionDropdown',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_ITEM = 'editorPluginSelectionExtensionItem',
 	EDITOR_PLUGIN_SELECTION_EXTENSION_COMPONENT = 'editorPluginSelectionExtensionComponent',

@@ -321,7 +321,7 @@ export const buildToolbar = (
 			type: 'overflow-dropdown',
 			options: [
 				{
-					title: 'Copy',
+					title: intl.formatMessage(commonMessages.copyToClipboard),
 					onClick: () => {
 						api?.core?.actions.execute(
 							// @ts-ignore
@@ -329,13 +329,14 @@ export const buildToolbar = (
 						);
 						return true;
 					},
-					icon: <CopyIcon label="Copy" />,
+					icon: <CopyIcon label="" />,
 					...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 				},
 				{
-					title: 'Delete',
+					title: intl.formatMessage(commonMessages.delete),
 					onClick: deleteActiveLayoutNode(editorAnalyticsAPI),
-					icon: <DeleteIcon label="Delete" />,
+
+					icon: <DeleteIcon label="" />,
 					...hoverDecorationProps(nodeType),
 				},
 			],

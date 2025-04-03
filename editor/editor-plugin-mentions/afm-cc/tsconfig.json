@@ -33,6 +33,9 @@
             "path": "../../editor-plugin-context-identifier/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-type-ahead/afm-cc/tsconfig.json"
         },
         {
@@ -43,6 +46,12 @@
         },
         {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/portal/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../people-and-teams/profilecard/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/theme/afm-cc/tsconfig.json"

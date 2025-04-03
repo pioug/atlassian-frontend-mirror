@@ -1,3 +1,5 @@
+import type { DocNode } from '@atlaskit/adf-schema';
+
 export const Topics = {
 	AI_MATE: 'ai-mate',
 } as const;
@@ -34,7 +36,7 @@ export type ChatNewPayload = PayloadCore<
 			};
 		}>;
 		// Used for follow-up prompt once chat is created
-		prompt?: string;
+		prompt?: string | DocNode;
 		sourceId?: string;
 		agentId?: string;
 	}

@@ -1,3 +1,6 @@
+import type { IntlShape } from 'react-intl-next';
+
+import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -25,10 +28,6 @@ function getPlaceholderState(editorState: EditorState): PlaceHolderState {
 	return pluginKey.getState(editorState);
 }
 export const placeholderTestId = 'placeholder-test-id';
-
-// TODO: ED-26962 - Use i18n for new placeholders
-const SHORT_NODE_PLACEHOLDER_TEXT = '/ to insert';
-const NODE_PLACEHOLDER_TEXT = 'Type / to insert elements';
 
 const nodeTypesWithLongPlaceholderText = ['expand', 'panel'];
 const nodeTypesWithShortPlaceholderText = ['tableCell', 'tableHeader'];
@@ -95,14 +94,25 @@ const emptyPlaceholder = (placeholderText: string | undefined): PlaceHolderState
 	placeholderText,
 });
 
-function createPlaceHolderStateFrom(
-	isEditorFocused: boolean,
-	editorState: EditorState,
-	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined,
-	defaultPlaceholderText: string | undefined,
-	bracketPlaceholderText?: string,
-	emptyLinePlaceholder?: string,
-): PlaceHolderState {
+type CreatePlaceholdeStateProps = {
+	isEditorFocused: boolean;
+	editorState: EditorState;
+	isTypeAheadOpen: ((editorState: EditorState) => boolean) | undefined;
+	defaultPlaceholderText: string | undefined;
+	intl: IntlShape;
+	bracketPlaceholderText?: string;
+	emptyLinePlaceholder?: string;
+};
+
+function createPlaceHolderStateFrom({
+	isEditorFocused,
+	editorState,
+	isTypeAheadOpen,
+	defaultPlaceholderText,
+	intl,
+	bracketPlaceholderText,
+	emptyLinePlaceholder,
+}: CreatePlaceholdeStateProps): PlaceHolderState {
 	if (isTypeAheadOpen?.(editorState)) {
 		return emptyPlaceholder(defaultPlaceholderText);
 	}
@@ -134,11 +144,17 @@ function createPlaceHolderStateFrom(
 			parentNode.firstChild?.type.name === 'paragraph';
 
 		if (nodeTypesWithShortPlaceholderText.includes(parentType) && isEmptyNode) {
-			return setPlaceHolderState(SHORT_NODE_PLACEHOLDER_TEXT, $from.pos);
+			return setPlaceHolderState(
+				intl.formatMessage(messages.shortEmptyNodePlaceholderText),
+				$from.pos,
+			);
 		}
 
 		if (nodeTypesWithLongPlaceholderText.includes(parentType) && isEmptyNode) {
-			return setPlaceHolderState(NODE_PLACEHOLDER_TEXT, $from.pos);
+			return setPlaceHolderState(
+				intl.formatMessage(messages.longEmptyNodePlaceholderText),
+				$from.pos,
+			);
 		}
 
 		return emptyPlaceholder(defaultPlaceholderText);
@@ -155,6 +171,7 @@ function createPlaceHolderStateFrom(
 }
 
 export function createPlugin(
+	intl: IntlShape,
 	defaultPlaceholderText?: string,
 	bracketPlaceholderText?: string,
 	emptyLinePlaceholder?: string,
@@ -168,36 +185,39 @@ export function createPlugin(
 		key: pluginKey,
 		state: {
 			init: (_, state) =>
-				createPlaceHolderStateFrom(
-					Boolean(api?.focus?.sharedState.currentState()?.hasFocus),
-					state,
-					api?.typeAhead?.actions.isOpen,
+				createPlaceHolderStateFrom({
+					isEditorFocused: Boolean(api?.focus?.sharedState.currentState()?.hasFocus),
+					editorState: state,
+					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
 					defaultPlaceholderText,
 					bracketPlaceholderText,
 					emptyLinePlaceholder,
-				),
+					intl,
+				}),
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
 				const isEditorFocused = Boolean(api?.focus?.sharedState.currentState()?.hasFocus);
 				if (meta?.placeholderText !== undefined) {
-					return createPlaceHolderStateFrom(
+					return createPlaceHolderStateFrom({
 						isEditorFocused,
-						newEditorState,
-						api?.typeAhead?.actions.isOpen,
-						meta.placeholderText,
+						editorState: newEditorState,
+						isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
+						defaultPlaceholderText: meta.placeholderText,
 						bracketPlaceholderText,
 						emptyLinePlaceholder,
-					);
+						intl,
+					});
 				}
 
-				return createPlaceHolderStateFrom(
+				return createPlaceHolderStateFrom({
 					isEditorFocused,
-					newEditorState,
-					api?.typeAhead?.actions.isOpen,
-					placeholderState?.placeholderText ?? defaultPlaceholderText,
+					editorState: newEditorState,
+					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
+					defaultPlaceholderText: placeholderState?.placeholderText ?? defaultPlaceholderText,
 					bracketPlaceholderText,
 					emptyLinePlaceholder,
-				);
+					intl,
+				});
 			},
 		},
 		props: {
@@ -241,8 +261,9 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 			return [
 				{
 					name: 'placeholder',
-					plugin: () =>
+					plugin: ({ getIntl }) =>
 						createPlugin(
+							getIntl(),
 							options && options.placeholder,
 							options && options.placeholderBracketHint,
 							options && options.emptyLinePlaceholder,

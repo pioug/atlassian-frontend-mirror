@@ -6,6 +6,7 @@ export type VCObserverEntryType =
 	| 'mutation:element'
 	| 'mutation:element-replacement'
 	| 'mutation:attribute:no-layout-shift'
+	| 'mutation:attribute:non-visual-style'
 	| 'mutation:attribute'
 	| 'mutation:media'
 	| 'layout-shift'

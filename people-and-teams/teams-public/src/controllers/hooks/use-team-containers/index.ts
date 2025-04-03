@@ -252,7 +252,12 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 				actionSubject: actionSubject,
 				attributes: {
 					teamId,
-					error: error?.message || JSON.stringify(error),
+					...(error && {
+						error: {
+							message: error.message || JSON.stringify(error),
+							stack: error.stack,
+						},
+					}),
 				},
 			});
 		},
@@ -281,7 +286,12 @@ export const useConnectedTeams = () => {
 				attributes: {
 					containerId,
 					numberOfTeams,
-					error: error?.message || JSON.stringify(error),
+					...(error && {
+						error: {
+							message: error.message || JSON.stringify(error),
+							stack: error.stack,
+						},
+					}),
 				},
 			});
 		},

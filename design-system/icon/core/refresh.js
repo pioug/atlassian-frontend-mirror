@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6e7eab119af5e1a479fd38c5143f0e43>>
+ * @codegen <<SignedSource::688997f0a16a41562042ca280fe15628>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Refresh".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for reloading content.
+ * Usage guidance: Reserved for reloading or replaying content
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 205.1.6
+
+### Patch Changes
+
+- [#134205](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134205)
+  [`7751c880c8ebf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7751c880c8ebf) -
+  Refactor mentions node view to vanilla javascript.
+- Updated dependencies
+
+## 205.1.5
+
+### Patch Changes
+
+- [#133457](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133457)
+  [`3feb915ee0488`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3feb915ee0488) -
+  [ux] A11Y-10108 fixing Inappropriate accessible name for code block wrap toggle button
+- Updated dependencies
+
 ## 205.1.4
 
 ### Patch Changes

@@ -1031,7 +1031,7 @@ export const floatingToolbar = (
 			options: [
 				...customOptions,
 				{
-					title: 'Copy',
+					title: intl?.formatMessage(commonMessages.copyToClipboard),
 					onClick: () => {
 						pluginInjectionApi?.core?.actions.execute(
 							// @ts-ignore
@@ -1043,7 +1043,7 @@ export const floatingToolbar = (
 					...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 				},
 				{
-					title: 'Delete',
+					title: intl?.formatMessage(commonMessages.delete),
 					onClick: remove,
 					icon: <DeleteIcon label="" />,
 					...hoverDecorationProps(nodeType),

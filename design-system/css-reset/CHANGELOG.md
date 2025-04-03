@@ -1,5 +1,63 @@
 # @atlaskit/css-reset
 
+## 7.1.0
+
+### Minor Changes
+
+- [#136371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136371)
+  [`00035716330df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00035716330df) -
+  Expands `@atlaskit/css-reset` to better handle the scenarios where Emotion, Compiled, or similar
+  CSS-in-JS auto-inject a `<style>` tag at runtime, primarily impacting SSR hydration when setup
+  incorrectly.
+
+  While we expect Emotion to be setup properly via https://emotion.sh/docs/ssr, this may still solve
+  for an upcoming scenario with Streaming SSR hydration where we don't have a solution for Emotion,
+  and this may reduce flashes of incorrect styling.
+
+  tl;dr: Typically we see code like this—styles come in via the `<head>`
+
+  ```html
+  <head>
+  	<link rel="stylesheet" src="…" />
+  	<style>
+  		.abcd1234 {
+  			color: red;
+  		}
+  	</style>
+  </head>
+  <body>
+  	<div>
+  		<h1 class="abcd1234">Hello world</h1>
+  	</div>
+  </body>
+  ```
+
+  However, several CSS-in-JS libraries inject styles like this initially and then hoist them into
+  the `<head>` later, so the HTML coming from SSR/Streaming SSR may look like:
+
+  ```html
+  <div>
+  	<style>
+  		.abcd1234 {
+  			color: red;
+  		}
+  	</style>
+  	<h1 class="abcd1234">Hello world</h1>
+  </div>
+  ```
+
+  This code should now handle that—removing the `margin-top` from `h1` either when it is the
+  `first-child`, or there is a `style` tag that is the first-child with an `h1` as a subsequent
+  sibling (eg. second child).
+
+## 7.0.2
+
+### Patch Changes
+
+- [#136290](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136290)
+  [`631bb21b7ec55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/631bb21b7ec55) -
+  Force bundle.css to be in a consistent formatting through internal formatting utils (Prettier)
+
 ## 7.0.1
 
 ### Patch Changes

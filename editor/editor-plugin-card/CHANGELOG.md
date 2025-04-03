@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.10
+
+### Patch Changes
+
+- [#135796](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135796)
+  [`6cec67e75af40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cec67e75af40) -
+  [ux] Fix open button text not display consistantly
+- Updated dependencies
+
 ## 5.4.9
 
 ### Patch Changes

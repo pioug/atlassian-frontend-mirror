@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 14.1.2
+
+### Patch Changes
+
+- [#136563](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136563)
+  [`ce6e88fc62ca9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce6e88fc62ca9) -
+  Update dependencies
+
 ## 14.1.1
 
 ### Patch Changes

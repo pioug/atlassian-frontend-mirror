@@ -43,6 +43,7 @@ import {
 	findQuickInsertInsertButtonDecoration,
 	quickInsertButtonDecoration,
 } from './decorations-quick-insert-button';
+import { handleMouseDown } from './handle-mouse-down';
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
@@ -991,6 +992,11 @@ export const createPlugin = (
 					handleMouseOver(view, event, api);
 					return false;
 				},
+				mousedown:
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_2')
+						? handleMouseDown(api)
+						: undefined,
 				keydown(view: EditorView, event: KeyboardEvent) {
 					if (isMultiSelectEnabled) {
 						if (event.shiftKey && event.ctrlKey) {

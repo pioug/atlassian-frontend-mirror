@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.4.0
+
+### Minor Changes
+
+- [#133012](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133012)
+  [`767ec60923d2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/767ec60923d2e) -
+  Adds a new eslint rule to ensure that the cx function is used properly in xcss props. This is
+  required for smooth primitives migration onto compiled styles from emotion.
+
 ## 13.3.0
 
 ### Minor Changes

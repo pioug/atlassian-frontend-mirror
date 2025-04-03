@@ -121,6 +121,74 @@ const ruleStyles = () => css`
 	}
 `;
 
+const vanillaMentionsStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.editor-mention-primitive': {
+		display: 'inline',
+		borderRadius: '20px',
+		cursor: 'pointer',
+		padding: '0 0.3em 2px 0.23em',
+		fontWeight: token('font.weight.regular'),
+		wordBreak: 'break-word',
+		background: token('color.background.neutral'),
+		border: '1px solid transparent',
+		color: token('color.text.subtle'),
+
+		'&:hover': {
+			background: token('color.background.neutral.hovered'),
+		},
+		'&:active': {
+			background: token('color.background.neutral.pressed'),
+		},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.editor-mention-primitive.mention-restricted': {
+		background: 'transparent',
+		border: `1px solid ${token('color.border.bold')}`,
+		color: token('color.text'),
+
+		'&:hover': {
+			background: 'transparent',
+		},
+		'&:active': {
+			background: 'transparent',
+		},
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.editor-mention-primitive.mention-self': {
+		background: token('color.background.brand.bold'),
+		border: '1px solid transparent',
+		color: token('color.text.inverse'),
+
+		'&:hover': {
+			background: token('color.background.brand.bold.hovered'),
+		},
+		'&:active': {
+			background: token('color.background.brand.bold.pressed'),
+		},
+	},
+});
+
+const vanillaSelectionStyles = css`
+	.danger {
+		.editor-mention-primitive {
+			box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+			background-color: ${token('color.background.danger', akEditorDeleteBackgroundWithOpacity)};
+		}
+	}
+
+	.${akEditorSelectedNodeClassName} > .editor-mention-primitive,
+	.${akEditorSelectedNodeClassName} > .editor-mention-primitive.mention-self,
+	.${akEditorSelectedNodeClassName} > .editor-mention-primitive.mention-restricted {
+		${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Background])}
+		/* need to specify dark text colour because personal mentions
+	       (in dark blue) have white text by default */
+		color: ${token('color.text.subtle')}
+	}
+`;
+
 const mentionsStyles = css`
 	.${MentionSharedCssClassName.MENTION_CONTAINER} {
 		&.${akEditorSelectedNodeClassName} [data-mention-id] > span {
@@ -426,7 +494,14 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${gapCursorStyles};
 	${panelStyles()}
 	${mentionsStyles}
-	${editorExperiment('platform_editor_vanilla_dom', true) ? emojiStyles : reactEmojiStyles}
+	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+	vanillaMentionsStyles}
+	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+	vanillaSelectionStyles}
+	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
+		? emojiStyles
+		: reactEmojiStyles}
+  ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}

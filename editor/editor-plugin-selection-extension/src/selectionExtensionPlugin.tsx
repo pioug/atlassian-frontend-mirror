@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { selectionExtensionMessages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
@@ -50,7 +51,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 			);
 		},
 		pluginsOptions: {
-			selectionToolbar: (state) => {
+			selectionToolbar: (state, intl) => {
 				if (!config) {
 					return;
 				}
@@ -161,7 +162,7 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 
 						const externalExtensionsHeading: OverflowDropdownHeading = {
 							type: 'overflow-dropdown-heading',
-							title: 'Apps',
+							title: intl.formatMessage(selectionExtensionMessages.externalExtensionsHeading),
 						};
 						externalExtensions.unshift(externalExtensionsHeading);
 					}

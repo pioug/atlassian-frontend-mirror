@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 16.3.0
+
+### Minor Changes
+
+- [#135906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135906)
+  [`bf6acb8983b3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf6acb8983b3c) -
+  CodeBlock now supports syntax highlighting for the Handlebars templating language.
+
 ## 16.2.0
 
 ### Minor Changes

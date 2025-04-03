@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 3.2.4
+
+### Patch Changes
+
+- [#135763](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135763)
+  [`9caa26aa0f95f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9caa26aa0f95f) -
+  Clean-up platform_editor_nested_expand_in_expand_adf_change feature gate
+
 ## 3.2.3
 
 ### Patch Changes

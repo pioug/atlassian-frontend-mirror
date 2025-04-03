@@ -1,4 +1,4 @@
-import { LanguageDescription } from '@codemirror/language';
+import { LanguageDescription, LanguageSupport } from '@codemirror/language';
 import { languages } from '@codemirror/language-data';
 
 import type { LanguageAlias } from '@atlaskit/code';
@@ -62,6 +62,16 @@ export const mapLanguageToCodeMirror = (language: LanguageAliasValue) => {
 		case 'visualbasic':
 			return languages.find((l) => {
 				return l.name === 'VB.NET';
+			});
+		case 'handlebars':
+			return LanguageDescription.of({
+				name: 'Handlebars',
+				load() {
+					return import(
+						/* webpackChunkName: "@atlaskit-internal_@atlaskit/editor-plugin-code-block-advanced-lang-handlebars" */
+						'@xiechao/codemirror-lang-handlebars'
+					).then((m) => new LanguageSupport(m.handlebarsLanguage));
+				},
 			});
 		case 'elixir':
 			return LanguageDescription.of({

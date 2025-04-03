@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::31cc4ff5414edc2e185aed486600b2cf>>
+ * @codegen <<SignedSource::8e7be616b8d6a1a67d5ec530f9dff6db>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Summarize".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for summarizing content with Atlassian Intelligence.
+ * Usage guidance: Reserved for summarizing content with Atlassian Intelligence & Loom
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

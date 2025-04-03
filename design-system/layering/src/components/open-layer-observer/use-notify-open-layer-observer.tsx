@@ -6,6 +6,22 @@ import { OpenLayerObserverContext } from './open-layer-observer-context';
 import type { LayerCloseListenerFn } from './types';
 import { useOpenLayerObserverNamespace } from './use-open-layer-observer-namespace';
 
+type NotifyOpenLayerObserverProps = {
+	/**
+	 * Whether the layer is open.
+	 */
+	isOpen: boolean;
+	/**
+	 * Handler that is used to close this layer.
+	 *
+	 * It will be called when an OpenLayerObserver has called `closeLayers`.
+	 *
+	 * You'll want to use this to set the open state accordingly, and then pump it back into the `isOpen` prop.
+	 *
+	 * Note: the callback will only be called for _open_ layers (based on the `isOpen` prop).
+	 */
+	onClose: LayerCloseListenerFn;
+};
 /**
  * Hook that increments/decrements the open layer count when the component mounts/unmounts or becomes visible/hidden.
  * It is used to "notify" the layer observer(s) that a new layer has been added/opened.
@@ -26,22 +42,7 @@ import { useOpenLayerObserverNamespace } from './use-open-layer-observer-namespa
 export function useNotifyOpenLayerObserver({
 	isOpen,
 	onClose,
-}: {
-	/**
-	 * Whether the layer is open.
-	 */
-	isOpen: boolean;
-	/**
-	 * Handler that is used to close this layer.
-	 *
-	 * It will be called when an OpenLayerObserver has called `closeLayers`.
-	 *
-	 * You'll want to use this to set the open state accordingly, and then pump it back into the `isOpen` prop.
-	 *
-	 * Note: the callback will only be called for _open_ layers (based on the `isOpen` prop).
-	 */
-	onClose: LayerCloseListenerFn;
-}): void {
+}: NotifyOpenLayerObserverProps): void {
 	const context = useContext(OpenLayerObserverContext);
 	const namespace = useOpenLayerObserverNamespace();
 

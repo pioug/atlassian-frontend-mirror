@@ -145,6 +145,10 @@ const runTransform = async (
 
 	const transformPath = getTransformPath(transform);
 
+	// Split the ignorePattern by '|' and add each as a separate --ignore-pattern
+	const ignorePatterns = flags.ignorePattern.split('|').filter(Boolean);
+	const ignoreArgs = ignorePatterns.map((pattern) => `--ignore-pattern=${pattern}`);
+
 	const args = Object.keys(flags).reduce(
 		(acc, key) => {
 			if (
@@ -166,7 +170,7 @@ const runTransform = async (
 		},
 		[
 			`--transform=${transformPath}`,
-			`--ignore-pattern=${flags.ignorePattern}`,
+			...ignoreArgs, // Spread the ignoreArgs array here
 			`--parser=${flags.parser}`,
 			`--extensions=${flags.extensions}`,
 			// Limit CPUs to 8 to prevent issues when running on CI with a large amount of cpus

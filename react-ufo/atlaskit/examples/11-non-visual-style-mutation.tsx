@@ -55,26 +55,32 @@ const updatedInvisibleStyle = css({
 // is by faking a native vanilla app.
 export default function Example() {
 	const contentRef = useRef<HTMLDivElement>(null);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isMainLoading, setIsMainLoading] = useState(true);
+	const [isInvisibleDivLoading, setIsInvisibleDivLoading] = useState(true);
 
 	useEffect(() => {
 		setTimeout(() => {
-			setIsLoading(false);
-		}, 500);
+			setIsMainLoading(false);
+			setTimeout(() => {
+				setIsInvisibleDivLoading(false);
+			}, 200);
+		}, 200);
 	}, []);
 
 	return (
 		<UFOSegment name="app-root">
-			<UFOLoadHold name="app-to-replace" hold={isLoading} />
-			<div data-testid="main" ref={contentRef} css={mainStyles}>
-				<div data-testid="content-div" css={contentDivStyle}>
-					Content Div
+			<UFOLoadHold name="app-to-replace" hold={isMainLoading || isInvisibleDivLoading} />
+			{!isMainLoading && (
+				<div data-testid="main" ref={contentRef} css={mainStyles}>
+					<div data-testid="content-div" css={contentDivStyle}>
+						Content Div
+					</div>
 				</div>
-			</div>
+			)}
 			<div
 				data-testid="invisible-div"
-				data-nvs="true"
-				css={[initialInvisibleStyle, !isLoading && updatedInvisibleStyle]}
+				data-vc-nvs="true"
+				css={[initialInvisibleStyle, !isInvisibleDivLoading && updatedInvisibleStyle]}
 			></div>
 		</UFOSegment>
 	);

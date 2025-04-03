@@ -33,6 +33,7 @@ import {
 	QUICK_INSERT_DIMENSIONS,
 	QUICK_INSERT_LEFT_OFFSET,
 } from './consts';
+import { refreshAnchorName } from './utils/anchor-name';
 import {
 	isInTextSelection,
 	isNestedNodeSelected,
@@ -168,8 +169,13 @@ export const TypeAheadControl = ({
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${rootAnchorName} start)`) &&
 			CSS.supports('left', `anchor(${rootAnchorName} start)`);
+
+		const safeAnchorName = fg('platform_editor_controls_patch_2')
+			? refreshAnchorName({ getPos, view, anchorName: rootAnchorName })
+			: rootAnchorName;
+
 		const dom: HTMLElement | null = view.dom.querySelector(
-			`[data-drag-handler-anchor-name="${rootAnchorName}"]`,
+			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
 		);
 
 		const hasResizer = rootNodeType === 'table' || rootNodeType === 'mediaSingle';
@@ -197,16 +203,16 @@ export const TypeAheadControl = ({
 		const isSticky = shouldBeSticky(rootNodeType);
 
 		const bottom = fg('platform_editor_controls_sticky_controls')
-			? getControlBottomCSSValue(rootAnchorName || anchorName, isSticky, true)
+			? getControlBottomCSSValue(safeAnchorName || anchorName, isSticky, true)
 			: {};
 
 		if (supportsAnchor) {
 			return {
 				left: isEdgeCase
-					? `calc(anchor(${rootAnchorName} start) + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + -${QUICK_INSERT_LEFT_OFFSET}px)`
-					: `calc(anchor(${rootAnchorName} start) - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + -${QUICK_INSERT_LEFT_OFFSET}px)`,
+					? `calc(anchor(${safeAnchorName} start) + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + -${QUICK_INSERT_LEFT_OFFSET}px)`
+					: `calc(anchor(${safeAnchorName} start) - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 
-				top: `calc(anchor(${rootAnchorName} start) + ${topPositionAdjustment(rootNodeType)}px)`,
+				top: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(rootNodeType)}px)`,
 				...bottom,
 			};
 		}
@@ -215,7 +221,7 @@ export const TypeAheadControl = ({
 		const nodeHeight =
 			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 			(fg('platform_editor_controls_sticky_controls') &&
-				getNodeHeight(dom, rootAnchorName || anchorName, anchorRectCache)) ||
+				getNodeHeight(dom, safeAnchorName || anchorName, anchorRectCache)) ||
 			0;
 
 		const height = fg('platform_editor_controls_sticky_controls')
@@ -237,7 +243,8 @@ export const TypeAheadControl = ({
 		};
 	}, [
 		rootAnchorName,
-		view.dom,
+		getPos,
+		view,
 		rootNodeType,
 		macroInteractionUpdates,
 		anchorName,

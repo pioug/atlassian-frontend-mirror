@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 
@@ -31,6 +32,7 @@ export type MentionPluginDependencies = [
 	TypeAheadPlugin,
 	OptionalPlugin<ContextIdentifierPlugin>,
 	OptionalPlugin<BasePlugin>,
+	OptionalPlugin<SelectionPlugin>,
 ];
 
 export type MentionsPlugin = NextEditorPlugin<

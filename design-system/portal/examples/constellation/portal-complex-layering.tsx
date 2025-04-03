@@ -148,7 +148,7 @@ const Modal = (props: ModalProps) => {
 					/>
 				</ModalBody>
 				<ModalFooter>
-					<Button appearance="primary" autoFocus onClick={onClose}>
+					<Button appearance="primary" onClick={onClose}>
 						Close
 					</Button>
 				</ModalFooter>

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::551d1887446166d5a78fc51663d43e9c>>
+ * @codegen <<SignedSource::66749852497ab0f2dc3214dd47aaf598>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -35,6 +35,7 @@ import noUnsafeStyleOverrides from './no-unsafe-style-overrides';
 import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-libraries';
 import preferPrimitives from './prefer-primitives';
 import useButtonGroupLabel from './use-button-group-label';
+import useCxFunctionInXcss from './use-cx-function-in-xcss';
 import useDatetimePickerCalendarButton from './use-datetime-picker-calendar-button';
 import useDrawerLabel from './use-drawer-label';
 import useHeading from './use-heading';
@@ -86,6 +87,7 @@ export const rules = {
 	'no-unsupported-drag-and-drop-libraries': noUnsupportedDragAndDropLibraries,
 	'prefer-primitives': preferPrimitives,
 	'use-button-group-label': useButtonGroupLabel,
+	'use-cx-function-in-xcss': useCxFunctionInXcss,
 	'use-datetime-picker-calendar-button': useDatetimePickerCalendarButton,
 	'use-drawer-label': useDrawerLabel,
 	'use-heading': useHeading,

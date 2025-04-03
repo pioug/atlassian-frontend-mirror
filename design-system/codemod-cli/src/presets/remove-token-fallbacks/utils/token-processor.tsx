@@ -113,15 +113,6 @@ export class TokenProcessor {
 				resolvedLocalVarDeclaration: undefined,
 			};
 		}
-		if (tokenKey.startsWith('border')) {
-			this.logVerbose(`Don't modify border token: ${chalk.yellow(tokenKey)}`);
-			return {
-				shouldLog: false,
-				fallbackRemoved: false,
-				resolvedImportDeclaration: undefined,
-				resolvedLocalVarDeclaration: undefined,
-			};
-		}
 		const isSkipped = false;
 		// tokenKey.startsWith('elevation.shadow') ||
 		// tokenKey.startsWith('font.body') ||
@@ -165,8 +156,9 @@ export class TokenProcessor {
 		let fallbackRemoved = false;
 		let importDeclaration: ASTPath<ImportDeclaration> | undefined;
 		let localVarDeclaration: ASTPath<VariableDeclarator> | undefined;
+		const isBorderToken = tokenKey.startsWith('border');
 
-		if (areEqual || isAcceptableDifference || this.options.forceUpdate) {
+		if (areEqual || ((isAcceptableDifference || this.options.forceUpdate) && !isBorderToken)) {
 			this.log(
 				chalk.green(
 					areEqual
@@ -180,8 +172,9 @@ export class TokenProcessor {
 			importDeclaration = resolvedImportDeclaration;
 			localVarDeclaration = resolvedLocalVarDeclaration;
 		} else {
-			const message =
-				normalizedFallbackValue === undefined
+			const message = isBorderToken
+				? 'Skip modifying border token'
+				: normalizedFallbackValue === undefined
 					? `Fallback value could not be resolved`
 					: `Values mismatched significantly`;
 			this.logError(message);

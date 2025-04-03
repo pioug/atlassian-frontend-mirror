@@ -589,7 +589,6 @@ export const TableResizer = ({
 							: node.attrs.layout,
 				});
 
-
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const newNode = tr.doc.nodeAt(pos)!;

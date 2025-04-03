@@ -415,6 +415,11 @@ export const SUPPORTED_LANGUAGES = [
 		value: 'protobuf',
 	},
 	{
+		name: 'Handlebars',
+		alias: ['handlebars', 'mustache'],
+		value: 'handlebars',
+	},
+	{
 		name: 'ABAP',
 		alias: ['abap'],
 		value: 'abap',

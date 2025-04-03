@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.4.0
+
+### Minor Changes
+
+- [#134724](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134724)
+  [`e04c15b164e87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e04c15b164e87) -
+  Updating styles for chat buttons and visual refresh for SAIN for footer and followup prompts
+
 ## 2.3.5
 
 ### Patch Changes

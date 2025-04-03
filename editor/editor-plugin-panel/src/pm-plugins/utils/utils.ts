@@ -10,6 +10,7 @@ import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { DomPanelAtrrs } from '../../panelPluginType';
@@ -57,7 +58,17 @@ export const panelAttrsToDom = (
 			'data-panel-icon-text': panelIconText,
 		};
 	}
-	const iconDiv: DOMOutputSpec = ['div', { class: PanelSharedCssClassName.icon }];
+	const iconDiv: DOMOutputSpec = [
+		'div',
+		// EDITOR-266 This fixes an issue in LCM where if you have nested panels
+		// The icon colour will be overriden by the parent panel style, this is used to create a more specefic css selector
+		{
+			class: PanelSharedCssClassName.icon,
+			...(fg('platform_editor_lcm_nested_panel_icon_fix')
+				? { 'data-panel-type': panelType || PanelType.INFO }
+				: {}),
+		},
+	];
 	const contentDiv: DOMOutputSpec = [
 		'div',
 		{

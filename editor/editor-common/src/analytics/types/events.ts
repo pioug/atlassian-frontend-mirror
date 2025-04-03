@@ -57,6 +57,7 @@ import type { PasteEventPayload } from './paste-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
 import type { SelectionEventPayload } from './selection-events';
 import type { SelectionExtensionEventPayload } from './selection-extension-events';
+import type { SelectionToolbarEventPayload } from './selection-toolbar-events';
 import type { SubstituteEventPayload } from './substitute-events';
 import type { TableEventPayload } from './table-events';
 import type { TelepointerClickPayload } from './telepointer-events';
@@ -131,7 +132,8 @@ export type AnalyticsEventPayload<T = void> =
 	| ActiveSessionEventPayload
 	| AIInlineSuggestionPayload
 	| SelectionExtensionEventPayload
-	| TelepointerClickPayload;
+	| TelepointerClickPayload
+	| SelectionToolbarEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

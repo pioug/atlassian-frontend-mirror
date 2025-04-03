@@ -47,17 +47,17 @@ function generateChildItems(parent: Item, count: number) {
 }
 
 const performanceTweakContainerStyles = css({
-  width: '450px',
-  position: 'fixed',
-  backgroundColor: token('elevation.surface'),
-  border: `5px solid ${token('color.border')}`,
-  borderWidth: '5px 0 0 5px',
-  insetBlockEnd: token('space.0', '0px'),
-  insetInlineEnd: token('space.0', '0px'),
-  paddingBlockEnd: token('space.250', '20px'),
-  paddingBlockStart: token('space.250', '20px'),
-  paddingInlineEnd: token('space.250', '20px'),
-  paddingInlineStart: token('space.250', '20px')
+	width: '450px',
+	position: 'fixed',
+	backgroundColor: token('elevation.surface'),
+	border: `5px solid ${token('color.border')}`,
+	borderWidth: '5px 0 0 5px',
+	insetBlockEnd: token('space.0', '0px'),
+	insetInlineEnd: token('space.0', '0px'),
+	paddingBlockEnd: token('space.250', '20px'),
+	paddingBlockStart: token('space.250', '20px'),
+	paddingInlineEnd: token('space.250', '20px'),
+	paddingInlineStart: token('space.250', '20px'),
 });
 
 const childCountPerItem = 100;

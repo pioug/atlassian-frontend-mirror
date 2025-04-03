@@ -26,17 +26,25 @@ type ExternalImageBadgeProps = {
 const NO_EXTERNAL_BADGE_HOSTS = ['atlassian.com'];
 
 export const isUnbadgedUrl = (url: string | undefined) => {
-	let hostname: string;
-	try {
-		({ hostname } = new URL(url || ''));
-	} catch (e) {
-		// If the URL is invalid (or empty), just carry on showing the badge
+	if (!url) {
 		return false;
+	}
+	// Check if URL is valid
+	try {
+		new URL(url);
+	} catch {
+		return false;
+	}
+
+	const parsedUrl = new URL(url || '');
+	const { hostname, pathname, protocol } = parsedUrl;
+
+	if (protocol === 'data:') {
+		return pathname?.startsWith('image/');
 	}
 
 	return Boolean(
 		hostname &&
-			// Do not show badge for atlassian domains and subdomains
 			NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
 	);
 };

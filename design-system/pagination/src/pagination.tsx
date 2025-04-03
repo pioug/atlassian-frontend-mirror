@@ -30,6 +30,7 @@ const styles = cssMap({
 
 	paginationMenuItem: {
 		marginBlockStart: token('space.0'),
+		fontFamily: token('font.family.body'),
 	},
 
 	navigatorIconWrapper: {

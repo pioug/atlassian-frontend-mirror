@@ -1,6 +1,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
+export { AssistiveText } from './AssistiveText/AssistiveText';
 export { default as Caption } from './Caption';
 export { default as MediaSingle } from './MediaSingle';
 export type { Props as MediaSingleProps } from './MediaSingle';

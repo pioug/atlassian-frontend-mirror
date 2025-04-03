@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 10.6.0
+
+### Minor Changes
+
+- [#134914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134914)
+  [`4395d5ae9ba96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4395d5ae9ba96) -
+  ED-27326 Add distribute columns to cell controls
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.10
 
 ### Patch Changes

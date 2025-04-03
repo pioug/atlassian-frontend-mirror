@@ -5,8 +5,11 @@
  */
 import { useCallback, useMemo, useState } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import { css, jsx } from '@atlaskit/css';
 import { addLink, getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
+import messages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	ArrowKeyNavigationType,
@@ -43,9 +46,10 @@ export function PrimaryToolbarComponent({
 	popupsMountPoint,
 	popupsScrollableElement,
 }: Props) {
+	const intl = useIntl();
 	const [isOpen, setIsOpen] = useState(false);
-	const items = useMemo(() => getOverflowPrimaryToolbarConfig({ api }), [api]);
-	const content = 'Show more items';
+	const items = useMemo(() => getOverflowPrimaryToolbarConfig({ api, intl }), [api, intl]);
+	const content = intl.formatMessage(messages.viewMore);
 
 	const onClick = useCallback(() => {
 		setIsOpen(!isOpen);

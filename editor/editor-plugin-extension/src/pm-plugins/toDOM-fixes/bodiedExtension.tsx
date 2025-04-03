@@ -2,7 +2,6 @@ import { bodiedExtension } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { N30 } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const capitalizeFirstLetter = (str: string): string => {
@@ -11,10 +10,6 @@ const capitalizeFirstLetter = (str: string): string => {
 
 // @nodeSpecException:toDOM patch
 export const bodiedExtensionSpecWithFixedToDOM = () => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return bodiedExtension;
-	}
-
 	return {
 		...bodiedExtension,
 		toDOM: (node: PMNode): DOMOutputSpec => {

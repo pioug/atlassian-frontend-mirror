@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.2.0
+
+### Minor Changes
+
+- [#124731](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/124731)
+  [`116d88a3a7071`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/116d88a3a7071) -
+  Removed lazy node view experiment from toDOM fix
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.3
+
+### Patch Changes
+
+- [#135586](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135586)
+  [`3aeba66081612`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aeba66081612) -
+  ED-26593 Add missing i18n for editor control
+- Updated dependencies
+
 ## 5.1.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.20
+
+### Patch Changes
+
+- [#135586](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135586)
+  [`3aeba66081612`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aeba66081612) -
+  ED-26593 Add missing i18n for editor control
+- Updated dependencies
+
 ## 2.3.19
 
 ### Patch Changes

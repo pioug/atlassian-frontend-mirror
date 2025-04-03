@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 25.5.0
+
+### Minor Changes
+
+- [#135884](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135884)
+  [`20a4ca43b3a13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20a4ca43b3a13) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `ai-generative-text-summary`
+
 ## 25.4.0
 
 ### Minor Changes

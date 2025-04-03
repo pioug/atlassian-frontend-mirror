@@ -13,7 +13,7 @@ export class FY25_02Classifier extends FY25_01Classifier {
 		{
 			name: 'not-visible',
 			filter: ({ type, ignoreReason }: FilterArgs) => {
-				return !ignoreReason?.includes('not-visible');
+				return !ignoreReason?.includes('not-visible') && ignoreReason !== 'non-visual-style';
 			},
 		},
 	];

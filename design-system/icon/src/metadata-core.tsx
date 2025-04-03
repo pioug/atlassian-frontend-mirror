@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::2ca31b9abe775e60f7646b017697a863>>
+ * @codegen <<SignedSource::7874a05897580fcc2a00faa4a15c3179>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -113,6 +113,27 @@ const metadata: Record<string, metadata> = {
 		usage: 'Single purpose - Reserved for Rovo Chat.',
 		team: 'Design System Team',
 		status: 'published',
+	},
+	'ai-generative-text-summary': {
+		keywords: [
+			'ai-generative-text-summary',
+			'aigenerativetextsummary',
+			'icon',
+			'core',
+			'summarize',
+			'summarise',
+			'summary',
+			'automation',
+			'AI',
+		],
+		componentName: 'AiGenerativeTextSummaryIcon',
+		package: '@atlaskit/icon/core/ai-generative-text-summary',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for summarizing content with Atlassian Intelligence & Loom',
+		team: 'Atlassian Intelligence & Loom',
+		status: 'published',
+		slackChannel: '#feedback-loom-vizrefresh',
 	},
 	alert: {
 		keywords: ['alert', 'icon', 'core', 'alert', 'event', 'operations'],
@@ -3803,13 +3824,14 @@ const metadata: Record<string, metadata> = {
 			'reload',
 			'update',
 			'circular arrows',
+			'replay',
 		],
 		componentName: 'RefreshIcon',
 		package: '@atlaskit/icon/core/refresh',
 		oldName: ['refresh'],
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Reserved for reloading content.',
+		usage: 'Reserved for reloading or replaying content',
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -4491,14 +4513,24 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	summarize: {
-		keywords: ['summarize', 'icon', 'core', 'summarize', 'summarise', 'quote', 'quotes'],
+		keywords: [
+			'summarize',
+			'icon',
+			'core',
+			'summarize',
+			'summarise',
+			'summary',
+			'automation',
+			'AI',
+		],
 		componentName: 'SummarizeIcon',
 		package: '@atlaskit/icon/core/summarize',
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Reserved for summarizing content with Atlassian Intelligence.',
-		team: 'Atlassian Intelligence',
+		usage: 'Reserved for summarizing content with Atlassian Intelligence & Loom',
+		team: 'Atlassian Intelligence & Loom',
 		status: 'published',
+		slackChannel: '#feedback-loom-vizrefresh',
 	},
 	support: {
 		keywords: [

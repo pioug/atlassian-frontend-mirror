@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.1.4",
+	"version": "205.1.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -585,11 +585,19 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"editor_a11y_remove_unwrap_button": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_elements_dnd_multi_select_patch_3": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"platform_editor_controls_sticky_controls": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_2": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

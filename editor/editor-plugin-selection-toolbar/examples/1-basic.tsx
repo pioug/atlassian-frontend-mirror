@@ -91,6 +91,7 @@ export default function Editor() {
 				selectionToolbarPlugin,
 				{
 					preferenceToolbarAboveSelection: true,
+					contextualFormattingEnabled: true,
 					userPreferencesProvider: localUserPreferencesProvider,
 				},
 			])

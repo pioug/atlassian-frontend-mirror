@@ -44,6 +44,7 @@ export const MOCK_DATA_V3: MockDataV3 = {
 					},
 					viewed: {
 						edges: [
+							// townsquare.project
 							{
 								cursor:
 									'WVhKcE9tTnNiM1ZrT21sa1pXNTBhWFI1T2pwMWMyVnlMell4TURFNU5tRmxZamN3TkdJME1EQTJPR0ZpTVRRek5udzNaVGRrT1dFMk5DMWpPRFZqTFRRM1pEVXRPR014TVMwNE5UVmhOelk1TURVeVlXWT18MA==',
@@ -88,6 +89,7 @@ export const MOCK_DATA_V3: MockDataV3 = {
 									},
 								},
 							},
+							// confluence.page
 							{
 								cursor:
 									'WVhKcE9tTnNiM1ZrT21sa1pXNTBhWFI1T2pwMWMyVnlMelZrWmpCaFltUmpOMlJqTURNMk1HVmpaRFF5TXpkalludzBNVGc1WWpVek9DMHhPV1UwTFRSak16VXRPR00xWkMxaFl6ZzFPV1ppTWpGaU1qUT18MA==',
@@ -134,6 +136,7 @@ export const MOCK_DATA_V3: MockDataV3 = {
 									},
 								},
 							},
+							// confluence.whiteboard
 							{
 								cursor:
 									'WVhKcE9tTnNiM1ZrT21sa1pXNTBhWFI1T2pwMWMyVnlMelZrWmpCaFltFmpOMlJqTURNMk1HVmpaREF5TXpkalludzBNVGc1WWpVek9DMHhPV1UwTFRSak16VXRPR00xWkMxaFl6ZzFPV1ppTWpGaT1qUT18MA==',
@@ -141,7 +144,7 @@ export const MOCK_DATA_V3: MockDataV3 = {
 									id: 'YXJpOmNsb3VkOmFjdGl2aXR5OjlhMjU3YmJjLWI3YzYtNDdjOC1iFWRjLWMzZGIzYWM4OTU0YjppdGVtLzE4MTAzNTRiYTRmMWQwNDQ1MzdhMWJjMWM5NDVmZTIwMWYwZGNkZjQyYTB=',
 									object: {
 										id: 'ari:cloud:confluence:9a357bbc-b7c6-47c8-b1dc-c3db3ac8954b:page/539197608',
-										type: 'page',
+										type: 'whiteboard',
 										product: 'confluence',
 										rootContainerId:
 											'ari:cloud:platform::site/9a357bbc-b7c6-47c8-b1dc-c3db3ac8954b',
@@ -162,13 +165,13 @@ export const MOCK_DATA_V3: MockDataV3 = {
 											},
 										],
 										data: {
-											__typename: 'ConfluencePage',
+											__typename: 'ConfluenceWhiteboard',
 											links: {
 												webUi: '/spaces/~61ce114bce3652006a7cd505/pages/539197607/Other',
 												base: 'https://example.com/wiki',
 											},
 											id: 'ari:cloud:confluence:9a357bbc-b7c6-47c8-b1dc-c3db3ac8954b:page/539197608',
-											title: 'FAB-996 Other one',
+											title: 'Sample Whiteboard',
 											pageId: '539197608',
 											space: { name: 'Cool space with a very long name' },
 										},
@@ -180,6 +183,7 @@ export const MOCK_DATA_V3: MockDataV3 = {
 									},
 								},
 							},
+							// confluence.page + live
 							{
 								cursor:
 									'WVhKcE9tTnNiM1ZrT21sa1pXNTBhWFI1T2pwMWMyVnlMell4TURFNU5tRmxZamF3TkdJME1EQTJPR0ZpTVRRek5ueGhPR1JqTnpCbU9TMWlNV05rTFRRNE1qWXRPVEUzT0MxbVltVTVNRGxrWldKaE1HST18MA==',
@@ -187,8 +191,9 @@ export const MOCK_DATA_V3: MockDataV3 = {
 									id: 'YXJpOmNsb3VkOmFjdGl2aXR5OkRVTU1ZLWE1YTAxZDIxLTFjYzMtNGYyOS05NFY1LWYyYmI4Y2Q5NjlmNTppdGVtLzE3ZjA1ZWFhM2ZjMGE3MWEwOWRjYjI4YTE2MTBiOWMyZmFmOWUxMjU1YjQ=',
 									object: {
 										id: 'ari:cloud:townsquare:a3a01d21-1cc3-4f29-9565-f2bb8cd969f5:project/cae6f0ae-bd95-439a-835f-d93907a63f53',
-										type: 'project',
-										product: 'townsquare',
+										type: 'page',
+										product: 'confluence',
+										subProduct: null,
 										rootContainerId:
 											'ari:cloud:platform::site/9a257bbc-b7c6-47c8-b1dc-c3db3dc8914b',
 										contributors: [
@@ -208,13 +213,19 @@ export const MOCK_DATA_V3: MockDataV3 = {
 											},
 										],
 										data: {
-											__typename: 'TownsquareProject',
-											key: 'XD-1261',
-											name: 'FAB-983 Woah woah this title is rather long I wonder what it will do!',
-											url: 'https://example.com/project/XD-1261',
-											iconData:
-												'data:image/png;base64,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',
+											__typename: 'ConfluencePage',
 											id: 'ari:cloud:townsquare:a3a01d21-1cc3-4f29-9565-f2bb8cd969f5:project/cae6f0ae-bd95-439a-835f-d93907a63f23',
+											title: 'Sample Live Page',
+											pageId: '5062897875',
+											subtype: 'LIVE',
+											links: {
+												base: 'https://example.com/wiki',
+												webUi:
+													'/spaces/~655363f87158bb15fc48a9a396744a9fbe9ed7/pages/452269311391/Sample+Live+Page',
+											},
+											space: {
+												name: 'Sample Space',
+											},
 										},
 									},
 									event: {
@@ -224,6 +235,7 @@ export const MOCK_DATA_V3: MockDataV3 = {
 									},
 								},
 							},
+							// confluence.blogpost
 							{
 								cursor:
 									'WVhKcE9tTnNiM1ZrT21sa1pXNTBhWFI1T2pwMFMyVnlMelZrWmpCaFltUmpOMlJqTURNMk1HVmpaREF5TXpkalludzBNVGc1WWpVek9DMHhPV1UwTFRSak16VXRPR00xWkMxaFl6ZzFPV1ppTWpGaU1qUT18Ng==',
@@ -231,7 +243,7 @@ export const MOCK_DATA_V3: MockDataV3 = {
 									id: 'YXJpOmNsb3VkOmFjdGl2aXR5OkRVTU1ZLWEFYTAxZDIxLTFjYzMtNGYyOS05NTY1LWYyYmI4Y2Q5NjlmNTppdGVtLzE4MGFiNThjZDdlYzJhOWRhZjAyMzU0ZTIzZTExYTY5OWQzZGNlZGZkNDk=',
 									object: {
 										id: 'ari:cloud:confluence:a4a01d21-1cc3-4f29-9565-f2bb8cd969f5:page/452269311391',
-										type: 'page',
+										type: 'blogpost',
 										product: 'confluence',
 										rootContainerId:
 											'ari:cloud:platform::site/a4a01d21-1cc3-4f29-9565-f2bb8cd969f5',
@@ -259,14 +271,14 @@ export const MOCK_DATA_V3: MockDataV3 = {
 											},
 										],
 										data: {
-											__typename: 'ConfluencePage',
+											__typename: 'ConfluenceBlogPost',
 											links: {
 												webUi:
 													'/spaces/~655363f87158bb15fc48a9a396744a9fbe9ed7/pages/452269311391/Testtest',
 												base: 'https://example.com/wiki',
 											},
 											id: 'ari:cloud:confluence:DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5:page/452269311391',
-											title: 'FAB-1166 Testtest',
+											title: 'Sample Blog Post',
 											pageId: '452269311391',
 											space: { name: 'Sharon Haugen' },
 										},

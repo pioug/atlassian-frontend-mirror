@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { emojiImage, emojiSprite } from '@atlaskit/emoji';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -154,8 +155,21 @@ export const PanelSharedSelectors = {
 	copyButton: `button[aria-label="Copy"]`,
 };
 
-const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) =>
-	`color: ${lightIconColor[panelType]};`;
+const getIconStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => {
+	if (fg('platform_editor_lcm_nested_panel_icon_fix')) {
+		return `
+			.${PanelSharedCssClassName.icon}[data-panel-type='${panelType}'] {
+				color: ${lightIconColor[panelType]};
+			}
+		`;
+	} else {
+		return `
+			.${PanelSharedCssClassName.icon} {
+				color: ${lightIconColor[panelType]};
+			}
+		`;
+	}
+};
 
 // Provides the color without tokens, used when converting to a custom panel
 export const getPanelTypeBackgroundNoTokens = (
@@ -200,7 +214,6 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		-webkit-user-select: none;
 		-ms-user-select: none;
 		margin-top: 0.1em;
-		${iconDynamicStyles(PanelType.INFO)}
 
 		> span {
 			vertical-align: middle;
@@ -233,44 +246,33 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		min-width: 0;
 	}
 
+	&[data-panel-type='${PanelType.INFO}'] {
+		${getIconStyles(PanelType.INFO)}
+	}
+
 	&[data-panel-type='${PanelType.NOTE}'] {
 		${mainDynamicStyles(PanelType.NOTE)}
-
-		.${PanelSharedCssClassName.icon} {
-			${iconDynamicStyles(PanelType.NOTE)}
-		}
+		${getIconStyles(PanelType.NOTE)}
 	}
 
 	&[data-panel-type='${PanelType.TIP}'] {
 		${mainDynamicStyles(PanelType.TIP)}
-
-		.${PanelSharedCssClassName.icon} {
-			${iconDynamicStyles(PanelType.TIP)}
-		}
+		${getIconStyles(PanelType.TIP)}
 	}
 
 	&[data-panel-type='${PanelType.WARNING}'] {
 		${mainDynamicStyles(PanelType.WARNING)}
-
-		.${PanelSharedCssClassName.icon} {
-			${iconDynamicStyles(PanelType.WARNING)}
-		}
+		${getIconStyles(PanelType.WARNING)}
 	}
 
 	&[data-panel-type='${PanelType.ERROR}'] {
 		${mainDynamicStyles(PanelType.ERROR)}
-
-		.${PanelSharedCssClassName.icon} {
-			${iconDynamicStyles(PanelType.ERROR)}
-		}
+		${getIconStyles(PanelType.ERROR)}
 	}
 
 	&[data-panel-type='${PanelType.SUCCESS}'] {
 		${mainDynamicStyles(PanelType.SUCCESS)}
-
-		.${PanelSharedCssClassName.icon} {
-			${iconDynamicStyles(PanelType.SUCCESS)}
-		}
+		${getIconStyles(PanelType.SUCCESS)}
 	}
 
 	${editorExperiment('nested-dnd', true)

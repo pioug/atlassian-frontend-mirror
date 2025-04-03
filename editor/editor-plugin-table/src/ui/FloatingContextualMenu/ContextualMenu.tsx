@@ -51,9 +51,12 @@ import TableCellMergeIcon from '@atlaskit/icon/core/table-cell-merge';
 import TableCellSplitIcon from '@atlaskit/icon/core/table-cell-split';
 import TableColumnAddRightIcon from '@atlaskit/icon/core/table-column-add-right';
 import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
+import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	clearHoverSelection,
@@ -314,6 +317,25 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		}
 	};
 
+	// Used in the NewContextMenuItems object
+	private newDistributeColumnsItem = () => {
+		const {
+			intl: { formatMessage },
+		} = this.props;
+		return this.createDistributeColumnsItemInternal({
+			elemBefore: (
+				<Box xcss={elementBeforeIconStyles}>
+					<TableColumnsDistributeIcon
+						color="currentColor"
+						spacing="spacious"
+						label={formatMessage(messages.distributeColumns)}
+						LEGACY_fallbackIcon={MergeCellsIcon}
+					/>
+				</Box>
+			),
+		});
+	};
+
 	private createMergeSplitCellItems = () => {
 		const {
 			allowMergeCells,
@@ -515,40 +537,47 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		} as MenuItem;
 	};
 
-	private createDistributeColumnsItem = () => {
+	private createDistributeColumnsItemInternal = (partialMenuItem?: Partial<MenuItem>) => {
 		const {
 			selectionRect,
-			intl: { formatMessage },
 			editorView,
 			getEditorContainerWidth,
 			getEditorFeatureFlags,
+			intl: { formatMessage },
 		} = this.props;
+
+		const { isTableScalingEnabled = false } = getPluginState(editorView.state);
+		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags
+			? getEditorFeatureFlags()
+			: {};
+
+		const newResizeState = getNewResizeStateFromSelectedColumns(
+			selectionRect,
+			editorView.state,
+			editorView.domAtPos.bind(editorView),
+			getEditorContainerWidth,
+			isTableScalingEnabled,
+			tableWithFixedColumnWidthsOption,
+		);
+
+		const wouldChange = newResizeState?.changed ?? false;
+
+		return {
+			content: formatMessage(messages.distributeColumns),
+			value: { name: 'distribute_columns' },
+			isDisabled: !wouldChange,
+			...partialMenuItem,
+		} as MenuItem;
+	};
+
+	private createDistributeColumnsItem = () => {
+		const { editorView } = this.props;
 		const {
 			isDragAndDropEnabled,
 			pluginConfig: { allowDistributeColumns },
 		} = getPluginState(editorView.state);
 		if (allowDistributeColumns && !isDragAndDropEnabled) {
-			const { isTableScalingEnabled = false } = getPluginState(editorView.state);
-			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags
-				? getEditorFeatureFlags()
-				: {};
-
-			const newResizeState = getNewResizeStateFromSelectedColumns(
-				selectionRect,
-				editorView.state,
-				editorView.domAtPos.bind(editorView),
-				getEditorContainerWidth,
-				isTableScalingEnabled,
-				tableWithFixedColumnWidthsOption,
-			);
-
-			const wouldChange = newResizeState?.changed ?? false;
-
-			return {
-				content: formatMessage(messages.distributeColumns),
-				value: { name: 'distribute_columns' },
-				isDisabled: !wouldChange,
-			} as MenuItem;
+			return this.createDistributeColumnsItemInternal();
 		}
 		return null;
 	};
@@ -637,6 +666,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		items[0].items.push(...mergeSplitCellItems);
 		items[1].items.push(insertColumnItem);
 		items[1].items.push(insertRowItem);
+		if (
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_2')
+		) {
+			items[1].items.push(this.newDistributeColumnsItem());
+		}
 		items[1].items.push(clearCellsItem);
 		items[1].items.push(deleteColumnItem);
 		items[1].items.push(deleteRowItem);

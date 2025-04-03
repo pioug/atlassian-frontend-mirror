@@ -33,6 +33,9 @@
 			"path": "../../editor-plugin-context-identifier/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-jira/tsconfig.json"
 		},
 		{
@@ -43,6 +46,12 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/profilecard/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/theme/afm-jira/tsconfig.json"

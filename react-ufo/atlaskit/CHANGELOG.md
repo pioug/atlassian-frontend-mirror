@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.13
+
+### Patch Changes
+
+- [#136326](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136326)
+  [`df5ce1960f52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df5ce1960f52f) -
+  add null check for vc90 result
+
 ## 3.4.12
 
 ### Patch Changes

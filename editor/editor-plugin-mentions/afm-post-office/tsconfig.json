@@ -33,6 +33,9 @@
 			"path": "../../editor-plugin-context-identifier/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-post-office/tsconfig.json"
 		},
 		{
@@ -43,6 +46,12 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/profilecard/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"

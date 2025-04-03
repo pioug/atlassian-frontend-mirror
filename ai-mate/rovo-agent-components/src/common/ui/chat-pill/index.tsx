@@ -19,7 +19,7 @@ import messages from './messages';
 
 const stylesCompiled = cssMapCompiled({
 	pillLineHeight: {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 		lineHeight: '16px',
 	},
 });
@@ -54,26 +54,28 @@ const styles = cssMap({
 	},
 
 	button: {
-		color: token('color.text'),
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
-		borderRadius: token('border.radius.200'),
-		borderBottomRightRadius: token('border.radius.050', '2px'),
+		color: token('color.text.subtle'),
+		paddingTop: token('space.075'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.150'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		borderRadius: token('border.radius.100'),
 		font: token('font.body'),
 		fontWeight: token('font.weight.medium', '500'),
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 		flexShrink: 1,
-		backgroundColor: token('color.background.neutral'),
+		backgroundColor: token('color.background.neutral.subtle'),
 
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
 
 		'&:active': {
-			backgroundColor: token('color.background.neutral.pressed'),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 	},
 
@@ -98,7 +100,7 @@ export const ChatPill = forwardRef<HTMLButtonElement, ChatPillProps>(
 	({ children, whiteSpacePreWrap = true, renderIcon = true, ...props }, ref) => (
 		<Pressable ref={ref} {...props} xcss={styles.button}>
 			<div css={stylesCompiled.pillLineHeight}>
-				<Inline space="space.050" xcss={styles.buttonInline}>
+				<Inline space="space.075" alignBlock="baseline">
 					{renderIcon ? <ChatPillIcon /> : null}
 					<Box xcss={cx(styles.queryText, whiteSpacePreWrap && styles.whiteSpacePreWrap)}>
 						{children}

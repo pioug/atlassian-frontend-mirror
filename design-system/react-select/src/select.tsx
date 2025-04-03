@@ -23,6 +23,7 @@ import {
 } from './builtins';
 import { defaultComponents, type SelectComponentsConfig } from './components';
 import { DummyInput, RequiredInput, ScrollManager } from './components/internal';
+import { NotifyOpenLayerObserver } from './components/internal/notify-open-layer-observer';
 import LiveRegion from './components/live-region';
 import { MenuPlacer } from './components/menu';
 import { createFilter, type FilterOptionOption } from './filters';
@@ -2453,6 +2454,14 @@ export default class Select<
 		);
 	}
 
+	handleOpenLayerObserverCloseSignal = () => {
+		if (!fg('platform_dst_layer_observer_select')) {
+			return;
+		}
+
+		this.onMenuClose();
+	};
+
 	render() {
 		const { Control, IndicatorsContainer, SelectContainer, ValueContainer } = this.getComponents();
 
@@ -2532,6 +2541,10 @@ export default class Select<
 				</Control>
 				{this.renderMenu()}
 				{this.renderFormField()}
+				<NotifyOpenLayerObserver
+					isOpen={fg('platform_dst_layer_observer_select') && this.props.menuIsOpen}
+					onClose={this.handleOpenLayerObserverCloseSignal}
+				/>
 			</SelectContainer>
 		);
 	}

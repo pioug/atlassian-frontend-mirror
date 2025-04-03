@@ -75,6 +75,7 @@ import {
 } from './consts';
 import type { DragPreviewContent } from './drag-preview';
 import { dragPreview } from './drag-preview';
+import { refreshAnchorName } from './utils/anchor-name';
 
 const iconWrapperStyles = xcss({
 	display: 'flex',
@@ -616,8 +617,15 @@ export const DragHandle = ({
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
 			CSS.supports('left', `anchor(${anchorName} start)`);
+
+		const safeAnchorName =
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_2')
+				? refreshAnchorName({ getPos, view, anchorName })
+				: anchorName;
+
 		const dom: HTMLElement | null = view.dom.querySelector(
-			`[data-drag-handler-anchor-name="${anchorName}"]`,
+			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
 		);
 
 		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
@@ -650,20 +658,20 @@ export const DragHandle = ({
 
 		if (supportsAnchor) {
 			const bottom = fg('platform_editor_controls_sticky_controls')
-				? getControlBottomCSSValue(anchorName, isSticky, isTopLevelNode, isLayoutColumn)
+				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
 				: {};
 
 			return {
 				left: isEdgeCase
-					? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
+					? `calc(anchor(${safeAnchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
 					: editorExperiment('advanced_layouts', true) && isLayoutColumn
-						? `calc((anchor(${anchorName} right) + anchor(${anchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
-						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
+						? `calc((anchor(${safeAnchorName} right) + anchor(${safeAnchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
+						: `calc(anchor(${safeAnchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
 
 				top:
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
-						? `calc(anchor(${anchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`,
+						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
+						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(nodeType)}px)`,
 
 				...bottom,
 			};
@@ -671,7 +679,7 @@ export const DragHandle = ({
 
 		const height = fg('platform_editor_controls_sticky_controls')
 			? getControlHeightCSSValue(
-					getNodeHeight(dom, anchorName, anchorRectCache) || 0,
+					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
 					isSticky,
 					isTopLevelNode,
 					`${DRAG_HANDLE_HEIGHT}`,
@@ -687,15 +695,14 @@ export const DragHandle = ({
 		};
 	}, [
 		anchorName,
-		view.dom,
-		view.state.doc,
+		getPos,
+		view,
 		nodeType,
 		blockCardWidth,
 		macroInteractionUpdates,
+		anchorRectCache,
 		isTopLevelNode,
 		isLayoutColumn,
-		getPos,
-		anchorRectCache,
 	]);
 
 	const [positionStyles, setPositionStyles] = useState<CSSProperties>({ display: 'none' });

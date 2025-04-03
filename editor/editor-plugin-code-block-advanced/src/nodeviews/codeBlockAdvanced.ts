@@ -19,6 +19,7 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
@@ -113,6 +114,10 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	}
 
 	destroy() {
+		// ED-27428: CodeMirror gets into an infinite loop as it detects mutations on removed
+		// decorations. When we change the breakout we destroy the node and cleanup these decorations from
+		// codemirror
+		this.clearProseMirrorDecorations();
 		this.cleanupDisabledState?.();
 	}
 
@@ -208,6 +213,15 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private updateProseMirrorDecorations(decorationSource: DecorationSource) {
 		this.updating = true;
 		const computedFacet = this.pmFacet.compute([], () => decorationSource);
+		this.cm.dispatch({
+			effects: this.pmDecorationsCompartment.reconfigure(computedFacet),
+		});
+		this.updating = false;
+	}
+
+	private clearProseMirrorDecorations() {
+		this.updating = true;
+		const computedFacet = this.pmFacet.compute([], () => DecorationSet.empty);
 		this.cm.dispatch({
 			effects: this.pmDecorationsCompartment.reconfigure(computedFacet),
 		});

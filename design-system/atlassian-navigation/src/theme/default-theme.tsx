@@ -129,11 +129,13 @@ const defaultTheme: { mode: Mode } = {
 };
 
 // Create deep copy of defaultTheme
-export const defaultThemeBrandRefresh = JSON.parse(JSON.stringify(defaultTheme));
+const defaultThemeCopy = JSON.parse(JSON.stringify(defaultTheme));
 
 // Update iconColor and textColor in defaultThemeBrandRefresh
-defaultThemeBrandRefresh.mode.productHome.iconColor = undefined;
-defaultThemeBrandRefresh.mode.productHome.textColor = undefined;
+defaultThemeCopy.mode.productHome.iconColor = undefined;
+defaultThemeCopy.mode.productHome.textColor = undefined;
+
+export const defaultThemeBrandRefresh = defaultThemeCopy;
 
 export const DEFAULT_THEME_NAME = 'atlassian';
 export default defaultTheme;

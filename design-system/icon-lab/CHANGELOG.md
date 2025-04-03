@@ -1,5 +1,74 @@
 # @atlaskit/icon-lab
 
+## 4.6.0
+
+### Minor Changes
+
+- [#135884](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135884)
+  [`1d090b89cdb44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d090b89cdb44) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `ai-generative-chapters`
+  - `ai-generative-remove`
+  - `ai-generative-remove-silence`
+  - `ai-generative-text`
+  - `ai-generative-text-title`
+  - `audio-waveform`
+  - `blur`
+  - `browser-extension`
+  - `folder-shared`
+  - `globe-strikethrough`
+  - `history`
+  - `link-restricted-access`
+  - `microphone-strikethrough`
+  - `pencil`
+  - `person-voiceover`
+  - `plus-circle`
+  - `power`
+  - `repeat`
+  - `reply-left`
+  - `reply-right`
+  - `return`
+  - `screen-record`
+  - `space`
+  - `speedometer-left`
+  - `speedometer-right`
+  - `speedometer-up`
+  - `tab`
+  - `text-audio-transcript`
+  - `text-heading-five`
+  - `text-heading-four`
+  - `text-heading-one`
+  - `text-heading-six`
+  - `text-heading-three`
+  - `text-heading-two`
+  - `variable`
+  - `video-captions-stylized`
+  - `video-clip`
+  - `video-closed-captions`
+  - `video-closed-captions-filled`
+  - `video-miniplayer`
+  - `video-overlay-tools`
+  - `video-play-circle`
+  - `video-record`
+  - `video-rewind-overlay`
+  - `video-skip-backward-five`
+  - `video-skip-forward-five`
+  - `video-strikethrough`
+  - `video-theater-mode`
+  - `video-timeline-clip-split`
+  - `video-timeline-editor`
+  - `video-watch-later-remove`
+  - `video-watch-later-saved`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.5.1
 
 ### Patch Changes

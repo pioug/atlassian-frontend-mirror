@@ -73,10 +73,18 @@ export const createReducer = ({
 		inputMethod: TypeAheadInputMethod;
 		reopenQuery?: string;
 		selectedIndex?: number;
+		removePrefixTriggerOnCancel?: boolean;
 	};
 	const openMenu = (
 		currentPluginState: TypeAheadPluginState,
-		{ tr, triggerHandler, inputMethod, reopenQuery, selectedIndex }: OpenMenuProps,
+		{
+			tr,
+			triggerHandler,
+			inputMethod,
+			reopenQuery,
+			selectedIndex,
+			removePrefixTriggerOnCancel,
+		}: OpenMenuProps,
 	): TypeAheadPluginState => {
 		removeDecorations(currentPluginState.decorationSet);
 		const { decorationSet, decorationElement, stats } = createDecorations(tr, {
@@ -94,6 +102,7 @@ export const createReducer = ({
 			selectedIndex: typeof selectedIndex === 'number' ? selectedIndex : -1,
 			items: [],
 			query: reopenQuery || '',
+			removePrefixTriggerOnCancel,
 		};
 	};
 
@@ -108,6 +117,7 @@ export const createReducer = ({
 			stats: null,
 			triggerHandler: undefined,
 			items: [],
+			removePrefixTriggerOnCancel: undefined,
 		};
 	};
 
@@ -152,6 +162,7 @@ export const createReducer = ({
 				triggerHandler: params.triggerHandler,
 				inputMethod: params.inputMethod,
 				reopenQuery: params.query,
+				removePrefixTriggerOnCancel: params.removePrefixTriggerOnCancel,
 			});
 		} else if (shouldCloseMenu) {
 			return closeMenu(currentPluginState);

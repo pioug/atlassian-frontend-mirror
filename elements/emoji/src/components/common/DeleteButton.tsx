@@ -2,29 +2,44 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 import CrossCircleIcon from '@atlaskit/icon/utility/migration/cross-circle';
 import { token } from '@atlaskit/tokens';
 import { N500 } from '@atlaskit/theme/colors';
 import { deleteEmojiLabel } from '../../util/constants';
-import { emojiDeleteButton, deleteButton } from './styles';
-import { Box, xcss } from '@atlaskit/primitives';
+import { emojiDeleteButton } from './styles';
+import { Box } from '@atlaskit/primitives/compiled';
+
+const styles = cssMap({
+	boxWrapperStyle: {
+		width: '18px',
+		height: '18px',
+	},
+});
+
+const deleteButton = css({
+	// hide by default
+	visibility: 'hidden',
+	display: 'flex',
+	position: 'absolute',
+	top: token('space.negative.100', '-8px'),
+	right: token('space.negative.100', '-8px'),
+	zIndex: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& span': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: 0,
+	},
+});
 
 /**
  * Test id for wrapper Emoji delete button
  */
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
-const boxWrapperStyle = xcss({
-	width: '18px',
-	height: '18px',
-});
-
 const DeleteButton = (props: ButtonProps) => (
 	<span
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css={deleteButton}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={emojiDeleteButton}
@@ -32,7 +47,7 @@ const DeleteButton = (props: ButtonProps) => (
 	>
 		<Button
 			iconBefore={
-				<Box xcss={boxWrapperStyle}>
+				<Box xcss={styles.boxWrapperStyle}>
 					<CrossCircleIcon
 						label={deleteEmojiLabel}
 						color={token('color.text.subtle', N500)}

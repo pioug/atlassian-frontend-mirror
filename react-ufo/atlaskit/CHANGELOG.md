@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.4.14
+
+### Patch Changes
+
+- [#136647](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136647)
+  [`9d50aee5de4c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d50aee5de4c6) -
+  Fix bug on ufo:vc:dom that would include element selector that is ignored
+
 ## 3.4.13
 
 ### Patch Changes

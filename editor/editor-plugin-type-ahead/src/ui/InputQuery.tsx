@@ -16,6 +16,7 @@ import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -138,6 +139,9 @@ export const InputQuery = React.memo(
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
 		const isEditorControlsEnabled = editorExperiment('platform_editor_insertion', 'variant1');
+		const isEditorControlsPatch2Enabled =
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_2');
 		const [showPlaceholder, setShowPlaceholder] = useState(
 			isEditorControlsEnabled && triggerQueryPrefix === '/',
 		);
@@ -171,7 +175,8 @@ export const InputQuery = React.memo(
 				const raw = ref.current?.textContent || '';
 				const text = cleanedInputContent();
 				let stopDefault = false;
-				const { selectedIndex } = getPluginState(editorView.state) || {};
+				const { selectedIndex, removePrefixTriggerOnCancel } =
+					getPluginState(editorView.state) || {};
 				setInFocus(true);
 
 				switch (key) {
@@ -180,7 +185,9 @@ export const InputQuery = React.memo(
 							cancel({
 								forceFocusOnEditor: true,
 								text: ' ',
-								addPrefixTrigger: true,
+								addPrefixTrigger: isEditorControlsPatch2Enabled
+									? !removePrefixTriggerOnCancel
+									: true,
 								setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 							});
 							stopDefault = true;
@@ -193,7 +200,7 @@ export const InputQuery = React.memo(
 						cancel({
 							text,
 							forceFocusOnEditor: true,
-							addPrefixTrigger: true,
+							addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
 							setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 						});
 						stopDefault = true;
@@ -276,6 +283,7 @@ export const InputQuery = React.memo(
 				cancel,
 				cleanedInputContent,
 				editorView.state,
+				isEditorControlsPatch2Enabled,
 			],
 		);
 
@@ -296,13 +304,13 @@ export const InputQuery = React.memo(
 				return;
 			}
 			const { current: element } = ref;
+			const { removePrefixTriggerOnCancel } = getPluginState(editorView.state) || {};
 			const onFocusIn = (event: FocusEvent) => {
 				onQueryFocus();
 			};
 
 			const keyDown = (event: KeyboardEvent) => {
 				const key = keyNameNormalized(event);
-
 				if (
 					['ArrowLeft', 'ArrowRight'].includes(key) &&
 					document.getSelection &&
@@ -321,7 +329,7 @@ export const InputQuery = React.memo(
 
 					cancel({
 						forceFocusOnEditor: true,
-						addPrefixTrigger: true,
+						addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
 						text: cleanedInputContent(),
 						setSelectionAt: isMovingRight
 							? CloseSelectionOptions.AFTER_TEXT_INSERTED
@@ -363,7 +371,7 @@ export const InputQuery = React.memo(
 				}
 
 				cancel({
-					addPrefixTrigger: true,
+					addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
 					text: cleanedInputContent(),
 					setSelectionAt: CloseSelectionOptions.BEFORE_TEXT_INSERTED,
 					forceFocusOnEditor: false,
@@ -477,6 +485,7 @@ export const InputQuery = React.memo(
 			cancel,
 			checkKeyEvent,
 			editorView.state,
+			isEditorControlsPatch2Enabled,
 		]);
 
 		useLayoutEffect(() => {

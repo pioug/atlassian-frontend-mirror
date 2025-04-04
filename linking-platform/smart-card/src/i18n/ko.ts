@@ -113,6 +113,7 @@ export default {
   'fabric.linking.modified_on_absolute': '{context}에 업데이트',
   'fabric.linking.modified_on_relative': '{context}에 업데이트',
   'fabric.linking.more_actions': '추가 작업',
+  'fabric.linking.more_information_about_this_work_item': '이 업무 항목에 대한 추가 정보',
   'fabric.linking.no_access_title': '{product}에 참여하여 이 콘텐츠 보기',
   'fabric.linking.not_found_description': '페이지가 존재하지 않거나 이 링크를 추가한 후 변경되었을 수 있습니다.',
   'fabric.linking.not_found_title': '{product} 페이지를 표시할 수 없습니다',

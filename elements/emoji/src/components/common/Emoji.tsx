@@ -11,8 +11,9 @@ import React, {
 	forwardRef,
 	type PropsWithChildren,
 } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { B100, N30 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
@@ -36,13 +37,11 @@ import {
 import { leftClick } from '../../util/mouse';
 import DeleteButton from './DeleteButton';
 import {
-	emojiSpriteContainer,
 	emojiNodeStyles,
 	commonSelectedStyles,
 	selectOnHoverStyles,
 	emojiSprite,
 	emojiMainStyle,
-	emojiImageContainer,
 	emojiImage,
 	deletableEmoji,
 } from './styles';
@@ -59,6 +58,76 @@ import {
 	DeletableEmojiTooltipContentForScreenReader,
 } from './DeletableEmojiTooltipContent';
 import { isSSR } from '../../util/is-ssr';
+
+const emojiSpriteContainer = css({
+	display: 'inline-block',
+	// Ensure along with vertical align middle, we don't increase the line height for h1..h6, and p
+	margin: '-1px 0',
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.emoji-common-emoji-sprite': {
+		background: 'transparent no-repeat',
+		display: 'inline-block',
+		minHeight: '20px', // defaultEmojiHeight
+		minWidth: '20px', // defaultEmojiHeight
+		verticalAlign: 'middle',
+	},
+
+	'&:focus': {
+		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+		transitionDuration: '0s, 0.2s',
+		outline: 'none',
+	},
+});
+
+const emojiImageContainer = css({
+	borderRadius: token('border.radius.100', '3px'),
+	backgroundColor: 'transparent',
+	display: 'inline-block',
+	verticalAlign: 'middle',
+	// Ensure along with vertical align middle, we don't increase the line height for p and some
+	// headings. Smaller headings get a slight increase in height, cannot add more negative margin
+	// as a "selected" emoji (e.g. in the editor) will not look good.
+	margin: '-1px 0',
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	img: {
+		display: 'block',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover .emoji-common-deleteButton': {
+		// show delete button on hover
+		visibility: 'visible',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-deletable': {
+		position: 'relative',
+	},
+
+	// show delete button on focus
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.emoji-common-deletable:focus-within .emoji-common-deleteButton': {
+		visibility: 'visible',
+	},
+
+	'&:focus': {
+		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
+		transitionDuration: '0s, 0.2s',
+		outline: 'none',
+	},
+});
 
 export interface Props
 	extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onMouseMove' | 'onFocus'> {
@@ -313,11 +382,14 @@ export const ImageEmoji = (props: Props) => {
 			height: fitToHeight,
 		};
 	}
-	const onError = (event: SyntheticEvent<HTMLImageElement>) => {
-		handleImageError(props, event);
-	};
+	const onError = useCallback(
+		(event: SyntheticEvent<HTMLImageElement>) => {
+			handleImageError(props, event);
+		},
+		[props],
+	);
 
-	const onLoad = () => {
+	const onLoad = useCallback(() => {
 		const mountedMark = ufoExp.metrics.marks.find(
 			(mark) => mark.name === UfoEmojiTimings.MOUNTED_END,
 		);
@@ -346,13 +418,20 @@ export const ImageEmoji = (props: Props) => {
 		if (onLoadSuccess) {
 			onLoadSuccess(emoji);
 		}
-	};
+	}, [emoji, onLoadSuccess, ufoExp]);
 
 	const onBeforeLoad = useCallback(() => {
 		if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_START)) {
 			ufoExp.mark(UfoEmojiTimings.ONLOAD_START);
 		}
 	}, [ufoExp]);
+
+	const onMouseOver = useCallback((e: React.MouseEvent<HTMLElement>) => {
+		// only disable tooltip when not on focus
+		if (!document.activeElement?.contains(e.target as Node)) {
+			e.stopPropagation();
+		}
+	}, []);
 
 	// because of the lack of browser support of on before load natively, used IntersectionObserver helper hook to mimic the before load time mark for UFO.
 	useEffect(() => {
@@ -394,12 +473,7 @@ export const ImageEmoji = (props: Props) => {
 					className={classes}
 					ref={ref}
 					showTooltip={false} // avoid showing both tooltip and title
-					onMouseOver={(e) => {
-						// only disable tooltip when not on focus
-						if (!document.activeElement?.contains(e.target as Node)) {
-							e.stopPropagation();
-						}
-					}}
+					onMouseOver={onMouseOver}
 				>
 					{emojiNode}
 					<DeleteButton onClick={(event: SyntheticEvent) => handleDelete(props, event)} />
@@ -467,8 +541,7 @@ export const EmojiNodeWrapper = forwardRef<
 			data-testid={`${type}-emoji-${emoji.shortName}`}
 			data-emoji-type={type}
 			tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={type === 'sprite' ? emojiSpriteContainer : emojiImageContainer}
+			css={[type === 'sprite' ? emojiSpriteContainer : emojiImageContainer]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			onKeyDown={(event) => handleKeyDown(props, event)}

@@ -13,8 +13,9 @@ import {
 	memo,
 	useCallback,
 } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N300 } from '@atlaskit/theme/colors';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
@@ -30,16 +31,70 @@ import EmojiErrorMessage from './EmojiErrorMessage';
 import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
-import {
-	closeEmojiUploadButton,
-	emojiChooseFileErrorMessage,
-	emojiUpload,
-	emojiUploadTop,
-	headingH5,
-	uploadChooseFileEmojiName,
-	uploadChooseFileMessage,
-	uploadChooseFileRow,
-} from './styles';
+
+const closeEmojiUploadButton = css({
+	display: 'flex',
+});
+
+const emojiUpload = css({
+	height: '78px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	padding: '10px',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-around',
+});
+
+const emojiUploadTop = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBottom: '7px',
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'flex-end',
+	font: token('font.body.UNSAFE_small'),
+});
+
+const headingH5 = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&': {
+		font: token('font.body.UNSAFE_small'),
+		fontWeight: token('font.weight.semibold', '600'),
+	},
+});
+
+const uploadChooseFileEmojiName = css({
+	flex: '1 1 auto',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginRight: '5px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	input: {
+		background: 'transparent',
+		border: 0,
+		outline: 'none',
+
+		'&:invalid': {
+			boxShadow: 'none',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&::-ms-clear': {
+			display: 'none',
+		},
+	},
+});
+
+const uploadChooseFileMessage = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&': {
+		color: token('color.text.subtle', N300),
+	},
+});
+
+const uploadChooseFileRow = css({
+	display: 'flex',
+	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBottom: '7px',
+});
 
 export interface OnUploadEmoji {
 	(upload: EmojiUpload, retry: boolean, onSuccessHandler?: () => void): void;
@@ -132,15 +187,11 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const emojiChooseFileTitle = formatMessage(messages.emojiChooseFileTitle);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiUploadTop}>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<label css={[uploadChooseFileMessage, headingH5]} htmlFor="new-emoji-name-input">
 					<FormattedMessage {...messages.addCustomEmojiLabel} />
 				</label>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={closeEmojiUploadButton}>
 					<AkButton
 						onClick={onUploadCancelled}
@@ -154,9 +205,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					</AkButton>
 				</div>
 			</div>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={uploadChooseFileRow}>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={uploadChooseFileEmojiName}>
 					<TextField
 						placeholder={emojiPlaceholder}
@@ -173,7 +222,6 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						aria-required={true}
 					/>
 				</span>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<Text>
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
@@ -189,14 +237,13 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					</FormattedMessage>
 				</Text>
 			</div>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div id={fileChooserButtonDescriptionId}>
 				{!errorMessage ? (
 					<Text as="p" size="small">
 						<FormattedMessage {...messages.emojiImageRequirements} />
 					</Text>
 				) : (
-					<EmojiErrorMessage messageStyles={emojiChooseFileErrorMessage} message={errorMessage} />
+					<EmojiErrorMessage errorStyle="chooseFile" message={errorMessage} />
 				)}
 			</div>
 		</div>

@@ -6,21 +6,18 @@ import { css, jsx } from '@compiled/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { testingEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 
-import CompiledEmojiDeletePreview from '../../components/compiled/common/EmojiDeletePreview';
-import CompiledEmojiUploadPreview from '../../components/compiled/common/EmojiUploadPreview';
-import CompiledEmojiUploadPicker from '../../components/compiled/common/EmojiUploadPicker';
-import EmotionEmojiDeletePreview from '../../components/common/EmojiDeletePreview';
-import EmotionEmojiUploadPreview from '../../components/common/EmojiUploadPreview';
-import EmotionEmojiUploadPicker from '../../components/common/EmojiUploadPicker';
+import EmojiDeletePreviewComponent from '../../components/common/EmojiDeletePreview';
+import EmojiUploadPreviewComponent from '../../components/common/EmojiUploadPreview';
+import EmojiUploadPicker from '../../components/common/EmojiUploadPicker';
 import { type EmojiDescription, type ImageRepresentation } from '../../types';
 
 const wrapperStyles = css({ width: '350px' });
 
-export const EmojiDeletePreviewCompiled = () => {
+export const EmojiDeletePreview = () => {
 	const blueStar = testingEmojis.emojis[2] as EmojiDescription;
 	return (
 		<div css={wrapperStyles}>
-			<CompiledEmojiDeletePreview
+			<EmojiDeletePreviewComponent
 				emoji={blueStar!}
 				onCloseDelete={() => {}}
 				onDeleteEmoji={() => Promise.resolve(false)}
@@ -29,26 +26,13 @@ export const EmojiDeletePreviewCompiled = () => {
 	);
 };
 
-export const EmojiDeletePreviewEmotion = () => {
-	const blueStar = testingEmojis.emojis[2] as EmojiDescription;
-	return (
-		<div css={wrapperStyles}>
-			<EmotionEmojiDeletePreview
-				emoji={blueStar!}
-				onCloseDelete={() => {}}
-				onDeleteEmoji={() => Promise.resolve(false)}
-			/>
-		</div>
-	);
-};
-
-export const EmojiUploadPreviewCompiled = () => {
+export const EmojiUploadPreview = () => {
 	const blueStar = testingEmojis.emojis[2] as EmojiDescription;
 	const imagePath = (blueStar.representation as ImageRepresentation).imagePath;
 
 	return (
 		<div css={wrapperStyles}>
-			<CompiledEmojiUploadPreview
+			<EmojiUploadPreviewComponent
 				name="test"
 				previewImage={imagePath}
 				onUploadCancelled={() => {}}
@@ -58,26 +42,10 @@ export const EmojiUploadPreviewCompiled = () => {
 	);
 };
 
-export const EmojiUploadPreviewEmotion = () => {
-	const blueStar = testingEmojis.emojis[2] as EmojiDescription;
-	const imagePath = (blueStar.representation as ImageRepresentation).imagePath;
-
+export const EmojiUploadPickerWithoutName = () => {
 	return (
 		<div css={wrapperStyles}>
-			<EmotionEmojiUploadPreview
-				name="test"
-				previewImage={imagePath}
-				onUploadCancelled={() => {}}
-				onAddEmoji={() => {}}
-			/>
-		</div>
-	);
-};
-
-export const EmojiUploadPickerCompiled = () => {
-	return (
-		<div css={wrapperStyles}>
-			<CompiledEmojiUploadPicker
+			<EmojiUploadPicker
 				onUploadCancelled={() => {}}
 				onUploadEmoji={() => {}}
 				initialUploadName={undefined}
@@ -86,34 +54,10 @@ export const EmojiUploadPickerCompiled = () => {
 	);
 };
 
-export const EmojiUploadPickerEmotion = () => {
+export const EmojiUploadPickerWithName = () => {
 	return (
 		<div css={wrapperStyles}>
-			<EmotionEmojiUploadPicker
-				onUploadCancelled={() => {}}
-				onUploadEmoji={() => {}}
-				initialUploadName={undefined}
-			/>
-		</div>
-	);
-};
-
-export const EmojiUploadPickerWithNameCompiled = () => {
-	return (
-		<div css={wrapperStyles}>
-			<CompiledEmojiUploadPicker
-				onUploadCancelled={() => {}}
-				onUploadEmoji={() => {}}
-				initialUploadName="new_emoji"
-			/>
-		</div>
-	);
-};
-
-export const EmojiUploadPickerWithNameEmotion = () => {
-	return (
-		<div css={wrapperStyles}>
-			<EmotionEmojiUploadPicker
+			<EmojiUploadPicker
 				onUploadCancelled={() => {}}
 				onUploadEmoji={() => {}}
 				initialUploadName="new_emoji"

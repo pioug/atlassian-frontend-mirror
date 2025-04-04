@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Popup from '@atlaskit/popup';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+
+const styles = cssMap({
+	root: {
+		width: '500px',
+		height: '500px',
+	},
+});
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +24,7 @@ export default () => {
 	const PopupContent = () => {
 		const [date, setDate] = useState('');
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div id="popup-content" style={{ width: '500px', height: '500px' }}>
+			<div id="popup-content" css={styles.root}>
 				<Label htmlFor="text3">First popup field</Label>
 				<input id="text3" type="text" />
 				<Box>
@@ -21,6 +32,7 @@ export default () => {
 						Picker popup field
 					</Label>
 					<DatePicker
+						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus={false}
 						id="react-select-value1-input"
 						clearControlLabel="Clear picker popup field"

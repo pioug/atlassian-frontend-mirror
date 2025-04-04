@@ -3,8 +3,9 @@
  * @jsx jsx
  */
 import { PureComponent } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N20, N300 } from '@atlaskit/theme/colors';
 import AkButton from '@atlaskit/button/standard-button';
 import Heading from '@atlaskit/heading';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
@@ -12,17 +13,58 @@ import { customCategory } from '../../util/constants';
 import type { EmojiDescription, Message } from '../../types';
 import { messages } from '../i18n';
 import Emoji from './Emoji';
-import RetryableButton from './RetryableButton';
 import EmojiErrorMessage from './EmojiErrorMessage';
 import { UploadStatus } from './internal-types';
-import {
-	bigEmojiPreview,
-	emojiPreviewErrorMessage,
-	uploadAddRow,
-	uploadPreview,
-	uploadPreviewFooter,
-	uploadPreviewText,
-} from './styles';
+import RetryableButton from './RetryableButton';
+
+const bigEmojiPreview = css({
+	paddingLeft: token('space.050', '4px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	img: {
+		maxHeight: '40px',
+		maxWidth: '100px',
+	},
+});
+
+const uploadAddRow = css({
+	display: 'flex',
+	justifyContent: 'flex-end',
+	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingTop: '10px',
+});
+
+const uploadPreview = css({
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'center',
+	backgroundColor: token('color.background.neutral', N20),
+	borderRadius: token('border.radius.100', '3px'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	padding: '10px',
+});
+
+const uploadPreviewFooter = css({
+	display: 'flex',
+	flexDirection: 'column',
+	height: '100px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	padding: '10px',
+});
+
+const uploadPreviewText = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	h5: {
+		color: token('color.text.subtle', N300),
+		paddingBottom: token('space.050', '4px'),
+		font: token('font.body.UNSAFE_small'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	img: {
+		maxHeight: '20px',
+		maxWidth: '50px',
+	},
+});
 
 export interface EmojiUploadPreviewProps {
 	name: string;
@@ -70,11 +112,8 @@ class EmojiUploadPreview extends PureComponent<
 			: formatMessage(messages.addEmojiLabel);
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={uploadPreviewFooter}>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={uploadPreview} data-testid={uploadPreviewTestId}>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={uploadPreviewText}>
 						<Heading size="xsmall">
 							<FormattedMessage {...messages.emojiPreviewTitle} />
@@ -83,17 +122,11 @@ class EmojiUploadPreview extends PureComponent<
 							<FormattedMessage {...messages.emojiPreview} values={{ emoji: emojiComponent }} />
 						</div>
 					</div>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={bigEmojiPreview}>{emojiComponent}</div>
 				</div>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={uploadAddRow}>
 					{!uploading && errorMessage ? (
-						<EmojiErrorMessage
-							messageStyles={emojiPreviewErrorMessage}
-							message={errorMessage}
-							tooltip
-						/>
+						<EmojiErrorMessage errorStyle="preview" message={errorMessage} tooltip />
 					) : null}
 					<RetryableButton
 						label={retryableButtonLabel}

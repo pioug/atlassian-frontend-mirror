@@ -148,5 +148,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {öğe} other {öğe}}',
   'linkDataSource.table-footer.loading': 'Yükleniyor...',
   'linkDataSource.table-footer.power-by-jsm': "Jira Service Management'ta Varlıklar tarafından desteklenir",
+  'linkDataSource.table-footer.powered-by-assets': 'Varlıklar tarafından desteklenir',
   'linkDataSource.table-footer.refresh': 'Yenile',
 };

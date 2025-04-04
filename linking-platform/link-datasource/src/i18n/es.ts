@@ -151,5 +151,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {elemento} other {elementos}}',
   'linkDataSource.table-footer.loading': 'Cargando...',
   'linkDataSource.table-footer.power-by-jsm': 'Con la tecnología de Activos en Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Con tecnología de Activos',
   'linkDataSource.table-footer.refresh': 'Actualizar',
 };

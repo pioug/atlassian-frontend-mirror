@@ -1,18 +1,19 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import { DatePicker, DateTimePicker, TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 const GRID_SIZE = 8;
-const pickerBoxStyles = xcss({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	width: `${GRID_SIZE * 20}px`,
-});
 
-const dateTimepickerBoxStyles = xcss({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	width: `${GRID_SIZE * 40}px`,
+const styles = cssMap({
+	pickerBoxStyles: {
+		width: `${GRID_SIZE * 20}px`,
+	},
+	dateTimepickerBoxStyles: {
+		width: `${GRID_SIZE * 40}px`,
+	},
 });
 
 export default () => {
@@ -21,7 +22,7 @@ export default () => {
 			<Label id="date" htmlFor="react-select-date--input">
 				Date picker
 			</Label>
-			<Box xcss={pickerBoxStyles}>
+			<Box xcss={styles.pickerBoxStyles}>
 				<DatePicker
 					id="react-select-date--input"
 					clearControlLabel="Clear date picker"
@@ -32,7 +33,7 @@ export default () => {
 				/>
 			</Box>
 			<Label htmlFor="react-select-time--input">Time picker</Label>
-			<Box xcss={pickerBoxStyles}>
+			<Box xcss={styles.pickerBoxStyles}>
 				<TimePicker
 					clearControlLabel="Clear time picker"
 					id="react-select-time--input"
@@ -40,7 +41,7 @@ export default () => {
 				/>
 			</Box>
 			<Label htmlFor="react-select-date-time--input">Date / time picker</Label>
-			<Box xcss={dateTimepickerBoxStyles}>
+			<Box xcss={styles.dateTimepickerBoxStyles}>
 				<DateTimePicker
 					id="react-select-date-time--input"
 					onChange={console.log}

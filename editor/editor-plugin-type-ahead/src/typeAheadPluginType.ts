@@ -13,9 +13,9 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import {
-	type TypeAheadInputMethod,
 	type TypeAheadPluginOptions,
 	type TypeAheadPluginSharedState,
+	type OpenTypeAheadProps,
 } from './types';
 
 type InsertTypeAheadItemProps = {
@@ -24,12 +24,6 @@ type InsertTypeAheadItemProps = {
 	query: string;
 	sourceListItem: TypeAheadItem[];
 	mode?: SelectItemMode;
-};
-
-type OpenTypeAheadProps = {
-	triggerHandler: TypeAheadHandler;
-	inputMethod: TypeAheadInputMethod;
-	query?: string;
 };
 
 type CloseTypeAheadProps = {

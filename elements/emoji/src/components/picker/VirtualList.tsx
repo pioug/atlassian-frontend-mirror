@@ -2,11 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import React, { useCallback, useImperativeHandle } from 'react';
-import { virtualList } from './styles';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
 import {
@@ -16,6 +15,22 @@ import {
 	KeyboardNavigationDirection,
 	KeyboardKeys,
 } from '../../util/constants';
+
+const virtualList = css({
+	overflowX: 'hidden',
+	overflowY: 'auto',
+	'&:focus': {
+		outline: 'none',
+	},
+	paddingBottom: token('space.100', '8px'),
+});
+
+const virtualRowStyle = css({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+});
 
 type Props = {
 	overscanRowCount: number;
@@ -350,7 +365,6 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
 				height: `${height}px`,
 				width: `${width}px`,
 			}}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={virtualList}
 			data-testid={virtualListScrollContainerTestId}
 			aria-labelledby="emoji-picker-table-description"
@@ -371,15 +385,8 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
 				{rowVirtualizer.getVirtualItems().map((virtualRow, index) => (
 					<div
 						key={virtualRow.key}
+						css={virtualRowStyle}
 						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							position: 'absolute',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							top: 0,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							left: 0,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							width: '100%',
 							height: `${virtualRow.size}px`,
 							transform: `translateY(${virtualRow.start}px)`,
 						}}

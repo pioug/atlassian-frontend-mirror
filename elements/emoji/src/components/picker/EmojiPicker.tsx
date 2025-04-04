@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
 import type { ComponentClass } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N40 } from '@atlaskit/theme/colors';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ufoExperiences } from '../../util/analytics';
 import type { EmojiProvider } from '../../api/EmojiResource';
@@ -15,10 +17,24 @@ import LoadingEmojiComponent, {
 } from '../common/LoadingEmojiComponent';
 import type { PickerRefHandler, Props as ComponentProps } from './EmojiPickerComponent';
 import { LoadingItem } from './EmojiPickerVirtualItems';
-import { emojiPicker } from './styles';
 import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
 import { defaultEmojiPickerSize } from '../../util/constants';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
+
+const emojiPicker = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-between',
+	backgroundColor: token('elevation.surface.overlay', 'white'),
+	border: `${token('color.border', N40)} 1px solid`,
+	borderRadius: token('border.radius.100', '3px'),
+	boxShadow: token('elevation.shadow.overlay', '0 3px 6px rgba(0, 0, 0, 0.2)'),
+	height: '375px',
+	width: '350px',
+	minWidth: '350px',
+	minHeight: '340px',
+	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
+});
 
 const emojiPickerModuleLoader = () =>
 	import(/* webpackChunkName:"@atlaskit-internal_emojiPickerComponent" */ './EmojiPickerComponent');
@@ -90,8 +106,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		ufoExperiences['emoji-picker-opened'].markFMP();
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<div css={emojiPicker()} ref={handlePickerRef}>
+			<div css={emojiPicker} ref={handlePickerRef}>
 				{item.renderItem()}
 			</div>
 		);

@@ -2,38 +2,34 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+
 import { forwardRef } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import { B100, N0, N100, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type Appearance } from '../types';
 
 const isInvalidBorderStyles = css({
-	borderColor: token('color.border.danger', R400),
+	borderColor: token('color.border.danger'),
 });
+
 const isFocusedBorderStyles = css({
-	borderColor: token('color.border.focused', B100),
-	boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused', B100)}`,
+	borderColor: token('color.border.focused'),
+	boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
 });
-
 const isFocusedStyles = css({
-	backgroundColor: token('color.background.input.pressed', N0),
+	backgroundColor: token('color.background.input.pressed'),
 });
-
 const subtleBgStyles = css({
 	backgroundColor: 'transparent',
 	borderColor: 'transparent',
 });
-
 const subtleFocusedBgStyles = css({
 	backgroundColor: token('color.background.input.pressed', 'transparent'),
 	borderColor: 'transparent',
 });
-
 const noBgStyles = css({
 	backgroundColor: 'transparent',
 	borderColor: 'transparent',
@@ -42,21 +38,18 @@ const noBgStyles = css({
 		borderColor: 'transparent',
 	},
 });
-
 const hoverStyles = css({
 	'&:hover': {
-		backgroundColor: token('color.background.input.hovered', N30),
-		borderColor: token('color.border.input', N100),
+		backgroundColor: token('color.background.input.hovered'),
+		borderColor: token('color.border.input'),
 	},
 });
-
 const isInvalidHoverStyles = css({
 	'&:hover': {
-		backgroundColor: token('color.background.input.hovered', N0),
-		borderColor: token('color.border.danger', R400),
+		backgroundColor: token('color.background.input.hovered'),
+		borderColor: token('color.border.danger'),
 	},
 });
-
 const isDisabledStyles = css({
 	backgroundColor: token('color.background.disabled'),
 	borderColor: token('color.border.disabled'),
@@ -64,16 +57,13 @@ const isDisabledStyles = css({
 		cursor: 'default',
 	},
 });
-
 const newBorderStyles = css({
-	border: `${token('border.width', '1px')} solid ${token('color.border.input', N100)}`,
+	border: `${token('border.width', '1px')} solid ${token('color.border.input')}`,
 });
-
 const baseContainerStyles = css({
 	display: 'flex',
-	backgroundColor: token('color.background.input', N20),
-	border: `2px solid ${token('color.border.input', N20)}`,
-	borderRadius: token('border.radius', '3px'),
+	backgroundColor: token('color.background.input'),
+	borderRadius: token('border.radius'),
 	transition: 'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
 	'&:hover': {
 		cursor: 'pointer',
@@ -105,10 +95,12 @@ export const DateTimePickerContainer = forwardRef<HTMLDivElement, DateTimePicker
 					newBorderStyles,
 					isDisabled && isDisabledStyles,
 					isFocused && isFocusedStyles,
-					appearance === 'subtle' && (isFocused ? subtleFocusedBgStyles : subtleBgStyles),
+					appearance === 'subtle' && isFocused && subtleFocusedBgStyles,
+					appearance === 'subtle' && !isFocused && subtleBgStyles,
 					isFocused && isFocusedBorderStyles,
 					isInvalid && isInvalidBorderStyles,
-					notFocusedOrIsDisabled && (isInvalid ? isInvalidHoverStyles : hoverStyles),
+					notFocusedOrIsDisabled && isInvalid && isInvalidHoverStyles,
+					notFocusedOrIsDisabled && !isInvalid && hoverStyles,
 					appearance === 'none' && noBgStyles,
 				]}
 				{...innerProps}

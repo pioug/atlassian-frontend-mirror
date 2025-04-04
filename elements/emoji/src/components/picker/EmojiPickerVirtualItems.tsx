@@ -3,16 +3,26 @@
  * @jsx jsx
  */
 import type { ReactNode } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import Spinner from '@atlaskit/spinner';
 import EmojiPickerCategoryHeading, {
 	type Props as CategoryHeadingProps,
 } from './EmojiPickerCategoryHeading';
 import EmojiPickerEmojiRow, { type Props as EmojiRowProps } from './EmojiPickerEmojiRow';
 import { sizes } from './EmojiPickerSizes';
-import { emojiPickerSpinner } from './styles';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
+
+const emojiPickerSpinner = css({
+	display: 'flex',
+	width: '100%',
+	height: '150px',
+	justifyContent: 'center',
+	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'>div': {
+		flex: '0 0 auto',
+	},
+});
 
 export interface RenderItem {
 	(context?: VirtualItemContext): ReactNode;
@@ -52,10 +62,9 @@ export class LoadingItem extends AbstractItem<{}> {
 	}
 
 	renderItem = () => (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={emojiPickerSpinner}>
 			<div>
-				<Spinner size="medium" interactionName="emoji-picker-loading-item-spinner" />
+				<Spinner size="medium" />
 			</div>
 		</div>
 	);

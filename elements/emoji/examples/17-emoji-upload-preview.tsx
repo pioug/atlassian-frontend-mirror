@@ -1,13 +1,10 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import { default as EmotionEmojiUploadPicker } from '../src/components/common/EmojiUploadPicker';
-import { default as CompiledEmojiUploadPicker } from '../src/components/compiled/common/EmojiUploadPicker';
+import EmojiUploadPicker from '../src/components/common/EmojiUploadPicker';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import { onUploadEmoji, onUploadCancelled } from '../example-helpers';
 import { IntlProvider } from 'react-intl-next';
-
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const defaultStyles = {
 	width: emojiPickerWidth,
@@ -20,17 +17,7 @@ export default function Example() {
 		<IntlProvider locale="en">
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={defaultStyles}>
-				{fg('platform_editor_css_migrate_emoji') ? (
-					<CompiledEmojiUploadPicker
-						onUploadEmoji={onUploadEmoji}
-						onUploadCancelled={onUploadCancelled}
-					/>
-				) : (
-					<EmotionEmojiUploadPicker
-						onUploadEmoji={onUploadEmoji}
-						onUploadCancelled={onUploadCancelled}
-					/>
-				)}
+				<EmojiUploadPicker onUploadEmoji={onUploadEmoji} onUploadCancelled={onUploadCancelled} />
 			</div>
 		</IntlProvider>
 	);

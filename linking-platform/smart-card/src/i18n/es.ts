@@ -115,6 +115,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Fecha de actualización: {context}',
   'fabric.linking.modified_on_relative': 'Fecha de actualización: {context}',
   'fabric.linking.more_actions': 'Más acciones',
+  'fabric.linking.more_information_about_this_work_item': 'Más información sobre esta actividad',
   'fabric.linking.no_access_title': 'Únete a {product} para ver este contenido',
   'fabric.linking.not_found_description': 'La página no existe o puede haberse cambiado después de añadir este enlace.',
   'fabric.linking.not_found_title': 'No podemos mostrarte esta página de {product}',

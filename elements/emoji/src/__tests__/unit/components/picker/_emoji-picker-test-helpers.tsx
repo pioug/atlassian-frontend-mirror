@@ -2,13 +2,8 @@ import { AnalyticsListener, type WithAnalyticsEventsProps } from '@atlaskit/anal
 import type { ReactWrapper } from 'enzyme';
 import React from 'react';
 import FileChooser from '../../../../components/common/FileChooser';
-import * as commonStyles from '../../../../components/common/styles';
 import type { CategoryGroupKey } from '../../../../components/picker/categories';
-import {
-	default as EmotionEmojiPicker,
-	type Props,
-} from '../../../../components/picker/EmojiPicker';
-import { default as CompiledEmojiPicker } from '../../../../components/compiled/picker/EmojiPicker';
+import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
 import type { EmojiDescription } from '../../../../types';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
@@ -17,21 +12,13 @@ import type { MockEmojiResourceConfig } from '@atlaskit/util-data-test/emoji-typ
 import { type RenderResult, screen, within } from '@testing-library/react';
 import { renderWithIntl } from '../../_testing-library';
 
-export function setupCompiledPickerWithoutToneSelector(): Promise<RenderResult> {
-	return setupCompiledPicker({
+export function setupPickerWithoutToneSelector(): Promise<RenderResult> {
+	return setupPicker({
 		emojiProvider: getEmojiResourcePromise(),
 		hideToneSelector: true,
 	});
 }
-
-export function setupEmotionPickerWithoutToneSelector(): Promise<RenderResult> {
-	return setupEmotionPicker({
-		emojiProvider: getEmojiResourcePromise(),
-		hideToneSelector: true,
-	});
-}
-
-export async function setupCompiledPicker(
+export async function setupPicker(
 	props?: Props & WithAnalyticsEventsProps,
 	config?: MockEmojiResourceConfig,
 	onEvent?: any,
@@ -47,37 +34,10 @@ export async function setupCompiledPicker(
 	const renderResult = onEvent
 		? renderWithIntl(
 				<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-					<CompiledEmojiPicker {...pickerProps} />
+					<EmojiPicker {...pickerProps} />
 				</AnalyticsListener>,
 			)
-		: renderWithIntl(<CompiledEmojiPicker {...pickerProps} />);
-
-	// Wait until loaded
-	await screen.findByLabelText('Emoji picker');
-
-	return renderResult;
-}
-
-export async function setupEmotionPicker(
-	props?: Props & WithAnalyticsEventsProps,
-	config?: MockEmojiResourceConfig,
-	onEvent?: any,
-): Promise<RenderResult> {
-	const pickerProps: Props = {
-		...props,
-	} as Props;
-
-	if (!props?.emojiProvider) {
-		pickerProps.emojiProvider = getEmojiResourcePromise(config);
-	}
-
-	const renderResult = onEvent
-		? renderWithIntl(
-				<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
-					<EmotionEmojiPicker {...pickerProps} />
-				</AnalyticsListener>,
-			)
-		: renderWithIntl(<EmotionEmojiPicker {...pickerProps} />);
+		: renderWithIntl(<EmojiPicker {...pickerProps} />);
 
 	// Wait until loaded
 	await screen.findByLabelText('Emoji picker');
@@ -144,28 +104,6 @@ export const emojiNameInputVisible = (component: ReactWrapper): boolean =>
 
 export const emojiNameInputHasAValue = (component: ReactWrapper): boolean =>
 	emojiNameInputVisible(component) && !!findEmojiNameInput(component).prop('value');
-
-export const uploadAddRowSelector = `.css-${commonStyles.uploadAddRow.name}`;
-
-export const findAddEmojiButton = (component: ReactWrapper) =>
-	component.update() &&
-	component
-		.find(uploadAddRowSelector)
-		.find('[type="button"]')
-		.findWhere((node) => {
-			return node.type() !== undefined && node.text() === 'Add emoji';
-		})
-		.last();
-
-export const addEmojiButtonVisible = (component: ReactWrapper) =>
-	component.update() && findAddEmojiButton(component).length > 0;
-
-export const findCancelLink = (component: ReactWrapper) => {
-	return (
-		component.update() &&
-		component.find(uploadAddRowSelector).find('[data-testid="cancel-upload-button"]').last()
-	);
-};
 
 export const chooseFile = (component: ReactWrapper, file: any) => {
 	const fileChooser = component.find(FileChooser);

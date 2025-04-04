@@ -12,10 +12,6 @@ snapshot(CodeBlockInBlockquote, {
 	description: 'should render codeblock inside blockquote',
 	variants: [
 		{
-			name: 'default',
-			environment: {},
-		},
-		{
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
@@ -27,10 +23,6 @@ snapshot(CodeBlockInBlockquote, {
 snapshot(CodeBlockOverflowInBlockquote, {
 	description: 'should render codeblock with overflow inside blockquote',
 	variants: [
-		{
-			name: 'default',
-			environment: {},
-		},
 		{
 			name: 'light mode',
 			environment: {
@@ -45,10 +37,6 @@ snapshot(CodeBlockInBlockquoteCopy, {
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
 	variants: [
 		{
-			name: 'default',
-			environment: {},
-		},
-		{
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
@@ -61,10 +49,6 @@ snapshot(CodeBlockInBlockquoteWrap, {
 	description: 'should render wrap button on hover for codeblock inside blockquote',
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
 	variants: [
-		{
-			name: 'default',
-			environment: {},
-		},
 		{
 			name: 'light mode',
 			environment: {
@@ -79,10 +63,6 @@ snapshot(CodeBlockInBlockquoteCopyWrap, {
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
 	variants: [
 		{
-			name: 'default',
-			environment: {},
-		},
-		{
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
@@ -93,4 +73,12 @@ snapshot(CodeBlockInBlockquoteCopyWrap, {
 
 snapshot(CodeBlockWithReactLooselyLazy, {
 	description: 'should render codeblock inside blockquote with react loosely lazy',
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });

@@ -12,8 +12,9 @@ import {
 	createRef,
 	memo,
 } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N40 } from '@atlaskit/theme/colors';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
@@ -72,12 +73,62 @@ import {
 	toneSelectorClosedEvent,
 	ufoExperiences,
 } from '../../util/analytics';
-import { emojiPicker } from './styles';
 import { useEmoji } from '../../hooks/useEmoji';
 import { useIsMounted } from '../../hooks/useIsMounted';
 import { messages } from '../i18n';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+
+const emojiPickerBoxShadow = token('elevation.shadow.overlay', '0 3px 6px rgba(0, 0, 0, 0.2)');
+const emojiPickerHeight = 295;
+const emojiPickerHeightWithPreview = 349; // emojiPickerHeight + emojiPickerPreviewHeight;
+const emojiPickerWidth = 350;
+const emojiPickerMinHeight = 260;
+const heightOffset = 80;
+
+const emojiPicker = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'space-between',
+	backgroundColor: token('elevation.surface.overlay', 'white'),
+	border: `${token('color.border', N40)} 1px solid`,
+	borderRadius: token('border.radius.100', '3px'),
+	boxShadow: emojiPickerBoxShadow,
+	height: `${emojiPickerHeight}px`,
+	width: `${emojiPickerWidth}px`,
+	minWidth: `${emojiPickerWidth}px`,
+	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
+});
+
+const withPreviewHeight = cssMap({
+	small: {
+		height: `${emojiPickerHeightWithPreview}px`,
+		minHeight: `${emojiPickerMinHeight}px`,
+	},
+	medium: {
+		height: `${emojiPickerHeightWithPreview + heightOffset}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset}px`,
+	},
+	large: {
+		height: `${emojiPickerHeightWithPreview + heightOffset * 2}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
+	},
+});
+
+const withoutPreviewHeight = cssMap({
+	small: {
+		height: `${emojiPickerHeight}px`,
+		minHeight: `${emojiPickerMinHeight}px`,
+	},
+	medium: {
+		height: `${emojiPickerHeight + heightOffset}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset}px`,
+	},
+	large: {
+		height: `${emojiPickerHeight + heightOffset * 2}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
+	},
+});
 
 const FREQUENTLY_USED_MAX = 16;
 
@@ -602,8 +653,11 @@ const EmojiPickerComponent = ({
 	return (
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={emojiPicker(showPreview, size)}
+			css={[
+				emojiPicker,
+				showPreview && withPreviewHeight[size],
+				!showPreview && withoutPreviewHeight[size],
+			]}
 			ref={onPickerRef}
 			data-emoji-picker-container
 			role="dialog"
@@ -662,7 +716,7 @@ const EmojiPickerComponent = ({
 					query={query}
 					selectedTone={selectedTone}
 					loading={loading}
-					ref={emojiPickerList as React.RefObject<EmojiPickerListOld>}
+					ref={emojiPickerList as any}
 					initialUploadName={query}
 					onToneSelected={onToneSelected}
 					onToneSelectorCancelled={onToneSelectorCancelled}

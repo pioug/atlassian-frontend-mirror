@@ -1,10 +1,26 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { sizes } from '@atlaskit/icon';
 import { Manager, Popper, type PopperChildrenProps, Reference } from '@atlaskit/popper';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize, layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		background: 'transparent',
+		position: 'absolute',
+		top: token('space.0'),
+	},
+	popperStyles: {
+		zIndex: 300,
+	},
+});
 
 interface FixedLayerProps {
 	/**
@@ -52,15 +68,9 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 		}
 
 		const divStyles: React.CSSProperties = {
-			background: 'transparent',
-			position: 'absolute',
-			top: 0,
 			height: containerRef.getBoundingClientRect().height,
 			// Don't block the clear button
-			width:
-				containerRef.getBoundingClientRect().width -
-				parseInt(sizes.small.slice(0, -2)) -
-				gridSize(),
+			width: containerRef.getBoundingClientRect().width - parseInt(sizes.small.slice(0, -2)) - 8,
 		};
 
 		return (
@@ -70,7 +80,7 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 			<Manager>
 				<Reference>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					{({ ref }) => <div ref={ref} data-layer-child style={divStyles} />}
+					{({ ref }) => <div ref={ref} data-layer-child css={styles.root} style={divStyles} />}
 				</Reference>
 				<Popper>
 					{({ ref, style, update }: PopperChildrenProps) => {
@@ -80,7 +90,8 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 							<div
 								ref={ref as React.Ref<HTMLDivElement>}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								style={{ ...style, zIndex: layers.dialog() }}
+								style={style}
+								css={styles.popperStyles}
 								data-testid={testId && `${testId}--popper--container`}
 							>
 								{content}

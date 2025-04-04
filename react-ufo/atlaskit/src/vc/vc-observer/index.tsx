@@ -417,14 +417,18 @@ export class VCObserver implements VCObserverInterface {
 			[`${fullPrefix}vc:state`]: true,
 			[`${fullPrefix}vc:clean`]: isVCClean,
 			[`${fullPrefix}vc:dom`]: VCBox,
-			[`${fullPrefix}vc:updates`]: VCEntries.rel.slice(0, 50), // max 50
+			[`${fullPrefix}vc:updates`]: fg('platform_ufo_vc_observer_new')
+				? undefined
+				: VCEntries.rel.slice(0, 50), // max 50
 			[`${fullPrefix}vc:size`]: viewport,
 			[`${fullPrefix}vc:time`]: Math.round(totalTime + (stopTime - startTime)),
 			[`${fullPrefix}vc:total`]: totalPainted,
 			[`${fullPrefix}vc:ratios`]: ratios,
 			...outOfBoundary,
 			[`${fullPrefix}vc:next`]: vcNext.VC,
-			[`${fullPrefix}vc:next:updates`]: vcNext.VCEntries.rel.slice(0, 50),
+			[`${fullPrefix}vc:next:updates`]: fg('platform_ufo_vc_observer_new')
+				? undefined
+				: vcNext.VCEntries.rel.slice(0, 50), // max 50
 			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 			...revisionsData,
@@ -490,6 +494,8 @@ export class VCObserver implements VCObserverInterface {
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
 
+		const isFilterIgnoredItemsEnabled = fg('platform_ufo_vc_filter_ignored_items');
+
 		entries.reduce((acc = 0, v) => {
 			const currRatio = v[1] / totalPainted;
 			let VCRatio = currRatio + acc;
@@ -505,7 +511,13 @@ export class VCObserver implements VCObserverInterface {
 				const value = parseInt(key, 10);
 				if ((VC[key] === null || VC[key] === undefined) && VCRatio >= value / 100) {
 					VC[key] = time;
-					VCBox[key] = [...new Set(componentsLog[time]?.map((v) => v.targetName))];
+					VCBox[key] = isFilterIgnoredItemsEnabled
+						? [
+								...new Set(
+									componentsLog[time]?.filter((v) => !v.ignoreReason).map((v) => v.targetName),
+								),
+							]
+						: [...new Set(componentsLog[time]?.map((v) => v.targetName))];
 				}
 			});
 			return VCRatio;
@@ -519,7 +531,13 @@ export class VCObserver implements VCObserverInterface {
 			) => {
 				const currentlyPainted = entryPainted + (acc.abs[i - 1]?.[1] || 0);
 				const currentlyPaintedRatio = Math.round((currentlyPainted / totalPainted) * 1000) / 10;
-				const logEntry = [...new Set(componentsLog[timestamp]?.map((v) => v.targetName))];
+				const logEntry = isFilterIgnoredItemsEnabled
+					? [
+							...new Set(
+								componentsLog[timestamp]?.filter((v) => !v.ignoreReason).map((v) => v.targetName),
+							),
+						]
+					: [...new Set(componentsLog[timestamp]?.map((v) => v.targetName))];
 
 				const ratioDelta = (currentlyPaintedRatio - (acc.rel[i - 1]?.vc ?? 0)) / 100;
 

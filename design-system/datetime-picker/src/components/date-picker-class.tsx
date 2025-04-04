@@ -2,10 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { Component, createRef, type CSSProperties } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
 
 import {
@@ -14,11 +13,12 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
 import CalendarIcon from '@atlaskit/icon/core/migration/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -46,14 +46,6 @@ import { type DatePickerBaseProps } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-const dropdownIndicatorStyles = xcss({
-	minWidth: token('space.300'),
-	minHeight: token('space.300'),
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-});
 
 type DatePickerProps = typeof datePickerDefaultProps & DatePickerBaseProps;
 
@@ -93,31 +85,37 @@ const datePickerDefaultProps = {
 	// Make the component a controlled component
 };
 
-const pickerContainerStyles = css({
-	position: 'relative',
-});
-
-const iconContainerStyles = xcss({
-	display: 'flex',
-	height: '100%',
-	position: 'absolute',
-	alignItems: 'center',
-	flexBasis: 'inherit',
-	color: 'color.text.subtlest',
-	insetBlockStart: 'space.0',
-	insetInlineEnd: 'space.0',
-	transition: `color 150ms`,
-	':hover': {
-		color: 'color.text.subtle',
+const styles = cssMap({
+	pickerContainerStyles: {
+		position: 'relative',
 	},
-});
-
-const iconSpacingWithClearButtonStyles = xcss({
-	marginInlineEnd: 'space.400',
-});
-
-const iconSpacingWithoutClearButtonStyles = xcss({
-	marginInlineEnd: 'space.050',
+	iconContainerStyles: {
+		display: 'flex',
+		height: '100%',
+		position: 'absolute',
+		alignItems: 'center',
+		flexBasis: 'inherit',
+		color: token('color.text.subtlest'),
+		insetBlockStart: token('space.0'),
+		insetInlineEnd: token('space.0'),
+		transition: `color 150ms`,
+		'&:hover': {
+			color: token('color.text.subtle'),
+		},
+	},
+	iconSpacingWithClearButtonStyles: {
+		marginInlineEnd: token('space.400'),
+	},
+	iconSpacingWithoutClearButtonStyles: {
+		marginInlineEnd: token('space.050'),
+	},
+	dropdownIndicatorStyles: {
+		minWidth: '1.5rem',
+		minHeight: '1.5rem',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -474,10 +472,10 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		let clearIndicator = Icon;
 
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
 		if (fg('platform-visual-refresh-icons')) {
 			clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
-				<Box xcss={dropdownIndicatorStyles}>
+				<Box xcss={styles.dropdownIndicatorStyles}>
 					<Icon {...props} />
 				</Box>
 			);
@@ -563,7 +561,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			// Until innerProps is removed, it must remain a div rather than a primitive component.
 			<div
 				{...innerProps}
-				css={pickerContainerStyles}
+				css={styles.pickerContainerStyles}
 				// Since the onclick, onfocus are passed down, adding role="presentation" prevents typecheck errors.
 				role="presentation"
 				onBlur={this.onContainerBlur}
@@ -580,6 +578,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					appearance={this.props.appearance}
 					aria-describedby={ariaDescribedBy}
 					label={label || undefined}
+					// eslint-disable-next-line jsx-a11y/no-autofocus
 					autoFocus={autoFocus}
 					clearControlLabel={clearControlLabel}
 					closeMenuOnSelect
@@ -636,12 +635,12 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					<IdProvider prefix="open-calendar-label--">
 						{({ id: openCalendarLabelId }) => (
 							<Box
-								xcss={[
-									iconContainerStyles,
+								xcss={cx(
+									styles.iconContainerStyles,
 									value && !hideIcon
-										? iconSpacingWithClearButtonStyles
-										: iconSpacingWithoutClearButtonStyles,
-								]}
+										? styles.iconSpacingWithClearButtonStyles
+										: styles.iconSpacingWithoutClearButtonStyles,
+								)}
 							>
 								<IconButton
 									appearance="subtle"

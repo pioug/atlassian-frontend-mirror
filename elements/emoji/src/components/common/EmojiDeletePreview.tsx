@@ -3,8 +3,9 @@
  * @jsx jsx
  */
 import { Component } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N300 } from '@atlaskit/theme/colors';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import AkButton from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
@@ -14,16 +15,55 @@ import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMessage';
 import RetryableButton from './RetryableButton';
-import {
-	deleteFooter,
-	deletePreview,
-	deleteText,
-	emojiDeleteErrorMessage,
-	previewButtonGroup,
-} from './styles';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+
+const deleteFooter = css({
+	display: 'flex',
+	height: '40px',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	font: token('font.body'),
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	img: {
+		maxHeight: '32px',
+		maxWidth: '72px',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.emoji-submit-delete': {
+		width: '84px',
+		fontWeight: token('font.weight.bold', 'bold'),
+		marginRight: token('space.050', '4px'),
+	},
+});
+
+const deletePreview = css({
+	height: '100px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	padding: '10px',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'flex-end',
+});
+
+const deleteText = css({
+	height: '64px',
+	font: token('font.body.UNSAFE_small'),
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&:first-of-type': {
+		color: token('color.text.subtle', N300),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '16px',
+	},
+});
+
+const previewButtonGroup = css({
+	display: 'flex',
+});
 
 export interface OnDeleteEmoji {
 	(emoji: EmojiDescription): Promise<boolean>;
@@ -103,11 +143,8 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 
 		return (
 			<FocusLock noFocusGuards>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={deletePreview} data-testid={emojiDeletePreviewTestId}>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={deleteText}>
-						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<Heading size="xxsmall">
 							<FormattedMessage {...messages.deleteEmojiTitle} />
 						</Heading>
@@ -116,16 +153,14 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 							values={{ emojiShortName: emoji.shortName }}
 						/>
 					</div>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={deleteFooter}>
 						<CachingEmoji emoji={emoji} />
-						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={previewButtonGroup}>
 							{error ? (
 								!loading ? (
 									<EmojiErrorMessage
 										message={formatMessage(messages.deleteEmojiFailed)}
-										messageStyles={emojiDeleteErrorMessage}
+										errorStyle="delete"
 										tooltip
 									/>
 								) : null

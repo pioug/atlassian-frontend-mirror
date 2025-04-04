@@ -149,5 +149,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {kohde} other {kohdetta}}',
   'linkDataSource.table-footer.loading': 'Ladataan...',
   'linkDataSource.table-footer.power-by-jsm': 'Palvelun tarjoaa Jira Service Managementin Resurssit',
+  'linkDataSource.table-footer.powered-by-assets': 'Palvelun tarjoaa Resurssit',
   'linkDataSource.table-footer.refresh': 'Päivitä',
 };

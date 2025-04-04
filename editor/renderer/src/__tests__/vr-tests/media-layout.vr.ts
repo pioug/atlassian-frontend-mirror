@@ -44,14 +44,23 @@ snapshot(MediaWrappedComplexResizeLayout, {
 		{
 			name: 'mobile device',
 			device: Device.MOBILE_CHROME,
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 		{
 			name: 'desktop device',
 			device: Device.DESKTOP_CHROME,
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 		{
 			name: 'desktop wide',
 			device: Device.DESKTOP_CHROME_1920_1080,
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });

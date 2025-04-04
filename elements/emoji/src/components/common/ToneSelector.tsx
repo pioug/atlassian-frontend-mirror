@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { memo, useEffect, useMemo, useRef } from 'react';
 import type {
 	EmojiDescription,
@@ -26,7 +25,12 @@ import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import EmojiRadioButton from './EmojiRadioButton';
 import { useIntl } from 'react-intl-next';
 import { messages } from '../i18n';
-import { hidden } from './styles';
+
+const hidden = css({
+	opacity: 0,
+	visibility: 'hidden',
+	display: 'none',
+});
 
 export interface Props {
 	emoji: EmojiDescriptionWithVariations;
@@ -116,7 +120,6 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType) =
 			data-testid={toneSelectorTestId}
 			id="emoji-picker-tone-selector"
 			aria-label={formatMessage(messages.emojiSelectSkinToneListAriaLabelText)}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={!isVisible && hidden}
 		>
 			{emojiToneCollection.map((tone) => {

@@ -21,8 +21,8 @@ describe('Renderer - React/Marks/Code', () => {
 				This is code
 			</Code>,
 		);
-		expect(mark.html()).toContain(
-			`<code class=\"code css-bha8jq-Code\" data-renderer-mark=\"true\">This is code</code>`,
+		expect(mark.html()).toMatch(
+			/^<style .*<\/style><code class=".*" data-renderer-mark="true">This is code<\/code>$/u,
 		);
 		mark.unmount();
 	});
@@ -33,8 +33,8 @@ describe('Renderer - React/Marks/Code', () => {
 				{['This ', 'is', ' code']}
 			</Code>,
 		);
-		expect(markWithArray.html()).toContain(
-			`<code class=\"code css-bha8jq-Code\" data-renderer-mark=\"true\">This is code</code>`,
+		expect(markWithArray.html()).toMatch(
+			/^<style .*<\/style><code class=".*" data-renderer-mark="true">This is code<\/code>$/u,
 		);
 		markWithArray.unmount();
 	});
@@ -48,8 +48,8 @@ describe('Renderer - React/Marks/Code', () => {
 				</InlineComment>
 			</Code>,
 		);
-		expect(marks.html()).toContain(
-			`<code class="code css-bha8jq-Code" data-renderer-mark="true">This <span data-mark-type="confluenceInlineComment">is code</span></code>`,
+		expect(marks.html()).toMatch(
+			/^<style .*<\/style><code class=".*" data-renderer-mark="true">This <span data-mark-type="confluenceInlineComment">is code<\/span><\/code>$/u,
 		);
 		marks.unmount();
 	});

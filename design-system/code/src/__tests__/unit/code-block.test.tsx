@@ -4,8 +4,9 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { token } from '@atlaskit/tokens';
+
 import CodeBlock from '../../code-block';
-import { getColorPalette } from '../../internal/theme/get-theme';
 import { getLineNumWidth } from '../../internal/theme/styles';
 
 const code = `// some code
@@ -60,7 +61,7 @@ describe('CodeBlock', () => {
 	it.skip('should apply correct bg color', () => {
 		render(<CodeBlock text={code} testId="test" language="java" />);
 		expect(screen.getByTestId('test')).toHaveStyle(
-			`background-color: ${getColorPalette().backgroundColor};`,
+			`background-color: ${token('color.background.neutral')};`,
 		);
 	});
 

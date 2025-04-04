@@ -9,7 +9,7 @@ import {
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type ValueType } from '@atlaskit/select';
 
 const onChange = (value: string) => {
@@ -50,6 +50,7 @@ export default () => {
 				<Label htmlFor="week-start-day">Start day of the week</Label>
 				<Select<WeekStartDayOption>
 					inputId="week-start-day"
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 					styles={{
 						container: (css: {}) => ({ ...css, width: 300, margin: '0.5em 0' }),
 						dropdownIndicator: (css: {}) => ({ ...css, paddingLeft: 0 }),

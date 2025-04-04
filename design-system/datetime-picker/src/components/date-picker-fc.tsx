@@ -12,17 +12,16 @@ import {
 	useState,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CalendarIcon from '@atlaskit/icon/core/migration/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -61,46 +60,41 @@ export type DatePickerProps = DatePickerBaseProps & {
 	selectProps?: DateTimePickerSelectProps & { inputValue?: string };
 };
 
+const styles = cssMap({
+	pickerContainerStyle: { position: 'relative' },
+	dropdownIndicatorStyles: {
+		minWidth: '1.5rem',
+		minHeight: '1.5rem',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	iconContainerStyles: {
+		display: 'flex',
+		height: '100%',
+		position: 'absolute',
+		alignItems: 'center',
+		flexBasis: 'inherit',
+		color: token('color.text.subtlest'),
+		insetBlockStart: token('space.0'),
+		insetInlineEnd: token('space.0'),
+		transition: `color 150ms`,
+		'&:hover': {
+			color: token('color.text.subtle'),
+		},
+	},
+	iconSpacingWithClearButtonStyles: {
+		marginInlineEnd: token('space.400'),
+	},
+	iconSpacingWithoutClearButtonStyles: {
+		marginInlineEnd: token('space.050'),
+	},
+});
 const analyticsAttributes = {
 	componentName: 'datePicker',
 	packageName,
 	packageVersion,
 };
-
-const pickerContainerStyles = css({
-	position: 'relative',
-});
-
-const dropdownIndicatorStyles = xcss({
-	minWidth: token('space.300'),
-	minHeight: token('space.300'),
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-});
-
-const iconContainerStyles = xcss({
-	display: 'flex',
-	height: '100%',
-	position: 'absolute',
-	alignItems: 'center',
-	flexBasis: 'inherit',
-	color: 'color.text.subtlest',
-	insetBlockStart: 'space.0',
-	insetInlineEnd: 'space.0',
-	transition: `color 150ms`,
-	':hover': {
-		color: 'color.text.subtle',
-	},
-});
-
-const iconSpacingWithClearButtonStyles = xcss({
-	marginInlineEnd: 'space.400',
-});
-
-const iconSpacingWithoutClearButtonStyles = xcss({
-	marginInlineEnd: 'space.050',
-});
 
 /**
  * __Date picker__
@@ -464,7 +458,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-visual-refresh-icons')) {
 		clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
-			<Box xcss={dropdownIndicatorStyles}>
+			<Box xcss={styles.dropdownIndicatorStyles}>
 				<Icon {...props} />
 			</Box>
 		);
@@ -555,7 +549,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 		// Until innerProps is removed, it must remain a div rather than a primitive component.
 		<div
 			{...innerProps}
-			css={pickerContainerStyles}
+			css={styles.pickerContainerStyle}
 			data-testid={testId && `${testId}--container`}
 			onBlur={onContainerBlur}
 			onFocus={onContainerFocus}
@@ -577,6 +571,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 				appearance={appearance}
 				aria-describedby={ariaDescribedBy}
 				label={label || undefined}
+				// eslint-disable-next-line jsx-a11y/no-autofocus
 				autoFocus={autoFocus}
 				clearControlLabel={clearControlLabel}
 				closeMenuOnSelect
@@ -632,12 +627,12 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 			/>
 			{shouldShowCalendarButton && !isDisabled ? (
 				<Box
-					xcss={[
-						iconContainerStyles,
+					xcss={cx(
+						styles.iconContainerStyles,
 						value && !hideIcon
-							? iconSpacingWithClearButtonStyles
-							: iconSpacingWithoutClearButtonStyles,
-					]}
+							? styles.iconSpacingWithClearButtonStyles
+							: styles.iconSpacingWithoutClearButtonStyles,
+					)}
 				>
 					<IconButton
 						appearance="subtle"

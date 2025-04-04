@@ -17,6 +17,28 @@ type CalculatedVC = {
 
 const VCParts = ['25', '50', '75', '80', '85', '90', '95', '98', '99'];
 
+const READONLY_EMPTY_ARRAY: string[] = Array.from<string>({ length: 0 });
+
+// Helper function to create vcDetails object to avoid code duplication
+const createVCDetails = (calculatedVC: CalculatedVC, shouldHaveVCmetric: boolean) => {
+	if (!shouldHaveVCmetric || !calculatedVC || !calculatedVC.VC || !calculatedVC.VCBox) {
+		return {};
+	}
+
+	const details: { [key: string]: { t: number | undefined | null; e: string[] } } = {};
+	const { VC, VCBox } = calculatedVC; // Destructure once to avoid repeated property access
+
+	for (const key of VCParts) {
+		details[key] = {
+			t: VC[key],
+			e: VCBox[key] || READONLY_EMPTY_ARRAY,
+		};
+	}
+
+	return details;
+};
+
+// Optimized implementation (current one)
 export function getVCRevisionsData({
 	fullPrefix,
 	interaction,
@@ -63,42 +85,17 @@ export function getVCRevisionsData({
 		};
 	}
 
+	// Calculate these conditions once
 	const pageVisibilityUpToTTAI = getPageVisibilityState(interaction.start, interaction.end);
 	const isVisiblePageVisibleUpToTTAI = pageVisibilityUpToTTAI === 'visible';
 	const shouldHaveVCmetric = isVCClean && !isEventAborted && isVisiblePageVisibleUpToTTAI;
 
-	const ttvcV1Revision = {
-		revision: 'fy25.01',
-		clean: isVCClean,
-		'metric:vc90': shouldHaveVCmetric ? calculatedVC.VC['90'] : null,
-		vcDetails: shouldHaveVCmetric
-			? Object.fromEntries(
-					VCParts.map((key) => [
-						key,
-						{
-							t: calculatedVC.VC[key],
-							e: calculatedVC.VCBox[key] ?? [],
-						},
-					]),
-				)
-			: {},
-	};
-
+	// Create the V2 revision object which is always needed
 	const ttvcV2Revision = {
 		revision: 'fy25.02',
 		clean: isVCClean,
 		'metric:vc90': shouldHaveVCmetric ? calculatedVCNext.VC['90'] : null,
-		vcDetails: shouldHaveVCmetric
-			? Object.fromEntries(
-					VCParts.map((key) => [
-						key,
-						{
-							t: calculatedVCNext.VC[key],
-							e: calculatedVCNext.VCBox[key] ?? [],
-						},
-					]),
-				)
-			: {},
+		vcDetails: createVCDetails(calculatedVCNext, shouldHaveVCmetric),
 	};
 
 	if (fg('platform_ufo_disable_ttvc_v1')) {
@@ -106,6 +103,14 @@ export function getVCRevisionsData({
 			[`${fullPrefix}vc:rev`]: [ttvcV2Revision],
 		};
 	}
+
+	// Only create ttvcV1Revision when we're actually going to use it
+	const ttvcV1Revision = {
+		revision: 'fy25.01',
+		clean: isVCClean,
+		'metric:vc90': shouldHaveVCmetric ? calculatedVC.VC['90'] : null,
+		vcDetails: createVCDetails(calculatedVC, shouldHaveVCmetric),
+	};
 
 	return {
 		[`${fullPrefix}vc:rev`]: [ttvcV1Revision, ttvcV2Revision],

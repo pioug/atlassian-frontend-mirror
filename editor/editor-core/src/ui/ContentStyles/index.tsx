@@ -75,7 +75,7 @@ import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewPro
 
 import { aiPanelStyles } from './ai-panels';
 import { codeBlockStyles } from './code-block';
-import { dateStyles } from './date';
+import { dateStyles, dateVanillaStyles } from './date';
 import { expandStyles } from './expand';
 import { extensionStyles } from './extension';
 import { layoutStyles } from './layout';
@@ -516,7 +516,8 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${annotationSharedStyles()}
   ${smartCardStyles()}
   ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
-  ${dateStyles}
+  ${editorExperiment('platform_editor_vanilla_dom', true) ? dateVanillaStyles : null}
+	${dateStyles}
   ${embedCardStyles()}
   ${unsupportedStyles}
   ${resizerStyles}

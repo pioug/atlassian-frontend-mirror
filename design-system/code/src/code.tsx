@@ -4,32 +4,30 @@
  */
 import React, { forwardRef, memo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
 import CodeBidiWarning from './bidi-warning';
 import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
-import { VAR_CODE_BG_COLOR } from './internal/theme/constants';
 import { getCodeStyles } from './internal/theme/styles';
 import type { CodeProps } from './types';
-
-const styles = css({
-	display: 'inline',
-	padding: '2px 0.5ch',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: `var(${VAR_CODE_BG_COLOR}, ${token('color.background.neutral')})`,
-	borderRadius: token('border.radius', '3px'),
-	borderStyle: 'none',
-	boxDecorationBreak: 'clone',
-	color: token('color.text'),
-	font: token('font.code'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 'inherit',
-	overflow: 'auto',
-	overflowWrap: 'break-word',
-	whiteSpace: 'pre-wrap',
+const styles = cssMap({
+	base: {
+		display: 'inline',
+		padding: '2px 0.5ch',
+		backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral')})`,
+		borderRadius: token('border.radius', '3px'),
+		borderStyle: 'none',
+		boxDecorationBreak: 'clone',
+		color: token('color.text'),
+		font: token('font.code'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: 'inherit',
+		overflow: 'auto',
+		overflowWrap: 'break-word',
+		whiteSpace: 'pre-wrap',
+	},
 });
 
 /**
@@ -64,8 +62,7 @@ const Code = memo(
 			children
 		);
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<code ref={ref} data-testid={testId} css={styles} {...otherProps}>
+			<code ref={ref} data-testid={testId} css={styles.base} {...otherProps}>
 				{decoratedChildren}
 			</code>
 		);

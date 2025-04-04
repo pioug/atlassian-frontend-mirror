@@ -20,8 +20,6 @@ import browserSupport from '../../../../util/browser-support';
 import type { EmojiId } from '../../../..';
 import { renderWithIntl } from '../../_testing-library';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 jest.mock('../../../../util/constants', () => {
 	const originalModule = jest.requireActual('../../../../util/constants');
 	return {
@@ -36,385 +34,383 @@ const mockConstants = constants as {
 
 Loadable.preloadAll();
 
-ffTest.both('platform_editor_css_migrate_emoji', '', () => {
-	describe('<ResourcedEmoji />', () => {
-		beforeAll(() => {
-			browserSupport.supportsIntersectionObserver = true;
-		});
+describe('<ResourcedEmoji />', () => {
+	beforeAll(() => {
+		browserSupport.supportsIntersectionObserver = true;
+	});
 
-		beforeEach(() => {
-			mockConstants.SAMPLING_RATE_EMOJI_RENDERED_EXP = 1;
-			samplingUfo.clearSampled();
-			jest.clearAllMocks();
-		});
-		afterEach(cleanup);
+	beforeEach(() => {
+		mockConstants.SAMPLING_RATE_EMOJI_RENDERED_EXP = 1;
+		samplingUfo.clearSampled();
+		jest.clearAllMocks();
+	});
+	afterEach(cleanup);
 
-		describe('has an unresolved emoji provider', () => {
-			it('shows ResourcedEmojiComponent placeholder', async () => {
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise()}
-						emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
-					/>,
-				);
-				const label = screen.queryByLabelText('does-not-exist');
-				expect(label).toBeInTheDocument();
-				expect(screen.queryByTestId('emoji-placeholder-does-not-exist')).toBeInTheDocument();
-			});
-			it('shows optimistic image when provided', async () => {
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise()}
-						emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
-						optimisticImageURL="foo.jpg"
-					/>,
-				);
-				const image = screen.queryByAltText('does-not-exist');
-				expect(image).toBeInTheDocument();
-				expect(image?.getAttribute('src')).toEqual('foo.jpg');
-			});
-			it('shows placeholder when optimistic image is null', async () => {
-				const optimiticImageApi = {
-					getUrl: (_: EmojiId) => undefined,
-				};
-				const emoji = { shortName: 'emoji-exists', id: 'emoji-exists' };
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise()}
-						emojiId={emoji}
-						optimisticImageURL={optimiticImageApi?.getUrl(emoji)}
-					/>,
-				);
-				expect(screen.queryByLabelText('emoji-exists')).toBeInTheDocument();
-				expect(screen.queryByTestId('emoji-placeholder-emoji-exists')).toBeInTheDocument();
-			});
-		});
-
-		describe('has a resolved instance of emoji provider', () => {
-			it('should render an emoji', async () => {
-				const resolvedEmojiProvider = await getEmojiResourcePromise();
-				renderWithIntl(
-					<ResourcedEmoji emojiProvider={resolvedEmojiProvider} emojiId={{ ...grinEmoji }} />,
-				);
-				const emoji = await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
-				expect(emoji).toBeInTheDocument();
-			});
-		});
-
-		it('should render a fallback element if emoji cannot be found', async () => {
-			const fallback = <h1>wow cool</h1>;
-			const component = renderWithIntl(
+	describe('has an unresolved emoji provider', () => {
+		it('shows ResourcedEmojiComponent placeholder', async () => {
+			renderWithIntl(
 				<ResourcedEmoji
 					emojiProvider={getEmojiResourcePromise()}
 					emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
-					customFallback={fallback}
 				/>,
 			);
-
-			await waitFor(async () => {
-				const result = await component.findByText('wow cool');
-				expect(result).toBeInTheDocument();
-			});
+			const label = screen.queryByLabelText('does-not-exist');
+			expect(label).toBeInTheDocument();
+			expect(screen.queryByTestId('emoji-placeholder-does-not-exist')).toBeInTheDocument();
 		});
-
-		it('should render a fallback string if emoji cannot be found', async () => {
-			const component = renderWithIntl(
+		it('shows optimistic image when provided', async () => {
+			renderWithIntl(
 				<ResourcedEmoji
 					emojiProvider={getEmojiResourcePromise()}
 					emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
-					customFallback="wow cool"
+					optimisticImageURL="foo.jpg"
 				/>,
 			);
-
-			await waitFor(async () => {
-				const result = await component.findByText('wow cool');
-				expect(result).toBeInTheDocument();
-			});
+			const image = screen.queryByAltText('does-not-exist');
+			expect(image).toBeInTheDocument();
+			expect(image?.getAttribute('src')).toEqual('foo.jpg');
 		});
-
-		it('should render emoji', async () => {
-			const { container } = renderWithIntl(
+		it('shows placeholder when optimistic image is null', async () => {
+			const optimiticImageApi = {
+				getUrl: (_: EmojiId) => undefined,
+			};
+			const emoji = { shortName: 'emoji-exists', id: 'emoji-exists' };
+			renderWithIntl(
 				<ResourcedEmoji
 					emojiProvider={getEmojiResourcePromise()}
-					emojiId={{ shortName: 'shouldnotbeused', id: grinEmoji.id }}
+					emojiId={emoji}
+					optimisticImageURL={optimiticImageApi?.getUrl(emoji)}
 				/>,
 			);
+			expect(screen.queryByLabelText('emoji-exists')).toBeInTheDocument();
+			expect(screen.queryByTestId('emoji-placeholder-emoji-exists')).toBeInTheDocument();
+		});
+	});
 
-			const emoji = container.querySelector(`[data-emoji-id*="${grinEmoji.id}"]`);
+	describe('has a resolved instance of emoji provider', () => {
+		it('should render an emoji', async () => {
+			const resolvedEmojiProvider = await getEmojiResourcePromise();
+			renderWithIntl(
+				<ResourcedEmoji emojiProvider={resolvedEmojiProvider} emojiId={{ ...grinEmoji }} />,
+			);
+			const emoji = await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
 			expect(emoji).toBeInTheDocument();
 		});
+	});
 
-		it('should render emoji with correct data attributes', async () => {
-			const { container } = renderWithIntl(
+	it('should render a fallback element if emoji cannot be found', async () => {
+		const fallback = <h1>wow cool</h1>;
+		const component = renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
+				customFallback={fallback}
+			/>,
+		);
+
+		await waitFor(async () => {
+			const result = await component.findByText('wow cool');
+			expect(result).toBeInTheDocument();
+		});
+	});
+
+	it('should render a fallback string if emoji cannot be found', async () => {
+		const component = renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
+				customFallback="wow cool"
+			/>,
+		);
+
+		await waitFor(async () => {
+			const result = await component.findByText('wow cool');
+			expect(result).toBeInTheDocument();
+		});
+	});
+
+	it('should render emoji', async () => {
+		const { container } = renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={{ shortName: 'shouldnotbeused', id: grinEmoji.id }}
+			/>,
+		);
+
+		const emoji = container.querySelector(`[data-emoji-id*="${grinEmoji.id}"]`);
+		expect(emoji).toBeInTheDocument();
+	});
+
+	it('should render emoji with correct data attributes', async () => {
+		const { container } = renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={{ shortName: 'shouldnotbeused', id: grinEmoji.id }}
+			/>,
+		);
+
+		const emoji = container.querySelector(`[data-emoji-id*="${grinEmoji.id}"]`); // we want the span around the emoji
+		expect(emoji).toHaveAttribute('data-emoji-id', grinEmoji.id);
+		expect(emoji).toHaveAttribute('data-emoji-short-name', 'shouldnotbeused');
+		expect(emoji).toHaveAttribute('data-emoji-text', 'shouldnotbeused');
+	});
+
+	it('should not wrap with a tooltip if there is no showTooltip prop', async () => {
+		const result = renderWithIntl(
+			<ResourcedEmoji emojiProvider={getEmojiResourcePromise()} emojiId={grinEmoji} />,
+		);
+
+		mockAllIsIntersecting(true);
+
+		const component = await result.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
+		expect(component).not.toHaveAttribute('title');
+	});
+
+	it('should wrap with tooltip if showTooltip is set to true', async () => {
+		const result = renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={grinEmoji}
+				showTooltip={true}
+			/>,
+		);
+		mockAllIsIntersecting(true);
+		const component = await result.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
+		expect(component).toHaveAttribute('title', ':grin:');
+	});
+
+	it('should fallback to shortName if no id', async () => {
+		const { container } = renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={{ shortName: grinEmoji.shortName }}
+			/>,
+		);
+
+		await screen.findByRole('img'); // wait for emoji to load
+		const emoji = container.querySelector('.emoji-common-emoji-sprite');
+		expect(emoji).toHaveStyle('background-position: 8.333333333333332% 0%'); // position corresponding to grin emoji
+	});
+
+	it('should update emoji on shortName change', async () => {
+		const { rerender } = renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={{ shortName: grinEmoji.shortName }}
+			/>,
+		);
+		expect(await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
+
+		rerender(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise()}
+				emojiId={{ shortName: evilburnsEmoji.shortName }}
+			/>,
+		);
+		expect(
+			await screen.findByTestId(`image-emoji-${evilburnsEmoji.shortName}`),
+		).toBeInTheDocument();
+	});
+
+	it('unknown emoji', () => {
+		let resolver: (value?: any | PromiseLike<any>) => void;
+		const config = {
+			promiseBuilder: (result: EmojiDescription) => {
+				return new Promise((resolve) => {
+					resolver = resolve;
+				});
+			},
+		};
+		renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise(config) as Promise<EmojiProvider>}
+				emojiId={{ shortName: 'doesnotexist', id: 'doesnotexist' }}
+			/>,
+		);
+
+		return waitUntil(() => !!resolver).then(() => {
+			resolver();
+			expect(screen.getByTestId('emoji-placeholder-doesnotexist')).toBeInTheDocument();
+		});
+	});
+
+	it('placeholder while loading emoji', async () => {
+		let resolver: (value?: any | PromiseLike<any>) => void;
+		let resolverResult: EmojiDescription;
+		const config = {
+			promiseBuilder: (result: EmojiDescription) => {
+				resolverResult = result;
+				return new Promise((resolve) => {
+					resolver = resolve;
+				});
+			},
+		};
+		renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise(config) as Promise<EmojiProvider>}
+				emojiId={{ shortName: grinEmoji.shortName, id: grinEmoji.id }}
+			/>,
+		);
+
+		await waitFor(() => !!resolver);
+		expect(
+			await screen.findByTestId(`emoji-placeholder-${grinEmoji.shortName}`),
+		).toBeInTheDocument();
+		await waitFor(() => {
+			resolver(resolverResult);
+		});
+		expect(await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
+	});
+
+	it('placeholder should be wrapped with a tooltip if showTooltip is set to true', async () => {
+		// @ts-ignore Unused var never read, should this be deleted?
+		let resolver;
+		// @ts-ignore Unused var never read, should this be deleted?
+		let resolverResult;
+		const config = {
+			promiseBuilder: (result: EmojiDescription) => {
+				resolverResult = result;
+				return new Promise((resolve) => {
+					resolver = resolve;
+				});
+			},
+		};
+		renderWithIntl(
+			<ResourcedEmoji
+				emojiProvider={getEmojiResourcePromise(config) as Promise<EmojiProvider>}
+				emojiId={{ shortName: 'doesnotexist', id: 'doesnotexist' }}
+				showTooltip={true}
+			/>,
+		);
+
+		const placeholder = await screen.findByTestId('emoji-placeholder-doesnotexist');
+		expect(placeholder).toHaveAttribute('title', 'doesnotexist');
+	});
+
+	describe('should update ufo experience', () => {
+		it('and mark success for UFO experience of rendered emoji event when emoji is loaded when in view at start', async () => {
+			const experience = ufoExperiences['emoji-rendered'].getInstance(
+				mediaEmoji.id || mediaEmoji.shortName,
+			);
+			const startSpy = jest.spyOn(experience, 'start');
+			const successSpy = jest.spyOn(experience, 'success');
+			renderWithIntl(
 				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise()}
-					emojiId={{ shortName: 'shouldnotbeused', id: grinEmoji.id }}
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
 				/>,
 			);
 
-			const emoji = container.querySelector(`[data-emoji-id*="${grinEmoji.id}"]`); // we want the span around the emoji
-			expect(emoji).toHaveAttribute('data-emoji-id', grinEmoji.id);
-			expect(emoji).toHaveAttribute('data-emoji-short-name', 'shouldnotbeused');
-			expect(emoji).toHaveAttribute('data-emoji-text', 'shouldnotbeused');
-		});
-
-		it('should not wrap with a tooltip if there is no showTooltip prop', async () => {
-			const result = renderWithIntl(
-				<ResourcedEmoji emojiProvider={getEmojiResourcePromise()} emojiId={grinEmoji} />,
-			);
-
+			const emoji = await screen.findByAltText('Media example');
+			// mimic image loaded first when it's in viewport at start
+			mockAllIsIntersecting(false);
+			fireEvent.load(emoji);
+			// detected emoji is in viewport
 			mockAllIsIntersecting(true);
-
-			const component = await result.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
-			expect(component).not.toHaveAttribute('title');
+			expect(startSpy).toHaveBeenCalledTimes(1);
+			expect(successSpy).toHaveBeenCalledTimes(1);
+			expect(
+				experience.metrics.marks.some((mark) => mark.name === UfoEmojiTimings.ONLOAD_END),
+			).toBeTruthy();
 		});
 
-		it('should wrap with tooltip if showTooltip is set to true', async () => {
-			const result = renderWithIntl(
+		it('and mark success for UFO experience of rendered emoji event when emoji is loaded after in viewport', async () => {
+			const timeBeforeInView = 500;
+			mockAllIsIntersecting(false);
+			const experience = ufoExperiences['emoji-rendered'].getInstance(
+				mediaEmoji.id || mediaEmoji.shortName,
+			);
+			const startSpy = jest.spyOn(experience, 'start');
+			const successSpy = jest.spyOn(experience, 'success');
+			renderWithIntl(
 				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise()}
-					emojiId={grinEmoji}
-					showTooltip={true}
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
 				/>,
 			);
+
+			const emoji = await screen.findByAltText('Media example');
+			// mimic user waited some time and then scroll to get emoji in viewport
+			await new Promise((r) => setTimeout(r, timeBeforeInView));
 			mockAllIsIntersecting(true);
-			const component = await result.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
-			expect(component).toHaveAttribute('title', ':grin:');
-		});
-
-		it('should fallback to shortName if no id', async () => {
-			const { container } = renderWithIntl(
-				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise()}
-					emojiId={{ shortName: grinEmoji.shortName }}
-				/>,
+			// emoji in view port and load image
+			fireEvent.load(emoji);
+			const onLoadEndTime = experience.metrics.marks.find(
+				(mark) => mark.name === UfoEmojiTimings.ONLOAD_END,
 			);
-
-			await screen.findByRole('img'); // wait for emoji to load
-			const emoji = container.querySelector('.emoji-common-emoji-sprite');
-			expect(emoji).toHaveStyle('background-position: 8.333333333333332% 0%'); // position corresponding to grin emoji
-		});
-
-		it('should update emoji on shortName change', async () => {
-			const { rerender } = renderWithIntl(
-				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise()}
-					emojiId={{ shortName: grinEmoji.shortName }}
-				/>,
+			const onLoadStartTime = experience.metrics.marks.find(
+				(mark) => mark.name === UfoEmojiTimings.ONLOAD_START,
 			);
-			expect(await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
-
-			rerender(
-				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise()}
-					emojiId={{ shortName: evilburnsEmoji.shortName }}
-				/>,
-			);
+			expect(startSpy).toHaveBeenCalledTimes(1);
+			expect(successSpy).toHaveBeenCalledTimes(1);
+			expect(onLoadEndTime).toBeDefined();
+			expect(onLoadStartTime).toBeDefined();
+			expect(onLoadEndTime!.time - onLoadStartTime!.time).toBeLessThan(timeBeforeInView);
 			expect(
-				await screen.findByTestId(`image-emoji-${evilburnsEmoji.shortName}`),
-			).toBeInTheDocument();
+				experience.metrics.marks.find((mark) => mark.name === UfoEmojiTimings.ONLOAD_END),
+			).toBeTruthy();
 		});
 
-		it('unknown emoji', () => {
-			let resolver: (value?: any | PromiseLike<any>) => void;
-			const config = {
-				promiseBuilder: (result: EmojiDescription) => {
-					return new Promise((resolve) => {
-						resolver = resolve;
-					});
-				},
-			};
+		it('and mark failure for UFO experience of rendered emoji event when emoji is on error', async () => {
+			const experience = ufoExperiences['emoji-rendered'].getInstance(
+				mediaEmoji.id || mediaEmoji.shortName,
+			);
+			const startSpy = jest.spyOn(experience, 'start');
+			const failSpy = jest.spyOn(experience, 'failure');
 			renderWithIntl(
 				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise(config) as Promise<EmojiProvider>}
-					emojiId={{ shortName: 'doesnotexist', id: 'doesnotexist' }}
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
 				/>,
 			);
 
-			return waitUntil(() => !!resolver).then(() => {
-				resolver();
-				expect(screen.getByTestId('emoji-placeholder-doesnotexist')).toBeInTheDocument();
-			});
+			const emoji = await screen.findByAltText('Media example');
+			mockAllIsIntersecting(true);
+			fireEvent.error(emoji);
+			expect(startSpy).toHaveBeenCalledTimes(1);
+			expect(failSpy).toHaveBeenCalledTimes(1);
 		});
 
-		it('placeholder while loading emoji', async () => {
-			let resolver: (value?: any | PromiseLike<any>) => void;
-			let resolverResult: EmojiDescription;
-			const config = {
-				promiseBuilder: (result: EmojiDescription) => {
-					resolverResult = result;
-					return new Promise((resolve) => {
-						resolver = resolve;
-					});
-				},
-			};
+		it('and fail UFO experience of rendered emoji event when emoji have rendering issues', async () => {
+			// cause a rendering issue by throwing an error when finding an emoji
+			const spy = jest
+				.spyOn(MockEmojiResource.prototype, 'fetchByEmojiId')
+				.mockImplementation(() => Promise.reject(new Error('test error')));
+			const experience = ufoExperiences['emoji-rendered'].getInstance(
+				mediaEmoji.id || mediaEmoji.shortName,
+			);
+			const startSpy = jest.spyOn(experience, 'start');
+			const failureSpy = jest.spyOn(experience, 'failure');
+
 			renderWithIntl(
 				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise(config) as Promise<EmojiProvider>}
-					emojiId={{ shortName: grinEmoji.shortName, id: grinEmoji.id }}
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
 				/>,
 			);
 
-			await waitFor(() => !!resolver);
-			expect(
-				await screen.findByTestId(`emoji-placeholder-${grinEmoji.shortName}`),
-			).toBeInTheDocument();
-			await waitFor(() => {
-				resolver(resolverResult);
-			});
-			expect(await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
+			await waitFor(() => expect(startSpy).toHaveBeenCalledTimes(1));
+			await waitFor(() => expect(failureSpy).toHaveBeenCalledTimes(1));
+			spy.mockRestore();
 		});
 
-		it('placeholder should be wrapped with a tooltip if showTooltip is set to true', async () => {
-			// @ts-ignore Unused var never read, should this be deleted?
-			let resolver;
-			// @ts-ignore Unused var never read, should this be deleted?
-			let resolverResult;
-			const config = {
-				promiseBuilder: (result: EmojiDescription) => {
-					resolverResult = result;
-					return new Promise((resolve) => {
-						resolver = resolve;
-					});
-				},
-			};
-			renderWithIntl(
+		it('and abort UFO experience of rendered emoji event when emoji is unmounted', () => {
+			const experience = ufoExperiences['emoji-rendered'].getInstance(
+				mediaEmoji.id || mediaEmoji.shortName,
+			);
+			const startSpy = jest.spyOn(experience, 'start');
+			const abortSpy = jest.spyOn(experience, 'abort');
+			const component = renderWithIntl(
 				<ResourcedEmoji
-					emojiProvider={getEmojiResourcePromise(config) as Promise<EmojiProvider>}
-					emojiId={{ shortName: 'doesnotexist', id: 'doesnotexist' }}
-					showTooltip={true}
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
 				/>,
 			);
 
-			const placeholder = await screen.findByTestId('emoji-placeholder-doesnotexist');
-			expect(placeholder).toHaveAttribute('title', 'doesnotexist');
-		});
+			component.unmount();
 
-		describe('should update ufo experience', () => {
-			it('and mark success for UFO experience of rendered emoji event when emoji is loaded when in view at start', async () => {
-				const experience = ufoExperiences['emoji-rendered'].getInstance(
-					mediaEmoji.id || mediaEmoji.shortName,
-				);
-				const startSpy = jest.spyOn(experience, 'start');
-				const successSpy = jest.spyOn(experience, 'success');
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
-						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
-					/>,
-				);
-
-				const emoji = await screen.findByAltText('Media example');
-				// mimic image loaded first when it's in viewport at start
-				mockAllIsIntersecting(false);
-				fireEvent.load(emoji);
-				// detected emoji is in viewport
-				mockAllIsIntersecting(true);
-				expect(startSpy).toHaveBeenCalledTimes(1);
-				expect(successSpy).toHaveBeenCalledTimes(1);
-				expect(
-					experience.metrics.marks.some((mark) => mark.name === UfoEmojiTimings.ONLOAD_END),
-				).toBeTruthy();
-			});
-
-			it('and mark success for UFO experience of rendered emoji event when emoji is loaded after in viewport', async () => {
-				const timeBeforeInView = 500;
-				mockAllIsIntersecting(false);
-				const experience = ufoExperiences['emoji-rendered'].getInstance(
-					mediaEmoji.id || mediaEmoji.shortName,
-				);
-				const startSpy = jest.spyOn(experience, 'start');
-				const successSpy = jest.spyOn(experience, 'success');
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
-						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
-					/>,
-				);
-
-				const emoji = await screen.findByAltText('Media example');
-				// mimic user waited some time and then scroll to get emoji in viewport
-				await new Promise((r) => setTimeout(r, timeBeforeInView));
-				mockAllIsIntersecting(true);
-				// emoji in view port and load image
-				fireEvent.load(emoji);
-				const onLoadEndTime = experience.metrics.marks.find(
-					(mark) => mark.name === UfoEmojiTimings.ONLOAD_END,
-				);
-				const onLoadStartTime = experience.metrics.marks.find(
-					(mark) => mark.name === UfoEmojiTimings.ONLOAD_START,
-				);
-				expect(startSpy).toHaveBeenCalledTimes(1);
-				expect(successSpy).toHaveBeenCalledTimes(1);
-				expect(onLoadEndTime).toBeDefined();
-				expect(onLoadStartTime).toBeDefined();
-				expect(onLoadEndTime!.time - onLoadStartTime!.time).toBeLessThan(timeBeforeInView);
-				expect(
-					experience.metrics.marks.find((mark) => mark.name === UfoEmojiTimings.ONLOAD_END),
-				).toBeTruthy();
-			});
-
-			it('and mark failure for UFO experience of rendered emoji event when emoji is on error', async () => {
-				const experience = ufoExperiences['emoji-rendered'].getInstance(
-					mediaEmoji.id || mediaEmoji.shortName,
-				);
-				const startSpy = jest.spyOn(experience, 'start');
-				const failSpy = jest.spyOn(experience, 'failure');
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
-						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
-					/>,
-				);
-
-				const emoji = await screen.findByAltText('Media example');
-				mockAllIsIntersecting(true);
-				fireEvent.error(emoji);
-				expect(startSpy).toHaveBeenCalledTimes(1);
-				expect(failSpy).toHaveBeenCalledTimes(1);
-			});
-
-			it('and fail UFO experience of rendered emoji event when emoji have rendering issues', async () => {
-				// cause a rendering issue by throwing an error when finding an emoji
-				const spy = jest
-					.spyOn(MockEmojiResource.prototype, 'fetchByEmojiId')
-					.mockImplementation(() => Promise.reject(new Error('test error')));
-				const experience = ufoExperiences['emoji-rendered'].getInstance(
-					mediaEmoji.id || mediaEmoji.shortName,
-				);
-				const startSpy = jest.spyOn(experience, 'start');
-				const failureSpy = jest.spyOn(experience, 'failure');
-
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
-						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
-					/>,
-				);
-
-				await waitFor(() => expect(startSpy).toHaveBeenCalledTimes(1));
-				await waitFor(() => expect(failureSpy).toHaveBeenCalledTimes(1));
-				spy.mockRestore();
-			});
-
-			it('and abort UFO experience of rendered emoji event when emoji is unmounted', () => {
-				const experience = ufoExperiences['emoji-rendered'].getInstance(
-					mediaEmoji.id || mediaEmoji.shortName,
-				);
-				const startSpy = jest.spyOn(experience, 'start');
-				const abortSpy = jest.spyOn(experience, 'abort');
-				const component = renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
-						emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
-					/>,
-				);
-
-				component.unmount();
-
-				expect(startSpy).toHaveBeenCalledTimes(1);
-				expect(abortSpy).toHaveBeenCalledTimes(1);
-			});
+			expect(startSpy).toHaveBeenCalledTimes(1);
+			expect(abortSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 });

@@ -4,10 +4,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 import { type MouseEventHandler, PureComponent, type ReactNode, type UIEvent } from 'react';
-import * as styles from './styles';
+
+const emojiScrollable = css({
+	border: `1px solid ${token('color.border', '#fff')}`,
+	borderRadius: token('border.radius.100', '3px'),
+	display: 'block',
+	margin: '0',
+	overflowX: 'hidden',
+	overflowY: 'auto',
+	padding: '0',
+});
 
 export interface OnScroll {
 	(element: Element, event: UIEvent<any>): void;
@@ -74,8 +83,7 @@ export default class Scrollable extends PureComponent<Props, {}> {
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={`emoji-scrollable ${className}`}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={styles.emojiScrollable}
+				css={emojiScrollable}
 				onMouseLeave={onMouseLeave}
 				onScroll={this.handleScroll}
 				ref={this.handleRef}

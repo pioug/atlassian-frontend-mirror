@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { EmojiUpload } from '../../types';
 import { type EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
-import EmojiUploadPickerWithIntl from '../compiled/common/EmojiUploadPicker';
+import EmojiUploadPickerWithIntl from '../common/EmojiUploadPicker';
 import { uploadEmoji } from '../common/UploadEmoji';
 import {
 	createAndFireEventInElementsChannel,

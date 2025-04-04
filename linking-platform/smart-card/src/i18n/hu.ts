@@ -119,6 +119,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Frissítve ekkor: {context}',
   'fabric.linking.modified_on_relative': 'Frissítve: {context}',
   'fabric.linking.more_actions': 'További műveletek',
+  'fabric.linking.more_information_about_this_work_item': 'További információ erről az ügyről',
   'fabric.linking.no_access_title': 'A tartalom megtekintéséhez csatlakozz: {product}',
   'fabric.linking.not_found_description': 'Az oldal nem létezik, vagy módosították a link hozzáadása óta.',
   'fabric.linking.not_found_title': 'Nem tudjuk megjeleníteni ezt a(z) {product}-oldalt',

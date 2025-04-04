@@ -1,4 +1,4 @@
-import { snapshot } from '@af/visual-regression';
+import { Hooks, snapshot, SnapshotTestOptions } from '@af/visual-regression';
 
 import InlineCodeBasic from '../../../examples/01-inline-code-basic';
 import CodeBlockBasic from '../../../examples/10-code-block-basic';
@@ -23,52 +23,36 @@ import StandardMl from '../../../examples/standard-ml';
 import VisualBasic from '../../../examples/visual-basic';
 import VrPythonTestIdAndWrapping from '../../../examples/vr-python-test-id-and-wrapping';
 
-snapshot(InlineCodeBasic, {
+const defaultColourThemeVariant: SnapshotTestOptions<Hooks> = {
 	variants: [
 		{
-			name: 'Default',
-			environment: {},
-		},
-		{
-			name: 'Light',
+			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
-});
-snapshot(CodeBlockBasic, {
-	variants: [
-		{
-			name: 'Default',
-			environment: {},
-		},
-		{
-			name: 'Light',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
+};
 
-snapshot(CodeBlockBasicWithTabs);
-snapshot(Applescript);
-snapshot(Clojure);
-snapshot(Delphi);
-snapshot(Diff);
-snapshot(Foxpro);
-snapshot(ObjectPascal);
-snapshot(Qml);
-snapshot(StandardMl);
-snapshot(VisualBasic);
-snapshot(CascadingStyleSheets);
-snapshot(Handlebars);
-snapshot(Jsx);
-snapshot(CodeBlockEmpty);
-snapshot(CodeBidiCharacters);
-snapshot(CodeBlockHighlightingLongLines);
-snapshot(VrPythonTestIdAndWrapping);
-snapshot(CodeOverrideBackground);
-snapshot(ExampleSQL);
-snapshot(ExampleABAP);
+snapshot(InlineCodeBasic, defaultColourThemeVariant);
+snapshot(CodeBlockBasic, defaultColourThemeVariant);
+snapshot(CodeBlockBasicWithTabs, defaultColourThemeVariant);
+snapshot(Applescript, defaultColourThemeVariant);
+snapshot(Clojure, defaultColourThemeVariant);
+snapshot(Delphi, defaultColourThemeVariant);
+snapshot(Diff, defaultColourThemeVariant);
+snapshot(Foxpro, defaultColourThemeVariant);
+snapshot(ObjectPascal, defaultColourThemeVariant);
+snapshot(Qml, defaultColourThemeVariant);
+snapshot(StandardMl, defaultColourThemeVariant);
+snapshot(VisualBasic, defaultColourThemeVariant);
+snapshot(CascadingStyleSheets, defaultColourThemeVariant);
+snapshot(Handlebars, defaultColourThemeVariant);
+snapshot(Jsx, defaultColourThemeVariant);
+snapshot(CodeBlockEmpty, defaultColourThemeVariant);
+snapshot(CodeBidiCharacters, defaultColourThemeVariant);
+snapshot(CodeBlockHighlightingLongLines, defaultColourThemeVariant);
+snapshot(VrPythonTestIdAndWrapping, defaultColourThemeVariant);
+snapshot(CodeOverrideBackground, defaultColourThemeVariant);
+snapshot(ExampleSQL, defaultColourThemeVariant);
+snapshot(ExampleABAP, defaultColourThemeVariant);

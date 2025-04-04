@@ -116,6 +116,7 @@ export default {
   'fabric.linking.modified_on_absolute': '{context} tarihinde güncellendi',
   'fabric.linking.modified_on_relative': '{context} güncellendi',
   'fabric.linking.more_actions': 'Daha fazla işlem',
+  'fabric.linking.more_information_about_this_work_item': 'Bu bilet hakkında daha fazla bilgi',
   'fabric.linking.no_access_title': 'Bu içeriği görüntülemek için {product} ürününe katılın',
   'fabric.linking.not_found_description': 'Bu sayfa mevcut değil veya bu bağlantı eklendikten sonra değişmiş olabilir.',
   'fabric.linking.not_found_title': 'Bu {product} sayfası gösterilemiyor',

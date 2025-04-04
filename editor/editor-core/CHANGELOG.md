@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 205.1.7
+
+### Patch Changes
+
+- [#134341](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134341)
+  [`e53990137fb56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e53990137fb56) -
+  ED-27338: converts editor date node to vanilla js
+- Updated dependencies
+
 ## 205.1.6
 
 ### Patch Changes

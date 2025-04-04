@@ -143,5 +143,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, other {アイテム}}',
   'linkDataSource.table-footer.loading': '読み込み中...',
   'linkDataSource.table-footer.power-by-jsm': '使用ソリューション: Jira Service Management のアセット',
+  'linkDataSource.table-footer.powered-by-assets': 'アセットを使用',
   'linkDataSource.table-footer.refresh': '更新',
 };

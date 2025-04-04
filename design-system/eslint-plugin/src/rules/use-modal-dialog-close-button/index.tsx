@@ -79,7 +79,7 @@ const rule = createLintRule({
 
 				const name = node.openingElement.name.name;
 
-				if (name !== defaultImportLocalName) {
+				if (![defaultImportLocalName, modalHeaderLocalName].includes(name)) {
 					return;
 				}
 
@@ -141,13 +141,32 @@ const rule = createLintRule({
 					}
 				};
 
-				searchNode(node);
+				if (name === defaultImportLocalName) {
+					searchNode(node);
 
-				// If there is a close button, skip the rest, as this satisfies the rule.
-				if (closeButtonNode) {
-					return;
+					// If there is a close button, skip the rest, as this satisfies the
+					// rule. If there is a modal header, it will be recognized in later
+					// scans, so don't add duplicate errors
+					if (closeButtonNode || modalHeaderNode) {
+						return;
+						// No close button or modal header exists
+					} else {
+						return context.report({
+							node,
+							messageId: 'noCloseButtonExists',
+						});
+					}
+				} else if (name === modalHeaderLocalName) {
+					modalHeaderNode = node;
+
+					searchNode(node);
+
+					// If there is a close button, skip the rest, as this satisfies the rule.
+					if (closeButtonNode) {
+						return;
+					}
+
 					// No close button exists, so check the modal header
-				} else if (modalHeaderNode !== null) {
 					const prop = JSXElementHelper.getAttributeByName(modalHeaderNode, PROP_NAME);
 
 					// If the prop exists
@@ -182,12 +201,6 @@ const rule = createLintRule({
 							],
 						});
 					}
-					// No close button or modal header exists
-				} else {
-					return context.report({
-						node,
-						messageId: 'noCloseButtonExists',
-					});
 				}
 			},
 		};

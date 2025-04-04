@@ -25,7 +25,7 @@ import { Reaction as CompiledReaction } from './components/compiled/Reaction';
 import { Reactions as EmotionReactions } from './components/Reactions';
 import { Reactions as CompiledReactions } from './components/compiled/Reactions';
 import { ReactionPicker as EmotionReactionPicker } from './components/ReactionPicker/ReactionPicker';
-import { ReactionPicker as CompiledReactionPicker } from './components/ReactionPicker/ReactionPicker';
+import { ReactionPicker as CompiledReactionPicker } from './components/compiled/ReactionPicker';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 const Reaction = componentWithFG(

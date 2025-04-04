@@ -2,17 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+
 import { Fragment, type MouseEventHandler } from 'react';
 
-import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';
+import { css, jsx } from '@atlaskit/css';
 import { Layering } from '@atlaskit/layering';
 import { type MenuProps } from '@atlaskit/select';
-import { N0, N50A, N60A } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import FixedLayer from '../internal/fixed-layer';
@@ -39,10 +37,10 @@ function getValidDate(isos: string[]): {
 }
 
 const menuStyles = css({
-	zIndex: layers.dialog(),
-	backgroundColor: token('elevation.surface.overlay', N0),
-	borderRadius: token('border.radius', '3px'),
-	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+	zIndex: 300,
+	backgroundColor: token('elevation.surface.overlay'),
+	borderRadius: token('border.radius'),
+	boxShadow: token('elevation.shadow.overlay'),
 	overflow: 'hidden',
 });
 

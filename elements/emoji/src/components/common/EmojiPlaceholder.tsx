@@ -2,11 +2,45 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx, keyframes } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N20A } from '@atlaskit/theme/colors';
 import { defaultEmojiHeight } from '../../util/constants';
 import type { EmojiImageRepresentation } from '../../types';
-import { placeholder, placeholderContainer, placeholderContainerAnimated } from './styles';
+import { placeholder } from './styles';
+
+const placeholderContainer = css({
+	position: 'relative',
+	margin: '-1px 0',
+	display: 'inline-block',
+	backgroundColor: token('color.border', '#f7f7f7'),
+	borderRadius: token('border.radius.100', '3px'),
+	overflow: 'hidden',
+	verticalAlign: 'middle',
+	whiteSpace: 'nowrap',
+	textAlign: 'center',
+});
+
+const easeSweep = keyframes({
+	from: {
+		transform: 'translateX(-100%)',
+	},
+	to: {
+		transform: 'translateX(100%)',
+	},
+});
+
+const placeholderContainerAnimated = css({
+	'&::before': {
+		content: '""',
+		display: 'block',
+		position: 'absolute',
+		backgroundColor: token('color.background.neutral', N20A),
+		height: '100%',
+		width: '100%',
+		animation: `${easeSweep} 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite`,
+	},
+});
 
 export interface Props {
 	shortName: string;
@@ -54,8 +88,7 @@ const EmojiPlaceholder = (props: Props) => {
 			aria-label={shortName}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={placeholder}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={loading ? [placeholderContainer, placeholderContainerAnimated] : placeholderContainer}
+			css={[placeholderContainer, loading && placeholderContainerAnimated]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			title={showTooltip ? shortName : ''}

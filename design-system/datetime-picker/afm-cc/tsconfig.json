@@ -27,6 +27,9 @@
             "path": "../../calendar/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../css/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../ds-lib/afm-cc/tsconfig.json"
         },
         {
@@ -49,9 +52,6 @@
         },
         {
             "path": "../../select/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../theme/afm-cc/tsconfig.json"
         },
         {
             "path": "../../tokens/afm-cc/tsconfig.json"

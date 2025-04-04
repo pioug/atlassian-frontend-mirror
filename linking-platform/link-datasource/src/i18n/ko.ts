@@ -139,5 +139,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, other {항목}}',
   'linkDataSource.table-footer.loading': '로드 중...',
   'linkDataSource.table-footer.power-by-jsm': 'Jira Service Management의 자산에서 제공',
+  'linkDataSource.table-footer.powered-by-assets': '자산 기반',
   'linkDataSource.table-footer.refresh': '새로 고침',
 };

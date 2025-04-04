@@ -23,6 +23,7 @@ import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/vie
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { closeTypeAhead } from '../pm-plugins/commands/close-type-ahead';
@@ -31,6 +32,7 @@ import {
 	TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE,
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../pm-plugins/constants';
+import { getPluginState } from '../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { OnSelectItem, TypeAheadErrorInfo } from '../types';
 
@@ -123,6 +125,9 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const moreElementsInQuickInsertViewEnabled =
 		featureFlagsState?.moreElementsInQuickInsertView &&
 		triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
+	const isEditorControlsPatch2Enabled =
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_2');
 
 	const defaultMenuHeight = useMemo(
 		() =>
@@ -266,6 +271,8 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	}, [anchorElement, popupsScrollableElement, getFitHeightDebounced, getFitHeight]);
 
 	useLayoutEffect(() => {
+		const { removePrefixTriggerOnCancel } = getPluginState(editorView.state) || {};
+
 		const focusOut = (event: FocusEvent) => {
 			const { relatedTarget } = event;
 			// Given the user is changing the focus
@@ -322,7 +329,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			}
 
 			cancel({
-				addPrefixTrigger: true,
+				addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
 				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 				forceFocusOnEditor: false,
 			});
@@ -336,15 +343,16 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('focusout', focusOut);
 		};
-	}, [ref, cancel]);
+	}, [ref, cancel, editorView.state, isEditorControlsPatch2Enabled]);
 
 	// TODO: ED-17443 - When you press escape on typeahead panel, it should remove focus and close the panel
 	// This is the expected keyboard behaviour advised by the Accessibility team
 	useLayoutEffect(() => {
+		const { removePrefixTriggerOnCancel } = getPluginState(editorView.state) || {};
 		const escape = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
 				cancel({
-					addPrefixTrigger: true,
+					addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
 					setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 					forceFocusOnEditor: true,
 				});
@@ -361,7 +369,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('keydown', escape);
 		};
-	}, [ref, cancel]);
+	}, [ref, cancel, editorView.state, isEditorControlsPatch2Enabled]);
 
 	// @ts-ignore
 	const openElementBrowserModal = triggerHandler?.openElementBrowserModal;

@@ -149,5 +149,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {položka} few {položky} many {položky} other {položek}}',
   'linkDataSource.table-footer.loading': 'Načítání…',
   'linkDataSource.table-footer.power-by-jsm': 'Využívá technologii Aktiva v Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Využívá Aktiva',
   'linkDataSource.table-footer.refresh': 'Obnovit',
 };

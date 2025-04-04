@@ -5,16 +5,56 @@
 import SearchIcon from '@atlaskit/icon/core/migration/search';
 import TextField from '@atlaskit/textfield';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
-import { hidden } from '../common/styles';
 import { messages } from '../i18n';
-import { input, pickerSearch, searchIcon } from './styles';
+
+const input = css({
+	boxSizing: 'border-box',
+	color: 'inherit',
+	cursor: 'inherit',
+	font: token('font.body'),
+	outline: 'none',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBlockStart: '1px',
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingBlockEnd: token('space.025', '2px'),
+	paddingInlineStart: token('space.075', '6px'),
+	width: '100%',
+
+	'&:invalid': {
+		boxShadow: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&::-ms-clear': {
+		display: 'none',
+	},
+});
+
+const pickerSearch = css({
+	boxSizing: 'border-box',
+	paddingTop: token('space.150', '12px'),
+	paddingBottom: token('space.150', '12px'),
+	paddingLeft: token('space.150', '12px'),
+	paddingRight: token('space.150', '12px'),
+	width: '100%',
+});
+
+const searchIcon = css({
+	opacity: 0.5,
+	marginLeft: token('space.negative.025', '-2px'),
+});
+
+const hidden = css({
+	opacity: 0,
+	visibility: 'hidden',
+	display: 'none',
+});
 
 export interface Props {
 	style?: Styles;
@@ -56,7 +96,7 @@ export const EmojiPickerListSearch = (props: Props) => {
 	}, []);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div css={[pickerSearch, !isVisible && hidden]} style={style}>
 			<VisuallyHidden id="emoji-search-results-status" role="status">
 				{dirty && query === '' && formatMessage(messages.searchResultsStatusSeeAll)}
@@ -69,7 +109,6 @@ export const EmojiPickerListSearch = (props: Props) => {
 			<TextField
 				role="searchbox"
 				aria-label={formatMessage(messages.searchLabel)}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={input}
 				autoComplete="off"
 				name="search"
@@ -77,7 +116,6 @@ export const EmojiPickerListSearch = (props: Props) => {
 				defaultValue={query || ''}
 				onChange={handleOnChange}
 				elemBeforeInput={
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span css={searchIcon}>
 						<SearchIcon
 							LEGACY_margin="0 0 0 2px"

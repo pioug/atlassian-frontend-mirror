@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.8.2
+
+### Patch Changes
+
+- [#135614](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135614)
+  [`ed711343dbd01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed711343dbd01) -
+  ED-27111: Dnd layout column into panel
+- Updated dependencies
+
 ## 3.8.1
 
 ### Patch Changes

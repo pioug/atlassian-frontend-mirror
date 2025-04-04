@@ -15,7 +15,10 @@ import {
 
 snapshot(ListRenderer);
 
-snapshot(ListWithCodeblock);
+snapshot(ListWithCodeblock, {
+	description: 'should render list with codeblock',
+	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
+});
 
 snapshot(CustomStartListOrder1);
 snapshot(CustomStartListOrder99);

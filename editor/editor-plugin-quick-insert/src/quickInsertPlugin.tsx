@@ -136,11 +136,12 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		actions: {
 			insertItem: createInsertItem(onInsert),
 
-			openTypeAhead(inputMethod) {
+			openTypeAhead(inputMethod, removePrefixTriggerOnCancel) {
 				return Boolean(
 					api?.typeAhead?.actions.open({
 						triggerHandler: typeAhead,
 						inputMethod,
+						removePrefixTriggerOnCancel: removePrefixTriggerOnCancel,
 					}),
 				);
 			},

@@ -1,24 +1,13 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
-	EmojiDeletePreviewCompiled,
-	EmojiDeletePreviewEmotion,
-	EmojiUploadPreviewCompiled,
-	EmojiUploadPreviewEmotion,
-	EmojiUploadPickerCompiled,
-	EmojiUploadPickerEmotion,
-	EmojiUploadPickerWithNameCompiled,
-	EmojiUploadPickerWithNameEmotion,
+	EmojiDeletePreview,
+	EmojiUploadPreview,
+	EmojiUploadPickerWithoutName,
+	EmojiUploadPickerWithName,
 } from './common.fixture';
 
-snapshot(EmojiDeletePreviewCompiled);
-snapshot(EmojiDeletePreviewEmotion);
-
-snapshot(EmojiUploadPreviewCompiled);
-snapshot(EmojiUploadPreviewEmotion);
-
-snapshot(EmojiUploadPickerCompiled);
-snapshot(EmojiUploadPickerEmotion);
-
-snapshot(EmojiUploadPickerWithNameCompiled);
-snapshot(EmojiUploadPickerWithNameEmotion);
+snapshot(EmojiDeletePreview);
+snapshot(EmojiUploadPreview);
+snapshot(EmojiUploadPickerWithoutName);
+snapshot(EmojiUploadPickerWithName);

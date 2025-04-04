@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 export default () => {
 	const [value, setValue] = useState('2020-06-02T09:30+1000');

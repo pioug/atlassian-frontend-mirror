@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 const parseInputValue = (date: string, dateFormat: string) => {
 	return moment(date, dateFormat).toDate();

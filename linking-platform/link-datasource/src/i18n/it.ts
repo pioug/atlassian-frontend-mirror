@@ -150,5 +150,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {elemento} other {elementi}}',
   'linkDataSource.table-footer.loading': 'Caricamento in corso...',
   'linkDataSource.table-footer.power-by-jsm': 'Con la tecnologia di Risorse in Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Basato sulla tecnologia di Risorse',
   'linkDataSource.table-footer.refresh': 'Aggiorna',
 };

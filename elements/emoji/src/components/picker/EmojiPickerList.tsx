@@ -35,55 +35,21 @@ import CategoryTracker from './CategoryTracker';
 import { sizes } from './EmojiPickerSizes';
 import type * as Items from './EmojiPickerVirtualItems';
 import {
-	CategoryHeadingItem as EmotionCategoryHeadingItem,
-	EmojisRowItem as EmotionEmojisRowItem,
-	LoadingItem as EmotionLoadingItem,
+	CategoryHeadingItem,
+	EmojisRowItem,
+	LoadingItem,
 	type VirtualItem,
-	virtualItemRenderer as virtualItemRendererEmotion,
+	virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
-import {
-	CategoryHeadingItem as CompiledCategoryHeadingItem,
-	EmojisRowItem as CompiledEmojisRowItem,
-	LoadingItem as CompiledLoadingItem,
-	virtualItemRenderer as virtualItemRendererCompiled,
-} from '../compiled/picker/EmojiPickerVirtualItems';
-import { default as EmotionEmojiActions } from '../common/EmojiActions';
-import { default as CompiledEmojiActions } from '../compiled/common/EmojiActions';
+import EmojiActions from '../common/EmojiActions';
 import type { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import { emojiPickerHeightOffset, scrollToRow } from './utils';
 import type { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
 import type { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
-import { type ListRef, VirtualList as EmotionVirtualList } from './VirtualList';
-import { VirtualList as CompiledVirtualList } from '../compiled/picker/VirtualList';
+import { type ListRef, VirtualList } from './VirtualList';
 import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
-import { default as EmotionEmojiPickerTabPanel } from './EmojiPickerTabPanel';
-import { default as CompiledEmojiPickerTabPanel } from '../compiled/picker/EmojiPickerTabPanel';
-
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG, functionWithFG } from '@atlaskit/platform-feature-flags-react';
-
-// when cleaning up `platform_editor_css_migrate_emoji`, delete these consts and rename the import
-const EmojiActions = componentWithFG(
-	'platform_editor_css_migrate_emoji',
-	CompiledEmojiActions,
-	EmotionEmojiActions,
-);
-const EmojiPickerTabPanel = componentWithFG(
-	'platform_editor_css_migrate_emoji',
-	CompiledEmojiPickerTabPanel,
-	EmotionEmojiPickerTabPanel,
-);
-const VirtualList = componentWithFG(
-	'platform_editor_css_migrate_emoji',
-	CompiledVirtualList,
-	EmotionVirtualList,
-);
-const virtualItemRenderer = functionWithFG(
-	'platform_editor_css_migrate_emoji',
-	virtualItemRendererCompiled,
-	virtualItemRendererEmotion,
-);
+import EmojiPickerTabPanel from './EmojiPickerTabPanel';
 
 /**
  * Test id for wrapper Emoji Picker List div
@@ -210,18 +176,10 @@ export class EmojiPickerVirtualListInternalOld extends PureComponent<Props, Stat
 		let columnIndex = -1;
 		// for most of cases, it'd be in first emoji row, so should be quite fast to find in real world
 		let rowIndex = this.virtualItems.findIndex((rowItem) => {
-			if (fg('platform_editor_css_migrate_emoji')) {
-				if (rowItem instanceof CompiledEmojisRowItem) {
-					// find uploaded emoji in each emoji row
-					columnIndex = rowItem.props.emojis.findIndex((emoji) => emoji.id === emojiId);
-					return columnIndex !== -1;
-				}
-			} else {
-				if (rowItem instanceof EmotionEmojisRowItem) {
-					// find uploaded emoji in each emoji row
-					columnIndex = rowItem.props.emojis.findIndex((emoji) => emoji.id === emojiId);
-					return columnIndex !== -1;
-				}
+			if (rowItem instanceof EmojisRowItem) {
+				// find uploaded emoji in each emoji row
+				columnIndex = rowItem.props.emojis.findIndex((emoji) => emoji.id === emojiId);
+				return columnIndex !== -1;
 			}
 			return false;
 		});
@@ -273,56 +231,31 @@ export class EmojiPickerVirtualListInternalOld extends PureComponent<Props, Stat
 		const { onEmojiSelected, onEmojiDelete } = this.props;
 		const items: VirtualItem<CategoryHeadingProps | EmojiRowProps>[] = [];
 
-		if (fg('platform_editor_css_migrate_emoji')) {
-			items.push(
-				new CompiledCategoryHeadingItem({
-					id: group.category,
-					title: group.title,
-					className: categoryClassname,
-				}),
-			);
-		} else {
-			items.push(
-				new EmotionCategoryHeadingItem({
-					id: group.category,
-					title: group.title,
-					className: categoryClassname,
-				}),
-			);
-		}
+		items.push(
+			new CategoryHeadingItem({
+				id: group.category,
+				title: group.title,
+				className: categoryClassname,
+			}),
+		);
 
 		let remainingEmojis = group.emojis;
 		while (remainingEmojis.length > 0) {
 			const rowEmojis = remainingEmojis.slice(0, sizes.emojiPerRow);
 			remainingEmojis = remainingEmojis.slice(sizes.emojiPerRow);
 
-			if (fg('platform_editor_css_migrate_emoji')) {
-				items.push(
-					new CompiledEmojisRowItem({
-						category: group.category,
-						emojis: rowEmojis,
-						title: group.title,
-						showDelete: group.title === userCustomTitle,
-						onSelected: onEmojiSelected,
-						onDelete: onEmojiDelete,
-						onMouseMove: this.onEmojiActive,
-						onFocus: this.onEmojiActive,
-					}),
-				);
-			} else {
-				items.push(
-					new EmotionEmojisRowItem({
-						category: group.category,
-						emojis: rowEmojis,
-						title: group.title,
-						showDelete: group.title === userCustomTitle,
-						onSelected: onEmojiSelected,
-						onDelete: onEmojiDelete,
-						onMouseMove: this.onEmojiActive,
-						onFocus: this.onEmojiActive,
-					}),
-				);
-			}
+			items.push(
+				new EmojisRowItem({
+					category: group.category,
+					emojis: rowEmojis,
+					title: group.title,
+					showDelete: group.title === userCustomTitle,
+					onSelected: onEmojiSelected,
+					onDelete: onEmojiDelete,
+					onMouseMove: this.onEmojiActive,
+					onFocus: this.onEmojiActive,
+				}),
+			);
 		}
 
 		return items;
@@ -338,11 +271,7 @@ export class EmojiPickerVirtualListInternalOld extends PureComponent<Props, Stat
 		this.categoryTracker.reset();
 
 		if (loading) {
-			if (fg('platform_editor_css_migrate_emoji')) {
-				items.push(new CompiledLoadingItem());
-			} else {
-				items.push(new EmotionLoadingItem());
-			}
+			items.push(new LoadingItem());
 		} else {
 			if (query) {
 				const search = CategoryDescriptionMap.SEARCH;
@@ -437,19 +366,13 @@ export class EmojiPickerVirtualListInternalOld extends PureComponent<Props, Stat
 		row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>,
 	) => {
 		let category: CategoryGroupKey | null = null;
-		if (fg('platform_editor_css_migrate_emoji')) {
-			if (row instanceof CompiledCategoryHeadingItem) {
-				category = row.props.id;
-			} else if (row instanceof CompiledEmojisRowItem) {
-				category = row.props.category;
-			}
-		} else {
-			if (row instanceof EmotionCategoryHeadingItem) {
-				category = row.props.id;
-			} else if (row instanceof EmotionEmojisRowItem) {
-				category = row.props.category;
-			}
+
+		if (row instanceof CategoryHeadingItem) {
+			category = row.props.id;
+		} else if (row instanceof EmojisRowItem) {
+			category = row.props.category;
 		}
+
 		// your uploads is rendered, take it as upload category, so could be highlighted in category selector
 		if (category === yourUploadsCategory) {
 			return customCategory;
@@ -472,22 +395,12 @@ export class EmojiPickerVirtualListInternalOld extends PureComponent<Props, Stat
 		const list = this.listRef.current;
 
 		// update tabIndex manually, startIndex is not 0 based here
-		if (fg('platform_editor_css_migrate_emoji')) {
-			if (rowItem instanceof CompiledCategoryHeadingItem) {
-				// if top of row rendered is category heading, update tabIndex for the next emoji row
-				list?.updateFocusIndex(startIndex + 1);
-			} else if (rowItem instanceof CompiledEmojisRowItem) {
-				// if top of row rendered is emoji row, update it's tabIndex.
-				list?.updateFocusIndex(startIndex);
-			}
-		} else {
-			if (rowItem instanceof EmotionCategoryHeadingItem) {
-				// if top of row rendered is category heading, update tabIndex for the next emoji row
-				list?.updateFocusIndex(startIndex + 1);
-			} else if (rowItem instanceof EmotionEmojisRowItem) {
-				// if top of row rendered is emoji row, update it's tabIndex.
-				list?.updateFocusIndex(startIndex);
-			}
+		if (rowItem instanceof CategoryHeadingItem) {
+			// if top of row rendered is category heading, update tabIndex for the next emoji row
+			list?.updateFocusIndex(startIndex + 1);
+		} else if (rowItem instanceof EmojisRowItem) {
+			// if top of row rendered is emoji row, update it's tabIndex.
+			list?.updateFocusIndex(startIndex);
 		}
 
 		if (!this.props.query) {
@@ -652,22 +565,12 @@ export const EmojiPickerVirtualListInternalNew = React.forwardRef<PickerListRef,
 				const list = listRef.current;
 
 				// update tabIndex manually, startIndex is not 0 based here
-				if (fg('platform_editor_css_migrate_emoji')) {
-					if (rowItem instanceof CompiledCategoryHeadingItem) {
-						// if top of row rendered is category heading, update tabIndex for the next emoji row
-						list?.updateFocusIndex(startIndex + 1);
-					} else if (rowItem instanceof CompiledEmojisRowItem) {
-						// if top of row rendered is emoji row, update it's tabIndex.
-						list?.updateFocusIndex(startIndex);
-					}
-				} else {
-					if (rowItem instanceof EmotionCategoryHeadingItem) {
-						// if top of row rendered is category heading, update tabIndex for the next emoji row
-						list?.updateFocusIndex(startIndex + 1);
-					} else if (rowItem instanceof EmotionEmojisRowItem) {
-						// if top of row rendered is emoji row, update it's tabIndex.
-						list?.updateFocusIndex(startIndex);
-					}
+				if (rowItem instanceof CategoryHeadingItem) {
+					// if top of row rendered is category heading, update tabIndex for the next emoji row
+					list?.updateFocusIndex(startIndex + 1);
+				} else if (rowItem instanceof EmojisRowItem) {
+					// if top of row rendered is emoji row, update it's tabIndex.
+					list?.updateFocusIndex(startIndex);
 				}
 
 				if (!query) {
@@ -727,56 +630,31 @@ export const EmojiPickerVirtualListInternalNew = React.forwardRef<PickerListRef,
 			(group: EmojiGroup) => {
 				const items: VirtualItem<CategoryHeadingProps | EmojiRowProps>[] = [];
 
-				if (fg('platform_editor_css_migrate_emoji')) {
-					items.push(
-						new CompiledCategoryHeadingItem({
-							id: group.category,
-							title: group.title,
-							className: categoryClassname,
-						}),
-					);
-				} else {
-					items.push(
-						new EmotionCategoryHeadingItem({
-							id: group.category,
-							title: group.title,
-							className: categoryClassname,
-						}),
-					);
-				}
+				items.push(
+					new CategoryHeadingItem({
+						id: group.category,
+						title: group.title,
+						className: categoryClassname,
+					}),
+				);
 
 				let remainingEmojis = group.emojis;
 				while (remainingEmojis.length > 0) {
 					const rowEmojis = remainingEmojis.slice(0, sizes.emojiPerRow);
 					remainingEmojis = remainingEmojis.slice(sizes.emojiPerRow);
 
-					if (fg('platform_editor_css_migrate_emoji')) {
-						items.push(
-							new CompiledEmojisRowItem({
-								category: group.category,
-								emojis: rowEmojis,
-								title: group.title,
-								showDelete: group.title === userCustomTitle,
-								onSelected: onEmojiSelected,
-								onDelete: onEmojiDelete,
-								onMouseMove: onEmojiActive,
-								onFocus: onEmojiActive,
-							}),
-						);
-					} else {
-						items.push(
-							new EmotionEmojisRowItem({
-								category: group.category,
-								emojis: rowEmojis,
-								title: group.title,
-								showDelete: group.title === userCustomTitle,
-								onSelected: onEmojiSelected,
-								onDelete: onEmojiDelete,
-								onMouseMove: onEmojiActive,
-								onFocus: onEmojiActive,
-							}),
-						);
-					}
+					items.push(
+						new EmojisRowItem({
+							category: group.category,
+							emojis: rowEmojis,
+							title: group.title,
+							showDelete: group.title === userCustomTitle,
+							onSelected: onEmojiSelected,
+							onDelete: onEmojiDelete,
+							onMouseMove: onEmojiActive,
+							onFocus: onEmojiActive,
+						}),
+					);
 				}
 
 				return items;
@@ -792,11 +670,7 @@ export const EmojiPickerVirtualListInternalNew = React.forwardRef<PickerListRef,
 			categoryTracker.reset();
 
 			if (loading) {
-				if (fg('platform_editor_css_migrate_emoji')) {
-					items.push(new CompiledLoadingItem());
-				} else {
-					items.push(new EmotionLoadingItem());
-				}
+				items.push(new LoadingItem());
 			} else {
 				if (query) {
 					const search = CategoryDescriptionMap.SEARCH;
@@ -842,18 +716,10 @@ export const EmojiPickerVirtualListInternalNew = React.forwardRef<PickerListRef,
 			row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>,
 		) => {
 			let category: CategoryGroupKey | null = null;
-			if (fg('platform_editor_css_migrate_emoji')) {
-				if (row instanceof CompiledCategoryHeadingItem) {
-					category = row.props.id;
-				} else if (row instanceof CompiledEmojisRowItem) {
-					category = row.props.category;
-				}
-			} else {
-				if (row instanceof EmotionCategoryHeadingItem) {
-					category = row.props.id;
-				} else if (row instanceof EmotionEmojisRowItem) {
-					category = row.props.category;
-				}
+			if (row instanceof CategoryHeadingItem) {
+				category = row.props.id;
+			} else if (row instanceof EmojisRowItem) {
+				category = row.props.category;
 			}
 			// your uploads is rendered, take it as upload category, so could be highlighted in category selector
 			if (category === yourUploadsCategory) {
@@ -886,18 +752,10 @@ export const EmojiPickerVirtualListInternalNew = React.forwardRef<PickerListRef,
 			let columnIndex = -1;
 			// for most of cases, it'd be in first emoji row, so should be quite fast to find in real world
 			let rowIndex = virtualItems.findIndex((rowItem) => {
-				if (fg('platform_editor_css_migrate_emoji')) {
-					if (rowItem instanceof CompiledEmojisRowItem) {
-						// find uploaded emoji in each emoji row
-						columnIndex = rowItem.props.emojis.findIndex((emoji) => emoji.id === emojiId);
-						return columnIndex !== -1;
-					}
-				} else {
-					if (rowItem instanceof EmotionEmojisRowItem) {
-						// find uploaded emoji in each emoji row
-						columnIndex = rowItem.props.emojis.findIndex((emoji) => emoji.id === emojiId);
-						return columnIndex !== -1;
-					}
+				if (rowItem instanceof EmojisRowItem) {
+					// find uploaded emoji in each emoji row
+					columnIndex = rowItem.props.emojis.findIndex((emoji) => emoji.id === emojiId);
+					return columnIndex !== -1;
 				}
 				return false;
 			});

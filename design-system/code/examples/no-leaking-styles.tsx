@@ -12,20 +12,21 @@ const exampleCodeBlock = `/**
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled from '@emotion/styled';
-import { jsx } from '@emotion/react';
-import { N800 } from '@atlaskit/theme/colors';
+import { cssMap, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
-// TODO refactor
-const Content = styled.div\`
-  color: \${N800};
-  margin-top: 8px !important;
-\`;
+const styles = cssMap({
+	root: {
+		color: token('color.text'),
+  	marginTop: '8px !important',
+		backgroundColor: token('color.background.accent.green.subtle'),
+	}
+});
 
 class HelloMessage extends React.Component {
   render() {
     return (
-      <Content css={{ background: "green" }}>Hello {this.props.name}</Content>
+      <div css={styles.root}>Hello {this.props.name}</div>
     );
   }
 }

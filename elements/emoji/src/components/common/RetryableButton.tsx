@@ -3,13 +3,18 @@
  * @jsx jsx
  */
 import { FormattedMessage } from 'react-intl-next';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import AkButton from '@atlaskit/button/new';
 import Spinner from '@atlaskit/spinner';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { messages } from '../i18n';
-import { buttonSpinner } from './styles';
+
+const buttonSpinner = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginRight: '10px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginLeft: '10px',
+});
 
 export interface Props {
 	label: string;
@@ -26,9 +31,8 @@ export const uploadEmojiButtonTestId = 'upload-emoji-button';
 
 const LoadingSpinner = () => {
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={buttonSpinner}>
-			<Spinner interactionName="emoji-retry-button-spinner" />
+			<Spinner />
 		</span>
 	);
 };

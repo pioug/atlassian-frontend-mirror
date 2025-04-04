@@ -2,8 +2,9 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { token } from '@atlaskit/tokens';
+
 import Code from '../../code';
-import { getColorPalette } from '../../internal/theme/get-theme';
 
 const jsCode = `const map = new Map({ key: 'value' })`;
 const jsTestId = 'jstestid';
@@ -41,7 +42,7 @@ describe('Code', () => {
 	it.skip('should have the correct bg color', () => {
 		render(<Code testId="bg">{javaCode}</Code>);
 		expect(screen.getByTestId('bg')).toHaveStyle(
-			`background-color: ${getColorPalette().backgroundColor};`,
+			`background-color: ${token('color.background.neutral')};`,
 		);
 	});
 

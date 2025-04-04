@@ -2,9 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useState, useRef, memo, useLayoutEffect } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { Fragment, useState, useRef, memo, useLayoutEffect, useCallback } from 'react';
+import { css, cssMap, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N30A } from '@atlaskit/theme/colors';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import type {
 	EmojiDescription,
@@ -24,17 +25,44 @@ import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/core/migration/add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
-import {
-	addCustomEmoji,
-	addCustomEmojiButton,
-	emojiActionsWrapper,
-	emojiPickerAddEmoji,
-	emojiToneSelectorContainer,
-} from './styles';
-import { emojiActionsContainerWithBottomShadow, emojiPickerFooter } from '../picker/styles';
+import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';
-import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives/compiled';
+
+const styles = cssMap({
+	icon: { marginLeft: token('space.negative.050'), marginRight: token('space.negative.025') },
+});
+
+const addCustomEmoji = css({
+	alignSelf: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginLeft: '10px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginBottom: '10px',
+});
+
+const addCustomEmojiButton = css({
+	maxWidth: '285px',
+});
+
+const emojiActionsWrapper = css({
+	display: 'flex',
+	justifyContent: 'flex-end',
+	alignItems: 'center',
+});
+
+const emojiToneSelectorContainer = css({
+	flex: 1,
+	display: 'flex',
+	justifyContent: 'flex-end',
+	padding: '11px 10px 12px 0',
+});
+
+const previewFooter = css({
+	flex: '0 0 auto',
+	borderBottom: `2px solid ${token('color.border', N30A)}`,
+	boxShadow: `0px 1px 1px 0px ${token('color.border', 'rgba(0, 0, 0, 0.1)')}`,
+});
 
 export interface Props {
 	selectedTone?: ToneSelection;
@@ -60,8 +88,6 @@ export interface Props {
 export const emojiActionsTestId = 'emoji-actions';
 export const uploadEmojiTestId = 'upload-emoji';
 
-const iconStyles = xcss({ marginLeft: 'space.negative.050', marginRight: 'space.negative.025' });
-
 // Generic Type for the wrapped functional component
 type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 
@@ -72,14 +98,13 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 	return (
 		<Fragment>
 			{uploadEnabled && (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
 					<FormattedMessage {...messages.addCustomEmojiLabel}>
 						{(label) => (
 							<AkButton
 								onClick={onOpenUpload}
 								iconBefore={
-									<Box xcss={iconStyles}>
+									<Box xcss={styles.icon}>
 										<AddIcon
 											LEGACY_margin={`0 ${token('space.025')} 0 ${token('space.050')}`}
 											color="currentColor"
@@ -90,7 +115,6 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 								}
 								appearance="subtle"
 								// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={addCustomEmojiButton}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={emojiPickerAddEmoji}
@@ -128,17 +152,20 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		};
 	}, [focusTonePreviewButton, showToneSelector]);
 
-	const onToneCloseHandler = () => {
+	const onToneCloseHandler = useCallback(() => {
 		const { onToneClose } = props;
 		onToneClose();
 		setFocusTonePreviewButton(true);
-	};
+	}, [props]);
 
-	const onToneSelectedHandler = (toneValue: ToneValueType) => {
-		const { onToneSelected } = props;
-		onToneSelected(toneValue);
-		setFocusTonePreviewButton(true);
-	};
+	const onToneSelectedHandler = useCallback(
+		(toneValue: ToneValueType) => {
+			const { onToneSelected } = props;
+			onToneSelected(toneValue);
+			setFocusTonePreviewButton(true);
+		},
+		[props],
+	);
 
 	if (!toneEmoji) {
 		return null;
@@ -150,7 +177,6 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 	}
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={emojiToneSelectorContainer}>
 			<ToneSelector
 				emoji={toneEmoji}
@@ -194,30 +220,30 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 	} = props;
 	const [showToneSelector, setShowToneSelector] = useState(false);
 
-	const previewFooterClassnames = [emojiPickerFooter, emojiActionsContainerWithBottomShadow];
+	const onToneOpenHandler = useCallback(() => setShowToneSelector(true), []);
 
-	const onToneOpenHandler = () => setShowToneSelector(true);
+	const onToneCloseHandler = useCallback(() => setShowToneSelector(false), []);
 
-	const onToneCloseHandler = () => setShowToneSelector(false);
+	const onToneSelectedHandler = useCallback(
+		(toneValue: ToneValueType) => {
+			setShowToneSelector(false);
+			if (onToneSelected) {
+				onToneSelected(toneValue);
+			}
+		},
+		[onToneSelected],
+	);
 
-	const onToneSelectedHandler = (toneValue: ToneValueType) => {
-		setShowToneSelector(false);
-		if (onToneSelected) {
-			onToneSelected(toneValue);
-		}
-	};
-
-	const onMouseLeaveHandler = () => {
+	const onMouseLeaveHandler = useCallback(() => {
 		if (showToneSelector && onToneSelectorCancelled) {
 			onToneSelectorCancelled();
 		}
 		setShowToneSelector(false);
-	};
+	}, [showToneSelector, onToneSelectorCancelled]);
 
 	if (uploading) {
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<div css={previewFooterClassnames}>
+			<div css={previewFooter}>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
 					onUploadEmoji={onUploadEmoji}
@@ -231,8 +257,7 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 
 	if (emojiToDelete) {
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<div css={previewFooterClassnames}>
+			<div css={previewFooter}>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
 					onDeleteEmoji={onDeleteEmoji}
@@ -244,13 +269,7 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-		<div
-			data-testid={emojiActionsTestId}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={previewFooterClassnames}
-			onMouseLeave={onMouseLeaveHandler}
-		>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+		<div data-testid={emojiActionsTestId} css={previewFooter} onMouseLeave={onMouseLeaveHandler}>
 			<div css={emojiActionsWrapper}>
 				<EmojiPickerListSearch
 					onChange={onChange}

@@ -121,6 +121,14 @@ const isDragLayoutColumnIntoTable = ($from: ResolvedPos, $to: ResolvedPos) => {
 	);
 };
 
+const isDragLayoutColumnIntoPanel = ($from: ResolvedPos, $to: ResolvedPos) => {
+	return (
+		$from.nodeAfter?.type.name === 'layoutColumn' &&
+		$from.parent.type.name === 'layoutSection' &&
+		$to.parent.type.name === 'panel'
+	);
+};
+
 /**
  *
  * @returns the start position of a node if the node can be moved, otherwise -1
@@ -472,11 +480,16 @@ export const moveNode =
 			const sourceNode = $handlePos.nodeAfter;
 			const dragLayoutColumnToTopLevel = isDragLayoutColumnToTopLevel($handlePos, $to);
 			const dragLayoutColumnIntoTable = isDragLayoutColumnIntoTable($handlePos, $to);
+			const dragLayoutColumnIntoPanel = isDragLayoutColumnIntoPanel($handlePos, $to);
 
 			//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
 			// Move a layout column to top level
 			// Move a layout column into a table cell, only moves the content into the cell
-			if (sourceNode && (dragLayoutColumnToTopLevel || dragLayoutColumnIntoTable)) {
+			// Move a layout column into a panel, only moves the content into the panel
+			if (
+				sourceNode &&
+				(dragLayoutColumnToTopLevel || dragLayoutColumnIntoTable || dragLayoutColumnIntoPanel)
+			) {
 				// need update after we support single column layout.
 				const layoutColumnContent = sourceNode.content;
 

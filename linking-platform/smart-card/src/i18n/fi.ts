@@ -116,6 +116,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Päivitetty {context}',
   'fabric.linking.modified_on_relative': 'Päivitetty {context}',
   'fabric.linking.more_actions': 'Lisää toimintoja',
+  'fabric.linking.more_information_about_this_work_item': 'Lisätietoja tästä työtehtävästä',
   'fabric.linking.no_access_title': 'Näytä tämä sisältö liittymällä {product}-palveluun',
   'fabric.linking.not_found_description':
     'Sivua ei ole olemassa, tai sitä on saatettu muuttaa tämän linkin lisäämisen jälkeen.',

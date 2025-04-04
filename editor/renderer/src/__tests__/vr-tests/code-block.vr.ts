@@ -29,8 +29,10 @@ snapshot(CodeBlockRendererWrap, {
 
 snapshot(CodeBlockRendererOverflow, {
 	description: 'should render overflow as expected',
+	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
 });
 
 snapshot(CodeBlockWithReactLooselyLazy, {
 	description: 'should render with react loosely lazy',
+	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
 });

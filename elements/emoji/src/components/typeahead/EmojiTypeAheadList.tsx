@@ -4,8 +4,7 @@ import { toEmojiId } from '../../util/type-helpers';
 import type { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';
 import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
-import { default as EmotionScrollable } from '../common/Scrollable';
-import { default as CompiledScrollable } from '../compiled/common/Scrollable';
+import Scrollable from '../common/Scrollable';
 import EmojiItem from './EmojiTypeAheadItem';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -50,9 +49,7 @@ interface ItemReferences {
 
 export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 	private lastMousePosition?: Position;
-	// cleanup `platform_editor_css_migrate_emoji` - rename compiledScrollable back to scrollable and delete emotionScrollable
-	private compiledScrollable?: CompiledScrollable | null;
-	private emotionScrollable?: EmotionScrollable | null;
+	private scrollable?: Scrollable | null;
 	private items!: ItemReferences;
 
 	static defaultProps = {
@@ -149,14 +146,9 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 	// Internal
 	private revealItem(key: string) {
 		const item = this.items[key];
-		if (fg('platform_editor_css_migrate_emoji')) {
-			if (item && this.compiledScrollable) {
-				this.compiledScrollable.reveal(item);
-			}
-		} else {
-			if (item && this.emotionScrollable) {
-				this.emotionScrollable.reveal(item);
-			}
+
+		if (item && this.scrollable) {
+			this.scrollable.reveal(item);
 		}
 	}
 
@@ -262,30 +254,14 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 
 		return (
 			<EmojiTypeAheadListContainer hasEmoji={hasEmoji} loading={loading}>
-				{fg('platform_editor_css_migrate_emoji') ? (
-					<CompiledScrollable
-						ref={this.handleCompiledScrollableRef}
-						maxHeight={`${emojiTypeAheadMaxHeight}px`}
-					>
-						{listBody}
-					</CompiledScrollable>
-				) : (
-					<EmotionScrollable
-						ref={this.handleEmotionScrollableRef}
-						maxHeight={`${emojiTypeAheadMaxHeight}px`}
-					>
-						{listBody}
-					</EmotionScrollable>
-				)}
+				<Scrollable ref={this.handleScrollableRef} maxHeight={`${emojiTypeAheadMaxHeight}px`}>
+					{listBody}
+				</Scrollable>
 			</EmojiTypeAheadListContainer>
 		);
 	}
 
-	private handleCompiledScrollableRef = (ref: CompiledScrollable | null) => {
-		this.compiledScrollable = ref;
-	};
-
-	private handleEmotionScrollableRef = (ref: EmotionScrollable | null) => {
-		this.emotionScrollable = ref;
+	private handleScrollableRef = (ref: Scrollable | null) => {
+		this.scrollable = ref;
 	};
 }

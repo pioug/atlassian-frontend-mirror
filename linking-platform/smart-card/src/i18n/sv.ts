@@ -114,6 +114,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Uppdaterades {context}',
   'fabric.linking.modified_on_relative': 'Uppdaterades {context}',
   'fabric.linking.more_actions': 'Fler åtgärder',
+  'fabric.linking.more_information_about_this_work_item': 'Mer information om arbetsuppgiften',
   'fabric.linking.no_access_title': 'Anslut till {product} för att visa innehållet',
   'fabric.linking.not_found_description':
     'Sidan finns inte eller så har den ändrats efter att den här länken lades till.',

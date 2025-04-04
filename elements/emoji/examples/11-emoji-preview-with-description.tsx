@@ -3,10 +3,7 @@ import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';
 
 import { emojiPickerWidth } from '../src/util/constants';
-import { EmojiPreviewComponent as EmotionEmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
-import { EmojiPreviewComponent as CompiledEmojiPreviewComponent } from '../src/components/compiled/common/EmojiPreviewComponent';
-
-import { fg } from '@atlaskit/platform-feature-flags';
+import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
 
 const emoji = {
 	id: '118608',
@@ -37,14 +34,7 @@ export default function Example() {
 	return (
 		<IntlProvider locale="en">
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={borderedStyle}>
-				{emoji &&
-					(fg('platform_editor_css_migrate_emoji') ? (
-						<CompiledEmojiPreviewComponent emoji={emoji} />
-					) : (
-						<EmotionEmojiPreviewComponent emoji={emoji} />
-					))}
-			</div>
+			<div style={borderedStyle}>{emoji && <EmojiPreviewComponent emoji={emoji} />}</div>
 		</IntlProvider>
 	);
 }

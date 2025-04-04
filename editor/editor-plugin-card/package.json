@@ -137,9 +137,6 @@
 		"platform-editor-plugin-card-icon-migration": {
 			"type": "boolean"
 		},
-		"platform_editor_lego__inline_node_virtualization": {
-			"type": "boolean"
-		},
 		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},

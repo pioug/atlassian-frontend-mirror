@@ -114,6 +114,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Updated on {context}',
   'fabric.linking.modified_on_relative': 'Updated {context}',
   'fabric.linking.more_actions': 'More actions',
+  'fabric.linking.more_information_about_this_work_item': 'More information about this work item',
   'fabric.linking.no_access_title': 'Join {product} to view this content',
   'fabric.linking.not_found_description': "The page doesn't exist or it may have changed after this link was added.",
   'fabric.linking.not_found_title': "We can't show you this {product} page",

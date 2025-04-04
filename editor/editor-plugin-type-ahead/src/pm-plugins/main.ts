@@ -75,6 +75,7 @@ export function createPlugin({
 					selectedIndex: -1,
 					stats: null,
 					inputMethod: null,
+					removePrefixTriggerOnCancel: undefined,
 				};
 			},
 

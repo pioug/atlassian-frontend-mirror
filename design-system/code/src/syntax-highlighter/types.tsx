@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type SerializedStyles } from '@emotion/react';
+import type { XCSSAllProperties, XCSSAllPseudos, XCSSProp } from '@compiled/react';
 import { type AST, type RefractorNode } from 'refractor';
 export type { AST, RefractorNode } from 'refractor';
 
@@ -75,9 +74,9 @@ export interface SyntaxHighlighterProps {
 	 */
 	shouldWrapLongLines?: boolean;
 	/**
-	 * Serialized styles returned from Emotion's `css()` function.
+	 * Serialized styles returned from Compiled's `css()` function.
 	 */
-	styles?: SerializedStyles;
+	styles?: XCSSProp<XCSSAllProperties, XCSSAllPseudos>;
 	/**
 	 * `codeBidiWarnings` is set via a prop on @atlaskit/code/CodeBlock.
 	 *

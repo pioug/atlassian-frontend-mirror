@@ -414,6 +414,31 @@ exports[`Builders should be able to generate correct ADF for example #8 1`] = `
       "content": [
         {
           "attrs": {
+            "type": "external",
+            "url": "data:image/svg+xml;base64,sampleBase64Image",
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaSingle",
+    },
+  ],
+  "type": "doc",
+  "version": 1,
+}
+`;
+
+
+exports[`Builders should be able to generate correct ADF for example #9 1`] = `
+{
+  "content": [
+    {
+      "attrs": {
+        "layout": "center",
+      },
+      "content": [
+        {
+          "attrs": {
             "collection": "SampleCollection",
             "id": "1234",
             "type": "file",
@@ -436,3 +461,4 @@ exports[`Builders should be able to generate correct ADF for example #8 1`] = `
   "version": 1,
 }
 `;
+

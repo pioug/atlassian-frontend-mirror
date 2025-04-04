@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Code } from '@atlaskit/code';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 const CodeDefaultExample = () => {
 	return (

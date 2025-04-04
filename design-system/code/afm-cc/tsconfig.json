@@ -21,7 +21,7 @@
             "path": "../../../monorepo-tooling/codemod-utils/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../theme/afm-cc/tsconfig.json"
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../tokens/afm-cc/tsconfig.json"

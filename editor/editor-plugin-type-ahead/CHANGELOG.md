@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.3.1
+
+### Patch Changes
+
+- [#135114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135114)
+  [`10c7a0e5424f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10c7a0e5424f9) -
+  Remove the typeahead trigger when a users actions closes the panel, under
+  `platform_editor_controls` experiment and `platform_editor_controls_patch_1` feature gate
+
 ## 2.3.0
 
 ### Minor Changes

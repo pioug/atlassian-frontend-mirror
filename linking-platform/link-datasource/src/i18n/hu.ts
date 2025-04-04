@@ -150,5 +150,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {tétel} other {tétel}}',
   'linkDataSource.table-footer.loading': 'Betöltés…',
   'linkDataSource.table-footer.power-by-jsm': 'Az Eszközök biztosítja a Jira Service Managementben',
+  'linkDataSource.table-footer.powered-by-assets': 'Az Eszközök működteti',
   'linkDataSource.table-footer.refresh': 'Frissítés',
 };

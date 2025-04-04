@@ -3,10 +3,22 @@
  * @jsx jsx
  */
 import React, { Fragment } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N400 } from '@atlaskit/theme/colors';
 import { formatShortcut, type Keymap } from '../../util/keymaps';
-import { tooltipShortcutStyle } from './styles';
+
+const tooltipShortcutStyle = css({
+	borderRadius: '3px',
+	backgroundColor: token('color.background.inverse.subtle', N400),
+	paddingTop: 0,
+	paddingBottom: 0,
+	paddingLeft: token('space.025', '2px'),
+	paddingRight: token('space.025', '2px'),
+	/* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
+	/* stylelint-disable-next-line */
+	label: 'tooltip-shortcut',
+});
 
 export const ToolTipContentWithKeymap = React.memo(
 	({
@@ -23,7 +35,6 @@ export const ToolTipContentWithKeymap = React.memo(
 			<Fragment>
 				{description}
 				{shortcut && description && '\u00A0'}
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				{shortcut && <span css={tooltipShortcutStyle}>{shortcut}</span>}
 			</Fragment>
 		) : null;

@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.5.0
+
+### Minor Changes
+
+- [#136047](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136047)
+  [`8fea349c76752`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fea349c76752) -
+  [ux] Icon changes for Ops Guide and RCA agent
+
 ## 2.4.0
 
 ### Minor Changes

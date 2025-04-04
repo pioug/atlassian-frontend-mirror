@@ -59,6 +59,14 @@ snapshot(TableRendererComplexNodes, {
 	featureFlags: {
 		'platform-fix-table-ssr-resizing': [true, false],
 	},
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(TableRendererBackgroundColor, {

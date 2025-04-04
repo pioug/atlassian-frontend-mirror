@@ -191,6 +191,26 @@ type GeneratedAvatarProps = {
 const outOfTheBoxAgentAvatar: {
 	[key: string]: { getRender: (size: SizeType) => React.ReactNode; color: Color };
 } = {
+	autodev_code_documentation_writer_agent: {
+		getRender: (size: SizeType) => (
+			<SocialMediaScribeAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
+	autodev_feature_flag_cleaner_agent: {
+		getRender: (size: SizeType) => (
+			<FeatureFlagAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
 	decision_director_agent: {
 		getRender: (size: SizeType) => (
 			<DecisionDirectorAvatar
@@ -231,15 +251,15 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: greenColor,
 	},
-	it_ops_agent: {
+	ops_guide_agent: {
 		getRender: (size: SizeType) => (
 			<OpsAgentAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={purpleColor.primary}
-				secondaryColor={purpleColor.secondary}
+				primaryColor={yellowColor.primary}
+				secondaryColor={yellowColor.secondary}
 			/>
 		),
-		color: purpleColor,
+		color: yellowColor,
 	},
 	jira_workflow_wizard_agent: {
 		getRender: (size: SizeType) => (
@@ -250,6 +270,16 @@ const outOfTheBoxAgentAvatar: {
 			/>
 		),
 		color: blueColor,
+	},
+	itops_rca_agent: {
+		getRender: (size: SizeType) => (
+			<AutoReviewAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={yellowColor.primary}
+				secondaryColor={yellowColor.secondary}
+			/>
+		),
+		color: yellowColor,
 	},
 };
 

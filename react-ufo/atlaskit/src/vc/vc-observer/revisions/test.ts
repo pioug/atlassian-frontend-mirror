@@ -5,10 +5,37 @@ describe('classifier starts', () => {
 		expect(
 			revFY25_02Classifier.classifyUpdate({
 				element: document.createElement('a'),
-				type: 'dom',
+				type: 'html',
 				tags: ['not-visible'],
-				ignoreReason: '',
+				ignoreReason: 'not-visible',
 			}),
 		).toBeFalsy();
+
+		expect(
+			revFY25_02Classifier.classifyUpdate({
+				element: document.createElement('a'),
+				type: 'html',
+				tags: [],
+				ignoreReason: 'image',
+			}),
+		).toBeFalsy();
+
+		expect(
+			revFY25_02Classifier.classifyUpdate({
+				element: document.createElement('a'),
+				type: 'html',
+				tags: [],
+				ignoreReason: 'ssr-hydration',
+			}),
+		).toBeFalsy();
+
+		expect(
+			revFY25_02Classifier.classifyUpdate({
+				element: document.createElement('a'),
+				type: 'html',
+				tags: [],
+				ignoreReason: '',
+			}),
+		).toBeTruthy();
 	});
 });

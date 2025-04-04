@@ -121,11 +121,11 @@ export const test = base.extend<{
 			const intersectionObserver = new IntersectionObserver((entries) => {
 				for (const entry of entries) {
 					const { target } = entry;
+					intersectionObserver.unobserve(target);
 
 					const testId = target.getAttribute('data-testid');
 					if (testId) {
 						(window as WindowWithReactUFOTestGlobals).__sectionVisibleAt.set(testId, entry.time);
-						intersectionObserver.unobserve(target);
 					}
 				}
 			});

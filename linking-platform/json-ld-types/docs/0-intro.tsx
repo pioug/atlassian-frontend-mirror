@@ -7,7 +7,7 @@ export default md`
 	## Usage
 
 	 ${code`
-import { JsonLd } from '@atlassian/json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 
 const file: JsonLd.Object<JsonLd.Meta.Granted, JsonLd.Data.TextDocument> = {
 	meta: {

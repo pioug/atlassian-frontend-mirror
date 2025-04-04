@@ -149,5 +149,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {element} other {elementer}}',
   'linkDataSource.table-footer.loading': 'Laster inn …',
   'linkDataSource.table-footer.power-by-jsm': 'Levert av Ressurser i Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Levert av Ressurser',
   'linkDataSource.table-footer.refresh': 'Oppdater',
 };

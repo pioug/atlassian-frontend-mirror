@@ -1,5 +1,21 @@
 # @atlaskit/emoji
 
+## 69.0.9
+
+### Patch Changes
+
+- [#137194](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137194)
+  [`59fa34f3e40f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59fa34f3e40f8) -
+  Cleans up compiled css FG in emoji picker components
+
+## 69.0.8
+
+### Patch Changes
+
+- [#135879](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135879)
+  [`2c8c823573d71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c8c823573d71) -
+  Cleans up compiled css FG in emoji common components
+
 ## 69.0.7
 
 ### Patch Changes

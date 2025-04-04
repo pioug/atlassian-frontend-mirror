@@ -119,6 +119,7 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aktualisiert am: {context}',
   'fabric.linking.modified_on_relative': 'Aktualisiert: {context}',
   'fabric.linking.more_actions': 'Weitere Aktionen',
+  'fabric.linking.more_information_about_this_work_item': 'Weitere Informationen zu diesem Vorgang',
   'fabric.linking.no_access_title': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
   'fabric.linking.not_found_description':
     'Die Seite existiert nicht oder sie hat sich möglicherweise geändert, nachdem dieser Link hinzugefügt wurde.',

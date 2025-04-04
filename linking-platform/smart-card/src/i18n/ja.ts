@@ -106,7 +106,7 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
-  'fabric.linking.join_to_view-issue-term-refresh': '{context}に参加してこの作業項目を見る',
+  'fabric.linking.join_to_view-issue-term-refresh': '{context} に参加してこの作業項目を見る',
   'fabric.linking.learn_more_about_connecting_account': 'アカウントをアトラシアン製品に接続する方法をご確認ください。',
   'fabric.linking.learn_more_about_smart_links': 'スマート リンクの詳細',
   'fabric.linking.link_safety_warning_message':
@@ -115,6 +115,7 @@ export default {
   'fabric.linking.modified_on_absolute': '更新日: {context}',
   'fabric.linking.modified_on_relative': '更新日: {context}',
   'fabric.linking.more_actions': 'その他のアクション',
+  'fabric.linking.more_information_about_this_work_item': 'この作業項目に関する詳細情報',
   'fabric.linking.no_access_title': '{product} に参加してこのコンテンツを閲覧する',
   'fabric.linking.not_found_description': 'ページが存在しないか、このリンクの追加後に変更された可能性があります。',
   'fabric.linking.not_found_title': 'この {product} のページは表示できません',
@@ -160,7 +161,7 @@ export default {
   'fabric.linking.request_access_pending_title': '{product} へのアクセス権は保留中です',
   'fabric.linking.request_access_to_view': 'この課題を表示するには、{context}へのアクセスをリクエストします。',
   'fabric.linking.request_access_to_view-issue-term-refresh':
-    'この作業項目を表示するには、{context}へのアクセスをリクエストします。',
+    'この作業項目を表示するには、{context} へのアクセスをリクエストします。',
   'fabric.linking.request_denied': 'アクセス リクエストが拒否されました。',
   'fabric.linking.request_denied_description':
     '{hostname} の {product} ページを閲覧するリクエストが管理者によって承認されませんでした。',

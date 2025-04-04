@@ -9,7 +9,7 @@ Detailed docs and example usage can be found [here](https://atlaskit.atlassian.c
 ### Usage
 
 ```typescript
-import { JsonLd } from '@atlassian/json-ld-types';
+import { JsonLd } from '@atlaskit/json-ld-types';
 
 const file: JsonLd.Object<JsonLd.Meta.Granted, JsonLd.Data.TextDocument> = {
     meta: {

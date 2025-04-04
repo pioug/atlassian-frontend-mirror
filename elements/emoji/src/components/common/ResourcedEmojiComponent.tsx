@@ -3,16 +3,11 @@ import type { EmojiProvider } from '../../api/EmojiResource';
 import { defaultEmojiHeight } from '../../util/constants';
 import { isImageRepresentation, isMediaRepresentation, isPromise } from '../../util/type-helpers';
 import { type EmojiId, type OptionalEmojiDescription, UfoEmojiTimings } from '../../types';
-import { default as EmotionEmoji } from './Emoji';
-import { default as CompiledEmoji } from '../compiled/common/Emoji';
-import { default as EmotionEmojiPlaceholder } from './EmojiPlaceholder';
-import { default as CompiledEmojiPlaceholder } from '../compiled/common/EmojiPlaceholder';
+import Emoji from './Emoji';
+import EmojiPlaceholder from './EmojiPlaceholder';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
-
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export interface BaseResourcedEmojiProps {
 	/**
 	 * Emoji to display
@@ -234,29 +229,20 @@ export const ResourcedEmojiComponent = (props: Props) => {
 				data-emoji-short-name={shortName}
 				data-emoji-text={fallback || shortName}
 			>
-				{emojiRenderState === ResourcedEmojiComponentRenderStatesEnum.INITIAL &&
-					(fg('platform_editor_css_migrate_emoji') ? (
-						<CompiledEmojiPlaceholder
-							shortName={shortName}
-							showTooltip={showTooltip}
-							size={fitToHeight || defaultEmojiHeight}
-							loading
-						/>
-					) : (
-						<EmotionEmojiPlaceholder
-							shortName={shortName}
-							showTooltip={showTooltip}
-							size={fitToHeight || defaultEmojiHeight}
-							loading
-						/>
-					))}
+				{emojiRenderState === ResourcedEmojiComponentRenderStatesEnum.INITIAL && (
+					<EmojiPlaceholder
+						shortName={shortName}
+						showTooltip={showTooltip}
+						size={fitToHeight || defaultEmojiHeight}
+						loading
+					/>
+				)}
 				{emojiRenderState === ResourcedEmojiComponentRenderStatesEnum.FALLBACK && (
 					<>{customFallback || fallback || shortName}</>
 				)}
 				{emojiRenderState === ResourcedEmojiComponentRenderStatesEnum.EMOJI &&
-					optimisticEmojiDescription &&
-					(fg('platform_editor_css_migrate_emoji') ? (
-						<CompiledEmoji
+					optimisticEmojiDescription && (
+						<Emoji
 							emoji={optimisticEmojiDescription}
 							onLoadError={handleOnLoadError}
 							showTooltip={showTooltip}
@@ -264,16 +250,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 							autoWidth={!!emoji ? false : true}
 							editorEmoji={editorEmoji}
 						/>
-					) : (
-						<EmotionEmoji
-							emoji={optimisticEmojiDescription}
-							onLoadError={handleOnLoadError}
-							showTooltip={showTooltip}
-							fitToHeight={fitToHeight}
-							autoWidth={!!emoji ? false : true}
-							editorEmoji={editorEmoji}
-						/>
-					))}
+					)}
 			</span>
 		</EmojiCommonProvider>
 	);

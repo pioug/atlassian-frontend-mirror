@@ -746,17 +746,17 @@ exports[`RendererStyleContainer with legacy emotion styles should have same rend
 
 .emotion-0 .code {
   --ds--code--bg-color: var(--ds-background-neutral, #091E420F);
-  font-size: 0.875em;
-  font-family: var(--ds-font-family-code);
-  font-weight: var(--ds-font-weight-regular, 400);
-  background-color: var(--ds--code--bg-color,var(--ds-background-neutral, #F4F5F7));
-  color: var(--ds-text, #172B4D);
-  border-style: none;
-  border-radius: var(--ds-border-radius, 3px);
   display: inline;
   padding: 2px 0.5ch;
+  background-color: var(--ds--code--bg-color,var(--ds-background-neutral, #091E420F));
+  border-radius: var(--ds-border-radius, 3px);
+  border-style: none;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+  color: var(--ds-text, #172B4D);
+  font-family: var(--ds-font-family-code, ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace);
+  font-size: 0.875em;
+  font-weight: var(--ds-font-weight-regular, 400);
   overflow: auto;
   overflow-wrap: break-word;
   white-space: pre-wrap;

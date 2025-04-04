@@ -153,5 +153,6 @@ export default {
     '{itemCount, plural, one {element} few {elementy} many {elementów} other {elementu}}',
   'linkDataSource.table-footer.loading': 'Ładowanie…',
   'linkDataSource.table-footer.power-by-jsm': 'Obsługiwane przez Zasoby w Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Obsługiwane przez Zasoby',
   'linkDataSource.table-footer.refresh': 'Odśwież',
 };

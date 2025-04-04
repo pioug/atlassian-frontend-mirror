@@ -40,16 +40,18 @@ import {
 	isTypeAheadOpen,
 } from './pm-plugins/utils';
 import { type TypeAheadPlugin } from './typeAheadPluginType';
-import type { PopupMountPointReference, TypeAheadHandler, TypeAheadInputMethod } from './types';
+import type { OpenTypeAheadProps, PopupMountPointReference, TypeAheadHandler } from './types';
 import { ContentComponent } from './ui/ContentComponent';
 
 const createOpenAtTransaction =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(props: OpenTypeAheadProps) =>
 	(tr: Transaction): boolean => {
-		const { triggerHandler, inputMethod, query } = props;
+		const { triggerHandler, inputMethod, query, removePrefixTriggerOnCancel } = props;
 
-		openTypeAheadAtCursor({ triggerHandler, inputMethod, query })({ tr });
+		openTypeAheadAtCursor({ triggerHandler, inputMethod, query, removePrefixTriggerOnCancel })({
+			tr,
+		});
 
 		editorAnalyticsAPI?.attachAnalyticsEvent({
 			action: ACTION.INVOKED,
@@ -63,11 +65,7 @@ const createOpenAtTransaction =
 	};
 
 type EditorViewRef = Record<'current', EditorView | null>;
-type OpenTypeAheadProps = {
-	triggerHandler: TypeAheadHandler;
-	inputMethod: TypeAheadInputMethod;
-	query?: string;
-};
+
 const createOpenTypeAhead =
 	(editorViewRef: EditorViewRef, editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(props: OpenTypeAheadProps): boolean => {

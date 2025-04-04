@@ -34,7 +34,7 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"team": "Web Platform: Feedback Collector",
+		"team": "Belugas: Feedback Collector",
 		"website": {
 			"name": "Feedback Collector"
 		},

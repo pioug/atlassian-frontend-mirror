@@ -139,9 +139,8 @@ function ContentComponent({
 	);
 }
 
-const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
+const datePlugin: DatePlugin = ({ config = {}, api }) => ({
 	name: 'date',
-
 	getSharedState(editorState) {
 		if (!editorState) {
 			return {
@@ -171,9 +170,9 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 		return [
 			{
 				name: 'date',
-				plugin: (options) => {
+				plugin: (pmPluginFactoryParams) => {
 					DatePicker.preload();
-					return createDatePlugin(options);
+					return createDatePlugin(pmPluginFactoryParams);
 				},
 			},
 			{
@@ -201,7 +200,7 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
-				weekStartDay={options.weekStartDay}
+				weekStartDay={config.weekStartDay}
 			/>
 		);
 	},

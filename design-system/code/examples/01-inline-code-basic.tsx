@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
@@ -12,32 +12,36 @@ import { token } from '@atlaskit/tokens';
 const jsCode = `const map = new Map({ key: 'value' })`;
 const adg4 = `ADG 4.0`;
 
-const containerStyles = css({
-	display: 'grid',
-	maxWidth: 800,
-	margin: token('space.100', '8px'),
-	alignItems: 'baseline',
-	gap: token('space.100', '8px'),
-	gridTemplateColumns: '100px 1fr',
-});
-
-const noMarginTopStyles = css({
-	marginBlockStart: token('space.0', '0px'),
+const containerStyles = cssMap({
+	root: {
+		display: 'grid',
+		maxWidth: 800,
+		alignItems: 'baseline',
+		gap: token('space.100'),
+		gridTemplateColumns: '100px 1fr',
+		marginBlockEnd: token('space.100'),
+		marginBlockStart: token('space.100'),
+		marginInlineEnd: token('space.100'),
+		marginInlineStart: token('space.100'),
+	},
+	noMarginTopStyles: {
+		marginBlockStart: token('space.0'),
+	},
 });
 
 export default function Component() {
 	return (
-		<div id="inline-examples" css={containerStyles}>
+		<div id="inline-examples" css={containerStyles.root}>
 			<p>h1 w/ code</p>
-			<h1 css={noMarginTopStyles}>
+			<h1 css={containerStyles.noMarginTopStyles}>
 				Code in a heading <Code testId="code-h1">{adg4}</Code>
 			</h1>
 			<p>h2 w/ code</p>
-			<h2 css={noMarginTopStyles}>
+			<h2 css={containerStyles.noMarginTopStyles}>
 				Code in a heading <Code testId="code-h2">{adg4}</Code>
 			</h2>
 			<p>h3 w/ code</p>
-			<h3 css={noMarginTopStyles}>
+			<h3 css={containerStyles.noMarginTopStyles}>
 				Code in a heading <Code testId="code-h3">{adg4}</Code>
 			</h3>
 			<p>p w/ code</p>

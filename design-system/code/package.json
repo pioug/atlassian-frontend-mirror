@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "16.3.0",
+	"version": "17.0.0",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,12 +29,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/codemod-utils": "workspace:^",
-		"@atlaskit/theme": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
+		"@compiled/react": "^0.18.3",
 		"memoize-one": "^6.0.0",
 		"refractor": "^3.6.0"
 	},
@@ -53,9 +53,9 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@compiled/react": "^0.18.3",
 		"@testing-library/react": "^13.4.0",
 		"@types/jscodeshift": "^0.11.0",
 		"@types/refractor": "^3.0.2",

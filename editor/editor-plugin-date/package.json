@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "4.1.6",
+	"version": "4.1.7",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -56,6 +56,7 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
+		"bind-event-listener": "^3.0.0",
 		"date-fns": "^2.17.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-loadable": "^5.1.0"

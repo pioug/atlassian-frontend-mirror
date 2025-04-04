@@ -6,6 +6,14 @@ snapshotInformational(CodeBlockRendererLayout, {
 	description:
 		'should render copy and wrap buttons on hover for a codeblock nested inside a layout',
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshotInformational(CodeBlockRendererQuote, {
@@ -13,10 +21,6 @@ snapshotInformational(CodeBlockRendererQuote, {
 		'should render copy and wrap buttons on hover for a codeblock nested inside a blockquote',
 	states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
 	variants: [
-		{
-			name: 'default',
-			environment: {},
-		},
 		{
 			name: 'light mode',
 			environment: {

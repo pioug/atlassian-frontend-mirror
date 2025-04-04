@@ -148,5 +148,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, one {item} other {items}}',
   'linkDataSource.table-footer.loading': 'Laden...',
   'linkDataSource.table-footer.power-by-jsm': 'Aangestuurd door Assets in Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Aangedreven door Assets',
   'linkDataSource.table-footer.refresh': 'Vernieuwen',
 };

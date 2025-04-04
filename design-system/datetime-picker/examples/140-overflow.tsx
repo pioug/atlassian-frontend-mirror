@@ -1,17 +1,18 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const containerStyles = xcss({
-	maxWidth: '175px',
+const styles = cssMap({
+	containerStyles: { maxWidth: '175px' },
 });
 
 export default () => {
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={styles.containerStyles}>
 			<Heading size="medium">Overflow</Heading>
 			<Label id="date--label" htmlFor="date">
 				DatePicker

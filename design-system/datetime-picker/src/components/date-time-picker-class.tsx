@@ -4,8 +4,7 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { format, isValid, parseISO } from 'date-fns';
 
 import {
@@ -16,7 +15,6 @@ import {
 import SelectClearIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
-import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { formatDateTimeZoneIntoIso } from '../internal';
@@ -45,34 +43,37 @@ interface State {
 	zoneValue: string;
 }
 
-// Make DatePicker 50% the width of DateTimePicker
-// If rendering an icon container, shrink the TimePicker
-const datePickerContainerStyles = css({
-	flexBasis: '50%',
-	flexGrow: 1,
-	flexShrink: 0,
-});
-
-const timePickerContainerStyles = css({
-	flexBasis: '50%',
-	flexGrow: 1,
-});
-
-const iconContainerStyles = css({
-	display: 'flex',
-	margin: token('border.width', '1px'),
-	alignItems: 'center',
-	flexBasis: 'inherit',
-	backgroundColor: 'inherit',
-	border: 'none',
-	color: token('color.text.subtlest', N70),
-	paddingBlockEnd: token('space.075', '6px'),
-	paddingBlockStart: token('space.075', '6px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.050', '4px'),
-	transition: `color 150ms`,
-	'&:hover': {
-		color: token('color.text.subtle', N500),
+const compiledStyles = cssMap({
+	// Make DatePicker 50% the width of DateTimePicker
+	// If rendering an icon container, shrink the TimePicker
+	datePickerContainerStyles: {
+		flexBasis: '50%',
+		flexGrow: 1,
+		flexShrink: 0,
+	},
+	timePickerContainerStyles: {
+		flexBasis: '50%',
+		flexGrow: 1,
+	},
+	iconContainerStyles: {
+		display: 'flex',
+		alignItems: 'center',
+		flexBasis: 'inherit',
+		backgroundColor: 'inherit',
+		border: 'none',
+		color: token('color.text.subtlest'),
+		marginBlockEnd: token('border.width', '1px'),
+		marginBlockStart: token('border.width', '1px'),
+		marginInlineEnd: token('border.width', '1px'),
+		marginInlineStart: token('border.width', '1px'),
+		paddingBlockEnd: token('space.075', '6px'),
+		paddingBlockStart: token('space.075', '6px'),
+		paddingInlineEnd: token('space.100', '8px'),
+		paddingInlineStart: token('space.050', '4px'),
+		transition: `color 150ms`,
+		'&:hover': {
+			color: token('color.text.subtle'),
+		},
 	},
 });
 
@@ -313,7 +314,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 				innerProps={innerProps}
 			>
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
-				<div css={datePickerContainerStyles}>
+				<div css={compiledStyles.datePickerContainerStyles}>
 					<DatePicker
 						appearance={appearance}
 						aria-describedby={datePickerAriaDescribedBy}
@@ -352,7 +353,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						weekStartDay={datePickerProps.weekStartDay}
 					/>
 				</div>
-				<div css={timePickerContainerStyles}>
+				<div css={compiledStyles.timePickerContainerStyles}>
 					<TimePicker
 						appearance={timePickerProps.appearance || appearance}
 						aria-describedby={timePickerAriaDescribedBy}
@@ -386,7 +387,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 				</div>
 				{isClearable && !isDisabled ? (
 					<button
-						css={iconContainerStyles}
+						css={compiledStyles.iconContainerStyles}
 						onClick={this.onClear}
 						data-testid={testId && `${testId}--icon--container`}
 						tabIndex={-1}

@@ -4,9 +4,10 @@ import { format, isValid, parseISO } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import SelectClearIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -35,23 +36,23 @@ const analyticsAttributes = {
 	packageVersion,
 };
 
-// Make DatePicker 50% the width of DateTimePicker
-// If rendering an icon container, shrink the TimePicker
-const datePickerContainerStyles = xcss({
-	flexBasis: '50%',
-	flexGrow: 1,
-	flexShrink: 0,
-});
-
-const timePickerContainerStyles = xcss({
-	flexBasis: '50%',
-	flexGrow: 1,
-});
-
-const iconContainerStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	flexBasis: 'inherit',
+const compiledStyles = cssMap({
+	// Make DatePicker 50% the width of DateTimePicker
+	// If rendering an icon container, shrink the TimePicker
+	datePickerContainerStyles: {
+		flexBasis: '50%',
+		flexGrow: 1,
+		flexShrink: 0,
+	},
+	timePickerContainerStyles: {
+		flexBasis: '50%',
+		flexGrow: 1,
+	},
+	iconContainerStyles: {
+		display: 'flex',
+		alignItems: 'center',
+		flexBasis: 'inherit',
+	},
 });
 
 // react-select overrides (via @atlaskit/select).
@@ -330,10 +331,11 @@ const DateTimePicker = forwardRef(
 			>
 				{/* since this input is a type=hidden, we do not need to use the textfield component */}
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
-				<Box xcss={datePickerContainerStyles}>
+				<Box xcss={compiledStyles.datePickerContainerStyles}>
 					<DatePicker
 						appearance={appearance}
 						aria-describedby={datePickerAriaDescribedBy}
+						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus={datePickerProps.autoFocus || autoFocus}
 						dateFormat={datePickerProps.dateFormat}
 						defaultIsOpen={datePickerProps.defaultIsOpen}
@@ -372,10 +374,11 @@ const DateTimePicker = forwardRef(
 						weekStartDay={datePickerProps.weekStartDay}
 					/>
 				</Box>
-				<Box xcss={timePickerContainerStyles}>
+				<Box xcss={compiledStyles.timePickerContainerStyles}>
 					<TimePicker
 						appearance={timePickerProps.appearance || appearance}
 						aria-describedby={timePickerAriaDescribedBy}
+						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus={timePickerProps.autoFocus}
 						defaultIsOpen={timePickerProps.defaultIsOpen}
 						defaultValue={timePickerProps.defaultValue}
@@ -405,7 +408,7 @@ const DateTimePicker = forwardRef(
 					/>
 				</Box>
 				{isClearable && !isDisabled ? (
-					<Inline xcss={iconContainerStyles}>
+					<Inline xcss={compiledStyles.iconContainerStyles}>
 						<IconButton
 							appearance="subtle"
 							label={clearControlLabel}

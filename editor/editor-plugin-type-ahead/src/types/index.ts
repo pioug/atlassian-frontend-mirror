@@ -14,7 +14,7 @@ import type {
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 // Weird mix of where this type is imported from...
-// Need to move it to this plugin and untangle all refferences to the editor-common one.
+// Need to move it to this plugin and untangle all references to the editor-common one.
 // ED-26054
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export type { TypeAheadHandler } from '@atlaskit/editor-common/types';
@@ -54,6 +54,10 @@ export type TypeAheadPluginState = {
 	selectedIndex: number;
 	stats: TypeAheadStatsSerializable | null;
 	inputMethod: TypeAheadInputMethod | null;
+	/**
+	 * If true, removes the trigger character from query when typeahead is closed
+	 */
+	removePrefixTriggerOnCancel?: boolean;
 };
 
 export type OnInsertSelectedItemProps = {
@@ -126,3 +130,10 @@ export interface TypeAheadPluginSharedState {
 	errorInfo: TypeAheadErrorInfo;
 	selectedIndex: number;
 }
+
+export type OpenTypeAheadProps = {
+	triggerHandler: TypeAheadHandler;
+	inputMethod: TypeAheadInputMethod;
+	query?: string;
+	removePrefixTriggerOnCancel?: boolean;
+};

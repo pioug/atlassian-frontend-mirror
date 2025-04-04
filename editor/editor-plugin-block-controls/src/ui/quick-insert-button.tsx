@@ -337,7 +337,7 @@ export const TypeAheadControl = ({
 			}
 		}
 
-		api.quickInsert?.actions.openTypeAhead('blockControl');
+		api.quickInsert?.actions.openTypeAhead('blockControl', true);
 	}, [api, getPos, view]);
 
 	const handleMouseDown = useCallback(() => {

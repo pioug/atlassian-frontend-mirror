@@ -144,5 +144,6 @@ export default {
   'linkDataSource.table-footer.item': '{itemCount, plural, other {mục}}',
   'linkDataSource.table-footer.loading': 'Đang tải...',
   'linkDataSource.table-footer.power-by-jsm': 'Được hỗ trợ bởi Tài sản trong Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Hoạt động trên nền tảng Assets',
   'linkDataSource.table-footer.refresh': 'Làm mới',
 };

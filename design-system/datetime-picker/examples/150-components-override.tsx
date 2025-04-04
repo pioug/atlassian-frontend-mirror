@@ -1,18 +1,22 @@
 import React, { useCallback, useState } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import { ButtonItem } from '@atlaskit/menu';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	maxWidth: '175px',
-});
-
-const customPopupStyles = xcss({
-	padding: 'space.100',
+const styles = cssMap({
+	containerStyles: { maxWidth: '175px' },
+	customPopupStyles: {
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+	},
 });
 
 export default () => {
@@ -29,7 +33,7 @@ export default () => {
 	}, []);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={styles.containerStyles}>
 			<Heading size="medium">Components override</Heading>
 			<Label id="date--label" htmlFor="date">
 				DatePicker
@@ -44,7 +48,7 @@ export default () => {
 				openCalendarLabel="open calendar"
 				menuInnerWrapper={({ children }: { children: React.ReactNode }) =>
 					activePopup === 'custom_popup' ? (
-						<Box xcss={customPopupStyles}>
+						<Box xcss={styles.customPopupStyles}>
 							Custom component rendered
 							<ButtonItem onClick={onGoBackClick}>Go Back</ButtonItem>
 						</Box>

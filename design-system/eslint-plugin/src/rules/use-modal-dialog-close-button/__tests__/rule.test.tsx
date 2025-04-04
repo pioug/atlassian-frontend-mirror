@@ -10,6 +10,16 @@ import Foo from 'bar';
 <Foo />
 		`,
 		`
+import ModalDialog from 'foo';
+import { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog>
+	<ModalHeader hasCloseButton>
+		<ModalTitle>Modal Title</ModalTitle>
+	</ModalHeader>
+</ModalDialog>
+		`,
+		`
 import ModalDialog, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 
 <ModalDialog>
@@ -20,6 +30,19 @@ import ModalDialog, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 		`,
 		`
 import ModalDialog, { CloseButton, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog>
+	<ModalHeader>
+		<Box>
+			<ModalTitle>Modal Title</ModalTitle>
+			<CloseButton onClick={onClose} />
+		</Box>
+	</ModalHeader>
+</ModalDialog>
+`,
+		`
+import ModalDialog from 'foo';
+import { CloseButton, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 
 <ModalDialog>
 	<ModalHeader>
@@ -210,6 +233,38 @@ export default function ExampleScroll() {
 	invalid: [
 		{
 			code: `
+import { JiraModal as ModalDialog } from '@atlassian/jira-modal/src/ui/jira-modal.tsx';
+import { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog>
+	<ModalHeader>
+		<ModalTitle>Modal Title</ModalTitle>
+	</ModalHeader>
+</ModalDialog>
+`,
+			errors: [
+				{
+					messageId: 'modalHeaderMissingHasCloseButtonProp',
+					suggestions: [
+						{
+							desc: addHasCloseButtonProp,
+							output: `
+import { JiraModal as ModalDialog } from '@atlassian/jira-modal/src/ui/jira-modal.tsx';
+import { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog>
+	<ModalHeader hasCloseButton>
+		<ModalTitle>Modal Title</ModalTitle>
+	</ModalHeader>
+</ModalDialog>
+`,
+						},
+					],
+				},
+			],
+		},
+		{
+			code: `
 import ModalDialog, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 
 <ModalDialog>
@@ -312,6 +367,210 @@ import CustomModalHeader from 'custom-modal-header';
 			errors: [
 				{
 					messageId: 'noCloseButtonExists',
+				},
+			],
+		},
+		{
+			code: `
+import React, { Component, type ReactNode } from 'react';
+import { ModalHeader, ModalTitle, ModalBody } from '@atlaskit/modal-dialog';
+import { JiraModal as ModalDialog } from '@atlassian/jira-modal/src/ui/jira-modal.tsx';
+
+const DeleteReleaseDialog = () => {
+	const getDialogConfig = (): DialogConfig => {
+		const { intl, mode, versionId, versionsById } = this.props;
+		const { name: versionName }: Version = versionsById[versionId];
+		return mode === DELETE_DIALOG_ACTIONS.DELETE_RELEASE
+			? {
+					title: intl.formatMessage(messages.deleteReleaseTitle),
+					blurb: intl.formatMessage(
+						fg('jira-issue-terminology-refresh-m3')
+							? messages.deleteReleaseBlurbIssueTermRefresh
+							: messages.deleteReleaseBlurb,
+						{
+							versionName,
+							strong: (chunks: ReactNode) => <Text as="strong">{chunks}</Text>,
+						},
+					),
+					buttonLabel: intl.formatMessage(commonMessages.delete),
+					appearance: 'danger',
+				}
+			: {
+					title: intl.formatMessage(messages.removeReleaseTitle),
+					blurb: intl.formatMessage(
+						fg('jira-issue-terminology-refresh-m3')
+							? messages.removeReleaseBlurbIssueTermRefresh
+							: messages.removeReleaseBlurb,
+						{
+							versionName,
+							strong: (chunks: ReactNode) => <Text as="strong">{chunks}</Text>,
+						},
+					),
+					buttonLabel: intl.formatMessage(commonMessages.remove),
+				};
+	};
+
+	const {
+		intl,
+		versionId,
+		isOpen,
+		isProcessingRequest,
+		deleteRelease,
+		closeDeleteReleaseDialog,
+	} = this.props;
+
+	if (!versionId) {
+		return null;
+	}
+
+	const dialogConfig: DialogConfig = this.getDialogConfig();
+	return (
+		isOpen && (
+			<ShortcutScope>
+				<ModalDialog
+					messageId="portfolio-3-portfolio.app-simple-plans.main.tabs.releases.project-releases.delete-release-dialog.modal-dialog"
+					messageType="transactional"
+					onClose={closeDeleteReleaseDialog}
+					shouldCloseOnOverlayClick={!isProcessingRequest}
+					shouldCloseOnEscapePress={!isProcessingRequest}
+					autoFocus
+				>
+					<ModalHeader>
+						<ModalTitle appearance={dialogConfig.appearance}>{dialogConfig.title}</ModalTitle>
+					</ModalHeader>
+					<ModalBody>
+						<>
+							<div>
+								<Button
+									appearance={dialogConfig.appearance || 'primary'}
+									isLoading={isProcessingRequest}
+									isDisabled={isProcessingRequest}
+									onClick={() => deleteRelease(versionId)}
+								>
+									{dialogConfig.buttonLabel}
+								</Button>
+								<Button
+									appearance="subtle"
+									onClick={closeDeleteReleaseDialog}
+									isDisabled={isProcessingRequest}
+								>
+									{intl.formatMessage(commonMessages.cancel)}
+								</Button>
+							</div>
+						</>
+					</ModalBody>
+				</ModalDialog>
+			</ShortcutScope>
+		)
+	);
+}
+
+export default injectIntl(DeleteReleaseDialog);
+`,
+			errors: [
+				{
+					messageId: 'modalHeaderMissingHasCloseButtonProp',
+					suggestions: [
+						{
+							desc: addHasCloseButtonProp,
+							output: `
+import React, { Component, type ReactNode } from 'react';
+import { ModalHeader, ModalTitle, ModalBody } from '@atlaskit/modal-dialog';
+import { JiraModal as ModalDialog } from '@atlassian/jira-modal/src/ui/jira-modal.tsx';
+
+const DeleteReleaseDialog = () => {
+	const getDialogConfig = (): DialogConfig => {
+		const { intl, mode, versionId, versionsById } = this.props;
+		const { name: versionName }: Version = versionsById[versionId];
+		return mode === DELETE_DIALOG_ACTIONS.DELETE_RELEASE
+			? {
+					title: intl.formatMessage(messages.deleteReleaseTitle),
+					blurb: intl.formatMessage(
+						fg('jira-issue-terminology-refresh-m3')
+							? messages.deleteReleaseBlurbIssueTermRefresh
+							: messages.deleteReleaseBlurb,
+						{
+							versionName,
+							strong: (chunks: ReactNode) => <Text as="strong">{chunks}</Text>,
+						},
+					),
+					buttonLabel: intl.formatMessage(commonMessages.delete),
+					appearance: 'danger',
+				}
+			: {
+					title: intl.formatMessage(messages.removeReleaseTitle),
+					blurb: intl.formatMessage(
+						fg('jira-issue-terminology-refresh-m3')
+							? messages.removeReleaseBlurbIssueTermRefresh
+							: messages.removeReleaseBlurb,
+						{
+							versionName,
+							strong: (chunks: ReactNode) => <Text as="strong">{chunks}</Text>,
+						},
+					),
+					buttonLabel: intl.formatMessage(commonMessages.remove),
+				};
+	};
+
+	const {
+		intl,
+		versionId,
+		isOpen,
+		isProcessingRequest,
+		deleteRelease,
+		closeDeleteReleaseDialog,
+	} = this.props;
+
+	if (!versionId) {
+		return null;
+	}
+
+	const dialogConfig: DialogConfig = this.getDialogConfig();
+	return (
+		isOpen && (
+			<ShortcutScope>
+				<ModalDialog
+					messageId="portfolio-3-portfolio.app-simple-plans.main.tabs.releases.project-releases.delete-release-dialog.modal-dialog"
+					messageType="transactional"
+					onClose={closeDeleteReleaseDialog}
+					shouldCloseOnOverlayClick={!isProcessingRequest}
+					shouldCloseOnEscapePress={!isProcessingRequest}
+					autoFocus
+				>
+					<ModalHeader hasCloseButton>
+						<ModalTitle appearance={dialogConfig.appearance}>{dialogConfig.title}</ModalTitle>
+					</ModalHeader>
+					<ModalBody>
+						<>
+							<div>
+								<Button
+									appearance={dialogConfig.appearance || 'primary'}
+									isLoading={isProcessingRequest}
+									isDisabled={isProcessingRequest}
+									onClick={() => deleteRelease(versionId)}
+								>
+									{dialogConfig.buttonLabel}
+								</Button>
+								<Button
+									appearance="subtle"
+									onClick={closeDeleteReleaseDialog}
+									isDisabled={isProcessingRequest}
+								>
+									{intl.formatMessage(commonMessages.cancel)}
+								</Button>
+							</div>
+						</>
+					</ModalBody>
+				</ModalDialog>
+			</ShortcutScope>
+		)
+	);
+}
+
+export default injectIntl(DeleteReleaseDialog);
+`,
+						},
+					],
 				},
 			],
 		},

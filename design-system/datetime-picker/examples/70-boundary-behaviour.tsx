@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/new';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
-import { Box, Text } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 
 export default () => {

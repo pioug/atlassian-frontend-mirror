@@ -3,7 +3,7 @@ import React from 'react';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 export default () => {
 	return (

@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {no results} one {# result} other {# results}} found',
   'fabric.linkPicker.linkAriaLabel': 'Type or paste a link into the field',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Link display helper text',
+  'fabric.linkPicker.linkHelperTextLabel': 'Give this link a title or description',
   'fabric.linkPicker.linkInvalid': 'Enter a valid URL.',
   'fabric.linkPicker.linkLabel': 'Link',
   'fabric.linkPicker.linkPlaceholder': 'Paste a link',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.',
   'fabric.linkPicker.search.error.heading': 'We’re having trouble loading data.',
+  'fabric.linkPicker.search.error.retry': 'Refresh',
   'fabric.linkPicker.search.linkAriaLabel': 'Suggestions will appear below as you type into the field',
   'fabric.linkPicker.search.linkLabel': 'Search or paste a link',
   'fabric.linkPicker.search.linkPlaceholder': 'Find recent links or paste a new link',

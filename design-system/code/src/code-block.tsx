@@ -1,17 +1,256 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-selectors */
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import { memo, useCallback, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 import { useHighlightLines } from './internal/hooks/use-highlight';
-import { getCodeBlockStyles, getCodeBlockTheme } from './internal/theme/styles';
+import { getLineNumWidth } from './internal/theme/styles';
 import type { CodeBlockProps } from './internal/types';
 import { normalizeLanguage } from './internal/utils/get-normalized-language';
 import SyntaxHighlighter from './syntax-highlighter';
+
+const getCodeBlockStyles = cssMap({
+	root: {
+		// Prevents empty code blocks from vertically collapsing
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'code > span:only-child:empty::before, code > span:only-child > span:only-child:empty::before':
+			{
+				content: '" "',
+			},
+		// we need to use last-of-type because when Code is SSR'd
+		// 2 <code> elements are created and we don't want this style
+		// applied to the first one
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& code:last-of-type': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			paddingRight: `${token('space.100')} !important`,
+			flexBasis: 'auto',
+			flexGrow: 1, // Needed for the highlight line to extend full-width
+			wordBreak: 'break-word',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& code:first-of-type': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			paddingRight: `0px !important`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-ds--code--row--highlight]:last-child': {
+			borderBottom: '1px dashed transparent',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-ds--code--row--highlight] + [data-ds--code--row]:not([data-ds--code--row--highlight]), [data-ds--code--row]:not([data-ds--code--row--highlight]) + [data-ds--code--row--highlight]':
+			{
+				borderTop: '1px dashed transparent',
+			},
+		// fill in space caused by parent border top
+		'& [data-ds--code--row--highlight] .linenumber::before': {
+			borderTop: `1px solid ${token('color.border.focused')}`,
+			left: '-4px',
+			top: '-1px',
+			width: '4px',
+			position: 'absolute',
+			content: '""',
+		},
+
+		'& [data-ds--code--row--highlight] .linenumber': {
+			position: 'relative',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			paddingLeft: `${token('space.050')} !important`,
+			borderLeft: `4px solid ${token('color.border.focused')}`,
+		},
+		'& [data-ds--code--row--highlight]': {
+			backgroundColor: token('color.background.neutral'),
+			// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
+			'&::before, &::after': {
+				clipPath: 'inset(100%)',
+				clip: 'rect(1px, 1px, 1px, 1px)',
+				height: '1px',
+				overflow: 'hidden',
+				position: 'absolute',
+				whiteSpace: 'nowrap',
+				width: '1px',
+			},
+			'&::after': {
+				content: `" [var(--ads-highlighted-end-text)] "`,
+			},
+			'&::before': {
+				content: `" [var(--ads-highlighted-start-text)] "`,
+			},
+		},
+		// these styles are for line highlighting
+		'& [data-ds--code--row]': {
+			marginRight: `-${token('space.100')}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			paddingRight: `${token('space.100')} !important`,
+		},
+		'& .linenumber': {
+			float: 'left',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			display: 'inline-block !important',
+		},
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: '12px',
+		fontWeight: token('font.weight.regular'),
+		borderStyle: 'none',
+		borderRadius: token('border.radius'),
+		// this is required to account for prismjs styles leaking into the codeblock
+		'code[class*="language-"], pre[class*="language-"], code': {
+			all: 'unset',
+			paddingTop: token('space.100'),
+			paddingBottom: token('space.100'),
+			tabSize: 4,
+		},
+		display: 'flex',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '20px',
+		overflowX: 'auto',
+		whiteSpace: 'pre',
+		direction: 'ltr',
+		// this is to account for SSR spacing issue once loaded in browser
+		'& .linenumber, .ds-sh-line-number': {
+			// This is how we are preventing line numbers being copied to clipboard.
+			// (`user-select: none;` was not sufficent).
+			// https://product-fabric.atlassian.net/browse/DSP-2729
+			'&::after': {
+				content: `attr(data-ds--line-number)`,
+			},
+			// this is to fix SSR spacing issue
+			display: 'block',
+			userSelect: 'none',
+			textAlign: 'right',
+			marginRight: token('space.100'),
+			paddingLeft: token('space.100'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			paddingRight: `${token('space.100')} !important`,
+			// needed to replicate existing design spec
+			boxSizing: 'border-box',
+			flexShrink: 0,
+			// this needs to be important or it gets overwritten by inline styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			color: `${token('color.text.subtlest')} !important`,
+			// this needs to be important or it gets overwritten by inline styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			fontStyle: 'normal !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			minWidth: 'var(--ads-code-line-number-width) !important',
+		},
+		'.token.important': { fontWeight: token('font.weight.bold') },
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		'.token.bold:not(.important)': { fontWeight: 'bolder' },
+		'.token.italic': { fontStyle: 'italic' },
+		'.token.comment:not(.italic) ,.token.block-comment:not(.italic)': {
+			fontStyle: 'italic',
+			fontFamily: `SFMono-MediumItalic, ${token('font.family.code')}`,
+		},
+		'.token.key:not(.important, .bold) ,.token.keyword:not(.important, .bold)': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontWeight: 'bolder',
+		},
+		// &s are used to create a definitive order of specificity for the styles as compiled may sort
+		// the styles differently we cannot rely on line order
+		'.token': {
+			'&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.important': {
+				color: token('color.text.accent.yellow'),
+			},
+			'&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.atrule': {
+				color: token('color.text.accent.green'),
+			},
+			'&&&&&&&&&&&&&&&&&&&&&&&&&&&&.operator': { color: token('color.text') },
+			'&&&&&&&&&&&&&&&&&&&&&&&&&&&.inserted': { color: token('color.text.accent.green') },
+			'&&&&&&&&&&&&&&&&&&&&&&&&&&.char': { color: token('color.text') },
+			'&&&&&&&&&&&&&&&&&&&&&&&&&.boolean': { color: token('color.text.accent.blue') },
+			'&&&&&&&&&&&&&&&&&&&&&&&&.deleted': { color: token('color.text.accent.red') },
+			'&&&&&&&&&&&&&&&&&&&&&&&.constant': { color: token('color.text.accent.teal') },
+			'&&&&&&&&&&&&&&&&&&&&&&.property': { color: token('color.text.accent.purple') },
+			'&&&&&&&&&&&&&&&&&&&&&.punctuation': { color: token('color.text') },
+			'&&&&&&&&&&&&&&&&&&&&.cdata': { color: token('color.text.subtlest') },
+			'&&&&&&&&&&&&&&&&&&&.prolog': { color: token('color.text.accent.blue') },
+			'&&&&&&&&&&&&&&&&&&.attr-value': { color: token('color.text.accent.teal') },
+			'&&&&&&&&&&&&&&&&&.number': { color: token('color.text.accent.blue') },
+			'&&&&&&&&&&&&&&&&.function': { color: token('color.text') },
+			'&&&&&&&&&&&&&&&.meta': { color: token('color.text.subtlest') },
+			'&&&&&&&&&&&&&&.meta-keyword': { color: token('color.text.accent.green') },
+			'&&&&&&&&&&&&&.section, &&&&&&&&&&&&&.title, &&&&&&&&&&&&&.class-name': {
+				color: token('color.text.accent.purple'),
+			},
+			'&&&&&&&&&&&&.string': { color: token('color.text.accent.green') },
+			'&&&&&&&&&&&.tag, &&&&&&&&&&&.quote, &&&&&&&&&&&.type, &&&&&&&&&&&.selector-pseudo, &&&&&&&&&&&.selector-attr':
+				{
+					color: token('color.text.accent.teal'),
+				},
+			'&&&&&&&&&&.url': { color: token('color.text.accent.purple') },
+			'&&&&&&&&&.variable, &&&&&&&&&.symbol, &&&&&&&&&.regex': {
+				color: token('color.text.accent.teal'),
+			},
+			'&&&&&&&&.code, &&&&&&&&.bullet, &&&&&&&&.entity, &&&&&&&&.builtin, &&&&&&&&.namespace': {
+				color: token('color.text.accent.blue'),
+			},
+			'&&&&&&&.substr': { color: token('color.text.subtlest') },
+			'&&&&&&.doctype': { color: token('color.text.accent.yellow') },
+			'&&&&&.function-name': { color: token('color.text.accent.purple') },
+			'&&&&.comment,&&&&.block-comment': {
+				color: token('color.text.subtlest'),
+			},
+			'&&&.selector': { color: token('color.text.accent.blue') },
+			'&&.attr-name': { color: token('color.text.accent.teal') },
+			// additional specificity required to match the all: unset
+			'&.key,&.keyword': {
+				color: token('color.text.accent.blue'),
+			},
+			// this specifically stops prism css cascading.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:not([class=token],[data-ds--code--row--highlight],[data-ds--code--row])': {
+				all: 'unset',
+			},
+		},
+		backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral')})`,
+		color: token('color.text'),
+		fontFamily: token('font.family.code'),
+	},
+	showLineNumbers: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& code:first-of-type': {
+			backgroundImage: `linear-gradient(to right, var(--ds--code--line-number-bg-color,${token('color.background.neutral')}), var(--ds--code--line-number-bg-color,${token('color.background.neutral')})
+			var(--ads-code-line-number-width), transparent var(--ads-code-line-number-width), transparent)`,
+		},
+		'& [data-ds--code--row]': {
+			display: 'flex',
+		},
+		'code[class*="language-"], pre[class*="language-"], code': {
+			paddingRight: 0,
+			paddingLeft: 0,
+		},
+	},
+	dontShowLineNumbers: {
+		'& [data-ds--code--row]': {
+			display: 'block',
+		},
+		'code[class*="language-"], pre[class*="language-"], code': {
+			paddingRight: token('space.100'),
+			paddingLeft: token('space.100'),
+		},
+	},
+	shouldWrapLongLines: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& code:last-of-type': {
+			flexShrink: 1,
+		},
+	},
+	dontWrapLongLines: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& code:last-of-type': {
+			flexShrink: 1,
+		},
+	},
+});
 
 /**
  * __Code block__
@@ -38,17 +277,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 }) {
 	const numLines =
 		(text || '').split('\n').length + (firstLineNumber > 0 ? firstLineNumber : 1) - 1;
-	const theme = useMemo(() => getCodeBlockTheme(numLines), [numLines]);
-
-	const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
-	const styles = useMemo(
-		() =>
-			css(
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				getStyles(highlightedStartText, highlightedEndText, showLineNumbers, shouldWrapLongLines),
-			),
-		[highlightedStartText, highlightedEndText, showLineNumbers, shouldWrapLongLines, getStyles],
-	);
+	const lineNumberWidth = numLines ? getLineNumWidth(numLines) : 0;
 
 	const { getHighlightStyles, highlightedLines } = useHighlightLines({
 		highlight,
@@ -71,7 +300,20 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 			data-ds--code--code-block=""
 			testId={testId}
 			language={languageToUse}
-			css={styles}
+			css={[
+				getCodeBlockStyles.root,
+				shouldWrapLongLines
+					? getCodeBlockStyles.shouldWrapLongLines
+					: getCodeBlockStyles.dontWrapLongLines,
+				showLineNumbers
+					? getCodeBlockStyles.showLineNumbers
+					: getCodeBlockStyles.dontShowLineNumbers,
+			]}
+			style={{
+				'--ads-code-line-number-width': `calc(${lineNumberWidth} + 16px)`,
+				'--ads-highlighted-start-text': highlightedStartText,
+				'--ads-highlighted-end-text': highlightedEndText,
+			}}
 			showLineNumbers={showLineNumbers}
 			firstLineNumber={firstLineNumber}
 			lineProps={getLineProps}

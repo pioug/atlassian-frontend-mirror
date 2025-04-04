@@ -154,5 +154,6 @@ export default {
     '{itemCount, plural, one {елемент} few {елементи} many {елементів} other {елементи}}',
   'linkDataSource.table-footer.loading': 'Завантаження…',
   'linkDataSource.table-footer.power-by-jsm': 'Розділ «Ресурси» в Jira Service Management',
+  'linkDataSource.table-footer.powered-by-assets': 'Розділ «Ресурси»',
   'linkDataSource.table-footer.refresh': 'Оновити',
 };

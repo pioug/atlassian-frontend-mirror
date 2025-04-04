@@ -39,6 +39,18 @@ const initialInvisibleStyle = css({
 	display: 'none',
 });
 
+const halfUpdatedInvisibleStyle = css({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '10vw',
+	height: '100vh',
+	cursor: 'pointer',
+	display: 'block',
+	backgroundColor: '#ff0000', // Red - for testing purposes it is visible. but the element is marked as non-visual-style-mutation
+	opacity: 0.3,
+});
+
 const updatedInvisibleStyle = css({
 	position: 'absolute',
 	top: 0,
@@ -78,9 +90,13 @@ export default function Example() {
 				</div>
 			)}
 			<div
-				data-testid="invisible-div"
+				data-testid="nvs-div"
 				data-vc-nvs="true"
-				css={[initialInvisibleStyle, !isInvisibleDivLoading && updatedInvisibleStyle]}
+				css={[
+					initialInvisibleStyle,
+					!isMainLoading && halfUpdatedInvisibleStyle,
+					!isInvisibleDivLoading && updatedInvisibleStyle,
+				]}
 			></div>
 		</UFOSegment>
 	);

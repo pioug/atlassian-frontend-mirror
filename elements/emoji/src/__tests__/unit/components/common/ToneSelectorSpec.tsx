@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { default as EmotionToneSelector } from '../../../../components/common/ToneSelector';
-import { default as CompiledToneSelector } from '../../../../components/compiled/common/ToneSelector';
+import ToneSelector from '../../../../components/common/ToneSelector';
 import type { EmojiDescription, EmojiDescriptionWithVariations } from '../../../../types';
 import { imageEmoji, generateSkinVariation } from '../../_test-data';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -26,137 +25,59 @@ const handEmoji: EmojiDescriptionWithVariations = {
 	],
 };
 
-// cleanup `platform_editor_css_migrate_emoji`: delete "off" version and delete this outer describe
-describe('platform_editor_css_migrate_emoji "on" - compiled', () => {
-	describe('<ToneSelector />', () => {
-		let user: ReturnType<typeof userEvent.setup>;
-		beforeEach(() => {
-			user = userEvent.setup();
-		});
-		it('should display one emoji per skin variations + default', async () => {
-			await renderWithIntl(
-				<CompiledToneSelector emoji={handEmoji} onToneSelected={() => {}} isVisible />,
-			);
-
-			expect((await screen.findAllByRole('radio')).length).toEqual(6);
-		});
-
-		it('should call onToneSelected on click', async () => {
-			const handleToneSelectedMock = jest.fn();
-
-			await renderWithIntl(
-				<CompiledToneSelector
-					emoji={handEmoji}
-					onToneSelected={handleToneSelectedMock}
-					isVisible
-				/>,
-			);
-
-			const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
-			await user.click(toneButton);
-
-			expect(handleToneSelectedMock).toHaveBeenCalled();
-			expect(handleToneSelectedMock).toHaveBeenCalledWith(4);
-		});
-
-		it('should fire all relevant analytics', async () => {
-			const handleOnEventMock = jest.fn();
-			const handleToneSelectedMock = jest.fn();
-
-			const component = await renderWithIntl(
-				<AnalyticsListener channel="fabric-elements" onEvent={handleOnEventMock}>
-					<CompiledToneSelector
-						emoji={handEmoji}
-						onToneSelected={handleToneSelectedMock}
-						isVisible
-					/>
-				</AnalyticsListener>,
-			);
-
-			expect(handleOnEventMock).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: toneSelectorOpenedEvent({}),
-				}),
-				'fabric-elements',
-			);
-
-			const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
-			await user.click(toneButton);
-
-			expect(handleOnEventMock).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: toneSelectedEvent({ skinToneModifier: 'mediumDark' }),
-				}),
-				'fabric-elements',
-			);
-
-			component.unmount();
-			expect(handleOnEventMock).toHaveBeenCalledTimes(2);
-		});
+describe('<ToneSelector />', () => {
+	let user: ReturnType<typeof userEvent.setup>;
+	beforeEach(() => {
+		user = userEvent.setup();
 	});
-});
+	it('should display one emoji per skin variations + default', async () => {
+		await renderWithIntl(<ToneSelector emoji={handEmoji} onToneSelected={() => {}} isVisible />);
 
-describe('platform_editor_css_migrate_emoji "off" - emotion', () => {
-	describe('<ToneSelector />', () => {
-		let user: ReturnType<typeof userEvent.setup>;
-		beforeEach(() => {
-			user = userEvent.setup();
-		});
-		it('should display one emoji per skin variations + default', async () => {
-			await renderWithIntl(
-				<EmotionToneSelector emoji={handEmoji} onToneSelected={() => {}} isVisible />,
-			);
+		expect((await screen.findAllByRole('radio')).length).toEqual(6);
+	});
 
-			expect((await screen.findAllByRole('radio')).length).toEqual(6);
-		});
+	it('should call onToneSelected on click', async () => {
+		const handleToneSelectedMock = jest.fn();
 
-		it('should call onToneSelected on click', async () => {
-			const handleToneSelectedMock = jest.fn();
+		await renderWithIntl(
+			<ToneSelector emoji={handEmoji} onToneSelected={handleToneSelectedMock} isVisible />,
+		);
 
-			await renderWithIntl(
-				<EmotionToneSelector emoji={handEmoji} onToneSelected={handleToneSelectedMock} isVisible />,
-			);
+		const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
+		await user.click(toneButton);
 
-			const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
-			await user.click(toneButton);
+		expect(handleToneSelectedMock).toHaveBeenCalled();
+		expect(handleToneSelectedMock).toHaveBeenCalledWith(4);
+	});
 
-			expect(handleToneSelectedMock).toHaveBeenCalled();
-			expect(handleToneSelectedMock).toHaveBeenCalledWith(4);
-		});
+	it('should fire all relevant analytics', async () => {
+		const handleOnEventMock = jest.fn();
+		const handleToneSelectedMock = jest.fn();
 
-		it('should fire all relevant analytics', async () => {
-			const handleOnEventMock = jest.fn();
-			const handleToneSelectedMock = jest.fn();
+		const component = await renderWithIntl(
+			<AnalyticsListener channel="fabric-elements" onEvent={handleOnEventMock}>
+				<ToneSelector emoji={handEmoji} onToneSelected={handleToneSelectedMock} isVisible />
+			</AnalyticsListener>,
+		);
 
-			const component = await renderWithIntl(
-				<AnalyticsListener channel="fabric-elements" onEvent={handleOnEventMock}>
-					<EmotionToneSelector
-						emoji={handEmoji}
-						onToneSelected={handleToneSelectedMock}
-						isVisible
-					/>
-				</AnalyticsListener>,
-			);
+		expect(handleOnEventMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				payload: toneSelectorOpenedEvent({}),
+			}),
+			'fabric-elements',
+		);
 
-			expect(handleOnEventMock).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: toneSelectorOpenedEvent({}),
-				}),
-				'fabric-elements',
-			);
+		const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
+		await user.click(toneButton);
 
-			const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
-			await user.click(toneButton);
+		expect(handleOnEventMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				payload: toneSelectedEvent({ skinToneModifier: 'mediumDark' }),
+			}),
+			'fabric-elements',
+		);
 
-			expect(handleOnEventMock).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: toneSelectedEvent({ skinToneModifier: 'mediumDark' }),
-				}),
-				'fabric-elements',
-			);
-
-			component.unmount();
-			expect(handleOnEventMock).toHaveBeenCalledTimes(2);
-		});
+		component.unmount();
+		expect(handleOnEventMock).toHaveBeenCalledTimes(2);
 	});
 });

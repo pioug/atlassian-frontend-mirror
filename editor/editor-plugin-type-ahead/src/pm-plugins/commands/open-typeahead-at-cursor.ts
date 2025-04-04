@@ -3,18 +3,12 @@ import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
-import type { TypeAheadHandler, TypeAheadInputMethod } from '../../types';
+import type { OpenTypeAheadProps } from '../../types';
 import { ACTIONS } from '../actions';
 import { pluginKey } from '../key';
 
-type Props = {
-	triggerHandler: TypeAheadHandler;
-	inputMethod: TypeAheadInputMethod;
-	query?: string;
-};
-
-export const openTypeAhead = (props: Props) => (tr: Transaction) => {
-	const { triggerHandler, inputMethod, query } = props;
+export const openTypeAhead = (props: OpenTypeAheadProps) => (tr: Transaction) => {
+	const { triggerHandler, inputMethod, query, removePrefixTriggerOnCancel } = props;
 
 	tr.setMeta(pluginKey, {
 		action: ACTIONS.OPEN_TYPEAHEAD_AT_CURSOR,
@@ -22,17 +16,24 @@ export const openTypeAhead = (props: Props) => (tr: Transaction) => {
 			triggerHandler,
 			inputMethod,
 			query,
+			removePrefixTriggerOnCancel,
 		},
 	});
 };
 
 export const openTypeAheadAtCursor =
-	({ triggerHandler, inputMethod, query }: Props): EditorCommand =>
+	({
+		triggerHandler,
+		inputMethod,
+		query,
+		removePrefixTriggerOnCancel,
+	}: OpenTypeAheadProps): EditorCommand =>
 	({ tr }) => {
 		openTypeAhead({
 			triggerHandler,
 			inputMethod,
 			query,
+			removePrefixTriggerOnCancel,
 		})(tr);
 
 		const { selection } = tr;

@@ -4,47 +4,42 @@
  */
 import { Fragment, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-const decoration = css({
-	// Required as otherwise the following bidi characters cause the span
-	// to not receive hover events.
-	//
-	// U+2066 LEFT-TO-RIGHT ISOLATE (when using pseudo element before)
-	// U+202E RIGHT-TO-LEFT OVERRIDE' (when using pseudo element after)
-	position: 'relative',
+const decoration = cssMap({
+	root: {
+		'&:hover::before': {
+			color: token('color.text.warning'),
+			backgroundColor: token('color.background.warning.hovered'),
+		},
+		'&::before': {
+			pointerEvents: 'auto',
+			paddingInlineStart: token('space.050'),
+			paddingInlineEnd: token('space.050'),
+			paddingBlockStart: token('space.0'),
+			paddingBlockEnd: token('space.0'),
+			font: token('font.body'),
+			fontStyle: 'normal',
+			fontFamily: token('font.family.code'),
+			lineHeight: '18px',
+			content: '"<"attr(data-bidi-character-code)">"',
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':before': {
-		display: 'inline-flex',
-		padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
-		alignItems: 'center',
-		justifyContent: 'center',
-		flexDirection: 'row',
-		background: token('color.background.warning', Y75),
-		color: token('color.text.warning', '#7F5F01'),
-		content: '"<"attr(data-bidi-character-code)">"',
-		font: token('font.body'),
-		fontFamily: token('font.family.code'),
-		fontStyle: 'normal',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '18px',
-		/**
-		 * Ensures the decoration receives pointer events when it occurs with
-		 * an ancestor that disables them.
-		 */
-		pointerEvents: 'auto',
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover:before': {
-		background: token('color.background.warning.hovered', Y75),
-		color: token('color.text.warning', '#533F04'),
+			color: token('color.text.warning'),
+			backgroundColor: token('color.background.warning'),
+			flexDirection: 'row',
+			justifyContent: 'center',
+			alignItems: 'center',
+			display: 'inline-flex',
+		},
+		// Required as otherwise the following bidi characters cause the span
+		// to not receive hover events.
+		//
+		// U+2066 LEFT-TO-RIGHT ISOLATE (when using pseudo element before)
+		// U+202E RIGHT-TO-LEFT OVERRIDE' (when using pseudo element after)
+		position: 'relative',
 	},
 });
 
@@ -61,7 +56,7 @@ export function Decorator({
 	return (
 		<Fragment>
 			<span
-				css={decoration}
+				css={decoration.root}
 				data-testid={testId}
 				data-bidi-character-code={bidiCharacterCode}
 				// This is set to true so that the content is not read out by

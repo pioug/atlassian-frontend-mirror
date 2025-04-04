@@ -18,7 +18,6 @@
 ```ts
 /// <reference types="react" />
 
-import type { CSSObject } from '@emotion/react';
 import type { HTMLProps } from 'react';
 import { NamedExoticComponent } from 'react';
 import { default as React_2 } from 'react';
@@ -425,7 +424,7 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
 	testId?: string;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const getCodeStyles: () => CSSObject;
 
 // @public (undocumented)

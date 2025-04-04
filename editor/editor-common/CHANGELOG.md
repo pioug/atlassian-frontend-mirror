@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 102.18.3
+
+### Patch Changes
+
+- [#125263](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/125263)
+  [`8269e79feca3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8269e79feca3c) -
+  Removes deprecated import of `getCodeStyles`.
+- Updated dependencies
+
 ## 102.18.2
 
 ### Patch Changes

@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { css, jsx } from '@compiled/react';
+import { cssMap, cx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+import { N30 } from '@atlaskit/theme/colors';
 import { useIntl } from 'react-intl-next';
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 import {
 	CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED,
@@ -16,10 +18,62 @@ import {
 import type { CategoryDescription, OnCategory } from '../../types';
 import { messages } from '../i18n';
 import { CategoryDescriptionMap, type CategoryGroupKey, type CategoryId } from './categories';
-import { categorySelector, categorySelectorTablist } from './styles';
 import { usePrevious } from '../../hooks/usePrevious';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
 
+const styles = cssMap({
+	commonCategory: {
+		backgroundColor: token('color.background.neutral.subtle'),
+		borderWidth: 0,
+		borderRadius: token('border.radius'),
+		paddingTop: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		paddingRight: token('space.0'),
+		transition: 'color 0.2s ease',
+	},
+
+	defaultCategory: {
+		color: token('color.text.subtlest'),
+
+		'&:hover': {
+			color: token('color.text.selected'),
+		},
+	},
+
+	activeCategory: {
+		color: token('color.text.selected'),
+
+		'&:hover': {
+			color: token('color.text.selected'),
+		},
+	},
+
+	disabledCategory: {
+		color: token('color.text.subtlest'),
+	},
+});
+
+const categorySelector = css({
+	flex: '0 0 auto',
+	backgroundColor: token('elevation.surface.sunken', N30),
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	button: {
+		display: 'flex',
+	},
+});
+
+const categorySelectorTablist = css({
+	paddingTop: token('space.075', '6px'),
+	paddingBottom: token('space.075', '6px'),
+	paddingLeft: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
+	display: 'flex',
+	flexDirection: 'row',
+	justifyContent: 'space-around',
+	alignItems: 'center',
+});
 export interface Props {
 	dynamicCategories?: CategoryId[];
 	activeCategoryId?: CategoryId | null;
@@ -45,34 +99,6 @@ const addNewCategories = (
 		.concat(newCategories.filter((category) => !!CategoryDescriptionMap[category]))
 		.sort(sortCategories);
 };
-
-const commonCategoryStyles = xcss({
-	backgroundColor: 'color.background.neutral.subtle',
-	border: 0,
-	borderRadius: 'border.radius',
-	padding: 'space.0',
-	transition: 'color 0.2s ease',
-});
-
-const defaultCategoryStyles = xcss({
-	color: 'color.text.subtlest',
-
-	':hover': {
-		color: 'color.text.selected',
-	},
-});
-
-const activeCategoryStyles = xcss({
-	color: 'color.text.selected',
-
-	':hover': {
-		color: 'color.text.selected',
-	},
-});
-
-const disabledCategoryStyles = xcss({
-	color: 'color.text.subtlest',
-});
 
 export const categorySelectorComponentTestId = 'category-selector-component';
 export const categorySelectorCategoryTestId = (categoryId: string) =>
@@ -155,7 +181,6 @@ const CategorySelector = (props: Props) => {
 				aria-label={formatMessage(messages.categoriesSelectorLabel)}
 				data-testid={categorySelectorComponentTestId}
 				ref={categoryRef}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={categorySelectorTablist}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
@@ -171,12 +196,12 @@ const CategorySelector = (props: Props) => {
 								aria-label={categoryName}
 								aria-controls={currentFocus === index ? RENDER_EMOJI_PICKER_LIST_TESTID : undefined}
 								aria-selected={categoryId === activeCategoryId}
-								xcss={[
-									commonCategoryStyles,
-									defaultCategoryStyles,
-									categoryId === activeCategoryId && activeCategoryStyles,
-									disableCategories && disabledCategoryStyles,
-								]}
+								xcss={cx(
+									styles.commonCategory,
+									styles.defaultCategory,
+									categoryId === activeCategoryId && styles.activeCategory,
+									disableCategories && styles.disabledCategory,
+								)}
 								isDisabled={disableCategories}
 								onClick={handleClick(categoryId, index)}
 								testId={categorySelectorCategoryTestId(categoryId)}
@@ -192,7 +217,6 @@ const CategorySelector = (props: Props) => {
 			</div>
 		);
 	}
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={categorySelector}>{categoriesSection}</div>;
 };
 

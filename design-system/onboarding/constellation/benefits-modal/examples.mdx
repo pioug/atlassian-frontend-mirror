@@ -5,19 +5,27 @@ description:
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
 import BenefitModalBasicExample from '../../examples/constellation/benefits-modal-default';
+import ModalDialogExample from '../../examples/constellation/benefits-modal-using-modal-dialog';
 
-## Basic
+<SectionMessage appearance="warning" title="Use with caution">
+	We recommend using our modal dialog component instead of this component for all new experiences.
+	This is because modal dialog has a native close button and better default close behaviors, which
+	all significantly improve the accessibility and experience for all users.
+</SectionMessage>
 
-You can use a benefits modal to explain large or impactful updates. While `children` is the only
-required prop, all benefits modals should include a heading and actions.
+You can use a benefits modal to explain large or impactful updates. All benefits modals should
+include a heading and actions.
 
 Include an illustration with all benefits modals. If you feel that the story isn't strong enough to
 require one, use a [spotlight](/components/onboarding/examples) instead.
 
-We recommend using a [custom modal dialog](/components/modal-dialog/examples#custom-modal) instead
-of this component for all new experiences. This is because modal dialog has
-`shouldCloseOnEscapeKeyPress` and `shouldCloseOnOverlayClick` behavior which significantly improves
-the accessibility.
+## Using `@atlaskit/modal-dialog`
+
+<Example Component={ModalDialogExample} packageName="@atlaskit/onboarding" />
+
+## Using `@atlaskit/onboarding`
 
 <Example Component={BenefitModalBasicExample} packageName="@atlaskit/onboarding" />

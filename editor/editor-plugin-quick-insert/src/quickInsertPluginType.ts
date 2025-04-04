@@ -25,7 +25,10 @@ export type QuickInsertPlugin = NextEditorPlugin<
 		dependencies: [TypeAheadPlugin, OptionalPlugin<ConnectivityPlugin>];
 		sharedState: QuickInsertSharedState | null;
 		actions: {
-			openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
+			openTypeAhead: (
+				inputMethod: TypeAheadInputMethod,
+				removePrefixTriggerOnCancel?: boolean,
+			) => boolean;
 			insertItem: (
 				item: QuickInsertItem,
 				source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,

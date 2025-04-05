@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.5.1
+
+### Patch Changes
+
+- [#137252](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137252)
+  [`a2f2ec2381e22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2f2ec2381e22) -
+  Change non-production icon to use new design icon
+
 ## 2.5.0
 
 ### Minor Changes

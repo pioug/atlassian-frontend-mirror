@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 2.0.11
+
+### Patch Changes
+
+- [#136973](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136973)
+  [`d24797988a39c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d24797988a39c) -
+  [ux] ED-27349 Remove empty line placeholder and only show empty node placeholder in first table
+  cell when it is empty
+
 ## 2.0.10
 
 ### Patch Changes

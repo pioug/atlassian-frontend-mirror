@@ -7,7 +7,7 @@ import {
 	type TeamCentralReportingLinesData,
 } from '@atlaskit/profilecard/types';
 
-import { profilecardData } from './profilecard-data';
+import { profilecardData, profilecardDataStable } from './profilecard-data';
 import { random, getWeekday, getTimeString } from './util';
 
 export function getMockProfilecardClient(BaseProfileClient: any, modifyResponse: any): any {
@@ -44,7 +44,7 @@ export function getMockProfilecardClient(BaseProfileClient: any, modifyResponse:
 	};
 }
 
-const getMockProfile = (userId: string) => {
+const getMockProfile = (userId: string, stableData?: boolean) => {
 	const matchError = userId.match(/^error:([0-9a-zA-Z\-]+)$/);
 	const error = matchError && matchError[1];
 
@@ -52,10 +52,14 @@ const getMockProfile = (userId: string) => {
 		return Promise.reject({ reason: 'error' });
 	}
 
-	const profile = profilecardData[parseInt(userId, 10)];
+	const profile = stableData
+		? profilecardDataStable[parseInt(userId, 10)]
+		: profilecardData[parseInt(userId, 10)];
 
 	if (!profile) {
 		return Promise.reject({ reason: 'default' });
+	} else if (stableData) {
+		return Promise.resolve(profile);
 	}
 
 	const weekday = getWeekday();
@@ -67,17 +71,22 @@ const getMockProfile = (userId: string) => {
 	return Promise.resolve(data);
 };
 
+interface ProfileCardClientProps {
+	mockTimeout?: number;
+	stableData?: boolean;
+}
+
 // TODO: This function will replace getMockProfilecardClient() on line 13 once the latest `master` branch containing this code has been merged to `develop`
-export function simpleMockProfilecardClient(): ProfileClient {
+export function simpleMockProfilecardClient(props?: ProfileCardClientProps): ProfileClient {
 	return {
 		flushCache: () => undefined,
 
 		getProfile: async (_cloudId: string, userId: string): Promise<ProfileCardClientData> => {
-			const timeout = random(1500) + 500;
+			const timeout = props?.mockTimeout ?? random(1500) + 500;
 
 			return new Promise((resolve, reject) => {
 				window.setTimeout(async () => {
-					getMockProfile(userId)
+					getMockProfile(userId, props?.stableData)
 						.then((data) => resolve(modifyResponse(data)))
 						.catch((error) => reject(error));
 				}, timeout);
@@ -93,7 +102,8 @@ export function simpleMockProfilecardClient(): ProfileClient {
 		},
 
 		getReportingLines: (_userId: string): Promise<TeamCentralReportingLinesData> => {
-			const reportingLinesUsers: ReportingLinesUser[] = profilecardData.map((user, index) => ({
+			const data = props?.stableData ? profilecardDataStable : profilecardData;
+			const reportingLinesUsers: ReportingLinesUser[] = data.map((user, index) => ({
 				accountIdentifier: '123456:12345-67890-' + index,
 				identifierType: 'ATLASSIAN_ID',
 				pii: {

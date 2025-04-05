@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.3.1
+
+### Patch Changes
+
+- [#137012](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137012)
+  [`4dc7b6496e62c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4dc7b6496e62c) -
+  [ux] Match the popup behaviour in vanilla mention node to the existing behaviour.
+
 ## 4.3.0
 
 ### Minor Changes

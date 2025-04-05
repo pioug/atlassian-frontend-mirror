@@ -2,22 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState, useMemo, Suspense } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { bind } from 'bind-event-listener';
 
 import type { MentionAttributes } from '@atlaskit/adf-schema';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import { Popup } from '@atlaskit/editor-common/ui';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import Portal from '@atlaskit/portal';
 import type {
 	ProfileCardClientData,
 	TeamCentralReportingLinesData,
 } from '@atlaskit/profilecard/types';
 import { ProfileCardLazy } from '@atlaskit/profilecard/user';
 import { token } from '@atlaskit/tokens';
+
+import { Popup } from './PopperWrapper';
 
 const styles = cssMap({
 	loadingStyles: {
@@ -132,36 +132,32 @@ export function ProfileCardComponent({
 	const { cloudId } = provider;
 
 	return (
-		<Portal>
-			<Popup target={dom} absoluteOffset={{ top: 8 }} stick>
-				<Suspense fallback={null}>
-					<LoadingWrapper isLoading={isLoading}>
-						<ProfileCardLazy
-							avatarUrl={data?.avatarUrl}
-							accountType={data?.accountType}
-							status={data?.status}
-							statusModifiedDate={data?.statusModifiedDate}
-							timestring={data?.timestring}
-							isCurrentUser={data?.isCurrentUser}
-							isBot={data?.isBot}
-							fullName={data?.fullName}
-							userId={id}
-							cloudId={cloudId}
-							actions={actions}
-							isLoading={isLoading}
-							location={data?.location}
-							companyName={data?.companyName}
-							customLozenges={data?.customLozenges}
-							nickname={data?.nickname}
-							email={data?.email}
-							hasError={hasError}
-							reportingLines={reportingLinesData}
-							isKudosEnabled={shouldShowGiveKudos}
-							teamCentralBaseUrl={teamCentralBaseUrl}
-						/>
-					</LoadingWrapper>
-				</Suspense>
-			</Popup>
-		</Portal>
+		<Popup referenceElement={dom}>
+			<LoadingWrapper isLoading={isLoading}>
+				<ProfileCardLazy
+					avatarUrl={data?.avatarUrl}
+					accountType={data?.accountType}
+					status={data?.status}
+					statusModifiedDate={data?.statusModifiedDate}
+					timestring={data?.timestring}
+					isCurrentUser={data?.isCurrentUser}
+					isBot={data?.isBot}
+					fullName={data?.fullName}
+					userId={id}
+					cloudId={cloudId}
+					actions={actions}
+					isLoading={isLoading}
+					location={data?.location}
+					companyName={data?.companyName}
+					customLozenges={data?.customLozenges}
+					nickname={data?.nickname}
+					email={data?.email}
+					hasError={hasError}
+					reportingLines={reportingLinesData}
+					isKudosEnabled={shouldShowGiveKudos}
+					teamCentralBaseUrl={teamCentralBaseUrl}
+				/>
+			</LoadingWrapper>
+		</Popup>
 	);
 }

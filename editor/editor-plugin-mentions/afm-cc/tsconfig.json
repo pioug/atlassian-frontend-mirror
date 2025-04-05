@@ -48,6 +48,9 @@
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/popper/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/portal/afm-cc/tsconfig.json"
         },
         {

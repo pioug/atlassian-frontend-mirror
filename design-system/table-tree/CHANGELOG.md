@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 12.1.0
+
+### Minor Changes
+
+- [#136750](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136750)
+  [`cf5c5703b96c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf5c5703b96c5) -
+  We are removing the feature flag around removing lodash import.
+
 ## 12.0.0
 
 ### Major Changes

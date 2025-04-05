@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 30.0.6
+
+### Patch Changes
+
+- [#137066](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137066)
+  [`9090c9149afb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9090c9149afb4) -
+  correctly import compiled css version of reaction picker
+
 ## 30.0.5
 
 ### Patch Changes

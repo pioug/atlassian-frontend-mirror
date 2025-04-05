@@ -48,6 +48,9 @@
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/popper/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/portal/afm-post-office/tsconfig.json"
 		},
 		{

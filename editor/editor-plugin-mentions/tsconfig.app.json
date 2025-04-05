@@ -62,6 +62,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/popper/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/portal/tsconfig.app.json"
 		},
 		{

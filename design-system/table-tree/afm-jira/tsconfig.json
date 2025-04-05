@@ -30,9 +30,6 @@
 			"path": "../../icon/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../spinner/afm-jira/tsconfig.json"
 		},
 		{

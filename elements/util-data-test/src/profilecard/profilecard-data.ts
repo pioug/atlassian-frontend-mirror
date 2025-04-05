@@ -187,3 +187,54 @@ export const profilecardData = [
 		},
 	},
 ];
+
+export const profilecardDataStable = [
+	{
+		User: {
+			avatarUrl: avatarImages[0],
+			fullName: 'Kramer Hatfield',
+			nickname: 'khatfield',
+			email: 'khatfield@gluid.com',
+			location: 'Vienna, Austria',
+			meta: 'Manager',
+			remoteTimeString: '12:00am',
+			remoteWeekdayIndex: 0,
+			remoteWeekdayString: 'Mon',
+		},
+		Presence: {
+			state: 'available',
+		},
+	},
+	{
+		User: {
+			avatarUrl: avatarImages[1],
+			fullName: 'Schwartz Mclaughlin',
+			nickname: 'smclaughlin',
+			email: 'smclaughlin@corecom.com',
+			location: 'Perth, Australia',
+			meta: 'Senior Developer',
+			remoteTimeString: '12:00am',
+			remoteWeekdayIndex: 0,
+			remoteWeekdayString: 'Mon',
+		},
+		Presence: {
+			state: 'unavailable',
+		},
+	},
+	{
+		User: {
+			avatarUrl: avatarImages[2],
+			fullName: 'Nichole Walter',
+			nickname: 'nwalter',
+			email: 'nwalter@limage.com',
+			location: 'Sydney, Australia',
+			meta: 'Senior Developer',
+			remoteTimeString: '12:00am',
+			remoteWeekdayIndex: 0,
+			remoteWeekdayString: 'Mon',
+		},
+		Presence: {
+			state: 'unavailable',
+		},
+	},
+];

@@ -7,6 +7,9 @@ import { Fragment } from 'react';
 import { jsx } from '@emotion/react';
 import { RendererWithAnalytics as Renderer } from '../../';
 import type { DocNode } from '@atlaskit/adf-schema';
+import * as docWithMultipleMarksAndAnnotations from '../__fixtures__/annotation-over-marks.adf.json';
+import { annotationInlineCommentProvider } from './rendererWithAnnotations';
+import RendererWithAnnotationSelection from '../../ui/Renderer';
 
 const doc = {
 	version: 1,
@@ -178,6 +181,25 @@ export function RendererWithFilteredTextHighlighter() {
 				component: FilteredTextHighliterComponent,
 			}}
 			allowAnnotations
+		/>
+	);
+}
+
+export function RendererWithAnnotationsOverMarks() {
+	return (
+		<RendererWithAnnotationSelection
+			document={docWithMultipleMarksAndAnnotations}
+			appearance={'full-page'}
+			allowAnnotations={true}
+			textHighlighter={{
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,
+				component: FilteredTextHighliterComponent,
+			}}
+			annotationProvider={{
+				inlineComment: annotationInlineCommentProvider,
+			}}
 		/>
 	);
 }

@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 114.7.3
+
+### Patch Changes
+
+- [#136245](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136245)
+  [`3574c1c351625`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3574c1c351625) -
+  EDITOR-195 Fixes issues where overlapping annotations on marks would visually break into separate
+  annotations. Changes behind platform_renderer_nested_annotation_styling
+
 ## 114.7.2
 
 ### Patch Changes

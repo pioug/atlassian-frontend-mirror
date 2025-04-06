@@ -57,6 +57,23 @@ const markStylesNew = css({
 	},
 });
 
+const markStylesLayeringFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
+		// Only apply transparency to nested marks when parent is focused
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-has-focus="true"] mark': {
+			backgroundColor: 'transparent',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.fabric-background-color-mark &[data-has-focus="true"], &:focus, &[data-has-focus="true"]': {
+			background: token('color.background.accent.yellow.subtlest.pressed'),
+			borderBottomColor: token('color.border.accent.yellow'),
+			boxShadow: token('elevation.shadow.raised'),
+		},
+	},
+});
+
 const markStylesWithUpdatedShadow = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
@@ -287,6 +304,7 @@ export const MarkComponent = ({
 				...(!useBlockLevel && {
 					css: [
 						markStylesNew,
+						fg('platform_renderer_nested_annotation_styling') && markStylesLayeringFix,
 						fg('editor_inline_comments_on_inline_nodes') && markStylesNewWithInlineComments,
 						fg('confluence-frontend-comments-panel') && markStylesNewWithCommentsPanel,
 						!isMobile() && accessibilityStylesNew,

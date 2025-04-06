@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.7.2",
+	"version": "114.7.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -205,6 +205,9 @@
 			"type": "boolean"
 		},
 		"platform_renderer_isPresentational": {
+			"type": "boolean"
+		},
+		"platform_renderer_nested_annotation_styling": {
 			"type": "boolean"
 		}
 	},

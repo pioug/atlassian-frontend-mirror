@@ -1,0 +1,67 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+	  {
+		"type": "paragraph",
+		"content": [
+		  {
+			"type": "text",
+			"text": "hello ",
+			"marks": [
+			  {
+				"type": "strong"
+			  },
+			  {
+				"type": "annotation",
+				"attrs": {
+				  "id": "test-annotation-id-1",
+				  "annotationType": "inlineComment"
+				}
+			  },
+			  {
+				"type": "annotation",
+				"attrs": {
+				  "id": "test-annotation-id-2",
+				  "annotationType": "inlineComment"
+				}
+			  }
+			]
+		  },
+		  {
+			"type": "text",
+			"text": "world",
+			"marks": [
+			  {
+				"type": "strong"
+			  },
+			  {
+				"type": "backgroundColor",
+				"attrs": {
+				  "color": "#c6edfb"
+				}
+			  },
+			  {
+				"type": "annotation",
+				"attrs": {
+				  "id": "test-annotation-id-1",
+				  "annotationType": "inlineComment"
+				}
+			  },
+			  {
+				"type": "annotation",
+				"attrs": {
+				  "id": "test-annotation-id-2",
+				  "annotationType": "inlineComment"
+				}
+			  }
+			]
+		  }
+		]
+	  },
+	  {
+		"type": "paragraph",
+		"content": []
+	  }
+	]
+  }

@@ -21,6 +21,17 @@ interface TokenMeta {
 	cleanName: string;
 }
 
+const isExempted = (tokenName: string, exemptions: string[] = []): boolean => {
+	// Check if the token name starts with any of the exempted prefixes
+	for (const exemption of exemptions) {
+		if (tokenName.startsWith(exemption)) {
+			return true;
+		}
+	}
+
+	return false;
+};
+
 // Convert raw tokens to key-value pairs { token: value }
 const getThemeValues = (theme: TokenMeta[]): { [x: string]: string } => {
 	return theme.reduce((formatted: { [x: string]: string }, rawToken) => {
@@ -79,6 +90,7 @@ export default function plugin() {
 							 */
 							shouldUseAutoFallback?: boolean;
 							shouldForceAutoFallback?: boolean;
+							forceAutoFallbackExemptions?: string[];
 							defaultTheme?: DefaultColorTheme;
 						};
 					},
@@ -128,10 +140,17 @@ export default function plugin() {
 								}
 							}
 
-							// Handle fallbacks
 							// The border.radius tokens are skipped in shouldForceAutoFallback mode because these tokens are not enabled in the live products and enforcing default values on them will override all the fallback values that are currently being used to render the actual UI.
+							// The exempted tokens (the ones that start with any of the provided exemption prefixes) are also skipped.
+							const forceAutoFallbackExemptions = [
+								'border.radius',
+								...(state.opts.forceAutoFallbackExemptions || []),
+							];
+
+							// Handle fallbacks
 							const fallback =
-								state.opts.shouldForceAutoFallback && !tokenName.startsWith('border.radius')
+								state.opts.shouldForceAutoFallback &&
+								!isExempted(tokenName, forceAutoFallbackExemptions)
 									? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme))
 									: path.node.arguments[1];
 

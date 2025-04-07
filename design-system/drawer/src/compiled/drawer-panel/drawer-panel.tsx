@@ -30,6 +30,7 @@ const styles = cssMap({
 		insetBlockStart: token('space.0'),
 		insetInlineStart: token('space.0'),
 		overflow: 'hidden',
+		fontFamily: token('font.family.body'),
 	},
 	full: { width: '100vw' },
 	extended: { width: '95vw' },

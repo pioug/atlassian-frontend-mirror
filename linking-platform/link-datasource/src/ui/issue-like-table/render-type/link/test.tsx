@@ -4,6 +4,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkCustomClient from '../../../../../examples-helpers/smartLinkCustomClient';
 
@@ -40,98 +41,101 @@ describe('Link Type', () => {
 			</SmartCardProvider>,
 		);
 	};
-	it('renders empty dom when url is undefined', async () => {
-		const { container } = setup({ url: undefined });
-		expect(container).toBeEmptyDOMElement();
-	});
 
-	it('renders as a smart link', async () => {
-		const { queryByTestId, findByText } = setup({
-			url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+	ffTest.both('platform-linking-visual-refresh-sllv', 'with design refresh fg', () => {
+		it('renders empty dom when url is undefined', async () => {
+			const { container } = setup({ url: undefined });
+			expect(container).toBeEmptyDOMElement();
 		});
 
-		await findByText('EDM-5941: Implement mapping between data type and visual component');
+		it('renders as a smart link', async () => {
+			const { queryByTestId, findByText } = setup({
+				url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+			});
 
-		const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
+			await findByText('EDM-5941: Implement mapping between data type and visual component');
 
-		expect(card).toBeInTheDocument();
-		expect(card).toHaveAttribute('href', 'https://product-fabric.atlassian.net/browse/EDM-5941');
-	});
+			const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
 
-	it('opens a smart link in a new tab when clicked', async () => {
-		const { queryByTestId, findByText } = setup({
-			url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+			expect(card).toBeInTheDocument();
+			expect(card).toHaveAttribute('href', 'https://product-fabric.atlassian.net/browse/EDM-5941');
 		});
 
-		await findByText('EDM-5941: Implement mapping between data type and visual component');
+		it('opens a smart link in a new tab when clicked', async () => {
+			const { queryByTestId, findByText } = setup({
+				url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
+			});
 
-		const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
+			await findByText('EDM-5941: Implement mapping between data type and visual component');
 
-		expect(card).toBeInTheDocument();
+			const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
 
-		fireEvent.click(card!);
+			expect(card).toBeInTheDocument();
 
-		expect(window.open).toHaveBeenCalledWith(
-			'https://product-fabric.atlassian.net/browse/EDM-5941',
-			'_blank',
-			'noopener, noreferrer',
-		);
-	});
+			fireEvent.click(card!);
 
-	it('renders errored view when smart link does not resolve', async () => {
-		const { findByTestId } = setup({
-			url: 'https://link-that-does-not-resolve.com',
+			expect(window.open).toHaveBeenCalledWith(
+				'https://product-fabric.atlassian.net/browse/EDM-5941',
+				'_blank',
+				'noopener, noreferrer',
+			);
 		});
 
-		await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
+		it('renders errored view when smart link does not resolve', async () => {
+			const { findByTestId } = setup({
+				url: 'https://link-that-does-not-resolve.com',
+			});
 
-		const card = await findByTestId(`${LINK_TYPE_TEST_ID}-errored-view`);
+			await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
 
-		expect(card).toBeInTheDocument();
-		expect(card).toHaveTextContent('https://link-that-does-not-resolve.com');
-		expect(card).toHaveAttribute('href', 'https://link-that-does-not-resolve.com');
-	});
+			const card = await findByTestId(`${LINK_TYPE_TEST_ID}-errored-view`);
 
-	it('renders fallback when smart link resolves with ResolveUnsupportedError', async () => {
-		const { findByRole } = setup({
-			url: 'https://link-that-is-unsupported.com',
+			expect(card).toBeInTheDocument();
+			expect(card).toHaveTextContent('https://link-that-does-not-resolve.com');
+			expect(card).toHaveAttribute('href', 'https://link-that-does-not-resolve.com');
 		});
 
-		await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
+		it('renders fallback when smart link resolves with ResolveUnsupportedError', async () => {
+			const { findByRole } = setup({
+				url: 'https://link-that-is-unsupported.com',
+			});
 
-		const anchor = await findByRole('link');
+			await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
 
-		expect(anchor).toBeInTheDocument();
-		expect(anchor).toHaveTextContent('https://link-that-is-unsupported.com');
-		expect(anchor).toHaveAttribute('href', 'https://link-that-is-unsupported.com');
-		expect(anchor).toHaveAttribute('target', '_blank');
-	});
+			const anchor = await findByRole('link');
 
-	it('renders with the text passed and has correct attributes', async () => {
-		const { queryByRole } = setup({
-			url: 'https://www.atlassian.com/',
-			text: 'Atlassian Website',
+			expect(anchor).toBeInTheDocument();
+			expect(anchor).toHaveTextContent('https://link-that-is-unsupported.com');
+			expect(anchor).toHaveAttribute('href', 'https://link-that-is-unsupported.com');
+			expect(anchor).toHaveAttribute('target', '_blank');
 		});
 
-		const anchor = queryByRole('link');
+		it('renders with the text passed and has correct attributes', async () => {
+			const { queryByRole } = setup({
+				url: 'https://www.atlassian.com/',
+				text: 'Atlassian Website',
+			});
 
-		expect(anchor).toBeInTheDocument();
-		expect(anchor).toHaveTextContent('Atlassian Website');
-		expect(anchor).toHaveAttribute('href', 'https://www.atlassian.com/');
-		expect(anchor).toHaveAttribute('target', '_blank');
-	});
+			const anchor = queryByRole('link');
 
-	it('renders when linkType is passed', async () => {
-		const { queryByRole } = setup({
-			url: 'https://www.atlassian.com/',
-			text: 'Atlassian Website',
-			style: {
-				appearance: 'key',
-			},
+			expect(anchor).toBeInTheDocument();
+			expect(anchor).toHaveTextContent('Atlassian Website');
+			expect(anchor).toHaveAttribute('href', 'https://www.atlassian.com/');
+			expect(anchor).toHaveAttribute('target', '_blank');
 		});
 
-		const anchor = queryByRole('link');
+		it('renders when linkType is passed', async () => {
+			const { queryByRole } = setup({
+				url: 'https://www.atlassian.com/',
+				text: 'Atlassian Website',
+				style: {
+					appearance: 'key',
+				},
+			});
 
-		expect(anchor).toBeInTheDocument();
+			const anchor = queryByRole('link');
+
+			expect(anchor).toBeInTheDocument();
+		});
 	});
 });

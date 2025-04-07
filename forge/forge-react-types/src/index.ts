@@ -62,6 +62,9 @@ export type {
 	ValidMessageProps,
 	PopupProps,
 	InlineEditProps,
+	ChromelessEditorProps,
+	CommentEditorProps,
+	PressableProps,
 	TBadge,
 	TBleed,
 	TBox,
@@ -125,6 +128,9 @@ export type {
 	TPopup,
 	TAdfRenderer,
 	TText,
+	TChromelessEditor,
+	TCommentEditor,
+	TPressable,
 } from './components/__generated__';
 
 export type {

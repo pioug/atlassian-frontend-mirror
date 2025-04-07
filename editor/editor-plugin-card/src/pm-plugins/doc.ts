@@ -19,6 +19,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
+import { getActiveLinkMark } from '@atlaskit/editor-common/link';
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
@@ -29,7 +30,7 @@ import {
 	processRawValue,
 } from '@atlaskit/editor-common/utils';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
-import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -40,6 +41,7 @@ import type {
 	InlineCardAdf,
 } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CardPluginState, Request } from '../types';
 
@@ -334,21 +336,36 @@ export const convertHyperlinkToSmartCard = (
 	const { link } = schema.marks;
 	const requests: Request[] = [];
 
-	state.tr.doc.nodesBetween(state.selection.from, state.selection.to, (node, pos) => {
-		const linkMark = node.marks.find((mark) => mark.type === link);
-		if (linkMark) {
-			requests.push({
-				url: linkMark.attrs.href,
-				pos,
-				appearance,
-				previousAppearance: 'url',
-				compareLinkText: normalizeLinkText,
-				source,
-				analyticsAction: ACTION.CHANGED_TYPE,
-				shouldReplaceLink: true,
-			});
-		}
+	const createRequest = (linkMark: Mark, pos: number): Request => ({
+		url: linkMark.attrs.href,
+		pos,
+		appearance,
+		previousAppearance: 'url',
+		compareLinkText: normalizeLinkText,
+		source,
+		analyticsAction: ACTION.CHANGED_TYPE,
+		shouldReplaceLink: true,
 	});
+
+	if (
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_3')
+	) {
+		const activeLinkMark = getActiveLinkMark(state);
+		if (activeLinkMark) {
+			const linkMark = activeLinkMark.node.marks.find((mark) => mark.type === link);
+			if (linkMark) {
+				requests.push(createRequest(linkMark, activeLinkMark.pos));
+			}
+		}
+	} else {
+		state.tr.doc.nodesBetween(state.selection.from, state.selection.to, (node, pos) => {
+			const linkMark = node.marks.find((mark) => mark.type === link);
+			if (linkMark) {
+				requests.push(createRequest(linkMark, pos));
+			}
+		});
+	}
 
 	addLinkMetadata(state.selection, state.tr, {
 		action: ACTION.CHANGED_TYPE,

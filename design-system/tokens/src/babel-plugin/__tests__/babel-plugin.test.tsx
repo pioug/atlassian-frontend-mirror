@@ -96,6 +96,7 @@ jest.mock('../../artifacts/tokens-raw/atlassian-typography-adg3', () => ({
 interface TransformConfig {
 	shouldUseAutoFallback?: boolean;
 	shouldForceAutoFallback?: boolean;
+	forceAutoFallbackExemptions?: string[];
 	transformTemplateLiterals?: boolean;
 	options?: TransformOptions;
 	defaultTheme?: string;
@@ -106,6 +107,7 @@ const transform =
 		shouldUseAutoFallback = false,
 		shouldForceAutoFallback = false,
 		transformTemplateLiterals = false,
+		forceAutoFallbackExemptions = [],
 		options = {},
 		defaultTheme = 'light',
 	}: TransformConfig) =>
@@ -116,6 +118,7 @@ const transform =
 				{
 					shouldUseAutoFallback: shouldUseAutoFallback,
 					shouldForceAutoFallback: shouldForceAutoFallback,
+					forceAutoFallbackExemptions: forceAutoFallbackExemptions,
 					defaultTheme: defaultTheme,
 				},
 			],
@@ -427,7 +430,7 @@ const getStyles = css => css\`
 			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
 		});
 
-		it('should override manual fallback usage AND fallback is legacy-light', () => {
+		it('override manual fallback usage AND fallback is legacy-light', () => {
 			const actual = transform({
 				shouldForceAutoFallback: true,
 				defaultTheme: 'legacy-light',
@@ -484,6 +487,32 @@ const getStyles = css => css\`
 			`;
 
 			expect(actual).toMatchInlineSnapshot(`""var(--ds-border-radius-050, 900px)";"`);
+		});
+
+		it('should not override manual fallback usage for exempted tokens', () => {
+			const actual = transform({
+				shouldForceAutoFallback: true,
+				forceAutoFallbackExemptions: ['font'],
+			})`
+				import { token } from '@atlaskit/tokens';
+				token('font.heading.xlarge', 'Comic Sans MS');
+			`;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--ds-font-heading-xlarge, Comic Sans MS)";"`);
+		});
+
+		it('should override manual fallback usage for non-exempted tokens', () => {
+			const actual = transform({
+				shouldForceAutoFallback: true,
+				forceAutoFallbackExemptions: ['color'],
+			})`
+				import { token } from '@atlaskit/tokens';
+				token('font.heading.xlarge', 'Comic Sans MS');
+			`;
+
+			expect(actual).toMatchInlineSnapshot(
+				`""var(--ds-font-heading-xlarge, \\"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Ubuntu, system-ui, \\"Helvetica Neue\\", sans-serif\\")";"`,
+			);
 		});
 	});
 

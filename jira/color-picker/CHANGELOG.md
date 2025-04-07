@@ -1,5 +1,18 @@
 # @atlaskit/color-picker
 
+## 5.1.0
+
+### Minor Changes
+
+- [#137184](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137184)
+  [`9d0790b250a83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d0790b250a83) -
+  The ColorPicker trigger will no longer explicitly focus on the trigger element in the onClick
+  handler.
+
+  This was causing issues when rolling out some internal refactors to PopupSelect.
+
+  These changes are behind feature flag: `platform_dst_layer_observer_select`.
+
 ## 5.0.0
 
 ### Major Changes

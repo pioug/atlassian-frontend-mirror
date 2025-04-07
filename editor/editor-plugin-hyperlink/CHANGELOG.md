@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.3
+
+### Patch Changes
+
+- [#135151](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135151)
+  [`5c16edacc0116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c16edacc0116) -
+  [ux] Show link floating toolbar when user clicks right before or after the link (solving one char
+  link issue)
+- Updated dependencies
+
 ## 4.3.2
 
 ### Patch Changes

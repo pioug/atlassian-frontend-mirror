@@ -38,7 +38,18 @@ const ColorCard = ({
 
 	const handleClick = useCallback(
 		(event: MouseEvent<HTMLButtonElement>) => {
-			event.currentTarget.focus();
+			/**
+			 * The 'platform_dst_layer_observer_select' feature flag updates `PopupSelect` to close itself when
+			 * the internal Select's `onMenuClose` prop is called.
+			 *
+			 * By moving focus to the trigger element after the select menu is open, it causes the select
+			 * menu to think it is being closed, and call its `onMenuClose` prop.
+			 *
+			 * This results in the PopupSelect instantly closing when the user clicks to open it.
+			 */
+			if (!fg('platform_dst_layer_observer_select')) {
+				event.currentTarget.focus();
+			}
 
 			if (onClick) {
 				event.preventDefault();

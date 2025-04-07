@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 14.3.1
+
+### Patch Changes
+
+- [#137814](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137814)
+  [`d2a58e04ac617`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2a58e04ac617) -
+  Fix bug in `compiled-fork-stage1` codemod in which Grid props would be transformed despite having
+  `xcss` prop.
+
 ## 14.3.0
 
 ### Minor Changes

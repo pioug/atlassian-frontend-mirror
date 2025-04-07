@@ -55,7 +55,13 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private languageLoader: LanguageLoader;
 	private pmFacet = Facet.define<DecorationSource>();
 
-	constructor(node: PMNode, view: EditorView, getPos: getPosHandlerNode, config: ConfigProps) {
+	constructor(
+		node: PMNode,
+		view: EditorView,
+		getPos: getPosHandlerNode,
+		innerDecorations: DecorationSource,
+		config: ConfigProps,
+	) {
 		this.node = node;
 		this.view = view;
 		this.getPos = getPos;
@@ -111,6 +117,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// inner editor
 		this.updating = false;
 		this.updateLanguage();
+		this.updateWordWrap(node);
+		this.updateProseMirrorDecorations(innerDecorations);
 	}
 
 	destroy() {
@@ -261,6 +269,17 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 export const getCodeBlockAdvancedNodeView =
 	(props: ConfigProps) =>
-	(node: PMNode, view: EditorView, getPos: getPosHandler): CodeBlockAdvancedNodeView => {
-		return new CodeBlockAdvancedNodeView(node, view, getPos as getPosHandlerNode, props);
+	(
+		node: PMNode,
+		view: EditorView,
+		getPos: getPosHandler,
+		innerDecorations: DecorationSource,
+	): CodeBlockAdvancedNodeView => {
+		return new CodeBlockAdvancedNodeView(
+			node,
+			view,
+			getPos as getPosHandlerNode,
+			innerDecorations,
+			props,
+		);
 	};

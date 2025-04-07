@@ -79,11 +79,6 @@ export const aiExperienceApplicationMessages = defineMessages({
 		defaultMessage: 'Knowledge source',
 		description: 'Heading text to indicate that the next set of features are for Knowledge source',
 	},
-	studioGroupHeading: {
-		id: 'fabric.editor.ai.experience.suggestionGroupHeading.studio',
-		defaultMessage: 'Studio',
-		description: 'Heading text to indicate that the next set of features are related to agents.',
-	},
 	agentsSuggestionGroupHeading: {
 		id: 'fabric.editor.ai.experience.suggestionGroupHeading.agents',
 		defaultMessage: 'Agents',

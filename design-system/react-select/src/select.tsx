@@ -222,7 +222,7 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	/**
 	 * Formats group labels in the menu as React components
 	 *
-	 * An example can be found in the [Replacing builtins](/advanced#replacing-builtins) documentation.
+	 * An example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.
 	 */
 	formatGroupLabel: (group: Group) => ReactNode;
 	/**
@@ -283,7 +283,7 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	/**
 	 * Override the built-in logic to detect whether an option is disabled
 	 *
-	 * An example can be found in the [Replacing builtins](/advanced#replacing-builtins) documentation.
+	 * An example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.
 	 */
 	isOptionDisabled: (option: Option, selectValue: Options<Option>) => boolean;
 	/**
@@ -441,7 +441,7 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	/**
 	 * Style modifier methods
 	 *
-	 * A basic example can be found at the bottom of the [Replacing builtins](/advanced#replacing-builtins) documentation.
+	 * A basic example can be found at the bottom of the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.
 	 */
 	styles: StylesConfig<Option, IsMulti, Group>;
 	/**

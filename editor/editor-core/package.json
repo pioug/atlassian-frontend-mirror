@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.1.7",
+	"version": "205.1.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -419,10 +419,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_nested_tables_resize_border_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_nested_tables_column_drag_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -572,6 +568,14 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_controls_patch_2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_3": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_numbered_column_misalignment": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -600,7 +604,11 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_patch_2": {
+		"platform_editor_nested_tables_sticky_header_bug": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_number_column_sticky_header_broken": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

@@ -76,3 +76,7 @@ export type TextProps = Omit<OriginalTextProps, 'as'> & { as?: OriginalTextProps
  * [Lozenge](https://developer.atlassian.com/platform/forge/ui-kit/components/lozenge/).
  */
 export type TText<T> = (props: TextProps) => T;
+
+export type { CommentEditorProps, TCommentEditor } from './CommentEditorProps.codegen';
+export type { ChromelessEditorProps, TChromelessEditor } from './ChromelessEditorProps.codegen';
+export type { PressableProps, TPressable } from './PressableProps.codegen';

@@ -19,7 +19,6 @@ import { injectIntl } from 'react-intl-next';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import messages from '../messages';
-
 export interface Props {
 	/** color picker button label */
 	label?: string;

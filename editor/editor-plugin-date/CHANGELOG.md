@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-date
 
+## 4.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.8
+
+### Patch Changes
+
+- [#137676](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137676)
+  [`4a54b4a64712e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a54b4a64712e) -
+  ED-27338: clean up vanilla date implementation
+- Updated dependencies
+
 ## 4.1.7
 
 ### Patch Changes

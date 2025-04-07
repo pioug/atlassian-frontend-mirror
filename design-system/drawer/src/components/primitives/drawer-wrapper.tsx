@@ -29,6 +29,7 @@ const wrapperStyles = css({
 	zIndex: 500,
 	backgroundColor: token('elevation.surface.overlay', N0),
 	[CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
+	fontFamily: token('font.family.body'),
 	insetBlockStart: 0,
 	insetInlineStart: 0,
 	overflow: 'hidden',

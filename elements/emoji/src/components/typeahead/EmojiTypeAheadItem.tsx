@@ -3,22 +3,19 @@
  * @jsx jsx
  */
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { PureComponent } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { toEmojiId } from '../../util/type-helpers';
+import { css, jsx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { N30 } from '@atlaskit/theme/colors';
+
 import type { EmojiDescription, EmojiProvider, OnEmojiEvent } from '../../types';
-import { leftClick } from '../../util/mouse';
-import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
-import {
-	typeAheadItem,
-	selected as selectedStyles,
-	typeAheadItemRow,
-	typeaheadSelected,
-} from './styles';
-import { EmojiTypeAheadItemInternalCompiled } from './EmojiTypeAheadItemInternalCompiled';
+import { leftClick } from '../../util/mouse';
+import { toEmojiId } from '../../util/type-helpers';
+
+import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
+
+import { type EmojiTypeAheadWidth } from '../../util/shared-styles';
+import { typeaheadSelected } from './styles';
 
 export interface Props {
 	onMouseMove: OnEmojiEvent;
@@ -29,54 +26,67 @@ export interface Props {
 	forwardedRef?: React.Ref<HTMLDivElement>;
 }
 
-class EmojiTypeAheadItemInternal extends PureComponent<Props, {}> {
-	// internal, used for callbacks
-	onEmojiSelected: React.MouseEventHandler<HTMLDivElement> = (event) => {
-		const { emoji, onSelection } = this.props;
-		if (leftClick(event) && onSelection) {
-			event.preventDefault();
-			onSelection(toEmojiId(emoji), emoji, event);
-		}
-	};
+const typeAheadWidth: EmojiTypeAheadWidth = 350;
+const typeAheadItem = css({
+	cursor: 'pointer',
+	display: 'block',
+	listStyleType: 'none',
+	overflow: 'hidden',
+	width: `${typeAheadWidth}px`,
+});
 
-	onEmojiMenuItemMouseMove: React.MouseEventHandler<HTMLDivElement> = (event) => {
-		const { emoji, onMouseMove } = this.props;
-		if (onMouseMove) {
-			onMouseMove(toEmojiId(emoji), emoji, event);
-		}
-	};
+const selectedStyles = css({
+	backgroundColor: token('color.background.neutral', N30),
+});
 
-	render() {
-		const { selected, emoji, emojiProvider } = this.props;
-		const classes = [typeAheadItem, selected && selectedStyles];
+const typeAheadItemRow = css({
+	display: 'flex',
+	flexDirection: 'row',
+	flexWrap: 'wrap',
+	verticalAlign: 'middle',
+});
 
-		return (
-			<EmojiCommonProvider emojiProvider={emojiProvider}>
-				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={`ak-emoji-typeahead-item ${selected ? typeaheadSelected : ''}`}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={classes}
-					onMouseDown={this.onEmojiSelected}
-					onMouseMove={this.onEmojiMenuItemMouseMove}
-					data-emoji-id={emoji.shortName}
-					ref={this.props.forwardedRef}
-				>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={typeAheadItemRow}>{emoji && <EmojiPreviewComponent emoji={emoji} />}</div>
-				</div>
-			</EmojiCommonProvider>
-		);
-	}
+export function EmojiTypeAheadItemInternal(props: Props) {
+	const { emoji, onSelection, onMouseMove, selected, emojiProvider, forwardedRef } = props;
+	const onEmojiSelected = React.useCallback(
+		(event: React.MouseEvent<HTMLDivElement>) => {
+			if (leftClick(event) && onSelection) {
+				event.preventDefault();
+				onSelection(toEmojiId(emoji), emoji, event);
+			}
+		},
+		[emoji, onSelection],
+	);
+
+	const onEmojiMenuItemMouseMove = React.useCallback(
+		(event: React.MouseEvent<HTMLDivElement>) => {
+			if (onMouseMove) {
+				onMouseMove(toEmojiId(emoji), emoji, event);
+			}
+		},
+		[emoji, onMouseMove],
+	);
+
+	return (
+		<EmojiCommonProvider emojiProvider={emojiProvider}>
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={`ak-emoji-typeahead-item ${selected ? typeaheadSelected : ''}`}
+				css={[typeAheadItem, selected && selectedStyles]}
+				onMouseDown={onEmojiSelected}
+				onMouseMove={onEmojiMenuItemMouseMove}
+				data-emoji-id={emoji.shortName}
+				ref={forwardedRef}
+			>
+				<div css={[typeAheadItemRow]}>{emoji && <EmojiPreviewComponent emoji={emoji} />}</div>
+			</div>
+		</EmojiCommonProvider>
+	);
 }
 
-const EmojiTypeAheadItem = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-	return fg('platform_editor_css_migrate_emoji') ? (
-		<EmojiTypeAheadItemInternalCompiled {...props} forwardedRef={ref} />
-	) : (
-		<EmojiTypeAheadItemInternal {...props} forwardedRef={ref} />
-	);
-});
+const EmojiTypeAheadItem = React.forwardRef<HTMLDivElement, Props>((props, ref) => (
+	<EmojiTypeAheadItemInternal {...props} forwardedRef={ref} />
+));
 
 export default EmojiTypeAheadItem;

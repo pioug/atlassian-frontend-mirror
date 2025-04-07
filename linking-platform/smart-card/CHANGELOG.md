@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 36.2.6
+
+### Patch Changes
+
+- [#137717](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137717)
+  [`0730ec7855b00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0730ec7855b00) -
+  While showing link mismatch warning Ignore query/path differences between URLs inside href and
+  text of a link if both have same origin as current document url
+- Updated dependencies
+
 ## 36.2.5
 
 ### Patch Changes

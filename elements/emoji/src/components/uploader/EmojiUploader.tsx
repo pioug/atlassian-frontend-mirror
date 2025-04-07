@@ -4,7 +4,7 @@ import LoadingEmojiComponent, {
 	type Props as LoadingProps,
 	type State as LoadingState,
 } from '../common/LoadingEmojiComponent';
-import type { Props as ComponentProps } from './EmojiUploadComponentCompiled';
+import type { Props as ComponentProps } from './EmojiUploadComponent';
 import type { EmojiProvider } from '../../api/EmojiResource';
 import { type CreateUIAnalyticsEvent, withAnalyticsEvents } from '@atlaskit/analytics-next';
 

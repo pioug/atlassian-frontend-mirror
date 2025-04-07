@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 114.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.7.4
+
+### Patch Changes
+
+- [#136939](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136939)
+  [`960086975117b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/960086975117b) -
+  EDITOR-566 Cleaned up platform_editor_allow_annotation_triple_click and defaulted to true
+  behaviour.
+- Updated dependencies
+
 ## 114.7.3
 
 ### Patch Changes

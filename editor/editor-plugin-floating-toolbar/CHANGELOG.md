@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 3.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.6
 
 ### Patch Changes

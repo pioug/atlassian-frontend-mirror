@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [#137683](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137683)
+  [`c1020ef8cdf87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1020ef8cdf87) -
+  Adds support for Handlebars syntax highlighting.
+
+### Patch Changes
+
+- [#137043](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137043)
+  [`616c9cd4a2c60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/616c9cd4a2c60) -
+  Fix line wrapping and decorations being lost on breakout in advanced codeblocks
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

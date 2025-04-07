@@ -3,7 +3,12 @@
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type {
+	Decoration,
+	DecorationSource,
+	EditorView,
+	NodeView,
+} from '@atlaskit/editor-prosemirror/view';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 
@@ -34,6 +39,7 @@ export type CreateReactNodeViewProps<NodeViewOptions> = (
 	getPos: () => number | undefined,
 	decorations: readonly Decoration[],
 	getNodeViewOptions: () => NodeViewOptions,
+	innerDecorations: DecorationSource,
 ) => NodeView;
 
 /**
@@ -58,6 +64,7 @@ type NodeViewFactoryFn = (
 	view: EditorView,
 	getPos: () => number | undefined,
 	decorations: readonly Decoration[],
+	innerDecorations: DecorationSource,
 ) => NodeView;
 
 /**
@@ -153,6 +160,7 @@ export const withLazyLoading = <Options>({
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
+		innerDecorations: DecorationSource,
 	): NodeView => {
 		let requestedNodes: Map<string, Promise<NodeViewFactoryFn>> | undefined =
 			requestedNodesPerEditorView.get(view);
@@ -170,15 +178,28 @@ export const withLazyLoading = <Options>({
 		if (wasAlreadyRequested) {
 			const resolvedNodeView = resolvedNodeViews?.get(nodeName);
 			if (resolvedNodeView && !testOnlyIgnoreLazyNodeViewSet.has(view)) {
-				return resolvedNodeView(node, view, getPos, decorations);
+				return resolvedNodeView(node, view, getPos, decorations, innerDecorations);
 			}
 
 			return new LazyNodeView(node, view, getPos, decorations);
 		}
 
 		const loaderPromise = loader().then((nodeViewFuncModule) => {
-			const nodeViewFunc: NodeViewFactoryFn = (node, view, getPos, decorations) => {
-				const nodeView = nodeViewFuncModule(node, view, getPos, decorations, getNodeViewOptions);
+			const nodeViewFunc: NodeViewFactoryFn = (
+				node,
+				view,
+				getPos,
+				decorations,
+				innerDecorations,
+			) => {
+				const nodeView = nodeViewFuncModule(
+					node,
+					view,
+					getPos,
+					decorations,
+					getNodeViewOptions,
+					innerDecorations,
+				);
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const dom = nodeView.dom as HTMLElement;
 				dom.setAttribute('data-vc', `editor-lnv-loaded--${node.type.name}`);

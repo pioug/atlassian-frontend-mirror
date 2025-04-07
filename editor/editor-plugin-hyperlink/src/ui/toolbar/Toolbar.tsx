@@ -43,10 +43,12 @@ import {
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -197,7 +199,21 @@ export const getToolbarConfig =
 				className: activeLinkMark.type.match('INSERT|EDIT_INSERTED')
 					? 'hyperlink-floating-toolbar'
 					: '',
+				// getDomRef by default uses view.state.selection.from to position the toolbar.
+				// However, when the user clicks in right after the link the view.state.selection.from references to the dom after the selection.
+				// So instead we want to use the activeLinkMark.pos which has been calculated as the position before the click so that would be the link node
+				getDomRef:
+					activeLinkMark &&
+					(activeLinkMark.type === 'EDIT_INSERTED' || activeLinkMark.type === 'EDIT') &&
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_3')
+						? (view: EditorView) => {
+								const domRef = findDomRefAtPos(activeLinkMark.pos, view.domAtPos.bind(view));
+								return domRef instanceof HTMLElement ? domRef : undefined;
+							}
+						: undefined,
 			};
+
 			switch (activeLinkMark.type) {
 				case 'EDIT': {
 					const { pos, node } = activeLinkMark;

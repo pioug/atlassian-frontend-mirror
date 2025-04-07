@@ -515,7 +515,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 					fallbackComponent={null}
 				>
-					<GlobalStylesWrapper featureFlags={api?.featureFlags?.sharedState.currentState()} />
+					<GlobalStylesWrapper
+						featureFlags={api?.featureFlags?.sharedState.currentState()}
+						isDragAndDropEnabledOption={options?.dragAndDropEnabled}
+						api={api}
+					/>
 					<WithPluginState
 						plugins={{
 							tableAnalyticsPluginState: tableAnalyticsPluginKey,

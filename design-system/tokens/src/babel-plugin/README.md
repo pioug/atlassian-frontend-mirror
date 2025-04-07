@@ -13,17 +13,38 @@ from the theme selected as default (light or legacy-light), and set it as the fa
 
 Add the plugin to your babel configuration:
 
-```
+```json
 {
-  "plugins": ["@atlaskit/tokens/babel-plugin", { "shouldUseAutoFallback": false }]
+	"plugins": [
+		[
+			"@atlaskit/tokens/babel-plugin",
+			{
+				"shouldUseAutoFallback": false,
+				"defaultTheme": "light",
+				"shouldForceAutoFallback": false,
+				"forceAutoFallbackExemptions": []
+			}
+		]
+	]
 }
 ```
 
 ### Options
 
-Currently the plugin supports two options, `shouldUseAutoFallback` and `defaultTheme`. When
-`shouldUseAutoFallback` is not disabled, the plugin will fetch the token's value from the default
-theme (either `light` or `legacy-light`) and use it as the fallback value.
+- **`shouldUseAutoFallback`** (boolean, default: `true`): When enabled, the plugin will fetch the
+  token's value from the default theme (either `light` or `legacy-light`) and use it as the fallback
+  value.
+
+- **`defaultTheme`** (string, default: `"light"`): Specifies the default theme to use for fetching
+  token values. Supported values are `"light"` and `"legacy-light"`.
+
+- **`shouldForceAutoFallback`** (boolean, default: `false`): When enabled, the plugin will enforce
+  fallback values for all tokens unless they are exempted.
+
+- **`forceAutoFallbackExemptions`** (array of strings, default: `[]`): A list of token name prefixes
+  that should be exempted from forced fallback values. Please note that border.radius tokens are
+  always skipped (regardless of this parameter) since they are not supported in the current ADS
+  themes.
 
 This is useful for cases where tokens are in use, but token definitions aren't present in the
 top-level page CSS.

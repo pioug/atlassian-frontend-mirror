@@ -1,6 +1,7 @@
 import { UnbindFn, bind } from 'bind-event-listener';
 import { IntlShape } from 'react-intl-next';
 
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -16,6 +17,12 @@ export class DateNodeView implements NodeView {
 	private clickUnBind: UnbindFn | undefined;
 
 	readonly dom: HTMLElement = document.createElement('span');
+
+	private static logError(error: Error) {
+		void logException(error, {
+			location: 'editor-plugin-date/DateNodeView',
+		});
+	}
 
 	constructor(node: PMNode, view: EditorView, getPos: getPosHandlerNode, intl: IntlShape) {
 		this.node = node;
@@ -39,6 +46,9 @@ export class DateNodeView implements NodeView {
 				},
 			});
 		} catch (error) {
+			DateNodeView.logError(
+				error instanceof Error ? error : new Error('Unknown error on DateNodeView constructor'),
+			);
 			this.renderFallback();
 		}
 	}

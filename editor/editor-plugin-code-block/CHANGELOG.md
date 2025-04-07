@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block
 
+## 4.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.7
+
+### Patch Changes
+
+- [#137043](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137043)
+  [`616c9cd4a2c60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/616c9cd4a2c60) -
+  Fix line wrapping and decorations being lost on breakout in advanced codeblocks
+- Updated dependencies
+
 ## 4.2.6
 
 ### Patch Changes

@@ -38,6 +38,28 @@ import { Stack } from "@atlaskit/primitives/compiled";`);
 		expect(output).toEqual(`import { Box, xcss } from '@atlaskit/primitives';`);
 	});
 
+	it('should NOT transform  the file when xcss is imported with Grid', async () => {
+		const input = `import { Grid, xcss } from '@atlaskit/primitives';
+
+const gridStyles = xcss({
+	width: '100%'
+});
+
+const MyComponent = () => (
+	<Grid templateAreas={['title-close']} xcss={gridStyles} />
+);`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { Grid, xcss } from '@atlaskit/primitives';
+
+const gridStyles = xcss({
+	width: '100%'
+});
+
+const MyComponent = () => (
+	<Grid templateAreas={['title-close']} xcss={gridStyles} />
+);`);
+	});
+
 	it('should NOT transform other imports', async () => {
 		const input = `
 import { Box } from '@atlaskit/primitives';

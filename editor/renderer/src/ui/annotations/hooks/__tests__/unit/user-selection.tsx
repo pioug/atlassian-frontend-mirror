@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
 import { AnnotationsDraftContext } from '../../../context';
 import type { Position } from '../../../types';
@@ -364,122 +364,116 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 						);
 					}
 				});
-				ffTest.on(
-					'platform_editor_allow_annotation_triple_click',
-					'check if endContainer is updated on triple-clicks when flag is on',
-					() => {
-						it('should not change the endContainer when endContainer is textNode', async () => {
-							rendererDOM.classList.add('ak-renderer-document');
+				it('should not change the endContainer when endContainer is textNode', async () => {
+					rendererDOM.classList.add('ak-renderer-document');
 
-							const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
+					const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
 
-							const myFakeValidRangeUpdated: Range = {
-								...myFakeValidRange,
-								startContainer: lastListItem,
-								endContainer: lastListItem,
-								endOffset: 5,
-								commonAncestorContainer: lastListItem.parentNode as Node,
-								setEnd: jest.fn(),
-								cloneRange: jest.fn(),
-							};
+					const myFakeValidRangeUpdated: Range = {
+						...myFakeValidRange,
+						startContainer: lastListItem,
+						endContainer: lastListItem,
+						endOffset: 5,
+						commonAncestorContainer: lastListItem.parentNode as Node,
+						setEnd: jest.fn(),
+						cloneRange: jest.fn(),
+					};
 
-							await renderDummyComponentWithDraftContext(null);
+					await renderDummyComponentWithDraftContext(null);
 
-							// @ts-ignore
-							const myFakeSelection: Selection = {
-								type: 'Range',
-								rangeCount: 1,
-								getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
-							};
-							jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
+					// @ts-ignore
+					const myFakeSelection: Selection = {
+						type: 'Range',
+						rangeCount: 1,
+						getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+					};
+					jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
 
-							act(() => {
-								dispatchFakeSelectionChange();
-								jest.runAllTimers();
-							});
+					act(() => {
+						dispatchFakeSelectionChange();
+						jest.runAllTimers();
+					});
 
-							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(0);
-							expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
-						});
+					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(0);
+					expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+				});
 
-						it('should change the endContainer when endContainer is not textNode', async () => {
-							rendererDOM.classList.add('ak-renderer-document');
+				it('should change the endContainer when endContainer is not textNode', async () => {
+					rendererDOM.classList.add('ak-renderer-document');
 
-							const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
+					const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
 
-							const myFakeValidRangeUpdated: Range = {
-								...myFakeValidRange,
-								startContainer: lastListItem,
-								startOffset: 0,
-								endContainer: rendererDOM as Node,
-								endOffset: 0,
-								commonAncestorContainer: rendererDOM as Node,
-								setEnd: jest.fn(),
-								cloneRange: jest.fn(),
-							};
+					const myFakeValidRangeUpdated: Range = {
+						...myFakeValidRange,
+						startContainer: lastListItem,
+						startOffset: 0,
+						endContainer: rendererDOM as Node,
+						endOffset: 0,
+						commonAncestorContainer: rendererDOM as Node,
+						setEnd: jest.fn(),
+						cloneRange: jest.fn(),
+					};
 
-							await renderDummyComponentWithDraftContext(null);
+					await renderDummyComponentWithDraftContext(null);
 
-							// @ts-ignore
-							const myFakeSelection: Selection = {
-								type: 'Range',
-								rangeCount: 1,
-								getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
-							};
-							jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
+					// @ts-ignore
+					const myFakeSelection: Selection = {
+						type: 'Range',
+						rangeCount: 1,
+						getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+					};
+					jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
 
-							act(() => {
-								dispatchFakeSelectionChange();
-								jest.runAllTimers();
-							});
+					act(() => {
+						dispatchFakeSelectionChange();
+						jest.runAllTimers();
+					});
 
-							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
-							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
-								lastListItem,
-								6,
-							);
-							expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
-						});
+					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
+					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
+						lastListItem,
+						6,
+					);
+					expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+				});
 
-						it('should change the endContainer when endContainer is not textNode and selection include inline code', async () => {
-							rendererDOM.classList.add('ak-renderer-document');
-							const firstListItem = document.querySelector('li:first-child p') as Node;
+				it('should change the endContainer when endContainer is not textNode and selection include inline code', async () => {
+					rendererDOM.classList.add('ak-renderer-document');
+					const firstListItem = document.querySelector('li:first-child p') as Node;
 
-							const myFakeValidRangeUpdated: Range = {
-								...myFakeValidRange,
-								startContainer: firstListItem.childNodes[0],
-								startOffset: 0,
-								endContainer: rendererDOM as Node,
-								endOffset: 0,
-								commonAncestorContainer: rendererDOM as Node,
-								setEnd: jest.fn(),
-								cloneRange: jest.fn(),
-							};
+					const myFakeValidRangeUpdated: Range = {
+						...myFakeValidRange,
+						startContainer: firstListItem.childNodes[0],
+						startOffset: 0,
+						endContainer: rendererDOM as Node,
+						endOffset: 0,
+						commonAncestorContainer: rendererDOM as Node,
+						setEnd: jest.fn(),
+						cloneRange: jest.fn(),
+					};
 
-							await renderDummyComponentWithDraftContext(null);
+					await renderDummyComponentWithDraftContext(null);
 
-							// @ts-ignore
-							const myFakeSelection: Selection = {
-								type: 'Range',
-								rangeCount: 1,
-								getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
-							};
-							jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
+					// @ts-ignore
+					const myFakeSelection: Selection = {
+						type: 'Range',
+						rangeCount: 1,
+						getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+					};
+					jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
 
-							act(() => {
-								dispatchFakeSelectionChange();
-								jest.runAllTimers();
-							});
+					act(() => {
+						dispatchFakeSelectionChange();
+						jest.runAllTimers();
+					});
 
-							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
-							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
-								firstListItem.lastChild!.childNodes[0], // text node abc
-								3,
-							);
-							expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
-						});
-					},
-				);
+					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
+					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
+						firstListItem.lastChild!.childNodes[0], // text node abc
+						3,
+					);
+					expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+				});
 			});
 		});
 

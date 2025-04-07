@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 10.1.0
+
+### Minor Changes
+
+- [#136348](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136348)
+  [`e84a6c8d76f66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e84a6c8d76f66) -
+  Set explicit font family on Drawer using tokens to ensure it does not inherit font family.
+
 ## 10.0.6
 
 ### Patch Changes

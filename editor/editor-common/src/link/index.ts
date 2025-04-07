@@ -32,7 +32,7 @@ export {
 export type { Props as HyperlinkLinkAddToolbarProps } from './LinkPicker/HyperlinkAddToolbar/HyperlinkAddToolbar';
 export type { HyperlinkAddToolbarProps } from './LinkPicker/HyperlinkAddToolbar';
 export { sha1 } from './LinkPicker/HyperlinkAddToolbar/utils';
-export { isLinkAtPos, isTextAtPos, getLinkPreferencesURLFromENV } from './utils';
+export { isLinkAtPos, isTextAtPos, getLinkPreferencesURLFromENV, getActiveLinkMark } from './utils';
 export { OverlayButton } from './ConfigureLinkOverlay';
 export type { OverlayButtonProps } from './ConfigureLinkOverlay';
 export { handleNavigation } from './ConfigureLinkOverlay/handleNavigation';

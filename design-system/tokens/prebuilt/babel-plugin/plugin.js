@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = plugin;
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var t = _interopRequireWildcard(require("@babel/types"));
 var _tokenNames = _interopRequireDefault(require("../artifacts/token-names"));
@@ -18,6 +19,29 @@ function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return 
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0, _defineProperty2.default)(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+var isExempted = function isExempted(tokenName) {
+  var exemptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  // Check if the token name starts with any of the exempted prefixes
+  var _iterator = _createForOfIteratorHelper(exemptions),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var exemption = _step.value;
+      if (tokenName.startsWith(exemption)) {
+        return true;
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  return false;
+};
+
 // Convert raw tokens to key-value pairs { token: value }
 var getThemeValues = function getThemeValues(theme) {
   return theme.reduce(function (formatted, rawToken) {
@@ -97,9 +121,12 @@ function plugin() {
                 }
               }
 
-              // Handle fallbacks
               // The border.radius tokens are skipped in shouldForceAutoFallback mode because these tokens are not enabled in the live products and enforcing default values on them will override all the fallback values that are currently being used to render the actual UI.
-              var fallback = state.opts.shouldForceAutoFallback && !tokenName.startsWith('border.radius') ? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme)) : path.node.arguments[1];
+              // The exempted tokens (the ones that start with any of the provided exemption prefixes) are also skipped.
+              var forceAutoFallbackExemptions = ['border.radius'].concat((0, _toConsumableArray2.default)(state.opts.forceAutoFallbackExemptions || []));
+
+              // Handle fallbacks
+              var fallback = state.opts.shouldForceAutoFallback && !isExempted(tokenName, forceAutoFallbackExemptions) ? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme)) : path.node.arguments[1];
               if (t.isStringLiteral(fallback)) {
                 // String literals can be concatenated into css variable call
                 // Empty string fallbacks are ignored. For now, as the user did specify a fallback, no default is inserted

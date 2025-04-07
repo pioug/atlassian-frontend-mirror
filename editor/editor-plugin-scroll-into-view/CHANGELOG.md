@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-scroll-into-view
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

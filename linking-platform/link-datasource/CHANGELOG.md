@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.1.13
+
+### Patch Changes
+
+- [#132709](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/132709)
+  [`eb377d195f39d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb377d195f39d) -
+  [ux] Update link and icon render type for design refresh
+- Updated dependencies
+
 ## 4.1.12
 
 ### Patch Changes

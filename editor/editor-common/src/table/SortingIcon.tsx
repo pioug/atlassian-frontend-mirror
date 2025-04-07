@@ -16,9 +16,6 @@ import { SortOrder } from '../types';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from './consts';
 import { sortingAriaLabelMessages, sortingIconMessages } from './messages';
 
-const annotationRangeFixStyle = css({
-	userSelect: 'none',
-});
 export enum StatusClassNames {
 	ASC = 'sorting-icon-svg__asc',
 	DESC = 'sorting-icon-svg__desc',
@@ -81,6 +78,7 @@ const iconStyles = css({
 	width: '2px',
 	borderRadius: '50px',
 	background: token('color.icon', '#42526E'),
+	userSelect: 'none',
 	'&::before, &::after': {
 		background: token('color.icon', '#42526E'),
 		content: "''",
@@ -218,12 +216,7 @@ const SortingIcon = ({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={getIconClassName(isSortingAllowed, sortOrdered)}
 				>
-					<div
-						css={[
-							iconStyles,
-							fg('platform_editor_allow_annotation_triple_click') && annotationRangeFixStyle,
-						]}
-					/>
+					<div css={[iconStyles]} />
 				</div>
 			</div>
 		</Tooltip>

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 10.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.2
+
+### Patch Changes
+
+- [#136562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136562)
+  [`5d68129d8e4e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d68129d8e4e0) -
+  ED-26726 Cleaned up platform_editor_nested_tables_resize_border_fix
+
 ## 10.6.1
 
 ### Patch Changes

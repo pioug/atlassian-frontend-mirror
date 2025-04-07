@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.7.0
+
+### Minor Changes
+
+- [#137774](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137774)
+  [`02ed87dfa643c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02ed87dfa643c) -
+  Adds forceAutoFallbackExemptions that allows skipping certain tokens from fallback enforcement
+
 ## 4.6.0
 
 ### Minor Changes

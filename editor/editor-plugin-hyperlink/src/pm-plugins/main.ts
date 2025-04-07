@@ -7,7 +7,12 @@ import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
-import { handleNavigation, InsertStatus, LinkAction } from '@atlaskit/editor-common/link';
+import {
+	handleNavigation,
+	InsertStatus,
+	LinkAction,
+	getActiveLinkMark,
+} from '@atlaskit/editor-common/link';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange, shallowEqual } from '@atlaskit/editor-common/utils';
@@ -17,7 +22,6 @@ import type {
 	EditorState,
 	ReadonlyTransaction,
 	Selection,
-	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -25,21 +29,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 
 import { ButtonWrapper } from './decorations';
-
-const isSelectionInsideLink = (state: EditorState | Transaction) =>
-	!!state.doc.type.schema.marks.link.isInSet(state.selection.$from.marks());
-
-const isSelectionAroundLink = (state: EditorState | Transaction) => {
-	const { $from, $to } = state.selection;
-	const node = $from.nodeAfter;
-
-	return (
-		!!node &&
-		$from.textOffset === 0 &&
-		$to.pos - $from.pos === node.nodeSize &&
-		!!state.doc.type.schema.marks.link.isInSet(node.marks)
-	);
-};
 
 const mapTransactionToState = (
 	state: LinkToolbarState,
@@ -144,22 +133,6 @@ const toState = (
 	}
 
 	return;
-};
-
-const getActiveLinkMark = (
-	state: EditorState | Transaction,
-): { node: Node; pos: number } | undefined => {
-	const {
-		selection: { $from },
-	} = state;
-
-	if (isSelectionInsideLink(state) || isSelectionAroundLink(state)) {
-		const pos = $from.pos - $from.textOffset;
-		const node = state.doc.nodeAt(pos);
-		return node && node.isText ? { node, pos } : undefined;
-	}
-
-	return undefined;
 };
 
 const getActiveText = (selection: Selection): string | undefined => {

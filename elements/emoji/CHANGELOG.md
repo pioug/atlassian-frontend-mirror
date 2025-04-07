@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.0.10
+
+### Patch Changes
+
+- [#137259](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137259)
+  [`eeba53413394a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eeba53413394a) -
+  Cleans up compiled css FG in emoji typeahead and uploader components
+
 ## 69.0.9
 
 ### Patch Changes

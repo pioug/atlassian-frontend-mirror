@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ColorPickerWithoutAnalytics as ColorPicker, type ColorPickerProps } from '../..';
 import Trigger from '../../components/Trigger';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -43,8 +43,8 @@ describe('ColorPicker', () => {
 	});
 
 	test('should render ColorPickerMenu on ColorPicker click', async () => {
-		const { getByLabelText, getAllByRole } = renderUI();
-		const colorButton = getByLabelText('Blue selected, Color picker');
+		renderUI();
+		const colorButton = screen.getByLabelText('Blue selected, Color picker');
 		expect(colorButton).toHaveAttribute('aria-expanded', 'false');
 		expect(colorButton).toBeInTheDocument();
 
@@ -53,7 +53,7 @@ describe('ColorPicker', () => {
 		expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
 		// popup to have color options
-		expect(getAllByRole('radio')).toHaveLength(2);
+		expect(screen.getAllByRole('radio')).toHaveLength(2);
 	});
 
 	describe('FFs enabled', () => {
@@ -62,24 +62,24 @@ describe('ColorPicker', () => {
 		});
 
 		test('should capture and report a11y violations', async () => {
-			const { container, getByLabelText } = renderUI();
+			const { container } = renderUI();
 
-			const colorButton = getByLabelText('Blue selected, Color picker');
+			const colorButton = screen.getByLabelText('Blue selected, Color picker');
 			colorButton.click();
 
 			await expect(container).toBeAccessible();
 		});
 
 		test('should render ColorPicker', () => {
-			const { getByLabelText } = renderUI();
-			const colorButton = getByLabelText('Blue selected, Color picker');
+			renderUI();
+			const colorButton = screen.getByLabelText('Blue selected, Color picker');
 
 			expect(colorButton).toBeInTheDocument();
 		});
 
 		test('should render ColorPickerMenu on ColorPicker click', async () => {
-			const { getByLabelText, getAllByRole } = renderUI();
-			const colorButton = getByLabelText('Blue selected, Color picker');
+			renderUI();
+			const colorButton = screen.getByLabelText('Blue selected, Color picker');
 			expect(colorButton).toHaveAttribute('aria-expanded', 'false');
 			expect(colorButton).toBeInTheDocument();
 
@@ -88,24 +88,24 @@ describe('ColorPicker', () => {
 			expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
 			// popup to have color options
-			expect(getAllByRole('radio')).toHaveLength(2);
+			expect(screen.getAllByRole('radio')).toHaveLength(2);
 		});
 
 		test('should not submit form when click on trigger', async () => {
 			const mockSubmit = jest.fn();
-			const { getByRole } = render(
+			render(
 				<form onSubmit={mockSubmit}>
 					<Trigger value="blue" label="Blue" expanded={false} />
 				</form>,
 			);
 
-			await userEvent.click(getByRole('button'));
+			await userEvent.click(screen.getByRole('button'));
 			expect(mockSubmit.mock.calls.length).toBe(0);
 		});
 
 		test('should call onMenuOpen on ColorPicker open', async () => {
-			const { getByLabelText } = renderUI();
-			const colorButton = getByLabelText('Blue selected, Color picker');
+			renderUI();
+			const colorButton = screen.getByLabelText('Blue selected, Color picker');
 			await userEvent.click(colorButton);
 
 			if (fg('one_event_rules_them_all_fg')) {

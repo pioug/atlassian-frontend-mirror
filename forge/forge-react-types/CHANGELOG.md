@@ -1,5 +1,34 @@
 # @atlaskit/forge-react-types
 
+## 0.41.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.41.13
+
+### Patch Changes
+
+- [#137738](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137738)
+  [`42dc749c502ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42dc749c502ba) -
+  Export types
+- Updated dependencies
+
+## 0.41.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.41.11
+
+### Patch Changes
+
+- [#136342](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136342)
+  [`6d88cf7078624`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d88cf7078624) -
+  Update Comment props
+
 ## 0.41.10
 
 ### Patch Changes

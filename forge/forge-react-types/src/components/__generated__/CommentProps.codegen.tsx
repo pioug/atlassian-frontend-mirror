@@ -3,23 +3,36 @@
  *
  * Extract component prop types from UIKit 2 components - CommentProps
  *
- * @codegen <<SignedSource::168060fac6a0765d20191280e916c97d>>
+ * @codegen <<SignedSource::ecbd850be9d8821ca6e5e96434b10f79>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/comment/__generated__/index.partial.tsx <<SignedSource::9088f4c0a4e9e1ec151ec5ccba0cdfd6>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/comment/index.tsx <<SignedSource::a42a431bd3b71fdfd0fe249d0fccee24>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformComment from '@atlaskit/comment';
+import { default as PlatformComment, CommentAuthor, CommentTime, CommentAction } from '@atlaskit/comment';
 
-type PlatformCommentProps = React.ComponentProps<typeof PlatformComment>;
+export type CommentProps = Omit<
+	React.ComponentProps<typeof PlatformComment>,
+	'time' | 'author' | 'edited' | 'actions' | 'errorActions'
+> & {
+	time?: {
+		onClick?: React.ComponentProps<typeof CommentTime>['onClick'],
+		text: string
+	}
+	author?: {
+		onClick?: React.ComponentProps<typeof CommentAuthor>['onClick'],
+		text: string
+	}
+	edited?: string
+	actions?: Array<{
+		onClick?: React.ComponentProps<typeof CommentAction>['onClick'],
+		text: string
+	}>
+	errorActions?: Array<{
+		onClick?: React.ComponentProps<typeof CommentAction>['onClick'],
+		text: string
+	}>
+}
 
-export type CommentProps = Pick<
-  PlatformCommentProps,
-  'actions' | 'afterContent' | 'avatar' | 'children' | 'content' | 'errorIconLabel' | 'headingLevel' | 'highlighted' | 'id' | 'isError' | 'isSaving' | 'restrictedTo' | 'savingText' | 'shouldRenderNestedCommentsInline' | 'testId' | 'type'
->;
-
-/**
- * A comment displays discussions and user feedback.
- */
 export type TComment<T> = (props: CommentProps) => T;

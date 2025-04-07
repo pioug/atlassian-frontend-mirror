@@ -305,7 +305,10 @@ const tableStickyHeaderFirefoxFixStyle = () => {
 };
 
 // re-exporting these styles to use in Gemini test when table node view is rendered outside of PM
-export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
+export const baseTableStyles = (props: {
+	featureFlags?: FeatureFlags;
+	isDragAndDropEnabled?: boolean;
+}) => css`
 	${tableSharedStyle()};
 	${columnControlsLineMarker()};
 	${hoveredDeleteButton()};
@@ -364,7 +367,11 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	/* sticky styles */
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
-		.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+		${
+			fg('platform_editor_number_column_sticky_header_broken')
+				? `.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {`
+				: `.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {`
+		}
 			margin-top: ${
 				fg('platform_editor_number_column_sticky_header_bug')
 					? stickyRowOffsetTop
@@ -927,7 +934,9 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		position: relative;
 		float: right;
 		margin-left: ${akEditorTableToolbarSize}px;
-		top: ${props.featureFlags?.tableDragAndDrop ||
+		top: ${(fg('platform_editor_number_column_sticky_header_broken')
+			? props.isDragAndDropEnabled
+			: props.featureFlags?.tableDragAndDrop) ||
 		editorExperiment('support_table_in_comment_jira', true)
 			? 0
 			: akEditorTableToolbarSize}px;
@@ -960,8 +969,13 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	// which hides the table when scrolling
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
-		.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
-			.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {
+		${
+			fg('platform_editor_number_column_sticky_header_broken')
+				? `.${ClassName.TABLE_STICKY} > .${props.isDragAndDropEnabled ? ClassName.DRAG_ROW_CONTROLS_WRAPPER : ClassName.ROW_CONTROLS_WRAPPER} {
+				.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {`
+				: `.${ClassName.TABLE_STICKY} > .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
+				.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}:first-of-type::after {`
+		}
 				content: '';
 				display: block;
 				height: 33px;
@@ -1146,14 +1160,16 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	.${ClassName.ROW_CONTROLS_WRAPPER} {
 		position: absolute;
 		/* this is to fix the misalignment of the numbered column in live page view mode */
-		${props.featureFlags?.tableDragAndDrop && fg('platform_editor_numbered_column_misalignment')
+		${props.isDragAndDropEnabled && fg('platform_editor_numbered_column_misalignment')
 			? `
 			margin-top: ${tableMarginTop}px;
+			top: 0;
 			left: -${tableToolbarSize + 1}px;
 		`
 			: `
 			/* top of corner control is table margin top - corner control height + 1 pixel of table border. */
 			top: ${tableMarginTop - cornerControlHeight + 1}px;
+			margin-top: 0;
 			left: -${tableToolbarSize}px;
 		`}
 	}
@@ -1196,7 +1212,10 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 `;
 
 // TODO: DSP-4139 - Remove this when we have a better solution for the table toolbar
-export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
+export const tableStyles = (props: {
+	featureFlags?: FeatureFlags;
+	isDragAndDropEnabled?: boolean;
+}) => css`
 	.ProseMirror {
 		${baseTableStyles(props)}
 	}

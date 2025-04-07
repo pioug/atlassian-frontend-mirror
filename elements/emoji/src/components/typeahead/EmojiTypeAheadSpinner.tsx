@@ -1,9 +1,31 @@
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-import { EmojiTypeAheadSpinnerEmotion } from './EmojiTypeAheadSpinnerEmotion';
-import { EmojiTypeAheadSpinnerCompiled } from './EmojiTypeAheadSpinnerCompiled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { jsx, css } from '@compiled/react';
 
-export const EmojiTypeAheadSpinner = componentWithFG(
-	'platform_editor_css_migrate_emoji',
-	EmojiTypeAheadSpinnerCompiled,
-	EmojiTypeAheadSpinnerEmotion,
-);
+import Spinner from '@atlaskit/spinner';
+
+import { type EmojiTypeAheadMaxHeight } from '../../util/shared-styles';
+
+const emojiTypeAheadSpinner = css({
+	textAlign: 'center',
+});
+
+const typeAheadMaxHeight: EmojiTypeAheadMaxHeight = 350;
+const emojiTypeAheadSpinnerContainer = css({
+	position: 'relative',
+	height: `${typeAheadMaxHeight}px`,
+	paddingTop: `${(typeAheadMaxHeight - 30) / 2}px`,
+	boxSizing: 'border-box',
+});
+
+export function EmojiTypeAheadSpinner() {
+	return (
+		<div css={emojiTypeAheadSpinnerContainer}>
+			<div css={emojiTypeAheadSpinner}>
+				<Spinner size="medium" interactionName="empji-type-ahead-list-spinner" />
+			</div>
+		</div>
+	);
+}

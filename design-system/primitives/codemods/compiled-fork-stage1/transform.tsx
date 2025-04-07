@@ -17,21 +17,28 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 	const root = j(file.source);
 	let needsCssMapImport = false;
 
-	// Find all import declarations from '@atlaskit/primitives'
-	root.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } }).forEach((path) => {
-		// Check if 'xcss' is imported
-		const hasXcss = path.node.specifiers!.some((specifier) => {
-			if (!j.ImportSpecifier.check(specifier)) {
-				return false;
-			}
+	// Check if any import from '@atlaskit/primitives' contains 'xcss'
+	const hasXcssImport = root
+		.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } })
+		.some((path) => {
+			return path.node.specifiers!.some((specifier) => {
+				if (!j.ImportSpecifier.check(specifier)) {
+					return false;
+				}
 
-			return specifier.imported.name === 'xcss';
+				return specifier.imported.name === 'xcss';
+			});
 		});
 
-		// If 'xcss' is not imported, change the import to '@atlaskit/primitives/compiled'
-		if (!hasXcss) {
-			path.node.source = j.literal('@atlaskit/primitives/compiled');
-		}
+	// If 'xcss' is imported, return the original source without transformations
+	if (hasXcssImport) {
+		return file.source;
+	}
+
+	// Find all import declarations from '@atlaskit/primitives'
+	root.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } }).forEach((path) => {
+		// Change the import to '@atlaskit/primitives/compiled'
+		path.node.source = j.literal('@atlaskit/primitives/compiled');
 	});
 
 	// Find existing cssMap import or alias

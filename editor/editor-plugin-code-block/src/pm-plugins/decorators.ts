@@ -5,6 +5,7 @@ import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-pro
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
@@ -212,6 +213,24 @@ export const updateDecorationSetWithWordWrappedDecorator = (
 		);
 
 		updatedDecorationSet = updatedDecorationSet.remove(currentWrappedBlockDecorationSet);
+
+		// In code block advanced we don't use the node decoration - however a change in decorations
+		// is how we detect updates to the word wrap. If we have no decorations attached we've
+		// likely changed the breakout width with the toggle ON - we add an empty decoration to force
+		// prosemirror to recognise the change so we can update in our node view. This gets filtered
+		// out on the next toggle.
+		if (
+			currentWrappedBlockDecorationSet.length === 0 &&
+			editorExperiment('platform_editor_advanced_code_blocks', true)
+		) {
+			const wrappedBlock = Decoration.node(
+				pos,
+				pos + innerNode.nodeSize,
+				{},
+				{ type: DECORATION_WRAPPED_BLOCK_NODE_TYPE }, // Allows for quick filtering of decorations while using `find`
+			);
+			updatedDecorationSet = updatedDecorationSet.add(tr.doc, [wrappedBlock]);
+		}
 	} else {
 		const wrappedBlock = Decoration.node(
 			pos,

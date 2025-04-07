@@ -1,7 +1,11 @@
-import React from 'react';
+/**
+ * @jsxFrag
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@compiled/react';
 
-import { cssMap } from '@compiled/react';
-
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
@@ -9,6 +13,10 @@ const styles = cssMap({
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		width: '100%',
+	},
+	iconStyles: {
+		maxWidth: '16px',
+		minWidth: '16px',
 	},
 });
 
@@ -45,8 +53,11 @@ export function SharedIconComponent({
 				<img
 					src={iconUrl}
 					alt={label}
+					css={fg('platform-linking-visual-refresh-sllv') && styles.iconStyles}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={{ minWidth: '24px', maxWidth: '24px' }} // having just width: '24px' shrinks it when table width is reduced
+					style={
+						fg('platform-linking-visual-refresh-sllv') ? {} : { minWidth: '24px', maxWidth: '24px' }
+					} // having just width: '24px' shrinks it when table width is reduced
 				/>
 			</Inline>
 			{text && (

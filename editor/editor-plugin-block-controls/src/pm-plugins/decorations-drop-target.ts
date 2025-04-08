@@ -22,7 +22,7 @@ import {
 } from '../ui/drop-target';
 import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
 
-import { getNestedDepth, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
+import { NESTED_DEPTH, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
 import { type AnchorRectCache } from './utils/anchor-utils';
 import { maxLayoutColumnSupported } from './utils/consts';
 import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
@@ -249,89 +249,87 @@ export const dropTargetDecorations = (
 		let endPos;
 		const $pos = newState.doc.resolve(pos);
 		const isSameLayout = $activeNodePos && isInSameLayout($activeNodePos, $pos);
-		if (editorExperiment('nested-dnd', true)) {
-			depth = $pos.depth;
+		depth = $pos.depth;
 
-			if (isAdvancedLayoutsPreRelease2) {
-				if (activeNode?.pos === pos && activeNode.nodeType !== 'layoutColumn') {
-					return false;
-				}
-
-				if (
-					node.type.name === 'layoutColumn' &&
-					parent?.type.name === 'layoutSection' &&
-					index !== 0 && // Not the first node
-					(parent?.childCount < maxLayoutColumnSupported() || isSameLayout)
-				) {
-					// Add drop target for layout columns
-					decs.push(
-						createLayoutDropTargetDecoration(
-							pos,
-							{
-								api,
-								parent,
-								formatMessage,
-							},
-							nodeViewPortalProviderAPI,
-							anchorRectCache,
-						),
-					);
-				}
-			}
-
-			if (node.isInline || !parent || DISABLE_CHILD_DROP_TARGET.includes(parent.type.name)) {
-				pushNodeStack(node, depth);
+		if (isAdvancedLayoutsPreRelease2) {
+			if (activeNode?.pos === pos && activeNode.nodeType !== 'layoutColumn') {
 				return false;
-			}
-			if (IGNORE_NODES.includes(node.type.name)) {
-				pushNodeStack(node, depth);
-				return shouldDescend(node); //skip over, don't consider it a valid depth
-			}
-
-			// When multi select is on, validate all the nodes in the selection instead of just the handle node
-			if (isMultiSelect) {
-				const selectionSlice = newState.doc.slice(selectionFrom, selectionTo, false);
-				const selectionSliceChildCount = selectionSlice.content.childCount;
-				let canDropSingleNode: boolean = true;
-				let canDropMultipleNodes: boolean = true;
-
-				// when there is only one node in the slice, use the same logic as when multi select is not on
-				if (selectionSliceChildCount > 1 && handleInsideSelection) {
-					canDropMultipleNodes = canMoveSliceToIndex(
-						selectionSlice,
-						selectionFrom,
-						selectionTo,
-						parent,
-						index,
-						$pos,
-					);
-				} else {
-					canDropSingleNode = !!(
-						activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node)
-					);
-				}
-
-				if (!canDropMultipleNodes || !canDropSingleNode) {
-					pushNodeStack(node, depth);
-					return false; //not valid pos, so nested not valid either
-				}
-			} else {
-				const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
-
-				//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
-				if (!canDrop) {
-					pushNodeStack(node, depth);
-					return false; //not valid pos, so nested not valid either
-				}
 			}
 
 			if (
-				parent.lastChild === node &&
-				!isEmptyParagraph(node) &&
-				PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)
+				node.type.name === 'layoutColumn' &&
+				parent?.type.name === 'layoutSection' &&
+				index !== 0 && // Not the first node
+				(parent?.childCount < maxLayoutColumnSupported() || isSameLayout)
 			) {
-				endPos = pos + node.nodeSize;
+				// Add drop target for layout columns
+				decs.push(
+					createLayoutDropTargetDecoration(
+						pos,
+						{
+							api,
+							parent,
+							formatMessage,
+						},
+						nodeViewPortalProviderAPI,
+						anchorRectCache,
+					),
+				);
 			}
+		}
+
+		if (node.isInline || !parent || DISABLE_CHILD_DROP_TARGET.includes(parent.type.name)) {
+			pushNodeStack(node, depth);
+			return false;
+		}
+		if (IGNORE_NODES.includes(node.type.name)) {
+			pushNodeStack(node, depth);
+			return shouldDescend(node); //skip over, don't consider it a valid depth
+		}
+
+		// When multi select is on, validate all the nodes in the selection instead of just the handle node
+		if (isMultiSelect) {
+			const selectionSlice = newState.doc.slice(selectionFrom, selectionTo, false);
+			const selectionSliceChildCount = selectionSlice.content.childCount;
+			let canDropSingleNode: boolean = true;
+			let canDropMultipleNodes: boolean = true;
+
+			// when there is only one node in the slice, use the same logic as when multi select is not on
+			if (selectionSliceChildCount > 1 && handleInsideSelection) {
+				canDropMultipleNodes = canMoveSliceToIndex(
+					selectionSlice,
+					selectionFrom,
+					selectionTo,
+					parent,
+					index,
+					$pos,
+				);
+			} else {
+				canDropSingleNode = !!(
+					activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node)
+				);
+			}
+
+			if (!canDropMultipleNodes || !canDropSingleNode) {
+				pushNodeStack(node, depth);
+				return false; //not valid pos, so nested not valid either
+			}
+		} else {
+			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
+
+			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
+			if (!canDrop) {
+				pushNodeStack(node, depth);
+				return false; //not valid pos, so nested not valid either
+			}
+		}
+
+		if (
+			parent.lastChild === node &&
+			!isEmptyParagraph(node) &&
+			PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)
+		) {
+			endPos = pos + node.nodeSize;
 		}
 
 		const previousNode = popNodeStack(depth); // created scoped variable
@@ -381,7 +379,7 @@ export const dropTargetDecorations = (
 		}
 
 		pushNodeStack(node, depth);
-		return depth < getNestedDepth() && shouldDescend(node);
+		return depth < NESTED_DEPTH && shouldDescend(node);
 	});
 
 	if (docTo === POS_END_OF_DOC) {

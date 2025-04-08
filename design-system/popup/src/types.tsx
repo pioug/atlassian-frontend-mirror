@@ -109,6 +109,11 @@ export interface PopupComponentProps {
 	 * We strongly recommend using only `menu` or `dialog`.
 	 */
 	role?: string;
+
+	/**
+	 * Class name to apply to the popup container element.
+	 */
+	className?: string;
 }
 
 interface BaseProps {
@@ -300,7 +305,7 @@ interface InternalPopupProps extends BaseProps {
 	/**
 	 * Z-index that the popup should be displayed in.
 	 * This is passed to the portal component.
-	 * The default is `layers.layer()` from `@atlaskit/theme`.
+	 * The default is 400.
 	 */
 	zIndex?: number;
 }

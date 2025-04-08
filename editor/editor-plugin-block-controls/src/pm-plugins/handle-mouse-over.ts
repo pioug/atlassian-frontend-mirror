@@ -35,7 +35,7 @@ export const handleMouseOver = (
 	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
 	if (rootElement) {
 		// We want to exlude handles from showing for empty paragraph and heading nodes
-		if (editorExperiment('nested-dnd', true) && isEmptyNestedParagraphOrHeading(rootElement)) {
+		if (isEmptyNestedParagraphOrHeading(rootElement)) {
 			return false;
 		}
 
@@ -57,16 +57,12 @@ export const handleMouseOver = (
 
 		if (editorExperiment('advanced_layouts', true)) {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
-			if (
-				parentElement &&
-				(parentElementType === 'table' || parentElementType === 'tableRow') &&
-				editorExperiment('nested-dnd', true)
-			) {
+			if (parentElement && (parentElementType === 'table' || parentElementType === 'tableRow')) {
 				rootElement = parentElement;
 			}
 		} else {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
-			if (parentElement && parentElementType === 'table' && editorExperiment('nested-dnd', true)) {
+			if (parentElement && parentElementType === 'table') {
 				rootElement = parentElement;
 			}
 		}
@@ -88,7 +84,7 @@ export const handleMouseOver = (
 
 		const parentRootElement = rootElement.parentElement;
 		let pos: number;
-		if (parentRootElement && editorExperiment('nested-dnd', true)) {
+		if (parentRootElement) {
 			const childNodes = Array.from(parentRootElement.childNodes);
 			const index = childNodes.indexOf(rootElement);
 			pos = view.posAtDOM(parentRootElement, index);
@@ -118,13 +114,7 @@ export const handleMouseOver = (
 			return false;
 		}
 
-		let targetPos: number;
-
-		if (editorExperiment('nested-dnd', true)) {
-			targetPos = view.state.doc.resolve(pos).pos;
-		} else {
-			targetPos = view.state.doc.resolve(pos).start(1) - 1;
-		}
+		const targetPos = view.state.doc.resolve(pos).pos;
 
 		let rootAnchorName;
 		let rootNodeType;

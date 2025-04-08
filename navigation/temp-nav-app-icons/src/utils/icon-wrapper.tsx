@@ -15,6 +15,12 @@ const styles = cssMap({
 });
 
 const sizeMap = cssMap({
+	'12': {
+		height: '12px',
+	},
+	'16': {
+		height: '16px',
+	},
 	'20': {
 		height: '20px',
 	},

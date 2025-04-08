@@ -1,7 +1,7 @@
 import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
-import { type OperationalAEP } from './utils';
+import { TrackAEP, type OperationalAEP } from './utils';
 
-export type SelectionToolbarAEP = OperationalAEP<
+export type UserPreferencesInitialisedAEP = OperationalAEP<
 	ACTION.INITIALISED,
 	ACTION_SUBJECT.USER_PREFERENCES,
 	ACTION_SUBJECT_ID.SELECTION_TOOLBAR_PREFERENCES,
@@ -10,4 +10,16 @@ export type SelectionToolbarAEP = OperationalAEP<
 	}
 >;
 
-export type SelectionToolbarEventPayload = SelectionToolbarAEP;
+export type UserPreferencesUpdatedAEP = TrackAEP<
+	ACTION.UPDATED,
+	ACTION_SUBJECT.USER_PREFERENCES,
+	ACTION_SUBJECT_ID.SELECTION_TOOLBAR_PREFERENCES,
+	{
+		toolbarDocking: string | null;
+	},
+	undefined
+>;
+
+export type SelectionToolbarEventPayload =
+	| UserPreferencesInitialisedAEP
+	| UserPreferencesUpdatedAEP;

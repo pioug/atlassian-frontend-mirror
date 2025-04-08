@@ -35,6 +35,10 @@ export const TEST_OBJECT_WITH_HIGHLIGHTING: JsonLd.Primitives.Object = {
 export const TEST_PERSON: JsonLd.Primitives.Person = {
 	...TEST_OBJECT,
 	'@type': 'Person',
+	'atlassian:emails': [],
+	'atlassian:displayName': TEST_NAME,
+	'atlassian:externalId': TEST_ARI,
+	'atlassian:photos': [],
 };
 export const TEST_IMAGE: JsonLd.Primitives.Image = {
 	'@type': 'Image',

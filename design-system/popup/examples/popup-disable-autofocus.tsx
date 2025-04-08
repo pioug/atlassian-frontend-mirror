@@ -4,8 +4,7 @@
  */
 import { type FC, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import Popup from '@atlaskit/popup';
@@ -18,9 +17,12 @@ const spacerStyles = css({
 
 const sizedContentStyles = css({
 	height: '80px',
-	padding: token('space.400', '32px'),
 	alignItems: 'center',
 	overflow: 'auto',
+	paddingBlockEnd: token('space.400'),
+	paddingBlockStart: token('space.400'),
+	paddingInlineEnd: token('space.400'),
+	paddingInlineStart: token('space.400'),
 	textAlign: 'center',
 	verticalAlign: 'center',
 });
@@ -61,6 +63,7 @@ export default () => {
 					</Button>
 				)}
 				placement="bottom"
+				// eslint-disable-next-line jsx-a11y/no-autofocus
 				autoFocus={false}
 			/>
 			<input data-testid="focused-input" placeholder="This should keep focus" />

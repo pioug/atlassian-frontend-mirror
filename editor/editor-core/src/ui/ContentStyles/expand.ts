@@ -13,7 +13,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const EXPAND_SELECTED_BACKGROUND = token(
@@ -31,7 +31,7 @@ const DANGER_STATE_BACKGROUND_COLOR = token('color.background.danger');
 const DANGER_STATE_BORDER_COLOR = token('color.border.danger');
 
 const firstNodeWithNotMarginTop = () =>
-	editorExperiment('nested-dnd', true)
+	fg('platform_editor_nested_dnd_styles_changes')
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
 				> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
@@ -67,7 +67,7 @@ export const expandStyles = () => css`
 		}
 
 		&.${akEditorSelectedNodeClassName}:not(.danger) {
-			${editorExperiment('nested-dnd', true)
+			${fg('platform_editor_nested_dnd_styles_changes')
 				? getSelectionStyles([SelectionStyle.Blanket]) + `border: ${akEditorSelectedBorder};`
 				: getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
 		}
@@ -86,7 +86,7 @@ export const expandStyles = () => css`
 		margin-right: -${akLayoutGutterOffset}px;
 	}
 
-	${editorExperiment('nested-dnd', true) &&
+	${fg('platform_editor_nested_dnd_styles_changes') &&
 	`.ak-editor-content-area.appearance-full-page .ProseMirror
 		> .${expandClassNames.type('expand')},
 		.${BreakoutCssClassName.BREAKOUT_MARK_DOM}

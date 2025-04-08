@@ -4,15 +4,21 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const spacerStyles = xcss({
-	margin: 'space.800',
+const spacerStyles = cssMap({
+	root: {
+		marginBlockStart: token('space.800'),
+		marginBlockEnd: token('space.800'),
+		marginInlineStart: token('space.800'),
+		marginInlineEnd: token('space.800'),
+	},
 });
 
 type ExampleProps = {
@@ -23,7 +29,7 @@ const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
 	const [isOpen, setIsOpen] = useState(isOpenInitial);
 
 	return (
-		<Box xcss={spacerStyles}>
+		<Box xcss={spacerStyles.root}>
 			<Popup
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}

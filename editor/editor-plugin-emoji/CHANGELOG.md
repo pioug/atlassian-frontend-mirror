@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.5.4
+
+### Patch Changes
+
+- [#138298](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138298)
+  [`cc7cc96e28407`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc7cc96e28407) -
+  Cleans up FG to preload emoji picker, allowing it to work offline
+- Updated dependencies
+
+## 3.5.3
+
+### Patch Changes
+
+- [#137646](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137646)
+  [`7513743b76e0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7513743b76e0f) -
+  [https://product-fabric.atlassian.net/browse/ED-27459](ED-27459) - fix vanilla js emoji SSR
+  rendering issue
+
 ## 3.5.2
 
 ### Patch Changes

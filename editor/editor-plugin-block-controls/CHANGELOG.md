@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.8.5
+
+### Patch Changes
+
+- [#133802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133802)
+  [`f523489c8b68a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f523489c8b68a) -
+  [ux] ED-27217 Clean up experiment platform_editor_element_drag_and_drop_nested
+- Updated dependencies
+
+## 3.8.4
+
+### Patch Changes
+
+- [#136942](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136942)
+  [`47faad73d7f6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47faad73d7f6c) -
+  Add visibility container which wraps both block control widgets to control their visibility
+
 ## 3.8.3
 
 ### Patch Changes

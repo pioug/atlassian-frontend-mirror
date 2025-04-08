@@ -881,10 +881,21 @@ export const floatingToolbar = (
 		return;
 	}
 	const nodeType = allowMediaInline ? [mediaInline, mediaSingle, media] : [mediaSingle];
+
+	const isSelectedNodeMediaSingle =
+		state.selection instanceof NodeSelection && state.selection.node.type === mediaSingle;
+
 	const baseToolbar: MediaToolbarBaseConfig = {
 		title: 'Media floating controls',
 		nodeType,
-		getDomRef: () => mediaPluginState.element,
+		getDomRef: () => {
+			const element =
+				isSelectedNodeMediaSingle && fg('platform_editor_media_single_toolbar_target')
+					? mediaPluginState.element?.querySelector(`.${MediaSingleNodeSelector}`) ||
+						mediaPluginState.element
+					: mediaPluginState.element;
+			return element as HTMLElement | undefined;
+		},
 	};
 
 	if (

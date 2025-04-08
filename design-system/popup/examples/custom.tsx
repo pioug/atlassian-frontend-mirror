@@ -4,8 +4,7 @@
  */
 import { forwardRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
@@ -20,13 +19,21 @@ const containerStyles = css({
 		outline: 'none',
 	},
 });
+
 const contentStyles = css({
 	width: 175,
 	height: 250,
 });
+
 const CustomPopupContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
 	({ children, ...props }, ref) => (
-		<div css={containerStyles} {...props} ref={ref}>
+		<div
+			css={containerStyles}
+			{...props}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={props.className}
+			ref={ref}
+		>
 			{children}
 		</div>
 	),

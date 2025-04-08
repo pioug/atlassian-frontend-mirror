@@ -26,6 +26,7 @@ const tableStyles = css({
 	width: '100%',
 	borderCollapse: 'separate',
 	borderSpacing: '0px',
+	fontFamily: token('font.family.body'),
 });
 
 const bodyBorder = css({

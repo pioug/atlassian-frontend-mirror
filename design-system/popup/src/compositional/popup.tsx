@@ -15,7 +15,6 @@ import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
-import { layers } from '@atlaskit/theme/constants';
 
 import PopperWrapper from '../popper-wrapper';
 import {
@@ -117,7 +116,7 @@ export const PopupTrigger = ({ children }: PopupTriggerProps) => {
 	);
 };
 
-const defaultLayer = layers.layer();
+const defaultLayer = 400;
 
 type CommonContentPopupProps = Pick<
 	LegacyPopupProps,

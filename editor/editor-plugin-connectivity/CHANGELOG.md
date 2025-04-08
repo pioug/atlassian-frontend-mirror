@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 2.0.4
+
+### Patch Changes
+
+- [#137691](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137691)
+  [`c43af6142d901`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c43af6142d901) -
+  EDITOR-567 - Revamp mocking for comments used in editor and renderer
+
 ## 2.0.3
 
 ### Patch Changes

@@ -292,6 +292,39 @@ export namespace JsonLd {
 		/* Represents an individual person. */
 		export interface Person<T = any> extends Primitives.Object<T> {
 			'@type': TypeProperty<'Person'>;
+			/* A globally unique identifier for the user */
+			'atlassian:externalId'?: string;
+			/* The username used to log in */
+			'atlassian:userName'?: string;
+			/* Components of the user's name */
+			'atlassian:name'?: {
+				/* The given (first) name of the user */
+				givenName?: string;
+				/* The family (last) name of the user */
+				familyName?: string;
+				/* The full formatted name of the user */
+				formatted?: string;
+			};
+			/* A casual or familiar name for the user */
+			'atlassian:nickname'?: string;
+			/* The name displayed in the UI for the user */
+			'atlassian:displayName'?: string;
+			/* Collection of photos associated with the user */
+			'atlassian:photos'?: Array<{
+				/* URL to the photo */
+				value?: string;
+				/* Type of photo */
+				type?: 'photo' | 'thumbnail';
+			}>;
+			/* Collection of email addresses associated with the user */
+			'atlassian:emails'?: Array<{
+				/* The email address */
+				value: string;
+				/* Whether this is the primary email for the user */
+				primary?: boolean;
+			}>;
+			/* Additional profile information as key-value pairs */
+			'atlassian:extendedProfile'?: Record<string, any>;
 		}
 
 		/* Represents a service of any kind. */

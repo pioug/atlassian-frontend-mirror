@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "4.3.4",
+	"version": "4.3.5",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -97,6 +97,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_nbm_backspace_fixes": {
+			"type": "boolean"
+		},
+		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_1": {

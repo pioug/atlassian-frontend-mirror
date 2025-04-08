@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { DevTools } from '@af/editor-examples-helpers/utils';
+import { DevTools, useEditorAnnotationProviders } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
@@ -42,11 +42,7 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
-import {
-	getExampleExtensionProviders,
-	ExampleCreateInlineCommentWithRepliesComponent,
-	ExampleViewInlineCommentWithRepliesComponent,
-} from '@atlaskit/editor-test-helpers/example-helpers';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -91,6 +87,7 @@ function SimulateMode() {
 }
 
 function Editor() {
+	const editorAnnotationProviders = useEditorAnnotationProviders();
 	const { preset, editorApi } = usePreset((builder) =>
 		builder
 			.add(basePlugin)
@@ -139,19 +136,7 @@ function Editor() {
 			.add(layoutPlugin)
 			.add([selectionToolbarPlugin, {}])
 			.add(tasksAndDecisionsPlugin)
-			.add([
-				annotationPlugin,
-				{
-					inlineComment: {
-						createComponent: ExampleCreateInlineCommentWithRepliesComponent,
-						viewComponent: ExampleViewInlineCommentWithRepliesComponent,
-						getState: async () => {
-							return [];
-						},
-						disallowOnWhitespace: true,
-					},
-				},
-			])
+			.add([annotationPlugin, editorAnnotationProviders])
 			.add([
 				loomPlugin,
 				{

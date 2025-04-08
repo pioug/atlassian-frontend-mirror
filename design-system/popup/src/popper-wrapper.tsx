@@ -4,14 +4,12 @@
  */
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
+import { ax } from '@compiled/react/runtime';
 
-import FocusRing from '@atlaskit/focus-ring';
 import { useLayering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
-import { N0, N50A, N60A } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import { RepositionOnUpdate } from './reposition-on-update';
@@ -19,22 +17,27 @@ import { type PopperWrapperProps, type PopupComponentProps } from './types';
 import { useCloseManager } from './use-close-manager';
 import { useFocusManager } from './use-focus-manager';
 
+const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
+	'--ds-elevation-surface-current';
+
 const fullWidthStyles = css({ width: '100%' });
 
-const rootStyles = css({
-	display: 'block',
-	boxSizing: 'border-box',
-	zIndex: layers.layer(),
-	backgroundColor: token('elevation.surface.overlay', N0),
-	borderRadius: token('border.radius', '3px'),
-	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
-	// Resetting text color for portal content.
-	// Otherwise, when rendering into the parent (not using a portal),
-	// the text color can be inherited from the parent.
-	color: token('color.text'),
-	[CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
-	'&:focus': {
-		outline: 'none',
+const wrapperStyles = cssMap({
+	root: {
+		display: 'block',
+		boxSizing: 'border-box',
+		zIndex: 400,
+		backgroundColor: token('elevation.surface.overlay'),
+		borderRadius: token('border.radius'),
+		boxShadow: token('elevation.shadow.overlay'),
+		// Resetting text color for portal content.
+		// Otherwise, when rendering into the parent (not using a portal),
+		// the text color can be inherited from the parent.
+		color: token('color.text'),
+		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
+		'&:focus': {
+			outline: 'none',
+		},
 	},
 });
 
@@ -55,28 +58,45 @@ const modalStyles = css({
 	insetInline: token('space.050'),
 });
 
+const focusRingStyles = cssMap({
+	root: {
+		'&:focus-visible': {
+			outlineColor: token('color.border.focused', '#2684ff'),
+			// @ts-ignore
+			outlineOffset: token('border.width.outline'),
+			outlineStyle: 'solid',
+			// @ts-ignore
+			outlineWidth: token('border.width.outline'),
+		},
+		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
+			'&:focus-visible': {
+				outlineStyle: 'solid',
+				outlineWidth: 1,
+			},
+		},
+	},
+});
+
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => {
 	const {
 		shouldRenderToParent,
 		shouldFitContainer,
 		children,
 		appearance,
-		xcss,
+		className,
 		...htmlAttributes
 	} = props;
 
 	return (
 		<div
-			// Because we're using Emotion local jsx namespace we have to coerce xcss prop to a string.
-			// When we're fully on Compiled its local jsx namespace accepts the output of xcss prop.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- This rule still fails because of the TS assertion
-			className={xcss as string}
 			css={[
-				rootStyles,
+				wrapperStyles.root,
 				appearance === 'UNSAFE_modal-below-sm' && modalStyles,
 				!shouldRenderToParent && scrollableStyles,
 				shouldFitContainer && fullWidthStyles,
 			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 			{...htmlAttributes}
 			ref={ref}
 		>
@@ -172,7 +192,15 @@ function PopperWrapper({
 			{({ ref, style, placement, update }) => {
 				const popupContainer = (
 					<PopupContainer
-						xcss={xcss}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className={ax([
+							xcss as string,
+							// @ts-expect-error: `ax` is not typed correctly
+							!initialFocusRef &&
+								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+								fg('platform-design-system-apply-popup-wrapper-focus') &&
+								focusRingStyles.root,
+						])}
 						appearance={appearance}
 						id={id}
 						data-ds--level={currentLevel}
@@ -210,12 +238,7 @@ function PopperWrapper({
 					</PopupContainer>
 				);
 
-				return !initialFocusRef && fg('platform-design-system-apply-popup-wrapper-focus') ? (
-					<Fragment>
-						<FocusRing>{popupContainer}</FocusRing>
-						{appearance === 'UNSAFE_modal-below-sm' && <div css={blanketStyles} />}
-					</Fragment>
-				) : (
+				return (
 					<Fragment>
 						{popupContainer}
 						{appearance === 'UNSAFE_modal-below-sm' && <div css={blanketStyles} />}

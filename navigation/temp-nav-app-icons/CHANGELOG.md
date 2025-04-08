@@ -1,5 +1,13 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.7.1
+
+### Patch Changes
+
+- [#137785](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137785)
+  [`45fedddb25d0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45fedddb25d0b) -
+  Added new size options (12 and 16) to Icon components
+
 ## 0.7.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @atlaskit/rovo-agent-components
 
+## 2.6.0
+
+### Minor Changes
+
+- [#137721](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137721)
+  [`37f0da49fa1ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37f0da49fa1ba) -
+  Prevent agent avatar from squishing when next to longer text in the AgentCard
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

@@ -23,7 +23,6 @@ import type {
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
 	GetEditorContainerWidth,
-	GetEditorFeatureFlags,
 	Icon,
 	typeOption,
 } from '@atlaskit/editor-common/types';
@@ -87,6 +86,7 @@ import {
 	toggleNumberColumnWithAnalytics,
 	wrapTableInExpandWithAnalytics,
 } from '../pm-plugins/commands/commands-with-analytics';
+import { getPluginState as getDragDropPluginState } from '../pm-plugins/drag-and-drop/plugin-factory';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing/plugin-key';
 import { getStaticTableScalingPercent } from '../pm-plugins/table-resizing/utils/misc';
@@ -479,7 +479,6 @@ export const getToolbarConfig =
 		getEditorContainerWidth: GetEditorContainerWidth,
 		api: PluginInjectionAPI | undefined | null,
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-		getEditorFeatureFlags: GetEditorFeatureFlags,
 		getEditorView: () => EditorView | null,
 		options?: TablePluginOptions,
 		isTableFixedColumnWidthsOptionEnabled = false,
@@ -492,12 +491,42 @@ export const getToolbarConfig =
 		const resizeState = tableResizingPluginKey.getState(state);
 		const tableWidthState = tableWidthPluginKey.getState(state);
 		const isTableScalingEnabled = options?.isTableScalingEnabled || false;
+		const nodeType = state.schema.nodes.table;
+		const toolbarTitle = 'Table floating controls';
+
+		if (
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_3')
+		) {
+			let isDragHandleMenuOpened = false;
+			let isTableRowOrColumnDragged = false;
+			if (options?.dragAndDropEnabled) {
+				const { isDragMenuOpen = false, isDragging = false } = getDragDropPluginState(state);
+				isDragHandleMenuOpened = isDragMenuOpen;
+				isTableRowOrColumnDragged = isDragging;
+			}
+
+			const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
+			const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;
+			const shouldSuppressAllToolbars =
+				!pluginState.editorHasFocus ||
+				isTableMenuOpened ||
+				isTableOrColumnResizing ||
+				isTableRowOrColumnDragged;
+			if (shouldSuppressAllToolbars) {
+				return {
+					title: toolbarTitle,
+					items: [],
+					nodeType,
+					__suppressAllToolbars: true,
+				};
+			}
+		}
 
 		// We don't want to show floating toolbar while resizing the table
 		const isWidthResizing = tableWidthState?.resizing;
 
 		if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
-			const nodeType = state.schema.nodes.table;
 			const isNested = pluginState.tablePos && isTableNested(state, pluginState.tablePos);
 			const isTableScalingWithFixedColumnWidthsOptionShown =
 				isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled && !isNested;
@@ -645,7 +674,7 @@ export const getToolbarConfig =
 					: undefined;
 
 			return {
-				title: 'Table floating controls',
+				title: toolbarTitle,
 				getDomRef,
 				nodeType,
 				offset: [0, 18],

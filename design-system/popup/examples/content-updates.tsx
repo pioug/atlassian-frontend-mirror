@@ -4,13 +4,15 @@
  */
 import { useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Popup from '@atlaskit/popup';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const data = [
 	`Last night I saw you in my dreams, now I can't wait to go to sleep.`,
@@ -21,15 +23,22 @@ const data = [
 	`Be careful what you say to someone today.`,
 ];
 
-const quoteStyles = xcss({
-	maxWidth: '600px',
-	padding: 'space.200',
-	textAlign: 'center',
+const quoteStyles = cssMap({
+	root: {
+		maxWidth: '600px',
+		paddingBlockStart: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		textAlign: 'center',
+	},
 });
 
-const buttonGroupContainer = xcss({
-	width: '100%',
-	textAlign: 'center',
+const buttonGroupContainer = cssMap({
+	root: {
+		width: '100%',
+		textAlign: 'center',
+	},
 });
 
 const Quotes = ({ onUpdate }: { onUpdate: () => void }) => {
@@ -45,7 +54,7 @@ const Quotes = ({ onUpdate }: { onUpdate: () => void }) => {
 	}, [onUpdate]);
 
 	return (
-		<Box as="blockquote" xcss={quoteStyles} aria-live="assertive" aria-atomic="true">
+		<Box as="blockquote" xcss={quoteStyles.root} aria-live="assertive" aria-atomic="true">
 			<Text>{data[textIndex]}</Text>
 		</Box>
 	);
@@ -56,7 +65,7 @@ export default () => {
 	const [isUpdateOn, setIsUpdateOn] = useState(true);
 
 	return (
-		<Box xcss={buttonGroupContainer}>
+		<Box xcss={buttonGroupContainer.root}>
 			<ButtonGroup label="Content updates">
 				<Popup
 					isOpen={isOpen}

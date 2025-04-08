@@ -22,8 +22,6 @@ import { useEmoji } from '../../hooks/useEmoji';
 import { useCallback } from 'react';
 import { extractErrorInfo } from '../../util/analytics/analytics';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export interface State {
 	cachedEmoji?: EmojiDescription;
 	invalidImage?: boolean;
@@ -58,11 +56,7 @@ export const CachingEmoji = (props: React.PropsWithChildren<CachingEmojiProps>) 
 		if (isMediaEmoji(emoji)) {
 			return <CachingMediaEmoji emoji={emoji} placeholderSize={placeholderSize} {...restProps} />;
 		}
-		if (fg('platform_editor_preload_emoji_picker')) {
-			return <StandardEmoji emoji={emoji} {...restProps} />;
-		} else {
-			return <Emoji emoji={emoji} {...restProps} />;
-		}
+		return <StandardEmoji emoji={emoji} {...restProps} />;
 	};
 
 	return (

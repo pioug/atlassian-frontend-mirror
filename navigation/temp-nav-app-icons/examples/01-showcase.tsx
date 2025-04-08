@@ -54,6 +54,8 @@ export default function ShowcaseExample({
 				<Table>
 					<THead>
 						<HeadCell>App</HeadCell>
+						<HeadCell>12x12</HeadCell>
+						<HeadCell>16x16</HeadCell>
 						<HeadCell>20x20</HeadCell>
 						<HeadCell>24x24</HeadCell>
 						<HeadCell>32x32</HeadCell>
@@ -66,10 +68,12 @@ export default function ShowcaseExample({
 								(a: (typeof rows)[0], b: (typeof rows)[0]) =>
 									appOrder.indexOf(a.name) - appOrder.indexOf(b.name),
 							)
-							.map(({ name, Icon20, Icon24, Icon32, Logo }) => {
+							.map(({ name, Icon12, Icon16, Icon20, Icon24, Icon32, Logo }) => {
 								return (
 									<Row key={name}>
 										<Cell>{name}</Cell>
+										<Cell width="60px">{<Icon12 {...customisedProps} />}</Cell>
+										<Cell width="60px">{<Icon16 {...customisedProps} />}</Cell>
 										<Cell width="60px">{<Icon20 {...customisedProps} />}</Cell>
 										<Cell width="60px">{<Icon24 {...customisedProps} />}</Cell>
 										<Cell width="60px">{<Icon32 {...customisedProps} />}</Cell>

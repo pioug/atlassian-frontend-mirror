@@ -3,7 +3,7 @@
 import { css } from '@emotion/react';
 
 import { blockquoteSharedStyles, headingsSharedStyles } from '@atlaskit/editor-common/styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Imports are not safe in an object syntax
@@ -19,7 +19,7 @@ export const blocktypeStyles = (
 		${headingsSharedStyles(typographyTheme)};
 	}
 
-	${editorExperiment('nested-dnd', true) &&
+	${fg('platform_editor_nested_dnd_styles_changes') &&
 	`.ak-editor-content-area.appearance-full-page .ProseMirror blockquote {
 		padding-left: ${token('space.250', '20px')};
 	}

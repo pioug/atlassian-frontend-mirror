@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 2.1.2
+
+### Patch Changes
+
+- [#137989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137989)
+  [`8a449b2a3d26a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a449b2a3d26a) -
+  Fix hiding selection on advanced code blocks in safari.
+
 ## 2.1.1
 
 ### Patch Changes

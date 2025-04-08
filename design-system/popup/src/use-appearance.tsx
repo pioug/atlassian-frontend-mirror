@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 
 /**
  * **usePopupAppearance()**

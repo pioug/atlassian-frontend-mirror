@@ -4,7 +4,7 @@
  *
  * For backwards compatibility, the 'medium' size is equivalent to '24', and 'small' is equivalent to '32'.
  */
-export type IconSize = '20' | '24' | '32' | 'small' | 'medium';
+export type IconSize = '12' | '16' | '20' | '24' | '32' | 'small' | 'medium';
 
 type SharedProps = {
 	/**

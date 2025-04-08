@@ -2054,7 +2054,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 					tableSharedStyle,
 					tableRendererHeaderStylesForTableCellOnly,
 					isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,
-					editorExperiment('nested-dnd', true)
+					fg('platform_editor_nested_dnd_styles_changes')
 						? firstNodeWithNotMarginTopWithNestedDnD
 						: firstNodeWithNotMarginTop,
 					rendererTableStyles,

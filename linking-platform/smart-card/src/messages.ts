@@ -150,11 +150,17 @@ export type MessageKey =
 	| 'related_links_modal_error_header'
 	| 'related_links_modal_error_message'
 	| 'related_links_modal_unavailable_header'
+	| 'related_links_modal_unavailable_title'
 	| 'related_links_modal_unavailable_message'
+	| 'related_links_modal_unavailable_description'
 	| 'related_links_modal_title'
+	| 'related_links_modal_title_v2'
 	| 'related_links_view_related_urls'
+	| 'related_links_view_related_links'
 	| 'related_links_found_in'
+	| 'related_links_found_in_v2'
 	| 'related_links_includes_links_to'
+	| 'related_links_includes_links_to_v2'
 	| 'related_links_not_found'
 	| 'join_to_viewIssueTermRefresh'
 	| 'open_issue_in_jiraIssueTermRefresh'
@@ -915,14 +921,29 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Recent links',
 		description: 'Shown as the title for the related links modal',
 	},
+	related_links_modal_title_v2: {
+		id: 'fabric.linking.related_links_modal_title_v2',
+		defaultMessage: 'Related links',
+		description: 'Shown as the title for the related links modal',
+	},
 	related_links_view_related_urls: {
 		id: 'fabric.linking.related_links_view_related_urls',
 		defaultMessage: 'View recent links',
 		description: 'Action to view related links to the given resource',
 	},
+	related_links_view_related_links: {
+		id: 'fabric.linking.related_links_view_related_links',
+		defaultMessage: 'View related links',
+		description: 'Action to view related links to the given resource',
+	},
 	related_links_found_in: {
 		id: 'fabric.linking.related_links_found_in',
 		defaultMessage: 'Found In',
+		description: 'Informs the user of the resources are found in the given url',
+	},
+	related_links_found_in_v2: {
+		id: 'fabric.linking.related_links_found_in_v2',
+		defaultMessage: 'Found in',
 		description: 'Informs the user of the resources are found in the given url',
 	},
 	related_links_not_found: {
@@ -935,15 +956,31 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Includes Links To',
 		description: 'Informs the user of the resources the url links to',
 	},
+	related_links_includes_links_to_v2: {
+		id: 'fabric.linking.related_links_includes_links_to_v2',
+		defaultMessage: 'Includes links to',
+		description: 'Informs the user of the resources the url links to',
+	},
 	related_links_modal_error_header: {
 		id: 'fabric.linking.related_links_modal_error_header',
 		defaultMessage: 'Something went wrong',
+		description: 'Title for related links error',
+	},
+	related_links_modal_unavailable_title: {
+		id: 'fabric.linking.related_links_modal_unavailable_title',
+		defaultMessage: `We couldn't find any related links`,
 		description: 'Title for related links error',
 	},
 	related_links_modal_error_message: {
 		id: 'fabric.linking.related_links_modal_error_message',
 		defaultMessage:
 			'We ran into an issue trying to load recent links. Check your connection or refresh to try again.',
+		description: 'Informs the user that there was a problem loading related links',
+	},
+	related_links_modal_unavailable_description: {
+		id: 'fabric.linking.related_links_modal_unavailable_description',
+		defaultMessage:
+			'We continuously review and add related links for updated pages or other content types',
 		description: 'Informs the user that there was a problem loading related links',
 	},
 	related_links_modal_unavailable_header: {

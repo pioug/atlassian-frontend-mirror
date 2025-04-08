@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "10.12.1",
+	"version": "10.14.0",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,9 +81,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_merge_unconfirmed_steps": {
-			"type": "boolean"
-		},
-		"tag_unconfirmed_steps_after_recovery": {
 			"type": "boolean"
 		},
 		"platform_editor_offline_conflict_resolution": {

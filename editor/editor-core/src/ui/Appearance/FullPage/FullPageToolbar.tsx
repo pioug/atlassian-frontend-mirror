@@ -132,7 +132,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 				/>
 			) : null}
 			{editorAPI?.findReplace && twoLineEditorToolbar
-				? editorAPI?.findReplace.actions.getToolbarButton({
+				? editorAPI?.findReplace.actions.registerToolbarButton({
 						popupsBoundariesElement: props.popupsBoundariesElement,
 						popupsMountPoint: popupsMountPoint,
 						popupsScrollableElement: props.popupsScrollableElement,

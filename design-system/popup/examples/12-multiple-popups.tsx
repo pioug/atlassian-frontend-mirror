@@ -4,15 +4,21 @@
  */
 import { type FC, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const contentStyles = xcss({
-	margin: 'space.200',
+const contentStyles = cssMap({
+	root: {
+		marginBlockEnd: token('space.200'),
+		marginBlockStart: token('space.200'),
+		marginInlineEnd: token('space.200'),
+		marginInlineStart: token('space.200'),
+	},
 });
 
 type PopupExampleProps = {
@@ -36,7 +42,7 @@ const PopupExample: FC<PopupExampleProps> = ({ name }) => {
 		<Popup
 			isOpen={isOpen}
 			onClose={onClose}
-			content={() => <Box xcss={contentStyles}>content</Box>}
+			content={() => <Box xcss={contentStyles.root}>content</Box>}
 			trigger={(triggerProps) => (
 				<Button {...triggerProps} onClick={onClick}>
 					{isOpen ? 'Close' : 'Open'} {name} popup

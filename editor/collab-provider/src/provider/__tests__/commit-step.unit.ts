@@ -183,61 +183,30 @@ describe('commitStepQueue', () => {
 
 	describe('Tags unconfirmed steps after recovery to steps before broadcast', () => {
 		const fakeStep = new SetAttrsStep(1, { __expanded: true, title: 'any' });
-		ffTest(
-			'tag_unconfirmed_steps_after_recovery',
-			() => {
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-					__livePage: false,
-					hasRecovered: true,
-				});
 
-				expect(broadcastSpy).toBeCalledTimes(1);
-				// when FF is on, we expect to see the metadata tag on the step
-				expect(broadcastSpy).toBeCalledWith(
-					'steps:commit',
-					{
-						steps: [
-							{
-								...fakeStep.toJSON(),
-								clientId: 'client1',
-								userId: 'user1',
-								metadata: { unconfirmedStepAfterRecovery: true },
-							},
-						],
-						version: 1,
-						userId: 'user1',
-						collabMode: 'collab',
-						skipValidation: true,
-					},
-					expect.any(Function),
-				);
-			},
-			() => {
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-					__livePage: false,
-					hasRecovered: true,
-				});
+		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+			__livePage: false,
+			hasRecovered: true,
+		});
 
-				expect(broadcastSpy).toBeCalledTimes(1);
-				// when FF is off, we don't expect to see the metadata tag on the step
-				expect(broadcastSpy).toBeCalledWith(
-					'steps:commit',
+		expect(broadcastSpy).toBeCalledTimes(1);
+		expect(broadcastSpy).toBeCalledWith(
+			'steps:commit',
+			{
+				steps: [
 					{
-						steps: [
-							{
-								...fakeStep.toJSON(),
-								clientId: 'client1',
-								userId: 'user1',
-							},
-						],
-						version: 1,
+						...fakeStep.toJSON(),
+						clientId: 'client1',
 						userId: 'user1',
-						collabMode: 'collab',
-						skipValidation: true,
+						metadata: { unconfirmedStepAfterRecovery: true },
 					},
-					expect.any(Function),
-				);
+				],
+				version: 1,
+				userId: 'user1',
+				collabMode: 'collab',
+				skipValidation: true,
 			},
+			expect.any(Function),
 		);
 	});
 

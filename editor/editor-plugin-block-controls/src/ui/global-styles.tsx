@@ -35,40 +35,6 @@ const extendedHoverZone = () =>
 				content: '""',
 				position: 'absolute',
 				top: 0,
-				left: '-100%',
-				width: '100%',
-				height: '100%',
-				background: 'transparent',
-				cursor: 'default',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				zIndex: -1,
-			},
-		},
-		// TODO: ED-23995 - this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'hr[data-drag-handler-anchor-name]': {
-			overflow: 'visible',
-		},
-		//eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-blocks-drag-handle-container="true"] + *::after': {
-			display: 'none',
-		},
-	});
-
-const extendedHoverZoneNested = () =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`.block-ctrl-drag-preview ${dragHandlerAnchorSelector}::after`]: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			display: 'none !important',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ProseMirror': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-			[`&& ${dragHandlerAnchorSelector}::after`]: {
-				content: '""',
-				position: 'absolute',
-				top: 0,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 				left: `-${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -273,16 +239,6 @@ const withRelativePosStyle = css({
 const withAnchorNameZindexStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`&& ${dragHandlerAnchorSelector}`]: {
-			zIndex: 1,
-		},
-	},
-});
-
-const withAnchorNameZindexNestedStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&& [data-drag-handler-anchor-depth="0"][data-drag-handler-anchor-name]': {
 			zIndex: 1,
@@ -315,7 +271,7 @@ export const GlobalStylesWrapper = () => {
 			styles={[
 				globalStyles(),
 				globalDnDStyle,
-				editorExperiment('nested-dnd', true) ? extendedHoverZoneNested() : extendedHoverZone(),
+				extendedHoverZone(),
 				withInlineNodeStyle,
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
@@ -326,9 +282,7 @@ export const GlobalStylesWrapper = () => {
 				withFormatInLayoutStyleFix,
 				withRelativePosStyle,
 				topLevelNodeMarginStyles,
-				editorExperiment('nested-dnd', true)
-					? withAnchorNameZindexNestedStyle
-					: withAnchorNameZindexStyle,
+				withAnchorNameZindexStyle,
 				,
 			]}
 		/>

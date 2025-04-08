@@ -122,8 +122,8 @@ import { Grid } from "@atlaskit/primitives/compiled";
 
 const gridStyles = cssMap({
     root: {
-        templateRows: "auto 1fr",
-        templateColumns: "200px 1fr"
+        gridTemplateRows: "auto 1fr",
+        gridTemplateColumns: "200px 1fr"
     }
 });
 
@@ -171,7 +171,7 @@ import { Grid } from "@atlaskit/primitives/compiled";
 
 const gridStyles = cssMap({
     root: {
-        templateRows: "auto 1fr"
+        gridTemplateRows: "auto 1fr"
     }
 });
 
@@ -195,7 +195,7 @@ import { cssMap } from '@atlaskit/css';
 
 const gridStyles = cssMap({
     root: {
-        templateRows: "auto 1fr"
+        gridTemplateRows: "auto 1fr"
     }
 });
 
@@ -219,7 +219,7 @@ import { cssMap as emotionCssMap } from '@atlaskit/css';
 
 const gridStyles = emotionCssMap({
     root: {
-        templateRows: "auto 1fr"
+        gridTemplateRows: "auto 1fr"
     }
 });
 
@@ -283,7 +283,7 @@ import { Grid, Anchor } from '@atlaskit/primitives';
 
 const gridStyles = cssMap({
     root: {
-        templateRows: "auto 1fr"
+        gridTemplateRows: "auto 1fr"
     }
 });
 
@@ -300,7 +300,7 @@ import { Grid, Anchor } from "@atlaskit/primitives/compiled";
 
 const gridStyles = cssMap({
     root: {
-        templateRows: "auto 1fr"
+        gridTemplateRows: "auto 1fr"
     }
 });
 
@@ -318,7 +318,7 @@ import { Grid } from '@atlaskit/primitives';
 
 const gridStyles = cssMap({
 	root: {
-		templateRows: "auto 1fr"
+		gridTemplateRows: "auto 1fr"
 	}
 });
 
@@ -332,7 +332,7 @@ import { Grid } from "@atlaskit/primitives/compiled";
 
 const gridStyles = cssMap({
 	root: {
-		templateRows: "auto 1fr"
+		gridTemplateRows: "auto 1fr"
 	}
 });
 

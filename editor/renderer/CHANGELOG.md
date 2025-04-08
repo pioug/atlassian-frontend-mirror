@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 114.7.6
+
+### Patch Changes
+
+- [#133802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133802)
+  [`f523489c8b68a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f523489c8b68a) -
+  [ux] ED-27217 Clean up experiment platform_editor_element_drag_and_drop_nested
+- Updated dependencies
+
 ## 114.7.5
 
 ### Patch Changes

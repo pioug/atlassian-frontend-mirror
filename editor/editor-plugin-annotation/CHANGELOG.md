@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.2.2
+
+### Patch Changes
+
+- [#137627](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137627)
+  [`ce160db6fb914`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce160db6fb914) -
+  [ENGHEALTH-28514] Icongraphy uplift for editor-plugin-annotation
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

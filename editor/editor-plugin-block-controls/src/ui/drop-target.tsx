@@ -291,9 +291,7 @@ export const DropTarget = (
 		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN]: isNestedDropTarget
 			? getNestedNodeLeftPaddingMargin(parentNode?.type.name)
 			: '0',
-		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX]: editorExperiment('nested-dnd', true)
-			? layers.navigation()
-			: layers.card(),
+		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX]: layers.navigation(),
 	} as CSSProperties;
 
 	return (

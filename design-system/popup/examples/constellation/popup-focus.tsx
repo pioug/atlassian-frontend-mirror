@@ -4,14 +4,15 @@
  */
 import { Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
+import { token } from '@atlaskit/tokens';
 
 const radioValues = [
 	{ name: 'None', value: '0', label: 'None' },
@@ -20,8 +21,13 @@ const radioValues = [
 	{ name: 'Button 3', value: '3', label: 'Button 3' },
 ];
 
-const contentStyles = xcss({
-	padding: 'space.200',
+const contentStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+	},
 });
 
 const PopupFocusExample = () => {
@@ -43,7 +49,7 @@ const PopupFocusExample = () => {
 				onClose={() => setIsOpen(false)}
 				content={({ setInitialFocusRef }) => {
 					return (
-						<Box xcss={contentStyles}>
+						<Box xcss={contentStyles.root}>
 							<ButtonGroup label="Show selected focus">
 								{radioValues.map(
 									({ value, label }) =>

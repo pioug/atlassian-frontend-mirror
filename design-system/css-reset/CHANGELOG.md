@@ -1,5 +1,15 @@
 # @atlaskit/css-reset
 
+## 7.2.0
+
+### Minor Changes
+
+- [#138389](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138389)
+  [`84baabc71342d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84baabc71342d) -
+  Fixes the changes in `7.1.0` where the added `style:first-child` tag selectors were targeting all
+  subsequent-siblings instead of the explicit next-sibling. This may fix some visual issues during
+  SSR or when Emotion isn't properly setup.
+
 ## 7.1.0
 
 ### Minor Changes

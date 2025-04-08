@@ -115,7 +115,7 @@ export const commitStepQueue = ({
 	}
 
 	// tag unconfirmed steps sent after page has been recovered during client's editing session
-	if (hasRecovered && fg('tag_unconfirmed_steps_after_recovery')) {
+	if (hasRecovered) {
 		stepsWithClientAndUserId = stepsWithClientAndUserId.map((step: StepJson) => {
 			step.metadata = { ...step.metadata, unconfirmedStepAfterRecovery: true };
 			return step;

@@ -409,7 +409,10 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 							return null;
 						}
 
-						if (fg('platform_editor_react18_phase2__media_single')) {
+						if (
+							fg('platform_editor_react18_phase2__media_single') ||
+							fg('platform_editor_react18_phase2__media_single_jira')
+						) {
 							return (
 								<MediaGroupNext
 									node={this.node}

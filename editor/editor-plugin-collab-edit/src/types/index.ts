@@ -11,6 +11,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 export type PrivateCollabEditOptions = CollabEditOptions & {
 	sanitizePrivateContent?: boolean;
 	onSyncUpError?: SyncUpErrorFunction;
+	hideTelecursorOnLoad?: boolean;
 };
 
 export type ProviderCallback = <ReturnType>(

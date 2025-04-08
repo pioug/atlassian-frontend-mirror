@@ -152,7 +152,7 @@ const getCurrentNodePos = (state: EditorState): number => {
 		// 2. caret cursor is inside the node
 		// 3. the start of the selection is inside the node
 		currentNodePos = selection.$from.before(1);
-		if (selection.$from.depth > 0 && editorExperiment('nested-dnd', true)) {
+		if (selection.$from.depth > 0) {
 			currentNodePos = getNestedNodePosition(state);
 		}
 	}
@@ -170,14 +170,10 @@ export const moveNodeViaShortcut = (
 	formatMessage?: IntlShape['formatMessage'],
 ): Command => {
 	return (state) => {
-		let isParentNodeOfTypeLayout;
-		const shouldEnableNestedDndA11y = editorExperiment('nested-dnd', true);
 		const { selection } = state;
-		if (shouldEnableNestedDndA11y) {
-			isParentNodeOfTypeLayout = !!findParentNodeOfType([state.schema.nodes.layoutSection])(
-				state.selection,
-			);
-		}
+		const isParentNodeOfTypeLayout = !!findParentNodeOfType([state.schema.nodes.layoutSection])(
+			state.selection,
+		);
 
 		const isMultiSelectEnabled = editorExperiment(
 			'platform_editor_element_drag_and_drop_multiselect',
@@ -216,7 +212,7 @@ export const moveNodeViaShortcut = (
 			const isLayoutColumnSelected =
 				selection instanceof NodeSelection && selection.node.type.name === 'layoutColumn';
 
-			if (direction === DIRECTION.LEFT && shouldEnableNestedDndA11y) {
+			if (direction === DIRECTION.LEFT) {
 				if (isTopLevelNode && editorExperiment('advanced_layouts', true)) {
 					const nodeBefore = $currentNodePos.nodeBefore;
 
@@ -262,7 +258,7 @@ export const moveNodeViaShortcut = (
 					const previousNode = grandParent ? grandParent.maybeChild(index - 1) : null;
 					moveToPos = $currentNodePos.start() - (previousNode?.nodeSize || 1);
 				}
-			} else if (direction === DIRECTION.RIGHT && shouldEnableNestedDndA11y) {
+			} else if (direction === DIRECTION.RIGHT) {
 				if (isTopLevelNode && editorExperiment('advanced_layouts', true)) {
 					const endOfDoc = $currentNodePos.end();
 					moveToPos = $currentNodePos.posAtIndex($currentNodePos.index() + 1);
@@ -318,7 +314,7 @@ export const moveNodeViaShortcut = (
 					moveToPos = $currentNodePos.start() - 1;
 				} else {
 					const nodeBefore =
-						$currentNodePos.depth > 1 && nodeIndex === 0 && shouldEnableNestedDndA11y
+						$currentNodePos.depth > 1 && nodeIndex === 0
 							? $currentNodePos.node($currentNodePos.depth)
 							: $currentNodePos.nodeBefore;
 
@@ -351,16 +347,12 @@ export const moveNodeViaShortcut = (
 				const isDestDepthSameAsSource =
 					$currentNodePos.depth === state.doc.resolve(moveToPos).depth;
 				const isSourceLayoutColumn = nodeType === 'layoutColumn';
-				shouldMoveNode =
-					(shouldEnableNestedDndA11y ? isDestDepthSameAsSource || isSourceLayoutColumn : true) ||
-					isSourceLayoutColumn;
+				shouldMoveNode = isDestDepthSameAsSource || isSourceLayoutColumn;
 			} else {
 				// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
 				shouldMoveNode =
-					(shouldEnableNestedDndA11y
-						? (moveToPos > -1 && $currentNodePos.depth === state.doc.resolve(moveToPos).depth) ||
-							nodeType === 'layoutColumn'
-						: moveToPos > -1) || nodeType === 'layoutColumn';
+					(moveToPos > -1 && $currentNodePos.depth === state.doc.resolve(moveToPos).depth) ||
+					nodeType === 'layoutColumn';
 			}
 
 			const { $anchor: $newAnchor, $head: $newHead } = expandSelectionBounds(
@@ -442,7 +434,6 @@ export const moveNode =
 
 		let sliceFrom = start;
 		let sliceTo;
-		let mappedTo;
 		let sourceNodeTypes, hasSelectedMultipleNodes;
 
 		const isMultiSelect = editorExperiment(
@@ -472,86 +463,74 @@ export const moveNode =
 		const $to = tr.doc.resolve(to);
 		const $handlePos = tr.doc.resolve(start);
 
-		if (editorExperiment('nested-dnd', true)) {
-			const nodeCopy = tr.doc.slice(sliceFrom, sliceTo, false); // cut the content
-			const destType = $to.node().type;
-			const destParent = $to.node($to.depth);
+		const nodeCopy = tr.doc.slice(sliceFrom, sliceTo, false); // cut the content
+		const destType = $to.node().type;
+		const destParent = $to.node($to.depth);
 
-			const sourceNode = $handlePos.nodeAfter;
-			const dragLayoutColumnToTopLevel = isDragLayoutColumnToTopLevel($handlePos, $to);
-			const dragLayoutColumnIntoTable = isDragLayoutColumnIntoTable($handlePos, $to);
-			const dragLayoutColumnIntoPanel = isDragLayoutColumnIntoPanel($handlePos, $to);
+		const sourceNode = $handlePos.nodeAfter;
+		const dragLayoutColumnToTopLevel = isDragLayoutColumnToTopLevel($handlePos, $to);
+		const dragLayoutColumnIntoTable = isDragLayoutColumnIntoTable($handlePos, $to);
+		const dragLayoutColumnIntoPanel = isDragLayoutColumnIntoPanel($handlePos, $to);
 
-			//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
-			// Move a layout column to top level
-			// Move a layout column into a table cell, only moves the content into the cell
-			// Move a layout column into a panel, only moves the content into the panel
-			if (
-				sourceNode &&
-				(dragLayoutColumnToTopLevel || dragLayoutColumnIntoTable || dragLayoutColumnIntoPanel)
-			) {
-				// need update after we support single column layout.
-				const layoutColumnContent = sourceNode.content;
+		//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
+		// Move a layout column to top level
+		// Move a layout column into a table cell, only moves the content into the cell
+		// Move a layout column into a panel, only moves the content into the panel
+		if (
+			sourceNode &&
+			(dragLayoutColumnToTopLevel || dragLayoutColumnIntoTable || dragLayoutColumnIntoPanel)
+		) {
+			// need update after we support single column layout.
+			const layoutColumnContent = sourceNode.content;
 
-				let fragment;
-				if (dragLayoutColumnIntoTable) {
-					const contentContainsExpand = findChildrenByType(sourceNode, expand).length > 0;
-					fragment = contentContainsExpand
-						? transformFragmentExpandToNestedExpand(Fragment.from(layoutColumnContent))
-						: Fragment.from(layoutColumnContent);
+			let fragment;
+			if (dragLayoutColumnIntoTable) {
+				const contentContainsExpand = findChildrenByType(sourceNode, expand).length > 0;
+				fragment = contentContainsExpand
+					? transformFragmentExpandToNestedExpand(Fragment.from(layoutColumnContent))
+					: Fragment.from(layoutColumnContent);
 
-					if (!fragment) {
-						return tr;
-					}
-				} else {
-					fragment = Fragment.from(layoutColumnContent);
+				if (!fragment) {
+					return tr;
 				}
-
-				removeFromSource(tr, $handlePos, $handlePos.pos + sourceNode.nodeSize);
-				const mappedTo = tr.mapping.map(to);
-				tr.insert(mappedTo, fragment)
-					.setSelection(Selection.near(tr.doc.resolve(mappedTo)))
-					.scrollIntoView();
-
-				return tr;
-			}
-
-			if (
-				!canMoveNodeToIndex(
-					destParent,
-					$to.index(),
-					$handlePos.node().child($handlePos.index()),
-					$to,
-				)
-			) {
-				return tr;
-			}
-
-			const convertedNodeSlice = transformSourceSlice(nodeCopy, destType);
-			const convertedNode = convertedNodeSlice?.content;
-			if (!convertedNode) {
-				return tr;
-			}
-			tr.delete(sliceFrom, sliceTo); // delete the content from the original position
-			mappedTo = tr.mapping.map(to);
-
-			const isDestNestedLoneEmptyParagraph =
-				destParent.type.name !== 'doc' &&
-				destParent.childCount === 1 &&
-				isEmptyParagraph($to.nodeAfter);
-
-			if (convertedNodeSlice && isDestNestedLoneEmptyParagraph) {
-				// if only a single empty paragraph within container, replace it
-				tr.replace(mappedTo, mappedTo + 1, convertedNodeSlice);
 			} else {
-				// otherwise just insert the content at the new position
-				tr.insert(mappedTo, convertedNode);
+				fragment = Fragment.from(layoutColumnContent);
 			}
+
+			removeFromSource(tr, $handlePos, $handlePos.pos + sourceNode.nodeSize);
+			const mappedTo = tr.mapping.map(to);
+			tr.insert(mappedTo, fragment)
+				.setSelection(Selection.near(tr.doc.resolve(mappedTo)))
+				.scrollIntoView();
+
+			return tr;
+		}
+
+		if (
+			!canMoveNodeToIndex(destParent, $to.index(), $handlePos.node().child($handlePos.index()), $to)
+		) {
+			return tr;
+		}
+
+		const convertedNodeSlice = transformSourceSlice(nodeCopy, destType);
+		const convertedNode = convertedNodeSlice?.content;
+		if (!convertedNode) {
+			return tr;
+		}
+		tr.delete(sliceFrom, sliceTo); // delete the content from the original position
+		const mappedTo = tr.mapping.map(to);
+
+		const isDestNestedLoneEmptyParagraph =
+			destParent.type.name !== 'doc' &&
+			destParent.childCount === 1 &&
+			isEmptyParagraph($to.nodeAfter);
+
+		if (convertedNodeSlice && isDestNestedLoneEmptyParagraph) {
+			// if only a single empty paragraph within container, replace it
+			tr.replace(mappedTo, mappedTo + 1, convertedNodeSlice);
 		} else {
-			const nodeCopy = tr.doc.content.cut(sliceFrom, sliceTo); // cut the content
-			tr.delete(sliceFrom, sliceTo); // delete the content from the original position
-			mappedTo = tr.mapping.map(to);
-			tr.insert(mappedTo, nodeCopy); // insert the content at the new position
+			// otherwise just insert the content at the new position
+			tr.insert(mappedTo, convertedNode);
 		}
 
 		const sliceSize = sliceTo - sliceFrom;
@@ -571,11 +550,7 @@ export const moveNode =
 
 		const expandAncestor = findParentNodeOfTypeClosestToPos($to, [expand, nestedExpand]);
 
-		if (
-			expandAncestor &&
-			editorExperiment('nested-dnd', true) &&
-			fg('platform_editor_element_dnd_nested_fix_patch_6')
-		) {
+		if (expandAncestor && fg('platform_editor_element_dnd_nested_fix_patch_6')) {
 			const wasExpandExpanded = expandedState.get(expandAncestor.node);
 			const updatedExpandAncestor = findParentNodeOfTypeClosestToPos($mappedTo, [
 				expand,

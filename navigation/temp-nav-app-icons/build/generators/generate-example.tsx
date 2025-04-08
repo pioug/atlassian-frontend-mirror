@@ -32,6 +32,8 @@ import { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const rows: Array<{
 name: string;
+Icon12: React.ComponentType<AppIconProps>;
+Icon16: React.ComponentType<AppIconProps>;
 Icon20: React.ComponentType<AppIconProps>;
 Icon24: React.ComponentType<AppIconProps>;
 Icon32: React.ComponentType<AppIconProps>;
@@ -53,6 +55,8 @@ ${Object.entries(assets)
 
 		return `{
 	name: '${displayName}',
+	Icon12: (props) => <${capitalisedName}Icon {...props} size="12" ${labelProp} />,
+	Icon16: (props) => <${capitalisedName}Icon {...props} size="16" ${labelProp} />,
 	Icon20: (props) => <${capitalisedName}Icon {...props} size="20" ${labelProp} />,
 	Icon24: (props) => <${capitalisedName}Icon {...props} size="24" ${labelProp} />,
 	Icon32: (props) => <${capitalisedName}Icon {...props} size="32" ${labelProp} />,

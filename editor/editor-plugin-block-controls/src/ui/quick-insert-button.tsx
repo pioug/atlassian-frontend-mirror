@@ -41,6 +41,7 @@ import {
 	isSelectionInNode,
 } from './utils/document-checks';
 import { createNewLine } from './utils/editor-commands';
+import { VisibilityContainer } from './visibility-container';
 
 const TEXT_PARENT_TYPES = ['paragraph', 'heading', 'blockquote', 'taskItem', 'decisionItem'];
 
@@ -156,6 +157,7 @@ export const TypeAheadControl = ({
 		api,
 		'featureFlags.macroInteractionUpdates',
 	);
+	// remove when platform_editor_controls_patch_1 is removed
 	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
 
 	const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({ display: 'none' });
@@ -358,15 +360,29 @@ export const TypeAheadControl = ({
 				aria-label={formatMessage(messages.insert)}
 				xcss={[
 					fg('platform_editor_controls_sticky_controls') ? buttonStyles : stickyButtonStyles,
-					isTypeAheadOpen && fg('platform_editor_controls_patch_1') && disabledStyles,
+					// remove disabledStyles and platform_editor_controls_widget_visibility check when platform_editor_controls_patch_1 is removed
+					isTypeAheadOpen &&
+					!fg('platform_editor_controls_widget_visibility') &&
+					fg('platform_editor_controls_patch_1')
+						? disabledStyles
+						: undefined,
 				]}
 				onClick={handleQuickInsert}
 				onMouseDown={fg('platform_editor_controls_patch_1') ? undefined : handleMouseDown}
-				isDisabled={fg('platform_editor_controls_patch_1') ? isTypeAheadOpen : undefined}
+				isDisabled={
+					!fg('platform_editor_controls_widget_visibility') &&
+					fg('platform_editor_controls_patch_1') &&
+					isTypeAheadOpen
+				}
 			>
 				<AddIcon
 					label="add"
-					color={isTypeAheadOpen ? token('color.icon.disabled') : token('color.icon.subtle')}
+					color={
+						// remove color.icon.disabled when platform_editor_controls_patch_1 is removed
+						isTypeAheadOpen && !fg('platform_editor_controls_widget_visibility')
+							? token('color.icon.disabled')
+							: token('color.icon.subtle')
+					}
 				/>
 			</Pressable>
 		</Tooltip>
@@ -378,7 +394,11 @@ export const TypeAheadControl = ({
 			style={positionStyles}
 			xcss={[
 				containerStaticStyles,
-				isTypeAheadOpen && fg('platform_editor_controls_patch_1') && disabledContainerStyles,
+				// remove disabledContainerStyles and platform_editor_controls_widget_visibility check when platform_editor_controls_patch_1 is removed
+				isTypeAheadOpen &&
+					!fg('platform_editor_controls_widget_visibility') &&
+					fg('platform_editor_controls_patch_1') &&
+					disabledContainerStyles,
 			]}
 		>
 			{fg('platform_editor_controls_sticky_controls') ? (
@@ -387,5 +407,33 @@ export const TypeAheadControl = ({
 				tooltipPressable()
 			)}
 		</Box>
+	);
+};
+
+export const QuickInsertWithVisibility = ({
+	view,
+	api,
+	formatMessage,
+	getPos,
+	nodeType,
+	anchorName,
+	rootAnchorName,
+	rootNodeType,
+	anchorRectCache,
+}: Props) => {
+	return (
+		<VisibilityContainer api={api}>
+			<TypeAheadControl
+				view={view}
+				api={api}
+				formatMessage={formatMessage}
+				getPos={getPos}
+				nodeType={nodeType}
+				anchorName={anchorName}
+				rootAnchorName={rootAnchorName}
+				rootNodeType={rootNodeType}
+				anchorRectCache={anchorRectCache}
+			/>
+		</VisibilityContainer>
 	);
 };

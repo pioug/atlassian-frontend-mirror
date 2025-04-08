@@ -2,6 +2,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -262,6 +263,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				api?.analytics?.actions,
 			);
 
+			const isEmptyDoc = isEmptyDocument(props.newEditorState.doc);
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 
 			executeProviderCode(
@@ -270,7 +272,8 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					transactions: props.transactions,
 					oldEditorState: props.oldEditorState,
 					newEditorState: props.newEditorState,
-					useNativePlugin: options?.useNativePlugin ?? false,
+					useNativePlugin: options.useNativePlugin ?? false,
+					hideTelecursorOnLoad: !isEmptyDoc && (options.hideTelecursorOnLoad ?? false),
 					viewMode,
 				}),
 				addErrorAnalytics,

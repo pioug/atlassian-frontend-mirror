@@ -15,6 +15,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -58,14 +59,23 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 					autoFocus={false}
 					shouldReturnFocus={false}
 					onOpenComplete={openCompleteHandler}
+					height={fg('platform-linking-visual-refresh-v2') ? '504px' : undefined}
 				>
 					<ModalHeader>
 						<ModalTitle>
-							<FormattedMessage {...messages.related_links_modal_title} />
+							<FormattedMessage
+								{...(fg('platform-linking-visual-refresh-v2')
+									? messages.related_links_modal_title_v2
+									: messages.related_links_modal_title)}
+							/>
 						</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
-						<Box xcss={styles.box}>{children}</Box>
+						{fg('platform-linking-visual-refresh-v2') ? (
+							children
+						) : (
+							<Box xcss={styles.box}>{children}</Box>
+						)}
 					</ModalBody>
 					<ModalFooter>
 						<Button appearance="primary" onClick={closeHandler}>

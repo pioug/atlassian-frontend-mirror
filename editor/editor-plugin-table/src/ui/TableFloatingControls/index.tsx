@@ -8,7 +8,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -139,7 +138,7 @@ export const TableFloatingControls = ({
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const isNested = tablePos !== undefined && isTableNested(editorView.state, tablePos!);
-	const shouldShowCornerControls = isNested && !editorExperiment('nested-dnd', true);
+	const shouldShowCornerControls = isNested && !fg('platform_editor_nested_dnd_styles_changes');
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

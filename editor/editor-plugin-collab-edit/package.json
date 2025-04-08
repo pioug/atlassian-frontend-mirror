@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "3.2.5",
+	"version": "3.3.0",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -116,6 +116,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_selection_without_left_shift": {
+			"type": "boolean"
+		},
+		"platform_editor_no_telecursor_on_live_doc_init": {
 			"type": "boolean"
 		}
 	}

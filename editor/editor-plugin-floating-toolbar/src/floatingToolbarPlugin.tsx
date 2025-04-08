@@ -540,11 +540,19 @@ export function floatingToolbarPluginFactory(options: {
 	const { floatingToolbarHandlers, providerFactory, getIntl } = options;
 	const intl = getIntl();
 	const getConfigWithNodeInfo = (editorState: EditorState) => {
-		const activeConfigs: Array<FloatingToolbarConfig> = [];
+		let activeConfigs: Array<FloatingToolbarConfig> | undefined = [];
 		for (let index = 0; index < floatingToolbarHandlers.length; index++) {
 			const handler = floatingToolbarHandlers[index];
 			const config = handler(editorState, intl, providerFactory, activeConfigs);
 			if (config) {
+				if (
+					config.__suppressAllToolbars &&
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_3')
+				) {
+					activeConfigs = undefined;
+					break;
+				}
 				activeConfigs.push(sanitizeFloatingToolbarConfig(config));
 			}
 		}

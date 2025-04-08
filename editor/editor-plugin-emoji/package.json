@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "3.5.2",
+	"version": "3.5.4",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -111,9 +111,6 @@
 	},
 	"platform-feature-flags": {
 		"editor_inline_comments_paste_insert_nodes": {
-			"type": "boolean"
-		},
-		"platform_editor_preload_emoji_picker": {
 			"type": "boolean"
 		}
 	}

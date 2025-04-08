@@ -4,12 +4,12 @@
  */
 import { type FC, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
@@ -20,13 +20,21 @@ const radioValues = [
 	{ name: 'Button', value: '2', label: 'Button 2' },
 ];
 
-const spacerStyles = xcss({
-	margin: 'space.250',
+const spacerStyles = cssMap({
+	root: {
+		marginBlockStart: token('space.250'),
+		marginBlockEnd: token('space.250'),
+		marginInlineStart: token('space.250'),
+		marginInlineEnd: token('space.250'),
+	},
 });
 
 const sizedContentStyles = css({
-	padding: token('space.400', '32px'),
 	alignItems: 'center',
+	paddingBlockEnd: token('space.400'),
+	paddingBlockStart: token('space.400'),
+	paddingInlineEnd: token('space.400'),
+	paddingInlineStart: token('space.400'),
 	textAlign: 'center',
 	verticalAlign: 'center',
 });
@@ -61,7 +69,7 @@ export default () => {
 	const [buttonToFocus, setButtonToFocus] = useState('-1');
 
 	return (
-		<Box xcss={spacerStyles}>
+		<Box xcss={spacerStyles.root}>
 			<Text as="p">
 				<Text as="strong" id="radiogroup-label">
 					Choose a button to focus initially:

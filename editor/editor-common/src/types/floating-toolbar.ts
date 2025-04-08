@@ -433,6 +433,15 @@ export interface FloatingToolbarConfig {
 	 * @see clean up ticket ED-26803
 	 */
 	forceStaticToolbar?: boolean;
+	/**
+	 * For internal use only, we will be depricating this API soon.
+	 * If any config has __suppressAllToolbars set to true, no floating toolbar will be rendered.
+	 * Use case:
+	 * When a node is nested inside a table and the cursor is inside of the nested node.
+	 * Nested node's toolbar is active. When table's menu opens, we provide table's config with
+	 * __suppressAllToolbars set to true.
+	 */
+	__suppressAllToolbars?: boolean;
 }
 
 export type FloatingToolbarHandler = (

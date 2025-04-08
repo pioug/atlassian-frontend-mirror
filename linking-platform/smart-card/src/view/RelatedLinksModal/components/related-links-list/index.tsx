@@ -2,9 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { PropsWithChildren } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -13,8 +16,13 @@ import RelatedLinkItem from '../related-link-item';
 import { type RelatedLinksListProp } from '../types';
 
 const styles = cssMap({
+	sectionTitleOld: {
+		font: token('font.heading.xxsmall'),
+		paddingBlockStart: token('space.050'),
+	},
 	sectionTitle: {
 		font: token('font.heading.xxsmall'),
+		color: token('color.text.subtle'),
 		paddingBlockStart: token('space.050'),
 	},
 	boxStyle: {
@@ -23,17 +31,35 @@ const styles = cssMap({
 	},
 });
 
-const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
+const RelatedLinksList = ({
+	urls,
+	title,
+	testId,
+	selected,
+	handleSelectedUpdate,
+}: RelatedLinksListProp) => {
+	const TitleWrapper = ({ children }: PropsWithChildren<object>) =>
+		fg('platform-linking-visual-refresh-v2') ? (
+			<Box xcss={styles.sectionTitle}>{children}</Box>
+		) : (
+			<Box xcss={styles.sectionTitleOld}>{children}</Box>
+		);
+
 	return (
 		<Stack testId={testId}>
-			<Box xcss={styles.sectionTitle}>
+			<TitleWrapper>
 				<FormattedMessage {...title} />
-			</Box>
+			</TitleWrapper>
 			{urls.length > 0 && (
 				<Box>
 					{urls.map((url, idx) => (
 						<Stack key={`${idx}-${url}`}>
-							<RelatedLinkItem url={url} testId={`${testId}-item-${idx}`} />
+							<RelatedLinkItem
+								url={url}
+								testId={`${testId}-item-${idx}`}
+								isSelected={selected === `${idx}-${url}`}
+								onFocus={() => handleSelectedUpdate && handleSelectedUpdate(`${idx}-${url}`)}
+							/>
 						</Stack>
 					))}
 				</Box>

@@ -17,7 +17,7 @@ export type UIAnalyticsEventProps = AnalyticsEventProps & {
 	handlers?: UIAnalyticsEventHandler[];
 };
 
-export const isUIAnalyticsEvent = (obj: any) =>
+export const isUIAnalyticsEvent = (obj: any): obj is UIAnalyticsEvent =>
 	obj instanceof UIAnalyticsEvent ||
 	!!obj?._isUIAnalyticsEvent ||
 	// Backwards compatibility with older analytics-next packages

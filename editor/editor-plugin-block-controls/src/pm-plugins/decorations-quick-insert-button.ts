@@ -6,9 +6,10 @@ import uuid from 'uuid';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
-import { TypeAheadControl } from '../ui/quick-insert-button';
+import { QuickInsertWithVisibility, TypeAheadControl } from '../ui/quick-insert-button';
 
 import { AnchorRectCache } from './utils/anchor-utils';
 
@@ -43,22 +44,42 @@ export const quickInsertButtonDecoration = (
 			element.setAttribute('data-blocks-quick-insert-container', 'true');
 			element.setAttribute('data-testid', 'block-ctrl-quick-insert-button');
 
-			nodeViewPortalProviderAPI.render(
-				() =>
-					createElement(TypeAheadControl, {
-						api,
-						getPos,
-						formatMessage,
-						view,
-						nodeType,
-						anchorName,
-						rootAnchorName,
-						rootNodeType: rootNodeType ?? nodeType,
-						anchorRectCache,
-					}),
-				element,
-				key,
-			);
+			// all changes already under experiment
+			if (fg('platform_editor_controls_widget_visibility')) {
+				nodeViewPortalProviderAPI.render(
+					() =>
+						createElement(QuickInsertWithVisibility, {
+							api,
+							getPos,
+							formatMessage,
+							view,
+							nodeType,
+							anchorName,
+							rootAnchorName,
+							rootNodeType: rootNodeType ?? nodeType,
+							anchorRectCache,
+						}),
+					element,
+					key,
+				);
+			} else {
+				nodeViewPortalProviderAPI.render(
+					() =>
+						createElement(TypeAheadControl, {
+							api,
+							getPos,
+							formatMessage,
+							view,
+							nodeType,
+							anchorName,
+							rootAnchorName,
+							rootNodeType: rootNodeType ?? nodeType,
+							anchorRectCache,
+						}),
+					element,
+					key,
+				);
+			}
 
 			return element;
 		},

@@ -11,7 +11,6 @@ import {
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { emojiImage, emojiSprite } from '@atlaskit/emoji';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
@@ -275,7 +274,7 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		${getIconStyles(PanelType.SUCCESS)}
 	}
 
-	${editorExperiment('nested-dnd', true)
+	${fg('platform_editor_nested_dnd_styles_changes')
 		? `&.${PanelSharedCssClassName.noIcon} {
 			padding-right: ${token('space.150', '12px')};
 			padding-left: ${token('space.150', '12px')};

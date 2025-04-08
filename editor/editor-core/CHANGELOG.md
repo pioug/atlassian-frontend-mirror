@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 205.1.12
+
+### Patch Changes
+
+- [#133802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133802)
+  [`f523489c8b68a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f523489c8b68a) -
+  [ux] ED-27217 Clean up experiment platform_editor_element_drag_and_drop_nested
+- Updated dependencies
+
+## 205.1.11
+
+### Patch Changes
+
+- [#137153](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137153)
+  [`105ebf2f4f54b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/105ebf2f4f54b) -
+  [ED-27125] This change is adding a feature gate to use the functional components for media nodes
+  which will resolve the bug of attachment duplication when copying and pasting.
+- Updated dependencies
+
+## 205.1.10
+
+### Patch Changes
+
+- [#137203](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137203)
+  [`28c931f62e83e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28c931f62e83e) -
+  Converts editor status node to vanilla js
+- Updated dependencies
+
 ## 205.1.9
 
 ### Patch Changes

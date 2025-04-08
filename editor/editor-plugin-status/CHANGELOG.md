@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 3.1.9
+
+### Patch Changes
+
+- [#137203](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137203)
+  [`28c931f62e83e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28c931f62e83e) -
+  Converts editor status node to vanilla js
+- Updated dependencies
+
 ## 3.1.8
 
 ### Patch Changes

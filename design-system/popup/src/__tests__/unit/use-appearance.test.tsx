@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/responsive';
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 
 import { usePopupAppearance } from '../../use-appearance';
 
-jest.mock('@atlaskit/primitives/responsive');
+jest.mock('@atlaskit/primitives/compiled');
 
 const mockUseMediaQuery = UNSAFE_useMediaQuery as jest.Mock;
 

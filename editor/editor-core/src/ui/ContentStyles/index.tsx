@@ -81,7 +81,7 @@ import { extensionStyles } from './extension';
 import { layoutStyles } from './layout';
 import { mediaStyles } from './media';
 import { panelStyles } from './panel';
-import { statusStyles } from './status';
+import { statusStyles, vanillaStatusStyles } from './status';
 import { taskDecisionStyles } from './tasks-and-decisions';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
@@ -513,6 +513,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${textHighlightStyle}
   ${taskDecisionStyles}
   ${statusStyles}
+  ${editorExperiment('platform_editor_vanilla_dom', true) ? vanillaStatusStyles : null}
   ${annotationSharedStyles()}
   ${smartCardStyles()}
   ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}

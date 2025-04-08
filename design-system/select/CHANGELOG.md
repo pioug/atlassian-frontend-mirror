@@ -1,5 +1,21 @@
 # @atlaskit/select
 
+## 20.2.0
+
+### Minor Changes
+
+- [#138461](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138461)
+  [`455c7f648d71a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/455c7f648d71a) -
+  Internal refactor to PopupSelect behind a feature flag.
+
+  - No longer closing the popup when the internal select menu's onMenuClose is called.
+  - It now registers with the experimental open layer observer, allowing it to close when the
+    observer gives the close signal (e.g. when resizing a page layout slot).
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.0
 
 ### Minor Changes

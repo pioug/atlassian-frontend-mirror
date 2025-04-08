@@ -25,8 +25,7 @@ import {
 import { token } from '@atlaskit/tokens';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-
+import { fg } from '@atlaskit/platform-feature-flags';
 interface PanelStyledProps {
 	'data-panel-type': PanelType;
 	backgroundColor?: string;
@@ -251,7 +250,7 @@ const PanelStyledNew = ({
 				panelBaseStyles,
 				!hasIcon && panelHasNoIconStyles,
 				props['data-panel-type'] === PanelType.CUSTOM && backgroundColor && panelCustomBackground,
-				editorExperiment('nested-dnd', true) && panelNestedIconStyles,
+				fg('platform_editor_nested_dnd_styles_changes') && panelNestedIconStyles,
 			]}
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading

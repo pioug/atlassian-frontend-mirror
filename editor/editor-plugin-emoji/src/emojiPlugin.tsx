@@ -264,9 +264,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 		usePluginHook() {
 			useEffect(() => {
 				delayUntilIdle(() => {
-					if (fg('platform_editor_preload_emoji_picker')) {
-						preloadEmojiPicker();
-					}
+					preloadEmojiPicker();
 				});
 			}, []);
 		},
@@ -351,7 +349,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					description: formatMessage(messages.emojiDescription),
 					priority: 500,
 					keyshortcut: ':',
-					isDisabledOffline: fg('platform_editor_preload_emoji_picker') ? false : true,
+					isDisabledOffline: false,
 					icon: () => <IconEmoji />,
 					action(insert) {
 						if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {

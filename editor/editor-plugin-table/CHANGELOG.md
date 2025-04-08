@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 10.6.5
+
+### Patch Changes
+
+- [#133802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133802)
+  [`f523489c8b68a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f523489c8b68a) -
+  [ux] ED-27217 Clean up experiment platform_editor_element_drag_and_drop_nested
+- Updated dependencies
+
+## 10.6.4
+
+### Patch Changes
+
+- [#136999](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136999)
+  [`4b7b510701d4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7b510701d4b) -
+  [ux] ED-27426 Numbered column sticky header is broken in view mode live page
+
 ## 10.6.3
 
 ### Patch Changes

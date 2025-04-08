@@ -36,6 +36,7 @@ import {
 import { countAllOptions, isOptionsGrouped, onFocus } from '../utils/grouped-options-announcement';
 
 import { defaultComponents, DummyControl, MenuDialog } from './components';
+import { NotifyOpenLayerObserver } from './notify-open-layer-observer';
 
 type SelectComponents = typeof RSComponents;
 
@@ -666,9 +667,9 @@ export default class PopupSelect<
 									onFocus: onReactSelectFocus,
 									...props.ariaLiveMessages, // priority to use user handlers if provided
 								}}
-								// When the internal select menu closes, we also need to close the popup too.
-								// For example: when the OpenLayerObserver tells the Select menu to close, we also close PopupSelect's popup.
-								onMenuClose={fg('platform_dst_layer_observer_select') ? this.close : undefined}
+								// Note: We are intentionally not using `onMenuClose={this.close}` here, due to state management conflicts
+								// between PopupSelect's popup and the internal select menu. This can result in the PopupSelect closing
+								// or opening unexpectedly.
 							/>
 							{footer}
 						</FocusLock>
@@ -680,6 +681,14 @@ export default class PopupSelect<
 		return mergedPopperProps.strategy === 'fixed'
 			? popper
 			: createPortal(popper, portalDestination);
+	};
+
+	handleOpenLayerObserverCloseSignal = () => {
+		if (!fg('platform_dst_layer_observer_select')) {
+			return;
+		}
+
+		this.close();
 	};
 
 	render() {
@@ -708,6 +717,10 @@ export default class PopupSelect<
 						</>
 					)}
 				</IdProvider>
+				<NotifyOpenLayerObserver
+					isOpen={fg('platform_dst_layer_observer_select') && this.state.isOpen}
+					onClose={this.handleOpenLayerObserverCloseSignal}
+				/>
 			</Manager>
 		);
 	}

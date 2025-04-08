@@ -1321,6 +1321,11 @@ describe('Provider', () => {
 			provider.getIsNamespaceLocked();
 			expect(getIsNamespaceLockedSpy).toBeCalled();
 		});
+
+		it('getDocumentAri: Should return documentAri from config', () => {
+			provider.initialize(() => editorState);
+			expect(provider.getDocumentAri()).toEqual('ari:cloud:confluence:ABC:page/testpage');
+		});
 	});
 
 	describe('View Permission Only', () => {

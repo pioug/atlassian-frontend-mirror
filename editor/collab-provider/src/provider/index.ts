@@ -755,4 +755,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	getSessionId = () => {
 		return this.sessionId;
 	};
+
+	getDocumentAri = () => {
+		return this.config.documentAri;
+	};
 }

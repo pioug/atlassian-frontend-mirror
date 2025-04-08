@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import Popup from '@atlaskit/popup';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);

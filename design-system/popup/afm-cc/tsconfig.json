@@ -24,9 +24,6 @@
             "path": "../../ds-lib/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../focus-ring/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../layering/afm-cc/tsconfig.json"
         },
         {
@@ -40,9 +37,6 @@
         },
         {
             "path": "../../primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../theme/afm-cc/tsconfig.json"
         },
         {
             "path": "../../tokens/afm-cc/tsconfig.json"

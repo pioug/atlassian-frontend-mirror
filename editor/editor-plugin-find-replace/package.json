@@ -116,6 +116,9 @@
 	"platform-feature-flags": {
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
+		},
+		"platform_editor_controls_move_actions": {
+			"type": "boolean"
 		}
 	}
 }

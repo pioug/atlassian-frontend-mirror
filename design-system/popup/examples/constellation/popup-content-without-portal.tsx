@@ -4,15 +4,21 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const contentStyles = xcss({
-	padding: 'space.200',
+const contentStyles = cssMap({
+	root: {
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+	},
 });
 
 const PopupContentWithoutPortalExample = () => {
@@ -23,7 +29,7 @@ const PopupContentWithoutPortalExample = () => {
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
 			placement="bottom-start"
-			content={() => <Box xcss={contentStyles}>Content</Box>}
+			content={() => <Box xcss={contentStyles.root}>Content</Box>}
 			shouldRenderToParent
 			trigger={(triggerProps) => (
 				<Button

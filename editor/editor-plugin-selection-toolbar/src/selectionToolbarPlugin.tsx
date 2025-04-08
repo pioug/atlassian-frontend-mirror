@@ -94,7 +94,11 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 			setToolbarDocking: (toolbarDocking: ToolbarDocking) => {
 				return (
 					api?.core.actions.execute(
-						setToolbarDocking({ toolbarDocking, userPreferencesProvider }),
+						setToolbarDocking({
+							toolbarDocking,
+							userPreferencesProvider,
+							editorAnalyticsApi: api?.analytics?.actions,
+						}),
 					) ?? false
 				);
 			},

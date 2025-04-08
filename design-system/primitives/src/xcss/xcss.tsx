@@ -122,7 +122,7 @@ export const tokensMap = {
 	minWidth: dimensionMap,
 	opacity: opacityMap,
 	outlineColor: borderColorMap,
-	outlineOffset: positiveSpaceMap,
+	outlineOffset: allSpaceMap,
 	outlineWidth: borderWidthMap,
 	padding: positiveSpaceMap,
 	paddingBlock: positiveSpaceMap,

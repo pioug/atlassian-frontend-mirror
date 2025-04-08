@@ -27,9 +27,9 @@ export default evaluateInner`
   }
 
   td:first-child,
-	style:first-child ~ td,
+	style:first-child + td,
   th:first-child,
-	style:first-child ~ th {
+	style:first-child + th {
     padding-left: 0;
   }
 

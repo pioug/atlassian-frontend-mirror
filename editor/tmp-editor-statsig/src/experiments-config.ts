@@ -43,15 +43,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-08-30
-	'nested-dnd': {
-		productKeys: {
-			confluence: 'platform_editor_element_drag_and_drop_nested',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-09-05
 	support_table_in_comment: {
 		productKeys: {

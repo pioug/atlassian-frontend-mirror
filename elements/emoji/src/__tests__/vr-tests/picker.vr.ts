@@ -38,9 +38,6 @@ snapshot(EmojiPickerWithFallbackWithUpload, {
 			jiraIssueId: 'TODO-123',
 		},
 	],
-	featureFlags: {
-		platform_editor_preload_emoji_picker: true,
-	},
 });
 snapshot(EmojiPickerWithFallbackWithoutUpload, {
 	ignoredErrors: [
@@ -55,7 +52,4 @@ snapshot(EmojiPickerWithFallbackWithoutUpload, {
 			jiraIssueId: 'TODO-123',
 		},
 	],
-	featureFlags: {
-		platform_editor_preload_emoji_picker: true,
-	},
 });

@@ -22,6 +22,21 @@ snapshot(FlexUiBlockAiSummaryReady, {
 	},
 });
 
+snapshot(FlexUiBlockAiSummaryReady, {
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
+	featureFlags: {
+		'platform-linking-visual-refresh-v2': [true, false],
+	},
+});
+
 snapshot(FlexUiBlockAiSummaryLoading, {
 	drawsOutsideBounds: true,
 	states: [

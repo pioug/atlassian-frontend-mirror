@@ -4,8 +4,7 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import Popup from '@atlaskit/popup';
@@ -13,12 +12,14 @@ import { token } from '@atlaskit/tokens';
 
 const contentStyles = css({
 	maxWidth: 220,
-	padding: token('space.200', '16px'),
 	backgroundColor: token('utility.elevation.surface.current'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const headerStyles = css({
-	padding: token('space.100', '8px'),
 	position: 'absolute',
 	backgroundColor: token('utility.elevation.surface.current'),
 	borderBlockEnd: `1px solid ${token('color.border')}`,
@@ -26,6 +27,10 @@ const headerStyles = css({
 	insetBlockStart: 0,
 	insetInlineEnd: 0,
 	insetInlineStart: 0,
+	paddingBlockEnd: token('space.100', '8px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 const PopupSurfaceDetectionExample = () => {

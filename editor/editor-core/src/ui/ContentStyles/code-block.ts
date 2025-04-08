@@ -13,7 +13,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { functionWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 
 const GutterDangerOverlay = () => css`
@@ -29,23 +29,25 @@ const GutterDangerOverlay = () => css`
 `;
 
 /* When code-block is inside the panel  */
-const firstCodeBlockWithNoMargin = editorExperiment('nested-dnd', true)
-	? css`
-			.ak-editor-panel__content {
-				> .code-block:first-child,
-				> .ProseMirror-widget:first-child + .code-block,
-				> .ProseMirror-widget:first-child + .ProseMirror-widget + .code-block {
-					margin: 0 0 0 0 !important;
-				}
+const firstCodeBlockWithNoMargin = functionWithFG(
+	'platform_editor_nested_dnd_styles_changes',
+	() => css`
+		.ak-editor-panel__content {
+			> .code-block:first-child,
+			> .ProseMirror-widget:first-child + .code-block,
+			> .ProseMirror-widget:first-child + .ProseMirror-widget + .code-block {
+				margin: 0 0 0 0 !important;
 			}
-		`
-	: css`
-			.ak-editor-panel__content {
-				> .code-block:first-child {
-					margin: 0 0 0 0 !important;
-				}
+		}
+	`,
+	() => css`
+		.ak-editor-panel__content {
+			> .code-block:first-child {
+				margin: 0 0 0 0 !important;
 			}
-		`;
+		}
+	`,
+);
 
 export const codeBlockStyles = () => css`
 	.ProseMirror {
@@ -101,5 +103,5 @@ export const codeBlockStyles = () => css`
 		}
 	}
 
-	${firstCodeBlockWithNoMargin}
+	${firstCodeBlockWithNoMargin()}
 `;

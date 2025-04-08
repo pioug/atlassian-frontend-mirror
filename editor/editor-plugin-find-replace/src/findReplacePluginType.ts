@@ -22,7 +22,7 @@ export type FindReplacePlugin = NextEditorPlugin<
 		sharedState: FindReplacePluginState | undefined;
 		dependencies: FindReplacePluginDependencies;
 		actions: {
-			getToolbarButton: (params: FindReplaceToolbarButtonActionProps) => React.ReactNode;
+			registerToolbarButton: (params: FindReplaceToolbarButtonActionProps) => React.ReactNode;
 			activateFindReplace: (
 				triggerMethod?: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL,
 			) => boolean;

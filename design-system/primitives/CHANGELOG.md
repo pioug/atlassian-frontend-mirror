@@ -1,5 +1,21 @@
 # @atlaskit/primitives
 
+## 14.3.3
+
+### Patch Changes
+
+- [#138465](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138465)
+  [`5349bc88cca65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5349bc88cca65) -
+  Fix outlineOffset types in XCSS.
+
+## 14.3.2
+
+### Patch Changes
+
+- [#138447](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138447)
+  [`0f50e1e11be49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f50e1e11be49) -
+  Bugfix to `compiled-fork-stage1` codemod's handling of Grid props.
+
 ## 14.3.1
 
 ### Patch Changes

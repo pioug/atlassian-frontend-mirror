@@ -4,21 +4,27 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Popup from '@atlaskit/popup';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	color: 'color.text.accent.green',
-	borderStyle: 'solid',
-	borderColor: 'color.border.accent.purple',
-	borderWidth: 'border.width',
-	borderRadius: 'border.radius',
-	padding: 'space.300',
-	width: '500px',
+const containerStyles = cssMap({
+	root: {
+		color: token('color.text.accent.green'),
+		borderStyle: 'solid',
+		borderColor: token('color.border.accent.purple'),
+		borderWidth: token('border.width'),
+		borderRadius: token('border.radius'),
+		paddingBlockStart: token('space.300'),
+		paddingBlockEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		width: '500px',
+	},
 });
 
 function Item({ shouldRenderToParent = false }: { shouldRenderToParent?: boolean }) {
@@ -48,7 +54,7 @@ function Item({ shouldRenderToParent = false }: { shouldRenderToParent?: boolean
 export default function Example() {
 	return (
 		<Box padding="space.100">
-			<Box xcss={containerStyles}>
+			<Box xcss={containerStyles.root}>
 				<Stack space="space.100">
 					<Box as="strong">Parent element has green text color set</Box>
 					<Inline space="space.1000">

@@ -1,5 +1,6 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ComponentRegistry, ToolbarElementConfig } from '../primaryToolbarPluginType';
@@ -15,11 +16,19 @@ export const getToolbarComponents = ({
 	editorState,
 	contextualFormattingEnabled,
 }: GetToolbarComponentsOptions): ToolbarUIComponentFactory[] => {
-	const configuration =
+	let configuration: ToolbarElementConfig[];
+	if (
 		contextualFormattingEnabled &&
 		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-			? toolbarConfigurationV2
-			: toolbarConfiguration;
+	) {
+		if (fg('platform_editor_controls_move_actions')) {
+			configuration = toolbarConfigurationV2;
+		} else {
+			configuration = toolbarConfigurationV2WithUndoRedoAndFindReplace;
+		}
+	} else {
+		configuration = toolbarConfiguration;
+	}
 
 	return configuration
 		.filter(
@@ -143,6 +152,11 @@ const others: ToolbarElementConfig[] = [
 		name: 'loom',
 	},
 ];
+const findGroup: ToolbarElementConfig[] = [
+	{
+		name: 'findReplace',
+	},
+];
 
 const toolbarConfiguration: ToolbarElementConfig[] = [
 	...undoRedoGroup,
@@ -169,4 +183,10 @@ const toolbarConfigurationV2: ToolbarElementConfig[] = [
 	{
 		name: 'beforePrimaryToolbar',
 	},
+];
+
+const toolbarConfigurationV2WithUndoRedoAndFindReplace: ToolbarElementConfig[] = [
+	...undoRedoGroup,
+	...toolbarConfigurationV2,
+	...findGroup,
 ];

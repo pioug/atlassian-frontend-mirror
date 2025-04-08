@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2790c8ccdb9c76b4149452e82c63a555>>
+ * @codegen <<SignedSource::ffa58897897cfdf52c4e11c2d70e6556>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -50,6 +50,8 @@ import { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const rows: Array<{
 	name: string;
+	Icon12: React.ComponentType<AppIconProps>;
+	Icon16: React.ComponentType<AppIconProps>;
 	Icon20: React.ComponentType<AppIconProps>;
 	Icon24: React.ComponentType<AppIconProps>;
 	Icon32: React.ComponentType<AppIconProps>;
@@ -57,6 +59,8 @@ export const rows: Array<{
 }> = [
 	{
 		name: 'Admin',
+		Icon12: (props) => <AdminIcon {...props} size="12" />,
+		Icon16: (props) => <AdminIcon {...props} size="16" />,
 		Icon20: (props) => <AdminIcon {...props} size="20" />,
 		Icon24: (props) => <AdminIcon {...props} size="24" />,
 		Icon32: (props) => <AdminIcon {...props} size="32" />,
@@ -64,6 +68,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Align',
+		Icon12: (props) => <AlignIcon {...props} size="12" />,
+		Icon16: (props) => <AlignIcon {...props} size="16" />,
 		Icon20: (props) => <AlignIcon {...props} size="20" />,
 		Icon24: (props) => <AlignIcon {...props} size="24" />,
 		Icon32: (props) => <AlignIcon {...props} size="32" />,
@@ -71,6 +77,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Analytics',
+		Icon12: (props) => <AnalyticsIcon {...props} size="12" />,
+		Icon16: (props) => <AnalyticsIcon {...props} size="16" />,
 		Icon20: (props) => <AnalyticsIcon {...props} size="20" />,
 		Icon24: (props) => <AnalyticsIcon {...props} size="24" />,
 		Icon32: (props) => <AnalyticsIcon {...props} size="32" />,
@@ -78,6 +86,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Assets',
+		Icon12: (props) => <AssetsIcon {...props} size="12" />,
+		Icon16: (props) => <AssetsIcon {...props} size="16" />,
 		Icon20: (props) => <AssetsIcon {...props} size="20" />,
 		Icon24: (props) => <AssetsIcon {...props} size="24" />,
 		Icon32: (props) => <AssetsIcon {...props} size="32" />,
@@ -85,6 +95,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Bitbucket',
+		Icon12: (props) => <BitbucketIcon {...props} size="12" />,
+		Icon16: (props) => <BitbucketIcon {...props} size="16" />,
 		Icon20: (props) => <BitbucketIcon {...props} size="20" />,
 		Icon24: (props) => <BitbucketIcon {...props} size="24" />,
 		Icon32: (props) => <BitbucketIcon {...props} size="32" />,
@@ -92,6 +104,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Chat',
+		Icon12: (props) => <ChatIcon {...props} size="12" />,
+		Icon16: (props) => <ChatIcon {...props} size="16" />,
 		Icon20: (props) => <ChatIcon {...props} size="20" />,
 		Icon24: (props) => <ChatIcon {...props} size="24" />,
 		Icon32: (props) => <ChatIcon {...props} size="32" />,
@@ -99,6 +113,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Company Hub',
+		Icon12: (props) => <CompanyHubIcon {...props} size="12" />,
+		Icon16: (props) => <CompanyHubIcon {...props} size="16" />,
 		Icon20: (props) => <CompanyHubIcon {...props} size="20" />,
 		Icon24: (props) => <CompanyHubIcon {...props} size="24" />,
 		Icon32: (props) => <CompanyHubIcon {...props} size="32" />,
@@ -106,6 +122,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Compass',
+		Icon12: (props) => <CompassIcon {...props} size="12" />,
+		Icon16: (props) => <CompassIcon {...props} size="16" />,
 		Icon20: (props) => <CompassIcon {...props} size="20" />,
 		Icon24: (props) => <CompassIcon {...props} size="24" />,
 		Icon32: (props) => <CompassIcon {...props} size="32" />,
@@ -113,6 +131,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Confluence',
+		Icon12: (props) => <ConfluenceIcon {...props} size="12" />,
+		Icon16: (props) => <ConfluenceIcon {...props} size="16" />,
 		Icon20: (props) => <ConfluenceIcon {...props} size="20" />,
 		Icon24: (props) => <ConfluenceIcon {...props} size="24" />,
 		Icon32: (props) => <ConfluenceIcon {...props} size="32" />,
@@ -120,6 +140,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Customer Service Management',
+		Icon12: (props) => <CustomerServiceManagementIcon {...props} size="12" />,
+		Icon16: (props) => <CustomerServiceManagementIcon {...props} size="16" />,
 		Icon20: (props) => <CustomerServiceManagementIcon {...props} size="20" />,
 		Icon24: (props) => <CustomerServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <CustomerServiceManagementIcon {...props} size="32" />,
@@ -127,6 +149,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Focus',
+		Icon12: (props) => <FocusIcon {...props} size="12" />,
+		Icon16: (props) => <FocusIcon {...props} size="16" />,
 		Icon20: (props) => <FocusIcon {...props} size="20" />,
 		Icon24: (props) => <FocusIcon {...props} size="24" />,
 		Icon32: (props) => <FocusIcon {...props} size="32" />,
@@ -134,6 +158,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Goals',
+		Icon12: (props) => <GoalsIcon {...props} size="12" />,
+		Icon16: (props) => <GoalsIcon {...props} size="16" />,
 		Icon20: (props) => <GoalsIcon {...props} size="20" />,
 		Icon24: (props) => <GoalsIcon {...props} size="24" />,
 		Icon32: (props) => <GoalsIcon {...props} size="32" />,
@@ -141,6 +167,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Guard Detect',
+		Icon12: (props) => <GuardDetectIcon {...props} size="12" />,
+		Icon16: (props) => <GuardDetectIcon {...props} size="16" />,
 		Icon20: (props) => <GuardDetectIcon {...props} size="20" />,
 		Icon24: (props) => <GuardDetectIcon {...props} size="24" />,
 		Icon32: (props) => <GuardDetectIcon {...props} size="32" />,
@@ -148,6 +176,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Guard',
+		Icon12: (props) => <GuardIcon {...props} size="12" />,
+		Icon16: (props) => <GuardIcon {...props} size="16" />,
 		Icon20: (props) => <GuardIcon {...props} size="20" />,
 		Icon24: (props) => <GuardIcon {...props} size="24" />,
 		Icon32: (props) => <GuardIcon {...props} size="32" />,
@@ -155,6 +185,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Home',
+		Icon12: (props) => <HomeIcon {...props} size="12" />,
+		Icon16: (props) => <HomeIcon {...props} size="16" />,
 		Icon20: (props) => <HomeIcon {...props} size="20" />,
 		Icon24: (props) => <HomeIcon {...props} size="24" />,
 		Icon32: (props) => <HomeIcon {...props} size="32" />,
@@ -162,6 +194,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Jira Product Discovery',
+		Icon12: (props) => <JiraProductDiscoveryIcon {...props} size="12" />,
+		Icon16: (props) => <JiraProductDiscoveryIcon {...props} size="16" />,
 		Icon20: (props) => <JiraProductDiscoveryIcon {...props} size="20" />,
 		Icon24: (props) => <JiraProductDiscoveryIcon {...props} size="24" />,
 		Icon32: (props) => <JiraProductDiscoveryIcon {...props} size="32" />,
@@ -169,6 +203,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Jira Service Management',
+		Icon12: (props) => <JiraServiceManagementIcon {...props} size="12" />,
+		Icon16: (props) => <JiraServiceManagementIcon {...props} size="16" />,
 		Icon20: (props) => <JiraServiceManagementIcon {...props} size="20" />,
 		Icon24: (props) => <JiraServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <JiraServiceManagementIcon {...props} size="32" />,
@@ -176,6 +212,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Jira',
+		Icon12: (props) => <JiraIcon {...props} size="12" />,
+		Icon16: (props) => <JiraIcon {...props} size="16" />,
 		Icon20: (props) => <JiraIcon {...props} size="20" />,
 		Icon24: (props) => <JiraIcon {...props} size="24" />,
 		Icon32: (props) => <JiraIcon {...props} size="32" />,
@@ -183,6 +221,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Loom Internal',
+		Icon12: (props) => <LoomInternalIcon {...props} size="12" />,
+		Icon16: (props) => <LoomInternalIcon {...props} size="16" />,
 		Icon20: (props) => <LoomInternalIcon {...props} size="20" />,
 		Icon24: (props) => <LoomInternalIcon {...props} size="24" />,
 		Icon32: (props) => <LoomInternalIcon {...props} size="32" />,
@@ -190,6 +230,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Loom',
+		Icon12: (props) => <LoomIcon {...props} size="12" />,
+		Icon16: (props) => <LoomIcon {...props} size="16" />,
 		Icon20: (props) => <LoomIcon {...props} size="20" />,
 		Icon24: (props) => <LoomIcon {...props} size="24" />,
 		Icon32: (props) => <LoomIcon {...props} size="32" />,
@@ -197,6 +239,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Opsgenie',
+		Icon12: (props) => <OpsgenieIcon {...props} size="12" />,
+		Icon16: (props) => <OpsgenieIcon {...props} size="16" />,
 		Icon20: (props) => <OpsgenieIcon {...props} size="20" />,
 		Icon24: (props) => <OpsgenieIcon {...props} size="24" />,
 		Icon32: (props) => <OpsgenieIcon {...props} size="32" />,
@@ -204,6 +248,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Projects',
+		Icon12: (props) => <ProjectsIcon {...props} size="12" />,
+		Icon16: (props) => <ProjectsIcon {...props} size="16" />,
 		Icon20: (props) => <ProjectsIcon {...props} size="20" />,
 		Icon24: (props) => <ProjectsIcon {...props} size="24" />,
 		Icon32: (props) => <ProjectsIcon {...props} size="32" />,
@@ -211,6 +257,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Rovo',
+		Icon12: (props) => <RovoIcon {...props} size="12" />,
+		Icon16: (props) => <RovoIcon {...props} size="16" />,
 		Icon20: (props) => <RovoIcon {...props} size="20" />,
 		Icon24: (props) => <RovoIcon {...props} size="24" />,
 		Icon32: (props) => <RovoIcon {...props} size="32" />,
@@ -218,6 +266,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Search',
+		Icon12: (props) => <SearchIcon {...props} size="12" />,
+		Icon16: (props) => <SearchIcon {...props} size="16" />,
 		Icon20: (props) => <SearchIcon {...props} size="20" />,
 		Icon24: (props) => <SearchIcon {...props} size="24" />,
 		Icon32: (props) => <SearchIcon {...props} size="32" />,
@@ -225,6 +275,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Statuspage',
+		Icon12: (props) => <StatuspageIcon {...props} size="12" />,
+		Icon16: (props) => <StatuspageIcon {...props} size="16" />,
 		Icon20: (props) => <StatuspageIcon {...props} size="20" />,
 		Icon24: (props) => <StatuspageIcon {...props} size="24" />,
 		Icon32: (props) => <StatuspageIcon {...props} size="32" />,
@@ -232,6 +284,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Studio',
+		Icon12: (props) => <StudioIcon {...props} size="12" />,
+		Icon16: (props) => <StudioIcon {...props} size="16" />,
 		Icon20: (props) => <StudioIcon {...props} size="20" />,
 		Icon24: (props) => <StudioIcon {...props} size="24" />,
 		Icon32: (props) => <StudioIcon {...props} size="32" />,
@@ -239,6 +293,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Talent',
+		Icon12: (props) => <TalentIcon {...props} size="12" />,
+		Icon16: (props) => <TalentIcon {...props} size="16" />,
 		Icon20: (props) => <TalentIcon {...props} size="20" />,
 		Icon24: (props) => <TalentIcon {...props} size="24" />,
 		Icon32: (props) => <TalentIcon {...props} size="32" />,
@@ -246,6 +302,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Teams',
+		Icon12: (props) => <TeamsIcon {...props} size="12" />,
+		Icon16: (props) => <TeamsIcon {...props} size="16" />,
 		Icon20: (props) => <TeamsIcon {...props} size="20" />,
 		Icon24: (props) => <TeamsIcon {...props} size="24" />,
 		Icon32: (props) => <TeamsIcon {...props} size="32" />,
@@ -253,6 +311,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Trello',
+		Icon12: (props) => <TrelloIcon {...props} size="12" />,
+		Icon16: (props) => <TrelloIcon {...props} size="16" />,
 		Icon20: (props) => <TrelloIcon {...props} size="20" />,
 		Icon24: (props) => <TrelloIcon {...props} size="24" />,
 		Icon32: (props) => <TrelloIcon {...props} size="32" />,
@@ -260,6 +320,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'Custom Link',
+		Icon12: (props) => <CustomLinkIcon {...props} size="12" label="Custom Link" />,
+		Icon16: (props) => <CustomLinkIcon {...props} size="16" label="Custom Link" />,
 		Icon20: (props) => <CustomLinkIcon {...props} size="20" label="Custom Link" />,
 		Icon24: (props) => <CustomLinkIcon {...props} size="24" label="Custom Link" />,
 		Icon32: (props) => <CustomLinkIcon {...props} size="32" label="Custom Link" />,
@@ -267,6 +329,8 @@ export const rows: Array<{
 	},
 	{
 		name: 'More Atlassian Apps',
+		Icon12: (props) => <MoreAtlassianAppsIcon {...props} size="12" label="More Atlassian Apps" />,
+		Icon16: (props) => <MoreAtlassianAppsIcon {...props} size="16" label="More Atlassian Apps" />,
 		Icon20: (props) => <MoreAtlassianAppsIcon {...props} size="20" label="More Atlassian Apps" />,
 		Icon24: (props) => <MoreAtlassianAppsIcon {...props} size="24" label="More Atlassian Apps" />,
 		Icon32: (props) => <MoreAtlassianAppsIcon {...props} size="32" label="More Atlassian Apps" />,

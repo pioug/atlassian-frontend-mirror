@@ -4,28 +4,36 @@
  */
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
 import Popup from '@atlaskit/popup';
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
 import { data } from './data';
 
-const wrapperStyles = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'space-between',
+const wrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
 });
 
-const contentStyles = xcss({
-	maxWidth: '350px',
-	padding: 'space.200',
-	textAlign: 'center',
+const contentStyles = cssMap({
+	root: {
+		maxWidth: '350px',
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		textAlign: 'center',
+	},
 });
 
 const Values = ({ onUpdate }: { onUpdate: () => void }) => {
@@ -41,7 +49,7 @@ const Values = ({ onUpdate }: { onUpdate: () => void }) => {
 	}, [onUpdate]);
 
 	return (
-		<Box xcss={contentStyles} aria-live="assertive" aria-atomic="true">
+		<Box xcss={contentStyles.root} aria-live="assertive" aria-atomic="true">
 			<Stack space="space.100">
 				<Heading size="large">{data[textIndex].title}</Heading>
 				<Box as="blockquote">
@@ -57,7 +65,7 @@ const PopupContentUpdateExample = () => {
 	const [isUpdateOn, setIsUpdateOn] = useState(true);
 
 	return (
-		<Box xcss={wrapperStyles}>
+		<Box xcss={wrapperStyles.root}>
 			<Popup
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}

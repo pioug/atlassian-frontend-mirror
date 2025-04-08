@@ -8,6 +8,8 @@ export type RelatedLinkItemProp = {
 	 */
 	url: string;
 	testId?: string;
+	isSelected?: boolean;
+	onFocus?: () => void;
 };
 
 export type RelatedLinksListProp = {
@@ -21,6 +23,8 @@ export type RelatedLinksListProp = {
 	 */
 	urls: string[];
 	testId?: string;
+	selected?: string;
+	handleSelectedUpdate?: (selectedKey: string) => void;
 };
 
 export type RelatedLinksBaseModalProps = {

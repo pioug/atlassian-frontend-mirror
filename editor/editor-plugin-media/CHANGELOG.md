@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 2.3.22
+
+### Patch Changes
+
+- [#137128](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137128)
+  [`9717d76a633ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9717d76a633ca) -
+  [ux] Fix media custom toolbar position issue
+- [#137153](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137153)
+  [`105ebf2f4f54b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/105ebf2f4f54b) -
+  [ED-27125] This change is adding a feature gate to use the functional components for media nodes
+  which will resolve the bug of attachment duplication when copying and pasting.
+- Updated dependencies
+
 ## 2.3.21
 
 ### Patch Changes

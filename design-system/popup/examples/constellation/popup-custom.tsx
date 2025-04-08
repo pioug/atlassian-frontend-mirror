@@ -4,26 +4,36 @@
  */
 import { forwardRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import Popup, { type PopupComponentProps } from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	padding: 'space.200',
-	backgroundColor: 'color.background.brand.bold',
-	borderRadius: '3px',
-	color: 'color.text.inverse',
+const containerStyles = css({
+	backgroundColor: token('color.background.brand.bold'),
+	borderRadius: token('border.radius'),
+	color: token('color.text.inverse'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const CustomPopupContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
 	({ children, 'data-testid': testId, xcss: _xcss, ...props }, ref) => (
-		<Box xcss={containerStyles} testId={testId} {...props} ref={ref}>
+		<div
+			css={containerStyles}
+			test-id={testId}
+			{...props}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={props.className}
+			ref={ref}
+		>
 			{children}
-		</Box>
+		</div>
 	),
 );
 
@@ -33,6 +43,7 @@ const PopupCustomExample = () => {
 	return (
 		<Popup
 			isOpen={isOpen}
+			testId="popup-custom-example"
 			onClose={() => setIsOpen(false)}
 			placement="bottom-start"
 			popupComponent={CustomPopupContainer}

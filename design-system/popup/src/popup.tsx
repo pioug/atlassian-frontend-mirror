@@ -5,17 +5,16 @@
  */
 import { type FC, memo, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
-import { Box, xcss } from '@atlaskit/primitives';
-import { layers } from '@atlaskit/theme/constants';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import PopperWrapper from './popper-wrapper';
 import { type PopupProps } from './types';
@@ -23,10 +22,12 @@ import { usePopupAppearance } from './use-appearance';
 import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
 import { useGetMemoizedMergedTriggerRefNew } from './use-get-memoized-merged-trigger-ref-new';
 
-const defaultLayer = layers.layer();
+const defaultLayer = 400;
 
-const wrapperStyles = xcss({
-	position: 'relative',
+const wrapperStyles = cssMap({
+	root: {
+		position: 'relative',
+	},
 });
 
 export const Popup: FC<PopupProps> = memo(
@@ -136,7 +137,7 @@ export const Popup: FC<PopupProps> = memo(
 		);
 
 		if (shouldFitContainer) {
-			return <Box xcss={wrapperStyles}>{popupContent}</Box>;
+			return <Box xcss={wrapperStyles.root}>{popupContent}</Box>;
 		}
 
 		return popupContent;

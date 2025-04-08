@@ -24,9 +24,6 @@
 			"path": "../../ds-lib/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../focus-ring/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../layering/afm-post-office/tsconfig.json"
 		},
 		{
@@ -40,9 +37,6 @@
 		},
 		{
 			"path": "../../primitives/afm-post-office/tsconfig.json"
-		},
-		{
-			"path": "../../theme/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-post-office/tsconfig.json"

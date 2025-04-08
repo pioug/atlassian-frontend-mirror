@@ -76,6 +76,7 @@ import {
 import type { DragPreviewContent } from './drag-preview';
 import { dragPreview } from './drag-preview';
 import { refreshAnchorName } from './utils/anchor-name';
+import { VisibilityContainer } from './visibility-container';
 
 const iconWrapperStyles = xcss({
 	display: 'flex',
@@ -251,6 +252,19 @@ const getNodeMargins = (node?: PMNode): { top: number; bottom: number } => {
 
 	return nodeMargins[nodeTypeName] || nodeMargins['default'];
 };
+
+type DragHandleProps = {
+	view: EditorView;
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+	formatMessage: IntlShape['formatMessage'];
+	getPos: () => number | undefined;
+	anchorName: string;
+	nodeType: string;
+	handleOptions?: HandleOptions;
+	isTopLevelNode?: boolean;
+	anchorRectCache?: AnchorRectCache;
+};
+
 export const DragHandle = ({
 	view,
 	api,
@@ -261,17 +275,7 @@ export const DragHandle = ({
 	handleOptions,
 	isTopLevelNode = true,
 	anchorRectCache,
-}: {
-	view: EditorView;
-	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-	formatMessage: IntlShape['formatMessage'];
-	getPos: () => number | undefined;
-	anchorName: string;
-	nodeType: string;
-	handleOptions?: HandleOptions;
-	isTopLevelNode?: boolean;
-	anchorRectCache?: AnchorRectCache;
-}) => {
+}: DragHandleProps) => {
 	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -606,14 +610,11 @@ export const DragHandle = ({
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 
 	const calculatePosition = useCallback(() => {
-		let parentNodeType;
-		if (editorExperiment('nested-dnd', true)) {
-			const pos = getPos();
-			const $pos = pos && view.state.doc.resolve(pos);
-			const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
-			const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
-			parentNodeType = node?.type.name;
-		}
+		const pos = getPos();
+		const $pos = pos && view.state.doc.resolve(pos);
+		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
+		const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
+		const parentNodeType = node?.type.name;
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
 			CSS.supports('left', `anchor(${anchorName} start)`);
@@ -828,7 +829,7 @@ export const DragHandle = ({
 
 	let isParentNodeOfTypeLayout;
 
-	if (!isTopLevelNode && editorExperiment('nested-dnd', true)) {
+	if (!isTopLevelNode) {
 		const pos = getPos();
 		if (typeof pos === 'number') {
 			const $pos = view.state.doc.resolve(pos);
@@ -998,4 +999,28 @@ export const DragHandle = ({
 	const render = isTooltip ? buttonWithTooltip() : renderButton();
 
 	return fg('platform_editor_controls_sticky_controls') ? stickyRender : render;
+};
+
+export const DragHandleWithVisibility = ({
+	view,
+	api,
+	formatMessage,
+	getPos,
+	anchorName,
+	nodeType,
+	anchorRectCache,
+}: DragHandleProps) => {
+	return (
+		<VisibilityContainer api={api}>
+			<DragHandle
+				view={view}
+				api={api}
+				formatMessage={formatMessage}
+				getPos={getPos}
+				anchorName={anchorName}
+				nodeType={nodeType}
+				anchorRectCache={anchorRectCache}
+			/>
+		</VisibilityContainer>
+	);
 };

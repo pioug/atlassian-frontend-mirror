@@ -4,25 +4,89 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { type Placement, placements } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { placementGridPositions } from './placement-grid-positions';
+const placementGridPositions = cssMap({
+	'top-start': {
+		gridColumn: 2,
+		gridRow: 1,
+	},
+	top: {
+		gridColumn: 3,
+		gridRow: 1,
+	},
+	'top-end': {
+		gridColumn: 4,
+		gridRow: 1,
+	},
+	'bottom-start': {
+		gridColumn: 2,
+		gridRow: 5,
+	},
+	bottom: {
+		gridColumn: 3,
+		gridRow: 5,
+	},
+	'bottom-end': {
+		gridColumn: 4,
+		gridRow: 5,
+	},
+	'right-start': {
+		gridColumn: 5,
+		gridRow: 2,
+	},
+	right: {
+		gridColumn: 5,
+		gridRow: 3,
+	},
+	'right-end': {
+		gridColumn: 5,
+		gridRow: 4,
+	},
+	'left-start': {
+		gridColumn: 1,
+		gridRow: 2,
+	},
+	left: {
+		gridColumn: 1,
+		gridRow: 3,
+	},
+	'left-end': {
+		gridColumn: 1,
+		gridRow: 4,
+	},
+	'auto-start': {
+		gridColumn: 3,
+		gridRow: 2,
+	},
+	auto: {
+		gridColumn: 3,
+		gridRow: 3,
+	},
+	'auto-end': {
+		gridColumn: 3,
+		gridRow: 4,
+	},
+});
 
 const contentStyles = css({
-	maxWidth: 220,
-	padding: token('space.200', '16px'),
+	maxWidth: '220px',
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const buttonGridStyles = css({
 	display: 'grid',
-	gap: token('space.100', '8px'),
+	gap: token('space.100'),
 	gridTemplate: 'repeat(5, 1fr) / repeat(5, 1fr)',
 	justifyItems: 'stretch',
 });

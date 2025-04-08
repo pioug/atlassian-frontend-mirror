@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.1.7
+
+### Patch Changes
+
+- [#138298](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138298)
+  [`cc7cc96e28407`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc7cc96e28407) -
+  Cleans up FG to preload emoji picker, allowing it to work offline
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

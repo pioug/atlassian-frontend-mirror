@@ -5,7 +5,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
-	getNestedDepth,
+	NESTED_DEPTH,
 	getNodeAnchor,
 	getNodeTypeWithLevel,
 	TYPE_NODE_DEC,
@@ -136,16 +136,14 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 		const anchorName = getNodeAnchor(node);
 		const nodeTypeWithLevel = getNodeTypeWithLevel(node);
 
-		if (editorExperiment('nested-dnd', true)) {
-			// Doesn't descend into a node
-			if (node.isInline) {
-				return false;
-			}
-			depth = newState.doc.resolve(pos).depth;
+		// Doesn't descend into a node
+		if (node.isInline) {
+			return false;
+		}
+		depth = newState.doc.resolve(pos).depth;
 
-			if (shouldIgnoreNode(node, ignore_nodes, depth, parent)) {
-				return shouldDescend; //skip over, don't consider it a valid depth
-			}
+		if (shouldIgnoreNode(node, ignore_nodes, depth, parent)) {
+			return shouldDescend; //skip over, don't consider it a valid depth
 		}
 
 		const anchorStyles =
@@ -174,7 +172,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 			),
 		);
 
-		return shouldDescend && depth < getNestedDepth();
+		return shouldDescend && depth < NESTED_DEPTH;
 	});
 	return decs;
 };

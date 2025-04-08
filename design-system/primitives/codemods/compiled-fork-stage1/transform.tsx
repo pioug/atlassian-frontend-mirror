@@ -86,10 +86,28 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 
 		// Create cssMap declaration
 		const styleObj = j.objectExpression(
-			propsToTransform.map((prop) =>
-				// @ts-expect-error
-				j.objectProperty(j.identifier(prop.name.name as string), prop.value),
-			),
+			propsToTransform.map((prop) => {
+				if (!j.JSXIdentifier.check(prop.name)) {
+					return j.objectProperty(j.identifier(''), j.literal(''));
+				}
+				const propName = prop.name.name;
+				const cssPropName = propName.startsWith('template')
+					? `grid${propName.charAt(0).toUpperCase()}${propName.slice(1)}`
+					: propName;
+
+				if (!prop.value) {
+					return j.objectProperty(j.identifier(cssPropName), j.literal(''));
+				}
+
+				if (j.JSXExpressionContainer.check(prop.value)) {
+					if (j.JSXEmptyExpression.check(prop.value.expression)) {
+						return j.objectProperty(j.identifier(cssPropName), j.literal(''));
+					}
+					return j.objectProperty(j.identifier(cssPropName), prop.value.expression);
+				}
+
+				return j.objectProperty(j.identifier(cssPropName), prop.value);
+			}),
 		);
 
 		const cssMapDecl = j.variableDeclaration('const', [

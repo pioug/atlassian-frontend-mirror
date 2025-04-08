@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.3.0
+
+### Minor Changes
+
+- [#136936](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/136936)
+  [`505147cb14bae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/505147cb14bae) -
+  [ux] [ED-27431] Do not transmit telecursor position on initial load of non-empty live pages when
+  hideTelecursorOnLoad is set.
+
 ## 3.2.5
 
 ### Patch Changes

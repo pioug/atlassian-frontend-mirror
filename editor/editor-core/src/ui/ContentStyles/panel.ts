@@ -12,7 +12,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixin usage
@@ -54,7 +54,7 @@ export const panelStyles = () => css`
 		${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
 	}
 
-	${editorExperiment('nested-dnd', true) &&
+	${fg('platform_editor_nested_dnd_styles_changes') &&
 	`.ak-editor-content-area.appearance-full-page .ProseMirror {
 		.ak-editor-panel .${PanelSharedCssClassName.icon} {
 			padding-right: ${token('space.150', '12px')};
@@ -67,7 +67,7 @@ export const panelStyles = () => css`
 	}`};
 
 	/* Don't want extra padding for inline editor (nested) */
-	${editorExperiment('nested-dnd', true) &&
+	${fg('platform_editor_nested_dnd_styles_changes') &&
 	`.ak-editor-content-area .ak-editor-content-area .ProseMirror {
 		.ak-editor-panel .${PanelSharedCssClassName.icon} {
 			padding-right: ${token('space.100', '8px')};

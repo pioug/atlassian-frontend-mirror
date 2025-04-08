@@ -22,6 +22,7 @@ import FindReplaceDropDownOrToolbarButtonWithState from './ui/FindReplaceDropDow
 
 export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+	const toolbarButtonRegisteredExternally: Record<'current', boolean> = { current: false };
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsBoundariesElement,
@@ -37,6 +38,11 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 			? toolbarSize < ToolbarSize.XL
 			: false;
 		if (props?.twoLineEditorToolbar) {
+			return null;
+		} else if (
+			toolbarButtonRegisteredExternally.current &&
+			editorExperiment('platform_editor_controls', 'variant1')
+		) {
 			return null;
 		} else {
 			return (
@@ -104,7 +110,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 		},
 
 		actions: {
-			getToolbarButton: ({
+			registerToolbarButton: ({
 				popupsBoundariesElement,
 				popupsMountPoint,
 				popupsScrollableElement,
@@ -113,6 +119,10 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 				dispatchAnalyticsEvent,
 				isToolbarReducedSpacing,
 			}: FindReplaceToolbarButtonActionProps) => {
+				toolbarButtonRegisteredExternally.current = editorExperiment(
+					'platform_editor_controls',
+					'variant1',
+				);
 				return (
 					<FindReplaceDropDownOrToolbarButtonWithState
 						popupsBoundariesElement={popupsBoundariesElement}
@@ -148,36 +158,42 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 
-		contentComponent: editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-			? ({
-					editorView,
-					containerElement,
-					popupsMountPoint,
-					popupsBoundariesElement,
-					popupsScrollableElement,
-					wrapperElement,
-					dispatchAnalyticsEvent,
-				}) => {
-					const popupsMountPointEl =
-						popupsMountPoint ||
-						// eslint-disable-next-line @atlaskit/editor/no-as-casting
-						(wrapperElement?.querySelector("[data-editor-container='true']") as HTMLElement);
+		contentComponent:
+			editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
+			fg('platform_editor_controls_move_actions')
+				? ({
+						editorView,
+						containerElement,
+						popupsMountPoint,
+						popupsBoundariesElement,
+						popupsScrollableElement,
+						wrapperElement,
+						dispatchAnalyticsEvent,
+					}) => {
+						if (toolbarButtonRegisteredExternally.current) {
+							return null;
+						}
 
-					return (
-						<FindReplaceDropDownOrToolbarButtonWithState
-							popupsBoundariesElement={popupsBoundariesElement}
-							popupsMountPoint={popupsMountPointEl}
-							popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
-							isToolbarReducedSpacing={false}
-							editorView={editorView}
-							containerElement={containerElement}
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							takeFullWidth={props?.takeFullWidth}
-							api={api}
-							doesNotHaveButton={true}
-						/>
-					);
-				}
-			: undefined,
+						const popupsMountPointEl =
+							popupsMountPoint ||
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(wrapperElement?.querySelector("[data-editor-container='true']") as HTMLElement);
+
+						return (
+							<FindReplaceDropDownOrToolbarButtonWithState
+								popupsBoundariesElement={popupsBoundariesElement}
+								popupsMountPoint={popupsMountPointEl}
+								popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
+								isToolbarReducedSpacing={false}
+								editorView={editorView}
+								containerElement={containerElement}
+								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+								takeFullWidth={props?.takeFullWidth}
+								api={api}
+								doesNotHaveButton={true}
+							/>
+						);
+					}
+				: undefined,
 	};
 };

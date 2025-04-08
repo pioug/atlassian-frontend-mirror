@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkStatus } from '../../../../constants';
@@ -19,12 +20,39 @@ import {
 import { type FlexibleUiOptions } from '../../../FlexibleCard/types';
 import { type RelatedLinkItemProp } from '../types';
 
-const hoverStyle = css({
+const hoverStyleOld = css({
 	'&:hover': {
 		backgroundColor: token('color.background.input.hovered'),
 		borderRadius: token('border.radius.100'),
 		marginInline: token('space.negative.100'),
 		paddingInline: token('space.100'),
+	},
+});
+
+const hoverStyle = css({
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+	},
+	'&:active': {
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
+	},
+});
+
+const baseStyle = css({
+	marginInline: token('space.negative.200'),
+	paddingInline: token('space.200'),
+	borderLeft: '2px solid transparent',
+});
+
+const selectedStyle = css({
+	backgroundColor: token('color.background.selected'),
+	borderLeft: `2px solid ${token('color.border.selected')}`,
+	'&:hover': {
+		backgroundColor: token('color.background.selected.hovered'),
+	},
+	'&:active': {
+		backgroundColor: token('color.background.selected.pressed'),
+		outline: 'none',
 	},
 });
 
@@ -35,7 +63,7 @@ const relatedLinkItemStyles = css({
 	font: token('font.body.small'),
 });
 
-const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
+const RelatedLinkItem = ({ url, testId, isSelected, onFocus }: RelatedLinkItemProp) => {
 	const subtitle: ElementItem[] = [{ name: ElementName.Provider, hideIcon: true }];
 
 	const ui: FlexibleUiOptions = {
@@ -44,16 +72,29 @@ const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
 		hideBackground: true,
 		theme: SmartLinkTheme.Black,
 		clickableContainer: true,
-		size: SmartLinkSize.Large,
+		size: fg('platform-linking-visual-refresh-v2') ? SmartLinkSize.Medium : SmartLinkSize.Large,
 	};
 
 	return (
-		<div data-testId={testId} css={hoverStyle}>
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		<div
+			data-testId={testId}
+			css={[
+				fg('platform-linking-visual-refresh-v2') && baseStyle,
+				fg('platform-linking-visual-refresh-v2') ? hoverStyle : hoverStyleOld,
+				isSelected && fg('platform-linking-visual-refresh-v2') && selectedStyle,
+			]}
+			onFocus={onFocus}
+		>
 			<Card appearance="block" ui={ui} url={url}>
 				<TitleBlock
 					maxLines={1}
 					hideTitleTooltip={true}
-					position={SmartLinkPosition.Center}
+					position={
+						fg('platform-linking-visual-refresh-v2')
+							? SmartLinkPosition.Top
+							: SmartLinkPosition.Center
+					}
 					subtitle={subtitle}
 					anchorTarget="_blank"
 					css={relatedLinkItemStyles}

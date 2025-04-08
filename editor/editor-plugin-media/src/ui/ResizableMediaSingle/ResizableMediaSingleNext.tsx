@@ -1302,7 +1302,10 @@ const ResizableMediaSingleToggle = ({
 	width,
 	forceHandlePositioning,
 }: ResizableMediaSingleNextProps) => {
-	if (fg('platform_editor_react18_phase2__media_single')) {
+	if (
+		fg('platform_editor_react18_phase2__media_single') ||
+		fg('platform_editor_react18_phase2__media_single_jira')
+	) {
 		return (
 			<ResizableMediaSingleNextFunctional
 				allowBreakoutSnapPoints={allowBreakoutSnapPoints}

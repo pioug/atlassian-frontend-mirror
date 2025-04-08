@@ -20,11 +20,12 @@ import {
 	gridMediumMaxWidth,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const firstNodeWithNotMarginTop = () =>
-	editorExperiment('nested-dnd', true)
+	fg('platform_editor_nested_dnd_styles_changes')
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
 				> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
@@ -298,7 +299,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			// TODO: Migrate away from gridSize
 			// Recommendation: Replace directly with 7px
 			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset +
-				(editorExperiment('nested-dnd', true) ? 8 : 0)}px 0;
+				(fg('platform_editor_nested_dnd_styles_changes') ? 8 : 0)}px 0;
 			transition: border-color 0.3s ${akEditorSwoopCubicBezier};
 			cursor: ${viewMode === 'view' ? 'default' : 'pointer'};
 
@@ -315,7 +316,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 					solid ${token('color.border')};
 				border-radius: 4px;
 				padding: ${LAYOUT_COLUMN_PADDING}px
-					${LAYOUT_COLUMN_PADDING + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
+					${LAYOUT_COLUMN_PADDING + (fg('platform_editor_nested_dnd_styles_changes') ? 8 : 0)}px;
 				box-sizing: border-box;
 
 				> div {
@@ -401,8 +402,8 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 		}
 	}
 
-	${editorExperiment('nested-dnd', true) &&
-	editorExperiment('advanced_layouts', false) &&
+	${editorExperiment('advanced_layouts', false) &&
+	fg('platform_editor_nested_dnd_styles_changes') &&
 	`.ak-editor-content-area.appearance-full-page .ProseMirror [data-layout-section] {
 				margin: ${token('space.100', '8px')} -${akLayoutGutterOffset + 8}px 0;
 				}`}

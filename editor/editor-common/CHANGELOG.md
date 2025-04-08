@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 103.1.0
+
+### Minor Changes
+
+- [#138170](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138170)
+  [`160cf374f7ac1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/160cf374f7ac1) -
+  ED-27441 update docking preference with analytics
+
+### Patch Changes
+
+- [#133802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133802)
+  [`f523489c8b68a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f523489c8b68a) -
+  [ux] ED-27217 Clean up experiment platform_editor_element_drag_and_drop_nested
+- Updated dependencies
+
 ## 103.0.0
 
 ### Major Changes

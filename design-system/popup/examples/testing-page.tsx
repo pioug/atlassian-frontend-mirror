@@ -3,15 +3,21 @@ import React, { type FC, type ReactNode, useState } from 'react';
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Popup from '@atlaskit/popup';
-import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import ModalInsidePopup from './testing-modal';
 import { PopupDOM, PopupPortal } from './testing-nested';
 
-const halfWidth = xcss({ width: '45%' });
+const halfWidth = cssMap({
+	root: {
+		width: '45%',
+	},
+});
 
 type DefaultPopupProps = {
 	title: string;
@@ -39,20 +45,25 @@ type ComponentInfoProps = {
 	};
 };
 
-const sizedContentStyles = xcss({
-	height: '280px',
-	padding: 'space.400',
-	alignItems: 'center',
-	overflow: 'auto',
-	textAlign: 'center',
-	verticalAlign: 'center',
-	display: 'flex',
-	flexDirection: 'column',
+const sizedContentStyles = cssMap({
+	root: {
+		height: '280px',
+		paddingInlineStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingBlockEnd: token('space.400'),
+		alignItems: 'center',
+		overflow: 'auto',
+		textAlign: 'center',
+		verticalAlign: 'center',
+		display: 'flex',
+		flexDirection: 'column',
+	},
 });
 
 const PopupContent = () => {
 	return (
-		<Box id="Popup-content" xcss={sizedContentStyles}>
+		<Box id="Popup-content" xcss={sizedContentStyles.root}>
 			<p>Popup content</p>
 			<Button>Button 1</Button>
 			<Button>Button 2</Button>
@@ -95,7 +106,7 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 			</Inline>
 			<Box paddingBlockStart="space.200">
 				<Inline spread="space-between">
-					<Box xcss={halfWidth}>
+					<Box xcss={halfWidth.root}>
 						<Inline alignInline="center">
 							<Heading size="small">When {titles?.leftSide}</Heading>
 						</Inline>
@@ -122,7 +133,7 @@ const ComponentInfo: FC<ComponentInfoProps> = ({
 							<Inline alignInline="center">{components?.leftSide}</Inline>
 						</Box>
 					</Box>
-					<Box xcss={halfWidth}>
+					<Box xcss={halfWidth.root}>
 						<Inline alignInline="center">
 							<Heading size="small">When {titles?.rightSide}</Heading>
 						</Inline>

@@ -1,5 +1,6 @@
 import type { IntlShape } from 'react-intl-next';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
 	messages,
 	EmojiSharedCssClassName,
@@ -56,6 +57,13 @@ export class EmojiNodeView implements NodeView {
 			}
 
 			this.dom = dom;
+
+			if (isSSR()) {
+				// The provider doesn't work in SSR, and we don't want to render fallback in SSR,
+				// that's why we don't need to continue node rendering.
+				// In SSR we want to show a placeholder, that `emojiToDom()` returns.
+				return;
+			}
 
 			// We use the `emojiProvider` from the shared state
 			// because it supports the `emojiProvider` prop in the `ComposableEditor` options

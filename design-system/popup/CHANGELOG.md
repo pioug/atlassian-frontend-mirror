@@ -1,5 +1,30 @@
 # @atlaskit/popup
 
+## 4.0.0
+
+### Major Changes
+
+- [#137034](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137034)
+  [`a832dd489aab3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a832dd489aab3) - -
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR.
+
+  - Added a `className` prop for applying a focus ring to the custom popup container (Currently
+    controlled by the feature flag `platform-design-system-apply-popup-wrapper-focus`). See usage
+    example [here](https://atlassian.design/components/popup/examples#customization).
+
+  Please note, in order to use this version of `@atlaskit/popup`, you will need to ensure that your
+  bundler is configured to handle `.css` imports correctly.
+
+  Most bundlers come with built-in support for `.css` imports, so you may not need to do anything.
+  If you are using a different bundler, please refer to the documentation for that bundler to
+  understand how to handle `.css` imports. For more information on the migration, please refer to
+  [RFC-73 Migrating our components to Compiled CSS-in-JS](https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953).
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

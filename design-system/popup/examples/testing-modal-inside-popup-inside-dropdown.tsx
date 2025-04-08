@@ -1,26 +1,29 @@
 import React, { forwardRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
-const wrapperStyles = xcss({
-	display: 'flex',
-	flexDirection: 'column',
+const wrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
 });
 
 const ModalDialogComponent = forwardRef<any, any>(({}, ref) => {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
-		<Box xcss={wrapperStyles}>
+		<Box xcss={wrapperStyles.root}>
 			<Button
 				onClick={() => setShowModal(true)}
 				appearance="subtle"

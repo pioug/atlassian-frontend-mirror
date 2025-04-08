@@ -25,6 +25,8 @@ import { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const customThemeApps: Array<{
 	name: string;
+	Icon12: React.ComponentType<AppIconProps>;
+	Icon16: React.ComponentType<AppIconProps>;
 	Icon20: React.ComponentType<AppIconProps>;
 	Icon24: React.ComponentType<AppIconProps>;
 	Icon32: React.ComponentType<AppIconProps>;
@@ -32,6 +34,8 @@ export const customThemeApps: Array<{
 }> = [
 	{
 		name: 'Confluence',
+		Icon12: (props) => <ConfluenceIcon {...props} size="12" />,
+		Icon16: (props) => <ConfluenceIcon {...props} size="16" />,
 		Icon20: (props) => <ConfluenceIcon {...props} size="20" />,
 		Icon24: (props) => <ConfluenceIcon {...props} size="24" />,
 		Icon32: (props) => <ConfluenceIcon {...props} size="32" />,
@@ -39,6 +43,8 @@ export const customThemeApps: Array<{
 	},
 	{
 		name: 'Jira Product Discovery',
+		Icon12: (props) => <JiraProductDiscoveryIcon {...props} size="12" />,
+		Icon16: (props) => <JiraProductDiscoveryIcon {...props} size="16" />,
 		Icon20: (props) => <JiraProductDiscoveryIcon {...props} size="20" />,
 		Icon24: (props) => <JiraProductDiscoveryIcon {...props} size="24" />,
 		Icon32: (props) => <JiraProductDiscoveryIcon {...props} size="32" />,
@@ -46,6 +52,8 @@ export const customThemeApps: Array<{
 	},
 	{
 		name: 'Jira Service Management',
+		Icon12: (props) => <JiraServiceManagementIcon {...props} size="12" />,
+		Icon16: (props) => <JiraServiceManagementIcon {...props} size="16" />,
 		Icon20: (props) => <JiraServiceManagementIcon {...props} size="20" />,
 		Icon24: (props) => <JiraServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <JiraServiceManagementIcon {...props} size="32" />,
@@ -53,6 +61,8 @@ export const customThemeApps: Array<{
 	},
 	{
 		name: 'Customer Service Management',
+		Icon12: (props) => <CustomerServiceManagementIcon {...props} size="12" />,
+		Icon16: (props) => <CustomerServiceManagementIcon {...props} size="16" />,
 		Icon20: (props) => <CustomerServiceManagementIcon {...props} size="20" />,
 		Icon24: (props) => <CustomerServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <CustomerServiceManagementIcon {...props} size="32" />,
@@ -60,6 +70,8 @@ export const customThemeApps: Array<{
 	},
 	{
 		name: 'Jira',
+		Icon12: (props) => <JiraIcon {...props} size="12" />,
+		Icon16: (props) => <JiraIcon {...props} size="16" />,
 		Icon20: (props) => <JiraIcon {...props} size="20" />,
 		Icon24: (props) => <JiraIcon {...props} size="24" />,
 		Icon32: (props) => <JiraIcon {...props} size="32" />,
@@ -68,6 +80,8 @@ export const customThemeApps: Array<{
 
 	{
 		name: 'Trello',
+		Icon12: (props) => <TrelloIcon {...props} size="12" />,
+		Icon16: (props) => <TrelloIcon {...props} size="16" />,
 		Icon20: (props) => <TrelloIcon {...props} size="20" />,
 		Icon24: (props) => <TrelloIcon {...props} size="24" />,
 		Icon32: (props) => <TrelloIcon {...props} size="32" />,

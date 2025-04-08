@@ -19,7 +19,6 @@ import {
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { browser } from '../../utils/browser';
@@ -64,7 +63,7 @@ export const TableSharedCssClassName = {
 
 /* first block node has 0 top margin */
 const firstNodeWithNotMarginTop = () =>
-	editorExperiment('nested-dnd', true)
+	fg('platform_editor_nested_dnd_styles_changes')
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
 				> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {

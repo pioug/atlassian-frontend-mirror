@@ -4,19 +4,21 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
 import { ButtonItem, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
-const nestedPopupStyles = xcss({
-	maxWidth: '800px',
-	minWidth: '320px',
+const nestedPopupStyles = cssMap({
+	root: {
+		maxWidth: '800px',
+		minWidth: '320px',
+	},
 });
 
 const NestedPopup = () => {
@@ -24,8 +26,8 @@ const NestedPopup = () => {
 
 	return (
 		<Box onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-			<Stack xcss={nestedPopupStyles}>
-				<Section>
+			<Stack xcss={nestedPopupStyles.root}>
+				<Section title="Projects">
 					<ButtonItem>Create project</ButtonItem>
 					<ButtonItem>View all projects</ButtonItem>
 				</Section>

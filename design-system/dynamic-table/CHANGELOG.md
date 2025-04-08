@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 18.1.0
+
+### Minor Changes
+
+- [#133680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133680)
+  [`46545f5cc481e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46545f5cc481e) -
+  Added font family defaults to dynamic table
+
 ## 18.0.4
 
 ### Patch Changes

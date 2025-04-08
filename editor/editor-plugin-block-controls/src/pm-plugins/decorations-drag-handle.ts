@@ -8,10 +8,11 @@ import uuid from 'uuid';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
-import { DragHandle } from '../ui/drag-handle';
+import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
 import { AnchorRectCache } from './utils/anchor-utils';
@@ -74,25 +75,23 @@ export const dragHandleDecoration = (
 				}
 			};
 
-			if (editorExperiment('nested-dnd', true)) {
-				const newPos = getPos();
-				if (typeof newPos === 'number') {
-					const $pos = view.state.doc.resolve(newPos);
-					isTopLevelNode = $pos?.parent.type.name === 'doc';
-				}
-				/*
-				 * We disable mouseover event to fix flickering issue on hover
-				 * However, the tooltip for nested drag handle is no long working.
-				 */
-				if (newPos === undefined || !isTopLevelNode) {
-					// This will also hide the tooltip.
-					unbind = bind(element, {
-						type: 'mouseover',
-						listener: (e) => {
-							e.stopPropagation();
-						},
-					});
-				}
+			const newPos = getPos();
+			if (typeof newPos === 'number') {
+				const $pos = view.state.doc.resolve(newPos);
+				isTopLevelNode = $pos?.parent.type.name === 'doc';
+			}
+			/*
+			 * We disable mouseover event to fix flickering issue on hover
+			 * However, the tooltip for nested drag handle is no long working.
+			 */
+			if (newPos === undefined || !isTopLevelNode) {
+				// This will also hide the tooltip.
+				unbind = bind(element, {
+					type: 'mouseover',
+					listener: (e) => {
+						e.stopPropagation();
+					},
+				});
 			}
 
 			// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
@@ -119,32 +118,48 @@ export const dragHandleDecoration = (
 			// 		key,
 			// 	);
 
-			ReactDOM.render(
-				createElement(DragHandle, {
-					view,
-					api,
-					formatMessage,
-					getPos,
-					anchorName,
-					nodeType,
-					handleOptions,
-					isTopLevelNode,
-					anchorRectCache,
-				}),
-				element,
-			);
-			//}
+			if (
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_widget_visibility')
+			) {
+				ReactDOM.render(
+					createElement(DragHandleWithVisibility, {
+						view,
+						api,
+						formatMessage,
+						getPos,
+						anchorName,
+						nodeType,
+						handleOptions,
+						isTopLevelNode,
+						anchorRectCache,
+					}),
+					element,
+				);
+			} else {
+				ReactDOM.render(
+					createElement(DragHandle, {
+						view,
+						api,
+						formatMessage,
+						getPos,
+						anchorName,
+						nodeType,
+						handleOptions,
+						isTopLevelNode,
+						anchorRectCache,
+					}),
+					element,
+				);
+			}
+
 			return element;
 		},
 		{
 			side: -1,
 			type: TYPE_HANDLE_DEC,
 			testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-			destroy: () => {
-				if (editorExperiment('nested-dnd', true)) {
-					unbind && unbind();
-				}
-			},
+			destroy: () => unbind && unbind(),
 		},
 	);
 };

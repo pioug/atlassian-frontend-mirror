@@ -2,30 +2,35 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import { IconButton } from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import JiraCaptureIcon from '@atlaskit/icon/glyph/jira/capture';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
-import { B75 } from '@atlaskit/theme/colors';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const triggerStyles = css({
-	backgroundColor: B75,
+	backgroundColor: token('color.background.accent.blue.subtler'),
 });
-const popupStyles = xcss({
-	padding: 'space.050',
+const popupStyles = cssMap({
+	root: {
+		paddingInlineStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+	},
 });
 const HighlightPopup = (props: { children: React.ReactNode }) => (
 	<Popup
 		isOpen
 		placement="bottom"
 		content={() => (
-			<Box xcss={popupStyles}>
+			<Box xcss={popupStyles.root}>
 				<ButtonGroup label="Triggerless popup options">
 					<IconButton icon={AddCommentIcon} label="Add comment" />
 					<IconButton icon={AddItemIcon} label="Add item" />

@@ -12,7 +12,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { moveNodeViaShortcut } from '../editor-commands/move-node';
@@ -31,8 +30,8 @@ function keymapList(
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			showElementDragHandle.common!,
-			(state, dispatch, view) => {
-				showDragHandleAtSelection(api)(state, dispatch, view);
+			(state) => {
+				showDragHandleAtSelection(api)(state);
 				//we always want to handle this shortcut to prevent default browser special char insert when option + alphabetical key is used
 				return true;
 			},
@@ -53,22 +52,20 @@ function keymapList(
 			keymapList,
 		);
 
-		if (editorExperiment('nested-dnd', true)) {
-			bindKeymapWithCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				dragToMoveLeft.common!,
-				moveNodeViaShortcut(api, DIRECTION.LEFT, formatMessage),
-				keymapList,
-			);
-			bindKeymapWithCommand(
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				dragToMoveRight.common!,
-				moveNodeViaShortcut(api, DIRECTION.RIGHT, formatMessage),
-				keymapList,
-			);
-		}
+		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			dragToMoveLeft.common!,
+			moveNodeViaShortcut(api, DIRECTION.LEFT, formatMessage),
+			keymapList,
+		);
+		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			dragToMoveRight.common!,
+			moveNodeViaShortcut(api, DIRECTION.RIGHT, formatMessage),
+			keymapList,
+		);
 	}
 	return keymapList;
 }

@@ -4,8 +4,7 @@
  */
 import { type FC, Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
@@ -22,15 +21,18 @@ const spacerStyles = css({
 
 const sizedContentStyles = css({
 	height: '80px',
-	padding: token('space.400', '32px'),
 	alignItems: 'center',
 	overflow: 'auto',
+	paddingBlockEnd: token('space.400'),
+	paddingBlockStart: token('space.400'),
+	paddingInlineEnd: token('space.400'),
+	paddingInlineStart: token('space.400'),
 	textAlign: 'center',
 	verticalAlign: 'center',
 });
 
 const textWrapperStyles = css({
-	marginBlockStart: token('space.150', '12px'),
+	marginBlockStart: token('space.150'),
 });
 
 type PopupProps = {

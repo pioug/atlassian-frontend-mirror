@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 10.14.0
+
+### Minor Changes
+
+- [#137682](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137682)
+  [`80820b783abde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80820b783abde) -
+  clean up tagUnconfirmedStepsAfterRecovery FG
+
+## 10.13.0
+
+### Minor Changes
+
+- [#138056](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138056)
+  [`924f5d2700991`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/924f5d2700991) -
+  add getDocumentAri(): expose provider's documentAri via getter function
+
 ## 10.12.1
 
 ### Patch Changes

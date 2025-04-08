@@ -768,7 +768,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				defaultGetEditorContainerWidth,
 				api,
 				editorAnalyticsAPI,
-				options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 				() => editorViewRef.current,
 				options,
 				isTableFixedColumnWidthsOptionEnabled,

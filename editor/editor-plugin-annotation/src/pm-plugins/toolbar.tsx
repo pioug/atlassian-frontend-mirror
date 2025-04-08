@@ -29,7 +29,6 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
@@ -96,7 +95,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 				api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
 			icon: CommentIcon,
-			iconFallback: LegacyCommentIcon,
+			iconFallback: CommentIcon,
 			tooltipContent:
 				selectionValid === AnnotationSelectionType.DISABLED ? (
 					commentDisabledMessage

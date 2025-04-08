@@ -132,6 +132,7 @@ export const getAltTextDropdownOption = (
 				title: formatMessage(messages.addAltText),
 				onClick: openMediaAltTextMenu(editorAnalyticsAPI),
 				icon: <TextIcon label="" />,
+				testId: 'media-alt-text-dropdown-option',
 			},
 		];
 	}

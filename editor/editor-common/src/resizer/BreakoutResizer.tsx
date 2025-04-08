@@ -42,7 +42,7 @@ const getHandleStyle = (node: BreakoutSupportedNodes) => {
 			return { left: { left: '-12px' }, right: { right: '-12px' } };
 		// expand and layout section elements have a negative margin applied
 		default:
-			const handleOffset = editorExperiment('nested-dnd', true)
+			const handleOffset = fg('platform_editor_nested_dnd_styles_changes')
 				? LAYOUT_SECTION_MARGIN * 2 + layoutMarginOffset
 				: LAYOUT_COLUMN_PADDING * 2;
 			return {

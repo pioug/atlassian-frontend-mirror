@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.2.0
+
+### Minor Changes
+
+- [#138170](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138170)
+  [`160cf374f7ac1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/160cf374f7ac1) -
+  ED-27441 update docking preference with analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

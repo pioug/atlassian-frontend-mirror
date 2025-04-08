@@ -26,6 +26,8 @@ import { JiraLogo, JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 Icon components support three sizes:
 
+- `"12"`px, for use in bylines alongside small text
+- `"16"`px, for use in smart links and other small UI elements
 - `"20"`px, for use in side navigation app shortcuts
 - `"24"`px, for use in the top navigation alongside the Logo components
 - `"32"`px, for use in the App Switcher and Home

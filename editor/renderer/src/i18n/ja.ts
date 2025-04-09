@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'なし',
   'fabric.editor.inlineComment.marker.end': 'インライン コメント終了',
   'fabric.editor.inlineComment.marker.start': 'インライン コメント開始',
+  'fabric.editor.status.accessibilityLabel': 'ステータス:',
 };

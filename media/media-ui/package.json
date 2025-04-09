@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "28.1.6",
+	"version": "28.1.7",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,6 +37,7 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/range": "workspace:^",
+		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -87,6 +88,9 @@
 			"type": "boolean"
 		},
 		"platform_media_compiled": {
+			"type": "boolean"
+		},
+		"platform_exclude_media_offender_from_vc": {
 			"type": "boolean"
 		}
 	},

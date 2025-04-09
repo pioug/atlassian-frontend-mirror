@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'Ei mitään',
   'fabric.editor.inlineComment.marker.end': 'tekstin sisäisen kommentin loppu',
   'fabric.editor.inlineComment.marker.start': 'tekstin sisäisen kommentin alku',
+  'fabric.editor.status.accessibilityLabel': 'tila:',
 };

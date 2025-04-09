@@ -168,14 +168,28 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
 			const setSelectedAnnotationFn = (annotationId?: string) => {
 				const pluginState = getPluginState(editorView.state);
-				if (
-					!annotationId ||
-					(pluginState?.isInlineCommentViewClosed &&
-						fg('platform_editor_listen_for_annotation_clicks'))
-				) {
-					closeComponent()(editorView.state, editorView.dispatch);
+
+				if (fg('platform_editor_listen_for_focussed_query_param')) {
+					// When feature flag is true, only close if no annotationId
+					if (!annotationId) {
+						closeComponent()(editorView.state, editorView.dispatch);
+					} else {
+						setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
+					}
 				} else {
-					setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
+					// When feature flag is false, close if:
+					// 1. No annotationId OR
+					// 2. View is closed and annotation clicks are enabled
+					const shouldClose =
+						!annotationId ||
+						(pluginState?.isInlineCommentViewClosed &&
+							fg('platform_editor_listen_for_annotation_clicks'));
+
+					if (shouldClose) {
+						closeComponent()(editorView.state, editorView.dispatch);
+					} else {
+						setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
+					}
 				}
 			};
 

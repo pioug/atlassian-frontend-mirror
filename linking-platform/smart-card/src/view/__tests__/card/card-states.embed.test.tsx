@@ -13,11 +13,26 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
+import { getIsDataExportEnabled } from '../../../utils/should-data-export';
 import { Card } from '../../Card';
 
 mockSimpleIntersectionObserver();
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+const fgMock = fg as jest.Mock;
+jest.mock('../../../state/hooks/use-control-data-export-config', () => ({
+	useControlDataExportConfig: jest.fn(),
+}));
+const useControlDataExportConfigMock = useControlDataExportConfig as jest.Mock;
+jest.mock('../../../utils/should-data-export', () => ({
+	getIsDataExportEnabled: jest.fn(),
+}));
+const getIsDataExportEnabledMock = getIsDataExportEnabled as jest.Mock;
 
 describe('smart-card: card states, embed', () => {
 	const mockOnError = jest.fn();
@@ -36,6 +51,11 @@ describe('smart-card: card states, embed', () => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));
 		mockClient = new (fakeFactory(mockFetch))();
 		mockUrl = 'https://some.url';
+		fgMock.mockReturnValue(false);
+		useControlDataExportConfigMock.mockReturnValue({
+			shouldControlDataExport: false,
+		});
+		getIsDataExportEnabledMock.mockReturnValue(false);
 	});
 
 	afterEach(() => {
@@ -590,6 +610,90 @@ describe('smart-card: card states, embed', () => {
 
 				const link = await screen.findByTestId('embed-card-resolved-view');
 				expect(link).toBeInTheDocument();
+			});
+		});
+		describe('should data export DSP feature testing', () => {
+			it('embed: resolved state should render unauth view (w/ no service) when resolved with ShouldControlDataExport + FG on', async () => {
+				fgMock.mockReturnValue(true);
+				useControlDataExportConfigMock.mockReturnValue({
+					shouldControlDataExport: true,
+				});
+				getIsDataExportEnabledMock.mockReturnValue(true);
+
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card appearance="embed" url={mockUrl} />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+				const unauthSvg = await screen.findByTestId('unauthorized-svg');
+				expect(unauthSvg).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
+			});
+
+			it('embed: should render with metadata when resolved (with ShouldControlDataExport + FF off) and return a resolved view', async () => {
+				fgMock.mockReturnValue(false);
+				useControlDataExportConfigMock.mockReturnValue({
+					shouldControlDataExport: false,
+				});
+				getIsDataExportEnabledMock.mockReturnValue(false);
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card appearance="embed" url={mockUrl} />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+				const resolvedViewName = await screen.findByTestId('embed-card-resolved-view-frame');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(resolvedViewName.getAttribute('src')).toEqual('https://www.ilovecheese.com');
+				expect(mockFetch).toHaveBeenCalledTimes(1);
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'renderSuccess',
+						actionSubject: 'smartLink',
+						attributes: expect.objectContaining({
+							display: 'embed',
+							status: 'resolved',
+						}),
+					}),
+				);
+			});
+
+			it('embed: should render with metadata when resolved (with ShouldControlDataExport off + FF on) and return a resolved view', async () => {
+				fgMock.mockReturnValue(true);
+				useControlDataExportConfigMock.mockReturnValue({
+					shouldControlDataExport: false,
+				});
+				getIsDataExportEnabledMock.mockReturnValue(false);
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card appearance="embed" url={mockUrl} />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+				const resolvedViewName = await screen.findByTestId('embed-card-resolved-view-frame');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(resolvedViewName.getAttribute('src')).toEqual('https://www.ilovecheese.com');
+				expect(mockFetch).toHaveBeenCalledTimes(1);
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'renderSuccess',
+						actionSubject: 'smartLink',
+						attributes: expect.objectContaining({
+							display: 'embed',
+							status: 'resolved',
+						}),
+					}),
+				);
 			});
 		});
 	});

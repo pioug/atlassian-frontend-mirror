@@ -22,12 +22,14 @@ const visibleStyles = xcss({
 
 const hiddenStyles = xcss({
 	opacity: 0,
-	// CONFIRM this change doesnt cause this issue to regress https://product-fabric.atlassian.net/browse/ED-24136
 	visibility: 'hidden',
 });
 
 export const VisibilityContainer = ({ api, children }: VisibilityContainerProps) => {
-	const isOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
+	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
+	const isEditing = useSharedPluginStateSelector(api, 'blockControls.isEditing');
 
-	return <Box xcss={[baseStyles, isOpen ? hiddenStyles : visibleStyles]}>{children}</Box>;
+	const shouldHide = isTypeAheadOpen || isEditing;
+
+	return <Box xcss={[baseStyles, shouldHide ? hiddenStyles : visibleStyles]}>{children}</Box>;
 };

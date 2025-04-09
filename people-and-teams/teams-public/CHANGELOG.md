@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.23.7
+
+### Patch Changes
+
+- [#137581](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137581)
+  [`8bb916474905b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bb916474905b) -
+  [ux] PTC-11531 Build team web link empty state card
+- Updated dependencies
+
 ## 0.23.6
 
 ### Patch Changes

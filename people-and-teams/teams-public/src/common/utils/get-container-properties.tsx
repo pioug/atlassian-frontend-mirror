@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
 import Image from '@atlaskit/image';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import ConfluenceIcon from '../assets/ConfluenceIcon.svg';
 import JiraIcon from '../assets/JiraIcon.svg';
@@ -72,6 +72,11 @@ export const messages = defineMessages({
 		defaultMessage: 'space',
 		description: 'Text for space type containers',
 	},
+	webLinkContainerTitle: {
+		id: 'ptc-directory.team-profile-page.team-containers.webLink-container-text.non-final',
+		defaultMessage: 'Add any web link',
+		description: 'Description of the card to add a web link to a team',
+	},
 });
 
 const getJiraIcon = (containerSubTypes?: string) => {
@@ -137,6 +142,17 @@ export const getContainerProperties = (
 			};
 		case 'JiraProject':
 			return getJiraContainerProperties(containerTypeProperties);
+		case 'WebLink':
+			return {
+				description: (
+					<Text size="medium" weight="medium">
+						<FormattedMessage {...messages.webLinkContainerTitle} />
+					</Text>
+				),
+				icon: null,
+				title: null,
+				containerTypeText: null,
+			};
 		default:
 			return {
 				description: null,

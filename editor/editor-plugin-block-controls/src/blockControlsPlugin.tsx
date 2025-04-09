@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
+import type { PMPlugin } from '@atlaskit/editor-common/types';
 import {
 	TextSelection,
 	type EditorState,
@@ -12,6 +13,11 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { BlockControlsPlugin, HandleOptions, MultiSelectDnD } from './blockControlsPluginType';
 import { moveNode } from './editor-commands/move-node';
 import { moveToLayout } from './editor-commands/move-to-layout';
+import { firstNodeDecPlugin } from './pm-plugins/first-node-dec-plugin';
+import {
+	createInteractionTrackingPlugin,
+	interactionTrackingPluginKey,
+} from './pm-plugins/interaction-tracking/pm-plugin';
 import { createPlugin, key } from './pm-plugins/main';
 import { selectNode } from './pm-plugins/utils/getSelection';
 import BlockMenu from './ui/block-menu';
@@ -22,13 +28,28 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 	name: 'blockControls',
 
 	pmPlugins() {
-		return [
+		const pmPlugins: PMPlugin[] = [
 			{
 				name: 'blockControlsPmPlugin',
 				plugin: ({ getIntl, nodeViewPortalProviderAPI }) =>
 					createPlugin(api, getIntl, nodeViewPortalProviderAPI),
 			},
 		];
+
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			if (fg('platform_editor_controls_widget_visibility')) {
+				pmPlugins.push({
+					name: 'blockControlsInteractionTrackingPlugin',
+					plugin: createInteractionTrackingPlugin,
+				});
+			}
+			pmPlugins.push({
+				name: 'firstNodeDec',
+				plugin: firstNodeDecPlugin,
+			});
+		}
+
+		return pmPlugins;
 	},
 
 	commands: {
@@ -152,6 +173,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		if (!editorState) {
 			return undefined;
 		}
+
 		return {
 			isMenuOpen: key.getState(editorState)?.isMenuOpen ?? false,
 			menuTriggerBy: key.getState(editorState)?.menuTriggerBy ?? undefined,
@@ -161,6 +183,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			multiSelectDnD: key.getState(editorState)?.multiSelectDnD ?? undefined,
 			isShiftDown: key.getState(editorState)?.isShiftDown ?? undefined,
 			lastDragCancelled: key.getState(editorState)?.lastDragCancelled ?? false,
+			isEditing: interactionTrackingPluginKey.getState(editorState)?.isEditing,
 		};
 	},
 

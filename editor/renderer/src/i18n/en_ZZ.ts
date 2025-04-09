@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': '⁣⁢none⁡⁬⁮⁭⁫⁭⁫⁫⁪⁮⁪؜⁪⁡⁭⁫⁡؜⁠⁫⁪⁠⁣⁤',
   'fabric.editor.inlineComment.marker.end': '⁣⁢inline comment end⁮⁭⁪⁯⁪⁠⁫⁭‍⁡⁡⁪⁮؜⁫⁪⁫⁠⁫⁫‌⁪⁣⁤',
   'fabric.editor.inlineComment.marker.start': '⁣⁢inline comment start؜⁬‌⁪⁫⁯⁪⁭⁫‌⁪‍⁡⁯⁬⁬‍‍؜⁭‌⁣⁤',
+  'fabric.editor.status.accessibilityLabel': '⁣⁢status:⁭⁪⁮⁯⁬⁪؜⁠⁯‍‍⁡؜⁮⁬⁪⁪⁠⁭⁠⁠⁡⁪⁣⁤',
 };

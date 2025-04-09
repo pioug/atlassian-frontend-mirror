@@ -14,7 +14,6 @@ import { jsx, cssMap as unboundedCssMap } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import { cssMap, type StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { HasTextAncestorProvider, useHasTextAncestor } from '../../utils/has-text-ancestor-context';
@@ -84,43 +83,23 @@ const useColor = (
 ): TextColor | undefined => {
 	const surface = useSurface();
 
-	if (fg('platform-typography-improved-color-control')) {
-		if (colorProp === 'inherit') {
-			return undefined;
-		}
-
-		if (colorProp) {
-			return colorProp;
-		}
-
-		if (hasTextAncestor) {
-			return undefined;
-		}
-
-		if (inverseColorMap.hasOwnProperty(surface)) {
-			return inverseColorMap[surface as keyof typeof inverseColorMap];
-		}
-
-		return 'color.text';
-	}
-
-	/*
-	 * Where the color of the surface is inverted we always override the color
-	 * as there is no valid choice that is not covered by the override.
-	 */
-	if (surface in inverseColorMap) {
-		return inverseColorMap[surface as keyof typeof inverseColorMap];
-	}
-
 	if (colorProp === 'inherit') {
 		return undefined;
 	}
 
-	if (!colorProp && hasTextAncestor) {
+	if (colorProp) {
+		return colorProp;
+	}
+
+	if (hasTextAncestor) {
 		return undefined;
 	}
 
-	return colorProp || 'color.text';
+	if (inverseColorMap.hasOwnProperty(surface)) {
+		return inverseColorMap[surface as keyof typeof inverseColorMap];
+	}
+
+	return 'color.text';
 };
 
 const styles = unboundedCssMap({

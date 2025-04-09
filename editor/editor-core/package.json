@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.1.12",
+	"version": "205.2.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -428,10 +428,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_nested_tables_resizing": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_disable_drag_handle_nested_tables": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -596,6 +592,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_listen_for_focussed_query_param": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_nested_tables_cellselection_paste": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -605,6 +605,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_elements_dnd_multi_select_patch_3": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"editor_a11y_announce_date_picker_open": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'Немає',
   'fabric.editor.inlineComment.marker.end': 'кінець вбудованого коментаря',
   'fabric.editor.inlineComment.marker.start': 'початок вбудованого коментаря',
+  'fabric.editor.status.accessibilityLabel': 'стан:',
 };

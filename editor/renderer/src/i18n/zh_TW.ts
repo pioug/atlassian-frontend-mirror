@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': '無',
   'fabric.editor.inlineComment.marker.end': '內嵌留言結束',
   'fabric.editor.inlineComment.marker.start': '內嵌留言開始',
+  'fabric.editor.status.accessibilityLabel': '狀態：',
 };

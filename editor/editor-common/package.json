@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "103.1.0",
+	"version": "103.2.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -379,9 +379,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_multi_body_extension_extensibility": {
-			"type": "boolean"
-		},
-		"platform_editor_nested_tables_resizing": {
 			"type": "boolean"
 		},
 		"platform_editor_renderer_table_header_styles": {

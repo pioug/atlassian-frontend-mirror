@@ -3,6 +3,8 @@ import React from 'react';
 import { Popper as ReactPopper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 
+import { useFocusTrap } from './useFocusTrap';
+
 interface Props {
 	/**
 	 * Replacement reference element to position popper relative to.
@@ -26,6 +28,9 @@ interface Props {
  * @returns React popper component
  */
 export function Popup({ referenceElement, children }: Props) {
+	const [targetRef, setPopupRef] = React.useState<HTMLDivElement | null>(null);
+
+	useFocusTrap({ targetRef: targetRef });
 	return (
 		<Portal>
 			<ReactPopper
@@ -35,8 +40,20 @@ export function Popup({ referenceElement, children }: Props) {
 				strategy="fixed"
 			>
 				{({ ref, style }) => (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					<div ref={ref} style={style}>
+					<div
+						ref={(node: HTMLDivElement) => {
+							if (node) {
+								if (typeof ref === 'function') {
+									ref(node);
+								} else {
+									(ref as React.MutableRefObject<HTMLElement>).current = node;
+								}
+								setPopupRef(node);
+							}
+						}}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						style={style}
+					>
 						{children}
 					</div>
 				)}

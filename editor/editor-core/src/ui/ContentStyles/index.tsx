@@ -82,7 +82,12 @@ import { layoutStyles } from './layout';
 import { mediaStyles } from './media';
 import { panelStyles } from './panel';
 import { statusStyles, vanillaStatusStyles } from './status';
-import { taskDecisionStyles } from './tasks-and-decisions';
+import {
+	taskDecisionStyles,
+	vanillaTaskDecisionIconWithoutVisualRefresh,
+	vanillaTaskDecisionIconWithVisualRefresh,
+	vanillaTaskDecisionStyles,
+} from './tasks-and-decisions';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
 	.ProseMirror {
@@ -314,6 +319,15 @@ const placeholderOverflowStyles = css({
 	},
 });
 
+const placeholderWrapStyles = css({
+	// As part of controls work, we add placeholder `Search` to quick insert command
+	// This style is to prevent `/Search` being wrapped if it's triggered at the end of the line
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror mark[data-type-ahead-query="true"]:has(.placeholder-decoration-wrap)': {
+		whiteSpace: 'nowrap',
+	},
+});
+
 const firstBlockNodeStyles = css`
 	.ProseMirror {
 		> .${PanelSharedCssClassName.prefix},
@@ -479,6 +493,9 @@ const contentStyles = (props: ContentStylesProps) => css`
 	${placeholderTextStyles}
 	${placeholderStyles}
 	${editorExperiment('platform_editor_controls', 'variant1') ? placeholderOverflowStyles : null}
+	${editorExperiment('platform_editor_controls', 'variant1') && fg('platform_editor_controls_patch_3')
+		? placeholderWrapStyles
+		: null}
 
   ${codeBlockStyles()}
 
@@ -512,6 +529,15 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}
+  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+	vanillaTaskDecisionStyles}
+  // Switch between the two icons based on the visual refresh feature gate
+  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+	fg('platform-visual-refresh-icons') &&
+	vanillaTaskDecisionIconWithVisualRefresh}
+  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+	!fg('platform-visual-refresh-icons') &&
+	vanillaTaskDecisionIconWithoutVisualRefresh}
   ${statusStyles}
   ${editorExperiment('platform_editor_vanilla_dom', true) ? vanillaStatusStyles : null}
   ${annotationSharedStyles()}

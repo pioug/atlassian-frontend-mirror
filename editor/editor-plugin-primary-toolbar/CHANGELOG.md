@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 3.1.2
+
+### Patch Changes
+
+- [#137151](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137151)
+  [`724daf91c62db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/724daf91c62db) -
+  [ux] Put move of the redo/undo/find behind its own FG. Fix double Find & Replace popup
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

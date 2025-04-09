@@ -15,9 +15,6 @@ snapshot(Basic, {
 	],
 });
 snapshot(Color, {
-	featureFlags: {
-		'platform-typography-improved-color-control': [true, false],
-	},
 	variants: [
 		{
 			name: 'text color',

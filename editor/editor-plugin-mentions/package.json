@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "4.3.2",
+	"version": "4.3.3",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -57,6 +57,7 @@
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
 		"bind-event-listener": "^3.0.0",
+		"focus-trap": "^2.4.5",
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {

@@ -75,6 +75,10 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
 	return useMemo(() => plugins, []);
 }
 
+type Options = {
+	disabled?: boolean;
+};
+
 /**
  *
  * NOTE: Generally you may want to use `usePluginStateSelector` over this which behaves similarly
@@ -136,6 +140,7 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
  *
  * @param injectionApi Plugin injection API from `NextEditorPlugin`
  * @param plugins Plugin names to get the shared plugin state for
+ * @param options The useSharedPluginState options
  * @returns A corresponding object, the keys are names of the plugin with `State` appended,
  * the values are the shared state exposed by that plugin.
  */
@@ -147,6 +152,7 @@ export function useSharedPluginState<
 >(
 	injectionApi: API | null | undefined,
 	plugins: PluginNames[],
+	options?: Options,
 ): NamedPluginStatesFromInjectionAPI<API, PluginNames> {
 	const pluginNames = useStaticPlugins(plugins);
 
@@ -163,19 +169,26 @@ export function useSharedPluginState<
 		[injectionApi, pluginNames],
 	);
 
-	return useSharedPluginStateInternal(namedExternalPlugins);
+	return useSharedPluginStateInternal(namedExternalPlugins, options);
 }
 
 function useSharedPluginStateInternal<P extends NamedPluginKeys>(
 	externalPlugins: P,
+	options: Options = {},
 ): NamedPluginStates<P> {
 	const [pluginStates, setPluginState] = useState<NamedPluginStates<P>>(
-		mapValues(externalPlugins, (value) => value?.sharedState.currentState()),
+		mapValues(externalPlugins, (value) =>
+			options.disabled ? undefined : value?.sharedState.currentState(),
+		),
 	);
 	const refStates = useRef<Record<string, unknown>>({});
 	const mounted = useRef(false);
 
 	useLayoutEffect(() => {
+		if (options.disabled) {
+			return;
+		}
+
 		const debouncedPluginStateUpdate = debounce(() => {
 			setPluginState((currentPluginStates) => ({
 				...currentPluginStates,
@@ -209,7 +222,7 @@ function useSharedPluginStateInternal<P extends NamedPluginKeys>(
 		// Do not re-render due to state changes, we only need to check this when
 		// setting up the initial subscription.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [externalPlugins]);
+	}, [externalPlugins, options.disabled]);
 
 	return pluginStates;
 }

@@ -87,13 +87,15 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 							separator="·"
 							space="space.100"
 							rowSpace="space.0"
-							role="list"
+							// Only use a list role if more than one action is present
+							role={actionsArray.length > 1 ? 'list' : undefined}
 							xcss={
 								fg('platform_ads_explicit_font_styles') && sectionMessageStyles.actionsContainer
 							}
 						>
 							{actionsArray.map((action, id) => (
-								<Inline role="listitem" key={id}>
+								// Only use a listitem role if more than one action is present
+								<Inline role={actionsArray.length > 1 ? 'listitem' : undefined} key={id}>
 									{action}
 								</Inline>
 							))}

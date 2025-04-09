@@ -548,7 +548,7 @@ export function floatingToolbarPluginFactory(options: {
 				if (
 					config.__suppressAllToolbars &&
 					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_3')
+					fg('platform_editor_controls_patch_4')
 				) {
 					activeConfigs = undefined;
 					break;

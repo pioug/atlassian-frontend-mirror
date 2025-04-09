@@ -84,6 +84,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/visually-hidden/tsconfig.app.json"
 		}
 	]
 }

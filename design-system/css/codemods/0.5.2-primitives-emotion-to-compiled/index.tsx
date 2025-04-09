@@ -570,11 +570,26 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 
 	// add token import
 	if (!importsNeeded.token) {
-		const tokenImport = j.importDeclaration(
-			[j.importSpecifier(j.identifier('token'))],
-			j.literal('@atlaskit/tokens'),
-		);
-		newImports.push(tokenImport);
+		let tokenUsed = false;
+		// check if token is used in the transformed code
+		source
+			.find(j.CallExpression, {
+				callee: {
+					type: 'Identifier',
+					name: 'token',
+				},
+			})
+			.forEach(() => {
+				tokenUsed = true;
+			});
+
+		if (tokenUsed) {
+			const tokenImport = j.importDeclaration(
+				[j.importSpecifier(j.identifier('token'))],
+				j.literal('@atlaskit/tokens'),
+			);
+			newImports.push(tokenImport);
+		}
 	}
 
 	// add new imports after any existing comments

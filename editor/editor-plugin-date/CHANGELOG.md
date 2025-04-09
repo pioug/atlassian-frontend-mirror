@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-date
 
+## 4.1.10
+
+### Patch Changes
+
+- [#138373](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138373)
+  [`3a6e2723e498c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a6e2723e498c) -
+  [ux] [A11Y-10137] Add visually hidden alert for when the date picker opens letting screen reader
+  users know how to access the date picker popup
+- Updated dependencies
+
 ## 4.1.9
 
 ### Patch Changes

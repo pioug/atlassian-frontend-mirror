@@ -1,5 +1,44 @@
 # @atlaskit/editor-core
 
+## 205.2.2
+
+### Patch Changes
+
+- [#135686](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135686)
+  [`fad3e236fffd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fad3e236fffd3) -
+  migrate decision item node to vanillajs
+- Updated dependencies
+
+## 205.2.1
+
+### Patch Changes
+
+- [#137753](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137753)
+  [`fe189a7e249e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe189a7e249e9) -
+  EDITOR-317 Cleans up feature gate `platform_editor_nested_tables_resizing`
+- Updated dependencies
+
+## 205.2.0
+
+### Minor Changes
+
+- [#138416](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138416)
+  [`8cfce6829f775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cfce6829f775) -
+  Fix to have focussedCommentId render the standalone inlinecomment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 205.1.13
+
+### Patch Changes
+
+- [#137151](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137151)
+  [`724daf91c62db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/724daf91c62db) -
+  [ux] Put move of the redo/undo/find behind its own FG. Fix double Find & Replace popup
+- Updated dependencies
+
 ## 205.1.12
 
 ### Patch Changes

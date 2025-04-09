@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d02571a798f526931557a97870452b87>>
+ * @codegen <<SignedSource::8f103238b79e41dd191c8091d5f3f19f>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AirTableFilterIcon } from './ui/air-table-filter-icon';
@@ -135,7 +135,6 @@ export { default as TransitionIcon } from './ui/transition-icon';
 export { default as TrelloIcon } from './ui/trello-icon';
 export { default as UiElementIcon } from './ui/ui-element-icon';
 export { default as UnfollowIcon } from './ui/unfollow-icon';
-export { default as UtilityChartTrendIcon } from './ui/utility-chart-trend-icon';
 export { default as VerifiedIcon } from './ui/verified-icon';
 export { default as VerifiedSmallIcon } from './ui/verified-small-icon';
 export { default as WebDomainIcon } from './ui/web-domain-icon';

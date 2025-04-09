@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 const inheritContainerStyles = xcss({
@@ -65,22 +64,14 @@ export default () => {
 							Text with color prop on a regular surface displays prop color
 						</Text>
 					</Box>
-					{fg('platform-typography-improved-color-control') ? (
-						<Box padding="space.050" backgroundColor="color.background.brand.bold">
-							{/* Override the parent Box background color to pass A11Y checks */}
-							<Box padding="space.050" xcss={overrideBoldBackgroundStyles}>
-								<Text color="color.text.danger">
-									Text with color prop on a bold surface displays prop color
-								</Text>
-							</Box>
-						</Box>
-					) : (
-						<Box padding="space.100" backgroundColor="color.background.brand.bold">
+					<Box padding="space.050" backgroundColor="color.background.brand.bold">
+						{/* Override the parent Box background color to pass A11Y checks */}
+						<Box padding="space.050" xcss={overrideBoldBackgroundStyles}>
 							<Text color="color.text.danger">
-								Text with color prop on a bold surface displays inverse color
+								Text with color prop on a bold surface displays prop color
 							</Text>
 						</Box>
-					)}
+					</Box>
 				</Stack>
 			</section>
 			<section>

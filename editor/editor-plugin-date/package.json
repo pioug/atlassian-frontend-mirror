@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "4.1.9",
+	"version": "4.1.10",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -55,6 +55,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
 		"date-fns": "^2.17.0",
@@ -116,6 +117,9 @@
 	},
 	"platform-feature-flags": {
 		"editor_inline_comments_paste_insert_nodes": {
+			"type": "boolean"
+		},
+		"editor_a11y_announce_date_picker_open": {
 			"type": "boolean"
 		}
 	}

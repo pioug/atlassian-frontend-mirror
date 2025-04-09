@@ -1,5 +1,4 @@
 import { browser } from '@atlaskit/editor-common/browser';
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
@@ -21,9 +20,17 @@ import { profileCardRenderer } from './profileCardRenderer';
 
 const primitiveClassName = 'editor-mention-primitive';
 
+type HTMLAttributes = Partial<
+	Omit<Record<Lowercase<keyof React.AllHTMLAttributes<HTMLElement>>, string>, 'classname'>
+> & {
+	[key: `data-${string}`]: string;
+} & { class: string };
+
+const getAccessibilityLabelFromName = (name: string) => name.replace(/^@/u, '');
+
 const toDOM = (node: PMNode): DOMOutputSpec => {
 	// packages/elements/mention/src/components/Mention/index.tsx
-	const mentionAttrs = {
+	const mentionAttrs: HTMLAttributes = {
 		contenteditable: 'false',
 		'data-access-level': node.attrs.accessLevel,
 		'data-mention-id': node.attrs.id,
@@ -92,15 +99,17 @@ const getNewState = (isHighlighted: boolean, isRestricted: boolean): MentionStat
 	return 'default';
 };
 
-class MentionNodeView implements NodeView {
+export class MentionNodeView implements NodeView {
 	private state: MentionState = 'default';
 	dom: Node;
+	domElement: HTMLElement | undefined;
 	contentDOM: HTMLElement | undefined;
 	private config: MentionNodeViewProps;
 	private node: PMNode;
 	private cleanup: (() => void) | undefined;
 	private destroyProfileCard: (() => void) | undefined;
 	private removeProfileCard: (() => void) | undefined;
+	private mentionPrimitiveElement: HTMLElement | undefined;
 
 	constructor(node: PMNode, config: MentionNodeViewProps) {
 		const { options, api, portalProviderAPI } = config;
@@ -109,6 +118,10 @@ class MentionNodeView implements NodeView {
 		this.contentDOM = contentDOM;
 		this.config = config;
 		this.node = node;
+		this.domElement = dom instanceof HTMLElement ? dom : undefined;
+		this.mentionPrimitiveElement = this.domElement
+			? this.domElement.querySelector<HTMLElement>(`.${primitiveClassName}`) ?? undefined
+			: undefined;
 
 		const { mentionProvider } = api?.mention.sharedState.currentState() ?? {};
 		this.updateState(mentionProvider);
@@ -124,34 +137,28 @@ class MentionNodeView implements NodeView {
 			node,
 			api,
 		});
+		// Accessibility attributes - based on `packages/people-and-teams/profilecard/src/components/User/ProfileCardTrigger.tsx`
+		if (this.domElement && options?.profilecardProvider) {
+			if (node.attrs.text) {
+				this.domElement.setAttribute('aria-label', getAccessibilityLabelFromName(node.attrs.text));
+			}
+			this.domElement.setAttribute('aria-expanded', 'false');
+			this.domElement.setAttribute('role', 'button');
+			this.domElement.setAttribute('tabindex', '0');
+			this.domElement.setAttribute('aria-haspopup', 'dialog');
+		}
 		this.destroyProfileCard = destroyProfileCard;
 		this.removeProfileCard = removeProfileCard;
 	}
 
 	private setClassList(state: MentionState): void {
-		const mentionElement = this.getMentionPrimitive();
-		mentionElement?.classList.toggle('mention-self', state === 'self');
-		mentionElement?.classList.toggle('mention-restricted', state === 'restricted');
-	}
-
-	private getMentionPrimitive() {
-		return this.dom instanceof HTMLElement
-			? this.dom.querySelector(`.${primitiveClassName}`) ?? undefined
-			: undefined;
+		this.mentionPrimitiveElement?.classList.toggle('mention-self', state === 'self');
+		this.mentionPrimitiveElement?.classList.toggle('mention-restricted', state === 'restricted');
 	}
 
 	private setTextContent(name: string | undefined) {
-		if (!(this.dom instanceof HTMLElement)) {
-			return;
-		}
-		const mentionPrimitive = this.getMentionPrimitive();
-		if (
-			mentionPrimitive &&
-			name &&
-			!this.node.attrs.text &&
-			this.config.options?.sanitizePrivateContent
-		) {
-			mentionPrimitive.textContent = name;
+		if (name && !this.node.attrs.text && this.mentionPrimitiveElement) {
+			this.mentionPrimitiveElement.textContent = name;
 		}
 	}
 
@@ -165,6 +172,27 @@ class MentionNodeView implements NodeView {
 		}
 		const name = await handleProviderName(mentionProvider, this.node);
 		this.setTextContent(name);
+		if (name && this.domElement && this.config.options?.profilecardProvider) {
+			this.domElement.setAttribute('aria-label', getAccessibilityLabelFromName(name));
+		}
+	}
+
+	private nodeIsEqual(nextNode: PMNode) {
+		if (this.config.options?.sanitizePrivateContent) {
+			// Compare nodes but ignore the text parameter as it may be sanitized
+			const nextNodeAttrs = { ...nextNode.attrs, text: this.node.attrs.text };
+			return this.node.hasMarkup(nextNode.type, nextNodeAttrs, nextNode.marks);
+		}
+		return this.node.sameMarkup(nextNode);
+	}
+
+	update(node: PMNode) {
+		if (!this.nodeIsEqual(node)) {
+			return false;
+		}
+
+		this.node = node;
+		return true;
 	}
 
 	destroy() {
@@ -176,9 +204,3 @@ class MentionNodeView implements NodeView {
 		this.removeProfileCard?.();
 	}
 }
-
-export const mentionNodeView =
-	(config: MentionNodeViewProps): NodeViewConstructor =>
-	(node) => {
-		return new MentionNodeView(node, config);
-	};

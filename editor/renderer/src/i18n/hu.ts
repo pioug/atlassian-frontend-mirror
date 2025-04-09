@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'Nincs',
   'fabric.editor.inlineComment.marker.end': 'beágyazott megjegyzés vége',
   'fabric.editor.inlineComment.marker.start': 'beágyazott megjegyzés kezdete',
+  'fabric.editor.status.accessibilityLabel': 'állapot:',
 };

@@ -40,6 +40,36 @@ const MyComponent = () => <Box xcss={styles} />`;
 		`);
 		});
 
+		it('should not add tokens import unless necessary', async () => {
+			const input = `import { Box, xcss } from "@atlaskit/primitives";
+
+const styles = xcss({
+borderWidth: 0,
+appearance: "none",
+});
+
+const MyComponent = () => <Box xcss={styles} />`;
+
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Box } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+
+			const styles = cssMap({
+			  root: {
+			  borderWidth: 0,
+			  appearance: "none",
+			  }
+			});
+
+			const MyComponent = () => <Box xcss={styles.root} />"
+		`);
+		});
+
 		it('should not add a duplicate jsx pragma', async () => {
 			const input = `/**
  * @jsxRuntime classic
@@ -214,7 +244,6 @@ const MyComponent = () => <Box xcss={styles} />`;
 			 */
 			import { Box } from "@atlaskit/primitives/compiled";
 			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
 
 			const styles = cssMap({
 			  root: {

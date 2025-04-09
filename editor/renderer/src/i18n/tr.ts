@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'yok',
   'fabric.editor.inlineComment.marker.end': 'satır içi yorum sonu',
   'fabric.editor.inlineComment.marker.start': 'satır içi yorum başlangıcı',
+  'fabric.editor.status.accessibilityLabel': 'durum:',
 };

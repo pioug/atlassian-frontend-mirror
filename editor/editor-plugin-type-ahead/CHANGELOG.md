@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.3.3
+
+### Patch Changes
+
+- [#135872](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135872)
+  [`d50ea6acabdb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d50ea6acabdb3) -
+  [ux] [ED-27142] Enable quick insert input placeholder
+- Updated dependencies
+
 ## 2.3.2
 
 ### Patch Changes

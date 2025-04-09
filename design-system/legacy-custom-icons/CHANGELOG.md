@@ -1,5 +1,13 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.22.4
+
+### Patch Changes
+
+- [#135466](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135466)
+  [`a43d290b1bc48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a43d290b1bc48) -
+  NO-ISSUE remove unused custom legacy icon
+
 ## 0.22.3
 
 ### Patch Changes

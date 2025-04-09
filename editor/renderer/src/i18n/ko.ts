@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': '없음',
   'fabric.editor.inlineComment.marker.end': '인라인 댓글 끝',
   'fabric.editor.inlineComment.marker.start': '인라인 댓글 시작',
+  'fabric.editor.status.accessibilityLabel': '상태:',
 };

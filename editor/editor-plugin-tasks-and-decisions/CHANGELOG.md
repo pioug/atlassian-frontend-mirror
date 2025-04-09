@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.0.5
+
+### Patch Changes
+
+- [#135686](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135686)
+  [`fad3e236fffd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fad3e236fffd3) -
+  migrate decision item node to vanillajs
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

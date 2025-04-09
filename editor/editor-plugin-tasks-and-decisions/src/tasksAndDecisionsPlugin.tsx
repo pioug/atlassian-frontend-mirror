@@ -245,13 +245,14 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 			return [
 				{
 					name: 'tasksAndDecisions',
-					plugin: ({ portalProviderAPI, providerFactory, eventDispatcher, dispatch }) => {
+					plugin: ({ portalProviderAPI, providerFactory, eventDispatcher, dispatch, getIntl }) => {
 						return createPlugin(
 							portalProviderAPI,
 							eventDispatcher,
 							providerFactory,
 							dispatch,
 							api,
+							getIntl,
 							useLongPressSelection,
 							hasEditPermission,
 							hasRequestedEditPermission,

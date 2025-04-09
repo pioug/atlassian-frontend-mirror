@@ -28,6 +28,7 @@ import useEntrypointsInExamples from './rules/use-entrypoints-in-examples';
 import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
+import noSparseCheckout from './rules/no-sparse-checkout';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -85,6 +86,7 @@ const rules = {
 	'no-alias': noAlias,
 	'use-entrypoints-in-examples': useEntrypointsInExamples,
 	'use-recommended-utils': useRecommendedUtils,
+	'no-sparse-checkout': noSparseCheckout,
 };
 
 const commonConfig = {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.3.3
+
+### Patch Changes
+
+- [#138789](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138789)
+  [`eeb167efe5e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eeb167efe5e64) -
+  Setup focus trap for profile card provider in vanilla mention version
+- Updated dependencies
+
 ## 4.3.2
 
 ### Patch Changes

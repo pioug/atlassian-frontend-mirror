@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -14,6 +14,7 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import { AssistiveText } from '@atlaskit/editor-common/ui';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -138,12 +139,22 @@ export const InputQuery = React.memo(
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
-		const isEditorControlsEnabled = editorExperiment('platform_editor_insertion', 'variant1');
+		const isEditorInsertionEnabled = editorExperiment('platform_editor_insertion', 'variant1');
 		const isEditorControlsPatch2Enabled =
 			editorExperiment('platform_editor_controls', 'variant1') &&
 			fg('platform_editor_controls_patch_2');
+		const isSearchPlaceholderEnabled =
+			isEditorInsertionEnabled ||
+			(editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_patch_3'));
+		const selection = editorView.state.selection;
+		const { table } = editorView.state.schema.nodes;
 		const [showPlaceholder, setShowPlaceholder] = useState(
-			isEditorControlsEnabled && triggerQueryPrefix === '/',
+			isSearchPlaceholderEnabled &&
+				triggerQueryPrefix === '/' &&
+				// When triggered in very narrow table column, placeholder becomes ellipsis only
+				// hence we disable it for now and revisit this scenario in ED-27480
+				!findParentNodeOfType(table)(selection),
 		);
 
 		const cleanedInputContent = useCallback(() => {
@@ -516,6 +527,23 @@ export const InputQuery = React.memo(
 			}
 		}, [forceFocus, reopenQuery]);
 
+		const classNames = useMemo(() => {
+			const classes = [];
+			if (showPlaceholder) {
+				// to avoid the placeholder wrapped to next line when triggered at the end of the line
+				// see placeholderWrapStyles in editor-core/src/ui/ContentStyles/index.tsx
+				classes.push('placeholder-decoration-wrap');
+
+				if (selection.$from.depth > 1) {
+					// to hide placeholder overflow as ellipsis
+					// see placeholderWrapStyles in editor-core/src/ui/ContentStyles/index.tsx
+					classes.push('placeholder-decoration-hide-overflow');
+				}
+			}
+
+			return classes.join(' ');
+		}, [showPlaceholder, selection]);
+
 		const assistiveHintID = TYPE_AHEAD_DECORATION_ELEMENT_ID + '__assistiveHint';
 		const intl = useIntl();
 
@@ -531,14 +559,14 @@ export const InputQuery = React.memo(
 				<span
 					css={[
 						querySpanStyles,
-						isEditorControlsEnabled && queryWithoutPlaceholderStyles,
+						isSearchPlaceholderEnabled && queryWithoutPlaceholderStyles,
 						showPlaceholder && placeholderStyles,
 					]}
 					contentEditable={true}
 					ref={ref}
 					onKeyUp={onKeyUp}
 					onClick={onClick}
-					onInput={isEditorControlsEnabled ? onInput : undefined}
+					onInput={isSearchPlaceholderEnabled ? onInput : undefined}
 					role="combobox"
 					aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}
 					aria-autocomplete="list"
@@ -546,6 +574,8 @@ export const InputQuery = React.memo(
 					aria-labelledby={assistiveHintID}
 					suppressContentEditableWarning
 					data-query-prefix={triggerQueryPrefix}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={classNames}
 					data-place-holder={intl.formatMessage(
 						typeAheadListMessages.quickInsertInputPlaceholderLabel,
 					)}

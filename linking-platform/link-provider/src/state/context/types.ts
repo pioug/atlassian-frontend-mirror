@@ -31,6 +31,7 @@ export interface CardContext {
 	featureFlags?: LinkingPlatformFeatureFlags;
 	isAdminHubAIEnabled?: boolean;
 	product?: ProductType;
+	shouldControlDataExport?: boolean;
 }
 
 /** @deprecated Feature removed (EDM-2205) */

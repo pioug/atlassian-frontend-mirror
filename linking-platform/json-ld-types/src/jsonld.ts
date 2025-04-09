@@ -568,6 +568,10 @@ export namespace JsonLd {
 				| Primitives.Link
 				| Primitives.Person
 				| Primitives.Collection<Primitives.Link | Primitives.Person>;
+			'atlassian:createdBy'?:
+				| Primitives.Link
+				| Primitives.Person
+				| Primitives.Collection<Primitives.Link | Primitives.Person>;
 			'schema:dateCreated'?: string;
 			/**
 			 * Added because schema:potentialAction could not be used by the new action implementation

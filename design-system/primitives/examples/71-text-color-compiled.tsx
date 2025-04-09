@@ -6,7 +6,6 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -80,22 +79,14 @@ export default () => {
 							Text with color prop on a regular surface displays prop color
 						</Text>
 					</Box>
-					{fg('platform-typography-improved-color-control') ? (
-						<Box padding="space.050" backgroundColor="color.background.brand.bold">
-							{/* Override the parent Box background color to pass A11Y checks */}
-							<div css={styles.overrideBoldBackground}>
-								<Text color="color.text.danger">
-									Text with color prop on a bold surface displays prop color
-								</Text>
-							</div>
-						</Box>
-					) : (
-						<Box padding="space.100" backgroundColor="color.background.brand.bold">
+					<Box padding="space.050" backgroundColor="color.background.brand.bold">
+						{/* Override the parent Box background color to pass A11Y checks */}
+						<div css={styles.overrideBoldBackground}>
 							<Text color="color.text.danger">
-								Text with color prop on a bold surface displays inverse color
+								Text with color prop on a bold surface displays prop color
 							</Text>
-						</Box>
-					)}
+						</div>
+					</Box>
 				</Stack>
 			</section>
 			<section>

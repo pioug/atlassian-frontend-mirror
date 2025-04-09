@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 14.4.0
+
+### Minor Changes
+
+- [#138526](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138526)
+  [`1c66b8e32f30a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c66b8e32f30a) -
+  [ux] Removed feature flag `platform-typography-improved-color-control` resulting in automatic
+  color inversion based on bold surfaces will only affect the default color.
+
 ## 14.3.3
 
 ### Patch Changes

@@ -1,6 +1,9 @@
+import { IntlShape } from 'react-intl-next';
+
 import { uuid } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -12,8 +15,10 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
+import { DecisionItemVanilla } from '../nodeviews/DecisionItemVanilla';
 import { lazyTaskView } from '../nodeviews/task-lazy-node-view';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { TaskDecisionPluginState } from '../types';
@@ -54,6 +59,7 @@ export function createPlugin(
 	providerFactory: ProviderFactory,
 	dispatch: Dispatch,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
+	getIntl: () => IntlShape,
 	useLongPressSelection: boolean = false,
 	hasEditPermission?: boolean,
 	hasRequestedEditPermission?: boolean,
@@ -70,7 +76,18 @@ export function createPlugin(
 					api,
 					taskPlaceholder,
 				),
-				decisionItem: lazyDecisionView(portalProviderAPI, eventDispatcher, api),
+				decisionItem: ((node, view, getPos, decorations, innerDecorations) => {
+					if (editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })) {
+						return new DecisionItemVanilla(node, getIntl());
+					}
+					return lazyDecisionView(portalProviderAPI, eventDispatcher, api)(
+						node,
+						view,
+						getPos,
+						decorations,
+						innerDecorations,
+					);
+				}) satisfies NodeViewConstructor,
 			},
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				// When a decision item is selected and the user starts typing, the entire node

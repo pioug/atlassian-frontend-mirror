@@ -1,5 +1,14 @@
 # @atlaskit/section-message
 
+## 8.2.3
+
+### Patch Changes
+
+- [#138039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138039)
+  [`3e513ed430ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e513ed430ccc) -
+  Fix accessibility issue where list was inappropriately used for actions when single action was
+  passed.
+
 ## 8.2.2
 
 ### Patch Changes

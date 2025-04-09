@@ -27,7 +27,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mention';
-import { mentionNodeView } from '../nodeviews/mentionNodeView';
+import { MentionNodeView as VanillaMentionNodeView } from '../nodeviews/mentionNodeView';
 import {
 	type FireElementsChannelEvent,
 	MENTION_PROVIDER_REJECTED,
@@ -155,12 +155,12 @@ export function createMentionPlugin({
 		props: {
 			nodeViews: {
 				mention: (node, view, getPos, decorations, innerDecorations) => {
-					return editorExperiment('platform_editor_vanilla_dom', true)
-						? mentionNodeView({
+					return editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })
+						? new VanillaMentionNodeView(node, {
 								options,
 								api,
 								portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
-							})(node, view, getPos, decorations, innerDecorations)
+							})
 						: getInlineNodeViewProducer({
 								pmPluginFactoryParams,
 								Component: MentionNodeView,

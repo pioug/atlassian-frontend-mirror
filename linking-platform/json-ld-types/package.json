@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/json-ld-types",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "A set of types for the Atlassian Object Vocabulary",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 2.1.0
+
+### Minor Changes
+
+- [#135983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135983)
+  [`7bc55a027722d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bc55a027722d) -
+  Resolving a vulnerability that allowed data secure policy controlled content to be exposed in
+  smart card previews during export.
+
 ## 2.0.1
 
 ### Patch Changes

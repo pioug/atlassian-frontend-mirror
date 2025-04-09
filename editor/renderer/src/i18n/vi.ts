@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'không có',
   'fabric.editor.inlineComment.marker.end': 'bình luận nội tuyến kết thúc',
   'fabric.editor.inlineComment.marker.start': 'bình luận nội tuyến bắt đầu',
+  'fabric.editor.status.accessibilityLabel': 'trạng thái:',
 };

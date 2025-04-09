@@ -13,7 +13,6 @@ import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/e
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../types';
 import { stopKeyboardColumnResizing } from '../commands/column-resize';
@@ -203,11 +202,7 @@ export const handleMouseDown = (
 			// There may be a more elegant solution to this, to avoid a jarring experience. This used to
 			// be an equality check but that caused issues when a nested table would change (eg. when it
 			// dynamically updates its width on resize)
-			if (
-				fg('platform_editor_nested_tables_resizing')
-					? !tablesHaveDifferentNoOfColumns(originalTable, table)
-					: table.eq(originalTable)
-			) {
+			if (!tablesHaveDifferentNoOfColumns(originalTable, table)) {
 				const map = TableMap.get(table);
 				const colIndex =
 					map.colCount($cell.pos - start) +

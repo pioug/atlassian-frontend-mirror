@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.10.6
+
+### Patch Changes
+
+- [#137715](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137715)
+  [`40696be85b10e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40696be85b10e) -
+  Improvements to `primitives-emotion-to-compiled` codemod: remove unnecessary `tokens` import.
+
 ## 0.10.5
 
 ### Patch Changes

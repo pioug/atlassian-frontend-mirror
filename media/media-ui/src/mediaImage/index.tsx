@@ -1,5 +1,8 @@
 import React, { type Ref, forwardRef, useCallback, useRef, useState } from 'react';
 import { type CSSProperties } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+
 import { ImageComponent } from './styled';
 import { getCssFromImageOrientation, isRotated } from '../imageMetaData';
 import { useMergeRefs } from 'use-callback-ref';
@@ -425,7 +428,6 @@ export const MediaImage = forwardRef(
 
 			style.transform += ` ${transform}`;
 		}
-
 		return (
 			<ImageComponent
 				loading={loading}
@@ -440,6 +442,7 @@ export const MediaImage = forwardRef(
 				imageRef={mergedRef}
 				src={dataURI}
 				crossOrigin={crossOrigin}
+				{...(fg('platform_exclude_media_offender_from_vc') && VcMediaWrapperProps)}
 			/>
 		);
 	},

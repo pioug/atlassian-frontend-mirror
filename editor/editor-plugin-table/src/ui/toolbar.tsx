@@ -496,7 +496,7 @@ export const getToolbarConfig =
 
 		if (
 			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_3')
+			fg('platform_editor_controls_patch_4')
 		) {
 			let isDragHandleMenuOpened = false;
 			let isTableRowOrColumnDragged = false;
@@ -508,11 +508,14 @@ export const getToolbarConfig =
 
 			const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
 			const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;
+			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
 			const shouldSuppressAllToolbars =
-				!pluginState.editorHasFocus ||
+				(!pluginState.editorHasFocus && !isViewMode) ||
 				isTableMenuOpened ||
 				isTableOrColumnResizing ||
 				isTableRowOrColumnDragged;
+
 			if (shouldSuppressAllToolbars) {
 				return {
 					title: toolbarTitle,

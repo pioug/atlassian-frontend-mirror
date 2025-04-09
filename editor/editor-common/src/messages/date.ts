@@ -19,4 +19,10 @@ export const messages = defineMessages({
 		description:
 			'The text for the date input informs the user that using the arrow keys (up and down) will update the date picker below',
 	},
+	datePickerOpenedAlert: {
+		id: 'fabric.editor.datePickerOpenedAlert',
+		defaultMessage: 'Date editor popup opened, press Tab to access popup',
+		description:
+			'Screen reader alert when the date picker is opened, letting the user know they can press the Tab button to access the date picker',
+	},
 });

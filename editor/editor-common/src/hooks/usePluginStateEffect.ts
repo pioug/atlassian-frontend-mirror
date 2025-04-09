@@ -72,6 +72,10 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
 
 type Cleanup = () => void;
 
+type Options = {
+	disabled?: boolean;
+};
+
 /**
  *
  * ⚠️⚠️⚠️ This is a debounced hook ⚠️⚠️⚠️
@@ -125,6 +129,7 @@ export function usePluginStateEffect<
 	injectionApi: API | null | undefined,
 	plugins: PluginNames[],
 	effect: (states: NamedPluginStatesFromInjectionAPI<API, PluginNames>) => Cleanup | void,
+	options: Options = {},
 ): void {
 	const pluginNames = useStaticPlugins(plugins);
 
@@ -141,12 +146,13 @@ export function usePluginStateEffect<
 		[injectionApi, pluginNames],
 	);
 
-	usePluginStateEffectInternal(namedExternalPlugins, effect);
+	usePluginStateEffectInternal(namedExternalPlugins, effect, options);
 }
 
 function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 	externalPlugins: P,
 	effect: (states: NamedPluginStates<P>) => Cleanup | void,
+	options: Options = {},
 ): void {
 	const refStates = useRef<NamedPluginStates<P> | undefined>();
 	const cleanup = useRef<Cleanup | void>();
@@ -155,13 +161,21 @@ function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 	// We should store the latest effect in a reference so it is more intuitive to the user
 	// and we are not causing a memory leak by having references to old state.
 	useEffect(() => {
+		if (options.disabled) {
+			return;
+		}
+
 		latestEffect.current = debounce(effect);
 		return () => {
 			latestEffect.current = undefined;
 		};
-	}, [effect]);
+	}, [effect, options.disabled]);
 
 	useLayoutEffect(() => {
+		if (options.disabled) {
+			return;
+		}
+
 		// Update the reference for this plugin and activate the effect
 		refStates.current = mapValues(externalPlugins, (value) => value?.sharedState.currentState());
 		cleanup.current = latestEffect.current?.(refStates.current);
@@ -183,5 +197,5 @@ function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 		};
 		// Do not re-run if the `effect` changes - this is not expected with `useEffect` or similar hooks
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [externalPlugins]);
+	}, [externalPlugins, options.disabled]);
 }

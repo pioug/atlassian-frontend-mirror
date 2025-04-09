@@ -12,6 +12,7 @@ import type { WeekDay } from '@atlaskit/calendar/types';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { dateMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	PlainOutsideClickTargetRefContext,
 	Popup,
@@ -19,8 +20,10 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import type { DateType } from '../../types';
 
@@ -138,9 +141,13 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 				mountTo={mountTo}
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
-				ariaLabel={null}
 				preventOverflow={true}
 			>
+				{fg('editor_a11y_announce_date_picker_open') && (
+					<VisuallyHidden aria-atomic role="alert">
+						{intl.formatMessage(messages.datePickerOpenedAlert)}
+					</VisuallyHidden>
+				)}
 				<PlainOutsideClickTargetRefContext.Consumer>
 					{(setOutsideClickTargetRef) => (
 						<div css={popupContentWrapper} ref={setOutsideClickTargetRef}>

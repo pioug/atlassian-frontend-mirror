@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.8.7
+
+### Patch Changes
+
+- [#138396](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138396)
+  [`6a11423e1442f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a11423e1442f) -
+  Add new plugin which tracks user typing, add typing check to visibility container of widgets
+
+## 3.8.6
+
+### Patch Changes
+
+- [#137780](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137780)
+  [`6940941e679c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6940941e679c5) -
+  Move style decoration to own plugin
+- Updated dependencies
+
 ## 3.8.5
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.3.0
+
+### Minor Changes
+
+- [#138416](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138416)
+  [`8cfce6829f775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cfce6829f775) -
+  Fix to have focussedCommentId render the standalone inlinecomment
+
 ## 2.2.2
 
 ### Patch Changes

@@ -61,6 +61,10 @@ type Path<T, K extends string> = K extends `${infer Key}.${infer Rest}`
 		? T[K]
 		: never;
 
+type Options = {
+	disabled?: boolean;
+};
+
 /**
  *
  * ⚠️⚠️⚠️ This is a debounced hook ⚠️⚠️⚠️
@@ -103,6 +107,7 @@ type Path<T, K extends string> = K extends `${infer Key}.${infer Rest}`
  *
  * @param api
  * @param plugin
+ * @param options
  * @returns
  */
 export function useSharedPluginStateSelector<
@@ -115,7 +120,11 @@ export function useSharedPluginStateSelector<
 	>,
 	Key extends NestedKeys<Exclude<SharedState, null | undefined>>,
 	Result extends Path<Exclude<SharedState, null | undefined>, Key>,
->(api: API | undefined | null, plugin: `${PluginName}.${Key}`): Result | undefined {
+>(
+	api: API | undefined | null,
+	plugin: `${PluginName}.${Key}`,
+	options: Options = {},
+): Result | undefined {
 	const transformer = useCallback(
 		(pluginState: NamedPluginStatesFromInjectionAPI<API, PluginName>) => {
 			const [pluginName, ...properties] = plugin.split('.');
@@ -135,13 +144,23 @@ export function useSharedPluginStateSelector<
 	}, [plugin]);
 
 	const initialState = useMemo(() => {
+		if (options.disabled) {
+			return;
+		}
+
 		const [pluginName] = plugin.split('.');
 		return transformer({
 			[`${pluginName}State`]: api?.[pluginName]?.sharedState.currentState(),
 		} as NamedPluginStatesFromInjectionAPI<API, PluginName>);
-	}, [plugin, api, transformer]);
+	}, [plugin, api, options.disabled, transformer]);
 
-	return useSharedPluginStateSelectorInternal(api, pluginNameArray, transformer, initialState);
+	return useSharedPluginStateSelectorInternal(
+		api,
+		pluginNameArray,
+		transformer,
+		initialState,
+		options,
+	);
 }
 
 function useSharedPluginStateSelectorInternal<
@@ -155,17 +174,23 @@ function useSharedPluginStateSelectorInternal<
 	plugins: PluginNames[],
 	transformer: (inputStates: NamedPluginStatesFromInjectionAPI<API, PluginNames>) => Result,
 	initialState: Result | undefined,
+	options: Options = {},
 ): Result | undefined {
 	const [selectedPluginState, setSelectedPluginState] = useState<Result | undefined>(initialState);
 
-	usePluginStateEffect(api, plugins, (pluginStates) => {
-		// `pluginStates`: This is the same type through inference - but typescript doesn't recognise them as they are computed slightly differently
-		const transformedValue = transformer(
-			pluginStates as unknown as NamedPluginStatesFromInjectionAPI<API, PluginNames>,
-		);
-		if (!isEqual(transformedValue, selectedPluginState)) {
-			setSelectedPluginState(transformedValue);
-		}
-	});
+	usePluginStateEffect(
+		api,
+		plugins,
+		(pluginStates) => {
+			// `pluginStates`: This is the same type through inference - but typescript doesn't recognise them as they are computed slightly differently
+			const transformedValue = transformer(
+				pluginStates as unknown as NamedPluginStatesFromInjectionAPI<API, PluginNames>,
+			);
+			if (!isEqual(transformedValue, selectedPluginState)) {
+				setSelectedPluginState(transformedValue);
+			}
+		},
+		options,
+	);
 	return selectedPluginState;
 }

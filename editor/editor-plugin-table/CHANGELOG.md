@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-table
 
+## 10.6.9
+
+### Patch Changes
+
+- [#139053](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139053)
+  [`c1c6278a78c4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1c6278a78c4a) -
+  [ux] Adds a new temporary floating toolbar's config option to hide any toolbars when any table's
+  menu is opend.
+- Updated dependencies
+
+## 10.6.8
+
+### Patch Changes
+
+- [#138977](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138977)
+  [`3d812d3a14c39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d812d3a14c39) -
+  [ux] Revert "Adds a new temporary floating toolbar's config option to hide any toolbars when any
+  table's menu is opened."
+- Updated dependencies
+
+## 10.6.7
+
+### Patch Changes
+
+- [#137753](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137753)
+  [`fe189a7e249e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe189a7e249e9) -
+  EDITOR-317 Cleans up feature gate `platform_editor_nested_tables_resizing`
+- Updated dependencies
+
+## 10.6.6
+
+### Patch Changes
+
+- [#138280](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138280)
+  [`f2eac0d6772c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2eac0d6772c2) -
+  [ux] Adds a new temporary floating toolbar's config option to hide any toolbars when any table's
+  menu is opened.
+- Updated dependencies
+
 ## 10.6.5
 
 ### Patch Changes

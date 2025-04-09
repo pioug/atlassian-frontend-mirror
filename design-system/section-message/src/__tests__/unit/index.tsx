@@ -60,6 +60,26 @@ describe('SectionMessage', () => {
 	});
 
 	describe('actions', () => {
+		describe('should render actions as a list only if more than one action provided', () => {
+			const action = (
+				<SectionMessageAction>
+					<Text>aye</Text>
+				</SectionMessageAction>
+			);
+
+			it('one action', () => {
+				render(<SectionMessage actions={[action]}>boo</SectionMessage>);
+
+				expect(screen.queryByRole('list')).not.toBeInTheDocument();
+			});
+
+			it('more than one action', () => {
+				render(<SectionMessage actions={[action, action]}>boo</SectionMessage>);
+
+				expect(screen.getByRole('list')).toBeInTheDocument();
+			});
+		});
+
 		it('should render actions beneath the section message description', () => {
 			const actions = [
 				<SectionMessageAction>

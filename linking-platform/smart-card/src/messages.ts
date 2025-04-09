@@ -148,7 +148,9 @@ export type MessageKey =
 	| 'related'
 	| 'generic_error_message'
 	| 'related_links_modal_error_header'
+	| 'related_links_modal_error_title'
 	| 'related_links_modal_error_message'
+	| 'related_links_modal_error_description'
 	| 'related_links_modal_unavailable_header'
 	| 'related_links_modal_unavailable_title'
 	| 'related_links_modal_unavailable_message'
@@ -966,6 +968,11 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Something went wrong',
 		description: 'Title for related links error',
 	},
+	related_links_modal_error_title: {
+		id: 'fabric.linking.related_links_modal_error_title',
+		defaultMessage: `We're having trouble loading related links`,
+		description: 'Title for related links error',
+	},
 	related_links_modal_unavailable_title: {
 		id: 'fabric.linking.related_links_modal_unavailable_title',
 		defaultMessage: `We couldn't find any related links`,
@@ -975,6 +982,11 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.related_links_modal_error_message',
 		defaultMessage:
 			'We ran into an issue trying to load recent links. Check your connection or refresh to try again.',
+		description: 'Informs the user that there was a problem loading related links',
+	},
+	related_links_modal_error_description: {
+		id: 'fabric.linking.related_links_modal_error_description',
+		defaultMessage: 'Check your connection or refresh the page to try again',
 		description: 'Informs the user that there was a problem loading related links',
 	},
 	related_links_modal_unavailable_description: {

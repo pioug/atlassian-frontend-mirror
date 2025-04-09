@@ -30,6 +30,9 @@ export const profileCardRenderer = ({
 	let cleanupSelection: (() => void) | undefined;
 
 	const removeProfileCard = () => {
+		if (dom instanceof HTMLElement) {
+			dom.setAttribute('aria-expanded', 'false');
+		}
 		portalProviderAPI.remove(key);
 		renderingProfileCard = false;
 		cleanupSelection?.();
@@ -39,6 +42,7 @@ export const profileCardRenderer = ({
 		type: 'click',
 		listener: () => {
 			if (dom instanceof HTMLElement && options?.profilecardProvider && !renderingProfileCard) {
+				dom.setAttribute('aria-expanded', 'true');
 				renderingProfileCard = true;
 				portalProviderAPI.render(
 					() => (

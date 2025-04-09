@@ -1,5 +1,52 @@
 # @atlaskit/editor-common
 
+## 103.2.0
+
+### Minor Changes
+
+- [#139035](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139035)
+  [`12b5ec79724e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12b5ec79724e4) -
+  Add disabled option to useSharedPluginState, useSharedPluginStateSelector and usePluginStateEffect
+
+### Patch Changes
+
+- [#139053](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139053)
+  [`c1c6278a78c4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1c6278a78c4a) -
+  [ux] Adds a new temporary floating toolbar's config option to hide any toolbars when any table's
+  menu is opend.
+
+## 103.1.3
+
+### Patch Changes
+
+- [#138373](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138373)
+  [`3a6e2723e498c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a6e2723e498c) -
+  [ux] [A11Y-10137] Add visually hidden alert for when the date picker opens letting screen reader
+  users know how to access the date picker popup
+- [#138977](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138977)
+  [`3d812d3a14c39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d812d3a14c39) -
+  [ux] Revert "Adds a new temporary floating toolbar's config option to hide any toolbars when any
+  table's menu is opened."
+- Updated dependencies
+
+## 103.1.2
+
+### Patch Changes
+
+- [#137753](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137753)
+  [`fe189a7e249e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe189a7e249e9) -
+  EDITOR-317 Cleans up feature gate `platform_editor_nested_tables_resizing`
+- Updated dependencies
+
+## 103.1.1
+
+### Patch Changes
+
+- [#138280](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138280)
+  [`f2eac0d6772c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2eac0d6772c2) -
+  [ux] Adds a new temporary floating toolbar's config option to hide any toolbars when any table's
+  menu is opened.
+
 ## 103.1.0
 
 ### Minor Changes

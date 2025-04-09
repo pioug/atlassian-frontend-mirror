@@ -2,12 +2,15 @@ import React from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { extractEmbedProps } from '../../extractors/embed';
 import { extractInlineProps } from '../../extractors/inline';
 import { getExtensionKey, hasAuthScopeOverrides } from '../../state/helpers';
+import { useControlDataExportConfig } from '../../state/hooks/use-control-data-export-config';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
+import { getIsDataExportEnabled } from '../../utils/should-data-export';
 import BlockCardResolvedView from '../BlockCard/views/ResolvedView';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
 
@@ -49,6 +52,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 		const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
 		const extensionKey = getExtensionKey(details);
 		const isProductIntegrationSupported = hasAuthScopeOverrides(details);
+		const { shouldControlDataExport = false } = useControlDataExportConfig();
 
 		switch (status) {
 			case 'pending':
@@ -74,6 +78,27 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 						aspectRatio: resolvedViewProps.preview?.aspectRatio,
 					});
 				}
+
+				if (fg('platform_smart_links_controlled_dsp_export_view')) {
+					if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
+						const unauthViewProps = extractEmbedProps(data, meta, platform);
+						return (
+							<UnauthorizedView
+								context={unauthViewProps.context}
+								extensionKey={extensionKey}
+								frameStyle={frameStyle}
+								isProductIntegrationSupported={isProductIntegrationSupported}
+								inheritDimensions={inheritDimensions}
+								isSelected={isSelected}
+								onAuthorize={handleAuthorize}
+								onClick={handleFrameClick}
+								testId={testId}
+								url={unauthViewProps.link}
+							/>
+						);
+					}
+				}
+
 				if (resolvedViewProps.preview) {
 					return (
 						<EmbedCardResolvedView

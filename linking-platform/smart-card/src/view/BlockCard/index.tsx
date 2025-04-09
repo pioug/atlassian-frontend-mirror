@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { useControlDataExportConfig } from '../../state/hooks/use-control-data-export-config';
+import { getIsDataExportEnabled } from '../../utils/should-data-export';
 import { handleClickCommon } from '../common/utils';
 import { CardLinkView } from '../LinkView';
 
@@ -38,11 +42,19 @@ export const BlockCard = ({
 		actionOptions,
 	};
 
+	const { shouldControlDataExport = false } = useControlDataExportConfig();
+
 	switch (status) {
 		case 'pending':
 		case 'resolving':
 			return <ResolvedView {...blockCardProps} testId="smart-block-resolving-view" />;
 		case 'resolved':
+			if (fg('platform_smart_links_controlled_dsp_export_view')) {
+				if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
+					return <UnauthorisedView {...blockCardProps} onAuthorize={handleAuthorize} />;
+				}
+			}
+
 			return <ResolvedView {...blockCardProps} />;
 		case 'unauthorized':
 			return <UnauthorisedView {...blockCardProps} onAuthorize={handleAuthorize} />;

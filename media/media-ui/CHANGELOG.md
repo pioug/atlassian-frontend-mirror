@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.1.7
+
+### Patch Changes
+
+- [#138277](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138277)
+  [`5fda0cbf74f4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fda0cbf74f4d) -
+  add data-media-vc-wrapper attribute to get aborted from vc-observer
+
 ## 28.1.6
 
 ### Patch Changes

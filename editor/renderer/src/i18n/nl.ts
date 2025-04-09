@@ -16,4 +16,5 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'Geen',
   'fabric.editor.inlineComment.marker.end': 'einde inline-opmerking',
   'fabric.editor.inlineComment.marker.start': 'begin inline-opmerking',
+  'fabric.editor.status.accessibilityLabel': 'status:',
 };

@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 0.41.20
+
+### Patch Changes
+
+- [#138617](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138617)
+  [`111489e503116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/111489e503116) -
+  Update workspace protocol
+
+## 0.41.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.41.18
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -27,9 +28,13 @@ export function FloatingToolbarComponent({ api, editorView }: FloatingToolbarCom
 
 	const changeAlignmentCallback = useCallback(
 		(align: AlignmentState) => {
-			return changeAlignment(align)(editorView.state, editorView.dispatch);
+			return changeAlignment(
+				align,
+				api,
+				INPUT_METHOD.FLOATING_TB,
+			)(editorView.state, editorView.dispatch);
 		},
-		[editorView],
+		[editorView, api],
 	);
 
 	return (

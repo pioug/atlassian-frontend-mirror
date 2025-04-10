@@ -2,7 +2,10 @@ import type React from 'react';
 
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
+import type {
+	AnnotationUpdateEmitter,
+	AnnotationManager,
+} from '@atlaskit/editor-common/annotation';
 
 /**
  * type of target that annotation apply to.
@@ -148,6 +151,8 @@ export interface AnnotationProviders {
 			start: () => void;
 		};
 	};
+
+	annotationManager?: AnnotationManager;
 }
 
 export enum AnnotationSelectionType {

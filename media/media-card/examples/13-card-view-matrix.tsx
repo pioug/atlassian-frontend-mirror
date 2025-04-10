@@ -370,6 +370,11 @@ class Example extends React.Component<{}, State> {
 					titleBoxBgColor={withBgColorAndIcon ? Y75 : undefined}
 					titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}
 					error={mediaCardErrorState(error)}
+					identifier={{
+						id: 'some-file-id',
+						collectionName: 'some-collection-name',
+						mediaItemType: 'file',
+					}}
 				/>
 			</CardViewWrapper>
 		);

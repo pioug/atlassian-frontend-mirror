@@ -17,15 +17,30 @@ import {
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID, JiraIssuesConfigModal } from '../src';
+import { JiraIssuesConfigModalNoSuspense } from '../src/ui/jira-issues-modal/modal';
 import {
 	type JiraIssueDatasourceParameters,
 	type JiraIssuesDatasourceAdf,
 } from '../src/ui/jira-issues-modal/types';
 
+import { withWaitForItem } from './utils/withWaitForItem';
+
 mockDatasourceFetchRequests();
 mockBasicFilterAGGFetchRequests();
 
-const WithIssueModal = (props?: { parameters?: JiraIssueDatasourceParameters }) => {
+type Props = {
+	/**
+	 * Used to use the lazy loaded version for examples on atlaskit
+	 */
+	JiraIssueConfigModalComponent?:
+		| typeof JiraIssuesConfigModalNoSuspense
+		| typeof JiraIssuesConfigModal;
+};
+
+const WithIssueModal = ({
+	JiraIssueConfigModalComponent = JiraIssuesConfigModalNoSuspense,
+	...props
+}: { parameters?: JiraIssueDatasourceParameters } & Props) => {
 	const [generatedAdf, setGeneratedAdf] = useState<string>('');
 	const [showModal, setShowModal] = useState(true);
 	const [parameters, setParameters] = useState<JiraIssueDatasourceParameters | undefined>(
@@ -81,7 +96,7 @@ const WithIssueModal = (props?: { parameters?: JiraIssueDatasourceParameters }) 
 				<code data-testid="generated-adf">{generatedAdf}</code>
 			</pre>
 			{showModal && (
-				<JiraIssuesConfigModal
+				<JiraIssueConfigModalComponent
 					datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
 					visibleColumnKeys={visibleColumnKeys}
 					columnCustomSizes={columnCustomSizes}
@@ -95,17 +110,29 @@ const WithIssueModal = (props?: { parameters?: JiraIssueDatasourceParameters }) 
 	);
 };
 
-export default () => (
+export default () => <Component JiraIssueConfigModalComponent={JiraIssuesConfigModal} />;
+
+const Component = (props: Props) => (
 	<IntlProvider locale="en">
-		<WithIssueModal />
+		<WithIssueModal {...props} />
 	</IntlProvider>
 );
 
-export const WithIssueModalWithParameters = () => (
+export const JiraModalNoSuspense = () => (
+	<Component JiraIssueConfigModalComponent={JiraIssuesConfigModalNoSuspense} />
+);
+
+export const WithIssueModalWithParameters = (props: Props) => (
 	<WithIssueModal
 		parameters={{
 			cloudId: '67899',
 			jql: 'project in ("My IT TEST", Test) and type in ("[System] Change", "[System] Incident") and status in (Authorize, "Awaiting approval") and assignee in (empty, "membersOf(administrators)") ORDER BY created DESC',
 		}}
+		{...props}
 	/>
+);
+
+export const WithIssueModalWithParametersInformational = withWaitForItem(
+	WithIssueModalWithParameters,
+	() => document.body.querySelector('[data-testid="jol-basic-filter-container"]'),
 );

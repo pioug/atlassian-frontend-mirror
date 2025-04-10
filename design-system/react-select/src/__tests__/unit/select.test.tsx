@@ -4,7 +4,7 @@
 // @ts-nocheck
 import React, { type KeyboardEvent } from 'react';
 
-import { type EventType, fireEvent, render, screen } from '@testing-library/react';
+import { type EventType, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
@@ -3312,3 +3312,20 @@ cases(
 		},
 	},
 );
+
+test('UNSAFE_is_experimental_generic', () => {
+	render(<Select {...BASIC_PROPS} menuIsOpen UNSAFE_is_experimental_generic />);
+
+	const input = screen.getByTestId(`${testId}-select--input`);
+	expect(input).toHaveAttribute('aria-haspopup', 'dialog');
+	expect(input).not.toHaveAttribute('aria-haspopup', 'true');
+
+	const dialog = screen.getByTestId(`${testId}-select--listbox`);
+	expect(dialog).not.toHaveAttribute('aria-multiselectable');
+	expect(dialog).toHaveAttribute('role', 'dialog');
+	expect(dialog).not.toHaveAttribute('role', 'listbox');
+
+	const list = within(dialog).getByRole('list');
+	expect(within(list).queryAllByRole('listitem')).toHaveLength(OPTIONS.length);
+	expect(within(list).queryAllByRole('option')).toHaveLength(0);
+});

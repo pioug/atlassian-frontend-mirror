@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.0.13
+
+### Patch Changes
+
+- [#127167](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/127167)
+  [`08efe402190f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08efe402190f3) -
+  Replaced internal image rendering component - Behind feature gate platform_media_card_image_render
+
 ## 79.0.12
 
 ### Patch Changes

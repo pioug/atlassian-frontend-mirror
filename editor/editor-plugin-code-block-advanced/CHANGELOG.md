@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.2
+
+### Patch Changes
+
+- [#139592](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139592)
+  [`fe3dc07ed6ab8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe3dc07ed6ab8) -
+  Fixes a selection bug on chrome if there are multiple code blocks at the start of a document
+
 ## 2.2.1
 
 ### Patch Changes

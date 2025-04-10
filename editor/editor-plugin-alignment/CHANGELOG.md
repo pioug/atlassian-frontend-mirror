@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-alignment
 
+## 3.1.9
+
+### Patch Changes
+
+- [#139038](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139038)
+  [`50d48758aba38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50d48758aba38) -
+  [ED-27448] Implement alignment updated event
+- Updated dependencies
+
 ## 3.1.8
 
 ### Patch Changes

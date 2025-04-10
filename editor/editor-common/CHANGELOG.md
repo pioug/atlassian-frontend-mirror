@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 103.3.1
+
+### Patch Changes
+
+- [#139038](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139038)
+  [`50d48758aba38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50d48758aba38) -
+  [ED-27448] Implement alignment updated event
+
+## 103.3.0
+
+### Minor Changes
+
+- [#137860](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137860)
+  [`04e753d1ba0f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04e753d1ba0f4) -
+  Created a new Annotation manager implementation and interface and updated CCFE to create and share
+  this instance around
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 103.2.0
 
 ### Minor Changes

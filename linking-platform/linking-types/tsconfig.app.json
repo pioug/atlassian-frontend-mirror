@@ -30,6 +30,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__linking-types/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../json-ld-types/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

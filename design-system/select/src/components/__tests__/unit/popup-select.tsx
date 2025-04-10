@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/no-node-access,testing-library/no-container */
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { type OptionsType, PopupSelect } from '../../../index';
@@ -701,6 +701,46 @@ describe('Popup Select', () => {
 					),
 				).toBeVisible();
 			});
+		});
+	});
+
+	describe('UNSAFE_is_experimental_generic', () => {
+		const testId = 'popup-select';
+		const renderPopupSelect = () => {
+			const view = render(
+				<PopupSelect
+					options={OPTIONS}
+					target={({ isOpen, ...triggerProps }) => (
+						<button type="button" {...triggerProps}>
+							Target
+						</button>
+					)}
+					testId={testId}
+					UNSAFE_is_experimental_generic
+				/>,
+			);
+
+			return { ...view, trigger: screen.getByText('Target') };
+		};
+
+		it('should pass down and replace semantics', async () => {
+			const { trigger } = renderPopupSelect();
+			const user = userEvent.setup();
+
+			await user.click(trigger);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).toHaveAttribute('aria-haspopup', 'dialog');
+			expect(input).not.toHaveAttribute('aria-haspopup', 'true');
+
+			const dialog = screen.getByTestId(`${testId}-select--listbox`);
+			expect(dialog).toHaveAttribute('role', 'dialog');
+			expect(dialog).not.toHaveAttribute('role', 'listbox');
+			expect(dialog).not.toHaveAttribute('aria-multiselectable');
+
+			const list = within(dialog).getByRole('list');
+			expect(within(list).queryAllByRole('listitem')).toHaveLength(OPTIONS.length);
+			expect(within(list).queryAllByRole('option')).toHaveLength(0);
 		});
 	});
 });

@@ -102,8 +102,8 @@ export const canCreateNodeWithContentInsideAnotherNode = (
 	nodeWithTargetFragment: Fragment,
 ) => {
 	try {
-		return !!nodeTypesToCreate.every((nodeType) =>
-			nodeType.createChecked({}, nodeWithTargetFragment),
+		return !!nodeTypesToCreate.every((nodeTypeToCreate) =>
+			nodeTypeToCreate.createChecked({}, nodeWithTargetFragment),
 		);
 	} catch (e) {
 		return false;
@@ -119,23 +119,32 @@ export function canMoveNodeToIndex(
 ) {
 	let srcNodeType = srcNode.type;
 	const schema = srcNodeType.schema;
-	const destParentNodeType = destParent?.type.name;
-	const activeNodeType = srcNode?.type.name;
+	const {
+		table,
+		tableCell,
+		tableHeader,
+		expand,
+		nestedExpand,
+		doc,
+		panel,
+		layoutColumn,
+		layoutSection,
+	} = schema.nodes;
+	const destParentNodeType = destParent?.type;
+	const activeNodeType = srcNode?.type;
 	const layoutColumnContent = srcNode.content;
 	const isNestingTablesSupported =
 		fg('platform_editor_use_nested_table_pm_nodes') &&
 		editorExperiment('nested-tables-in-tables', true, { exposure: true });
-	const tableNodeType = schema.nodes.table;
 
-	if (activeNodeType === 'layoutColumn' && editorExperiment('advanced_layouts', true)) {
+	if (activeNodeType === layoutColumn && editorExperiment('advanced_layouts', true)) {
 		// Allow drag layout column and drop into layout section
-		if (destNode?.type.name === 'layoutSection' || destParentNodeType === 'doc') {
+		if (destNode?.type === layoutSection || destParentNodeType === doc) {
 			return true;
 		}
 
 		if (fg('platform_editor_drag_layout_column_into_nodes')) {
-			if (destParentNodeType === 'tableCell' || destParentNodeType === 'tableHeader') {
-				const { tableCell, tableHeader, expand } = schema.nodes;
+			if (destParentNodeType === tableCell || destParentNodeType === tableHeader) {
 				const contentContainsExpand = findChildrenByType(srcNode, expand).length > 0;
 				//convert expand to nestedExpand if there are expands inside the layout column
 				// otherwise, the createChecked will fail as expand is not a valid child of tableCell/tableHeader, but nestedExpand is
@@ -152,9 +161,16 @@ export function canMoveNodeToIndex(
 					convertedFragment,
 				);
 			}
-			if (destParentNodeType === 'panel') {
-				const { panel } = schema.nodes;
+			if (destParentNodeType === panel) {
 				return canCreateNodeWithContentInsideAnotherNode([panel], layoutColumnContent);
+			}
+
+			if (destParentNodeType === expand) {
+				return canCreateNodeWithContentInsideAnotherNode([expand], layoutColumnContent);
+			}
+
+			if (destParentNodeType === nestedExpand) {
+				return canCreateNodeWithContentInsideAnotherNode([nestedExpand], layoutColumnContent);
 			}
 		}
 	}
@@ -162,8 +178,8 @@ export function canMoveNodeToIndex(
 	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
 	if (editorExperiment('nested-expand-in-expand', false)) {
 		if (
-			destParentNodeType === 'expand' &&
-			(activeNodeType === 'expand' || activeNodeType === 'nestedExpand')
+			destParentNodeType === expand &&
+			(activeNodeType === expand || activeNodeType === nestedExpand)
 		) {
 			return false;
 		}
@@ -172,10 +188,10 @@ export function canMoveNodeToIndex(
 	// NOTE: this will block drop targets from showing for dragging a table into another table
 	// unless nested tables are supported and the nesting depth does not exceed 1
 	if (
-		(destParentNodeType === 'tableCell' || destParentNodeType === 'tableHeader') &&
-		activeNodeType === 'table'
+		(destParentNodeType === tableCell || destParentNodeType === tableHeader) &&
+		activeNodeType === table
 	) {
-		const nestingDepth = getParentOfTypeCount(tableNodeType)($destNodePos);
+		const nestingDepth = getParentOfTypeCount(table)($destNodePos);
 		if (!isNestingTablesSupported || (isNestingTablesSupported && nestingDepth > 1)) {
 			return false;
 		}
@@ -183,7 +199,7 @@ export function canMoveNodeToIndex(
 
 	if (isInsideTable(destParent.type) && isExpand(srcNodeType)) {
 		if (memoizedTransformExpandToNestedExpand(srcNode)) {
-			srcNodeType = schema.nodes.nestedExpand;
+			srcNodeType = nestedExpand;
 		} else {
 			return false;
 		}
@@ -191,7 +207,7 @@ export function canMoveNodeToIndex(
 		(isDoc(destParent.type) || isLayoutColumn(destParent.type)) &&
 		isNestedExpand(srcNodeType)
 	) {
-		srcNodeType = schema.nodes.expand;
+		srcNodeType = expand;
 	}
 	return destParent.canReplaceWith(indexIntoParent, indexIntoParent, srcNodeType);
 }

@@ -12,6 +12,9 @@ export interface LinkPreview {
 
 export type EmbedIframeUrlType = 'href' | 'interactiveHref';
 
+/**
+ * @deprecated Please use extractEmbed instead
+ */
 export const extractPreview = (
 	jsonLd?: JsonLd.Data.BaseData,
 	platform?: CardPlatform,

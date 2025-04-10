@@ -1,5 +1,13 @@
 # @atlaskit/status
 
+## 3.0.4
+
+### Patch Changes
+
+- [#139065](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139065)
+  [`4fafc5395faa3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fafc5395faa3) -
+  [A11Y-10038] Updated deprecated status picker color palette use of event.keyCode to event.key
+
 ## 3.0.3
 
 ### Patch Changes

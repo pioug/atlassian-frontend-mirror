@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "30.0.7",
+	"version": "30.0.8",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,7 +58,6 @@
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1",
 		"focus-trap": "^2.4.5"
 	},
 	"peerDependencies": {
@@ -72,7 +71,6 @@
 		"@atlaskit/elements-test-helpers": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@emotion/jest": "^11.8.0",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^13.4.0",
@@ -107,7 +105,6 @@
 				"color"
 			],
 			"styling": [
-				"emotion",
 				"compiled"
 			]
 		},
@@ -130,9 +127,6 @@
 			"type": "boolean"
 		},
 		"platform_fix_analytics_error": {
-			"type": "boolean"
-		},
-		"platform_editor_css_migrate_reactions": {
 			"type": "boolean"
 		},
 		"platform-make-accessible-close-button": {

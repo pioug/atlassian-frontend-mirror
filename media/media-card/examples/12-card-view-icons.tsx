@@ -93,6 +93,11 @@ function renderCardImageView(
 					resizeMode="crop"
 					progress={0.5}
 					dimensions={dimensions}
+					identifier={{
+						id: 'some-file-id',
+						collectionName: 'some-collection-name',
+						mediaItemType: 'file',
+					}}
 				/>
 			</CardViewWrapper>
 		</MainWrapper>

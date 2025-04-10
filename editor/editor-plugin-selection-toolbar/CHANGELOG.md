@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.3.0
+
+### Minor Changes
+
+- [#138841](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138841)
+  [`d71cc65fae381`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d71cc65fae381) -
+  ED-27489 fix toolbar docking pref
+
 ## 3.2.0
 
 ### Minor Changes

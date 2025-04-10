@@ -106,15 +106,21 @@ const viewportScrollStyles = css({
 
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 30rem)': {
-		minHeight: 'var(--modal-dialog-height)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
+		'&&': {
+			minHeight: 'var(--modal-dialog-height)',
+		},
 	},
 });
 
 const bodyScrollStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 30rem)': {
-		height: 'var(--modal-dialog-height)',
-		maxHeight: 'inherit',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
+		'&&': {
+			height: 'var(--modal-dialog-height)',
+			maxHeight: 'inherit',
+		},
 	},
 });
 

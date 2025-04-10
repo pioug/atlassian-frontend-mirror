@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/embedded-confluence",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Embedded Confluence components for public consumption.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"wait-for-expect": "^1.2.0"
 	},
 	"optionalDependencies": {
-		"@atlassian/embedded-confluence-common": "^3.0.0",
+		"@atlassian/embedded-confluence-common": "^4.0.0",
 		"@atlassian/experience-tracker": "^3.0.0"
 	},
 	"browser": "dist/embedded-confluence-bundle.js",

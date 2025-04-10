@@ -27,6 +27,7 @@ jest.mock('@atlaskit/react-ufo/experience-trace-id-context', () => ({
 
 import { useAnalyticsEvents, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import * as svgHelpersModule from './svgView/helpers';
+import * as imageRendererHelpersModule from './ui/imageRenderer/helpers';
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CardLoader from './cardLoader';
@@ -76,6 +77,8 @@ asMockFunction(useAnalyticsEvents).mockReturnValue({
 });
 
 const calculateSvgDimensionsMock = jest.spyOn(svgHelpersModule, 'calculateSvgDimensions');
+const calculateDimensionsOriginal = imageRendererHelpersModule.calculateDimensions;
+const calculateDimensionsMock = jest.spyOn(imageRendererHelpersModule, 'calculateDimensions');
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
@@ -5619,6 +5622,163 @@ describe('Card ', () => {
 					['stretchy-fit', { height: '100%', maxWidth: '100%' }],
 				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
 					const imgElem = await renderSvgCard(imgElement, resizeMode);
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					expect(imgElem).toHaveStyle(expectedStyle);
+				});
+			});
+		});
+	});
+
+	describe.each([
+		['Preview', generateSampleFileItem.workingImgWithRemotePreview()],
+		['SVG', generateSampleFileItem.svg()],
+	])('should render with correct resizing styles for %s', (title, [fileItem, identifier]) => {
+		// Remove "should render SVG with correct resizing styles" once this flag is removed
+		ffTest.on('platform_media_card_image_render', `for ${title}`, () => {
+			afterEach(() => {
+				calculateDimensionsMock.mockClear();
+			});
+
+			const selector = `[data-fileid='${identifier.id}']`;
+			const parentElement = {
+				getBoundingClientRect: () => ({ width: 1200, height: 800 }),
+			} as unknown as HTMLElement; // 1.5:1 aspect ratio
+
+			async function renderCard(resizeMode: string) {
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							resizeMode={resizeMode as ImageResizeMode}
+						/>
+					</MockedMediaClientProvider>,
+				);
+			}
+			function mockCalculateDimensions(imgElement: HTMLImageElement) {
+				// Keep the original function implementation and resizeMode parameter. Override the other parameters
+				calculateDimensionsMock.mockImplementation((_imgElement, _parentElement, resizeMode) =>
+					calculateDimensionsOriginal(imgElement, parentElement, resizeMode),
+				);
+			}
+
+			describe('Image is same aspect ratio or more landscape than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 1600,
+					width: 1600,
+					naturalHeight: 800,
+					height: 800,
+				} as HTMLImageElement; // 2:1 aspect ratio
+
+				beforeEach(() => {
+					mockCalculateDimensions(imgElement);
+				});
+
+				it.each([
+					['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['crop', { height: '800px', maxHeight: '100%' }],
+					['stretchy-fit', { width: '100%', maxHeight: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					await renderCard(resizeMode);
+					await waitFor(() => expect(document.querySelector(selector)).toBeInTheDocument());
+					const imgElem = document.querySelector(selector);
+					if (!imgElem) {
+						throw new Error('Image element not found');
+					}
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					await waitFor(() => expect(imgElem).toHaveStyle(expectedStyle));
+				});
+			});
+
+			describe('Image is more portrait than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 800,
+					width: 800,
+					naturalHeight: 1600,
+					height: 1600,
+				} as HTMLImageElement; // 1:2 aspect ratio
+
+				beforeEach(() => {
+					mockCalculateDimensions(imgElement);
+				});
+
+				it.each([
+					['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['crop', { width: '800px', maxWidth: '100%' }],
+					['stretchy-fit', { height: '100%', maxWidth: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					await renderCard(resizeMode);
+					await waitFor(() => expect(document.querySelector(selector)).toBeInTheDocument());
+					const imgElem = document.querySelector(selector);
+					if (!imgElem) {
+						throw new Error('Image element not found');
+					}
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					expect(imgElem).toHaveStyle(expectedStyle);
+				});
+			});
+
+			describe('Image natural dimensions are 0 and is more landscape than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 0,
+					width: 1600,
+					naturalHeight: 0,
+					height: 800,
+				} as HTMLImageElement; // 2:1 aspect ratio
+
+				beforeEach(() => {
+					mockCalculateDimensions(imgElement);
+				});
+
+				it.each([
+					['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['crop', { height: '800px', maxHeight: '100%' }],
+					['stretchy-fit', { width: '100%', maxHeight: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					await renderCard(resizeMode);
+					await waitFor(() => expect(document.querySelector(selector)).toBeInTheDocument());
+					const imgElem = document.querySelector(selector);
+					if (!imgElem) {
+						throw new Error('Image element not found');
+					}
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					expect(imgElem).toHaveStyle(expectedStyle);
+				});
+			});
+
+			describe('Image natural dimensions are 0 and is more portrait than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 0,
+					width: 800,
+					naturalHeight: 0,
+					height: 1600,
+				} as HTMLImageElement; // 1:2 aspect ratio
+
+				beforeEach(() => {
+					mockCalculateDimensions(imgElement);
+				});
+
+				it.each([
+					['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['crop', { width: '800px', maxWidth: '100%' }],
+					['stretchy-fit', { height: '100%', maxWidth: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					await renderCard(resizeMode);
+					await waitFor(() => expect(document.querySelector(selector)).toBeInTheDocument());
+					const imgElem = document.querySelector(selector);
+					if (!imgElem) {
+						throw new Error('Image element not found');
+					}
 					expect(imgElem.nodeName.toLowerCase()).toBe('img');
 					fireEvent.load(imgElem);
 					expect(imgElem).toHaveStyle(expectedStyle);

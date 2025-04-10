@@ -249,6 +249,7 @@ export const ExternalImageCard = ({
 	return (
 		<>
 			<CardView
+				identifier={identifier}
 				status={status}
 				error={error}
 				mediaItemType={identifier.mediaItemType}

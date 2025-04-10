@@ -8,17 +8,25 @@ import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { DatasourceTableView } from '../src';
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
+import { DataSourceTableViewNoSuspense } from '../src/ui/datasource-table-view/datasourceTableView';
 import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';
 
-interface JiraIssuesTableViewProps {
+type JiraIssuesTableViewProps = {
 	parameters?: DatasourceParameters;
 	mockDatasourceFetchRequest?: boolean;
-}
+	/**
+	 * Used to use the lazy loaded version for examples on atlaskit
+	 */
+	DatasourceTable?: typeof DataSourceTableViewNoSuspense | typeof DatasourceTableView;
+};
 
-const JiraIssuesTableView = ({ parameters }: JiraIssuesTableViewProps) => {
+const JiraIssuesTableView = ({
+	parameters,
+	DatasourceTable = DataSourceTableViewNoSuspense,
+}: JiraIssuesTableViewProps) => {
 	const cloudId = parameters?.cloudId || 'some-cloud-id';
 
 	const datasourceParameters = useMemo<JiraIssueDatasourceParameters>(
@@ -46,7 +54,7 @@ const JiraIssuesTableView = ({ parameters }: JiraIssuesTableViewProps) => {
 	});
 
 	return (
-		<DatasourceTableView
+		<DatasourceTable
 			datasourceId={'some-datasource-id'}
 			parameters={datasourceParameters}
 			visibleColumnKeys={visibleColumnKeys}
@@ -62,6 +70,7 @@ const JiraIssuesTableView = ({ parameters }: JiraIssuesTableViewProps) => {
 export const ExampleJiraIssuesTableView = ({
 	parameters,
 	mockDatasourceFetchRequest = true,
+	...props
 }: JiraIssuesTableViewProps) => {
 	if (mockDatasourceFetchRequest) {
 		mockDatasourceFetchRequests();
@@ -71,7 +80,7 @@ export const ExampleJiraIssuesTableView = ({
 		<DatasourceExperienceIdProvider>
 			<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
 				<SmartCardProvider client={new SmartLinkClient()}>
-					<JiraIssuesTableView parameters={parameters} />
+					<JiraIssuesTableView parameters={parameters} {...props} />
 				</SmartCardProvider>
 			</IntlMessagesProvider>
 		</DatasourceExperienceIdProvider>

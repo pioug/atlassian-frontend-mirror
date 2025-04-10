@@ -27,6 +27,9 @@
             "path": "../../json-ld-types/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../linking-types/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {

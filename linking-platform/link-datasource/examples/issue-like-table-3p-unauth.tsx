@@ -2,6 +2,7 @@ import React from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { DatasourceTableView } from '@atlaskit/link-datasource';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { ExampleJiraIssuesTableView } from '../examples-helpers/buildJiraIssuesTable';
@@ -39,6 +40,7 @@ export default () => {
 				cloudId: '1248349567434',
 			}}
 			mockDatasourceFetchRequest={false}
+			DatasourceTable={DatasourceTableView}
 		/>
 	);
 };

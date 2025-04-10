@@ -21,6 +21,9 @@
             "path": "../../json-ld-types/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../linking-types/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/logo/afm-cc/tsconfig.json"
         }
     ]

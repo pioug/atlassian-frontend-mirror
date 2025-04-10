@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.4.0
+
+### Minor Changes
+
+- [#137860](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137860)
+  [`04e753d1ba0f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04e753d1ba0f4) -
+  Created a new Annotation manager implementation and interface and updated CCFE to create and share
+  this instance around
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

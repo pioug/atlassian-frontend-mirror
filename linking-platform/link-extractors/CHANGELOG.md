@@ -1,5 +1,18 @@
 # @atlaskit/link-extractors
 
+## 2.1.0
+
+### Minor Changes
+
+- [#137904](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137904)
+  [`10e0142c317b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10e0142c317b1) -
+  Exports new functionality: extractEntity, isEntityType, extractSmartLinkEmbed,
+  extractSmartLinkTitle
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

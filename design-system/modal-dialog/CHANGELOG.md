@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 14.1.3
+
+### Patch Changes
+
+- [#138405](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138405)
+  [`7e6b125029348`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e6b125029348) -
+  Increased the specificity of the `height` CSS property in desktop view to prevent modal dialogs
+  from incorrectly stretching to full height.
+
 ## 14.1.2
 
 ### Patch Changes

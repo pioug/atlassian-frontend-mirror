@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 36.5.0
+
+### Minor Changes
+
+- [#139795](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139795)
+  [`27472893973d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27472893973d3) -
+  [ux] EDM-11840 Adding new icon for Related Links Modal no results
+
 ## 36.4.0
 
 ### Minor Changes

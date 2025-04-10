@@ -1,8 +1,18 @@
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	type EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { changeImageAlignment, toggleBlockMark } from '@atlaskit/editor-common/commands';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { AlignmentPlugin, InputMethod } from '../alignmentPluginType';
 import type { AlignmentState } from '../pm-plugins/types';
 
 /**
@@ -48,20 +58,80 @@ export const isAlignable =
 		)(state, dispatch);
 	};
 
-export const changeAlignment =
-	(align?: AlignmentState): Command =>
+const changeBlockAlignmentWithAnalytics =
+	(
+		editorAnalyticsApi?: EditorAnalyticsAPI,
+		align?: AlignmentState,
+		inputMethod?: InputMethod,
+	): Command =>
 	(state, dispatch) => {
 		const {
 			nodes: { paragraph, heading },
 			marks: { alignment },
 		} = state.schema;
 
-		return cascadeCommands([
-			changeImageAlignment(align),
+		return withAnalytics(editorAnalyticsApi, {
+			eventType: EVENT_TYPE.TRACK,
+			actionSubject: ACTION_SUBJECT.ALIGNMENT,
+			action: ACTION.UPDATED,
+			actionSubjectId: ACTION_SUBJECT_ID.TEXT,
+			attributes: {
+				alignmentType: align,
+				inputMethod,
+			},
+		})(
 			toggleBlockMark(
 				alignment,
 				() => (!align ? undefined : align === 'start' ? false : { align }),
 				[paragraph, heading],
 			),
-		])(state, dispatch);
+		)(state, dispatch);
+	};
+
+const changeImageAlignmentWithAnalytics =
+	(
+		editorAnalyticsApi?: EditorAnalyticsAPI,
+		align?: AlignmentState,
+		inputMethod?: InputMethod,
+	): Command =>
+	(state, dispatch) => {
+		return withAnalytics(editorAnalyticsApi, {
+			eventType: EVENT_TYPE.TRACK,
+			actionSubject: ACTION_SUBJECT.ALIGNMENT,
+			action: ACTION.UPDATED,
+			actionSubjectId: ACTION_SUBJECT_ID.MEDIA_SINGLE,
+			attributes: {
+				alignmentType: align,
+				inputMethod,
+			},
+		})(changeImageAlignment(align))(state, dispatch);
+	};
+
+export const changeAlignment =
+	(
+		align?: AlignmentState,
+		api?: ExtractInjectionAPI<AlignmentPlugin>,
+		inputMethod?: InputMethod,
+	): Command =>
+	(state, dispatch) => {
+		const {
+			nodes: { paragraph, heading },
+			marks: { alignment },
+		} = state.schema;
+
+		return cascadeCommands(
+			fg('platform_editor_add_alignment_tracking')
+				? [
+						changeImageAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
+						changeBlockAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
+					]
+				: [
+						changeImageAlignment(align),
+						toggleBlockMark(
+							alignment,
+							() => (!align ? undefined : align === 'start' ? false : { align }),
+							[paragraph, heading],
+						),
+					],
+		)(state, dispatch);
 	};

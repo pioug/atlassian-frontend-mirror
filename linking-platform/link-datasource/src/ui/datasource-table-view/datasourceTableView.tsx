@@ -231,3 +231,5 @@ export const DatasourceTableView = withAnalyticsContext(componentMetadata.tableV
 		</StoreContainer>
 	),
 );
+
+export const DataSourceTableViewNoSuspense = DatasourceTableView;

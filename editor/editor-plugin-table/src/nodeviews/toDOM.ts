@@ -17,7 +17,9 @@ type Config = {
 	getEditorContainerWidth: GetEditorContainerWidth;
 	isNestingSupported?: boolean;
 };
-export const tableNodeSpecWithFixedToDOM = (config: Config): NodeSpec => {
+export const tableNodeSpecWithFixedToDOM = (
+	config: Config,
+): NodeSpec & { toDOM: (node: PMNode) => DOMOutputSpec } => {
 	const tableNode = config.isNestingSupported ? tableWithNestedTable : table;
 
 	return {

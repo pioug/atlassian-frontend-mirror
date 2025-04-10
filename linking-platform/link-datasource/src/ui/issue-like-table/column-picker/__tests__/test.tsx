@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { fireEvent, waitFor } from '@testing-library/dom';
-import { act, render } from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
@@ -221,8 +220,7 @@ describe('Column picker', () => {
 		});
 	});
 
-	// FIXME: Jest 29 upgrade - timeout running these tests - go/platform-jest-29
-	it.skip('should focus the search input when opened and options are passed in', async () => {
+	it('should focus the search input when opened and options are passed in', async () => {
 		const columns: DatasourceResponseSchemaProperty[] = [
 			{
 				key: 'matt',
@@ -278,8 +276,7 @@ describe('Column picker', () => {
 			})),
 	];
 
-	// FIXME: Jest 29 upgrade - timeout waitFor - go/platform-jest-29
-	it.skip(`should not show limit reached explaination if less than ${SELECT_ITEMS_MAXIMUM_THRESHOLD} items are listed`, async () => {
+	it(`should not show limit reached explaination if less than ${SELECT_ITEMS_MAXIMUM_THRESHOLD} items are listed`, async () => {
 		const columns = generateBunchOfItems(SELECT_ITEMS_MAXIMUM_THRESHOLD - 1);
 
 		const { openPopUpMenu, findByText } = renderColumnPicker(columns, []);
@@ -290,7 +287,8 @@ describe('Column picker', () => {
 
 				const popupList = (await findByText('Matt')).closest(OPTION_LIST_CLASS);
 				invariant(popupList);
-				expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD - 1);
+				// The +1 is for compiled css style element being inserted
+				expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD - 1 + 1);
 				expect((popupList.children[popupList.children.length - 1] as HTMLElement).innerText).toBe(
 					`Option ${SELECT_ITEMS_MAXIMUM_THRESHOLD - 1}`,
 				);
@@ -299,8 +297,7 @@ describe('Column picker', () => {
 		); // 20sec timeout
 	});
 
-	// FIXME: Jest 29 upgrade - timeout waitFor - go/platform-jest-29
-	it.skip(`should list only first ${SELECT_ITEMS_MAXIMUM_THRESHOLD} items and explanation at the end`, async () => {
+	it(`should list only first ${SELECT_ITEMS_MAXIMUM_THRESHOLD} items and explanation at the end`, async () => {
 		const columns = generateBunchOfItems(SELECT_ITEMS_MAXIMUM_THRESHOLD + 20);
 
 		const { openPopUpMenu, findByText } = renderColumnPicker(columns, []);
@@ -310,7 +307,8 @@ describe('Column picker', () => {
 
 			const popupList = (await findByText('Matt')).closest(OPTION_LIST_CLASS);
 			invariant(popupList);
-			expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD + 1);
+			// The +2 is for compiled css style element being inserted
+			expect(popupList.children).toHaveLength(SELECT_ITEMS_MAXIMUM_THRESHOLD + 1 + 2);
 			expect((popupList.children[popupList.children.length - 1] as HTMLElement).innerText).toBe(
 				'Your search returned too many results.Try again with more specific keywords.',
 			);

@@ -574,3 +574,5 @@ export const JiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 		</StoreContainer>
 	);
 };
+
+export const JiraIssuesConfigModalNoSuspense = JiraIssuesConfigModal;

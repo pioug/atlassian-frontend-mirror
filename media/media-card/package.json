@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "79.0.12",
+	"version": "79.0.13",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -127,6 +127,9 @@
 			"type": "boolean"
 		},
 		"platform_media_compiled": {
+			"type": "boolean"
+		},
+		"platform_media_card_image_render": {
 			"type": "boolean"
 		}
 	},

@@ -10,6 +10,7 @@ import type {
 	getPosHandlerNode,
 	ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -110,8 +111,14 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			],
 		});
 
+		// We append an additional element that fixes a selection bug on chrome if the code block
+		// is the first element followed by subsequent code blocks
+		const spaceContainer = document.createElement('span');
+		spaceContainer.innerText = ZERO_WIDTH_SPACE;
+		spaceContainer.style.height = '0';
 		// The editor's outer node is our DOM representation
 		this.dom = this.cm.dom;
+		this.dom.appendChild(spaceContainer);
 
 		// This flag is used to avoid an update loop between the outer and
 		// inner editor

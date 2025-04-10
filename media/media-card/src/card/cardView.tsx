@@ -5,7 +5,8 @@ import {
 	type MediaItemType,
 	type FileDetails,
 	type ImageResizeMode,
-	type FileIdentifier,
+	type Identifier,
+	isFileIdentifier,
 } from '@atlaskit/media-client';
 import {
 	withAnalyticsEvents,
@@ -28,7 +29,7 @@ import {
 import { type MediaFilePreview } from '@atlaskit/media-file-preview';
 import { createAndFireMediaCardEvent } from '../utils/analytics';
 import { type CardAction } from './actions';
-import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
+import { ImageRenderer } from './ui/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
 import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
 import { ProgressBar } from './ui/progressBar/progressBar';
@@ -50,9 +51,10 @@ import { useBreakpoint } from './useBreakpoint';
 import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { SvgView } from './svgView';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface CardViewProps {
-	readonly identifier?: FileIdentifier;
+	readonly identifier: Identifier;
 	readonly disableOverlay?: boolean;
 	readonly resizeMode?: ImageResizeMode;
 	readonly dimensions: CardDimensions;
@@ -330,7 +332,7 @@ export const CardViewBase = ({
 	const contents = (
 		<React.Fragment>
 			<ImageContainer
-				centerElements={didSvgRender}
+				centerElements={didSvgRender && !fg('platform_media_card_image_render')} // The whole centerElements styles can go after removing the flag
 				testId={fileCardImageViewSelector}
 				mediaName={name}
 				status={status}
@@ -354,7 +356,7 @@ export const CardViewBase = ({
 						<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
 					</IconWrapper>
 				)}
-				{renderSvgView && identifier && (
+				{renderSvgView && identifier && isFileIdentifier(identifier) && (
 					<SvgView
 						identifier={identifier}
 						resizeMode={resizeMode || 'crop'}
@@ -363,7 +365,7 @@ export const CardViewBase = ({
 						wrapperRef={divRef}
 					/>
 				)}
-				{renderImageRenderer && (
+				{renderImageRenderer && identifier && (
 					<ImageRenderer
 						cardPreview={cardPreview}
 						mediaType={metadata?.mediaType || 'unknown'}
@@ -374,6 +376,8 @@ export const CardViewBase = ({
 						onImageError={handleOnImageError}
 						nativeLazyLoad={nativeLazyLoad}
 						forceSyncDisplay={forceSyncDisplay}
+						identifier={identifier}
+						wrapperRef={divRef}
 					/>
 				)}
 				{renderPlayButton && (

@@ -6,4 +6,4 @@ export { Reactions } from './Reactions';
 export type { ReactionsProps } from './Reactions';
 export { UfoErrorBoundary } from './UfoErrorBoundary';
 export type { UfoErrorBoundaryProps } from './UfoErrorBoundary';
-export { ReactionsDialog } from './ReactionDialog/ReactionsDialog';
+export { ReactionsDialog } from './ReactionsDialog';

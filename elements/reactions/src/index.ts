@@ -20,37 +20,11 @@ import {
 	sampledReactionsRendered,
 } from './ufo';
 
-import { Reaction as EmotionReaction } from './components/Reaction';
-import { Reaction as CompiledReaction } from './components/compiled/Reaction';
-import { Reactions as EmotionReactions } from './components/Reactions';
-import { Reactions as CompiledReactions } from './components/compiled/Reactions';
-import { ReactionPicker as EmotionReactionPicker } from './components/ReactionPicker/ReactionPicker';
-import { ReactionPicker as CompiledReactionPicker } from './components/compiled/ReactionPicker';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-
-const Reaction = componentWithFG(
-	'platform_editor_css_migrate_reactions',
-	CompiledReaction,
-	EmotionReaction,
-);
-
-const Reactions = componentWithFG(
-	'platform_editor_css_migrate_reactions',
-	CompiledReactions,
-	EmotionReactions,
-);
-
-const ReactionPicker = componentWithFG(
-	'platform_editor_css_migrate_reactions',
-	CompiledReactionPicker,
-	EmotionReactionPicker,
-);
-
 export { ReactionServiceClient } from './client';
 
-export { Reaction };
-export { Reactions };
-export { ReactionPicker };
+export { Reaction } from './components/Reaction';
+export { ReactionPicker } from './components/ReactionPicker';
+export { Reactions } from './components/Reactions';
 
 export { useCloseManager } from './hooks/useCloseManager';
 export { ConnectedReactionPicker, ConnectedReactionsView } from './containers';

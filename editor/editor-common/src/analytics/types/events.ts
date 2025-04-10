@@ -15,6 +15,7 @@ import type { AIEventPayload } from './ai-events';
 import type { AIInlineSuggestionPayload } from './ai-inline-suggestion-events';
 import type { AIProactiveEventPayload } from './ai-proactive-events';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
+import { AlignmentEventPayload } from './alignment-events';
 import type { AvatarEventPayload } from './avatar';
 import { type BreakoutEventPayload } from './breakout-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
@@ -133,7 +134,8 @@ export type AnalyticsEventPayload<T = void> =
 	| AIInlineSuggestionPayload
 	| SelectionExtensionEventPayload
 	| TelepointerClickPayload
-	| SelectionToolbarEventPayload;
+	| SelectionToolbarEventPayload
+	| AlignmentEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

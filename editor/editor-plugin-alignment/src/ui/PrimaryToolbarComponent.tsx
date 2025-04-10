@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -33,8 +34,9 @@ export function PrimaryToolbarComponent({
 }: PrimaryToolbarComponentProps) {
 	const { alignmentState } = useSharedPluginState(api, ['alignment']);
 	const changeAlignmentCallback = useCallback(
-		(align: AlignmentState) => changeAlignment(align)(editorView.state, editorView.dispatch),
-		[editorView],
+		(align: AlignmentState) =>
+			changeAlignment(align, api, INPUT_METHOD.TOOLBAR)(editorView.state, editorView.dispatch),
+		[editorView, api],
 	);
 
 	return (

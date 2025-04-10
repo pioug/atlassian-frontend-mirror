@@ -309,6 +309,7 @@ export enum ACTION_SUBJECT {
 	EDITOR_PLUGIN_SELECTION_EXTENSION = 'editorPluginSelectionExtension',
 	AI_DEFINITIONS = 'aiDefinitions',
 	USER_PREFERENCES = 'userPreferences',
+	ALIGNMENT = 'alignment',
 }
 
 export enum ACTION_SUBJECT_ID {

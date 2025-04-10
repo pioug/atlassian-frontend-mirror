@@ -57,6 +57,8 @@ type PopperPropsNoChildren<Modifiers> = Omit<PopperProps<Modifiers>, 'children'>
 interface PopupSelectTriggerProps {
 	ref: any;
 	onKeyDown: KeyboardEventHandler<HTMLElement>;
+	// Should technically be 'dialog' by default instead of 'true' via AriaAttributes, but will require further changes.
+	// See go/DSP-22283
 	'aria-haspopup': 'true';
 	'aria-expanded': boolean;
 	'aria-controls'?: string;
@@ -707,6 +709,8 @@ export default class PopupSelect<
 										isOpen,
 										onKeyDown: this.handleTargetKeyDown,
 										ref: this.resolveTargetRef(ref),
+										// Should technically be 'dialog' by default instead of 'true' via AriaAttributes, but will require further changes.
+										// See go/DSP-22283
 										'aria-haspopup': 'true',
 										'aria-expanded': isOpen,
 										'aria-controls': isOpen ? id : undefined,

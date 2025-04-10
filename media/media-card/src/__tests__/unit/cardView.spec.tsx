@@ -23,6 +23,12 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 
+const identifier = {
+	id: 'some-id',
+	mediaItemType: 'file',
+	collectionName: 'some-collection',
+} as const;
+
 const cardPreview = {
 	dataURI: 'some-data',
 	orientation: 6,
@@ -58,6 +64,7 @@ const renderCardViewBase = (props: Partial<CardViewProps> = {}, renderOptions = 
 				status="loading"
 				mediaItemType="file"
 				dimensions={{ width: 100, height: 100 }}
+				identifier={identifier}
 				{...props}
 			/>
 		</IntlProvider>,
@@ -78,7 +85,7 @@ describe('CardView', () => {
 		const user = userEvent.setup();
 		const clickHandler = jest.fn();
 		const analyticsEventHandler = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsEventHandler}>
 				<CardView
 					status="loading"
@@ -86,11 +93,12 @@ describe('CardView', () => {
 					metadata={file}
 					onClick={clickHandler}
 					dimensions={{ width: 100, height: 100 }}
+					identifier={identifier}
 				/>
 			</AnalyticsListener>,
 		);
 
-		await user.click(getByTestId(cardTestId));
+		await user.click(screen.getByTestId(cardTestId));
 
 		expect(clickHandler).toHaveBeenCalledTimes(1);
 		expect(analyticsEventHandler).toHaveBeenCalledTimes(1);
@@ -119,6 +127,7 @@ describe('CardView', () => {
 				resizeMode="stretchy-fit"
 				onDisplayImage={onDisplayImage}
 				dimensions={{ width: 100, height: 100 }}
+				identifier={identifier}
 			/>,
 		);
 		expect(onDisplayImage).toHaveBeenCalledTimes(1);
@@ -131,6 +140,7 @@ describe('CardView', () => {
 			mediaType: 'image',
 		};
 		const cardProps: CardViewProps = {
+			identifier,
 			testId: 'some-test-id',
 			cardPreview,
 			status: 'complete',
@@ -192,7 +202,14 @@ describe('CardView', () => {
 
 		[100, 135, containerWidth, defaultCardDimensionsWidth].forEach((width) => {
 			it(`should pass the correct breakpoint to the Wrapper when dimension width is ${width}`, () => {
-				render(<CardViewBase status="complete" mediaItemType="file" dimensions={{ width }} />);
+				render(
+					<CardViewBase
+						status="complete"
+						mediaItemType="file"
+						dimensions={{ width }}
+						identifier={identifier}
+					/>,
+				);
 				const mediaCard = screen.getByTestId(cardTestId);
 				expect(window.getComputedStyle(mediaCard).width).toBe(`${width}px`);
 			});
@@ -208,6 +225,7 @@ describe('CardView', () => {
 								status="loading"
 								mediaItemType="file"
 								dimensions={{ width: 100, height: 100 }}
+								identifier={identifier}
 							/>
 						</IntlProvider>,
 					);
@@ -221,6 +239,7 @@ describe('CardView', () => {
 								mediaItemType="file"
 								cardPreview={cardPreview}
 								dimensions={{ width: 100, height: 100 }}
+								identifier={identifier}
 							/>
 						</IntlProvider>,
 					);
@@ -327,6 +346,7 @@ describe('CardView', () => {
 						status="loading"
 						mediaItemType="file"
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>
 				</IntlProvider>,
 			);
@@ -342,6 +362,7 @@ describe('CardView', () => {
 						disableOverlay={true}
 						metadata={{ id: 'some-id', mediaType: 'image' }}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>
 				</IntlProvider>,
 			);
@@ -357,6 +378,7 @@ describe('CardView', () => {
 						disableOverlay={true}
 						metadata={{ id: 'some-id', mediaType: 'video' }}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>
 				</IntlProvider>,
 			);
@@ -380,6 +402,7 @@ describe('CardView', () => {
 						mediaItemType="file"
 						metadata={metadata}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>
 				</IntlProvider>,
 			);
@@ -393,6 +416,7 @@ describe('CardView', () => {
 						mediaItemType="file"
 						disableOverlay={true}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>
 				</IntlProvider>,
 			);
@@ -408,6 +432,7 @@ describe('CardView', () => {
 						mediaItemType="file"
 						disableOverlay={true}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>
 				</IntlProvider>,
 			);
@@ -421,6 +446,7 @@ describe('CardView', () => {
 						status="loading"
 						mediaItemType="file"
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>
 				</IntlProvider>,
 			);
@@ -543,7 +569,7 @@ describe('CardView', () => {
 			expect(screen.getByText('Preview Unavailable')).toBeInTheDocument();
 		});
 
-		it(`should render ImageRenderer when preview is defined`, () => {
+		it(`should render ImageRenderer when preview is defined`, async () => {
 			const metadata: FileDetails = {
 				id: 'some-id',
 				mediaType: 'image',
@@ -561,6 +587,7 @@ describe('CardView', () => {
 				nativeLazyLoad: true,
 				forceSyncDisplay: true,
 				dimensions: { width: 100, height: 100 },
+				identifier,
 			};
 			renderCardViewBase(cardProps);
 			expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
@@ -574,6 +601,7 @@ describe('CardView', () => {
 						mediaItemType="file"
 						selectable={true}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>,
 				);
 				expect(screen.queryByRole('img', { name: 'tick' })).toBeInTheDocument();
@@ -585,6 +613,7 @@ describe('CardView', () => {
 						mediaItemType="file"
 						selectable={false}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>,
 				);
 				expect(screen.queryByRole('img', { name: 'tick' })).not.toBeInTheDocument();
@@ -597,6 +626,7 @@ describe('CardView', () => {
 						selectable={true}
 						disableOverlay={true}
 						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
 					/>,
 				);
 				expect(screen.queryByRole('img', { name: 'tick' })).not.toBeInTheDocument();
@@ -656,6 +686,7 @@ describe('CardView', () => {
 				resizeMode="stretchy-fit"
 				dimensions={{ width: 100, height: 100 }}
 				actions={[downloadAction]}
+				identifier={identifier}
 			/>,
 		);
 

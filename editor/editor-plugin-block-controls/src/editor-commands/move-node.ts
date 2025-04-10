@@ -105,27 +105,24 @@ function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null
 	return nodeCopy;
 }
 
-const isDragLayoutColumnToTopLevel = ($from: ResolvedPos, $to: ResolvedPos) => {
-	return (
-		$from.nodeAfter?.type.name === 'layoutColumn' &&
-		$from.parent.type.name === 'layoutSection' &&
-		$to.depth === 0
-	);
-};
+const nodesSupportDragLayoutColumnInto = [
+	'tableCell',
+	'tableHeader',
+	'panel',
+	'expand',
+	'nestedExpand',
+];
 
-const isDragLayoutColumnIntoTable = ($from: ResolvedPos, $to: ResolvedPos) => {
+const isDragLayoutColumnIntoSupportedNodes = ($from: ResolvedPos, $to: ResolvedPos) => {
+	const isTopLevel = $to.depth === 0;
+	const isDragIntoNodes = nodesSupportDragLayoutColumnInto.includes($to.parent.type.name);
+	const supportedCondition = fg('platform_editor_drag_layout_column_into_nodes')
+		? isDragIntoNodes || isTopLevel
+		: isTopLevel;
 	return (
 		$from.nodeAfter?.type.name === 'layoutColumn' &&
 		$from.parent.type.name === 'layoutSection' &&
-		($to.parent.type.name === 'tableCell' || $to.parent.type.name === 'tableHeader')
-	);
-};
-
-const isDragLayoutColumnIntoPanel = ($from: ResolvedPos, $to: ResolvedPos) => {
-	return (
-		$from.nodeAfter?.type.name === 'layoutColumn' &&
-		$from.parent.type.name === 'layoutSection' &&
-		$to.parent.type.name === 'panel'
+		supportedCondition
 	);
 };
 
@@ -468,23 +465,15 @@ export const moveNode =
 		const destParent = $to.node($to.depth);
 
 		const sourceNode = $handlePos.nodeAfter;
-		const dragLayoutColumnToTopLevel = isDragLayoutColumnToTopLevel($handlePos, $to);
-		const dragLayoutColumnIntoTable = isDragLayoutColumnIntoTable($handlePos, $to);
-		const dragLayoutColumnIntoPanel = isDragLayoutColumnIntoPanel($handlePos, $to);
 
 		//TODO: ED-26959 - Does this need to be updated with new selection logic above? ^
-		// Move a layout column to top level
-		// Move a layout column into a table cell, only moves the content into the cell
-		// Move a layout column into a panel, only moves the content into the panel
-		if (
-			sourceNode &&
-			(dragLayoutColumnToTopLevel || dragLayoutColumnIntoTable || dragLayoutColumnIntoPanel)
-		) {
+		// Move a layout column to top level, or table cell, or panel, or expand, only moves the content into them
+		if (sourceNode && isDragLayoutColumnIntoSupportedNodes($handlePos, $to)) {
 			// need update after we support single column layout.
 			const layoutColumnContent = sourceNode.content;
-
 			let fragment;
-			if (dragLayoutColumnIntoTable) {
+			// if drop into table, and layout column contains expand, transform it to nestedExpand
+			if (['tableCell', 'tableHeader'].includes($to.parent.type.name)) {
 				const contentContainsExpand = findChildrenByType(sourceNode, expand).length > 0;
 				fragment = contentContainsExpand
 					? transformFragmentExpandToNestedExpand(Fragment.from(layoutColumnContent))

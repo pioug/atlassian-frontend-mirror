@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.8.0
+
+### Minor Changes
+
+- [#137904](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137904)
+  [`69622899d31db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69622899d31db) -
+  Exports new types: EntityType, DesignEntity, SmartLinkResponse
+
 ## 9.7.0
 
 ### Minor Changes

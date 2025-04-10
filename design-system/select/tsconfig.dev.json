@@ -47,6 +47,9 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../banner/tsconfig.app.json"
+		},
+		{
 			"path": "../button/tsconfig.app.json"
 		},
 		{
@@ -69,6 +72,9 @@
 		},
 		{
 			"path": "../logo/tsconfig.app.json"
+		},
+		{
+			"path": "../lozenge/tsconfig.app.json"
 		},
 		{
 			"path": "../modal-dialog/tsconfig.app.json"

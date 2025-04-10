@@ -4,7 +4,10 @@ import type { Locator, Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
 
 import BasicFiltersVR from '../../examples/vr/basic-filters-vr';
-import WithModal, { WithIssueModalWithParameters } from '../../examples/with-issues-modal';
+import {
+	WithIssueModalWithParameters,
+	JiraModalNoSuspense as WithModal,
+} from '../../examples/with-issues-modal';
 import { type BasicFilterFieldType } from '../../src/ui/jira-issues-modal/basic-filters/types';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];

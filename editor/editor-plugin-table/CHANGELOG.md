@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-table
 
+## 10.6.10
+
+### Patch Changes
+
+- [#134965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134965)
+  [`6c2982045451c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c2982045451c) -
+  ED-26568: Remove custom toDOM implementation as it was causing flickering of an unstyled table
+  node when loading the table with React18 concurrent mode. Add logic to temporarily ignore all
+  non-selection DOM mutations during table initialisation in order to prevent unstyled table
+  flashing. Restore mutation handler after react has finished applying the style and structure.
+
 ## 10.6.9
 
 ### Patch Changes

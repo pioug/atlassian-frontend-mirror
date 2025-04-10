@@ -9,7 +9,6 @@ import {
 
 const featureFlags = {
 	'platform-component-visual-refresh': true,
-	platform_editor_css_migrate_reactions: [true, false],
 };
 
 snapshot(EmptySummaryReactions, {

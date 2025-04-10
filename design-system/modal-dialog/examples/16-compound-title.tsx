@@ -10,7 +10,6 @@ import ModalDialog, {
 	ModalBody,
 	ModalFooter,
 	ModalTransition,
-	useModal,
 } from '@atlaskit/modal-dialog';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -44,7 +43,6 @@ export default function CompoundTitleModal() {
 	const close = useCallback(() => setOpen(false), []);
 
 	const secondaryAction = useCallback(({ target }: any) => console.log(target.innerText), []);
-	const { titleId } = useModal();
 
 	return (
 		<>
@@ -60,7 +58,7 @@ export default function CompoundTitleModal() {
 								<CloseButton onClick={close} />
 							</Inline>
 							<Box xcss={styles.title}>
-								<Heading id={titleId} size="large" as="h1">
+								<Heading size="large" as="h1">
 									A customised header
 								</Heading>
 							</Box>

@@ -1033,6 +1033,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						if (elem) {
 							this.props.contentDOM(elem);
 							const tableElement = elem.querySelector('table');
+
 							if (tableElement !== this.table) {
 								this.table = tableElement;
 								this.createShadowSentinels(this.table);

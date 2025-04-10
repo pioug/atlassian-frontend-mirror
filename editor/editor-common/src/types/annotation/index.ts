@@ -2,6 +2,8 @@ import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
+import type { AnnotationManager } from '../../annotation';
+
 import type { AnnotationState, AnnotationUpdateEmitter } from './emitter';
 
 export type AnnotationByMatches = {
@@ -173,4 +175,6 @@ export type InlineCommentAnnotationProvider =
 
 export type AnnotationProviders = {
 	inlineComment: InlineCommentAnnotationProvider;
+
+	annotationManager?: AnnotationManager;
 };

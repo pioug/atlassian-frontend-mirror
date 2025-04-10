@@ -15,12 +15,7 @@ const RelatedLinksUnavailableView = () => {
 
 	return fg('platform-linking-visual-refresh-v2') ? (
 		<EmptyState
-			renderImage={() => (
-				<SpotSearchNoResult
-					size={'large'}
-					alt={intl.formatMessage(messages.related_links_modal_unavailable_title)}
-				/>
-			)}
+			renderImage={() => <SpotSearchNoResult />}
 			header={intl.formatMessage(messages.related_links_modal_unavailable_title)}
 			description={<FormattedMessage {...messages.related_links_modal_unavailable_description} />}
 		/>

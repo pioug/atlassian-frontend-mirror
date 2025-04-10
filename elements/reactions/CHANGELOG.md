@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 30.0.8
+
+### Patch Changes
+
+- [#138792](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138792)
+  [`aec039377f39e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aec039377f39e) -
+  tidy up feature flag of compiled css migration
+
 ## 30.0.7
 
 ### Patch Changes

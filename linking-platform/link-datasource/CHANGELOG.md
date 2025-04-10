@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.1.15
+
+### Patch Changes
+
+- [#135721](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135721)
+  [`c8ce660c343db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8ce660c343db) -
+  Add internal exports
+
 ## 4.1.14
 
 ### Patch Changes

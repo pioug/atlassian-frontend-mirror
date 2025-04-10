@@ -38,6 +38,9 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
 		},
 		{
@@ -48,6 +51,9 @@
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"

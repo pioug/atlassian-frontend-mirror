@@ -1,15 +1,6 @@
 import React from 'react';
 
-import { Counter } from '../../../src/components/Counter/Counter';
-import { Counter as CompiledCounter } from '../../components/compiled/Counter';
-
-export const CounterLegacy = () => <Counter value={16} />;
-
-export const CounterUseHighlightLegacy = () => <Counter value={16} highlight />;
-
-export const CounterUseDarkerFontLegacy = () => <Counter value={16} useDarkerFont />;
-
-export const CounterUseUpdatedStylesLegacy = () => <Counter value={16} useUpdatedStyles />;
+import { Counter as CompiledCounter } from '../../components/Counter';
 
 export const CounterCompiled = () => <CompiledCounter value={16} />;
 

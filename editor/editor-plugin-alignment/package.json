@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-alignment",
-	"version": "3.1.8",
+	"version": "3.1.9",
 	"description": "Alignment plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,12 +24,16 @@
 	"platform-feature-flags": {
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
+		},
+		"platform_editor_add_alignment_tracking": {
+			"type": "boolean"
 		}
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",

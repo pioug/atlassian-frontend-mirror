@@ -40,14 +40,7 @@ export const handleInit = (
 	const { doc, json, version, reserveCursor } = initData;
 	if (doc) {
 		const { state } = view;
-		const tr = replaceDocument(
-			doc,
-			state,
-			version,
-			options,
-			options?.hideTelecursorOnLoad ? true : reserveCursor,
-			editorAnalyticsApi,
-		);
+		const tr = replaceDocument(doc, state, version, options, reserveCursor, editorAnalyticsApi);
 		tr.setMeta('isRemote', true);
 		view.dispatch(tr);
 	} else if (json) {

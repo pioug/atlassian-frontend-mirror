@@ -10,6 +10,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/utility/add';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
@@ -289,11 +290,13 @@ export const TypeAheadControl = ({
 		if (start !== undefined) {
 			// if the selection is not within the node this decoration is rendered at
 			// or the node is non-editable, then insert a newline and trigger quick insert
-			if (!isSelectionInNode(start, view) || isNonEditableBlock(start, view)) {
+			const isSelectionInsideNode = isSelectionInNode(start, view);
+
+			if (!isSelectionInsideNode || isNonEditableBlock(start, view)) {
 				api.core.actions.execute(createNewLine(start));
 			}
 
-			if (isSelectionInNode(start, view)) {
+			if (isSelectionInsideNode) {
 				// text or element with be deselected and the / added immediately after the paragraph
 				// unless the selection is empty
 				const currentSelection = view.state.selection;
@@ -335,6 +338,24 @@ export const TypeAheadControl = ({
 							return tr;
 						});
 					}
+				}
+
+				if (currentSelection instanceof CellSelection && fg('platform_editor_controls_patch_4')) {
+					// find the last inline position in the selection
+					const lastInlinePosition = TextSelection.near(view.state.selection.$to, -1);
+
+					lastInlinePosition &&
+						api.core.actions.execute(({ tr }) => {
+							if (!(lastInlinePosition instanceof TextSelection)) {
+								// this will create a new line after the node
+								createNewLine(lastInlinePosition.from)({ tr });
+								// this will find the next valid text position after the node
+								tr.setSelection(TextSelection.create(tr.doc, lastInlinePosition.to));
+							} else {
+								tr.setSelection(lastInlinePosition);
+							}
+							return tr;
+						});
 				}
 			}
 		}

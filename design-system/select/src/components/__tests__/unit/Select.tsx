@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 import selectEvent from 'react-select-event';
@@ -567,4 +567,26 @@ describe('Select input', () => {
 		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(`${newLabel}`));
 		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining('placeholder'));
 	});
+});
+
+it('UNSAFE_is_experimental_generic should pass down and replace semantics', async () => {
+	const testId = 'select';
+
+	render(
+		<AtlaskitSelect menuIsOpen options={OPTIONS} testId={testId} UNSAFE_is_experimental_generic />,
+	);
+
+	const input = screen.getByTestId(`${testId}-select--input`);
+	expect(input).toHaveAttribute('aria-haspopup', 'dialog');
+	expect(input).not.toHaveAttribute('aria-haspopup', 'true');
+
+	const dialog = screen.getByTestId(`${testId}-select--listbox`);
+
+	expect(dialog).not.toHaveAttribute('aria-multiselectable');
+	expect(dialog).toHaveAttribute('role', 'dialog');
+	expect(dialog).not.toHaveAttribute('role', 'listbox');
+
+	const list = within(dialog).getByRole('list');
+	expect(within(list).queryAllByRole('listitem')).toHaveLength(OPTIONS.length);
+	expect(within(list).queryAllByRole('option')).toHaveLength(0);
 });

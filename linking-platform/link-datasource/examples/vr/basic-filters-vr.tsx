@@ -14,6 +14,7 @@ import {
 	type SelectedOptionsMap,
 } from '../../src/ui/jira-issues-modal/basic-filters/types';
 import AsyncPopupSelect from '../../src/ui/jira-issues-modal/basic-filters/ui/async-popup-select';
+import { withWaitForItem } from '../utils/withWaitForItem';
 
 const styles = cssMap({
 	flexContainerStyles: {
@@ -26,7 +27,7 @@ const styles = cssMap({
 
 mockBasicFilterAGGFetchRequests();
 
-export default () => {
+const Component = () => {
 	const filters: BasicFilterFieldType[] = ['project', 'type', 'status', 'assignee'];
 
 	const [selection, setSelection] = useState<SelectedOptionsMap>({
@@ -66,3 +67,9 @@ export default () => {
 		</IntlProvider>
 	);
 };
+
+export default withWaitForItem(Component, () => {
+	const buttons = document.body.querySelectorAll('button');
+	const item = buttons[3];
+	return item;
+});

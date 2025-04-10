@@ -15,7 +15,7 @@ import type {
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, PluginKey, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -33,6 +33,7 @@ import type { PluginInjectionAPI } from '../types';
 
 import TableComponent from './TableComponent';
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
+import { tableNodeSpecWithFixedToDOM } from './toDOM';
 import type { Props } from './types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
@@ -80,18 +81,18 @@ const handleInlineTableWidth = (table: HTMLElement, width: number | undefined) =
 	table.style.setProperty('width', `${width}px`);
 };
 
+// Leave as a fallback incase the table's NodeSpec.toDOM is not defined.
 const toDOM = (node: PmNode, props: Props) => {
 	let colgroup: DOMOutputSpec = '';
-
 	if (props.allowColumnResizing) {
 		colgroup = ['colgroup', {}, ...generateColgroup(node)];
 	}
-
 	return ['table', tableAttributes(node), colgroup, ['tbody', 0]] as DOMOutputSpec;
 };
 
 export default class TableView extends ReactNodeView<Props> {
 	private table: HTMLElement | undefined;
+	private renderedDOM?: HTMLElement;
 	private resizeObserver?: ResizeObserver;
 	eventDispatcher?: EventDispatcher;
 	getPos: getPosHandlerNode;
@@ -111,19 +112,37 @@ export default class TableView extends ReactNodeView<Props> {
 		this.eventDispatcher = props.eventDispatcher;
 		this.options = props.options;
 		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
+
+		if (fg('platform_editor_table_initial_load_fix')) {
+			this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node);
+		}
 	}
 
 	getContentDOM() {
-		const rendered = DOMSerializer.renderSpec(
-			document,
-			toDOM(this.node, this.reactComponentProps as Props),
-		) as {
+		let tableDOMStructure;
+		if (fg('platform_editor_table_initial_load_fix')) {
+			tableDOMStructure = tableNodeSpecWithFixedToDOM({
+				allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
+				tableResizingEnabled: !!this.reactComponentProps.allowTableResizing,
+				getEditorContainerWidth: this.reactComponentProps.getEditorContainerWidth,
+			}).toDOM(this.node);
+		} else {
+			tableDOMStructure = toDOM(this.node, this.reactComponentProps as Props);
+		}
+
+		const rendered = DOMSerializer.renderSpec(document, tableDOMStructure) as {
 			dom: HTMLElement;
 			contentDOM?: HTMLElement;
 		};
 
 		if (rendered.dom) {
-			this.table = rendered.dom;
+			if (fg('platform_editor_table_initial_load_fix')) {
+				const tableElement = rendered.dom.querySelector('table');
+				this.table = tableElement ? tableElement : rendered.dom;
+				this.renderedDOM = rendered.dom;
+			} else {
+				this.table = rendered.dom;
+			}
 
 			if (
 				!this.options?.isTableScalingEnabled ||
@@ -145,6 +164,73 @@ export default class TableView extends ReactNodeView<Props> {
 		}
 
 		return rendered;
+	}
+
+	/**
+	 * Handles moving the table from ProseMirror's DOM structure into a React-rendered table node.
+	 * Temporarily disables mutation observers (except for selection changes) during the move,
+	 * preserves selection state, and restores it afterwards if mutations occurred and cursor
+	 * wasn't at start of node. This prevents duplicate tables and maintains editor state during
+	 * the DOM manipulation.
+	 */
+	private _handleTableRef(node: HTMLElement | null) {
+		let oldIgnoreMutation: (mutation: MutationRecord) => boolean;
+
+		let selectionBookmark: SelectionBookmark;
+		let parentOffset = 0;
+		let mutationsIgnored = false;
+
+		// Only proceed if we have both a node and table, and the table isn't already inside the node
+		if (node && this.table && !node.contains(this.table)) {
+			// Store the current ignoreMutation handler so we can restore it later
+			oldIgnoreMutation = this.ignoreMutation;
+
+			// Set up a temporary mutation handler that:
+			// - Ignores all DOM mutations except selection changes
+			// - Tracks when mutations have been ignored via mutationsIgnored flag
+			this.ignoreMutation = (m: MutationRecord) => {
+				const isSelectionMutation = m.target instanceof Selection;
+				if (!isSelectionMutation) {
+					mutationsIgnored = true;
+				}
+				return !isSelectionMutation;
+			};
+
+			// Store the current selection state if there is a visible selection
+			// This lets us restore it after DOM changes
+			if (this.view.state.selection.visible) {
+				selectionBookmark = this.view.state.selection.getBookmark();
+			}
+
+			// Store the current cursor position within the parent node
+			// Used to determine if we need to restore selection later
+			if (this.view.state.selection?.ranges.length > 0) {
+				parentOffset = this.view.state.selection?.ranges[0].$from?.parentOffset ?? 0;
+			}
+
+			// Remove the ProseMirror table DOM structure to avoid duplication, as it's replaced with the React table node.
+			if (this.renderedDOM) {
+				this.dom.removeChild(this.renderedDOM);
+			}
+			// Move the table from the ProseMirror table structure into the React rendered table node.
+			node.appendChild(this.table);
+
+			// After the next frame:
+			requestAnimationFrame(() => {
+				// Restore the original mutation handler
+				this.ignoreMutation = oldIgnoreMutation;
+
+				// Restore the selection only if:
+				// - We have a selection bookmark
+				// - Mutations were ignored during the table move
+				// - The cursor wasn't at the start of the node
+				if (selectionBookmark && mutationsIgnored && parentOffset > 0) {
+					this.view.dispatch(
+						this.view.state.tr.setSelection(selectionBookmark.resolve(this.view.state.tr.doc)),
+					);
+				}
+			});
+		}
 	}
 
 	setDomAttrs(node: PmNode) {
@@ -206,7 +292,6 @@ export default class TableView extends ReactNodeView<Props> {
 				/>
 			);
 		}
-
 		// Please, do not copy or use this kind of code below
 		// @ts-ignore
 		const fakePluginKey = {

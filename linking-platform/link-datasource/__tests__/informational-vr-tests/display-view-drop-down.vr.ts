@@ -4,7 +4,7 @@ import type { Locator, Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
 
 import WithConfluenceSearchModal from '../../examples/with-confluence-search-modal';
-import WithJiraIssuesModal from '../../examples/with-issues-modal';
+import { JiraModalNoSuspense as WithJiraIssuesModal } from '../../examples/with-issues-modal';
 
 async function openDropDown(page: Page) {
 	await page.getByTestId('datasource-modal--view-drop-down--trigger').click();

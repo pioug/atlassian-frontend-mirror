@@ -222,6 +222,14 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_table_initial_load_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_disable_table_lnv": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"editor_request_to_edit_task": {
 			"type": "boolean"
 		},
@@ -629,6 +637,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_controls_widget_visibility": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_add_alignment_tracking": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

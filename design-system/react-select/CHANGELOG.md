@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.2.0
+
+### Minor Changes
+
+- [#137501](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137501)
+  [`fb85ce5c05391`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb85ce5c05391) -
+  Testing unsafe experimental options, to be removed at a later time.
+
 ## 2.1.0
 
 ### Minor Changes

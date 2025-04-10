@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.3.6
+
+### Patch Changes
+
+- [#138959](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138959)
+  [`66b24c95f63de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66b24c95f63de) -
+  Clean up experiment platform_editor_nested_non_bodied_macros [ED-27183]
+
 ## 4.3.5
 
 ### Patch Changes

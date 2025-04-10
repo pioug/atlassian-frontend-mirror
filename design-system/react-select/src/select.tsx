@@ -347,7 +347,7 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	/**
 	 * Whether the menu should use a portal, and where it should attach
 	 *
-	 * An example can be found in the [Portaling](/advanced#portaling) documentation
+	 * An example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation
 	 */
 	menuPortalTarget?: HTMLElement | null;
 	/**
@@ -499,6 +499,7 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	appearance: 'default' | 'subtle' | 'none';
 	// temp fix to support unofficial props.
 	[key: string]: any;
+	UNSAFE_is_experimental_generic?: boolean;
 }
 
 export const defaultProps = {
@@ -543,6 +544,7 @@ export const defaultProps = {
 	styles: {},
 	tabIndex: 0,
 	tabSelectsValue: true,
+	UNSAFE_is_experimental_generic: false,
 };
 
 interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
@@ -1927,14 +1929,18 @@ export default class Select<
 			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
 			// TODO: aria-haspopup is implied as listbox with role="combobox" and was deprecated for aria 1.2, we still might need to keep it for back compat
-			'aria-haspopup': 'listbox' as AriaAttributes['aria-haspopup'],
+			'aria-haspopup': this.props['UNSAFE_is_experimental_generic']
+				? ('dialog' as AriaAttributes['aria-haspopup'])
+				: ('listbox' as AriaAttributes['aria-haspopup']),
 			'aria-describedby': this.props['aria-describedby'] || descriptionId,
 			'aria-invalid': this.props['aria-invalid'] || isInvalid,
 			'aria-label': this.props['aria-label'] || label,
 			'aria-labelledby': this.props['aria-labelledby'] || labelId,
 			'aria-required': required || isRequired,
 			role: 'combobox',
-			'aria-activedescendant': this.state.focusedOptionId || this.state.focusedValueId || undefined,
+			'aria-activedescendant': this.props['UNSAFE_is_experimental_generic']
+				? undefined
+				: this.state.focusedOptionId || this.state.focusedValueId || undefined,
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
@@ -2204,8 +2210,8 @@ export default class Select<
 				onClick: onSelect,
 				onMouseMove: onHover,
 				onMouseOver: onHover,
-				role: 'option',
-				'aria-selected': isSelected,
+				role: this.props['UNSAFE_is_experimental_generic'] ? 'listitem' : 'option',
+				'aria-selected': this.props['UNSAFE_is_experimental_generic'] ? undefined : isSelected,
 				// We don't want aria-disabled if it's false. It's just noisy.
 				'aria-disabled':
 					!isDisabled && fg('design_system_select-a11y-improvement') ? undefined : isDisabled,
@@ -2347,10 +2353,11 @@ export default class Select<
 										scrollTargetRef(instance);
 									}}
 									innerProps={{
-										role: 'listbox',
+										role: this.props['UNSAFE_is_experimental_generic'] ? 'dialog' : 'listbox',
 										'aria-multiselectable':
-											(this.isVoiceOver || !commonProps.isMulti) &&
-											fg('design_system_select-a11y-improvement')
+											((this.isVoiceOver || !commonProps.isMulti) &&
+												fg('design_system_select-a11y-improvement')) ||
+											this.props['UNSAFE_is_experimental_generic']
 												? undefined
 												: commonProps.isMulti,
 										id: this.getElementId('listbox'),
@@ -2364,7 +2371,11 @@ export default class Select<
 									maxHeight={maxHeight}
 									focusedOption={focusedOption}
 								>
-									{menuUI}
+									{this.props['UNSAFE_is_experimental_generic'] ? (
+										<div role="list">{menuUI}</div>
+									) : (
+										menuUI
+									)}
 								</MenuList>
 							)}
 						</ScrollManager>

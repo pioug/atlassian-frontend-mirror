@@ -175,9 +175,6 @@ describe('<ModalDialog />', () => {
 			 * is only supported in @testing-library/jest-dom 5.11.3.
 			 */
 			expect(styles).toContain('--modal-dialog-height: 42px;');
-			expect(modalDialog).toHaveCompiledCss('height', '42px', {
-				media: `(min-width: 30rem)`,
-			});
 		});
 
 		it('should set height in the passed value if a % is passed', () => {

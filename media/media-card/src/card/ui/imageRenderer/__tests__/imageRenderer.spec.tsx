@@ -2,10 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { ImageRenderer } from '../imageRenderer';
 import { resizeModeToMediaImageProps } from '../resizeModeToMediaImageProps';
-import { type MediaType } from '@atlaskit/media-client';
+import { type MediaType, type FileIdentifier } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
+
+const wrapperRef = { current: null };
+const identifier: FileIdentifier = { id: '123', collectionName: 'test', mediaItemType: 'file' };
 
 const cardPreview = {
 	dataURI: 'some-data',
@@ -28,6 +31,8 @@ describe('ImageRenderer', () => {
 				alt={alt}
 				onImageLoad={onImageLoad}
 				onImageError={onImageError}
+				wrapperRef={wrapperRef}
+				identifier={identifier}
 			/>,
 		);
 
@@ -53,6 +58,8 @@ describe('ImageRenderer', () => {
 				mediaType={mediaType}
 				onImageLoad={onImageLoad}
 				onImageError={onImageError}
+				wrapperRef={wrapperRef}
+				identifier={identifier}
 			/>,
 		);
 
@@ -73,7 +80,13 @@ describe('ImageRenderer', () => {
 	describe('Lazy Load', () => {
 		it('should pass loading=lazy to MediaImage when nativeLazyLoad is true', () => {
 			const component = mount(
-				<ImageRenderer mediaType={'image'} cardPreview={cardPreview} nativeLazyLoad={true} />,
+				<ImageRenderer
+					mediaType={'image'}
+					cardPreview={cardPreview}
+					nativeLazyLoad={true}
+					wrapperRef={wrapperRef}
+					identifier={identifier}
+				/>,
 			);
 			const mediaImage = component.find(MediaImage);
 			expect(mediaImage).toHaveLength(1);
@@ -82,7 +95,13 @@ describe('ImageRenderer', () => {
 
 		it('should not pass loading=lazy to MediaImage when nativeLazyLoad is false', () => {
 			const component = mount(
-				<ImageRenderer mediaType={'image'} cardPreview={cardPreview} nativeLazyLoad={false} />,
+				<ImageRenderer
+					mediaType={'image'}
+					cardPreview={cardPreview}
+					nativeLazyLoad={false}
+					wrapperRef={wrapperRef}
+					identifier={identifier}
+				/>,
 			);
 			const mediaImage = component.find(MediaImage);
 			expect(mediaImage).toHaveLength(1);
@@ -90,7 +109,14 @@ describe('ImageRenderer', () => {
 		});
 
 		it('should not pass loading=lazy to MediaImage when nativeLazyLoad is undefined', () => {
-			const component = mount(<ImageRenderer mediaType={'image'} cardPreview={cardPreview} />);
+			const component = mount(
+				<ImageRenderer
+					mediaType={'image'}
+					cardPreview={cardPreview}
+					wrapperRef={wrapperRef}
+					identifier={identifier}
+				/>,
+			);
 			const mediaImage = component.find(MediaImage);
 			expect(mediaImage).toHaveLength(1);
 			expect(mediaImage.prop('loading')).toBe(undefined);
@@ -123,7 +149,13 @@ describe('ImageRenderer', () => {
 	it('should call onDisplayImage once', () => {
 		const onDisplayImage = jest.fn();
 		const card = mount(
-			<ImageRenderer mediaType="image" cardPreview={cardPreview} onDisplayImage={onDisplayImage} />,
+			<ImageRenderer
+				mediaType="image"
+				cardPreview={cardPreview}
+				onDisplayImage={onDisplayImage}
+				wrapperRef={wrapperRef}
+				identifier={identifier}
+			/>,
 		);
 		expect(onDisplayImage).toHaveBeenCalledTimes(1);
 		card.update();
@@ -131,7 +163,14 @@ describe('ImageRenderer', () => {
 	});
 
 	it('should pass forceSyncDisplay to MediaImage', () => {
-		const component = mount(<ImageRenderer mediaType={'image'} cardPreview={cardPreview} />);
+		const component = mount(
+			<ImageRenderer
+				mediaType={'image'}
+				cardPreview={cardPreview}
+				wrapperRef={wrapperRef}
+				identifier={identifier}
+			/>,
+		);
 		const mediaImage = component.find(MediaImage);
 		expect(mediaImage).toHaveLength(1);
 		expect(mediaImage.prop('forceSyncDisplay')).toBe(undefined);
@@ -149,6 +188,8 @@ describe('ImageRenderer', () => {
 					mediaType={mediaType}
 					cardPreview={cardPreview}
 					onDisplayImage={onDisplayImage}
+					wrapperRef={wrapperRef}
+					identifier={identifier}
 				/>,
 			);
 			expect(onDisplayImage).toHaveBeenCalledTimes(0);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.8.8
+
+### Patch Changes
+
+- [#138622](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138622)
+  [`09f425c925d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09f425c925d38) -
+  Add support for quick insert in cell selection
+
 ## 3.8.7
 
 ### Patch Changes

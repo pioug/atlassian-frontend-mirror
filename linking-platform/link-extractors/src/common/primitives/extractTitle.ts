@@ -4,6 +4,9 @@ import { extractContext } from '../context';
 
 import { extractType } from './extractType';
 
+/**
+ * @deprecated Use extractSmartLinkTitle instead
+ */
 export const extractTitle = (
 	jsonLd: JsonLd.Data.BaseData,
 	removeTextHighlightingFromTitle?: boolean,

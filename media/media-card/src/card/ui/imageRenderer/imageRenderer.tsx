@@ -1,23 +1,10 @@
 import React, { useEffect } from 'react';
-import { type MediaType, type ImageResizeMode } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import { resizeModeToMediaImageProps } from './resizeModeToMediaImageProps';
-import { type CardPreview } from '../../../types';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
+import type { ImageRendererProps } from './types';
 
-export type ImageRendererProps = {
-	readonly cardPreview?: CardPreview;
-	readonly mediaType: MediaType;
-	readonly alt?: string;
-	readonly resizeMode?: ImageResizeMode;
-	readonly onDisplayImage?: () => void;
-	readonly onImageError?: (cardPreview: CardPreview) => void;
-	readonly onImageLoad?: (cardPreview: CardPreview) => void;
-	readonly nativeLazyLoad?: boolean;
-	readonly forceSyncDisplay?: boolean;
-};
-
-export const ImageRenderer: React.FC<ImageRendererProps> = ({
+export const ImageRenderer = ({
 	cardPreview,
 	alt,
 	resizeMode,
@@ -27,7 +14,7 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({
 	mediaType,
 	nativeLazyLoad,
 	forceSyncDisplay,
-}) => {
+}: ImageRendererProps) => {
 	const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
 	useEffect(() => {
 		// TODO: trigger accordingly with the succeeded event. This could be a breaking change

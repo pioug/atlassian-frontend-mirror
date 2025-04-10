@@ -508,14 +508,13 @@ export const getToolbarConfig =
 
 			const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
 			const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;
+			const isTableState =
+				isTableRowOrColumnDragged || isTableOrColumnResizing || isTableMenuOpened;
 			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
-			const shouldSuppressAllToolbars =
-				(!pluginState.editorHasFocus && !isViewMode) ||
-				isTableMenuOpened ||
-				isTableOrColumnResizing ||
-				isTableRowOrColumnDragged;
-
+			// Note: when focus is in codeblocks, pluginState.editorHasFocus is false, so the codeblocks toolbar
+			// won't be suppressed.
+			const shouldSuppressAllToolbars = isTableState && pluginState.editorHasFocus && !isViewMode;
 			if (shouldSuppressAllToolbars) {
 				return {
 					title: toolbarTitle,

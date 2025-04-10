@@ -253,6 +253,11 @@ export const generateStoriesForEditableCards = () => {
 										resizeMode={resizeMode}
 										onClick={this.onClick}
 										onMouseEnter={this.onMouseEnter}
+										identifier={{
+											id: 'some-file-id',
+											collectionName: 'some-collection-name',
+											mediaItemType: 'file',
+										}}
 									/>
 								</div>
 							</div>

@@ -1,5 +1,14 @@
 # @atlaskit/linking-common
 
+## 8.0.5
+
+### Patch Changes
+
+- [#137904](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137904)
+  [`62f9ac728d683`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62f9ac728d683) -
+  Extends CardState.details type to handle nounData with SmartLinkResponse
+- Updated dependencies
+
 ## 8.0.4
 
 ### Patch Changes

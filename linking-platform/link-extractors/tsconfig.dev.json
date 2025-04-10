@@ -45,6 +45,9 @@
 			"path": "../link-test-helpers/tsconfig.app.json"
 		},
 		{
+			"path": "../linking-types/tsconfig.app.json"
+		},
+		{
 			"path": "../../media/media-test-helpers/tsconfig.app.json"
 		}
 	]

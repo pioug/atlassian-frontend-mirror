@@ -76,7 +76,7 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 				},
 				{
 					name: 'annotationKeymap',
-					plugin: () => keymapPlugin(),
+					plugin: () => keymapPlugin(api),
 				},
 			];
 		},

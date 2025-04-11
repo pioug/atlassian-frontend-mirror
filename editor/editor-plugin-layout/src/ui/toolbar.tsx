@@ -30,7 +30,6 @@ import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/migration/layout
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
 import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-left--editor-layout-two-left-sidebar';
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-right--editor-layout-two-right-sidebar';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../index';
@@ -308,15 +307,12 @@ export const buildToolbar = (
 		};
 
 		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
-		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
-			fg('platform_editor_controls_patch_1')
-				? {
-						onMouseEnter: hoverDecoration?.(nodeType, true, className),
-						onMouseLeave: hoverDecoration?.(nodeType, false, className),
-						onFocus: hoverDecoration?.(nodeType, true, className),
-						onBlur: hoverDecoration?.(nodeType, false, className),
-					}
-				: undefined;
+		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
+			onMouseEnter: hoverDecoration?.(nodeType, true, className),
+			onMouseLeave: hoverDecoration?.(nodeType, false, className),
+			onFocus: hoverDecoration?.(nodeType, true, className),
+			onBlur: hoverDecoration?.(nodeType, false, className),
+		});
 		const overflowMenu: FloatingToolbarItem<Command> = {
 			type: 'overflow-dropdown',
 			options: [

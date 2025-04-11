@@ -22,13 +22,20 @@ type TextColorDefaultColor = {
 	label: string;
 };
 
-export interface TextColorPluginConfig {
+export interface TextColorPluginOptions {
 	defaultColor?: TextColorDefaultColor;
 }
 
+/**
+ * @private
+ * @deprecated Use {@link TextColorPluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type TextColorPluginConfig = TextColorPluginOptions;
+
 function createInitialPluginState(
 	editorState: EditorState,
-	pluginConfig?: TextColorPluginConfig,
+	pluginConfig?: TextColorPluginOptions,
 ): TextColorPluginState {
 	const defaultColor = pluginConfig?.defaultColor || DEFAULT_COLOR;
 

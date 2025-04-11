@@ -21,6 +21,9 @@
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-accessibility-utils/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
@@ -28,6 +31,9 @@
 		},
 		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		}
 	]
 }

@@ -26,79 +26,41 @@ export const AnnotationSharedCSSByState = () => {
 		// in a different way. For example in renderer the focus styles are an
 		// override, not a separate class. Be sure to check both usages of this
 		// before modifying.
-		if (fg('inline_comment_shadow_update')) {
-			return {
-				common: {
-					borderBottom: '2px solid transparent',
-					cursor: 'pointer',
-					padding: '1px 0 2px',
-					'&:has(.card), &:has([data-inline-card])': fg(
-						'annotations_align_editor_and_renderer_styles',
-					)
-						? {
-								padding: '5px 0 3px 0',
-							}
-						: {
-								paddingTop: '4px',
-								border: 'none',
-								boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow')}`,
-							},
-					'&:has(.date-lozenger-container)': {
-						paddingTop: '2px',
-					},
+		return {
+			common: {
+				borderBottom: '2px solid transparent',
+				cursor: 'pointer',
+				padding: '1px 0 2px',
+				'&:has(.card), &:has([data-inline-card])': fg(
+					'annotations_align_editor_and_renderer_styles',
+				)
+					? {
+							padding: '5px 0 3px 0',
+						}
+					: {
+							paddingTop: '4px',
+							border: 'none',
+							boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow')}`,
+						},
+				'&:has(.date-lozenger-container)': {
+					paddingTop: '2px',
 				},
-				focus: css({
-					background: token('color.background.accent.yellow.subtlest.pressed'),
-					borderBottomColor: token('color.border.accent.yellow'),
-					boxShadow: token('elevation.shadow.raised'),
-				}),
-				blur: css({
-					background: token('color.background.accent.yellow.subtlest'),
-					borderBottomColor: token('color.border.accent.yellow'),
-				}),
-				hover: css({
-					background: token('color.background.accent.yellow.subtlest.hovered'),
-					borderBottomColor: token('color.border.accent.yellow'),
-					boxShadow: token('elevation.shadow.raised'),
-				}),
-			};
-		} else {
-			return {
-				common: {
-					borderBottom: '2px solid transparent',
-					cursor: 'pointer',
-					padding: '1px 0 2px',
-					'&:has(.card), &:has([data-inline-card])': fg(
-						'annotations_align_editor_and_renderer_styles',
-					)
-						? {
-								padding: '5px 0 3px 0',
-							}
-						: {
-								paddingTop: '4px',
-								border: 'none',
-								boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow')}`,
-							},
-					'&:has(.date-lozenger-container)': {
-						paddingTop: '2px',
-					},
-				},
-				focus: css({
-					background: token('color.background.accent.yellow.subtlest.pressed'),
-					borderBottomColor: token('color.border.accent.yellow'),
-					boxShadow: token('elevation.shadow.overlay'),
-				}),
-				blur: css({
-					background: token('color.background.accent.yellow.subtlest'),
-					borderBottomColor: token('color.border.accent.yellow'),
-				}),
-				hover: css({
-					background: token('color.background.accent.yellow.subtlest.hovered'),
-					borderBottomColor: token('color.border.accent.yellow'),
-					boxShadow: token('elevation.shadow.overlay'),
-				}),
-			};
-		}
+			},
+			focus: css({
+				background: token('color.background.accent.yellow.subtlest.pressed'),
+				borderBottomColor: token('color.border.accent.yellow'),
+				boxShadow: token('elevation.shadow.raised'),
+			}),
+			blur: css({
+				background: token('color.background.accent.yellow.subtlest'),
+				borderBottomColor: token('color.border.accent.yellow'),
+			}),
+			hover: css({
+				background: token('color.background.accent.yellow.subtlest.hovered'),
+				borderBottomColor: token('color.border.accent.yellow'),
+				boxShadow: token('elevation.shadow.raised'),
+			}),
+		};
 	} else {
 		return {
 			focus: css({

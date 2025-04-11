@@ -665,15 +665,12 @@ export const getToolbarConfig =
 			const isNestedTable =
 				fg('platform_editor_use_nested_table_pm_nodes') && isSelectionTableNestedInTable(state);
 
-			const hoverTableProps = (isInDanger?: boolean, isSelected?: boolean) =>
-				fg('platform_editor_controls_patch_1')
-					? {
-							onMouseEnter: hoverTable(isInDanger, isSelected),
-							onMouseLeave: clearHoverSelection(),
-							onFocus: hoverTable(isInDanger, isSelected),
-							onBlur: clearHoverSelection(),
-						}
-					: undefined;
+			const hoverTableProps = (isInDanger?: boolean, isSelected?: boolean) => ({
+				onMouseEnter: hoverTable(isInDanger, isSelected),
+				onMouseLeave: clearHoverSelection(),
+				onFocus: hoverTable(isInDanger, isSelected),
+				onBlur: clearHoverSelection(),
+			});
 
 			return {
 				title: toolbarTitle,

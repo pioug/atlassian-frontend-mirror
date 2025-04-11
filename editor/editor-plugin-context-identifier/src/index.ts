@@ -6,4 +6,5 @@ export type {
 	ContextIdentifierPlugin,
 	Configuration as ContextIdentifierConfiguration,
 	PluginConfiguration,
+	ContextIdentifierPluginOptions,
 } from './contextIdentifierPluginType';

@@ -42,7 +42,6 @@ import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
 import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
@@ -344,15 +343,12 @@ export const getToolbarItems = (
 			},
 		);
 	} else {
-		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
-			fg('platform_editor_controls_patch_1')
-				? {
-						onMouseEnter: hoverDecoration?.(nodeType, true, className),
-						onMouseLeave: hoverDecoration?.(nodeType, false, className),
-						onFocus: hoverDecoration?.(nodeType, true, className),
-						onBlur: hoverDecoration?.(nodeType, false, className),
-					}
-				: undefined;
+		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
+			onMouseEnter: hoverDecoration?.(nodeType, true, className),
+			onMouseLeave: hoverDecoration?.(nodeType, false, className),
+			onFocus: hoverDecoration?.(nodeType, true, className),
+			onBlur: hoverDecoration?.(nodeType, false, className),
+		});
 		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 			{ type: 'separator', fullHeight: true },
 			{

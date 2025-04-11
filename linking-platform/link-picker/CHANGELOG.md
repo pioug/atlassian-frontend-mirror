@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.2.0
+
+### Minor Changes
+
+- [#139689](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139689)
+  [`4293811430fb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4293811430fb4) -
+  Add plugin option to allow filtering by link URL and expose inputRef as a prop from the link
+  picker.
+
 ## 3.1.4
 
 ### Patch Changes

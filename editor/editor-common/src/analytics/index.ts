@@ -122,12 +122,9 @@ export type {
 } from './types/link-tool-bar-events';
 
 export type {
-	TextColorSelectedAttr,
-	TextColorSelectedAEP,
-	TextColorShowPaletteToggleAttr,
 	TextColorShowPaletteToggleAEP,
-	ExperimentalEventPayload,
-} from './types/experimental-events';
+	TextColorShowPaletteToggleAttr,
+} from './types/color-events';
 
 export { GAP_CURSOR_POSITION, TARGET_SELECTION_SOURCE } from './types/extension-events';
 

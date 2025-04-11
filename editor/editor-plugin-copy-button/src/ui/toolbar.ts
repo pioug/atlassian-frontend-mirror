@@ -1,6 +1,7 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import commonMessages from '@atlaskit/editor-common/messages';
 import type {
+	ExtractInjectionAPI,
 	Command,
 	FloatingToolbarButton,
 	FloatingToolbarItem,
@@ -12,6 +13,7 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CopyIcon from '@atlaskit/icon/core/migration/copy';
 
+import type { CopyButtonPlugin } from '../copyButtonPluginType';
 import {
 	createToolbarCopyCommandForMark,
 	createToolbarCopyCommandForNode,
@@ -34,6 +36,7 @@ export function getCopyButtonConfig(
 	options: MarkOptions | NodeOptions,
 	hoverDecoration: HoverDecorationHandler | undefined,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	api?: ExtractInjectionAPI<CopyButtonPlugin>,
 ): FloatingToolbarButton<Command> {
 	const { state, formatMessage, onMouseEnter, onMouseLeave, onFocus, onBlur } = options;
 	const copyButtonState = copyButtonPluginKey.getState(state);
@@ -42,8 +45,12 @@ export function getCopyButtonConfig(
 
 	if (isNodeOptions(options)) {
 		buttonActionHandlers = {
-			onClick: createToolbarCopyCommandForNode(options.nodeType, editorAnalyticsApi),
-
+			onClick: createToolbarCopyCommandForNode(
+				options.nodeType,
+				editorAnalyticsApi,
+				api,
+				formatMessage(commonMessages.copiedToClipboard),
+			),
 			// Note for future changes: these two handlers should perform
 			// the same action.
 			onMouseEnter:
@@ -75,9 +82,7 @@ export function getCopyButtonConfig(
 		title: formatMessage(
 			copyButtonState?.copied ? commonMessages.copiedToClipboard : commonMessages.copyToClipboard,
 		),
-
 		...buttonActionHandlers,
-
 		hideTooltipOnClick: false,
 		tabIndex: null,
 	};
@@ -86,25 +91,32 @@ export function getCopyButtonConfig(
 /**
  * Process floatingToolbar items for copyButton
  */
-export const processCopyButtonItems =
-	(editorAnalyticsApi?: EditorAnalyticsAPI | undefined) => (state: EditorState) => {
-		return (
-			items: Array<FloatingToolbarItem<Command>>,
-			hoverDecoration: HoverDecorationHandler | undefined,
-		): Array<FloatingToolbarItem<Command>> =>
-			items.flatMap((item) => {
-				switch (item.type) {
-					case 'copy-button':
-						if (item?.hidden) {
-							return [];
-						}
-						return item?.items.map((copyButtonItem) =>
-							isSeparator(copyButtonItem)
-								? copyButtonItem
-								: getCopyButtonConfig(copyButtonItem, hoverDecoration, editorAnalyticsApi),
-						);
-					default:
-						return [item];
-				}
-			});
-	};
+export const processCopyButtonItems: (
+	editorAnalyticsApi?: EditorAnalyticsAPI | undefined,
+	api?: ExtractInjectionAPI<CopyButtonPlugin>,
+) => (
+	state: EditorState,
+) => (
+	items: Array<FloatingToolbarItem<Command>>,
+	hoverDecoration: HoverDecorationHandler | undefined,
+) => Array<FloatingToolbarItem<Command>> = (editorAnalyticsApi, api) => (state) => {
+	return (
+		items: Array<FloatingToolbarItem<Command>>,
+		hoverDecoration: HoverDecorationHandler | undefined,
+	): Array<FloatingToolbarItem<Command>> =>
+		items.flatMap((item) => {
+			switch (item.type) {
+				case 'copy-button':
+					if (item?.hidden) {
+						return [];
+					}
+					return item?.items.map((copyButtonItem) =>
+						isSeparator(copyButtonItem)
+							? copyButtonItem
+							: getCopyButtonConfig(copyButtonItem, hoverDecoration, editorAnalyticsApi, api),
+					);
+				default:
+					return [item];
+			}
+		});
+};

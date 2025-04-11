@@ -39,7 +39,7 @@ export type AddItemTransactionCreator = (opts: {
  * Interface representing the options for the TaskDecisionPlugin.
  * Extends the LongPressSelectionPluginOptions interface.
  */
-export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptions {
+export interface TasksAndDecisionsPluginOptions extends LongPressSelectionPluginOptions {
 	/**
 	 * Indicates whether nested tasks are allowed.
 	 * @default false
@@ -84,6 +84,13 @@ export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptio
 	 */
 	taskPlaceholder?: string;
 }
+
+/**
+ * @private
+ * @deprecated Use {@link TasksAndDecisionsPluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type TaskDecisionPluginOptions = TasksAndDecisionsPluginOptions;
 
 export type TaskDecisionPluginState = {
 	insideTaskDecisionItem: boolean;

@@ -5,7 +5,7 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 
 import type { FindReplacePluginState, FindReplaceToolbarButtonActionProps } from './types';
 
-type Config = {
+export type FindReplacePluginOptions = {
 	takeFullWidth: boolean;
 	twoLineEditorToolbar: boolean;
 };
@@ -18,7 +18,7 @@ export type FindReplacePluginDependencies = [
 export type FindReplacePlugin = NextEditorPlugin<
 	'findReplace',
 	{
-		pluginConfiguration: Config;
+		pluginConfiguration: FindReplacePluginOptions;
 		sharedState: FindReplacePluginState | undefined;
 		dependencies: FindReplacePluginDependencies;
 		actions: {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "2.3.22",
+	"version": "2.4.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -176,9 +176,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_multi_images_overridden_upload_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_remove_media_inline_feature_flag": {

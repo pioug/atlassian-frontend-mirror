@@ -567,6 +567,7 @@ export default {
   'fabric.editor.datasourceTitle': '⁣⁢Edit search query⁪⁯‌؜⁡⁯⁫⁠‍⁭⁯⁯⁫⁯؜⁯‌⁠⁪‌‍⁫⁠⁬⁪⁣⁤',
   'fabric.editor.date': '⁣⁢Date⁡⁡⁠⁮‍‍؜⁠⁮‌‍⁯⁫⁭⁬⁬⁪؜⁣⁤',
   'fabric.editor.date.description': '⁣⁢Add a date using a calendar⁠⁬⁡⁫؜⁭⁡⁡⁮⁭⁠؜⁭⁯⁠‍⁯⁠⁪⁪⁡⁯⁣⁤',
+  'fabric.editor.datePickerOpenedAlert': '⁣⁢Date editor popup opened, press Tab to access popup‌⁫⁫⁡؜‌‌⁠‍⁪‍؜⁯⁡؜⁡‌⁯⁯⁠⁣⁤',
   'fabric.editor.decision': '⁣⁢Decision‍⁬⁠⁡⁫⁠؜⁭‌⁠‍⁭⁠⁠⁫⁣⁤',
   'fabric.editor.decision.description': '⁣⁢Capture decisions so they’re easy to track‌‌⁮‌‍⁭‌؜⁪⁭⁭⁪⁪‌⁡⁮‌⁭‍⁯‌⁡⁠⁬⁭⁮⁪⁮⁣⁤',
   'fabric.editor.decisionPlaceholder': '⁣⁢Add a decision…⁯⁭⁠⁡‌⁮⁭⁫‍⁫⁫⁬؜⁬⁪‍⁠⁭‍⁮⁮⁣⁤',

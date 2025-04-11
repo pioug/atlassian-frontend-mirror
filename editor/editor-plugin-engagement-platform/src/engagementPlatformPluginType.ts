@@ -32,7 +32,7 @@ export type EngagementPlatformPlugin = NextEditorPlugin<
 			 */
 			stopMessage: (messageId: string) => Promise<boolean>;
 		};
-		pluginConfiguration: EngagementPlatformPluginConfig;
+		pluginConfiguration: EngagementPlatformPluginOptions;
 		dependencies: [OptionalPlugin<AnalyticsPlugin>];
 		sharedState: EngagementPlatformPluginState;
 	}
@@ -49,7 +49,7 @@ export interface CoordinationClient {
 	stop(messageId: string): Promise<boolean>;
 }
 
-export type EngagementPlatformPluginConfig = {
+export type EngagementPlatformPluginOptions = {
 	epComponents: EpComponents;
 	epHooks: EpHooks;
 	/**
@@ -68,6 +68,13 @@ export type EngagementPlatformPluginConfig = {
 	 */
 	coordinationClient: CoordinationClient;
 };
+
+/**
+ * @private
+ * @deprecated Use {@link EngagementPlatformPluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type EngagementPlatformPluginConfig = EngagementPlatformPluginOptions;
 
 export type EpComponents = {
 	EngagementSpotlight: ComponentType<{ engagementId: string }>;

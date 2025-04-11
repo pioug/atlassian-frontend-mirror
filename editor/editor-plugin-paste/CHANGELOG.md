@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 3.1.8
+
+### Patch Changes
+
+- [#140153](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140153)
+  [`b6fdcc7562539`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6fdcc7562539) -
+  Cleanup feature gate for copy-pasting code blocks from VS code
+- Updated dependencies
+
 ## 3.1.7
 
 ### Patch Changes

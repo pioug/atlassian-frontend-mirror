@@ -1,7 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { autoExpandSelectionRangeOnInlineNodePluginKey } from './auto-expand-selection-range-on-inline-node-key';
 
@@ -52,27 +51,20 @@ export const createAutoExpandSelectionRangeOnInlineNodePlugin = () => {
 						return;
 					}
 
-					// only expand range when experiment is enabled, also fire exposure events here
-					if (
-						editorExperiment('expand_selection_range_to_include_inline_node', true, {
-							exposure: true,
-						})
-					) {
-						// find the document position of the mouse up element
-						const elementStartPosition = view.posAtDOM(mouseUpElement, 0);
+					// find the document position of the mouse up element
+					const elementStartPosition = view.posAtDOM(mouseUpElement, 0);
 
-						// find out the direction of selection
-						const isAnchorBeforeElement = selection.$anchor.pos <= elementStartPosition;
-						const expandedSelectionHeadPosition = isAnchorBeforeElement
-							? elementStartPosition + 1
-							: elementStartPosition;
+					// find out the direction of selection
+					const isAnchorBeforeElement = selection.$anchor.pos <= elementStartPosition;
+					const expandedSelectionHeadPosition = isAnchorBeforeElement
+						? elementStartPosition + 1
+						: elementStartPosition;
 
-						// expand the selection to include the mouse up element
-						const tr = state.tr.setSelection(
-							TextSelection.create(state.doc, selection.$anchor.pos, expandedSelectionHeadPosition),
-						);
-						dispatch(tr);
-					}
+					// expand the selection to include the mouse up element
+					const tr = state.tr.setSelection(
+						TextSelection.create(state.doc, selection.$anchor.pos, expandedSelectionHeadPosition),
+					);
+					dispatch(tr);
 				},
 			},
 		},

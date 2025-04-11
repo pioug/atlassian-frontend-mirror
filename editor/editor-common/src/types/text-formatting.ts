@@ -1,6 +1,10 @@
 import type { INPUT_METHOD } from '../analytics';
 /**
  * Configuration for the Text Formatting plugin
+ *
+ * @private
+ * @deprecated Use {@link TextFormattingPluginOptions} from '@atlaskit/editor-plugin-text-formatting' package.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
  */
 export interface TextFormattingOptions {
 	disableSuperscriptAndSubscript?: boolean;

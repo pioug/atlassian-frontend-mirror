@@ -70,6 +70,9 @@
 			"path": "../editor-plugin-annotation/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-avatar-group/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-base/tsconfig.app.json"
 		},
 		{
@@ -89,6 +92,9 @@
 		},
 		{
 			"path": "../editor-plugin-card/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-code-bidi-warning/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-code-block/tsconfig.app.json"
@@ -190,6 +196,9 @@
 			"path": "../editor-plugin-selection/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-selection-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-status/tsconfig.app.json"
 		},
 		{
@@ -206,6 +215,9 @@
 		},
 		{
 			"path": "../editor-plugin-text-formatting/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-toolbar-lists-indentation/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"

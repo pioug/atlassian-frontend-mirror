@@ -158,7 +158,6 @@ export const TypeAheadControl = ({
 		api,
 		'featureFlags.macroInteractionUpdates',
 	);
-	// remove when platform_editor_controls_patch_1 is removed
 	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
 
 	const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({ display: 'none' });
@@ -301,11 +300,7 @@ export const TypeAheadControl = ({
 				// unless the selection is empty
 				const currentSelection = view.state.selection;
 
-				if (
-					isInTextSelection(view) &&
-					currentSelection.from !== currentSelection.to &&
-					fg('platform_editor_controls_patch_1')
-				) {
+				if (isInTextSelection(view) && currentSelection.from !== currentSelection.to) {
 					const currentParagraphNode = findParentNode((node) =>
 						TEXT_PARENT_TYPES.includes(node.type.name),
 					)(currentSelection);
@@ -381,25 +376,17 @@ export const TypeAheadControl = ({
 				aria-label={formatMessage(messages.insert)}
 				xcss={[
 					fg('platform_editor_controls_sticky_controls') ? buttonStyles : stickyButtonStyles,
-					// remove disabledStyles and platform_editor_controls_widget_visibility check when platform_editor_controls_patch_1 is removed
-					isTypeAheadOpen &&
-					!fg('platform_editor_controls_widget_visibility') &&
-					fg('platform_editor_controls_patch_1')
+					isTypeAheadOpen && !fg('platform_editor_controls_widget_visibility')
 						? disabledStyles
 						: undefined,
 				]}
 				onClick={handleQuickInsert}
-				onMouseDown={fg('platform_editor_controls_patch_1') ? undefined : handleMouseDown}
-				isDisabled={
-					!fg('platform_editor_controls_widget_visibility') &&
-					fg('platform_editor_controls_patch_1') &&
-					isTypeAheadOpen
-				}
+				onMouseDown={handleMouseDown}
+				isDisabled={!fg('platform_editor_controls_widget_visibility') && isTypeAheadOpen}
 			>
 				<AddIcon
 					label="add"
 					color={
-						// remove color.icon.disabled when platform_editor_controls_patch_1 is removed
 						isTypeAheadOpen && !fg('platform_editor_controls_widget_visibility')
 							? token('color.icon.disabled')
 							: token('color.icon.subtle')
@@ -415,10 +402,8 @@ export const TypeAheadControl = ({
 			style={positionStyles}
 			xcss={[
 				containerStaticStyles,
-				// remove disabledContainerStyles and platform_editor_controls_widget_visibility check when platform_editor_controls_patch_1 is removed
 				isTypeAheadOpen &&
 					!fg('platform_editor_controls_widget_visibility') &&
-					fg('platform_editor_controls_patch_1') &&
 					disabledContainerStyles,
 			]}
 		>

@@ -139,9 +139,6 @@
 		},
 		"platform_button_item-add-ufo-metrics": {
 			"type": "boolean"
-		},
-		"platform_fix_a11y_selected_and_hovered_state_color": {
-			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/menu/"

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "3.1.9",
+	"version": "3.1.10",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -48,6 +48,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -105,6 +106,9 @@
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {
+			"type": "boolean"
+		},
+		"editor_a11y_announce_status_editor_open": {
 			"type": "boolean"
 		},
 		"visual-refresh_drop_5": {

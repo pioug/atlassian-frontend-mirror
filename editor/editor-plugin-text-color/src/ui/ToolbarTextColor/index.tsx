@@ -13,8 +13,6 @@ import type {
 	AnalyticsEventPayload,
 	DispatchAnalyticsEvent,
 	EditorAnalyticsAPI,
-	TextColorSelectedAEP,
-	TextColorSelectedAttr,
 	TextColorShowPaletteToggleAEP,
 	TextColorShowPaletteToggleAttr,
 } from '@atlaskit/editor-common/analytics';
@@ -64,9 +62,6 @@ import type { TextColorPlugin } from '../../textColorPluginType';
 import { ToolbarType } from '../../types';
 
 import { EditorTextColorIcon } from './icon';
-
-const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
-const EXPERIMENT_GROUP_CONTROL: string = 'control';
 
 export interface State {
 	isOpen: boolean;
@@ -264,19 +259,6 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		disabled?: boolean,
 	) => {
 		if (!disabled) {
-			const {
-				pluginState: { palette },
-			} = this.props;
-
-			// we store color names in analytics
-			const swatch = palette.find((sw) => sw.value === color);
-
-			this.dispatchAnalyticsEvent(
-				this.buildAnalyticsSelectColor({
-					color: (swatch ? swatch.label : color).toLowerCase(),
-				}),
-			);
-
 			this.handleOpenChange({
 				isOpen: false,
 				logCloseEvent: false,
@@ -355,13 +337,6 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		return selectedColor;
 	}
 
-	private getCommonAnalyticsAttributes() {
-		return {
-			experiment: EXPERIMENT_NAME,
-			experimentGroup: EXPERIMENT_GROUP_CONTROL,
-		};
-	}
-
 	private buildAnalyticsPalette(
 		action: ACTION.OPENED | ACTION.CLOSED,
 		data: TextColorShowPaletteToggleAttr,
@@ -372,20 +347,6 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 			actionSubjectId: ACTION_SUBJECT_ID.FORMAT_COLOR,
 			eventType: EVENT_TYPE.TRACK,
 			attributes: {
-				...this.getCommonAnalyticsAttributes(),
-				...data,
-			},
-		};
-	}
-
-	private buildAnalyticsSelectColor(data: TextColorSelectedAttr): TextColorSelectedAEP {
-		return {
-			action: ACTION.FORMATTED,
-			actionSubject: ACTION_SUBJECT.TEXT,
-			actionSubjectId: ACTION_SUBJECT_ID.FORMAT_COLOR,
-			eventType: EVENT_TYPE.TRACK,
-			attributes: {
-				...this.getCommonAnalyticsAttributes(),
 				...data,
 			},
 		};

@@ -3,9 +3,12 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import IssueLikeTable from '../../examples/issue-like-table-j2ws';
+import {
+	VRIssueLikeTablePriorities,
+	VRIssueLikeTablePrioritiesLoading,
+} from '../../examples/vr/issue-like-table-priorities';
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTablePriorities, {
 	description: 'Priority column - two way sync feature flag on, priority feature flag off',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--icon"]').first().click();
@@ -31,7 +34,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTablePrioritiesLoading, {
 	description: 'Priority column - inline edit with flags enabled - loading',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--icon"]').first().click();
@@ -51,7 +54,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTablePriorities, {
 	description: 'Priority column - inline edit with flags enabled - options',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--icon').first().click();
@@ -73,7 +76,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTablePriorities, {
 	description: 'Priority column - inline edit with flags enabled - options tooltip',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--icon').first().click();

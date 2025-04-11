@@ -7,9 +7,11 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
 	OutsideClickTargetRefContext,
@@ -17,11 +19,13 @@ import {
 } from '@atlaskit/editor-common/ui-react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { N0 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { DEFAULT_STATUS } from '../pm-plugins/actions';
 import type { ClosingPayload, StatusType } from '../types';
@@ -57,6 +61,7 @@ export interface Props {
 	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
 	editorView: EditorView;
+	intl: WrappedComponentProps['intl'];
 }
 
 export interface State {
@@ -87,7 +92,7 @@ const pickerContainerStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
+class StatusPickerWithIntl extends React.Component<Props, State> {
 	private startTime!: number;
 	private inputMethod?: InputMethod;
 	private createStatusAnalyticsAndFireFunc: Function;
@@ -269,7 +274,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { target, mountTo, boundariesElement, scrollableElement, editorView } = this.props;
+		const { target, mountTo, boundariesElement, scrollableElement, editorView, intl } = this.props;
 
 		if (!editorView?.editable) {
 			return null;
@@ -289,6 +294,11 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 					scrollableElement={scrollableElement}
 					closeOnTab={false}
 				>
+					{fg('editor_a11y_announce_status_editor_open') && (
+						<VisuallyHidden aria-atomic role="alert">
+							{intl.formatMessage(messages.statusPickerOpenedAlert)}
+						</VisuallyHidden>
+					)}
 					<OutsideClickTargetRefContext.Consumer>
 						{this.renderWithSetOutsideClickTargetRef.bind(this)}
 					</OutsideClickTargetRefContext.Consumer>
@@ -358,5 +368,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 	private handlePopupClick = (event: React.MouseEvent<HTMLElement>) =>
 		event.nativeEvent.stopImmediatePropagation();
 }
+
+export const StatusPickerWithoutAnalytcs = injectIntl(StatusPickerWithIntl);
 
 export default withAnalyticsEvents()(StatusPickerWithoutAnalytcs);

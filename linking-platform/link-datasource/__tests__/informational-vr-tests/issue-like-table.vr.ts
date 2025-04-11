@@ -3,9 +3,10 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import IssueLikeTable from '../../examples/issue-like-table';
+import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTable, {
+	description: 'Issue Like Table',
 	prepare: async (page: Page, component: Locator) => {
 		await page.locator('[data-testid="column-picker-trigger-button"]').first().click();
 	},

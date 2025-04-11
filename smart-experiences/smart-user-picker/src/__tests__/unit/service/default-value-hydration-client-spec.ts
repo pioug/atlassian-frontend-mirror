@@ -22,6 +22,8 @@ const PEOPLE = 'people';
 
 const BASE_URL = '';
 
+const SITE_ID = 'siteId';
+
 const defaultUserValues: DefaultValue = [
 	{
 		id: '1',
@@ -102,7 +104,7 @@ describe('default-value-hydration-client', () => {
 	it('should hydrate jira default user', async () => {
 		mockHydrationApi({ mockJiraUsersResponse: jiraUsersResponse });
 
-		const hydratedValues = await hydrateDefaultValues(BASE_URL, defaultUserValues, 'jira');
+		const hydratedValues = await hydrateDefaultValues(BASE_URL, defaultUserValues, 'jira', SITE_ID);
 
 		expect(fetchMock.called()).toBeTruthy();
 		expect(hydratedValues).toEqual(hydratedUsers);
@@ -114,7 +116,12 @@ describe('default-value-hydration-client', () => {
 			mockConfUsersResponse: confUsersResponse,
 		});
 
-		const hydratedValues = await hydrateDefaultValues(BASE_URL, defaultUserValues, 'confluence');
+		const hydratedValues = await hydrateDefaultValues(
+			BASE_URL,
+			defaultUserValues,
+			'confluence',
+			SITE_ID,
+		);
 
 		expect(fetchMock.called()).toBeTruthy();
 		expect(hydratedValues).toEqual(hydratedUsers);
@@ -123,7 +130,7 @@ describe('default-value-hydration-client', () => {
 	it('should not hydrate if defaultUserValues is already hydrated', async () => {
 		mockHydrationApi({ mockJiraUsersResponse: jiraUsersResponse });
 
-		const hydratedValues = await hydrateDefaultValues(BASE_URL, hydratedUsers, 'jira');
+		const hydratedValues = await hydrateDefaultValues(BASE_URL, hydratedUsers, 'jira', SITE_ID);
 
 		expect(fetchMock.called()).toBeFalsy();
 		expect(hydratedValues).toEqual(hydratedUsers);
@@ -140,6 +147,7 @@ describe('default-value-hydration-client', () => {
 			BASE_URL,
 			[unknownUser, ...defaultUserValues],
 			'jira',
+			SITE_ID,
 		);
 
 		expect(fetchMock.called()).toBeTruthy();
@@ -157,7 +165,7 @@ describe('default-value-hydration-client', () => {
 	it('should not hydrate if empty', async () => {
 		mockHydrationApi({ mockJiraUsersResponse: jiraUsersResponse });
 
-		const results = await hydrateDefaultValues(BASE_URL, [], 'jira');
+		const results = await hydrateDefaultValues(BASE_URL, [], 'jira', SITE_ID);
 
 		expect(fetchMock.called()).toBeFalsy();
 		expect(results).toEqual([]);
@@ -197,7 +205,12 @@ describe('default-value-hydration-client', () => {
 		it('should use the PRS client to hydrate users', async () => {
 			mockPrsClient(defaultUserValues);
 
-			const hydratedValues = await hydrateDefaultValues(BASE_URL, defaultUserValues, PEOPLE);
+			const hydratedValues = await hydrateDefaultValues(
+				BASE_URL,
+				defaultUserValues,
+				PEOPLE,
+				SITE_ID,
+			);
 
 			expect(getHydratedUsersMock).toHaveBeenCalled();
 			expect(hydrateTeamFromLegionMock).not.toHaveBeenCalled();
@@ -207,7 +220,12 @@ describe('default-value-hydration-client', () => {
 		it('should use Legion to hydrate teams', async () => {
 			mockLegionClient(defaultTeamValues);
 
-			const hydratedValues = await hydrateDefaultValues(BASE_URL, defaultTeamValues, PEOPLE);
+			const hydratedValues = await hydrateDefaultValues(
+				BASE_URL,
+				defaultTeamValues,
+				PEOPLE,
+				SITE_ID,
+			);
 
 			expect(getHydratedUsersMock).not.toHaveBeenCalled();
 			expect(hydrateTeamFromLegionMock).toHaveBeenCalled();
@@ -229,6 +247,7 @@ describe('default-value-hydration-client', () => {
 				BASE_URL,
 				[...defaultTeamValues, { id: '11', type: 'team' }],
 				PEOPLE,
+				SITE_ID,
 			);
 
 			expect(getHydratedUsersMock).not.toHaveBeenCalled();
@@ -242,7 +261,7 @@ describe('default-value-hydration-client', () => {
 			mockPrsClient(defaultUserValues);
 			const expectedResult = [...hydratedTeams, ...hydratedUsers];
 
-			const hydratedValues = await hydrateDefaultValues(BASE_URL, defaultValues, PEOPLE);
+			const hydratedValues = await hydrateDefaultValues(BASE_URL, defaultValues, PEOPLE, SITE_ID);
 
 			expect(getHydratedUsersMock).toHaveBeenCalled();
 			expect(hydrateTeamFromLegionMock).toHaveBeenCalled();

@@ -1026,15 +1026,12 @@ export const floatingToolbar = (
 			customOptions.push({ type: 'separator' });
 		}
 
-		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
-			fg('platform_editor_controls_patch_1')
-				? {
-						onMouseEnter: hoverDecoration?.(nodeType, true, className),
-						onMouseLeave: hoverDecoration?.(nodeType, false, className),
-						onFocus: hoverDecoration?.(nodeType, true, className),
-						onBlur: hoverDecoration?.(nodeType, false, className),
-					}
-				: undefined;
+		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
+			onMouseEnter: hoverDecoration?.(nodeType, true, className),
+			onMouseLeave: hoverDecoration?.(nodeType, false, className),
+			onFocus: hoverDecoration?.(nodeType, true, className),
+			onBlur: hoverDecoration?.(nodeType, false, className),
+		});
 
 		items.push({
 			type: 'overflow-dropdown',

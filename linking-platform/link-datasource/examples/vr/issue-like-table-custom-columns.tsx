@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ExampleIssueLikeTable } from '../../examples-helpers/buildIssueLikeTable';
+import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
 
 export default () => {
-	return <ExampleIssueLikeTable visibleColumnKeys={['type', 'key', 'priority', 'summary']} />;
+	return <VRIssueLikeTable visibleColumnKeys={['type', 'key', 'priority', 'summary']} />;
 };

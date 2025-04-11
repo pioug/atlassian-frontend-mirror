@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-table
 
+## 10.7.1
+
+### Patch Changes
+
+- [#139216](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139216)
+  [`e8f596d2b1910`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f596d2b1910) -
+  [ux] Cleaned up platform_editor_controls_patch_1 FG
+- Updated dependencies
+
+## 10.7.0
+
+### Minor Changes
+
+- [#139139](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139139)
+  [`7f6b665d778dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f6b665d778dd) -
+  [https://product-fabric.atlassian.net/browse/ED-27499](ED-27499) - the new
+  `@atlassian/confluence-presets` package with Confluence `full-page` preset is created
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.10
 
 ### Patch Changes

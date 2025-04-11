@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.1.4",
+	"version": "3.2.0",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -59,6 +59,9 @@
 		},
 		"platform_support_live_doc_icons_in_link_picker": {
 			"type": "boolean"
+		},
+		"jsc_inline_editing_field_refactor": {
+			"type": "boolean"
 		}
 	},
 	"scripts": {
@@ -91,6 +94,7 @@
 		"@react-loosely-lazy/manifest": "^1.0.0",
 		"date-fns": "^2.17.0",
 		"react-loosely-lazy": "^1.0.0",
+		"use-callback-ref": "^1.2.3",
 		"use-debounce": "^3.4.0",
 		"uuid": "^3.1.0"
 	},

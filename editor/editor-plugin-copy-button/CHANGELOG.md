@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 2.0.5
+
+### Patch Changes
+
+- [#138444](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138444)
+  [`344f769b251c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/344f769b251c6) -
+  [A11Y-10275] Copied status now works for screen users"
+- Updated dependencies
+
 ## 2.0.4
 
 ### Patch Changes

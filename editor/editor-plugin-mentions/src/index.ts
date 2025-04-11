@@ -3,4 +3,9 @@
 
 export { mentionsPlugin } from './mentionsPlugin';
 export type { MentionsPlugin } from './mentionsPluginType';
-export type { MentionPluginConfig, MentionPluginOptions, MentionSharedState } from './types';
+export type {
+	MentionPluginConfig,
+	MentionPluginOptions,
+	MentionsPluginOptions,
+	MentionSharedState,
+} from './types';

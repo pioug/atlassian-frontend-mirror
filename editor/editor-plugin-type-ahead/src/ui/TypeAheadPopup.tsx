@@ -383,22 +383,12 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	};
 
 	const onViewMoreClick = useCallback(() => {
-		if (fg('platform_editor_controls_patch_1')) {
-			close(editorView);
-		}
+		close(editorView);
 
 		// TODO: ED-26959 - when clean up, remove config in quick insert plugin
 		// platform/packages/editor/editor-plugin-quick-insert/src/quickInsertPlugin.tsx (typeAhead.openElementBrowserModal)
 		openElementBrowserModal?.();
-
-		if (!fg('platform_editor_controls_patch_1')) {
-			cancel({
-				addPrefixTrigger: false,
-				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
-				forceFocusOnEditor: false,
-			});
-		}
-	}, [cancel, editorView, openElementBrowserModal]);
+	}, [editorView, openElementBrowserModal]);
 
 	return (
 		<Popup

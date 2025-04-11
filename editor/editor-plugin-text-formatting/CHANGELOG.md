@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.0
+
+### Minor Changes
+
+- [#139139](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139139)
+  [`7f6b665d778dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f6b665d778dd) -
+  [https://product-fabric.atlassian.net/browse/ED-27499](ED-27499) - the new
+  `@atlassian/confluence-presets` package with Confluence `full-page` preset is created
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.10
+
+### Patch Changes
+
+- [#139159](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139159)
+  [`d839f4396d5c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d839f4396d5c1) -
+  [ux] Update text formatting dropdown menu icon on primary toolbar
+- Updated dependencies
+
 ## 2.1.9
 
 ### Patch Changes

@@ -26,6 +26,8 @@ const legionResponse = {
 		'https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/gradients/3.svg',
 };
 
+const SITE_ID = 'siteId';
+
 const hydratedTeam = {
 	id: '58538da6-333b-4e28-8f15-8aadc3961b62',
 	name: legionResponse.displayName,
@@ -33,10 +35,10 @@ const hydratedTeam = {
 	avatarUrl: legionResponse.smallAvatarImageUrl,
 };
 
-const mockHydrationApi = ({ mockOverrideLegionResponse }: any) => {
-	fetchMock.get(new RegExp('/gateway/api/v3/teams'), {
+const mockHydrationApi = ({ id, siteId }: { id: string; siteId?: string }) => {
+	const urlPattern = new RegExp(`/gateway/api/v4/teams/${id}\\?siteId=${siteId ?? 'None'}`);
+	fetchMock.get(urlPattern, {
 		...legionResponse,
-		...mockOverrideLegionResponse,
 	});
 };
 
@@ -46,9 +48,10 @@ describe('default-value-hydration-client', () => {
 	});
 
 	it('should transform Legion team response to Team option', async () => {
-		mockHydrationApi({});
+		const request = { id: ID, siteId: SITE_ID };
+		mockHydrationApi(request);
 
-		const hydratedTransformedTeam = await hydrateTeamFromLegion({ id: ID });
+		const hydratedTransformedTeam = await hydrateTeamFromLegion(request);
 
 		expect(fetchMock.called()).toBeTruthy();
 		expect(hydratedTransformedTeam).toEqual(hydratedTeam);
@@ -56,11 +59,13 @@ describe('default-value-hydration-client', () => {
 
 	it('should use original request team ID instead of response ID', async () => {
 		const requestId = '123';
-		mockHydrationApi({});
-
-		const hydratedTransformedTeam = await hydrateTeamFromLegion({
+		const request = {
 			id: requestId,
-		});
+			siteId: SITE_ID,
+		};
+		mockHydrationApi(request);
+
+		const hydratedTransformedTeam = await hydrateTeamFromLegion(request);
 
 		expect(fetchMock.called()).toBeTruthy();
 		expect(hydratedTransformedTeam).toEqual({ ...hydratedTeam, id: requestId });
@@ -68,11 +73,13 @@ describe('default-value-hydration-client', () => {
 
 	it('should return Unknown if network error', async () => {
 		const requestId = '123';
+		const request = {
+			id: requestId,
+			siteId: SITE_ID,
+		};
 		fetchMock.catch(504);
 
-		const hydratedTransformedTeam = await hydrateTeamFromLegion({
-			id: requestId,
-		});
+		const hydratedTransformedTeam = await hydrateTeamFromLegion(request);
 
 		expect(fetchMock.called()).toBeTruthy();
 		expect(hydratedTransformedTeam).toEqual({

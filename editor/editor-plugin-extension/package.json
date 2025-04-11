@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "5.2.2",
+	"version": "5.2.4",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -122,9 +122,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_extension_deprecation_status": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_2": {

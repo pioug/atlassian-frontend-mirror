@@ -240,9 +240,7 @@ export const calculateToolbarPositionOnCellSelection =
 
 			// When column is selected, adjust top position to ensure that the toolbar does not
 			// touch column drag handle
-			if (fg('platform_editor_controls_patch_1')) {
-				top = top - offsetTopOnColumnSelection;
-			}
+			top = top - offsetTopOnColumnSelection;
 		}
 
 		let adjustedLeft = Math.max(0, left - toolbarRect.width / 2 - wrapperBounds.left);

@@ -2,9 +2,9 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import IssueLikeTable from '../../examples/issue-like-table';
+import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
 			.getByTestId('link-datasource-render-type--link')

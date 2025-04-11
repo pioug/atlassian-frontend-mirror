@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ExampleIssueLikeTable } from '../examples-helpers/buildIssueLikeTable';
+import { ExampleIssueLikeTableExample } from '../examples-helpers/buildIssueLikeTable';
 
 export default () => {
-	return <ExampleIssueLikeTable />;
+	return <ExampleIssueLikeTableExample />;
 };

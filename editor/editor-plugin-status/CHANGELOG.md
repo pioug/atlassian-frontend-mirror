@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 3.1.10
+
+### Patch Changes
+
+- [#139158](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139158)
+  [`e535a2a6ac9ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e535a2a6ac9ea) -
+  [ux] [A11Y-10038] Announce status popup when it opens and let users know how to access the popup
+- Updated dependencies
+
 ## 3.1.9
 
 ### Patch Changes

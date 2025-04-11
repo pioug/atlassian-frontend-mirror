@@ -319,10 +319,7 @@ export function ContentComponent({
 		);
 	}
 
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_1')
-	) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		// Consolidate floating toolbar items
 		const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
 		const overflowDropdownItems = toolbarItemsArray.filter(

@@ -26,6 +26,7 @@ import type {
 import { Announcer } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { compareItemsArrays, isArrayContainsContent } from '../../editor-commands/utils';
 import type { TextFormattingPlugin } from '../../textFormattingPluginType';
@@ -225,7 +226,12 @@ const ToolbarFormatting = ({
 							isReducedSpacing={isReducedSpacing}
 							moreButtonLabel={moreFormattingButtonLabel}
 							hasFormattingActive={hasFormattingActive}
-							hasMoreButton={true}
+							hasMoreButton={
+								editorExperiment('platform_editor_controls', 'variant1') &&
+								fg('platform_editor_controls_patch_4')
+									? false
+									: true
+							}
 							items={items}
 							intl={intl}
 							toolbarType={toolbarType}

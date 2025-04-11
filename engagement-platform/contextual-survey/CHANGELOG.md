@@ -1,5 +1,16 @@
 # @atlaskit/contextual-survey
 
+## 4.0.0
+
+### Major Changes
+
+- [#138159](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138159)
+  [`065a6f8569949`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/065a6f8569949) -
+  [ux] Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align
+  with the rest of the Atlaskit techstack, and support React 18 Sttreaming SSR. Please note, in
+  order to use this version of @atlaskit/contextual-survey, you will need to ensure that your
+  bundler is configured to handle '.css' imports correctly.
+
 ## 3.1.3
 
 ### Patch Changes

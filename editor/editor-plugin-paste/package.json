@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "3.1.7",
+	"version": "3.1.8",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -118,9 +118,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_use_nested_table_pm_nodes": {
-			"type": "boolean"
-		},
-		"platform_editor_vs_code_block_paste": {
 			"type": "boolean"
 		},
 		"platform_editor_fix_captions_on_copy": {

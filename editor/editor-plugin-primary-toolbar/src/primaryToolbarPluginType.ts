@@ -1,6 +1,10 @@
 import type { NextEditorPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
+export interface PrimaryToolbarPluginOptions {
+	contextualFormattingEnabled?: boolean;
+}
+
 export type PrimaryToolbarPlugin = NextEditorPlugin<
 	'primaryToolbar',
 	{
@@ -14,9 +18,7 @@ export type PrimaryToolbarPlugin = NextEditorPlugin<
 				component: ToolbarUIComponentFactory;
 			}) => void;
 		};
-		pluginConfiguration?: {
-			contextualFormattingEnabled?: boolean;
-		};
+		pluginConfiguration?: PrimaryToolbarPluginOptions;
 	}
 >;
 

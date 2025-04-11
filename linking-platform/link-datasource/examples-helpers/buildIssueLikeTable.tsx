@@ -20,16 +20,19 @@ import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/
 import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';
 
-mockDatasourceFetchRequests();
-
-interface Props {
+type Props = {
 	isReadonly?: boolean;
 	canResizeColumns?: boolean;
 	canControlWrapping?: boolean;
 	skipIntl?: boolean;
 	forceLoading?: boolean;
 	visibleColumnKeys?: string[];
-}
+	/**
+	 * Use infinity for an infinite delay (promise never resolves or rejects)
+	 * Default is 600ms
+	 */
+	mockExecutionDelay?: number;
+};
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TableViewWrapper = styled.div({
@@ -46,6 +49,7 @@ const ExampleBody = ({
 	canControlWrapping = true,
 	forceLoading = false,
 	visibleColumnKeys: overrideVisibleColumnKeys,
+	mockExecutionDelay = 600,
 }: Props) => {
 	const parameters = useMemo<JiraIssueDatasourceParameters>(
 		() => ({
@@ -54,6 +58,11 @@ const ExampleBody = ({
 		}),
 		[],
 	);
+
+	useEffect(() => {
+		mockDatasourceFetchRequests({ mockExecutionDelay });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const {
 		status,
@@ -123,7 +132,7 @@ const ExampleBody = ({
 	);
 };
 
-export const ExampleIssueLikeTable = (props: Props) => {
+export const ExampleIssueLikeTableExample = (props: Props) => {
 	return (
 		<DatasourceExperienceIdProvider>
 			<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>

@@ -8,7 +8,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SmartCardProps } from '../../nodeviews/genericCard';
@@ -22,7 +21,6 @@ import {
 	markLocalStorageKeyDiscovered,
 	ONE_DAY_IN_MILLISECONDS,
 } from '../local-storage';
-import OpenButtonOverlay from '../OpenButtonOverlay';
 import { DiscoveryPulse } from '../Pulse';
 
 type AwarenessWrapperProps = {
@@ -112,13 +110,7 @@ export const AwarenessWrapper = ({
 	);
 
 	const cardWithOverlay = useMemo(() => {
-		if (
-			shouldShowLinkOverlay &&
-			!(
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_patch_1')
-			)
-		) {
+		if (shouldShowLinkOverlay && !editorExperiment('platform_editor_controls', 'variant1')) {
 			return (
 				<InlineCardOverlay
 					isSelected={isSelected}
@@ -143,19 +135,6 @@ export const AwarenessWrapper = ({
 		handleOverlayChange,
 	]);
 
-	const cardWithOpenButtonOverlay: JSX.Element = useMemo(() => {
-		return (
-			<OpenButtonOverlay
-				isVisible={isResolvedViewRendered && isHovered}
-				onMouseEnter={() => handleOverlayChange(true)}
-				onMouseLeave={() => handleOverlayChange(false)}
-				url={url}
-			>
-				{children}
-			</OpenButtonOverlay>
-		);
-	}, [children, isHovered, url, handleOverlayChange, isResolvedViewRendered]);
-
 	const isInline = appearance === 'inline';
 
 	return useMemo(
@@ -175,10 +154,7 @@ export const AwarenessWrapper = ({
 						testId="link-discovery-pulse"
 						isInline={isInline}
 					>
-						{editorExperiment('platform_editor_controls', 'variant1') &&
-						!fg('platform_editor_controls_patch_1')
-							? cardWithOpenButtonOverlay
-							: cardWithOverlay}
+						{cardWithOverlay}
 					</DiscoveryPulse>
 				</AnalyticsContext>
 			</span>
@@ -189,7 +165,6 @@ export const AwarenessWrapper = ({
 			cardContext?.value?.store,
 			isResolvedViewRendered,
 			cardWithOverlay,
-			cardWithOpenButtonOverlay,
 			isInline,
 		],
 	);

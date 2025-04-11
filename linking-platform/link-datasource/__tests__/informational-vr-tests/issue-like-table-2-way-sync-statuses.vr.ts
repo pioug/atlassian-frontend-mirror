@@ -3,9 +3,12 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import IssueLikeTable from '../../examples/issue-like-table-j2ws';
+import {
+	VRIssueLikeTableStatus,
+	VRIssueLikeTableStatusLoading,
+} from '../../examples/vr/issue-like-table-status';
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTableStatusLoading, {
 	description: 'Status column inline edit - loading',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--status"]').first().click();
@@ -25,7 +28,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTableStatus, {
 	description: 'Status column inline edit - options',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--status').first().click();
@@ -46,7 +49,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTableStatus, {
 	description: 'Status column inline edit - options tooltip',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--status').first().click();

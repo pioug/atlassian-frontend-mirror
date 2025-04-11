@@ -19,9 +19,16 @@ export type DateType = {
 	day?: number;
 };
 
-export interface DatePluginConfig {
+export interface DatePluginOptions {
 	weekStartDay?: WeekDay;
 }
+
+/**
+ * @private
+ * @deprecated Use {@link DatePluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type DatePluginConfig = DatePluginOptions;
 
 export type DatePluginSharedState = {
 	showDatePickerAt?: number | null;
@@ -41,7 +48,7 @@ export type DeleteDate = EditorCommand;
 export type DatePlugin = NextEditorPlugin<
 	'date',
 	{
-		pluginConfiguration: DatePluginConfig | undefined;
+		pluginConfiguration: DatePluginOptions | undefined;
 		dependencies: [
 			typeof analyticsPlugin,
 			EditorDisabledPlugin,

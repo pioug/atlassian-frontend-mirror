@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 205.2.4
+
+### Patch Changes
+
+- [#139216](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139216)
+  [`e8f596d2b1910`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f596d2b1910) -
+  [ux] Cleaned up platform_editor_controls_patch_1 FG
+- [#138444](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138444)
+  [`344f769b251c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/344f769b251c6) -
+  [A11Y-10275] Copied status now works for screen users"
+- Updated dependencies
+
+## 205.2.3
+
+### Patch Changes
+
+- [#139158](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139158)
+  [`e535a2a6ac9ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e535a2a6ac9ea) -
+  [ux] [A11Y-10038] Announce status popup when it opens and let users know how to access the popup
+- Updated dependencies
+
 ## 205.2.2
 
 ### Patch Changes

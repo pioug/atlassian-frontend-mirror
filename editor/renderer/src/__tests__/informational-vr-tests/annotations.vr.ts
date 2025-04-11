@@ -18,23 +18,8 @@ snapshotInformational(RendererWithAnnotationsOverMarks, {
 	},
 	prepare: async (page) => {
 		await page.waitForSelector(selectors.annotation);
-
-		// Mutate DOM to set focus state - This state is added on product side.
-		// This is a workaround until we have a better way to test this.
-		// We rely on the focus state to apply the correct styling to the annotation.
-		await page.evaluate(() => {
-			const marks = document.querySelectorAll('mark[id="test-annotation-id-1"]');
-			marks.forEach((mark) => {
-				mark.setAttribute('data-has-focus', 'true');
-			});
-		});
-
-		// click away to remove browser selection from highlighted text
-		page.mouse.click(1, 1, {
-			//short delay in between mouse down and up
-			delay: 10,
-		});
-
+		// .click({ force: true }) is not working
+		await page.locator('[data-id="test-annotation-id-1"]').nth(1).dispatchEvent('click');
 		expect(page.locator('[data-has-focus="true"]')).toHaveCount(2);
 	},
 });

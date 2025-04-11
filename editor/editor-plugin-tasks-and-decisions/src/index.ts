@@ -5,6 +5,7 @@ export { tasksAndDecisionsPlugin } from './tasksAndDecisionsPlugin';
 export type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 export type {
 	TaskDecisionPluginOptions,
+	TasksAndDecisionsPluginOptions,
 	TaskAndDecisionsSharedState,
 	TaskDecisionListType,
 	AddItemTransactionCreator,

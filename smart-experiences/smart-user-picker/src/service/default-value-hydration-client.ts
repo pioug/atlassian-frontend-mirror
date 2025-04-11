@@ -140,11 +140,14 @@ const isOptionData = (option: OptionData | OptionIdentifier): option is OptionDa
 const hydrateTeamIds = async (
 	baseUrl: string | undefined,
 	values: OptionIdentifier[],
+	siteId: string | undefined,
 ): Promise<Team[]> => {
 	if (values.length === 0) {
 		return [];
 	}
-	const legionPromises = values.map((value) => hydrateTeamFromLegion({ baseUrl, id: value.id }));
+	const legionPromises = values.map((value) =>
+		hydrateTeamFromLegion({ baseUrl, id: value.id, siteId }),
+	);
 	return await Promise.all(legionPromises);
 };
 
@@ -172,6 +175,7 @@ async function hydrateDefaultValues(
 	baseUrl: string | undefined,
 	value: DefaultValue,
 	productKey: string,
+	siteId: string | undefined,
 ): Promise<DefaultValue> {
 	//return if no value
 	if (!value || (Array.isArray(value) && value.length === 0)) {
@@ -194,6 +198,7 @@ async function hydrateDefaultValues(
 		hydrateTeamIds(
 			baseUrl,
 			values.filter((val) => !isOptionData(val) && val.type === 'team'),
+			siteId,
 		),
 	]);
 

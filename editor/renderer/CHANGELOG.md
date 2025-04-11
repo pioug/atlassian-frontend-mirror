@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 114.7.8
+
+### Patch Changes
+
+- [#140155](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140155)
+  [`9194d276e1ed7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9194d276e1ed7) -
+  NO-ISSUE cleaned up inline-comment-shadow-update
+- Updated dependencies
+
+## 114.7.7
+
+### Patch Changes
+
+- [#138983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138983)
+  [`3074a17750424`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3074a17750424) -
+  EDITOR-580 - Use annotation mocking in tests
+- Updated dependencies
+
 ## 114.7.6
 
 ### Patch Changes

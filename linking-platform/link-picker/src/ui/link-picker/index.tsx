@@ -156,6 +156,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			isSubmitting = false,
 			adaptiveHeight = false,
 			moveSubmitButton = false,
+			inputRef,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -502,6 +503,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						onClear={handleUrlClear}
 						onKeyDown={handleKeyDown}
 						onChange={handleChangeUrl}
+						inputRef={inputRef}
 					/>
 					{!hideDisplayText && (
 						<Fragment>

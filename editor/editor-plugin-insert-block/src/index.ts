@@ -5,6 +5,7 @@ export { insertBlockPlugin } from './insertBlockPlugin';
 export type { InsertBlockPlugin } from './insertBlockPluginType';
 export type {
 	InsertBlockOptions,
+	InsertBlockPluginOptions,
 	InsertBlockPluginDependencies,
 	InsertBlockPluginState,
 } from './types';

@@ -3,9 +3,12 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import IssueLikeTable from '../../examples/issue-like-table-j2ws';
+import {
+	VRIssueLikeTableUser,
+	VRIssueLikeTableUserLoading,
+} from '../../examples/vr/issue-like-table-users';
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTableUser, {
 	description: 'User column - two way sync feature flag on, user feature flag off',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--user"]').first().click();
@@ -31,7 +34,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTableUserLoading, {
 	description: 'User column - inline edit with flags enabled - loading',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--user"]').first().click();
@@ -51,7 +54,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTableUser, {
 	description: 'User column - inline edit with flags enabled - options',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--user').first().click();
@@ -73,7 +76,7 @@ snapshotInformational(IssueLikeTable, {
 	],
 });
 
-snapshotInformational(IssueLikeTable, {
+snapshotInformational(VRIssueLikeTableUser, {
 	description: 'User column - inline edit with flags enabled - options tooltip',
 	prepare: async (page: Page) => {
 		await page.getByTestId('link-datasource-render-type--user').first().click();

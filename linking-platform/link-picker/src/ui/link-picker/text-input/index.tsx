@@ -7,11 +7,14 @@ import {
 	type KeyboardEvent,
 	type MouseEvent,
 	type MutableRefObject,
+	type Ref,
 	useCallback,
+	useMemo,
 	useRef,
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import { useMergeRefs } from 'use-callback-ref';
 
 import { cssMap } from '@atlaskit/css';
 import { ErrorMessage, Field } from '@atlaskit/form';
@@ -72,6 +75,8 @@ export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
 		onClear?: (name: string) => void;
 		clearLabel?: string;
 		error?: string | null;
+		/** Ref to the link picker search input. */
+		inputRef?: Ref<HTMLInputElement>;
 	};
 
 export const testIds = {
@@ -90,6 +95,7 @@ export const TextInput = ({
 	clearLabel,
 	error,
 	spotlightTargetName,
+	inputRef: inputRefProp,
 	...restProps
 }: TextInputProps) => {
 	const inputRef: MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
@@ -106,6 +112,19 @@ export const TextInput = ({
 		},
 		[autoFocus],
 	);
+
+	let textfieldRef;
+	if (fg('jsc_inline_editing_field_refactor')) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const refs = useMemo(
+			() => [handleRef, inputRefProp].filter(Boolean) as Ref<HTMLInputElement>[],
+			[handleRef, inputRefProp],
+		);
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		textfieldRef = useMergeRefs(refs);
+	} else {
+		textfieldRef = handleRef;
+	}
 
 	const handleKeydown = useCallback(
 		(e: KeyboardEvent<HTMLInputElement>) => {
@@ -162,7 +181,7 @@ export const TextInput = ({
 									{...fieldProps}
 									{...restProps}
 									onKeyDown={handleKeydown}
-									ref={handleRef}
+									ref={textfieldRef}
 									elemAfterInput={clearText}
 									isInvalid={!!error}
 								/>

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {
 	Component,
-	ReactElement,
-	ReactNode,
-	SyntheticEvent,
-	RefObject,
-	MediaHTMLAttributes,
+	type ReactElement,
+	type ReactNode,
+	type SyntheticEvent,
+	type RefObject,
+	type MediaHTMLAttributes,
 } from 'react';
-import { VideoTextTracks, VideoTextTrackKind, getVideoTextTrackId } from './text';
+import { type VideoTextTracks, type VideoTextTrackKind, getVideoTextTrackId } from './text';
 import { requestFullScreen } from './utils';
 
 export type VideoStatus = 'playing' | 'paused' | 'errored';

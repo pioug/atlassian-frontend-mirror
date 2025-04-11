@@ -5,7 +5,7 @@ import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
-type Config = {
+export type AvatarGroupPluginOptions = {
 	collabEdit?: CollabEditOptions;
 	takeFullWidth: boolean;
 	showAvatarGroup?: boolean;
@@ -21,7 +21,7 @@ export type AvatarGroupPluginDependencies = [
 export type AvatarGroupPlugin = NextEditorPlugin<
 	'avatarGroup',
 	{
-		pluginConfiguration: Config;
+		pluginConfiguration: AvatarGroupPluginOptions;
 		dependencies: AvatarGroupPluginDependencies;
 		actions: {
 			getToolbarItem: ({

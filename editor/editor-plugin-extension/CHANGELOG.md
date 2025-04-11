@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.2.4
+
+### Patch Changes
+
+- [#139216](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139216)
+  [`e8f596d2b1910`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f596d2b1910) -
+  [ux] Cleaned up platform_editor_controls_patch_1 FG
+- Updated dependencies
+
+## 5.2.3
+
+### Patch Changes
+
+- [#139492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139492)
+  [`27030518ad18e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27030518ad18e) -
+  The SmartUserPicker currently calls the teams v3 api which has been deprecated since December,
+  resulting in 404 api calls. This change has updated the api from v3 to v4 so that api calls can be
+  made and data successfull retrieved.
+- Updated dependencies
+
 ## 5.2.2
 
 ### Patch Changes

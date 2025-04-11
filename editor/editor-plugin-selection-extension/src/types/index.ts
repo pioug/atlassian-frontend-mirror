@@ -43,10 +43,17 @@ export type SelectionExtensions = {
 
 type SelectionExtensionModes = ViewMode | ContentMode;
 
-export type SelectionExtensionPluginConfiguration = {
+export type SelectionExtensionPluginOptions = {
 	pageModes?: SelectionExtensionModes | SelectionExtensionModes[];
 	extensions?: SelectionExtensions;
 };
+
+/**
+ * @private
+ * @deprecated Use {@link SelectionExtensionPluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type SelectionExtensionPluginConfiguration = SelectionExtensionPluginOptions;
 
 export type SelectionExtensionCoords = { left: number; right: number; top: number; bottom: number };
 

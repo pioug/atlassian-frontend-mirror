@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { messages } from '../i18n';
@@ -24,7 +25,13 @@ const headerWrapperStyles = xcss({
 export const ShareHeader = ({ title }: Props) => {
 	return (
 		<Box xcss={headerWrapperStyles}>
-			<Heading size="small">{title || <FormattedMessage {...messages.formTitle} />}</Heading>
+			{fg('share-header-accessibility') ? (
+				<Heading size="small" as="h2">
+					{title || <FormattedMessage {...messages.formTitle} />}
+				</Heading>
+			) : (
+				<Heading size="small">{title || <FormattedMessage {...messages.formTitle} />}</Heading>
+			)}
 		</Box>
 	);
 };

@@ -55,7 +55,7 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<ConnectivityPlugin>,
 ];
 
-export interface InsertBlockOptions {
+export interface InsertBlockPluginOptions {
 	allowTables?: boolean;
 	allowExpand?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,6 +66,13 @@ export interface InsertBlockOptions {
 	tableSelectorSupported?: boolean;
 	appearance?: EditorAppearance;
 }
+
+/**
+ * @private
+ * @deprecated Use {@link InsertBlockPluginOptions} instead
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type InsertBlockOptions = InsertBlockPluginOptions;
 
 export interface InsertBlockPluginState {
 	showElementBrowser: boolean;

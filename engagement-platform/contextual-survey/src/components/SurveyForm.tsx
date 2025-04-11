@@ -4,20 +4,23 @@
  */
 import { type RefObject, useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
 
-import { LoadingButton as Button } from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Field, FormFooter, type OnSubmitHandler } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
-import { Stack, Text } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 import Textarea from '@atlaskit/textarea';
 
 import { type FormValues } from '../types';
 
 import FeedbackScoreButtons from './FeedbackScoreButtons';
+
+const transitionBaseStyles = css({
+	overflow: 'hidden',
+});
 
 interface Props {
 	question: string;
@@ -97,13 +100,11 @@ export default ({ question, statement, textPlaceholder, textLabel, onSubmit }: P
 						<Transition in={expanded} timeout={transitionDuration} mountOnEnter>
 							{(state: TransitionState) => (
 								<div
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-									css={css({
+									css={transitionBaseStyles}
+									style={{
 										transition: `max-height ${transitionDuration}ms ease-in-out`,
-										overflow: 'hidden',
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 										maxHeight: getExpandedHeight(expandedAreaRef, state),
-									})}
+									}}
 									ref={expandedAreaRef}
 								>
 									<Field<string, HTMLTextAreaElement>

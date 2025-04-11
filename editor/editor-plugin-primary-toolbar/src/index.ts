@@ -4,6 +4,7 @@
 export { primaryToolbarPlugin } from './primaryToolbarPlugin';
 export type {
 	PrimaryToolbarPlugin,
+	PrimaryToolbarPluginOptions,
 	PrimaryToolbarPluginState,
 	ToolbarElementNames,
 } from './primaryToolbarPluginType';

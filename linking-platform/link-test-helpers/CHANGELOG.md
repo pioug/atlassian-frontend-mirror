@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 8.0.2
+
+### Patch Changes
+
+- [#139577](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139577)
+  [`5a7bcb153b332`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a7bcb153b332) -
+  Add a mockExecutionDelay to prevent resolving
+
 ## 8.0.1
 
 ### Patch Changes

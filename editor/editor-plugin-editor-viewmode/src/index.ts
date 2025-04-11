@@ -4,6 +4,7 @@
 export { editorViewModePlugin, editorViewModeWithGracefulEditPlugin } from './editorViewmodePlugin';
 export type {
 	EditorViewModePluginConfig,
+	EditorViewModePluginOptions,
 	EditorViewModePluginState,
 	EditorViewModePlugin,
 	ViewMode,

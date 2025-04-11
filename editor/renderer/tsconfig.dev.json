@@ -36,6 +36,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../editor-examples-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{

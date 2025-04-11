@@ -2,14 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { RendererWithAnalytics as Renderer } from '../../';
+
 import type { DocNode } from '@atlaskit/adf-schema';
+import { RendererActionsContext } from '@atlaskit/renderer/actions';
+import { useRendererAnnotationProviders } from '@af/editor-examples-helpers/use-annotation-providers';
+
+import { RendererWithAnalytics as Renderer } from '../../';
 import * as docWithMultipleMarksAndAnnotations from '../__fixtures__/annotation-over-marks.adf.json';
-import { annotationInlineCommentProvider } from './rendererWithAnnotations';
-import RendererWithAnnotationSelection from '../../ui/Renderer';
+import { AnnotationsWrapper } from '../../ui/annotations';
+import { RendererWithAnalytics } from '../../ui/Renderer';
 
 const doc = {
 	version: 1,
@@ -186,20 +190,25 @@ export function RendererWithFilteredTextHighlighter() {
 }
 
 export function RendererWithAnnotationsOverMarks() {
+	const rendererRef = useRef<HTMLDivElement>(null);
+	const rendererAnnotationProviders = useRendererAnnotationProviders({
+		invisibleViewComponent: true,
+	});
 	return (
-		<RendererWithAnnotationSelection
-			document={docWithMultipleMarksAndAnnotations}
-			appearance={'full-page'}
-			allowAnnotations={true}
-			textHighlighter={{
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,
-				component: FilteredTextHighliterComponent,
-			}}
-			annotationProvider={{
-				inlineComment: annotationInlineCommentProvider,
-			}}
-		/>
+		<RendererActionsContext>
+			<AnnotationsWrapper
+				rendererRef={rendererRef}
+				adfDocument={docWithMultipleMarksAndAnnotations}
+				annotationProvider={rendererAnnotationProviders}
+				isNestedRender={false}
+			>
+				<RendererWithAnalytics
+					innerRef={rendererRef}
+					document={docWithMultipleMarksAndAnnotations}
+					appearance="full-page"
+					allowAnnotations
+				/>
+			</AnnotationsWrapper>
+		</RendererActionsContext>
 	);
 }

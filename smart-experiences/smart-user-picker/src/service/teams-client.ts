@@ -6,6 +6,7 @@ import { UNKNOWN_TEAM } from './constants';
 type LegionRequest = {
 	baseUrl?: string;
 	id: string;
+	siteId?: string;
 };
 
 export type LegionResponse = {
@@ -24,7 +25,8 @@ const transformTeam = (team: LegionResponse, id: string): Team => {
 };
 
 const hydrateTeamFromLegion = (request: LegionRequest): Promise<Team> => {
-	const url = `${config.getTeamsUrl(request.baseUrl)}/${request.id}`;
+	const url = config.getTeamsUrl(request.id, request.baseUrl, request.siteId);
+
 	return fetch(url, {
 		method: 'GET',
 		credentials: 'include',

@@ -2,7 +2,7 @@
 // Entry file in package.json
 
 export { hyperlinkPlugin } from './hyperlinkPlugin';
-export type { HyperlinkPlugin } from './hyperlinkPluginType';
+export type { HyperlinkPlugin, HyperlinkPluginOptions } from './hyperlinkPluginType';
 export type {
 	HideLinkToolbar,
 	ShowLinkToolbar,

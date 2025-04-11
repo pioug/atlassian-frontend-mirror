@@ -1,7 +1,7 @@
 import type { HyperlinkState } from '@atlaskit/editor-common/link';
 import type {
 	EditorCommand,
-	HyperlinkPluginOptions,
+	HyperlinkPluginOptions as CommonHyperlinkPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
@@ -74,6 +74,8 @@ export type HyperlinkPluginActions = {
 	insertLink: InsertLink;
 	updateLink: UpdateLink;
 };
+
+export type HyperlinkPluginOptions = CommonHyperlinkPluginOptions;
 
 export type HyperlinkPluginSharedState = HyperlinkState | undefined;
 

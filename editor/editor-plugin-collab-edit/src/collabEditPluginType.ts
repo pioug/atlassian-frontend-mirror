@@ -20,10 +20,12 @@ export type CollabEditPluginDependencies = [
 	OptionalPlugin<ConnectivityPlugin>,
 ];
 
+export type CollabEditPluginOptions = PrivateCollabEditOptions;
+
 export type CollabEditPlugin = NextEditorPlugin<
 	'collabEdit',
 	{
-		pluginConfiguration: PrivateCollabEditOptions;
+		pluginConfiguration: CollabEditPluginOptions;
 		dependencies: CollabEditPluginDependencies;
 		sharedState: CollabEditPluginSharedState;
 		actions: {

@@ -2,5 +2,5 @@
 // Entry file in package.json
 
 export { textFormattingPlugin } from './textFormattingPlugin';
-export type { TextFormattingPlugin } from './textFormattingPluginType';
+export type { TextFormattingPlugin, TextFormattingPluginOptions } from './textFormattingPluginType';
 export type { ToggleMarkEditorCommand } from './pm-plugins/commands';

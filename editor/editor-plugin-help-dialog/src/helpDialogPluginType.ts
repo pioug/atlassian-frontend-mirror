@@ -12,11 +12,13 @@ export type HelpDialogDependencies = [
 	OptionalPlugin<QuickInsertPlugin>,
 ];
 
+export type HelpDialogPluginOptions = boolean;
+
 export type HelpDialogPlugin = NextEditorPlugin<
 	'helpDialog',
 	{
 		dependencies: HelpDialogDependencies;
-		pluginConfiguration: boolean;
+		pluginConfiguration: HelpDialogPluginOptions;
 		sharedState: HelpDialogSharedState | null;
 		actions: {
 			openHelp(): void;

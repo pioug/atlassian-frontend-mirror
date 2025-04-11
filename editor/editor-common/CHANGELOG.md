@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 103.4.3
+
+### Patch Changes
+
+- [#140155](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140155)
+  [`9194d276e1ed7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9194d276e1ed7) -
+  NO-ISSUE cleaned up inline-comment-shadow-update
+
+## 103.4.2
+
+### Patch Changes
+
+- [#139216](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139216)
+  [`e8f596d2b1910`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f596d2b1910) -
+  [ux] Cleaned up platform_editor_controls_patch_1 FG
+- Updated dependencies
+
+## 103.4.1
+
+### Patch Changes
+
+- [#139158](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139158)
+  [`e535a2a6ac9ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e535a2a6ac9ea) -
+  [ux] [A11Y-10038] Announce status popup when it opens and let users know how to access the popup
+
+## 103.4.0
+
+### Minor Changes
+
+- [#139139](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139139)
+  [`7f6b665d778dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f6b665d778dd) -
+  [https://product-fabric.atlassian.net/browse/ED-27499](ED-27499) - the new
+  `@atlassian/confluence-presets` package with Confluence `full-page` preset is created
+
+## 103.3.2
+
+### Patch Changes
+
+- [#139173](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139173)
+  [`fafd1374cc3a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fafd1374cc3a4) -
+  [ED-27448] Remove experiment tracking for allowMoreTextColors experiment
+- Updated dependencies
+
 ## 103.3.1
 
 ### Patch Changes

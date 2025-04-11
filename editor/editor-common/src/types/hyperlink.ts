@@ -39,6 +39,10 @@ type OnClickCallback = ({
 
 /**
  * Configuration for the Hyperlink plugin
+ *
+ * @private
+ * @deprecated Use {@link HyperlinkPluginOptions} from '@atlaskit/editor-plugin-hyperlink' instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
  */
 export interface HyperlinkPluginOptions {
 	linkPicker?: LinkPickerOptions;

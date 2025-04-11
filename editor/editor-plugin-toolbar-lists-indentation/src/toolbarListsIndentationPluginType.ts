@@ -7,7 +7,7 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 
-type Config = {
+export type ToolbarListsIndentationPluginOptions = {
 	showIndentationButtons: boolean;
 	allowHeadingAndParagraphIndentation: boolean;
 };
@@ -25,7 +25,7 @@ export type ToolbarListsIndentationPluginDependencies = [
 export type ToolbarListsIndentationPlugin = NextEditorPlugin<
 	'toolbarListsIndentation',
 	{
-		pluginConfiguration: Config;
+		pluginConfiguration: ToolbarListsIndentationPluginOptions;
 		dependencies: ToolbarListsIndentationPluginDependencies;
 	}
 >;

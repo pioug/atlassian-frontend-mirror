@@ -2,11 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/custom-theme-button';
-import { Text } from '@atlaskit/primitives';
+import { css, jsx } from '@compiled/react';
+
+import Button from '@atlaskit/button/new';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -25,27 +25,37 @@ const tooltipMessage = [
 	'Strongly agree',
 ];
 
+const buttonWrapperStyles = css({
+	display: 'flex',
+	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& > * + *': {
+		marginLeft: token('space.100', '8px'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& > *': {
+		flex: 1,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& > button': {
+			justifyContent: 'center',
+		},
+	},
+});
+
+const descriptionWrapperStyles = css({
+	display: 'flex',
+	marginTop: token('space.100', '8px'),
+	marginBottom: token('space.300', '24px'),
+	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& > span': {
+		width: token('space.1000', '80px'),
+	},
+});
+
 export default ({ onChange, value }: Props) => (
 	<div>
-		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={css({
-				display: 'flex',
-				justifyContent: 'space-between',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-				'& > * + *': {
-					marginLeft: token('space.100', '8px'),
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-				'& > *': {
-					flex: 1,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-					'& > button': {
-						justifyContent: 'center',
-					},
-				},
-			})}
-		>
+		<div css={buttonWrapperStyles}>
 			{Array.from({ length: 7 }, (_, i) => {
 				const score = i + 1;
 				const isSelected: boolean = value === score;
@@ -66,20 +76,7 @@ export default ({ onChange, value }: Props) => (
 				);
 			})}
 		</div>
-		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={css({
-				display: 'flex',
-				marginTop: token('space.100', '8px'),
-				marginBottom: token('space.300', '24px'),
-				justifyContent: 'space-between',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-				'& > span': {
-					width: token('space.1000', '80px'),
-				},
-			})}
-			aria-hidden
-		>
+		<div css={descriptionWrapperStyles} aria-hidden>
 			<Text color="color.text.subtlest" size="UNSAFE_small" weight="semibold" align="start">
 				Strongly disagree
 			</Text>

@@ -1,7 +1,7 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 import type {
-	InsertBlockOptions,
+	InsertBlockPluginOptions,
 	InsertBlockPluginDependencies,
 	InsertBlockPluginState,
 } from './types';
@@ -9,7 +9,7 @@ import type {
 export type InsertBlockPlugin = NextEditorPlugin<
 	'insertBlock',
 	{
-		pluginConfiguration: InsertBlockOptions | undefined;
+		pluginConfiguration: InsertBlockPluginOptions | undefined;
 		dependencies: InsertBlockPluginDependencies;
 		actions: {
 			toggleAdditionalMenu: () => void;

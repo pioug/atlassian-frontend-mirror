@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 
 import type { MessageDescriptor } from 'react-intl-next';
 
@@ -166,6 +166,8 @@ export interface LinkPickerProps {
 	isSubmitting?: boolean;
 	/** This prop controls where the submit button appears. When true the submit button will move below the input field and be full width */
 	moveSubmitButton?: boolean;
+	/** Ref to the link picker search input. */
+	inputRef?: Ref<HTMLInputElement>;
 }
 
 type CustomLinkPickerMessages = {

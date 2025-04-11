@@ -2,4 +2,7 @@
 // Entry file in package.json
 
 export { selectionToolbarPlugin } from './selectionToolbarPlugin';
-export type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
+export type {
+	SelectionToolbarPlugin,
+	SelectionToolbarPluginOptions,
+} from './selectionToolbarPluginType';

@@ -7,7 +7,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 	QuickInsertHandler,
-	QuickInsertPluginOptions,
+	QuickInsertPluginOptions as CommonQuickInsertPluginOptions,
 	QuickInsertSearchOptions,
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
@@ -17,6 +17,8 @@ import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plu
 export type QuickInsertSharedState = CommonQuickInsertSharedState & {
 	typeAheadHandler: TypeAheadHandler;
 };
+
+export type QuickInsertPluginOptions = CommonQuickInsertPluginOptions;
 
 export type QuickInsertPlugin = NextEditorPlugin<
 	'quickInsert',

@@ -20,7 +20,7 @@ export interface MentionPluginConfig {
 	profilecardProvider?: Promise<ProfilecardProvider>;
 }
 
-export interface MentionPluginOptions extends MentionPluginConfig {
+export interface MentionsPluginOptions extends MentionPluginConfig {
 	mentionProvider?: Providers['mentionProvider'];
 	sanitizePrivateContent?: boolean;
 	allowZeroWidthSpaceAfter?: boolean;
@@ -33,6 +33,13 @@ export interface MentionPluginOptions extends MentionPluginConfig {
 		}[],
 	) => void;
 }
+
+/**
+ * @private
+ * @deprecated Use {@link MentionsPluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type MentionPluginOptions = MentionsPluginOptions;
 
 export type MentionPluginState = {
 	mentionProvider?: MentionProvider;

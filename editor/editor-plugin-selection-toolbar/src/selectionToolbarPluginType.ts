@@ -9,20 +9,20 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 
 import type { ToolbarDocking } from './types';
 
+export type SelectionToolbarPluginOptions = {
+	/** @defaults false */
+	preferenceToolbarAboveSelection?: boolean;
+	userPreferencesProvider?: UserPreferencesProvider;
+	contextualFormattingEnabled?: boolean;
+};
+
 export type SelectionToolbarPlugin = NextEditorPlugin<
 	'selectionToolbar',
 	{
 		sharedState: {
 			toolbarDocking: ToolbarDocking;
 		};
-		pluginConfiguration: {
-			/**
-			 * Defaults to false
-			 */
-			preferenceToolbarAboveSelection?: boolean;
-			userPreferencesProvider?: UserPreferencesProvider;
-			contextualFormattingEnabled?: boolean;
-		};
+		pluginConfiguration: SelectionToolbarPluginOptions;
 		dependencies: [
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<PrimaryToolbarPlugin>,

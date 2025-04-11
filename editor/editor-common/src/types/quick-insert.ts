@@ -42,6 +42,11 @@ export type QuickInsertPluginState = {
 
 export type QuickInsertPluginStateKeys = keyof QuickInsertPluginState;
 
+/**
+ * @private
+ * @deprecated Use {@link QuickInsertPluginOptions} from '@atlaskit/editor-plugin-quick-insert' instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
 export interface QuickInsertPluginOptions {
 	headless?: boolean;
 	disableDefaultItems?: boolean;

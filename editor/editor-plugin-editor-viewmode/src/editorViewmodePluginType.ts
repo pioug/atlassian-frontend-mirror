@@ -42,7 +42,7 @@ export type ViewMode = 'edit' | 'view';
  */
 export type ContentMode = 'edit' | 'live-edit' | 'live-view' | 'live-view-only';
 
-export type EditorViewModePluginConfig = {
+export type EditorViewModePluginOptions = {
 	/**
 	 * @default 'edit'
 	 */
@@ -55,6 +55,13 @@ export type EditorViewModePluginConfig = {
 	mode?: ViewMode;
 };
 
+/**
+ * @private
+ * @deprecated Use {@link EditorViewModePluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type EditorViewModePluginConfig = EditorViewModePluginOptions;
+
 export type UpdateContentModeAction =
 	| { type: 'intent-to-edit' }
 	| { type: 'switch-content-mode'; contentMode: 'live-edit' | 'live-view' };
@@ -64,7 +71,7 @@ export type EditorViewModePlugin = NextEditorPlugin<
 	{
 		sharedState: EditorViewModePluginState | null;
 		dependencies: [];
-		pluginConfiguration?: EditorViewModePluginConfig;
+		pluginConfiguration?: EditorViewModePluginOptions;
 		commands: {
 			/**
 			 * This command is deprecated and should be avoided -- use updateContentMode instead.

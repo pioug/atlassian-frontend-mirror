@@ -36,7 +36,6 @@ import type {
 	ExtractInjectionAPI,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
-	FloatingToolbarSeparator,
 	LinkPickerOptions,
 	PluginDependenciesAPI,
 } from '@atlaskit/editor-common/types';
@@ -60,7 +59,6 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -84,10 +82,7 @@ import {
 } from './EditLinkToolbar';
 import { EditToolbarButton } from './EditToolbarButton';
 import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
-import {
-	getCustomHyperlinkAppearanceDropdown,
-	getHyperlinkAppearanceDropdown,
-} from './HyperlinkToolbarAppearanceDropdown';
+import { getCustomHyperlinkAppearanceDropdown } from './HyperlinkToolbarAppearanceDropdown';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 import { getLinkAppearanceDropdown } from './LinkToolbarAppearanceDropdown';
 import { ToolbarViewedEvent } from './ToolbarViewedEvent';
@@ -632,15 +627,12 @@ const generateToolbarItems =
 			}
 
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
-				const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) =>
-					fg('platform_editor_controls_patch_1')
-						? {
-								onMouseEnter: hoverDecoration?.(nodeType, true, className),
-								onMouseLeave: hoverDecoration?.(nodeType, false, className),
-								onFocus: hoverDecoration?.(nodeType, true, className),
-								onBlur: hoverDecoration?.(nodeType, false, className),
-							}
-						: undefined;
+				const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
+					onMouseEnter: hoverDecoration?.(nodeType, true, className),
+					onMouseLeave: hoverDecoration?.(nodeType, false, className),
+					onFocus: hoverDecoration?.(nodeType, true, className),
+					onBlur: hoverDecoration?.(nodeType, false, className),
+				});
 				const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 					{ type: 'separator', fullHeight: true },
 					{
@@ -972,41 +964,22 @@ export const getStartingToolbarItems = (
 				];
 
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			const hyperlinkAppearance = fg('platform_editor_controls_patch_1')
-				? [
-						getCustomHyperlinkAppearanceDropdown({
-							url: link,
-							intl,
-							editorAnalyticsApi: api?.analytics?.actions,
-							allowDatasource: options.allowDatasource,
-							editorPluginApi: api,
-							cardOptions: options,
-							settingsConfig: getSettingsButton(
-								intl,
-								api?.analytics?.actions,
-								options.userPreferencesLink,
-							),
-							isDatasourceView: false,
-						}),
-					]
-				: [
-						getHyperlinkAppearanceDropdown({
-							url: link,
-							intl,
-							editorState: state,
-							editorAnalyticsApi: api?.analytics?.actions,
-							allowDatasource: options.allowDatasource,
-							editorPluginApi: api,
-							cardOptions: options,
-							settingsConfig: getSettingsButton(
-								intl,
-								api?.analytics?.actions,
-								options.userPreferencesLink,
-							),
-							isDatasourceView: false,
-						}),
-						{ type: 'separator' } as FloatingToolbarSeparator,
-					];
+			const hyperlinkAppearance = [
+				getCustomHyperlinkAppearanceDropdown({
+					url: link,
+					intl,
+					editorAnalyticsApi: api?.analytics?.actions,
+					allowDatasource: options.allowDatasource,
+					editorPluginApi: api,
+					cardOptions: options,
+					settingsConfig: getSettingsButton(
+						intl,
+						api?.analytics?.actions,
+						options.userPreferencesLink,
+					),
+					isDatasourceView: false,
+				}),
+			];
 
 			return [
 				{

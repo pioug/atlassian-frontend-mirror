@@ -145,14 +145,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	expand_selection_range_to_include_inline_node: {
-		productKeys: {
-			confluence: 'expand_selection_range_to_include_inline_node',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-12-05
 	platform_editor_blockquote_in_text_formatting_menu: {
 		productKeys: {

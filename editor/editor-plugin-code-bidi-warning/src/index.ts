@@ -2,4 +2,7 @@
 // Entry file in package.json
 
 export { codeBidiWarningPlugin } from './codeBidiWarningPlugin';
-export type { CodeBidiWarningPlugin } from './codeBidiWarningPluginType';
+export type {
+	CodeBidiWarningPlugin,
+	CodeBidiWarningPluginOptions,
+} from './codeBidiWarningPluginType';

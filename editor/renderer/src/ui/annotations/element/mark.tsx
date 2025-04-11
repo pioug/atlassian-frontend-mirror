@@ -308,7 +308,7 @@ export const MarkComponent = ({
 						fg('editor_inline_comments_on_inline_nodes') && markStylesNewWithInlineComments,
 						fg('confluence-frontend-comments-panel') && markStylesNewWithCommentsPanel,
 						!isMobile() && accessibilityStylesNew,
-						fg('inline_comment_shadow_update') && markStylesWithUpdatedShadow,
+						markStylesWithUpdatedShadow,
 					],
 					style: {
 						'--ak-renderer-annotation-startmarker': intl.formatMessage(

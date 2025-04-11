@@ -69,7 +69,7 @@ Please see [Atlaskit - Editor Engagement Platform Plugin](https://atlaskit.atlas
 The plugin requires a configuration object with the following structure:
 
 ```typescript
-interface EngagementPlatformPluginConfig {
+interface EngagementPlatformPluginOptions {
 	coordinationClient: CoordinationClientType;
 }
 ```

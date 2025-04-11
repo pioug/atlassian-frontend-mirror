@@ -1,12 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { EngagementPlatformPluginConfig } from '../../engagementPlatformPluginType';
+import type { EngagementPlatformPluginOptions } from '../../engagementPlatformPluginType';
 
 import { engagementPlatformPmPluginKey } from './engagementPlatformPmPluginKey';
 import type { EngagementPlatformPmPluginState, EngagementPlatformPmPluginTrMeta } from './types';
 
-export const engagementPlatformPmPlugin = (pluginConfig: EngagementPlatformPluginConfig) => {
+export const engagementPlatformPmPlugin = (pluginConfig: EngagementPlatformPluginOptions) => {
 	return new SafePlugin<EngagementPlatformPmPluginState>({
 		key: engagementPlatformPmPluginKey,
 

@@ -138,8 +138,7 @@ export const InlineCardWithAwareness = memo(
 
 		const innerCard =
 			editorViewModeState?.mode === 'edit' &&
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_1')
+			editorExperiment('platform_editor_controls', 'variant1')
 				? innerCardWithOpenButtonOverlay
 				: innerCardOriginal;
 

@@ -31,7 +31,7 @@ export type MediaSingleWithType = 'pixel' | 'percentage';
 
 export type MediaCopyScope = 'editor' | 'context';
 
-export interface MediaOptions {
+export interface MediaPluginOptions {
 	provider?: Providers['mediaProvider'];
 	/**
 	 * @experimental
@@ -78,6 +78,13 @@ export interface MediaOptions {
 	// default is context
 	mediaShallowCopyScope?: MediaCopyScope;
 }
+
+/**
+ * @private
+ * @deprecated Use {@link MediaPluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type MediaOptions = MediaPluginOptions;
 
 export interface MediaSingleOptions {
 	disableLayout?: boolean;

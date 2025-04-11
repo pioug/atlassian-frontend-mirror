@@ -30,10 +30,12 @@ export type AnnotationPluginDependencies = [
 	OptionalPlugin<ConnectivityPlugin>,
 ];
 
+export type AnnotationPluginOptions = AnnotationProviders;
+
 export type AnnotationPlugin = NextEditorPlugin<
 	'annotation',
 	{
-		pluginConfiguration: AnnotationProviders | undefined;
+		pluginConfiguration: AnnotationPluginOptions | undefined;
 		sharedState: InlineCommentPluginState | undefined;
 		dependencies: AnnotationPluginDependencies;
 		actions: {

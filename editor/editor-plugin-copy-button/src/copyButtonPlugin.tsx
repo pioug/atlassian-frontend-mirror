@@ -13,6 +13,6 @@ export const copyButtonPlugin: CopyButtonPlugin = ({ api }) => ({
 		];
 	},
 	actions: {
-		processCopyButtonItems: processCopyButtonItems(api?.analytics?.actions),
+		processCopyButtonItems: processCopyButtonItems(api?.analytics?.actions, api),
 	},
 });

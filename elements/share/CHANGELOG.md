@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 6.2.0
+
+### Minor Changes
+
+- [#137093](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137093)
+  [`f229275d5f53b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f229275d5f53b) -
+  PTC-10669 Fixed a11y issue with share form header
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.7
 
 ### Patch Changes

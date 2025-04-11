@@ -1,5 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { MarkType } from '@atlaskit/editor-prosemirror/model';
 
@@ -11,7 +12,7 @@ const processCopyButtonItemsWithAnalytics = processCopyButtonItems(editorAnalyti
 export type CopyButtonPlugin = NextEditorPlugin<
 	'copyButton',
 	{
-		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<AccessibilityUtilsPlugin>];
 		actions: {
 			processCopyButtonItems: typeof processCopyButtonItemsWithAnalytics;
 		};

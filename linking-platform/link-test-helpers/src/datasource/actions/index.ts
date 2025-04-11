@@ -149,10 +149,14 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 	);
 };
 
-export const mockActionsExecution = () => {
+export const mockActionsExecution = (mockExecutionDelay: number) => {
 	fetchMock.post(
 		ORS_ACTIONS_EXECUTION_ENDPOINT,
 		async (url: string, request: MockRequest): Promise<AtomicActionExecuteResponse> => {
+			if (mockExecutionDelay === Infinity) {
+				return new Promise(() => {});
+			}
+
 			const body = JSON.parse(request.body as string) as AtomicActionExecuteRequest;
 			if (
 				body.integrationKey === 'jira' &&
@@ -188,8 +192,8 @@ export const mockActionsExecution = () => {
 			};
 		},
 		{
-			delay: 600,
 			overwriteRoutes: true,
+			delay: mockExecutionDelay,
 		},
 	);
 };

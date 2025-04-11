@@ -175,23 +175,6 @@ const selectedStyles = css({
 	},
 	'&:hover': {
 		backgroundColor: token('color.background.selected.hovered', N20),
-		color: token('color.text.accent.blue', 'currentColor'),
-	},
-	'&:active': {
-		backgroundColor: token('color.background.selected.pressed', N30),
-		color: token('color.text.selected', 'currentColor'),
-	},
-});
-
-const selectedStylesOld = css({
-	backgroundColor: token('color.background.selected', N20),
-	// Fallback set as babel plugin inserts one otherwise
-	color: token('color.text.selected', 'currentColor'),
-	'&:visited': {
-		color: token('color.text.selected', 'currentColor'),
-	},
-	'&:hover': {
-		backgroundColor: token('color.background.selected.hovered', N20),
 		color: token('color.text.selected', 'currentColor'),
 	},
 	'&:active': {
@@ -259,9 +242,7 @@ const MenuItemPrimitive = ({
 									!isDisabled && !isSelected && unselectedStyles,
 									!isDisabled &&
 										isSelected && [
-											fg('platform_fix_a11y_selected_and_hovered_state_color')
-												? selectedStyles
-												: selectedStylesOld,
+											selectedStyles,
 											[
 												selectionStyle === 'border' && selectedBorderStyles,
 												selectionStyle === 'notch' && selectedNotchStyles,

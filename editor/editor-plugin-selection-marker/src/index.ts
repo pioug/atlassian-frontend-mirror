@@ -5,5 +5,6 @@ export { selectionMarkerPlugin } from './selectionMarkerPlugin';
 export type {
 	SelectionMarkerPlugin,
 	SelectionMarkerPluginConfiguration,
+	SelectionMarkerPluginOptions,
 	ReleaseHiddenDecoration,
 } from './selectionMarkerPluginType';

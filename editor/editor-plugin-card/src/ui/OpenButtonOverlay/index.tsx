@@ -132,47 +132,26 @@ const OpenButtonOverlay = ({
 		setHovered(isHovered);
 	};
 
-	if (fg('platform_editor_controls_patch_1')) {
-		return (
-			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-			<span
-				ref={containerRef}
-				css={containerStyles}
-				onDoubleClick={handleDoubleClick}
-				onMouseEnter={() => handleOverlayChange(true)}
-				onMouseLeave={() => handleOverlayChange(false)}
-			>
-				{children}
-
-				{fg('platform_editor_controls_patch_2') && (
-					<span css={hiddenTextStyle} aria-hidden="true">
-						<Text ref={hiddenTextRef} size="small" maxLines={1}>
-							{label}
-						</Text>
-					</span>
-				)}
-
-				{isHovered && (
-					<Anchor ref={openButtonRef} xcss={linkStyles} href={url} target="_blank">
-						<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
-							<LinkExternalIcon label="" />
-						</Box>
-						{showLabel && (
-							<Text size="small" color="color.text.subtle" maxLines={1}>
-								{label}
-							</Text>
-						)}
-					</Anchor>
-				)}
-			</span>
-		);
-	}
 	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading, jsx-a11y/no-static-element-interactions
-		<span ref={containerRef} {...props} css={containerStyles} onDoubleClick={handleDoubleClick}>
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		<span
+			ref={containerRef}
+			css={containerStyles}
+			onDoubleClick={handleDoubleClick}
+			onMouseEnter={() => handleOverlayChange(true)}
+			onMouseLeave={() => handleOverlayChange(false)}
+		>
 			{children}
-			{isVisible && (
+
+			{fg('platform_editor_controls_patch_2') && (
+				<span css={hiddenTextStyle} aria-hidden="true">
+					<Text ref={hiddenTextRef} size="small" maxLines={1}>
+						{label}
+					</Text>
+				</span>
+			)}
+
+			{isHovered && (
 				<Anchor ref={openButtonRef} xcss={linkStyles} href={url} target="_blank">
 					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
 						<LinkExternalIcon label="" />

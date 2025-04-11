@@ -4,8 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
 
 import { layers } from '@atlaskit/theme/constants';
@@ -37,7 +36,7 @@ const getAnimationProps = (state: TransitionState) => {
 	}
 };
 
-export type Props = {
+type Props = {
 	/** Whether the form should be rendered */
 	shouldShow: boolean;
 	/** A function that returns Node to be rendered (`<ContextualSurvey/>`)
@@ -46,6 +45,15 @@ export type Props = {
 	 */
 	children: () => ReactNode;
 };
+
+const transitionBaseStyles = css({
+	position: 'fixed',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	right: `${surveyOffset}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	bottom: `${surveyOffset}px`,
+	transitionProperty: 'transform, opacity',
+});
 
 export default function SurveyMarshal(props: Props) {
 	const { children, shouldShow } = props;
@@ -57,21 +65,13 @@ export default function SurveyMarshal(props: Props) {
 
 				return (
 					<div
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={css({
-							position: 'fixed',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							right: `${surveyOffset}px`,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							bottom: `${surveyOffset}px`,
-							zIndex: layers.flag(),
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							transform: `translateX(${translateX})`,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+						css={transitionBaseStyles}
+						style={{
 							opacity: opacity,
 							transition: `all ${animationDuration}ms ease-in-out`,
-							transitionProperty: 'transform, opacity',
-						})}
+							zIndex: layers.flag(),
+							transform: `translateX(${translateX})`,
+						}}
 					>
 						{children()}
 					</div>

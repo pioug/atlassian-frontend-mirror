@@ -18,6 +18,7 @@ import type { AIUnifiedEventPayload } from './ai-unified-events';
 import { AlignmentEventPayload } from './alignment-events';
 import type { AvatarEventPayload } from './avatar';
 import { type BreakoutEventPayload } from './breakout-events';
+import type { TextColorEventPayload } from './color-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
 import type { CutCopyEventPayload } from './cut-copy-events';
 import type { DatasourceClickedPayload } from './datasource-clicked-events';
@@ -32,7 +33,6 @@ import type {
 	CONTENT_COMPONENT,
 	FLOATING_CONTROLS_TITLE,
 } from './enums';
-import type { ExperimentalEventPayload } from './experimental-events';
 import type { ExtensionEventPayload } from './extension-events';
 import type { FindReplaceEventPayload } from './find-replace-events';
 import type { FormatEventPayload } from './format-events';
@@ -92,7 +92,7 @@ export type AnalyticsEventPayload<T = void> =
 	| PasteEventPayload
 	| CutCopyEventPayload
 	| ErrorEventPayload
-	| ExperimentalEventPayload // Used for A/B testing
+	| TextColorEventPayload
 	| FindReplaceEventPayload
 	| DateEventPayload
 	| SelectionEventPayload

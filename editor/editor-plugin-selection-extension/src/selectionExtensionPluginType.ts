@@ -9,7 +9,7 @@ import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-t
 
 import type {
 	SelectionExtension,
-	SelectionExtensionPluginConfiguration,
+	SelectionExtensionPluginOptions,
 	SelectionExtensionPluginState,
 	SelectionExtensionSelectionInfo,
 } from './types';
@@ -17,7 +17,7 @@ import type {
 export type SelectionExtensionPlugin = NextEditorPlugin<
 	'selectionExtension',
 	{
-		pluginConfiguration: SelectionExtensionPluginConfiguration | undefined;
+		pluginConfiguration: SelectionExtensionPluginOptions | undefined;
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,

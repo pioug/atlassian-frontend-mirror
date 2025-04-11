@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-text-color
 
+## 2.2.0
+
+### Minor Changes
+
+- [#139139](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139139)
+  [`7f6b665d778dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f6b665d778dd) -
+  [https://product-fabric.atlassian.net/browse/ED-27499](ED-27499) - the new
+  `@atlassian/confluence-presets` package with Confluence `full-page` preset is created
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.9
+
+### Patch Changes
+
+- [#139173](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139173)
+  [`fafd1374cc3a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fafd1374cc3a4) -
+  [ED-27448] Remove experiment tracking for allowMoreTextColors experiment
+- Updated dependencies
+
 ## 2.1.8
 
 ### Patch Changes

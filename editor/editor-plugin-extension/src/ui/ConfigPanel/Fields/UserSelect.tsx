@@ -100,6 +100,7 @@ function SafeSmartUserPicker({
 				undefined, // no need to override baseUrl
 				makeCompat(safeValue),
 				productKey,
+				undefined, // no need to override siteId
 			);
 
 			if (cancel || !isOptionData(hydrated)) {

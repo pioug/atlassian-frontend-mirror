@@ -1,7 +1,11 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-export type { HelpDialogPlugin, HelpDialogSharedState } from './helpDialogPluginType';
+export type {
+	HelpDialogPlugin,
+	HelpDialogSharedState,
+	HelpDialogPluginOptions,
+} from './helpDialogPluginType';
 export { helpDialogPlugin } from './helpDialogPlugin';
 // DO NOT COPY DISABLING THIS RULE. We are disabling it for a special existing case.
 // This will be shortly removed. Reach out to #cc-editor-lego if you have issues.

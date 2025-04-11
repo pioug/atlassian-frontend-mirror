@@ -8,7 +8,14 @@ export type ReleaseHiddenDecoration = () => boolean | undefined;
 type SetCleanup = (cb: ReleaseHiddenDecoration | undefined) => void;
 type CancelQueue = (() => void) | undefined;
 
-export type SelectionMarkerPluginConfiguration = { hideCursorOnInit?: boolean };
+export type SelectionMarkerPluginOptions = { hideCursorOnInit?: boolean };
+
+/**
+ * @private
+ * @deprecated Use {@link SelectionMarkerPluginOptions} instead.
+ * @see https://product-fabric.atlassian.net/browse/ED-27496
+ */
+export type SelectionMarkerPluginConfiguration = SelectionMarkerPluginOptions;
 
 export type SelectionMarkerPlugin = NextEditorPlugin<
 	'selectionMarker',
@@ -18,7 +25,7 @@ export type SelectionMarkerPlugin = NextEditorPlugin<
 			OptionalPlugin<TypeAheadPlugin>,
 			OptionalPlugin<EditorDisabledPlugin>,
 		];
-		pluginConfiguration?: SelectionMarkerPluginConfiguration;
+		pluginConfiguration?: SelectionMarkerPluginOptions;
 		sharedState: { isForcedHidden: boolean; isMarkerActive: boolean } | undefined;
 		actions: {
 			hideDecoration: () => ReleaseHiddenDecoration | undefined;

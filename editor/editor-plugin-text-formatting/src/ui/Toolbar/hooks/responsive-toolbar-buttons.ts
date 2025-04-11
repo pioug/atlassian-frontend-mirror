@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import type { ToolbarSize } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -24,9 +25,11 @@ export const useResponsiveIconTypeButtons = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const ResponsiveCustomButtonToolbar = editorExperiment('platform_editor_controls', 'variant1')
-		? ResponsiveCustomButtonToolbarNext
-		: ResponsiveCustomButtonToolbarLegacy;
+	const ResponsiveCustomButtonToolbar =
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		!fg('platform_editor_controls_patch_4')
+			? ResponsiveCustomButtonToolbarNext
+			: ResponsiveCustomButtonToolbarLegacy;
 	const iconTypeList = useMemo(
 		() => ResponsiveCustomButtonToolbar[toolbarSize],
 		[toolbarSize, ResponsiveCustomButtonToolbar],
@@ -36,7 +39,8 @@ export const useResponsiveIconTypeButtons = ({
 		return iconTypeList;
 	}
 
-	return editorExperiment('platform_editor_controls', 'variant1')
+	return editorExperiment('platform_editor_controls', 'variant1') &&
+		!fg('platform_editor_controls_patch_4')
 		? DefaultButtonsToolbarNext
 		: DefaultButtonsToolbar;
 };
@@ -48,9 +52,11 @@ export const useResponsiveIconTypeMenu = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const ResponsiveCustomMenu = editorExperiment('platform_editor_controls', 'variant1')
-		? ResponsiveCustomMenuNext
-		: ResponsiveCustomMenuLegacy;
+	const ResponsiveCustomMenu =
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		!fg('platform_editor_controls_patch_4')
+			? ResponsiveCustomMenuNext
+			: ResponsiveCustomMenuLegacy;
 	const iconTypeList = useMemo(
 		() => ResponsiveCustomMenu[toolbarSize],
 		[toolbarSize, ResponsiveCustomMenu],
@@ -60,7 +66,8 @@ export const useResponsiveIconTypeMenu = ({
 		return iconTypeList;
 	}
 
-	return editorExperiment('platform_editor_controls', 'variant1')
+	return editorExperiment('platform_editor_controls', 'variant1') &&
+		!fg('platform_editor_controls_patch_4')
 		? DefaultButtonsMenuNext
 		: DefaultButtonsMenu;
 };

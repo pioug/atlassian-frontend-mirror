@@ -12,7 +12,9 @@ export const config = {
 	getGraphQLUrl(baseUrl?: string): string {
 		return baseUrl ? `${baseUrl}/gateway/api/graphql` : `/gateway/api/graphql`;
 	},
-	getTeamsUrl(baseUrl?: string): string {
-		return baseUrl ? `${baseUrl}/gateway/api/v3/teams` : `/gateway/api/v3/teams`;
+	getTeamsUrl(id: string, baseUrl?: string, siteId?: string): string {
+		return baseUrl
+			? `${baseUrl}/gateway/api/v4/teams/${id}?siteId=${siteId ?? 'None'}`
+			: `/gateway/api/v4/teams/${id}?siteId=${siteId ?? 'None'}`;
 	},
 };

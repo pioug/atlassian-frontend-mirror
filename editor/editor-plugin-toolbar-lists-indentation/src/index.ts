@@ -2,4 +2,7 @@
 // Entry file in package.json
 
 export { toolbarListsIndentationPlugin } from './toolbarListsIndentationPlugin';
-export type { ToolbarListsIndentationPlugin } from './toolbarListsIndentationPluginType';
+export type {
+	ToolbarListsIndentationPlugin,
+	ToolbarListsIndentationPluginOptions,
+} from './toolbarListsIndentationPluginType';

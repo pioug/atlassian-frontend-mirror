@@ -7,11 +7,14 @@ import {
 	getAnalyticsPayload,
 } from '@atlaskit/editor-common/clipboard';
 import { getSelectedNodeOrNodeParentByNodeType, toDOM } from '@atlaskit/editor-common/copy-button';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import type { CopyButtonPlugin } from '../copyButtonPluginType';
 
 import { copyButtonPluginKey } from './plugin-key';
 
@@ -110,6 +113,8 @@ export const createToolbarCopyCommandForNode =
 	(
 		nodeType: NodeType | Array<NodeType>,
 		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+		api: ExtractInjectionAPI<CopyButtonPlugin> | undefined,
+		onClickMessage?: string,
 	): Command =>
 	(state, dispatch) => {
 		const { tr, schema } = state;
@@ -173,6 +178,17 @@ export const createToolbarCopyCommandForNode =
 			}
 			copyToClipboardTr.setMeta('scrollIntoView', false);
 			dispatch(copyToClipboardTr);
+		}
+
+		/**
+		 * A11y-10275 This prop api drilled from the plugin all the way down to the usage
+		 * because it's the safest way to ensure accessibilityUtils is available and not
+		 * undefined.
+		 *
+		 * see thread https://atlassian.slack.com/archives/C02CDUS3SUS/p1744256326459569
+		 */
+		if (onClickMessage && fg('editor_a11y_aria_announcement_for_copied_status')) {
+			api?.accessibilityUtils?.actions.ariaNotify(onClickMessage, { priority: 'important' });
 		}
 
 		return true;

@@ -1,5 +1,19 @@
 # @atlaskit/icon-lab
 
+## 4.7.0
+
+### Minor Changes
+
+- [#140189](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140189)
+  [`35293f19b2022`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35293f19b2022) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `page-live-doc`
+
 ## 4.6.0
 
 ### Minor Changes

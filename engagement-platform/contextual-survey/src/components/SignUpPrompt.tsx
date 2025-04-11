@@ -2,14 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import { Box, Stack, Text } from '@atlaskit/primitives';
+import Link from '@atlaskit/link';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import SuccessContainer from './SuccessContainer';
@@ -21,6 +22,16 @@ interface Props {
 type PendingAnswer = 'yes' | 'no';
 
 type Optional<T> = T | null;
+
+const buttonContainerStyles = css({
+	marginTop: token('space.400', '32px'),
+	display: 'flex',
+	justifyContent: 'flex-end',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& > * + *': {
+		marginLeft: token('space.100', '8px'),
+	},
+});
 
 export default ({ onAnswer }: Props) => {
 	const [pending, setPending] = useState<Optional<PendingAnswer>>(null);
@@ -42,23 +53,14 @@ export default ({ onAnswer }: Props) => {
 					<Text as="p">Are you interested in participating in our research?</Text>
 					<Text as="p">
 						Sign up for the{' '}
-						<a href="https://www.atlassian.com/research-group">Atlassian Research Group</a> and we
-						may contact you in the future with research opportunities.
+						<Link href="https://www.atlassian.com/research-group" target="_blank">
+							Atlassian Research Group
+						</Link>{' '}
+						and we may contact you in the future with research opportunities.
 					</Text>
 				</Stack>
 			</Box>
-			<div
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={css({
-					marginTop: token('space.400', '32px'),
-					display: 'flex',
-					justifyContent: 'flex-end',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-					'& > * + *': {
-						marginLeft: token('space.100', '8px'),
-					},
-				})}
-			>
+			<div css={buttonContainerStyles}>
 				<Button
 					appearance="subtle"
 					onClick={() => answeredWith(false)}

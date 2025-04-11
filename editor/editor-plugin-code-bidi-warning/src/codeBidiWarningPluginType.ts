@@ -1,12 +1,12 @@
 import type { EditorAppearance, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
-type Config = {
+export type CodeBidiWarningPluginOptions = {
 	appearance?: EditorAppearance;
 };
 
 export type CodeBidiWarningPlugin = NextEditorPlugin<
 	'codeBidiWarning',
 	{
-		pluginConfiguration: Config | undefined;
+		pluginConfiguration: CodeBidiWarningPluginOptions | undefined;
 	}
 >;

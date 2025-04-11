@@ -1,10 +1,10 @@
 import { snapshot } from '@af/visual-regression';
 
-import IssueLikeTable from '../../examples/issue-like-table';
+import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
 import IssueLikeTableCustomColumns from '../../examples/vr/issue-like-table-custom-columns';
 import IssueLikeTableReadonly from '../../examples/vr/issue-like-table-readonly';
 
-snapshot(IssueLikeTable, {
+snapshot(VRIssueLikeTable, {
 	description: 'Issue Like Table',
 	drawsOutsideBounds: true,
 	ignoredErrors: [

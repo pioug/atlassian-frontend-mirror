@@ -6,4 +6,5 @@ export type {
 	PlaceholderTextPlugin,
 	PlaceholderTextPluginState,
 	PlaceholderTextOptions,
+	PlaceholderTextPluginOptions,
 } from './placeholderTextPluginType';

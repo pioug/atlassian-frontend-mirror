@@ -1,7 +1,7 @@
 import type {
 	NextEditorPlugin,
 	OptionalPlugin,
-	TextFormattingOptions,
+	TextFormattingOptions as CommonTextFormattingOptions,
 	TextFormattingState,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -11,10 +11,12 @@ import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-t
 
 import type { ToggleMarkEditorCommand } from './pm-plugins/commands';
 
+export type TextFormattingPluginOptions = CommonTextFormattingOptions;
+
 export type TextFormattingPlugin = NextEditorPlugin<
 	'textFormatting',
 	{
-		pluginConfiguration: TextFormattingOptions | undefined;
+		pluginConfiguration: TextFormattingPluginOptions | undefined;
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<PrimaryToolbarPlugin>,

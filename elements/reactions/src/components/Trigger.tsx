@@ -87,6 +87,17 @@ const styles = cssMap({
 		borderStyle: 'none',
 		borderRadius: token('border.radius'),
 	},
+
+	fullWidthSummaryViewReactionPickerTrigger: {
+		width: '100%',
+		paddingLeft: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+	},
+
+	fullWidth: {
+		width: '100%',
+	},
 });
 
 /**
@@ -94,6 +105,7 @@ const styles = cssMap({
  */
 export const RENDER_TOOLTIP_TRIGGER_TESTID = 'render-tooltip-trigger';
 export const RENDER_TRIGGER_BUTTON_TESTID = 'render-trigger-button';
+export const RENDER_TRIGGER_CONTAINER_TESTID = 'render-trigger-container';
 
 export interface TriggerProps {
 	/**
@@ -142,6 +154,14 @@ export interface TriggerProps {
 	 * Optional prop for controlling if reaction picker is opened
 	 */
 	isSelected?: boolean;
+	/**
+	 * Optional prop for controlling text inside Trigger
+	 */
+	reactionPickerTriggerText?: string;
+	/**
+	 * Optional prop for controlling if the summary view reaction picker trigger should be full width
+	 */
+	fullWidthSummaryViewReactionPickerTrigger?: boolean;
 }
 
 const i18n = defineMessages({
@@ -178,6 +198,8 @@ export const Trigger = React.forwardRef(
 			subtleReactionsSummaryAndPicker = false,
 			showRoundTrigger = false,
 			reactionPickerTriggerIcon,
+			reactionPickerTriggerText = formatMessage(i18n.addReaction),
+			fullWidthSummaryViewReactionPickerTrigger = false,
 		} = props;
 
 		const handleMouseDown = (
@@ -190,52 +212,59 @@ export const Trigger = React.forwardRef(
 		};
 
 		return (
-			<Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
-				<Pressable
-					testId={RENDER_TRIGGER_BUTTON_TESTID}
-					xcss={cx(
-						styles.trigger,
-						subtleReactionsSummaryAndPicker && styles.subtleTrigger,
-						showAddReactionText && styles.expandedTrigger,
-						disabled
-							? styles.disabledTrigger
-							: showOpaqueBackground
-								? styles.opaqueEnabledTrigger
-								: styles.transparentEnabledTrigger,
-						miniMode && styles.miniMode,
-						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-						fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
-						showRoundTrigger && styles.roundTrigger,
-					)}
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
-						lineHeight: '16px',
-					}}
-					onClick={handleMouseDown}
-					isDisabled={disabled}
-					ref={ref}
-					data-subtle={subtleReactionsSummaryAndPicker}
-					data-mini-mode={miniMode}
-					{...ariaAttributes}
-				>
-					{!!reactionPickerTriggerIcon ? (
-						reactionPickerTriggerIcon
-					) : (
-						// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
-						<EmojiAddIcon
-							testId="emoji-add-icon"
-							color={disabled ? token('color.icon.disabled') : token('color.icon')}
-							LEGACY_size="small"
-							label="Add reaction"
-						/>
-					)}
-					{showAddReactionText && (
-						<Box xcss={cx(addReactionStyles.addReactionMessage)}>
-							{formatMessage(i18n.addReaction)}
-						</Box>
-					)}
-				</Pressable>
-			</Tooltip>
+			<Box
+				xcss={cx(
+					fullWidthSummaryViewReactionPickerTrigger &&
+						styles.fullWidthSummaryViewReactionPickerTrigger,
+				)}
+				testId={RENDER_TRIGGER_CONTAINER_TESTID}
+			>
+				<Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
+					<Pressable
+						testId={RENDER_TRIGGER_BUTTON_TESTID}
+						xcss={cx(
+							styles.trigger,
+							fullWidthSummaryViewReactionPickerTrigger && styles.fullWidth,
+							subtleReactionsSummaryAndPicker && styles.subtleTrigger,
+							showAddReactionText && styles.expandedTrigger,
+							disabled
+								? styles.disabledTrigger
+								: showOpaqueBackground
+									? styles.opaqueEnabledTrigger
+									: styles.transparentEnabledTrigger,
+							miniMode && styles.miniMode,
+							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+							fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
+							showRoundTrigger && styles.roundTrigger,
+						)}
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
+							lineHeight: '16px',
+						}}
+						onClick={handleMouseDown}
+						isDisabled={disabled}
+						ref={ref}
+						data-subtle={subtleReactionsSummaryAndPicker}
+						data-mini-mode={miniMode}
+						{...ariaAttributes}
+					>
+						{!!reactionPickerTriggerIcon ? (
+							reactionPickerTriggerIcon
+						) : (
+							// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
+							<EmojiAddIcon
+								testId="emoji-add-icon"
+								color={disabled ? token('color.icon.disabled') : token('color.icon')}
+								LEGACY_size="small"
+								label="Add reaction"
+							/>
+						)}
+						{showAddReactionText && (
+							<Box xcss={cx(addReactionStyles.addReactionMessage)}>{reactionPickerTriggerText}</Box>
+						)}
+					</Pressable>
+				</Tooltip>
+			</Box>
 		);
 	},
 );

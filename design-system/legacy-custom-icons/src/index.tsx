@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8f103238b79e41dd191c8091d5f3f19f>>
+ * @codegen <<SignedSource::e6b5961ba00371b4eb211e1e58703372>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AirTableFilterIcon } from './ui/air-table-filter-icon';
@@ -40,6 +40,7 @@ export { default as CompassIcon } from './ui/compass-icon';
 export { default as ComponentIcon } from './ui/component-icon';
 export { default as ConfluencePageIcon } from './ui/confluence-page-icon';
 export { default as ConfluenceSearchResultIcon } from './ui/confluence-search-result-icon';
+export { default as ConnectedPageIcon } from './ui/connected-page-icon';
 export { default as CurlyBracketsIcon } from './ui/curly-brackets-icon';
 export { default as CurlyBracketsTallIcon } from './ui/curly-brackets-tall-icon';
 export { default as DataNumberIcon } from './ui/data-number-icon';

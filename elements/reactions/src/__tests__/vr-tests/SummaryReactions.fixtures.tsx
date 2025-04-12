@@ -122,6 +122,7 @@ export const LoadedSummaryReactionsViewOnly = () => {
 				allowAllEmojis
 				summaryViewEnabled
 				subtleReactionsSummaryAndPicker
+				isViewOnly
 			/>
 		</IntlProvider>
 	);

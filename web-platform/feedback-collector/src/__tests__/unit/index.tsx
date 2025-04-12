@@ -490,7 +490,7 @@ We have some formatting here
 					feedbackGroupLabels: customFieldRecords,
 				});
 
-				expect(getAllByRole('button').length).toBe(3); // now includes 'x'
+				expect(getAllByRole('button').length).toBe(3);
 
 				expect(getByRole('combobox', { name: 'Select feedback' })).toBeTruthy();
 				expect(getByText(emptyOptionData).textContent).toEqual(emptyOptionData);
@@ -505,7 +505,7 @@ We have some formatting here
 					feedbackGroupLabels: customFieldRecords,
 				});
 
-				expect(getAllByRole('button').length).toBe(3); // now includes 'x'
+				expect(getAllByRole('button').length).toBe(3);
 
 				expect(getByRole('combobox', { name: 'Select feedback' })).toBeTruthy();
 				expect(getByText(emptyOptionData).textContent).toEqual(emptyOptionData);

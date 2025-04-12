@@ -19,7 +19,7 @@ import { type TriggerProps } from './Trigger';
 import { ReactionSummaryViewEmojiPicker } from './ReactionSummaryViewEmojiPicker';
 import { ReactionSummaryButton } from './ReactionSummaryButton';
 
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
@@ -49,6 +49,7 @@ interface ReactionSummaryViewProps
 			| 'allowSelectFromSummaryView'
 			| 'emojiPickerSize'
 			| 'useButtonAlignmentStyling'
+			| 'reactionPickerTriggerText'
 		>,
 		Pick<TriggerProps, 'tooltipContent' | 'reactionPickerTriggerIcon' | 'disabled'> {
 	/**
@@ -120,6 +121,7 @@ export const ReactionSummaryView = ({
 	reactionPickerTriggerIcon,
 	onOpen,
 	useButtonAlignmentStyling,
+	reactionPickerTriggerText,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
@@ -133,40 +135,39 @@ export const ReactionSummaryView = ({
 		<Popup
 			placement={placement}
 			content={() => (
-				<Inline
-					xcss={styles.summaryPopup}
-					testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}
-					space="space.025"
-					shouldWrap
-					alignBlock="center"
-				>
-					{reactions.map((reaction) => (
-						<Reaction
-							key={reaction.emojiId}
-							reaction={reaction}
-							emojiProvider={emojiProvider}
-							onClick={onReactionClick}
-							onFocused={onReactionFocused}
-							onMouseEnter={onReactionMouseEnter}
-							flash={flash[reaction.emojiId]}
-							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
-							allowUserDialog={allowUserDialog}
-							handleOpenReactionsDialog={handleOpenReactionsDialog}
-							isViewOnly={isViewOnly}
-						/>
-					))}
+				<Box testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}>
+					<Inline xcss={styles.summaryPopup} space="space.025" shouldWrap alignBlock="center">
+						{reactions.map((reaction) => (
+							<Reaction
+								key={reaction.emojiId}
+								reaction={reaction}
+								emojiProvider={emojiProvider}
+								onClick={onReactionClick}
+								onFocused={onReactionFocused}
+								onMouseEnter={onReactionMouseEnter}
+								flash={flash[reaction.emojiId]}
+								showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+								allowUserDialog={allowUserDialog}
+								handleOpenReactionsDialog={handleOpenReactionsDialog}
+								isViewOnly={isViewOnly}
+							/>
+						))}
+					</Inline>
 					{allowSelectFromSummaryView && (
-						<ReactionSummaryViewEmojiPicker
-							emojiProvider={emojiProvider}
-							disabled={disabled}
-							onSelection={onSelection}
-							emojiPickerSize={emojiPickerSize}
-							tooltipContent={tooltipContent}
-							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
-							onOpen={onOpen}
-						/>
+						<Flex justifyContent="center">
+							<ReactionSummaryViewEmojiPicker
+								emojiProvider={emojiProvider}
+								disabled={disabled}
+								onSelection={onSelection}
+								emojiPickerSize={emojiPickerSize}
+								tooltipContent={tooltipContent}
+								reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+								reactionPickerTriggerText={reactionPickerTriggerText}
+								onOpen={onOpen}
+							/>
+						</Flex>
 					)}
-				</Inline>
+				</Box>
 			)}
 			isOpen={isSummaryPopupOpen}
 			onClose={handlePopupClose}
@@ -178,7 +179,6 @@ export const ReactionSummaryView = ({
 					onClick={handleSummaryClick}
 					showOpaqueBackground={showOpaqueBackground}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-					useCompactStyles={allowSelectFromSummaryView}
 					useButtonAlignmentStyling={useButtonAlignmentStyling}
 				/>
 			)}

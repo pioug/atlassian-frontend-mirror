@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.22.4",
+	"version": "0.22.5",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -169,7 +169,8 @@
 		"./share-point-icon": "./src/ui/share-point-icon/index.tsx",
 		"./share-point-search-result-icon": "./src/ui/share-point-search-result-icon/index.tsx",
 		"./hash-tag-icon": "./src/ui/hash-tag-icon/index.tsx",
-		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx"
+		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx",
+		"./connected-page-icon": "./src/ui/connected-page-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -309,7 +310,8 @@
 		"./share-point-icon": "./src/ui/share-point-icon/index.tsx",
 		"./share-point-search-result-icon": "./src/ui/share-point-search-result-icon/index.tsx",
 		"./hash-tag-icon": "./src/ui/hash-tag-icon/index.tsx",
-		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx"
+		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx",
+		"./connected-page-icon": "./src/ui/connected-page-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",

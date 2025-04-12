@@ -22,6 +22,7 @@ const renderEmojiPicker = () => {
 				onSelection={mockOnSelection}
 				onOpen={mockOnOpen}
 				tooltipContent="hello"
+				reactionPickerTriggerText="Add new"
 			/>
 		</IntlProvider>,
 	);
@@ -40,5 +41,11 @@ describe('ReactionSummaryViewEmojiPicker', () => {
 		const trigger = await screen.findByTestId('render-trigger-button');
 		fireEvent.click(trigger);
 		expect(screen.getByText('EmojiPicker')).toBeInTheDocument();
+	});
+
+	it('should render reaction picker trigger text', async () => {
+		renderEmojiPicker();
+		await screen.findByTestId('render-trigger-button');
+		expect(screen.getByText('Add new')).toBeInTheDocument();
 	});
 });

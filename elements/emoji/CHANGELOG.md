@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.0.12
+
+### Patch Changes
+
+- [#139312](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139312)
+  [`abb297a1fa59c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abb297a1fa59c) -
+  Adding metadata to failed emoji rendering
+
 ## 69.0.11
 
 ### Patch Changes

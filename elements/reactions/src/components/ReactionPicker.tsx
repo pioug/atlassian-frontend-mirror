@@ -154,6 +154,10 @@ export interface ReactionPickerProps
 	 * Optional prop for controlling icon inside Trigger
 	 */
 	reactionPickerTriggerIcon?: React.ReactNode;
+	/**
+	 * Optional prop for controlling text of the trigger button
+	 */
+	reactionPickerTriggerText?: string;
 }
 
 /**
@@ -178,6 +182,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		showAddReactionText = false,
 		showRoundTrigger = false,
 		reactionPickerTriggerIcon,
+		reactionPickerTriggerText,
 		reactionPickerPlacement,
 		reactionsPickerPreventOverflowOptions,
 	} = props;
@@ -383,6 +388,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							showRoundTrigger={showRoundTrigger}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+							reactionPickerTriggerText={reactionPickerTriggerText}
 						/>
 					)}
 				</Reference>

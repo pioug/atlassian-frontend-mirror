@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "30.0.8",
+	"version": "31.0.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

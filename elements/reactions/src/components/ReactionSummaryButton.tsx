@@ -27,10 +27,6 @@ const styles = cssMap({
 		paddingLeft: token('space.100'),
 	},
 
-	compactPadding: {
-		paddingTop: token('space.025'),
-	},
-
 	container: {
 		position: 'relative',
 	},
@@ -57,11 +53,6 @@ interface ReactionSummaryButtonProps
 	 * Optional prop for applying subtle styling to reaction summary button
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
-
-	/**
-	 * Optional prop to apply compact styling
-	 */
-	useCompactStyles?: boolean;
 }
 
 /**
@@ -84,7 +75,6 @@ export const ReactionSummaryButton = forwardRef(
 			onClick,
 			showOpaqueBackground = false,
 			subtleReactionsSummaryAndPicker = false,
-			useCompactStyles = false,
 			useButtonAlignmentStyling = false,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
@@ -113,15 +103,10 @@ export const ReactionSummaryButton = forwardRef(
 					onClick={onClick}
 					testId={RENDER_SUMMARY_BUTTON_TESTID}
 					ariaLabel={intl.formatMessage(messages.summary)}
-					useCompactStyles={useCompactStyles}
 					showSubtleStyle={subtleReactionsSummaryAndPicker}
 					showOpaqueBackground={showOpaqueBackground}
 				>
-					<Inline
-						space="space.050"
-						xcss={cx(styles.button, useCompactStyles && styles.compactPadding)}
-						testId="reaction-summary-wrapper"
-					>
+					<Inline space="space.050" xcss={cx(styles.button)} testId="reaction-summary-wrapper">
 						{topReactions.map((reaction) => (
 							<Box
 								xcss={styles.emoji}
@@ -135,15 +120,15 @@ export const ReactionSummaryButton = forwardRef(
 									key={reaction.emojiId}
 									emojiProvider={emojiProvider}
 									emojiId={{ id: reaction.emojiId, shortName: '' }}
-									fitToHeight={useCompactStyles ? 12 : 16}
+									fitToHeight={16}
 								/>
 							</Box>
 						))}
 					</Inline>
 					<Counter
 						value={totalReactionsCount}
-						useDarkerFont={useCompactStyles || useButtonAlignmentStyling}
-						useUpdatedStyles={!useCompactStyles && useButtonAlignmentStyling}
+						useDarkerFont={useButtonAlignmentStyling}
+						useUpdatedStyles={useButtonAlignmentStyling}
 					/>
 				</ReactionButton>
 			</Flex>

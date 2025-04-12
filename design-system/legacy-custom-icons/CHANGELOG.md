@@ -1,5 +1,13 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.22.5
+
+### Patch Changes
+
+- [#139289](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139289)
+  [`1f17ef93e978a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f17ef93e978a) -
+  [ux] Update Project Pages connected space icon to match new iconography
+
 ## 0.22.4
 
 ### Patch Changes

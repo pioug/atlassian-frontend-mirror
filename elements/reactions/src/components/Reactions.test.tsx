@@ -315,10 +315,11 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(screen.queryByTestId(RENDER_REACTIONPICKER_TESTID)).not.toBeInTheDocument();
 	});
 
-	it('should not render picker after reactions if allowSelectFromSummaryView is true', async () => {
+	it('should still render picker after reactions if allowSelectFromSummaryView is true, given there is no summary view', async () => {
 		renderReactions({ reactions, allowSelectFromSummaryView: true });
 
-		expect(screen.queryByTestId(RENDER_REACTIONPICKER_TESTID)).not.toBeInTheDocument();
+		await screen.findByTestId(RENDER_REACTIONS_TESTID);
+		expect(screen.getByTestId(RENDER_REACTIONPICKER_TESTID)).toBeInTheDocument();
 	});
 
 	it('should only render the picker and nothing else if "onlyRenderPicker" is passed in as true', async () => {
@@ -607,6 +608,13 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			renderReactionsWithSummary({ summaryViewThreshold: 4 });
 			const summaryView = await screen.findByTestId('reaction-summary-view');
 			expect(summaryView).toBeInTheDocument();
+		});
+
+		it('should not render picker if allowSelectFromSummaryView is true and there is a summary view', async () => {
+			renderReactionsWithSummary({ allowSelectFromSummaryView: true });
+			const summaryView = await screen.findByTestId('reaction-summary-view');
+			expect(summaryView).toBeInTheDocument();
+			expect(screen.queryByTestId(RENDER_REACTIONPICKER_TESTID)).not.toBeInTheDocument();
 		});
 
 		it('should open detailed reactions view on summary click', async () => {

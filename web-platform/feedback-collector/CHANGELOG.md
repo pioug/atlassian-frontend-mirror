@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 14.1.0
+
+### Minor Changes
+
+- [#135478](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/135478)
+  [`f339dd107b10d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f339dd107b10d) -
+  [ux] Add hasCloseButton prop to ModalHeader
+
 ## 14.0.9
 
 ### Patch Changes

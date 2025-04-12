@@ -18,6 +18,7 @@ export const ReactionSummaryViewEmojiPicker = ({
 	reactionPickerTriggerIcon,
 	tooltipContent,
 	onOpen,
+	reactionPickerTriggerText,
 }: ReactionSummaryViewEmojiPickerProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -86,9 +87,10 @@ export const ReactionSummaryViewEmojiPicker = ({
 					disabled={disabled}
 					reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 					tooltipContent={tooltipContent}
-					showAddReactionText={false}
-					subtleReactionsSummaryAndPicker
 					onClick={handleClick}
+					showAddReactionText
+					reactionPickerTriggerText={reactionPickerTriggerText}
+					fullWidthSummaryViewReactionPickerTrigger
 				/>
 			)}
 		/>

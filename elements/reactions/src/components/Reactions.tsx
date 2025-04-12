@@ -228,11 +228,15 @@ export interface ReactionsProps
 	/**
 	 * Optional prop for controlling tooltip content of the trigger button
 	 */
-	reactionPickerTriggerToolipContent?: string;
+	reactionPickerTriggerTooltipContent?: string;
 	/**
 	 * Optional prop for controlling if we can select emojis and display UI via summary view picker
 	 */
 	allowSelectFromSummaryView?: boolean;
+	/**
+	 * Optional prop for controlling text of the trigger button
+	 */
+	reactionPickerTriggerText?: string;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -296,10 +300,11 @@ export const Reactions = React.memo(
 		noWrap = false,
 		noRelativeContainer = false,
 		showSubtleDefaultReactions,
-		reactionPickerTriggerToolipContent,
+		reactionPickerTriggerTooltipContent,
 		reactionPickerTriggerIcon,
 		allowSelectFromSummaryView = false,
 		useButtonAlignmentStyling = false,
+		reactionPickerTriggerText,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -515,11 +520,12 @@ export const Reactions = React.memo(
 									tooltipContent={getTooltip(
 										status,
 										errorMessage,
-										reactionPickerTriggerToolipContent,
+										reactionPickerTriggerTooltipContent,
 									)}
 									emojiPickerSize={emojiPickerSize}
 									onOpen={handlePickerOpen}
 									useButtonAlignmentStyling={useButtonAlignmentStyling}
+									reactionPickerTriggerText={reactionPickerTriggerText}
 								/>
 							</div>
 						) : (
@@ -541,7 +547,8 @@ export const Reactions = React.memo(
 								/>
 							))
 						))}
-					{isViewOnly || allowSelectFromSummaryView ? null : (
+					{isViewOnly ||
+					(!onlyRenderPicker && shouldShowSummaryView && allowSelectFromSummaryView) ? null : (
 						<ReactionPicker
 							css={reactionPickerStyle}
 							emojiProvider={emojiProvider}
@@ -552,13 +559,14 @@ export const Reactions = React.memo(
 							onOpen={handlePickerOpen}
 							onCancel={handleOnCancel}
 							onShowMore={handleOnMore}
-							tooltipContent={getTooltip(status, errorMessage, reactionPickerTriggerToolipContent)}
+							tooltipContent={getTooltip(status, errorMessage, reactionPickerTriggerTooltipContent)}
 							emojiPickerSize={emojiPickerSize}
 							miniMode={miniMode}
 							showOpaqueBackground={showOpaqueBackground}
 							showAddReactionText={showAddReactionText}
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+							reactionPickerTriggerText={reactionPickerTriggerText}
 						/>
 					)}
 					<ModalTransition>

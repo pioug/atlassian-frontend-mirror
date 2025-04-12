@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
+
 import type { EmojiProvider } from '../../api/EmojiResource';
 import { defaultEmojiHeight } from '../../util/constants';
 import { isImageRepresentation, isMediaRepresentation, isPromise } from '../../util/type-helpers';
@@ -8,6 +10,7 @@ import EmojiPlaceholder from './EmojiPlaceholder';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
+
 export interface BaseResourcedEmojiProps {
 	/**
 	 * Emoji to display
@@ -83,14 +86,40 @@ export const ResourcedEmojiComponent = (props: Props) => {
 	const [imageLoadError, setImageLoadError] = useState(false);
 	const [resolvedEmojiProvider, setResolvedEmojiProvider] = useState<EmojiProvider>();
 
+	const getActiveInterationMetadata = () => {
+		const activeInteraction = getActiveInteraction();
+		let activeInteractionMetadata = {};
+		if (activeInteraction) {
+			activeInteractionMetadata = {
+				...(activeInteraction.metaData['productInteractionName']
+					? {
+							productInteractionName: activeInteraction.metaData[
+								'productInteractionName'
+							] as string,
+						}
+					: {}),
+				...(activeInteraction.metaData['productInteractionType']
+					? {
+							productInteractionType: activeInteraction.metaData[
+								'productInteractionType'
+							] as string,
+						}
+					: {}),
+			};
+		}
+		return activeInteractionMetadata;
+	};
+
 	const fetchOrGetEmoji = useCallback(
 		async (_emojiProvider: EmojiProvider, emojiId: EmojiId, optimisticFetch: boolean = false) => {
 			if (!_emojiProvider.fetchByEmojiId) {
+				const activeInteractionMetadata = getActiveInterationMetadata();
 				setEmoji(undefined);
 				sampledUfoRenderedEmoji(emojiId).failure({
 					metadata: {
 						reason: 'missing fetchByEmojiId interface',
 						source: 'ResourcedEmojiComponent',
+						...activeInteractionMetadata,
 					},
 				});
 			}
@@ -104,6 +133,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 						setEmoji(emoji);
 						if (!emoji) {
 							// emoji is undefined
+							const activeInteractionMetadata = getActiveInterationMetadata();
 							sampledUfoRenderedEmoji(emojiId).failure({
 								metadata: {
 									reason: 'failed to find',
@@ -111,12 +141,14 @@ export const ResourcedEmojiComponent = (props: Props) => {
 									data: {
 										emoji: { id: emojiId.id, shortName: emojiId.shortName },
 									},
+									...activeInteractionMetadata,
 								},
 							});
 						}
 					})
 					.catch(() => {
 						setEmoji(undefined);
+						const activeInteractionMetadata = getActiveInterationMetadata();
 						sampledUfoRenderedEmoji(emojiId).failure({
 							metadata: {
 								reason: 'failed to load',
@@ -124,6 +156,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 								data: {
 									emoji: { id: emojiId.id, shortName: emojiId.shortName },
 								},
+								...activeInteractionMetadata,
 							},
 						});
 					})
@@ -212,12 +245,15 @@ export const ResourcedEmojiComponent = (props: Props) => {
 	}, [emoji, optimisticImageURL, fallback, fitToHeight, id, shortName]);
 
 	const handleOnLoadError = useCallback((emojiId: EmojiId) => {
+		const activeInteractionMetadata = getActiveInterationMetadata();
+
 		setImageLoadError(true);
 		sampledUfoRenderedEmoji(emojiId).failure({
 			metadata: {
 				reason: 'load error',
 				source: 'ResourcedEmojiComponent',
 				emojiId: emojiId.id,
+				...activeInteractionMetadata,
 			},
 		});
 	}, []);

@@ -21,12 +21,28 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
 	});
 
+	it('should render custom text when reactionPickerTriggerText is passed in', async () => {
+		renderWithIntl(
+			<Trigger tooltipContent="" showAddReactionText reactionPickerTriggerText="Add new" />,
+		);
+		await screen.findByLabelText('Add reaction');
+		const customReactionText = screen.getByText('Add new');
+		expect(customReactionText).toBeInTheDocument();
+	});
+
 	it('should have miniMode css when miniMode is true', async () => {
 		renderWithIntl(<Trigger tooltipContent="" miniMode />);
 
-		const button = await screen.findByLabelText('Add reaction');
+		const button = await screen.findByTestId('render-trigger-button');
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveCompiledCss('width', '16px');
+		expect(button).toHaveCompiledCss('min-width', '24px');
+	});
+
+	it('should have full width styles on render trigger container when fullWidthSummaryViewReactionPickerTrigger is true', async () => {
+		renderWithIntl(<Trigger tooltipContent="" fullWidthSummaryViewReactionPickerTrigger />);
+		const button = await screen.findByTestId('render-trigger-container');
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveCompiledCss('width', '100%');
 	});
 
 	it('should disable the button when disabled is true', async () => {

@@ -5,13 +5,12 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field, Fieldset, RequiredAsterisk } from '@atlaskit/form';
-import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 import Link from '@atlaskit/link';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
-import { N300, N500 } from '@atlaskit/theme/colors';
+import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
@@ -167,23 +166,10 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 			>
 				{({ formProps }) => (
 					<form {...formProps}>
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>
 								{feedbackTitle || <FormattedMessage {...messages.feedbackTitle} />}
 							</ModalTitle>
-							<Button
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
-								style={{ lineHeight: 'normal' }}
-								spacing={'none'}
-								onClick={onClose}
-								appearance={'subtle'}
-							>
-								<EditorCloseIcon
-									spacing="spacious"
-									label="Close Modal"
-									color={token('color.text.subtle', N500)}
-								/>
-							</Button>
 						</ModalHeader>
 						<ModalBody>
 							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}

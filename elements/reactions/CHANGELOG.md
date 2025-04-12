@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 31.0.0
+
+### Major Changes
+
+- [#140004](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140004)
+  [`45db426b36675`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45db426b36675) -
+  [ux] Updated summary view tray to include reactions picker with new design as part of byline
+  reactions changes. Also cleaned up compact styles as it was no longer being used, as well as fixed
+  a prop not being spelled correctly.
+
 ## 30.0.8
 
 ### Patch Changes

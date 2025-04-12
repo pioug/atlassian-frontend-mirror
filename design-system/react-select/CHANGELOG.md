@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.2.1
+
+### Patch Changes
+
+- [#140556](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140556)
+  [`5f8b3f708ef6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f8b3f708ef6f) -
+  Create emotion version of components under emotion folder
+
 ## 2.2.0
 
 ### Minor Changes

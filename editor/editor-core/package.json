@@ -643,6 +643,10 @@
 		"editor_a11y_aria_announcement_for_copied_status": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_renderer_triple_click_selects_paragraph": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

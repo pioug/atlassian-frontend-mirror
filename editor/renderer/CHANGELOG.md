@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 114.7.9
+
+### Patch Changes
+
+- [#139133](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139133)
+  [`a66b33f8fd694`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a66b33f8fd694) -
+  EDITOR-552 Fixes triple clicking on paragrpahs that contain inline nodes to select the entire
+  paragraph. Changes behind FG platform_renderer_triple_click_selects_paragraph
+
 ## 114.7.8
 
 ### Patch Changes

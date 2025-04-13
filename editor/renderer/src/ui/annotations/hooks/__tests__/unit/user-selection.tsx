@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { screen, render, fireEvent, act, waitFor } from '@testing-library/react';
 
 import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
 import { AnnotationsDraftContext } from '../../../context';
@@ -8,541 +7,435 @@ import type { Position } from '../../../types';
 import { useUserSelectionRange } from '../../user-selection';
 import * as utils from '../../utils';
 import { isRangeInsideOfRendererContainer } from '../../utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.useFakeTimers();
 
 describe('Annotations: SelectionInlineCommentMounter', () => {
-	let root: any; // Change to Root once we go full React 18
-	let container: HTMLElement | null;
-	let createRangeMock: jest.SpyInstance;
-
-	beforeEach(async () => {
-		container = document.createElement('div');
-		document.body.appendChild(container);
-		createRangeMock = jest.spyOn(document, 'createRange');
-		createRangeMock.mockImplementation(() => {
-			return new Range();
-		});
-
-		if (process.env.IS_REACT_18 === 'true') {
-			// @ts-ignore react-dom/client only available in react 18
-			// eslint-disable-next-line @repo/internal/import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
-			const { createRoot } = await import('react-dom/client');
-			root = createRoot(container!);
-		}
+	beforeEach(() => {
+		jest.spyOn(document, 'createRange').mockImplementation(() => new Range());
 	});
 
 	afterEach(() => {
 		jest.restoreAllMocks();
-		document.body.removeChild(container!);
-		container = null;
-		createRangeMock.mockRestore();
 	});
 
-	describe('#isRangeInsideOfRendererContainer', () => {
-		let rendererDOM: HTMLElement;
-
-		beforeEach(async () => {
-			const Component = (
+	describe('isRangeInsideOfRendererContainer', () => {
+		const renderRenderer = () => {
+			return render(
 				<div>
 					<section id="before-container">
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-						<span className="start-selection">Melancia</span>
+						<span data-testid="before-start">Melancia</span>
 						<span>Mamao</span>
 						<div>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<small className="end-selection">morango</small>
+							<small data-testid="before-end">morango</small>
 						</div>
 					</section>
-					<section id="renderer-container">
+					<section id="renderer-container" data-testid="renderer-container">
 						<span>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<span className="start-selection">
+							<span data-testid="renderer-start">
 								K<small>e</small>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<strong className="end-selection">VIN</strong>nho
+								<strong data-testid="renderer-end">VIN</strong>nho
 							</span>
 						</span>
 					</section>
 					<ul id="after-container">
 						<li>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<span className="start-selection">
-								Hello <strong> World</strong>
+							<span data-testid="after-start">
+								Hello <strong>World</strong>
 							</span>
 						</li>
 						<li>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<span className="end-selection">WELcome</span>
+							<span data-testid="after-end">WELcome</span>
 						</li>
 					</ul>
-				</div>
+				</div>,
 			);
-			if (process.env.IS_REACT_18 === 'true') {
-				act(() => {
-					root.render(Component);
-				});
-			} else {
-				render(Component, container);
-			}
+		};
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			rendererDOM = document.querySelector('#renderer-container') as HTMLElement;
+		it('should return true when the range is inside the renderer container', () => {
+			renderRenderer();
+			const range = document.createRange();
+			const start = screen.getByTestId('renderer-start');
+			const end = screen.getByTestId('renderer-end');
+			range.setStart(start.childNodes[0], 1);
+			range.setEnd(end.childNodes[0], 3);
+			expect(
+				isRangeInsideOfRendererContainer(screen.getByTestId('renderer-container'), range),
+			).toBe(true);
 		});
 
-		describe('when the range is inside of the container', () => {
-			it('shoudl return true', () => {
-				const range = document.createRange();
-				const start = rendererDOM.querySelector('.start-selection')!;
-				const end = rendererDOM.querySelector('.end-selection')!;
-
-				range.setStart(start.childNodes[0], 1);
-				range.setEnd(end.childNodes[0], 3);
-
-				expect(isRangeInsideOfRendererContainer(rendererDOM, range)).toBe(true);
-			});
+		it('should return false when the range spans before and after the container', () => {
+			renderRenderer();
+			const range = document.createRange();
+			const start = screen.getByTestId('before-start');
+			const end = screen.getByTestId('after-end');
+			range.setStart(start.childNodes[0], 1);
+			range.setEnd(end.childNodes[0], 3);
+			expect(
+				isRangeInsideOfRendererContainer(screen.getByTestId('renderer-container'), range),
+			).toBe(false);
 		});
 
-		describe('when the range starts at before of container and ends after it', () => {
-			it('should return false', () => {
-				const range = document.createRange();
-
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				const beforeContainer = document.querySelector('#before-container') as HTMLElement;
-				const startBefore = beforeContainer.querySelector('.start-selection')!;
-
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				const afterContainer = document.querySelector('#after-container') as HTMLElement;
-				const endAfter = afterContainer.querySelector('.end-selection')!;
-
-				range.setStart(startBefore.childNodes[0], 1);
-				range.setEnd(endAfter.childNodes[0], 3);
-
-				expect(isRangeInsideOfRendererContainer(rendererDOM, range)).toBe(false);
-			});
+		it('should return false when the range starts before and ends inside the container', () => {
+			renderRenderer();
+			const range = document.createRange();
+			const start = screen.getByTestId('before-start');
+			const end = screen.getByTestId('renderer-end');
+			range.setStart(start.childNodes[0], 1);
+			range.setEnd(end.childNodes[0], 3);
+			expect(
+				isRangeInsideOfRendererContainer(screen.getByTestId('renderer-container'), range),
+			).toBe(false);
 		});
 
-		describe('when the range starts at before of container and ends inside', () => {
-			it('should return false', () => {
-				const range = document.createRange();
-
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				const beforeContainer = document.querySelector('#before-container') as HTMLElement;
-				const startBefore = beforeContainer.querySelector('.start-selection')!;
-				const endInside = rendererDOM.querySelector('.end-selection')!;
-
-				range.setStart(startBefore.childNodes[0], 1);
-				range.setEnd(endInside.childNodes[0], 3);
-
-				expect(isRangeInsideOfRendererContainer(rendererDOM, range)).toBe(false);
-			});
+		it('should return false when the range starts inside and ends after the container', () => {
+			renderRenderer();
+			const range = document.createRange();
+			const start = screen.getByTestId('renderer-start');
+			const end = screen.getByTestId('after-end');
+			range.setStart(start.childNodes[0], 1);
+			range.setEnd(end.childNodes[0], 3);
+			expect(
+				isRangeInsideOfRendererContainer(screen.getByTestId('renderer-container'), range),
+			).toBe(false);
 		});
 
-		describe('when the range starts at inside of container and ends after', () => {
-			it('should return false', () => {
-				const range = document.createRange();
-
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				const afterContainer = document.querySelector('#after-container') as HTMLElement;
-				const startInside = rendererDOM.querySelector('.start-selection')!;
-				const endAfter = afterContainer.querySelector('.end-selection')!;
-
-				range.setStart(startInside.childNodes[0], 1);
-				range.setEnd(endAfter.childNodes[0], 3);
-
-				expect(isRangeInsideOfRendererContainer(rendererDOM, range)).toBe(false);
-			});
-		});
-
-		describe('when the range is outside of the container', () => {
-			it('should return false', () => {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				const beforeContainer = document.querySelector('#before-container') as HTMLElement;
-				const beforeContainerRange = document.createRange();
-				const startBefore = beforeContainer.querySelector('.start-selection')!;
-				const endBefore = beforeContainer.querySelector('.end-selection')!;
-
-				beforeContainerRange.setStart(startBefore.childNodes[0], 1);
-				beforeContainerRange.setEnd(endBefore.childNodes[0], 3);
-
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				const afterContainer = document.querySelector('#after-container') as HTMLElement;
-				const afterContainerRange = document.createRange();
-				const startAfter = afterContainer.querySelector('.start-selection')!;
-				const endAfter = afterContainer.querySelector('.end-selection')!;
-
-				afterContainerRange.setStart(startAfter.childNodes[0], 1);
-				afterContainerRange.setEnd(endAfter.childNodes[0], 3);
-
-				expect(isRangeInsideOfRendererContainer(rendererDOM, beforeContainerRange)).toBe(false);
-				expect(isRangeInsideOfRendererContainer(rendererDOM, afterContainerRange)).toBe(false);
-			});
+		it('should return false when the range is entirely outside the container', () => {
+			renderRenderer();
+			const rangeBefore = document.createRange();
+			const rangeAfter = document.createRange();
+			const startBefore = screen.getByTestId('before-start');
+			const endBefore = screen.getByTestId('before-end');
+			const startAfter = screen.getByTestId('after-start');
+			const endAfter = screen.getByTestId('after-end');
+			rangeBefore.setStart(startBefore.childNodes[0], 1);
+			rangeBefore.setEnd(endBefore.childNodes[0], 3);
+			rangeAfter.setStart(startAfter.childNodes[0], 1);
+			rangeAfter.setEnd(endAfter.childNodes[0], 3);
+			expect(
+				isRangeInsideOfRendererContainer(screen.getByTestId('renderer-container'), rangeBefore),
+			).toBe(false);
+			expect(
+				isRangeInsideOfRendererContainer(screen.getByTestId('renderer-container'), rangeAfter),
+			).toBe(false);
 		});
 	});
 
-	describe('#useUserSelectionRange', () => {
+	describe('useUserSelectionRange', () => {
 		let rendererDOM: HTMLElement;
-		type Props = {
-			shouldAttachMouseUpEvent: boolean;
-			rendererRef: React.RefObject<HTMLDivElement>;
-		};
-		let fakeFunction: jest.Mock;
 		let fakeRef: React.RefObject<HTMLDivElement>;
+		let myFakeValidRange: Range;
+		const myFakePosition: Position = { from: 1, to: 10 };
+
+		type Props = {
+			rendererRef: React.RefObject<HTMLDivElement>;
+			fakeFunction: (range: any) => void;
+		};
+
 		const DummyComponent = (props: Props) => {
 			const _range = useUserSelectionRange(props);
-			fakeFunction(_range);
-
-			return null;
+			props.fakeFunction(_range);
+			return <div ref={props.rendererRef} data-testid="renderer-container" />;
 		};
 
-		beforeEach(async () => {
-			fakeFunction = jest.fn();
+		const renderDummyComponentWithDraftContext = (
+			myFakePosition: Position | null,
+			fakeFunction: jest.Mock,
+		) => {
+			render(
+				<AnnotationRangeProvider>
+					<AnnotationsDraftContext.Provider value={myFakePosition}>
+						<DummyComponent rendererRef={fakeRef} fakeFunction={fakeFunction} />
+					</AnnotationsDraftContext.Provider>
+				</AnnotationRangeProvider>,
+			);
+		};
 
-			if (process.env.IS_REACT_18 === 'true') {
-				act(() => {
-					root.render(<div id="renderer-container"></div>);
-				});
-			} else {
-				render(<div id="renderer-container"></div>, container);
-			}
+		const dispatchSelectionChange = () => {
+			act(() => {
+				fireEvent(document, new Event('selectionchange', { bubbles: false, cancelable: false }));
+				jest.runAllTimers();
+			});
+		};
 
+		beforeEach(() => {
+			myFakeValidRange = new Range();
+			jest.spyOn(document, 'getSelection').mockReturnValue({
+				type: 'Range',
+				rangeCount: 1,
+				getRangeAt: jest.fn().mockReturnValue(myFakeValidRange),
+			} as unknown as Selection);
+			jest.spyOn(utils, 'isRangeInsideOfRendererContainer').mockReturnValue(true);
+
+			// Setup DOM and ref for each test
+			render(<div id="renderer-container" />);
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			rendererDOM = document.querySelector('#renderer-container') as HTMLElement;
-
 			fakeRef = { current: rendererDOM } as React.RefObject<HTMLDivElement>;
 		});
 
 		describe('when the selection changes', () => {
-			function dispatchFakeSelectionChange() {
-				act(() => {
-					const event = new Event('selectionchange', {
-						bubbles: false,
-						cancelable: false,
-					});
-					document.dispatchEvent(event);
-				});
-			}
+			it('should change the range value when annotation draft is not happening', async () => {
+				const fakeFunction = jest.fn();
 
-			async function renderDummyComponentWithDraftContext(myFakePosition: Position | null) {
-				if (process.env.IS_REACT_18 === 'true') {
-					act(() => {
-						root.render(
-							<AnnotationRangeProvider>
-								<AnnotationsDraftContext.Provider value={myFakePosition}>
-									<DummyComponent shouldAttachMouseUpEvent={true} rendererRef={fakeRef} />
-								</AnnotationsDraftContext.Provider>
-							</AnnotationRangeProvider>,
-						);
-					});
-				} else {
-					act(() => {
-						render(
-							<AnnotationRangeProvider>
-								<AnnotationsDraftContext.Provider value={myFakePosition}>
-									<DummyComponent shouldAttachMouseUpEvent={true} rendererRef={fakeRef} />
-								</AnnotationsDraftContext.Provider>
-							</AnnotationRangeProvider>,
-							rendererDOM,
-						);
-					});
-				}
-			}
+				expect(fakeFunction).toHaveBeenCalledTimes(0);
+				expect(document.getSelection).toHaveBeenCalledTimes(0);
 
-			let myFakeValidRange: Range;
-			const myFakePosition = { from: 1, to: 10 };
-			beforeEach(() => {
-				myFakeValidRange = new Range();
+				renderDummyComponentWithDraftContext(myFakePosition, fakeFunction);
+
+				expect(fakeFunction).toHaveBeenCalledTimes(1);
+				expect(fakeFunction).toHaveBeenCalledWith([null, null, expect.any(Function)]);
+
+				fakeFunction.mockClear();
+				dispatchSelectionChange();
+				jest.runAllTimers();
+
+				expect(document.getSelection).toHaveBeenCalledTimes(1);
+				expect(fakeFunction).toHaveBeenCalledTimes(2);
+			});
+
+			it('should change the range value when annotation draft is happening', async () => {
+				const fakeFunction = jest.fn();
+
+				expect(fakeFunction).toHaveBeenCalledTimes(0);
+				expect(document.getSelection).toHaveBeenCalledTimes(0);
+
+				renderDummyComponentWithDraftContext(null, fakeFunction);
+
+				expect(fakeFunction).toHaveBeenCalledTimes(1);
+				expect(fakeFunction).toHaveBeenCalledWith([null, null, expect.any(Function)]);
+
+				fakeFunction.mockClear();
+				dispatchSelectionChange();
+				jest.runAllTimers();
+
+				expect(document.getSelection).toHaveBeenCalledTimes(1);
+				expect(fakeFunction).toHaveBeenCalledTimes(2);
+				expect(fakeFunction).toHaveBeenCalledWith([myFakeValidRange, null, expect.any(Function)]);
+			});
+		});
+
+		describe('triple click', () => {
+			const setupRenderer = () => {
+				render(
+					<div id="renderer-container">
+						<ol>
+							<li>
+								<p>
+									item 1<code>abc</code>
+								</p>
+							</li>
+							<li>
+								<p>item 2</p>
+							</li>
+							<li>
+								<p>item 3</p>
+							</li>
+						</ol>
+					</div>,
+				);
+			};
+
+			it('should not change the endContainer when endContainer is textNode', async () => {
+				setupRenderer();
+				const fakeFunction = jest.fn();
+				rendererDOM.classList.add('ak-renderer-document');
+
+				const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
+
+				const myFakeValidRangeUpdated: Range = {
+					...myFakeValidRange,
+					startContainer: lastListItem,
+					endContainer: lastListItem,
+					endOffset: 5,
+					commonAncestorContainer: lastListItem.parentNode as Node,
+					setEnd: jest.fn(),
+					cloneRange: jest.fn(),
+				};
+
+				renderDummyComponentWithDraftContext(null, fakeFunction);
+
 				// @ts-ignore
 				const myFakeSelection: Selection = {
 					type: 'Range',
 					rangeCount: 1,
-					getRangeAt: jest.fn().mockReturnValue(myFakeValidRange),
+					getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
 				};
 				jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
-				jest.spyOn(utils, 'isRangeInsideOfRendererContainer').mockReturnValue(true);
+
+				dispatchSelectionChange();
+				jest.runAllTimers();
+
+				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(0);
+				expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
 			});
 
-			afterEach(() => {
+			it('should change the endContainer when endContainer is not textNode', async () => {
+				setupRenderer();
+				const fakeFunction = jest.fn();
+				rendererDOM.classList.add('ak-renderer-document');
+
+				const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
+
+				const myFakeValidRangeUpdated: Range = {
+					...myFakeValidRange,
+					startContainer: lastListItem,
+					startOffset: 0,
+					endContainer: rendererDOM as Node,
+					endOffset: 0,
+					commonAncestorContainer: rendererDOM as Node,
+					setEnd: jest.fn(),
+					cloneRange: jest.fn(),
+				};
+
+				renderDummyComponentWithDraftContext(null, fakeFunction);
+
+				// @ts-ignore
+				const myFakeSelection: Selection = {
+					type: 'Range',
+					rangeCount: 1,
+					getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+				};
+				jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
+
+				dispatchSelectionChange();
+				jest.runAllTimers();
+
+				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
+				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(lastListItem, 6);
+				expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+			});
+
+			it('should change the endContainer when endContainer is not textNode and selection include inline code', async () => {
+				setupRenderer();
+				const fakeFunction = jest.fn();
+				rendererDOM.classList.add('ak-renderer-document');
+				const firstListItem = document.querySelector('li:first-child p') as Node;
+
+				const myFakeValidRangeUpdated: Range = {
+					...myFakeValidRange,
+					startContainer: firstListItem.childNodes[0],
+					startOffset: 0,
+					endContainer: rendererDOM as Node,
+					endOffset: 0,
+					commonAncestorContainer: rendererDOM as Node,
+					setEnd: jest.fn(),
+					cloneRange: jest.fn(),
+				};
+
+				renderDummyComponentWithDraftContext(null, fakeFunction);
+
+				// @ts-ignore
+				const myFakeSelection: Selection = {
+					type: 'Range',
+					rangeCount: 1,
+					getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+				};
+				jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
+
+				dispatchSelectionChange();
+				jest.runAllTimers();
+
+				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
+				expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
+					firstListItem.lastChild!.childNodes[0], // text node abc
+					3,
+				);
+				expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+			});
+		});
+
+		ffTest.on('platform_renderer_triple_click_selects_paragraph', 'triple click', () => {
+			it('should select the entire paragraph with nested content', async () => {
+				render(
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					<div data-testid="renderer-container" className="ak-renderer-document">
+						<p data-testid="paragraph">
+							hello<span></span>
+							<span>world</span>
+							<span></span>
+						</p>
+					</div>,
+				);
+
+				const fakeFunction = jest.fn();
+				const paragraph = screen.getByTestId('paragraph');
+
+				const myFakeValidRangeUpdated: Range = {
+					...myFakeValidRange,
+					startContainer: paragraph,
+					startOffset: 0,
+					endContainer: rendererDOM as Node,
+					endOffset: 0,
+					commonAncestorContainer: paragraph,
+					setEnd: jest.fn(),
+					cloneRange: jest.fn(() => myFakeValidRangeUpdated),
+				};
+
+				const fakeSelection: Selection = {
+					type: 'Range',
+					rangeCount: 1,
+					getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+					removeAllRanges: jest.fn(),
+					addRange: jest.fn(),
+				} as unknown as Selection;
+
+				jest.spyOn(document, 'getSelection').mockReturnValue(fakeSelection as unknown as Selection);
+
+				renderDummyComponentWithDraftContext(null, fakeFunction);
+
 				act(() => {
-					if (process.env.IS_REACT_18 === 'true') {
-						root.unmount();
-					} else {
-						unmountComponentAtNode(rendererDOM!);
-					}
-				});
-			});
-
-			describe('and when annotation draft is not happening', () => {
-				it('should change the range value', async () => {
-					expect(fakeFunction).toHaveBeenCalledTimes(0);
-					expect(document.getSelection).toHaveBeenCalledTimes(0);
-
-					await renderDummyComponentWithDraftContext(myFakePosition);
-
-					expect(fakeFunction).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledWith([null, null, expect.any(Function)]);
-
-					act(() => {
-						dispatchFakeSelectionChange();
-						jest.runAllTimers();
-					});
-
-					expect(document.getSelection).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledTimes(2);
-				});
-			});
-
-			describe('and when there is a annotation draft happening', () => {
-				it('should change the range value', async () => {
-					expect(fakeFunction).toHaveBeenCalledTimes(0);
-					expect(document.getSelection).toHaveBeenCalledTimes(0);
-
-					await renderDummyComponentWithDraftContext(null);
-
-					expect(fakeFunction).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledWith([null, null, expect.any(Function)]);
-
-					act(() => {
-						dispatchFakeSelectionChange();
-						jest.runAllTimers();
-					});
-
-					expect(document.getSelection).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledTimes(2);
-					expect(fakeFunction).toHaveBeenCalledWith([myFakeValidRange, null, expect.any(Function)]);
-				});
-			});
-
-			describe('triple click', () => {
-				beforeEach(async () => {
-					if (process.env.IS_REACT_18 === 'true') {
-						act(() => {
-							root.render(
-								<div id="renderer-container">
-									<ol>
-										<li>
-											<p>
-												item 1<code>abc</code>
-											</p>
-										</li>
-										<li>
-											<p>item 2</p>
-										</li>
-										<li>
-											<p>item 3</p>
-										</li>
-									</ol>
-								</div>,
-							);
-						});
-					} else {
-						render(
-							<div id="renderer-container">
-								<ol>
-									<li>
-										<p>
-											item 1<code>abc</code>
-										</p>
-									</li>
-									<li>
-										<p>item 2</p>
-									</li>
-									<li>
-										<p>item 3</p>
-									</li>
-								</ol>
-							</div>,
-							container,
-						);
-					}
-				});
-				it('should not change the endContainer when endContainer is textNode', async () => {
-					rendererDOM.classList.add('ak-renderer-document');
-
-					const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
-
-					const myFakeValidRangeUpdated: Range = {
-						...myFakeValidRange,
-						startContainer: lastListItem,
-						endContainer: lastListItem,
-						endOffset: 5,
-						commonAncestorContainer: lastListItem.parentNode as Node,
-						setEnd: jest.fn(),
-						cloneRange: jest.fn(),
-					};
-
-					await renderDummyComponentWithDraftContext(null);
-
-					// @ts-ignore
-					const myFakeSelection: Selection = {
-						type: 'Range',
-						rangeCount: 1,
-						getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
-					};
-					jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
-
-					act(() => {
-						dispatchFakeSelectionChange();
-						jest.runAllTimers();
-					});
-
-					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(0);
-					expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+					dispatchSelectionChange();
+					jest.advanceTimersByTime(100); // Match hook's 100ms timeout
 				});
 
-				it('should change the endContainer when endContainer is not textNode', async () => {
-					rendererDOM.classList.add('ak-renderer-document');
-
-					const lastListItem = document.querySelector('li:last-child p')?.childNodes[0] as Node;
-
-					const myFakeValidRangeUpdated: Range = {
-						...myFakeValidRange,
-						startContainer: lastListItem,
-						startOffset: 0,
-						endContainer: rendererDOM as Node,
-						endOffset: 0,
-						commonAncestorContainer: rendererDOM as Node,
-						setEnd: jest.fn(),
-						cloneRange: jest.fn(),
-					};
-
-					await renderDummyComponentWithDraftContext(null);
-
-					// @ts-ignore
-					const myFakeSelection: Selection = {
-						type: 'Range',
-						rangeCount: 1,
-						getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
-					};
-					jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
-
-					act(() => {
-						dispatchFakeSelectionChange();
-						jest.runAllTimers();
-					});
-
-					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
-					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
-						lastListItem,
-						6,
-					);
-					expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
-				});
-
-				it('should change the endContainer when endContainer is not textNode and selection include inline code', async () => {
-					rendererDOM.classList.add('ak-renderer-document');
-					const firstListItem = document.querySelector('li:first-child p') as Node;
-
-					const myFakeValidRangeUpdated: Range = {
-						...myFakeValidRange,
-						startContainer: firstListItem.childNodes[0],
-						startOffset: 0,
-						endContainer: rendererDOM as Node,
-						endOffset: 0,
-						commonAncestorContainer: rendererDOM as Node,
-						setEnd: jest.fn(),
-						cloneRange: jest.fn(),
-					};
-
-					await renderDummyComponentWithDraftContext(null);
-
-					// @ts-ignore
-					const myFakeSelection: Selection = {
-						type: 'Range',
-						rangeCount: 1,
-						getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
-					};
-					jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
-
-					act(() => {
-						dispatchFakeSelectionChange();
-						jest.runAllTimers();
-					});
-
-					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
-					expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
-						firstListItem.lastChild!.childNodes[0], // text node abc
-						3,
-					);
-					expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+				await waitFor(() => {
+					expect(fakeFunction).toHaveBeenCalledWith([
+						myFakeValidRangeUpdated,
+						null,
+						expect.any(Function),
+					]);
+					expect(fakeSelection.removeAllRanges).toHaveBeenCalledTimes(1);
+					expect(myFakeValidRangeUpdated.cloneRange).toHaveBeenCalledTimes(1);
+					// setEnd is called when the flag is false
+					expect(myFakeValidRangeUpdated.setEnd).not.toHaveBeenCalled();
 				});
 			});
 		});
 
-		describe('when a component is render using this hook', () => {
-			describe('after mounting', () => {
-				it('should attach a listener at the document selection change event', async () => {
-					jest.spyOn(document, 'addEventListener');
-
-					const fakeRef = {
-						current: rendererDOM,
-					} as React.RefObject<HTMLDivElement>;
-					expect(document.addEventListener).toHaveBeenCalledTimes(0);
-
-					if (process.env.IS_REACT_18 === 'true') {
-						act(() => {
-							root.render(<DummyComponent shouldAttachMouseUpEvent={true} rendererRef={fakeRef} />);
-						});
-					} else {
-						act(() => {
-							render(
-								<DummyComponent shouldAttachMouseUpEvent={true} rendererRef={fakeRef} />,
-								rendererDOM,
-							);
-						});
-					}
-					expect(document.addEventListener).toHaveBeenCalledTimes(1);
-					expect(document.addEventListener).toHaveBeenCalledWith(
-						'selectionchange',
-						expect.any(Function),
-					);
-				});
+		describe('event listeners', () => {
+			it('should attach a selectionchange listener', () => {
+				jest.spyOn(document, 'addEventListener');
+				render(
+					<AnnotationRangeProvider>
+						<AnnotationsDraftContext.Provider value={myFakePosition}>
+							<DummyComponent rendererRef={fakeRef} fakeFunction={jest.fn()} />
+						</AnnotationsDraftContext.Provider>
+					</AnnotationRangeProvider>,
+				);
+				expect(document.addEventListener).toHaveBeenCalledWith(
+					'selectionchange',
+					expect.any(Function),
+				);
 			});
 
-			describe('after unmounting', () => {
-				it('should remove should the listener from the document selection change event', async () => {
-					jest.spyOn(document, 'removeEventListener');
+			it('should remove the selectionchange listener on unmount', () => {
+				jest.spyOn(document, 'removeEventListener');
+				const { unmount } = render(
+					<AnnotationRangeProvider>
+						<AnnotationsDraftContext.Provider value={myFakePosition}>
+							<DummyComponent rendererRef={fakeRef} fakeFunction={jest.fn()} />
+						</AnnotationsDraftContext.Provider>
+					</AnnotationRangeProvider>,
+				);
 
-					const fakeRef = {
-						current: rendererDOM,
-					} as React.RefObject<HTMLDivElement>;
-					expect(document.removeEventListener).toHaveBeenCalledTimes(0);
-
-					if (process.env.IS_REACT_18 === 'true') {
-						act(() => {
-							root.render(<DummyComponent shouldAttachMouseUpEvent={true} rendererRef={fakeRef} />);
-						});
-					} else {
-						act(() => {
-							render(
-								<DummyComponent shouldAttachMouseUpEvent={true} rendererRef={fakeRef} />,
-								rendererDOM,
-							);
-						});
-					}
-
-					act(() => {
-						if (process.env.IS_REACT_18 === 'true') {
-							root.unmount();
-						} else {
-							unmountComponentAtNode(rendererDOM!);
-						}
-					});
-					expect(document.removeEventListener).toHaveBeenCalledTimes(1);
-
-					expect(document.removeEventListener).toHaveBeenCalledWith(
-						'selectionchange',
-						expect.any(Function),
-					);
-				});
+				unmount();
+				expect(document.removeEventListener).toHaveBeenCalledWith(
+					'selectionchange',
+					expect.any(Function),
+				);
 			});
 		});
 	});
